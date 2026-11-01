@@ -774,3 +774,665 @@ async function executeExportCsmodPack() {
 
 window.executeExportCsmodPack = executeExportCsmodPack;
 
+// ============================================================================
+// WINDOWS-HARDENED OBSIDIAN MARKDOWN VAULT EXPORTER
+// Pure Zero-CORS Vault Generator with Aliased WikiLinks & Frontmatter Escaping
+// ============================================================================
+
+function sanitizeVaultFileName(name) {
+  let clean = String(name || 'Unnamed')
+    .replace(/[\\/:*?"<>|]/g, '_')
+    .replace(/[\x00-\x1f\x80-\x9f]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  // Windows ban: cannot end with a period or space
+  clean = clean.replace(/[. ]+$/, '');
+  // Limit length to avoid Windows MAX_PATH limits
+  if (clean.length > 64) clean = clean.substring(0, 64).trim().replace(/[. ]+$/, '');
+  return clean || 'Untitled';
+}
+window.sanitizeVaultFileName = sanitizeVaultFileName;
+
+function formatYamlFrontmatter(fields) {
+  let lines = ['---'];
+  for (const [key, val] of Object.entries(fields)) {
+    if (val === undefined || val === null) {
+      lines.push(`${key}: null`);
+    } else if (typeof val === 'string') {
+      lines.push(`${key}: ${JSON.stringify(val)}`);
+    } else if (typeof val === 'number' || typeof val === 'boolean') {
+      lines.push(`${key}: ${val}`);
+    } else if (Array.isArray(val)) {
+      if (val.length === 0) {
+        lines.push(`${key}: []`);
+      } else if (val.every(item => typeof item === 'string' || typeof item === 'number' || typeof item === 'boolean')) {
+        lines.push(`${key}: [${val.map(item => typeof item === 'string' ? JSON.stringify(item) : item).join(', ')}]`);
+      } else {
+        lines.push(`${key}:`);
+        val.forEach(item => {
+          lines.push(`  - ${JSON.stringify(item)}`);
+        });
+      }
+    } else if (typeof val === 'object') {
+      lines.push(`${key}: ${JSON.stringify(val)}`);
+    }
+  }
+  lines.push('---');
+  return lines.join('\n') + '\n\n';
+}
+window.formatYamlFrontmatter = formatYamlFrontmatter;
+
+function formatWikiLink(folder, sanitizedStem, originalName) {
+  const target = folder ? `${folder}/${sanitizedStem}` : sanitizedStem;
+  if (originalName && originalName !== sanitizedStem) {
+    return `[[${target}|${originalName}]]`;
+  }
+  return `[[${target}]]`;
+}
+window.formatWikiLink = formatWikiLink;
+
+function buildObsidianVaultFiles(topo) {
+  if (!topo) topo = {};
+  const campaignName = topo.name || 'Campaign';
+
+  const files = [];
+
+  // 1. Obsidian App Settings
+  files.push({
+    path: '.obsidian/app.json',
+    content: JSON.stringify({
+      useMarkdownLinks: false,
+      newLinkFormat: "shortest"
+    }, null, 2)
+  });
+
+  files.push({
+    path: '.obsidian/core-plugins.json',
+    content: JSON.stringify([
+      "file-explorer",
+      "global-search",
+      "switcher",
+      "graph",
+      "backlink",
+      "canvas",
+      "outgoing-link",
+      "tag-pane",
+      "page-preview",
+      "outline",
+      "word-count"
+    ], null, 2)
+  });
+
+  // Prepare lookups and unique sanitized stems
+  const nodeLookup = {};
+  const seenNodeStems = {};
+  const rawNodes = topo.nodes || {};
+  const nodeList = Array.isArray(rawNodes) ? rawNodes : Object.values(rawNodes);
+
+  nodeList.forEach(n => {
+    if (!n) return;
+    const sName = sanitizeVaultFileName(n.name || `Node_${n.id}`);
+    let stem = sName;
+    if (seenNodeStems[stem] && seenNodeStems[stem] !== String(n.id)) {
+      stem = `${sName}_${n.id}`;
+    }
+    seenNodeStems[stem] = String(n.id);
+    nodeLookup[String(n.id)] = {
+      node: n,
+      sanitizedStem: stem,
+      displayName: n.name || `Node #${n.id}`
+    };
+  });
+
+  const factionLookup = {};
+  const seenFactionStems = {};
+  const factions = Array.isArray(topo.factions) ? topo.factions : [];
+  factions.forEach(f => {
+    if (!f) return;
+    const sName = sanitizeVaultFileName(f.name || `Faction_${f.id}`);
+    let stem = sName;
+    if (seenFactionStems[stem] && seenFactionStems[stem] !== String(f.id)) {
+      stem = `${sName}_${f.id}`;
+    }
+    seenFactionStems[stem] = String(f.id);
+    factionLookup[String(f.id)] = {
+      faction: f,
+      sanitizedStem: stem,
+      displayName: f.name || `Faction [${f.id}]`
+    };
+  });
+
+  const npcLookup = {};
+  const seenNpcStems = {};
+  const npcs = Array.isArray(topo.npcs) ? topo.npcs : [];
+  npcs.forEach(npc => {
+    if (!npc) return;
+    const sName = sanitizeVaultFileName(npc.name || `NPC_${npc.id}`);
+    let stem = sName;
+    if (seenNpcStems[stem] && seenNpcStems[stem] !== String(npc.id)) {
+      stem = `${sName}_${npc.id}`;
+    }
+    seenNpcStems[stem] = String(npc.id);
+    npcLookup[String(npc.id)] = {
+      npc,
+      sanitizedStem: stem,
+      displayName: npc.name || `NPC [${npc.id}]`
+    };
+  });
+
+  const questLookup = {};
+  const seenQuestStems = {};
+  const quests = Array.isArray(topo.quests) ? topo.quests : [];
+  quests.forEach(q => {
+    if (!q) return;
+    const sName = sanitizeVaultFileName(q.name || q.title || `Quest_${q.id}`);
+    let stem = sName;
+    if (seenQuestStems[stem] && seenQuestStems[stem] !== String(q.id)) {
+      stem = `${sName}_${q.id}`;
+    }
+    seenQuestStems[stem] = String(q.id);
+    questLookup[String(q.id)] = {
+      quest: q,
+      sanitizedStem: stem,
+      displayName: q.name || q.title || `Quest [${q.id}]`
+    };
+  });
+
+  const itemLookup = {};
+  const seenItemStems = {};
+  const items = Array.isArray(topo.items) ? topo.items : [];
+  items.forEach(itm => {
+    if (!itm) return;
+    const sName = sanitizeVaultFileName(itm.name || `Item_${itm.id}`);
+    let stem = sName;
+    if (seenItemStems[stem] && seenItemStems[stem] !== String(itm.id)) {
+      stem = `${sName}_${itm.id}`;
+    }
+    seenItemStems[stem] = String(itm.id);
+    itemLookup[String(itm.id)] = {
+      item: itm,
+      sanitizedStem: stem,
+      displayName: itm.name || `Item [${itm.id}]`
+    };
+  });
+
+  // Collect edges
+  const edges = Array.isArray(topo.edges) ? topo.edges : [];
+
+  // 2. Generate _Index.md (Vault Landing Page)
+  let indexMd = formatYamlFrontmatter({
+    title: campaignName,
+    type: "campaign_index",
+    nodes_count: nodeList.length,
+    characters_count: npcs.length,
+    factions_count: factions.length,
+    quests_count: quests.length,
+    items_count: items.length,
+    generated_at: new Date().toISOString()
+  });
+
+  indexMd += `# 🗺️ ${campaignName}\n\n`;
+  indexMd += `Welcome to the Obsidian Campaign Vault for **${campaignName}**.\n`;
+  indexMd += `Generated by **Creator Studio Universal Workstation** with full bidirectional wikilinks.\n\n`;
+
+  indexMd += `## 🧭 Major Pointcrawl Nodes (${nodeList.length})\n\n`;
+  if (nodeList.length === 0) {
+    indexMd += `*No nodes recorded in this campaign.*\n\n`;
+  } else {
+    indexMd += `| Node | Tier | Culture | Sociological Vector | Stationed NPCs |\n`;
+    indexMd += `| :--- | :--- | :--- | :--- | :--- |\n`;
+    nodeList.forEach(n => {
+      const entry = nodeLookup[String(n.id)];
+      const link = formatWikiLink('Nodes', entry.sanitizedStem, entry.displayName);
+      const stationed = npcs.filter(npc => String(npc.nodeId) === String(n.id));
+      const npcLinks = stationed.map(s => {
+        const nEntry = npcLookup[String(s.id)];
+        return formatWikiLink('Characters', nEntry.sanitizedStem, nEntry.displayName);
+      }).join(', ') || '*None*';
+      const odvStr = n.odv ? `[${n.odv.s}, ${n.odv.e}, ${n.odv.c}]` : `[${n.s || 2}, ${n.e || 2}, ${n.c || 2}]`;
+      indexMd += `| ${link} | Tier ${n.tier || 2} | ${n.culture || 'Universal'} | ${odvStr} | ${npcLinks} |\n`;
+    });
+    indexMd += `\n`;
+  }
+
+  indexMd += `## 👑 Active Factions (${factions.length})\n\n`;
+  if (factions.length === 0) {
+    indexMd += `*No factions recorded.*\n\n`;
+  } else {
+    factions.forEach(f => {
+      const fEntry = factionLookup[String(f.id)];
+      const link = formatWikiLink('Factions', fEntry.sanitizedStem, fEntry.displayName);
+      indexMd += `- ${link} (${f.cvfQuadrant || 'Universal'} / Color: ${f.colorIdentity || 'Colorless'})\n`;
+    });
+    indexMd += `\n`;
+  }
+
+  indexMd += `## 👤 Dramatis Personae (${npcs.length})\n\n`;
+  if (npcs.length === 0) {
+    indexMd += `*No characters recorded.*\n\n`;
+  } else {
+    npcs.forEach(npc => {
+      const nEntry = npcLookup[String(npc.id)];
+      const link = formatWikiLink('Characters', nEntry.sanitizedStem, nEntry.displayName);
+      indexMd += `- ${link} &mdash; *${npc.role || 'Resident'}*\n`;
+    });
+    indexMd += `\n`;
+  }
+
+  files.push({
+    path: '_Index.md',
+    content: indexMd
+  });
+
+  // 3. Generate Nodes/*.md
+  nodeList.forEach(n => {
+    const entry = nodeLookup[String(n.id)];
+    const nodeFm = formatYamlFrontmatter({
+      title: n.name || `Node #${n.id}`,
+      id: n.id,
+      type: "node",
+      tier: n.tier || 2,
+      culture: n.culture || "Universal",
+      odv: n.odv ? [n.odv.s, n.odv.e, n.odv.c] : [n.s || 2, n.e || 2, n.c || 2],
+      danger_level: n.danger || 1,
+      tags: Array.isArray(n.tags) ? n.tags : []
+    });
+
+    let nodeMd = nodeFm;
+    nodeMd += `# 📍 ${n.name || `Node #${n.id}`}\n\n`;
+    if (n.description) nodeMd += `${n.description}\n\n`;
+
+    // Slotted Modules
+    nodeMd += `## 📦 Slotted Worldbuilding Modules\n\n`;
+    const modules = n.modules || n.slottedModules || [];
+    if (modules.length === 0) {
+      nodeMd += `*No modules slotted onto this node.*\n\n`;
+    } else {
+      modules.forEach(m => {
+        const mTitle = typeof m === 'string' ? m : (m.title || m.name || m.id);
+        const mTier = m.tier || m.pipeline_tier || 'Tier ?';
+        nodeMd += `- **${mTitle}** (${mTier})${m.summary ? `: ${m.summary}` : ''}\n`;
+      });
+      nodeMd += `\n`;
+    }
+
+    // Travel Corridors & Adjacencies
+    nodeMd += `## 🛣️ Travel Corridors & Adjacencies\n\n`;
+    const outboundEdges = edges.filter(e => String(e.source) === String(n.id) || (!e.directional && String(e.target) === String(n.id)));
+    if (outboundEdges.length === 0) {
+      nodeMd += `*No connecting corridors recorded for this node.*\n\n`;
+    } else {
+      outboundEdges.forEach(e => {
+        const otherId = String(e.source) === String(n.id) ? String(e.target) : String(e.source);
+        const targetEntry = nodeLookup[otherId];
+        const targetLink = targetEntry ? formatWikiLink('Nodes', targetEntry.sanitizedStem, targetEntry.displayName) : `Node #${otherId}`;
+        const edgeTypeStr = e.type === 'hegemony' ? 'Hegemonic Influence Vector' : 'Transit Road';
+        const dirStr = e.directional ? ' (Directional)' : ' (Bidirectional)';
+        nodeMd += `- → ${targetLink}: **${edgeTypeStr}**${dirStr} &bull; Travel: ${e.weight || 1} day(s) &bull; Danger: ${e.danger || 1}/5\n`;
+      });
+      nodeMd += `\n`;
+    }
+
+    // Demographics
+    nodeMd += `## 👥 Demographics & Local Peoples\n\n`;
+    if (n.demographics && Array.isArray(n.demographics) && n.demographics.length > 0) {
+      n.demographics.forEach(d => {
+        nodeMd += `- ${typeof d === 'string' ? d : `${d.name || d.race}: ${d.percentage || d.pct || 0}%`}\n`;
+      });
+      nodeMd += `\n`;
+    } else {
+      nodeMd += `*Cosmopolitan / mixed frontier demographic.*\n\n`;
+    }
+
+    // Stationed NPCs
+    nodeMd += `## 👤 Stationed Characters\n\n`;
+    const stationedNpcs = npcs.filter(npc => String(npc.nodeId) === String(n.id));
+    if (stationedNpcs.length === 0) {
+      nodeMd += `*No characters stationed here.*\n\n`;
+    } else {
+      stationedNpcs.forEach(npc => {
+        const nEntry = npcLookup[String(npc.id)];
+        const link = formatWikiLink('Characters', nEntry.sanitizedStem, nEntry.displayName);
+        const facName = npc.factionId && factionLookup[String(npc.factionId)] ? factionLookup[String(npc.factionId)].displayName : 'Free Agent';
+        nodeMd += `- ${link} &mdash; *${npc.role || 'Resident'}* (${facName})\n`;
+      });
+      nodeMd += `\n`;
+    }
+
+    // Stationed Items
+    nodeMd += `## 💎 Relics & Stored Items\n\n`;
+    const stationedItems = items.filter(itm => String(itm.nodeId) === String(n.id) && itm.possessionMode !== 'carried');
+    if (stationedItems.length === 0) {
+      nodeMd += `*No relics or items stored at this location.*\n\n`;
+    } else {
+      stationedItems.forEach(itm => {
+        const iEntry = itemLookup[String(itm.id)];
+        const link = formatWikiLink('Items', iEntry.sanitizedStem, iEntry.displayName);
+        nodeMd += `- ${link} &mdash; ${itm.category || 'Relic'} (${itm.specs || 'Standard'})\n`;
+      });
+      nodeMd += `\n`;
+    }
+
+    files.push({
+      path: `Nodes/${entry.sanitizedStem}.md`,
+      content: nodeMd
+    });
+  });
+
+  // 4. Generate Characters/*.md
+  npcs.forEach(npc => {
+    const entry = npcLookup[String(npc.id)];
+    const hostNodeEntry = npc.nodeId ? nodeLookup[String(npc.nodeId)] : null;
+    const factionEntry = npc.factionId ? factionLookup[String(npc.factionId)] : null;
+
+    const charFm = formatYamlFrontmatter({
+      name: npc.name || `NPC #${npc.id}`,
+      id: npc.id,
+      type: "npc",
+      role: npc.role || "Resident",
+      faction: factionEntry ? factionEntry.displayName : null,
+      stationed_node: hostNodeEntry ? hostNodeEntry.displayName : null,
+      culture: npc.culture || (hostNodeEntry ? hostNodeEntry.node.culture : "Universal"),
+      odv: npc.odv ? [npc.odv.s, npc.odv.e, npc.odv.c] : [2, 2, 2],
+      four_corners_role: npc.fourCornersRole || null
+    });
+
+    let charMd = charFm;
+    charMd += `# 👤 ${npc.name || `NPC #${npc.id}`}\n\n`;
+    charMd += `**Role / Vocation:** ${npc.role || 'Resident / Specialist'}\n`;
+    if (npc.fourCornersRole) charMd += `**Dramatic Archetype:** ${npc.fourCornersRole}\n`;
+
+    charMd += `**Stationed Location:** ${hostNodeEntry ? formatWikiLink('Nodes', hostNodeEntry.sanitizedStem, hostNodeEntry.displayName) : '*Unassigned / Wandering*'}\n`;
+    charMd += `**Faction Allegiance:** ${factionEntry ? formatWikiLink('Factions', factionEntry.sanitizedStem, factionEntry.displayName) : '*Independent Free Agent*'}\n\n`;
+
+    if (npc.motivation || npc.agenda) {
+      charMd += `## 🎯 Motivation & Agenda\n\n`;
+      charMd += `${npc.motivation || npc.agenda}\n\n`;
+    }
+
+    // Secrets Known
+    const secrets = Array.isArray(npc.secretsKnown) ? npc.secretsKnown : [];
+    if (secrets.length > 0) {
+      charMd += `## 🗝️ Secrets Known (Three-Clue Tracker)\n\n`;
+      secrets.forEach(s => {
+        const sText = typeof s === 'string' ? s : (s.clue || s.text || s.title);
+        charMd += `- ${sText}\n`;
+      });
+      charMd += `\n`;
+    }
+
+    // Dialogue Hooks
+    const hooks = Array.isArray(npc.dialogueHooks) ? npc.dialogueHooks : [];
+    if (hooks.length > 0) {
+      charMd += `## 💬 Dialogue Hooks & Quotes\n\n`;
+      hooks.forEach(h => {
+        charMd += `> &ldquo;${h}&rdquo;\n\n`;
+      });
+    }
+
+    // Social Web & Relational Graph
+    charMd += `## 👥 Social Web & Relational Ties\n\n`;
+    const outbound = Array.isArray(npc.relationships) ? npc.relationships : [];
+    const inbound = npcs.filter(other => other.id !== npc.id && Array.isArray(other.relationships) && other.relationships.some(r => String(r.targetNpcId) === String(npc.id)));
+
+    if (outbound.length === 0 && inbound.length === 0) {
+      charMd += `*No recorded social relationships.*\n\n`;
+    } else {
+      if (outbound.length > 0) {
+        charMd += `### Outbound Ties\n`;
+        outbound.forEach(r => {
+          const tEntry = npcLookup[String(r.targetNpcId)];
+          const tLink = tEntry ? formatWikiLink('Characters', tEntry.sanitizedStem, tEntry.displayName) : `NPC [${r.targetNpcId}]`;
+          const s = typeof r.sentiment === 'number' ? r.sentiment : 0;
+          const sStr = s >= 0 ? `+${s}` : `${s}`;
+          charMd += `- → ${tLink}: **${r.relationshipType || r.type || 'Connected'}** (Sentiment: ${sStr})${r.notes ? ` &mdash; *${r.notes}*` : ''}\n`;
+        });
+        charMd += `\n`;
+      }
+      if (inbound.length > 0) {
+        charMd += `### Inbound Ties\n`;
+        inbound.forEach(other => {
+          const matchRel = other.relationships.find(r => String(r.targetNpcId) === String(npc.id));
+          const oEntry = npcLookup[String(other.id)];
+          const oLink = formatWikiLink('Characters', oEntry.sanitizedStem, oEntry.displayName);
+          const s = typeof matchRel.sentiment === 'number' ? matchRel.sentiment : 0;
+          const sStr = s >= 0 ? `+${s}` : `${s}`;
+          charMd += `- ← ${oLink}: **${matchRel.relationshipType || matchRel.type || 'Connected'}** (Sentiment: ${sStr})${matchRel.notes ? ` &mdash; *${matchRel.notes}*` : ''}\n`;
+        });
+        charMd += `\n`;
+      }
+    }
+
+    // Carried Relics / Inventory
+    const carriedItems = items.filter(itm => String(itm.ownerNpcId) === String(npc.id) && itm.possessionMode === 'carried');
+    if (carriedItems.length > 0) {
+      charMd += `## 🎒 Carried Equipment & Relics\n\n`;
+      carriedItems.forEach(itm => {
+        const iEntry = itemLookup[String(itm.id)];
+        const link = formatWikiLink('Items', iEntry.sanitizedStem, iEntry.displayName);
+        charMd += `- ${link} (${itm.category || 'Gear'})\n`;
+      });
+      charMd += `\n`;
+    }
+
+    files.push({
+      path: `Characters/${entry.sanitizedStem}.md`,
+      content: charMd
+    });
+  });
+
+  // 5. Generate Factions/*.md
+  factions.forEach(f => {
+    const entry = factionLookup[String(f.id)];
+    const leaderEntry = f.leaderNpcId ? npcLookup[String(f.leaderNpcId)] : null;
+    const hqEntry = f.headquartersNodeId ? nodeLookup[String(f.headquartersNodeId)] : null;
+
+    const facFm = formatYamlFrontmatter({
+      name: f.name || `Faction #${f.id}`,
+      id: f.id,
+      type: "faction",
+      cvf_quadrant: f.cvfQuadrant || "Universal",
+      color_identity: f.colorIdentity || "C",
+      leader: leaderEntry ? leaderEntry.displayName : null,
+      headquarters: hqEntry ? hqEntry.displayName : null
+    });
+
+    let facMd = facFm;
+    facMd += `# 👑 ${f.name || `Faction #${f.id}`}\n\n`;
+    facMd += `**CVF Cultural Quadrant:** ${f.cvfQuadrant || 'Universal'} &bull; **Color Identity:** ${f.colorIdentity || 'Colorless'}\n\n`;
+
+    if (f.description) {
+      facMd += `## 📜 Manifesto & Doctrine\n\n`;
+      facMd += `${f.description}\n\n`;
+    }
+
+    facMd += `## 🏛️ Leadership & Strongholds\n\n`;
+    facMd += `- **Leader:** ${leaderEntry ? formatWikiLink('Characters', leaderEntry.sanitizedStem, leaderEntry.displayName) : '*No appointed leader*'}\n`;
+    facMd += `- **Headquarters:** ${hqEntry ? formatWikiLink('Nodes', hqEntry.sanitizedStem, hqEntry.displayName) : '*Wandering / Nomadic*'}\n\n`;
+
+    // Controlled Territory
+    facMd += `## 🏰 Controlled Territory\n\n`;
+    const controlledIds = Array.isArray(f.controlledNodeIds) ? f.controlledNodeIds : [];
+    if (controlledIds.length === 0) {
+      facMd += `*No territorial nodes occupied.*\n\n`;
+    } else {
+      controlledIds.forEach(nId => {
+        const nEntry = nodeLookup[String(nId)];
+        if (nEntry) {
+          facMd += `- ${formatWikiLink('Nodes', nEntry.sanitizedStem, nEntry.displayName)}\n`;
+        }
+      });
+      facMd += `\n`;
+    }
+
+    // Diplomatic Stances
+    facMd += `## ⚖️ Diplomatic Stances\n\n`;
+    const stances = f.diplomaticStances || {};
+    const stanceEntries = Object.entries(stances);
+    if (stanceEntries.length === 0) {
+      facMd += `*No formal diplomatic agreements or treaties recorded.*\n\n`;
+    } else {
+      stanceEntries.forEach(([targetFacId, stance]) => {
+        const targetEntry = factionLookup[String(targetFacId)];
+        const targetLink = targetEntry ? formatWikiLink('Factions', targetEntry.sanitizedStem, targetEntry.displayName) : `Faction [${targetFacId}]`;
+        facMd += `- ${targetLink}: **${stance}**\n`;
+      });
+      facMd += `\n`;
+    }
+
+    files.push({
+      path: `Factions/${entry.sanitizedStem}.md`,
+      content: facMd
+    });
+  });
+
+  // 6. Generate Quests/*.md
+  quests.forEach(q => {
+    const entry = questLookup[String(q.id)];
+    const anchorEntry = q.nodeId ? nodeLookup[String(q.nodeId)] : null;
+
+    const questFm = formatYamlFrontmatter({
+      title: q.name || q.title || `Quest #${q.id}`,
+      id: q.id,
+      type: "quest",
+      status: q.status || "active",
+      threat: q.threat || "Standard",
+      anchor_node: anchorEntry ? anchorEntry.displayName : null
+    });
+
+    let questMd = questFm;
+    questMd += `# ⚔️ ${q.name || q.title || `Quest #${q.id}`}\n\n`;
+    questMd += `**Status:** ${q.status || 'Active'} &bull; **Threat Level:** ${q.threat || 'Standard'}\n`;
+    questMd += `**Anchor Node:** ${anchorEntry ? formatWikiLink('Nodes', anchorEntry.sanitizedStem, anchorEntry.displayName) : '*Unanchored*'}\n\n`;
+
+    if (q.synopsis || q.description || q.hook) {
+      questMd += `## 📜 Synopsis & Narrative Hooks\n\n`;
+      questMd += `${q.synopsis || q.description || q.hook}\n\n`;
+    }
+
+    // Key NPCs
+    const qNpcIds = Array.isArray(q.npcIds) ? q.npcIds : [];
+    if (qNpcIds.length > 0) {
+      questMd += `## 👤 Dramatis Personae Involved\n\n`;
+      qNpcIds.forEach(nId => {
+        const nEntry = npcLookup[String(nId)];
+        if (nEntry) {
+          questMd += `- ${formatWikiLink('Characters', nEntry.sanitizedStem, nEntry.displayName)}\n`;
+        }
+      });
+      questMd += `\n`;
+    }
+
+    // Quest Items
+    const qItemIds = Array.isArray(q.itemIds) ? q.itemIds : [];
+    if (qItemIds.length > 0) {
+      questMd += `## 💎 Associated Items & Relics\n\n`;
+      qItemIds.forEach(iId => {
+        const iEntry = itemLookup[String(iId)];
+        if (iEntry) {
+          questMd += `- ${formatWikiLink('Items', iEntry.sanitizedStem, iEntry.displayName)}\n`;
+        }
+      });
+      questMd += `\n`;
+    }
+
+    files.push({
+      path: `Quests/${entry.sanitizedStem}.md`,
+      content: questMd
+    });
+  });
+
+  // 7. Generate Items/*.md
+  items.forEach(itm => {
+    const entry = itemLookup[String(itm.id)];
+    const nodeEntry = itm.nodeId ? nodeLookup[String(itm.nodeId)] : null;
+    const ownerEntry = itm.ownerNpcId ? npcLookup[String(itm.ownerNpcId)] : null;
+
+    const itemFm = formatYamlFrontmatter({
+      name: itm.name || `Item #${itm.id}`,
+      id: itm.id,
+      type: "item",
+      category: itm.category || "Relic",
+      possession_mode: itm.possessionMode || "stored",
+      owner: ownerEntry ? ownerEntry.displayName : null,
+      stored_at: nodeEntry ? nodeEntry.displayName : null
+    });
+
+    let itemMd = itemFm;
+    itemMd += `# 💎 ${itm.name || `Item #${itm.id}`}\n\n`;
+    itemMd += `**Category:** ${itm.category || 'Relic'} &bull; **Possession Mode:** ${itm.possessionMode === 'carried' ? '🎒 Carried' : '📦 Stored'}\n\n`;
+
+    if (itm.description) {
+      itemMd += `## 📜 Description\n\n`;
+      itemMd += `${itm.description}\n\n`;
+    }
+
+    if (itm.specs) {
+      itemMd += `## ⚙️ Specifications & Mechanics\n\n`;
+      itemMd += `${itm.specs}\n\n`;
+    }
+
+    itemMd += `## 📍 Spatial Resolution & Custody\n\n`;
+    if (itm.possessionMode === 'carried' && ownerEntry) {
+      itemMd += `- **Carried by:** ${formatWikiLink('Characters', ownerEntry.sanitizedStem, ownerEntry.displayName)}\n`;
+    } else if (nodeEntry) {
+      itemMd += `- **Stored at Location:** ${formatWikiLink('Nodes', nodeEntry.sanitizedStem, nodeEntry.displayName)}\n`;
+    } else {
+      itemMd += `*Unassigned location / inventory.*\n`;
+    }
+
+    files.push({
+      path: `Items/${entry.sanitizedStem}.md`,
+      content: itemMd
+    });
+  });
+
+  return files;
+}
+window.buildObsidianVaultFiles = buildObsidianVaultFiles;
+
+async function exportObsidianVaultZip(topo = null) {
+  if (!topo) {
+    topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+  }
+  if (!topo) {
+    if (typeof alert === 'function') alert("No active campaign to export.");
+    return null;
+  }
+
+  const ZipClass = (typeof ZeroCorsZip !== 'undefined') ? ZeroCorsZip : (typeof window !== 'undefined' && window.ZeroCorsZip ? window.ZeroCorsZip : null);
+  if (!ZipClass) {
+    if (typeof alert === 'function') alert("ZeroCorsZip engine not loaded.");
+    return null;
+  }
+
+  const files = buildObsidianVaultFiles(topo);
+  const zip = new ZipClass();
+  files.forEach(f => {
+    zip.addFile(f.path, f.content);
+  });
+
+  const blob = zip.generateBlob();
+  const cName = sanitizeVaultFileName(topo.name || 'campaign');
+  const filename = `${cName.toLowerCase().replace(/\s+/g, '_')}_obsidian_vault.zip`;
+
+  if (typeof URL !== 'undefined' && typeof URL.createObjectURL === 'function') {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  }
+
+  if (typeof setStatusBarMessage === 'function') {
+    setStatusBarMessage(`Exported Obsidian vault: "${filename}" (${files.length} notes, ${(blob.size / 1024).toFixed(1)} KB).`);
+  }
+
+  return { blob, files, zip };
+}
+window.exportObsidianVaultZip = exportObsidianVaultZip;
+
+

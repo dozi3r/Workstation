@@ -180,6 +180,11 @@ async function testZeroCorsZip() {
 
   const sandbox = {
     window: {},
+    document: {
+      getElementById: () => null,
+      querySelectorAll: () => [],
+      addEventListener: () => {}
+    },
     TextEncoder,
     TextDecoder,
     Uint8Array,
@@ -243,6 +248,151 @@ async function testZeroCorsZip() {
 
   const extractedBin = extractedFiles['assets/marker.bin'];
   assertEqual(Array.from(extractedBin), Array.from(sampleBinary), 'Binary payload preserved 100% byte-for-byte');
+
+  // --- Obsidian Markdown Vault Exporter Verification ---
+  const exporterPath = path.join(ROOT_DIR, 'src/workstation/scripts/campaign_exporter.js');
+  const exporterCode = fs.readFileSync(exporterPath, 'utf8');
+  vm.runInContext(exporterCode, sandbox);
+
+  // 1. Windows Filename Sanitizer
+  const sanitize = sandbox.sanitizeVaultFileName || sandbox.window.sanitizeVaultFileName;
+  assert(typeof sanitize === 'function', 'sanitizeVaultFileName is exported');
+  assertEqual(sanitize('The Citadel: Crown of the Sun? *<Special>|'), 'The Citadel_ Crown of the Sun_ __Special__', 'Strips illegal Windows filename chars');
+  assertEqual(sanitize('Dangerous Node Name...   '), 'Dangerous Node Name', 'Strips trailing dots and spaces');
+  const longName = 'A'.repeat(100);
+  assertEqual(sanitize(longName).length, 64, 'Truncates filename to 64 chars');
+
+  // 2. Frontmatter Escaping
+  const formatFm = sandbox.formatYamlFrontmatter || sandbox.window.formatYamlFrontmatter;
+  assert(typeof formatFm === 'function', 'formatYamlFrontmatter is exported');
+  const testFm = formatFm({
+    title: 'The Bastion: Outer Wall',
+    id: 42,
+    tags: ['fortress', 'high-danger'],
+    notes: 'Quote: "Beware of shadows"'
+  });
+  assert(testFm.includes('title: "The Bastion: Outer Wall"'), 'Frontmatter quotes strings with colons');
+  assert(testFm.includes('notes: "Quote: \\"Beware of shadows\\""'), 'Frontmatter escapes quotes in strings');
+  assert(testFm.includes('id: 42'), 'Frontmatter formats numeric ID');
+
+  // 3. Vault Files Generation & Wikilinks
+  const buildVault = sandbox.buildObsidianVaultFiles || sandbox.window.buildObsidianVaultFiles;
+  assert(typeof buildVault === 'function', 'buildObsidianVaultFiles is exported');
+
+  const mockTopo = {
+    name: 'Isle of Whispers: Act I',
+    nodes: {
+      '1': {
+        id: 1,
+        name: 'The Sunken Citadel: Lower Level',
+        tier: 2,
+        culture: 'Hierarchy',
+        odv: { s: 3, e: 2, c: 3 },
+        danger: 3,
+        description: 'Flooded stone vaults beneath the tide.'
+      },
+      '2': {
+        id: 2,
+        name: 'Rebel Cove',
+        tier: 2,
+        culture: 'Adhocracy',
+        odv: { s: 1, e: 3, c: 2 },
+        danger: 2,
+        description: 'Hidden cove of the reef-raiders.'
+      }
+    },
+    edges: [
+      { source: 1, target: 2, type: 'road', weight: 2, danger: 3 }
+    ],
+    factions: [
+      {
+        id: 'fac_1',
+        name: 'The Reef Raiders',
+        cvfQuadrant: 'Adhocracy',
+        colorIdentity: 'U/R',
+        leaderNpcId: 'npc_1',
+        headquartersNodeId: 2,
+        controlledNodeIds: [2],
+        diplomaticStances: {},
+        description: 'Free-roaming corsairs fighting the colonial crown.'
+      }
+    ],
+    npcs: [
+      {
+        id: 'npc_1',
+        name: 'Captain Kaelen: The Red-Eyed',
+        role: 'Corsair Leader',
+        factionId: 'fac_1',
+        nodeId: 2,
+        odv: { s: 1, e: 4, c: 2 },
+        motivation: 'Free the reef from imperial control.',
+        relationships: [
+          { targetNpcId: 'npc_2', relationshipType: 'Rival', sentiment: -75, notes: 'Historic naval duel' }
+        ]
+      },
+      {
+        id: 'npc_2',
+        name: 'Commander Sarah',
+        role: 'Garrison Commander',
+        nodeId: 1,
+        odv: { s: 4, e: 2, c: 3 }
+      }
+    ],
+    quests: [
+      {
+        id: 'quest_1',
+        name: 'The Sunken Relic',
+        status: 'active',
+        threat: 'High',
+        nodeId: 1,
+        npcIds: ['npc_1', 'npc_2'],
+        itemIds: ['item_1'],
+        description: 'Retrieve the tide-stone before the citadel floods.'
+      }
+    ],
+    items: [
+      {
+        id: 'item_1',
+        name: 'Tide-Stone of the Deep',
+        category: 'Relic',
+        possessionMode: 'stored',
+        nodeId: 1,
+        specs: 'Controls coastal water levels'
+      }
+    ]
+  };
+
+  const vaultFiles = buildVault(mockTopo);
+  assert(Array.isArray(vaultFiles) && vaultFiles.length >= 7, 'buildObsidianVaultFiles generated full suite of vault notes');
+
+  const vPaths = vaultFiles.map(f => f.path);
+  assert(vPaths.includes('.obsidian/app.json'), 'Vault contains .obsidian/app.json');
+  assert(vPaths.includes('.obsidian/core-plugins.json'), 'Vault contains .obsidian/core-plugins.json');
+  assert(vPaths.includes('_Index.md'), 'Vault contains _Index.md');
+  assert(vPaths.some(p => p.startsWith('Nodes/')), 'Vault contains Nodes directory notes');
+  assert(vPaths.some(p => p.startsWith('Characters/')), 'Vault contains Characters directory notes');
+  assert(vPaths.some(p => p.startsWith('Factions/')), 'Vault contains Factions directory notes');
+  assert(vPaths.some(p => p.startsWith('Quests/')), 'Vault contains Quests directory notes');
+  assert(vPaths.some(p => p.startsWith('Items/')), 'Vault contains Items directory notes');
+
+  // Verify aliased wikilinks and sanitized filename in Character file
+  const kaelenNote = vaultFiles.find(f => f.path.includes('Kaelen'));
+  assert(kaelenNote !== undefined, 'Found Captain Kaelen character note');
+  assert(kaelenNote.content.includes('[[Factions/The Reef Raiders]]') || kaelenNote.content.includes('[[Factions/The Reef Raiders|The Reef Raiders]]'), 'Character note links to Faction');
+  assert(kaelenNote.content.includes('Rival'), 'Character note contains relationship type Rival');
+  assert(kaelenNote.content.includes('-75'), 'Character note contains negative sentiment -75');
+
+  // 4. Round-trip ZIP generation and extraction
+  const vaultZip = new ZeroCorsZip();
+  vaultFiles.forEach(f => vaultZip.addFile(f.path, f.content));
+  const vBlob = vaultZip.generateBlob();
+  assert(vBlob.size > 500, `Obsidian Vault ZIP archive generated (${vBlob.size} bytes)`);
+
+  const vBuffer = await vBlob.arrayBuffer();
+  const vExtracted = await ZeroCorsZip.parse(vBuffer);
+  assert(vExtracted['_Index.md'] !== undefined, 'Extracted vault contains _Index.md');
+  const extractedIndexText = textDecoder.decode(vExtracted['_Index.md']);
+  assert(extractedIndexText.includes('Isle of Whispers: Act I'), 'Extracted _Index.md preserves title and content');
 }
 
 function testSelectiveImporter() {

@@ -103,6 +103,7 @@
       <div class="dock-tab-bar">
         <button class="dock-tab-btn active" id="btn-exp-json" onclick="switchExportTab('json')">Campaign JSON (v2.0-nested)</button>
         <button class="dock-tab-btn" id="btn-exp-md" onclick="switchExportTab('md')">GM Markdown Dossier</button>
+        <button class="dock-tab-btn" id="btn-exp-obsidian" onclick="switchExportTab('obsidian')">Obsidian Vault (.zip)</button>
         <button class="dock-tab-btn" id="btn-exp-vtt" onclick="switchExportTab('vtt')">Foundry VTT Export</button>
         <button class="dock-tab-btn" id="btn-exp-svg" onclick="switchExportTab('svg')">SVG Map Vector</button>
         <button class="dock-tab-btn" id="btn-exp-pack" onclick="switchExportTab('pack')">Export as Pack (.csmod)</button>
@@ -155,6 +156,7 @@
         <div style="display:flex; gap:6px; align-items:center;">
           <button class="win-btn" onclick="copyExportToClipboard()" style="font-weight:bold; padding:3px 8px;">Copy to Clipboard</button>
           <button class="win-btn" onclick="downloadExportFile()" style="font-weight:bold; padding:3px 8px;">Download File</button>
+          <button class="win-btn" onclick="exportObsidianVaultZip()" style="font-weight:bold; padding:3px 8px; color:#4338ca;">📁 Export Obsidian Vault (.zip)</button>
           <button class="win-btn" onclick="saveCampaignAsZip()" style="font-weight:bold; padding:3px 8px; color:#002b66;">Download Package (.zip)</button>
           <span id="export-modal-diag-status" style="font-size:10px; color:#333; margin-left:4px; font-family:monospace;"></span>
         </div>

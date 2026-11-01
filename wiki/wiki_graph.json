@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T03:26:49.957Z",
+  "generatedAt": "2026-11-01T03:32:50.801Z",
   "totalFiles": 300,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2589,
+  "totalBidirectionalEdges": 2590,
   "staleCount": 0,
   "nodes": [
     {
@@ -28793,10 +28793,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "608c94857af2c112",
-      "reviewedHash": "608c94857af2c112",
-      "lineCount": 457,
-      "sizeBytes": 32741,
+      "hash": "e44a36b05bdb5937",
+      "reviewedHash": "e44a36b05bdb5937",
+      "lineCount": 459,
+      "sizeBytes": 33039,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -29289,10 +29289,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "99bde0304b33007f",
-      "reviewedHash": "99bde0304b33007f",
-      "lineCount": 777,
-      "sizeBytes": 33706,
+      "hash": "f53b85b094f17d19",
+      "reviewedHash": "f53b85b094f17d19",
+      "lineCount": 1439,
+      "sizeBytes": 58583,
       "symbols": [
         "generateCampaignJSON()",
         "generateCampaignMarkdown()",
@@ -29300,7 +29300,12 @@
         "renderStage6()",
         "handleCampaignFileIngestion(file)",
         "importCampaignData(data, sourceLabel = \"\")",
-        "executeExportCsmodPack()"
+        "executeExportCsmodPack()",
+        "sanitizeVaultFileName(name)",
+        "formatYamlFrontmatter(fields)",
+        "formatWikiLink(folder, sanitizedStem, originalName)",
+        "buildObsidianVaultFiles(topo)",
+        "exportObsidianVaultZip(topo = null)"
       ],
       "globals": [
         "activeExportTab",
@@ -29440,6 +29445,12 @@
           "sourceType": "file",
           "type": "Template Include",
           "reason": "Inlined via @@INCLUDE: scripts/campaign_exporter.js @@"
+        },
+        {
+          "source": "test/run_tests.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/campaign_exporter.js"
         }
       ]
     },
@@ -33132,10 +33143,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "4760da98525d9b89",
-      "reviewedHash": "4760da98525d9b89",
-      "lineCount": 1512,
-      "sizeBytes": 74772,
+      "hash": "b6b59d6cd7e7f2a3",
+      "reviewedHash": "b6b59d6cd7e7f2a3",
+      "lineCount": 1530,
+      "sizeBytes": 75752,
       "symbols": [
         "ensureBuiltinModulesBaseline()",
         "createSterileTopology(options = {})",
@@ -34233,10 +34244,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "a9022b07e729ef84",
-      "reviewedHash": "a9022b07e729ef84",
-      "lineCount": 46402,
-      "sizeBytes": 6072712,
+      "hash": "b39527a87eb9ae3b",
+      "reviewedHash": "b39527a87eb9ae3b",
+      "lineCount": 47084,
+      "sizeBytes": 6098867,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -36148,10 +36159,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "3f9b062bddffb43c",
-      "reviewedHash": "3f9b062bddffb43c",
-      "lineCount": 4788,
-      "sizeBytes": 226791,
+      "hash": "d5daba7aaf320eba",
+      "reviewedHash": "d5daba7aaf320eba",
+      "lineCount": 4938,
+      "sizeBytes": 232951,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -36283,6 +36294,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/cad_interaction.js"
+        },
+        {
+          "target": "src/workstation/scripts/campaign_exporter.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/campaign_exporter.js"
         },
         {
           "target": "src/workstation/scripts/entity_cascade_delete.js",
@@ -37626,6 +37643,36 @@
     {
       "name": "executeExportCsmodPack",
       "signature": "executeExportCsmodPack()",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "sanitizeVaultFileName",
+      "signature": "sanitizeVaultFileName(name)",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "formatYamlFrontmatter",
+      "signature": "formatYamlFrontmatter(fields)",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "formatWikiLink",
+      "signature": "formatWikiLink(folder, sanitizedStem, originalName)",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "buildObsidianVaultFiles",
+      "signature": "buildObsidianVaultFiles(topo)",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "exportObsidianVaultZip",
+      "signature": "exportObsidianVaultZip(topo = null)",
       "file": "src/workstation/scripts/campaign_exporter.js",
       "kind": "Workstation Modular JS Engine"
     },

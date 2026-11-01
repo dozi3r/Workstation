@@ -1332,7 +1332,7 @@
     let activeExportTabKey = 'json';
     function switchExportTab(tabKey) {
       activeExportTabKey = tabKey;
-      ['json', 'md', 'vtt', 'svg', 'pack'].forEach(k => {
+      ['json', 'md', 'obsidian', 'vtt', 'svg', 'pack'].forEach(k => {
         const b = document.getElementById(`btn-exp-${k}`);
         if (b) b.classList.toggle('active', k === tabKey);
       });
@@ -1425,6 +1425,18 @@
             console.error("[ExportModal] Error generating markdown dossier, falling back:", mdErr);
             outputEl.value = `# ${(Workstation.activeTopology && Workstation.activeTopology.name) || 'CAMPAIGN DOSSIER'}\n\n*Notice: Markdown dossier rendered in fallback mode (${mdErr.message}).*\n\nTotal Nodes: ${Object.keys((Workstation.activeTopology && Workstation.activeTopology.nodes) || {}).length}`;
           }
+        } else if (activeExportTabKey === 'obsidian') {
+          try {
+            const files = (typeof buildObsidianVaultFiles === 'function')
+              ? buildObsidianVaultFiles(Workstation.activeTopology)
+              : [];
+            let preview = `# Obsidian Markdown Vault Preview (${files.length} notes)\n\n`;
+            preview += `Click [📁 Export Obsidian Vault (.zip)] in the footer to download the complete archive.\n\n`;
+            preview += files.map(f => `--- [FILE: ${f.path}] ---\n${f.content.substring(0, 300)}${f.content.length > 300 ? '...\n' : '\n'}`).join('\n');
+            outputEl.value = preview;
+          } catch (obsErr) {
+            outputEl.value = `# Obsidian Vault Generator\n\nError generating vault preview: ${obsErr.message}`;
+          }
         } else if (activeExportTabKey === 'vtt') {
           outputEl.value = (typeof generateFoundryVTTJSON === 'function')
             ? JSON.stringify(generateFoundryVTTJSON(), null, 2)
@@ -1457,6 +1469,12 @@
     }
 
     function downloadExportFile() {
+      if (activeExportTabKey === 'obsidian') {
+        if (typeof exportObsidianVaultZip === 'function') {
+          exportObsidianVaultZip();
+          return;
+        }
+      }
       const outputEl = document.getElementById('export-output-text');
       if (!outputEl) return;
       const content = outputEl.value;
