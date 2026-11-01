@@ -13,19 +13,22 @@ Before editing any file, consult this router to identify authoritative specifica
    ```
 4. **Bidirectional Codebase Wiki & Backlinks (`wiki/`)**: All primary workstation HTML surfaces, architectural specifications, worldbuilding modules, and authoritative data models have a 1:1 Markdown source in `wiki/src/files/<relPath>.md` and compiled HTML page in `wiki/pages/<relPath>.html`. Whenever you create or modify a tracked file, update its `<!-- BEGIN_CUSTOM_NOTES -->` block and run `Build-Suite.ps1 --stamp-reviewed` (or update `reviewed_hash`).
 5. **Zero-Token Codebase Graph Inspection (`Find-CodebaseNode.ps1`)**: Before grepping across the repository or reading large files, query `wiki/wiki_graph.json` via `Find-CodebaseNode.ps1` to inspect a file's callers/backlinks (`-File "<path>"`), locate symbol definitions (`-Symbol "<name>"`), trace resource supply chains (`-Resource "<tag>"`), or check documentation drift (`-Stale`).
+6. **Diff-Driven Token Optimization & Atomic Commits**: Never re-read entire multi-hundred-line files solely to verify modifications. Use `git diff` (and `git diff --stat`) for granular token verification. Keep changes tracked under Conventional Atomic Commits, allowing any agent session to anchor state to commit hashes with zero token overhead.
 
 ## 2. Task-Branch Context Pointers
 - **Fast Graph / Symbol / Backlink Lookup**: Run `powershell -ExecutionPolicy Bypass -File .\Find-CodebaseNode.ps1 -File "<path>"` or `-Symbol "<name>"`.
+- **Diff-Driven Context & Git State**: Run `git status -s` or `git diff -U3 "<path>"` for minimal-token change verification. Run `git log -S "<symbol>" -p` to trace historical changes without large file reads.
 - **Workstation UI / MDI / Canvas (`start.html`)**: Read `docs/adr/0004-desktop-workstation-start-html.md` and `docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md`. Edit `src/workstation/scripts/*.js` and `src/workstation/template.html`.
 - **Entities / Slotting / Module Explorer**: Read `docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md` and `docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md`. Edit `src/workstation/scripts/entity_core.js`, `entity_manager_ui.js`, `entity_crud_dialogs.js`, `entity_cascade_delete.js`, `module_explorer.js`, `stage_5_slotting.js`.
 - **Campaign Presets & Worldbuilding Modules**: Read `docs/srd/campaign_preset_specification_srd.md`, `docs/srd/ip_module_framework_srd.md`, `docs/srd/scenario_primitives_srd.md`. Validate via `powershell -File .\campaigns\Test-CampaignPackage.ps1`.
 - **Multi-Scale Maps & In-App Wiki (`[[Token]]`)**: Read `docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md` and `docs/AI_DEVELOPER_GUIDE.md`. Edit `src/workstation/scripts/state_adapter.js`, `map_navigator.js`, `wiki_engine.js`.
+- **Git Architecture & Token Economy**: Read `docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md`.
 
 ## 3. Surface-to-Authority Routing Matrix
 
 | Surface File | Title / Purpose & Invariant | Read This Authority Spec FIRST | Authoritative Data Source |
 | :--- | :--- | :--- | :--- |
-| **`start.html`** | Universal Desktop Workstation Shell & Pointcrawl CAD Canvas<br><em>Standalone zero-CORS Win95/VB6 desktop workstation shell consolidating index.html and campaign_studio.html.</em> | `docs/adr/0004-desktop-workstation-start-html.md`<br>`docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md`<br>`docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md`<br>`docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md`<br>`docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md`<br>`docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md`<br>`docs/srd/authoring_engine_srd.md`<br>`CONTEXT.md` | `src/workstation/template.html (and src/workstation/scripts/*.js)`<br>`network/presets/blank_canvas.json`<br>`campaigns/` |
+| **`start.html`** | Universal Desktop Workstation Shell & Pointcrawl CAD Canvas<br><em>Standalone zero-CORS Win95/VB6 desktop workstation shell consolidating index.html and campaign_studio.html.</em> | `docs/adr/0004-desktop-workstation-start-html.md`<br>`docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md`<br>`docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md`<br>`docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md`<br>`docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md`<br>`docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md`<br>`docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md`<br>`docs/srd/authoring_engine_srd.md`<br>`CONTEXT.md` | `src/workstation/template.html (and src/workstation/scripts/*.js)`<br>`network/presets/blank_canvas.json`<br>`campaigns/` |
 | **`network/campaign_studio.html`** | Universal Campaign Studio (Deprecated Redirect Stub)<br><em>Deprecated surface emitting a zero-CORS instant redirect to start.html.</em> | `docs/srd/authoring_engine_srd.md`<br>`docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md`<br>`docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md`<br>`docs/AI_DEVELOPER_GUIDE.md`<br>`CONTEXT.md` | `src/workstation/template.html` |
 | **`network/network_builder.html`** | Universal Network Builder & Topological Graph Canvas (Deprecated Redirect Stub)<br><em>Deprecated surface emitting a zero-CORS instant redirect to start.html.</em> | `docs/srd/authoring_engine_srd.md (Section 2: Topology)`<br>`docs/adr/0004-desktop-workstation-start-html.md`<br>`CONTEXT.md` | `src/workstation/template.html` |
 | **`network/contradiction_matrix_dashboard.html`** | Network Contradiction Matrix Dashboard (Deprecated Redirect Stub)<br><em>Deprecated surface emitting a zero-CORS instant redirect to start.html.</em> | `docs/srd/authoring_engine_srd.md`<br>`docs/adr/0001-dual-mode-preset-architecture.md`<br>`docs/adr/0014-campaign-state-reflection-and-edge-odv-on-64-matrix.md` | `src/workstation/template.html` |
@@ -41,7 +44,18 @@ Before editing any file, consult this router to identify authoritative specifica
 | **`Test-Suite.ps1`** | Master Automated Test Harness & Quality Assurance Gate<br><em>Master test harness executing compilation, core HTML surface JS syntax, unit tests, campaign validation, zero-CORS isolation, and wiki graph drift in <15s.</em><br><code>Run: powershell -ExecutionPolicy Bypass -File .\Test-Suite.ps1</code> | `docs/srd/authoring_engine_srd.md`<br>`docs/adr/0004-desktop-workstation-start-html.md`<br>`docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md` | `test/run_tests.js`<br>`campaigns/Test-CampaignPackage.ps1`<br>`Find-CodebaseNode.ps1` |
 | **`admin.html`** | Workstation Administrative Hub & Master HTML/Wiki Directory<br><em>Master administrative command center providing direct links to every HTML tool and corresponding wiki page.</em> | `docs/navigation_manifest.json`<br>`docs/AI_DEVELOPER_GUIDE.md`<br>`CONTEXT.md` | `docs/navigation_manifest.json`<br>`wiki/wiki_manifest.json` |
 
-## 4. Domain Terminology
+## 4. Documentation Surfaces
+| Path | Covers | Voice |
+| :--- | :--- | :--- |
+| `docs/adr/0004-desktop-workstation-start-html.md` | start.html, desktop shell, MDI, Win95 | atomic-prose |
+| `docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md` | entities, npcs, quests, items, dials, roster | atomic-prose |
+| `docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md` | module explorer, mechanics inspector | atomic-prose |
+| `docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md` | index.html, campaign_studio.html consolidation | atomic-prose |
+| `docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md` | server.js, server.ps1, loopback, zero-install | atomic-prose |
+| `docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md` | node explorer, dynamic svg stacking, desktop shell | atomic-prose |
+| `docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md` | git, diff, worktrees, token savings, atomic commits | atomic-prose |
+
+## 5. Domain Terminology
 Always consult [`CONTEXT.md`](CONTEXT.md) for canonical terminology.
 
 ### Core Workstation Vocabulary

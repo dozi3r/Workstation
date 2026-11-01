@@ -311,3 +311,22 @@ _Avoid_: Workspace sandbox, folder separation
 Event hooks dispatched by the workstation shell notifying installed workstation mods of campaign transitions, enabling mods to persist and hydrate campaign-scoped data in the campaign directory while keeping workstation-level tool registrations and global preferences intact.
 _Avoid_: Plugin restart, mod reload, addon reset
 
+### Git-Integrated Token Optimization & Diff-Driven Engineering
+
+**Diff-Driven Context Verification**:
+The architectural practice where AI agents inspect modifications strictly via unified diff (`git diff -U3`) rather than re-reading whole source files, minimizing prompt token consumption by up to 95%.
+_Avoid_: Whole-file re-reading, full file verification
+
+**Commit State Anchor**:
+An immutable Git commit SHA referenced in handoff documents, tickets, and multi-session roadmaps as an exact point-in-time snapshot of repository state, replacing repetitive prose state dumps in conversation context.
+_Avoid_: Session snapshot text, chat state summary
+
+**Isolated Worktree Sandbox**:
+A linked Git worktree created via `git worktree add` allowing autonomous subagents or experimental feature spikes to execute without colliding with the primary working directory, returning only a consolidated patch diff.
+_Avoid_: Temp copy folder, branch clone
+
+**Zero-Token Drift Audit**:
+Verifying synchronization between documentation, schema models, and implementation files using Git status and file tree hashes (`Find-CodebaseNode.ps1 -Stale` or `git status --porcelain`) rather than reading documents into prompt memory.
+_Avoid_: Manual doc comparison, full text drift check
+
+

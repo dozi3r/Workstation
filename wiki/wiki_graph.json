@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T00:35:51.933Z",
-  "totalFiles": 296,
+  "generatedAt": "2026-11-01T00:47:13.624Z",
+  "totalFiles": 297,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2551,
+  "totalBidirectionalEdges": 2566,
   "staleCount": 0,
   "nodes": [
     {
@@ -11,10 +11,10 @@
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
       "stale": false,
-      "hash": "4a3d4494b7e1ed8d",
-      "reviewedHash": "4a3d4494b7e1ed8d",
-      "lineCount": 55,
-      "sizeBytes": 11746,
+      "hash": "bc1f43970499e2de",
+      "reviewedHash": "bc1f43970499e2de",
+      "lineCount": 69,
+      "sizeBytes": 13607,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -225,6 +225,12 @@
           "reason": "References docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md"
         },
         {
+          "target": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
+        },
+        {
           "target": "docs/srd/campaign_preset_specification_srd.md",
           "targetType": "file",
           "type": "Path Reference",
@@ -271,6 +277,18 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References regions/regional_image_catalog.json"
+        },
+        {
+          "target": "server.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References server.js"
+        },
+        {
+          "target": "server.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References server.ps1"
         },
         {
           "target": "src/workstation/scripts/entity_core.js",
@@ -342,6 +360,12 @@
         },
         {
           "source": "docs/adr/0009-tarot-and-wave-balancing-mod-extraction.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References AGENTS.md"
+        },
+        {
+          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References AGENTS.md"
@@ -619,10 +643,10 @@
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
       "stale": false,
-      "hash": "c0e61f7c8ea6fc51",
-      "reviewedHash": "c0e61f7c8ea6fc51",
-      "lineCount": 314,
-      "sizeBytes": 22128,
+      "hash": "85c6029c3776140b",
+      "reviewedHash": "85c6029c3776140b",
+      "lineCount": 333,
+      "sizeBytes": 23397,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -777,6 +801,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References Build-Suite.ps1"
+        },
+        {
+          "target": "Find-CodebaseNode.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References Find-CodebaseNode.ps1"
         },
         {
           "target": "index.html",
@@ -1007,6 +1037,12 @@
           "sourceType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source consumed by Test-Suite.ps1"
+        },
+        {
+          "source": "CONTEXT.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Find-CodebaseNode.ps1"
         },
         {
           "source": "build_suite.js",
@@ -1766,6 +1802,12 @@
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References Test-Suite.ps1"
+        },
+        {
+          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Test-Suite.ps1"
         }
       ]
     },
@@ -2004,10 +2046,10 @@
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "afae1fded261927a",
-      "reviewedHash": "afae1fded261927a",
-      "lineCount": 1200,
-      "sizeBytes": 57051,
+      "hash": "17009e14f2d3489c",
+      "reviewedHash": "17009e14f2d3489c",
+      "lineCount": 1214,
+      "sizeBytes": 58850,
       "symbols": [
         "toRootRelUrl(absPath)",
         "rebaseFileUrls(jsonStr, prefix)",
@@ -2213,6 +2255,24 @@
           "reason": "References docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md"
         },
         {
+          "target": "docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md"
+        },
+        {
+          "target": "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md"
+        },
+        {
+          "target": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
+        },
+        {
           "target": "docs/srd/campaign_preset_specification_srd.md",
           "targetType": "file",
           "type": "Path Reference",
@@ -2241,6 +2301,18 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References network/campaign_studio.html"
+        },
+        {
+          "target": "server.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References server.js"
+        },
+        {
+          "target": "server.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References server.ps1"
         },
         {
           "target": "src/workstation/scripts/entity_core.js",
@@ -18519,6 +18591,12 @@
           "reason": "References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md"
         },
         {
+          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md"
+        },
+        {
           "source": "docs/navigation_manifest.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -19142,6 +19220,12 @@
           "reason": "References docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md"
         },
         {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md"
+        },
+        {
           "source": "docs/navigation_manifest.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -19209,6 +19293,12 @@
           "reason": "References docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md"
         },
         {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md"
+        },
+        {
           "source": "docs/navigation_manifest.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -19268,6 +19358,73 @@
         }
       ],
       "inbound": []
+    },
+    {
+      "relPath": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+      "title": "ADR 0019: Git-Integrated Token Optimization and Diff-Driven Agent Workflows",
+      "volume": "vol-1",
+      "kind": "Architectural Decision Record (ADR)",
+      "stale": false,
+      "hash": "654007bae7acfbfc",
+      "reviewedHash": "654007bae7acfbfc",
+      "lineCount": 54,
+      "sizeBytes": 5429,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "AGENTS.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References AGENTS.md"
+        },
+        {
+          "target": "Test-Suite.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References Test-Suite.ps1"
+        },
+        {
+          "target": "docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md"
+        },
+        {
+          "target": "test/run_tests.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References test/run_tests.js"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Governing Spec",
+          "reason": "Authoritative specification for start.html"
+        },
+        {
+          "source": "AGENTS.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
+        },
+        {
+          "source": "docs/navigation_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
+        }
+      ]
     },
     {
       "relPath": "docs/adr/desktop.ini",
@@ -19807,10 +19964,10 @@
       "volume": "vol-3",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "64766ca349b9e406",
-      "reviewedHash": "64766ca349b9e406",
-      "lineCount": 241,
-      "sizeBytes": 9908,
+      "hash": "75d7515f54c58d1f",
+      "reviewedHash": "75d7515f54c58d1f",
+      "lineCount": 242,
+      "sizeBytes": 10002,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -20007,6 +20164,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md"
+        },
+        {
+          "target": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
         },
         {
           "target": "docs/srd/campaign_preset_specification_srd.md",
@@ -26093,6 +26256,12 @@
       ],
       "inbound": [
         {
+          "source": "AGENTS.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References server.js"
+        },
+        {
           "source": "CONTEXT.md",
           "sourceType": "file",
           "type": "Path Reference",
@@ -26106,6 +26275,12 @@
         },
         {
           "source": "Test-Suite.ps1",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References server.js"
+        },
+        {
+          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References server.js"
@@ -26148,6 +26323,12 @@
       ],
       "inbound": [
         {
+          "source": "AGENTS.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References server.ps1"
+        },
+        {
           "source": "CONTEXT.md",
           "sourceType": "file",
           "type": "Path Reference",
@@ -26161,6 +26342,12 @@
         },
         {
           "source": "Test-Suite.ps1",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References server.ps1"
+        },
+        {
+          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References server.ps1"
@@ -33679,10 +33866,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "3c9d148f8eaacc5e",
-      "reviewedHash": "3c9d148f8eaacc5e",
-      "lineCount": 43076,
-      "sizeBytes": 5900449,
+      "hash": "f67cd6a10839a660",
+      "reviewedHash": "f67cd6a10839a660",
+      "lineCount": 43078,
+      "sizeBytes": 5900628,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -33771,6 +33958,12 @@
         },
         {
           "target": "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
+          "targetType": "file",
+          "type": "Governing Spec",
+          "reason": "Authoritative specification for start.html"
+        },
+        {
+          "target": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
           "targetType": "file",
           "type": "Governing Spec",
           "reason": "Authoritative specification for start.html"
@@ -35752,6 +35945,12 @@
         },
         {
           "source": "AGENTS.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References test/run_tests.js"
+        },
+        {
+          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References test/run_tests.js"

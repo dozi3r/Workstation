@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T00:35:51.933Z",
-  "totalFiles": 296,
+  "generatedAt": "2026-11-01T00:47:13.624Z",
+  "totalFiles": 297,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2551,
+  "totalBidirectionalEdges": 2566,
   "staleCount": 0,
   "duplicateAuditTargets": 9,
   "volumes": [
@@ -179,12 +179,12 @@
       "title": "AGENTS.md: Creator Studio Agent Operating Manual & Router",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "hash": "4a3d4494b7e1ed8d",
-      "reviewedHash": "4a3d4494b7e1ed8d",
+      "hash": "bc1f43970499e2de",
+      "reviewedHash": "bc1f43970499e2de",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 47,
-      "inboundBacklinkCount": 11
+      "outboundCount": 50,
+      "inboundBacklinkCount": 12
     },
     {
       "relPath": "Build-Suite.ps1",
@@ -207,11 +207,11 @@
       "title": "Creator Studio",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "hash": "c0e61f7c8ea6fc51",
-      "reviewedHash": "c0e61f7c8ea6fc51",
+      "hash": "85c6029c3776140b",
+      "reviewedHash": "85c6029c3776140b",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 31,
+      "outboundCount": 32,
       "inboundBacklinkCount": 19
     },
     {
@@ -240,7 +240,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "Launch-AppMode.bat",
@@ -352,7 +352,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 13,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "admin.html",
@@ -375,11 +375,11 @@
       "title": "build_suite.js",
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "afae1fded261927a",
-      "reviewedHash": "afae1fded261927a",
+      "hash": "17009e14f2d3489c",
+      "reviewedHash": "17009e14f2d3489c",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 55,
+      "outboundCount": 60,
       "inboundBacklinkCount": 163
     },
     {
@@ -2452,7 +2452,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 8
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md",
@@ -2620,7 +2620,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
@@ -2634,7 +2634,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "docs/adr/0018-campaign-state-isolation-clean-slate-lifecycle-engine-and-zero-artifact-campaign-switching.md",
@@ -2663,6 +2663,20 @@
       "auditFlag": null,
       "outboundCount": 3,
       "inboundBacklinkCount": 0
+    },
+    {
+      "relPath": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+      "wikiHtml": "wiki/pages/docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md.html",
+      "wikiSrc": "wiki/src/files/docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md.md",
+      "title": "ADR 0019: Git-Integrated Token Optimization and Diff-Driven Agent Workflows",
+      "volume": "vol-1",
+      "kind": "Architectural Decision Record (ADR)",
+      "hash": "654007bae7acfbfc",
+      "reviewedHash": "654007bae7acfbfc",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 4,
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "docs/adr/desktop.ini",
@@ -2727,11 +2741,11 @@
       "title": "navigation_manifest.json",
       "volume": "vol-3",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "64766ca349b9e406",
-      "reviewedHash": "64766ca349b9e406",
+      "hash": "75d7515f54c58d1f",
+      "reviewedHash": "75d7515f54c58d1f",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 44,
+      "outboundCount": 45,
       "inboundBacklinkCount": 10
     },
     {
@@ -3320,7 +3334,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "server.ps1",
@@ -3334,7 +3348,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "sociology/00 sociology all.png",
@@ -4099,11 +4113,11 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "3c9d148f8eaacc5e",
-      "reviewedHash": "3c9d148f8eaacc5e",
+      "hash": "f67cd6a10839a660",
+      "reviewedHash": "f67cd6a10839a660",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 160,
+      "outboundCount": 161,
       "inboundBacklinkCount": 69
     },
     {
@@ -4258,7 +4272,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 22,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "test/verify_patrol_faction_gate.js",
