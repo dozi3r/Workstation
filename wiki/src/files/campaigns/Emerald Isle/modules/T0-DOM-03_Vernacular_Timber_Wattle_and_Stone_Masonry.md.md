@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/T0-DOM-03_Vernacular_Timber_Wattle_an
 title: "T0-DOM-03: Vernacular Timber, Wattle & Stone Masonry"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "aadf7e23aa74c8fd"
-reviewed_hash: "aadf7e23aa74c8fd"
+current_hash: "b9d98cbb04a82901"
+reviewed_hash: "b9d98cbb04a82901"
 stale: false
-size_bytes: 13610
+size_bytes: 13768
 line_count: 159
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/FACT-04_The_Equilibrium_Engine_and_St
 title: "FACT-04: The Equilibrium Engine & Stability Points (SP)"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "17553397d6de6960"
-reviewed_hash: "17553397d6de6960"
+current_hash: "0a29cef50188dbc9"
+reviewed_hash: "0a29cef50188dbc9"
 stale: false
-size_bytes: 3439
+size_bytes: 3487
 line_count: 49
 ---
 

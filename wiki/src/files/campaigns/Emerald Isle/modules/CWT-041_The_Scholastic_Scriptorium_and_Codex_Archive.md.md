@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-041_The_Scholastic_Scriptorium_an
 title: "CWT-041: The Scholastic Scriptorium & Codex Archive"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "4f9ddc3ee79bbeea"
-reviewed_hash: "4f9ddc3ee79bbeea"
+current_hash: "78834145befbedd6"
+reviewed_hash: "78834145befbedd6"
 stale: false
-size_bytes: 4447
+size_bytes: 4490
 line_count: 44
 ---
 

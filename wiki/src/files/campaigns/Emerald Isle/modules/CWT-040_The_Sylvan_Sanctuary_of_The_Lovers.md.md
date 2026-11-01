@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-040_The_Sylvan_Sanctuary_of_The_L
 title: "CWT-040: The Sylvan Sanctuary of The Lovers"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "ddf98ed3d4b0f2ef"
-reviewed_hash: "ddf98ed3d4b0f2ef"
+current_hash: "a58976be0c6b1a25"
+reviewed_hash: "a58976be0c6b1a25"
 stale: false
-size_bytes: 4277
+size_bytes: 4320
 line_count: 44
 ---
 

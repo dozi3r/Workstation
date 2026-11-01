@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-044_The_Dawn_Cathedral_and_Solar_
 title: "CWT-044: The Dawn Cathedral & Solar Solstice Mirror"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "a57e5b47854797c3"
-reviewed_hash: "a57e5b47854797c3"
+current_hash: "214c8350e1541054"
+reviewed_hash: "214c8350e1541054"
 stale: false
-size_bytes: 4472
+size_bytes: 4515
 line_count: 44
 ---
 

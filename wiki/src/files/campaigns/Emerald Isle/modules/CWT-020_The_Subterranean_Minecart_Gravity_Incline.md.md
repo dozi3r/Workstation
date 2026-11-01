@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-020_The_Subterranean_Minecart_Gra
 title: "CWT-020: The Subterranean Minecart Gravity Incline"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "a693582e40e08f00"
-reviewed_hash: "a693582e40e08f00"
+current_hash: "cc94b1af334b6869"
+reviewed_hash: "cc94b1af334b6869"
 stale: false
-size_bytes: 4359
+size_bytes: 4402
 line_count: 44
 ---
 

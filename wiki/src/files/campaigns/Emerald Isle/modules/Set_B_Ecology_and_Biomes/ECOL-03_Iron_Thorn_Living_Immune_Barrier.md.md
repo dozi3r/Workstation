@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-03_Iron
 title: "ECOL-03: The Iron-Thorn Living Immune Barrier"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "3fa1b20cab09c619"
-reviewed_hash: "3fa1b20cab09c619"
+current_hash: "6e02544c895e546e"
+reviewed_hash: "6e02544c895e546e"
 stale: false
-size_bytes: 3299
+size_bytes: 3349
 line_count: 51
 ---
 

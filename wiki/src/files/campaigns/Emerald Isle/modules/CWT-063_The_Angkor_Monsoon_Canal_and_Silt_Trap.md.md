@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-063_The_Angkor_Monsoon_Canal_and_
 title: "CWT-063: The Angkor Monsoon Canal and Silt Trap"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "b48597197c5541f7"
-reviewed_hash: "b48597197c5541f7"
+current_hash: "d2761f8c547e77f5"
+reviewed_hash: "d2761f8c547e77f5"
 stale: false
-size_bytes: 24400
+size_bytes: 24596
 line_count: 197
 ---
 

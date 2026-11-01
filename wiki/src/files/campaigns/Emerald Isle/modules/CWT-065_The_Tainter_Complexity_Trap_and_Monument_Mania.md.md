@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-065_The_Tainter_Complexity_Trap_a
 title: "CWT-065: The Tainter Complexity Trap and Monument Mania"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "ad0a5078822c8f20"
-reviewed_hash: "ad0a5078822c8f20"
+current_hash: "a37e8aae3149d92d"
+reviewed_hash: "a37e8aae3149d92d"
 stale: false
-size_bytes: 34245
+size_bytes: 34483
 line_count: 239
 ---
 

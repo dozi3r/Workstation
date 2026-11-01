@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/T0-DOM-04_The_Ditch_and_Palisade_with
 title: "T0-DOM-04: The Ditch-and-Palisade with Town Watch Bailiff"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "c26fb91b259144c6"
-reviewed_hash: "c26fb91b259144c6"
+current_hash: "73cdc3b71ed24f9d"
+reviewed_hash: "73cdc3b71ed24f9d"
 stale: false
-size_bytes: 13610
+size_bytes: 13768
 line_count: 159
 ---
 

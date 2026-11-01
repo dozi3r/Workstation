@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-022_The_Glacial_Crevasse_Cable_Fu
 title: "CWT-022: The Glacial Crevasse Cable Funicular"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "447cfb522337f022"
-reviewed_hash: "447cfb522337f022"
+current_hash: "8ce9d03a26e6e965"
+reviewed_hash: "8ce9d03a26e6e965"
 stale: false
-size_bytes: 4048
+size_bytes: 4091
 line_count: 44
 ---
 

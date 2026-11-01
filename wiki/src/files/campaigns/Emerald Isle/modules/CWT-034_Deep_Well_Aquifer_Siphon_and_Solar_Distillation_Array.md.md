@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-034_Deep_Well_Aquifer_Siphon_and_
 title: "CWT-034: Deep-Well Aquifer Siphon & Solar Distillation Array"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "691206e5d8cf2ef4"
-reviewed_hash: "691206e5d8cf2ef4"
+current_hash: "988e577eb61e2208"
+reviewed_hash: "988e577eb61e2208"
 stale: false
-size_bytes: 4422
+size_bytes: 4465
 line_count: 44
 ---
 

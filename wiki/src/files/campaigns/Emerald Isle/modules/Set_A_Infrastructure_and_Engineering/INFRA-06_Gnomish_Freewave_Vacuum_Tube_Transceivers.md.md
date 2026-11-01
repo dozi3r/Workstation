@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/
 title: "INFRA-06: Gnomish Freewave Vacuum-Tube Transceivers"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "97db22123c2c5544"
-reviewed_hash: "97db22123c2c5544"
+current_hash: "b9796d5dfc6ec0d7"
+reviewed_hash: "b9796d5dfc6ec0d7"
 stale: false
-size_bytes: 3708
+size_bytes: 3762
 line_count: 55
 ---
 

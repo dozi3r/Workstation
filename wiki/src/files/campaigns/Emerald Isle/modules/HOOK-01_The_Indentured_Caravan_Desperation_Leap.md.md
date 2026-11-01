@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/HOOK-01_The_Indentured_Caravan_Desper
 title: "HOOK-01: The Indentured Caravan Desperation Leap and Truck-System Fracture"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "840f60644318545d"
-reviewed_hash: "840f60644318545d"
+current_hash: "abd0fd8e5eb4ff6d"
+reviewed_hash: "abd0fd8e5eb4ff6d"
 stale: false
-size_bytes: 30336
+size_bytes: 30669
 line_count: 334
 ---
 

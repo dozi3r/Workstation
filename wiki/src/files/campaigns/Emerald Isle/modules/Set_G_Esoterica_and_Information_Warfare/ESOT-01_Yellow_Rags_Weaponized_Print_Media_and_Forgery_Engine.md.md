@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfa
 title: "ESOT-01: Yellow Rags: Weaponized Print Media & The Forgery Engine"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "990553309d4b5c69"
-reviewed_hash: "990553309d4b5c69"
+current_hash: "0eaa080d31942e87"
+reviewed_hash: "0eaa080d31942e87"
 stale: false
-size_bytes: 4773
+size_bytes: 4833
 line_count: 61
 ---
 

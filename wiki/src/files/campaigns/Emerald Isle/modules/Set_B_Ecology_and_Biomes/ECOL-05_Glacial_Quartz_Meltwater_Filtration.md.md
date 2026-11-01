@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-05_Glac
 title: "ECOL-05: Glacial Quartz Meltwater Filtration Caverns"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "cb7b5ac1c701fbbe"
-reviewed_hash: "cb7b5ac1c701fbbe"
+current_hash: "b935480b38039cad"
+reviewed_hash: "b935480b38039cad"
 stale: false
-size_bytes: 3129
+size_bytes: 3176
 line_count: 48
 ---
 

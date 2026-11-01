@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-074_The_Teotihuacan_Palace_Immola
 title: "CWT-074: The Teotihuacan Palace Immolation and Pyramidal Revolt"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "b6162ead844d84aa"
-reviewed_hash: "b6162ead844d84aa"
+current_hash: "a41b517bc588e917"
+reviewed_hash: "a41b517bc588e917"
 stale: false
-size_bytes: 28904
+size_bytes: 29116
 line_count: 213
 ---
 

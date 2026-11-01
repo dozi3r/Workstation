@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-010_The_Biogenic_Spore_Bloom_and_
 title: "CWT-010: The Biogenic Spore Bloom & Planetary Rebirth"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "e0c269b9cc32a25a"
-reviewed_hash: "e0c269b9cc32a25a"
+current_hash: "4294da846fd2e240"
+reviewed_hash: "4294da846fd2e240"
 stale: false
-size_bytes: 4551
+size_bytes: 4594
 line_count: 44
 ---
 

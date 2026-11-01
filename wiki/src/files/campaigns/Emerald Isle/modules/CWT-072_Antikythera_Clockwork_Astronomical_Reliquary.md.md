@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-072_Antikythera_Clockwork_Astrono
 title: "CWT-072: Antikythera Clockwork Astronomical Reliquary"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "e222cd976748b7ff"
-reviewed_hash: "e222cd976748b7ff"
+current_hash: "86f4c2b3ed8aeb2c"
+reviewed_hash: "86f4c2b3ed8aeb2c"
 stale: false
-size_bytes: 30067
+size_bytes: 30294
 line_count: 228
 ---
 

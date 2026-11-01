@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-069_Roman_Lead_Fistulae_Toxicity_
 title: "CWT-069: Roman Lead Fistulae Toxicity and Currency Debasement"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "fb7bf0ae5d0848df"
-reviewed_hash: "fb7bf0ae5d0848df"
+current_hash: "09690676eeab3973"
+reviewed_hash: "09690676eeab3973"
 stale: false
-size_bytes: 29862
+size_bytes: 30087
 line_count: 226
 ---
 

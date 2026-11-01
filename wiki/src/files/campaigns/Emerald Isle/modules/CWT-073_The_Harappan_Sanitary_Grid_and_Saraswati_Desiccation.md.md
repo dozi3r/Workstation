@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-073_The_Harappan_Sanitary_Grid_an
 title: "CWT-073: The Harappan Sanitary Grid and Saraswati Desiccation"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "133a7ff45fe5eeb1"
-reviewed_hash: "133a7ff45fe5eeb1"
+current_hash: "796f19bcfc1329d8"
+reviewed_hash: "796f19bcfc1329d8"
 stale: false
-size_bytes: 29379
+size_bytes: 29592
 line_count: 214
 ---
 

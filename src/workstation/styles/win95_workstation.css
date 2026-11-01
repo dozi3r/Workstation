@@ -902,7 +902,7 @@
   .handle-n {
     top: 0;
     left: 10px;
-    right: 10px;
+    right: 70px;
     height: 6px;
     cursor: ns-resize;
   }
@@ -943,8 +943,8 @@
   .handle-ne {
     top: 0;
     right: 0;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     cursor: nesw-resize;
     z-index: 1001;
   }
@@ -994,10 +994,10 @@
   }
 
   .mdi-window.maximized {
-    top: 0 !important;
+    top: 24px !important;
     left: 0 !important;
     width: 100% !important;
-    height: calc(100% - 28px) !important;
+    height: calc(100% - 24px - 28px) !important;
     resize: none !important;
   }
 
@@ -1016,6 +1016,8 @@
     font-size: 11px;
     cursor: move;
     user-select: none;
+    position: relative;
+    z-index: 1010;
   }
 
   .mdi-window:not(.active-focus) .mdi-title-bar {
@@ -1038,7 +1040,8 @@
     gap: 2px;
     flex-shrink: 0;
     position: relative;
-    z-index: 1002;
+    z-index: 1020;
+    pointer-events: auto;
   }
 
   .mdi-title-controls button {
@@ -1049,6 +1052,9 @@
     padding: 0;
     line-height: 12px;
     cursor: pointer;
+    position: relative;
+    z-index: 1025;
+    pointer-events: auto;
   }
 
   .mdi-body {
@@ -1208,11 +1214,11 @@
 
   /* Entity Manager Win95 Multi-Pane Styles */
   .entity-manager-grid {
-    display: grid;
-    grid-template-columns: 210px 1fr 280px;
-    gap: 6px;
+    display: flex;
+    gap: 0;
     flex: 1;
     min-height: 0;
+    overflow: hidden;
   }
 
   /* Threat Clock & Dial Gauges */
@@ -1260,6 +1266,10 @@
   }
 
   .entity-sidebar-tree {
+    width: 210px;
+    min-width: 160px;
+    max-width: 450px;
+    flex-shrink: 0;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 3px;
@@ -1298,6 +1308,8 @@
   }
 
   .entity-list-container {
+    flex: 1;
+    min-width: 240px;
     overflow-y: auto;
     background-color: white;
   }
@@ -1342,6 +1354,10 @@
   }
 
   .entity-detail-pane {
+    width: 280px;
+    min-width: 220px;
+    max-width: 600px;
+    flex-shrink: 0;
     background-color: #f8f8f8;
     padding: 8px;
     overflow-y: auto;

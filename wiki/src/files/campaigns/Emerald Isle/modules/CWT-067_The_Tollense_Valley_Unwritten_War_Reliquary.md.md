@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-067_The_Tollense_Valley_Unwritten
 title: "CWT-067: The Tollense Valley Unwritten War Reliquary"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "ef7531a420ac8bcb"
-reviewed_hash: "ef7531a420ac8bcb"
+current_hash: "b1a77ad47f5c7451"
+reviewed_hash: "b1a77ad47f5c7451"
 stale: false
-size_bytes: 29314
+size_bytes: 29524
 line_count: 211
 ---
 

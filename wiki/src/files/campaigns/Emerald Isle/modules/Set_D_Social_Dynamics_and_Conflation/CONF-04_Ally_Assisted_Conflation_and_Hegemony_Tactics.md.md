@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/
 title: "CONF-04: Ally-Assisted Conflation & Hegemony Smothering Tactics"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "28eff3ef31860e7f"
-reviewed_hash: "28eff3ef31860e7f"
+current_hash: "5b1ce7fcb1d3e167"
+reviewed_hash: "5b1ce7fcb1d3e167"
 stale: false
-size_bytes: 3436
+size_bytes: 3484
 line_count: 49
 ---
 

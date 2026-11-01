@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPA
 title: "SPARK-07: The Competent Hero vs. The Hoarding Bureaucrat"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "c8f21a9b4e2d4184"
-reviewed_hash: "c8f21a9b4e2d4184"
+current_hash: "932e046a4f0fc24e"
+reviewed_hash: "932e046a4f0fc24e"
 stale: false
-size_bytes: 3195
+size_bytes: 3243
 line_count: 49
 ---
 

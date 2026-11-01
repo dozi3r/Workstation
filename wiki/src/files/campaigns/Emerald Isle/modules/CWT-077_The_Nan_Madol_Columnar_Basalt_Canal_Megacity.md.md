@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-077_The_Nan_Madol_Columnar_Basalt
 title: "CWT-077: The Nan Madol Columnar Basalt Canal Megacity"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "dc95839ed15a8ab3"
-reviewed_hash: "dc95839ed15a8ab3"
+current_hash: "4d4ba200d6fcfef7"
+reviewed_hash: "4d4ba200d6fcfef7"
 stale: false
-size_bytes: 28878
+size_bytes: 29097
 line_count: 220
 ---
 

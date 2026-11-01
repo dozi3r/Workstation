@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-021_The_Torrential_River_Sluice_L
 title: "CWT-021: The Torrential River Sluice Lock & Rapid Chute"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "3e3830d9da3ec2c7"
-reviewed_hash: "3e3830d9da3ec2c7"
+current_hash: "870e911615d9b4f1"
+reviewed_hash: "870e911615d9b4f1"
 stale: false
-size_bytes: 3975
+size_bytes: 4018
 line_count: 44
 ---
 

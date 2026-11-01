@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-060A_The_Cypriot_Copper_Smelting_
 title: "CWT-060A: The Cypriot Copper Smelting Slag Foundries"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "07453848634c5a7f"
-reviewed_hash: "07453848634c5a7f"
+current_hash: "53b07474d298ff10"
+reviewed_hash: "53b07474d298ff10"
 stale: false
-size_bytes: 18265
+size_bytes: 18444
 line_count: 180
 ---
 

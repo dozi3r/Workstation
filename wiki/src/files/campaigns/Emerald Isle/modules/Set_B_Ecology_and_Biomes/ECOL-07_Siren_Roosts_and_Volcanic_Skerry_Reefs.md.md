@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-07_Sire
 title: "ECOL-07: Siren Roosts & Volcanic Skerry Reefs"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "aa4074ee564ff344"
-reviewed_hash: "aa4074ee564ff344"
+current_hash: "9f701dc7baac01ea"
+reviewed_hash: "9f701dc7baac01ea"
 stale: false
-size_bytes: 3274
+size_bytes: 3322
 line_count: 49
 ---
 

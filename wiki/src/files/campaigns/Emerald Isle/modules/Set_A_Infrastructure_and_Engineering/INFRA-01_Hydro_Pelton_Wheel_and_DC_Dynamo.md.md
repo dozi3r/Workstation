@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/
 title: "INFRA-01: High-Head Hydro Pelton Wheel & Industrial DC Dynamo"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "e9e2648d6efd254d"
-reviewed_hash: "e9e2648d6efd254d"
+current_hash: "85635a6452c74dc4"
+reviewed_hash: "85635a6452c74dc4"
 stale: false
-size_bytes: 3907
+size_bytes: 3961
 line_count: 55
 ---
 

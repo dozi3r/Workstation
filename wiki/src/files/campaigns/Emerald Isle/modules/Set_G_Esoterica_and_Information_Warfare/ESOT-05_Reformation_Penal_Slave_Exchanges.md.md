@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfa
 title: "ESOT-05: The \"Reformation\" Penal System & Tri-Point Discipline Triangle"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "596d8b9b865b81b1"
-reviewed_hash: "596d8b9b865b81b1"
+current_hash: "97e5a612d39a49bc"
+reviewed_hash: "97e5a612d39a49bc"
 stale: false
-size_bytes: 3801
+size_bytes: 3850
 line_count: 50
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-02_
 title: "FACT-02: The 2-Axis Sovereign Faction Tension Matrix"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "fd3ce4e12a651ae6"
-reviewed_hash: "fd3ce4e12a651ae6"
+current_hash: "33573e78e0c75e80"
+reviewed_hash: "33573e78e0c75e80"
 stale: false
-size_bytes: 3872
+size_bytes: 3935
 line_count: 64
 ---
 

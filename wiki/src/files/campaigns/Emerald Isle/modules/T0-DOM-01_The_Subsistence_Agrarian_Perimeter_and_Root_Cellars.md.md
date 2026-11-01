@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/T0-DOM-01_The_Subsistence_Agrarian_Pe
 title: "T0-DOM-01: The Subsistence Agrarian Perimeter and Root Cellars"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "b1d56f7623a21936"
-reviewed_hash: "b1d56f7623a21936"
+current_hash: "7f28faab122ef852"
+reviewed_hash: "7f28faab122ef852"
 stale: false
-size_bytes: 15214
+size_bytes: 15378
 line_count: 165
 ---
 

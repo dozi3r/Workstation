@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/
 title: "CONF-03: The Green-Blue Conflation (Traditionalist Stagnation)"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "842aff60f53dc571"
-reviewed_hash: "842aff60f53dc571"
+current_hash: "ffa08845390d2970"
+reviewed_hash: "ffa08845390d2970"
 stale: false
-size_bytes: 3727
+size_bytes: 3772
 line_count: 46
 ---
 

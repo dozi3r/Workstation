@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-062_The_Thonis_Heracleion_Liquefa
 title: "CWT-062: The Thonis-Heracleion Liquefaction Port"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "29f4d32214b219d4"
-reviewed_hash: "29f4d32214b219d4"
+current_hash: "a7691807b4ac76b2"
+reviewed_hash: "a7691807b4ac76b2"
 stale: false
-size_bytes: 29990
+size_bytes: 30206
 line_count: 217
 ---
 

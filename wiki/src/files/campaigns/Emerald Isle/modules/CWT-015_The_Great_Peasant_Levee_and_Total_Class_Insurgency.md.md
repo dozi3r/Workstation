@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-015_The_Great_Peasant_Levee_and_T
 title: "CWT-015: The Great Peasant Levée & Total Class Insurgency"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "33dd21b499888cf8"
-reviewed_hash: "33dd21b499888cf8"
+current_hash: "23273454e787b592"
+reviewed_hash: "23273454e787b592"
 stale: false
-size_bytes: 4654
+size_bytes: 4697
 line_count: 44
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/
 title: "INFRA-09: Zim-Sharr Perimeter Braziers & Sonic Resonator Wards"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "0b41fa2e526e74d2"
-reviewed_hash: "0b41fa2e526e74d2"
+current_hash: "18b57eb3cc77cf91"
+reviewed_hash: "18b57eb3cc77cf91"
 stale: false
-size_bytes: 5224
+size_bytes: 5281
 line_count: 58
 ---
 

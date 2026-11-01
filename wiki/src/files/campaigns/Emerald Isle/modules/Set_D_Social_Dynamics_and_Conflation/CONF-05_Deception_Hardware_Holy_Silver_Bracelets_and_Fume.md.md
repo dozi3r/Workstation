@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/
 title: "CONF-05: Deception Hardware: Holy Silver Bracelets & The Sustainer's Breath"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "1a1928095146d1f6"
-reviewed_hash: "1a1928095146d1f6"
+current_hash: "651a747be91dbab2"
+reviewed_hash: "651a747be91dbab2"
 stale: false
-size_bytes: 3921
+size_bytes: 3972
 line_count: 52
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-076_The_Great_Zimbabwe_Mortarless
 title: "CWT-076: The Great Zimbabwe Mortarless Granite and Gold Monopoly"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "0caf4bbb316778cb"
-reviewed_hash: "0caf4bbb316778cb"
+current_hash: "0da8071001a4d35c"
+reviewed_hash: "0da8071001a4d35c"
 stale: false
-size_bytes: 29256
+size_bytes: 29470
 line_count: 215
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/STARTER-04_Ancient_Barrow_and_Restles
 title: "STARTER-04: The Ancient Barrow & Restless Dead"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "a140fdc9809dd8b6"
-reviewed_hash: "a140fdc9809dd8b6"
+current_hash: "d7394fe6e9e6dcd0"
+reviewed_hash: "d7394fe6e9e6dcd0"
 stale: false
-size_bytes: 2225
+size_bytes: 2263
 line_count: 39
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPA
 title: "SPARK-01: The Salt Warehouse Famine Riots"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "8c35e5a4bd10d9f6"
-reviewed_hash: "8c35e5a4bd10d9f6"
+current_hash: "fe2201e0dcb51dab"
+reviewed_hash: "fe2201e0dcb51dab"
 stale: false
-size_bytes: 3147
+size_bytes: 3195
 line_count: 49
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-014_The_Cosmic_Planar_Collision_a
 title: "CWT-014: The Cosmic Planar Collision & Leyline Shatter"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "b309250739dbd542"
-reviewed_hash: "b309250739dbd542"
+current_hash: "4e6496d68cda7e25"
+reviewed_hash: "4e6496d68cda7e25"
 stale: false
-size_bytes: 4419
+size_bytes: 4462
 line_count: 44
 ---
 

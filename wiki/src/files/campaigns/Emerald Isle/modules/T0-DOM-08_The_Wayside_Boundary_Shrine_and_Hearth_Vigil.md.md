@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/T0-DOM-08_The_Wayside_Boundary_Shrine
 title: "T0-DOM-08: The Wayside Boundary Shrine & Hearth Vigil"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "5c6ea43e463773d2"
-reviewed_hash: "5c6ea43e463773d2"
+current_hash: "d770fd246aa81339"
+reviewed_hash: "d770fd246aa81339"
 stale: false
-size_bytes: 14421
+size_bytes: 14579
 line_count: 159
 ---
 

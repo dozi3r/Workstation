@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/FACT-03_Decapitation_Proof_Mosaic_Gov
 title: "FACT-03: Decapitation-Proof State Architecture (The Mosaic Doctrine)"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "2094bac68a147617"
-reviewed_hash: "2094bac68a147617"
+current_hash: "9b409e969c680e5b"
+reviewed_hash: "9b409e969c680e5b"
 stale: false
-size_bytes: 3790
+size_bytes: 3840
 line_count: 51
 ---
 

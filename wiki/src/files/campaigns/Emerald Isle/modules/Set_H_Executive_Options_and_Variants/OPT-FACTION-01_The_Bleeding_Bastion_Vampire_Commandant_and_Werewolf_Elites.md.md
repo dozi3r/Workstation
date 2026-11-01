@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/
 title: "OPT-FACTION-01: The Bleeding Bastion: Vampire Commandant & Werewolf Elites"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "ab138ac37dd5f722"
-reviewed_hash: "ab138ac37dd5f722"
+current_hash: "7d0b11f4b313e35b"
+reviewed_hash: "7d0b11f4b313e35b"
 stale: false
-size_bytes: 6182
+size_bytes: 6273
 line_count: 92
 ---
 

@@ -5,7 +5,12 @@
       windows: {},
       activeWindowId: null,
       highestZIndex: 100,
+    };
+    if (typeof window !== 'undefined') {
+      window.MDIWindowManager = MDIWindowManager;
+    }
 
+    Object.assign(MDIWindowManager, {
       registerWindow(id, config) {
         const el = document.getElementById(id);
         if (!el) return;
@@ -53,7 +58,7 @@
         let startX, startY, initialLeft, initialTop;
 
         const onMouseDown = (e) => {
-          if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+          if (e.target.tagName === 'BUTTON' || e.target.closest('button, .mdi-title-controls, .title-bar-controls')) return;
           this.bringToFront(id);
           if (win.maximized) return;
 
@@ -96,6 +101,10 @@
         };
 
         header.addEventListener('mousedown', onMouseDown);
+        header.addEventListener('dblclick', (e) => {
+          if (e.target.tagName === 'BUTTON' || e.target.closest('button, .mdi-title-controls, .title-bar-controls')) return;
+          this.restoreOrMaximize(id);
+        });
         win.el.addEventListener('mousedown', () => this.bringToFront(id));
       },
 
@@ -119,6 +128,7 @@
         }
 
         handleContainer.addEventListener('mousedown', (e) => {
+          if (e.target.closest('button, .mdi-title-controls, .title-bar-controls')) return;
           const handle = e.target.closest('.mdi-resize-handle');
           if (!handle) return;
           if (win.maximized) return;
@@ -261,10 +271,14 @@
         } else if (win.maximized) {
           win.maximized = false;
           win.el.classList.remove('maximized');
-          win.el.style.top = win.lastPos.top;
-          win.el.style.left = win.lastPos.left;
-          win.el.style.width = win.lastPos.width;
-          win.el.style.height = win.lastPos.height;
+          const defaultW = '960px';
+          const defaultH = '620px';
+          const defaultTop = '50px';
+          const defaultLeft = '80px';
+          win.el.style.top = (win.lastPos && win.lastPos.top && win.lastPos.top !== '0px' && win.lastPos.top !== '24px') ? win.lastPos.top : defaultTop;
+          win.el.style.left = (win.lastPos && win.lastPos.left && win.lastPos.left !== '0px') ? win.lastPos.left : defaultLeft;
+          win.el.style.width = (win.lastPos && win.lastPos.width && win.lastPos.width !== '100%') ? win.lastPos.width : defaultW;
+          win.el.style.height = (win.lastPos && win.lastPos.height && !win.lastPos.height.includes('100%') && !win.lastPos.height.includes('calc')) ? win.lastPos.height : defaultH;
           this.bringToFront(id);
         } else {
           win.lastPos = {
@@ -276,6 +290,13 @@
           win.maximized = true;
           win.el.classList.add('maximized');
           this.bringToFront(id);
+        }
+
+        // Update button glyph & title in title controls
+        const maxBtn = win.el.querySelector('.mdi-title-controls button[title*="Maximize"], .title-bar-controls button[title*="Maximize"]');
+        if (maxBtn) {
+          maxBtn.innerHTML = win.maximized ? '&#x29C9;' : '&#9633;';
+          maxBtn.title = win.maximized ? 'Restore' : 'Maximize';
         }
 
         this.renderTaskbar();
@@ -476,7 +497,7 @@
         Object.keys(this.windows).forEach(id => this.close(id));
         setStatusBarMessage("Closed all windows.");
       }
-    };
+    });
 
     function toggleStartMenu() {
       const menu = document.getElementById('win95-start-menu');
@@ -2681,6 +2702,32 @@
           maxWidth: 600,
           defaultWidth: 380,
           storageKey: 'cs_module_explorer_catalog_width'
+        });
+      }
+
+      // 4. Entity Manager Left Tree Splitter (SYS-START-18)
+      const emSplitterLeft = document.getElementById('em-splitter-left');
+      const emTreePane = document.getElementById('em-tree-container');
+      if (emSplitterLeft && emTreePane) {
+        setupPaneSplitter(emSplitterLeft, emTreePane, {
+          mode: 'left',
+          minWidth: 160,
+          maxWidth: 450,
+          defaultWidth: 210,
+          storageKey: 'cs_em_tree_width'
+        });
+      }
+
+      // 5. Entity Manager Right Inspector Splitter (SYS-START-18)
+      const emSplitterRight = document.getElementById('em-splitter-right');
+      const emDetailPane = document.getElementById('em-detail-pane');
+      if (emSplitterRight && emDetailPane) {
+        setupPaneSplitter(emSplitterRight, emDetailPane, {
+          mode: 'right',
+          minWidth: 220,
+          maxWidth: 600,
+          defaultWidth: 280,
+          storageKey: 'cs_em_detail_width'
         });
       }
     }

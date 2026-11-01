@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfa
 title: "ESOT-06: The Cosmic Collider & Planar Breach Trigger"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "be263c0031ed56bb"
-reviewed_hash: "be263c0031ed56bb"
+current_hash: "9f09b784a9f1fc54"
+reviewed_hash: "9f09b784a9f1fc54"
 stale: false
-size_bytes: 3689
+size_bytes: 3736
 line_count: 48
 ---
 

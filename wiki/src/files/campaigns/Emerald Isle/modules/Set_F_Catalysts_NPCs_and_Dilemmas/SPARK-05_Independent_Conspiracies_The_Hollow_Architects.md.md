@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPA
 title: "SPARK-05: Independent Conspiracy: The Hollow Architects"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "1c555d663272bfa6"
-reviewed_hash: "1c555d663272bfa6"
+current_hash: "5cbd1649ea93475f"
+reviewed_hash: "5cbd1649ea93475f"
 stale: false
-size_bytes: 3299
+size_bytes: 3347
 line_count: 49
 ---
 

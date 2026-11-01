@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-012_The_Clockwork_Demiurge_Awaken
 title: "CWT-012: The Clockwork Demiurge Awakening & Techno-Apotheosis"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "00b0e31e477d56d0"
-reviewed_hash: "00b0e31e477d56d0"
+current_hash: "6cfc369a01dccd97"
+reviewed_hash: "6cfc369a01dccd97"
 stale: false
-size_bytes: 4554
+size_bytes: 4597
 line_count: 44
 ---
 

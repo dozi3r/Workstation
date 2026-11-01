@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/
 title: "OPT-ZOO-01: Barnaby's \"Cage-Free\" Apex Menagerie & The Matterhorn Purple Dragon"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "5dbd1fb003d33d04"
-reviewed_hash: "5dbd1fb003d33d04"
+current_hash: "99d5e0927b7060a1"
+reviewed_hash: "99d5e0927b7060a1"
 stale: false
-size_bytes: 6938
+size_bytes: 7019
 line_count: 82
 ---
 

@@ -3,11 +3,11 @@ file_path: "src/workstation/modals/entity_modals.html"
 title: "entity_modals.html"
 volume: "vol-4"
 kind: "Workstation Shell Template"
-current_hash: "bea04b4818d8b764"
-reviewed_hash: "bea04b4818d8b764"
+current_hash: "ffa3774d3d6b9b04"
+reviewed_hash: "ffa3774d3d6b9b04"
 stale: false
-size_bytes: 29498
-line_count: 480
+size_bytes: 29881
+line_count: 486
 ---
 
 # entity_modals.html

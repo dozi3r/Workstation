@@ -5562,6 +5562,61 @@ function testMdiWindowResizingAndDockSplitters() {
   sandbox.togglePropertiesDock();
   assertEqual(propDock.style.display, 'flex', 'togglePropertiesDock restores properties-dock');
   assertEqual(dockSplitter.style.display, 'block', 'togglePropertiesDock restores dock-splitter');
+
+  // 5. Test Entity Manager Splitters (#em-splitter-left and #em-splitter-right)
+  const emSplitterLeft = getOrMakeEl('em-splitter-left', 'div', 'pane-splitter-vertical');
+  const emTreePane = getOrMakeEl('em-tree-container', 'div', 'entity-sidebar-tree');
+  emTreePane.offsetWidth = 210;
+  emTreePane.style.width = '210px';
+
+  const emSplitterRight = getOrMakeEl('em-splitter-right', 'div', 'pane-splitter-vertical');
+  const emDetailPane = getOrMakeEl('em-detail-pane', 'div', 'entity-detail-pane');
+  emDetailPane.offsetWidth = 280;
+  emDetailPane.style.width = '280px';
+
+  sandbox.initWorkspaceSplitters();
+
+  assert(Boolean(emSplitterLeft.dataset.splitterBound), 'initWorkspaceSplitters binds #em-splitter-left');
+  assert(Boolean(emSplitterRight.dataset.splitterBound), 'initWorkspaceSplitters binds #em-splitter-right');
+
+  // Drag left splitter to widen tree pane
+  emSplitterLeft.dispatchEvent({ type: 'mousedown', clientX: 200, clientY: 100, preventDefault: () => {} });
+  const emTreeMove = docListeners['mousemove'] ? docListeners['mousemove'][0] : null;
+  assert(Boolean(emTreeMove), 'em-splitter-left mousedown binds mousemove listener');
+  if (emTreeMove) {
+    emTreeMove({ clientX: 280, clientY: 100 });
+    assertEqual(emTreePane.style.width, '290px', 'Dragging em-splitter-left right expands tree pane');
+    docListeners['mouseup'][0]();
+    assertEqual(mockStorage['cs_em_tree_width'], '290px', 'em-splitter-left persists width in localStorage');
+  }
+
+  // Double click resets em-tree-container to default 210px
+  emSplitterLeft.dispatchEvent({ type: 'dblclick' });
+  assertEqual(emTreePane.style.width, '210px', 'Double clicking em-splitter-left resets width to 210px');
+
+  // Drag right splitter to widen detail inspector pane
+  emSplitterRight.dispatchEvent({ type: 'mousedown', clientX: 800, clientY: 100, preventDefault: () => {} });
+  const emDetailMove = docListeners['mousemove'] ? docListeners['mousemove'][0] : null;
+  assert(Boolean(emDetailMove), 'em-splitter-right mousedown binds mousemove listener');
+  if (emDetailMove) {
+    emDetailMove({ clientX: 750, clientY: 100 });
+    assertEqual(emDetailPane.style.width, '330px', 'Dragging em-splitter-right left widens detail inspector pane');
+    docListeners['mouseup'][0]();
+    assertEqual(mockStorage['cs_em_detail_width'], '330px', 'em-splitter-right persists width in localStorage');
+  }
+
+  // 6. Test MDIWindowManager maximize and safe unmaximize
+  const emWin = getOrMakeEl('modal-em-test', 'div', 'mdi-window');
+  const emTitle = makeMockEl('div', 'mdi-title-bar');
+  emWin.appendChild(emTitle);
+  sandbox.MDIWindowManager.registerWindow('modal-em-test', { title: 'Entity Explorer Test' });
+
+  sandbox.MDIWindowManager.restoreOrMaximize('modal-em-test');
+  assert(emWin.classList.contains('maximized'), 'restoreOrMaximize sets maximized class');
+
+  sandbox.MDIWindowManager.restoreOrMaximize('modal-em-test');
+  assert(!emWin.classList.contains('maximized'), 'restoreOrMaximize unmaximizes properly');
+  assert(emWin.style.width !== '100%', 'unmaximize restores non-100% width');
 }
 
 // ============================================================================

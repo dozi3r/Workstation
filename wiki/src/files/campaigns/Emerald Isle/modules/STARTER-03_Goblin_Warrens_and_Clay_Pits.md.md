@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/STARTER-03_Goblin_Warrens_and_Clay_Pi
 title: "STARTER-03: The Goblin Warrens & Abandoned Clay Pits"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "4f06d62ea1b718ac"
-reviewed_hash: "4f06d62ea1b718ac"
+current_hash: "33e8647cf202799e"
+reviewed_hash: "33e8647cf202799e"
 stale: false
-size_bytes: 2185
+size_bytes: 2223
 line_count: 39
 ---
 

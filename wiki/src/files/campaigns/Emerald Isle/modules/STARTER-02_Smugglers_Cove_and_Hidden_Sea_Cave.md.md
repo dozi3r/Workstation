@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/STARTER-02_Smugglers_Cove_and_Hidden_
 title: "STARTER-02: Smugglers' Cove & Hidden Sea Cave"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "047434374bf9547e"
-reviewed_hash: "047434374bf9547e"
+current_hash: "75e74ed9e4f35536"
+reviewed_hash: "75e74ed9e4f35536"
 stale: false
-size_bytes: 2291
+size_bytes: 2330
 line_count: 40
 ---
 

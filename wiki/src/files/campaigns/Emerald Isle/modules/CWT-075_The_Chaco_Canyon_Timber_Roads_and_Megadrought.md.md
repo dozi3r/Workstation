@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-075_The_Chaco_Canyon_Timber_Roads
 title: "CWT-075: The Chaco Canyon Timber Roads and Megadrought"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "d6e02fbe9b6af62a"
-reviewed_hash: "d6e02fbe9b6af62a"
+current_hash: "60cff6c3faa6ca31"
+reviewed_hash: "60cff6c3faa6ca31"
 stale: false
-size_bytes: 27531
+size_bytes: 27749
 line_count: 219
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/T0-DOM-02_The_Communal_Artesian_Well_
 title: "T0-DOM-02: The Communal Artesian Well and Village Cistern"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "c9a79e0f5ccec5c0"
-reviewed_hash: "c9a79e0f5ccec5c0"
+current_hash: "b8f1079bd9eaf6b5"
+reviewed_hash: "b8f1079bd9eaf6b5"
 stale: false
-size_bytes: 14467
+size_bytes: 14626
 line_count: 160
 ---
 

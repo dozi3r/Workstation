@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-071_Cahokia_Mississippian_Mounds_
 title: "CWT-071: Cahokia Mississippian Mounds and Mega-Flood"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "b932010b6882d702"
-reviewed_hash: "b932010b6882d702"
+current_hash: "356e48b1475c165f"
+reviewed_hash: "356e48b1475c165f"
 stale: false
-size_bytes: 28903
+size_bytes: 29113
 line_count: 211
 ---
 

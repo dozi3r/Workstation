@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPA
 title: "SPARK-06: Independent Conspiracy: The Promethean Lodge"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "75b12a050dc010ac"
-reviewed_hash: "75b12a050dc010ac"
+current_hash: "7113c257f77b493a"
+reviewed_hash: "7113c257f77b493a"
 stale: false
-size_bytes: 3429
+size_bytes: 3477
 line_count: 49
 ---
 

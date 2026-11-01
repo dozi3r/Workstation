@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/T0-DOM-07_The_Midden_Trenches_Swine_S
 title: "T0-DOM-07: The Midden Trenches, Swine Scavengers & Night-Soil Pit"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "b01bae167aba3cd0"
-reviewed_hash: "b01bae167aba3cd0"
+current_hash: "337cbcc1dc495297"
+reviewed_hash: "337cbcc1dc495297"
 stale: false
-size_bytes: 13734
+size_bytes: 13892
 line_count: 159
 ---
 

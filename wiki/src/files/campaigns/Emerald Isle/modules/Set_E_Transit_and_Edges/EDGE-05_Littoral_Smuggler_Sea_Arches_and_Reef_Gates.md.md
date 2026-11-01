@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-05_Litto
 title: "EDGE-05: Littoral Smuggler Sea Arches & Reef Gates"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "b299954a4c568e91"
-reviewed_hash: "b299954a4c568e91"
+current_hash: "ad4be08481618221"
+reviewed_hash: "ad4be08481618221"
 stale: false
-size_bytes: 3138
+size_bytes: 3185
 line_count: 48
 ---
 

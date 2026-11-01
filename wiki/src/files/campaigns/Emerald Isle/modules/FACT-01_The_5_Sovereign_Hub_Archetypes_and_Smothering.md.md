@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/FACT-01_The_5_Sovereign_Hub_Archetype
 title: "FACT-01: The 5 Sovereign Hub Archetypes & Adjacency Smothering"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "c18d59aaf8f7a228"
-reviewed_hash: "c18d59aaf8f7a228"
+current_hash: "1e5e3d8e5a295801"
+reviewed_hash: "1e5e3d8e5a295801"
 stale: false
-size_bytes: 3802
+size_bytes: 3856
 line_count: 55
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/STARTER-06_Whispering_Old_Woods_and_H
 title: "STARTER-06: Whispering Old Woods & Herbalist Cloister"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "131efc64f22c9a7d"
-reviewed_hash: "131efc64f22c9a7d"
+current_hash: "47937ff9d79b37a5"
+reviewed_hash: "47937ff9d79b37a5"
 stale: false
-size_bytes: 2301
+size_bytes: 2339
 line_count: 39
 ---
 

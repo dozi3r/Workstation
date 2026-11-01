@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-06_High
 title: "ECOL-06: High Canopy Redwoods & Amber-Resin Taps"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "015b4cdcf3a63a68"
-reviewed_hash: "015b4cdcf3a63a68"
+current_hash: "3425069c1744e86c"
+reviewed_hash: "3425069c1744e86c"
 stale: false
-size_bytes: 3220
+size_bytes: 3268
 line_count: 49
 ---
 

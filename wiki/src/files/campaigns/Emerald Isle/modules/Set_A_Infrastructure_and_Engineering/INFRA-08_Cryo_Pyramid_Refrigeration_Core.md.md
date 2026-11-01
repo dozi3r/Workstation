@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/
 title: "INFRA-08: Cyclopean Cryo-Pyramid & Refrigeration Coils"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "09baa5a2988bd957"
-reviewed_hash: "09baa5a2988bd957"
+current_hash: "eb34772183c46857"
+reviewed_hash: "eb34772183c46857"
 stale: false
-size_bytes: 3412
+size_bytes: 3461
 line_count: 50
 ---
 

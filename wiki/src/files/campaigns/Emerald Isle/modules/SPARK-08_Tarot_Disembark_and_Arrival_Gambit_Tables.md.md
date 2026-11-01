@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/SPARK-08_Tarot_Disembark_and_Arrival_
 title: "SPARK-08: Tarot Disembark & Arrival Gambit Tables"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "91799fa9100f68c5"
-reviewed_hash: "91799fa9100f68c5"
+current_hash: "65809f1a4c90d4b3"
+reviewed_hash: "65809f1a4c90d4b3"
 stale: false
-size_bytes: 10366
+size_bytes: 10446
 line_count: 81
 ---
 

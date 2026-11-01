@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-06_
 title: "FACT-06: Tactical Bastion Fortification Ranks (Levels 1 to 4)"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "4556ef30bd381d8e"
-reviewed_hash: "4556ef30bd381d8e"
+current_hash: "e233f4619b2b6988"
+reviewed_hash: "e233f4619b2b6988"
 stale: false
-size_bytes: 3940
+size_bytes: 3999
 line_count: 60
 ---
 

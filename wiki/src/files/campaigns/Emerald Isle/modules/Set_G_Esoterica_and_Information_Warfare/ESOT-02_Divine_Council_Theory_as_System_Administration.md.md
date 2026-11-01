@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfa
 title: "ESOT-02: Divine Council Theory as System Administration"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "f88c31f0c28058de"
-reviewed_hash: "f88c31f0c28058de"
+current_hash: "d48d9f719bb2ea4b"
+reviewed_hash: "d48d9f719bb2ea4b"
 stale: false
-size_bytes: 4306
+size_bytes: 4361
 line_count: 56
 ---
 

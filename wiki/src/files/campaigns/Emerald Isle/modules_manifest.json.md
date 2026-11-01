@@ -3,11 +3,11 @@ file_path: "campaigns/Emerald Isle/modules_manifest.json"
 title: "modules_manifest.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "2718fc6cbdc3d5c5"
-reviewed_hash: "2718fc6cbdc3d5c5"
+current_hash: "2faef1026e32608d"
+reviewed_hash: "2faef1026e32608d"
 stale: false
-size_bytes: 93056
-line_count: 2247
+size_bytes: 81373
+line_count: 1995
 ---
 
 # modules_manifest.json

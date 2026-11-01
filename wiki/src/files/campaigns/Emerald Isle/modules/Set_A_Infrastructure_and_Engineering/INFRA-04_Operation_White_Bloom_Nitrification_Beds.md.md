@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/
 title: "INFRA-04: Operation White-Bloom Nitrification Midden Beds"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "c592c628e8a87ed6"
-reviewed_hash: "c592c628e8a87ed6"
+current_hash: "160aa547bd3cc07c"
+reviewed_hash: "160aa547bd3cc07c"
 stale: false
-size_bytes: 4039
+size_bytes: 4096
 line_count: 58
 ---
 

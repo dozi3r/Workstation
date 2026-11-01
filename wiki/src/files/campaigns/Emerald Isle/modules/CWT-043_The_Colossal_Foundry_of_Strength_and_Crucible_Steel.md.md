@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-043_The_Colossal_Foundry_of_Stren
 title: "CWT-043: The Colossal Foundry of Strength & Crucible Steel"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "46c53e9b5e1db02e"
-reviewed_hash: "46c53e9b5e1db02e"
+current_hash: "e184401dbd457bc7"
+reviewed_hash: "e184401dbd457bc7"
 stale: false
-size_bytes: 4487
+size_bytes: 4530
 line_count: 44
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/
 title: "CONF-02: The Green-Red Conflation (The Wild Rage)"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "22e77bf6ac6063e5"
-reviewed_hash: "22e77bf6ac6063e5"
+current_hash: "d3beca5500273aa3"
+reviewed_hash: "d3beca5500273aa3"
 stale: false
-size_bytes: 3681
+size_bytes: 3729
 line_count: 49
 ---
 

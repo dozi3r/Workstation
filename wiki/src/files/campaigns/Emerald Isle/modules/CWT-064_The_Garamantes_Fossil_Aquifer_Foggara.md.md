@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-064_The_Garamantes_Fossil_Aquifer
 title: "CWT-064: The Garamantes Fossil Aquifer Foggara"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "2d071b7e7a29198d"
-reviewed_hash: "2d071b7e7a29198d"
+current_hash: "a2622bee51475775"
+reviewed_hash: "a2622bee51475775"
 stale: false
-size_bytes: 27547
+size_bytes: 27752
 line_count: 206
 ---
 

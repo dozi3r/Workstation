@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-032_Subterranean_Fungiculture_Vau
 title: "CWT-032: Subterranean Fungiculture Vaults & Yeast Silos"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "7d244296b67a6cda"
-reviewed_hash: "7d244296b67a6cda"
+current_hash: "53e95c5fa64e4046"
+reviewed_hash: "53e95c5fa64e4046"
 stale: false
-size_bytes: 4323
+size_bytes: 4366
 line_count: 44
 ---
 

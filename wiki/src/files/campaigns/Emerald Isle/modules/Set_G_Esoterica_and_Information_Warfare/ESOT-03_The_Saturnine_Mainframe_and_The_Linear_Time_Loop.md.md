@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfa
 title: "ESOT-03: The Saturnine Mainframe & The Linear Time-Loop"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "88cbbb213beb6ec9"
-reviewed_hash: "88cbbb213beb6ec9"
+current_hash: "4aee7f1245dc5377"
+reviewed_hash: "4aee7f1245dc5377"
 stale: false
-size_bytes: 3890
+size_bytes: 3939
 line_count: 50
 ---
 

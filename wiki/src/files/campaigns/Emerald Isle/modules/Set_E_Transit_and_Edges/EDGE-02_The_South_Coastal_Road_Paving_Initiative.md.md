@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-02_The_S
 title: "EDGE-02: The South Coastal Road Paving Initiative"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "7ef6cab842c29fad"
-reviewed_hash: "7ef6cab842c29fad"
+current_hash: "7d449399f46c8a6b"
+reviewed_hash: "7d449399f46c8a6b"
 stale: false
-size_bytes: 3142
+size_bytes: 3188
 line_count: 47
 ---
 

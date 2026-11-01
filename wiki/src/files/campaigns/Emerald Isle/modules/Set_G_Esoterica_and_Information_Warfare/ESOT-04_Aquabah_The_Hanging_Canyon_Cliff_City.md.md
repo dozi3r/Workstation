@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfa
 title: "ESOT-04: Aquabah: The Hanging Canyon Cliff-City"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "5a65c11ff9bb9252"
-reviewed_hash: "5a65c11ff9bb9252"
+current_hash: "73d47e5fc1df0986"
+reviewed_hash: "73d47e5fc1df0986"
 stale: false
-size_bytes: 3873
+size_bytes: 3925
 line_count: 53
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/
 title: "INFRA-05: Swamp Mist-Maker Poles & Alchemical Pitcher Distillery"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "2b6c5f90aba4b158"
-reviewed_hash: "2b6c5f90aba4b158"
+current_hash: "77d42679fda699eb"
+reviewed_hash: "77d42679fda699eb"
 stale: false
-size_bytes: 4028
+size_bytes: 4084
 line_count: 57
 ---
 

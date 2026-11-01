@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walte
 title: "EDGE-03: Walters Wiggles Cliffside Switchback Ascent"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "2b99796d8a9eca91"
-reviewed_hash: "2b99796d8a9eca91"
+current_hash: "cd293da1c051b640"
+reviewed_hash: "cd293da1c051b640"
 stale: false
-size_bytes: 3172
+size_bytes: 3220
 line_count: 49
 ---
 

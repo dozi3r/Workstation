@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/T0-DOM-06_The_Village_Herbalist_Midwi
 title: "T0-DOM-06: The Village Herbalist, Midwife & Leechcraft Hearth"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "767c1c6b56f5b576"
-reviewed_hash: "767c1c6b56f5b576"
+current_hash: "6dd66b9c4dc177be"
+reviewed_hash: "6dd66b9c4dc177be"
 stale: false
-size_bytes: 14185
+size_bytes: 14343
 line_count: 159
 ---
 

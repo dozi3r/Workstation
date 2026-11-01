@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/
 title: "INFRA-07: Lakestone Resonant Menhir Radio Relay"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "bee2a1cc4e94fedb"
-reviewed_hash: "bee2a1cc4e94fedb"
+current_hash: "6fce4f260f69a0ea"
+reviewed_hash: "6fce4f260f69a0ea"
 stale: false
-size_bytes: 3490
+size_bytes: 3538
 line_count: 49
 ---
 

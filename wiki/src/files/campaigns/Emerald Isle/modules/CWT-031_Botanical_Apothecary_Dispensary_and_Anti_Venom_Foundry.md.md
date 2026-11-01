@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-031_Botanical_Apothecary_Dispensa
 title: "CWT-031: Botanical Apothecary Dispensary & Anti-Venom Foundry"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "92e6a6a10d53dee2"
-reviewed_hash: "92e6a6a10d53dee2"
+current_hash: "18f23bf33cc1fb06"
+reviewed_hash: "18f23bf33cc1fb06"
 stale: false
-size_bytes: 4480
+size_bytes: 4523
 line_count: 44
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPA
 title: "SPARK-02: The Living Statue Ward & The Blue-Rot Horror"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "96da53dbe058b66a"
-reviewed_hash: "96da53dbe058b66a"
+current_hash: "14c9167536eedec0"
+reviewed_hash: "14c9167536eedec0"
 stale: false
-size_bytes: 3287
+size_bytes: 3333
 line_count: 47
 ---
 

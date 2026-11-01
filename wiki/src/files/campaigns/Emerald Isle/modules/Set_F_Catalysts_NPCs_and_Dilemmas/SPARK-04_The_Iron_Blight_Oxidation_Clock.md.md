@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPA
 title: "SPARK-04: The Iron-Blight Atmospheric Degradation Clock"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "190a102d6c24a0f1"
-reviewed_hash: "190a102d6c24a0f1"
+current_hash: "0cb8a4398244fdc6"
+reviewed_hash: "0cb8a4398244fdc6"
 stale: false
-size_bytes: 3497
+size_bytes: 3546
 line_count: 50
 ---
 

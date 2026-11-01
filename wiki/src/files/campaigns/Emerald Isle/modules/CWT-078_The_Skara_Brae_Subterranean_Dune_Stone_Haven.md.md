@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-078_The_Skara_Brae_Subterranean_D
 title: "CWT-078: The Skara Brae Subterranean Dune Stone Haven"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "39dfe0d414106a9b"
-reviewed_hash: "39dfe0d414106a9b"
+current_hash: "47f389e5fbfd8c53"
+reviewed_hash: "47f389e5fbfd8c53"
 stale: false
-size_bytes: 28842
+size_bytes: 29059
 line_count: 218
 ---
 

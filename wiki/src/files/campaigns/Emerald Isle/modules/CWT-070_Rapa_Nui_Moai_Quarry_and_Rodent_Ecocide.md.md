@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-070_Rapa_Nui_Moai_Quarry_and_Rode
 title: "CWT-070: The Rapa Nui Moai Quarry and Rodent Ecocide"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "faedbc618efbbfb1"
-reviewed_hash: "faedbc618efbbfb1"
+current_hash: "daf31fb1477b99a5"
+reviewed_hash: "daf31fb1477b99a5"
 stale: false
-size_bytes: 32099
+size_bytes: 32327
 line_count: 229
 ---
 

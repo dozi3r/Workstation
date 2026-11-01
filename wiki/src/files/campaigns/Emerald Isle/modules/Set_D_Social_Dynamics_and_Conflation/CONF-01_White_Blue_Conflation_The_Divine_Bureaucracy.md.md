@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/
 title: "CONF-01: The White-Blue Conflation (The Divine Bureaucracy)"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "5bdf3b170e1281e5"
-reviewed_hash: "5bdf3b170e1281e5"
+current_hash: "e7ddb490223838ef"
+reviewed_hash: "e7ddb490223838ef"
 stale: false
-size_bytes: 3779
+size_bytes: 3827
 line_count: 49
 ---
 

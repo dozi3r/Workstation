@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-013_The_Eschatological_Miasma_and
 title: "CWT-013: The Eschatological Miasma & Necrotic Eclipse"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "5c56fb4f3e5cd283"
-reviewed_hash: "5c56fb4f3e5cd283"
+current_hash: "3b0fc8a78d91bd7f"
+reviewed_hash: "3b0fc8a78d91bd7f"
 stale: false
-size_bytes: 4246
+size_bytes: 4289
 line_count: 44
 ---
 

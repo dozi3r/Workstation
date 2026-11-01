@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-05_
 title: "FACT-05: The Beheaded Distributed Cell Syndicate"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "8e5b46a497688d2d"
-reviewed_hash: "8e5b46a497688d2d"
+current_hash: "c50c3aa89443a50b"
+reviewed_hash: "c50c3aa89443a50b"
 stale: false
-size_bytes: 3291
+size_bytes: 3338
 line_count: 48
 ---
 

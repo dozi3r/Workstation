@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-068_Amazonian_Upano_LiDAR_Garden_
 title: "CWT-068: The Amazonian Upano LiDAR Garden Cities"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "3804c0f9a7035776"
-reviewed_hash: "3804c0f9a7035776"
+current_hash: "019dbd77bb0c3987"
+reviewed_hash: "019dbd77bb0c3987"
 stale: false
-size_bytes: 34884
+size_bytes: 35125
 line_count: 242
 ---
 

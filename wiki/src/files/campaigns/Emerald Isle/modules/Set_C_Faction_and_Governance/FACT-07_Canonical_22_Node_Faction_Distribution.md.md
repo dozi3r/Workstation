@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-07_
 title: "FACT-07: Canonical 22-Node Faction & Governance Distribution"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "0beaa9420945ea16"
-reviewed_hash: "0beaa9420945ea16"
+current_hash: "065ec277b42e4623"
+reviewed_hash: "065ec277b42e4623"
 stale: false
-size_bytes: 8745
+size_bytes: 8851
 line_count: 107
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-061_The_Derinkuyu_18_Tier_Troglod
 title: "CWT-061: The Derinkuyu 18-Tier Troglodyte Bastion"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "07f353270198e04d"
-reviewed_hash: "07f353270198e04d"
+current_hash: "c040e220ed610917"
+reviewed_hash: "c040e220ed610917"
 stale: false
-size_bytes: 22050
+size_bytes: 22244
 line_count: 195
 ---
 

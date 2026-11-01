@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_C
 title: "EDGE-01: The Canyon Road Fatal Funnel Chokepoint"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "c43fe8f799dca764"
-reviewed_hash: "c43fe8f799dca764"
+current_hash: "103801d68ccdd134"
+reviewed_hash: "103801d68ccdd134"
 stale: false
-size_bytes: 3411
+size_bytes: 3460
 line_count: 50
 ---
 

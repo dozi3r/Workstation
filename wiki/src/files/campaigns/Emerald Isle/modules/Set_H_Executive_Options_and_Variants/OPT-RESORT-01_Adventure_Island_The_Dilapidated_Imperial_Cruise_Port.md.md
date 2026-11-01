@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/
 title: "OPT-RESORT-01: Adventure Island: The Dilapidated Imperial Cruise Port & Aquatic Shallows"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "fdebe72a060b0124"
-reviewed_hash: "fdebe72a060b0124"
+current_hash: "edd4b63b20908ee7"
+reviewed_hash: "edd4b63b20908ee7"
 stale: false
-size_bytes: 5853
+size_bytes: 5925
 line_count: 73
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/STARTER-05_Mountain_Watchtower_and_Si
 title: "STARTER-05: The Mountain Watchtower & Signal Pylon"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "4c3ed8593a198b7d"
-reviewed_hash: "4c3ed8593a198b7d"
+current_hash: "14f1c090ecde9956"
+reviewed_hash: "14f1c090ecde9956"
 stale: false
-size_bytes: 2212
+size_bytes: 2250
 line_count: 39
 ---
 

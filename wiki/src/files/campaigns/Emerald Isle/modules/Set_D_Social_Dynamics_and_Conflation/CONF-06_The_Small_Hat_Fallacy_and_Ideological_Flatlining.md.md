@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/
 title: "CONF-06: The Visible-Proxy Fallacy & Ideological Flatlining"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "37a2b91181efcef0"
-reviewed_hash: "37a2b91181efcef0"
+current_hash: "0fe64ab382705d4e"
+reviewed_hash: "0fe64ab382705d4e"
 stale: false
-size_bytes: 3962
+size_bytes: 4010
 line_count: 49
 ---
 

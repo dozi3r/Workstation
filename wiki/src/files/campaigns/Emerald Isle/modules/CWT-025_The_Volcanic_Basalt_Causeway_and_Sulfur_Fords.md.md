@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-025_The_Volcanic_Basalt_Causeway_
 title: "CWT-025: The Volcanic Basalt Causeway & Sulfur Fords"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "6ed354c489895767"
-reviewed_hash: "6ed354c489895767"
+current_hash: "8899bd3e85c5b92c"
+reviewed_hash: "8899bd3e85c5b92c"
 stale: false
-size_bytes: 3955
+size_bytes: 3998
 line_count: 44
 ---
 

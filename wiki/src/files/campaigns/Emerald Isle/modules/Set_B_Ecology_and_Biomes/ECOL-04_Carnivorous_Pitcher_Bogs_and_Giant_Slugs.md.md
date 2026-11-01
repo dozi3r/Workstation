@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-04_Carn
 title: "ECOL-04: Carnivorous Pitcher Bogs & Glandular Slugs"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "0df79f428bf7edfb"
-reviewed_hash: "0df79f428bf7edfb"
+current_hash: "8bdc53a55ad13098"
+reviewed_hash: "8bdc53a55ad13098"
 stale: false
-size_bytes: 3495
+size_bytes: 3545
 line_count: 51
 ---
 

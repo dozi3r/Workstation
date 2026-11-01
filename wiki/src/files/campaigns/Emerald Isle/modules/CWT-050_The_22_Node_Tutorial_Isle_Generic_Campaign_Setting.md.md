@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-050_The_22_Node_Tutorial_Isle_Gen
 title: "CWT-050: The 22-Node 'Tutorial Isle' Generic Campaign Setting (Levels 1-6)"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "04cabb5fbdacb4b9"
-reviewed_hash: "04cabb5fbdacb4b9"
+current_hash: "1248d7bda89b5c7e"
+reviewed_hash: "1248d7bda89b5c7e"
 stale: false
-size_bytes: 4523
+size_bytes: 4566
 line_count: 44
 ---
 

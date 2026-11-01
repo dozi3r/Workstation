@@ -515,6 +515,9 @@
       SelectedEntityFilter = 'all';
 
       MDIWindowManager.open('modal-entity-manager');
+      if (typeof initWorkspaceSplitters === 'function') {
+        initWorkspaceSplitters();
+      }
 
       updateEntityTabButtons();
       renderEntityManagerTree();

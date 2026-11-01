@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-060_The_Systemic_Interdependence_
 title: "CWT-060: The Systemic Interdependence Collapse Matrix"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "75f8c427bf1f412d"
-reviewed_hash: "75f8c427bf1f412d"
+current_hash: "926864e762dc9182"
+reviewed_hash: "926864e762dc9182"
 stale: false
-size_bytes: 14039
+size_bytes: 14166
 line_count: 128
 ---
 

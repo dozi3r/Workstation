@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-023_The_Sunken_Canal_of_the_Weepi
 title: "CWT-023: The Sunken Canal of the Weeping Willow"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "fd9d7220454d5983"
-reviewed_hash: "fd9d7220454d5983"
+current_hash: "6b47a2d46ebfa330"
+reviewed_hash: "6b47a2d46ebfa330"
 stale: false
-size_bytes: 3923
+size_bytes: 3966
 line_count: 44
 ---
 

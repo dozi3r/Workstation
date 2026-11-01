@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-011_The_Imperial_Regicide_and_Tot
 title: "CWT-011: The Imperial Regicide & Total Succession War"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "87ea59763018b9db"
-reviewed_hash: "87ea59763018b9db"
+current_hash: "71f5b1b18d18decf"
+reviewed_hash: "71f5b1b18d18decf"
 stale: false
-size_bytes: 4362
+size_bytes: 4405
 line_count: 44
 ---
 

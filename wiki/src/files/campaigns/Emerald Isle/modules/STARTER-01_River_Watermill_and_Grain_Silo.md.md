@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/STARTER-01_River_Watermill_and_Grain_
 title: "STARTER-01: The River Watermill & Grain Silo"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "119391b23a8f8efb"
-reviewed_hash: "119391b23a8f8efb"
+current_hash: "ed13b943b0b23edb"
+reviewed_hash: "ed13b943b0b23edb"
 stale: false
-size_bytes: 2473
+size_bytes: 2514
 line_count: 42
 ---
 

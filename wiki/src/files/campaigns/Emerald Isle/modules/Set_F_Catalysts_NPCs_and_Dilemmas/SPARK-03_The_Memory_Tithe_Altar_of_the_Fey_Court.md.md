@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPA
 title: "SPARK-03: The Memory Tithe Altar of the Fey Court"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "5013fc7af8f37e32"
-reviewed_hash: "5013fc7af8f37e32"
+current_hash: "b05849ec0c13bda3"
+reviewed_hash: "b05849ec0c13bda3"
 stale: false
-size_bytes: 3057
+size_bytes: 3101
 line_count: 45
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-042_The_Solitary_Peak_Hermitage_a
 title: "CWT-042: The Solitary Peak Hermitage & Stargazer Spire"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "c9c961fa043b15bb"
-reviewed_hash: "c9c961fa043b15bb"
+current_hash: "1585c210453c42b9"
+reviewed_hash: "1585c210453c42b9"
 stale: false
-size_bytes: 4326
+size_bytes: 4369
 line_count: 44
 ---
 

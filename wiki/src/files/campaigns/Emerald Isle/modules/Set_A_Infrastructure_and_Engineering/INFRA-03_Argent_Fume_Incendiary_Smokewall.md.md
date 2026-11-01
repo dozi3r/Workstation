@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/
 title: "INFRA-03: The \"Argent-Fume\" Incendiary Smokewall Barrier"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "6f3075db2ec797b0"
-reviewed_hash: "6f3075db2ec797b0"
+current_hash: "29dfbbfc0b89d985"
+reviewed_hash: "29dfbbfc0b89d985"
 stale: false
-size_bytes: 4116
+size_bytes: 4171
 line_count: 56
 ---
 

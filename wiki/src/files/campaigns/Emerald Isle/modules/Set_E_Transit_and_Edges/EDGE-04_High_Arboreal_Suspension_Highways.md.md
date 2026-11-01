@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-04_High_
 title: "EDGE-04: High Arboreal Suspension Highways"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "df152b650d30ebb4"
-reviewed_hash: "df152b650d30ebb4"
+current_hash: "67175cd1829d80dd"
+reviewed_hash: "67175cd1829d80dd"
 stale: false
-size_bytes: 3202
+size_bytes: 3250
 line_count: 49
 ---
 

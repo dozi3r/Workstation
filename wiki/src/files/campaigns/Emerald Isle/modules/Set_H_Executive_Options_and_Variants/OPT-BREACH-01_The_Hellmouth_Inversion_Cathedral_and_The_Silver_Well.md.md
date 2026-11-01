@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/
 title: "OPT-BREACH-01: The Hellmouth Inversion Cathedral & The Silver Serpent Well"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "48f85bf793e62d71"
-reviewed_hash: "48f85bf793e62d71"
+current_hash: "67af01b4ea49ec5f"
+reviewed_hash: "67af01b4ea49ec5f"
 stale: false
-size_bytes: 6522
+size_bytes: 6605
 line_count: 84
 ---
 

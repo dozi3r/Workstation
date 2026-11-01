@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-066_The_Gobekli_Tepe_Pre_Agrarian
 title: "CWT-066: The Göbekli Tepe Pre-Agrarian Pillars"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "1b2165388a018c59"
-reviewed_hash: "1b2165388a018c59"
+current_hash: "1dc1d5947a846736"
+reviewed_hash: "1dc1d5947a846736"
 stale: false
-size_bytes: 29342
+size_bytes: 29552
 line_count: 211
 ---
 

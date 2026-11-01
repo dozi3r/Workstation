@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-024_The_High_Sierra_Switchback_Ca
 title: "CWT-024: The High Sierra Switchback Caravan Trail"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "b20b4e1df92b1f92"
-reviewed_hash: "b20b4e1df92b1f92"
+current_hash: "ae719cb859e6fc26"
+reviewed_hash: "ae719cb859e6fc26"
 stale: false
-size_bytes: 3876
+size_bytes: 3919
 line_count: 44
 ---
 

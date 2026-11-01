@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-030_Terraced_Hydroponic_Rice_Flum
 title: "CWT-030: Terraced Hydroponic Rice Flumes & Silt Fisheries"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "b75d94c79fce3198"
-reviewed_hash: "b75d94c79fce3198"
+current_hash: "f8d9400c3e8db23a"
+reviewed_hash: "f8d9400c3e8db23a"
 stale: false
-size_bytes: 4626
+size_bytes: 4669
 line_count: 44
 ---
 

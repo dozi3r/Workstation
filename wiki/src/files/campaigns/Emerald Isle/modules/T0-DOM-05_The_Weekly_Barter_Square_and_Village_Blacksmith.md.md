@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/T0-DOM-05_The_Weekly_Barter_Square_an
 title: "T0-DOM-05: The Weekly Barter Square and Village Blacksmith"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "0a3fba7d85058689"
-reviewed_hash: "0a3fba7d85058689"
+current_hash: "b65068d4ff01dc62"
+reviewed_hash: "b65068d4ff01dc62"
 stale: false
-size_bytes: 13810
+size_bytes: 13968
 line_count: 159
 ---
 

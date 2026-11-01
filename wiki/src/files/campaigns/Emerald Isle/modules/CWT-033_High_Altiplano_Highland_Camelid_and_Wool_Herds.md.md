@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-033_High_Altiplano_Highland_Camel
 title: "CWT-033: High-Altiplano Highland Camelid & Wool Herds"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "8745034d5ce96162"
-reviewed_hash: "8745034d5ce96162"
+current_hash: "506891ee6c2bd30e"
+reviewed_hash: "506891ee6c2bd30e"
 stale: false
-size_bytes: 4359
+size_bytes: 4402
 line_count: 44
 ---
 

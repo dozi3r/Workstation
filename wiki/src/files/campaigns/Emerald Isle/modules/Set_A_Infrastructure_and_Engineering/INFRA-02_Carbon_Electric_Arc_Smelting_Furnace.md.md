@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/
 title: "INFRA-02: Carbon Electric Arc Smelting Furnace"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "75e85f45b1bcc6e3"
-reviewed_hash: "75e85f45b1bcc6e3"
+current_hash: "7e8124708633a575"
+reviewed_hash: "7e8124708633a575"
 stale: false
-size_bytes: 3986
+size_bytes: 4041
 line_count: 56
 ---
 

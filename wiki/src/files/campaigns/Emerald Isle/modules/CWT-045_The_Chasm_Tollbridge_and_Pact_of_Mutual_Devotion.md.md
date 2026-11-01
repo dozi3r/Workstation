@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/CWT-045_The_Chasm_Tollbridge_and_Pact
 title: "CWT-045: The Chasm Tollbridge & Pact of Mutual Devotion"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "9ace66fb3744aff8"
-reviewed_hash: "9ace66fb3744aff8"
+current_hash: "58590c2f7f659a95"
+reviewed_hash: "58590c2f7f659a95"
 stale: false
-size_bytes: 4636
+size_bytes: 4679
 line_count: 44
 ---
 

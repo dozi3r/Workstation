@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crys
 title: "ECOL-01: Crystalline Stirge Hives & Queen Fallout"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "8cb19e7e83133412"
-reviewed_hash: "8cb19e7e83133412"
+current_hash: "335af6c871ba1770"
+reviewed_hash: "335af6c871ba1770"
 stale: false
-size_bytes: 3720
+size_bytes: 3772
 line_count: 53
 ---
 

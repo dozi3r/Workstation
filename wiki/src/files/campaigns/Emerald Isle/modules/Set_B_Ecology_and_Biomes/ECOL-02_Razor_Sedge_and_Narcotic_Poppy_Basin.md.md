@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-02_Razo
 title: "ECOL-02: Razor-Sedge Plains & Narcotic Poppy Basins"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "f741b6940a2cc69c"
-reviewed_hash: "f741b6940a2cc69c"
+current_hash: "c9b0ec38557194fd"
+reviewed_hash: "c9b0ec38557194fd"
 stale: false
-size_bytes: 3340
+size_bytes: 3391
 line_count: 52
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/
 title: "OPT-ORIGIN-01: The Wayward Archipelago & Barnaby's Civil Rehabilitation Protocol"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "94f04c4bf97dd361"
-reviewed_hash: "94f04c4bf97dd361"
+current_hash: "68de4f914eed8d04"
+reviewed_hash: "68de4f914eed8d04"
 stale: false
-size_bytes: 6034
+size_bytes: 6104
 line_count: 71
 ---
 
