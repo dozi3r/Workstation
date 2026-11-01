@@ -161,7 +161,7 @@ Record-TestPhase -PhaseName "Phase 5: Loopback Servers" -Description "Zero-Insta
         if ($resHtml.StatusCode -ne 200) { throw "GET /start.html returned $($resHtml.StatusCode)" }
         if ($resHtml.Headers["Content-Type"] -notmatch "text/html") { throw "GET /start.html Content-Type is not text/html" }
         
-        $resJson = Invoke-WebRequest -Uri "http://127.0.0.1:$testPortNode/campaigns/Emerald%20Isle/campaign.json"
+        $resJson = Invoke-WebRequest -Uri "http://127.0.0.1:$testPortNode/campaigns/migmag/campaign.json"
         if ($resJson.StatusCode -ne 200) { throw "GET campaign.json returned $($resJson.StatusCode)" }
         
         Invoke-RestMethod -Uri "http://127.0.0.1:$testPortNode/api/shutdown" -Method Post | Out-Null

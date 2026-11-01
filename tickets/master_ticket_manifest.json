@@ -3210,5 +3210,107 @@
     "ticket_file": "tickets/system/SYS-START-15_vestigial_framework_retirement_and_pipeline_decommissioning.md",
     "file_url": "tickets/system/SYS-START-15_vestigial_framework_retirement_and_pipeline_decommissioning.md",
     "module_path": ""
+  },
+  {
+    "id": "SYS-START-16",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Scoped CAD & Property Inspector Undo/Redo Engine (Memory Leak & Circular Reference Mitigation)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: CAD Core & State Integrity",
+    "status": "ready",
+    "summary": "# SYS-START-16: Scoped CAD & Property Inspector Undo/Redo Engine (Memory Leak & Circular Reference Mitigation)\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*St...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: Scoped-Undo-Redo",
+      "CAD: Bounded-Delta-History"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "State: activeTopology"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-16_scoped_cad_undo_redo_engine.md",
+    "file_url": "tickets/system/SYS-START-16_scoped_cad_undo_redo_engine.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-17",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "IntelliCAD Layers Explorer & Deterministic SVG Stacking Order Engine",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: CAD Core & Spatial Canvas",
+    "status": "ready",
+    "summary": "# SYS-START-17: IntelliCAD Layers Explorer & Deterministic SVG Stacking Order Engine\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: ready*  \n*Date: 2026...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: IntelliCAD-Layers-Explorer",
+      "CAD: SVG-Stacking-Engine"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "State: activeTopology.layers"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-17_intellicad_layers_explorer_and_draw_order.md",
+    "file_url": "tickets/system/SYS-START-17_intellicad_layers_explorer_and_draw_order.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-18",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Resizable MDI Windows & Flexible Workspace Dock Splitters",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Desktop MDI Shell & Layout Flexibility",
+    "status": "ready",
+    "summary": "# SYS-START-18: Resizable MDI Windows & Flexible Workspace Dock Splitters\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: ready*  \n*Date: 2026-11-01*\n\n##...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: MDI-Resizing",
+      "Workstation: Splitter-Panels"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "MDIWindowManager"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-18_resizable_mdi_windows_and_dock_splitters.md",
+    "file_url": "tickets/system/SYS-START-18_resizable_mdi_windows_and_dock_splitters.md",
+    "module_path": ""
   }
 ]

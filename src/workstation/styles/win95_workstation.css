@@ -198,6 +198,20 @@
     color: #ccc;
   }
 
+  .dropdown-row.disabled {
+    color: #888 !important;
+    opacity: 0.5;
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+  .dropdown-row.disabled:hover {
+    background-color: transparent !important;
+    color: #888 !important;
+  }
+  .dropdown-row.disabled .hotkey {
+    color: #aaa !important;
+  }
+
   .dropdown-separator {
     height: 1px;
     border-top: 1px solid var(--win-dark);

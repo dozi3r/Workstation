@@ -85,8 +85,8 @@ CRITICAL INSTRUCTION:
       <!-- Edit Menu -->
       <div class="menu-item" data-menu="menu-edit">Edit
         <div id="menu-edit" class="menu-dropdown bevel-outset">
-          <div class="dropdown-row" onclick="undoAction()">Undo <span class="hotkey">Ctrl+Z</span></div>
-          <div class="dropdown-row" onclick="redoAction()">Redo <span class="hotkey">Ctrl+Y</span></div>
+          <div class="dropdown-row disabled" title="Undo disabled pending SYS-START-16 history engine">Undo <span class="hotkey">Ctrl+Z</span></div>
+          <div class="dropdown-row disabled" title="Redo disabled pending SYS-START-16 history engine">Redo <span class="hotkey">Ctrl+Y</span></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="deleteSelected()">Delete Selection <span class="hotkey">Del</span></div>
           <div class="dropdown-row" onclick="selectAllNodes()">Select All <span class="hotkey">Ctrl+A</span></div>
@@ -266,8 +266,6 @@ CRITICAL INSTRUCTION:
       <button class="win-btn" onclick="openSaveAsNewCampaignModal()" title="Save As New Campaign (Ctrl+Shift+S)">Save As...</button>
       <div class="toolbar-sep"></div>
       <button class="win-btn" onclick="deleteSelected()" title="Delete Selected (Del)">Delete</button>
-      <button class="win-btn" onclick="undoAction()" title="Undo (Ctrl+Z)">Undo</button>
-      <button class="win-btn" onclick="redoAction()" title="Redo (Ctrl+Y)">Redo</button>
       <div class="toolbar-sep"></div>
       <button class="win-btn" onclick="openModuleExplorer()" title="Open Comprehensive Module Explorer (Ctrl+M)"><strong>Modules</strong></button>
       <button class="win-btn" onclick="openEntityManager('npc')" title="Open NPC Manager (Ctrl+F5)"><strong>NPCs</strong></button>
@@ -277,7 +275,6 @@ CRITICAL INSTRUCTION:
       <button class="win-btn" onclick="openTicketCenter()" title="Gamedev Ticket Command Center (F9)"><strong>Tickets</strong></button>
       <button class="win-btn" onclick="openEntityManager('node')" title="Open Node Explorer (Ctrl+F10)"><strong>Nodes</strong></button>
       <button class="win-btn" onclick="openEntityManager('edge')" title="Open Edge Explorer (Ctrl+F11)"><strong>Edges</strong></button>
-      <button class="win-btn" onclick="toggleLayersPane()" title="Canvas Layers Manager (Ctrl+L)"><strong>Layers</strong></button>
       <div class="toolbar-sep"></div>
       <button class="win-btn" onclick="openMapNavigatorModal()" title="Cartographic Hierarchy &amp; Map Navigator (Ctrl+Shift+M)"><strong>Maps</strong></button>
       <button class="win-btn" onclick="openSourcebooksModal()" title="Campaign Sourcebooks (Ctrl+B)"><strong>Sourcebooks</strong></button>
