@@ -1,0 +1,989 @@
+{
+  "id": "migmag",
+  "name": "MigMag",
+  "campaignName": "MigMag",
+  "description": "Created from preset: Blank Canvas (New Pointcrawl)",
+  "author": "Creator Studio World Architect",
+  "packageType": "workstation_project",
+  "enabled": true,
+  "topologyFile": "topology.json",
+  "manifestFile": "modules_manifest.json",
+  "updatedAt": "2026-11-01T05:24:29.237Z",
+  "exportedAt": "2026-11-01T05:24:29.237Z",
+  "globalDials": {
+    "dial8ClimaxTrigger": "crisis",
+    "tier0Substratum": false
+  },
+  "entities": {
+    "npcs": [
+      {
+        "id": "npc_lady_margaret",
+        "nodeId": 1,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Lady Margaret",
+        "role": "Master of the Caravel",
+        "faction": "Tidewater Contest Commission",
+        "factionId": "faction_markham_commission",
+        "culture": "Hierarchy",
+        "motivation": "Enforce naval quarantine until Judge Grey hands down the signed Harmondale charter[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Passage to Harmondale is strictly permanent; once the ship departs Emerald Isle, the island cannot be revisited.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Adherence to maritime law and Markham's explicit naval seal.",
+          "bribe": "Delivery of Judge Grey's signed victory charter."
+        },
+        "dialogueHooks": [
+          "The Lady Margaret stays lashed to this slipway until Lord Markham's hunt is won[cite: 1]."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_lord_markham",
+            "relationship": "Superior",
+            "notes": "Answers directly to Markham for departure clearance[cite: 1]."
+          },
+          {
+            "targetNpcId": "npc_judge_grey",
+            "relationship": "Ally",
+            "notes": "Requires Grey's verification before permitting contestants aboard[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_mia_lucille",
+        "nodeId": 2,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Mia Lucille",
+        "role": "Village Elder & Gossip",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Clan",
+        "motivation": "Track incoming contestant gossip and protect young islanders from reckless ventures[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "Brent Filiant ventured up the bluffs without antivenom and was mauled near the northern ridgeline[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Fear of dragonfire sweeping the lower village.",
+          "bribe": "A friendly ear and news from mainland Erathia."
+        },
+        "dialogueHooks": [
+          "Keep your boots dry and your eyes sharp, travelers[cite: 1]. There are worse things than dragonflies nesting up in the hills."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_donna_wyrith",
+            "relationship": "Family",
+            "notes": "Corresponds regularly with Donna on the eastern shore[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_blacksmith_kane",
+        "nodeId": 3,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Master Kane",
+        "role": "Master Blacksmith of The Knight's Blade",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Market",
+        "motivation": "Equip serious adventurers with forged steel while turning a tidy profit on repair jobs[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "A well-crafted Longbow was carried into the dragon's lair by the last adventuring group[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Running low on quality iron billets due to naval supply embargoes.",
+          "bribe": "Bulk custom repair orders and salvaged weapons."
+        },
+        "dialogueHooks": [
+          "Welcome to The Knight's Blade[cite: 1]! Need edge on that broadsword before you head into the brush?"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_erik_armorsmith",
+            "relationship": "Ally",
+            "notes": "Co-manages the settlement's defense supply with Erik[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_erik_armorsmith",
+        "nodeId": 4,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Erik",
+        "role": "Master Armorsmith of Erik's Armory",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Market",
+        "motivation": "Ensure no competitor dies simply for lack of thick leather or studded mail[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Dragonfly stingers punch right through light cloth; boiled leather or ringmail is mandatory in the marsh.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Pride in his defensive craft; despises seeing contestants butchered.",
+          "bribe": "Hard coin for defensive suits and shields[cite: 1]."
+        },
+        "dialogueHooks": [
+          "Step inside Erik's Armory[cite: 1]. If you go into the hills without armor, don't expect the healer to put you back together."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_blacksmith_kane",
+            "relationship": "Ally",
+            "notes": "Shares workshop coal and tooling with Kane[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_alyssa_bard",
+        "nodeId": 5,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Alyssa the Bard",
+        "role": "Minstrel & Speculator",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Market",
+        "motivation": "Extract maximum gold from desperate contestants by selling her concert lute[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 1,
+          "e": 3,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "Her rosewood lute is the only musical instrument available on the island that satisfies Judge Grey's checklist[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "She has no bodyguards; intimidation or direct legal threats can rattle her.",
+          "bribe": "Payment of 500 gold pieces in cash[cite: 1]."
+        },
+        "dialogueHooks": [
+          "Need an instrument for the Judge[cite: 1]? Five hundred gold pieces, not a copper less[cite: 1]!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_judge_grey",
+            "relationship": "Subordinate",
+            "notes": "Capitalizes on Grey's contest item requirements[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_two_palms_barkeep",
+        "nodeId": 6,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Barnaby the Barkeep",
+        "role": "Proprietor of Two Palms Tavern",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Market",
+        "motivation": "Keep the tavern profitable and maintain order between rival contestant factions[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "Mr. Malwick carries contraband from the mainland and corners promising groups near the cellar entrance.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Terrified of brawls smashing his imported glassware.",
+          "bribe": "Buying tavern rounds and tipping generously for food rations."
+        },
+        "dialogueHooks": [
+          "Rest your boots at Two Palms[cite: 1]! Ale is fresh, stew is warm, and weapons stay sheathed at my counter."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_mr_malwick",
+            "relationship": "Rival",
+            "notes": "Watches Malwick suspiciously as he propositions patrons in the tavern shadows."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_mr_malwick",
+        "nodeId": 6,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Mr. Malwick",
+        "role": "Syndicate Handler & Loan Shark",
+        "faction": "The Black-Sash Syndicate",
+        "factionId": "faction_shadow_syndicate",
+        "culture": "Market",
+        "motivation": "Lure the winning contestant party into accepting an illicit Wand of Fireballs to establish leverage over Castle Harmondale.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Antagonist",
+        "odv": {
+          "s": 3,
+          "e": 3,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "The wand carries an extortionate blood-debt to Niles Stantley and his mercenary legion on the mainland.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Exposure to Judge Grey will lead to his arrest and the confiscation of his contraband.",
+          "bribe": "A verbal oath to honor a future favor when Harmondale is won."
+        },
+        "dialogueHooks": [
+          "Psst! You want an edge in Lord Markham's hunt? Take this Wand of Fireballs—free of charge, between friends."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_two_palms_barkeep",
+            "relationship": "Rival",
+            "notes": "Tolerated by Barnaby only so long as he doesn't start tavern fights."
+          },
+          {
+            "targetNpcId": "npc_judge_grey",
+            "relationship": "Rival",
+            "notes": "Evades Grey's jurisdiction while subverting the contest rules[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_carolyn_weathers",
+        "nodeId": 8,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Carolyn Weathers",
+        "role": "Arcane Guild Patron (Air & Fire)",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Hierarchy",
+        "motivation": "Screen aspiring sorcerers and grant official charters for Air and Fire magic studies[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "The Pedestal of Haste and Pedestal of Fire Resistance were constructed by the early Fire and Air guildmasters[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Devotion to formal guild protocol and fear of rogue elemental spellcraft.",
+          "bribe": "Standard guild initiation dues (50 gold per disciple)."
+        },
+        "dialogueHooks": [
+          "I sponsor applicants for the Initiate Guilds of Air and Fire[cite: 1]. Show me focus, and your parchment will be signed."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_tellmar",
+            "relationship": "Ally",
+            "notes": "Coordinates island magical guild admissions alongside Tellmar[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_lord_markham",
+        "nodeId": 10,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Lord Markham",
+        "role": "Patron of the Contest & Lord of Tidewater",
+        "faction": "Tidewater Contest Commission",
+        "factionId": "faction_markham_commission",
+        "culture": "Hierarchy",
+        "motivation": "Offload the ruined, borderland keep of Castle Harmondale onto capable heroes while suppressing reports of the dragon[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Protagonist",
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "He knowingly launched the contest despite knowing Morcarack slumbers in the northeastern cliffs[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Panic among the contestants if word of Morcarack's slaughter leaks[cite: 1].",
+          "bribe": "Recovery of the missing contestants' heraldic crest to quietly settle the incident[cite: 1]."
+        },
+        "dialogueHooks": [
+          "Welcome to my proving grounds[cite: 1]! Bring the six tokens to Judge Grey, or bring me proof of my lost scouts[cite: 1]!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_judge_grey",
+            "relationship": "Ally",
+            "notes": "Shares administrative authority over the contest[cite: 1]."
+          },
+          {
+            "targetNpcId": "npc_morcarack",
+            "relationship": "Rival",
+            "notes": "Fears the red dragon will breach its cavern and destroy the port[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_judge_grey",
+        "nodeId": 10,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Judge Thomas Grey",
+        "role": "Adjudicator of the Harmondale Charter",
+        "faction": "Tidewater Contest Commission",
+        "factionId": "faction_markham_commission",
+        "culture": "Hierarchy",
+        "motivation": "Verify all six scavenger relics with uncompromising legal rigor[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "The six tokens were chosen because each proves mastery in trading, exploration, combat, and resourcefulness[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Strict adherence to legal precedents; he cannot bend the item requirements by a single token.",
+          "bribe": "Presentation of the six verified scavenger tokens[cite: 1]."
+        },
+        "dialogueHooks": [
+          "Lay the instrument, hat, bow, shell, tile, and red draft before me[cite: 1]. Only then do you board the vessel."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_lord_markham",
+            "relationship": "Ally",
+            "notes": "Administers the contest charter on Markham's behalf[cite: 1]."
+          },
+          {
+            "targetNpcId": "npc_lady_margaret",
+            "relationship": "Superior",
+            "notes": "Directs Margaret to prepare departure only upon verified completion[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_healer_tent_priest",
+        "nodeId": 12,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Sister Agnes",
+        "role": "Chief Cleric of the Healer's Tent",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Hierarchy",
+        "motivation": "Mend injured contestants and purge dragonfly venom before fever claims their lives[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 3,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "The temple well restores mana while the village well cures bodily wounds[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Shortage of clean medicinal linen and fresh holy water.",
+          "bribe": "Modest temple donations and respectful conduct."
+        },
+        "dialogueHooks": [
+          "Enter and find succor[cite: 1]. May the light cleanse your venom and bind your wounds."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_alchemist_blue_bottle",
+            "relationship": "Ally",
+            "notes": "Trades healing salves and empty vials with the alchemist[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_tellmar",
+        "nodeId": 14,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Master Tellmar",
+        "role": "Arcane Guild Patron (Body & Spirit)",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Hierarchy",
+        "motivation": "Maintain the standards of Body and Spirit magical disciplines across the settlement[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "The Temple of the Moon to the north was dedicated to lunar divination before vermin infested its lower chambers[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Fears untrained novices will desecrate the spirit shrines.",
+          "bribe": "Standard guild fee of 50 gold pieces per student[cite: 1]."
+        },
+        "dialogueHooks": [
+          "Welcome to the Tellmar residence[cite: 1]. I grant credentials for the Initiate Guilds of Body and Spirit[cite: 1]."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_carolyn_weathers",
+            "relationship": "Ally",
+            "notes": "Co-regulates island guild memberships[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_trainer_karr",
+        "nodeId": 15,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Drillmaster Karr",
+        "role": "Master Instructor of Island Training Grounds",
+        "faction": "Tidewater Contest Commission",
+        "factionId": "faction_markham_commission",
+        "culture": "Hierarchy",
+        "motivation": "Drill green contestants into seasoned combatants capable of surviving the frontier[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Combatants who reach level 5 can handle the temple spiders with disciplined ranged fire[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Contempt for lazy or cowardly recruits.",
+          "bribe": "Payment of standard military training tuition[cite: 1]."
+        },
+        "dialogueHooks": [
+          "Feet set, shields high! You're on the Island Training Grounds[cite: 1]—let's see if you can hold a battle line!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_lord_markham",
+            "relationship": "Subordinate",
+            "notes": "Contracted by Markham to prepare prospective Harmondale lords[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_alchemist_blue_bottle",
+        "nodeId": 18,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Zander the Alchemist",
+        "role": "Proprietor of The Blue Bottle",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Market",
+        "motivation": "Brew curative draughts and sell reagents to island scavengers[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "A simple Red Potion can be brewed by combining an empty bottle with wild red herbs found along the wetlands[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Constant shortage of freshly harvested marsh herbs.",
+          "bribe": "Supplying rare dried ingredients or paying retail prices for elixirs[cite: 1]."
+        },
+        "dialogueHooks": [
+          "Welcome to The Blue Bottle[cite: 1]! Need a Red Potion to mend cracked bones or trade up in the hills[cite: 1]?"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_brent_filiant",
+            "relationship": "Debtor",
+            "notes": "Knows Brent desperately needs a Red Potion to survive[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_emerald_enchantress",
+        "nodeId": 21,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Lady Vaelia",
+        "role": "Curio Dealer of Emerald Enchantments",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Market",
+        "motivation": "Appraise artifacts, identify mysterious gear, and trade magical items[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "The Pedestal of Haste grants speed, while the northern mountain pedestal bestows the Day of the Gods[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Obsession with uncataloged magical oddities.",
+          "bribe": "Paying identification appraisal fees and purchasing spellbooks[cite: 1]."
+        },
+        "dialogueHooks": [
+          "Step into Emerald Enchantments[cite: 1]. Have you relics to identify, or do you seek enchanted protection?"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_carolyn_weathers",
+            "relationship": "Ally",
+            "notes": "Supplies arcane reagents to Weathers' guild students[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_donna_wyrith",
+        "nodeId": 28,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Donna Wyrith",
+        "role": "Eastern Shore Herbalist & Scout",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Clan",
+        "motivation": "Track dragon movements and warn careless wanderers away from Morcarack's basalt ridge[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "She watched three heavily armed contestants enter the northeast cave two days ago; none ever returned[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Isolation on the eastern shore leaves her vulnerable to marsh beast incursions.",
+          "bribe": "Clearing the dragonflies from her immediate yard."
+        },
+        "dialogueHooks": [
+          "Turn around if you're chasing glory in the northeast[cite: 1]. The smoke curling from those rocks isn't campfires."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_mia_lucille",
+            "relationship": "Family",
+            "notes": "Exchanges warning carrier pigeons with Mia in the village[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_brent_filiant",
+        "nodeId": 30,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Brent Filiant",
+        "role": "Stranded Scavenger",
+        "faction": "Emerald Isle Freeholders",
+        "factionId": "faction_emerald_townsfolk",
+        "culture": "Clan",
+        "motivation": "Obtain a curative Red Potion before dragonfly fever and spider toxins claim his life[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "His plumed velvet hat was intended as his scavenger submission, but his life matters far more[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Advanced fever delirium; incapable of walking down the bluffs unassisted[cite: 1].",
+          "bribe": "A single standard Red Potion handed over immediately[cite: 1]."
+        },
+        "dialogueHooks": [
+          "The burning in my veins won't stop... bring me a Red Potion from the alchemist, and this Wealthy Hat is yours[cite: 1]!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_alchemist_blue_bottle",
+            "relationship": "Debtor",
+            "notes": "Pleads for medicine from Zander's shelves[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "npc_morcarack",
+        "nodeId": 26,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Morcarack the Pitiless",
+        "role": "Ancient Red Dragon",
+        "faction": "Monsters of the Isle",
+        "factionId": "faction_crimson_brood",
+        "culture": "Clan",
+        "motivation": "Incinerate trespassers and slumber atop his hoard within the basalt mountain[cite: 1].",
+        "status": "Active",
+        "dispositionToParty": -2,
+        "fourCornersRole": "Antagonist",
+        "odv": {
+          "s": 1,
+          "e": 4,
+          "c": 4
+        },
+        "secretsKnown": [
+          {
+            "secret": "The fallen adventurers lie just inside the cave entrance; their Longbow and crest can be snatched without entering his breath weapon cone[cite: 1].",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Lethargic slumber; agile trespassers blessed with Haste can slip past his peripheral vision[cite: 1].",
+          "bribe": "Scattering heavy gold coin pouches across the floor creates a brief distraction."
+        },
+        "dialogueHooks": [
+          "MORE ASH FOR MY FLOOR! DID THE CREATURE IN THE MANOR SEND YOU TO BURN AS WELL[cite: 1]?"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_lord_markham",
+            "relationship": "Rival",
+            "notes": "Views Markham's settlement as insects to be tolerated until provoked[cite: 1]."
+          }
+        ],
+        "_packId": "mm7_emerald_isle"
+      }
+    ],
+    "quests": [
+      {
+        "id": "quest_scavenger_hunt",
+        "nodeId": 10,
+        "submapId": "map_mm7_emerald_isle",
+        "title": "The Scavenger Hunt for Harmondale",
+        "type": "Retrieval",
+        "threat": "Moderate",
+        "status": "Active",
+        "notes": "Deliver all six mandatory scavenger tokens to Judge Thomas Grey at Markham's Headquarters (Node 10)[cite: 1]: 1) Alyssa's Lute (Node 5, bought for 500 gold)[cite: 1]; 2) Brent's Wealthy Hat (Node 30, traded for a Red Potion)[cite: 1]; 3) A Red Potion (Node 18, bought at The Blue Bottle or brewed)[cite: 1]; 4) A Giant Seashell (Node 24, recovered from the coastal hut)[cite: 1]; 5) A Lunar Floor Tile (Node 29, retrieved from the Temple of the Moon)[cite: 1]; 6) A Longbow (Node 26, salvaged from the Dragon's Lair or shops)[cite: 1]. Completing the hunt grants legal ownership of Castle Harmondale and clearance for Lady Margaret to sail (Node 1)[cite: 1].",
+        "giverNpcId": "npc_judge_grey",
+        "targetNpcId": "npc_lady_margaret",
+        "npcIds": [
+          "npc_judge_grey",
+          "npc_lord_markham",
+          "npc_alyssa_bard",
+          "npc_brent_filiant",
+          "npc_lady_margaret"
+        ],
+        "itemIds": [
+          "item_ailyssa_lute",
+          "item_wealthy_hat",
+          "item_giant_seashell",
+          "item_moon_floor_tile",
+          "item_contest_longbow",
+          "item_red_potion"
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "quest_missing_contestants",
+        "nodeId": 10,
+        "submapId": "map_mm7_emerald_isle",
+        "title": "Find the Missing Contestants",
+        "type": "Investigation",
+        "threat": "Lethal",
+        "status": "Active",
+        "notes": "Lord Markham seeks proof regarding the fate of the favorite adventuring team who vanished into the northeastern mountains[cite: 1]. Infiltrate The Dragon's Lair (Node 26), avoid or distract Morcarack, recover the Scorched Contestant's Shield, and present it to Lord Markham at Node 10 for a substantial gold bounty[cite: 1].",
+        "giverNpcId": "npc_lord_markham",
+        "targetNpcId": "npc_morcarack",
+        "npcIds": [
+          "npc_lord_markham",
+          "npc_morcarack",
+          "npc_donna_wyrith"
+        ],
+        "itemIds": [
+          "item_contestants_shield"
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "quest_malwicks_bargain",
+        "nodeId": 6,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "A Shady Favor from Mr. Malwick",
+        "title": "A Shady Favor from Mr. Malwick",
+        "type": "Intrigue",
+        "threat": "Severe",
+        "status": "Active",
+        "notes": "Mr. Malwick lurks outside Two Palms Tavern (Node 6), offering a smuggled Wand of Fireballs to quickly clear the island's monsters. Accepting the gift creates a binding debt with mainland criminal syndicates once the party becomes Lords of Harmondale.",
+        "giverNpcId": "npc_mr_malwick",
+        "targetNpcId": "npc_judge_grey",
+        "npcIds": [
+          "npc_mr_malwick",
+          "npc_judge_grey",
+          "npc_two_palms_barkeep"
+        ],
+        "itemIds": [
+          "item_malwick_wand"
+        ],
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "quest_guild_initiations",
+        "nodeId": 8,
+        "submapId": "map_mm7_emerald_isle",
+        "title": "The Four Guild Charters",
+        "type": "Social",
+        "threat": "Light",
+        "status": "Active",
+        "notes": "Secure official membership charters for all four elemental and spiritual disciplines: visit Carolyn Weathers (Node 8) to join the Air and Fire Guilds[cite: 1], and visit the Tellmar Residence (Node 14) to join the Body and Spirit Guilds[cite: 1], granting full access to spellbook vendors at Nodes 16, 17, 19, and 23[cite: 1].",
+        "giverNpcId": "npc_carolyn_weathers",
+        "targetNpcId": "npc_tellmar",
+        "npcIds": [
+          "npc_carolyn_weathers",
+          "npc_tellmar"
+        ],
+        "itemIds": [],
+        "_packId": "mm7_emerald_isle"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_ailyssa_lute",
+        "nodeId": 5,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Alyssa's Rosewood Lute",
+        "category": "Tool",
+        "specs": "Concert-grade six-course rosewood lute (+1 Performance; market price 500 gold)[cite: 1].",
+        "notes": "The singular instrument available to fulfill Judge Grey's scavenger requirement[cite: 1]. Held by Alyssa until purchased[cite: 1].",
+        "ownerNpcId": "npc_alyssa_bard",
+        "possessionMode": "carried",
+        "status": "Active",
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "item_wealthy_hat",
+        "nodeId": 30,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Brent's Plumed Wealthy Hat",
+        "category": "Relic",
+        "specs": "Embroidered nobleman's cap boasting an exotic feather[cite: 1]. Provides no armor bonus.",
+        "notes": "Carried by the ailing Brent Filiant, who willingly surrenders it to whoever brings him a curative Red Potion[cite: 1].",
+        "ownerNpcId": "npc_brent_filiant",
+        "possessionMode": "carried",
+        "status": "Active",
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "item_red_potion",
+        "nodeId": 18,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Curative Red Potion",
+        "category": "Tool",
+        "specs": "Ruby-red alchemical brew restoring 10 Hit Points and curing mild venom[cite: 1].",
+        "notes": "Available at The Blue Bottle[cite: 1], concocted from red marsh herbs and an empty vial[cite: 1], or traded to Brent Filiant for the Wealthy Hat[cite: 1].",
+        "ownerNpcId": "npc_alchemist_blue_bottle",
+        "possessionMode": "carried",
+        "status": "Active",
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "item_giant_seashell",
+        "nodeId": 24,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Spiral Giant Seashell",
+        "category": "Relic",
+        "specs": "Heavy mother-of-pearl conch shell measuring two feet in diameter[cite: 1].",
+        "notes": "Resting inside the abandoned coastal hut on the northwestern peninsula[cite: 1]; satisfies Judge Grey's exploration token[cite: 1].",
+        "ownerNpcId": "npc_judge_grey",
+        "possessionMode": "stored",
+        "status": "Active",
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "item_moon_floor_tile",
+        "nodeId": 29,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Lunar Mosaic Floor Tile",
+        "category": "Relic",
+        "specs": "Carved stone floor slab inlaid with silver lunar tracery[cite: 1]. Weighs 10 lbs.",
+        "notes": "Pried from the secret southern library of the Temple of the Moon[cite: 1]; serves as the subterranean relic for the contest[cite: 1].",
+        "ownerNpcId": "npc_judge_grey",
+        "possessionMode": "stored",
+        "status": "Active",
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "item_contest_longbow",
+        "nodeId": 26,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Cavern Yew Longbow",
+        "category": "Weapon",
+        "specs": "Composite yew longbow (+2 Ranged Attack, 1d8+2 piercing damage)[cite: 1].",
+        "notes": "Lying among the scorched remains near the entrance to Morcarack's cavern[cite: 1]; serves as the weapon token for Judge Grey[cite: 1].",
+        "ownerNpcId": "npc_morcarack",
+        "possessionMode": "stored",
+        "status": "Active",
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "item_contestants_shield",
+        "nodeId": 26,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Scorched Contestant's Crest",
+        "category": "Armor",
+        "specs": "Heavily warped steel heater shield bearing the crest of Markham's missing team (+3 AC)[cite: 1].",
+        "notes": "Sought by Lord Markham as conclusive proof of the fate of the missing adventurers[cite: 1].",
+        "ownerNpcId": "npc_morcarack",
+        "possessionMode": "stored",
+        "status": "Active",
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "item_malwick_wand",
+        "nodeId": 6,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Malwick's Wand of Fireballs",
+        "category": "Weapon",
+        "specs": "Obsidian rod loaded with 20 charges of 6d6 AoE Fireball. High market value.",
+        "notes": "Smuggled contraband wielded by Mr. Malwick to ensnare contestants in debt.",
+        "ownerNpcId": "npc_mr_malwick",
+        "possessionMode": "carried",
+        "status": "Active",
+        "_packId": "mm7_emerald_isle"
+      }
+    ],
+    "trackers": [
+      {
+        "id": "tracker_scavenger_deadline",
+        "nodeId": 10,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Rival Scavenger Progress Clock",
+        "type": "Threat Clock",
+        "maxTicks": 6,
+        "currentTicks": 0,
+        "faction": "Tidewater Contest Commission",
+        "notes": "Advances by 1 tick whenever the party takes a full rest, trains at the grounds, or falls in battle. At 6 ticks, an opposing team presents all six tokens and claims Harmondale.",
+        "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "tracker_morcarack_rage",
+        "nodeId": 26,
+        "submapId": "map_mm7_emerald_isle",
+        "name": "Morcarack's Slumber & Cavern Alert",
+        "type": "Threat Clock",
+        "maxTicks": 4,
+        "currentTicks": 0,
+        "faction": "Monsters of the Isle",
+        "notes": "Advances by 1 tick if high-tier explosive magic is detonated near the caverns or if trespassers linger in Node 26 without stealth[cite: 1]. At 4 ticks, the dragon awakens fully and unleashes breath weapon sweeps across the approaches[cite: 1].",
+        "_packId": "mm7_emerald_isle"
+      }
+    ],
+    "tickets": [],
+    "custom_modules": [],
+    "deletedModules": [],
+    "deletedPrototypes": []
+  },
+  "syncToken": "mvxdy185-i88hfl5v"
+}

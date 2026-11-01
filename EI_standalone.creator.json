@@ -1,0 +1,681 @@
+{
+  "name": "Emerald Isle (MM7)",
+  "metadata": {
+    "campaignName": "Emerald Isle: The Scavenger Hunt for Harmondale",
+    "author": "Creator Studio Architect",
+    "ipDomain": "Might and Magic VII: For Blood and Honor",
+    "description": "Southeast of Erathia lies Emerald Isle..."
+  },
+  "rootMapId": "map_root",
+  "activeMapId": "map_root",
+  "maps": {
+    "map_root": {
+      "id": "map_root",
+      "name": "Emerald Isle",
+      "scaleTier": "region",
+      "nodes": [
+        {
+          "id": 1,
+          "name": "Emerald Dock & Contestant Camp",
+          "displayName": "Emerald Dock",
+          "x": 220,
+          "y": 720,
+          "cat": "Gateway",
+          "culture": "Market",
+          "shape": "pentagon",
+          "customNotes": "Salt spray misting off the hull of the caravel 'The Belle', canvas pavilions snapping in the brisk sea breeze, the smell of roasted boar over driftwood fires, and an inactive stone teleporter gate humming faintly beside the dock.",
+          "childMapId": null
+        },
+        {
+          "id": 2,
+          "name": "Emerald Village & Judge's Hall",
+          "displayName": "Emerald Village",
+          "x": 520,
+          "y": 560,
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "Whitewashed timber cottages ringing a mossy freshwater pond. The clang of Erik Von Stromgard's anvil mixes with lute chords outside the Two Palms Inn, while an unassuming well near the water glints with sunken gold coins.",
+          "childMapId": null
+        },
+        {
+          "id": 3,
+          "name": "Lord Markham's Manor",
+          "displayName": "Markham Manor",
+          "x": 480,
+          "y": 280,
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "square",
+          "customNotes": "Polished marble floors, crimson Erathian tapestries, and the smell of beeswax and expensive Pipeleaf. Halberdiers in polished plate flank the heavy oak doors to filter out uninvited scavengers.",
+          "childMapId": null
+        },
+        {
+          "id": 4,
+          "name": "Western Ridge & Day of the Gods Pedestal",
+          "displayName": "Western Ridge",
+          "x": 240,
+          "y": 360,
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "diamond",
+          "customNotes": "Wind-whipped emerald turf overlooking the western cliffs and a stone Well of Luck. At the summit stands a weathered marble pedestal radiating golden divine warmth, guarded by three swaggering mercenary knights.",
+          "childMapId": null
+        },
+        {
+          "id": 5,
+          "name": "Dragonfly Marshes & Eastern Shoals",
+          "displayName": "Dragonfly Marsh",
+          "x": 920,
+          "y": 660,
+          "cat": "Hazard",
+          "culture": "Clan",
+          "shape": "triangle",
+          "customNotes": "Brackish tidal flats and vibrant red-cap mushrooms veiled in sulfurous mist. The air buzzes with the deafening drone of four-foot crimson dragonflies spitting gouts of alchemical flame over waterlogged driftwood chests.",
+          "childMapId": null
+        },
+        {
+          "id": 6,
+          "name": "The Temple of the Moon",
+          "displayName": "Moon Temple",
+          "x": 820,
+          "y": 260,
+          "cat": "Vault",
+          "culture": "Adhocracy",
+          "shape": "hexagon",
+          "customNotes": "Damp limestone caverns behind a rushing mountain waterfall, transitioning into cracked lunar masonry. The chittering of giant venomous spiders and the ozone crackle of lightning-infused rats echo from a hidden southern library.",
+          "childMapId": null
+        },
+        {
+          "id": 7,
+          "name": "Lair of Morcarack the Pitiless",
+          "displayName": "Dragon's Lair",
+          "x": 1220,
+          "y": 340,
+          "cat": "Hazard",
+          "culture": "Clan",
+          "shape": "star",
+          "customNotes": "A vast, soot-blackened basalt cavern reeking of scorched bone, sulfur, and molten copper. Charred armor and skeletal remains litter the perimeter ledges while two glowing amber eyes track movement from the central gloom.",
+          "childMapId": null
+        }
+      ],
+      "links": [
+        {
+          "from": 1,
+          "to": 2,
+          "type": "twoway"
+        },
+        {
+          "from": 1,
+          "to": 4,
+          "type": "twoway"
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "type": "twoway"
+        },
+        {
+          "from": 2,
+          "to": 4,
+          "type": "twoway"
+        },
+        {
+          "from": 2,
+          "to": 5,
+          "type": "twoway"
+        },
+        {
+          "from": 3,
+          "to": 6,
+          "type": "twoway"
+        },
+        {
+          "from": 4,
+          "to": 6,
+          "type": "twoway"
+        },
+        {
+          "from": 5,
+          "to": 7,
+          "type": "twoway"
+        },
+        {
+          "from": 6,
+          "to": 7,
+          "type": "twoway"
+        },
+        {
+          "from": 6,
+          "to": 2,
+          "type": "oneway"
+        }
+      ],
+      "parentMapId": null,
+      "parentNodeId": null
+    }
+  },
+  "entities": {
+    "npcs": [
+      {
+        "id": "npc_lord_markham",
+        "nodeId": 3,
+        "submapId": "map_root",
+        "name": "Lord Markham",
+        "role": "Lord of Tidewater & Contest Patron",
+        "faction": "Tidewater Contest Commission",
+        "factionId": "faction_markham_commission",
+        "culture": "Hierarchy",
+        "motivation": "Install an expendable, capable adventuring party as Lords of Castle Harmondale to act as a military buffer between Erathia and AvLee without spending his own treasury.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Protagonist",
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Castle Harmondale is currently overrun by goblins and falling into ruin; the Scavenger Hunt is a legal loophole to pass the tax and defense burden onto naive heroes.",
+            "revealed": false
+          },
+          {
+            "secret": "He knows the previous night's favored contestants entered Morcarack's cave, and he is terrified word of their deaths will cause the remaining teams to mutiny.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Public exposure that he knowingly sent contestants near a lethal Red Dragon's lair without warning them of the island's tribute pact.",
+          "bribe": "Discreet return of the Missing Contestants' heraldic shield so he can quietly bury the scandal."
+        },
+        "dialogueHooks": [
+          "Welcome to my little parlor game! Bring Judge Grey the six tokens of the hunt, and a keep in the Harmondale valley is yours—stone, timber, and title!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_judge_grey",
+            "relationship": "Ally",
+            "notes": "Relies on Judge Grey's spotless legal reputation to validate the transfer of the Harmondale deed."
+          },
+          {
+            "targetNpcId": "npc_margaret_docent",
+            "relationship": "Superior",
+            "notes": "Employs Margaret as his eyes and ears among the newly arrived contestants."
+          },
+          {
+            "targetNpcId": "npc_morcarack",
+            "relationship": "Debtor",
+            "notes": "Pays an annual livestock and gold tribute to Morcarack to keep the dragon from burning the village shops."
+          }
+        ]
+      },
+      {
+        "id": "npc_judge_grey",
+        "nodeId": 2,
+        "submapId": "map_root",
+        "name": "Judge Thomas Grey",
+        "role": "Arbiter of Harmondale & Contest Adjudicator",
+        "faction": "Tidewater Contest Commission",
+        "factionId": "faction_markham_commission",
+        "culture": "Hierarchy",
+        "motivation": "Ensure that whoever wins the deed to Harmondale possesses both the resourcefulness and moral steadiness to keep the peace between humans and elves.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "He suspects a foreign operative from Nighon or Deyja has infiltrated the village disguised as a commoner to compromise the future Lords of Harmondale.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "His failing health and obsession with strict procedural neutrality prevent him from acting against saboteurs without hard proof.",
+          "bribe": "Authentic delivery of the six scavenger items or concrete evidence of Mr. Malwick's usurious contract scheme."
+        },
+        "dialogueHooks": [
+          "Place each token upon the ledger table when you acquire it. I care not whether you bought, found, or bled for them—only that the six requirements are satisfied."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_lord_markham",
+            "relationship": "Ally",
+            "notes": "Co-signed the contest charter, though he disapproves of Markham's theatrical secrecy."
+          },
+          {
+            "targetNpcId": "npc_mr_malwick",
+            "relationship": "Rival",
+            "notes": "Watches Malwick closely, sensing the 'peasant' carries arcane contraband."
+          }
+        ]
+      },
+      {
+        "id": "npc_margaret_docent",
+        "nodeId": 1,
+        "submapId": "map_root",
+        "name": "Margaret the Docent",
+        "role": "Official Contest Tour Guide",
+        "faction": "Tidewater Contest Commission",
+        "factionId": "faction_markham_commission",
+        "culture": "Hierarchy",
+        "motivation": "Keep the surviving contestants alive long enough to finish the hunt so she can collect her completion bonus and leave this humid rock.",
+        "status": "Active",
+        "dispositionToParty": 2,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "Ailyssa the Bard outside the Two Palms Inn possesses the only intact Lute on the island and is gouging contestants for 500 gold—unless someone intimidates or pickpockets her.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "She accidentally pointed the missing dwarf-elf-human team toward the northeastern beach the night before they vanished.",
+          "bribe": "A promise to commend her stellar guidance directly to Lord Markham upon winning the contest."
+        },
+        "dialogueHooks": [
+          "Welcome to Emerald Isle! Lord Markham has supplemented our sparse village with shops and guilds for your convenience—please don't wander into the marshes unprepared!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_lord_markham",
+            "relationship": "Subordinate",
+            "notes": "Reports contestant casualties and behavioral profiles to Markham every evening."
+          },
+          {
+            "targetNpcId": "npc_sal_sharktooth",
+            "relationship": "Rival",
+            "notes": "Despises Sal for threatening to slit her throat if she gave hints to competing teams."
+          }
+        ]
+      },
+      {
+        "id": "npc_mr_malwick",
+        "nodeId": 2,
+        "submapId": "map_root",
+        "name": "Mr. Malwick",
+        "role": "Undercover Syndicate Broker",
+        "faction": "The Black-Sash Syndicate",
+        "factionId": "faction_shadow_syndicate",
+        "culture": "Market",
+        "motivation": "Entrap the likely winners of the Scavenger Hunt into accepting an arcane wand, binding them to a predatory debt owed to Niles Stantley and the Kreegan-backed mercenaries.",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Antagonist",
+        "odv": {
+          "s": 3,
+          "e": 3,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Accepting his Wand of Fireballs registers a blood-debt with Niles Stantley's mercenary syndicate, which will later demand the theft of Erathian war plans or launch a siege on Harmondale.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "He is operating alone without backup on the island; if confronted with lethal force in a dark alley, he will surrender the wand to save his skin.",
+          "bribe": "A formal verbal agreement to owe his 'associates' a small, unnamed favor once the party claims Castle Harmondale."
+        },
+        "dialogueHooks": [
+          "Psst! You look like practical folk who want an edge in Markham's little game. Take this Wand of Fireballs—consider it an investment in our future friendship."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_sal_sharktooth",
+            "relationship": "Handler",
+            "notes": "Tipped Sal off about the Temple of the Moon's layout to thin out rival teams."
+          },
+          {
+            "targetNpcId": "npc_judge_grey",
+            "relationship": "Rival",
+            "notes": "Avoids the Judge's Hall to keep his forged peasant papers from being scrutinized."
+          }
+        ]
+      },
+      {
+        "id": "npc_sal_sharktooth",
+        "nodeId": 6,
+        "submapId": "map_root",
+        "name": "Sal Sharktooth",
+        "role": "Cutthroat Contestant & Brigand Leader",
+        "faction": "The Black-Sash Syndicate",
+        "factionId": "faction_shadow_syndicate",
+        "culture": "Market",
+        "motivation": "Ambush rival contestants inside the Temple of the Moon, strip them of their scavenger relics, and claim the Harmondale deed to turn the valley into a bandit toll-state.",
+        "status": "Active",
+        "dispositionToParty": -1,
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 1,
+          "e": 3,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "The loose Lunar Floor Tile required for the hunt is hidden behind a secret sliding stone wall on the southern side of the Temple's central hall.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "His crew has been badly poisoned and depleted by the temple's giant spiders and lightning rats; a show of overwhelming magic or martial force breaks his nerve.",
+          "bribe": "Handing over the Plumed Wealthy Hat—or paying him 300 gold—convinces him to call off his ambush and trade information."
+        },
+        "dialogueHooks": [
+          "Well, well—fresh meat walking right into the dark! Hand over that fancy Wealthy Hat you're carrying, and maybe my boys let you crawl back out into the sunlight."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_mr_malwick",
+            "relationship": "Informant",
+            "notes": "Receives tips from Malwick in exchange for eliminating incorruptible contestants."
+          },
+          {
+            "targetNpcId": "npc_margaret_docent",
+            "relationship": "Rival",
+            "notes": "Bullied Margaret at the docks to learn the full list of six scavenger items early."
+          }
+        ]
+      },
+      {
+        "id": "npc_morcarack",
+        "nodeId": 7,
+        "submapId": "map_root",
+        "name": "Morcarack the Pitiless",
+        "role": "Apex Red Dragon of Emerald Isle",
+        "faction": "Domain of Morcarack",
+        "factionId": "faction_crimson_brood",
+        "culture": "Clan",
+        "motivation": "Hoard gold and magical relics in his volcanic sea-cavern while incinerating any trespassers brazen enough to disturb his slumber.",
+        "status": "Active",
+        "dispositionToParty": -2,
+        "fourCornersRole": "Antagonist",
+        "odv": {
+          "s": 1,
+          "e": 4,
+          "c": 4
+        },
+        "secretsKnown": [
+          {
+            "secret": "He roasted the missing dwarf, elf, and human mage contestants last night; their surviving heraldic shield lies half-buried beneath a pile of giant rat bones in the northwest alcove.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "He naturally patrols his cavern in a predictable counter-clockwise drift and becomes distracted mauling the cave's giant rats, leaving the entrance ledges briefly unguarded.",
+          "bribe": "A tribute of at least 1,000 gold coins (such as the stash from the lucky village well) tossed into the center of his cavern buys sixty seconds of unmolested passage."
+        },
+        "dialogueHooks": [
+          "MORTAL THIEVES! THE LITTLE LORD IN THE MANOR PAYS ME IN CATTLE, NOT IN ARROGANT WELPS—BURN AS YOUR PREDECESSORS BURNED!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_lord_markham",
+            "relationship": "Creditor",
+            "notes": "Extorts Markham's settlement for regular tribute in exchange for sparing the docks."
+          }
+        ]
+      }
+    ],
+    "quests": [
+      {
+        "id": "quest_scavenger_hunt",
+        "nodeId": 2,
+        "submapId": "map_root",
+        "title": "The Grand Scavenger Hunt for Harmondale",
+        "type": "Retrieval",
+        "threat": "Moderate",
+        "status": "Active",
+        "notes": "Recover the key scavenger relics scattered across Emerald Isle—including the Plumed Wealthy Hat, the Lunar Mosaic Floor Tile, the Yew Longbow, the Giant Crimson Seashell, and the Bard's Lute (along with a standard Red Potion)—and present them to Judge Grey at the village hall. Success awards the legal deed to Castle Harmondale and passage aboard the ship. Failure occurs if Sal Sharktooth's syndicate claims the deed first.",
+        "giverNpcId": "npc_lord_markham",
+        "targetNpcId": "npc_judge_grey",
+        "npcIds": [
+          "npc_lord_markham",
+          "npc_judge_grey",
+          "npc_sal_sharktooth"
+        ],
+        "itemIds": [
+          "item_wealthy_hat",
+          "item_moon_floor_tile",
+          "item_contest_longbow",
+          "item_giant_seashell",
+          "item_ailyssa_lute"
+        ]
+      },
+      {
+        "id": "quest_missing_contestants",
+        "nodeId": 3,
+        "submapId": "map_root",
+        "title": "Fate of the Missing Contestants",
+        "type": "Investigation",
+        "threat": "Lethal",
+        "status": "Active",
+        "notes": "Three promising contestants—a dwarf, an elf, and a human mage—vanished the night before the hunt began. Lord Markham wants discrete proof of their fate. Infiltrate Morcarack's cavern at Node 7, evade or slay the Red Dragon, and recover the scarred Contestant's Shield to earn 1,000 gold and Markham's personal gratitude.",
+        "giverNpcId": "npc_lord_markham",
+        "targetNpcId": "npc_morcarack",
+        "npcIds": [
+          "npc_lord_markham",
+          "npc_morcarack",
+          "npc_margaret_docent"
+        ],
+        "itemIds": [
+          "item_contestants_shield"
+        ]
+      },
+      {
+        "id": "quest_malwicks_bargain",
+        "nodeId": 2,
+        "submapId": "map_root",
+        "title": "A Simple Favor from Mr. Malwick",
+        "type": "Intrigue",
+        "threat": "Severe",
+        "status": "Active",
+        "notes": "Mr. Malwick offers a fully charged Wand of Fireballs—potent enough to clear the Temple of the Moon or Dragonfly Marshes effortlessly—in exchange for a binding promise to perform a 'small favor' after winning Harmondale. Players can accept the Faustian pact, expose Malwick's syndicate ties to Judge Grey, or mug him in the village back-alleys.",
+        "giverNpcId": "npc_mr_malwick",
+        "targetNpcId": "npc_judge_grey",
+        "npcIds": [
+          "npc_mr_malwick",
+          "npc_judge_grey",
+          "npc_sal_sharktooth"
+        ],
+        "itemIds": [
+          "item_malwick_fireball_wand"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "id": "item_contestants_shield",
+        "nodeId": 7,
+        "submapId": "map_root",
+        "name": "Scorched Contestant's Shield",
+        "category": "Armor",
+        "specs": "Medium steel heater shield, warped and blackened by dragonfire (+4 AC, Fire Resistance +5). Weighs 8 lbs; smells faintly of ash.",
+        "notes": "Bears the tri-part heraldry of the dwarf, elf, and human mage team who foolishly entered Morcarack's lair seeking a Longbow before the contest officially opened.",
+        "ownerNpcId": "npc_morcarack",
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_malwick_fireball_wand",
+        "nodeId": 2,
+        "submapId": "map_root",
+        "name": "Malwick's Wand of Fireballs",
+        "category": "Weapon",
+        "specs": "Carved obsidian rod tipped with a sulfur ruby (25 charges of 6d6 AoE Fireball; market value 800 gp). Warm to the touch and etched with Nighon runes.",
+        "notes": "An overt piece of military-grade arcane contraband smuggled onto Emerald Isle by Niles Stantley's syndicate to hook desperate contestants.",
+        "ownerNpcId": "npc_mr_malwick",
+        "possessionMode": "carried",
+        "status": "Active"
+      },
+      {
+        "id": "item_moon_floor_tile",
+        "nodeId": 6,
+        "submapId": "map_root",
+        "name": "Lunar Mosaic Floor Tile",
+        "category": "Relic",
+        "specs": "Octagonal slab of silver-veined blue marble weighing 12 lbs; glows with pale moonlight when held near secret doors.",
+        "notes": "Pried from the floor of the hidden library inside the abandoned Temple of the Moon. One of the six mandatory scavenger hunt items.",
+        "ownerNpcId": "npc_sal_sharktooth",
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_wealthy_hat",
+        "nodeId": 4,
+        "submapId": "map_root",
+        "name": "Plumed Wealthy Hat",
+        "category": "Relic",
+        "specs": "Velvet nobleman's cap adorned with an extravagantgriffin feather and gold brocade. Zero armor value, high sartorial arrogance.",
+        "notes": "Hidden inside a locked chest near the Western Ridge and fiercely coveted by Sal Sharktooth's gang as a required scavenger token.",
+        "ownerNpcId": "npc_sal_sharktooth",
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_contest_longbow",
+        "nodeId": 6,
+        "submapId": "map_root",
+        "name": "Yew Longbow of Emerald Isle",
+        "category": "Weapon",
+        "specs": "Masterwork laminate longbow (+2 Attack, 2d4+2 piercing damage, 150 ft range). Strung with waxed siren-gut.",
+        "notes": "Carried by Sal Sharktooth inside the Temple of the Moon (with a twin bow lying among the bones in Morcarack's cave); required by Judge Grey for the hunt.",
+        "ownerNpcId": "npc_sal_sharktooth",
+        "possessionMode": "carried",
+        "status": "Active"
+      },
+      {
+        "id": "item_giant_seashell",
+        "nodeId": 5,
+        "submapId": "map_root",
+        "name": "Iridescent Giant Seashell",
+        "category": "Relic",
+        "specs": "Spiral mother-of-pearl conch weighing 4 lbs; resonates with the ambient hum of the Endless Ocean.",
+        "notes": "Washed ashore in a waterlogged chest amid the fire-spitting dragonfly swarms of the eastern marshes; required for the Scavenger Hunt.",
+        "ownerNpcId": "npc_morcarack",
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_ailyssa_lute",
+        "nodeId": 2,
+        "submapId": "map_root",
+        "name": "Ailyssa's Rosewood Lute",
+        "category": "Tool",
+        "specs": "Six-course acoustic lute crafted from AvLeean rosewood (+1 Charm/Performance checks; valued at 500 gp during the contest bubble).",
+        "notes": "Held in the village square outside the Two Palms Inn; the final artisanal token demanded by Judge Grey's scavenger ledger.",
+        "ownerNpcId": "npc_margaret_docent",
+        "possessionMode": "stored",
+        "status": "Active"
+      }
+    ],
+    "factions": [
+      {
+        "id": "faction_markham_commission",
+        "name": "Tidewater Contest Commission",
+        "type": "Noble Directorate",
+        "cvfQuadrant": "Hierarchy",
+        "colorIdentity": "W",
+        "leaderNpcId": "npc_lord_markham",
+        "headquartersNodeId": 3,
+        "controlledNodeIds": [
+          1,
+          2,
+          3
+        ],
+        "diplomaticStances": {
+          "faction_shadow_syndicate": "Rival",
+          "faction_crimson_brood": "Neutral"
+        },
+        "disposition": [
+          3,
+          2,
+          3
+        ],
+        "description": "Lord Markham's administrative entourage, Erathian household guards, and Judge Grey's legal clerks overseeing the Harmondale Scavenger Hunt.",
+        "notes": "Publicly celebrates chivalric competition while privately rushing to offload the politically volatile Harmondale borderlands before war breaks out between Erathia and AvLee."
+      },
+      {
+        "id": "faction_shadow_syndicate",
+        "name": "The Black-Sash Syndicate",
+        "type": "Mercenary & Espionage Ring",
+        "cvfQuadrant": "Market",
+        "colorIdentity": "B",
+        "leaderNpcId": "npc_mr_malwick",
+        "headquartersNodeId": 6,
+        "controlledNodeIds": [
+          4,
+          6
+        ],
+        "diplomaticStances": {
+          "faction_markham_commission": "Rival",
+          "faction_crimson_brood": "Hostile"
+        },
+        "disposition": [
+          3,
+          3,
+          2
+        ],
+        "description": "A clandestine alliance between Mr. Malwick's off-island intelligence network and Sal Sharktooth's cutthroat contestants.",
+        "notes": "Aims to either put Sal Sharktooth on the throne of Harmondale or saddle the winning party with an inescapable blood-debt via Malwick's Wand of Fireballs."
+      },
+      {
+        "id": "faction_crimson_brood",
+        "name": "Domain of Morcarack",
+        "type": "Apex Predator & Monster Brood",
+        "cvfQuadrant": "Clan",
+        "colorIdentity": "R",
+        "leaderNpcId": "npc_morcarack",
+        "headquartersNodeId": 7,
+        "controlledNodeIds": [
+          5,
+          7
+        ],
+        "diplomaticStances": {
+          "faction_markham_commission": "Neutral",
+          "faction_shadow_syndicate": "Hostile"
+        },
+        "disposition": [
+          1,
+          4,
+          4
+        ],
+        "description": "The ancient Red Dragon Morcarack the Pitiless and the swarms of fire-breathing giant dragonflies nesting along the eastern volcanic coast.",
+        "notes": "Tolerates the village's existence only so long as Markham's tribute arrives on schedule and scavengers stay out of the northeastern basalt cavern."
+      }
+    ],
+    "trackers": [
+      {
+        "id": "tracker_scavenger_deadline",
+        "nodeId": 2,
+        "submapId": "map_root",
+        "name": "Rival Claim on the Harmondale Deed",
+        "type": "Threat Clock",
+        "maxTicks": 6,
+        "currentTicks": 0,
+        "faction": "The Black-Sash Syndicate",
+        "notes": "Advances by 1 tick each time the party rests at the Two Palms Inn, retreats from a dungeon, or loses a relic to extortion. At 6 ticks, Sal Sharktooth's crew presents a completed set of items to Judge Grey and claims Castle Harmondale."
+      },
+      {
+        "id": "tracker_morcarack_wrath",
+        "nodeId": 7,
+        "submapId": "map_root",
+        "name": "Wrath of Morcarack the Pitiless",
+        "type": "Threat Clock",
+        "maxTicks": 4,
+        "currentTicks": 0,
+        "faction": "Domain of Morcarack",
+        "notes": "Advances by 1 tick whenever loud explosive magic (such as Malwick's Wand of Fireballs) is used on the eastern half of the island or when items are looted from Node 7 without stealth. At 4 ticks, Morcarack takes flight from his cavern to strafe the eastern marshes and village docks with dragonfire."
+      }
+    ]
+  }
+}

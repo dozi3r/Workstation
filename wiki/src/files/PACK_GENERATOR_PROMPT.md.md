@@ -3,11 +3,11 @@ file_path: "PACK_GENERATOR_PROMPT.md"
 title: "Creator Studio Campaign Pack Generator — AI System Prompt"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "c8bc45952b42a6aa"
-reviewed_hash: "c8bc45952b42a6aa"
+current_hash: "00058fb11d3f606d"
+reviewed_hash: "00058fb11d3f606d"
 stale: false
-size_bytes: 13688
-line_count: 323
+size_bytes: 16551
+line_count: 357
 ---
 
 # Creator Studio Campaign Pack Generator — AI System Prompt

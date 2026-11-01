@@ -77,7 +77,7 @@
     function ensureCampaignModules(topo) {
       if (!topo) return;
       if (!Array.isArray(topo.campaign_modules)) {
-        const activeCamp = localStorage.getItem("cs_active_campaign") || topo.campaign_id || (typeof activeCampaignId !== "undefined" ? activeCampaignId : "emerald_isle");
+        const activeCamp = localStorage.getItem("cs_active_campaign") || topo.campaign_id || (typeof activeCampaignId !== "undefined" ? activeCampaignId : "peridot");
         const set = new Set();
         if (typeof ALL_MODULES !== 'undefined') {
           const registeredCount = (typeof CAMPAIGN_REGISTRY !== "undefined") ? Object.keys(CAMPAIGN_REGISTRY).length : 1;

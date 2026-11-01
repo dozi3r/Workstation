@@ -10,7 +10,7 @@ AUTHORITATIVE SPECIFICATIONS:
   - docs/srd/ip_module_framework_srd.md
   - docs/srd/scenario_primitives_srd.md
 DATA PROVENANCE & BUILD PIPELINE:
-  - campaigns/Emerald Isle/modules/**/*.md
+  - campaigns/Peridot/modules/**/*.md
 CRITICAL INSTRUCTION:
   Each module file must declare typed pipeline_tier, provides, and requires tags in YAML frontmatter.
   Re-compile suite via: powershell -ExecutionPolicy Bypass -File .\Build-Suite.ps1
@@ -56,7 +56,7 @@ Creator Studio decouples the universal engine from campaign-specific datasets. C
 ```text
 Creator/
 ├── campaigns/
-│   └── Emerald Isle/                  # [ACTIVE CAMPAIGN] Emerald Isle Comprehensive Sourcebook (109 Modules)
+│   └── Peridot/                       # [ACTIVE CAMPAIGN] Peridot Isle Comprehensive Sourcebook (109 Modules)
 │       ├── campaign.json              # Metadata, active toggle
 │       ├── preset.json                # Canonical 22-node preset
 │       ├── modules_manifest.json      # 109-module manifest
@@ -75,31 +75,31 @@ Creator/
 
 ---
 
-### 3. Campaign Sourcebook: Emerald Isle
-*Directory: [`campaigns/Emerald Isle/`](../campaigns/Emerald%20Isle/)*
+### 3. Campaign Sourcebook: Peridot Isle
+*Directory: [`campaigns/Peridot/`](../campaigns/Peridot/)*
 
 A system-agnostic, multi-tier campaign sourcebook consolidating 109 modules across infrastructure, ecology, governance, social dilemmas, and eschatological climax engines.
 
 | Module ID | Module Title | Pipeline Tier | Culture Fit | Key Yields |
 | :--- | :--- | :---: | :--- | :--- |
-| **[FACT-01](../campaigns/Emerald%20Isle/modules/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md)** | The 5 Sovereign Hub Archetypes & Smothering | **Tier 1** | Universal | Geopolitical Balance |
-| **[FACT-02](../campaigns/Emerald%20Isle/modules/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md)** | The 2-Axis Sovereign Tension Matrix | **Tier 1** | Cross-Quadrant | Diplomatic Polarities |
-| **[FACT-03](../campaigns/Emerald%20Isle/modules/FACT-03_Decapitation_Proof_Mosaic_Governance.md)** | Decapitation-Proof State Architecture | **Tier 1** | Hierarchy / Clan | State Continuity |
-| **[FACT-04](../campaigns/Emerald%20Isle/modules/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md)** | The Equilibrium Engine & Stability Points | **Tier 1** | Universal | World State Shifting |
-| **[FACT-06](../campaigns/Emerald%20Isle/modules/FACT-06_Tactical_Bastion_Fortification_Ranks.md)** | Tactical Bastion Fortification Ranks | **Tier 2** | Hierarchy / Clan | Fortified Perimeter |
-| **[SPARK-08](../campaigns/Emerald%20Isle/modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md)** | Universal Arrival & Disembark Tables | **Tier 2** | Universal | Starting Boons & Debts |
-| **[STARTER-01](../campaigns/Emerald%20Isle/modules/STARTER-01_River_Watermill_and_Grain_Silo.md)** | The River Watermill & Grain Silo | **Tier 3** | Hierarchy / Market | Milled Flour, River Weir |
-| **[STARTER-02](../campaigns/Emerald%20Isle/modules/STARTER-02_Smugglers_Cove_and_Hidden_Sea_Cave.md)** | Smugglers' Cove & Hidden Sea Cave | **Tier 2** | Adhocracy / Market | Contraband Trade, Tidal Path |
-| **[STARTER-03](../campaigns/Emerald%20Isle/modules/STARTER-03_Goblin_Warrens_and_Clay_Pits.md)** | Goblin Warrens & Abandoned Clay Pits | **Tier 2** | Adhocracy / Clan | Goblin Raids, Iron Scrap |
-| **[STARTER-04](../campaigns/Emerald%20Isle/modules/STARTER-04_Ancient_Barrow_and_Restless_Dead.md)** | The Ancient Barrow & Restless Dead | **Tier 4** | Clan / Memory | Restless Dead, Barrow Silver |
-| **[STARTER-05](../campaigns/Emerald%20Isle/modules/STARTER-05_Mountain_Watchtower_and_Signal_Pylon.md)** | Mountain Watchtower & Signal Pylon | **Tier 2** | Hierarchy | Early Raid Warning, Signals |
-| **[STARTER-06](../campaigns/Emerald%20Isle/modules/STARTER-06_Whispering_Old_Woods_and_Herbalist_Cloister.md)** | Whispering Old Woods & Herbalist Cloister | **Tier 2** | Clan | Herbal Salves, Timber |
-| **[HOOK-01](../campaigns/Emerald%20Isle/modules/HOOK-01_The_Indentured_Caravan_Desperation_Leap.md)** | The Indentured Caravan Desperation Leap | **Tier 4** | Market / Hierarchy | Debt Ledger, Truck Scrip, Labor Revolt |
+| **[FACT-01](../campaigns/Peridot/modules/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md)** | The 5 Sovereign Hub Archetypes & Smothering | **Tier 1** | Universal | Geopolitical Balance |
+| **[FACT-02](../campaigns/Peridot/modules/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md)** | The 2-Axis Sovereign Tension Matrix | **Tier 1** | Cross-Quadrant | Diplomatic Polarities |
+| **[FACT-03](../campaigns/Peridot/modules/FACT-03_Decapitation_Proof_Mosaic_Governance.md)** | Decapitation-Proof State Architecture | **Tier 1** | Hierarchy / Clan | State Continuity |
+| **[FACT-04](../campaigns/Peridot/modules/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md)** | The Equilibrium Engine & Stability Points | **Tier 1** | Universal | World State Shifting |
+| **[FACT-06](../campaigns/Peridot/modules/FACT-06_Tactical_Bastion_Fortification_Ranks.md)** | Tactical Bastion Fortification Ranks | **Tier 2** | Hierarchy / Clan | Fortified Perimeter |
+| **[SPARK-08](../campaigns/Peridot/modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md)** | Universal Arrival & Disembark Tables | **Tier 2** | Universal | Starting Boons & Debts |
+| **[STARTER-01](../campaigns/Peridot/modules/STARTER-01_River_Watermill_and_Grain_Silo.md)** | The River Watermill & Grain Silo | **Tier 3** | Hierarchy / Market | Milled Flour, River Weir |
+| **[STARTER-02](../campaigns/Peridot/modules/STARTER-02_Smugglers_Cove_and_Hidden_Sea_Cave.md)** | Smugglers' Cove & Hidden Sea Cave | **Tier 2** | Adhocracy / Market | Contraband Trade, Tidal Path |
+| **[STARTER-03](../campaigns/Peridot/modules/STARTER-03_Goblin_Warrens_and_Clay_Pits.md)** | Goblin Warrens & Abandoned Clay Pits | **Tier 2** | Adhocracy / Clan | Goblin Raids, Iron Scrap |
+| **[STARTER-04](../campaigns/Peridot/modules/STARTER-04_Ancient_Barrow_and_Restless_Dead.md)** | The Ancient Barrow & Restless Dead | **Tier 4** | Clan / Memory | Restless Dead, Barrow Silver |
+| **[STARTER-05](../campaigns/Peridot/modules/STARTER-05_Mountain_Watchtower_and_Signal_Pylon.md)** | Mountain Watchtower & Signal Pylon | **Tier 2** | Hierarchy | Early Raid Warning, Signals |
+| **[STARTER-06](../campaigns/Peridot/modules/STARTER-06_Whispering_Old_Woods_and_Herbalist_Cloister.md)** | Whispering Old Woods & Herbalist Cloister | **Tier 2** | Clan | Herbal Salves, Timber |
+| **[HOOK-01](../campaigns/Peridot/modules/HOOK-01_The_Indentured_Caravan_Desperation_Leap.md)** | The Indentured Caravan Desperation Leap | **Tier 4** | Market / Hierarchy | Debt Ledger, Truck Scrip, Labor Revolt |
 
 ---
 
 ### 4. Canonical Modular Sets (Sets A–G)
-*Directory: [`campaigns/Emerald Isle/modules/`](../campaigns/Emerald%20Isle/modules/)*
+*Directory: [`campaigns/Peridot/modules/`](../campaigns/Peridot/modules/)*
 
 The foundational 48 industrial-alchemical sandbox modules, organized across Sets A through G:
 * **Set A: Infrastructure & Engineering** (Pelton Wheel `INFRA-01`, Arc Furnace `INFRA-02`, Smokewall `INFRA-03`, Nitrification `INFRA-04`, Mist Poles `INFRA-05`, Freewave Radio `INFRA-06`, Menhir Relay `INFRA-07`, Cryo Pyramid `INFRA-08`, Zim-Sharr Wards `INFRA-09`)

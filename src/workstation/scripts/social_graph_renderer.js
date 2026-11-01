@@ -74,7 +74,7 @@
           const targetNpc = npcs.find(other => String(other.id) === targetId);
           if (!targetNpc) return;
 
-          const relType = String(r.relationshipType || r.type || 'Ally').trim();
+          const relType = String(r.relationshipType || r.relationship || r.type || 'Ally').trim();
           const sentiment = typeof r.sentiment === 'number' ? r.sentiment : 0;
 
           if (Math.abs(sentiment) < minSentiment) return;
@@ -733,7 +733,7 @@
         : null;
 
       if (sourceNpc && targetNpc && rel) {
-        const curType = rel.relationshipType || rel.type || 'Ally';
+        const curType = rel.relationshipType || rel.relationship || rel.type || 'Ally';
         const curSent = typeof rel.sentiment === 'number' ? rel.sentiment : 0;
         const curNotes = rel.notes || '';
         const col = REL_COLORS[curType] || '#64748b';
@@ -830,7 +830,7 @@
         } else {
           relItemsHtml = rels.map(r => {
             const target = (topo.npcs || []).find(n => String(n.id) === String(r.targetNpcId));
-            const col = REL_COLORS[r.relationshipType || r.type] || '#64748b';
+            const col = REL_COLORS[r.relationshipType || r.relationship || r.type] || '#64748b';
             const s = typeof r.sentiment === 'number' ? r.sentiment : 0;
             return `
               <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; border:1px solid #e2e8f0; padding:2px 5px; border-radius:2px; margin-bottom:2px; cursor:pointer;" onclick="if(window.handleSocialGraphEdgeClick) window.handleSocialGraphEdgeClick('${npc.id}', '${r.targetNpcId}')" title="Click to inspect this relationship tie">
@@ -925,7 +925,7 @@
     }
 
     if (existingRel) {
-      if (typeSelect) typeSelect.value = existingRel.relationshipType || existingRel.type || 'Ally';
+      if (typeSelect) typeSelect.value = existingRel.relationshipType || existingRel.relationship || existingRel.type || 'Ally';
       const s = typeof existingRel.sentiment === 'number' ? existingRel.sentiment : 0;
       if (sentSlider) sentSlider.value = s;
       if (sentVal) sentVal.textContent = (s >= 0 ? '+' : '') + s;

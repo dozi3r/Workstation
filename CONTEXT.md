@@ -299,6 +299,26 @@ _Avoid_: Drag select, rubber band, lasso
 
 ### Campaign Lifecycle & State Isolation
 
+**Campaign Identifier (`campaign.id` / `slug`)**:
+The immutable URL-safe and folder-safe lowercase identifier (e.g. `peridot`, `migmag`) uniquely distinguishing a campaign package across registries, directories, and persistence stores.
+_Avoid_: Campaign name (ambiguous), folder name, pack key
+
+**Campaign Display Name (`campaign.name` / `campaignName`)**:
+The human-readable title of a campaign (e.g. "Peridot Isle", "Might and Magic VII"), displayed across window title bars, the status bar, exported dossiers, and campaign launchers.
+_Avoid_: Campaign ID, slug, title string
+
+**Campaign Settings Dialog**:
+The dedicated in-workstation MDI modal dialog allowing authors to inspect and mutate an active campaign's metadata (Display Name, Author, Description, Climax Trigger, Global Dials) in-place without requiring a project fork.
+_Avoid_: Preferences window, project config, options modal
+
+**Peridot Isle (`peridot`)**:
+The canonical industrial-alchemical campaign setting featuring a 59-node pointcrawl network, 97 modular authoring sourcebooks, and high-head hydraulic/carbochemical infrastructure; formerly referenced during early prototyping as Opal Island or Silica Isle, and temporarily conflated with Emerald Isle.
+_Avoid_: Opal Island (deprecated historical prototype), Silica Isle (deprecated), Emerald Isle (deprecated conflation with MM7)
+
+**Emerald Island (`map_mm7_emerald_isle`)**:
+The canonical starter island survey map and regional setting within the `migmag` Might & Magic VII campaign package, preserved strictly for MM7 conversion fidelity.
+_Avoid_: Peridot, Emerald Isle Campaign (disambiguated: the campaign is `migmag`, the starter map is Emerald Isle)
+
 **Sterile Slate (`resetWorkstationSlate`)**:
 The authoritative campaign teardown and sterilization sequence that purges active in-memory topologies, cartographic registries, selection sets, history undo/redo stacks, dynamic SVG canvas layers, and transient module registries before creating, opening, or switching campaigns.
 _Avoid_: Clear canvas, reset view, new file wipe
@@ -307,8 +327,8 @@ _Avoid_: Clear canvas, reset view, new file wipe
 The strict architectural boundary ensuring that nodes, transit corridors, NPCs, quests, items, tickets, raster map background caches, and mod-specific datasets from one campaign never bleed into another campaign.
 _Avoid_: Workspace sandbox, folder separation
 
-**Campaign Mod Lifecycle (`onCampaignLoad`, `onCampaignUnload`)**:
-Event hooks dispatched by the workstation shell notifying installed workstation mods of campaign transitions, enabling mods to persist and hydrate campaign-scoped data in the campaign directory while keeping workstation-level tool registrations and global preferences intact.
+**Campaign Mod Lifecycle (`onCampaignRenamed`, `onCampaignLoad`, `onCampaignUnload`)**:
+Event hooks dispatched by the workstation shell notifying installed workstation mods of campaign mutations and transitions, enabling mods to persist and hydrate campaign-scoped data while guaranteeing mod-injected properties on nodes, edges, and entities survive campaign renaming and Save As operations without desync.
 _Avoid_: Plugin restart, mod reload, addon reset
 
 ### Git-Integrated Token Optimization & Diff-Driven Engineering

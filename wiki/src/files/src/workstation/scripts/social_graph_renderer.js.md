@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/social_graph_renderer.js"
 title: "social_graph_renderer.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "157e965488e37bf1"
-reviewed_hash: "157e965488e37bf1"
+current_hash: "c09d8132989d6b9c"
+reviewed_hash: "c09d8132989d6b9c"
 stale: false
-size_bytes: 46562
+size_bytes: 46646
 line_count: 1015
 ---
 

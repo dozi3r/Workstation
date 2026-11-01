@@ -33,6 +33,22 @@ function rebaseFileUrls(jsonStr, prefix) {
   return jsonStr.replace(/("file_url"\s*:\s*")(?![a-zA-Z][a-zA-Z0-9+.-]*:|\/|\.\.\/)(?=[^"])/g, `$1${prefix}`);
 }
 
+function safeWriteFileSync(filePath, data, encoding = 'utf8') {
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      return fs.writeFileSync(filePath, data, encoding);
+    } catch (err) {
+      if ((err.code === 'EBUSY' || err.code === 'UNKNOWN' || err.errno === -4094) && attempt < 4) {
+        const waitMs = attempt * 60;
+        const end = Date.now() + waitMs;
+        while (Date.now() < end) {}
+        continue;
+      }
+      throw err;
+    }
+  }
+}
+
 console.log('========================================================');
 console.log('       CREATOR STUDIO - CENTRALIZED ASSET COMPILER      ');
 console.log('========================================================\n');
@@ -1135,7 +1151,7 @@ CRITICAL INSTRUCTION:
       } else {
         content = headerText + content;
       }
-      fs.writeFileSync(fullPath, content, 'utf8');
+      safeWriteFileSync(fullPath, content, 'utf8');
     } else if (s.type === 'powershell') {
       const headerText = `<#
 ================================================================================
@@ -1157,7 +1173,7 @@ CRITICAL INSTRUCTION:
       } else {
         content = headerText + content;
       }
-      fs.writeFileSync(fullPath, content, 'utf8');
+      safeWriteFileSync(fullPath, content, 'utf8');
     } else if (s.type === 'markdown') {
       const headerText = `<!--
 ================================================================================
@@ -1185,7 +1201,7 @@ CRITICAL INSTRUCTION:
           content = headerText + content;
         }
       }
-      fs.writeFileSync(fullPath, content, 'utf8');
+      safeWriteFileSync(fullPath, content, 'utf8');
     }
   });
   console.log(`[OK] Injected/refreshed Compass Headers across registered surfaces.`);

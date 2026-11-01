@@ -826,7 +826,7 @@ async function openCampaignFolder() {
   const picked = await pickReadWriteDirectory();
   if (!picked) return;
   if (!(await dirLooksLikeCampaign(picked))) {
-    alert(`"${picked.name}" does not contain campaign.json / topology.json.\n\nPick a campaign folder (for example campaigns/Emerald Isle), or use File -> Save As New Campaign to create one.`);
+    alert(`"${picked.name}" does not contain campaign.json / topology.json.\n\nPick a campaign folder (for example campaigns/Peridot), or use File -> Save As New Campaign to create one.`);
     return;
   }
   await loadCampaignFromDirectoryHandle(picked);

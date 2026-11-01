@@ -1,0 +1,503 @@
+{
+  "id": "the_iron_crisis_of_nashkel___the_deep_mines",
+  "name": "The Iron Crisis of Nashkel & The Deep Mines",
+  "campaignName": "The Iron Crisis of Nashkel & The Deep Mines",
+  "description": "The northern Amnian border town of Nashkel and its deep iron mines have descended into chaos. Poisoned ore crumbles weapons across the Sword Coast, miners whisper of demonic screams in the lower shafts, and Iron Throne assassins stalk the streets to eliminate anyone sniffing around Mayor Ghastkill's commission.",
+  "author": "Creator Studio World Architect",
+  "packageType": "workstation_project",
+  "enabled": true,
+  "topologyFile": "topology.json",
+  "manifestFile": "modules_manifest.json",
+  "updatedAt": "2026-11-01T18:32:55.860Z",
+  "exportedAt": "2026-11-01T18:32:55.860Z",
+  "globalDials": {
+    "dial8ClimaxTrigger": "crisis",
+    "tier0Substratum": false
+  },
+  "entities": {
+    "npcs": [
+      {
+        "id": "npc_berrun_ghastkill",
+        "nodeId": 102,
+        "submapId": "map_bg1_nashkel_town",
+        "name": "Mayor Berrun Ghastkill",
+        "role": "Mayor & Town Administrator",
+        "faction": "Amnian Council & Town Watch",
+        "factionId": "faction_amnian_watch",
+        "culture": "Hierarchy",
+        "motivation": "Quell civilian unrest and halt the iron rot by securing dependable mercenaries to clear the deep mine adits.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Protagonist",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Amnian military high command suspects the iron crisis is deliberate economic sabotage orchestrated by an offshore shadow syndicate rather than natural ore failure.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Terrified of rioting miners burning down the town hall if another shift vanishes in the shafts.",
+          "bribe": "Delivery of solid proof explaining the tainted ore or Mulahey's death warrant."
+        },
+        "dialogueHooks": [
+          "Citizens! Hold your peace! If you are sellswords seeking honest bounty, step forward—Nashkel pays 900 gold to anyone who ends the horror in our mines!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_minsc",
+            "relationshipType": "Creditor",
+            "relationship": "Creditor",
+            "type": "Creditor",
+            "sentiment": 15,
+            "notes": "Agreed to harbor Minsc provided town scouts look for Dynaheir."
+          },
+          {
+            "targetNpcId": "npc_mulahey",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "type": "Rival",
+            "sentiment": -90,
+            "notes": "Desperately hunting for the identity of the monster sabotaging his mining settlement."
+          }
+        ]
+      },
+      {
+        "id": "npc_minsc",
+        "nodeId": 103,
+        "submapId": "map_bg1_nashkel_town",
+        "name": "Minsc & Boo",
+        "role": "Rashemi Berserker & Miniature Giant Space Hamster",
+        "faction": "Unaligned Adventurers",
+        "factionId": "faction_frontier_scavengers",
+        "culture": "Clan",
+        "motivation": "Rescue his witch Dynaheir from the gnoll stronghold in the western mountains before harm befalls her.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 3,
+          "e": 4,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "Edwin approached him earlier attempting to hire him to assassinate Dynaheir, which Minsc was too trusting to fully comprehend at the time.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Any threat or insult directed at his pet hamster Boo drives him into an uncontrollable blood rage.",
+          "bribe": "A solemn promise to march west immediately to free Dynaheir from the gnolls."
+        },
+        "dialogueHooks": [
+          "Go for the eyes, Boo! GO FOR THE EYES! Rask! Swords for everyone! Have you seen my Dynaheir?"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_edwin",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "type": "Rival",
+            "sentiment": -85,
+            "notes": "Fierce enmity; Edwin seeks the death of the very witch Minsc is sworn by honor to defend."
+          },
+          {
+            "targetNpcId": "npc_berrun_ghastkill",
+            "relationshipType": "Debtor",
+            "relationship": "Debtor",
+            "type": "Debtor",
+            "sentiment": 25,
+            "notes": "Indebted to town administration for aid in locating Dynaheir."
+          }
+        ]
+      },
+      {
+        "id": "npc_edwin",
+        "nodeId": 104,
+        "submapId": "map_bg1_nashkel_town",
+        "name": "Edwin Odesseiron",
+        "role": "Thayvian Red Wizard",
+        "faction": "The Iron Throne & Sarevok's Conspiracy",
+        "factionId": "faction_iron_throne",
+        "culture": "Hierarchy",
+        "motivation": "Locate and execute the Wychlaran Dynaheir to satisfy his commission from the Red Wizards of Thay.",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "He carries scrolls detailing secret Iron Throne logistics shipments moving through the Cloakwood.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Towering arrogance coupled with mortal terror of being exposed as an uninvited Thayvian spy to the Amnian garrison.",
+          "bribe": "Offer to escort him to the Gnoll Stronghold and assist in slaying Dynaheir."
+        },
+        "dialogueHooks": [
+          "You there! You possess the bearing of competent killers—or at least the intellect of well-trained mules. I have need of sellswords."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_minsc",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "type": "Rival",
+            "sentiment": -85,
+            "notes": "Despises the hulking barbarian and plots to have him murdered along the road."
+          }
+        ]
+      },
+      {
+        "id": "npc_prism",
+        "nodeId": 5,
+        "submapId": "map_bg1_nashkel_region",
+        "name": "Prism the Sculptor",
+        "role": "Runaway Artist & Fugitive",
+        "faction": "Unaligned Adventurers",
+        "factionId": "faction_frontier_scavengers",
+        "culture": "Adhocracy",
+        "motivation": "Complete his masterwork sculpture of Ellesime in the mountain rock before the bounty hunter Greywolf catches and murders him.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 1,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "He stole two massive emeralds from the Amnian treasury to serve as the eyes for his sculpture.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Terminal exhaustion; he cannot survive a direct martial assault.",
+          "bribe": "Standing guard over the clearing until the final chisel stroke is completed."
+        },
+        "dialogueHooks": [
+          "Just a few more strikes of the chisel... let me finish her face! Don't let Greywolf take my hands before she breathes!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_greywolf",
+            "relationshipType": "Debtor",
+            "relationship": "Debtor",
+            "type": "Debtor",
+            "sentiment": -95,
+            "notes": "Hunted relentlessly by Greywolf for the stolen emeralds."
+          }
+        ]
+      },
+      {
+        "id": "npc_greywolf",
+        "nodeId": 5,
+        "submapId": "map_bg1_nashkel_region",
+        "name": "Greywolf",
+        "role": "Ruthless Amnian Headhunter",
+        "faction": "The Iron Throne & Sarevok's Conspiracy",
+        "factionId": "faction_iron_throne",
+        "culture": "Market",
+        "motivation": "Execute Prism, claim the stolen emerald bounty, and slaughter anyone who intervenes.",
+        "status": "Active",
+        "dispositionToParty": -1,
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 3,
+          "e": 3,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "He is privately employed by the Iron Throne to silence artisans who witnessed illicit ore transfers in the quarry.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Tunnel-vision bloodlust that makes him susceptible to ranged kiting and magical sleep.",
+          "bribe": "Surrendering Prism and the emeralds without drawing a blade."
+        },
+        "dialogueHooks": [
+          "Step aside, whelps. Prism dies today, and if you draw steel, you will feed the mountain crows alongside him."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_prism",
+            "relationshipType": "Creditor",
+            "relationship": "Creditor",
+            "type": "Creditor",
+            "sentiment": -95,
+            "notes": "Tracking Prism to collect the dead-or-alive bounty."
+          }
+        ]
+      },
+      {
+        "id": "npc_mulahey",
+        "nodeId": 205,
+        "submapId": "map_bg1_nashkel_mines_subterranean",
+        "name": "Mulahey the Unholy",
+        "role": "Cyricist Priest & Saboteur Overseer",
+        "faction": "The Iron Throne & Sarevok's Conspiracy",
+        "factionId": "faction_iron_throne",
+        "culture": "Hierarchy",
+        "motivation": "Poison the iron vein with alchemical solvent while raising an army of kobolds and undead to cripple the Sword Coast.",
+        "status": "Active",
+        "dispositionToParty": -2,
+        "fourCornersRole": "Antagonist",
+        "odv": {
+          "s": 3,
+          "e": 3,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "He answers to the mysterious Tazok and the bandit alliance operating out of the Larswood and Cloakwood.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Spineless cowardice when cornered; will feign surrender and surrender his chest keys before summoning his skeletal cohort.",
+          "bribe": "Will offer 790 gold from his locked coffer to be allowed to slip away into the dark."
+        },
+        "dialogueHooks": [
+          "I surrender! Hold! Tazok forced me! Look, take my letters and chest key... SKELETONS, KOBOLDS, HEAR YOUR MASTER—KILL THEM!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_xan",
+            "relationshipType": "Superior",
+            "relationship": "Superior",
+            "type": "Superior",
+            "sentiment": -70,
+            "notes": "Keeps Xan imprisoned in the outer chamber as a prize, confiscating his elven blade."
+          },
+          {
+            "targetNpcId": "npc_berrun_ghastkill",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "type": "Rival",
+            "sentiment": -90,
+            "notes": "Derives sadistic pleasure from watching Ghastkill's town slowly disintegrate."
+          }
+        ]
+      },
+      {
+        "id": "npc_xan",
+        "nodeId": 204,
+        "submapId": "map_bg1_nashkel_mines_subterranean",
+        "name": "Xan",
+        "role": "Evereskan Bladesinger & Captive Enchanter",
+        "faction": "Unaligned Adventurers",
+        "factionId": "faction_frontier_scavengers",
+        "culture": "Adhocracy",
+        "motivation": "Recover his heirloom Moonblade from Mulahey's chest and survive what he believes is an inevitably doomed mission.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Mulahey receives couriers carrying encoded letters stamped with the signet of the Iron Throne.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Debilitating existential fatalism; requires decisive leadership to maintain his will to fight.",
+          "bribe": "Reclaiming and returning his Moonblade to his hands."
+        },
+        "dialogueHooks": [
+          "We are all doomed, you know. Why you bothered descending into this stinking pit just to die alongside me is beyond comprehension."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_mulahey",
+            "relationshipType": "Subordinate",
+            "relationship": "Subordinate",
+            "type": "Subordinate",
+            "sentiment": -90,
+            "notes": "Bound and held captive by Mulahey's kobolds."
+          }
+        ]
+      }
+    ],
+    "quests": [
+      {
+        "id": "quest_clearing_the_mines",
+        "nodeId": 102,
+        "submapId": "map_bg1_nashkel_town",
+        "title": "Purge the Nashkel Mines",
+        "type": "Extermination",
+        "threat": "Severe",
+        "status": "Active",
+        "notes": "Mayor Berrun Ghastkill commissions the party to enter the Nashkel Mines, track down whatever force is slaughtering miners and poisoning the ore, and restore economic life to the settlement. Descend through all four subterranean levels, eliminate the Cyricist priest Mulahey, and recover the correspondence linking the sabotage to the Iron Throne. Success awards 900 gold, +1 Reputation, and lifts the regional iron scarcity.",
+        "giverNpcId": "npc_berrun_ghastkill",
+        "targetNpcId": "npc_mulahey",
+        "npcIds": [
+          "npc_berrun_ghastkill",
+          "npc_mulahey",
+          "npc_xan"
+        ],
+        "itemIds": [
+          "item_mulahey_holy_symbol",
+          "item_iron_throne_letters"
+        ]
+      },
+      {
+        "id": "quest_prism_sculptor",
+        "nodeId": 5,
+        "submapId": "map_bg1_nashkel_region",
+        "title": "Prism's Final Masterpiece",
+        "type": "Escort",
+        "threat": "Moderate",
+        "status": "Active",
+        "notes": "Locate the fugitive sculptor Prism in the upper quarry. The bounty hunter Greywolf arrives to execute him for the theft of two emeralds. Slay Greywolf to allow Prism to place the emeralds into the statue's eyes and finish his masterpiece before collapsing from exhaustion. The emeralds can then be returned to Officer Oublek for bounty or kept for trade.",
+        "giverNpcId": "npc_prism",
+        "targetNpcId": "npc_greywolf",
+        "npcIds": [
+          "npc_prism",
+          "npc_greywolf",
+          "npc_berrun_ghastkill"
+        ],
+        "itemIds": [
+          "item_varscona_sword",
+          "item_stolen_emeralds"
+        ]
+      },
+      {
+        "id": "quest_rescuing_dynaheir",
+        "nodeId": 103,
+        "submapId": "map_bg1_nashkel_town",
+        "title": "The Wychlaran of Rashemen",
+        "type": "Rescue",
+        "threat": "Severe",
+        "status": "Active",
+        "notes": "Minsc begs the party to travel west to the Gnoll Stronghold to rescue his companion Dynaheir from the beast pens. Conversely, Edwin offers coin and arcane favor to locate and execute her. Taking too long to resolve the journey will cause Minsc to berserk and attack the party.",
+        "giverNpcId": "npc_minsc",
+        "targetNpcId": "npc_edwin",
+        "npcIds": [
+          "npc_minsc",
+          "npc_edwin"
+        ],
+        "itemIds": []
+      }
+    ],
+    "items": [
+      {
+        "id": "item_varscona_sword",
+        "nodeId": 5,
+        "submapId": "map_bg1_nashkel_region",
+        "name": "Varscona +2 (Long Sword of Cold)",
+        "category": "Weapon",
+        "specs": "Enchanted steel longsword radiating glacial mist (+2 to hit and damage, +1 point of elemental cold damage on hit).",
+        "notes": "The signature blade carried by the bounty hunter Greywolf, claimed as prize after his defeat.",
+        "ownerNpcId": "npc_greywolf",
+        "possessionMode": "carried",
+        "status": "Active"
+      },
+      {
+        "id": "item_moonblade_xan",
+        "nodeId": 205,
+        "submapId": "map_bg1_nashkel_mines_subterranean",
+        "name": "Xan's Elven Moonblade",
+        "category": "Relic",
+        "specs": "Ancient Evereskan blade crackling with azure fire (+3 to hit, +1 AC bonus, usable exclusively by elves of lawful neutral alignment).",
+        "notes": "Locked inside Mulahey's personal strongbox on Level 4; returning it restores Xan's combat capabilities.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_ankheg_plate",
+        "nodeId": 107,
+        "submapId": "map_bg1_nashkel_town",
+        "name": "Chitinous Ankheg Plate Mail",
+        "category": "Armor",
+        "specs": "Masterwork carapace full plate (Armor Class 1, weight 25 lbs, highly resistant to corrosion).",
+        "notes": "Buried in a hole in the dirt along the western crop fields of Nashkel; unowned environmental cache impervious to the regional iron rot.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_iron_throne_letters",
+        "nodeId": 205,
+        "submapId": "map_bg1_nashkel_mines_subterranean",
+        "name": "Mulahey's Incriminating Dispatches",
+        "category": "Document",
+        "specs": "Sealed missives stamped with the crest of a clenched fist clutching iron coins.",
+        "notes": "Directly links the sabotage of the Nashkel Mines to the bandit leader Tazok and the Iron Throne syndicate.",
+        "ownerNpcId": "npc_mulahey",
+        "possessionMode": "carried",
+        "status": "Active"
+      },
+      {
+        "id": "item_stolen_emeralds",
+        "nodeId": 5,
+        "submapId": "map_bg1_nashkel_region",
+        "name": "Flawless Amnian Emeralds (Pair)",
+        "category": "Currency",
+        "specs": "Two fist-sized gems of pure viridian clarity (valued at 1,000 gold each).",
+        "notes": "Stolen by Prism from the Amnian mint to complete the eyes of his stone masterpiece.",
+        "ownerNpcId": "npc_prism",
+        "possessionMode": "carried",
+        "status": "Active"
+      },
+      {
+        "id": "item_mulahey_holy_symbol",
+        "nodeId": 205,
+        "submapId": "map_bg1_nashkel_mines_subterranean",
+        "name": "Blood-Stained Holy Symbol of Cyric",
+        "category": "Relic",
+        "specs": "Cast iron jawbone medallion dripping unholy residue (+1 to spell save DCs for evil clerics).",
+        "notes": "Worn by Mulahey; serves as conclusive proof of his demise for Mayor Ghastkill.",
+        "ownerNpcId": "npc_mulahey",
+        "possessionMode": "carried",
+        "status": "Active"
+      }
+    ],
+    "trackers": [
+      {
+        "id": "tracker_iron_rot_crisis",
+        "nodeId": 102,
+        "submapId": "map_bg1_nashkel_town",
+        "name": "Regional Iron Degradation & Civil Unrest",
+        "type": "Threat Clock",
+        "maxTicks": 6,
+        "currentTicks": 0,
+        "faction": "The Iron Throne & Sarevok's Conspiracy",
+        "notes": "Advances by 1 tick each time the party rests at the inn, when non-magical iron weapons shatter on a critical miss, or when mine expeditions fail. At 6 ticks, the miners revolt, torquing the town into martial law and closing the general store."
+      },
+      {
+        "id": "tracker_minsc_berserk",
+        "nodeId": 103,
+        "submapId": "map_bg1_nashkel_town",
+        "name": "Minsc's Patience for Dynaheir",
+        "type": "Threat Clock",
+        "maxTicks": 4,
+        "currentTicks": 0,
+        "faction": "Unaligned Adventurers",
+        "notes": "Advances by 1 tick every two full days the party spends on other tasks without marching toward the Gnoll Stronghold after recruiting Minsc. At 4 ticks, Minsc flies into an uncontrollable frenzy, leaving the party and attacking anyone nearby."
+      }
+    ],
+    "tickets": [],
+    "custom_modules": [],
+    "deletedModules": [],
+    "deletedPrototypes": []
+  },
+  "syncToken": "mvy63z8z-8xwqnv0n"
+}

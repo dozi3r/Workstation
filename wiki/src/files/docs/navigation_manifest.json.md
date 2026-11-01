@@ -3,10 +3,10 @@ file_path: "docs/navigation_manifest.json"
 title: "navigation_manifest.json"
 volume: "vol-3"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "71bee8a27460996a"
-reviewed_hash: "71bee8a27460996a"
+current_hash: "0c5c9fc4ee0ea807"
+reviewed_hash: "0c5c9fc4ee0ea807"
 stale: false
-size_bytes: 10167
+size_bytes: 10162
 line_count: 244
 ---
 

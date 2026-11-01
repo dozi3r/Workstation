@@ -139,7 +139,7 @@
         "docs/srd/scenario_primitives_srd.md"
       ],
       "data_sources": [
-        "campaigns/Emerald Isle/modules/**/*.md"
+        "campaigns/Peridot/modules/**/*.md"
       ],
       "immutable_rule": "Each module file must declare typed pipeline_tier, provides, and requires tags in YAML frontmatter."
     },

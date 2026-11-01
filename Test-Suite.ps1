@@ -116,7 +116,7 @@ Record-TestPhase -PhaseName "Phase 3: Campaign Packages" -Description "Schema & 
     foreach ($camp in $campDirs) {
         Write-Host "`n--> Auditing Campaign Package: $camp..." -ForegroundColor Cyan
         if (Test-Path $campValidator) {
-            & powershell -ExecutionPolicy Bypass -File "$campValidator" -Campaign $camp
+            & powershell -ExecutionPolicy Bypass -Command "& '$campValidator' -Campaign '$camp'"
             if ($LASTEXITCODE -ne 0) { throw "Validation failed for campaign '$camp'" }
         } else {
             $campMeta = Join-Path $RootDir "campaigns\$camp\campaign.json"

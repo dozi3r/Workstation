@@ -2147,7 +2147,7 @@
         const color = facObj.colorIdentity || 'C';
         const disp = Array.isArray(facObj.disposition) ? facObj.disposition : [2, 2, 2];
         const hqNodeId = facObj.headquartersNodeId;
-        const hqNode = hqNodeId ? (topo.nodes ? (topo.nodes[hqNodeId.toString()] || topo.nodes[hqNodeId]) : null) : null;
+        const hqNode = hqNodeId ? resolveNodeObject(hqNodeId, topo) : null;
         const terrList = Array.isArray(facObj.controlledNodeIds) ? facObj.controlledNodeIds : [];
         const memberNpcs = (topo.npcs || []).filter(n => n.factionId === facObj.id || n.faction === facObj.name);
 
@@ -2237,8 +2237,8 @@
               <strong>Controlled Territory (${terrList.length} Nodes):</strong>
               <div style="display:flex; flex-wrap:wrap; gap:3px; margin-top:2px;">
                 ${terrList.length > 0 ? terrList.map(nid => {
-                  const nodeObj = topo.nodes ? (topo.nodes[nid.toString()] || topo.nodes[nid]) : null;
-                  const nName = nodeObj ? nodeObj.name : `Node ${nid}`;
+                  const nodeObj = resolveNodeObject(nid, topo);
+                  const nName = nodeObj ? (nodeObj.displayName || nodeObj.name || `Node ${nid}`) : `Node ${nid}`;
                   return `<button class="win-btn" onclick="switchEntityManagerTab('node'); selectEntityItem('${nid}');" style="font-size:9px; padding:1px 4px;">📍 #${nid}: ${nName}</button>`;
                 }).join('') : '<span style="font-size:10px; color:#64748b; font-style:italic;">No territorial nodes claimed.</span>'}
               </div>
@@ -2341,7 +2341,7 @@
           const outItems = outboundRels.map(r => {
             const targetNpc = (topo.npcs || []).find(n => String(n.id) === String(r.targetNpcId));
             const targetName = targetNpc ? targetNpc.name : `NPC [${r.targetNpcId}]`;
-            const rType = r.relationshipType || r.type || 'Connected';
+            const rType = r.relationshipType || r.relationship || r.type || 'Connected';
             const col = relTypeColors[rType] || '#0f172a';
             const s = typeof r.sentiment === 'number' ? r.sentiment : 0;
             const sBadge = (s > 0)

@@ -3,11 +3,11 @@ file_path: "network/modules_manifest.json"
 title: "modules_manifest.json"
 volume: "vol-5"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "3f472695926ce170"
-reviewed_hash: "3f472695926ce170"
+current_hash: "4f53cda18c2baa0c"
+reviewed_hash: "4f53cda18c2baa0c"
 stale: false
-size_bytes: 187630
-line_count: 3156
+size_bytes: 2
+line_count: 1
 ---
 
 # modules_manifest.json

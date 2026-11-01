@@ -17,8 +17,8 @@ const SCALE_TIERS = {
 
 let activeMapId = "map_root";
 let maps = {};
-let activeCampaignId = (typeof CAMPAIGN_REGISTRY !== "undefined" && Object.keys(CAMPAIGN_REGISTRY)[0]) || "emerald_isle";
-let currentCampaignName = (typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY[activeCampaignId]?.metadata?.name) || "Emerald Isle";
+let activeCampaignId = (typeof CAMPAIGN_REGISTRY !== "undefined" && Object.keys(CAMPAIGN_REGISTRY)[0]) || "blank_canvas";
+let currentCampaignName = (typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY[activeCampaignId]?.metadata?.name) || "New Campaign";
 
 if (typeof window.getNodeDisplayName !== "function") {
   window.getNodeDisplayName = function(n) {

@@ -3,8 +3,8 @@ file_path: "src/workstation/modals/studio_mdi_windows.html"
 title: "studio_mdi_windows.html"
 volume: "vol-4"
 kind: "Workstation Shell Template"
-current_hash: "7b4c2ae6e9cc5194"
-reviewed_hash: "7b4c2ae6e9cc5194"
+current_hash: "2642ddc0cf8bd4ba"
+reviewed_hash: "2642ddc0cf8bd4ba"
 stale: false
 size_bytes: 33573
 line_count: 463

@@ -185,6 +185,7 @@
       const relRecord = {
         targetNpcId: tId,
         relationshipType: relType,
+        relationship: relType,
         type: relType, // backward-compatibility alias
         sentiment: sNum,
         notes: String(notes || '')
