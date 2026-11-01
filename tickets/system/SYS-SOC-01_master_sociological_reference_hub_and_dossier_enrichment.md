@@ -3,7 +3,7 @@ id: SYS-SOC-01
 title: "Master Sociological Reference Hub, Contextual Dossier Enrichment, and Procedural 5D Sensory Hermeneutics"
 pipeline_tier: 0
 target_surface: "network/odv_archetype_matrix.html"
-status: ready
+status: shipped
 category: "system_architecture"
 wave: "Sociological Algebra & Hermeneutic Tooling"
 grounded_prerequisites: ["docs/adr/0014-campaign-state-reflection-and-edge-odv-on-64-matrix.md", "docs/adr/0018-master-sociological-compendium-and-hermeneutic-tooling-on-odv-matrix.md", "sociology/01_Core_Cultural_Quadrants.md", "sociology/02_Operational_Profiles_and_Power.md", "sociology/03_Environmental_Uncertainty_and_Crisis.md", "sociology/04_Sensory_Pentagon_Generator.md", "sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md", "sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md", "src/workstation/scripts/sociology_data.js", "network/odv_archetype_matrix.html"]
@@ -14,7 +14,7 @@ standalone_fallback: "Static Markdown reference via sociology/*.md."
 ---
 # SYS-SOC-01: Master Sociological Reference Hub, Contextual Dossier Enrichment, and Procedural 5D Sensory Hermeneutics
 *Category: system_architecture | Target Surface: `network/odv_archetype_matrix.html` & `src/workstation/scripts/sociology_data.js`*  
-*Status: ready*  
+*Status: shipped*  
 *Date: 2026-10-31*
 
 ## 1. Overview & Objective

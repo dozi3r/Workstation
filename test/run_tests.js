@@ -4341,6 +4341,76 @@ async function testEdgeExplorerAndConduitCatalog() {
 }
 
 // ============================================================================
+// SUITE 26: MASTER SOCIOLOGICAL REFERENCE HUB & HERMENEUTICS ENGINE (SYS-SOC-01)
+// ============================================================================
+function testSociologyReferenceHubAndHermeneutics() {
+  console.log('\n--> SUITE 26: Master Sociological Reference Hub & Hermeneutics Engine (SYS-SOC-01)...');
+
+  const socDataPath = path.join(ROOT_DIR, 'src/workstation/scripts/sociology_data.js');
+  const socDataCode = fs.readFileSync(socDataPath, 'utf8');
+
+  const sandbox = {
+    window: {},
+    console: console,
+    Math: Math
+  };
+  vm.createContext(sandbox);
+  vm.runInContext(socDataCode, sandbox);
+
+  // 1. Assert rollSensoryProfile exists and produces valid 5D profiles
+  assert(typeof sandbox.rollSensoryProfile === 'function', 'sociology_data.js exports rollSensoryProfile');
+  const sensoryProfile = sandbox.rollSensoryProfile(2, 3, 1);
+  assert(sensoryProfile !== null && typeof sensoryProfile === 'object', 'rollSensoryProfile returns object');
+  assert(sensoryProfile.behavior && typeof sensoryProfile.behavior.title === 'string', 'Sensory profile includes behavior dimension');
+  assert(sensoryProfile.relationship && typeof sensoryProfile.relationship.title === 'string', 'Sensory profile includes relationship dimension');
+  assert(sensoryProfile.attitude && typeof sensoryProfile.attitude.title === 'string', 'Sensory profile includes attitude dimension');
+  assert(sensoryProfile.value && typeof sensoryProfile.value.title === 'string', 'Sensory profile includes value dimension');
+  assert(sensoryProfile.environment && typeof sensoryProfile.environment.title === 'string', 'Sensory profile includes environment dimension');
+
+  // Verify boundary coordinate inputs (1..4)
+  for (let s = 1; s <= 4; s++) {
+    for (let e = 1; e <= 4; e++) {
+      const p = sandbox.rollSensoryProfile(s, e, 2);
+      assert(p.behavior && p.relationship && p.attitude && p.value && p.environment, `Sensory profile valid for coordinates S=${s}, E=${e}`);
+    }
+  }
+
+  // 2. Assert SOC_DIAGNOSTIC_QUESTIONS contains 3 calibrated questions
+  const questions = sandbox.window.SOC_DIAGNOSTIC_QUESTIONS || sandbox.SOC_DIAGNOSTIC_QUESTIONS;
+  assert(Array.isArray(questions), 'sociology_data.js exports SOC_DIAGNOSTIC_QUESTIONS array');
+  assertEqual(questions.length, 3, 'SOC_DIAGNOSTIC_QUESTIONS has exactly 3 trade-off questions');
+  const dials = questions.map(q => q.dial);
+  assert(dials.includes('s'), 'Diagnostic includes Structure (s) dial question');
+  assert(dials.includes('e'), 'Diagnostic includes Energy/Execution (e) dial question');
+  assert(dials.includes('c'), 'Diagnostic includes Coordination (c) dial question');
+  questions.forEach((q, idx) => {
+    assertEqual(q.options.length, 4, `Question ${idx + 1} provides 4 calibrated discrete choices (1..4)`);
+    q.options.forEach(opt => {
+      assert(opt.val >= 1 && opt.val <= 4, `Option value ${opt.val} clamped to 1..4`);
+    });
+  });
+
+  // 3. Assert SOC_FACTION_COLORS maps all 4 CVF quadrants
+  const factionColors = sandbox.window.SOC_FACTION_COLORS || sandbox.SOC_FACTION_COLORS;
+  assert(factionColors !== undefined, 'sociology_data.js exports SOC_FACTION_COLORS');
+  const quadrants = ['Clan', 'Adhocracy', 'Market', 'Hierarchy'];
+  quadrants.forEach(q => {
+    assert(factionColors[q] !== undefined, `SOC_FACTION_COLORS includes ${q}`);
+    assert(typeof factionColors[q].mtgColor === 'string', `${q} has MTG color alignment`);
+    assert(typeof factionColors[q].hex === 'string', `${q} has hex color`);
+  });
+
+  // 4. Verify network/odv_archetype_matrix.html contains 6-tab Master Reference Hub
+  const matrixHtmlPath = path.join(ROOT_DIR, 'network/odv_archetype_matrix.html');
+  const matrixHtml = fs.readFileSync(matrixHtmlPath, 'utf8');
+  assert(matrixHtml.includes('id="master-reference-hub-section"'), 'odv_archetype_matrix.html contains #master-reference-hub-section');
+  const hubTabIds = ['tab-btn-scales', 'tab-btn-levers', 'tab-btn-crisis', 'tab-btn-sensory', 'tab-btn-factions', 'tab-btn-tree'];
+  hubTabIds.forEach((tabId, idx) => {
+    assert(matrixHtml.includes(`id="${tabId}"`), `odv_archetype_matrix.html contains Reference Hub Tab ${idx + 1} (${tabId})`);
+  });
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -4370,6 +4440,7 @@ async function testEdgeExplorerAndConduitCatalog() {
     await testIndexedDbSeparationAndConcurrencyGate();
     await testEntityModulePackEngine();
     await testEdgeExplorerAndConduitCatalog();
+    testSociologyReferenceHubAndHermeneutics();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T02:50:21.895Z",
+  "generatedAt": "2026-11-01T02:53:01.860Z",
   "totalFiles": 298,
   "totalSeries": 7,
   "totalBidirectionalEdges": 2576,
@@ -34035,10 +34035,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "df96d1929bf7284f",
-      "reviewedHash": "df96d1929bf7284f",
+      "hash": "4dac0aba4e058a8a",
+      "reviewedHash": "4dac0aba4e058a8a",
       "lineCount": 44879,
-      "sizeBytes": 5990616,
+      "sizeBytes": 5990618,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -35938,10 +35938,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "47062fb948f3cee9",
-      "reviewedHash": "47062fb948f3cee9",
-      "lineCount": 4391,
-      "sizeBytes": 205110,
+      "hash": "48669a67589e8d2d",
+      "reviewedHash": "48669a67589e8d2d",
+      "lineCount": 4462,
+      "sizeBytes": 209410,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -35976,6 +35976,7 @@
         "makeMockEl(tag = 'div')",
         "testEdgeExplorerAndConduitCatalog()",
         "mockEl(id)",
+        "testSociologyReferenceHubAndHermeneutics()",
         "runAll()"
       ],
       "globals": [
@@ -40935,6 +40936,12 @@
     {
       "name": "mockEl",
       "signature": "mockEl(id)",
+      "file": "test/run_tests.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "testSociologyReferenceHubAndHermeneutics",
+      "signature": "testSociologyReferenceHubAndHermeneutics()",
       "file": "test/run_tests.js",
       "kind": "Node.js / Browser Engine Script"
     },
