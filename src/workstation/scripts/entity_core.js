@@ -574,7 +574,8 @@
         updatePropertiesGrid();
         renderEntityManagerTree();
         renderEntityManagerList();
-        setStatusBarMessage(`Stationed ${entity.name || entity.title} to Node ${nodeIdVal || 'Unassigned'}.`);
+        const nodeDisplay = (typeof window.formatNodeRef === 'function') ? window.formatNodeRef(nodeIdVal) : (nodeIdVal ? `Node ${nodeIdVal}` : 'Unassigned');
+        setStatusBarMessage(`Stationed ${entity.name || entity.title} to ${nodeDisplay}.`);
       }
     }
 

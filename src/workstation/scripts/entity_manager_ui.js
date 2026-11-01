@@ -52,6 +52,76 @@
       return String(str).replace(/'/g, "\\'").replace(/"/g, '\\"');
     }
 
+    /**
+     * Resolves a node object across the active topology or multi-scale maps by its numeric/string ID.
+     */
+    function resolveNodeObject(nid, targetTopo = null) {
+      if (nid == null || nid === '') return null;
+      const currentTopo = targetTopo || (typeof Workstation !== 'undefined' ? Workstation.activeTopology : null);
+      const sId = String(nid).trim();
+
+      if (currentTopo && currentTopo.nodes) {
+        if (Array.isArray(currentTopo.nodes)) {
+          const found = currentTopo.nodes.find(n => n && String(n.id) === sId);
+          if (found) return found;
+        } else if (typeof currentTopo.nodes === 'object') {
+          if (currentTopo.nodes[sId]) return currentTopo.nodes[sId];
+          if (currentTopo.nodes[nid]) return currentTopo.nodes[nid];
+          const found = Object.values(currentTopo.nodes).find(n => n && String(n.id) === sId);
+          if (found) return found;
+        }
+      }
+
+      const mapDict = (typeof maps !== 'undefined' && maps) ? maps : (currentTopo && currentTopo.maps ? currentTopo.maps : null);
+      if (mapDict && typeof mapDict === 'object') {
+        for (const mId of Object.keys(mapDict)) {
+          const m = mapDict[mId];
+          if (m && m.nodes) {
+            if (Array.isArray(m.nodes)) {
+              const found = m.nodes.find(n => n && String(n.id) === sId);
+              if (found) return found;
+            } else if (typeof m.nodes === 'object') {
+              if (m.nodes[sId]) return m.nodes[sId];
+              if (m.nodes[nid]) return m.nodes[nid];
+              const found = Object.values(m.nodes).find(n => n && String(n.id) === sId);
+              if (found) return found;
+            }
+          }
+        }
+      }
+
+      return null;
+    }
+    window.resolveNodeObject = resolveNodeObject;
+
+    /**
+     * Formats a node reference to display its ID and location name (e.g. "Node 26: The Dragon's Lair").
+     */
+    function formatNodeRef(nid, targetTopo = null) {
+      if (nid == null || nid === '') return '(Unassigned)';
+      const cleanId = String(nid).replace(/^Node\s*#?/i, '').trim();
+      const nodeObj = resolveNodeObject(cleanId, targetTopo);
+      const rawName = nodeObj ? (nodeObj.displayName || nodeObj.name || (typeof window.getNodeDisplayName === 'function' ? window.getNodeDisplayName(nodeObj) : (nodeObj.label || ''))) : '';
+      const trimmedName = String(rawName).trim();
+
+      if (!trimmedName) {
+        return `Node ${cleanId}`;
+      }
+
+      const lower = trimmedName.toLowerCase();
+      const idLower = cleanId.toLowerCase();
+      if (lower === `node ${idLower}` || lower === `node #${idLower}` || lower === `#${idLower}` || lower === idLower) {
+        return `Node ${cleanId}`;
+      }
+
+      if (lower.startsWith(`node ${idLower}:`) || lower.startsWith(`node #${idLower}:`)) {
+        return trimmedName;
+      }
+
+      return `Node ${cleanId}: ${trimmedName}`;
+    }
+    window.formatNodeRef = formatNodeRef;
+
     function getNodesForMapScope(scope = 'all') {
       const topo = Workstation.activeTopology;
       const curMapId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
@@ -763,7 +833,7 @@
       container.appendChild(nodeHeader);
 
       Object.keys(topo.nodes || {}).forEach(k => {
-        const count = activeList.filter(e => String(e.nodeId) === String(k)).length;
+        const count = activeList.filter(e => String((CurrentEntityTab === 'item' ? getItemEffectiveNodeId(e) : e.nodeId)) === String(k)).length;
         if (count > 0) {
           const n = topo.nodes[k];
           addTreeItem(container, `${n.name || `Node ${k}`} (${count})`, `node:${k}`);
@@ -1026,15 +1096,15 @@
 
       // ENTITIES (NPCS, QUESTS, ITEMS, TRACKERS) TABLE
       if (CurrentEntityTab === 'npc') {
-        thead.innerHTML = '<th style="min-width:130px;">Name</th><th style="min-width:120px;">Role &amp; Status</th><th style="width:75px;">Standing</th><th>Stationed Node</th><th style="width:110px;">Culture / [S,E,C]</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
+        thead.innerHTML = '<th style="min-width:130px;">Name</th><th style="min-width:120px;">Role &amp; Status</th><th style="width:75px;">Standing</th><th style="min-width:150px;">Stationed Node</th><th style="width:110px;">Culture / [S,E,C]</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
       } else if (CurrentEntityTab === 'quest') {
-        thead.innerHTML = '<th>Quest Title</th><th>Type / Stakes</th><th>Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
+        thead.innerHTML = '<th>Quest Title</th><th>Type / Stakes</th><th style="min-width:150px;">Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
       } else if (CurrentEntityTab === 'tracker') {
-        thead.innerHTML = '<th>Threat / Clock Title</th><th style="width:90px;">Type</th><th style="width:95px;">Ticks / Progress</th><th>Stationed Node</th><th>Source / Faction</th><th style="width:35px; text-align:center;">Action</th>';
+        thead.innerHTML = '<th>Threat / Clock Title</th><th style="width:90px;">Type</th><th style="width:95px;">Ticks / Progress</th><th style="min-width:150px;">Stationed Node</th><th>Source / Faction</th><th style="width:35px; text-align:center;">Action</th>';
       } else if (CurrentEntityTab === 'faction') {
-        thead.innerHTML = '<th style="min-width:140px;">Faction Name</th><th style="min-width:110px;">CVF Culture</th><th style="width:75px;">Color</th><th>Leader NPC</th><th>Headquarters</th><th style="width:85px;">Territory</th><th style="width:35px; text-align:center;">Action</th>';
+        thead.innerHTML = '<th style="min-width:140px;">Faction Name</th><th style="min-width:110px;">CVF Culture</th><th style="width:75px;">Color</th><th>Leader NPC</th><th style="min-width:150px;">Headquarters</th><th style="width:85px;">Territory</th><th style="width:35px; text-align:center;">Action</th>';
       } else {
-        thead.innerHTML = '<th style="min-width:130px;">Item / Relic Name</th><th>Category</th><th>Owner &amp; Carrier</th><th>Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
+        thead.innerHTML = '<th style="min-width:130px;">Item / Relic Name</th><th>Category</th><th>Owner &amp; Carrier</th><th style="min-width:150px;">Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
       }
 
       let displayList = [];
@@ -1102,7 +1172,9 @@
           const faction = (e.faction || '').toLowerCase();
           const desc = (e.description || '').toLowerCase();
           const cvf = (e.cvfQuadrant || '').toLowerCase();
-          return name.includes(searchTerm) || role.includes(searchTerm) || mod.includes(searchTerm) || notes.includes(searchTerm) || faction.includes(searchTerm) || desc.includes(searchTerm) || cvf.includes(searchTerm);
+          const targetNid = (CurrentEntityTab === 'item') ? getItemEffectiveNodeId(e) : (e.activeNodeId || e.nodeId || e.headquartersNodeId);
+          const locStr = targetNid ? formatNodeRef(targetNid, topo).toLowerCase() : '';
+          return name.includes(searchTerm) || role.includes(searchTerm) || mod.includes(searchTerm) || notes.includes(searchTerm) || faction.includes(searchTerm) || desc.includes(searchTerm) || cvf.includes(searchTerm) || locStr.includes(searchTerm);
         });
       }
 
@@ -1112,11 +1184,7 @@
 
         const nameVal = item.name || item.title;
         const roleVal = item.role || item.category || item.type;
-        const formatNodeRef = (nid) => {
-          if (!nid) return '(Unassigned)';
-          return `Node ${nid}`;
-        };
-        const nodeVal = item.isPrototype ? (item.inCampaign ? `${formatNodeRef(item.activeNodeId)} (In Use)` : '(In Pool)') : formatNodeRef(item.nodeId);
+        const nodeVal = item.isPrototype ? (item.inCampaign ? `${formatNodeRef(item.activeNodeId, topo)} (In Use)` : '(In Pool)') : formatNodeRef(item.nodeId, topo);
         const srcVal = item.isPrototype ? `Module [${item.moduleId}]` : (item.moduleId ? `Module [${item.moduleId}]` : 'Custom Authored');
 
         if (CurrentEntityTab === 'npc') {
@@ -1162,8 +1230,9 @@
             : '<span class="entity-badge-tag" style="background:#f1f5f9; color:#64748b;">(Unowned)</span>';
 
           const effNodeId = getItemEffectiveNodeId(item);
+          const formattedNode = effNodeId ? formatNodeRef(effNodeId, topo) : '(Unassigned)';
           const nodeDisplay = effNodeId
-            ? (isCarried ? `Node ${effNodeId} <span style="font-size:9px; color:#0f766e; font-weight:bold;">(Carried)</span>` : `Node ${effNodeId}`)
+            ? (isCarried ? `${formattedNode} <span style="font-size:9px; color:#0f766e; font-weight:bold;">(Carried)</span>` : formattedNode)
             : '(Unassigned)';
 
           tr.innerHTML = `
@@ -1196,7 +1265,7 @@
           const leaderBadge = leaderNpc
             ? `<span class="entity-badge-tag" style="background:#0284c7; color:#fff; cursor:pointer;" onclick="event.stopPropagation(); switchEntityManagerTab('npc'); selectEntityItem('${leaderNpc.id}');">👤 ${leaderNpc.name}</span>`
             : '<span class="entity-badge-tag" style="background:#f1f5f9; color:#64748b;">(Council)</span>';
-          const hqNode = item.headquartersNodeId ? `Node ${item.headquartersNodeId}` : '(Unseated)';
+          const hqNode = item.headquartersNodeId ? formatNodeRef(item.headquartersNodeId, topo) : '(Unseated)';
           const terrCount = Array.isArray(item.controlledNodeIds) ? item.controlledNodeIds.length : 0;
           const cult = item.cvfQuadrant || 'Clan';
           const color = item.colorIdentity || 'C';
@@ -1854,7 +1923,7 @@
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                 <span style="font-weight:bold; font-size:11px;">${npc.name}</span>
-                <span style="font-size:9px; color:#475569;">(${npc.role || 'Resident'}) - ${npc.nodeId ? `Node #${npc.nodeId}` : 'Unassigned'}</span>
+                <span style="font-size:9px; color:#475569;">(${npc.role || 'Resident'}) - ${npc.nodeId ? formatNodeRef(npc.nodeId, topo) : 'Unassigned'}</span>
               </div>
               <div style="display:flex; gap:2px;">
                 <button class="win-btn" onclick="window.navigateToEntity('npc', '${npc.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
@@ -1870,7 +1939,7 @@
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                 <span style="font-weight:bold; font-size:11px;">${item.name}</span>
-                <span style="font-size:9px; color:#475569;">[${item.category || 'Gear'}] - ${item.nodeId ? `Node #${item.nodeId}` : 'Unassigned'}</span>
+                <span style="font-size:9px; color:#475569;">[${item.category || 'Gear'}] - ${item.nodeId ? formatNodeRef(item.nodeId, topo) : 'Unassigned'}</span>
               </div>
               <div style="display:flex; gap:2px;">
                 <button class="win-btn" onclick="window.navigateToEntity('item', '${item.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
@@ -1966,7 +2035,7 @@
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                 <span style="font-weight:bold; font-size:11px;">📜 ${q.title || q.name}</span>
-                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? `Node #${q.nodeId}` : 'Unassigned'}]</span>
+                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? formatNodeRef(q.nodeId, topo) : 'Unassigned'}]</span>
               </div>
               <div style="display:flex; gap:2px;">
                 <button class="win-btn" onclick="window.navigateToEntity('quest', '${q.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
@@ -1979,7 +2048,7 @@
         const possessionBadge = ownerNpc
           ? (isCarried
               ? `<span class="entity-badge-tag" style="background:#0f766e; color:#fff;">🎒 Equipped / Carried by ${ownerNpc.name}</span>`
-              : `<span class="entity-badge-tag" style="background:#475569; color:#fff;">📦 Stored at Node #${itemObj.nodeId || 'Unassigned'} (Owned by ${ownerNpc.name})</span>`)
+              : `<span class="entity-badge-tag" style="background:#475569; color:#fff;">📦 Stored at ${itemObj.nodeId ? formatNodeRef(itemObj.nodeId, topo) : 'Unassigned'} (Owned by ${ownerNpc.name})</span>`)
           : `<span class="entity-badge-tag" style="background:#f1f5f9; color:#64748b;">(Unowned / Public Relic)</span>`;
 
         pane.innerHTML = `
@@ -2004,8 +2073,8 @@
                 </div>
                 <div style="font-size:10px; color:#64748b; margin-top:2px;">
                   ${isCarried
-                    ? `🎒 Dynamically inherits station node from carrier <strong>Node #${ownerNpc.nodeId != null ? ownerNpc.nodeId : 'Unassigned'}</strong>.`
-                    : `📦 Stored at designated station <strong>Node #${itemObj.nodeId || 'Unassigned'}</strong> (e.g. in vault/armory).`}
+                    ? `🎒 Dynamically inherits station node from carrier <strong>${ownerNpc.nodeId != null ? formatNodeRef(ownerNpc.nodeId, topo) : 'Unassigned'}</strong>.`
+                    : `📦 Stored at designated station <strong>${itemObj.nodeId ? formatNodeRef(itemObj.nodeId, topo) : 'Unassigned'}</strong> (e.g. in vault/armory).`}
                 </div>
                 <div style="margin-top:4px;">
                   <button class="win-btn" onclick="toggleItemPossessionMode('${itemObj.id}', ${isPrototype})" style="font-size:10px; width:100%;">
@@ -2042,7 +2111,7 @@
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
             ${isCarried ? `
               <div style="font-size:10px; background:#f0fdf4; border:1px solid #86efac; padding:4px 6px; border-radius:2px; color:#166534;">
-                <strong>Station Node: Node #${effNodeId != null ? effNodeId : 'Unassigned'}</strong> (Inherited from carrier ${ownerNpc.name}). To station elsewhere, switch possession to "Stored at Node".
+                <strong>Station Node: ${effNodeId != null ? formatNodeRef(effNodeId, topo) : 'Unassigned'}</strong> (Inherited from carrier ${ownerNpc.name}). To station elsewhere, switch possession to "Stored at Node".
               </div>
             ` : `
               <label style="display:flex; flex-direction:column; gap:2px;">
@@ -2330,7 +2399,7 @@
               <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:2px;">
                 <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                   <span style="font-weight:bold; font-size:10px;">💎 ${itm.name}</span>
-                  <span class="entity-badge-tag" style="font-size:8px; ${isCarried ? 'background:#0f766e; color:#fff;' : 'background:#475569; color:#fff;'}">${isCarried ? '🎒 Carried' : '📦 Stored @ Node #' + (itm.nodeId || '?')}</span>
+                  <span class="entity-badge-tag" style="font-size:8px; ${isCarried ? 'background:#0f766e; color:#fff;' : 'background:#475569; color:#fff;'}">${isCarried ? '🎒 Carried' : '📦 Stored @ ' + (itm.nodeId ? formatNodeRef(itm.nodeId, topo) : 'Unassigned')}</span>
                 </div>
                 <div style="display:flex; gap:2px;">
                   <button class="win-btn" onclick="toggleItemPossessionMode('${itm.id}', false)" style="font-size:9px; padding:1px 3px;">${isCarried ? 'Store' : 'Equip'}</button>
@@ -2369,7 +2438,7 @@
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                 <span style="font-weight:bold; font-size:11px;">📜 ${q.title || q.name}</span>
-                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? `Node #${q.nodeId}` : 'Unassigned'}]</span>
+                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? formatNodeRef(q.nodeId, topo) : 'Unassigned'}]</span>
               </div>
               <div style="display:flex; gap:2px;">
                 <button class="win-btn" onclick="window.navigateToEntity('quest', '${q.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>

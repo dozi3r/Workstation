@@ -76,7 +76,7 @@
           const terrCount = Array.isArray(targetObj.controlledNodeIds) ? targetObj.controlledNodeIds.length : 0;
           targetDetails = `CVF: ${targetObj.cvfQuadrant || 'Clan'} • HQ: Node #${targetNodeId || 'None'} • Territory: ${terrCount} Nodes`;
         } else {
-          targetDetails = targetNodeId ? `Stationed at Node #${targetNodeId}` : (isTargetActive ? 'Active in Campaign Roster (Unassigned)' : 'Module Prototype Pool');
+          targetDetails = targetNodeId ? `Stationed at ${(typeof window.formatNodeRef === 'function' ? window.formatNodeRef(targetNodeId) : 'Node #' + targetNodeId)}` : (isTargetActive ? 'Active in Campaign Roster (Unassigned)' : 'Module Prototype Pool');
         }
       }
 

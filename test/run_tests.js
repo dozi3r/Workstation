@@ -4912,6 +4912,224 @@ function testNpcSocialWebAndRelationalGraph() {
   assert(singleSvg.includes('<svg') && !singleSvg.includes('NaN'), 'Single character generates safe SVG without NaN');
 }
 
+// SUITE 29: LOCATION NAMES IN STATIONED NODE COLUMN ACROSS ENTITY EXPLORER
+function testLocationNamesInStationedNodeColumns() {
+  console.log('\n--> SUITE 29: Location Names in Stationed Node Column across Entity Explorer...');
+
+  const entityUiPath = path.join(ROOT_DIR, 'src/workstation/scripts/entity_manager_ui.js');
+  const entityUiCode = fs.readFileSync(entityUiPath, 'utf8');
+
+  const elements = {};
+  function mockEl(id) {
+    if (!elements[id]) {
+      const el = {
+        id,
+        _innerHTML: '',
+        textContent: '',
+        children: [],
+        value: '',
+        className: '',
+        classList: { add: function(c) { this[c] = true; }, remove: function(c) { delete this[c]; }, contains: function(c) { return !!this[c]; } },
+        appendChild: function(c) { this.children.push(c); },
+        querySelectorAll: () => [],
+        querySelector: () => null,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        setAttribute: () => {},
+        removeAttribute: () => {},
+        style: {}
+      };
+      Object.defineProperty(el, 'innerHTML', {
+        get() { return this._innerHTML; },
+        set(v) {
+          this._innerHTML = v;
+          if (v === '') this.children = [];
+        }
+      });
+      elements[id] = el;
+    }
+    return elements[id];
+  }
+
+  const mockTopo = {
+    id: 'map_root',
+    name: 'Emerald Isle',
+    nodes: {
+      '5': { id: 5, name: "Alyssa the Bard's Encampment", tier: 2, culture: 'Adhocracy' },
+      '26': { id: 26, name: "The Dragon's Lair", tier: 2, culture: 'Clan' },
+      '30': { id: 30, name: "Brent Fillant's Ledge", tier: 2, culture: 'Clan' },
+      '99': { id: 99, name: "Node 99", tier: 2, culture: 'Hierarchy' },
+      '100': { id: 100, name: "Node 100: Mountain Keep", tier: 2, culture: 'Hierarchy' }
+    },
+    npcs: [
+      { id: 'npc_alyssa', name: 'Alyssa the Bard', nodeId: 5, role: 'Musician' },
+      { id: 'npc_dragon', name: 'Morcarack the Pitiless', nodeId: 26, role: 'Apex Dragon' },
+      { id: 'npc_brent', name: 'Brent Fillant', nodeId: 30, role: 'Noble' }
+    ],
+    items: [
+      { id: 'itm_lute', name: "Alyssa's Rosewood Lute", ownerNpcId: 'npc_alyssa', possessionMode: 'carried', nodeId: null, category: 'Tool' },
+      { id: 'itm_bow', name: 'Cavern Yew Longbow', ownerNpcId: 'npc_dragon', possessionMode: 'stored', nodeId: 26, category: 'Weapon' },
+      { id: 'itm_unassigned', name: 'Rusted Key', ownerNpcId: null, possessionMode: 'stored', nodeId: null, category: 'Key' }
+    ],
+    quests: [
+      { id: 'qst_dragon', title: 'The Dragon Hunt', nodeId: 26, threat: 'High' }
+    ],
+    trackers: [
+      { id: 'trk_dragon_slumber', name: "Morcarack's Slumber", nodeId: 26, currentTicks: 1, maxTicks: 4 }
+    ],
+    factions: [
+      { id: 'fac_clans', name: 'Dragon Cultists', headquartersNodeId: 26, controlledNodeIds: [26, 30], cvfQuadrant: 'Clan', colorIdentity: 'R' }
+    ]
+  };
+
+  const mockMaps = {
+    'map_root': mockTopo,
+    'map_sub1': {
+      id: 'map_sub1',
+      name: 'Sunken Caverns',
+      nodes: [
+        { id: 201, name: 'Crystal Chamber', tier: 1 }
+      ]
+    }
+  };
+
+  const sandbox = {
+    console: console,
+    Workstation: {
+      activeTopology: mockTopo,
+      registeredMods: {}
+    },
+    maps: mockMaps,
+    activeMapId: 'map_root',
+    document: {
+      getElementById: (id) => mockEl(id),
+      createElement: (tag) => ({
+        tagName: tag,
+        innerHTML: '',
+        textContent: '',
+        children: [],
+        value: '',
+        className: '',
+        classList: { add: function(c) { this[c] = true; }, remove: function(c) { delete this[c]; }, contains: function(c) { return !!this[c]; } },
+        appendChild: function(c) { this.children.push(c); },
+        querySelectorAll: () => [],
+        querySelector: () => null,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        setAttribute: () => {},
+        removeAttribute: () => {},
+        style: {}
+      }),
+      querySelectorAll: () => []
+    },
+    window: {},
+    CurrentEntityTab: 'npc',
+    SelectedEntityFilter: 'all',
+    SelectedEntityId: null,
+    MODULE_ENTITY_PROTOTYPES: { npcs: [], quests: [], items: [], trackers: [], factions: [] },
+    ALL_MODULES: [],
+    getActiveEntityList: function(type) {
+      if (type === 'npc') return mockTopo.npcs || [];
+      if (type === 'quest') return mockTopo.quests || [];
+      if (type === 'item') return mockTopo.items || [];
+      if (type === 'tracker') return mockTopo.trackers || [];
+      if (type === 'faction') return mockTopo.factions || [];
+      return [];
+    },
+    getPrototypesForType: function(type) {
+      return [];
+    },
+    getItemEffectiveNodeId: function(item) {
+      if (!item) return null;
+      if (item.possessionMode === 'carried' && item.ownerNpcId) {
+        const owner = (mockTopo.npcs || []).find(n => String(n.id) === String(item.ownerNpcId));
+        if (owner && owner.nodeId != null) return owner.nodeId;
+      }
+      return item.nodeId != null ? item.nodeId : null;
+    }
+  };
+  sandbox.window = sandbox;
+
+  vm.createContext(sandbox);
+  vm.runInContext(entityUiCode, sandbox);
+
+  // 1. Verify formatNodeRef unit tests
+  assert(typeof sandbox.formatNodeRef === 'function', 'formatNodeRef is exported on window');
+  assert(sandbox.formatNodeRef(26) === "Node 26: The Dragon's Lair", `formatNodeRef(26) formats "Node 26: The Dragon's Lair" (Got: "${sandbox.formatNodeRef(26)}")`);
+  assert(sandbox.formatNodeRef('26') === "Node 26: The Dragon's Lair", `formatNodeRef('26') handles string ID`);
+  assert(sandbox.formatNodeRef('Node 26') === "Node 26: The Dragon's Lair", `formatNodeRef('Node 26') handles prefixed input`);
+  assert(sandbox.formatNodeRef(100) === "Node 100: Mountain Keep", `formatNodeRef does not duplicate "Node 100:" prefix (Got: "${sandbox.formatNodeRef(100)}")`);
+  assert(sandbox.formatNodeRef(99) === "Node 99", `formatNodeRef returns "Node 99" when node has default name (Got: "${sandbox.formatNodeRef(99)}")`);
+  assert(sandbox.formatNodeRef(999) === "Node 999", `formatNodeRef returns "Node 999" when node does not exist`);
+  assert(sandbox.formatNodeRef(null) === "(Unassigned)", `formatNodeRef(null) returns "(Unassigned)"`);
+  assert(sandbox.formatNodeRef('') === "(Unassigned)", `formatNodeRef('') returns "(Unassigned)"`);
+  assert(sandbox.formatNodeRef(201) === "Node 201: Crystal Chamber", `formatNodeRef resolves multi-scale submap node 201 (Got: "${sandbox.formatNodeRef(201)}")`);
+
+  // 2. Verify List Table Rendering across entity types
+  // Tab: NPC
+  sandbox.CurrentEntityTab = 'npc';
+  sandbox.SelectedEntityFilter = 'all';
+  sandbox.renderEntityManagerList();
+  const npcTbody = mockEl('em-table-body');
+  assert(npcTbody.children.length === 3, 'Renders 3 NPCs in list table');
+  const dragonNpcRow = npcTbody.children.find(r => r.innerHTML.includes('Morcarack the Pitiless'));
+  assert(dragonNpcRow && dragonNpcRow.innerHTML.includes("Node 26: The Dragon's Lair"), `NPC row displays "Node 26: The Dragon's Lair" in Stationed Node column`);
+
+  // Tab: Item
+  sandbox.CurrentEntityTab = 'item';
+  sandbox.SelectedEntityFilter = 'all';
+  sandbox.renderEntityManagerList();
+  const itmTbody = mockEl('em-table-body');
+  assert(itmTbody.children.length === 3, 'Renders 3 items in list table');
+  const storedItemRow = itmTbody.children.find(r => r.innerHTML.includes('Cavern Yew Longbow'));
+  assert(storedItemRow && storedItemRow.innerHTML.includes("Node 26: The Dragon's Lair"), `Stored item displays "Node 26: The Dragon's Lair" in Stationed Node column`);
+  const carriedItemRow = itmTbody.children.find(r => r.innerHTML.includes("Alyssa's Rosewood Lute"));
+  assert(carriedItemRow && carriedItemRow.innerHTML.includes("Node 5: Alyssa the Bard's Encampment") && carriedItemRow.innerHTML.includes('(Carried)'), `Carried item displays "Node 5: Alyssa the Bard's Encampment (Carried)"`);
+  const unassignedItemRow = itmTbody.children.find(r => r.innerHTML.includes('Rusted Key'));
+  assert(unassignedItemRow && unassignedItemRow.innerHTML.includes('(Unassigned)'), `Unassigned item displays "(Unassigned)"`);
+
+  // Tab: Quest
+  sandbox.CurrentEntityTab = 'quest';
+  sandbox.SelectedEntityFilter = 'all';
+  sandbox.renderEntityManagerList();
+  const qstTbody = mockEl('em-table-body');
+  const questRow = qstTbody.children.find(r => r.innerHTML.includes('The Dragon Hunt'));
+  assert(questRow && questRow.innerHTML.includes("Node 26: The Dragon's Lair"), `Quest row displays "Node 26: The Dragon's Lair" in Stationed Node column`);
+
+  // Tab: Tracker
+  sandbox.CurrentEntityTab = 'tracker';
+  sandbox.SelectedEntityFilter = 'all';
+  sandbox.renderEntityManagerList();
+  const trkTbody = mockEl('em-table-body');
+  const clockRow = trkTbody.children.find(r => r.innerHTML.includes("Morcarack's Slumber"));
+  assert(clockRow && clockRow.innerHTML.includes("Node 26: The Dragon's Lair"), `Clock row displays "Node 26: The Dragon's Lair" in Stationed Node column`);
+
+  // Tab: Faction
+  sandbox.CurrentEntityTab = 'faction';
+  sandbox.SelectedEntityFilter = 'all';
+  sandbox.renderEntityManagerList();
+  const facTbody = mockEl('em-table-body');
+  const facRow = facTbody.children.find(r => r.innerHTML.includes('Dragon Cultists'));
+  assert(facRow && facRow.innerHTML.includes("Node 26: The Dragon's Lair"), `Faction row displays "Node 26: The Dragon's Lair" for Headquarters column`);
+
+  // 3. Search filter by location name
+  sandbox.CurrentEntityTab = 'item';
+  const searchInput = mockEl('em-search-input');
+  searchInput.value = 'dragon';
+  sandbox.renderEntityManagerList();
+  const filteredTbody = mockEl('em-table-body');
+  assert(filteredTbody.children.length === 1 && filteredTbody.children[0].innerHTML.includes('Cavern Yew Longbow'), `Searching "dragon" matches item stationed at "The Dragon's Lair"`);
+  searchInput.value = '';
+
+  // 4. Tree counts for items include carried items
+  sandbox.CurrentEntityTab = 'item';
+  const treeContainer = mockEl('em-tree-container');
+  sandbox.renderEntityManagerTree();
+  const treeItems = treeContainer.children;
+  const alyssaTreeItem = treeItems.find(t => t.textContent.includes("Alyssa the Bard's Encampment"));
+  assert(alyssaTreeItem && alyssaTreeItem.textContent.includes('(1)'), `Tree reflects carried item count for Alyssa's Encampment`);
+}
+
 // ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
@@ -4945,6 +5163,7 @@ function testNpcSocialWebAndRelationalGraph() {
     testSociologyReferenceHubAndHermeneutics();
     testFirstClassFactionsEntityEngine();
     testNpcSocialWebAndRelationalGraph();
+    testLocationNamesInStationedNodeColumns();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

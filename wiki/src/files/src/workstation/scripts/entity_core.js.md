@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_core.js"
 title: "entity_core.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "72d28daf4cbc98dc"
-reviewed_hash: "72d28daf4cbc98dc"
+current_hash: "7652754ee03b8200"
+reviewed_hash: "7652754ee03b8200"
 stale: false
-size_bytes: 35669
-line_count: 862
+size_bytes: 35809
+line_count: 863
 ---
 
 # entity_core.js
