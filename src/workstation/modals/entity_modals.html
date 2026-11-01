@@ -22,6 +22,7 @@
             <button id="em-tab-item" class="win-btn" onclick="switchEntityManagerTab('item')"><strong>Items &amp; Relics</strong></button>
             <button id="em-tab-tracker" class="win-btn" onclick="switchEntityManagerTab('tracker')"><strong>Trackers &amp; Clocks</strong></button>
             <button id="em-tab-node" class="win-btn" onclick="switchEntityManagerTab('node')"><strong>Nodes &amp; Hubs</strong></button>
+            <button id="em-tab-edge" class="win-btn" onclick="switchEntityManagerTab('edge')"><strong>Edges &amp; Conduits</strong></button>
           </div>
           <div style="display:flex; align-items:center; gap:6px;">
             <input type="text" id="em-search-input" placeholder="Filter entities..." class="win-select-input" style="width:160px;" oninput="renderEntityManagerList()">
@@ -306,6 +307,37 @@
             <button id="ed-btn-delete-only" class="win-btn" type="button" onclick="confirmExecuteDeletion(false)" style="color:#b91c1c; font-weight:bold; min-width:115px;">Delete (No Backup)</button>
             <button id="ed-btn-backup-delete" class="win-btn" type="button" onclick="confirmExecuteDeletion(true)" style="background:#000080; color:#fff; font-weight:bold; min-width:175px; border-color:#000040;">📦 Backup &amp; Delete (.zip)</button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Create Edge Connection -->
+  <div id="modal-edge-create" class="modal-backdrop hidden" style="align-items:center; justify-content:center; z-index:10050;">
+    <div class="win-dialog bevel-raised" style="width:420px; padding:3px; background:#c0c0c0;">
+      <div class="dialog-title-bar">
+        <div class="dialog-title-text" id="edge-create-title">Create New Edge Connection</div>
+        <button class="win-btn" onclick="closeModal('modal-edge-create')" style="font-size:10px; padding:0 4px;">X</button>
+      </div>
+      <div class="dialog-body" style="padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <strong>Start Node (Source):</strong>
+          <select id="edge-create-src" class="win-select-input"></select>
+        </label>
+        <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <strong>End Node (Target):</strong>
+          <select id="edge-create-tgt" class="win-select-input"></select>
+        </label>
+        <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <strong>Corridor Classification:</strong>
+          <select id="edge-create-type" class="win-select-input">
+            <option value="road" selected>Transit Road (Bidirectional)</option>
+            <option value="hegemony">Hegemonic Vector (Directional)</option>
+          </select>
+        </label>
+        <div class="dialog-footer" style="justify-content:flex-end; gap:6px; margin-top:8px;">
+          <button class="win-btn" type="button" onclick="closeModal('modal-edge-create')">Cancel</button>
+          <button class="win-btn" type="button" id="edge-create-submit" onclick="submitCreateEdgeModal()" style="font-weight:bold; background:#000080; color:#fff;">Connect Edge</button>
         </div>
       </div>
     </div>

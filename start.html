@@ -1785,6 +1785,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openEntityManager('tracker')">Threat Clocks &amp; Dials... <span class="hotkey">Ctrl+K</span></div>
           <div class="dropdown-row" onclick="openTicketCenter()">Ticket Command Center... <span class="hotkey">F9</span></div>
           <div class="dropdown-row" onclick="openEntityManager('node')">Node Explorer... <span class="hotkey">Ctrl+F10</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('edge')">Edge Explorer... <span class="hotkey">Ctrl+F11</span></div>
         </div>
       </div>
 
@@ -1849,6 +1850,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openEntityManager('tracker')">Threat Clocks &amp; Dials <span class="hotkey">Ctrl+K</span></div>
           <div class="dropdown-row" onclick="openTicketCenter()">Ticket Command Center <span class="hotkey">F9</span></div>
           <div class="dropdown-row" onclick="openEntityManager('node')">Node Explorer <span class="hotkey">Ctrl+F10</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('edge')">Edge Explorer <span class="hotkey">Ctrl+F11</span></div>
         </div>
       </div>
 
@@ -1926,6 +1928,7 @@ CRITICAL INSTRUCTION:
       <button class="win-btn" onclick="openEntityManager('tracker')" title="Threat Clocks &amp; Severity Dials (Ctrl+K / Ctrl+F9)"><strong>Clocks</strong></button>
       <button class="win-btn" onclick="openTicketCenter()" title="Gamedev Ticket Command Center (F9)"><strong>Tickets</strong></button>
       <button class="win-btn" onclick="openEntityManager('node')" title="Open Node Explorer (Ctrl+F10)"><strong>Nodes</strong></button>
+      <button class="win-btn" onclick="openEntityManager('edge')" title="Open Edge Explorer (Ctrl+F11)"><strong>Edges</strong></button>
       <button class="win-btn" onclick="toggleLayersPane()" title="Canvas Layers Manager (Ctrl+L)"><strong>Layers</strong></button>
       <div class="toolbar-sep"></div>
       <button class="win-btn" onclick="openMapNavigatorModal()" title="Cartographic Hierarchy &amp; Map Navigator (Ctrl+Shift+M)"><strong>Maps</strong></button>
@@ -2197,6 +2200,9 @@ CRITICAL INSTRUCTION:
           </div>
           <div class="dropdown-row" onclick="openEntityManager('node'); toggleStartMenu();">
             <strong>Node Explorer...</strong> <span class="hotkey">Ctrl+F10</span>
+          </div>
+          <div class="dropdown-row" onclick="openEntityManager('edge'); toggleStartMenu();">
+            <strong>Edge Explorer...</strong> <span class="hotkey">Ctrl+F11</span>
           </div>
           <div class="dropdown-row" onclick="openEntityManager('npc'); toggleStartMenu();">
             <strong>NPC Roster...</strong> <span class="hotkey">Ctrl+F5</span>
@@ -2957,6 +2963,7 @@ CRITICAL INSTRUCTION:
             <button id="em-tab-item" class="win-btn" onclick="switchEntityManagerTab('item')"><strong>Items &amp; Relics</strong></button>
             <button id="em-tab-tracker" class="win-btn" onclick="switchEntityManagerTab('tracker')"><strong>Trackers &amp; Clocks</strong></button>
             <button id="em-tab-node" class="win-btn" onclick="switchEntityManagerTab('node')"><strong>Nodes &amp; Hubs</strong></button>
+            <button id="em-tab-edge" class="win-btn" onclick="switchEntityManagerTab('edge')"><strong>Edges &amp; Conduits</strong></button>
           </div>
           <div style="display:flex; align-items:center; gap:6px;">
             <input type="text" id="em-search-input" placeholder="Filter entities..." class="win-select-input" style="width:160px;" oninput="renderEntityManagerList()">
@@ -3241,6 +3248,37 @@ CRITICAL INSTRUCTION:
             <button id="ed-btn-delete-only" class="win-btn" type="button" onclick="confirmExecuteDeletion(false)" style="color:#b91c1c; font-weight:bold; min-width:115px;">Delete (No Backup)</button>
             <button id="ed-btn-backup-delete" class="win-btn" type="button" onclick="confirmExecuteDeletion(true)" style="background:#000080; color:#fff; font-weight:bold; min-width:175px; border-color:#000040;">📦 Backup &amp; Delete (.zip)</button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Create Edge Connection -->
+  <div id="modal-edge-create" class="modal-backdrop hidden" style="align-items:center; justify-content:center; z-index:10050;">
+    <div class="win-dialog bevel-raised" style="width:420px; padding:3px; background:#c0c0c0;">
+      <div class="dialog-title-bar">
+        <div class="dialog-title-text" id="edge-create-title">Create New Edge Connection</div>
+        <button class="win-btn" onclick="closeModal('modal-edge-create')" style="font-size:10px; padding:0 4px;">X</button>
+      </div>
+      <div class="dialog-body" style="padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <strong>Start Node (Source):</strong>
+          <select id="edge-create-src" class="win-select-input"></select>
+        </label>
+        <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <strong>End Node (Target):</strong>
+          <select id="edge-create-tgt" class="win-select-input"></select>
+        </label>
+        <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <strong>Corridor Classification:</strong>
+          <select id="edge-create-type" class="win-select-input">
+            <option value="road" selected>Transit Road (Bidirectional)</option>
+            <option value="hegemony">Hegemonic Vector (Directional)</option>
+          </select>
+        </label>
+        <div class="dialog-footer" style="justify-content:flex-end; gap:6px; margin-top:8px;">
+          <button class="win-btn" type="button" onclick="closeModal('modal-edge-create')">Cancel</button>
+          <button class="win-btn" type="button" id="edge-create-submit" onclick="submitCreateEdgeModal()" style="font-weight:bold; background:#000080; color:#fff;">Connect Edge</button>
         </div>
       </div>
     </div>
@@ -27968,6 +28006,10 @@ window.toggleInfluenceVectors = toggleInfluenceVectors;// CAD Canvas Interaction
       const v = topo.nodes[vId.toString()];
       if (!u || !v) return;
 
+      if (typeof pushHistoryState === 'function') {
+        pushHistoryState(`Create ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'}: ${uId} -> ${vId}`);
+      }
+
       if (edgeType === 'road') {
         if (!u.adj) u.adj = [];
         if (!v.adj) v.adj = [];
@@ -27992,6 +28034,10 @@ window.toggleInfluenceVectors = toggleInfluenceVectors;// CAD Canvas Interaction
       const pairKey = [uKey, vKey].sort().join('-');
       const edgeKey = (edgeType === 'hegemony') ? `${uId}->${vId}` : pairKey;
 
+      if (typeof pushHistoryState === 'function') {
+        pushHistoryState(`Sever ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'}: ${uId} -> ${vId}`);
+      }
+
       const u = topo.nodes[uKey];
       const v = topo.nodes[vKey];
 
@@ -28011,6 +28057,10 @@ window.toggleInfluenceVectors = toggleInfluenceVectors;// CAD Canvas Interaction
       if (topo.edgeData) {
         delete topo.edgeData[edgeKey];
         delete topo.edgeData[pairKey];
+      }
+      if (topo.edgeNotes) {
+        delete topo.edgeNotes[edgeKey];
+        delete topo.edgeNotes[pairKey];
       }
       if (typeof edgeSlottedModules !== "undefined") {
         delete edgeSlottedModules[edgeKey];
@@ -31521,6 +31571,23 @@ function renderNodeProperties(targetTbody, node, topo = null) {
   updatePropertiesGrid(targetTbody, { type: 'node', id: node.id }, topo || (typeof Workstation !== 'undefined' ? Workstation.activeTopology : null));
 }
 window.renderNodeProperties = renderNodeProperties;
+
+function renderEdgeProperties(targetTbody, edgeItem, topo = null) {
+  if (!targetTbody || !edgeItem) return;
+  const isHegem = edgeItem.edgeType === 'hegemony';
+  const pairKey = edgeItem.pairKey || [String(edgeItem.uId), String(edgeItem.vId)].sort().join('-');
+  const edgeKey = edgeItem.edgeKey || (isHegem ? `${edgeItem.uId}->${edgeItem.vId}` : pairKey);
+  const normalizedItem = {
+    type: 'edge',
+    edgeType: edgeItem.edgeType || 'road',
+    uId: edgeItem.uId,
+    vId: edgeItem.vId,
+    pair: pairKey,
+    edgeKey: edgeKey
+  };
+  updatePropertiesGrid(targetTbody, normalizedItem, topo || (typeof Workstation !== 'undefined' ? Workstation.activeTopology : null));
+}
+window.renderEdgeProperties = renderEdgeProperties;
 window.renderMultiSelectionProperties = renderMultiSelectionProperties;
 window.promptRepositionSelection = promptRepositionSelection;
 window.appendCategoryRow = appendCategoryRow;
@@ -31952,6 +32019,7 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         else if (e.ctrlKey && e.key === 'F7') { e.preventDefault(); openEntityManager('item'); }
         else if (e.ctrlKey && e.key === 'F9') { e.preventDefault(); openEntityManager('tracker'); }
         else if (e.ctrlKey && e.key === 'F10') { e.preventDefault(); openEntityManager('node'); }
+        else if (e.ctrlKey && e.key === 'F11') { e.preventDefault(); openEntityManager('edge'); }
         else if ((e.ctrlKey && (e.key === 'm' || e.key === 'M')) || e.key === 'F8') { e.preventDefault(); openModuleExplorer(); }
         else if (e.ctrlKey && e.shiftKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); if (typeof openSaveAsNewCampaignModal === 'function') openSaveAsNewCampaignModal(); }
         else if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); if (typeof handleToolbarSave === 'function') { handleToolbarSave(); } else { saveActiveCampaign(); if (typeof flushProjectDirectoryNow === 'function') flushProjectDirectoryNow({ interactive: true }); } }
@@ -34803,6 +34871,293 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
     }
     window.jumpToNodeMap = jumpToNodeMap;
 
+    window.CreatorStudio = window.CreatorStudio || {};
+    if (!window.CreatorStudio.edgeClassifications) {
+      window.CreatorStudio.edgeClassifications = {
+        'road': {
+          id: 'road',
+          label: 'Transit Road (Bidirectional)',
+          shortLabel: 'Road',
+          isDirectional: false,
+          icon: '🛣️',
+          badgeStyle: 'background:#1e3a8a; color:#fff;'
+        },
+        'hegemony': {
+          id: 'hegemony',
+          label: 'Hegemonic Vector (Directional)',
+          shortLabel: 'Hegemony',
+          isDirectional: true,
+          icon: '⚔️',
+          badgeStyle: 'background:#7f1d1d; color:#fff;'
+        }
+      };
+    }
+
+    function resolveEdgeEndpointsAndMetrics(edgeItem, targetTopo) {
+      if (!edgeItem || !targetTopo) return edgeItem;
+      const nodes = targetTopo.nodes || [];
+      const nodeDict = {};
+      if (Array.isArray(nodes)) {
+        nodes.forEach(n => {
+          if (n && n.id !== undefined) nodeDict[String(n.id)] = n;
+        });
+      } else if (typeof nodes === 'object') {
+        Object.keys(nodes).forEach(k => {
+          if (nodes[k]) nodeDict[String(k)] = nodes[k];
+        });
+      }
+
+      edgeItem.uNode = nodeDict[String(edgeItem.uId)] || null;
+      edgeItem.vNode = nodeDict[String(edgeItem.vId)] || null;
+
+      if (edgeItem.uNode && edgeItem.vNode) {
+        const ux = edgeItem.uNode.x || 0;
+        const uy = edgeItem.uNode.y || 0;
+        const vx = edgeItem.vNode.x || 0;
+        const vy = edgeItem.vNode.y || 0;
+        const dist = Math.round(Math.hypot(vx - ux, vy - uy));
+        edgeItem.lengthPx = dist;
+        edgeItem.formattedDist = (typeof formatDistance === 'function') ? formatDistance(dist) : `${dist} px`;
+      } else {
+        edgeItem.lengthPx = 0;
+        edgeItem.formattedDist = 'Unknown';
+      }
+
+      if (typeof calculateCorridorHazard === 'function') {
+        edgeItem.hazardInfo = calculateCorridorHazard(edgeItem, edgeItem.uNode, edgeItem.vNode);
+      } else {
+        edgeItem.hazardInfo = { levelName: 'Level 0 (No Hazard)', dc: 10 };
+      }
+
+      return edgeItem;
+    }
+    window.resolveEdgeEndpointsAndMetrics = resolveEdgeEndpointsAndMetrics;
+
+    function getEdgesForMapScope(scope = 'all') {
+      const topo = Workstation.activeTopology;
+      const curMapId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
+      const mapDict = (typeof maps !== "undefined" && maps) ? maps : (topo && topo.maps ? topo.maps : {});
+      const curMapName = (mapDict[curMapId] && mapDict[curMapId].name) || (topo && topo.name) || "Root Map";
+
+      const extractEdgesFromMap = (mId, mName, mapObj) => {
+        if (!mapObj) return [];
+        const mNodes = mapObj.nodes || [];
+        const nodeDict = {};
+        if (Array.isArray(mNodes)) {
+          mNodes.forEach(n => {
+            if (n && n.id !== undefined) nodeDict[String(n.id)] = n;
+          });
+        } else if (typeof mNodes === 'object') {
+          Object.keys(mNodes).forEach(k => {
+            if (mNodes[k]) nodeDict[String(k)] = mNodes[k];
+          });
+        }
+
+        const mEdgeData = mapObj.edgeData || {};
+        const mEdgeNotes = mapObj.edgeNotes || {};
+        const mEdgeSlottedModules = (mId === curMapId && typeof edgeSlottedModules !== 'undefined')
+          ? edgeSlottedModules
+          : (mapObj.edgeSlottedModules || {});
+
+        const edges = [];
+        const seenRoadPairs = new Set();
+
+        Object.keys(nodeDict).forEach(uKey => {
+          const u = nodeDict[uKey];
+          const uId = (isNaN(u.id) || String(u.id).includes('-')) ? u.id : parseInt(u.id);
+
+          // 1. Transit Roads (u.adj)
+          if (Array.isArray(u.adj)) {
+            u.adj.forEach(rawVId => {
+              const vId = (isNaN(rawVId) || String(rawVId).includes('-')) ? rawVId : parseInt(rawVId);
+              const pairKey = [String(uId), String(vId)].sort().join('-');
+              if (!seenRoadPairs.has(pairKey)) {
+                seenRoadPairs.add(pairKey);
+                const rec = mEdgeData[pairKey] || mEdgeData[`${uId}-${vId}`] || mEdgeData[`${vId}-${uId}`] || {};
+                const slotted = (mEdgeSlottedModules && (mEdgeSlottedModules[pairKey] || mEdgeSlottedModules[`${uId}-${vId}`])) || rec.modules || [];
+                const notes = (mEdgeNotes && (mEdgeNotes[pairKey] || mEdgeNotes[`${uId}-${vId}`])) || '';
+
+                const edge = {
+                  id: pairKey,
+                  edgeKey: pairKey,
+                  pairKey: pairKey,
+                  edgeType: 'road',
+                  isDirectional: false,
+                  uId: uId,
+                  vId: vId,
+                  name: rec.name || '',
+                  condition: rec.condition || 'Passable',
+                  hazardLevel: rec.hazardLevel !== undefined ? rec.hazardLevel : 0,
+                  blocked: !!rec.blocked,
+                  tollCost: rec.tollCost || 'None',
+                  patrolFaction: rec.patrolFaction || 'neutral',
+                  visible: rec.visible !== false,
+                  layerId: rec.layerId || 'layer-roads',
+                  conduitType: rec.conduitType || 'Standard Route',
+                  dedicatedFlows: Array.isArray(rec.dedicatedFlows) ? rec.dedicatedFlows : [],
+                  capacity: (typeof rec.capacity === 'number') ? rec.capacity : null,
+                  demographics: rec.demographics || null,
+                  factionPresence: Array.isArray(rec.factionPresence) ? rec.factionPresence : [],
+                  partyRapport: (typeof rec.partyRapport === 'number') ? rec.partyRapport : null,
+                  modules: Array.isArray(slotted) ? slotted : [],
+                  notes: notes,
+                  _mapId: mId,
+                  _mapName: mName
+                };
+                resolveEdgeEndpointsAndMetrics(edge, mapObj);
+                edges.push(edge);
+              }
+            });
+          }
+
+          // 2. Hegemonic Vectors (u.infBy)
+          if (Array.isArray(u.infBy)) {
+            u.infBy.forEach(rawSrcId => {
+              const srcId = (isNaN(rawSrcId) || String(rawSrcId).includes('-')) ? rawSrcId : parseInt(rawSrcId);
+              const edgeKey = `${srcId}->${uId}`;
+              const pairKey = [String(srcId), String(uId)].sort().join('-');
+              const rec = mEdgeData[edgeKey] || mEdgeData[pairKey] || {};
+              const slotted = (mEdgeSlottedModules && (mEdgeSlottedModules[edgeKey] || mEdgeSlottedModules[pairKey])) || rec.modules || [];
+              const notes = (mEdgeNotes && (mEdgeNotes[edgeKey] || mEdgeNotes[pairKey])) || '';
+
+              const edge = {
+                id: edgeKey,
+                edgeKey: edgeKey,
+                pairKey: pairKey,
+                edgeType: 'hegemony',
+                isDirectional: true,
+                uId: srcId,
+                vId: uId,
+                name: rec.name || '',
+                condition: rec.condition || 'Passable',
+                hazardLevel: rec.hazardLevel !== undefined ? rec.hazardLevel : 0,
+                blocked: !!rec.blocked,
+                tollCost: rec.tollCost || 'None',
+                patrolFaction: rec.patrolFaction || 'neutral',
+                visible: rec.visible !== false,
+                layerId: rec.layerId || 'layer-hegemony',
+                conduitType: rec.conduitType || 'Standard Route',
+                dedicatedFlows: Array.isArray(rec.dedicatedFlows) ? rec.dedicatedFlows : [],
+                capacity: (typeof rec.capacity === 'number') ? rec.capacity : null,
+                demographics: rec.demographics || null,
+                factionPresence: Array.isArray(rec.factionPresence) ? rec.factionPresence : [],
+                partyRapport: (typeof rec.partyRapport === 'number') ? rec.partyRapport : null,
+                modules: Array.isArray(slotted) ? slotted : [],
+                notes: notes,
+                _mapId: mId,
+                _mapName: mName
+              };
+              resolveEdgeEndpointsAndMetrics(edge, mapObj);
+              edges.push(edge);
+            });
+          }
+        });
+
+        return edges;
+      };
+
+      const getActiveEdges = () => {
+        return extractEdgesFromMap(curMapId, curMapName, topo);
+      };
+
+      let edgeList = [];
+
+      if (!scope || scope === 'all' || scope.startsWith('type:') || scope.startsWith('conduit:') || scope.startsWith('hazard:') || scope.startsWith('status:') || scope.startsWith('has:')) {
+        edgeList = getActiveEdges();
+      } else if (scope === `map:${curMapId}`) {
+        edgeList = getActiveEdges();
+      } else if (scope === 'map:all') {
+        edgeList = [...getActiveEdges()];
+        Object.keys(mapDict).forEach(mId => {
+          if (mId !== curMapId) {
+            const m = mapDict[mId];
+            const mName = m.name || mId;
+            edgeList.push(...extractEdgesFromMap(mId, mName, m));
+          }
+        });
+      } else if (scope.startsWith('map:')) {
+        const targetMapId = scope.replace('map:', '');
+        const targetMap = (targetMapId === curMapId) ? topo : mapDict[targetMapId];
+        if (targetMap) {
+          const mName = (targetMapId === curMapId) ? curMapName : (targetMap.name || targetMapId);
+          edgeList = extractEdgesFromMap(targetMapId, mName, targetMap);
+        }
+      } else {
+        edgeList = getActiveEdges();
+      }
+
+      if (scope === 'type:road') {
+        return edgeList.filter(e => e.edgeType === 'road');
+      }
+      if (scope === 'type:hegemony') {
+        return edgeList.filter(e => e.edgeType === 'hegemony');
+      }
+      if (scope.startsWith('conduit:')) {
+        const cType = scope.replace('conduit:', '');
+        return edgeList.filter(e => e.conduitType === cType);
+      }
+      if (scope === 'hazard:high') {
+        return edgeList.filter(e => e.hazardLevel >= 2);
+      }
+      if (scope === 'hazard:safe') {
+        return edgeList.filter(e => e.hazardLevel === 0);
+      }
+      if (scope === 'status:blocked') {
+        return edgeList.filter(e => e.blocked || e.condition.toLowerCase().includes('blockaded') || e.condition.toLowerCase().includes('besieged'));
+      }
+      if (scope === 'status:secret') {
+        return edgeList.filter(e => e.visible === false);
+      }
+      if (scope === 'status:open') {
+        return edgeList.filter(e => !e.blocked && e.visible !== false && e.hazardLevel < 2);
+      }
+      if (scope === 'has:flows') {
+        return edgeList.filter(e => Array.isArray(e.dedicatedFlows) && e.dedicatedFlows.length > 0);
+      }
+      if (scope === 'has:modules') {
+        return edgeList.filter(e => Array.isArray(e.modules) && e.modules.length > 0);
+      }
+      if (scope === 'has:contested') {
+        return edgeList.filter(e => (e.patrolFaction && e.patrolFaction.toLowerCase() === 'contested') || (Array.isArray(e.factionPresence) && e.factionPresence.length > 1));
+      }
+
+      return edgeList;
+    }
+    window.getEdgesForMapScope = getEdgesForMapScope;
+
+    async function jumpToEdgeMap(mapId, edgeKey, uId, vId, edgeType) {
+      const curId = (typeof activeMapId !== 'undefined') ? activeMapId : 'map_root';
+      if (typeof switchActiveMap === 'function' && mapId && mapId !== curId) {
+        await switchActiveMap(mapId);
+      }
+      if (typeof selectEdge === 'function') {
+        selectEdge(edgeType, uId, vId);
+      }
+      const topo = Workstation.activeTopology;
+      if (topo && topo.nodes) {
+        const u = topo.nodes[String(uId)];
+        const v = topo.nodes[String(vId)];
+        if (u && v) {
+          const midX = (u.x + v.x) / 2;
+          const midY = (u.y + v.y) / 2;
+          const container = document.getElementById('canvas-container');
+          if (container && typeof Workstation !== 'undefined') {
+            const cw = container.clientWidth || 800;
+            const ch = container.clientHeight || 600;
+            if (!Workstation.pan) Workstation.pan = { x: 0, y: 0 };
+            const zoom = Workstation.zoom || 1.0;
+            Workstation.pan.x = (cw / 2) - (midX * zoom);
+            Workstation.pan.y = (ch / 2) - (midY * zoom);
+            if (typeof applyCanvasTransform === 'function') applyCanvasTransform();
+          }
+        }
+      }
+      if (typeof setStatusBarMessage === 'function') {
+        setStatusBarMessage(`Focused ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'} [${edgeKey}] on Map [${mapId}]`);
+      }
+    }
+    window.jumpToEdgeMap = jumpToEdgeMap;
+
     function openEntityManager(type, selectEntityId) {
       closeAllMenus();
       CurrentEntityTab = type || 'npc';
@@ -34831,7 +35186,7 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
     }
 
     function updateEntityTabButtons() {
-      ['npc', 'quest', 'item', 'tracker', 'node'].forEach(t => {
+      ['npc', 'quest', 'item', 'tracker', 'node', 'edge'].forEach(t => {
         const btn = document.getElementById(`em-tab-${t}`);
         if (btn) {
           if (t === CurrentEntityTab) {
@@ -34846,7 +35201,8 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         'quest': 'Quest Tracker - Dynamic Dilemmas & Stakes',
         'item': 'Item & Relic Catalog - Hardware & Artifacts',
         'tracker': 'Threat Clocks & Trackers - Escalation Dials',
-        'node': 'Node Explorer - Spatial Topology & Hub Roster'
+        'node': 'Node Explorer - Spatial Topology & Hub Roster',
+        'edge': 'EM Edge Explorer - Spatial Corridors & Conduits'
       };
       const newTitle = titleMap[CurrentEntityTab] || 'Campaign Entity Manager';
       document.getElementById('em-dialog-title').textContent = newTitle;
@@ -34861,6 +35217,8 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
           btnNew.textContent = '+ New Node...';
         } else if (CurrentEntityTab === 'tracker') {
           btnNew.textContent = '+ New Tracker...';
+        } else if (CurrentEntityTab === 'edge') {
+          btnNew.textContent = '+ New Edge...';
         } else {
           btnNew.textContent = `+ New ${CurrentEntityTab.toUpperCase()}...`;
         }
@@ -34954,6 +35312,104 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
                  (topo.trackers || []).some(e => String(e.nodeId) === String(n.id));
         }).length;
         addTreeItem(container, `With Entities (${entCount})`, 'has:entities');
+        return;
+      }
+
+      if (CurrentEntityTab === 'edge') {
+        // EDGE EXPLORER TREE
+        const curMapId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
+        const mapDict = (typeof maps !== "undefined" && maps) ? maps : (topo && topo.maps ? topo.maps : {});
+        const curMapName = (mapDict[curMapId] && mapDict[curMapId].name) || (topo && topo.name) || "Root Map";
+
+        const activeEdges = getEdgesForMapScope('all');
+        const allMapsEdges = getEdgesForMapScope('map:all');
+
+        // 1. Map Hierarchy & Sub-Maps Scope
+        const mapHeader = document.createElement('div');
+        mapHeader.style.padding = '4px 6px 2px 6px';
+        mapHeader.style.fontSize = '10px';
+        mapHeader.style.fontWeight = 'bold';
+        mapHeader.style.color = '#555';
+        mapHeader.textContent = 'MAP SCOPE & SUBMAPS:';
+        container.appendChild(mapHeader);
+
+        addTreeItem(container, `Active Map: ${curMapName} (${activeEdges.length})`, 'all');
+        if (Object.keys(mapDict).length > 1) {
+          addTreeItem(container, `All Maps Global (${allMapsEdges.length})`, 'map:all');
+          Object.keys(mapDict).forEach(mId => {
+            const m = mapDict[mId];
+            const mName = m.name || mId;
+            const count = getEdgesForMapScope(`map:${mId}`).length;
+            addTreeItem(container, `🌀 ${mName} (${count})`, `map:${mId}`);
+          });
+        }
+
+        // 2. By Classification
+        const classHeader = document.createElement('div');
+        classHeader.style.padding = '8px 6px 2px 6px';
+        classHeader.style.fontSize = '10px';
+        classHeader.style.fontWeight = 'bold';
+        classHeader.style.color = '#555';
+        classHeader.textContent = 'BY CLASSIFICATION:';
+        container.appendChild(classHeader);
+
+        const roadCount = activeEdges.filter(e => e.edgeType === 'road').length;
+        const hegemCount = activeEdges.filter(e => e.edgeType === 'hegemony').length;
+        addTreeItem(container, `Transit Roads (Bidirectional) (${roadCount})`, 'type:road');
+        addTreeItem(container, `Hegemonic Vectors (Directional) (${hegemCount})`, 'type:hegemony');
+
+        // 3. By Conduit & Logistics
+        const conduitHeader = document.createElement('div');
+        conduitHeader.style.padding = '8px 6px 2px 6px';
+        conduitHeader.style.fontSize = '10px';
+        conduitHeader.style.fontWeight = 'bold';
+        conduitHeader.style.color = '#555';
+        conduitHeader.textContent = 'BY CONDUIT & LOGISTICS:';
+        container.appendChild(conduitHeader);
+
+        const flowsCount = activeEdges.filter(e => Array.isArray(e.dedicatedFlows) && e.dedicatedFlows.length > 0).length;
+        addTreeItem(container, `With Dedicated Supply Flows (${flowsCount})`, 'has:flows');
+        ['Caravan Trade Route', 'Arcane / Ley Conduit', 'Aqueduct / Pipeline', 'Smuggling Tunnel', 'Military Supply Line'].forEach(cType => {
+          const cCount = activeEdges.filter(e => e.conduitType === cType).length;
+          if (cCount > 0) {
+            addTreeItem(container, `${cType} (${cCount})`, `conduit:${cType}`);
+          }
+        });
+
+        // 4. By Condition & Hazard
+        const condHeader = document.createElement('div');
+        condHeader.style.padding = '8px 6px 2px 6px';
+        condHeader.style.fontSize = '10px';
+        condHeader.style.fontWeight = 'bold';
+        condHeader.style.color = '#555';
+        condHeader.textContent = 'BY CONDITION & HAZARD:';
+        container.appendChild(condHeader);
+
+        const openCount = activeEdges.filter(e => !e.blocked && e.visible !== false && e.hazardLevel < 2).length;
+        const highHazardCount = activeEdges.filter(e => e.hazardLevel >= 2).length;
+        const blockedCount = activeEdges.filter(e => e.blocked || e.condition.toLowerCase().includes('blockaded') || e.condition.toLowerCase().includes('besieged')).length;
+        const secretCount = activeEdges.filter(e => e.visible === false).length;
+
+        addTreeItem(container, `Passable / Open (${openCount})`, 'status:open');
+        addTreeItem(container, `High Hazard (Level 2+) (${highHazardCount})`, 'hazard:high');
+        if (blockedCount > 0) addTreeItem(container, `Blockaded / Impassable (${blockedCount})`, 'status:blocked');
+        if (secretCount > 0) addTreeItem(container, `Secret Roads (Hidden Fog) (${secretCount})`, 'status:secret');
+
+        // 5. Topology Activity
+        const actHeader = document.createElement('div');
+        actHeader.style.padding = '8px 6px 2px 6px';
+        actHeader.style.fontSize = '10px';
+        actHeader.style.fontWeight = 'bold';
+        actHeader.style.color = '#555';
+        actHeader.textContent = 'TOPOLOGY ACTIVITY:';
+        container.appendChild(actHeader);
+
+        const modCount = activeEdges.filter(e => Array.isArray(e.modules) && e.modules.length > 0).length;
+        addTreeItem(container, `With Slotted Modules (${modCount})`, 'has:modules');
+        const contestedCount = activeEdges.filter(e => (e.patrolFaction && e.patrolFaction.toLowerCase() === 'contested') || (Array.isArray(e.factionPresence) && e.factionPresence.length > 1)).length;
+        if (contestedCount > 0) {
+          addTreeItem(container, `Contested / Guarded Routes (${contestedCount})`, 'has:contested');
+        }
         return;
       }
 
@@ -35122,6 +35578,106 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         });
 
         document.getElementById('em-footer-stats').textContent = `Showing ${displayNodes.length} nodes (${SelectedEntityFilter}).`;
+        return;
+      }
+
+      if (CurrentEntityTab === 'edge') {
+        // EDGE EXPLORER TABLE
+        const curMapId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
+        const mapDict = (typeof maps !== "undefined" && maps) ? maps : (topo && topo.maps ? topo.maps : {});
+        const isMultiMapScope = SelectedEntityFilter === 'map:all' || SelectedEntityFilter.startsWith('map:');
+
+        thead.innerHTML = `<th style="width:70px;">Key</th>${isMultiMapScope ? '<th style="width:85px;">Map</th>' : ''}<th>Corridor / Conduit Name</th><th style="width:160px;">Endpoints</th><th style="width:85px;">Type</th><th style="width:110px;">Condition &amp; Hazard</th><th style="width:80px;">Length</th><th style="width:110px;">Conduit / Flows</th><th style="width:50px; text-align:center;">Mods</th><th style="width:75px; text-align:center;">Action</th>`;
+
+        const allEdges = getEdgesForMapScope(SelectedEntityFilter);
+        let displayEdges = allEdges.filter(e => {
+          if (!searchTerm) return true;
+          const uName = (e.uNode && e.uNode.name) || '';
+          const vName = (e.vNode && e.vNode.name) || '';
+          const flowsStr = Array.isArray(e.dedicatedFlows) ? e.dedicatedFlows.map(f => typeof f === 'string' ? f : (f && f.tag ? f.tag : '')).join(' ') : '';
+          const modsStr = Array.isArray(e.modules) ? e.modules.join(' ') : '';
+          const matchStr = `${e.name} ${e.edgeKey} ${e.uId} ${e.vId} ${uName} ${vName} ${e.conduitType} ${flowsStr} ${modsStr} ${e.notes}`.toLowerCase();
+          return matchStr.includes(searchTerm);
+        });
+
+        displayEdges.forEach(edge => {
+          const tr = document.createElement('tr');
+          if (SelectedEntityId && (String(SelectedEntityId) === String(edge.edgeKey) || String(SelectedEntityId) === String(edge.pairKey))) {
+            tr.classList.add('selected');
+          }
+
+          const isHegem = edge.edgeType === 'hegemony';
+          const glyph = isHegem ? '⚔️' : '🛣️';
+          const typeBadge = isHegem
+            ? `<span class="entity-badge-tag" style="background:#7f1d1d; color:#fff;">Hegemony</span>`
+            : `<span class="entity-badge-tag" style="background:#1e3a8a; color:#fff;">Road</span>`;
+
+          let statusIcons = '';
+          if (edge.visible === false) statusIcons += ' <span title="Secret / Concealed Road (Hidden in Player View)">👁️‍🗨️</span>';
+          if (edge.blocked) statusIcons += ' <span title="Blockaded / Impassable" style="color:#b91c1c;">🚫</span>';
+
+          const mapCell = isMultiMapScope
+            ? `<td><span class="entity-badge-tag" style="background:#334155; color:#fff;">${edge._mapName}</span></td>`
+            : '';
+
+          const uName = (edge.uNode && edge.uNode.name) || `Node ${edge.uId}`;
+          const vName = (edge.vNode && edge.vNode.name) || `Node ${edge.vId}`;
+          const dirArrow = isHegem ? '➔' : '⮂';
+
+          let condPill = `<span class="entity-badge-tag" style="background:#15803d; color:#fff;">Passable</span>`;
+          if (edge.blocked) {
+            condPill = `<span class="entity-badge-tag" style="background:#b91c1c; color:#fff;">Blockaded</span>`;
+          } else if (edge.hazardLevel >= 3) {
+            condPill = `<span class="entity-badge-tag" style="background:#991b1b; color:#fff;">Hazard L${edge.hazardLevel}</span>`;
+          } else if (edge.hazardLevel >= 1) {
+            condPill = `<span class="entity-badge-tag" style="background:#d97706; color:#fff;">Hazard L${edge.hazardLevel}</span>`;
+          } else if (edge.condition && edge.condition !== 'Passable') {
+            condPill = `<span class="entity-badge-tag" style="background:#475569; color:#fff;">${edge.condition}</span>`;
+          }
+
+          const flowTags = Array.isArray(edge.dedicatedFlows) ? edge.dedicatedFlows.map(f => typeof f === 'string' ? f : (f && f.tag ? f.tag : '')).filter(Boolean) : [];
+          let conduitHtml = `<span style="font-size:10px; color:#555;">${edge.conduitType || 'Standard'}</span>`;
+          if (flowTags.length > 0) {
+            conduitHtml += `<div style="font-size:9px; color:#065f46; font-weight:bold;">[${flowTags.slice(0, 2).join(', ')}${flowTags.length > 2 ? '...' : ''}]</div>`;
+          }
+
+          const modsBadge = (edge.modules && edge.modules.length > 0)
+            ? `<span class="entity-badge-tag" style="background:#701a75; color:#fff;">M:${edge.modules.length}</span>`
+            : `<span style="color:#aaa;">-</span>`;
+
+          const escapedKey = escapeJsArg(edge.edgeKey);
+          const escapedMapId = escapeJsArg(edge._mapId);
+
+          tr.innerHTML = `
+            <td><strong>${glyph} ${edge.edgeKey}</strong>${statusIcons}</td>
+            ${mapCell}
+            <td>
+              <div style="font-weight:bold; color:#0f172a;">${edge.name || `Corridor ${edge.edgeKey}`}</div>
+              <div style="font-size:9px; color:#64748b;">Layer: ${edge.layerId}</div>
+            </td>
+            <td>
+              <div style="display:flex; align-items:center; gap:2px; font-size:10px;">
+                <button class="win-btn" style="padding:1px 3px; font-size:9px;" onclick="event.stopPropagation(); selectEntityItem('${escapeJsArg(edge.uId)}', false, '${escapedMapId}'); switchEntityManagerTab('node');">#${edge.uId}</button>
+                <span>${dirArrow}</span>
+                <button class="win-btn" style="padding:1px 3px; font-size:9px;" onclick="event.stopPropagation(); selectEntityItem('${escapeJsArg(edge.vId)}', false, '${escapedMapId}'); switchEntityManagerTab('node');">#${edge.vId}</button>
+              </div>
+            </td>
+            <td>${typeBadge}</td>
+            <td>${condPill}</td>
+            <td style="font-size:10px;">${edge.formattedDist}</td>
+            <td>${conduitHtml}</td>
+            <td style="text-align:center;">${modsBadge}</td>
+            <td style="text-align:center;">
+              <button class="win-btn" style="font-size:9px; padding:1px 4px;" title="Focus Corridor on Canvas" onclick="event.stopPropagation(); jumpToEdgeMap('${escapedMapId}', '${escapedKey}', '${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}');">Go</button>
+              <button class="win-btn" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Sever / Delete Corridor" onclick="event.stopPropagation(); if (confirm('Sever this ${edge.edgeType} connection between Node ${edge.uId} and Node ${edge.vId}?')) { deleteEdge('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}'); renderEntityManagerTree(); renderEntityManagerList(); }">Del</button>
+            </td>
+          `;
+
+          tr.onclick = () => selectEntityItem(edge.edgeKey, false, edge._mapId);
+          tbody.appendChild(tr);
+        });
+
+        document.getElementById('em-footer-stats').textContent = `Showing ${displayEdges.length} edges and conduits (${SelectedEntityFilter}).`;
         return;
       }
 
@@ -35319,6 +35875,25 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       }
     }
     window.switchNodeDetailSubtab = switchNodeDetailSubtab;
+
+    function switchEdgeDetailSubtab(subtab) {
+      const overviewBtn = document.getElementById('em-edge-subtab-overview');
+      const propsBtn = document.getElementById('em-edge-subtab-props');
+      const overviewView = document.getElementById('em-edge-subtab-overview-view');
+      const propsView = document.getElementById('em-edge-subtab-props-view');
+      if (subtab === 'props') {
+        if (overviewBtn) overviewBtn.classList.remove('active');
+        if (propsBtn) propsBtn.classList.add('active');
+        if (overviewView) overviewView.style.display = 'none';
+        if (propsView) propsView.style.display = 'block';
+      } else {
+        if (overviewBtn) overviewBtn.classList.add('active');
+        if (propsBtn) propsBtn.classList.remove('active');
+        if (overviewView) overviewView.style.display = 'flex';
+        if (propsView) propsView.style.display = 'none';
+      }
+    }
+    window.switchEdgeDetailSubtab = switchEdgeDetailSubtab;
 
     // --- Entity Detail & Property Inspector ---
     function selectEntityItem(id, isProto, optMapId = null) {
@@ -35587,6 +36162,136 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         const propsTbody = document.getElementById('em-node-props-tbody');
         if (propsTbody && typeof renderNodeProperties === 'function') {
           renderNodeProperties(propsTbody, node, targetTopo);
+        }
+
+        // Highlight selected row in table
+        document.querySelectorAll('#em-table-body tr').forEach(r => r.classList.remove('selected'));
+        return;
+      }
+
+      if (CurrentEntityTab === 'edge') {
+        let edgeMapId = optMapId || curMapId;
+        const allEdges = getEdgesForMapScope('map:all');
+        let edge = allEdges.find(e => (String(e.edgeKey) === String(id) || String(e.id) === String(id) || String(e.pairKey) === String(id)) && (!optMapId || String(e._mapId) === String(optMapId)));
+        if (!edge) {
+          edge = allEdges.find(e => String(e.edgeKey) === String(id) || String(e.id) === String(id) || String(e.pairKey) === String(id));
+        }
+        if (!edge) return;
+        edgeMapId = edge._mapId || curMapId;
+        let targetTopo = (edgeMapId === curMapId) ? topo : (mapDict[edgeMapId] || topo);
+
+        const escapedKey = escapeJsArg(edge.edgeKey);
+        const escapedPairKey = escapeJsArg(edge.pairKey);
+        const escapedMapId = escapeJsArg(edgeMapId);
+        const isHegem = edge.edgeType === 'hegemony';
+
+        const mapBadge = `<span class="entity-badge-tag" style="background:#1e40af; color:#fff;">Map: ${(mapDict[edgeMapId] && mapDict[edgeMapId].name) || edgeMapId}</span>`;
+
+        const uName = (edge.uNode && edge.uNode.name) || `Node ${edge.uId}`;
+        const vName = (edge.vNode && edge.vNode.name) || `Node ${edge.vId}`;
+        const uCulture = (edge.uNode && edge.uNode.culture) || 'Neutral';
+        const vCulture = (edge.vNode && edge.vNode.culture) || 'Neutral';
+
+        let modulesHtml = '<div style="font-size:10px; color:#777; font-style:italic;">No modules slotted on this corridor.</div>';
+        if (edge.modules && edge.modules.length > 0) {
+          modulesHtml = edge.modules.map(mId => {
+            const mObj = (typeof ALL_MODULES !== 'undefined') ? ALL_MODULES.find(x => x.id === mId) : null;
+            const mTitle = mObj ? mObj.title : mId;
+            return `
+              <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #ddd; padding:3px 5px; margin-bottom:3px;">
+                <span style="font-size:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><strong>[${mId}]</strong> ${mTitle}</span>
+                <button class="win-btn" onclick="openModuleExplorer('${escapeJsArg(mId)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+              </div>
+            `;
+          }).join('');
+        }
+
+        pane.innerHTML = `
+          <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="font-size:10px; color:#666; font-weight:bold;">${isHegem ? 'HEGEMONIC VECTOR' : 'TRANSIT CORRIDOR'} #${edge.edgeKey}</div>
+              ${mapBadge}
+            </div>
+            <div style="font-size:12px; font-weight:bold; margin-top:2px; color:#0f172a;">${edge.name || `Corridor ${edge.edgeKey}`}</div>
+            <div style="display:flex; gap:3px; margin-top:4px; flex-wrap:wrap;">
+              <span class="entity-badge-tag">${edge.edgeType.toUpperCase()}</span>
+              <span class="entity-badge-tag">${edge.formattedDist}</span>
+              ${edge.visible === false ? '<span class="entity-badge-tag" style="background:#475569; color:#fff;">👁️‍🗨️ Secret Road</span>' : '<span class="entity-badge-tag" style="background:#0f766e; color:#fff;">👁️ Visible</span>'}
+              ${edge.blocked ? '<span class="entity-badge-tag" style="background:#b91c1c; color:#fff;">🚫 Blockaded</span>' : ''}
+            </div>
+            <!-- Sub-tabs for Edge Detail Pane -->
+            <div style="display:flex; gap:3px; margin-top:6px; border-bottom:1px solid #999; padding-bottom:1px;">
+              <button id="em-edge-subtab-overview" class="win-btn active" style="font-size:10px; padding:2px 6px;" onclick="switchEdgeDetailSubtab('overview')">Telemetry &amp; Links</button>
+              <button id="em-edge-subtab-props" class="win-btn" style="font-size:10px; padding:2px 6px;" onclick="switchEdgeDetailSubtab('props')">Properties Grid</button>
+            </div>
+          </div>
+
+          <!-- SUBTAB 1: Overview & Telemetry -->
+          <div id="em-edge-subtab-overview-view" style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 175px); padding-top:4px;">
+            <!-- Endpoints -->
+            <div class="bevel-inset" style="padding:6px; background:#f8fafc;">
+              <strong style="font-size:10px; color:#475569;">CONNECTED ENDPOINTS:</strong>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:4px; margin-top:4px;">
+                <div style="flex:1; background:#fff; border:1px solid #cbd5e1; padding:4px; text-align:center;">
+                  <div style="font-weight:bold; color:#000080; cursor:pointer;" onclick="selectEntityItem('${escapeJsArg(edge.uId)}', false, '${escapedMapId}'); switchEntityManagerTab('node');">#${edge.uId}: ${uName}</div>
+                  <span class="entity-badge-tag" style="font-size:8px;">${uCulture}</span>
+                </div>
+                <div style="font-weight:bold; font-size:14px; color:#64748b;">${isHegem ? '➔' : '⮂'}</div>
+                <div style="flex:1; background:#fff; border:1px solid #cbd5e1; padding:4px; text-align:center;">
+                  <div style="font-weight:bold; color:#000080; cursor:pointer;" onclick="selectEntityItem('${escapeJsArg(edge.vId)}', false, '${escapedMapId}'); switchEntityManagerTab('node');">#${edge.vId}: ${vName}</div>
+                  <span class="entity-badge-tag" style="font-size:8px;">${vCulture}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hazard & Travel Resolution -->
+            <div class="bevel-inset" style="padding:6px; background:#fff;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:10px; color:#475569;">HAZARD &amp; TRAVEL RISK:</strong>
+                <span class="entity-badge-tag" style="background:${edge.hazardLevel >= 2 ? '#b91c1c' : '#059669'}; color:#fff;">Hazard L${edge.hazardLevel} (DC ${edge.hazardInfo ? edge.hazardInfo.dc : 10})</span>
+              </div>
+              <div style="margin-top:4px; font-size:10px; color:#555;">
+                Condition: <strong>${edge.condition}</strong> • Patrol: <strong>${edge.patrolFaction}</strong>
+              </div>
+              <button class="win-btn" style="width:100%; margin-top:6px; font-weight:bold; padding:3px 6px;" onclick="openCorridorHazardDialog('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', Workstation.activeTopology && Workstation.activeTopology.edgeData && (Workstation.activeTopology.edgeData['${escapedKey}'] || Workstation.activeTopology.edgeData['${escapedPairKey}']))">🎲 Roll Tabletop Hazard Check...</button>
+            </div>
+
+            <!-- Slotted Modules -->
+            <div class="bevel-inset" style="padding:6px; background:#fff;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <strong style="font-size:10px; color:#475569;">SLOTTED WORLDBUILDING MODULES:</strong>
+                <button class="win-btn" style="font-size:9px; padding:1px 4px;" onclick="const mid = prompt('Enter module ID to slot into corridor (e.g. SPARK-01, INFRA-01):'); if (mid) { if (typeof slotEdgeModule === 'function') slotEdgeModule('${escapedKey}', mid.trim().toUpperCase()); saveActiveCampaign(); renderEntityManagerTree(); renderEntityManagerList(); selectEntityItem('${escapedKey}', false, '${escapedMapId}'); }">+ Slot Module</button>
+              </div>
+              ${modulesHtml}
+            </div>
+
+            <!-- Notes preview -->
+            ${edge.notes ? `
+              <div class="bevel-inset" style="padding:6px; background:#fff; font-size:10px;">
+                <strong style="color:#475569;">CORRIDOR LORE NOTES:</strong>
+                <div style="margin-top:2px; color:#333; white-space:pre-wrap;">${edge.notes}</div>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- SUBTAB 2: Properties Grid (VB6 Property Table) -->
+          <div id="em-edge-subtab-props-view" style="display:none; font-size:11px; overflow-y:auto; max-height:calc(100% - 175px); background:#fff; border:1px solid #7f9db9; margin-top:4px; padding:2px;">
+            <table class="vb-props-table" style="width:100%; border-collapse:collapse;">
+              <tbody id="em-edge-props-tbody"></tbody>
+            </table>
+          </div>
+
+          <!-- Action Footer -->
+          <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:4px;">
+            <button class="win-btn" onclick="jumpToEdgeMap('${escapedMapId}', '${escapedKey}', '${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}')"><strong>🎯 Select &amp; Center on CAD Canvas</strong></button>
+            <button class="win-btn" style="color:#b91c1c; font-weight:bold; margin-top:2px;" onclick="if (confirm('Sever this ${edge.edgeType} connection between Node ${edge.uId} and Node ${edge.vId}?')) { deleteEdge('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}'); renderEntityManagerTree(); renderEntityManagerList(); document.getElementById('em-detail-pane').innerHTML = '<div style=\\'font-size:11px; color:#666; text-align:center; margin-top:40px;\\'>Corridor severed successfully.</div>'; }">✂️ Sever / Delete Corridor...</button>
+          </div>
+        `;
+
+        // Render Property Grid into #em-edge-props-tbody
+        const propsTbody = document.getElementById('em-edge-props-tbody');
+        if (propsTbody && typeof renderEdgeProperties === 'function') {
+          renderEdgeProperties(propsTbody, edge, targetTopo);
         }
 
         // Highlight selected row in table
@@ -36458,6 +37163,11 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         return;
       }
 
+      if (type === 'edge') {
+        openCreateEdgeModal(preselectedNodeId);
+        return;
+      }
+
       const modal = document.getElementById('modal-entity-edit');
       document.getElementById('ee-modal-title').textContent = `Create New ${type.toUpperCase()}`;
       document.getElementById('ee-entity-id').value = '';
@@ -36825,6 +37535,104 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       renderEntityManagerList();
       setStatusBarMessage(`Saved ${type.toUpperCase()}: "${name}".`);
     }
+
+    function openCreateEdgeModal(defaultSrcId = null, defaultTgtId = null, defaultType = 'road') {
+      const topo = Workstation.activeTopology;
+      if (!topo || !topo.nodes) {
+        alert('No active topology nodes available to connect.');
+        return;
+      }
+      const nodeKeys = Object.keys(topo.nodes);
+      if (nodeKeys.length < 2) {
+        alert('At least two nodes are required to create a corridor connection.');
+        return;
+      }
+
+      const srcSelect = document.getElementById('edge-create-src');
+      const tgtSelect = document.getElementById('edge-create-tgt');
+      const typeSelect = document.getElementById('edge-create-type');
+      if (!srcSelect || !tgtSelect || !typeSelect) return;
+
+      srcSelect.innerHTML = '';
+      tgtSelect.innerHTML = '';
+
+      nodeKeys.forEach((k, idx) => {
+        const n = topo.nodes[k];
+        const label = `#${k}: ${n.name || 'Node ' + k}`;
+        const opt1 = document.createElement('option');
+        opt1.value = k;
+        opt1.textContent = label;
+        if (defaultSrcId && String(defaultSrcId) === String(k)) opt1.selected = true;
+        else if (!defaultSrcId && idx === 0) opt1.selected = true;
+        srcSelect.appendChild(opt1);
+
+        const opt2 = document.createElement('option');
+        opt2.value = k;
+        opt2.textContent = label;
+        if (defaultTgtId && String(defaultTgtId) === String(k)) opt2.selected = true;
+        else if (!defaultTgtId && idx === 1) opt2.selected = true;
+        tgtSelect.appendChild(opt2);
+      });
+
+      typeSelect.value = defaultType || 'road';
+      openModal('modal-edge-create');
+    }
+    window.openCreateEdgeModal = openCreateEdgeModal;
+
+    function submitCreateEdgeModal() {
+      const srcSelect = document.getElementById('edge-create-src');
+      const tgtSelect = document.getElementById('edge-create-tgt');
+      const typeSelect = document.getElementById('edge-create-type');
+      if (!srcSelect || !tgtSelect || !typeSelect) return;
+
+      const srcId = srcSelect.value;
+      const tgtId = tgtSelect.value;
+      const edgeType = typeSelect.value || 'road';
+
+      if (!srcId || !tgtId) {
+        alert('Please select both a start node and an end node.');
+        return;
+      }
+      if (String(srcId) === String(tgtId)) {
+        alert('Cannot create a self-loop. Start and end nodes must be distinct.');
+        return;
+      }
+
+      const topo = Workstation.activeTopology;
+      if (!topo || !topo.nodes) return;
+      const u = topo.nodes[String(srcId)];
+      const v = topo.nodes[String(tgtId)];
+      if (!u || !v) {
+        alert('One or both selected endpoint nodes could not be found.');
+        return;
+      }
+
+      if (edgeType === 'road') {
+        if (u.adj && u.adj.some(id => String(id) === String(tgtId))) {
+          alert(`A transit road already exists between Node ${srcId} and Node ${tgtId}.`);
+          return;
+        }
+      } else if (edgeType === 'hegemony') {
+        if (v.infBy && v.infBy.some(id => String(id) === String(srcId))) {
+          alert(`A hegemony vector from Node ${srcId} to Node ${tgtId} already exists.`);
+          return;
+        }
+      }
+
+      if (typeof createEdge === 'function') {
+        createEdge(srcId, tgtId, edgeType);
+      }
+      closeModal('modal-edge-create');
+
+      const pairKey = [String(srcId), String(tgtId)].sort().join('-');
+      const canonicalKey = (edgeType === 'hegemony') ? `${srcId}->${tgtId}` : pairKey;
+
+      if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+      if (typeof selectEntityItem === 'function') selectEntityItem(canonicalKey, false);
+      setStatusBarMessage(`Connected ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'} between Node ${srcId} and Node ${tgtId}.`);
+    }
+    window.submitCreateEdgeModal = submitCreateEdgeModal;
     // ========================================================================
     // UNIVERSAL CAMPAIGN ENTITY MANAGER - CASCADE DELETION & BACKUP SUBSYSTEM
     // ========================================================================

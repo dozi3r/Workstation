@@ -407,6 +407,7 @@
         else if (e.ctrlKey && e.key === 'F7') { e.preventDefault(); openEntityManager('item'); }
         else if (e.ctrlKey && e.key === 'F9') { e.preventDefault(); openEntityManager('tracker'); }
         else if (e.ctrlKey && e.key === 'F10') { e.preventDefault(); openEntityManager('node'); }
+        else if (e.ctrlKey && e.key === 'F11') { e.preventDefault(); openEntityManager('edge'); }
         else if ((e.ctrlKey && (e.key === 'm' || e.key === 'M')) || e.key === 'F8') { e.preventDefault(); openModuleExplorer(); }
         else if (e.ctrlKey && e.shiftKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); if (typeof openSaveAsNewCampaignModal === 'function') openSaveAsNewCampaignModal(); }
         else if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); if (typeof handleToolbarSave === 'function') { handleToolbarSave(); } else { saveActiveCampaign(); if (typeof flushProjectDirectoryNow === 'function') flushProjectDirectoryNow({ interactive: true }); } }

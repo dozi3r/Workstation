@@ -1100,6 +1100,10 @@
       const v = topo.nodes[vId.toString()];
       if (!u || !v) return;
 
+      if (typeof pushHistoryState === 'function') {
+        pushHistoryState(`Create ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'}: ${uId} -> ${vId}`);
+      }
+
       if (edgeType === 'road') {
         if (!u.adj) u.adj = [];
         if (!v.adj) v.adj = [];
@@ -1124,6 +1128,10 @@
       const pairKey = [uKey, vKey].sort().join('-');
       const edgeKey = (edgeType === 'hegemony') ? `${uId}->${vId}` : pairKey;
 
+      if (typeof pushHistoryState === 'function') {
+        pushHistoryState(`Sever ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'}: ${uId} -> ${vId}`);
+      }
+
       const u = topo.nodes[uKey];
       const v = topo.nodes[vKey];
 
@@ -1143,6 +1151,10 @@
       if (topo.edgeData) {
         delete topo.edgeData[edgeKey];
         delete topo.edgeData[pairKey];
+      }
+      if (topo.edgeNotes) {
+        delete topo.edgeNotes[edgeKey];
+        delete topo.edgeNotes[pairKey];
       }
       if (typeof edgeSlottedModules !== "undefined") {
         delete edgeSlottedModules[edgeKey];

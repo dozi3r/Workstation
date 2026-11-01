@@ -3341,6 +3341,23 @@ function renderNodeProperties(targetTbody, node, topo = null) {
   updatePropertiesGrid(targetTbody, { type: 'node', id: node.id }, topo || (typeof Workstation !== 'undefined' ? Workstation.activeTopology : null));
 }
 window.renderNodeProperties = renderNodeProperties;
+
+function renderEdgeProperties(targetTbody, edgeItem, topo = null) {
+  if (!targetTbody || !edgeItem) return;
+  const isHegem = edgeItem.edgeType === 'hegemony';
+  const pairKey = edgeItem.pairKey || [String(edgeItem.uId), String(edgeItem.vId)].sort().join('-');
+  const edgeKey = edgeItem.edgeKey || (isHegem ? `${edgeItem.uId}->${edgeItem.vId}` : pairKey);
+  const normalizedItem = {
+    type: 'edge',
+    edgeType: edgeItem.edgeType || 'road',
+    uId: edgeItem.uId,
+    vId: edgeItem.vId,
+    pair: pairKey,
+    edgeKey: edgeKey
+  };
+  updatePropertiesGrid(targetTbody, normalizedItem, topo || (typeof Workstation !== 'undefined' ? Workstation.activeTopology : null));
+}
+window.renderEdgeProperties = renderEdgeProperties;
 window.renderMultiSelectionProperties = renderMultiSelectionProperties;
 window.promptRepositionSelection = promptRepositionSelection;
 window.appendCategoryRow = appendCategoryRow;

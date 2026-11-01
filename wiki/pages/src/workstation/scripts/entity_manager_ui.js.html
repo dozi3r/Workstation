@@ -470,9 +470,9 @@
         <h1 class="article-title">entity_manager_ui.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: a92d7ef5)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 44a46d5a)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (15)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (16)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/entity_manager_ui.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1585 lines &bull; 92.8 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: a92d7ef5)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>11</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>15</strong> backlinks</td></tr>
+    <tr><th>File Metrics</th><td>2222 lines &bull; 127.8 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 44a46d5a)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>14</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>16</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/entity_manager_ui.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -512,8 +512,8 @@
 <li><strong>Comprehensive Entity Inspector</strong>: Implements the in-depth right inspector pane (<code>selectEntityItem</code>), providing editable fields, ODV coordinate readouts, relationship tables, quest step progression lists, item inventory links, and clock gauge controllers.</li>
 <li><strong>Deep-Link Entity Navigation</strong>: Exposes <code>navigateToEntity(type, id)</code> to programmatically transition workstation focus from canvas nodes or HUD badges directly into the specific entity inspector.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (13)</h3><div class="pill-list"><span class="pill">escapeJsArg(str)</span><span class="pill">getNodesForMapScope(scope = 'all')</span><span class="pill">jumpToNodeMap(mapId, nodeId)</span><span class="pill">openEntityManager(type, selectEntityId)</span><span class="pill">switchEntityManagerTab(type)</span><span class="pill">updateEntityTabButtons()</span><span class="pill">renderEntityManagerTree()</span><span class="pill">addTreeItem(container, label, filterVal)</span><span class="pill">renderEntityManagerList()</span><span class="pill">renderMiniClockGauge(cur, max)</span><span class="pill">switchNodeDetailSubtab(subtab)</span><span class="pill">selectEntityItem(id, isProto, optMapId = null)</span><span class="pill">navigateToEntity(type, id)</span></div>
-      <h2 id="outbound-links">Outbound References (11)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (17)</h3><div class="pill-list"><span class="pill">escapeJsArg(str)</span><span class="pill">getNodesForMapScope(scope = 'all')</span><span class="pill">jumpToNodeMap(mapId, nodeId)</span><span class="pill">resolveEdgeEndpointsAndMetrics(edgeItem, targetTopo)</span><span class="pill">getEdgesForMapScope(scope = 'all')</span><span class="pill">jumpToEdgeMap(mapId, edgeKey, uId, vId, edgeType)</span><span class="pill">openEntityManager(type, selectEntityId)</span><span class="pill">switchEntityManagerTab(type)</span><span class="pill">updateEntityTabButtons()</span><span class="pill">renderEntityManagerTree()</span><span class="pill">addTreeItem(container, label, filterVal)</span><span class="pill">renderEntityManagerList()</span><span class="pill">renderMiniClockGauge(cur, max)</span><span class="pill">switchNodeDetailSubtab(subtab)</span><span class="pill">switchEdgeDetailSubtab(subtab)</span><span class="pill">selectEntityItem(id, isProto, optMapId = null)</span><span class="pill">navigateToEntity(type, id)</span></div>
+      <h2 id="outbound-links">Outbound References (14)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
@@ -534,6 +534,14 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes getRecursiveNodeEntities() defined in cad_canvas_renderer.js</td>
       </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/cad_interaction.js.html"><strong>src/workstation/scripts/cad_interaction.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes applyCanvasTransform() defined in cad_interaction.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes formatDistance() defined in canvas_hud.js</td>
+      </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/entity_cascade_delete.js.html"><strong>src/workstation/scripts/entity_cascade_delete.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes promptEntityDelete() defined in entity_cascade_delete.js</td>
@@ -550,20 +558,28 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes selectNode() defined in property_grid_inspector.js</td>
       </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/stage_5_slotting.js.html"><strong>src/workstation/scripts/stage_5_slotting.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes slotEdgeModule() defined in stage_5_slotting.js</td>
+      </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes switchActiveMap() defined in state_adapter.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/workstation_state.js.html"><strong>src/workstation/scripts/workstation_state.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes setStatusBarMessage() defined in workstation_state.js</td>
+        <td>Invokes saveActiveCampaign() defined in workstation_state.js</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (15)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (16)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
         <td><span class="badge badge-Series">Series Component</span></td>
         <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
       </tr><tr>
         <td><a href="../../../../pages/docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md.html"><strong>docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References src/workstation/scripts/entity_manager_ui.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md.html"><strong>docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md</strong></a></td>
         <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
         <td>References src/workstation/scripts/entity_manager_ui.js</td>
       </tr><tr>

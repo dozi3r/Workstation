@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T01:46:35.527Z",
-  "totalFiles": 297,
+  "generatedAt": "2026-11-01T02:09:59.460Z",
+  "totalFiles": 298,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2576,
+  "totalBidirectionalEdges": 2583,
   "staleCount": 0,
   "nodes": [
     {
@@ -19475,6 +19475,42 @@
       ]
     },
     {
+      "relPath": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
+      "title": "ADR 0020: Scale-Fluid Edge Explorer and Multi-Scale Conduit Catalog",
+      "volume": "vol-1",
+      "kind": "Architectural Decision Record (ADR)",
+      "stale": false,
+      "hash": "3a82e5b47f552c74",
+      "reviewedHash": "3a82e5b47f552c74",
+      "lineCount": 55,
+      "sizeBytes": 5877,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "src/workstation/scripts/cad_interaction.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/cad_interaction.js"
+        },
+        {
+          "target": "src/workstation/scripts/entity_manager_ui.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/entity_manager_ui.js"
+        },
+        {
+          "target": "src/workstation/scripts/property_grid_inspector.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/property_grid_inspector.js"
+        }
+      ],
+      "inbound": []
+    },
+    {
       "relPath": "docs/adr/desktop.ini",
       "title": "desktop.ini",
       "volume": "vol-1",
@@ -28599,10 +28635,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "603fcc70365e0bd6",
-      "reviewedHash": "603fcc70365e0bd6",
-      "lineCount": 313,
-      "sizeBytes": 18939,
+      "hash": "be8457d28ae9ecb0",
+      "reviewedHash": "be8457d28ae9ecb0",
+      "lineCount": 345,
+      "sizeBytes": 20996,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -28984,10 +29020,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "44556948aede6691",
-      "reviewedHash": "44556948aede6691",
-      "lineCount": 1313,
-      "sizeBytes": 51556,
+      "hash": "457a0d39a473b438",
+      "reviewedHash": "457a0d39a473b438",
+      "lineCount": 1325,
+      "sizeBytes": 52029,
       "symbols": [
         "setTool(toolName)",
         "getToolKey(name)",
@@ -29089,6 +29125,12 @@
           "reason": "Core file analyzed in Series B: Scale-Fluid Hierarchical Cartography, Global State Swap & IndexedDB"
         },
         {
+          "source": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/cad_interaction.js"
+        },
+        {
           "source": "src/workstation/scripts/cad_canvas_renderer.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -29102,6 +29144,18 @@
         },
         {
           "source": "src/workstation/scripts/entity_core.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes applyCanvasTransform() defined in cad_interaction.js"
+        },
+        {
+          "source": "src/workstation/scripts/entity_crud_dialogs.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes createEdge() defined in cad_interaction.js"
+        },
+        {
+          "source": "src/workstation/scripts/entity_manager_ui.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes applyCanvasTransform() defined in cad_interaction.js"
@@ -29326,6 +29380,12 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes updateBreadcrumbsHUD() defined in canvas_hud.js"
+        },
+        {
+          "source": "src/workstation/scripts/entity_manager_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes formatDistance() defined in canvas_hud.js"
         },
         {
           "source": "src/workstation/scripts/map_navigator.js",
@@ -29794,17 +29854,19 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "fd5f5bf366cba6ed",
-      "reviewedHash": "fd5f5bf366cba6ed",
-      "lineCount": 551,
-      "sizeBytes": 28098,
+      "hash": "a1a80bfbccb5afd0",
+      "reviewedHash": "a1a80bfbccb5afd0",
+      "lineCount": 654,
+      "sizeBytes": 32113,
       "symbols": [
         "getQuestSpanningNodes(quest)",
         "resolveNodeInfo(nodeId)",
         "updateQuestSpanningPreview()",
         "openNewEntityModal(type, preselectedNodeId)",
         "openEditEntityModal(entityId)",
-        "saveCustomEntity()"
+        "saveCustomEntity()",
+        "openCreateEdgeModal(defaultSrcId = null, defaultTgtId = null, defaultType = 'road')",
+        "submitCreateEdgeModal()"
       ],
       "globals": [],
       "provides": [],
@@ -29841,6 +29903,12 @@
           "reason": "Invokes renderCanvas() defined in cad_canvas_renderer.js"
         },
         {
+          "target": "src/workstation/scripts/cad_interaction.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes createEdge() defined in cad_interaction.js"
+        },
+        {
           "target": "src/workstation/scripts/entity_manager_ui.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -29850,7 +29918,7 @@
           "target": "src/workstation/scripts/mdi_window_manager.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes closeModal() defined in mdi_window_manager.js"
+          "reason": "Invokes openModal() defined in mdi_window_manager.js"
         },
         {
           "target": "src/workstation/scripts/property_grid_inspector.js",
@@ -29910,14 +29978,17 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "a92d7ef5fddc7390",
-      "reviewedHash": "a92d7ef5fddc7390",
-      "lineCount": 1585,
-      "sizeBytes": 95072,
+      "hash": "44a46d5aa7968538",
+      "reviewedHash": "44a46d5aa7968538",
+      "lineCount": 2222,
+      "sizeBytes": 130897,
       "symbols": [
         "escapeJsArg(str)",
         "getNodesForMapScope(scope = 'all')",
         "jumpToNodeMap(mapId, nodeId)",
+        "resolveEdgeEndpointsAndMetrics(edgeItem, targetTopo)",
+        "getEdgesForMapScope(scope = 'all')",
+        "jumpToEdgeMap(mapId, edgeKey, uId, vId, edgeType)",
         "openEntityManager(type, selectEntityId)",
         "switchEntityManagerTab(type)",
         "updateEntityTabButtons()",
@@ -29926,6 +29997,7 @@
         "renderEntityManagerList()",
         "renderMiniClockGauge(cur, max)",
         "switchNodeDetailSubtab(subtab)",
+        "switchEdgeDetailSubtab(subtab)",
         "selectEntityItem(id, isProto, optMapId = null)",
         "navigateToEntity(type, id)"
       ],
@@ -29964,6 +30036,18 @@
           "reason": "Invokes getRecursiveNodeEntities() defined in cad_canvas_renderer.js"
         },
         {
+          "target": "src/workstation/scripts/cad_interaction.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes applyCanvasTransform() defined in cad_interaction.js"
+        },
+        {
+          "target": "src/workstation/scripts/canvas_hud.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes formatDistance() defined in canvas_hud.js"
+        },
+        {
           "target": "src/workstation/scripts/entity_cascade_delete.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -29988,6 +30072,12 @@
           "reason": "Invokes selectNode() defined in property_grid_inspector.js"
         },
         {
+          "target": "src/workstation/scripts/stage_5_slotting.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes slotEdgeModule() defined in stage_5_slotting.js"
+        },
+        {
           "target": "src/workstation/scripts/state_adapter.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -29997,7 +30087,7 @@
           "target": "src/workstation/scripts/workstation_state.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes setStatusBarMessage() defined in workstation_state.js"
+          "reason": "Invokes saveActiveCampaign() defined in workstation_state.js"
         }
       ],
       "inbound": [
@@ -30009,6 +30099,12 @@
         },
         {
           "source": "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/entity_manager_ui.js"
+        },
+        {
+          "source": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/entity_manager_ui.js"
@@ -30626,10 +30722,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "674a4dec7b5ee160",
-      "reviewedHash": "674a4dec7b5ee160",
-      "lineCount": 2412,
-      "sizeBytes": 108442,
+      "hash": "ede8150eeb021034",
+      "reviewedHash": "ede8150eeb021034",
+      "lineCount": 2413,
+      "sizeBytes": 108540,
       "symbols": [
         "toggleStartMenu()",
         "updateClock()",
@@ -30820,7 +30916,7 @@
           "source": "src/workstation/scripts/entity_crud_dialogs.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes closeModal() defined in mdi_window_manager.js"
+          "reason": "Invokes openModal() defined in mdi_window_manager.js"
         },
         {
           "source": "src/workstation/scripts/map_store.js",
@@ -31190,10 +31286,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "014acd1ba77dcc59",
-      "reviewedHash": "014acd1ba77dcc59",
-      "lineCount": 3366,
-      "sizeBytes": 151932,
+      "hash": "b084f9223e07c182",
+      "reviewedHash": "b084f9223e07c182",
+      "lineCount": 3383,
+      "sizeBytes": 152659,
       "symbols": [
         "selectNode(nodeId, e = null)",
         "selectEdge(edgeType, uId, vId, e = null)",
@@ -31238,7 +31334,8 @@
         "executeTravelRoll()",
         "triggerTravelThreatTick()",
         "severCorridorFromTravel()",
-        "renderNodeProperties(targetTbody, node, topo = null)"
+        "renderNodeProperties(targetTbody, node, topo = null)",
+        "renderEdgeProperties(targetTbody, edgeItem, topo = null)"
       ],
       "globals": [],
       "provides": [],
@@ -31374,6 +31471,12 @@
         },
         {
           "source": "docs/adr/0015-nested-backlinks-extensible-mentions-and-node-demographics.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/property_grid_inspector.js"
+        },
+        {
+          "source": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/property_grid_inspector.js"
@@ -32095,6 +32198,12 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes checkNodeAdHocSupplyLine() defined in stage_5_slotting.js"
+        },
+        {
+          "source": "src/workstation/scripts/entity_manager_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes slotEdgeModule() defined in stage_5_slotting.js"
         },
         {
           "source": "src/workstation/scripts/module_explorer.js",
@@ -33176,7 +33285,7 @@
           "source": "src/workstation/scripts/entity_manager_ui.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes setStatusBarMessage() defined in workstation_state.js"
+          "reason": "Invokes saveActiveCampaign() defined in workstation_state.js"
         },
         {
           "source": "src/workstation/scripts/layer_manager.js",
@@ -33455,10 +33564,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "ab52ce4d96b477ce",
-      "reviewedHash": "ab52ce4d96b477ce",
-      "lineCount": 717,
-      "sizeBytes": 47511,
+      "hash": "372bb9ffef5d5689",
+      "reviewedHash": "372bb9ffef5d5689",
+      "lineCount": 723,
+      "sizeBytes": 48101,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -33984,10 +34093,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "dc4323177851f28f",
-      "reviewedHash": "dc4323177851f28f",
-      "lineCount": 43963,
-      "sizeBytes": 5942781,
+      "hash": "caba002b5ab82a5b",
+      "reviewedHash": "caba002b5ab82a5b",
+      "lineCount": 44771,
+      "sizeBytes": 5986566,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -35881,10 +35990,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "39f7577c402f54ca",
-      "reviewedHash": "39f7577c402f54ca",
-      "lineCount": 4068,
-      "sizeBytes": 188635,
+      "hash": "7fe9961e3a167e2b",
+      "reviewedHash": "7fe9961e3a167e2b",
+      "lineCount": 4359,
+      "sizeBytes": 203159,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -35917,6 +36026,8 @@
         "testIndexedDbSeparationAndConcurrencyGate()",
         "testEntityModulePackEngine()",
         "makeMockEl(tag = 'div')",
+        "testEdgeExplorerAndConduitCatalog()",
+        "mockEl(id)",
         "runAll()"
       ],
       "globals": [
@@ -37814,6 +37925,18 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "openCreateEdgeModal",
+      "signature": "openCreateEdgeModal(defaultSrcId = null, defaultTgtId = null, defaultType = 'road')",
+      "file": "src/workstation/scripts/entity_crud_dialogs.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "submitCreateEdgeModal",
+      "signature": "submitCreateEdgeModal()",
+      "file": "src/workstation/scripts/entity_crud_dialogs.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "escapeJsArg",
       "signature": "escapeJsArg(str)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
@@ -37828,6 +37951,24 @@
     {
       "name": "jumpToNodeMap",
       "signature": "jumpToNodeMap(mapId, nodeId)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "resolveEdgeEndpointsAndMetrics",
+      "signature": "resolveEdgeEndpointsAndMetrics(edgeItem, targetTopo)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getEdgesForMapScope",
+      "signature": "getEdgesForMapScope(scope = 'all')",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "jumpToEdgeMap",
+      "signature": "jumpToEdgeMap(mapId, edgeKey, uId, vId, edgeType)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -37876,6 +38017,12 @@
     {
       "name": "switchNodeDetailSubtab",
       "signature": "switchNodeDetailSubtab(subtab)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "switchEdgeDetailSubtab",
+      "signature": "switchEdgeDetailSubtab(subtab)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -39310,6 +39457,12 @@
     {
       "name": "renderNodeProperties",
       "signature": "renderNodeProperties(targetTbody, node, topo = null)",
+      "file": "src/workstation/scripts/property_grid_inspector.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "renderEdgeProperties",
+      "signature": "renderEdgeProperties(targetTbody, edgeItem, topo = null)",
       "file": "src/workstation/scripts/property_grid_inspector.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -40816,6 +40969,18 @@
     {
       "name": "makeMockEl",
       "signature": "makeMockEl(tag = 'div')",
+      "file": "test/run_tests.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "testEdgeExplorerAndConduitCatalog",
+      "signature": "testEdgeExplorerAndConduitCatalog()",
+      "file": "test/run_tests.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "mockEl",
+      "signature": "mockEl(id)",
       "file": "test/run_tests.js",
       "kind": "Node.js / Browser Engine Script"
     },

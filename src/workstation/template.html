@@ -130,6 +130,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openEntityManager('tracker')">Threat Clocks &amp; Dials... <span class="hotkey">Ctrl+K</span></div>
           <div class="dropdown-row" onclick="openTicketCenter()">Ticket Command Center... <span class="hotkey">F9</span></div>
           <div class="dropdown-row" onclick="openEntityManager('node')">Node Explorer... <span class="hotkey">Ctrl+F10</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('edge')">Edge Explorer... <span class="hotkey">Ctrl+F11</span></div>
         </div>
       </div>
 
@@ -194,6 +195,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openEntityManager('tracker')">Threat Clocks &amp; Dials <span class="hotkey">Ctrl+K</span></div>
           <div class="dropdown-row" onclick="openTicketCenter()">Ticket Command Center <span class="hotkey">F9</span></div>
           <div class="dropdown-row" onclick="openEntityManager('node')">Node Explorer <span class="hotkey">Ctrl+F10</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('edge')">Edge Explorer <span class="hotkey">Ctrl+F11</span></div>
         </div>
       </div>
 
@@ -271,6 +273,7 @@ CRITICAL INSTRUCTION:
       <button class="win-btn" onclick="openEntityManager('tracker')" title="Threat Clocks &amp; Severity Dials (Ctrl+K / Ctrl+F9)"><strong>Clocks</strong></button>
       <button class="win-btn" onclick="openTicketCenter()" title="Gamedev Ticket Command Center (F9)"><strong>Tickets</strong></button>
       <button class="win-btn" onclick="openEntityManager('node')" title="Open Node Explorer (Ctrl+F10)"><strong>Nodes</strong></button>
+      <button class="win-btn" onclick="openEntityManager('edge')" title="Open Edge Explorer (Ctrl+F11)"><strong>Edges</strong></button>
       <button class="win-btn" onclick="toggleLayersPane()" title="Canvas Layers Manager (Ctrl+L)"><strong>Layers</strong></button>
       <div class="toolbar-sep"></div>
       <button class="win-btn" onclick="openMapNavigatorModal()" title="Cartographic Hierarchy &amp; Map Navigator (Ctrl+Shift+M)"><strong>Maps</strong></button>
@@ -542,6 +545,9 @@ CRITICAL INSTRUCTION:
           </div>
           <div class="dropdown-row" onclick="openEntityManager('node'); toggleStartMenu();">
             <strong>Node Explorer...</strong> <span class="hotkey">Ctrl+F10</span>
+          </div>
+          <div class="dropdown-row" onclick="openEntityManager('edge'); toggleStartMenu();">
+            <strong>Edge Explorer...</strong> <span class="hotkey">Ctrl+F11</span>
           </div>
           <div class="dropdown-row" onclick="openEntityManager('npc'); toggleStartMenu();">
             <strong>NPC Roster...</strong> <span class="hotkey">Ctrl+F5</span>

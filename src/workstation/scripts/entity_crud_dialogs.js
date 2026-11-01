@@ -181,6 +181,11 @@
         return;
       }
 
+      if (type === 'edge') {
+        openCreateEdgeModal(preselectedNodeId);
+        return;
+      }
+
       const modal = document.getElementById('modal-entity-edit');
       document.getElementById('ee-modal-title').textContent = `Create New ${type.toUpperCase()}`;
       document.getElementById('ee-entity-id').value = '';
@@ -548,3 +553,101 @@
       renderEntityManagerList();
       setStatusBarMessage(`Saved ${type.toUpperCase()}: "${name}".`);
     }
+
+    function openCreateEdgeModal(defaultSrcId = null, defaultTgtId = null, defaultType = 'road') {
+      const topo = Workstation.activeTopology;
+      if (!topo || !topo.nodes) {
+        alert('No active topology nodes available to connect.');
+        return;
+      }
+      const nodeKeys = Object.keys(topo.nodes);
+      if (nodeKeys.length < 2) {
+        alert('At least two nodes are required to create a corridor connection.');
+        return;
+      }
+
+      const srcSelect = document.getElementById('edge-create-src');
+      const tgtSelect = document.getElementById('edge-create-tgt');
+      const typeSelect = document.getElementById('edge-create-type');
+      if (!srcSelect || !tgtSelect || !typeSelect) return;
+
+      srcSelect.innerHTML = '';
+      tgtSelect.innerHTML = '';
+
+      nodeKeys.forEach((k, idx) => {
+        const n = topo.nodes[k];
+        const label = `#${k}: ${n.name || 'Node ' + k}`;
+        const opt1 = document.createElement('option');
+        opt1.value = k;
+        opt1.textContent = label;
+        if (defaultSrcId && String(defaultSrcId) === String(k)) opt1.selected = true;
+        else if (!defaultSrcId && idx === 0) opt1.selected = true;
+        srcSelect.appendChild(opt1);
+
+        const opt2 = document.createElement('option');
+        opt2.value = k;
+        opt2.textContent = label;
+        if (defaultTgtId && String(defaultTgtId) === String(k)) opt2.selected = true;
+        else if (!defaultTgtId && idx === 1) opt2.selected = true;
+        tgtSelect.appendChild(opt2);
+      });
+
+      typeSelect.value = defaultType || 'road';
+      openModal('modal-edge-create');
+    }
+    window.openCreateEdgeModal = openCreateEdgeModal;
+
+    function submitCreateEdgeModal() {
+      const srcSelect = document.getElementById('edge-create-src');
+      const tgtSelect = document.getElementById('edge-create-tgt');
+      const typeSelect = document.getElementById('edge-create-type');
+      if (!srcSelect || !tgtSelect || !typeSelect) return;
+
+      const srcId = srcSelect.value;
+      const tgtId = tgtSelect.value;
+      const edgeType = typeSelect.value || 'road';
+
+      if (!srcId || !tgtId) {
+        alert('Please select both a start node and an end node.');
+        return;
+      }
+      if (String(srcId) === String(tgtId)) {
+        alert('Cannot create a self-loop. Start and end nodes must be distinct.');
+        return;
+      }
+
+      const topo = Workstation.activeTopology;
+      if (!topo || !topo.nodes) return;
+      const u = topo.nodes[String(srcId)];
+      const v = topo.nodes[String(tgtId)];
+      if (!u || !v) {
+        alert('One or both selected endpoint nodes could not be found.');
+        return;
+      }
+
+      if (edgeType === 'road') {
+        if (u.adj && u.adj.some(id => String(id) === String(tgtId))) {
+          alert(`A transit road already exists between Node ${srcId} and Node ${tgtId}.`);
+          return;
+        }
+      } else if (edgeType === 'hegemony') {
+        if (v.infBy && v.infBy.some(id => String(id) === String(srcId))) {
+          alert(`A hegemony vector from Node ${srcId} to Node ${tgtId} already exists.`);
+          return;
+        }
+      }
+
+      if (typeof createEdge === 'function') {
+        createEdge(srcId, tgtId, edgeType);
+      }
+      closeModal('modal-edge-create');
+
+      const pairKey = [String(srcId), String(tgtId)].sort().join('-');
+      const canonicalKey = (edgeType === 'hegemony') ? `${srcId}->${tgtId}` : pairKey;
+
+      if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+      if (typeof selectEntityItem === 'function') selectEntityItem(canonicalKey, false);
+      setStatusBarMessage(`Connected ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'} between Node ${srcId} and Node ${tgtId}.`);
+    }
+    window.submitCreateEdgeModal = submitCreateEdgeModal;

@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/cad_interaction.js"
 title: "cad_interaction.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "44556948aede6691"
-reviewed_hash: "44556948aede6691"
+current_hash: "457a0d39a473b438"
+reviewed_hash: "457a0d39a473b438"
 stale: false
-size_bytes: 51556
-line_count: 1313
+size_bytes: 52029
+line_count: 1325
 ---
 
 # cad_interaction.js

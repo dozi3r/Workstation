@@ -470,7 +470,7 @@
         <h1 class="article-title">entity_crud_dialogs.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: fd5f5bf3)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: a1a80bfb)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (6)</a>
         </div>
@@ -483,9 +483,9 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/entity_crud_dialogs.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>551 lines &bull; 27.4 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: fd5f5bf3)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>9</strong> references</td></tr>
+    <tr><th>File Metrics</th><td>654 lines &bull; 31.4 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: a1a80bfb)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>10</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>6</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/entity_crud_dialogs.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
@@ -511,8 +511,8 @@
 <li><strong>Entity Edit Controller</strong>: Handles in-flight modification of existing campaign entities (<code>openEditEntityModal</code>), populating existing traits, descriptions, requirements, and reward structures.</li>
 <li><strong>Persistence & Canvas Synchronization</strong>: Validates and commits created/updated entities to the active campaign topology (<code>saveCustomEntity</code>), triggering canvas HUD refreshes, properties grid updates, and notification status messages.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (6)</h3><div class="pill-list"><span class="pill">getQuestSpanningNodes(quest)</span><span class="pill">resolveNodeInfo(nodeId)</span><span class="pill">updateQuestSpanningPreview()</span><span class="pill">openNewEntityModal(type, preselectedNodeId)</span><span class="pill">openEditEntityModal(entityId)</span><span class="pill">saveCustomEntity()</span></div>
-      <h2 id="outbound-links">Outbound References (9)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (8)</h3><div class="pill-list"><span class="pill">getQuestSpanningNodes(quest)</span><span class="pill">resolveNodeInfo(nodeId)</span><span class="pill">updateQuestSpanningPreview()</span><span class="pill">openNewEntityModal(type, preselectedNodeId)</span><span class="pill">openEditEntityModal(entityId)</span><span class="pill">saveCustomEntity()</span><span class="pill">openCreateEdgeModal(defaultSrcId = null, defaultTgtId = null, defaultType = 'road')</span><span class="pill">submitCreateEdgeModal()</span></div>
+      <h2 id="outbound-links">Outbound References (10)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
@@ -533,13 +533,17 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes renderCanvas() defined in cad_canvas_renderer.js</td>
       </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/cad_interaction.js.html"><strong>src/workstation/scripts/cad_interaction.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes createEdge() defined in cad_interaction.js</td>
+      </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/entity_manager_ui.js.html"><strong>src/workstation/scripts/entity_manager_ui.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes renderEntityManagerTree() defined in entity_manager_ui.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/mdi_window_manager.js.html"><strong>src/workstation/scripts/mdi_window_manager.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes closeModal() defined in mdi_window_manager.js</td>
+        <td>Invokes openModal() defined in mdi_window_manager.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/property_grid_inspector.js.html"><strong>src/workstation/scripts/property_grid_inspector.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

@@ -4019,6 +4019,296 @@ async function testEntityModulePackEngine() {
 }
 
 // ============================================================================
+// SUITE 25: EDGE EXPLORER & MULTI-SCALE CONDUIT CATALOG
+// ============================================================================
+async function testEdgeExplorerAndConduitCatalog() {
+  console.log('\n--> SUITE 25: Edge Explorer & Multi-Scale Conduit Catalog (Aggregation, Deduplication, Filters & Mutation Lifecycle)...');
+
+  const emUiPath = path.join(ROOT_DIR, 'src/workstation/scripts/entity_manager_ui.js');
+  const emUiCode = fs.readFileSync(emUiPath, 'utf8');
+
+  const crudPath = path.join(ROOT_DIR, 'src/workstation/scripts/entity_crud_dialogs.js');
+  const crudCode = fs.readFileSync(crudPath, 'utf8');
+
+  const propGridPath = path.join(ROOT_DIR, 'src/workstation/scripts/property_grid_inspector.js');
+  const propGridCode = fs.readFileSync(propGridPath, 'utf8');
+
+  const cadInteractionPath = path.join(ROOT_DIR, 'src/workstation/scripts/cad_interaction.js');
+  const cadInteractionCode = fs.readFileSync(cadInteractionPath, 'utf8');
+
+  const mdiPath = path.join(ROOT_DIR, 'src/workstation/scripts/mdi_window_manager.js');
+  const mdiCode = fs.readFileSync(mdiPath, 'utf8');
+
+  const templatePath = path.join(ROOT_DIR, 'src/workstation/template.html');
+  const templateHtml = fs.readFileSync(templatePath, 'utf8');
+
+  const modalsPath = path.join(ROOT_DIR, 'src/workstation/modals/entity_modals.html');
+  const modalsHtml = fs.readFileSync(modalsPath, 'utf8');
+
+  // 1. Static Contract & Interface Checks
+  assert(propGridCode.includes('function renderEdgeProperties'), 'property_grid_inspector.js exports renderEdgeProperties');
+  assert(cadInteractionCode.includes('function createEdge'), 'cad_interaction.js exports createEdge');
+  assert(cadInteractionCode.includes('function deleteEdge'), 'cad_interaction.js exports deleteEdge');
+  assert(cadInteractionCode.includes('pushHistoryState') && cadInteractionCode.includes('Hegemony Vector'), 'cad_interaction.js createEdge calls pushHistoryState before mutation');
+  assert(cadInteractionCode.includes('delete topo.edgeNotes[edgeKey]') && cadInteractionCode.includes('delete topo.edgeNotes[pairKey]'), 'cad_interaction.js deleteEdge cleans up edgeNotes for both edgeKey and pairKey');
+  assert(mdiCode.includes("e.key === 'F11'") && mdiCode.includes("openEntityManager('edge')"), 'mdi_window_manager.js handles Ctrl+F11 to open Edge Explorer');
+  assert(templateHtml.includes("openEntityManager('edge')") && templateHtml.includes('<strong>Edges</strong>'), 'template.html contains menu entries and toolbar button [Edges] (Ctrl+F11)');
+  assert(modalsHtml.includes('id="em-tab-edge"') && modalsHtml.includes('id="modal-edge-create"'), 'entity_modals.html contains #em-tab-edge button and #modal-edge-create dialog');
+  assert(crudCode.includes('function openCreateEdgeModal') && crudCode.includes('function submitCreateEdgeModal'), 'entity_crud_dialogs.js exports openCreateEdgeModal and submitCreateEdgeModal');
+  assert(emUiCode.includes('function resolveEdgeEndpointsAndMetrics'), 'entity_manager_ui.js exports resolveEdgeEndpointsAndMetrics');
+  assert(emUiCode.includes('function getEdgesForMapScope'), 'entity_manager_ui.js exports getEdgesForMapScope');
+  assert(emUiCode.includes('function jumpToEdgeMap'), 'entity_manager_ui.js exports jumpToEdgeMap');
+  assert(emUiCode.includes('function switchEdgeDetailSubtab'), 'entity_manager_ui.js exports switchEdgeDetailSubtab');
+  assert(emUiCode.includes('window.CreatorStudio.edgeClassifications'), 'entity_manager_ui.js exposes window.CreatorStudio.edgeClassifications');
+
+  // 2. Headless VM Functional Tests
+  const elements = {};
+  function mockEl(id) {
+    if (!elements[id]) {
+      elements[id] = {
+        id,
+        innerHTML: '',
+        textContent: '',
+        value: '',
+        children: [],
+        options: [],
+        style: {},
+        classList: {
+          classes: new Set(),
+          add(c) { this.classes.add(c); },
+          remove(c) { this.classes.delete(c); },
+          contains(c) { return this.classes.has(c); },
+          toggle(c, force) { if (force !== undefined) { force ? this.add(c) : this.remove(c); } else { this.contains(c) ? this.remove(c) : this.add(c); } }
+        },
+        appendChild(c) { this.children.push(c); },
+        querySelectorAll: () => [],
+        querySelector: () => null,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        setAttribute: () => {},
+        removeAttribute: () => {}
+      };
+    }
+    return elements[id];
+  }
+
+  let lastAlert = '';
+  const historyPushes = [];
+  let selectedEntitiesState = [];
+  let centeredMidpoint = null;
+
+  const sandbox = {
+    console,
+    window: {},
+    document: {
+      getElementById: (id) => mockEl(id),
+      createElement: (tag) => mockEl(tag),
+      querySelectorAll: () => [],
+      addEventListener: () => {}
+    },
+    localStorage: {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {}
+    },
+    alert: (msg) => { lastAlert = String(msg); },
+    setStatusBarMessage: () => {},
+    renderCanvas: () => {},
+    saveActiveCampaign: () => {},
+    openModal: () => {},
+    closeModal: () => {},
+    pushHistoryState: (desc) => {
+      historyPushes.push({
+        desc,
+        topo: JSON.parse(JSON.stringify(sandbox.Workstation.activeTopology))
+      });
+    },
+    setSelection: (sel) => { selectedEntitiesState = sel; },
+    getSelectedEntities: () => selectedEntitiesState,
+    centerOnPoint: (x, y) => { centeredMidpoint = { x, y }; },
+    switchActiveMap: async (mapId) => { sandbox.activeMapId = mapId; },
+    CurrentEntityTab: 'edge',
+    SelectedEntityFilter: 'all',
+    CurrentEntitySearch: '',
+    CurrentEntityScope: 'active',
+    SelectedEntityId: null,
+    activeMapId: 'map_root',
+    maps: {},
+    currentCampaignPackage: { maps: {} },
+    Workstation: {
+      activeTopology: null,
+      state: {}
+    }
+  };
+  sandbox.window = sandbox;
+
+  vm.createContext(sandbox);
+
+  // Load scripts into VM
+  vm.runInContext(propGridCode, sandbox);
+  vm.runInContext(cadInteractionCode, sandbox);
+  vm.runInContext(crudCode, sandbox);
+  vm.runInContext(emUiCode, sandbox);
+
+  // Set up mock active topology
+  const topo = {
+    id: 'map_root',
+    name: 'Root Map',
+    nodes: {
+      '1': { id: 1, name: 'Bastion Alpha', x: 100, y: 100, adj: [2], infBy: [] },
+      '2': { id: 2, name: 'Outpost Beta', x: 300, y: 100, adj: [1], infBy: [3] },
+      '3': { id: 3, name: 'Keep Gamma', x: 200, y: 300, adj: [], infBy: [] }
+    },
+    edgeData: {
+      '1-2': {
+        name: 'Pass of Iron',
+        conduitType: 'dedicated',
+        dedicatedFlows: ['Iron Ore: 15'],
+        hazardLevel: 3,
+        modules: ['SPARK-01']
+      },
+      '3->2': {
+        name: 'Southern March',
+        conduitType: 'none',
+        hazardLevel: 0
+      }
+    },
+    edgeNotes: {
+      '1-2': 'Underground transit tunnel',
+      '3->2': 'Hegemony border watch'
+    }
+  };
+  sandbox.Workstation.activeTopology = topo;
+  sandbox.activeTopology = topo;
+  sandbox.maps['map_root'] = topo;
+
+  // Set up mock submap with Array nodes schema
+  sandbox.maps['submap_dungeon'] = {
+    id: 'submap_dungeon',
+    name: 'Deep Dungeon',
+    nodes: [
+      { id: 'd1', name: 'Dungeon Gate', x: 10, y: 10, adj: ['d2'], infBy: [] },
+      { id: 'd2', name: 'Crypt', x: 50, y: 50, adj: ['d1'], infBy: [] }
+    ],
+    edgeData: {
+      'd1-d2': { conduitType: 'power', dedicatedFlows: ['Mana: 5'], hazardLevel: 1 }
+    },
+    edgeNotes: {}
+  };
+
+  // Test getEdgesForMapScope('active')
+  const activeEdges = sandbox.getEdgesForMapScope('active');
+  assertEqual(activeEdges.length, 2, 'getEdgesForMapScope("active") returns exactly 2 edges (1 road, 1 hegemony)');
+  
+  const roadEdge = activeEdges.find(e => e.edgeType === 'road');
+  assert(roadEdge !== undefined, 'Road edge extracted');
+  assertEqual(roadEdge.pairKey, '1-2', 'Bidirectional road deduplicated to canonical pairKey "1-2"');
+  assertEqual(roadEdge.isDirectional, false, 'Road edge is non-directional (bidirectional transit)');
+
+  const hegemonyEdge = activeEdges.find(e => e.edgeType === 'hegemony');
+  assert(hegemonyEdge !== undefined, 'Hegemony edge extracted');
+  assertEqual(hegemonyEdge.edgeKey, '3->2', 'Directional hegemony edge has directed key "3->2"');
+  assertEqual(hegemonyEdge.uId, 3, 'Hegemony source is node 3');
+  assertEqual(hegemonyEdge.vId, 2, 'Hegemony target is node 2');
+
+  // Test getEdgesForMapScope('map:all') with heterogeneous child map (Array nodes)
+  const allEdges = sandbox.getEdgesForMapScope('map:all');
+  assertEqual(allEdges.length, 3, 'getEdgesForMapScope("map:all") aggregates across maps including array-based submap');
+  const submapEdge = allEdges.find(e => e._mapId === 'submap_dungeon');
+  assert(submapEdge !== undefined, 'Submap edge extracted');
+  assertEqual(submapEdge.pairKey, 'd1-d2', 'Submap edge pairKey is d1-d2');
+
+  // Test resolveEdgeEndpointsAndMetrics
+  const resolved = sandbox.resolveEdgeEndpointsAndMetrics(roadEdge, topo);
+  assertEqual(resolved.uNode.name, 'Bastion Alpha', 'resolveEdgeEndpointsAndMetrics resolves source node name');
+  assertEqual(resolved.vNode.name, 'Outpost Beta', 'resolveEdgeEndpointsAndMetrics resolves target node name');
+  assertEqual(resolved.lengthPx, 200, 'resolveEdgeEndpointsAndMetrics computes Euclidean distance (200px)');
+
+  // Test filtering in getEdgesForMapScope
+  const roadsOnly = sandbox.getEdgesForMapScope('type:road');
+  assertEqual(roadsOnly.length, 1, 'Filter "type:road" returns 1 road');
+  assertEqual(roadsOnly[0].pairKey, '1-2', 'Road edge is 1-2');
+
+  const hegemonyOnly = sandbox.getEdgesForMapScope('type:hegemony');
+  assertEqual(hegemonyOnly.length, 1, 'Filter "type:hegemony" returns 1 hegemony vector');
+  assertEqual(hegemonyOnly[0].edgeKey, '3->2', 'Hegemony edge is 3->2');
+
+  const highHazard = sandbox.getEdgesForMapScope('hazard:high');
+  assertEqual(highHazard.length, 1, 'Filter "hazard:high" returns 1 high hazard edge');
+
+  const flowsOnly = sandbox.getEdgesForMapScope('has:flows');
+  assertEqual(flowsOnly.length, 1, 'Filter "has:flows" returns 1 edge with dedicated flows');
+
+  const modulesOnly = sandbox.getEdgesForMapScope('has:modules');
+  assertEqual(modulesOnly.length, 1, 'Filter "has:modules" returns 1 edge with slotted modules');
+
+  // Test Detail Selection and Subtabs
+  sandbox.selectEntityItem('1-2');
+  assertEqual(sandbox.SelectedEntityId, '1-2', 'selectEntityItem sets SelectedEntityId to "1-2"');
+  assert(mockEl('em-detail-pane').innerHTML.includes('Bastion Alpha') && mockEl('em-detail-pane').innerHTML.includes('Outpost Beta'), 'Detail pane renders corridor endpoints');
+  assert(mockEl('em-detail-pane').innerHTML.includes('em-edge-subtab-overview'), 'Detail pane renders telemetry overview subtab button');
+  assert(mockEl('em-detail-pane').innerHTML.includes('em-edge-subtab-props'), 'Detail pane renders properties subtab button');
+
+  sandbox.switchEdgeDetailSubtab('props');
+  assertEqual(mockEl('em-edge-subtab-props-view').style.display, 'block', 'switchEdgeDetailSubtab switches to properties subtab');
+  assertEqual(mockEl('em-edge-subtab-overview-view').style.display, 'none', 'switchEdgeDetailSubtab hides telemetry overview subtab');
+
+  sandbox.switchEdgeDetailSubtab('overview');
+  assertEqual(mockEl('em-edge-subtab-overview-view').style.display, 'flex', 'switchEdgeDetailSubtab switches back to telemetry overview subtab');
+  assertEqual(mockEl('em-edge-subtab-props-view').style.display, 'none', 'switchEdgeDetailSubtab hides properties subtab');
+
+  // Test CAD Interaction: createEdge & deleteEdge with pushHistoryState
+  assertEqual(historyPushes.length, 0, 'History pushes initially empty');
+  sandbox.createEdge(1, 3, 'road');
+  assertEqual(historyPushes.length, 1, 'createEdge pushes history state before mutation');
+  assert(historyPushes[0].desc.includes('1 -> 3'), 'History push description records new edge endpoints');
+  assert(!historyPushes[0].topo.nodes['1'].adj.includes(3), 'Pre-mutation snapshot in history does NOT contain new edge');
+  assert(sandbox.Workstation.activeTopology.nodes['1'].adj.includes(3), 'activeTopology node 1 adj now contains node 3');
+  assert(sandbox.Workstation.activeTopology.nodes['3'].adj.includes(1), 'activeTopology node 3 adj now contains node 1');
+
+  sandbox.deleteEdge(1, 2, 'road');
+  assertEqual(historyPushes.length, 2, 'deleteEdge pushes history state before mutation');
+  assert(!sandbox.Workstation.activeTopology.nodes['1'].adj.includes(2), 'deleteEdge removes node 2 from node 1 adj');
+  assert(!sandbox.Workstation.activeTopology.nodes['2'].adj.includes(1), 'deleteEdge removes node 1 from node 2 adj');
+  assert(sandbox.Workstation.activeTopology.edgeData['1-2'] === undefined, 'deleteEdge purges edgeData for severed corridor');
+  assert(sandbox.Workstation.activeTopology.edgeNotes['1-2'] === undefined, 'deleteEdge purges edgeNotes for severed corridor');
+
+  // Test Modal Validation: Self-loops & duplicates
+  mockEl('edge-create-src').value = '1';
+  mockEl('edge-create-tgt').value = '1';
+  mockEl('edge-create-type').value = 'road';
+  sandbox.submitCreateEdgeModal();
+  assert(lastAlert.includes('Cannot create a self-loop'), 'submitCreateEdgeModal prevents self-loops');
+
+  mockEl('edge-create-src').value = '1';
+  mockEl('edge-create-tgt').value = '3';
+  mockEl('edge-create-type').value = 'road';
+  sandbox.submitCreateEdgeModal();
+  assert(lastAlert.includes('already exists'), 'submitCreateEdgeModal prevents duplicate road edges');
+
+  // Test jumpToEdgeMap
+  let selectedEdgeType = null;
+  let selectedEdgeU = null;
+  let selectedEdgeV = null;
+  sandbox.selectEdge = (type, u, v) => {
+    selectedEdgeType = type;
+    selectedEdgeU = u;
+    selectedEdgeV = v;
+  };
+  mockEl('canvas-container').clientWidth = 800;
+  mockEl('canvas-container').clientHeight = 600;
+  sandbox.Workstation.pan = { x: 0, y: 0 };
+  sandbox.Workstation.zoom = 1.0;
+
+  await sandbox.jumpToEdgeMap('map_root', '1-3', 1, 3, 'road');
+  assertEqual(selectedEdgeType, 'road', 'jumpToEdgeMap invokes selectEdge with edgeType "road"');
+  assertEqual(selectedEdgeU, 1, 'jumpToEdgeMap invokes selectEdge with start node 1');
+  assertEqual(selectedEdgeV, 3, 'jumpToEdgeMap invokes selectEdge with end node 3');
+  assertEqual(sandbox.Workstation.pan.x, 250, 'jumpToEdgeMap centers canvas pan.x at corridor midpoint ( (800/2) - 150 = 250 )');
+  assertEqual(sandbox.Workstation.pan.y, 100, 'jumpToEdgeMap centers canvas pan.y at corridor midpoint ( (600/2) - 200 = 100 )');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -4047,6 +4337,7 @@ async function testEntityModulePackEngine() {
     await testCampaignIsolationAndSterileSlateGate();
     await testIndexedDbSeparationAndConcurrencyGate();
     await testEntityModulePackEngine();
+    await testEdgeExplorerAndConduitCatalog();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

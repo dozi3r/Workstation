@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_crud_dialogs.js"
 title: "entity_crud_dialogs.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "fd5f5bf366cba6ed"
-reviewed_hash: "fd5f5bf366cba6ed"
+current_hash: "a1a80bfbccb5afd0"
+reviewed_hash: "a1a80bfbccb5afd0"
 stale: false
-size_bytes: 28098
-line_count: 551
+size_bytes: 32113
+line_count: 654
 ---
 
 # entity_crud_dialogs.js
