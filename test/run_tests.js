@@ -5131,6 +5131,133 @@ function testLocationNamesInStationedNodeColumns() {
 }
 
 // ============================================================================
+// SUITE 30: TICKET CENTER UPGRADES (DEV TICKETS, DYNAMIC CATEGORIES, STATUS)
+// ============================================================================
+function testTicketCenterEnhancements() {
+  console.log('\n--> SUITE 30: Ticket Center Upgrades (Dev Tickets, Dynamic Categories, Done Actions)...');
+
+  const ticketCenterCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/ticket_center.js'), 'utf8');
+  const mockDoms = {};
+  function makeMockEl(tag = 'div') {
+    return {
+      tagName: tag.toUpperCase(),
+      children: [],
+      classList: {
+        add: function(c) { this._classes.add(c); },
+        remove: function(c) { this._classes.delete(c); },
+        contains: function(c) { return this._classes.has(c); },
+        _classes: new Set()
+      },
+      style: {},
+      value: '',
+      textContent: '',
+      innerHTML: '',
+      appendChild: function(child) { this.children.push(child); },
+      querySelectorAll: function() { return []; },
+      querySelector: function() { return null; }
+    };
+  }
+
+  function mockEl(id, tag = 'div') {
+    if (!mockDoms[id]) {
+      mockDoms[id] = makeMockEl(tag);
+      mockDoms[id].id = id;
+    }
+    return mockDoms[id];
+  }
+
+  const sandbox = {
+    window: {},
+    document: {
+      getElementById: (id) => mockEl(id),
+      createElement: (tag) => makeMockEl(tag)
+    },
+    Workstation: {
+      activeTopology: {
+        nodes: {
+          '1': { id: '1', name: "River Gate" },
+          '2': { id: '2', name: "Sunken Watchtower" }
+        },
+        tickets: [
+          { id: 'CAMP-01', title: 'Saltworks Strike', category: 'shopkeeper inventory', status: 'shipped', tier: 2 },
+          { id: 'CAMP-02', title: 'Alchemical Leak', category: 'Tier 3: Apex Hazard Engine', status: 'ready_for_authoring', tier: 3 }
+        ]
+      }
+    },
+    MASTER_TICKETS_DATA: [
+      { id: 'SYS-START-10', title: 'CAD History Engine', category: 'system_architecture', status: 'shipped', track: 'Platform Architecture (SYS)' }
+    ],
+    formatNodeRef: (nid, topo) => `Node ${nid}: ${(topo.nodes[nid] && topo.nodes[nid].name) || ''}`,
+    saveActiveCampaign: () => {},
+    setStatusBarMessage: () => {},
+    openModal: () => {},
+    closeModal: () => {},
+    MDIWindowManager: { open: () => {}, close: () => {} },
+    console
+  };
+  sandbox.window = sandbox;
+
+  vm.createContext(sandbox);
+  vm.runInContext(ticketCenterCode, sandbox);
+
+  // 1. Datalist categories harvest dynamic ticket categories
+  const categories = sandbox.getKnownTicketCategories();
+  assert(Array.isArray(categories) && categories.includes('shopkeeper inventory'), 'getKnownTicketCategories harvests custom categories from active tickets');
+  assert(categories.includes('Tier 2: Settlement & Biome'), 'getKnownTicketCategories includes default categories');
+
+  // 2. Dev Ticket Type switching
+  mockEl('ntc-gm-fields');
+  mockEl('ntc-dev-fields');
+  mockEl('ntc-title');
+  mockEl('ntc-category');
+  mockEl('ntc-notes-label');
+  mockEl('ntc-modal-title');
+
+  sandbox.onTicketTypeChanged('dev');
+  assert(mockDoms['ntc-gm-fields'].classList.contains('hidden'), 'onTicketTypeChanged hides GM fields for dev tickets');
+  assert(!mockDoms['ntc-dev-fields'].classList.contains('hidden'), 'onTicketTypeChanged reveals dev fields for dev tickets');
+  assertEqual(mockDoms['ntc-category'].value, 'Platform Architecture', 'onTicketTypeChanged defaults dev ticket category to Platform Architecture');
+
+  // 3. Save new Dev ticket
+  mockEl('ntc-title').value = 'Resizable Dock Splitters';
+  mockEl('ntc-type').value = 'dev';
+  mockEl('ntc-category').value = 'MDI Shell';
+  mockEl('ntc-priority').value = 'High';
+  mockEl('ntc-node').value = '1';
+  mockEl('ntc-target-surface').value = 'start.html';
+  mockEl('ntc-prereqs').value = 'scripts/mdi_window_manager.js';
+  mockEl('ntc-notes').value = 'Implement 8-way drag resizing.';
+
+  sandbox.saveNewCampaignTicket();
+  const createdDev = sandbox.Workstation.activeTopology.tickets.find(t => t.title === 'Resizable Dock Splitters');
+  assert(Boolean(createdDev), 'saveNewCampaignTicket creates and stores dev ticket in activeTopology');
+  assertEqual(createdDev.id, 'DEV-03', 'saveNewCampaignTicket assigns DEV- prefix to development tickets');
+  assertEqual(createdDev.track, 'Platform Development', 'saveNewCampaignTicket assigns Platform Development track');
+  assertEqual(createdDev.tier, 0, 'saveNewCampaignTicket sets tier to 0 for dev tickets');
+
+  // 4. Mark Ticket Done and Undone
+  sandbox.markTicketDone('CAMP-01', 'campaign');
+  assertEqual(sandbox.Workstation.activeTopology.tickets[0].status, 'done', 'markTicketDone marks campaign ticket status as done');
+
+  sandbox.markTicketDone('SYS-START-10', 'repo');
+  assertEqual(sandbox.Workstation.activeTopology.ticketOverrides['SYS-START-10'].status, 'done', 'markTicketDone sets repo ticket override in activeTopology');
+
+  const combined = sandbox.getCombinedTickets();
+  const sysTicket = combined.repoTickets.find(t => t.id === 'SYS-START-10');
+  assertEqual(sysTicket.status, 'done', 'getCombinedTickets applies ticketOverrides to repo tickets');
+
+  sandbox.markTicketUndone('SYS-START-10', 'repo');
+  assert(!sandbox.Workstation.activeTopology.ticketOverrides['SYS-START-10'], 'markTicketUndone removes repo ticket override');
+
+  // 5. Node dropdown population includes formatted name
+  const nodeSelect = mockEl('ntc-node', 'select');
+  sandbox.openNewCampaignTicketModal();
+  assert(nodeSelect.children.length >= 3, 'openNewCampaignTicketModal populates spatial node dropdown options');
+  const nodeOpt1 = nodeSelect.children.find(c => c.value === '1');
+  assert(nodeOpt1 && nodeOpt1.textContent.includes('River Gate'), 'Spatial node dropdown option includes human-readable node name');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -5164,6 +5291,7 @@ function testLocationNamesInStationedNodeColumns() {
     testFirstClassFactionsEntityEngine();
     testNpcSocialWebAndRelationalGraph();
     testLocationNamesInStationedNodeColumns();
+    testTicketCenterEnhancements();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

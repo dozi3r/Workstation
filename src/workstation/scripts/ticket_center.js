@@ -39,7 +39,14 @@
     }
 
     function getCombinedTickets() {
-      const repoTickets = (typeof MASTER_TICKETS_DATA !== 'undefined' ? MASTER_TICKETS_DATA : []);
+      const rawRepo = (typeof MASTER_TICKETS_DATA !== 'undefined' ? MASTER_TICKETS_DATA : []);
+      const overrides = (Workstation.activeTopology && Workstation.activeTopology.ticketOverrides) ? Workstation.activeTopology.ticketOverrides : {};
+      const repoTickets = rawRepo.map(t => {
+        if (overrides[t.id]) {
+          return Object.assign({}, t, overrides[t.id]);
+        }
+        return t;
+      });
       const campTickets = (Workstation.activeTopology && Workstation.activeTopology.tickets) ? Workstation.activeTopology.tickets : [];
       return { repoTickets, campTickets };
     }
@@ -63,7 +70,13 @@
           const tTier = t.pipeline_tier !== undefined ? t.pipeline_tier : t.tier;
           if (String(tTier) !== tierFilter) return false;
         }
-        if (statusFilter !== 'all') {
+        if (statusFilter === 'not_shipped') {
+          const s = (t.status || '').toLowerCase();
+          if (s === 'shipped' || s === 'done') return false;
+        } else if (statusFilter === 'hide_done') {
+          const s = (t.status || '').toLowerCase();
+          if (s === 'done') return false;
+        } else if (statusFilter !== 'all') {
           if ((t.status || '').toLowerCase() !== statusFilter.toLowerCase()) return false;
         }
         if (searchVal) {
@@ -89,12 +102,14 @@
           if (isSelected) tr.classList.add('selected');
 
           const tierNum = t.pipeline_tier !== undefined ? t.pipeline_tier : (t.tier !== undefined ? t.tier : '-');
+          const isDev = (t.type === 'dev' || (t.id && t.id.startsWith('DEV-')) || t.track === 'Platform Development');
+          const tierDisplay = isDev ? 'DEV' : (tierNum !== '-' ? `T${tierNum}` : '-');
           const statusSlug = (t.status || 'draft').toLowerCase().replace(/\s+/g, '_');
           const statusLabel = (t.status || 'Draft').replace(/_/g, ' ').toUpperCase();
 
           tr.innerHTML = `
             <td><strong>${t.id || 'TK'}</strong></td>
-            <td>T${tierNum}</td>
+            <td>${tierDisplay}</td>
             <td style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:260px;" title="${escapeHtml(t.title || '')}">${escapeHtml(t.title || '(Untitled)')}</td>
             <td><span class="ticket-badge-status status-${statusSlug}">${statusLabel}</span></td>
           `;
@@ -191,6 +206,9 @@
       const provides = (t.provides || []).join(', ') || 'None';
       const requires = (t.requires || []).join(', ') || 'None';
 
+      const isDev = (t.type === 'dev' || (t.id && t.id.startsWith('DEV-')) || t.track === 'Platform Development');
+      const tierBadge = isDev ? 'DEV' : (tierNum !== '-' ? `Tier ${tierNum}` : '-');
+
       // Build Inspector View
       detailPane.innerHTML = `
         <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #808080; padding-bottom:6px; margin-bottom:8px;">
@@ -198,13 +216,16 @@
             <div style="display:flex; align-items:center; gap:6px;">
               <span style="font-size:13px; font-weight:bold; color:#000080;">${escapeHtml(t.id)}</span>
               <span class="ticket-badge-status status-${statusSlug}">${statusLabel}</span>
-              <span style="font-size:10px; background:#e0e7ff; color:#3730a3; padding:1px 5px; border-radius:2px; font-weight:bold;">Tier ${tierNum}</span>
+              <span style="font-size:10px; background:#e0e7ff; color:#3730a3; padding:1px 5px; border-radius:2px; font-weight:bold;">${tierBadge}</span>
               <span style="font-size:10px; background:#fef3c7; color:#92400e; padding:1px 5px; border-radius:2px; font-weight:bold;">${escapeHtml(priority)}</span>
             </div>
             <div style="font-size:12px; font-weight:bold; color:#111; margin-top:3px;">${escapeHtml(t.title || '(Untitled)')}</div>
             <div style="font-size:10px; color:#555; margin-top:2px;">Track: ${escapeHtml(t.track || t.category || 'General')} | Category: ${escapeHtml(t.category || '-')}</div>
           </div>
-          <div style="display:flex; gap:4px;">
+          <div style="display:flex; gap:4px; align-items:center;">
+            ${(t.status || '').toLowerCase() === 'done'
+              ? `<button class="win-btn" onclick="markTicketUndone('${t.id}', '${source}')" style="font-size:10px; color:#555;" title="Reopen / Mark as Incomplete">Reopen</button>`
+              : `<button class="win-btn" onclick="markTicketDone('${t.id}', '${source}')" style="font-size:10px; font-weight:bold; color:#15803d;" title="Mark this ticket as Done">✓ Mark Done</button>`}
             <button class="win-btn" onclick="exportSelectedTicketMarkdown()" title="Export as TEMPLATE.md Markdown">Export .md</button>
             ${source === 'campaign' ? `<button class="win-btn" onclick="deleteCampaignTicket('${t.id}')" style="color:#b91c1c;" title="Delete Ticket">Delete</button>` : ''}
           </div>
@@ -235,14 +256,16 @@
           <label style="font-size:10px; display:flex; align-items:center; gap:4px;">
             <strong>Spatial Node:</strong>
             <select class="win-select-input" style="font-size:10px;" onchange="updateCampaignTicketProp('${t.id}', 'nodeId', this.value)">
+              <option value="">(None / Unassigned)</option>
               ${Object.keys(Workstation.activeTopology.nodes || {}).sort((a,b) => {
                 const na = Number(a), nb = Number(b);
                 if (!isNaN(na) && !isNaN(nb)) return na - nb;
                 return String(a).localeCompare(String(b));
               }).map(nid => {
-                const nodeObj = Workstation.activeTopology.nodes[nid];
-                const nodeTitle = nodeObj ? (nodeObj.name || nodeObj.label || `#${nid}`) : `#${nid}`;
-                return `<option value="${nid}" ${String(t.nodeId) === String(nid) ? 'selected' : ''}>${nid}: ${escapeHtml(nodeTitle)}</option>`;
+                const nodeLabel = (typeof formatNodeRef === 'function')
+                  ? formatNodeRef(nid, Workstation.activeTopology)
+                  : `${nid}: ${(Workstation.activeTopology.nodes[nid] && (Workstation.activeTopology.nodes[nid].name || Workstation.activeTopology.nodes[nid].displayName || Workstation.activeTopology.nodes[nid].label)) || ''}`;
+                return `<option value="${nid}" ${String(t.nodeId) === String(nid) ? 'selected' : ''}>${escapeHtml(nodeLabel)}</option>`;
               }).join('')}
             </select>
           </label>
@@ -306,26 +329,164 @@
       }
     }
 
+    function markTicketDone(ticketId, source) {
+      if (source === 'campaign') {
+        updateCampaignTicketProp(ticketId, 'status', 'done');
+      } else {
+        if (!Workstation.activeTopology) return;
+        if (!Workstation.activeTopology.ticketOverrides) {
+          Workstation.activeTopology.ticketOverrides = {};
+        }
+        Workstation.activeTopology.ticketOverrides[ticketId] = { status: 'done' };
+        saveActiveCampaign();
+        renderTicketList();
+        selectTicket(ticketId, 'repo');
+        setStatusBarMessage(`Marked ticket ${ticketId} as Done.`);
+      }
+    }
+    window.markTicketDone = markTicketDone;
+
+    function markTicketUndone(ticketId, source) {
+      if (source === 'campaign') {
+        updateCampaignTicketProp(ticketId, 'status', 'ready_for_authoring');
+      } else {
+        if (!Workstation.activeTopology) return;
+        if (Workstation.activeTopology.ticketOverrides && Workstation.activeTopology.ticketOverrides[ticketId]) {
+          delete Workstation.activeTopology.ticketOverrides[ticketId];
+          saveActiveCampaign();
+          renderTicketList();
+          selectTicket(ticketId, 'repo');
+          setStatusBarMessage(`Reopened ticket ${ticketId}.`);
+        }
+      }
+    }
+    window.markTicketUndone = markTicketUndone;
+
+    function getKnownTicketCategories() {
+      const defaults = [
+        "Tier 1: Macro Governance",
+        "Tier 2: Settlement & Biome",
+        "Tier 3: Apex Hazard Engine",
+        "Tier 4: Resource Supply Flow",
+        "Tier 5: Climax & Eschatology",
+        "Creative Module",
+        "Dungeon Room",
+        "NPC Dialogue",
+        "Dynamic Threat",
+        "Faction Crisis",
+        "Mechanic Bug",
+        "Platform Architecture",
+        "UI / UX Bug",
+        "CAD Engine",
+        "Data Model"
+      ];
+      const set = new Set(defaults);
+
+      if (Workstation.activeTopology && Array.isArray(Workstation.activeTopology.tickets)) {
+        Workstation.activeTopology.tickets.forEach(t => {
+          if (t.category && typeof t.category === 'string' && t.category.trim()) {
+            set.add(t.category.trim());
+          }
+        });
+      }
+
+      if (typeof MASTER_TICKETS_DATA !== 'undefined' && Array.isArray(MASTER_TICKETS_DATA)) {
+        MASTER_TICKETS_DATA.forEach(t => {
+          if (t.category && typeof t.category === 'string' && t.category.trim()) {
+            set.add(t.category.trim());
+          }
+        });
+      }
+
+      return Array.from(set);
+    }
+    window.getKnownTicketCategories = getKnownTicketCategories;
+
+    function populateTicketCategoryDatalist() {
+      const dl = document.getElementById('tc-category-datalist');
+      if (!dl) return;
+      dl.innerHTML = '';
+      const cats = getKnownTicketCategories();
+      cats.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c;
+        dl.appendChild(opt);
+      });
+    }
+    window.populateTicketCategoryDatalist = populateTicketCategoryDatalist;
+
+    function onTicketTypeChanged(type) {
+      const gmFields = document.getElementById('ntc-gm-fields');
+      const devFields = document.getElementById('ntc-dev-fields');
+      const titleInput = document.getElementById('ntc-title');
+      const catInput = document.getElementById('ntc-category');
+      const notesLabel = document.getElementById('ntc-notes-label');
+      const modalTitle = document.getElementById('ntc-modal-title');
+
+      if (type === 'dev') {
+        if (modalTitle) modalTitle.textContent = 'Create New Development Ticket';
+        if (gmFields) gmFields.classList.add('hidden');
+        if (devFields) devFields.classList.remove('hidden');
+        if (titleInput) titleInput.placeholder = 'e.g. Implement resizable dock panels or fix SVG click hitbox';
+        if (catInput && (!catInput.value || catInput.value.startsWith('Tier '))) {
+          catInput.value = 'Platform Architecture';
+        }
+        if (notesLabel) notesLabel.textContent = 'Development Brief & Acceptance Criteria:';
+      } else {
+        if (modalTitle) modalTitle.textContent = 'Create New Campaign Ticket';
+        if (gmFields) gmFields.classList.remove('hidden');
+        if (devFields) devFields.classList.add('hidden');
+        if (titleInput) titleInput.placeholder = 'e.g. The Sunken Saltworks & Alchemical Revolt';
+        if (catInput && (!catInput.value || catInput.value === 'Platform Architecture')) {
+          catInput.value = 'Tier 2: Settlement & Biome';
+        }
+        if (notesLabel) notesLabel.textContent = 'Authoring Brief & Acceptance Notes:';
+      }
+    }
+    window.onTicketTypeChanged = onTicketTypeChanged;
+
     function openNewCampaignTicketModal() {
       const nodeSelect = document.getElementById('ntc-node');
       if (nodeSelect) {
-        nodeSelect.innerHTML = '<option value="">(None / Unassigned)</option>';
+        nodeSelect.innerHTML = '';
+        const defaultOpt = document.createElement('option');
+        defaultOpt.value = '';
+        defaultOpt.textContent = '(None / Unassigned)';
+        nodeSelect.appendChild(defaultOpt);
+
         if (Workstation.activeTopology && Workstation.activeTopology.nodes) {
-          Object.keys(Workstation.activeTopology.nodes).sort().forEach(nid => {
+          Object.keys(Workstation.activeTopology.nodes).sort((a,b) => {
+            const na = Number(a), nb = Number(b);
+            if (!isNaN(na) && !isNaN(nb)) return na - nb;
+            return String(a).localeCompare(String(b));
+          }).forEach(nid => {
             const opt = document.createElement('option');
             opt.value = nid;
-            opt.textContent = `${nid}: ${(Workstation.activeTopology.nodes[nid] && Workstation.activeTopology.nodes[nid].label) || ''}`;
+            opt.textContent = (typeof formatNodeRef === 'function')
+              ? formatNodeRef(nid, Workstation.activeTopology)
+              : `${nid}: ${(Workstation.activeTopology.nodes[nid] && (Workstation.activeTopology.nodes[nid].name || Workstation.activeTopology.nodes[nid].displayName || Workstation.activeTopology.nodes[nid].label)) || ''}`;
             nodeSelect.appendChild(opt);
           });
         }
       }
 
+      populateTicketCategoryDatalist();
+
       // Reset fields
+      const typeSelect = document.getElementById('ntc-type');
+      if (typeSelect) {
+        typeSelect.value = 'gm';
+        onTicketTypeChanged('gm');
+      }
       if (document.getElementById('ntc-title')) document.getElementById('ntc-title').value = '';
+      if (document.getElementById('ntc-category')) document.getElementById('ntc-category').value = 'Tier 2: Settlement & Biome';
+      if (document.getElementById('ntc-priority')) document.getElementById('ntc-priority').value = 'Medium';
       if (document.getElementById('ntc-syllogism')) document.getElementById('ntc-syllogism').value = '';
       if (document.getElementById('ntc-four-corners')) document.getElementById('ntc-four-corners').value = '';
       if (document.getElementById('ntc-mechanics')) document.getElementById('ntc-mechanics').value = '';
       if (document.getElementById('ntc-resources')) document.getElementById('ntc-resources').value = '';
+      if (document.getElementById('ntc-target-surface')) document.getElementById('ntc-target-surface').value = 'start.html';
+      if (document.getElementById('ntc-prereqs')) document.getElementById('ntc-prereqs').value = '';
       if (document.getElementById('ntc-notes')) document.getElementById('ntc-notes').value = '';
 
       openModal('modal-ticket-author-new');
@@ -338,14 +499,25 @@
         return;
       }
 
-      const category = document.getElementById('ntc-category') ? document.getElementById('ntc-category').value : 'Creative Module';
-      const tier = document.getElementById('ntc-tier') ? parseInt(document.getElementById('ntc-tier').value, 10) : 2;
+      const type = document.getElementById('ntc-type') ? document.getElementById('ntc-type').value : 'gm';
+      const category = document.getElementById('ntc-category') ? (document.getElementById('ntc-category').value.trim() || 'General') : 'General';
       const priority = document.getElementById('ntc-priority') ? document.getElementById('ntc-priority').value : 'Medium';
       const nodeId = document.getElementById('ntc-node') ? document.getElementById('ntc-node').value : '';
+      
+      let tier = 2;
+      const tierMatch = category.match(/Tier\s*(\d)/i);
+      if (tierMatch) {
+        tier = parseInt(tierMatch[1], 10);
+      } else if (type === 'dev') {
+        tier = 0;
+      }
+
       const syllogism = document.getElementById('ntc-syllogism') ? document.getElementById('ntc-syllogism').value.trim() : '';
       const fourCorners = document.getElementById('ntc-four-corners') ? document.getElementById('ntc-four-corners').value.trim() : '';
       const mechanics = document.getElementById('ntc-mechanics') ? document.getElementById('ntc-mechanics').value.trim() : '';
       const resources = document.getElementById('ntc-resources') ? document.getElementById('ntc-resources').value.trim() : '';
+      const targetSurface = document.getElementById('ntc-target-surface') ? document.getElementById('ntc-target-surface').value.trim() : 'start.html';
+      const prereqs = document.getElementById('ntc-prereqs') ? document.getElementById('ntc-prereqs').value.trim() : '';
       const notes = document.getElementById('ntc-notes') ? document.getElementById('ntc-notes').value.trim() : '';
 
       if (!Workstation.activeTopology.tickets) {
@@ -353,12 +525,17 @@
       }
 
       const ticketNum = String(Workstation.activeTopology.tickets.length + 1).padStart(2, '0');
+      const idPrefix = (type === 'dev') ? 'DEV-' : 'CAMP-';
+      const trackName = (type === 'dev') ? 'Platform Development' : 'Campaign Authoring';
+
       const newTicket = {
-        id: `CAMP-${ticketNum}`,
+        id: `${idPrefix}${ticketNum}`,
         title: title,
+        type: type,
         category: category,
-        track: 'Campaign Authoring',
+        track: trackName,
         tier: tier,
+        pipeline_tier: tier,
         priority: priority,
         status: 'ready_for_authoring',
         nodeId: nodeId,
@@ -366,6 +543,8 @@
         fourCorners: fourCorners,
         mechanics: mechanics,
         resources: resources,
+        targetSurface: targetSurface,
+        prereqs: prereqs,
         notes: notes,
         createdAt: new Date().toISOString()
       };
@@ -373,10 +552,11 @@
       Workstation.activeTopology.tickets.push(newTicket);
       saveActiveCampaign();
       closeModal('modal-ticket-author-new');
-      setStatusBarMessage(`Created Campaign Author Ticket: ${newTicket.id} - "${newTicket.title}"`);
+      setStatusBarMessage(`Created ${type === 'dev' ? 'Development' : 'Campaign Author'} Ticket: ${newTicket.id} - "${newTicket.title}"`);
 
       // Switch to campaign tab and select
       switchTicketCenterTab('campaign');
+      renderTicketList();
       selectTicket(newTicket.id, 'campaign');
     }
 
@@ -444,7 +624,41 @@
       const provides = (t.provides || []).join(', ') || t.resources || 'None';
       const requires = (t.requires || []).join(', ') || 'None';
 
-      const markdown = `---
+      const isDev = (t.type === 'dev' || (t.id && t.id.startsWith('DEV-')) || t.track === 'Platform Development');
+      let markdown = '';
+
+      if (isDev) {
+        markdown = `---
+id: ${t.id}
+title: "${t.title}"
+pipeline_tier: 0
+target_surface: "${t.targetSurface || t.target_surface || 'start.html'}"
+status: "${status}"
+category: "${category}"
+track: "Platform Development"
+priority: "${priority}"
+stationed_node: "${nodeId}"
+created_at: "${t.createdAt || new Date().toISOString()}"
+---
+
+# ${t.id}: ${t.title}
+*Category: ${category} | Priority: ${priority} | Target Surface: ${t.targetSurface || t.target_surface || 'start.html'}*
+
+## 1. Overview & Objective
+${t.notes || t.agent_brief || t.summary || 'Engineering brief pending.'}
+
+## 2. Implementation Deliverables & Seams
+- **Target Surface**: \`${t.targetSurface || t.target_surface || 'start.html'}\`
+- **Spatial Anchor Node**: \`${nodeId}\`
+- **Prerequisites / Seams**: \`${t.prereqs || 'None'}\`
+
+## 3. Acceptance Criteria & Definition of Done
+- [ ] Implement and test changes test-first.
+- [ ] Run full test suite verification (\`Test-Suite.ps1\`).
+- [ ] Zero-CORS offline execution verified.
+`;
+      } else {
+        markdown = `---
 id: ${t.id}
 title: "${t.title}"
 track: "${category}"
@@ -480,6 +694,7 @@ ${t.agent_brief || t.notes || t.summary || 'Authoring brief pending.'}
 - [ ] Threat clocks and severity dials integrated with spatial node.
 - [ ] Zero-CORS offline execution verified.
 `;
+      }
 
       const expText = document.getElementById('exp-markdown-text');
       const expTitle = document.getElementById('exp-modal-title');

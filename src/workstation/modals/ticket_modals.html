@@ -37,8 +37,10 @@
             <option value="5">Tier 5: Climax</option>
           </select>
           <!-- Status Filter -->
-          <select id="tc-filter-status" class="win-select-input" style="width:110px; font-size:11px;" onchange="renderTicketList()">
+          <select id="tc-filter-status" class="win-select-input" style="width:115px; font-size:11px;" onchange="renderTicketList()">
             <option value="all">All Statuses</option>
+            <option value="not_shipped">Not Shipped</option>
+            <option value="hide_done">Hide Done</option>
             <option value="shipped">Shipped</option>
             <option value="in_drafting">In Drafting</option>
             <option value="ready_for_authoring">Ready to Author</option>
@@ -91,9 +93,9 @@
 
   <!-- MODAL: NEW CAMPAIGN TICKET CREATOR -->
   <div id="modal-ticket-author-new" class="modal-overlay hidden">
-    <div class="win-dialog bevel-outset" style="width:500px; max-height:90vh; display:flex; flex-direction:column;">
+    <div class="win-dialog bevel-outset" style="width:520px; max-height:90vh; display:flex; flex-direction:column;">
       <div class="title-bar">
-        <div class="title-bar-text"><span>Create New Campaign Ticket</span></div>
+        <div class="title-bar-text"><span id="ntc-modal-title">Create New Ticket</span></div>
         <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-ticket-author-new')">X</button></div>
       </div>
       <div class="dialog-body" style="gap:6px; overflow-y:auto; padding:10px;">
@@ -103,25 +105,16 @@
         </label>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
           <label style="display:flex; flex-direction:column; gap:2px;">
-            <strong>Category / Workstream:</strong>
-            <select id="ntc-category" class="win-select-input">
-              <option value="Creative Module">Creative Module (CWT)</option>
-              <option value="Dungeon Room">Dungeon / Site Chamber</option>
-              <option value="NPC Dialogue">NPC Dialogue / Drama</option>
-              <option value="Dynamic Threat">Threat / Escalation Clock</option>
-              <option value="Faction Crisis">Faction Tension / Crisis</option>
-              <option value="Mechanic Bug">Mechanic Balance / Bug</option>
+            <strong>Ticket Type:</strong>
+            <select id="ntc-type" class="win-select-input" onchange="onTicketTypeChanged(this.value)">
+              <option value="gm" selected>Campaign Author (GM)</option>
+              <option value="dev">Platform Development (AI / Code)</option>
             </select>
           </label>
           <label style="display:flex; flex-direction:column; gap:2px;">
-            <strong>Pipeline Tier:</strong>
-            <select id="ntc-tier" class="win-select-input">
-              <option value="1">Tier 1: Macro Governance</option>
-              <option value="2" selected>Tier 2: Settlement & Biome</option>
-              <option value="3">Tier 3: Apex Hazard Engine</option>
-              <option value="4">Tier 4: Resource Supply Flow</option>
-              <option value="5">Tier 5: Climax & Eschatology</option>
-            </select>
+            <strong>Category:</strong>
+            <input type="text" id="ntc-category" list="tc-category-datalist" class="win-select-input" placeholder="Select or type category..." value="Tier 2: Settlement & Biome">
+            <datalist id="tc-category-datalist"></datalist>
           </label>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
@@ -137,29 +130,48 @@
           <label style="display:flex; flex-direction:column; gap:2px;">
             <strong>Assign to Spatial Node:</strong>
             <select id="ntc-node" class="win-select-input">
-              <!-- Injected dynamically -->
+              <!-- Injected dynamically with node ID & Name -->
             </select>
           </label>
         </div>
+
+        <!-- Narrative Fields for Campaign / GM Tickets -->
+        <div id="ntc-gm-fields" style="display:flex; flex-direction:column; gap:6px;">
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Egri Central Dramatic Syllogism:</strong>
+            <input type="text" id="ntc-syllogism" class="win-select-input" placeholder="[Fatal Flaw] + [Crucible Pressure] = [Crisis / Climax]">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Truby 4-Corner Opposition (Establishment vs Opponent vs Shadow vs Outcast):</strong>
+            <textarea id="ntc-four-corners" class="win-select-input" rows="3" placeholder="Establishment: ...&#10;Opponent: ...&#10;Shadow: ...&#10;Outcast: ..."></textarea>
+          </label>
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Injected Mechanics (Threat Clocks &amp; Severity Dials):</strong>
+            <textarea id="ntc-mechanics" class="win-select-input" rows="2" placeholder="Threat Clocks (e.g. Breach Clock [6 Ticks]) / Dials (Levels 1 to 4)..."></textarea>
+          </label>
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Resource Flow Contract (Provides / Requires):</strong>
+            <input type="text" id="ntc-resources" class="win-select-input" placeholder="Provides: Resource-A | Requires: Resource-B">
+          </label>
+        </div>
+
+        <!-- Technical Fields for Platform Development Tickets -->
+        <div id="ntc-dev-fields" class="hidden" style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Target Surface / File:</strong>
+              <input type="text" id="ntc-target-surface" class="win-select-input" placeholder="e.g. start.html" value="start.html">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Prerequisites / Seam:</strong>
+              <input type="text" id="ntc-prereqs" class="win-select-input" placeholder="e.g. scripts/ticket_center.js">
+            </label>
+          </div>
+        </div>
+
         <label style="display:flex; flex-direction:column; gap:2px;">
-          <strong>Egri Central Dramatic Syllogism:</strong>
-          <input type="text" id="ntc-syllogism" class="win-select-input" placeholder="[Fatal Flaw] + [Crucible Pressure] = [Crisis / Climax]">
-        </label>
-        <label style="display:flex; flex-direction:column; gap:2px;">
-          <strong>Truby 4-Corner Opposition (Establishment vs Opponent vs Shadow vs Outcast):</strong>
-          <textarea id="ntc-four-corners" class="win-select-input" rows="3" placeholder="Establishment: ...&#10;Opponent: ...&#10;Shadow: ...&#10;Outcast: ..."></textarea>
-        </label>
-        <label style="display:flex; flex-direction:column; gap:2px;">
-          <strong>Injected Mechanics (Threat Clocks &amp; Severity Dials):</strong>
-          <textarea id="ntc-mechanics" class="win-select-input" rows="2" placeholder="Threat Clocks (e.g. Breach Clock [6 Ticks]) / Dials (Levels 1 to 4)..."></textarea>
-        </label>
-        <label style="display:flex; flex-direction:column; gap:2px;">
-          <strong>Resource Flow Contract (Provides / Requires):</strong>
-          <input type="text" id="ntc-resources" class="win-select-input" placeholder="Provides: Resource-A | Requires: Resource-B">
-        </label>
-        <label style="display:flex; flex-direction:column; gap:2px;">
-          <strong>Authoring Brief / Acceptance Notes:</strong>
-          <textarea id="ntc-notes" class="win-select-input" rows="2" placeholder="Design goals, target encounters, fallout..."></textarea>
+          <strong id="ntc-notes-label">Authoring Brief &amp; Acceptance Notes:</strong>
+          <textarea id="ntc-notes" class="win-select-input" rows="3" placeholder="Design goals, target encounters, or reproduction &amp; acceptance criteria..."></textarea>
         </label>
       </div>
       <div class="dialog-footer" style="padding:6px 10px; justify-content:flex-end; gap:6px;">
