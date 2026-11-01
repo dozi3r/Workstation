@@ -4227,6 +4227,8 @@ async function testEdgeExplorerAndConduitCatalog() {
   assert(templateHtml.includes("openEntityManager('edge')") && templateHtml.includes('<strong>Edges</strong>'), 'template.html contains menu entries and toolbar button [Edges] (Ctrl+F11)');
   assert(modalsHtml.includes('id="em-tab-edge"') && modalsHtml.includes('id="modal-edge-create"'), 'entity_modals.html contains #em-tab-edge button and #modal-edge-create dialog');
   assert(crudCode.includes('function openCreateEdgeModal') && crudCode.includes('function submitCreateEdgeModal'), 'entity_crud_dialogs.js exports openCreateEdgeModal and submitCreateEdgeModal');
+  assert(emUiCode.includes('function escapeHtml'), 'entity_manager_ui.js exports escapeHtml');
+  assert(emUiCode.includes('function getEdgeDisplayInfo'), 'entity_manager_ui.js exports getEdgeDisplayInfo');
   assert(emUiCode.includes('function resolveEdgeEndpointsAndMetrics'), 'entity_manager_ui.js exports resolveEdgeEndpointsAndMetrics');
   assert(emUiCode.includes('function getEdgesForMapScope'), 'entity_manager_ui.js exports getEdgesForMapScope');
   assert(emUiCode.includes('function jumpToEdgeMap'), 'entity_manager_ui.js exports jumpToEdgeMap');
@@ -4413,6 +4415,32 @@ async function testEdgeExplorerAndConduitCatalog() {
 
   const modulesOnly = sandbox.getEdgesForMapScope('has:modules');
   assertEqual(modulesOnly.length, 1, 'Filter "has:modules" returns 1 edge with slotted modules');
+
+  // Test hardened edge display info (ADR 0020 & edge_explorer_endpoint_names_plan)
+  assert(typeof sandbox.escapeHtml === 'function', 'escapeHtml exposed in sandbox');
+  assertEqual(sandbox.escapeHtml('<script>&"\'</script>'), '&lt;script&gt;&amp;&quot;&#39;&lt;/script&gt;', 'escapeHtml safely escapes special HTML characters');
+
+  // Default / generic name edge
+  const defaultRoadEdge = { ...roadEdge, name: 'Corridor 1-2' };
+  const infoDefaultRoad = sandbox.getEdgeDisplayInfo(defaultRoadEdge);
+  assert(infoDefaultRoad.primaryTitle.includes('Bastion Alpha') && infoDefaultRoad.primaryTitle.includes('Outpost Beta'), 'Default road title contains both endpoint names');
+  assert(infoDefaultRoad.primaryTitle.includes('[#1]') && infoDefaultRoad.primaryTitle.includes('[#2]'), 'Default road title preserves node IDs for disambiguation');
+  assertEqual(infoDefaultRoad.dirArrow, '⮂', 'Road edge uses bidirectional arrow ⮂');
+  assertEqual(infoDefaultRoad.endpointsSubtitle, null, 'Default road title does not duplicate endpoints in subtitle');
+
+  // Author custom name with "Corridor" prefix preserved
+  const customNamedEdge = { ...roadEdge, name: 'Corridor of Whispers' };
+  const infoCustom = sandbox.getEdgeDisplayInfo(customNamedEdge);
+  assertEqual(infoCustom.primaryTitle, 'Corridor of Whispers', 'Author custom name with "Corridor" prefix is preserved');
+  assert(infoCustom.endpointsSubtitle !== null, 'Custom named edge includes endpoints in subtitle');
+  assert(infoCustom.endpointsSubtitle.includes('[#1] Bastion Alpha') && infoCustom.endpointsSubtitle.includes('[#2] Outpost Beta'), 'Custom named edge endpoints subtitle contains formatted endpoints');
+
+  // Directional hegemony vector display
+  const infoHegemony = sandbox.getEdgeDisplayInfo(hegemonyEdge);
+  assertEqual(infoHegemony.dirArrow, '➔', 'Hegemony edge uses directional arrow ➔');
+  assert(infoHegemony.endpointsText.includes('[#3] Keep Gamma ➔ [#2] Outpost Beta'), 'Hegemony endpoints text formats correctly with directional arrow');
+  assertEqual(infoHegemony.primaryTitle, 'Southern March', 'Hegemony custom name retained as primary title');
+  assertEqual(infoHegemony.endpointsSubtitle, '[#3] Keep Gamma ➔ [#2] Outpost Beta', 'Hegemony endpoints formatted in subtitle');
 
   // Test Detail Selection and Subtabs
   sandbox.selectEntityItem('1-2');

@@ -1,6 +1,52 @@
     // ========================================================================
     // UNIVERSAL CAMPAIGN ENTITY MANAGER - UI (TREE, LIST & INSPECTOR PANELS)
     // ========================================================================
+    function escapeHtml(str) {
+      if (str == null) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+    window.escapeHtml = escapeHtml;
+
+    function getEdgeDisplayInfo(edge) {
+      if (!edge) return { primaryTitle: 'Corridor', endpointsSubtitle: null, metaSubtitle: '', dirArrow: '⮂', uLabel: '', vLabel: '', endpointsText: '' };
+      const isHegem = edge.edgeType === 'hegemony';
+      const dirArrow = isHegem ? '➔' : '⮂';
+
+      const resolveLabel = (node, id) => {
+        if (!node) return `Node #${id}`;
+        if (typeof getNodeDisplayName === 'function') return getNodeDisplayName(node);
+        return node.displayName || node.name || `Node #${id}`;
+      };
+
+      const uLabel = resolveLabel(edge.uNode, edge.uId);
+      const vLabel = resolveLabel(edge.vNode, edge.vId);
+      const endpointsText = `[#${edge.uId}] ${uLabel} ${dirArrow} [#${edge.vId}] ${vLabel}`;
+
+      // Safe custom name check: only treat as generic if empty or exact default string
+      const isGeneric = !edge.name ||
+                        edge.name === `Corridor ${edge.edgeKey}` ||
+                        edge.name === `Corridor ${edge.pairKey}` ||
+                        edge.name === `Corridor Node ${edge.uId}-Node ${edge.vId}` ||
+                        edge.name === `Corridor Node ${edge.uId}->Node ${edge.vId}`;
+      const hasCustomName = !isGeneric;
+
+      return {
+        primaryTitle: hasCustomName ? edge.name : endpointsText,
+        endpointsSubtitle: hasCustomName ? endpointsText : null,
+        metaSubtitle: `Layer: ${edge.layerId || (isHegem ? 'layer-hegemony' : 'layer-roads')} • Key: ${edge.edgeKey}`,
+        dirArrow,
+        uLabel,
+        vLabel,
+        endpointsText
+      };
+    }
+    window.getEdgeDisplayInfo = getEdgeDisplayInfo;
+
     function escapeJsArg(str) {
       if (str === null || str === undefined) return '';
       return String(str).replace(/'/g, "\\'").replace(/"/g, '\\"');
@@ -934,12 +980,23 @@
           const escapedKey = escapeJsArg(edge.edgeKey);
           const escapedMapId = escapeJsArg(edge._mapId);
 
+          const displayInfo = getEdgeDisplayInfo(edge);
+          const nameCellHtml = displayInfo.endpointsSubtitle
+            ? `
+              <div style="font-weight:bold; color:#0f172a; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeHtml(displayInfo.primaryTitle)}">${escapeHtml(displayInfo.primaryTitle)}</div>
+              <div style="font-size:10px; color:#334155; font-weight:500; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeHtml(displayInfo.endpointsSubtitle)}">${escapeHtml(displayInfo.endpointsSubtitle)}</div>
+              <div style="font-size:9px; color:#64748b;">${escapeHtml(displayInfo.metaSubtitle)}</div>
+            `
+            : `
+              <div style="font-weight:bold; color:#0f172a; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeHtml(displayInfo.primaryTitle)}">${escapeHtml(displayInfo.primaryTitle)}</div>
+              <div style="font-size:9px; color:#64748b;">${escapeHtml(displayInfo.metaSubtitle)}</div>
+            `;
+
           tr.innerHTML = `
             <td><strong>${glyph} ${edge.edgeKey}</strong>${statusIcons}</td>
             ${mapCell}
             <td>
-              <div style="font-weight:bold; color:#0f172a;">${edge.name || `Corridor ${edge.edgeKey}`}</div>
-              <div style="font-size:9px; color:#64748b;">Layer: ${edge.layerId}</div>
+              ${nameCellHtml}
             </td>
             <td>
               <div style="display:flex; align-items:center; gap:2px; font-size:10px;">
@@ -1529,13 +1586,23 @@
           }).join('');
         }
 
+        const displayInfo = getEdgeDisplayInfo(edge);
+        const detailTitleHtml = displayInfo.endpointsSubtitle
+          ? `
+            <div style="font-size:12px; font-weight:bold; margin-top:2px; color:#0f172a;" title="${escapeHtml(displayInfo.primaryTitle)}">${escapeHtml(displayInfo.primaryTitle)}</div>
+            <div style="font-size:11px; color:#334155; font-weight:600; margin-top:1px;" title="${escapeHtml(displayInfo.endpointsSubtitle)}">${escapeHtml(displayInfo.endpointsSubtitle)}</div>
+          `
+          : `
+            <div style="font-size:12px; font-weight:bold; margin-top:2px; color:#0f172a;" title="${escapeHtml(displayInfo.primaryTitle)}">${escapeHtml(displayInfo.primaryTitle)}</div>
+          `;
+
         pane.innerHTML = `
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <div style="font-size:10px; color:#666; font-weight:bold;">${isHegem ? 'HEGEMONIC VECTOR' : 'TRANSIT CORRIDOR'} #${edge.edgeKey}</div>
               ${mapBadge}
             </div>
-            <div style="font-size:12px; font-weight:bold; margin-top:2px; color:#0f172a;">${edge.name || `Corridor ${edge.edgeKey}`}</div>
+            ${detailTitleHtml}
             <div style="display:flex; gap:3px; margin-top:4px; flex-wrap:wrap;">
               <span class="entity-badge-tag">${edge.edgeType.toUpperCase()}</span>
               <span class="entity-badge-tag">${edge.formattedDist}</span>

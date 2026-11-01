@@ -179,6 +179,11 @@
         const optGrpEdges = document.createElement('optgroup');
         optGrpEdges.label = '── Corridors & Conduits ──';
         const seenPairs = new Set();
+        const getNodeLabel = (id) => {
+          if (!topo || !topo.nodes) return `Node ${id}`;
+          const n = Array.isArray(topo.nodes) ? topo.nodes.find(x => x && String(x.id) === String(id)) : topo.nodes[String(id)];
+          return (typeof getNodeDisplayName === 'function') ? getNodeDisplayName(n) : (n ? (n.displayName || n.name || `Node ${id}`) : `Node ${id}`);
+        };
         Object.keys(topo.nodes).forEach(uKey => {
           const u = topo.nodes[uKey];
           const uId = u.id !== undefined ? u.id : uKey;
@@ -189,7 +194,7 @@
               seenPairs.add(pairKey);
               const opt = document.createElement('option');
               opt.value = `edge-road-${pairKey}`;
-              opt.textContent = `Road: ${pairKey.replace('-', ' <-> ')}`;
+              opt.textContent = `Road: [#${uId}] ${getNodeLabel(uId)} ⮂ [#${vId}] ${getNodeLabel(vId)}`;
               optGrpEdges.appendChild(opt);
             }
           });
@@ -197,7 +202,7 @@
           (u.infBy || []).forEach(srcId => {
             const opt = document.createElement('option');
             opt.value = `edge-hegemony-${srcId}->${uId}`;
-            opt.textContent = `Vector: ${srcId} -> ${uId}`;
+            opt.textContent = `Vector: [#${srcId}] ${getNodeLabel(srcId)} ➔ [#${uId}] ${getNodeLabel(uId)}`;
             optGrpEdges.appendChild(opt);
           });
         });
@@ -886,7 +891,14 @@
         // Category: Topology
         appendCategoryRow(tbody, 'Topology');
         appendPropRow(tbody, 'ID', node.id, false);
-        appendPropRow(tbody, 'Name', node.name, true, val => { node.name = val; renderCanvas(); saveActiveCampaign(); });
+        appendPropRow(tbody, 'Name', node.name, true, val => {
+          node.name = val;
+          renderCanvas();
+          saveActiveCampaign();
+          if (typeof CurrentEntityTab !== 'undefined' && CurrentEntityTab === 'edge' && typeof renderEntityManagerList === 'function') {
+            renderEntityManagerList();
+          }
+        });
 
         const layers = (typeof getTopologyLayers === 'function') ? getTopologyLayers(topo) : (topo.layers || []);
         appendSelectPropRow(tbody, 'Canvas Layer', node.layerId || 'layer-nodes', layers.map(l => ({ val: l.id, label: `${l.name}${l.isCore ? ' (Core)' : ''}` })), val => {
@@ -1381,6 +1393,19 @@
         const pairKey = [String(uId), String(vId)].sort().join('-');
         const edgeKey = isRoad ? pairKey : `${uId}->${vId}`;
 
+        // Safely look up nodes without assuming uName/vName exist in scope
+        const resolveNode = (id) => {
+          if (!topo || !topo.nodes) return null;
+          return Array.isArray(topo.nodes) 
+            ? topo.nodes.find(n => n && String(n.id) === String(id)) 
+            : topo.nodes[String(id)];
+        };
+        const uNode = resolveNode(uId);
+        const vNode = resolveNode(vId);
+        const uName = (typeof getNodeDisplayName === 'function') ? getNodeDisplayName(uNode) : (uNode ? (uNode.displayName || uNode.name) : `Node #${uId}`);
+        const vName = (typeof getNodeDisplayName === 'function') ? getNodeDisplayName(vNode) : (vNode ? (vNode.displayName || vNode.name) : `Node #${vId}`);
+        const dirArrow = isRoad ? '⮂' : '➔';
+
         // Ensure edge data dictionaries exist on activeTopology
         if (!topo.edgeData) topo.edgeData = {};
         if (!topo.edgeData[edgeKey]) {
@@ -1398,12 +1423,15 @@
         appendCategoryRow(tbody, 'Corridor Identity & Classification');
         appendPropRow(tbody, 'Corridor Type', isRoad ? 'TRANSIT ROAD (Bidirectional)' : 'HEGEMONY VECTOR (Directional)', false);
         appendPropRow(tbody, 'Edge Key', edgeKey, false);
-        appendPropRow(tbody, 'Endpoints', `Node ${uId} ${isRoad ? '<->' : '->'} Node ${vId}`, false);
+        appendPropRow(tbody, 'Endpoints', `[#${uId}] ${uName} ${dirArrow} [#${vId}] ${vName}`, false);
         appendPropRow(tbody, 'Custom Name', edgeRecord.name || '', true, val => {
           edgeRecord.name = val;
           renderCanvas();
           updateObjectSelector();
           saveActiveCampaign();
+          if (typeof CurrentEntityTab !== 'undefined' && CurrentEntityTab === 'edge' && typeof renderEntityManagerList === 'function') {
+            renderEntityManagerList();
+          }
         });
 
         const defaultEdgeLayer = isRoad ? 'layer-roads' : 'layer-hegemony';
@@ -1438,8 +1466,6 @@
         });
 
         // Cartographic metrics
-        const uNode = topo.nodes[String(uId)];
-        const vNode = topo.nodes[String(vId)];
         if (uNode && vNode) {
           const dist = Math.round(Math.hypot(vNode.x - uNode.x, vNode.y - uNode.y));
           const formattedDist = (typeof formatDistance === 'function') ? ` (${formatDistance(dist)})` : '';

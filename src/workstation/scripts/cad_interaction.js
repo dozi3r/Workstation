@@ -1182,6 +1182,9 @@
         }
 
         if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        if (typeof CurrentEntityTab !== 'undefined' && CurrentEntityTab === 'edge' && typeof renderEntityManagerList === 'function') {
+          renderEntityManagerList();
+        }
         if (typeof setStatusBarMessage === 'function') {
           setStatusBarMessage(`Deleted corridor on child map ${targetMap.name || targetMapId}: ${uId} -> ${vId}.`);
         }
@@ -1237,6 +1240,9 @@
       selectGlobal();
       renderCanvas();
       saveActiveCampaign();
+      if (typeof CurrentEntityTab !== 'undefined' && CurrentEntityTab === 'edge' && typeof renderEntityManagerList === 'function') {
+        renderEntityManagerList();
+      }
       setStatusBarMessage(`Deleted ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'}: ${uId} ${edgeType === 'hegemony' ? '->' : '<->'} ${vId}.`);
     }
 
