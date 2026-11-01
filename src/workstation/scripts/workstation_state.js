@@ -319,6 +319,10 @@
           title: 'Entity Module Pack Installer',
           icon: 'PI'
         });
+        MDIWindowManager.registerWindow('modal-social-graph', {
+          title: 'NPC Social Relational Graph',
+          icon: '🕸️'
+        });
       } catch (e) {
         console.error('[Workstation] MDIWindowManager registration error:', e);
       }

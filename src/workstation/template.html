@@ -196,6 +196,8 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openTicketCenter()">Ticket Command Center <span class="hotkey">F9</span></div>
           <div class="dropdown-row" onclick="openEntityManager('node')">Node Explorer <span class="hotkey">Ctrl+F10</span></div>
           <div class="dropdown-row" onclick="openEntityManager('edge')">Edge Explorer <span class="hotkey">Ctrl+F11</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openSocialGraphModal()"><strong>NPC Social Relational Graph...</strong> <span class="hotkey">Ctrl+Shift+S</span></div>
         </div>
       </div>
 
@@ -218,6 +220,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openCampaignExportModal()">6 Campaign Exporter <span class="hotkey">Ctrl+E</span></div>
           <div class="dropdown-row" onclick="openSurfaceCatalogModal()">7 System Surface Catalog <span class="hotkey">Ctrl+Shift+A</span></div>
           <div class="dropdown-row" onclick="toggleLayersPane()">8 Canvas Layers Manager <span class="hotkey">Ctrl+L</span></div>
+          <div class="dropdown-row" onclick="openSocialGraphModal()">9 NPC Social Relational Graph <span class="hotkey">Ctrl+Shift+S</span></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="togglePropertiesDock()">Properties Inspector <span class="hotkey">F4</span></div>
           <div class="dropdown-row" onclick="toggleToolPalette()">CAD Tool Palette</div>
@@ -702,6 +705,8 @@ CRITICAL INSTRUCTION:
 // @@INCLUDE: scripts/entity_crud_dialogs.js @@
 
 // @@INCLUDE: scripts/entity_cascade_delete.js @@
+
+// @@INCLUDE: scripts/social_graph_renderer.js @@
 
 // @@INCLUDE: scripts/module_explorer.js @@
 

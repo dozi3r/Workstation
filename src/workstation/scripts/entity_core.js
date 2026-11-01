@@ -137,7 +137,122 @@
     }
     window.toggleItemPossessionMode = toggleItemPossessionMode;
 
+    // --- Inter-NPC Relational Web & Social Graph (ADR 0021) ---
+    const INVERSE_RELATIONSHIPS = {
+      'Ally': 'Ally',
+      'Rival': 'Rival',
+      'Family': 'Family',
+      'Superior': 'Subordinate',
+      'Subordinate': 'Superior',
+      'Debtor': 'Creditor',
+      'Creditor': 'Debtor',
+      'Informant': 'Handler',
+      'Handler': 'Informant'
+    };
+    window.INVERSE_RELATIONSHIPS = INVERSE_RELATIONSHIPS;
+
+    function addNpcRelationship(sourceNpcId, targetNpcId, relationshipType, sentiment = 0, notes = '', isReciprocal = false) {
+      if (!sourceNpcId || !targetNpcId) return false;
+      const sId = String(sourceNpcId).trim();
+      const tId = String(targetNpcId).trim();
+      if (sId === tId) return false;
+
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      if (!topo) return false;
+      if (!Array.isArray(topo.npcs)) topo.npcs = [];
+
+      let sourceNpc = topo.npcs.find(n => String(n.id) === sId);
+      if (!sourceNpc && typeof promotePrototypeToCampaign === 'function') {
+        promotePrototypeToCampaign(sId);
+        sourceNpc = topo.npcs.find(n => String(n.id) === sId || String(n.prototypeId) === sId);
+      }
+      if (!sourceNpc) return false;
+
+      // Verify target NPC exists in roster or prototypes
+      let targetNpc = topo.npcs.find(n => String(n.id) === tId);
+      if (!targetNpc && typeof promotePrototypeToCampaign === 'function') {
+        promotePrototypeToCampaign(tId);
+        targetNpc = topo.npcs.find(n => String(n.id) === tId || String(n.prototypeId) === tId);
+      }
+
+      const relType = String(relationshipType || 'Ally').trim();
+      let sNum = parseInt(sentiment, 10);
+      if (isNaN(sNum)) sNum = 0;
+      sNum = Math.max(-100, Math.min(100, sNum));
+
+      if (!Array.isArray(sourceNpc.relationships)) sourceNpc.relationships = [];
+
+      const relRecord = {
+        targetNpcId: tId,
+        relationshipType: relType,
+        type: relType, // backward-compatibility alias
+        sentiment: sNum,
+        notes: String(notes || '')
+      };
+
+      const existingIdx = sourceNpc.relationships.findIndex(r => String(r.targetNpcId) === tId);
+      if (existingIdx >= 0) {
+        sourceNpc.relationships[existingIdx] = relRecord;
+      } else {
+        sourceNpc.relationships.push(relRecord);
+      }
+
+      // Handle reciprocal tie creation
+      if (isReciprocal && targetNpc) {
+        const invType = INVERSE_RELATIONSHIPS[relType] || relType;
+        addNpcRelationship(tId, sId, invType, sNum, notes, false);
+      }
+
+      if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+      if (typeof selectEntityItem === 'function' && typeof CurrentEntityTab !== 'undefined' && CurrentEntityTab === 'npc') {
+        selectEntityItem(sourceNpc.id, false);
+      }
+      if (typeof setStatusBarMessage === 'function') {
+        const targetName = targetNpc ? targetNpc.name : `NPC [${tId}]`;
+        setStatusBarMessage(`Added relationship: ${sourceNpc.name} -> ${relType} -> ${targetName} (${sNum >= 0 ? '+' : ''}${sNum}).`);
+      }
+      if (typeof renderSocialGraph === 'function') renderSocialGraph();
+      return true;
+    }
+    window.addNpcRelationship = addNpcRelationship;
+
+    function removeNpcRelationship(sourceNpcId, targetNpcId, isReciprocal = true) {
+      if (!sourceNpcId || !targetNpcId) return false;
+      const sId = String(sourceNpcId).trim();
+      const tId = String(targetNpcId).trim();
+
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      if (!topo || !Array.isArray(topo.npcs)) return false;
+
+      const sourceNpc = topo.npcs.find(n => String(n.id) === sId);
+      if (sourceNpc && Array.isArray(sourceNpc.relationships)) {
+        sourceNpc.relationships = sourceNpc.relationships.filter(r => String(r.targetNpcId) !== tId);
+      }
+
+      if (isReciprocal) {
+        const targetNpc = topo.npcs.find(n => String(n.id) === tId);
+        if (targetNpc && Array.isArray(targetNpc.relationships)) {
+          targetNpc.relationships = targetNpc.relationships.filter(r => String(r.targetNpcId) !== sId);
+        }
+      }
+
+      if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+      if (typeof selectEntityItem === 'function' && typeof CurrentEntityTab !== 'undefined' && CurrentEntityTab === 'npc') {
+        selectEntityItem(sId, false);
+      }
+      if (typeof setStatusBarMessage === 'function') setStatusBarMessage("Relationship removed.");
+      if (typeof renderSocialGraph === 'function') renderSocialGraph();
+      return true;
+    }
+    window.removeNpcRelationship = removeNpcRelationship;
+
     function promptAddNpcRelationship(sourceNpcId) {
+      if (typeof openAddNpcRelationshipModal === 'function') {
+        openAddNpcRelationshipModal(sourceNpcId);
+        return;
+      }
       const topo = Workstation.activeTopology;
       const activeList = getActiveEntityList('npc');
       let sourceNpc = activeList.find(n => n.id === sourceNpcId || n.prototypeId === sourceNpcId);
@@ -160,35 +275,13 @@
         alert("Invalid selection.");
         return;
       }
-      const relType = prompt(`Enter relationship type (Ally, Rival, Superior, Subordinate, Debtor, Creditor, Kin, Blackmailer):`, 'Rival');
+      const relType = prompt(`Enter relationship type (Ally, Rival, Family, Superior, Subordinate, Debtor, Creditor, Informant, Handler):`, 'Rival');
       if (!relType) return;
       const relNotes = prompt(`Enter context notes between ${sourceNpc.name} and ${targetNpc.name}:`, '');
 
-      if (!Array.isArray(sourceNpc.relationships)) sourceNpc.relationships = [];
-      sourceNpc.relationships.push({
-        targetNpcId: targetNpc.id,
-        type: relType,
-        notes: relNotes || ''
-      });
-
-      saveActiveCampaign();
-      renderEntityManagerList();
-      selectEntityItem(sourceNpc.id, false);
-      setStatusBarMessage(`Added relationship: ${sourceNpc.name} -> ${relType} -> ${targetNpc.name}.`);
+      addNpcRelationship(sourceNpc.id, targetNpc.id, relType, 0, relNotes || '', true);
     }
     window.promptAddNpcRelationship = promptAddNpcRelationship;
-
-    function removeNpcRelationship(sourceNpcId, targetNpcId) {
-      const topo = Workstation.activeTopology;
-      const sourceNpc = (topo.npcs || []).find(n => n.id === sourceNpcId);
-      if (!sourceNpc || !Array.isArray(sourceNpc.relationships)) return;
-      sourceNpc.relationships = sourceNpc.relationships.filter(r => r.targetNpcId !== targetNpcId);
-      saveActiveCampaign();
-      renderEntityManagerList();
-      selectEntityItem(sourceNpc.id, false);
-      setStatusBarMessage("Relationship removed.");
-    }
-    window.removeNpcRelationship = removeNpcRelationship;
 
 
     // --- Entity Collection & Prototype Seeding ---

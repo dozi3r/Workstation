@@ -2182,38 +2182,67 @@
 
         // 5. Inter-NPC Relationships (Outbound & Inbound)
         const outboundRels = Array.isArray(npcObj.relationships) ? npcObj.relationships : [];
-        const inboundRels = (topo.npcs || []).filter(other => other.id !== npcObj.id && Array.isArray(other.relationships) && other.relationships.some(r => r.targetNpcId === npcObj.id)).map(other => {
-          const matchingRel = other.relationships.find(r => r.targetNpcId === npcObj.id);
+        const inboundRels = (topo.npcs || []).filter(other => other.id !== npcObj.id && Array.isArray(other.relationships) && other.relationships.some(r => String(r.targetNpcId) === String(npcObj.id))).map(other => {
+          const matchingRel = other.relationships.find(r => String(r.targetNpcId) === String(npcObj.id));
           return {
             sourceNpc: other,
             rel: matchingRel
           };
         });
 
+        const relTypeColors = {
+          'Ally': '#16a34a', 'Rival': '#dc2626', 'Family': '#9333ea',
+          'Superior': '#0284c7', 'Subordinate': '#0891b2',
+          'Debtor': '#ea580c', 'Creditor': '#d97706',
+          'Informant': '#4f46e5', 'Handler': '#2563eb'
+        };
+
         let relsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No recorded social relationships.</div>';
         if (outboundRels.length > 0 || inboundRels.length > 0) {
           const outItems = outboundRels.map(r => {
-            const targetNpc = (topo.npcs || []).find(n => n.id === r.targetNpcId);
+            const targetNpc = (topo.npcs || []).find(n => String(n.id) === String(r.targetNpcId));
             const targetName = targetNpc ? targetNpc.name : `NPC [${r.targetNpcId}]`;
+            const rType = r.relationshipType || r.type || 'Connected';
+            const col = relTypeColors[rType] || '#0f172a';
+            const s = typeof r.sentiment === 'number' ? r.sentiment : 0;
+            const sBadge = (s > 0)
+              ? `<span style="font-size:8.5px; padding:1px 4px; border-radius:2px; font-weight:bold; background:#dcfce7; color:#15803d; border:1px solid #86efac;">+${s}</span>`
+              : (s < 0)
+              ? `<span style="font-size:8.5px; padding:1px 4px; border-radius:2px; font-weight:bold; background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5;">${s}</span>`
+              : `<span style="font-size:8.5px; padding:1px 4px; border-radius:2px; font-weight:bold; background:#f1f5f9; color:#64748b; border:1px solid #cbd5e1;">0</span>`;
+
             return `
               <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:2px;">
-                <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
-                  <strong style="color:#0f172a; font-size:10px;">→ ${r.type}:</strong> <span style="font-size:10px;">${targetName}</span>
+                <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px; flex:1;">
+                  <strong style="color:${col}; font-size:10px;">→ ${rType}:</strong> 
+                  <span style="font-size:10px; font-weight:bold; cursor:pointer; color:#1e1b4b;" onclick="navigateToEntity('npc', '${r.targetNpcId}')">${targetName}</span>
+                  ${sBadge}
                   ${r.notes ? `<div style="font-size:9px; color:#64748b; font-style:italic;">${r.notes}</div>` : ''}
                 </div>
                 <div style="display:flex; gap:2px;">
-                  <button class="win-btn" onclick="navigateToEntity('npc', '${r.targetNpcId}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
-                  <button class="win-btn" onclick="removeNpcRelationship('${npcObj.id}', '${r.targetNpcId}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;">X</button>
+                  <button class="win-btn" onclick="openAddNpcRelationshipModal('${npcObj.id}', '${r.targetNpcId}')" style="font-size:9px; padding:1px 4px;" title="Edit relationship">Edit</button>
+                  <button class="win-btn" onclick="removeNpcRelationship('${npcObj.id}', '${r.targetNpcId}', true)" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete relationship">X</button>
                 </div>
               </div>
             `;
           }).join('');
 
           const inItems = inboundRels.map(ib => {
+            const inType = ib.rel.relationshipType || ib.rel.type || 'Connected';
+            const col = relTypeColors[inType] || '#0f766e';
+            const s = typeof ib.rel.sentiment === 'number' ? ib.rel.sentiment : 0;
+            const sBadge = (s > 0)
+              ? `<span style="font-size:8.5px; padding:1px 4px; border-radius:2px; font-weight:bold; background:#dcfce7; color:#15803d; border:1px solid #86efac;">+${s}</span>`
+              : (s < 0)
+              ? `<span style="font-size:8.5px; padding:1px 4px; border-radius:2px; font-weight:bold; background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5;">${s}</span>`
+              : `<span style="font-size:8.5px; padding:1px 4px; border-radius:2px; font-weight:bold; background:#f1f5f9; color:#64748b; border:1px solid #cbd5e1;">0</span>`;
+
             return `
               <div style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:2px;">
-                <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
-                  <strong style="color:#0f766e; font-size:10px;">← Viewed as ${ib.rel.type} by:</strong> <span style="font-size:10px;">${ib.sourceNpc.name}</span>
+                <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px; flex:1;">
+                  <strong style="color:${col}; font-size:10px;">← Viewed as ${inType} by:</strong> 
+                  <span style="font-size:10px; font-weight:bold; cursor:pointer; color:#1e1b4b;" onclick="navigateToEntity('npc', '${ib.sourceNpc.id}')">${ib.sourceNpc.name}</span>
+                  ${sBadge}
                   ${ib.rel.notes ? `<div style="font-size:9px; color:#64748b; font-style:italic;">${ib.rel.notes}</div>` : ''}
                 </div>
                 <button class="win-btn" onclick="navigateToEntity('npc', '${ib.sourceNpc.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
@@ -2364,11 +2393,14 @@
               </div>
             ` : ''}
 
-            <!-- Inter-NPC Social Graph -->
+            <!-- Inter-NPC Social Web & Relational Graph -->
             <div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
-                <strong style="font-size:10px;">👥 Inter-NPC Relationships:</strong>
-                <button class="win-btn" onclick="promptAddNpcRelationship('${npcObj.id}')" style="font-size:9px; padding:1px 4px;">+ Add Tie...</button>
+                <strong style="font-size:10px;">👥 Social Web &amp; Relationships (${outboundRels.length + inboundRels.length}):</strong>
+                <div style="display:flex; gap:3px;">
+                  <button class="win-btn" onclick="openAddNpcRelationshipModal('${npcObj.id}')" style="font-size:9px; padding:1px 5px;">+ Add Tie...</button>
+                  <button class="win-btn" onclick="openSocialGraphModal('${npcObj.id}')" style="font-size:9px; padding:1px 5px; font-weight:bold; color:#312e81;" title="Open interactive 2D SVG Social Graph">🕸️ Graph</button>
+                </div>
               </div>
               ${relsHtml}
             </div>

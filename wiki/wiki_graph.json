@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T03:17:21.280Z",
-  "totalFiles": 299,
+  "generatedAt": "2026-11-01T03:26:49.957Z",
+  "totalFiles": 300,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2580,
+  "totalBidirectionalEdges": 2589,
   "staleCount": 0,
   "nodes": [
     {
@@ -2448,6 +2448,12 @@
         },
         {
           "target": "src/workstation/scripts/selective_importer.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "target": "src/workstation/scripts/social_graph_renderer.js",
           "targetType": "file",
           "type": "Bundles Source",
           "reason": "Inlines modular source during suite compilation"
@@ -28702,10 +28708,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "57171a9acca5b4c3",
-      "reviewedHash": "57171a9acca5b4c3",
-      "lineCount": 420,
-      "sizeBytes": 25259,
+      "hash": "bea04b4818d8b764",
+      "reviewedHash": "bea04b4818d8b764",
+      "lineCount": 480,
+      "sizeBytes": 29498,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -28787,10 +28793,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "29911440b0099d7a",
-      "reviewedHash": "29911440b0099d7a",
-      "lineCount": 383,
-      "sizeBytes": 27103,
+      "hash": "608c94857af2c112",
+      "reviewedHash": "608c94857af2c112",
+      "lineCount": 457,
+      "sizeBytes": 32741,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -29725,10 +29731,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "728d9ae20ed039e1",
-      "reviewedHash": "728d9ae20ed039e1",
-      "lineCount": 1205,
-      "sizeBytes": 53480,
+      "hash": "44167d2cede4a6db",
+      "reviewedHash": "44167d2cede4a6db",
+      "lineCount": 1214,
+      "sizeBytes": 54387,
       "symbols": [
         "getEntityIcon(type)",
         "analyzeEntityDependencies(targetType, targetId)",
@@ -29899,18 +29905,19 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "672f6101cd14672a",
-      "reviewedHash": "672f6101cd14672a",
-      "lineCount": 769,
-      "sizeBytes": 31584,
+      "hash": "72d28daf4cbc98dc",
+      "reviewedHash": "72d28daf4cbc98dc",
+      "lineCount": 862,
+      "sizeBytes": 35669,
       "symbols": [
         "getItemEffectiveNodeId(item)",
         "computeNpcNodeDissonance(npc, node)",
         "setNpcPartyDisposition(npcId, delta)",
         "toggleNpcSecretRevealed(npcId, secretIndex)",
         "toggleItemPossessionMode(itemId, isProto)",
+        "addNpcRelationship(sourceNpcId, targetNpcId, relationshipType, sentiment = 0, notes = '', isReciprocal = false)",
+        "removeNpcRelationship(sourceNpcId, targetNpcId, isReciprocal = true)",
         "promptAddNpcRelationship(sourceNpcId)",
-        "removeNpcRelationship(sourceNpcId, targetNpcId)",
         "getPrototypesForType(type)",
         "getActiveEntityList(type)",
         "advanceTrackerTick(trackerId, delta)",
@@ -29986,6 +29993,12 @@
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes selectNode() defined in property_grid_inspector.js"
+        },
+        {
+          "target": "src/workstation/scripts/social_graph_renderer.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderSocialGraph() defined in social_graph_renderer.js"
         },
         {
           "target": "src/workstation/scripts/state_adapter.js",
@@ -30066,6 +30079,12 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes getDemographicNames() defined in entity_core.js"
+        },
+        {
+          "source": "src/workstation/scripts/social_graph_renderer.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes addNpcRelationship() defined in entity_core.js"
         },
         {
           "source": "src/workstation/template.html",
@@ -30205,10 +30224,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "177e186e04808312",
-      "reviewedHash": "177e186e04808312",
-      "lineCount": 2459,
-      "sizeBytes": 145108,
+      "hash": "165ee91a544c0440",
+      "reviewedHash": "165ee91a544c0440",
+      "lineCount": 2491,
+      "sizeBytes": 147808,
       "symbols": [
         "escapeJsArg(str)",
         "getNodesForMapScope(scope = 'all')",
@@ -30299,6 +30318,12 @@
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes selectNode() defined in property_grid_inspector.js"
+        },
+        {
+          "target": "src/workstation/scripts/social_graph_renderer.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes openSocialGraphModal() defined in social_graph_renderer.js"
         },
         {
           "target": "src/workstation/scripts/state_adapter.js",
@@ -30397,6 +30422,12 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes renderEntityManagerTree() defined in entity_manager_ui.js"
+        },
+        {
+          "source": "src/workstation/scripts/social_graph_renderer.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes openEntityManager() defined in entity_manager_ui.js"
         },
         {
           "source": "src/workstation/scripts/state_adapter.js",
@@ -31170,6 +31201,12 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes closeModal() defined in mdi_window_manager.js"
+        },
+        {
+          "source": "src/workstation/scripts/social_graph_renderer.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes openModal() defined in mdi_window_manager.js"
         },
         {
           "source": "src/workstation/scripts/state_adapter.js",
@@ -32095,6 +32132,94 @@
       ]
     },
     {
+      "relPath": "src/workstation/scripts/social_graph_renderer.js",
+      "title": "social_graph_renderer.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "stale": false,
+      "hash": "41397ba69215ac8b",
+      "reviewedHash": "41397ba69215ac8b",
+      "lineCount": 641,
+      "sizeBytes": 28348,
+      "symbols": [
+        "stringHash(str)",
+        "generateSocialGraphSvg(topo, options = {})",
+        "openSocialGraphModal(focusNpcId = null)",
+        "syncSocialGraphControls()",
+        "setSocialGraphFocus(npcId)",
+        "resetSocialGraphView()",
+        "renderSocialGraph()",
+        "renderSocialGraphSidebar()",
+        "handleSocialGraphNodeClick(nodeId)",
+        "handleSocialGraphNodeDblClick(nodeId)",
+        "openAddNpcRelationshipModal(sourceNpcId, targetNpcId = null)",
+        "updateReciprocalHint()",
+        "updateRelSentimentDisplay(val)",
+        "submitNpcRelationshipModal()"
+      ],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "src/workstation/template.html",
+          "targetType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "target": "src/workstation/scripts/entity_core.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes addNpcRelationship() defined in entity_core.js"
+        },
+        {
+          "target": "src/workstation/scripts/entity_manager_ui.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes openEntityManager() defined in entity_manager_ui.js"
+        },
+        {
+          "target": "src/workstation/scripts/mdi_window_manager.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes openModal() defined in mdi_window_manager.js"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "src/workstation/scripts/entity_core.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderSocialGraph() defined in social_graph_renderer.js"
+        },
+        {
+          "source": "src/workstation/scripts/entity_manager_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes openSocialGraphModal() defined in social_graph_renderer.js"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "source": "src/workstation/template.html",
+          "sourceType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/social_graph_renderer.js @@"
+        }
+      ]
+    },
+    {
       "relPath": "src/workstation/scripts/sociology_data.js",
       "title": "sociology_data.js",
       "volume": "vol-4",
@@ -33007,10 +33132,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "1a9f01320d62d9eb",
-      "reviewedHash": "1a9f01320d62d9eb",
-      "lineCount": 1508,
-      "sizeBytes": 74622,
+      "hash": "4760da98525d9b89",
+      "reviewedHash": "4760da98525d9b89",
+      "lineCount": 1512,
+      "sizeBytes": 74772,
       "symbols": [
         "ensureBuiltinModulesBaseline()",
         "createSterileTopology(options = {})",
@@ -33567,10 +33692,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "a95f12ba933faecf",
-      "reviewedHash": "a95f12ba933faecf",
-      "lineCount": 723,
-      "sizeBytes": 48110,
+      "hash": "9bc5059973b7e6ef",
+      "reviewedHash": "9bc5059973b7e6ef",
+      "lineCount": 728,
+      "sizeBytes": 48520,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -33713,6 +33838,12 @@
           "targetType": "file",
           "type": "Template Include",
           "reason": "Inlined via @@INCLUDE: scripts/entity_cascade_delete.js @@"
+        },
+        {
+          "target": "src/workstation/scripts/social_graph_renderer.js",
+          "targetType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/social_graph_renderer.js @@"
         },
         {
           "target": "src/workstation/scripts/module_explorer.js",
@@ -34047,6 +34178,12 @@
           "reason": "Assembled into master Workstation template"
         },
         {
+          "source": "src/workstation/scripts/social_graph_renderer.js",
+          "sourceType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
           "source": "src/workstation/scripts/sociology_data.js",
           "sourceType": "file",
           "type": "Included By Template",
@@ -34096,10 +34233,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "740b4e6a38edf49b",
-      "reviewedHash": "740b4e6a38edf49b",
-      "lineCount": 45487,
-      "sizeBytes": 6026286,
+      "hash": "a9022b07e729ef84",
+      "reviewedHash": "a9022b07e729ef84",
+      "lineCount": 46402,
+      "sizeBytes": 6072712,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -35491,6 +35628,12 @@
           "reason": "Bundled into standalone offline workstation via build_suite.js"
         },
         {
+          "source": "src/workstation/scripts/social_graph_renderer.js",
+          "sourceType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
           "source": "src/workstation/scripts/sociology_data.js",
           "sourceType": "file",
           "type": "Compiles Into",
@@ -36005,10 +36148,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "2060b22631dece99",
-      "reviewedHash": "2060b22631dece99",
-      "lineCount": 4642,
-      "sizeBytes": 218055,
+      "hash": "3f9b062bddffb43c",
+      "reviewedHash": "3f9b062bddffb43c",
+      "lineCount": 4788,
+      "sizeBytes": 226791,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -36045,6 +36188,7 @@
         "mockEl(id)",
         "testSociologyReferenceHubAndHermeneutics()",
         "testFirstClassFactionsEntityEngine()",
+        "testNpcSocialWebAndRelationalGraph()",
         "runAll()"
       ],
       "globals": [
@@ -37798,14 +37942,20 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
-      "name": "promptAddNpcRelationship",
-      "signature": "promptAddNpcRelationship(sourceNpcId)",
+      "name": "addNpcRelationship",
+      "signature": "addNpcRelationship(sourceNpcId, targetNpcId, relationshipType, sentiment = 0, notes = '', isReciprocal = false)",
       "file": "src/workstation/scripts/entity_core.js",
       "kind": "Workstation Modular JS Engine"
     },
     {
       "name": "removeNpcRelationship",
-      "signature": "removeNpcRelationship(sourceNpcId, targetNpcId)",
+      "signature": "removeNpcRelationship(sourceNpcId, targetNpcId, isReciprocal = true)",
+      "file": "src/workstation/scripts/entity_core.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "promptAddNpcRelationship",
+      "signature": "promptAddNpcRelationship(sourceNpcId)",
       "file": "src/workstation/scripts/entity_core.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -39646,6 +39796,90 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "stringHash",
+      "signature": "stringHash(str)",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "generateSocialGraphSvg",
+      "signature": "generateSocialGraphSvg(topo, options = {})",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "openSocialGraphModal",
+      "signature": "openSocialGraphModal(focusNpcId = null)",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "syncSocialGraphControls",
+      "signature": "syncSocialGraphControls()",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "setSocialGraphFocus",
+      "signature": "setSocialGraphFocus(npcId)",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "resetSocialGraphView",
+      "signature": "resetSocialGraphView()",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "renderSocialGraph",
+      "signature": "renderSocialGraph()",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "renderSocialGraphSidebar",
+      "signature": "renderSocialGraphSidebar()",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "handleSocialGraphNodeClick",
+      "signature": "handleSocialGraphNodeClick(nodeId)",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "handleSocialGraphNodeDblClick",
+      "signature": "handleSocialGraphNodeDblClick(nodeId)",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "openAddNpcRelationshipModal",
+      "signature": "openAddNpcRelationshipModal(sourceNpcId, targetNpcId = null)",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "updateReciprocalHint",
+      "signature": "updateReciprocalHint()",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "updateRelSentimentDisplay",
+      "signature": "updateRelSentimentDisplay(val)",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "submitNpcRelationshipModal",
+      "signature": "submitNpcRelationshipModal()",
+      "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "getArchetypeDetails",
       "signature": "getArchetypeDetails(s, e, c)",
       "file": "src/workstation/scripts/sociology_data.js",
@@ -41022,6 +41256,12 @@
     {
       "name": "testFirstClassFactionsEntityEngine",
       "signature": "testFirstClassFactionsEntityEngine()",
+      "file": "test/run_tests.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "testNpcSocialWebAndRelationalGraph",
+      "signature": "testNpcSocialWebAndRelationalGraph()",
       "file": "test/run_tests.js",
       "kind": "Node.js / Browser Engine Script"
     },

@@ -417,3 +417,63 @@
       </div>
     </div>
   </div>
+
+  <!-- ========================================================================
+       MODAL: NPC RELATIONSHIP CRUD & SOCIAL TIE EDITOR
+       ======================================================================== -->
+  <div id="modal-npc-relationship-crud" class="modal-overlay hidden" style="z-index:9998;">
+    <div class="win-dialog bevel-outset" style="width:480px; max-width:92vw;">
+      <div class="title-bar" style="background:linear-gradient(90deg, #1e1b4b, #4338ca);">
+        <div class="title-bar-text"><span id="rel-modal-title">Configure Social Relationship</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-npc-relationship-crud')">X</button></div>
+      </div>
+      <div class="dialog-body" style="padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <input type="hidden" id="rel-source-id" value="">
+        <div style="font-size:11px;">
+          <strong>Source Character:</strong> <span id="rel-source-name" style="font-weight:bold; color:#1e1b4b;"></span>
+        </div>
+        <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <strong>Target Character:</strong>
+          <select id="rel-target-id" class="win-select-input"></select>
+        </label>
+        <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <strong>Relationship Archetype:</strong>
+          <select id="rel-type-select" class="win-select-input">
+            <option value="Ally">Ally (Mutual allegiance &amp; support)</option>
+            <option value="Rival">Rival (Competitive or adversarial friction)</option>
+            <option value="Family">Family (Kinship, bloodline, or clan ties)</option>
+            <option value="Superior">Superior (Holds authority / command over target)</option>
+            <option value="Subordinate">Subordinate (Serves under target's direction)</option>
+            <option value="Debtor">Debtor (Owes favor, coin, or blood to target)</option>
+            <option value="Creditor">Creditor (Holds debt or obligation over target)</option>
+            <option value="Informant">Informant (Passes intelligence to target)</option>
+            <option value="Handler">Handler (Directs or maneuvers informant target)</option>
+          </select>
+        </label>
+        <div style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>Sentiment Rating (-100 to +100):</strong>
+            <span id="rel-sentiment-val" style="font-weight:bold; padding:1px 6px; border-radius:2px; background:#f1f5f9; color:#475569;">0</span>
+          </div>
+          <input type="range" id="rel-sentiment-slider" min="-100" max="100" value="0" step="5" style="width:100%;" oninput="updateRelSentimentDisplay(this.value)">
+          <div style="display:flex; justify-content:space-between; font-size:9px; color:#64748b;">
+            <span>-100 (Bitter Enmity)</span>
+            <span>0 (Neutral / Transactional)</span>
+            <span>+100 (Absolute Devotion)</span>
+          </div>
+        </div>
+        <label style="display:flex; align-items:center; gap:6px; font-size:11px; margin-top:2px;">
+          <input type="checkbox" id="rel-reciprocal-check" checked>
+          <span><strong>Create reciprocal tie on target</strong> (<span id="rel-reciprocal-hint">Inverse: Ally</span>)</span>
+        </label>
+        <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <strong>Context &amp; Narrative Notes:</strong>
+          <textarea id="rel-notes-input" class="win-select-input" rows="2" placeholder="Owed favors, historic betrayals, secret pacts..."></textarea>
+        </label>
+        <div class="dialog-footer" style="justify-content:flex-end; gap:6px; margin-top:6px;">
+          <button class="win-btn" type="button" onclick="closeModal('modal-npc-relationship-crud')">Cancel</button>
+          <button class="win-btn" type="button" onclick="submitNpcRelationshipModal()" style="font-weight:bold; background:#000080; color:#fff; min-width:80px;">Save Tie</button>
+        </div>
+      </div>
+    </div>
+  </div>

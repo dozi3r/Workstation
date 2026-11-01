@@ -4590,6 +4590,151 @@ function testFirstClassFactionsEntityEngine() {
 }
 
 // ============================================================================
+// SUITE 28: NPC SOCIAL WEB & RELATIONAL GRAPH (ADR 0021)
+// ============================================================================
+function testNpcSocialWebAndRelationalGraph() {
+  console.log('\n--> SUITE 28: NPC Social Web & Relational Graph (ADR 0021)...');
+
+  const statePath = path.join(ROOT_DIR, 'src/workstation/scripts/workstation_state.js');
+  const entityCorePath = path.join(ROOT_DIR, 'src/workstation/scripts/entity_core.js');
+  const cascadePath = path.join(ROOT_DIR, 'src/workstation/scripts/entity_cascade_delete.js');
+  const socialGraphPath = path.join(ROOT_DIR, 'src/workstation/scripts/social_graph_renderer.js');
+
+  const stateCode = fs.readFileSync(statePath, 'utf8');
+  const entityCoreCode = fs.readFileSync(entityCorePath, 'utf8');
+  const cascadeCode = fs.readFileSync(cascadePath, 'utf8');
+  const socialGraphCode = fs.readFileSync(socialGraphPath, 'utf8');
+
+  const sandbox = {
+    window: {},
+    document: {
+      querySelectorAll: () => [],
+      getElementById: () => null,
+      addEventListener: () => {}
+    },
+    addEventListener: () => {},
+    console,
+    Math,
+    localStorage: {
+      _data: {},
+      getItem(k) { return this._data[k] || null; },
+      setItem(k, v) { this._data[k] = String(v); },
+      removeItem(k) { delete this._data[k]; }
+    }
+  };
+  sandbox.window = sandbox;
+  vm.createContext(sandbox);
+
+  vm.runInContext(stateCode, sandbox);
+  vm.runInContext(entityCoreCode, sandbox);
+  vm.runInContext(cascadeCode, sandbox);
+  vm.runInContext(socialGraphCode, sandbox);
+
+  // Setup active topology with NPCs across multiple factions
+  sandbox.Workstation.activeTopology = {
+    id: 'map_root',
+    nodes: {
+      '1': { id: 1, name: 'The Citadel' },
+      '2': { id: 2, name: 'The Under-Bazaar' }
+    },
+    npcs: [
+      { id: 'npc_archon', name: 'Archon Malakar', role: 'High Inquisitor', factionId: 'fac_hierarchy' },
+      { id: 'npc_captain', name: 'Captain Mara', role: 'Guard Captain', factionId: 'fac_hierarchy' },
+      { id: 'npc_smuggler', name: 'Corin the Sly', role: 'Shadow Merchant', factionId: 'fac_market' },
+      { id: 'npc_sage', name: 'Elder Althea', role: 'Archivist', factionId: 'fac_clan' }
+    ],
+    factions: [
+      { id: 'fac_hierarchy', name: 'Iron Ascendancy', cvfQuadrant: 'Hierarchy' },
+      { id: 'fac_market', name: 'Gilded Consortium', cvfQuadrant: 'Market' },
+      { id: 'fac_clan', name: 'Kindred of the Oak', cvfQuadrant: 'Clan' }
+    ]
+  };
+
+  // 1. INVERSE_RELATIONSHIPS semantic mapping
+  assert(sandbox.INVERSE_RELATIONSHIPS !== undefined, 'entity_core exports INVERSE_RELATIONSHIPS');
+  assertEqual(sandbox.INVERSE_RELATIONSHIPS['Superior'], 'Subordinate', 'Inverse of Superior is Subordinate');
+  assertEqual(sandbox.INVERSE_RELATIONSHIPS['Subordinate'], 'Superior', 'Inverse of Subordinate is Superior');
+  assertEqual(sandbox.INVERSE_RELATIONSHIPS['Ally'], 'Ally', 'Inverse of Ally is Ally');
+  assertEqual(sandbox.INVERSE_RELATIONSHIPS['Rival'], 'Rival', 'Inverse of Rival is Rival');
+  assertEqual(sandbox.INVERSE_RELATIONSHIPS['Debtor'], 'Creditor', 'Inverse of Debtor is Creditor');
+  assertEqual(sandbox.INVERSE_RELATIONSHIPS['Informant'], 'Handler', 'Inverse of Informant is Handler');
+
+  // 2. addNpcRelationship & sentiment clamping
+  // Test invalid / self-referential
+  assert(!sandbox.addNpcRelationship('npc_archon', 'npc_archon', 'Ally', 50, '', false), 'Self-referential relationship rejected');
+  assert(!sandbox.addNpcRelationship('', 'npc_captain', 'Ally', 50, '', false), 'Empty source ID rejected');
+
+  // Test adding directional tie with sentiment clamping
+  sandbox.addNpcRelationship('npc_archon', 'npc_captain', 'Superior', 250, 'Commands the city guard', true);
+  const archon = sandbox.Workstation.activeTopology.npcs.find(n => n.id === 'npc_archon');
+  const captain = sandbox.Workstation.activeTopology.npcs.find(n => n.id === 'npc_captain');
+
+  assert(Array.isArray(archon.relationships) && archon.relationships.length === 1, 'Archon has 1 relationship');
+  assertEqual(archon.relationships[0].targetNpcId, 'npc_captain', 'Target ID is string npc_captain');
+  assertEqual(archon.relationships[0].relationshipType, 'Superior', 'Relationship type is Superior');
+  assertEqual(archon.relationships[0].sentiment, 100, 'Sentiment clamped from 250 to 100');
+  assertEqual(archon.relationships[0].notes, 'Commands the city guard', 'Notes preserved');
+
+  // Reciprocal tie check on Captain
+  assert(Array.isArray(captain.relationships) && captain.relationships.length === 1, 'Captain received reciprocal tie');
+  assertEqual(captain.relationships[0].targetNpcId, 'npc_archon', 'Reciprocal target is npc_archon');
+  assertEqual(captain.relationships[0].relationshipType, 'Subordinate', 'Reciprocal type inverted to Subordinate');
+  assertEqual(captain.relationships[0].sentiment, 100, 'Reciprocal sentiment matches');
+
+  // Test negative sentiment clamping (-200 -> -100) and Informant/Handler
+  sandbox.addNpcRelationship('npc_smuggler', 'npc_archon', 'Informant', -200, 'Blackmailed into feeding intel', true);
+  const smuggler = sandbox.Workstation.activeTopology.npcs.find(n => n.id === 'npc_smuggler');
+  const archonRels = archon.relationships;
+  assertEqual(smuggler.relationships[0].sentiment, -100, 'Negative sentiment clamped to -100');
+  assertEqual(smuggler.relationships[0].relationshipType, 'Informant', 'Smuggler is Informant');
+  const archonHandlerRel = archonRels.find(r => r.targetNpcId === 'npc_smuggler');
+  assert(archonHandlerRel !== undefined, 'Archon has reciprocal tie from smuggler');
+  assertEqual(archonHandlerRel.relationshipType, 'Handler', 'Archon is Handler of Informant');
+
+  // Test updating relationship in place
+  sandbox.addNpcRelationship('npc_smuggler', 'npc_archon', 'Informant', -60, 'Reduced pressure after debt payment', false);
+  assertEqual(smuggler.relationships.length, 1, 'Updating existing relationship does not duplicate');
+  assertEqual(smuggler.relationships[0].sentiment, -60, 'Updated sentiment to -60');
+
+  // 3. removeNpcRelationship
+  sandbox.removeNpcRelationship('npc_archon', 'npc_smuggler', true);
+  assert(!archon.relationships.some(r => r.targetNpcId === 'npc_smuggler'), 'Relationship removed from Archon');
+  assert(!smuggler.relationships.some(r => r.targetNpcId === 'npc_archon'), 'Reciprocal relationship removed from Smuggler');
+
+  // 4. Cascade Deletion purges relationships across surviving NPCs
+  // Restore tie
+  sandbox.addNpcRelationship('npc_captain', 'npc_smuggler', 'Rival', -50, 'Frequent skirmishes in the market', true);
+  assert(captain.relationships.some(r => r.targetNpcId === 'npc_smuggler'), 'Captain has tie to Smuggler');
+
+  // Delete smuggler
+  sandbox.executeEntityDeletion([{ type: 'npc', id: 'npc_smuggler' }]);
+  assert(!sandbox.Workstation.activeTopology.npcs.some(n => n.id === 'npc_smuggler'), 'Smuggler deleted from topology');
+  assert(!captain.relationships.some(r => r.targetNpcId === 'npc_smuggler'), 'Cascade deletion cleanly purged smuggler tie from Captain');
+
+  // 5. Deterministic 2D SVG Layout Engine (generateSocialGraphSvg)
+  const svgGlobal = sandbox.generateSocialGraphSvg(sandbox.Workstation.activeTopology, { connectedOnly: false });
+  assert(svgGlobal.includes('<svg'), 'Global SVG output contains <svg tag');
+  assert(svgGlobal.includes('Archon Malakar'), 'Global SVG includes Archon Malakar');
+  assert(svgGlobal.includes('Captain Mara'), 'Global SVG includes Captain Mara');
+  assert(!svgGlobal.includes('NaN'), 'Global SVG output contains 0 occurrences of NaN');
+  assert(!svgGlobal.includes('Infinity'), 'Global SVG output contains 0 occurrences of Infinity');
+
+  // Focus mode SVG
+  const svgFocus = sandbox.generateSocialGraphSvg(sandbox.Workstation.activeTopology, { focusNpcId: 'npc_archon', connectedOnly: true });
+  assert(svgFocus.includes('<svg'), 'Focus mode SVG output contains <svg tag');
+  assert(svgFocus.includes('1st-Degree Social Circle'), 'Focus mode SVG includes 1st-degree circle');
+  assert(!svgFocus.includes('NaN'), 'Focus mode SVG output contains 0 occurrences of NaN');
+  assert(!svgFocus.includes('Infinity'), 'Focus mode SVG output contains 0 occurrences of Infinity');
+
+  // Edge cases: empty topology and single-character topology
+  const emptySvg = sandbox.generateSocialGraphSvg({ npcs: [] });
+  assert(emptySvg.includes('<svg') && !emptySvg.includes('NaN'), 'Empty roster generates safe SVG without NaN');
+
+  const singleSvg = sandbox.generateSocialGraphSvg({ npcs: [{ id: 'lone_wolf', name: 'Lone Wolf' }] });
+  assert(singleSvg.includes('<svg') && !singleSvg.includes('NaN'), 'Single character generates safe SVG without NaN');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -4621,6 +4766,7 @@ function testFirstClassFactionsEntityEngine() {
     await testEdgeExplorerAndConduitCatalog();
     testSociologyReferenceHubAndHermeneutics();
     testFirstClassFactionsEntityEngine();
+    testNpcSocialWebAndRelationalGraph();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

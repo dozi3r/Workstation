@@ -379,4 +379,78 @@
     </div>
   </div>
 
+  <!-- ========================================================================
+       MODAL 15: NPC SOCIAL RELATIONAL GRAPH & INTER-ENTITY SOCIAL WEB
+       ======================================================================== -->
+  <div id="modal-social-graph" class="mdi-window bevel-outset hidden" style="width:1020px; height:680px; min-width:800px; min-height:500px; left:70px; top:35px;">
+    <div class="mdi-title-bar" style="background:linear-gradient(90deg, #1e1b4b, #3730a3);">
+      <div class="mdi-title-text">
+        <span class="win95-start-logo" style="width:12px; height:12px; font-size:8px;">🕸️</span>
+        <span>NPC Social Relational Graph &amp; Inter-Entity Social Web</span>
+      </div>
+      <div class="mdi-title-controls">
+        <button class="win-btn" onclick="MDIWindowManager.minimize('modal-social-graph')" title="Minimize">_</button>
+        <button class="win-btn" onclick="MDIWindowManager.restoreOrMaximize('modal-social-graph')" title="Maximize / Restore">&#9633;</button>
+        <button class="win-btn" onclick="MDIWindowManager.close('modal-social-graph')" title="Close">X</button>
+      </div>
+    </div>
+    <div class="mdi-content" style="display:flex; flex-direction:column; padding:6px; background:#c0c0c0; height:calc(100% - 28px); overflow:hidden;">
+      <!-- Toolbar -->
+      <div class="bevel-inset" style="background:#d4d0c8; padding:5px 8px; margin-bottom:5px; display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:6px;">
+          <label style="font-weight:bold; font-size:11px;">Focus Character:</label>
+          <select id="sg-focus-select" class="win-select-input" style="width:170px;" onchange="setSocialGraphFocus(this.value)">
+            <option value="">-- All Characters (Global) --</option>
+          </select>
+          <label style="font-weight:bold; font-size:11px; margin-left:6px;">Faction Filter:</label>
+          <select id="sg-faction-filter" class="win-select-input" style="width:140px;" onchange="renderSocialGraph()">
+            <option value="">All Factions / Free Agents</option>
+          </select>
+          <label style="font-size:11px; display:flex; align-items:center; gap:4px; margin-left:6px;">
+            <input type="checkbox" id="sg-connected-only" onchange="renderSocialGraph()" checked> <strong>Connected Only</strong>
+          </label>
+        </div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <label style="font-size:11px;"><strong>Min |Sentiment|:</strong></label>
+          <input type="range" id="sg-min-sentiment" min="0" max="100" value="0" step="10" style="width:70px;" oninput="document.getElementById('sg-min-sentiment-val').textContent = this.value; renderSocialGraph();">
+          <span id="sg-min-sentiment-val" style="font-size:10px; font-weight:bold; width:20px;">0</span>
+          <button class="win-btn" onclick="resetSocialGraphView()" style="font-size:11px; padding:2px 6px;">Reset</button>
+          <button class="win-btn" onclick="openNewEntityModal('npc')" style="font-size:11px; padding:2px 6px;">+ NPC</button>
+        </div>
+      </div>
+
+      <!-- Graph Main Body: Canvas and Legend/Stats -->
+      <div style="display:flex; gap:6px; flex:1; overflow:hidden;">
+        <!-- SVG Canvas Viewport -->
+        <div id="social-graph-viewport" class="bevel-inset" style="flex:1; background:#ffffff; position:relative; overflow:hidden;">
+          <svg id="social-graph-svg" viewBox="-450 -320 900 640" style="width:100%; height:100%; display:block; user-select:none;"></svg>
+          <div id="social-graph-hud" style="position:absolute; bottom:6px; left:8px; font-size:10px; color:#64748b; background:rgba(255,255,255,0.88); padding:2px 6px; border-radius:2px; border:1px solid #e2e8f0; pointer-events:none;">
+            Scroll to zoom • Click node to focus • Double-click node to inspect
+          </div>
+        </div>
+
+        <!-- Side Legend & Selected Node Card -->
+        <div id="social-graph-sidebar" class="bevel-inset" style="width:260px; background:#f8fafc; padding:8px; display:flex; flex-direction:column; gap:8px; overflow-y:auto; font-size:11px;">
+          <div id="sg-selected-card">
+            <div style="font-size:10px; color:#64748b; font-style:italic;">Click on any character node to inspect relationships, sentiment balance, and quick actions.</div>
+          </div>
+          <div class="bevel-inset" style="background:#fff; padding:6px; font-size:10px;">
+            <strong style="color:#0f172a; display:block; margin-bottom:4px;">Relationship Legend:</strong>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:3px;">
+              <div><span style="color:#16a34a; font-weight:bold;">●</span> Ally</div>
+              <div><span style="color:#dc2626; font-weight:bold;">●</span> Rival</div>
+              <div><span style="color:#9333ea; font-weight:bold;">●</span> Family</div>
+              <div><span style="color:#0284c7; font-weight:bold;">●</span> Superior</div>
+              <div><span style="color:#0891b2; font-weight:bold;">●</span> Subordinate</div>
+              <div><span style="color:#ea580c; font-weight:bold;">●</span> Debtor</div>
+              <div><span style="color:#d97706; font-weight:bold;">●</span> Creditor</div>
+              <div><span style="color:#4f46e5; font-weight:bold;">●</span> Informant</div>
+              <div><span style="color:#2563eb; font-weight:bold;">●</span> Handler</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 

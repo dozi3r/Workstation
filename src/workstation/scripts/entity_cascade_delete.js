@@ -155,7 +155,13 @@
             reason = `Stationed at Quest Anchor Node #${targetNodeId}`;
           }
         } else if (targetType === 'npc') {
-          if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
+          if (Array.isArray(n.relationships) && n.relationships.some(r => String(r.targetNpcId) === String(targetId))) {
+            const rel = n.relationships.find(r => String(r.targetNpcId) === String(targetId));
+            reason = `Holds Social Tie (${rel.relationshipType || rel.type || 'Connected'}) with ${targetName}`;
+          } else if (targetObj && Array.isArray(targetObj.relationships) && targetObj.relationships.some(r => String(r.targetNpcId) === String(n.id))) {
+            const rel = targetObj.relationships.find(r => String(r.targetNpcId) === String(n.id));
+            reason = `Target has Social Tie (${rel.relationshipType || rel.type || 'Connected'}) to this character`;
+          } else if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
             reason = `Co-stationed at Node #${targetNodeId}`;
           } else if ((topo.quests || []).some(q => (q.npcIds || []).includes(targetId) && (q.npcIds || []).includes(n.id))) {
             reason = `Co-featured in Shared Quest`;
@@ -1168,6 +1174,9 @@
           if (n.nodeId && deletedIdsByType.node.has(String(n.nodeId))) n.nodeId = null;
           if (n.threat && Array.from(deletedIdsByType.tracker).some(tid => n.threat.includes(tid))) n.threat = '';
           if (n.factionId && deletedIdsByType.faction.has(String(n.factionId))) n.factionId = null;
+          if (Array.isArray(n.relationships) && deletedIdsByType.npc.size > 0) {
+            n.relationships = n.relationships.filter(r => !deletedIdsByType.npc.has(String(r.targetNpcId)));
+          }
         });
       }
 

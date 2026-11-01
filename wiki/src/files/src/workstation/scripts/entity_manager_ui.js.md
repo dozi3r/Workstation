@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_manager_ui.js"
 title: "entity_manager_ui.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "177e186e04808312"
-reviewed_hash: "177e186e04808312"
+current_hash: "165ee91a544c0440"
+reviewed_hash: "165ee91a544c0440"
 stale: false
-size_bytes: 145108
-line_count: 2459
+size_bytes: 147808
+line_count: 2491
 ---
 
 # entity_manager_ui.js
