@@ -3,11 +3,11 @@ file_path: "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json"
 title: "campaign.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "2a259e8537a29a73"
-reviewed_hash: "2a259e8537a29a73"
+current_hash: "a6baceb7d20b588c"
+reviewed_hash: "a6baceb7d20b588c"
 stale: false
-size_bytes: 20573
-line_count: 503
+size_bytes: 27948
+line_count: 643
 ---
 
 # campaign.json

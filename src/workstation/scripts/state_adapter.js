@@ -64,38 +64,45 @@ function initMapsRegistry(forceReset = false) {
   const hasValidMaps = maps && typeof maps === "object" && Object.keys(maps).length > 0;
   if (forceReset || !hasValidMaps) {
     maps = {};
-    if ((!nodes || nodes.length === 0) && typeof syncAdapterFromWorkstationTopology === "function") {
-      syncAdapterFromWorkstationTopology();
+    if (Workstation.activeTopology && Workstation.activeTopology.maps && typeof Workstation.activeTopology.maps === "object" && Object.keys(Workstation.activeTopology.maps).length > 0) {
+      // Hydrate all maps from activeTopology into maps registry
+      maps = JSON.parse(JSON.stringify(Workstation.activeTopology.maps));
+      const rootId = (Workstation.activeTopology && (Workstation.activeTopology.rootMapId || Workstation.activeTopology.activeMapId)) || (maps["map_root"] ? "map_root" : Object.keys(maps)[0]);
+      activeMapId = (maps[rootId]) ? rootId : Object.keys(maps)[0];
+    } else {
+      if ((!nodes || nodes.length === 0) && typeof syncAdapterFromWorkstationTopology === "function") {
+        syncAdapterFromWorkstationTopology();
+      }
+      const rootName = (Workstation.activeTopology && Workstation.activeTopology.name) || currentCampaignName || "Root Map";
+      const rootId = (Workstation.activeTopology && (Workstation.activeTopology.rootMapId || Workstation.activeTopology.activeMapId)) || "map_root";
+      maps[rootId] = {
+        id: rootId,
+        name: rootName,
+        nodePrefix: "",
+        scaleTier: "region",
+        parentMapId: null,
+        parentNodeId: null,
+        dispositionModifier: "",
+        nodes: JSON.parse(JSON.stringify(nodes)),
+        links: JSON.parse(JSON.stringify(links)),
+        waves: JSON.parse(JSON.stringify(waves)),
+        drawnCards: JSON.parse(JSON.stringify(drawnCards)),
+        nodeSlottedModules: JSON.parse(JSON.stringify(nodeSlottedModules)),
+        edgeSlottedModules: JSON.parse(JSON.stringify(edgeSlottedModules)),
+        revealedNodes: JSON.parse(JSON.stringify(revealedNodes)),
+        mapMetadata: (typeof activeMapMetadata !== "undefined" && activeMapMetadata)
+          ? ((typeof stripMapImageDataUrl === "function") ? stripMapImageDataUrl(activeMapMetadata) : JSON.parse(JSON.stringify(activeMapMetadata)))
+          : null,
+        layers: (Workstation.activeTopology && Workstation.activeTopology.layers) 
+          ? JSON.parse(JSON.stringify(Workstation.activeTopology.layers)) 
+          : (typeof getDefaultLayers === "function" ? getDefaultLayers() : []),
+        shapes: (Workstation.activeTopology && Workstation.activeTopology.shapes) 
+          ? JSON.parse(JSON.stringify(Workstation.activeTopology.shapes)) 
+          : [],
+        customNotes: ""
+      };
+      activeMapId = rootId;
     }
-    const rootName = (Workstation.activeTopology && Workstation.activeTopology.name) || currentCampaignName || "Root Map";
-    const rootId = (Workstation.activeTopology && (Workstation.activeTopology.rootMapId || Workstation.activeTopology.activeMapId)) || "map_root";
-    maps[rootId] = {
-      id: rootId,
-      name: rootName,
-      nodePrefix: "",
-      scaleTier: "region",
-      parentMapId: null,
-      parentNodeId: null,
-      dispositionModifier: "",
-      nodes: JSON.parse(JSON.stringify(nodes)),
-      links: JSON.parse(JSON.stringify(links)),
-      waves: JSON.parse(JSON.stringify(waves)),
-      drawnCards: JSON.parse(JSON.stringify(drawnCards)),
-      nodeSlottedModules: JSON.parse(JSON.stringify(nodeSlottedModules)),
-      edgeSlottedModules: JSON.parse(JSON.stringify(edgeSlottedModules)),
-      revealedNodes: JSON.parse(JSON.stringify(revealedNodes)),
-      mapMetadata: (typeof activeMapMetadata !== "undefined" && activeMapMetadata)
-        ? ((typeof stripMapImageDataUrl === "function") ? stripMapImageDataUrl(activeMapMetadata) : JSON.parse(JSON.stringify(activeMapMetadata)))
-        : null,
-      layers: (Workstation.activeTopology && Workstation.activeTopology.layers) 
-        ? JSON.parse(JSON.stringify(Workstation.activeTopology.layers)) 
-        : (typeof getDefaultLayers === "function" ? getDefaultLayers() : []),
-      shapes: (Workstation.activeTopology && Workstation.activeTopology.shapes) 
-        ? JSON.parse(JSON.stringify(Workstation.activeTopology.shapes)) 
-        : [],
-      customNotes: ""
-    };
-    activeMapId = rootId;
   } else {
     syncActiveMapToRegistry();
   }

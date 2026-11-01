@@ -1160,6 +1160,34 @@ async function resolveMapBackgroundUrl(mapId, mapMetadata) {
     };
   }
 
+  // 1b. In-memory CAMPAIGN_REGISTRY dataUrl fallback (if localStorage stripped dataUrl from maps)
+  try {
+    let folderSlug = (typeof activeCampaignId !== "undefined" && activeCampaignId) ? activeCampaignId : "";
+    if (typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY) {
+      const regEntry = CAMPAIGN_REGISTRY[folderSlug] || Object.values(CAMPAIGN_REGISTRY).find(c => c && (c.id === folderSlug || c.folder === folderSlug || c.metadata?.id === folderSlug));
+      if (regEntry && regEntry.preset && regEntry.preset.maps && regEntry.preset.maps[targetId]) {
+        const regMeta = regEntry.preset.maps[targetId].mapMetadata;
+        if (regMeta && (regMeta.dataUrl || regMeta.url)) {
+          const src = regMeta.dataUrl || regMeta.url;
+          if (mapMetadata) {
+            mapMetadata.dataUrl = src;
+            mapMetadata.url = src;
+          }
+          if (typeof saveMapImageToDB === "function") {
+            saveMapImageToDB(regMeta.name || `${targetId}_bg`, src, regMeta.width || 1920, regMeta.height || 1080, regMeta.opacity ?? 0.85, targetId).catch(() => {});
+          }
+          return {
+            url: src,
+            width: regMeta.width || (mapMetadata && mapMetadata.width) || 1920,
+            height: regMeta.height || (mapMetadata && mapMetadata.height) || 1080,
+            opacity: regMeta.opacity ?? (mapMetadata && mapMetadata.opacity) ?? 0.85,
+            metadata: { ...(mapMetadata || {}), ...regMeta, dataUrl: src, url: src }
+          };
+        }
+      }
+    }
+  } catch(_) {}
+
   // 2. Bound project directory handle on disk
   const dirHandle = window.activeProjectDirectoryHandle || null;
   if (dirHandle && typeof dirHandle.getDirectoryHandle === "function") {
@@ -1297,12 +1325,13 @@ async function resolveMapBackgroundUrl(mapId, mapMetadata) {
         relUrl = `campaigns/${folderSlug}/${rawAssetPath}`;
       }
     }
+    const safeUrl = encodeURI(relUrl);
     return {
-      url: relUrl,
+      url: safeUrl,
       width: mapMetadata.width || 1920,
       height: mapMetadata.height || 1080,
       opacity: mapMetadata.opacity ?? 0.85,
-      metadata: { ...mapMetadata, url: relUrl, dataUrl: relUrl }
+      metadata: { ...mapMetadata, url: safeUrl, dataUrl: safeUrl }
     };
   }
 

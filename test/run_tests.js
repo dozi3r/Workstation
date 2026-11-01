@@ -3476,6 +3476,69 @@ async function testCampaignIsolationAndSterileSlateGate() {
   assert(diskSandbox.Workstation && diskSandbox.Workstation.activeTopology && diskSandbox.Workstation.activeTopology.nodes, 'Workstation activeTopology nodes container restored');
   assertEqual(Object.keys(diskSandbox.Workstation.activeTopology.nodes).length, 1, 'Restored nodes from custom root map');
 
+  // C. Preset submaps preserved in maps registry on fresh initTopology boot
+  const submapSandbox = {
+    window: {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    document: {
+      getElementById: () => null,
+      querySelectorAll: () => [],
+      addEventListener: () => {}
+    },
+    localStorage: {
+      _data: { 'cs_active_campaign': 'test_multimap_camp' },
+      getItem(k) { return this._data[k] || null; },
+      setItem(k, v) { this._data[k] = String(v); },
+      removeItem(k) { delete this._data[k]; }
+    },
+    CAMPAIGN_REGISTRY: {
+      'test_multimap_camp': {
+        id: 'test_multimap_camp',
+        folder: 'test_multimap_camp',
+        metadata: { name: 'Multi-Map Test Campaign' },
+        preset: {
+          id: 'test_multimap_camp',
+          rootMapId: 'map_overworld',
+          activeMapId: 'map_overworld',
+          maps: {
+            map_overworld: { id: 'map_overworld', name: 'Overworld', nodes: [{ id: 1, label: 'Portal to Dungeon', childMapId: 'map_dungeon' }], links: [] },
+            map_dungeon: { id: 'map_dungeon', name: 'Dungeon Level 1', parentMapId: 'map_overworld', parentNodeId: 1, nodes: [{ id: 101, label: 'Entry Hall' }], links: [], mapMetadata: { id: 'map_dungeon', name: 'dungeon.png', assetPath: 'assets/dungeon.png', dataUrl: 'data:image/png;base64,AAAA' } }
+          }
+        },
+        modules: []
+      }
+    },
+    ALL_MODULES: [],
+    MODULES_MANIFEST: [],
+    setTimeout: global.setTimeout,
+    clearTimeout: global.clearTimeout,
+    TextEncoder: global.TextEncoder,
+    TextDecoder: global.TextDecoder,
+    renderCanvas: () => {},
+    renderLayersManagerUI: () => {},
+    updatePropertiesGrid: () => {},
+    renderLayoutTabs: () => {},
+    updateStatusBar: () => {},
+    updateBreadcrumbsHUD: () => {},
+    saveActiveCampaign: () => {},
+    console
+  };
+  submapSandbox.window = submapSandbox;
+  vm.createContext(submapSandbox);
+  vm.runInContext(zipCode, submapSandbox);
+  vm.runInContext(mapStoreCode, submapSandbox);
+  vm.runInContext(stateAdapterCode, submapSandbox);
+  vm.runInContext(stateCode, submapSandbox);
+  vm.runInContext(mdiCode, submapSandbox);
+
+  submapSandbox.initTopology();
+  const submapsReg = vm.runInContext('maps', submapSandbox);
+  assert(submapsReg && submapsReg.map_dungeon !== undefined, 'initTopology preserves multi-scale submaps from campaign preset');
+  assertEqual(submapSandbox.window.getActiveMapId(), 'map_overworld', 'Active map set to rootMapId');
+  submapSandbox.switchActiveMap('map_dungeon');
+  assertEqual(submapSandbox.window.getActiveMapId(), 'map_dungeon', 'switchActiveMap successfully transitions to child map without losing registration');
+
   // 22.9: Milestone 4 Tests - Guarded switchActiveMap & Package Ingestion
   // A. Blank canvas ingestion cleans all prior campaign nodes and entities (Zero-Bleed)
   const pkgSandbox = {

@@ -773,6 +773,17 @@
       if (typeof initMapsRegistry === "function") initMapsRegistry();
       if (typeof syncAdapterFromWorkstationTopology === "function") syncAdapterFromWorkstationTopology();
 
+      // Pre-persist all available map background images to IndexedDB so submaps render immediately offline
+      if (typeof maps !== "undefined" && maps && typeof saveMapImageToDB === "function") {
+        for (const mId of Object.keys(maps)) {
+          const mMap = maps[mId];
+          if (mMap && mMap.mapMetadata && (mMap.mapMetadata.dataUrl || mMap.mapMetadata.url)) {
+            const preservedDataUrl = mMap.mapMetadata.dataUrl || mMap.mapMetadata.url;
+            saveMapImageToDB(mMap.mapMetadata.name || `${mId}_bg`, preservedDataUrl, mMap.mapMetadata.width, mMap.mapMetadata.height, mMap.mapMetadata.opacity ?? 0.85, mId).catch(() => {});
+          }
+        }
+      }
+
       if (typeof applyMapImageToCanvas === "function") {
         const initMapId = (typeof activeMapId !== "undefined" && activeMapId) ? activeMapId : "map_root";
         const initMeta = (typeof maps !== "undefined" && maps && maps[initMapId]) ? maps[initMapId].mapMetadata : null;

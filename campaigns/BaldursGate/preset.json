@@ -330,7 +330,15 @@
           "to": "BG-SC-17",
           "type": "twoway"
         }
-      ]
+      ],
+      "mapMetadata": {
+        "id": "map_bg1_sword_coast",
+        "name": "swordcoast.gif",
+        "assetPath": "assets/swordcoast.gif",
+        "width": 639,
+        "height": 933,
+        "opacity": 0.85
+      }
     },
     "map_bg1_candlekeep": {
       "id": "map_bg1_candlekeep",
@@ -443,7 +451,15 @@
           "to": "BG-CK-06",
           "type": "twoway"
         }
-      ]
+      ],
+      "mapMetadata": {
+        "id": "map_bg1_candlekeep",
+        "name": "candlekeep.gif",
+        "assetPath": "assets/candlekeep.gif",
+        "width": 480,
+        "height": 360,
+        "opacity": 0.85
+      }
     },
     "map_bg1_friendly_arm": {
       "id": "map_bg1_friendly_arm",
@@ -539,7 +555,15 @@
           "to": "BG-FAI-02",
           "type": "twoway"
         }
-      ]
+      ],
+      "mapMetadata": {
+        "id": "map_bg1_friendly_arm",
+        "name": "friendlyarminn.gif",
+        "assetPath": "assets/friendlyarminn.gif",
+        "width": 480,
+        "height": 360,
+        "opacity": 0.85
+      }
     },
     "map_bg1_beregost": {
       "id": "map_bg1_beregost",
@@ -674,7 +698,15 @@
           "to": "BG-BER-07",
           "type": "twoway"
         }
-      ]
+      ],
+      "mapMetadata": {
+        "id": "map_bg1_beregost",
+        "name": "beregost.gif",
+        "assetPath": "assets/beregost.gif",
+        "width": 480,
+        "height": 360,
+        "opacity": 0.85
+      }
     },
     "map_bg1_bandit_camp": {
       "id": "map_bg1_bandit_camp",
@@ -770,7 +802,15 @@
           "to": "BG-BND-05",
           "type": "twoway"
         }
-      ]
+      ],
+      "mapMetadata": {
+        "id": "map_bg1_bandit_camp",
+        "name": "banditcamp.gif",
+        "assetPath": "assets/banditcamp.gif",
+        "width": 480,
+        "height": 360,
+        "opacity": 0.85
+      }
     },
     "map_bg1_cloakwood_mines": {
       "id": "map_bg1_cloakwood_mines",
@@ -866,7 +906,15 @@
           "to": "BG-CLK-05",
           "type": "twoway"
         }
-      ]
+      ],
+      "mapMetadata": {
+        "id": "map_bg1_cloakwood_mines",
+        "name": "cloakwoodminesarea.gif",
+        "assetPath": "assets/cloakwoodminesarea.gif",
+        "width": 480,
+        "height": 360,
+        "opacity": 0.85
+      }
     },
     "map_bg1_city": {
       "id": "map_bg1_city",
@@ -984,7 +1032,15 @@
           "to": "BG-CTY-06",
           "type": "twoway"
         }
-      ]
+      ],
+      "mapMetadata": {
+        "id": "map_bg1_city",
+        "name": "baldursgate.jpg",
+        "assetPath": "assets/baldursgate.jpg",
+        "width": 1206,
+        "height": 900,
+        "opacity": 0.85
+      }
     },
     "map_bg1_undercity": {
       "id": "map_bg1_undercity",
@@ -1058,7 +1114,15 @@
           "to": "BG-UND-04",
           "type": "twoway"
         }
-      ]
+      ],
+      "mapMetadata": {
+        "id": "map_bg1_undercity",
+        "name": "undercity.gif",
+        "assetPath": "assets/undercity.gif",
+        "width": 480,
+        "height": 360,
+        "opacity": 0.85
+      }
     },
     "map_bg1_catacombs": {
       "id": "map_bg1_catacombs",
@@ -1115,7 +1179,15 @@
           "to": "BG-CAT-03",
           "type": "twoway"
         }
-      ]
+      ],
+      "mapMetadata": {
+        "id": "map_bg1_catacombs",
+        "name": "catacombs1.gif",
+        "assetPath": "assets/catacombs1.gif",
+        "width": 396,
+        "height": 211,
+        "opacity": 0.85
+      }
     },
     "map_bg1_durlags_tower": {
       "id": "map_bg1_durlags_tower",
@@ -1189,7 +1261,15 @@
           "to": "BG-DUR-04",
           "type": "twoway"
         }
-      ]
+      ],
+      "mapMetadata": {
+        "id": "map_bg1_durlags_tower",
+        "name": "durlagstowerarea.gif",
+        "assetPath": "assets/durlagstowerarea.gif",
+        "width": 480,
+        "height": 360,
+        "opacity": 0.85
+      }
     },
     "map_bg1_nashkel_town": {
       "id": "map_bg1_nashkel_town",

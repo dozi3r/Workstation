@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T18:34:57.746Z",
-  "totalFiles": 308,
+  "generatedAt": "2026-11-01T20:25:37.380Z",
+  "totalFiles": 347,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2590,
+  "totalBidirectionalEdges": 2703,
   "staleCount": 0,
   "nodes": [
     {
@@ -2116,15 +2116,39 @@
       ]
     },
     {
+      "relPath": "baldurs_gate_sword_coast.creator.json",
+      "title": "baldurs_gate_sword_coast.creator.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "61021fdf1a781004",
+      "reviewedHash": "61021fdf1a781004",
+      "lineCount": 4107,
+      "sizeBytes": 3366018,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [],
+      "inbound": [
+        {
+          "source": "campaigns/baldurs_gate_sword_coast.creator.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References baldurs_gate_sword_coast.creator.json"
+        }
+      ]
+    },
+    {
       "relPath": "build_suite.js",
       "title": "build_suite.js",
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "ffbed961f552f1e0",
-      "reviewedHash": "ffbed961f552f1e0",
-      "lineCount": 1234,
-      "sizeBytes": 60401,
+      "hash": "4fd99d05c694ecc7",
+      "reviewedHash": "4fd99d05c694ecc7",
+      "lineCount": 1252,
+      "sizeBytes": 61532,
       "symbols": [
         "toRootRelUrl(absPath)",
         "rebaseFileUrls(jsonStr, prefix)",
@@ -3483,6 +3507,1541 @@
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References build_suite.js"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/baldursgate.jpg",
+      "title": "baldursgate.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "596b3bfb4b299827",
+      "reviewedHash": "596b3bfb4b299827",
+      "lineCount": 0,
+      "sizeBytes": 259864,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/banditcamp.gif",
+      "title": "banditcamp.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "2ad3e8cf56fa0222",
+      "reviewedHash": "2ad3e8cf56fa0222",
+      "lineCount": 0,
+      "sizeBytes": 156102,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/beregost.gif",
+      "title": "beregost.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "d7aac2eb67267013",
+      "reviewedHash": "d7aac2eb67267013",
+      "lineCount": 0,
+      "sizeBytes": 143688,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/candlekeep.gif",
+      "title": "candlekeep.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "ddda8dfb5e37b8e2",
+      "reviewedHash": "ddda8dfb5e37b8e2",
+      "lineCount": 0,
+      "sizeBytes": 144684,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/catacombs1.gif",
+      "title": "catacombs1.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "8a6d2b64de6f31f9",
+      "reviewedHash": "8a6d2b64de6f31f9",
+      "lineCount": 0,
+      "sizeBytes": 41696,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/cloakwoodminesarea.gif",
+      "title": "cloakwoodminesarea.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "1b5c4a1b3639ebf8",
+      "reviewedHash": "1b5c4a1b3639ebf8",
+      "lineCount": 0,
+      "sizeBytes": 154459,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/durlagstowerarea.gif",
+      "title": "durlagstowerarea.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "71b2304890c2d657",
+      "reviewedHash": "71b2304890c2d657",
+      "lineCount": 0,
+      "sizeBytes": 140684,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/friendlyarminn.gif",
+      "title": "friendlyarminn.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "18c3f05795971e2c",
+      "reviewedHash": "18c3f05795971e2c",
+      "lineCount": 0,
+      "sizeBytes": 139831,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/nashkel.png",
+      "title": "nashkel.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "4a301fa610dda94e",
+      "reviewedHash": "4a301fa610dda94e",
+      "lineCount": 0,
+      "sizeBytes": 214829,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/nashkelmines.png",
+      "title": "nashkelmines.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "99fc8dde628c80b8",
+      "reviewedHash": "99fc8dde628c80b8",
+      "lineCount": 0,
+      "sizeBytes": 212758,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/nkmines1.png",
+      "title": "nkmines1.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "b11aa1ad5a96a41b",
+      "reviewedHash": "b11aa1ad5a96a41b",
+      "lineCount": 0,
+      "sizeBytes": 26661,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/nkmines2.png",
+      "title": "nkmines2.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "e6edb66009bb029b",
+      "reviewedHash": "e6edb66009bb029b",
+      "lineCount": 0,
+      "sizeBytes": 59098,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/nkmines3.png",
+      "title": "nkmines3.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "58c049d62138fe42",
+      "reviewedHash": "58c049d62138fe42",
+      "lineCount": 0,
+      "sizeBytes": 71789,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/nkmines4.png",
+      "title": "nkmines4.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "24ec4177d093d5c6",
+      "reviewedHash": "24ec4177d093d5c6",
+      "lineCount": 0,
+      "sizeBytes": 34319,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/swordcoast.gif",
+      "title": "swordcoast.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "45a96bda7e35aa44",
+      "reviewedHash": "45a96bda7e35aa44",
+      "lineCount": 0,
+      "sizeBytes": 483906,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/assets/undercity.gif",
+      "title": "undercity.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "adb3aaac72ef318f",
+      "reviewedHash": "adb3aaac72ef318f",
+      "lineCount": 0,
+      "sizeBytes": 134041,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/campaign.json",
+      "title": "campaign.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "f0461e90b7cb852c",
+      "reviewedHash": "f0461e90b7cb852c",
+      "lineCount": 2020,
+      "sizeBytes": 72597,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/baldursgate.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/banditcamp.gif",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/beregost.gif",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/candlekeep.gif",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/catacombs1.gif",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/cloakwoodminesarea.gif",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/durlagstowerarea.gif",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/friendlyarminn.gif",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/nashkel.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/nashkelmines.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/nkmines1.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/nkmines2.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/nkmines3.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/nkmines4.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/swordcoast.gif",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/assets/undercity.gif",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_bandit_camp.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_beregost.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_candlekeep.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_catacombs.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_city.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_cloakwood_mines.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_durlags_tower.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_friendly_arm.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l1.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l2.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l3.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l4.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_surface.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_nashkel_town.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_sword_coast.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/maps/map_bg1_undercity.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/preset.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
+          "source": "campaigns/BaldursGate/topology.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_bandit_camp.json",
+      "title": "map_bg1_bandit_camp.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "33bd6829d1f1c501",
+      "reviewedHash": "33bd6829d1f1c501",
+      "lineCount": 96,
+      "sizeBytes": 2686,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_beregost.json",
+      "title": "map_bg1_beregost.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "02994fc3c699ae7a",
+      "reviewedHash": "02994fc3c699ae7a",
+      "lineCount": 135,
+      "sizeBytes": 3852,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_candlekeep.json",
+      "title": "map_bg1_candlekeep.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "99817be350a1fe18",
+      "reviewedHash": "99817be350a1fe18",
+      "lineCount": 113,
+      "sizeBytes": 3198,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_catacombs.json",
+      "title": "map_bg1_catacombs.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "e3cef205367fe5eb",
+      "reviewedHash": "e3cef205367fe5eb",
+      "lineCount": 57,
+      "sizeBytes": 1586,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_city.json",
+      "title": "map_bg1_city.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "6b0b3db67529279c",
+      "reviewedHash": "6b0b3db67529279c",
+      "lineCount": 118,
+      "sizeBytes": 3339,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_cloakwood_mines.json",
+      "title": "map_bg1_cloakwood_mines.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "7a73456b8732b96d",
+      "reviewedHash": "7a73456b8732b96d",
+      "lineCount": 96,
+      "sizeBytes": 2713,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_durlags_tower.json",
+      "title": "map_bg1_durlags_tower.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "88e036b58d10649d",
+      "reviewedHash": "88e036b58d10649d",
+      "lineCount": 74,
+      "sizeBytes": 2141,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_friendly_arm.json",
+      "title": "map_bg1_friendly_arm.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "0c3b40ead9ca5878",
+      "reviewedHash": "0c3b40ead9ca5878",
+      "lineCount": 96,
+      "sizeBytes": 2684,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l1.json",
+      "title": "map_bg1_nashkel_mines_l1.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "292bd3176eb88528",
+      "reviewedHash": "292bd3176eb88528",
+      "lineCount": 129,
+      "sizeBytes": 3562,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l2.json",
+      "title": "map_bg1_nashkel_mines_l2.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "25204e16c7082e4b",
+      "reviewedHash": "25204e16c7082e4b",
+      "lineCount": 129,
+      "sizeBytes": 3535,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l3.json",
+      "title": "map_bg1_nashkel_mines_l3.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "15a87ca92db38ec6",
+      "reviewedHash": "15a87ca92db38ec6",
+      "lineCount": 129,
+      "sizeBytes": 3575,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l4.json",
+      "title": "map_bg1_nashkel_mines_l4.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "221481ef91590f2a",
+      "reviewedHash": "221481ef91590f2a",
+      "lineCount": 129,
+      "sizeBytes": 3603,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_surface.json",
+      "title": "map_bg1_nashkel_mines_surface.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "c0624892d55b189f",
+      "reviewedHash": "c0624892d55b189f",
+      "lineCount": 129,
+      "sizeBytes": 3626,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_nashkel_town.json",
+      "title": "map_bg1_nashkel_town.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "5abd24b4aeadcfaf",
+      "reviewedHash": "5abd24b4aeadcfaf",
+      "lineCount": 173,
+      "sizeBytes": 4948,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_sword_coast.json",
+      "title": "map_bg1_sword_coast.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "28cb95539ca0db27",
+      "reviewedHash": "28cb95539ca0db27",
+      "lineCount": 327,
+      "sizeBytes": 10712,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/maps/map_bg1_undercity.json",
+      "title": "map_bg1_undercity.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "aab217f36205ef8d",
+      "reviewedHash": "aab217f36205ef8d",
+      "lineCount": 74,
+      "sizeBytes": 2127,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/modules_manifest.json",
+      "title": "modules_manifest.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "37517e5f3dc66819",
+      "reviewedHash": "37517e5f3dc66819",
+      "lineCount": 2,
+      "sizeBytes": 3,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/preset.json",
+      "title": "preset.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "dcdd9f848da10bc2",
+      "reviewedHash": "dcdd9f848da10bc2",
+      "lineCount": 6399,
+      "sizeBytes": 218194,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/topology.json",
+      "title": "topology.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "dcdd9f848da10bc2",
+      "reviewedHash": "dcdd9f848da10bc2",
+      "lineCount": 6399,
+      "sizeBytes": 218194,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         }
       ]
     },
@@ -16647,15 +18206,15 @@
       ]
     },
     {
-      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.gif",
-      "title": "nashkel.gif (Visual Diagram / Cartographic Asset)",
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.png",
+      "title": "nashkel.png (Visual Diagram / Cartographic Asset)",
       "volume": "vol-8",
       "kind": "Visual Diagram / Cartographic Asset",
       "stale": false,
-      "hash": "66cfcf9e5fb32683",
-      "reviewedHash": "66cfcf9e5fb32683",
+      "hash": "4a301fa610dda94e",
+      "reviewedHash": "4a301fa610dda94e",
       "lineCount": 0,
-      "sizeBytes": 155631,
+      "sizeBytes": 214829,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16684,15 +18243,15 @@
       ]
     },
     {
-      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.gif",
-      "title": "nashkelmines.gif (Visual Diagram / Cartographic Asset)",
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.png",
+      "title": "nashkelmines.png (Visual Diagram / Cartographic Asset)",
       "volume": "vol-8",
       "kind": "Visual Diagram / Cartographic Asset",
       "stale": false,
-      "hash": "05f79314be440d57",
-      "reviewedHash": "05f79314be440d57",
+      "hash": "99fc8dde628c80b8",
+      "reviewedHash": "99fc8dde628c80b8",
       "lineCount": 0,
-      "sizeBytes": 152378,
+      "sizeBytes": 212758,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16721,15 +18280,15 @@
       ]
     },
     {
-      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.gif",
-      "title": "nkmines1.gif (Visual Diagram / Cartographic Asset)",
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.png",
+      "title": "nkmines1.png (Visual Diagram / Cartographic Asset)",
       "volume": "vol-8",
       "kind": "Visual Diagram / Cartographic Asset",
       "stale": false,
-      "hash": "a3f3df67120af6cd",
-      "reviewedHash": "a3f3df67120af6cd",
+      "hash": "b11aa1ad5a96a41b",
+      "reviewedHash": "b11aa1ad5a96a41b",
       "lineCount": 0,
-      "sizeBytes": 18380,
+      "sizeBytes": 26661,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16758,15 +18317,15 @@
       ]
     },
     {
-      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.gif",
-      "title": "nkmines2.gif (Visual Diagram / Cartographic Asset)",
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.png",
+      "title": "nkmines2.png (Visual Diagram / Cartographic Asset)",
       "volume": "vol-8",
       "kind": "Visual Diagram / Cartographic Asset",
       "stale": false,
-      "hash": "8b1b2a860a60a941",
-      "reviewedHash": "8b1b2a860a60a941",
+      "hash": "e6edb66009bb029b",
+      "reviewedHash": "e6edb66009bb029b",
       "lineCount": 0,
-      "sizeBytes": 37823,
+      "sizeBytes": 59098,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16795,15 +18354,15 @@
       ]
     },
     {
-      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.gif",
-      "title": "nkmines3.gif (Visual Diagram / Cartographic Asset)",
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.png",
+      "title": "nkmines3.png (Visual Diagram / Cartographic Asset)",
       "volume": "vol-8",
       "kind": "Visual Diagram / Cartographic Asset",
       "stale": false,
-      "hash": "1096626fa184a6a8",
-      "reviewedHash": "1096626fa184a6a8",
+      "hash": "58c049d62138fe42",
+      "reviewedHash": "58c049d62138fe42",
       "lineCount": 0,
-      "sizeBytes": 50619,
+      "sizeBytes": 71789,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16832,15 +18391,52 @@
       ]
     },
     {
-      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.gif",
-      "title": "nkmines4.gif (Visual Diagram / Cartographic Asset)",
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.png",
+      "title": "nkmines4.png (Visual Diagram / Cartographic Asset)",
       "volume": "vol-8",
       "kind": "Visual Diagram / Cartographic Asset",
       "stale": false,
-      "hash": "8098158c6d5297eb",
-      "reviewedHash": "8098158c6d5297eb",
+      "hash": "24ec4177d093d5c6",
+      "reviewedHash": "24ec4177d093d5c6",
       "lineCount": 0,
-      "sizeBytes": 24103,
+      "sizeBytes": 34319,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/swordcoast.gif",
+      "title": "swordcoast.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "45a96bda7e35aa44",
+      "reviewedHash": "45a96bda7e35aa44",
+      "lineCount": 0,
+      "sizeBytes": 483906,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16874,10 +18470,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "2a259e8537a29a73",
-      "reviewedHash": "2a259e8537a29a73",
-      "lineCount": 503,
-      "sizeBytes": 20573,
+      "hash": "a6baceb7d20b588c",
+      "reviewedHash": "a6baceb7d20b588c",
+      "lineCount": 643,
+      "sizeBytes": 27948,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16897,37 +18493,43 @@
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
-          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.gif",
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.png",
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
         },
         {
-          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.gif",
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.png",
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
         },
         {
-          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.gif",
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.png",
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
         },
         {
-          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.gif",
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.png",
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
         },
         {
-          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.gif",
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.png",
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
         },
         {
-          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.gif",
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/swordcoast.gif",
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
@@ -16995,10 +18597,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "bf4a42e36f93dfa2",
-      "reviewedHash": "bf4a42e36f93dfa2",
-      "lineCount": 2762,
-      "sizeBytes": 96919,
+      "hash": "642396838554160f",
+      "reviewedHash": "642396838554160f",
+      "lineCount": 5011,
+      "sizeBytes": 184373,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -17032,10 +18634,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "bf4a42e36f93dfa2",
-      "reviewedHash": "bf4a42e36f93dfa2",
-      "lineCount": 2762,
-      "sizeBytes": 96919,
+      "hash": "642396838554160f",
+      "reviewedHash": "642396838554160f",
+      "lineCount": 5011,
+      "sizeBytes": 184373,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -17046,6 +18648,43 @@
           "targetType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/baldurs_gate_sword_coast.creator.json",
+      "title": "baldurs_gate_sword_coast.creator.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "61021fdf1a781004",
+      "reviewedHash": "61021fdf1a781004",
+      "lineCount": 4107,
+      "sizeBytes": 3366018,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "baldurs_gate_sword_coast.creator.json",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References baldurs_gate_sword_coast.creator.json"
         }
       ],
       "inbound": [
@@ -24283,10 +25922,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "33c85ad4ffdc7e56",
-      "reviewedHash": "33c85ad4ffdc7e56",
-      "lineCount": 24723,
-      "sizeBytes": 6695890,
+      "hash": "39fb2eec0a31de2b",
+      "reviewedHash": "39fb2eec0a31de2b",
+      "lineCount": 35912,
+      "sizeBytes": 11815853,
       "symbols": [
         "moduleMatchesTrack(m, track)",
         "getModuleTrackBadges(m)",
@@ -24336,6 +25975,222 @@
           "targetType": "file",
           "type": "Governing Spec",
           "reason": "Authoritative specification for network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/baldursgate.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/banditcamp.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/beregost.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/candlekeep.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/catacombs1.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/cloakwoodminesarea.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/durlagstowerarea.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/friendlyarminn.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nashkel.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nashkelmines.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nkmines1.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nkmines2.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nkmines3.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nkmines4.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/swordcoast.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/undercity.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_bandit_camp.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_beregost.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_candlekeep.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_catacombs.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_city.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_cloakwood_mines.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_durlags_tower.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_friendly_arm.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l1.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l2.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l3.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l4.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_surface.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_town.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_sword_coast.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_undercity.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/preset.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/topology.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
           "target": "campaigns/Peridot/assets/crypt.png",
@@ -25112,37 +26967,43 @@
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.png",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.png",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.png",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.png",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.png",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/swordcoast.gif",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
@@ -25167,6 +27028,12 @@
         },
         {
           "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/topology.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/baldurs_gate_sword_coast.creator.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
@@ -30829,10 +32696,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "ddc3de9f90dc5116",
-      "reviewedHash": "ddc3de9f90dc5116",
-      "lineCount": 2614,
-      "sizeBytes": 106417,
+      "hash": "e063d6409cd26612",
+      "reviewedHash": "e063d6409cd26612",
+      "lineCount": 2643,
+      "sizeBytes": 107994,
       "symbols": [
         "openMapDatabase()",
         "saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null)",
@@ -31065,7 +32932,7 @@
           "source": "src/workstation/scripts/workstation_state.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes loadPersistedMapFromDB() defined in map_store.js"
+          "reason": "Invokes saveMapImageToDB() defined in map_store.js"
         },
         {
           "source": "src/workstation/template.html",
@@ -32489,10 +34356,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "d93108fec39339b6",
-      "reviewedHash": "d93108fec39339b6",
-      "lineCount": 1176,
-      "sizeBytes": 55421,
+      "hash": "4447857d23710628",
+      "reviewedHash": "4447857d23710628",
+      "lineCount": 1183,
+      "sizeBytes": 56091,
       "symbols": [
         "initMapsRegistry(forceReset = false)",
         "syncActiveMapToRegistry()",
@@ -33273,10 +35140,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "fcb30c2fbb27984c",
-      "reviewedHash": "fcb30c2fbb27984c",
-      "lineCount": 1531,
-      "sizeBytes": 75921,
+      "hash": "058d77fdaba66ae4",
+      "reviewedHash": "058d77fdaba66ae4",
+      "lineCount": 1542,
+      "sizeBytes": 76605,
       "symbols": [
         "ensureBuiltinModulesBaseline()",
         "createSterileTopology(options = {})",
@@ -33366,7 +35233,7 @@
           "target": "src/workstation/scripts/map_store.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes loadPersistedMapFromDB() defined in map_store.js"
+          "reason": "Invokes saveMapImageToDB() defined in map_store.js"
         },
         {
           "target": "src/workstation/scripts/mdi_window_manager.js",
@@ -34380,10 +36247,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "e45a67d72d156478",
-      "reviewedHash": "e45a67d72d156478",
-      "lineCount": 58545,
-      "sizeBytes": 8376661,
+      "hash": "95bc61b9a34630a4",
+      "reviewedHash": "95bc61b9a34630a4",
+      "lineCount": 69781,
+      "sizeBytes": 13499555,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -34517,6 +36384,222 @@
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/baldursgate.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/banditcamp.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/beregost.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/candlekeep.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/catacombs1.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/cloakwoodminesarea.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/durlagstowerarea.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/friendlyarminn.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nashkel.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nashkelmines.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nkmines1.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nkmines2.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nkmines3.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/nkmines4.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/swordcoast.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/assets/undercity.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_bandit_camp.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_beregost.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_candlekeep.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_catacombs.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_city.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_cloakwood_mines.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_durlags_tower.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_friendly_arm.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l1.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l2.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l3.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_l4.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_mines_surface.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_nashkel_town.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_sword_coast.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/maps/map_bg1_undercity.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/preset.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/topology.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
         },
         {
           "target": "campaigns/Peridot/assets/crypt.png",
@@ -35293,37 +37376,43 @@
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.png",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.png",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.png",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.png",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.png",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
         },
         {
-          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.gif",
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/swordcoast.gif",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
@@ -35348,6 +37437,12 @@
         },
         {
           "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/topology.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/baldurs_gate_sword_coast.creator.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
@@ -36325,10 +38420,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "f25e543abfbdbb93",
-      "reviewedHash": "f25e543abfbdbb93",
-      "lineCount": 5676,
-      "sizeBytes": 267107,
+      "hash": "df64b7cd0391fcfe",
+      "reviewedHash": "df64b7cd0391fcfe",
+      "lineCount": 5739,
+      "sizeBytes": 269784,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",

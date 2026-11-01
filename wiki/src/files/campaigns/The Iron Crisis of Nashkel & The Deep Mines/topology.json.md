@@ -3,11 +3,11 @@ file_path: "campaigns/The Iron Crisis of Nashkel & The Deep Mines/topology.json"
 title: "topology.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "bf4a42e36f93dfa2"
-reviewed_hash: "bf4a42e36f93dfa2"
+current_hash: "642396838554160f"
+reviewed_hash: "642396838554160f"
 stale: false
-size_bytes: 96919
-line_count: 2762
+size_bytes: 184373
+line_count: 5011
 ---
 
 # topology.json

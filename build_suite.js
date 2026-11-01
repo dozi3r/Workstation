@@ -34,12 +34,12 @@ function rebaseFileUrls(jsonStr, prefix) {
 }
 
 function safeWriteFileSync(filePath, data, encoding = 'utf8') {
-  for (let attempt = 1; attempt <= 4; attempt++) {
+  for (let attempt = 1; attempt <= 6; attempt++) {
     try {
       return fs.writeFileSync(filePath, data, encoding);
     } catch (err) {
-      if ((err.code === 'EBUSY' || err.code === 'UNKNOWN' || err.errno === -4094) && attempt < 4) {
-        const waitMs = attempt * 60;
+      if ((err.code === 'EBUSY' || err.code === 'UNKNOWN' || err.code === 'EPERM' || err.errno === -4094) && attempt < 6) {
+        const waitMs = attempt * 120;
         const end = Date.now() + waitMs;
         while (Date.now() < end) {}
         continue;
@@ -327,8 +327,15 @@ if (fs.existsSync(campaignsDir)) {
             if (mMap) {
               let relPath = (mMap.mapMetadata && mMap.mapMetadata.assetPath) ? mMap.mapMetadata.assetPath.replace(/^\//, '') : '';
               if (!relPath || !fs.existsSync(path.join(cPath, relPath))) {
-                for (const candExt of ['png', 'jpg', 'jpeg', 'webp']) {
-                  const candRel = `assets/${mId}_bg.${candExt}`;
+                const candidates = [];
+                const shortId = mId.replace(/^map_bg1_/, '').replace(/^map_/, '');
+                for (const candExt of ['png', 'jpg', 'jpeg', 'webp', 'gif']) {
+                  candidates.push(`assets/${mId}_bg.${candExt}`);
+                  candidates.push(`assets/${mId}.${candExt}`);
+                  candidates.push(`assets/${shortId}_bg.${candExt}`);
+                  candidates.push(`assets/${shortId}.${candExt}`);
+                }
+                for (const candRel of candidates) {
                   if (fs.existsSync(path.join(cPath, candRel))) {
                     relPath = candRel;
                     break;
@@ -343,11 +350,22 @@ if (fs.existsSync(campaignsDir)) {
                 if (fs.existsSync(imgFile)) {
                   try {
                     const ext = path.extname(imgFile).toLowerCase().replace('.', '');
-                    const mime = ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' : (ext === 'webp' ? 'image/webp' : 'image/png');
-                    const imgBase64 = fs.readFileSync(imgFile).toString('base64');
-                    if (!mMap.mapMetadata) mMap.mapMetadata = { name: path.basename(imgFile), width: 1920, height: 1080, opacity: 0.85 };
+                    const mime = ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' : (ext === 'webp' ? 'image/webp' : (ext === 'gif' ? 'image/gif' : 'image/png'));
+                    const imgBuf = fs.readFileSync(imgFile);
+                    const imgBase64 = imgBuf.toString('base64');
+                    let w = 1920, h = 1080;
+                    if (ext === 'png' && imgBuf.length > 24) {
+                      w = imgBuf.readUInt32BE(16);
+                      h = imgBuf.readUInt32BE(20);
+                    } else if (ext === 'gif' && imgBuf.length > 10) {
+                      w = imgBuf.readUInt16LE(6);
+                      h = imgBuf.readUInt16LE(8);
+                    }
+                    if (!mMap.mapMetadata) mMap.mapMetadata = { id: mId, name: path.basename(imgFile), width: w, height: h, opacity: 0.85 };
                     mMap.mapMetadata.assetPath = relPath;
                     mMap.mapMetadata.dataUrl = `data:${mime};base64,${imgBase64}`;
+                    if (!mMap.mapMetadata.width || mMap.mapMetadata.width === 1920) mMap.mapMetadata.width = w;
+                    if (!mMap.mapMetadata.height || mMap.mapMetadata.height === 1080) mMap.mapMetadata.height = h;
                   } catch(e) {}
                 }
               }
