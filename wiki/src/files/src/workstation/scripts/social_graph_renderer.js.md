@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/social_graph_renderer.js"
 title: "social_graph_renderer.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "41397ba69215ac8b"
-reviewed_hash: "41397ba69215ac8b"
+current_hash: "157e965488e37bf1"
+reviewed_hash: "157e965488e37bf1"
 stale: false
-size_bytes: 28348
-line_count: 641
+size_bytes: 46562
+line_count: 1015
 ---
 
 # social_graph_renderer.js

@@ -4461,6 +4461,10 @@ CRITICAL INSTRUCTION:
           <span id="sg-min-sentiment-val" style="font-size:10px; font-weight:bold; width:20px;">0</span>
           <button class="win-btn" onclick="resetSocialGraphView()" style="font-size:11px; padding:2px 6px;">Reset</button>
           <button class="win-btn" onclick="openNewEntityModal('npc')" style="font-size:11px; padding:2px 6px;">+ NPC</button>
+          <div class="toolbar-sep" style="height:18px;"></div>
+          <button class="win-btn" onclick="socialGraphZoomIn()" style="font-size:11px; padding:2px 6px;" title="Zoom In (+)">Zoom +</button>
+          <button class="win-btn" onclick="socialGraphZoomOut()" style="font-size:11px; padding:2px 6px;" title="Zoom Out (-)">Zoom -</button>
+          <button class="win-btn" onclick="socialGraphZoomExtents()" style="font-size:11px; padding:2px 6px; font-weight:bold;" title="Zoom Extents (Fit All Characters)">Extents</button>
         </div>
       </div>
 
@@ -36569,10 +36573,15 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
     return Math.abs(hash);
   }
 
+  // --- Graph Viewport State ---
+  let currentViewBox = { x: -450, y: -320, w: 900, h: 640 };
+  let activeSelectedEdge = null; // { sourceId: string, targetId: string } | null
+
   // --- Core Deterministic 2D Layout & SVG Generator (Pure, Headless Safe) ---
   function generateSocialGraphSvg(topo, options = {}) {
+    const vb = (options.viewBox && typeof options.viewBox.x === 'number') ? options.viewBox : currentViewBox;
     if (!topo || !Array.isArray(topo.npcs)) {
-      return '<svg viewBox="-400 -300 800 600" xmlns="http://www.w3.org/2000/svg"><text x="0" y="0" text-anchor="middle" fill="#64748b" font-family="sans-serif" font-size="12">No active campaign roster</text></svg>';
+      return `<svg id="social-graph-svg" viewBox="${vb.x} ${vb.y} ${vb.w} ${vb.h}" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; display:block; user-select:none;"><text x="0" y="0" text-anchor="middle" fill="#64748b" font-family="sans-serif" font-size="12">No active campaign roster</text></svg>`;
     }
 
     const npcs = topo.npcs;
@@ -36676,9 +36685,9 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
 
     if (visibleNpcMap.size === 0) {
       return `
-        <svg viewBox="-400 -300 800 600" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="-10" text-anchor="middle" fill="#475569" font-family="sans-serif" font-size="14" font-weight="bold">No characters match current filters</text>
-          <text x="0" y="16" text-anchor="middle" fill="#94a3b8" font-family="sans-serif" font-size="11">Adjust min sentiment slider or uncheck "Connected Only"</text>
+        <svg id="social-graph-svg" viewBox="${vb.x} ${vb.y} ${vb.w} ${vb.h}" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; display:block; user-select:none;">
+          <text x="${Math.round(vb.x + vb.w / 2)}" y="${Math.round(vb.y + vb.h / 2 - 10)}" text-anchor="middle" fill="#475569" font-family="sans-serif" font-size="14" font-weight="bold">No characters match current filters</text>
+          <text x="${Math.round(vb.x + vb.w / 2)}" y="${Math.round(vb.y + vb.h / 2 + 16)}" text-anchor="middle" fill="#94a3b8" font-family="sans-serif" font-size="11">Adjust min sentiment slider or uncheck "Connected Only"</text>
         </svg>
       `;
     }
@@ -36787,11 +36796,16 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       });
     }
 
+    if (typeof window !== 'undefined') {
+      window.__lastSocialGraphPositions = positions;
+    }
+
     // Filter edges to only those with both ends visible
     const visibleEdges = rawEdges.filter(e => positions[e.sourceId] && positions[e.targetId]);
+    const selectedEdge = options.selectedEdge || null;
 
     // Construct SVG
-    let svg = '<svg viewBox="-450 -320 900 640" xmlns="http://www.w3.org/2000/svg" style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,sans-serif;">\n';
+    let svg = `<svg id="social-graph-svg" viewBox="${vb.x} ${vb.y} ${vb.w} ${vb.h}" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; display:block; user-select:none; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">\n`;
 
     // SVG Defs
     svg += '  <defs>\n';
@@ -36801,6 +36815,7 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       const markerId = `sg-arrow-${rtype.toLowerCase()}`;
       svg += `    <marker id="${markerId}" viewBox="0 0 10 10" refX="24" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="${col}"/></marker>\n`;
     });
+    svg += '    <marker id="sg-arrow-default" viewBox="0 0 10 10" refX="24" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b"/></marker>\n';
     svg += '  </defs>\n';
 
     // Subtle background guidelines
@@ -36829,11 +36844,26 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       const absSent = Math.abs(e.sentiment);
       const strokeWidth = Math.max(1.5, Math.min(6, (absSent / 100) * 4 + 1.5));
       const isNeg = e.sentiment < 0;
-      const markerAttr = `marker-end="url(#sg-arrow-${e.type.toLowerCase()})"`;
+      const markerType = REL_COLORS[e.type] ? e.type.toLowerCase() : 'default';
+      const markerAttr = `marker-end="url(#sg-arrow-${markerType})"`;
       const dashAttr = isNeg ? 'stroke-dasharray="4,3"' : '';
+      const isSelected = selectedEdge && String(selectedEdge.sourceId) === String(e.sourceId) && String(selectedEdge.targetId) === String(e.targetId);
 
-      svg += `    <line class="sg-edge" x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="${col}" stroke-width="${strokeWidth}" stroke-opacity="0.75" ${dashAttr} ${markerAttr} style="cursor:pointer;">\n`;
+      // Selected edge under-halo
+      if (isSelected) {
+        svg += `    <line class="sg-edge-halo" x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="#f59e0b" stroke-width="${strokeWidth + 7}" stroke-opacity="0.85" stroke-linecap="round"/>\n`;
+      }
+
+      const lineClass = isSelected ? 'sg-edge selected' : 'sg-edge';
+      const clickHandler = `onclick="if(window.handleSocialGraphEdgeClick) window.handleSocialGraphEdgeClick('${e.sourceId}', '${e.targetId}')"`;
+
+      svg += `    <line class="${lineClass}" data-source-id="${e.sourceId}" data-target-id="${e.targetId}" x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="${col}" stroke-width="${strokeWidth}" stroke-opacity="${isSelected ? '1' : '0.75'}" ${dashAttr} ${markerAttr} style="cursor:pointer;" ${clickHandler}>\n`;
       svg += `      <title>${e.sourceNpc.name} → [${e.type}] → ${e.targetNpc.name} (${e.sentiment >= 0 ? '+' : ''}${e.sentiment})${e.notes ? '\n' + e.notes : ''}</title>\n`;
+      svg += `    </line>\n`;
+
+      // Invisible wider hitbox for easy clicking
+      svg += `    <line class="sg-edge-hitbox" data-source-id="${e.sourceId}" data-target-id="${e.targetId}" x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="transparent" stroke-width="16" style="cursor:pointer;" ${clickHandler}>\n`;
+      svg += `      <title>${e.sourceNpc.name} → [${e.type}] → ${e.targetNpc.name} (${e.sentiment >= 0 ? '+' : ''}${e.sentiment})</title>\n`;
       svg += `    </line>\n`;
     });
     svg += '  </g>\n';
@@ -36894,6 +36924,7 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
   window.openSocialGraphModal = openSocialGraphModal;
 
   function syncSocialGraphControls() {
+    if (typeof document === 'undefined') return;
     const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
     if (!topo) return;
 
@@ -36923,31 +36954,274 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
 
   function setSocialGraphFocus(npcId) {
     activeFocusNpcId = npcId ? String(npcId) : null;
-    const focusSelect = document.getElementById('sg-focus-select');
-    if (focusSelect) focusSelect.value = activeFocusNpcId || '';
+    activeSelectedEdge = null;
+    if (typeof document !== 'undefined') {
+      const focusSelect = document.getElementById('sg-focus-select');
+      if (focusSelect) focusSelect.value = activeFocusNpcId || '';
+    }
     renderSocialGraph();
   }
   window.setSocialGraphFocus = setSocialGraphFocus;
 
   function resetSocialGraphView() {
     activeFocusNpcId = null;
-    const focusSelect = document.getElementById('sg-focus-select');
-    if (focusSelect) focusSelect.value = '';
-    const factionSelect = document.getElementById('sg-faction-filter');
-    if (factionSelect) factionSelect.value = '';
-    const sentSlider = document.getElementById('sg-min-sentiment');
-    if (sentSlider) {
-      sentSlider.value = 0;
-      const sentVal = document.getElementById('sg-min-sentiment-val');
-      if (sentVal) sentVal.textContent = '0';
+    activeSelectedEdge = null;
+    currentViewBox = { x: -450, y: -320, w: 900, h: 640 };
+    if (typeof document !== 'undefined') {
+      const focusSelect = document.getElementById('sg-focus-select');
+      if (focusSelect) focusSelect.value = '';
+      const factionSelect = document.getElementById('sg-faction-filter');
+      if (factionSelect) factionSelect.value = '';
+      const sentSlider = document.getElementById('sg-min-sentiment');
+      if (sentSlider) {
+        sentSlider.value = 0;
+        const sentVal = document.getElementById('sg-min-sentiment-val');
+        if (sentVal) sentVal.textContent = '0';
+      }
+      const connCheck = document.getElementById('sg-connected-only');
+      if (connCheck) connCheck.checked = true;
     }
-    const connCheck = document.getElementById('sg-connected-only');
-    if (connCheck) connCheck.checked = true;
     renderSocialGraph();
   }
   window.resetSocialGraphView = resetSocialGraphView;
 
+  // --- Zoom, Pan & Extents CAD Controls ---
+  function applySocialGraphViewBox() {
+    if (typeof document === 'undefined') return;
+    const svg = document.getElementById('social-graph-svg');
+    if (svg && typeof svg.setAttribute === 'function') {
+      svg.setAttribute('viewBox', `${currentViewBox.x} ${currentViewBox.y} ${currentViewBox.w} ${currentViewBox.h}`);
+    }
+  }
+  window.applySocialGraphViewBox = applySocialGraphViewBox;
+
+  function socialGraphZoomIn(factor = 0.8) {
+    const cx = currentViewBox.x + currentViewBox.w / 2;
+    const cy = currentViewBox.y + currentViewBox.h / 2;
+    const newW = Math.max(160, Math.round(currentViewBox.w * factor));
+    const newH = Math.max(114, Math.round(currentViewBox.h * factor));
+    currentViewBox.x = Math.round(cx - newW / 2);
+    currentViewBox.y = Math.round(cy - newH / 2);
+    currentViewBox.w = newW;
+    currentViewBox.h = newH;
+    applySocialGraphViewBox();
+  }
+  window.socialGraphZoomIn = socialGraphZoomIn;
+
+  function socialGraphZoomOut(factor = 1.25) {
+    const cx = currentViewBox.x + currentViewBox.w / 2;
+    const cy = currentViewBox.y + currentViewBox.h / 2;
+    const newW = Math.min(4500, Math.round(currentViewBox.w * factor));
+    const newH = Math.min(3200, Math.round(currentViewBox.h * factor));
+    currentViewBox.x = Math.round(cx - newW / 2);
+    currentViewBox.y = Math.round(cy - newH / 2);
+    currentViewBox.w = newW;
+    currentViewBox.h = newH;
+    applySocialGraphViewBox();
+  }
+  window.socialGraphZoomOut = socialGraphZoomOut;
+
+  function socialGraphZoomExtents() {
+    const positions = (typeof window !== 'undefined') ? window.__lastSocialGraphPositions : null;
+    const keys = positions ? Object.keys(positions) : [];
+    if (!positions || keys.length === 0) {
+      currentViewBox = { x: -450, y: -320, w: 900, h: 640 };
+      applySocialGraphViewBox();
+      return;
+    }
+
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    keys.forEach(k => {
+      const p = positions[k];
+      if (p && typeof p.x === 'number' && typeof p.y === 'number') {
+        if (p.x < minX) minX = p.x;
+        if (p.x > maxX) maxX = p.x;
+        if (p.y < minY) minY = p.y;
+        if (p.y > maxY) maxY = p.y;
+      }
+    });
+
+    if (!isFinite(minX) || !isFinite(maxX) || !isFinite(minY) || !isFinite(maxY)) {
+      currentViewBox = { x: -450, y: -320, w: 900, h: 640 };
+      applySocialGraphViewBox();
+      return;
+    }
+
+    // Add 80px margin around outermost nodes for labels and avatar circles
+    const pad = 80;
+    minX -= pad;
+    maxX += pad;
+    minY -= pad;
+    maxY += pad;
+
+    let spanW = maxX - minX;
+    let spanH = maxY - minY;
+    if (spanW < 300) spanW = 300;
+    if (spanH < 213) spanH = 213;
+
+    // Maintain aspect ratio 900:640 = 1.40625
+    const targetAspect = 900 / 640;
+    const curAspect = spanW / spanH;
+    if (curAspect > targetAspect) {
+      spanH = spanW / targetAspect;
+    } else {
+      spanW = spanH * targetAspect;
+    }
+
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+
+    currentViewBox = {
+      x: Math.round(cx - spanW / 2),
+      y: Math.round(cy - spanH / 2),
+      w: Math.round(spanW),
+      h: Math.round(spanH)
+    };
+    applySocialGraphViewBox();
+  }
+  window.socialGraphZoomExtents = socialGraphZoomExtents;
+
+  function initSocialGraphViewportEvents() {
+    if (typeof document === 'undefined') return;
+    const viewport = document.getElementById('social-graph-viewport');
+    if (!viewport || viewport._eventsBound || typeof viewport.addEventListener !== 'function') return;
+    viewport._eventsBound = true;
+
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let origVbX = 0;
+    let origVbY = 0;
+
+    viewport.addEventListener('mousedown', function (e) {
+      if (e.button !== 0) return;
+      if (e.target && e.target.closest && (e.target.closest('.sg-node') || e.target.closest('.sg-edge-hitbox') || e.target.closest('button') || e.target.closest('input') || e.target.closest('select') || e.target.closest('textarea'))) {
+        return;
+      }
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      origVbX = currentViewBox.x;
+      origVbY = currentViewBox.y;
+      viewport.style.cursor = 'grabbing';
+    });
+
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('mousemove', function (e) {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        const rect = (typeof viewport.getBoundingClientRect === 'function') ? viewport.getBoundingClientRect() : { width: 900, height: 640 };
+        const w = (rect && rect.width > 0) ? rect.width : 900;
+        const h = (rect && rect.height > 0) ? rect.height : 640;
+        const scaleX = currentViewBox.w / w;
+        const scaleY = currentViewBox.h / h;
+        currentViewBox.x = Math.round(origVbX - dx * scaleX);
+        currentViewBox.y = Math.round(origVbY - dy * scaleY);
+        applySocialGraphViewBox();
+      });
+
+      window.addEventListener('mouseup', function () {
+        if (isDragging) {
+          isDragging = false;
+          if (viewport) viewport.style.cursor = 'default';
+        }
+      });
+    }
+
+    viewport.addEventListener('wheel', function (e) {
+      if (typeof e.preventDefault === 'function') e.preventDefault();
+      if (e.deltaY < 0) {
+        socialGraphZoomIn(0.9);
+      } else {
+        socialGraphZoomOut(1.1);
+      }
+    }, { passive: false });
+  }
+
+  // --- Edge Selection & Interactive Inspection ---
+  function handleSocialGraphEdgeClick(sourceId, targetId) {
+    activeSelectedEdge = { sourceId: String(sourceId), targetId: String(targetId) };
+    renderSocialGraph();
+  }
+  window.handleSocialGraphEdgeClick = handleSocialGraphEdgeClick;
+
+  function clearSelectedEdge() {
+    activeSelectedEdge = null;
+    renderSocialGraph();
+  }
+  window.clearSelectedEdge = clearSelectedEdge;
+
+  function updateSelectedEdgeReciprocalHint() {
+    if (typeof document === 'undefined') return;
+    const typeSelect = document.getElementById('sg-edge-type-select');
+    const recipHint = document.getElementById('sg-edge-reciprocal-hint');
+    if (!typeSelect || !recipHint) return;
+    const invMap = window.INVERSE_RELATIONSHIPS || {};
+    const inv = invMap[typeSelect.value] || typeSelect.value;
+    recipHint.textContent = `Inverse: ${inv}`;
+  }
+  window.updateSelectedEdgeReciprocalHint = updateSelectedEdgeReciprocalHint;
+
+  function updateEdgeSentimentVal(val) {
+    if (typeof document === 'undefined') return;
+    const valEl = document.getElementById('sg-edge-sentiment-val');
+    if (!valEl) return;
+    const num = parseInt(val, 10) || 0;
+    valEl.textContent = (num >= 0 ? '+' : '') + num;
+    if (num > 0) {
+      valEl.style.background = '#dcfce7';
+      valEl.style.color = '#15803d';
+    } else if (num < 0) {
+      valEl.style.background = '#fee2e2';
+      valEl.style.color = '#b91c1c';
+    } else {
+      valEl.style.background = '#f1f5f9';
+      valEl.style.color = '#475569';
+    }
+  }
+  window.updateEdgeSentimentVal = updateEdgeSentimentVal;
+
+  function saveSelectedEdgeChanges() {
+    if (!activeSelectedEdge) return;
+    const sId = activeSelectedEdge.sourceId;
+    const tId = activeSelectedEdge.targetId;
+    const typeSelect = (typeof document !== 'undefined') ? document.getElementById('sg-edge-type-select') : null;
+    const sentSlider = (typeof document !== 'undefined') ? document.getElementById('sg-edge-sentiment-slider') : null;
+    const notesInput = (typeof document !== 'undefined') ? document.getElementById('sg-edge-notes') : null;
+    const recipCheck = (typeof document !== 'undefined') ? document.getElementById('sg-edge-reciprocal-check') : null;
+
+    const relType = typeSelect ? typeSelect.value : 'Ally';
+    const sentiment = sentSlider ? parseInt(sentSlider.value, 10) || 0 : 0;
+    const notes = notesInput ? notesInput.value : '';
+    const isReciprocal = recipCheck ? recipCheck.checked : false;
+
+    if (typeof window.addNpcRelationship === 'function') {
+      window.addNpcRelationship(sId, tId, relType, sentiment, notes, isReciprocal);
+    } else {
+      renderSocialGraph();
+    }
+  }
+  window.saveSelectedEdgeChanges = saveSelectedEdgeChanges;
+
+  function deleteSelectedEdge() {
+    if (!activeSelectedEdge) return;
+    const sId = activeSelectedEdge.sourceId;
+    const tId = activeSelectedEdge.targetId;
+    const recipCheck = (typeof document !== 'undefined') ? document.getElementById('sg-edge-reciprocal-check') : null;
+    const isReciprocal = recipCheck ? recipCheck.checked : true;
+
+    activeSelectedEdge = null;
+    if (typeof window.removeNpcRelationship === 'function') {
+      window.removeNpcRelationship(sId, tId, isReciprocal);
+    } else {
+      renderSocialGraph();
+    }
+  }
+  window.deleteSelectedEdge = deleteSelectedEdge;
+
   function renderSocialGraph() {
+    if (typeof document === 'undefined') return;
     const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
     const viewport = document.getElementById('social-graph-viewport');
     if (!viewport || !topo) return;
@@ -36960,82 +37234,180 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       focusNpcId: activeFocusNpcId,
       factionFilter: factionSelect ? factionSelect.value : null,
       minSentiment: sentSlider ? parseInt(sentSlider.value, 10) || 0 : 0,
-      connectedOnly: connCheck ? connCheck.checked : true
+      connectedOnly: connCheck ? connCheck.checked : true,
+      viewBox: currentViewBox,
+      selectedEdge: activeSelectedEdge
     };
 
     const svgMarkup = generateSocialGraphSvg(topo, options);
     viewport.innerHTML = svgMarkup + `
       <div id="social-graph-hud" style="position:absolute; bottom:6px; left:8px; font-size:10px; color:#64748b; background:rgba(255,255,255,0.88); padding:2px 6px; border-radius:2px; border:1px solid #e2e8f0; pointer-events:none;">
-        Click node to set focus • Double-click node to inspect in Entity Manager
+        Click node to focus • Click edge to edit tie • Scroll / Drag to pan & zoom
       </div>
     `;
 
+    initSocialGraphViewportEvents();
     renderSocialGraphSidebar();
   }
   window.renderSocialGraph = renderSocialGraph;
 
   function renderSocialGraphSidebar() {
+    if (typeof document === 'undefined') return;
     const cardEl = document.getElementById('sg-selected-card');
     if (!cardEl) return;
 
     const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
-    if (!topo || !activeFocusNpcId) {
-      cardEl.innerHTML = '<div style="font-size:10px; color:#64748b; font-style:italic;">Click on any character node to inspect relationships, sentiment balance, and quick actions.</div>';
-      return;
-    }
+    if (!topo) return;
 
-    const npc = (topo.npcs || []).find(n => String(n.id) === activeFocusNpcId);
-    if (!npc) {
-      cardEl.innerHTML = '<div style="font-size:10px; color:#64748b; font-style:italic;">Character not found in active roster.</div>';
-      return;
-    }
+    // 1. Edge Selection Inspector Mode
+    if (activeSelectedEdge) {
+      const sourceNpc = (topo.npcs || []).find(n => String(n.id) === String(activeSelectedEdge.sourceId));
+      const targetNpc = (topo.npcs || []).find(n => String(n.id) === String(activeSelectedEdge.targetId));
+      const rel = (sourceNpc && Array.isArray(sourceNpc.relationships))
+        ? sourceNpc.relationships.find(r => String(r.targetNpcId) === String(activeSelectedEdge.targetId))
+        : null;
 
-    const faction = npc.factionId ? (topo.factions || []).find(f => String(f.id) === String(npc.factionId)) : null;
-    const rels = Array.isArray(npc.relationships) ? npc.relationships : [];
-    const inbound = (topo.npcs || []).filter(other => other.id !== npc.id && Array.isArray(other.relationships) && other.relationships.some(r => String(r.targetNpcId) === String(npc.id)));
+      if (sourceNpc && targetNpc && rel) {
+        const curType = rel.relationshipType || rel.type || 'Ally';
+        const curSent = typeof rel.sentiment === 'number' ? rel.sentiment : 0;
+        const curNotes = rel.notes || '';
+        const col = REL_COLORS[curType] || '#64748b';
 
-    let relItemsHtml = '';
-    if (rels.length === 0 && inbound.length === 0) {
-      relItemsHtml = '<div style="font-size:9px; color:#94a3b8; font-style:italic;">No recorded social ties.</div>';
-    } else {
-      relItemsHtml = rels.map(r => {
-        const target = (topo.npcs || []).find(n => String(n.id) === String(r.targetNpcId));
-        const col = REL_COLORS[r.relationshipType || r.type] || '#64748b';
-        const s = typeof r.sentiment === 'number' ? r.sentiment : 0;
-        return `
-          <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; border:1px solid #e2e8f0; padding:2px 5px; border-radius:2px; margin-bottom:2px;">
-            <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-              <span style="color:${col}; font-weight:bold; font-size:9px;">● ${r.relationshipType || r.type}:</span>
-              <span style="font-size:9px;">${target ? target.name : r.targetNpcId}</span>
+        const types = ['Ally', 'Rival', 'Family', 'Superior', 'Subordinate', 'Debtor', 'Creditor', 'Informant', 'Handler'];
+        if (!types.includes(curType)) types.push(curType);
+
+        let typeOpts = types.map(t => `<option value="${t}" ${t === curType ? 'selected' : ''}>${t}</option>`).join('');
+
+        const sentBadgeBg = curSent > 0 ? '#dcfce7' : (curSent < 0 ? '#fee2e2' : '#f1f5f9');
+        const sentBadgeCol = curSent > 0 ? '#15803d' : (curSent < 0 ? '#b91c1c' : '#475569');
+
+        const cleanNotes = curNotes.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const invMap = window.INVERSE_RELATIONSHIPS || {};
+        const invType = invMap[curType] || curType;
+
+        cardEl.innerHTML = `
+          <div style="background:#fff; border:1px solid #f59e0b; border-radius:3px; padding:8px; box-shadow:0 1px 3px rgba(245,158,11,0.15);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; border-bottom:1px solid #f1f5f9; padding-bottom:4px;">
+              <strong style="font-size:11px; color:#b45309; text-transform:uppercase; letter-spacing:0.5px;">Relationship Inspector</strong>
+              <button class="win-btn" onclick="clearSelectedEdge()" style="font-size:9px; padding:1px 5px;" title="Deselect Edge">✕</button>
             </div>
-            <span style="font-size:8.5px; font-weight:bold; color:${s >= 0 ? '#16a34a' : '#dc2626'};">${s >= 0 ? '+' : ''}${s}</span>
+
+            <!-- Endpoint Connection Display -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:3px; padding:6px; margin-bottom:8px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; font-size:10px;">
+                <span style="font-weight:bold; color:#0f172a; max-width:44%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${sourceNpc.name}">
+                  👤 ${sourceNpc.name}
+                </span>
+                <span style="color:${col}; font-weight:bold; font-size:11px; padding:0 3px;">➔</span>
+                <span style="font-weight:bold; color:#0f172a; max-width:44%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${targetNpc.name}">
+                  👤 ${targetNpc.name}
+                </span>
+              </div>
+            </div>
+
+            <!-- Form Controls -->
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div>
+                <label style="font-size:9.5px; font-weight:bold; color:#475569; display:block; margin-bottom:2px;">Tie Type:</label>
+                <select id="sg-edge-type-select" class="win-input" style="width:100%; font-size:10px; padding:2px;" onchange="updateSelectedEdgeReciprocalHint()">
+                  ${typeOpts}
+                </select>
+              </div>
+
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+                  <label style="font-size:9.5px; font-weight:bold; color:#475569;">Sentiment:</label>
+                  <span id="sg-edge-sentiment-val" style="font-size:10px; font-weight:bold; padding:1px 6px; border-radius:3px; background:${sentBadgeBg}; color:${sentBadgeCol};">
+                    ${curSent >= 0 ? '+' : ''}${curSent}
+                  </span>
+                </div>
+                <input type="range" id="sg-edge-sentiment-slider" min="-100" max="100" value="${curSent}" style="width:100%;" oninput="updateEdgeSentimentVal(this.value)">
+              </div>
+
+              <div>
+                <label style="font-size:9.5px; font-weight:bold; color:#475569; display:block; margin-bottom:2px;">Lore / Notes:</label>
+                <textarea id="sg-edge-notes" class="win-input" rows="2" style="width:100%; font-size:9.5px; resize:vertical;" placeholder="Context, debts, secrets...">${cleanNotes}</textarea>
+              </div>
+
+              <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:4px 6px; border-radius:2px;">
+                <label style="display:flex; align-items:center; gap:4px; font-size:9.5px; cursor:pointer;">
+                  <input type="checkbox" id="sg-edge-reciprocal-check" checked>
+                  <span>Sync inverse tie on target</span>
+                </label>
+                <div id="sg-edge-reciprocal-hint" style="font-size:8.5px; color:#64748b; margin-top:2px; padding-left:16px;">
+                  Inverse: ${invType}
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div style="display:flex; gap:4px; margin-top:4px;">
+                <button class="win-btn" onclick="saveSelectedEdgeChanges()" style="flex:1; font-size:10px; font-weight:bold; padding:3px 6px; color:#15803d;">Save Changes</button>
+                <button class="win-btn" onclick="deleteSelectedEdge()" style="font-size:10px; padding:3px 6px; color:#b91c1c;" title="Remove this relationship tie">Delete</button>
+              </div>
+            </div>
           </div>
         `;
-      }).join('');
+        return;
+      }
     }
 
-    cardEl.innerHTML = `
-      <div style="background:#fff; border:1px solid #cbd5e1; border-radius:3px; padding:8px;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
-          <div>
-            <strong style="font-size:12px; color:#0f172a;">${npc.name}</strong>
-            <div style="font-size:9.5px; color:#64748b;">${npc.role || 'Resident'} &bull; ${faction ? faction.name : 'Free Agent'}</div>
+    // 2. Character Node Focus Mode
+    if (activeFocusNpcId) {
+      const npc = (topo.npcs || []).find(n => String(n.id) === activeFocusNpcId);
+      if (npc) {
+        const faction = npc.factionId ? (topo.factions || []).find(f => String(f.id) === String(npc.factionId)) : null;
+        const rels = Array.isArray(npc.relationships) ? npc.relationships : [];
+        const inbound = (topo.npcs || []).filter(other => other.id !== npc.id && Array.isArray(other.relationships) && other.relationships.some(r => String(r.targetNpcId) === String(npc.id)));
+
+        let relItemsHtml = '';
+        if (rels.length === 0 && inbound.length === 0) {
+          relItemsHtml = '<div style="font-size:9px; color:#94a3b8; font-style:italic;">No recorded social ties.</div>';
+        } else {
+          relItemsHtml = rels.map(r => {
+            const target = (topo.npcs || []).find(n => String(n.id) === String(r.targetNpcId));
+            const col = REL_COLORS[r.relationshipType || r.type] || '#64748b';
+            const s = typeof r.sentiment === 'number' ? r.sentiment : 0;
+            return `
+              <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; border:1px solid #e2e8f0; padding:2px 5px; border-radius:2px; margin-bottom:2px; cursor:pointer;" onclick="if(window.handleSocialGraphEdgeClick) window.handleSocialGraphEdgeClick('${npc.id}', '${r.targetNpcId}')" title="Click to inspect this relationship tie">
+                <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                  <span style="color:${col}; font-weight:bold; font-size:9px;">● ${r.relationshipType || r.type}:</span>
+                  <span style="font-size:9px;">${target ? target.name : r.targetNpcId}</span>
+                </div>
+                <span style="font-size:8.5px; font-weight:bold; color:${s >= 0 ? '#16a34a' : '#dc2626'};">${s >= 0 ? '+' : ''}${s}</span>
+              </div>
+            `;
+          }).join('');
+        }
+
+        cardEl.innerHTML = `
+          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:3px; padding:8px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+              <div>
+                <strong style="font-size:12px; color:#0f172a;">${npc.name}</strong>
+                <div style="font-size:9.5px; color:#64748b;">${npc.role || 'Resident'} &bull; ${faction ? faction.name : 'Free Agent'}</div>
+              </div>
+              <button class="win-btn" onclick="openAddNpcRelationshipModal('${npc.id}')" style="font-size:9px; padding:1px 5px;">+ Tie</button>
+            </div>
+            <div style="margin-top:6px;">
+              <strong style="font-size:10px; color:#334155; display:block; margin-bottom:3px;">Social Ties (${rels.length} out / ${inbound.length} in):</strong>
+              <div style="max-height:160px; overflow-y:auto;">${relItemsHtml}</div>
+            </div>
+            <div style="display:flex; gap:4px; margin-top:8px;">
+              <button class="win-btn" onclick="if(window.openEntityManager){openEntityManager('npc'); selectEntityItem('${npc.id}');}" style="flex:1; font-size:10px; font-weight:bold;">Inspect in Manager</button>
+              <button class="win-btn" onclick="setSocialGraphFocus(null)" style="font-size:10px;">Clear Focus</button>
+            </div>
           </div>
-          <button class="win-btn" onclick="openAddNpcRelationshipModal('${npc.id}')" style="font-size:9px; padding:1px 5px;">+ Tie</button>
-        </div>
-        <div style="margin-top:6px;">
-          <strong style="font-size:10px; color:#334155; display:block; margin-bottom:3px;">Social Ties (${rels.length} out / ${inbound.length} in):</strong>
-          <div style="max-height:160px; overflow-y:auto;">${relItemsHtml}</div>
-        </div>
-        <div style="display:flex; gap:4px; margin-top:8px;">
-          <button class="win-btn" onclick="if(window.openEntityManager){openEntityManager('npc'); selectEntityItem('${npc.id}');}" style="flex:1; font-size:10px; font-weight:bold;">Inspect in Manager</button>
-          <button class="win-btn" onclick="setSocialGraphFocus(null)" style="font-size:10px;">Clear Focus</button>
-        </div>
-      </div>
-    `;
+        `;
+        return;
+      }
+    }
+
+    // 3. Default Empty / Idle State
+    cardEl.innerHTML = '<div style="font-size:10px; color:#64748b; font-style:italic;">Click on any character node or relationship edge to inspect details, sentiment balance, and properties.</div>';
   }
 
   function handleSocialGraphNodeClick(nodeId) {
+    activeSelectedEdge = null;
     setSocialGraphFocus(nodeId);
   }
   window.handleSocialGraphNodeClick = handleSocialGraphNodeClick;
@@ -37167,6 +37539,12 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
     }
   }
   window.submitNpcRelationshipModal = submitNpcRelationshipModal;
+
+  // Viewport & Edge Inspection Accessors for Headless Testing & Workstation Mods
+  window.getActiveSocialGraphEdge = () => (activeSelectedEdge ? { ...activeSelectedEdge } : null);
+  window.setActiveSocialGraphEdge = (e) => { activeSelectedEdge = e ? { ...e } : null; };
+  window.getSocialGraphViewBox = () => ({ ...currentViewBox });
+  window.setSocialGraphViewBox = (vb) => { currentViewBox = { ...vb }; };
 
 })();
     // ========================================================================

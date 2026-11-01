@@ -4910,6 +4910,38 @@ function testNpcSocialWebAndRelationalGraph() {
 
   const singleSvg = sandbox.generateSocialGraphSvg({ npcs: [{ id: 'lone_wolf', name: 'Lone Wolf' }] });
   assert(singleSvg.includes('<svg') && !singleSvg.includes('NaN'), 'Single character generates safe SVG without NaN');
+
+  // 6. Interactive Edge Selection & Viewport Zoom / Extents (Ticket 3)
+  sandbox.addNpcRelationship('npc_archon', 'npc_captain', 'Superior', 80, 'Commander and Captain', true);
+
+  const svgSelected = sandbox.generateSocialGraphSvg(sandbox.Workstation.activeTopology, {
+    selectedEdge: { sourceId: 'npc_archon', targetId: 'npc_captain' },
+    connectedOnly: false
+  });
+  assert(svgSelected.includes('sg-edge-hitbox'), 'SVG renders transparent clickable edge hitboxes');
+  assert(svgSelected.includes('sg-edge-halo'), 'SVG renders under-glow halo for selected edge');
+  assert(svgSelected.includes('sg-edge selected'), 'Selected edge has .selected class applied');
+
+  sandbox.setSocialGraphViewBox({ x: -450, y: -320, w: 900, h: 640 });
+  sandbox.socialGraphZoomIn(0.5);
+  const vbIn = sandbox.getSocialGraphViewBox();
+  assert(vbIn.w < 900 && vbIn.h < 640, 'socialGraphZoomIn shrinks viewBox dimensions');
+
+  sandbox.socialGraphZoomOut(2.0);
+  const vbOut = sandbox.getSocialGraphViewBox();
+  assert(vbOut.w > vbIn.w && vbOut.h > vbIn.h, 'socialGraphZoomOut expands viewBox dimensions');
+
+  sandbox.socialGraphZoomExtents();
+  const vbExtents = sandbox.getSocialGraphViewBox();
+  assert(typeof vbExtents.x === 'number' && typeof vbExtents.w === 'number', 'socialGraphZoomExtents calculates numeric coordinates');
+  assert(!isNaN(vbExtents.x) && !isNaN(vbExtents.w) && isFinite(vbExtents.w), 'socialGraphZoomExtents produces finite non-NaN dimensions');
+
+  sandbox.handleSocialGraphEdgeClick('npc_archon', 'npc_captain');
+  assertEqual(sandbox.getActiveSocialGraphEdge().sourceId, 'npc_archon', 'Active selected edge sourceId tracked');
+  assertEqual(sandbox.getActiveSocialGraphEdge().targetId, 'npc_captain', 'Active selected edge targetId tracked');
+
+  sandbox.clearSelectedEdge();
+  assertEqual(sandbox.getActiveSocialGraphEdge(), null, 'clearSelectedEdge resets selection to null');
 }
 
 // SUITE 29: LOCATION NAMES IN STATIONED NODE COLUMN ACROSS ENTITY EXPLORER
