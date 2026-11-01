@@ -1,0 +1,327 @@
+{
+  "id": "map_bg1_sword_coast",
+  "name": "The Sword Coast (Regional Pointcrawl)",
+  "scaleTier": "region",
+  "parentMapId": null,
+  "parentNodeId": null,
+  "nodes": [
+    {
+      "id": "BG-SC-01",
+      "name": "Candlekeep Fortress & Great Library",
+      "displayName": "Candlekeep",
+      "x": 260,
+      "y": 440,
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "customNotes": "A colossal sea-cliff citadel housing the greatest repository of philosophical, historical, and prophetic tomes in Faerun. Monks chant the prophecies of Alaundo within walled courtyards under the austere rule of the Keeper of Tomes.",
+      "childMapId": "map_bg1_candlekeep"
+    },
+    {
+      "id": "BG-SC-02",
+      "name": "The Coast Way & Lion's Way",
+      "displayName": "Coast Way",
+      "x": 380,
+      "y": 410,
+      "cat": "Gateway",
+      "culture": "Clan",
+      "shape": "circle",
+      "customNotes": "Rutted coastal highway winding through coastal scrubland and low limestone crags. Gorion fell here to armored ambushers in the night. The scent of spilled blood and ozone still clings to the road verge.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-SC-03",
+      "name": "The Friendly Arm Inn",
+      "displayName": "Friendly Arm",
+      "x": 490,
+      "y": 310,
+      "cat": "Bastion",
+      "culture": "Clan",
+      "shape": "pentagon",
+      "customNotes": "A fortified walled citadel built around an ancient stone keep by the gnome illusionist Bentley Mirrorshade. Banners of Garl Glittergold flutter above stone ramparts that offer sanctuary to beleaguered trade caravans.",
+      "childMapId": "map_bg1_friendly_arm"
+    },
+    {
+      "id": "BG-SC-04",
+      "name": "Township of Beregost",
+      "displayName": "Beregost",
+      "x": 490,
+      "y": 490,
+      "cat": "Bastion",
+      "culture": "Market",
+      "shape": "pentagon",
+      "customNotes": "A bustling crossroads market town smelling of coal smoke, roasted mutton, and damp horsehair. Four sprawling coaching taverns surround the high chimney of Taerom Fuiruim's Thunderhammer Smithy.",
+      "childMapId": "map_bg1_beregost"
+    },
+    {
+      "id": "BG-SC-05",
+      "name": "High Hedge Estate",
+      "displayName": "High Hedge",
+      "x": 380,
+      "y": 530,
+      "cat": "Vault",
+      "culture": "Adhocracy",
+      "shape": "diamond",
+      "customNotes": "A towering manse shielded by enchanted bramble mazes and patrolling flesh golems. Within, the reclusive conjure-master Thalantyr tests the limits of planar binding and antique artifact transmutation.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-SC-06",
+      "name": "Township of Nashkel",
+      "displayName": "Nashkel",
+      "x": 490,
+      "y": 680,
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "customNotes": "Northern Amnian frontier outpost at the foot of the Cloud Peaks. Armed town guards in scarlet tunics eye refugees suspiciously while miners pack tavern porches demanding answers to the iron rot.",
+      "childMapId": "map_bg1_nashkel_town"
+    },
+    {
+      "id": "BG-SC-07",
+      "name": "Nashkel Mines Surface Quarry",
+      "displayName": "Nashkel Mines",
+      "x": 620,
+      "y": 770,
+      "cat": "Hazard",
+      "culture": "Market",
+      "shape": "triangle",
+      "customNotes": "Open-pit iron excavation choked with wooden derricks, gravel heaps, and soldier pickets. Contaminated ore sits piled in wooden sluices while terrified miners refuse to descend into the lower galleries.",
+      "childMapId": "map_bg1_nashkel_mines_surface"
+    },
+    {
+      "id": "BG-SC-08",
+      "name": "Cloud Peaks & Gnoll Stronghold",
+      "displayName": "Gnoll Stronghold",
+      "x": 280,
+      "y": 760,
+      "cat": "Hazard",
+      "culture": "Clan",
+      "shape": "hexagon",
+      "customNotes": "Craggy, windswept mountain passes crowned by a barbaric timber-and-boulder fortress overlooking deep river gorges. Howls of gnoll war-packs echo across natural rope bridges.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-SC-09",
+      "name": "Gullykin & Firewine Ruins",
+      "displayName": "Gullykin",
+      "x": 740,
+      "y": 650,
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "circle",
+      "customNotes": "A peaceful halfling burrowing hamlet perched atop the sunken catacombs of the ancient elven city of Firewine. Wine cellars conceal hidden masonry tunnels into kobold-infested crypts.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-SC-10",
+      "name": "Ulcaster School of Sorcery Ruins",
+      "displayName": "Ulcaster",
+      "x": 640,
+      "y": 560,
+      "cat": "Vault",
+      "culture": "Adhocracy",
+      "shape": "diamond",
+      "customNotes": "The charred stone carcass of a grand conjuration academy razed three centuries ago by Calishite mages. The spectral shade of Ulcaster still glides across scorched stone arches reciting lost arcana.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-SC-11",
+      "name": "Larswood & Peldvale Frontier",
+      "displayName": "Larswood",
+      "x": 670,
+      "y": 420,
+      "cat": "Gateway",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "Dense deciduous woodland traversed by hidden bandit trails. Raiken and Teven's raiding outposts ambush merchant supply lines heading north toward the Chionthar.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-SC-12",
+      "name": "Tazok's Hidden Bandit Camp",
+      "displayName": "Bandit Camp",
+      "x": 800,
+      "y": 310,
+      "cat": "Bastion",
+      "culture": "Market",
+      "shape": "pentagon",
+      "customNotes": "A massive military encampment concealed within a pine hollow, occupied by Chill hobgoblins, Black Talon human archers, and iron-hoard tents orchestrated by the half-ogre Tazok.",
+      "childMapId": "map_bg1_bandit_camp"
+    },
+    {
+      "id": "BG-SC-13",
+      "name": "Cloakwood Primeval Forest",
+      "displayName": "Cloakwood",
+      "x": 320,
+      "y": 240,
+      "cat": "Hazard",
+      "culture": "Clan",
+      "shape": "circle",
+      "customNotes": "Dense, sun-choked canopy choked with hanging moss, territorial Shadow Druids, giant phase spiders, and nesting forest wyverns along the river gorge.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-SC-14",
+      "name": "Cloakwood Secret Iron Mines",
+      "displayName": "Cloakwood Mines",
+      "x": 250,
+      "y": 150,
+      "cat": "Vault",
+      "culture": "Market",
+      "shape": "triangle",
+      "customNotes": "A fortified quarry and subterranean smelter operated by Iron Throne slave drivers and guarded by black-glass wards, overseen by the ruthless battle-mage Davaeorn.",
+      "childMapId": "map_bg1_cloakwood_mines"
+    },
+    {
+      "id": "BG-SC-15",
+      "name": "Wyrm's Crossing Bridge",
+      "displayName": "Wyrm's Crossing",
+      "x": 490,
+      "y": 180,
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "diamond",
+      "customNotes": "A colossal double-span stone arched viaduct crossing the wide Chionthar River, guarded by a fortified Flaming Fist gatehouse screening travelers for iron contraband and fugitives.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-SC-16",
+      "name": "Metropolis of Baldur's Gate",
+      "displayName": "Baldur's Gate",
+      "x": 550,
+      "y": 110,
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "star",
+      "customNotes": "The sovereign trade capital of the Sword Coast. Sprawling multi-tiered granite bastions, crowded merchant docks, labyrinthine sewers, and the towering black-iron monolith of the Iron Throne HQ.",
+      "childMapId": "map_bg1_city"
+    },
+    {
+      "id": "BG-SC-17",
+      "name": "Ulgoth's Beard Seaport",
+      "displayName": "Ulgoth's Beard",
+      "x": 700,
+      "y": 100,
+      "cat": "Gateway",
+      "culture": "Adhocracy",
+      "shape": "circle",
+      "customNotes": "A foggy northern fishing hamlet where arcane eccentric Shandalar resides, serving as the staging ground for maritime expeditions to the Isle of Balduran and Durlag's Tower.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-SC-18",
+      "name": "Durlag's Tower Citadel",
+      "displayName": "Durlag's Tower",
+      "x": 920,
+      "y": 690,
+      "cat": "Vault",
+      "culture": "Adhocracy",
+      "shape": "star",
+      "customNotes": "A tragic dwarven fortress built by hero Durlag Trollkiller, now a nightmare dungeon of four deadly subterranean levels choked with lethal wards, doppelgangers, and the Demon Knight.",
+      "childMapId": "map_bg1_durlags_tower"
+    }
+  ],
+  "links": [
+    {
+      "from": "BG-SC-01",
+      "to": "BG-SC-02",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-02",
+      "to": "BG-SC-03",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-02",
+      "to": "BG-SC-04",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-03",
+      "to": "BG-SC-04",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-03",
+      "to": "BG-SC-15",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-04",
+      "to": "BG-SC-05",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-04",
+      "to": "BG-SC-06",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-04",
+      "to": "BG-SC-10",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-04",
+      "to": "BG-SC-11",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-06",
+      "to": "BG-SC-07",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-06",
+      "to": "BG-SC-08",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-06",
+      "to": "BG-SC-09",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-09",
+      "to": "BG-SC-10",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-09",
+      "to": "BG-SC-18",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-10",
+      "to": "BG-SC-18",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-11",
+      "to": "BG-SC-12",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-13",
+      "to": "BG-SC-14",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-13",
+      "to": "BG-SC-15",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-15",
+      "to": "BG-SC-16",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-SC-16",
+      "to": "BG-SC-17",
+      "type": "twoway"
+    }
+  ]
+}

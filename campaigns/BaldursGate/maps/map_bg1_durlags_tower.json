@@ -1,0 +1,74 @@
+{
+  "id": "map_bg1_durlags_tower",
+  "name": "Durlag's Tower & Subterranean Vaults",
+  "scaleTier": "dungeon",
+  "parentMapId": "map_bg1_sword_coast",
+  "parentNodeId": "BG-SC-18",
+  "nodes": [
+    {
+      "id": "BG-DUR-01",
+      "name": "Durlag's Upper Ramparts & Great Hall",
+      "displayName": "Upper Ramparts",
+      "x": 260,
+      "y": 400,
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "customNotes": "Crumbling stone towers and haunted banquet halls where the ghost of Durlag Trollkiller laments the slaughter of his clan.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-DUR-02",
+      "name": "Level 1: Chamber of the Four Warders",
+      "displayName": "Warders' Chamber",
+      "x": 460,
+      "y": 300,
+      "cat": "Hazard",
+      "culture": "Clan",
+      "shape": "triangle",
+      "customNotes": "Subterranean trials where the four animated Warders of Durlag test intruders with elemental traps.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-DUR-03",
+      "name": "Level 2: The Doppelganger Chessboard",
+      "displayName": "Chessboard Vault",
+      "x": 620,
+      "y": 240,
+      "cat": "Vault",
+      "culture": "Adhocracy",
+      "shape": "diamond",
+      "customNotes": "A lethal electrified checkerboard chamber where living chess pieces cast lightning bolts at invalid tactical moves.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-DUR-04",
+      "name": "Level 4: Clair De'Loon & The Demon Knight",
+      "displayName": "Demon Knight Lair",
+      "x": 720,
+      "y": 420,
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "star",
+      "customNotes": "The deepest subterranean cavern housing the Soultaker Dagger and the Demon Knight.",
+      "childMapId": null
+    }
+  ],
+  "links": [
+    {
+      "from": "BG-DUR-01",
+      "to": "BG-DUR-02",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-DUR-02",
+      "to": "BG-DUR-03",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-DUR-03",
+      "to": "BG-DUR-04",
+      "type": "twoway"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "id": "map_bg1_city",
+  "name": "Metropolis of Baldur's Gate",
+  "scaleTier": "district",
+  "parentMapId": "map_bg1_sword_coast",
+  "parentNodeId": "BG-SC-16",
+  "nodes": [
+    {
+      "id": "BG-CTY-01",
+      "name": "East District & Elfsong Tavern",
+      "displayName": "East District",
+      "x": 300,
+      "y": 380,
+      "cat": "Gateway",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "Lively commercial district surrounding the Elfsong Tavern, where a haunting ghostly voice sings of lost love on the sea.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CTY-02",
+      "name": "Central District & Hall of Wonders",
+      "displayName": "Central District",
+      "x": 480,
+      "y": 260,
+      "cat": "Vault",
+      "culture": "Adhocracy",
+      "shape": "diamond",
+      "customNotes": "Grand avenues crowned by the High House of Wonders honoring Gond, housing dazzling technological clockworks.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CTY-03",
+      "name": "Southwest District & Flaming Fist Citadel",
+      "displayName": "Flaming Fist HQ",
+      "x": 320,
+      "y": 560,
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "customNotes": "A massive stone fortress housing Duke Eltan's military command, the central armoury, and detention cells.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CTY-04",
+      "name": "South District & Iron Throne Headquarters",
+      "displayName": "Iron Throne HQ",
+      "x": 520,
+      "y": 520,
+      "cat": "Bastion",
+      "culture": "Market",
+      "shape": "pentagon",
+      "customNotes": "A monolithic dark-stone skyscraper overlooking the harbor docks. Iron Throne mercenaries bar entry to upper floors.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CTY-05",
+      "name": "North District & The Ducal Palace",
+      "displayName": "Ducal Palace",
+      "x": 680,
+      "y": 200,
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "star",
+      "customNotes": "The white marble seat of the Four Grand Dukes of Baldur's Gate, venue of the coronation ball.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CTY-06",
+      "name": "The Undercellars & Thieves' Conduits",
+      "displayName": "Undercellars",
+      "x": 720,
+      "y": 440,
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "shape": "triangle",
+      "customNotes": "A subterranean network of gambling dens and brothels connecting the city's underbelly to the Thieves' Maze.",
+      "childMapId": "map_bg1_undercity"
+    }
+  ],
+  "links": [
+    {
+      "from": "BG-CTY-01",
+      "to": "BG-CTY-02",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CTY-01",
+      "to": "BG-CTY-03",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CTY-02",
+      "to": "BG-CTY-05",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CTY-02",
+      "to": "BG-CTY-04",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CTY-03",
+      "to": "BG-CTY-04",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CTY-04",
+      "to": "BG-CTY-06",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CTY-05",
+      "to": "BG-CTY-06",
+      "type": "twoway"
+    }
+  ]
+}

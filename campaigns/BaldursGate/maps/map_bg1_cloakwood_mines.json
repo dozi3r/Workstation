@@ -1,0 +1,96 @@
+{
+  "id": "map_bg1_cloakwood_mines",
+  "name": "Cloakwood Secret Iron Mines",
+  "scaleTier": "dungeon",
+  "parentMapId": "map_bg1_sword_coast",
+  "parentNodeId": "BG-SC-14",
+  "nodes": [
+    {
+      "id": "BG-CLK-01",
+      "name": "Surface Stockade & Guard Tower",
+      "displayName": "Surface Stockade",
+      "x": 260,
+      "y": 380,
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "customNotes": "Fortified timber stockade guarding the elevator headframe leading into the subterranean iron complex.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CLK-02",
+      "name": "Mine Level 1: Slave Barracks & Sorting",
+      "displayName": "Mine Level 1",
+      "x": 440,
+      "y": 280,
+      "cat": "Standard POI",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "Choking dust and clanking chains where hundreds of enslaved miners toil under brutal guard whips.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CLK-03",
+      "name": "Mine Level 2: Subterranean Canal & Sluice",
+      "displayName": "Mine Level 2",
+      "x": 620,
+      "y": 240,
+      "cat": "Vault",
+      "culture": "Adhocracy",
+      "shape": "diamond",
+      "customNotes": "An underground river channeling water to hydraulic lift wheels, containing the master flood sluice plug.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CLK-04",
+      "name": "Mine Level 3: Yeslick's Dungeon & Armoury",
+      "displayName": "Dungeon Cell",
+      "x": 520,
+      "y": 480,
+      "cat": "Bastion",
+      "culture": "Clan",
+      "shape": "pentagon",
+      "customNotes": "Dark, flooded holding cells where the dwarven clan cleric Yeslick Orothiar is kept in chains.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CLK-05",
+      "name": "Mine Level 4: Davaeorn's Arcane Lair",
+      "displayName": "Davaeorn's Lair",
+      "x": 720,
+      "y": 420,
+      "cat": "Bastion",
+      "culture": "Market",
+      "shape": "pentagon",
+      "customNotes": "A lavish subterranean suite protected by battle horrors, guard slime, and Davaeorn's dimension-door teleport traps.",
+      "childMapId": null
+    }
+  ],
+  "links": [
+    {
+      "from": "BG-CLK-01",
+      "to": "BG-CLK-02",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CLK-02",
+      "to": "BG-CLK-03",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CLK-02",
+      "to": "BG-CLK-04",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CLK-03",
+      "to": "BG-CLK-05",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CLK-04",
+      "to": "BG-CLK-05",
+      "type": "twoway"
+    }
+  ]
+}

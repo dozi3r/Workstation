@@ -1,0 +1,173 @@
+{
+  "id": "map_bg1_nashkel_town",
+  "name": "Nashkel Township (AR4800)",
+  "scaleTier": "settlement",
+  "parentMapId": "map_bg1_sword_coast",
+  "parentNodeId": "BG-SC-06",
+  "mapMetadata": {
+    "id": "map_bg1_nashkel_town",
+    "name": "nashkel.png",
+    "assetPath": "assets/nashkel.png",
+    "width": 1200,
+    "height": 900,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": 101,
+      "name": "The Nashkel Inn",
+      "displayName": "Nashkel Inn",
+      "x": 340,
+      "y": 280,
+      "coordinates": {
+        "x": 340,
+        "y": 280
+      },
+      "cat": "Standard POI",
+      "culture": "Market",
+      "shape": "square",
+      "customNotes": "A sturdy timber-and-plaster roadside hostelry. Smells of roasted leek potage and stale ale. The assassin Neira waits inside with drawn daggers and hold person scrolls to ambush inquisitive parties.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 102,
+      "name": "Mayor Ghastkill's Adjudication Pavilion",
+      "displayName": "Mayor's Pavilion",
+      "x": 580,
+      "y": 240,
+      "coordinates": {
+        "x": 580,
+        "y": 240
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "square",
+      "customNotes": "A raised wooden platform near the northern bridge where Mayor Berrun Ghastkill and Bounty Officer Oublek inspect incoming travelers and recruit armed investigations into the iron crisis.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 103,
+      "name": "Amnian Military Garrison",
+      "displayName": "Garrison Barracks",
+      "x": 780,
+      "y": 320,
+      "coordinates": {
+        "x": 780,
+        "y": 320
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "square",
+      "customNotes": "Fortified stone barracks housing Captain Bardolan's border detachment. The barbarian Minsc paces the courtyard, pleading for stout swords to mount a rescue of Dynaheir from the Gnoll Stronghold.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 104,
+      "name": "Belching Dragon Tavern & Stone Bridge",
+      "displayName": "Belching Dragon",
+      "x": 620,
+      "y": 520,
+      "coordinates": {
+        "x": 620,
+        "y": 520
+      },
+      "cat": "Standard POI",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "A low-ceilinged dive frequented by off-duty miners. Outside on the footbridge, the Thayvian wizard Edwin Odesseiron scans the crowd, offering coin for the death of Dynaheir.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 105,
+      "name": "Temple of Helm & Hallowed Grounds",
+      "displayName": "Temple of Helm",
+      "x": 860,
+      "y": 660,
+      "coordinates": {
+        "x": 860,
+        "y": 660
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "diamond",
+      "customNotes": "A stone sanctuary dedicated to the Vigilant One. Watcher Nalin offers healing, identifies enchanted weapons, and ministers to miners maddened by the contaminated iron ore.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 106,
+      "name": "Nashkel General Store & Silo",
+      "displayName": "Nashkel Store",
+      "x": 420,
+      "y": 620,
+      "coordinates": {
+        "x": 420,
+        "y": 620
+      },
+      "cat": "Standard POI",
+      "culture": "Market",
+      "shape": "square",
+      "customNotes": "The town's supply depot selling grain, missile ammunition, and general dungeoneering gear. The shopkeeper warns that iron blades snap under pressure due to the widespread rot.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 107,
+      "name": "Western Plowing Fields & Buried Cache",
+      "displayName": "Western Furrows",
+      "x": 220,
+      "y": 740,
+      "coordinates": {
+        "x": 220,
+        "y": 740
+      },
+      "cat": "Perimeter",
+      "culture": "Clan",
+      "shape": "triangle",
+      "customNotes": "Freshly turned crop fields. A sunken hollow along the tree line conceals a hidden cache containing a set of masterwork Ankheg Plate Mail.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": 101,
+      "to": 102,
+      "type": "twoway"
+    },
+    {
+      "from": 102,
+      "to": 103,
+      "type": "twoway"
+    },
+    {
+      "from": 102,
+      "to": 104,
+      "type": "twoway"
+    },
+    {
+      "from": 104,
+      "to": 105,
+      "type": "twoway"
+    },
+    {
+      "from": 104,
+      "to": 106,
+      "type": "twoway"
+    },
+    {
+      "from": 106,
+      "to": 107,
+      "type": "twoway"
+    },
+    {
+      "from": 101,
+      "to": 106,
+      "type": "twoway"
+    }
+  ]
+}

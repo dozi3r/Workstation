@@ -1,0 +1,96 @@
+{
+  "id": "map_bg1_friendly_arm",
+  "name": "The Friendly Arm Inn",
+  "scaleTier": "structure",
+  "parentMapId": "map_bg1_sword_coast",
+  "parentNodeId": "BG-SC-03",
+  "nodes": [
+    {
+      "id": "BG-FAI-01",
+      "name": "Fortress Gatehouse & Drawbridge",
+      "displayName": "Gatehouse",
+      "x": 260,
+      "y": 400,
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "customNotes": "Massive granite gatehouse flanked by stout bastions. The assassin Tarnesh waits upon the stone steps.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-FAI-02",
+      "name": "The Great Keep Tavern & Common Room",
+      "displayName": "Keep Tavern",
+      "x": 480,
+      "y": 300,
+      "cat": "Bastion",
+      "culture": "Clan",
+      "shape": "pentagon",
+      "customNotes": "Sprawling three-story taproom warming hundreds of travelers. Bentley Mirrorshade tends bar while Khalid and Jaheira watch the door.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-FAI-03",
+      "name": "Temple of the Wisdom of Garl",
+      "displayName": "Temple of Garl",
+      "x": 640,
+      "y": 240,
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "circle",
+      "customNotes": "A cheerful stone sanctuary honoring the Glittering Gold gnome deity, offering divine healing.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-FAI-04",
+      "name": "Joia's Cottage & Stables",
+      "displayName": "Joia's Cottage",
+      "x": 380,
+      "y": 500,
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "circle",
+      "customNotes": "A quaint thatched cottage near the outer ramparts where Joia weeps over her stolen Flamedance ring.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-FAI-05",
+      "name": "Upper Keep Guest Suites (Room 204)",
+      "displayName": "Upper Suites",
+      "x": 640,
+      "y": 440,
+      "cat": "Vault",
+      "culture": "Market",
+      "shape": "diamond",
+      "customNotes": "Luxurious private bedchambers where wealthy merchants sleep, containing a chest holding the Golden Pantaloons.",
+      "childMapId": null
+    }
+  ],
+  "links": [
+    {
+      "from": "BG-FAI-01",
+      "to": "BG-FAI-02",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-FAI-01",
+      "to": "BG-FAI-04",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-FAI-02",
+      "to": "BG-FAI-03",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-FAI-02",
+      "to": "BG-FAI-05",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-FAI-04",
+      "to": "BG-FAI-02",
+      "type": "twoway"
+    }
+  ]
+}

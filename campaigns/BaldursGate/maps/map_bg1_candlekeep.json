@@ -1,0 +1,113 @@
+{
+  "id": "map_bg1_candlekeep",
+  "name": "Candlekeep Fortress & Library",
+  "scaleTier": "settlement",
+  "parentMapId": "map_bg1_sword_coast",
+  "parentNodeId": "BG-SC-01",
+  "nodes": [
+    {
+      "id": "BG-CK-01",
+      "name": "Candlekeep Outer Courtyard",
+      "displayName": "Outer Courtyard",
+      "x": 280,
+      "y": 400,
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "customNotes": "Cobblestone square flanked by bunkhouses and granaries. Monks verify credentials under the vigilant gaze of Keeper Ulraunt's guards.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CK-02",
+      "name": "Candlekeep Great Library Scriptorium",
+      "displayName": "Great Library",
+      "x": 480,
+      "y": 280,
+      "cat": "Vault",
+      "culture": "Hierarchy",
+      "shape": "diamond",
+      "customNotes": "A six-story circular stone sanctum of parchment and ink. Chanted prophecies of Alaundo echo along towering oak bookshelves.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CK-03",
+      "name": "Winthrop's Candlekeep Inn",
+      "displayName": "Winthrop's Inn",
+      "x": 260,
+      "y": 260,
+      "cat": "Bastion",
+      "culture": "Clan",
+      "shape": "pentagon",
+      "customNotes": "Warm hearth and polished timber tavern run by jolly Winthrop, where scholars relax over mulled cider.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CK-04",
+      "name": "Chantry of Oghma & Infirmary",
+      "displayName": "Chantry",
+      "x": 440,
+      "y": 480,
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "circle",
+      "customNotes": "A serene chapel offering curative herbal tonics and blessings of Oghma to visiting pilgrims.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CK-05",
+      "name": "Gorion's Study & Garden Terrace",
+      "displayName": "Gorion's Study",
+      "x": 620,
+      "y": 320,
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "customNotes": "A cozy stone chamber crowded with scrolls, star charts, and Gorion's travel trunk packed in haste.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CK-06",
+      "name": "Sealed Crypt Gate to the Catacombs",
+      "displayName": "Crypt Gate",
+      "x": 700,
+      "y": 460,
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "shape": "triangle",
+      "customNotes": "Heavy iron-bound oak doorway leading down into the subterranean burial vaults of ancient High Scholars.",
+      "childMapId": "map_bg1_catacombs"
+    }
+  ],
+  "links": [
+    {
+      "from": "BG-CK-01",
+      "to": "BG-CK-02",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CK-01",
+      "to": "BG-CK-03",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CK-01",
+      "to": "BG-CK-04",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CK-02",
+      "to": "BG-CK-05",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CK-05",
+      "to": "BG-CK-06",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CK-04",
+      "to": "BG-CK-06",
+      "type": "twoway"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "id": "map_bg1_nashkel_mines_l1",
+  "name": "Nashkel Mines: Level 1 (AR5401)",
+  "scaleTier": "dungeon",
+  "parentMapId": "map_bg1_nashkel_mines_surface",
+  "parentNodeId": 605,
+  "mapMetadata": {
+    "id": "map_bg1_nashkel_mines_l1",
+    "name": "nkmines1.png",
+    "assetPath": "assets/nkmines1.png",
+    "width": 1124,
+    "height": 792,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": 201,
+      "name": "Level 1 Mine Entrance",
+      "displayName": "L1 Mine Entrance",
+      "x": 500,
+      "y": 90,
+      "coordinates": {
+        "x": 500,
+        "y": 90
+      },
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "square",
+      "customNotes": "The foot of the main timber adit descending from the surface quarry. Sputtering tallow torches line the rock ceiling, illuminating heavy timber shoring holding back loose schist.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 202,
+      "name": "Upper Ore Rail Junction",
+      "displayName": "Ore Junction",
+      "x": 520,
+      "y": 280,
+      "coordinates": {
+        "x": 520,
+        "y": 280
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "hexagon",
+      "customNotes": "Central ore cart turntable where miners haul rock carts to the surface lift. Piles of slag and discarded iron chisels show severe pitting and acid erosion.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 203,
+      "name": "Abandoned Western Drift",
+      "displayName": "Western Drift",
+      "x": 160,
+      "y": 240,
+      "coordinates": {
+        "x": 160,
+        "y": 240
+      },
+      "cat": "Perimeter",
+      "culture": "Clan",
+      "shape": "triangle",
+      "customNotes": "Unworked blind drift where miners stored timber props. Scurrying sounds echo from cracks in the wall, where diseased rats gnaw at leather supply sacks.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 204,
+      "name": "Miner Dink's Excavation Post",
+      "displayName": "Miner Dink's Post",
+      "x": 420,
+      "y": 550,
+      "coordinates": {
+        "x": 420,
+        "y": 550
+      },
+      "cat": "Bastion",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "A dimly lit timber shelter where Miner Dink hunkers with a guttering oil lamp. He pleads for travelers to deliver a spare pickaxe down to Kylee on the second level.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 205,
+      "name": "Descent Shaft to Level 2",
+      "displayName": "Descent to L2",
+      "x": 880,
+      "y": 600,
+      "coordinates": {
+        "x": 880,
+        "y": 600
+      },
+      "cat": "Gateway",
+      "culture": "Adhocracy",
+      "shape": "diamond",
+      "customNotes": "A steep descending tunnel following narrow ore tracks down into the humid second level of the mine. Brackish water pools along the tunnel floor.",
+      "childMapId": "map_bg1_nashkel_mines_l2",
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": 201,
+      "to": 202,
+      "type": "twoway"
+    },
+    {
+      "from": 202,
+      "to": 203,
+      "type": "twoway"
+    },
+    {
+      "from": 202,
+      "to": 204,
+      "type": "twoway"
+    },
+    {
+      "from": 204,
+      "to": 205,
+      "type": "twoway"
+    },
+    {
+      "from": 202,
+      "to": 205,
+      "type": "twoway"
+    }
+  ]
+}

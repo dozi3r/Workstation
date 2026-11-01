@@ -1,0 +1,57 @@
+{
+  "id": "map_bg1_catacombs",
+  "name": "Candlekeep Catacombs & Caverns",
+  "scaleTier": "dungeon",
+  "parentMapId": "map_bg1_candlekeep",
+  "parentNodeId": "BG-CK-06",
+  "nodes": [
+    {
+      "id": "BG-CAT-01",
+      "name": "Tombs of the Great Scribes",
+      "displayName": "Scribes' Tombs",
+      "x": 260,
+      "y": 380,
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "customNotes": "Ancient subterranean sepulchres carved from living rock. Undead guardians rise to repel trespassers.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CAT-02",
+      "name": "Crypt of the Keeper & Gorion's Reliquary",
+      "displayName": "Gorion's Crypt",
+      "x": 480,
+      "y": 280,
+      "cat": "Vault",
+      "culture": "Clan",
+      "shape": "diamond",
+      "customNotes": "A hidden sarcophagus chamber where Gorion left a final letter and the Tome of Understanding.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-CAT-03",
+      "name": "Subterranean Caverns & Prat's Ambush",
+      "displayName": "Caverns of Prat",
+      "x": 680,
+      "y": 420,
+      "cat": "Hazard",
+      "culture": "Market",
+      "shape": "triangle",
+      "customNotes": "Damp natural limestone caverns where Iron Throne mercenary Prat and his cutthroats lie in wait.",
+      "childMapId": null
+    }
+  ],
+  "links": [
+    {
+      "from": "BG-CAT-01",
+      "to": "BG-CAT-02",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-CAT-02",
+      "to": "BG-CAT-03",
+      "type": "twoway"
+    }
+  ]
+}

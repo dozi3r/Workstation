@@ -1,0 +1,74 @@
+{
+  "id": "map_bg1_undercity",
+  "name": "The Undercity & Temple of Bhaal",
+  "scaleTier": "dungeon",
+  "parentMapId": "map_bg1_city",
+  "parentNodeId": "BG-CTY-06",
+  "nodes": [
+    {
+      "id": "BG-UND-01",
+      "name": "Thieves' Maze Threshold",
+      "displayName": "Maze Entry",
+      "x": 240,
+      "y": 380,
+      "cat": "Gateway",
+      "culture": "Adhocracy",
+      "shape": "circle",
+      "customNotes": "Entrance to the deadly brick labyrinth beneath the Guildhall where dying Voleta Stiletto warns of Sarevok's assassins.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-UND-02",
+      "name": "The Skeletal Labyrinth",
+      "displayName": "Skeletal Labyrinth",
+      "x": 420,
+      "y": 260,
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "shape": "triangle",
+      "customNotes": "Twisting sewer corridors filled with green slime, doom guards, and skeletal warriors armed with flaming arrows.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-UND-03",
+      "name": "The Forgotten Undercity Plaza",
+      "displayName": "Undercity Plaza",
+      "x": 600,
+      "y": 320,
+      "cat": "Perimeter",
+      "culture": "Market",
+      "shape": "diamond",
+      "customNotes": "Sunken stone plaza of an ancient ruined civilization buried beneath modern Baldur's Gate, guarded by Tamoko.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-UND-04",
+      "name": "The Temple of Bhaal Sanctum",
+      "displayName": "Temple of Bhaal",
+      "x": 780,
+      "y": 420,
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "star",
+      "customNotes": "The blood-soaked grand sanctuary of the Lord of Murder. Sarevok Anchev, Angelo, Tazok, and Semaj await atop the Skull of Bhaal.",
+      "childMapId": null
+    }
+  ],
+  "links": [
+    {
+      "from": "BG-UND-01",
+      "to": "BG-UND-02",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-UND-02",
+      "to": "BG-UND-03",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-UND-03",
+      "to": "BG-UND-04",
+      "type": "twoway"
+    }
+  ]
+}

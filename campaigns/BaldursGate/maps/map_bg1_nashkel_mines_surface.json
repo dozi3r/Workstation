@@ -1,0 +1,129 @@
+{
+  "id": "map_bg1_nashkel_mines_surface",
+  "name": "Nashkel Mines: Surface Quarry (AR5400)",
+  "scaleTier": "settlement",
+  "parentMapId": "map_bg1_sword_coast",
+  "parentNodeId": "BG-SC-07",
+  "mapMetadata": {
+    "id": "map_bg1_nashkel_mines_surface",
+    "name": "nashkelmines.png",
+    "assetPath": "assets/nashkelmines.png",
+    "width": 1200,
+    "height": 900,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": 601,
+      "name": "Quarry Perimeter Road",
+      "displayName": "Perimeter Road",
+      "x": 600,
+      "y": 150,
+      "coordinates": {
+        "x": 600,
+        "y": 150
+      },
+      "cat": "Gateway",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "The rutted mountain approach leading from the Cloud Peak foothills into the quarry bowl. Warning signs posted by the Amnian Council caution against trespassers.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 602,
+      "name": "Amnian Guard Palisade",
+      "displayName": "Guard Palisade",
+      "x": 880,
+      "y": 350,
+      "coordinates": {
+        "x": 880,
+        "y": 350
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "square",
+      "customNotes": "Timber stockade manned by nervous Amnian border guards under orders to shoot looters on sight and keep panicked miners from fleeing back north.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 603,
+      "name": "Open-Cast Excavation Pit",
+      "displayName": "Quarry Excavation",
+      "x": 420,
+      "y": 400,
+      "coordinates": {
+        "x": 420,
+        "y": 400
+      },
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "triangle",
+      "customNotes": "Terraced rock faces where surface miners quarry slate and iron-bearing schist. Rusted pickaxes and shattered iron sledgehammers lie heaped beside abandoned wheelbarrows.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 604,
+      "name": "Smelter Yard & Ore Wagons",
+      "displayName": "Smelter Yard",
+      "x": 780,
+      "y": 680,
+      "coordinates": {
+        "x": 780,
+        "y": 680
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "hexagon",
+      "customNotes": "Cold charcoal kilns and stacked crates of brittle iron ingots. Guard dogs growl at shadows as workers whisper of demonic laughter echoing up the shafts at midnight.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 605,
+      "name": "Main Pithead Timber Adit",
+      "displayName": "Mine Adit (L1)",
+      "x": 350,
+      "y": 680,
+      "coordinates": {
+        "x": 350,
+        "y": 680
+      },
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "customNotes": "The reinforced timber entrance opening into the subterranean Nashkel Mine complex. Dank air smelling of sulphur, wet rock, and goblin grease wafts from the dark opening leading down to Level 1.",
+      "childMapId": "map_bg1_nashkel_mines_l1",
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": 601,
+      "to": 602,
+      "type": "twoway"
+    },
+    {
+      "from": 601,
+      "to": 603,
+      "type": "twoway"
+    },
+    {
+      "from": 602,
+      "to": 604,
+      "type": "twoway"
+    },
+    {
+      "from": 603,
+      "to": 605,
+      "type": "twoway"
+    },
+    {
+      "from": 604,
+      "to": 605,
+      "type": "twoway"
+    }
+  ]
+}

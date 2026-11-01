@@ -1,0 +1,135 @@
+{
+  "id": "map_bg1_beregost",
+  "name": "Township of Beregost",
+  "scaleTier": "settlement",
+  "parentMapId": "map_bg1_sword_coast",
+  "parentNodeId": "BG-SC-04",
+  "nodes": [
+    {
+      "id": "BG-BER-01",
+      "name": "Feldepost's Inn & Town Square",
+      "displayName": "Feldepost's Inn",
+      "x": 280,
+      "y": 320,
+      "cat": "Gateway",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "A rowdy coaching inn facing the town obelisk. Mercenary Karlat hunts bounties here while Tranzig waits upstairs for letters from Tazok.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-BER-02",
+      "name": "Thunderhammer Smithy",
+      "displayName": "Thunderhammer",
+      "x": 520,
+      "y": 240,
+      "cat": "Bastion",
+      "culture": "Market",
+      "shape": "pentagon",
+      "customNotes": "The master forge of Taerom Fuiruim. An enormous bellows roars day and night as Taerom inspects brittle iron weapons and forges Ankheg plate.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-BER-03",
+      "name": "The Jovial Juggler Tavern",
+      "displayName": "Jovial Juggler",
+      "x": 680,
+      "y": 360,
+      "cat": "Bastion",
+      "culture": "Clan",
+      "shape": "pentagon",
+      "customNotes": "A lively commoners' inn where Officer Vai commands her Flaming Fist bounty headquarters, paying gold for bandit scalps.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-BER-04",
+      "name": "The Red Sheaf Inn",
+      "displayName": "Red Sheaf",
+      "x": 440,
+      "y": 460,
+      "cat": "Standard POI",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "A bustling inn where dwarf mercenary Kagain recruits adventurers for his missing merchant caravan.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-BER-05",
+      "name": "Burning Wizard Inn & Market Square",
+      "displayName": "Burning Wizard",
+      "x": 260,
+      "y": 520,
+      "cat": "Standard POI",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "A crowded two-story hostelry where Zhurlong laments stolen boots of stealth and bard Garrick warns travelers of Silke's schemes.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-BER-06",
+      "name": "Mirianne's Estate & North Road",
+      "displayName": "Mirianne's Estate",
+      "x": 480,
+      "y": 620,
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "circle",
+      "customNotes": "A handsome stone manor where Mirianne paces anxiously awaiting word of her husband's courier caravan from the south.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-BER-07",
+      "name": "Firebead Elvenhair's House",
+      "displayName": "Firebead's Home",
+      "x": 680,
+      "y": 520,
+      "cat": "Vault",
+      "culture": "Adhocracy",
+      "shape": "diamond",
+      "customNotes": "A quiet library residence filled with rare poetry and illuminated scriptures maintained by the kindly elven sage.",
+      "childMapId": null
+    }
+  ],
+  "links": [
+    {
+      "from": "BG-BER-01",
+      "to": "BG-BER-02",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BER-01",
+      "to": "BG-BER-04",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BER-01",
+      "to": "BG-BER-05",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BER-02",
+      "to": "BG-BER-03",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BER-04",
+      "to": "BG-BER-03",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BER-04",
+      "to": "BG-BER-06",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BER-05",
+      "to": "BG-BER-06",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BER-06",
+      "to": "BG-BER-07",
+      "type": "twoway"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "id": "map_bg1_bandit_camp",
+  "name": "Tazok's Hidden Bandit Camp",
+  "scaleTier": "settlement",
+  "parentMapId": "map_bg1_sword_coast",
+  "parentNodeId": "BG-SC-12",
+  "nodes": [
+    {
+      "id": "BG-BND-01",
+      "name": "Bandit Perimeter & Sentry Palisade",
+      "displayName": "Perimeter Gate",
+      "x": 260,
+      "y": 420,
+      "cat": "Gateway",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "Sharpened wooden stakes and guard platforms where sentries demand the secret recognition password.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-BND-02",
+      "name": "Black Talon Archer Encampment",
+      "displayName": "Archer Camp",
+      "x": 420,
+      "y": 280,
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "shape": "triangle",
+      "customNotes": "Elite human longbowmen in leather armors drill with poisoned iron broadheads over open cook fires.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-BND-03",
+      "name": "Chill Hobgoblin Barracks & War Pits",
+      "displayName": "Chill Barracks",
+      "x": 440,
+      "y": 540,
+      "cat": "Hazard",
+      "culture": "Clan",
+      "shape": "triangle",
+      "customNotes": "Vicious hobgoblin raiders under chieftain Ardenor Crush drink crude ale and sharpen scimitars.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-BND-04",
+      "name": "Prisoner Stockade & Smuggler Cages",
+      "displayName": "Stockade",
+      "x": 620,
+      "y": 460,
+      "cat": "Standard POI",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "Timber cages holding captured caravan teamsters and merchant factor Ender Sai, who holds critical intel.",
+      "childMapId": null
+    },
+    {
+      "id": "BG-BND-05",
+      "name": "Tazok's Great War Tent & Strongbox",
+      "displayName": "Tazok's Tent",
+      "x": 680,
+      "y": 280,
+      "cat": "Bastion",
+      "culture": "Market",
+      "shape": "pentagon",
+      "customNotes": "A massive furs-and-leather command pavilion guarded by Raemon, Venkt, and Britik, concealing letters detailing Cloakwood.",
+      "childMapId": null
+    }
+  ],
+  "links": [
+    {
+      "from": "BG-BND-01",
+      "to": "BG-BND-02",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BND-01",
+      "to": "BG-BND-03",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BND-02",
+      "to": "BG-BND-05",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BND-03",
+      "to": "BG-BND-04",
+      "type": "twoway"
+    },
+    {
+      "from": "BG-BND-04",
+      "to": "BG-BND-05",
+      "type": "twoway"
+    }
+  ]
+}

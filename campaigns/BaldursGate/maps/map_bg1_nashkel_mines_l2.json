@@ -1,0 +1,129 @@
+{
+  "id": "map_bg1_nashkel_mines_l2",
+  "name": "Nashkel Mines: Level 2 (AR5402)",
+  "scaleTier": "dungeon",
+  "parentMapId": "map_bg1_nashkel_mines_l1",
+  "parentNodeId": 205,
+  "mapMetadata": {
+    "id": "map_bg1_nashkel_mines_l2",
+    "name": "nkmines2.png",
+    "assetPath": "assets/nkmines2.png",
+    "width": 1059,
+    "height": 834,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": 211,
+      "name": "Ascent Incline to Level 1",
+      "displayName": "Ascent to L1",
+      "x": 590,
+      "y": 760,
+      "coordinates": {
+        "x": 590,
+        "y": 760
+      },
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "square",
+      "customNotes": "The sloping stone incline leading back up to Level 1. Water trickles down the carved drainage gutters along the eastern wall.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 212,
+      "name": "Flooded Sump & Timber Causeway",
+      "displayName": "Flooded Sump",
+      "x": 690,
+      "y": 380,
+      "coordinates": {
+        "x": 690,
+        "y": 380
+      },
+      "cat": "Hazard",
+      "culture": "Clan",
+      "shape": "hexagon",
+      "customNotes": "A subterranean reservoir of murky greenish water bridged by slippery wooden planks. The stench of copper sludge and sulfur is overpowering.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 213,
+      "name": "Miner Kylee's Drift",
+      "displayName": "Kylee's Chamber",
+      "x": 160,
+      "y": 510,
+      "coordinates": {
+        "x": 160,
+        "y": 510
+      },
+      "cat": "Bastion",
+      "culture": "Clan",
+      "shape": "circle",
+      "customNotes": "A spacious excavated pocket where Miner Kylee toils frantically. Terrified of kobold snipers in the dark, he accepts Dink's pickaxe with relief and whispers of armed 'little demons' running the lower shafts.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 214,
+      "name": "Upper Ventilation Drift",
+      "displayName": "Ventilation Drift",
+      "x": 480,
+      "y": 140,
+      "coordinates": {
+        "x": 480,
+        "y": 140
+      },
+      "cat": "Perimeter",
+      "culture": "Adhocracy",
+      "shape": "triangle",
+      "customNotes": "Narrow twisting drift where stale air is drawn toward natural chimneys in the rock. Crude wooden caltrops and tripwires suggest kobolds have begun fortifying the level.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 215,
+      "name": "Descent Chute to Level 3",
+      "displayName": "Descent to L3",
+      "x": 930,
+      "y": 750,
+      "coordinates": {
+        "x": 930,
+        "y": 750
+      },
+      "cat": "Gateway",
+      "culture": "Adhocracy",
+      "shape": "diamond",
+      "customNotes": "A rough-hewn bore plunging into the kobold-infested third level. The distinct scent of burnt pine pitch and kobold dung rises from below.",
+      "childMapId": "map_bg1_nashkel_mines_l3",
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": 211,
+      "to": 213,
+      "type": "twoway"
+    },
+    {
+      "from": 211,
+      "to": 212,
+      "type": "twoway"
+    },
+    {
+      "from": 212,
+      "to": 214,
+      "type": "twoway"
+    },
+    {
+      "from": 213,
+      "to": 214,
+      "type": "twoway"
+    },
+    {
+      "from": 212,
+      "to": 215,
+      "type": "twoway"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "id": "map_bg1_nashkel_mines_l3",
+  "name": "Nashkel Mines: Level 3 (AR5403)",
+  "scaleTier": "dungeon",
+  "parentMapId": "map_bg1_nashkel_mines_l2",
+  "parentNodeId": 215,
+  "mapMetadata": {
+    "id": "map_bg1_nashkel_mines_l3",
+    "name": "nkmines3.png",
+    "assetPath": "assets/nkmines3.png",
+    "width": 1110,
+    "height": 819,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": 221,
+      "name": "Upper Incline from Level 2",
+      "displayName": "Incline from L2",
+      "x": 450,
+      "y": 60,
+      "coordinates": {
+        "x": 450,
+        "y": 60
+      },
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "square",
+      "customNotes": "The bottom of the rocky passage descending from Level 2. The air here is dry and acrid with chimney smoke from crude kobold firepits.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 222,
+      "name": "Joseph's Remains & Lost Ring Alcove",
+      "displayName": "Joseph's Alcove",
+      "x": 450,
+      "y": 150,
+      "coordinates": {
+        "x": 450,
+        "y": 150
+      },
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "diamond",
+      "customNotes": "A shadowed hollow just below the upper entry where the unfortunate miner Joseph fell during the initial invasion. His skeletal hand still wears a greenstone signet ring bearing his family crest.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 223,
+      "name": "Chasm Suspension Bridge & Kobold Traps",
+      "displayName": "Chasm Bridge",
+      "x": 630,
+      "y": 390,
+      "coordinates": {
+        "x": 630,
+        "y": 390
+      },
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "shape": "triangle",
+      "customNotes": "A creaking hemp rope bridge spanning a yawning subterranean fissure. Kobold Commandos have notched the timber supports and rigged wire-drawn spring traps loaded with fire darts.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 224,
+      "name": "Lower Kobold Encampment",
+      "displayName": "Kobold Warrens",
+      "x": 400,
+      "y": 600,
+      "coordinates": {
+        "x": 400,
+        "y": 600
+      },
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "shape": "hexagon",
+      "customNotes": "A sprawling warren reeking of kerosene, wet scales, and charred cave mushrooms. Swarms of kobold skirmishers and giant cave spiders guard the central tunnels.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 225,
+      "name": "Descent to Lair (Level 4)",
+      "displayName": "Descent to L4",
+      "x": 930,
+      "y": 660,
+      "coordinates": {
+        "x": 930,
+        "y": 660
+      },
+      "cat": "Gateway",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "customNotes": "A grand subterranean archway reinforced with ancient stonework leading down into the sacred subterranean cavern of Cyric.",
+      "childMapId": "map_bg1_nashkel_mines_l4",
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": 221,
+      "to": 222,
+      "type": "twoway"
+    },
+    {
+      "from": 222,
+      "to": 223,
+      "type": "twoway"
+    },
+    {
+      "from": 223,
+      "to": 224,
+      "type": "twoway"
+    },
+    {
+      "from": 223,
+      "to": 225,
+      "type": "twoway"
+    },
+    {
+      "from": 224,
+      "to": 225,
+      "type": "twoway"
+    }
+  ]
+}

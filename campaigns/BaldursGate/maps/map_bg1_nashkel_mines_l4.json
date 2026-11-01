@@ -1,0 +1,129 @@
+{
+  "id": "map_bg1_nashkel_mines_l4",
+  "name": "Nashkel Mines: Level 4 (AR5404)",
+  "scaleTier": "dungeon",
+  "parentMapId": "map_bg1_nashkel_mines_l3",
+  "parentNodeId": 225,
+  "mapMetadata": {
+    "id": "map_bg1_nashkel_mines_l4",
+    "name": "nkmines4.png",
+    "assetPath": "assets/nkmines4.png",
+    "width": 1046,
+    "height": 728,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": 231,
+      "name": "Subterranean Incline from Level 3",
+      "displayName": "Incline from L3",
+      "x": 80,
+      "y": 660,
+      "coordinates": {
+        "x": 80,
+        "y": 660
+      },
+      "cat": "Gateway",
+      "culture": "Adhocracy",
+      "shape": "square",
+      "customNotes": "The wet subterranean approach carved through black schist. Water sloshes along the narrow stone ledges flanked by glowing phosphor fungus.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 232,
+      "name": "Sanctum Approach & Xan's Prison Cell",
+      "displayName": "Xan's Cell",
+      "x": 380,
+      "y": 440,
+      "coordinates": {
+        "x": 380,
+        "y": 440
+      },
+      "cat": "Vault",
+      "culture": "Hierarchy",
+      "shape": "square",
+      "customNotes": "A barred alcove overlooking the central cavern where the melancholic elven sorcerer Xan is bound in iron shackles. He warns of certain doom and laments the theft of his Moonblade.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 233,
+      "name": "Mulahey's Desecrated Shrine & Sanctum",
+      "displayName": "Mulahey's Sanctum",
+      "x": 590,
+      "y": 380,
+      "coordinates": {
+        "x": 590,
+        "y": 380
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "star",
+      "customNotes": "A natural island cavern surrounded by subterranean waters, converted into a shrine to Cyric. The priest Mulahey directs the poison operations here with a chest full of Iron Throne correspondence.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 234,
+      "name": "Underground Lake Shore",
+      "displayName": "Lake Shore",
+      "x": 740,
+      "y": 220,
+      "coordinates": {
+        "x": 740,
+        "y": 220
+      },
+      "cat": "Hazard",
+      "culture": "Clan",
+      "shape": "hexagon",
+      "customNotes": "A slippery calcite terrace bordering the underground lake. Subterranean oozes and cave lizards nest among discarded mining helmets and half-eaten rations.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": 235,
+      "name": "Valley Chute / Cloud Peak Surface Exit",
+      "displayName": "Surface Chute Exit",
+      "x": 970,
+      "y": 380,
+      "coordinates": {
+        "x": 970,
+        "y": 380
+      },
+      "cat": "Gateway",
+      "culture": "Market",
+      "shape": "circle",
+      "customNotes": "A natural drainage cleft through the eastern rock wall bathed in crisp outside sunlight. The tunnel empties onto the steep scree slopes of the eastern Cloud Peaks.",
+      "childMapId": null,
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": 231,
+      "to": 232,
+      "type": "twoway"
+    },
+    {
+      "from": 232,
+      "to": 233,
+      "type": "twoway"
+    },
+    {
+      "from": 233,
+      "to": 234,
+      "type": "twoway"
+    },
+    {
+      "from": 233,
+      "to": 235,
+      "type": "twoway"
+    },
+    {
+      "from": 234,
+      "to": 235,
+      "type": "twoway"
+    }
+  ]
+}

@@ -1,0 +1,4011 @@
+{
+  "name": "Baldur's Gate: The Sword Coast Campaign",
+  "metadata": {
+    "campaignName": "Baldur's Gate: The Sword Coast Campaign",
+    "author": "Creator Studio Campaign Architect",
+    "ipDomain": "Baldur's Gate / Forgotten Realms",
+    "description": "The complete Baldur's Gate 1 campaign ported to Creator Studio. Features an 18-node regional Sword Coast pointcrawl and 9 scale-fluid submaps spanning Candlekeep, the Friendly Arm Inn, Beregost, Tazok's Bandit Camp, the Cloakwood secret mines, the Metropolis of Baldur's Gate, the Undercity Temple of Bhaal, and Durlag's Tower."
+  },
+  "rootMapId": "map_bg1_sword_coast",
+  "activeMapId": "map_bg1_sword_coast",
+  "maps": {
+    "map_bg1_sword_coast": {
+      "id": "map_bg1_sword_coast",
+      "name": "The Sword Coast (Regional Pointcrawl)",
+      "scaleTier": "region",
+      "parentMapId": null,
+      "parentNodeId": null,
+      "nodes": [
+        {
+          "id": "BG-SC-01",
+          "name": "Candlekeep Fortress & Great Library",
+          "displayName": "Candlekeep",
+          "x": 260,
+          "y": 440,
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "pentagon",
+          "customNotes": "A colossal sea-cliff citadel housing the greatest repository of philosophical, historical, and prophetic tomes in Faerun. Monks chant the prophecies of Alaundo within walled courtyards under the austere rule of the Keeper of Tomes.",
+          "childMapId": "map_bg1_candlekeep"
+        },
+        {
+          "id": "BG-SC-02",
+          "name": "The Coast Way & Lion's Way",
+          "displayName": "Coast Way",
+          "x": 380,
+          "y": 410,
+          "cat": "Gateway",
+          "culture": "Clan",
+          "shape": "circle",
+          "customNotes": "Rutted coastal highway winding through coastal scrubland and low limestone crags. Gorion fell here to armored ambushers in the night. The scent of spilled blood and ozone still clings to the road verge.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-SC-03",
+          "name": "The Friendly Arm Inn",
+          "displayName": "Friendly Arm",
+          "x": 490,
+          "y": 310,
+          "cat": "Bastion",
+          "culture": "Clan",
+          "shape": "pentagon",
+          "customNotes": "A fortified walled citadel built around an ancient stone keep by the gnome illusionist Bentley Mirrorshade. Banners of Garl Glittergold flutter above stone ramparts that offer sanctuary to beleaguered trade caravans.",
+          "childMapId": "map_bg1_friendly_arm"
+        },
+        {
+          "id": "BG-SC-04",
+          "name": "Township of Beregost",
+          "displayName": "Beregost",
+          "x": 490,
+          "y": 490,
+          "cat": "Bastion",
+          "culture": "Market",
+          "shape": "pentagon",
+          "customNotes": "A bustling crossroads market town smelling of coal smoke, roasted mutton, and damp horsehair. Four sprawling coaching taverns surround the high chimney of Taerom Fuiruim's Thunderhammer Smithy.",
+          "childMapId": "map_bg1_beregost"
+        },
+        {
+          "id": "BG-SC-05",
+          "name": "High Hedge Estate",
+          "displayName": "High Hedge",
+          "x": 380,
+          "y": 530,
+          "cat": "Vault",
+          "culture": "Adhocracy",
+          "shape": "diamond",
+          "customNotes": "A towering manse shielded by enchanted bramble mazes and patrolling flesh golems. Within, the reclusive conjure-master Thalantyr tests the limits of planar binding and antique artifact transmutation.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-SC-06",
+          "name": "Township of Nashkel",
+          "displayName": "Nashkel",
+          "x": 490,
+          "y": 680,
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "pentagon",
+          "customNotes": "Northern Amnian frontier outpost at the foot of the Cloud Peaks. Armed town guards in scarlet tunics eye refugees suspiciously while miners pack tavern porches demanding answers to the iron rot.",
+          "childMapId": "map_bg1_nashkel_town"
+        },
+        {
+          "id": "BG-SC-07",
+          "name": "Nashkel Mines Surface Quarry",
+          "displayName": "Nashkel Mines",
+          "x": 620,
+          "y": 770,
+          "cat": "Hazard",
+          "culture": "Market",
+          "shape": "triangle",
+          "customNotes": "Open-pit iron excavation choked with wooden derricks, gravel heaps, and soldier pickets. Contaminated ore sits piled in wooden sluices while terrified miners refuse to descend into the lower galleries.",
+          "childMapId": "map_bg1_nashkel_mines_surface"
+        },
+        {
+          "id": "BG-SC-08",
+          "name": "Cloud Peaks & Gnoll Stronghold",
+          "displayName": "Gnoll Stronghold",
+          "x": 280,
+          "y": 760,
+          "cat": "Hazard",
+          "culture": "Clan",
+          "shape": "hexagon",
+          "customNotes": "Craggy, windswept mountain passes crowned by a barbaric timber-and-boulder fortress overlooking deep river gorges. Howls of gnoll war-packs echo across natural rope bridges.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-SC-09",
+          "name": "Gullykin & Firewine Ruins",
+          "displayName": "Gullykin",
+          "x": 740,
+          "y": 650,
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "customNotes": "A peaceful halfling burrowing hamlet perched atop the sunken catacombs of the ancient elven city of Firewine. Wine cellars conceal hidden masonry tunnels into kobold-infested crypts.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-SC-10",
+          "name": "Ulcaster School of Sorcery Ruins",
+          "displayName": "Ulcaster",
+          "x": 640,
+          "y": 560,
+          "cat": "Vault",
+          "culture": "Adhocracy",
+          "shape": "diamond",
+          "customNotes": "The charred stone carcass of a grand conjuration academy razed three centuries ago by Calishite mages. The spectral shade of Ulcaster still glides across scorched stone arches reciting lost arcana.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-SC-11",
+          "name": "Larswood & Peldvale Frontier",
+          "displayName": "Larswood",
+          "x": 670,
+          "y": 420,
+          "cat": "Gateway",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "Dense deciduous woodland traversed by hidden bandit trails. Raiken and Teven's raiding outposts ambush merchant supply lines heading north toward the Chionthar.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-SC-12",
+          "name": "Tazok's Hidden Bandit Camp",
+          "displayName": "Bandit Camp",
+          "x": 800,
+          "y": 310,
+          "cat": "Bastion",
+          "culture": "Market",
+          "shape": "pentagon",
+          "customNotes": "A massive military encampment concealed within a pine hollow, occupied by Chill hobgoblins, Black Talon human archers, and iron-hoard tents orchestrated by the half-ogre Tazok.",
+          "childMapId": "map_bg1_bandit_camp"
+        },
+        {
+          "id": "BG-SC-13",
+          "name": "Cloakwood Primeval Forest",
+          "displayName": "Cloakwood",
+          "x": 320,
+          "y": 240,
+          "cat": "Hazard",
+          "culture": "Clan",
+          "shape": "circle",
+          "customNotes": "Dense, sun-choked canopy choked with hanging moss, territorial Shadow Druids, giant phase spiders, and nesting forest wyverns along the river gorge.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-SC-14",
+          "name": "Cloakwood Secret Iron Mines",
+          "displayName": "Cloakwood Mines",
+          "x": 250,
+          "y": 150,
+          "cat": "Vault",
+          "culture": "Market",
+          "shape": "triangle",
+          "customNotes": "A fortified quarry and subterranean smelter operated by Iron Throne slave drivers and guarded by black-glass wards, overseen by the ruthless battle-mage Davaeorn.",
+          "childMapId": "map_bg1_cloakwood_mines"
+        },
+        {
+          "id": "BG-SC-15",
+          "name": "Wyrm's Crossing Bridge",
+          "displayName": "Wyrm's Crossing",
+          "x": 490,
+          "y": 180,
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "diamond",
+          "customNotes": "A colossal double-span stone arched viaduct crossing the wide Chionthar River, guarded by a fortified Flaming Fist gatehouse screening travelers for iron contraband and fugitives.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-SC-16",
+          "name": "Metropolis of Baldur's Gate",
+          "displayName": "Baldur's Gate",
+          "x": 550,
+          "y": 110,
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "star",
+          "customNotes": "The sovereign trade capital of the Sword Coast. Sprawling multi-tiered granite bastions, crowded merchant docks, labyrinthine sewers, and the towering black-iron monolith of the Iron Throne HQ.",
+          "childMapId": "map_bg1_city"
+        },
+        {
+          "id": "BG-SC-17",
+          "name": "Ulgoth's Beard Seaport",
+          "displayName": "Ulgoth's Beard",
+          "x": 700,
+          "y": 100,
+          "cat": "Gateway",
+          "culture": "Adhocracy",
+          "shape": "circle",
+          "customNotes": "A foggy northern fishing hamlet where arcane eccentric Shandalar resides, serving as the staging ground for maritime expeditions to the Isle of Balduran and Durlag's Tower.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-SC-18",
+          "name": "Durlag's Tower Citadel",
+          "displayName": "Durlag's Tower",
+          "x": 920,
+          "y": 690,
+          "cat": "Vault",
+          "culture": "Adhocracy",
+          "shape": "star",
+          "customNotes": "A tragic dwarven fortress built by hero Durlag Trollkiller, now a nightmare dungeon of four deadly subterranean levels choked with lethal wards, doppelgangers, and the Demon Knight.",
+          "childMapId": "map_bg1_durlags_tower"
+        }
+      ],
+      "links": [
+        {
+          "from": "BG-SC-01",
+          "to": "BG-SC-02",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-02",
+          "to": "BG-SC-03",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-02",
+          "to": "BG-SC-04",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-03",
+          "to": "BG-SC-04",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-03",
+          "to": "BG-SC-15",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-04",
+          "to": "BG-SC-05",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-04",
+          "to": "BG-SC-06",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-04",
+          "to": "BG-SC-10",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-04",
+          "to": "BG-SC-11",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-06",
+          "to": "BG-SC-07",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-06",
+          "to": "BG-SC-08",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-06",
+          "to": "BG-SC-09",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-09",
+          "to": "BG-SC-10",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-09",
+          "to": "BG-SC-18",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-10",
+          "to": "BG-SC-18",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-11",
+          "to": "BG-SC-12",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-13",
+          "to": "BG-SC-14",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-13",
+          "to": "BG-SC-15",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-15",
+          "to": "BG-SC-16",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-SC-16",
+          "to": "BG-SC-17",
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_candlekeep": {
+      "id": "map_bg1_candlekeep",
+      "name": "Candlekeep Fortress & Library",
+      "scaleTier": "settlement",
+      "parentMapId": "map_bg1_sword_coast",
+      "parentNodeId": "BG-SC-01",
+      "nodes": [
+        {
+          "id": "BG-CK-01",
+          "name": "Candlekeep Outer Courtyard",
+          "displayName": "Outer Courtyard",
+          "x": 280,
+          "y": 400,
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "customNotes": "Cobblestone square flanked by bunkhouses and granaries. Monks verify credentials under the vigilant gaze of Keeper Ulraunt's guards.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CK-02",
+          "name": "Candlekeep Great Library Scriptorium",
+          "displayName": "Great Library",
+          "x": 480,
+          "y": 280,
+          "cat": "Vault",
+          "culture": "Hierarchy",
+          "shape": "diamond",
+          "customNotes": "A six-story circular stone sanctum of parchment and ink. Chanted prophecies of Alaundo echo along towering oak bookshelves.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CK-03",
+          "name": "Winthrop's Candlekeep Inn",
+          "displayName": "Winthrop's Inn",
+          "x": 260,
+          "y": 260,
+          "cat": "Bastion",
+          "culture": "Clan",
+          "shape": "pentagon",
+          "customNotes": "Warm hearth and polished timber tavern run by jolly Winthrop, where scholars relax over mulled cider.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CK-04",
+          "name": "Chantry of Oghma & Infirmary",
+          "displayName": "Chantry",
+          "x": 440,
+          "y": 480,
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "customNotes": "A serene chapel offering curative herbal tonics and blessings of Oghma to visiting pilgrims.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CK-05",
+          "name": "Gorion's Study & Garden Terrace",
+          "displayName": "Gorion's Study",
+          "x": 620,
+          "y": 320,
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "pentagon",
+          "customNotes": "A cozy stone chamber crowded with scrolls, star charts, and Gorion's travel trunk packed in haste.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CK-06",
+          "name": "Sealed Crypt Gate to the Catacombs",
+          "displayName": "Crypt Gate",
+          "x": 700,
+          "y": 460,
+          "cat": "Hazard",
+          "culture": "Hierarchy",
+          "shape": "triangle",
+          "customNotes": "Heavy iron-bound oak doorway leading down into the subterranean burial vaults of ancient High Scholars.",
+          "childMapId": "map_bg1_catacombs"
+        }
+      ],
+      "links": [
+        {
+          "from": "BG-CK-01",
+          "to": "BG-CK-02",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CK-01",
+          "to": "BG-CK-03",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CK-01",
+          "to": "BG-CK-04",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CK-02",
+          "to": "BG-CK-05",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CK-05",
+          "to": "BG-CK-06",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CK-04",
+          "to": "BG-CK-06",
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_friendly_arm": {
+      "id": "map_bg1_friendly_arm",
+      "name": "The Friendly Arm Inn",
+      "scaleTier": "structure",
+      "parentMapId": "map_bg1_sword_coast",
+      "parentNodeId": "BG-SC-03",
+      "nodes": [
+        {
+          "id": "BG-FAI-01",
+          "name": "Fortress Gatehouse & Drawbridge",
+          "displayName": "Gatehouse",
+          "x": 260,
+          "y": 400,
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "customNotes": "Massive granite gatehouse flanked by stout bastions. The assassin Tarnesh waits upon the stone steps.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-FAI-02",
+          "name": "The Great Keep Tavern & Common Room",
+          "displayName": "Keep Tavern",
+          "x": 480,
+          "y": 300,
+          "cat": "Bastion",
+          "culture": "Clan",
+          "shape": "pentagon",
+          "customNotes": "Sprawling three-story taproom warming hundreds of travelers. Bentley Mirrorshade tends bar while Khalid and Jaheira watch the door.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-FAI-03",
+          "name": "Temple of the Wisdom of Garl",
+          "displayName": "Temple of Garl",
+          "x": 640,
+          "y": 240,
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "customNotes": "A cheerful stone sanctuary honoring the Glittering Gold gnome deity, offering divine healing.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-FAI-04",
+          "name": "Joia's Cottage & Stables",
+          "displayName": "Joia's Cottage",
+          "x": 380,
+          "y": 500,
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "customNotes": "A quaint thatched cottage near the outer ramparts where Joia weeps over her stolen Flamedance ring.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-FAI-05",
+          "name": "Upper Keep Guest Suites (Room 204)",
+          "displayName": "Upper Suites",
+          "x": 640,
+          "y": 440,
+          "cat": "Vault",
+          "culture": "Market",
+          "shape": "diamond",
+          "customNotes": "Luxurious private bedchambers where wealthy merchants sleep, containing a chest holding the Golden Pantaloons.",
+          "childMapId": null
+        }
+      ],
+      "links": [
+        {
+          "from": "BG-FAI-01",
+          "to": "BG-FAI-02",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-FAI-01",
+          "to": "BG-FAI-04",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-FAI-02",
+          "to": "BG-FAI-03",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-FAI-02",
+          "to": "BG-FAI-05",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-FAI-04",
+          "to": "BG-FAI-02",
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_beregost": {
+      "id": "map_bg1_beregost",
+      "name": "Township of Beregost",
+      "scaleTier": "settlement",
+      "parentMapId": "map_bg1_sword_coast",
+      "parentNodeId": "BG-SC-04",
+      "nodes": [
+        {
+          "id": "BG-BER-01",
+          "name": "Feldepost's Inn & Town Square",
+          "displayName": "Feldepost's Inn",
+          "x": 280,
+          "y": 320,
+          "cat": "Gateway",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "A rowdy coaching inn facing the town obelisk. Mercenary Karlat hunts bounties here while Tranzig waits upstairs for letters from Tazok.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-BER-02",
+          "name": "Thunderhammer Smithy",
+          "displayName": "Thunderhammer",
+          "x": 520,
+          "y": 240,
+          "cat": "Bastion",
+          "culture": "Market",
+          "shape": "pentagon",
+          "customNotes": "The master forge of Taerom Fuiruim. An enormous bellows roars day and night as Taerom inspects brittle iron weapons and forges Ankheg plate.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-BER-03",
+          "name": "The Jovial Juggler Tavern",
+          "displayName": "Jovial Juggler",
+          "x": 680,
+          "y": 360,
+          "cat": "Bastion",
+          "culture": "Clan",
+          "shape": "pentagon",
+          "customNotes": "A lively commoners' inn where Officer Vai commands her Flaming Fist bounty headquarters, paying gold for bandit scalps.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-BER-04",
+          "name": "The Red Sheaf Inn",
+          "displayName": "Red Sheaf",
+          "x": 440,
+          "y": 460,
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "A bustling inn where dwarf mercenary Kagain recruits adventurers for his missing merchant caravan.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-BER-05",
+          "name": "Burning Wizard Inn & Market Square",
+          "displayName": "Burning Wizard",
+          "x": 260,
+          "y": 520,
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "A crowded two-story hostelry where Zhurlong laments stolen boots of stealth and bard Garrick warns travelers of Silke's schemes.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-BER-06",
+          "name": "Mirianne's Estate & North Road",
+          "displayName": "Mirianne's Estate",
+          "x": 480,
+          "y": 620,
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "customNotes": "A handsome stone manor where Mirianne paces anxiously awaiting word of her husband's courier caravan from the south.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-BER-07",
+          "name": "Firebead Elvenhair's House",
+          "displayName": "Firebead's Home",
+          "x": 680,
+          "y": 520,
+          "cat": "Vault",
+          "culture": "Adhocracy",
+          "shape": "diamond",
+          "customNotes": "A quiet library residence filled with rare poetry and illuminated scriptures maintained by the kindly elven sage.",
+          "childMapId": null
+        }
+      ],
+      "links": [
+        {
+          "from": "BG-BER-01",
+          "to": "BG-BER-02",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BER-01",
+          "to": "BG-BER-04",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BER-01",
+          "to": "BG-BER-05",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BER-02",
+          "to": "BG-BER-03",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BER-04",
+          "to": "BG-BER-03",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BER-04",
+          "to": "BG-BER-06",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BER-05",
+          "to": "BG-BER-06",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BER-06",
+          "to": "BG-BER-07",
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_bandit_camp": {
+      "id": "map_bg1_bandit_camp",
+      "name": "Tazok's Hidden Bandit Camp",
+      "scaleTier": "settlement",
+      "parentMapId": "map_bg1_sword_coast",
+      "parentNodeId": "BG-SC-12",
+      "nodes": [
+        {
+          "id": "BG-BND-01",
+          "name": "Bandit Perimeter & Sentry Palisade",
+          "displayName": "Perimeter Gate",
+          "x": 260,
+          "y": 420,
+          "cat": "Gateway",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "Sharpened wooden stakes and guard platforms where sentries demand the secret recognition password.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-BND-02",
+          "name": "Black Talon Archer Encampment",
+          "displayName": "Archer Camp",
+          "x": 420,
+          "y": 280,
+          "cat": "Hazard",
+          "culture": "Hierarchy",
+          "shape": "triangle",
+          "customNotes": "Elite human longbowmen in leather armors drill with poisoned iron broadheads over open cook fires.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-BND-03",
+          "name": "Chill Hobgoblin Barracks & War Pits",
+          "displayName": "Chill Barracks",
+          "x": 440,
+          "y": 540,
+          "cat": "Hazard",
+          "culture": "Clan",
+          "shape": "triangle",
+          "customNotes": "Vicious hobgoblin raiders under chieftain Ardenor Crush drink crude ale and sharpen scimitars.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-BND-04",
+          "name": "Prisoner Stockade & Smuggler Cages",
+          "displayName": "Stockade",
+          "x": 620,
+          "y": 460,
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "Timber cages holding captured caravan teamsters and merchant factor Ender Sai, who holds critical intel.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-BND-05",
+          "name": "Tazok's Great War Tent & Strongbox",
+          "displayName": "Tazok's Tent",
+          "x": 680,
+          "y": 280,
+          "cat": "Bastion",
+          "culture": "Market",
+          "shape": "pentagon",
+          "customNotes": "A massive furs-and-leather command pavilion guarded by Raemon, Venkt, and Britik, concealing letters detailing Cloakwood.",
+          "childMapId": null
+        }
+      ],
+      "links": [
+        {
+          "from": "BG-BND-01",
+          "to": "BG-BND-02",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BND-01",
+          "to": "BG-BND-03",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BND-02",
+          "to": "BG-BND-05",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BND-03",
+          "to": "BG-BND-04",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-BND-04",
+          "to": "BG-BND-05",
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_cloakwood_mines": {
+      "id": "map_bg1_cloakwood_mines",
+      "name": "Cloakwood Secret Iron Mines",
+      "scaleTier": "dungeon",
+      "parentMapId": "map_bg1_sword_coast",
+      "parentNodeId": "BG-SC-14",
+      "nodes": [
+        {
+          "id": "BG-CLK-01",
+          "name": "Surface Stockade & Guard Tower",
+          "displayName": "Surface Stockade",
+          "x": 260,
+          "y": 380,
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "customNotes": "Fortified timber stockade guarding the elevator headframe leading into the subterranean iron complex.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CLK-02",
+          "name": "Mine Level 1: Slave Barracks & Sorting",
+          "displayName": "Mine Level 1",
+          "x": 440,
+          "y": 280,
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "Choking dust and clanking chains where hundreds of enslaved miners toil under brutal guard whips.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CLK-03",
+          "name": "Mine Level 2: Subterranean Canal & Sluice",
+          "displayName": "Mine Level 2",
+          "x": 620,
+          "y": 240,
+          "cat": "Vault",
+          "culture": "Adhocracy",
+          "shape": "diamond",
+          "customNotes": "An underground river channeling water to hydraulic lift wheels, containing the master flood sluice plug.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CLK-04",
+          "name": "Mine Level 3: Yeslick's Dungeon & Armoury",
+          "displayName": "Dungeon Cell",
+          "x": 520,
+          "y": 480,
+          "cat": "Bastion",
+          "culture": "Clan",
+          "shape": "pentagon",
+          "customNotes": "Dark, flooded holding cells where the dwarven clan cleric Yeslick Orothiar is kept in chains.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CLK-05",
+          "name": "Mine Level 4: Davaeorn's Arcane Lair",
+          "displayName": "Davaeorn's Lair",
+          "x": 720,
+          "y": 420,
+          "cat": "Bastion",
+          "culture": "Market",
+          "shape": "pentagon",
+          "customNotes": "A lavish subterranean suite protected by battle horrors, guard slime, and Davaeorn's dimension-door teleport traps.",
+          "childMapId": null
+        }
+      ],
+      "links": [
+        {
+          "from": "BG-CLK-01",
+          "to": "BG-CLK-02",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CLK-02",
+          "to": "BG-CLK-03",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CLK-02",
+          "to": "BG-CLK-04",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CLK-03",
+          "to": "BG-CLK-05",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CLK-04",
+          "to": "BG-CLK-05",
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_city": {
+      "id": "map_bg1_city",
+      "name": "Metropolis of Baldur's Gate",
+      "scaleTier": "district",
+      "parentMapId": "map_bg1_sword_coast",
+      "parentNodeId": "BG-SC-16",
+      "nodes": [
+        {
+          "id": "BG-CTY-01",
+          "name": "East District & Elfsong Tavern",
+          "displayName": "East District",
+          "x": 300,
+          "y": 380,
+          "cat": "Gateway",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "Lively commercial district surrounding the Elfsong Tavern, where a haunting ghostly voice sings of lost love on the sea.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CTY-02",
+          "name": "Central District & Hall of Wonders",
+          "displayName": "Central District",
+          "x": 480,
+          "y": 260,
+          "cat": "Vault",
+          "culture": "Adhocracy",
+          "shape": "diamond",
+          "customNotes": "Grand avenues crowned by the High House of Wonders honoring Gond, housing dazzling technological clockworks.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CTY-03",
+          "name": "Southwest District & Flaming Fist Citadel",
+          "displayName": "Flaming Fist HQ",
+          "x": 320,
+          "y": 560,
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "pentagon",
+          "customNotes": "A massive stone fortress housing Duke Eltan's military command, the central armoury, and detention cells.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CTY-04",
+          "name": "South District & Iron Throne Headquarters",
+          "displayName": "Iron Throne HQ",
+          "x": 520,
+          "y": 520,
+          "cat": "Bastion",
+          "culture": "Market",
+          "shape": "pentagon",
+          "customNotes": "A monolithic dark-stone skyscraper overlooking the harbor docks. Iron Throne mercenaries bar entry to upper floors.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CTY-05",
+          "name": "North District & The Ducal Palace",
+          "displayName": "Ducal Palace",
+          "x": 680,
+          "y": 200,
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "star",
+          "customNotes": "The white marble seat of the Four Grand Dukes of Baldur's Gate, venue of the coronation ball.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CTY-06",
+          "name": "The Undercellars & Thieves' Conduits",
+          "displayName": "Undercellars",
+          "x": 720,
+          "y": 440,
+          "cat": "Hazard",
+          "culture": "Adhocracy",
+          "shape": "triangle",
+          "customNotes": "A subterranean network of gambling dens and brothels connecting the city's underbelly to the Thieves' Maze.",
+          "childMapId": "map_bg1_undercity"
+        }
+      ],
+      "links": [
+        {
+          "from": "BG-CTY-01",
+          "to": "BG-CTY-02",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CTY-01",
+          "to": "BG-CTY-03",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CTY-02",
+          "to": "BG-CTY-05",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CTY-02",
+          "to": "BG-CTY-04",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CTY-03",
+          "to": "BG-CTY-04",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CTY-04",
+          "to": "BG-CTY-06",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CTY-05",
+          "to": "BG-CTY-06",
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_undercity": {
+      "id": "map_bg1_undercity",
+      "name": "The Undercity & Temple of Bhaal",
+      "scaleTier": "dungeon",
+      "parentMapId": "map_bg1_city",
+      "parentNodeId": "BG-CTY-06",
+      "nodes": [
+        {
+          "id": "BG-UND-01",
+          "name": "Thieves' Maze Threshold",
+          "displayName": "Maze Entry",
+          "x": 240,
+          "y": 380,
+          "cat": "Gateway",
+          "culture": "Adhocracy",
+          "shape": "circle",
+          "customNotes": "Entrance to the deadly brick labyrinth beneath the Guildhall where dying Voleta Stiletto warns of Sarevok's assassins.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-UND-02",
+          "name": "The Skeletal Labyrinth",
+          "displayName": "Skeletal Labyrinth",
+          "x": 420,
+          "y": 260,
+          "cat": "Hazard",
+          "culture": "Hierarchy",
+          "shape": "triangle",
+          "customNotes": "Twisting sewer corridors filled with green slime, doom guards, and skeletal warriors armed with flaming arrows.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-UND-03",
+          "name": "The Forgotten Undercity Plaza",
+          "displayName": "Undercity Plaza",
+          "x": 600,
+          "y": 320,
+          "cat": "Perimeter",
+          "culture": "Market",
+          "shape": "diamond",
+          "customNotes": "Sunken stone plaza of an ancient ruined civilization buried beneath modern Baldur's Gate, guarded by Tamoko.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-UND-04",
+          "name": "The Temple of Bhaal Sanctum",
+          "displayName": "Temple of Bhaal",
+          "x": 780,
+          "y": 420,
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "star",
+          "customNotes": "The blood-soaked grand sanctuary of the Lord of Murder. Sarevok Anchev, Angelo, Tazok, and Semaj await atop the Skull of Bhaal.",
+          "childMapId": null
+        }
+      ],
+      "links": [
+        {
+          "from": "BG-UND-01",
+          "to": "BG-UND-02",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-UND-02",
+          "to": "BG-UND-03",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-UND-03",
+          "to": "BG-UND-04",
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_catacombs": {
+      "id": "map_bg1_catacombs",
+      "name": "Candlekeep Catacombs & Caverns",
+      "scaleTier": "dungeon",
+      "parentMapId": "map_bg1_candlekeep",
+      "parentNodeId": "BG-CK-06",
+      "nodes": [
+        {
+          "id": "BG-CAT-01",
+          "name": "Tombs of the Great Scribes",
+          "displayName": "Scribes' Tombs",
+          "x": 260,
+          "y": 380,
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "customNotes": "Ancient subterranean sepulchres carved from living rock. Undead guardians rise to repel trespassers.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CAT-02",
+          "name": "Crypt of the Keeper & Gorion's Reliquary",
+          "displayName": "Gorion's Crypt",
+          "x": 480,
+          "y": 280,
+          "cat": "Vault",
+          "culture": "Clan",
+          "shape": "diamond",
+          "customNotes": "A hidden sarcophagus chamber where Gorion left a final letter and the Tome of Understanding.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-CAT-03",
+          "name": "Subterranean Caverns & Prat's Ambush",
+          "displayName": "Caverns of Prat",
+          "x": 680,
+          "y": 420,
+          "cat": "Hazard",
+          "culture": "Market",
+          "shape": "triangle",
+          "customNotes": "Damp natural limestone caverns where Iron Throne mercenary Prat and his cutthroats lie in wait.",
+          "childMapId": null
+        }
+      ],
+      "links": [
+        {
+          "from": "BG-CAT-01",
+          "to": "BG-CAT-02",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-CAT-02",
+          "to": "BG-CAT-03",
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_durlags_tower": {
+      "id": "map_bg1_durlags_tower",
+      "name": "Durlag's Tower & Subterranean Vaults",
+      "scaleTier": "dungeon",
+      "parentMapId": "map_bg1_sword_coast",
+      "parentNodeId": "BG-SC-18",
+      "nodes": [
+        {
+          "id": "BG-DUR-01",
+          "name": "Durlag's Upper Ramparts & Great Hall",
+          "displayName": "Upper Ramparts",
+          "x": 260,
+          "y": 400,
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "customNotes": "Crumbling stone towers and haunted banquet halls where the ghost of Durlag Trollkiller laments the slaughter of his clan.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-DUR-02",
+          "name": "Level 1: Chamber of the Four Warders",
+          "displayName": "Warders' Chamber",
+          "x": 460,
+          "y": 300,
+          "cat": "Hazard",
+          "culture": "Clan",
+          "shape": "triangle",
+          "customNotes": "Subterranean trials where the four animated Warders of Durlag test intruders with elemental traps.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-DUR-03",
+          "name": "Level 2: The Doppelganger Chessboard",
+          "displayName": "Chessboard Vault",
+          "x": 620,
+          "y": 240,
+          "cat": "Vault",
+          "culture": "Adhocracy",
+          "shape": "diamond",
+          "customNotes": "A lethal electrified checkerboard chamber where living chess pieces cast lightning bolts at invalid tactical moves.",
+          "childMapId": null
+        },
+        {
+          "id": "BG-DUR-04",
+          "name": "Level 4: Clair De'Loon & The Demon Knight",
+          "displayName": "Demon Knight Lair",
+          "x": 720,
+          "y": 420,
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "star",
+          "customNotes": "The deepest subterranean cavern housing the Soultaker Dagger and the Demon Knight.",
+          "childMapId": null
+        }
+      ],
+      "links": [
+        {
+          "from": "BG-DUR-01",
+          "to": "BG-DUR-02",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-DUR-02",
+          "to": "BG-DUR-03",
+          "type": "twoway"
+        },
+        {
+          "from": "BG-DUR-03",
+          "to": "BG-DUR-04",
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_nashkel_town": {
+      "id": "map_bg1_nashkel_town",
+      "name": "Nashkel Township (AR4800)",
+      "scaleTier": "settlement",
+      "parentMapId": "map_bg1_sword_coast",
+      "parentNodeId": "BG-SC-06",
+      "mapMetadata": {
+        "id": "map_bg1_nashkel_town",
+        "name": "nashkel.png",
+        "assetPath": "assets/nashkel.png",
+        "width": 1200,
+        "height": 900,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": 101,
+          "name": "The Nashkel Inn",
+          "displayName": "Nashkel Inn",
+          "x": 340,
+          "y": 280,
+          "coordinates": {
+            "x": 340,
+            "y": 280
+          },
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "square",
+          "customNotes": "A sturdy timber-and-plaster roadside hostelry. Smells of roasted leek potage and stale ale. The assassin Neira waits inside with drawn daggers and hold person scrolls to ambush inquisitive parties.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 102,
+          "name": "Mayor Ghastkill's Adjudication Pavilion",
+          "displayName": "Mayor's Pavilion",
+          "x": 580,
+          "y": 240,
+          "coordinates": {
+            "x": 580,
+            "y": 240
+          },
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "square",
+          "customNotes": "A raised wooden platform near the northern bridge where Mayor Berrun Ghastkill and Bounty Officer Oublek inspect incoming travelers and recruit armed investigations into the iron crisis.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 103,
+          "name": "Amnian Military Garrison",
+          "displayName": "Garrison Barracks",
+          "x": 780,
+          "y": 320,
+          "coordinates": {
+            "x": 780,
+            "y": 320
+          },
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "square",
+          "customNotes": "Fortified stone barracks housing Captain Bardolan's border detachment. The barbarian Minsc paces the courtyard, pleading for stout swords to mount a rescue of Dynaheir from the Gnoll Stronghold.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 104,
+          "name": "Belching Dragon Tavern & Stone Bridge",
+          "displayName": "Belching Dragon",
+          "x": 620,
+          "y": 520,
+          "coordinates": {
+            "x": 620,
+            "y": 520
+          },
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "A low-ceilinged dive frequented by off-duty miners. Outside on the footbridge, the Thayvian wizard Edwin Odesseiron scans the crowd, offering coin for the death of Dynaheir.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 105,
+          "name": "Temple of Helm & Hallowed Grounds",
+          "displayName": "Temple of Helm",
+          "x": 860,
+          "y": 660,
+          "coordinates": {
+            "x": 860,
+            "y": 660
+          },
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "diamond",
+          "customNotes": "A stone sanctuary dedicated to the Vigilant One. Watcher Nalin offers healing, identifies enchanted weapons, and ministers to miners maddened by the contaminated iron ore.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 106,
+          "name": "Nashkel General Store & Silo",
+          "displayName": "Nashkel Store",
+          "x": 420,
+          "y": 620,
+          "coordinates": {
+            "x": 420,
+            "y": 620
+          },
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "square",
+          "customNotes": "The town's supply depot selling grain, missile ammunition, and general dungeoneering gear. The shopkeeper warns that iron blades snap under pressure due to the widespread rot.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 107,
+          "name": "Western Plowing Fields & Buried Cache",
+          "displayName": "Western Furrows",
+          "x": 220,
+          "y": 740,
+          "coordinates": {
+            "x": 220,
+            "y": 740
+          },
+          "cat": "Perimeter",
+          "culture": "Clan",
+          "shape": "triangle",
+          "customNotes": "Freshly turned crop fields. A sunken hollow along the tree line conceals a hidden cache containing a set of masterwork Ankheg Plate Mail.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [
+        {
+          "from": 101,
+          "to": 102,
+          "type": "twoway"
+        },
+        {
+          "from": 102,
+          "to": 103,
+          "type": "twoway"
+        },
+        {
+          "from": 102,
+          "to": 104,
+          "type": "twoway"
+        },
+        {
+          "from": 104,
+          "to": 105,
+          "type": "twoway"
+        },
+        {
+          "from": 104,
+          "to": 106,
+          "type": "twoway"
+        },
+        {
+          "from": 106,
+          "to": 107,
+          "type": "twoway"
+        },
+        {
+          "from": 101,
+          "to": 106,
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_nashkel_mines_surface": {
+      "id": "map_bg1_nashkel_mines_surface",
+      "name": "Nashkel Mines: Surface Quarry (AR5400)",
+      "scaleTier": "settlement",
+      "parentMapId": "map_bg1_sword_coast",
+      "parentNodeId": "BG-SC-07",
+      "mapMetadata": {
+        "id": "map_bg1_nashkel_mines_surface",
+        "name": "nashkelmines.png",
+        "assetPath": "assets/nashkelmines.png",
+        "width": 1200,
+        "height": 900,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": 601,
+          "name": "Quarry Perimeter Road",
+          "displayName": "Perimeter Road",
+          "x": 600,
+          "y": 150,
+          "coordinates": {
+            "x": 600,
+            "y": 150
+          },
+          "cat": "Gateway",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "The rutted mountain approach leading from the Cloud Peak foothills into the quarry bowl. Warning signs posted by the Amnian Council caution against trespassers.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 602,
+          "name": "Amnian Guard Palisade",
+          "displayName": "Guard Palisade",
+          "x": 880,
+          "y": 350,
+          "coordinates": {
+            "x": 880,
+            "y": 350
+          },
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "square",
+          "customNotes": "Timber stockade manned by nervous Amnian border guards under orders to shoot looters on sight and keep panicked miners from fleeing back north.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 603,
+          "name": "Open-Cast Excavation Pit",
+          "displayName": "Quarry Excavation",
+          "x": 420,
+          "y": 400,
+          "coordinates": {
+            "x": 420,
+            "y": 400
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "triangle",
+          "customNotes": "Terraced rock faces where surface miners quarry slate and iron-bearing schist. Rusted pickaxes and shattered iron sledgehammers lie heaped beside abandoned wheelbarrows.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 604,
+          "name": "Smelter Yard & Ore Wagons",
+          "displayName": "Smelter Yard",
+          "x": 780,
+          "y": 680,
+          "coordinates": {
+            "x": 780,
+            "y": 680
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "hexagon",
+          "customNotes": "Cold charcoal kilns and stacked crates of brittle iron ingots. Guard dogs growl at shadows as workers whisper of demonic laughter echoing up the shafts at midnight.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 605,
+          "name": "Main Pithead Timber Adit",
+          "displayName": "Mine Adit (L1)",
+          "x": 350,
+          "y": 680,
+          "coordinates": {
+            "x": 350,
+            "y": 680
+          },
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "pentagon",
+          "customNotes": "The reinforced timber entrance opening into the subterranean Nashkel Mine complex. Dank air smelling of sulphur, wet rock, and goblin grease wafts from the dark opening leading down to Level 1.",
+          "childMapId": "map_bg1_nashkel_mines_l1",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [
+        {
+          "from": 601,
+          "to": 602,
+          "type": "twoway"
+        },
+        {
+          "from": 601,
+          "to": 603,
+          "type": "twoway"
+        },
+        {
+          "from": 602,
+          "to": 604,
+          "type": "twoway"
+        },
+        {
+          "from": 603,
+          "to": 605,
+          "type": "twoway"
+        },
+        {
+          "from": 604,
+          "to": 605,
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_nashkel_mines_l1": {
+      "id": "map_bg1_nashkel_mines_l1",
+      "name": "Nashkel Mines: Level 1 (AR5401)",
+      "scaleTier": "dungeon",
+      "parentMapId": "map_bg1_nashkel_mines_surface",
+      "parentNodeId": 605,
+      "mapMetadata": {
+        "id": "map_bg1_nashkel_mines_l1",
+        "name": "nkmines1.png",
+        "assetPath": "assets/nkmines1.png",
+        "width": 1124,
+        "height": 792,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": 201,
+          "name": "Level 1 Mine Entrance",
+          "displayName": "L1 Mine Entrance",
+          "x": 500,
+          "y": 90,
+          "coordinates": {
+            "x": 500,
+            "y": 90
+          },
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "square",
+          "customNotes": "The foot of the main timber adit descending from the surface quarry. Sputtering tallow torches line the rock ceiling, illuminating heavy timber shoring holding back loose schist.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 202,
+          "name": "Upper Ore Rail Junction",
+          "displayName": "Ore Junction",
+          "x": 520,
+          "y": 280,
+          "coordinates": {
+            "x": 520,
+            "y": 280
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "hexagon",
+          "customNotes": "Central ore cart turntable where miners haul rock carts to the surface lift. Piles of slag and discarded iron chisels show severe pitting and acid erosion.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 203,
+          "name": "Abandoned Western Drift",
+          "displayName": "Western Drift",
+          "x": 160,
+          "y": 240,
+          "coordinates": {
+            "x": 160,
+            "y": 240
+          },
+          "cat": "Perimeter",
+          "culture": "Clan",
+          "shape": "triangle",
+          "customNotes": "Unworked blind drift where miners stored timber props. Scurrying sounds echo from cracks in the wall, where diseased rats gnaw at leather supply sacks.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 204,
+          "name": "Miner Dink's Excavation Post",
+          "displayName": "Miner Dink's Post",
+          "x": 420,
+          "y": 550,
+          "coordinates": {
+            "x": 420,
+            "y": 550
+          },
+          "cat": "Bastion",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "A dimly lit timber shelter where Miner Dink hunkers with a guttering oil lamp. He pleads for travelers to deliver a spare pickaxe down to Kylee on the second level.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 205,
+          "name": "Descent Shaft to Level 2",
+          "displayName": "Descent to L2",
+          "x": 880,
+          "y": 600,
+          "coordinates": {
+            "x": 880,
+            "y": 600
+          },
+          "cat": "Gateway",
+          "culture": "Adhocracy",
+          "shape": "diamond",
+          "customNotes": "A steep descending tunnel following narrow ore tracks down into the humid second level of the mine. Brackish water pools along the tunnel floor.",
+          "childMapId": "map_bg1_nashkel_mines_l2",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [
+        {
+          "from": 201,
+          "to": 202,
+          "type": "twoway"
+        },
+        {
+          "from": 202,
+          "to": 203,
+          "type": "twoway"
+        },
+        {
+          "from": 202,
+          "to": 204,
+          "type": "twoway"
+        },
+        {
+          "from": 204,
+          "to": 205,
+          "type": "twoway"
+        },
+        {
+          "from": 202,
+          "to": 205,
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_nashkel_mines_l2": {
+      "id": "map_bg1_nashkel_mines_l2",
+      "name": "Nashkel Mines: Level 2 (AR5402)",
+      "scaleTier": "dungeon",
+      "parentMapId": "map_bg1_nashkel_mines_l1",
+      "parentNodeId": 205,
+      "mapMetadata": {
+        "id": "map_bg1_nashkel_mines_l2",
+        "name": "nkmines2.png",
+        "assetPath": "assets/nkmines2.png",
+        "width": 1059,
+        "height": 834,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": 211,
+          "name": "Ascent Incline to Level 1",
+          "displayName": "Ascent to L1",
+          "x": 590,
+          "y": 760,
+          "coordinates": {
+            "x": 590,
+            "y": 760
+          },
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "square",
+          "customNotes": "The sloping stone incline leading back up to Level 1. Water trickles down the carved drainage gutters along the eastern wall.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 212,
+          "name": "Flooded Sump & Timber Causeway",
+          "displayName": "Flooded Sump",
+          "x": 690,
+          "y": 380,
+          "coordinates": {
+            "x": 690,
+            "y": 380
+          },
+          "cat": "Hazard",
+          "culture": "Clan",
+          "shape": "hexagon",
+          "customNotes": "A subterranean reservoir of murky greenish water bridged by slippery wooden planks. The stench of copper sludge and sulfur is overpowering.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 213,
+          "name": "Miner Kylee's Drift",
+          "displayName": "Kylee's Chamber",
+          "x": 160,
+          "y": 510,
+          "coordinates": {
+            "x": 160,
+            "y": 510
+          },
+          "cat": "Bastion",
+          "culture": "Clan",
+          "shape": "circle",
+          "customNotes": "A spacious excavated pocket where Miner Kylee toils frantically. Terrified of kobold snipers in the dark, he accepts Dink's pickaxe with relief and whispers of armed 'little demons' running the lower shafts.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 214,
+          "name": "Upper Ventilation Drift",
+          "displayName": "Ventilation Drift",
+          "x": 480,
+          "y": 140,
+          "coordinates": {
+            "x": 480,
+            "y": 140
+          },
+          "cat": "Perimeter",
+          "culture": "Adhocracy",
+          "shape": "triangle",
+          "customNotes": "Narrow twisting drift where stale air is drawn toward natural chimneys in the rock. Crude wooden caltrops and tripwires suggest kobolds have begun fortifying the level.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 215,
+          "name": "Descent Chute to Level 3",
+          "displayName": "Descent to L3",
+          "x": 930,
+          "y": 750,
+          "coordinates": {
+            "x": 930,
+            "y": 750
+          },
+          "cat": "Gateway",
+          "culture": "Adhocracy",
+          "shape": "diamond",
+          "customNotes": "A rough-hewn bore plunging into the kobold-infested third level. The distinct scent of burnt pine pitch and kobold dung rises from below.",
+          "childMapId": "map_bg1_nashkel_mines_l3",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [
+        {
+          "from": 211,
+          "to": 213,
+          "type": "twoway"
+        },
+        {
+          "from": 211,
+          "to": 212,
+          "type": "twoway"
+        },
+        {
+          "from": 212,
+          "to": 214,
+          "type": "twoway"
+        },
+        {
+          "from": 213,
+          "to": 214,
+          "type": "twoway"
+        },
+        {
+          "from": 212,
+          "to": 215,
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_nashkel_mines_l3": {
+      "id": "map_bg1_nashkel_mines_l3",
+      "name": "Nashkel Mines: Level 3 (AR5403)",
+      "scaleTier": "dungeon",
+      "parentMapId": "map_bg1_nashkel_mines_l2",
+      "parentNodeId": 215,
+      "mapMetadata": {
+        "id": "map_bg1_nashkel_mines_l3",
+        "name": "nkmines3.png",
+        "assetPath": "assets/nkmines3.png",
+        "width": 1110,
+        "height": 819,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": 221,
+          "name": "Upper Incline from Level 2",
+          "displayName": "Incline from L2",
+          "x": 450,
+          "y": 60,
+          "coordinates": {
+            "x": 450,
+            "y": 60
+          },
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "square",
+          "customNotes": "The bottom of the rocky passage descending from Level 2. The air here is dry and acrid with chimney smoke from crude kobold firepits.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 222,
+          "name": "Joseph's Remains & Lost Ring Alcove",
+          "displayName": "Joseph's Alcove",
+          "x": 450,
+          "y": 150,
+          "coordinates": {
+            "x": 450,
+            "y": 150
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "diamond",
+          "customNotes": "A shadowed hollow just below the upper entry where the unfortunate miner Joseph fell during the initial invasion. His skeletal hand still wears a greenstone signet ring bearing his family crest.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 223,
+          "name": "Chasm Suspension Bridge & Kobold Traps",
+          "displayName": "Chasm Bridge",
+          "x": 630,
+          "y": 390,
+          "coordinates": {
+            "x": 630,
+            "y": 390
+          },
+          "cat": "Hazard",
+          "culture": "Adhocracy",
+          "shape": "triangle",
+          "customNotes": "A creaking hemp rope bridge spanning a yawning subterranean fissure. Kobold Commandos have notched the timber supports and rigged wire-drawn spring traps loaded with fire darts.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 224,
+          "name": "Lower Kobold Encampment",
+          "displayName": "Kobold Warrens",
+          "x": 400,
+          "y": 600,
+          "coordinates": {
+            "x": 400,
+            "y": 600
+          },
+          "cat": "Hazard",
+          "culture": "Adhocracy",
+          "shape": "hexagon",
+          "customNotes": "A sprawling warren reeking of kerosene, wet scales, and charred cave mushrooms. Swarms of kobold skirmishers and giant cave spiders guard the central tunnels.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 225,
+          "name": "Descent to Lair (Level 4)",
+          "displayName": "Descent to L4",
+          "x": 930,
+          "y": 660,
+          "coordinates": {
+            "x": 930,
+            "y": 660
+          },
+          "cat": "Gateway",
+          "culture": "Hierarchy",
+          "shape": "pentagon",
+          "customNotes": "A grand subterranean archway reinforced with ancient stonework leading down into the sacred subterranean cavern of Cyric.",
+          "childMapId": "map_bg1_nashkel_mines_l4",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [
+        {
+          "from": 221,
+          "to": 222,
+          "type": "twoway"
+        },
+        {
+          "from": 222,
+          "to": 223,
+          "type": "twoway"
+        },
+        {
+          "from": 223,
+          "to": 224,
+          "type": "twoway"
+        },
+        {
+          "from": 223,
+          "to": 225,
+          "type": "twoway"
+        },
+        {
+          "from": 224,
+          "to": 225,
+          "type": "twoway"
+        }
+      ]
+    },
+    "map_bg1_nashkel_mines_l4": {
+      "id": "map_bg1_nashkel_mines_l4",
+      "name": "Nashkel Mines: Level 4 (AR5404)",
+      "scaleTier": "dungeon",
+      "parentMapId": "map_bg1_nashkel_mines_l3",
+      "parentNodeId": 225,
+      "mapMetadata": {
+        "id": "map_bg1_nashkel_mines_l4",
+        "name": "nkmines4.png",
+        "assetPath": "assets/nkmines4.png",
+        "width": 1046,
+        "height": 728,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": 231,
+          "name": "Subterranean Incline from Level 3",
+          "displayName": "Incline from L3",
+          "x": 80,
+          "y": 660,
+          "coordinates": {
+            "x": 80,
+            "y": 660
+          },
+          "cat": "Gateway",
+          "culture": "Adhocracy",
+          "shape": "square",
+          "customNotes": "The wet subterranean approach carved through black schist. Water sloshes along the narrow stone ledges flanked by glowing phosphor fungus.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 232,
+          "name": "Sanctum Approach & Xan's Prison Cell",
+          "displayName": "Xan's Cell",
+          "x": 380,
+          "y": 440,
+          "coordinates": {
+            "x": 380,
+            "y": 440
+          },
+          "cat": "Vault",
+          "culture": "Hierarchy",
+          "shape": "square",
+          "customNotes": "A barred alcove overlooking the central cavern where the melancholic elven sorcerer Xan is bound in iron shackles. He warns of certain doom and laments the theft of his Moonblade.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 233,
+          "name": "Mulahey's Desecrated Shrine & Sanctum",
+          "displayName": "Mulahey's Sanctum",
+          "x": 590,
+          "y": 380,
+          "coordinates": {
+            "x": 590,
+            "y": 380
+          },
+          "cat": "Bastion",
+          "culture": "Hierarchy",
+          "shape": "star",
+          "customNotes": "A natural island cavern surrounded by subterranean waters, converted into a shrine to Cyric. The priest Mulahey directs the poison operations here with a chest full of Iron Throne correspondence.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 234,
+          "name": "Underground Lake Shore",
+          "displayName": "Lake Shore",
+          "x": 740,
+          "y": 220,
+          "coordinates": {
+            "x": 740,
+            "y": 220
+          },
+          "cat": "Hazard",
+          "culture": "Clan",
+          "shape": "hexagon",
+          "customNotes": "A slippery calcite terrace bordering the underground lake. Subterranean oozes and cave lizards nest among discarded mining helmets and half-eaten rations.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 235,
+          "name": "Valley Chute / Cloud Peak Surface Exit",
+          "displayName": "Surface Chute Exit",
+          "x": 970,
+          "y": 380,
+          "coordinates": {
+            "x": 970,
+            "y": 380
+          },
+          "cat": "Gateway",
+          "culture": "Market",
+          "shape": "circle",
+          "customNotes": "A natural drainage cleft through the eastern rock wall bathed in crisp outside sunlight. The tunnel empties onto the steep scree slopes of the eastern Cloud Peaks.",
+          "childMapId": null,
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [
+        {
+          "from": 231,
+          "to": 232,
+          "type": "twoway"
+        },
+        {
+          "from": 232,
+          "to": 233,
+          "type": "twoway"
+        },
+        {
+          "from": 233,
+          "to": 234,
+          "type": "twoway"
+        },
+        {
+          "from": 233,
+          "to": 235,
+          "type": "twoway"
+        },
+        {
+          "from": 234,
+          "to": 235,
+          "type": "twoway"
+        }
+      ]
+    }
+  },
+  "entities": {
+    "npcs": [
+      {
+        "id": "npc_gorion",
+        "nodeId": "BG-CK-05",
+        "submapId": "map_bg1_candlekeep",
+        "name": "Gorion",
+        "role": "Sage & Foster Father",
+        "faction": "The Harpers",
+        "factionId": "faction_harpers",
+        "culture": "Clan",
+        "motivation": "Protect his adopted child from the legacy of Bhaal and safely escort them to the Friendly Arm Inn.",
+        "status": "Active",
+        "dispositionToParty": 2,
+        "fourCornersRole": "Protagonist",
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "The protagonist is a mortal Bhaalspawn whose divine blood will awaken under stress.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Will sacrifice his own life without hesitation to shield his ward.",
+          "bribe": "None; driven by parental devotion."
+        },
+        "dialogueHooks": [
+          "Listen to me, child. We cannot stay here any longer. Pack your things; we must leave Candlekeep tonight."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_sarevok_anchev",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -100,
+            "notes": "Sarevok hunted and slew Gorion on the Coast Way."
+          },
+          {
+            "targetNpcId": "npc_jaheira",
+            "relationshipType": "Ally",
+            "relationship": "Ally",
+            "sentiment": 90,
+            "notes": "Trusted Harper comrade assigned to safeguard his ward."
+          },
+          {
+            "targetNpcId": "npc_imoen",
+            "relationshipType": "Superior",
+            "relationship": "Superior",
+            "sentiment": 80,
+            "notes": "Reciprocal connection with Imoen"
+          },
+          {
+            "targetNpcId": "npc_firebead",
+            "relationshipType": "Ally",
+            "relationship": "Ally",
+            "sentiment": 90,
+            "notes": "Reciprocal connection with Firebead Elvenhair"
+          }
+        ]
+      },
+      {
+        "id": "npc_imoen",
+        "nodeId": "BG-CK-01",
+        "submapId": "map_bg1_candlekeep",
+        "name": "Imoen",
+        "role": "Childhood Companion & Burglar",
+        "faction": "Independent",
+        "factionId": null,
+        "culture": "Adhocracy",
+        "motivation": "Stay beside her childhood friend, escape Candlekeep, and explore the wide world.",
+        "status": "Active",
+        "dispositionToParty": 2,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "Carries the divine spark of Bhaal herself, completely unaware.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Deep terror of being left alone in the dark.",
+          "bribe": "Sweet pastries and lockpicks."
+        },
+        "dialogueHooks": [
+          "Heya! It's me, Imoen! You're a sight for sore eyes!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_gorion",
+            "relationshipType": "Subordinate",
+            "relationship": "Subordinate",
+            "sentiment": 80,
+            "notes": "Loved Gorion as an uncle figure."
+          }
+        ]
+      },
+      {
+        "id": "npc_jaheira",
+        "nodeId": "BG-FAI-02",
+        "submapId": "map_bg1_friendly_arm",
+        "name": "Jaheira",
+        "role": "Harper Fighter/Druid",
+        "faction": "The Harpers",
+        "factionId": "faction_harpers",
+        "culture": "Clan",
+        "motivation": "Honor Gorion's dying trust, uncover the iron rot conspiracy, and balance the Bhaalspawn.",
+        "status": "Active",
+        "dispositionToParty": 2,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Sworn to evaluate Gorion's ward for divine corruption.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Protective anxiety over Khalid's safety.",
+          "bribe": "Defense of ancient sylvan groves."
+        },
+        "dialogueHooks": [
+          "Nature's servant awaits. If a task is once begun, never leave it till it's done."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_khalid",
+            "relationshipType": "Family",
+            "relationship": "Family",
+            "sentiment": 95,
+            "notes": "Devoted wife and protector of Khalid."
+          },
+          {
+            "targetNpcId": "npc_gorion",
+            "relationshipType": "Ally",
+            "relationship": "Ally",
+            "sentiment": 90,
+            "notes": "Reciprocal connection with Gorion"
+          }
+        ]
+      },
+      {
+        "id": "npc_khalid",
+        "nodeId": "BG-FAI-02",
+        "submapId": "map_bg1_friendly_arm",
+        "name": "Khalid",
+        "role": "Harper Fighter Guard",
+        "faction": "The Harpers",
+        "factionId": "faction_harpers",
+        "culture": "Clan",
+        "motivation": "Overcome his nervous self-doubt, shield Jaheira, and investigate the iron shortage.",
+        "status": "Active",
+        "dispositionToParty": 2,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Suspects the iron shortage is coordinated by Baldur's Gate merchant cartels.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Easily demoralized by cruel mocking.",
+          "bribe": "Patient encouragement and fine plate."
+        },
+        "dialogueHooks": [
+          "B-by the gods, you must be Gorion's ward! I... I am Khalid."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_jaheira",
+            "relationshipType": "Family",
+            "relationship": "Family",
+            "sentiment": 95,
+            "notes": "Deeply loves and trusts his wife Jaheira."
+          }
+        ]
+      },
+      {
+        "id": "npc_minsc",
+        "nodeId": "BG-SC-06",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Minsc of Rashemen",
+        "role": "Berserker Ranger",
+        "faction": "The Harpers",
+        "factionId": "faction_harpers",
+        "culture": "Clan",
+        "motivation": "Rescue his beloved witch Dynaheir from the Gnoll Stronghold.",
+        "status": "Active",
+        "dispositionToParty": 2,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 3,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Boo is, in Minsc's conviction, a miniature giant space hamster possessing tactical wisdom.",
+            "revealed": true
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Any threat to Boo or Dynaheir triggers a berserk rampage.",
+          "bribe": "Evil butts to kick."
+        },
+        "dialogueHooks": [
+          "Go for the eyes, Boo, GO FOR THE EYES! Swords for everyone!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_dynaheir",
+            "relationshipType": "Superior",
+            "relationship": "Superior",
+            "sentiment": 95,
+            "notes": "Sworn bodyguard to Dynaheir."
+          },
+          {
+            "targetNpcId": "npc_edwin",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -90,
+            "notes": "Hates Edwin for scheming to murder Dynaheir."
+          }
+        ]
+      },
+      {
+        "id": "npc_dynaheir",
+        "nodeId": "BG-SC-08",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Dynaheir",
+        "role": "Rashemi Wychlaran Invoker",
+        "faction": "The Harpers",
+        "factionId": "faction_harpers",
+        "culture": "Clan",
+        "motivation": "Complete her dajemma passage, investigate the prophecies of the Sword Coast, and return home with honor.",
+        "status": "Active",
+        "dispositionToParty": 2,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "The Hathran of Rashemen foresaw the bloodline of the Lord of Murder awakening in the Sword Coast.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Targeted by Thayan Red Wizards.",
+          "bribe": "Arcane scrolls and honest comradeship."
+        },
+        "dialogueHooks": [
+          "These lands are fraught with perilous ambition. Thou hast shown honor in freeing me."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_minsc",
+            "relationshipType": "Subordinate",
+            "relationship": "Subordinate",
+            "sentiment": 95,
+            "notes": "Cherishes Minsc's loyalty."
+          },
+          {
+            "targetNpcId": "npc_edwin",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -95,
+            "notes": "Reciprocal connection with Edwin Odesseiron"
+          }
+        ]
+      },
+      {
+        "id": "npc_edwin",
+        "nodeId": "BG-SC-06",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Edwin Odesseiron",
+        "role": "Red Wizard Conjurer",
+        "faction": "Thay Enclave",
+        "factionId": null,
+        "culture": "Market",
+        "motivation": "Assassinate Dynaheir to fulfill his Zulkir contract and acquire rare arcana.",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Possesses a private amulet granting extra spell slots.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Humiliated by intellectual superiors.",
+          "bribe": "High-yield magical artifacts."
+        },
+        "dialogueHooks": [
+          "I am Edwin Odesseiron... you will do well to remember the name! (Incompetent fools...)"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_dynaheir",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -95,
+            "notes": "Target of his Thayan assassination contract."
+          },
+          {
+            "targetNpcId": "npc_minsc",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -90,
+            "notes": "Reciprocal connection with Minsc of Rashemen"
+          }
+        ]
+      },
+      {
+        "id": "npc_viconia",
+        "nodeId": "BG-SC-02",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Viconia DeVir",
+        "role": "Drow Cleric of Shar",
+        "faction": "Independent",
+        "factionId": null,
+        "culture": "Adhocracy",
+        "motivation": "Survive persecution on the surface and find pragmatic allies who do not judge her by her dark skin.",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Fled Menzoberranzan after refusing to sacrifice a human infant to Lolth.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Terror of surface mob vigilantes and holy zealots.",
+          "bribe": "Unconditional sanctuary and martial defense."
+        },
+        "dialogueHooks": [
+          "Shar guide my path. Speak, rivvil, before I lose my patience."
+        ],
+        "relationships": []
+      },
+      {
+        "id": "npc_coran",
+        "nodeId": "BG-SC-13",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Coran",
+        "role": "Elven Archer & Skirt-Chaser",
+        "faction": "Independent",
+        "factionId": null,
+        "culture": "Adhocracy",
+        "motivation": "Claim the bounty on forest wyverns in Cloakwood and win the heart of Brielbara.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "Has a secret child with Brielbara in Baldur's Gate.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Desperate to cure his daughter of Yago's magical curse.",
+          "bribe": "Fine elven wine and thrills."
+        },
+        "dialogueHooks": [
+          "Luck be a lady! Let's see what fortune has in store for us today!"
+        ],
+        "relationships": []
+      },
+      {
+        "id": "npc_yeslick",
+        "nodeId": "BG-CLK-04",
+        "submapId": "map_bg1_cloakwood_mines",
+        "name": "Yeslick Orothiar",
+        "role": "Dwarven Fighter/Cleric of Clangeddin",
+        "faction": "Alaghor Clan",
+        "factionId": null,
+        "culture": "Hierarchy",
+        "motivation": "Avenge his drowned clan, flood the corrupted Cloakwood mines, and reclaim dwarven honor.",
+        "status": "Active",
+        "dispositionToParty": 2,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Knows the exact location of the sluice plug that can flood the entire Cloakwood mine.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Haunted by the drowning of his ancestral clan in these same shafts.",
+          "bribe": "Restoration of dwarven relics."
+        },
+        "dialogueHooks": [
+          "By Clangeddin's silver beard! Break these chains, and I shall help thee flood this wretched pit!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_davaeorn",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -100,
+            "notes": "Davaeorn enslaved Yeslick and profaned his ancestral home."
+          }
+        ]
+      },
+      {
+        "id": "npc_xzar",
+        "nodeId": "BG-SC-02",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Xzar",
+        "role": "Zhentarim Necromancer",
+        "faction": "The Black Network (Zhentarim)",
+        "factionId": "faction_zhentarim",
+        "culture": "Adhocracy",
+        "motivation": "Investigate the iron crisis for the Zhentarim and gather corpses for arcane dissection.",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 1,
+          "e": 3,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "The Zhentarim believe an unknown rival syndicate is monopolizing the Western Heartlands.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Unstable paranoia; screams when startled by sudden noises.",
+          "bribe": "Fresh corpses and necromantic scrolls."
+        },
+        "dialogueHooks": [
+          "Mommy! I have become death, destroyer of... oh, look, a shiny rock!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_montaron",
+            "relationshipType": "Ally",
+            "relationship": "Ally",
+            "sentiment": 30,
+            "notes": "Zhentarim mission partner, despite Montaron's constant death threats."
+          }
+        ]
+      },
+      {
+        "id": "npc_montaron",
+        "nodeId": "BG-SC-02",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Montaron",
+        "role": "Zhentarim Assassin & Fighter",
+        "faction": "The Black Network (Zhentarim)",
+        "factionId": "faction_zhentarim",
+        "culture": "Market",
+        "motivation": "Complete the Zhentarim reconnaissance mission in Nashkel and keep Xzar from getting them both killed.",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Has standing orders to eliminate Xzar if the necromancer's madness compromises the mission.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Hates waste; enraged by bungled stealth attempts.",
+          "bribe": "Cold hard platinum and poison vials."
+        },
+        "dialogueHooks": [
+          "Leave me be, ye fool, afore I cut out yer gizzard!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_xzar",
+            "relationshipType": "Ally",
+            "relationship": "Ally",
+            "sentiment": 30,
+            "notes": "Suffers Xzar's madness only because the Black Network pays well."
+          }
+        ]
+      },
+      {
+        "id": "npc_kagain",
+        "nodeId": "BG-BER-04",
+        "submapId": "map_bg1_beregost",
+        "name": "Kagain",
+        "role": "Dwarven Mercenary Broker",
+        "faction": "Independent",
+        "factionId": null,
+        "culture": "Market",
+        "motivation": "Find the missing caravan of Entar Silvershield's son to recover his mercenary bond and avoid liability.",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Entar's son was slaughtered by bandits; Kagain knows the bodies lie near the Coast Way.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Terrified of Duke Silvershield's legal retribution.",
+          "bribe": "Gold, gold, and more gold."
+        },
+        "dialogueHooks": [
+          "Bah! Time is gold! If you aren't paying, get out of my sight!"
+        ],
+        "relationships": []
+      },
+      {
+        "id": "npc_xan",
+        "nodeId": "BG-SC-07",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Xan",
+        "role": "Evereskan Bladesinger / Enchanter",
+        "faction": "Evereska",
+        "factionId": null,
+        "culture": "Adhocracy",
+        "motivation": "Investigate the iron crisis for the Greycloak mages of Evereska and mourn his impending demise.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 1,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "His Moonblade will burn any non-lawful elven soul who attempts to draw it.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Profound, fatalistic melancholy.",
+          "bribe": "Reassurance and rare elven spellcraft."
+        },
+        "dialogueHooks": [
+          "We're all doomed. What point is there in struggle? (Sigh) Very well, lead on."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_mulahey",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -80,
+            "notes": "Mulahey captured Xan and stole his moonblade."
+          }
+        ]
+      },
+      {
+        "id": "npc_kivan",
+        "nodeId": "BG-SC-05",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Kivan",
+        "role": "Elven Ranger of Shilmista",
+        "faction": "Independent",
+        "factionId": null,
+        "culture": "Clan",
+        "motivation": "Track down Tazok to avenge the torture and murder of his beloved wife Deheriana.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "Tazok personally carved the scars across Kivan's flesh before leaving him for dead.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Consuming grief for Deheriana.",
+          "bribe": "Direct lead to Tazok's camp."
+        },
+        "dialogueHooks": [
+          "My heart is cold as winter's frost. Tazok shall pay in blood for what he took from me."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_tazok",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -100,
+            "notes": "Sworn blood feud against Tazok."
+          }
+        ]
+      },
+      {
+        "id": "npc_branwen",
+        "nodeId": "BG-SC-06",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Branwen of Norheim",
+        "role": "Priestess of Tempus",
+        "faction": "Tempus Priesthood",
+        "factionId": null,
+        "culture": "Clan",
+        "motivation": "Break her petrification curse at the Carnival and join a righteous battle under the Lord of Battles.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Was petrified by the mage Tranzig when she intervened against his cutthroats.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Shame at being turned to stone without a fight.",
+          "bribe": "Glorious combat alongside warriors."
+        },
+        "dialogueHooks": [
+          "By the Lord of Battles, freedom! Thou hast released Branwen from stone, and my warhammer is thine!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_tranzig",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -90,
+            "notes": "Tranzig petrified Branwen at the carnival."
+          }
+        ]
+      },
+      {
+        "id": "npc_sarevok_anchev",
+        "nodeId": "BG-UND-04",
+        "submapId": "map_bg1_undercity",
+        "name": "Sarevok Anchev",
+        "role": "Bhaalspawn Warlord & Iron Throne Director",
+        "faction": "The Iron Throne",
+        "factionId": "faction_iron_throne",
+        "culture": "Hierarchy",
+        "motivation": "Sacrifice the populations of the Sword Coast in a catastrophic war with Amn to claim the divine throne of Bhaal.",
+        "status": "Active",
+        "dispositionToParty": -2,
+        "fourCornersRole": "Antagonist",
+        "odv": {
+          "s": 3,
+          "e": 3,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Sarevok is the half-brother of Gorion's ward, driven by Alaundo's prophecies.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Cannot tolerate another Bhaalspawn surpassing his strength.",
+          "bribe": "None; only total submission."
+        },
+        "dialogueHooks": [
+          "I will be the last! And you will go to the ground with the rest of them! My father's seat will be mine!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_gorion",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -100,
+            "notes": "Cut down Gorion outside Candlekeep."
+          },
+          {
+            "targetNpcId": "npc_tazok",
+            "relationshipType": "Superior",
+            "relationship": "Superior",
+            "sentiment": 70,
+            "notes": "Commands Tazok as his raiding enforcer."
+          },
+          {
+            "targetNpcId": "npc_duke_eltan",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -90,
+            "notes": "Poisoned Duke Eltan to seize the title of Grand Duke."
+          },
+          {
+            "targetNpcId": "npc_davaeorn",
+            "relationshipType": "Superior",
+            "relationship": "Superior",
+            "sentiment": 60,
+            "notes": "Directed Davaeorn to smelt pure iron in Cloakwood."
+          },
+          {
+            "targetNpcId": "npc_angelo",
+            "relationshipType": "Superior",
+            "relationship": "Superior",
+            "sentiment": 60,
+            "notes": "Reciprocal connection with Angelo Dosan"
+          },
+          {
+            "targetNpcId": "npc_semaj",
+            "relationshipType": "Superior",
+            "relationship": "Superior",
+            "sentiment": 80,
+            "notes": "Reciprocal connection with Semaj"
+          }
+        ]
+      },
+      {
+        "id": "npc_tazok",
+        "nodeId": "BG-BND-05",
+        "submapId": "map_bg1_bandit_camp",
+        "name": "Tazok",
+        "role": "Half-Ogre War Chief",
+        "faction": "The Iron Throne",
+        "factionId": "faction_iron_throne",
+        "culture": "Market",
+        "motivation": "Terrorize the trade roads, stockpile stolen iron for the Throne, and crush all resistance.",
+        "status": "Active",
+        "dispositionToParty": -2,
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 1
+        },
+        "secretsKnown": [
+          {
+            "secret": "Receives orders directly from Sarevok and holds keys to Cloakwood.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Prone to berserk bloodlust; respects martial dominance.",
+          "bribe": "Iron weapons and territory."
+        },
+        "dialogueHooks": [
+          "You want to join my bandits? You must bleed before me first!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_sarevok_anchev",
+            "relationshipType": "Subordinate",
+            "relationship": "Subordinate",
+            "sentiment": 70,
+            "notes": "Loyally serves Sarevok's vision of war."
+          },
+          {
+            "targetNpcId": "npc_kivan",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -100,
+            "notes": "Reciprocal connection with Kivan"
+          },
+          {
+            "targetNpcId": "npc_mulahey",
+            "relationshipType": "Superior",
+            "relationship": "Superior",
+            "sentiment": 50,
+            "notes": "Reciprocal connection with Mulahey"
+          },
+          {
+            "targetNpcId": "npc_tranzig",
+            "relationshipType": "Superior",
+            "relationship": "Superior",
+            "sentiment": 40,
+            "notes": "Reciprocal connection with Tranzig"
+          }
+        ]
+      },
+      {
+        "id": "npc_davaeorn",
+        "nodeId": "BG-CLK-05",
+        "submapId": "map_bg1_cloakwood_mines",
+        "name": "Davaeorn",
+        "role": "Master of Cloakwood Mines",
+        "faction": "The Iron Throne",
+        "factionId": "faction_iron_throne",
+        "culture": "Market",
+        "motivation": "Keep the secret Cloakwood smelter operational and amass colossal iron wealth for the Throne.",
+        "status": "Active",
+        "dispositionToParty": -2,
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "All correspondence in his study proves the Iron Throne leadership engineered the crisis.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Relies heavily on mirror image and dimension door teleportation.",
+          "bribe": "Rare spellbooks."
+        },
+        "dialogueHooks": [
+          "You have breached my sanctum, dogs! You will drown in your own blood before my guards!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_sarevok_anchev",
+            "relationshipType": "Subordinate",
+            "relationship": "Subordinate",
+            "sentiment": 60,
+            "notes": "Reports directly to Sarevok."
+          },
+          {
+            "targetNpcId": "npc_yeslick",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -100,
+            "notes": "Reciprocal connection with Yeslick Orothiar"
+          }
+        ]
+      },
+      {
+        "id": "npc_mulahey",
+        "nodeId": "BG-SC-07",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Mulahey",
+        "role": "High Priest of Cyric",
+        "faction": "The Iron Throne",
+        "factionId": "faction_iron_throne",
+        "culture": "Hierarchy",
+        "motivation": "Contaminate the Nashkel ore veins with green sludge and summon kobolds to slaughter miners.",
+        "status": "Active",
+        "dispositionToParty": -2,
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "His orders are signed by Tazok, pointing directly to the Bandit Camp.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Cowardly when his summoned kobolds and skeletons fall.",
+          "bribe": "Mercy for his life."
+        },
+        "dialogueHooks": [
+          "Cyric grant me power! Minions, rend them limb from limb!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_tazok",
+            "relationshipType": "Subordinate",
+            "relationship": "Subordinate",
+            "sentiment": 50,
+            "notes": "Fears Tazok's wrath."
+          },
+          {
+            "targetNpcId": "npc_xan",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -80,
+            "notes": "Reciprocal connection with Xan"
+          }
+        ]
+      },
+      {
+        "id": "npc_tranzig",
+        "nodeId": "BG-BER-01",
+        "submapId": "map_bg1_beregost",
+        "name": "Tranzig",
+        "role": "Iron Throne Courier Mage",
+        "faction": "The Iron Throne",
+        "factionId": "faction_iron_throne",
+        "culture": "Market",
+        "motivation": "Relay letters between Mulahey in Nashkel and Tazok's camp while staying drunk at Feldepost's.",
+        "status": "Active",
+        "dispositionToParty": -2,
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Carries letters revealing the location of the secret Bandit Camp.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Begs for his life when cornered in his hotel room.",
+          "bribe": "Safe conduct out of Beregost."
+        },
+        "dialogueHooks": [
+          "You... you killed Mulahey?! Stay back! I can tell you where Tazok is!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_tazok",
+            "relationshipType": "Subordinate",
+            "relationship": "Subordinate",
+            "sentiment": 40,
+            "notes": "Tazok's courier."
+          },
+          {
+            "targetNpcId": "npc_branwen",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -90,
+            "notes": "Reciprocal connection with Branwen of Norheim"
+          }
+        ]
+      },
+      {
+        "id": "npc_angelo",
+        "nodeId": "BG-CTY-03",
+        "submapId": "map_bg1_city",
+        "name": "Angelo Dosan",
+        "role": "Corrupt Flaming Fist Sheriff",
+        "faction": "The Iron Throne",
+        "factionId": "faction_iron_throne",
+        "culture": "Hierarchy",
+        "motivation": "Enforce Sarevok's martial law in Baldur's Gate and execute rivals in the prison dungeons.",
+        "status": "Active",
+        "dispositionToParty": -2,
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Is the estranged father of the berserker mercenary Shar-Teel.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Guilt over his daughter Shar-Teel.",
+          "bribe": "High titles and wealth."
+        },
+        "dialogueHooks": [
+          "You stand accused of murder by decree of Grand Duke Sarevok! To the gallows with you!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_sarevok_anchev",
+            "relationshipType": "Subordinate",
+            "relationship": "Subordinate",
+            "sentiment": 60,
+            "notes": "Sarevok's appointed enforcer."
+          }
+        ]
+      },
+      {
+        "id": "npc_semaj",
+        "nodeId": "BG-UND-04",
+        "submapId": "map_bg1_undercity",
+        "name": "Semaj",
+        "role": "Sarevok's Archmage Advisor",
+        "faction": "The Cult of Bhaal",
+        "factionId": "faction_cult_bhaal",
+        "culture": "Adhocracy",
+        "motivation": "Orchestrate the ritual blood sacrifice of Grand Duke Belt and Liia Jannath to elevate Sarevok.",
+        "status": "Active",
+        "dispositionToParty": -2,
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Created the greater doppelganger shapeshifters infiltrating the city.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Vulnerable to magic dispelling and silence.",
+          "bribe": "None; fanatical devotion."
+        },
+        "dialogueHooks": [
+          "The blood will flow! The Lord of Murder shall be reborn through our master's blade!"
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_sarevok_anchev",
+            "relationshipType": "Subordinate",
+            "relationship": "Subordinate",
+            "sentiment": 80,
+            "notes": "Sarevok's court mage."
+          }
+        ]
+      },
+      {
+        "id": "npc_duke_eltan",
+        "nodeId": "BG-CTY-03",
+        "submapId": "map_bg1_city",
+        "name": "Grand Duke Eltan",
+        "role": "Commander of the Flaming Fist",
+        "faction": "The Flaming Fist",
+        "factionId": "faction_flaming_fist",
+        "culture": "Hierarchy",
+        "motivation": "Prevent war between Baldur's Gate and Amn, crush the iron saboteurs, and root out traitors.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Being slowly poisoned by his attending physician Rashad, a doppelganger.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Failing physical health.",
+          "bribe": "Undeniable proof identifying Iron Throne conspirators."
+        },
+        "dialogueHooks": [
+          "I am Duke Eltan, commander of the Flaming Fist. If you have news of this iron drought, speak quickly."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_sarevok_anchev",
+            "relationshipType": "Rival",
+            "relationship": "Rival",
+            "sentiment": -90,
+            "notes": "Suspicious of Sarevok."
+          },
+          {
+            "targetNpcId": "npc_officer_scar",
+            "relationshipType": "Superior",
+            "relationship": "Superior",
+            "sentiment": 90,
+            "notes": "Reciprocal connection with Officer Scar"
+          }
+        ]
+      },
+      {
+        "id": "npc_officer_scar",
+        "nodeId": "BG-CTY-03",
+        "submapId": "map_bg1_city",
+        "name": "Officer Scar",
+        "role": "Second-in-Command, Flaming Fist",
+        "faction": "The Flaming Fist",
+        "factionId": "faction_flaming_fist",
+        "culture": "Hierarchy",
+        "motivation": "Safeguard citizens, investigate the Seven Suns coster, and purge the city sewers.",
+        "status": "Active",
+        "dispositionToParty": 2,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Discovered that merchants in the Seven Suns were replaced by shapeshifters.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Loyalty to Duke Eltan makes him a prime assassination target.",
+          "bribe": "Civic justice."
+        },
+        "dialogueHooks": [
+          "Well met, travelers. I am Scar of the Flaming Fist. I have a delicate matter requiring discreet investigators."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_duke_eltan",
+            "relationshipType": "Subordinate",
+            "relationship": "Subordinate",
+            "sentiment": 90,
+            "notes": "Fiercely loyal to Duke Eltan."
+          }
+        ]
+      },
+      {
+        "id": "npc_alatos_thuibuld",
+        "nodeId": "BG-CTY-06",
+        "submapId": "map_bg1_city",
+        "name": "Alatos Thuibuld",
+        "role": "Guildmaster of the Shadow Thieves",
+        "faction": "The Shadow Thieves of Amn",
+        "factionId": "faction_shadow_thieves",
+        "culture": "Market",
+        "motivation": "Maintain absolute underworld control over Baldur's Gate and acquire Shandalar's skyship blueprints.",
+        "status": "Active",
+        "dispositionToParty": 0,
+        "fourCornersRole": "Mirror",
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Plans to assassinate anyone who completes his guild tests to maintain secrecy.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Rivalry with Narlen Darkwalk's younger faction.",
+          "bribe": "Rare smuggled artifacts."
+        },
+        "dialogueHooks": [
+          "Welcome to the Guild, friends. Play by our rules, and you might leave with your throat intact."
+        ],
+        "relationships": []
+      },
+      {
+        "id": "npc_thalantyr",
+        "nodeId": "BG-SC-05",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Thalantyr",
+        "role": "Conjurer Master of High Hedge",
+        "faction": "Independent",
+        "factionId": null,
+        "culture": "Adhocracy",
+        "motivation": "Pursue arcane research undisturbed by petty mortal politics.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 3
+        },
+        "secretsKnown": [
+          {
+            "secret": "Knows how to transmute cursed artifacts like the Claw of Kazgaroth.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Hates interruptions during planar summoning.",
+          "bribe": "Ancient spell scrolls."
+        },
+        "dialogueHooks": [
+          "State your business, quickly! My golems have little patience for wandering vagabonds."
+        ],
+        "relationships": []
+      },
+      {
+        "id": "npc_taerom",
+        "nodeId": "BG-BER-02",
+        "submapId": "map_bg1_beregost",
+        "name": "Taerom Fuiruim",
+        "role": "Master Smith of Thunderhammer",
+        "faction": "Independent",
+        "factionId": null,
+        "culture": "Market",
+        "motivation": "Forge legendary weapons and craft masterwork Ankheg plate armor despite the iron shortage.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "The iron ore currently reaching Beregost breaks because it has been chemically adulterated with sulfur sludge.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Pride in his craftsmanship.",
+          "bribe": "Pristine monster carapaces and pure iron ingots."
+        },
+        "dialogueHooks": [
+          "Welcome to Thunderhammer Smithy! Looking for steel, or bringing me an Ankheg shell to work?"
+        ],
+        "relationships": []
+      },
+      {
+        "id": "npc_firebead",
+        "nodeId": "BG-BER-07",
+        "submapId": "map_bg1_beregost",
+        "name": "Firebead Elvenhair",
+        "role": "Elven Bard & Scholar",
+        "faction": "The Harpers",
+        "factionId": "faction_harpers",
+        "culture": "Clan",
+        "motivation": "Foster literacy, record historical ballads, and assist Gorion's ward along their path.",
+        "status": "Active",
+        "dispositionToParty": 2,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 1,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "Knew Gorion when they were young adventurers together.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Sentimentality toward Gorion's memory.",
+          "bribe": "Rare historical histories."
+        },
+        "dialogueHooks": [
+          "Greetings, young friend! It brings warmth to an old heart to see Gorion's teachings live on in thee."
+        ],
+        "relationships": [
+          {
+            "targetNpcId": "npc_gorion",
+            "relationshipType": "Ally",
+            "relationship": "Ally",
+            "sentiment": 90,
+            "notes": "Lifelong companion to Gorion."
+          }
+        ]
+      },
+      {
+        "id": "npc_bentley_mirrorshade",
+        "nodeId": "BG-FAI-02",
+        "submapId": "map_bg1_friendly_arm",
+        "name": "Bentley Mirrorshade",
+        "role": "Proprietor of the Friendly Arm",
+        "faction": "Independent",
+        "factionId": null,
+        "culture": "Clan",
+        "motivation": "Keep the peace within his fortress keep and protect travelers from bandit ambushes.",
+        "status": "Active",
+        "dispositionToParty": 1,
+        "fourCornersRole": "Ally",
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [
+          {
+            "secret": "The fortress walls are imbued with subtle anti-magic alarms.",
+            "revealed": false
+          }
+        ],
+        "leverage": {
+          "vulnerability": "Property damage in his taproom.",
+          "bribe": "Gnomish jokes and rare vintages."
+        },
+        "dialogueHooks": [
+          "Welcome, friends, to the Friendly Arm Inn! Put away your steel, order an ale, and rest easy."
+        ],
+        "relationships": []
+      }
+    ],
+    "quests": [
+      {
+        "id": "quest_bg1_ch1_candlekeep_flight",
+        "nodeId": "BG-CK-01",
+        "submapId": "map_bg1_candlekeep",
+        "title": "Chapter 1: Flight from Candlekeep & The Ambush at Lion's Way",
+        "type": "Main Objective",
+        "threat": "Light",
+        "status": "Active",
+        "notes": "Pack travel provisions in Candlekeep, speak to Gorion at the steps of the Great Library, and depart. Survive the ambush by the armored warlord on the Coast Way.",
+        "giverNpcId": "npc_gorion",
+        "targetNpcId": "npc_sarevok_anchev",
+        "npcIds": [
+          "npc_gorion",
+          "npc_imoen",
+          "npc_sarevok_anchev"
+        ],
+        "itemIds": [
+          "item_gorions_letter"
+        ]
+      },
+      {
+        "id": "quest_bg1_ch2_friendly_arm_rendezvous",
+        "nodeId": "BG-FAI-02",
+        "submapId": "map_bg1_friendly_arm",
+        "title": "Chapter 2: Rendezvous at the Friendly Arm & The Iron Trail",
+        "type": "Main Objective",
+        "threat": "Moderate",
+        "status": "Active",
+        "notes": "Survive the assassin Tarnesh on the Friendly Arm steps, meet Gorion's Harper allies Khalid and Jaheira inside the keep, and travel south to investigate the Nashkel Mines.",
+        "giverNpcId": "npc_jaheira",
+        "targetNpcId": null,
+        "npcIds": [
+          "npc_jaheira",
+          "npc_khalid"
+        ],
+        "itemIds": [
+          "item_golden_pantaloons"
+        ]
+      },
+      {
+        "id": "quest_bg1_ch3_nashkel_cleansing",
+        "nodeId": "BG-SC-07",
+        "submapId": "map_bg1_sword_coast",
+        "title": "Chapter 2B: Cleansing the Tainted Nashkel Mines",
+        "type": "Extermination",
+        "threat": "Moderate",
+        "status": "Active",
+        "notes": "Descend through four subterranean levels of the Nashkel Mines. Slay the Cyric priest Mulahey, free the elven bladesinger Xan, and recover correspondence pointing to Tranzig in Beregost.",
+        "giverNpcId": null,
+        "targetNpcId": "npc_mulahey",
+        "npcIds": [
+          "npc_mulahey",
+          "npc_xan"
+        ],
+        "itemIds": [
+          "item_moonblade",
+          "item_mulaheys_holy_symbol"
+        ]
+      },
+      {
+        "id": "quest_bg1_ch3_bandit_camp_raid",
+        "nodeId": "BG-BND-05",
+        "submapId": "map_bg1_bandit_camp",
+        "title": "Chapter 3: Infiltrating Tazok's Hidden Bandit Stronghold",
+        "type": "Main Objective",
+        "threat": "Moderate",
+        "status": "Active",
+        "notes": "Locate Tazok's raiding army in the pine forests, either by posing as recruits via Raiken/Teven or by assault. Recover letters from Tazok's chest detailing the Cloakwood secret mines.",
+        "giverNpcId": null,
+        "targetNpcId": "npc_tazok",
+        "npcIds": [
+          "npc_tazok"
+        ],
+        "itemIds": [
+          "item_tazoks_chest_letters"
+        ]
+      },
+      {
+        "id": "quest_bg1_ch4_cloakwood_mines",
+        "nodeId": "BG-CLK-05",
+        "submapId": "map_bg1_cloakwood_mines",
+        "title": "Chapter 4: Decapitating Davaeorn & Flooding the Cloakwood Foundry",
+        "type": "Main Objective",
+        "threat": "Severe",
+        "status": "Active",
+        "notes": "Fight through the spider-choked Cloakwood forests to the secret mine compound. Rescue Yeslick, defeat battle-mage Davaeorn in Level 4, and pull the sluice lever to flood the facility.",
+        "giverNpcId": null,
+        "targetNpcId": "npc_davaeorn",
+        "npcIds": [
+          "npc_yeslick",
+          "npc_davaeorn"
+        ],
+        "itemIds": [
+          "item_spiders_bane"
+        ]
+      },
+      {
+        "id": "quest_bg1_ch5_iron_throne_infiltration",
+        "nodeId": "BG-CTY-04",
+        "submapId": "map_bg1_city",
+        "title": "Chapter 5: Investigating the Iron Throne Monolith in Baldur's Gate",
+        "type": "Main Objective",
+        "threat": "Severe",
+        "status": "Active",
+        "notes": "Cross Wyrm's Crossing with Duke Eltan's pass. Infiltrate the seven-story Iron Throne headquarters in the South District and extract documents linking the conspiracy back to Candlekeep.",
+        "giverNpcId": "npc_duke_eltan",
+        "targetNpcId": null,
+        "npcIds": [
+          "npc_duke_eltan",
+          "npc_officer_scar"
+        ],
+        "itemIds": []
+      },
+      {
+        "id": "quest_bg1_ch6_catacombs_escape",
+        "nodeId": "BG-CAT-01",
+        "submapId": "map_bg1_catacombs",
+        "title": "Chapter 6: The Candlekeep Framing & Flight Through the Crypts",
+        "type": "Main Objective",
+        "threat": "Severe",
+        "status": "Active",
+        "notes": "Return to Candlekeep with a rare tome for entry. Uncover the doppelgangers replacing the monastic leadership, evade framing for the murder of Iron Throne leaders, and escape via the crypts.",
+        "giverNpcId": null,
+        "targetNpcId": null,
+        "npcIds": [],
+        "itemIds": [
+          "item_tome_understanding"
+        ]
+      },
+      {
+        "id": "quest_bg1_ch7_final_confrontation",
+        "nodeId": "BG-UND-04",
+        "submapId": "map_bg1_undercity",
+        "title": "Chapter 7: Preventing the Ducal Coronation & The Final Battle of Bhaal",
+        "type": "Main Objective",
+        "threat": "Lethal",
+        "status": "Active",
+        "notes": "Unmask the doppelgangers at Duke Belt's coronation ball, save Duke Eltan from poison, pursue Sarevok through the Thieves' Maze into the Undercity, and slay the Lord of Murder's avatar.",
+        "giverNpcId": "npc_duke_eltan",
+        "targetNpcId": "npc_sarevok_anchev",
+        "npcIds": [
+          "npc_duke_eltan",
+          "npc_sarevok_anchev",
+          "npc_angelo",
+          "npc_semaj",
+          "npc_tazok"
+        ],
+        "itemIds": [
+          "item_sarevoks_sword_of_chaos"
+        ]
+      },
+      {
+        "id": "quest_bg1_sub_dynaheir_rescue",
+        "nodeId": "BG-SC-08",
+        "submapId": "map_bg1_sword_coast",
+        "title": "Rescue Dynaheir from the Gnoll Stronghold",
+        "type": "Rescue",
+        "threat": "Moderate",
+        "status": "Active",
+        "notes": "Climb the Cloud Peak mountain pass, storm the barbaric timber ramparts of the gnoll war-pack, and free the Rashemi witch Dynaheir from the pit cells.",
+        "giverNpcId": "npc_minsc",
+        "targetNpcId": "npc_dynaheir",
+        "npcIds": [
+          "npc_minsc",
+          "npc_dynaheir"
+        ],
+        "itemIds": [
+          "item_tome_leadership"
+        ]
+      },
+      {
+        "id": "quest_bg1_sub_bassilus",
+        "nodeId": "BG-SC-04",
+        "submapId": "map_bg1_sword_coast",
+        "title": "The Madness of Cursed Cleric Bassilus",
+        "type": "Bounty",
+        "threat": "Moderate",
+        "status": "Active",
+        "notes": "Track down the rogue priest of Cyric who reanimates his deceased family as walking skeletons in the Red Canyons. Deliver his unholy symbol to the Song of the Morning temple.",
+        "giverNpcId": null,
+        "targetNpcId": null,
+        "npcIds": [],
+        "itemIds": [
+          "item_mulaheys_holy_symbol"
+        ]
+      },
+      {
+        "id": "quest_bg1_sub_joia_ring",
+        "nodeId": "BG-FAI-04",
+        "submapId": "map_bg1_friendly_arm",
+        "title": "Joia's Flamedance Ring",
+        "type": "Retrieval",
+        "threat": "Light",
+        "status": "Active",
+        "notes": "Slay the hobgoblin looters lurking outside the north rampart of the Friendly Arm and return Joia's stolen heirloom ring.",
+        "giverNpcId": null,
+        "targetNpcId": null,
+        "npcIds": [],
+        "itemIds": []
+      },
+      {
+        "id": "quest_bg1_sub_ankheg_armor",
+        "nodeId": "BG-BER-02",
+        "submapId": "map_bg1_beregost",
+        "title": "Taerom's Masterwork Ankheg Plate",
+        "type": "Delivery",
+        "threat": "Moderate",
+        "status": "Active",
+        "notes": "Deliver a giant Ankheg chitin shell from the Coast Way farms to Taerom Fuiruim in Beregost to forge lightweight Ankheg Plate Mail.",
+        "giverNpcId": "npc_taerom",
+        "targetNpcId": null,
+        "npcIds": [
+          "npc_taerom"
+        ],
+        "itemIds": [
+          "item_ankheg_plate"
+        ]
+      },
+      {
+        "id": "quest_bg1_sub_demon_knight",
+        "nodeId": "BG-DUR-04",
+        "submapId": "map_bg1_durlags_tower",
+        "title": "The Soultaker Dagger & The Demon Knight",
+        "type": "Extermination",
+        "threat": "Lethal",
+        "status": "Active",
+        "notes": "Descend through all four lethal levels of Durlag's Tower, bypass the electric chessboard, and destroy the Demon Knight to claim the Soultaker Dagger.",
+        "giverNpcId": null,
+        "targetNpcId": null,
+        "npcIds": [],
+        "itemIds": [
+          "item_soultaker_dagger",
+          "item_manual_bodily_health"
+        ]
+      },
+      {
+        "id": "quest_bg1_sub_saving_duke_eltan",
+        "nodeId": "BG-CTY-03",
+        "submapId": "map_bg1_city",
+        "title": "Saving Grand Duke Eltan from the Doppelganger Healer",
+        "type": "Rescue",
+        "threat": "Severe",
+        "status": "Active",
+        "notes": "Expose Rashad the false healer in the Flaming Fist upper infirmary, slay the greater doppelganger, and carry the poisoned Grand Duke Eltan to the Harbor Master's custody.",
+        "giverNpcId": "npc_officer_scar",
+        "targetNpcId": "npc_duke_eltan",
+        "npcIds": [
+          "npc_officer_scar",
+          "npc_duke_eltan"
+        ],
+        "itemIds": []
+      },
+      {
+        "id": "quest_bg1_sub_seven_suns",
+        "nodeId": "BG-CTY-01",
+        "submapId": "map_bg1_city",
+        "title": "The Seven Suns Infiltration",
+        "type": "Investigation",
+        "threat": "Severe",
+        "status": "Active",
+        "notes": "Investigate bizarre financial decisions at the Seven Suns Trading Coster. Slay the doppelgangers posing as merchants and rescue Jhasso from the cellar.",
+        "giverNpcId": "npc_officer_scar",
+        "targetNpcId": null,
+        "npcIds": [
+          "npc_officer_scar"
+        ],
+        "itemIds": []
+      },
+      {
+        "id": "quest_bg1_sub_edwin_hit",
+        "nodeId": "BG-SC-06",
+        "submapId": "map_bg1_sword_coast",
+        "title": "Edwin's Assassination Contract on Dynaheir",
+        "type": "Bounty",
+        "threat": "Moderate",
+        "status": "Active",
+        "notes": "Edwin offers substantial gold and arcane assistance if you track down and eliminate the Rashemi witch Dynaheir in the Gnoll Stronghold.",
+        "giverNpcId": "npc_edwin",
+        "targetNpcId": "npc_dynaheir",
+        "npcIds": [
+          "npc_edwin",
+          "npc_dynaheir"
+        ],
+        "itemIds": []
+      }
+    ],
+    "items": [
+      {
+        "id": "item_gorions_letter",
+        "nodeId": "BG-CAT-02",
+        "submapId": "map_bg1_catacombs",
+        "name": "Gorion's Sealed Letter",
+        "category": "Document",
+        "specs": "Wax-sealed parchment explaining the dark heritage of the Bhaalspawn.",
+        "notes": "Penned by Gorion prior to departure from Candlekeep, describing the divine essence left behind upon the god of murder's death.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_golden_pantaloons",
+        "nodeId": "BG-FAI-05",
+        "submapId": "map_bg1_friendly_arm",
+        "name": "The Golden Pantaloons",
+        "category": "Relic",
+        "specs": "Lustrous metallic pantaloons of mysterious provenance and smooth stitching.",
+        "notes": "Stored in an aristocratic merchant's chest in Room 204 of the Friendly Arm Inn.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_ankheg_plate",
+        "nodeId": "BG-BER-02",
+        "submapId": "map_bg1_beregost",
+        "name": "Ankheg Plate Mail",
+        "category": "Armor",
+        "specs": "Armor Class 3, Weight 25 lbs, forged from polished green ankheg chitin.",
+        "notes": "Masterwork creation of blacksmith Taerom Fuiruim.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_spiders_bane",
+        "nodeId": "BG-SC-13",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Spider's Bane +2",
+        "category": "Weapon",
+        "specs": "Two-Handed Sword +2, grants permanent Free Action against web spells and paralysis.",
+        "notes": "Resting within the central cocoon hollow of the Cloakwood spider queen.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_tazoks_chest_letters",
+        "nodeId": "BG-BND-05",
+        "submapId": "map_bg1_bandit_camp",
+        "name": "Iron Throne Executive Correspondence",
+        "category": "Document",
+        "specs": "Wax-sealed orders bearing the seal of the Iron Throne detailing the Cloakwood mine.",
+        "notes": "Locked inside Tazok's ironbound chest in the bandit headquarters tent.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_tome_understanding",
+        "nodeId": "BG-CAT-02",
+        "submapId": "map_bg1_catacombs",
+        "name": "Tome of Understanding",
+        "category": "Relic",
+        "specs": "Permanently grants +1 Wisdom when read by a mortal.",
+        "notes": "Enshrined in an alcove deep within the Candlekeep Catacombs.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_tome_leadership",
+        "nodeId": "BG-SC-08",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Tome of Leadership and Influence",
+        "category": "Relic",
+        "specs": "Permanently grants +1 Charisma when read by a mortal.",
+        "notes": "Concealed within a subterranean cave behind the Gnoll Stronghold.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_manual_bodily_health",
+        "nodeId": "BG-DUR-04",
+        "submapId": "map_bg1_durlags_tower",
+        "name": "Manual of Bodily Health",
+        "category": "Relic",
+        "specs": "Permanently grants +1 Constitution when read by a mortal.",
+        "notes": "Guarded by flesh golems on the deepest level of Durlag's Tower.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_soultaker_dagger",
+        "nodeId": "BG-DUR-04",
+        "submapId": "map_bg1_durlags_tower",
+        "name": "The Soultaker Dagger",
+        "category": "Relic",
+        "specs": "Cursed ceremonial dagger binding the souls of Durlag's slain clan.",
+        "notes": "Equipped by the Demon Knight.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_mulaheys_holy_symbol",
+        "nodeId": "BG-SC-04",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Unholy Symbol of Cyric",
+        "category": "Relic",
+        "specs": "A black sunburst emblem inscribed with mad invocations.",
+        "notes": "Proof of the cursed cleric's death required by the Temple of Lathander.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_sarevoks_sword_of_chaos",
+        "nodeId": "BG-UND-04",
+        "submapId": "map_bg1_undercity",
+        "name": "Sword of Chaos +2",
+        "category": "Weapon",
+        "specs": "Two-Handed Sword +2, drains vitality from targets to heal the wielder.",
+        "notes": "Carried into battle by Sarevok Anchev.",
+        "ownerNpcId": "npc_sarevok_anchev",
+        "possessionMode": "carried",
+        "status": "Active"
+      },
+      {
+        "id": "item_moonblade",
+        "nodeId": "BG-SC-07",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Moonblade of Evereska",
+        "category": "Weapon",
+        "specs": "Long Sword +3, grants +1 Armor Class and 50% Fire Resistance. Only usable by Xan.",
+        "notes": "Stolen from Xan by Mulahey and stored in the mine's lowest sanctum.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_varscona",
+        "nodeId": "BG-SC-07",
+        "submapId": "map_bg1_sword_coast",
+        "name": "Varscona +2",
+        "category": "Weapon",
+        "specs": "Long Sword +2, inflicts +1 point of cold frost damage on hit.",
+        "notes": "Wielded by bounty hunter Greywolf outside the Nashkel Mines.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_dagger_of_venom",
+        "nodeId": "BG-BER-02",
+        "submapId": "map_bg1_beregost",
+        "name": "Dagger of Venom +2",
+        "category": "Weapon",
+        "specs": "Dagger +2, inflicts 6 points of poison damage per second on hit.",
+        "notes": "Sold exclusively by master armorer Taerom Fuiruim in Thunderhammer Smithy.",
+        "ownerNpcId": "npc_taerom",
+        "possessionMode": "carried",
+        "status": "Active"
+      },
+      {
+        "id": "item_ring_of_wizardry",
+        "nodeId": "BG-FAI-01",
+        "submapId": "map_bg1_friendly_arm",
+        "name": "Ring of Wizardry (Evermemory)",
+        "category": "Relic",
+        "specs": "Doubles the wearer's first-level wizard spell memorization capacity.",
+        "notes": "Concealed within a knothole at the base of an oak tree outside the Friendly Arm Inn.",
+        "ownerNpcId": null,
+        "possessionMode": "stored",
+        "status": "Active"
+      },
+      {
+        "id": "item_claw_of_kazgaroth",
+        "nodeId": "BG-SC-05",
+        "submapId": "map_bg1_sword_coast",
+        "name": "The Claw of Kazgaroth",
+        "category": "Relic",
+        "specs": "Grants +1 Armor Class vs. missiles and +4 to saving throws vs. death at the cost of -2 CON.",
+        "notes": "Safeguarded within Thalantyr's private vault at High Hedge.",
+        "ownerNpcId": "npc_thalantyr",
+        "possessionMode": "carried",
+        "status": "Active"
+      }
+    ],
+    "factions": [
+      {
+        "id": "faction_flaming_fist",
+        "name": "The Flaming Fist",
+        "type": "Mercenary Army & City Watch",
+        "cvfQuadrant": "Hierarchy",
+        "colorIdentity": "W",
+        "leaderNpcId": "npc_duke_eltan",
+        "headquartersNodeId": "BG-CTY-03",
+        "controlledNodeIds": [
+          "BG-CTY-03",
+          "BG-SC-15",
+          "BG-BER-03"
+        ],
+        "diplomaticStances": {
+          "faction_iron_throne": "Hostile",
+          "faction_shadow_thieves": "Rival",
+          "faction_harpers": "Neutral",
+          "faction_cult_bhaal": "Hostile",
+          "faction_zhentarim": "Hostile"
+        },
+        "disposition": [
+          3,
+          1,
+          3
+        ],
+        "description": "The elite mercenary legion and sovereign constabulary of Baldur's Gate, commanded by Grand Duke Eltan. They enforce ruthless discipline along the trade ways and actively hunt the syndicate orchestrating the iron famine.",
+        "notes": "Strained to the breaking point by trade riots and border skirmishes with Amn."
+      },
+      {
+        "id": "faction_iron_throne",
+        "name": "The Iron Throne",
+        "type": "Mercenary Trading Syndicate",
+        "cvfQuadrant": "Market",
+        "colorIdentity": "B",
+        "leaderNpcId": "npc_sarevok_anchev",
+        "headquartersNodeId": "BG-CTY-04",
+        "controlledNodeIds": [
+          "BG-CTY-04",
+          "BG-SC-12",
+          "BG-SC-14",
+          "BG-BND-05",
+          "BG-CLK-05"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Hostile",
+          "faction_harpers": "Hostile",
+          "faction_shadow_thieves": "Rival",
+          "faction_cult_bhaal": "Allied",
+          "faction_zhentarim": "Rival"
+        },
+        "disposition": [
+          3,
+          3,
+          3
+        ],
+        "description": "An aggressive merchant cartel operating from an iron monolith in Baldur's Gate. Sarevok and his lieutenants poison the Sword Coast iron mines to bankrupt rivals and engineer a continental war.",
+        "notes": "Secretly subservient to Sarevok's ascension as the new Lord of Murder."
+      },
+      {
+        "id": "faction_harpers",
+        "name": "The Harpers",
+        "type": "Covert Preservation Fellowship",
+        "cvfQuadrant": "Clan",
+        "colorIdentity": "G",
+        "leaderNpcId": "npc_jaheira",
+        "headquartersNodeId": "BG-FAI-02",
+        "controlledNodeIds": [
+          "BG-FAI-02",
+          "BG-SC-02"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Neutral",
+          "faction_iron_throne": "Hostile",
+          "faction_cult_bhaal": "Hostile",
+          "faction_shadow_thieves": "Neutral",
+          "faction_zhentarim": "Hostile"
+        },
+        "disposition": [
+          2,
+          1,
+          2
+        ],
+        "description": "A clandestine fellowship of rangers, druids, and bards dedicated to preserving historical balance, individual liberties, and natural sanctuaries against imperial monopolies and divine tyrants.",
+        "notes": "Gorion, Khalid, and Jaheira swore oaths to guard the children of Bhaal from discovering their bloodline prematurely."
+      },
+      {
+        "id": "faction_shadow_thieves",
+        "name": "The Shadow Thieves of Amn",
+        "type": "Underground Thieves' Guild",
+        "cvfQuadrant": "Adhocracy",
+        "colorIdentity": "U",
+        "leaderNpcId": "npc_alatos_thuibuld",
+        "headquartersNodeId": "BG-CTY-06",
+        "controlledNodeIds": [
+          "BG-CTY-06",
+          "BG-UND-01"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Rival",
+          "faction_iron_throne": "Rival",
+          "faction_harpers": "Neutral",
+          "faction_cult_bhaal": "Hostile",
+          "faction_zhentarim": "Hostile"
+        },
+        "disposition": [
+          2,
+          3,
+          2
+        ],
+        "description": "The most ruthless and pervasive criminal syndicate in Faerun, maintaining an entrenched network of fences, cutpurses, and assassins in the Baldur's Gate Undercellars.",
+        "notes": "Clashing with Iron Throne cutthroats over contraband monopolies."
+      },
+      {
+        "id": "faction_zhentarim",
+        "name": "The Black Network (Zhentarim)",
+        "type": "Clandestine Imperial Cartel",
+        "cvfQuadrant": "Market",
+        "colorIdentity": "B",
+        "leaderNpcId": "npc_xzar",
+        "headquartersNodeId": "BG-SC-02",
+        "controlledNodeIds": [
+          "BG-SC-02"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Hostile",
+          "faction_iron_throne": "Rival",
+          "faction_harpers": "Hostile",
+          "faction_shadow_thieves": "Hostile",
+          "faction_cult_bhaal": "Neutral"
+        },
+        "disposition": [
+          2,
+          3,
+          3
+        ],
+        "description": "Imperial shadow merchants and mages sent from the Moonsea to investigate the iron shortage and exploit the chaos for their own trade hegemony.",
+        "notes": "Xzar and Montaron have infiltrated the Coast Way posing as traveling mercenaries."
+      },
+      {
+        "id": "faction_cult_bhaal",
+        "name": "The Cult of Bhaal",
+        "type": "Apocalyptic Death Cabal",
+        "cvfQuadrant": "Adhocracy",
+        "colorIdentity": "R",
+        "leaderNpcId": "npc_sarevok_anchev",
+        "headquartersNodeId": "BG-UND-04",
+        "controlledNodeIds": [
+          "BG-UND-04",
+          "BG-UND-03"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Hostile",
+          "faction_iron_throne": "Allied",
+          "faction_harpers": "Hostile",
+          "faction_shadow_thieves": "Hostile",
+          "faction_zhentarim": "Neutral"
+        },
+        "disposition": [
+          1,
+          3,
+          3
+        ],
+        "description": "Blood-cultists, death assassins, and corrupt clerics dedicated to harvesting souls across the Western Heartlands to resurrect Bhaal, the Lord of Murder.",
+        "notes": "Operating out of the ancient subterranean Temple of Bhaal in the Undercity."
+      }
+    ],
+    "trackers": [
+      {
+        "id": "tracker_iron_crisis",
+        "nodeId": "BG-SC-04",
+        "submapId": "map_bg1_sword_coast",
+        "name": "The Iron Crisis Contamination",
+        "type": "Threat Clock",
+        "maxTicks": 8,
+        "currentTicks": 2,
+        "faction": "The Iron Throne",
+        "notes": "Advances whenever trade shipments are attacked or mine sabotage spreads. At 8 ticks, the Sword Coast suffers economic collapse and war with Amn breaks out."
+      },
+      {
+        "id": "tracker_sarevok_ascension",
+        "nodeId": "BG-CTY-05",
+        "submapId": "map_bg1_city",
+        "name": "Sarevok's Ascension & Grand Duke Coronation",
+        "type": "Threat Clock",
+        "maxTicks": 6,
+        "currentTicks": 1,
+        "faction": "The Iron Throne",
+        "notes": "Advances as greater doppelgangers assassinate or replace key magistrates and Grand Dukes. At 6 ticks, Sarevok is crowned supreme Grand Duke and declares martial law."
+      },
+      {
+        "id": "tracker_bhaalspawn_taint",
+        "nodeId": "BG-CK-05",
+        "submapId": "map_bg1_candlekeep",
+        "name": "The Bhaalspawn Awakening",
+        "type": "Threat Clock",
+        "maxTicks": 4,
+        "currentTicks": 0,
+        "faction": "The Cult of Bhaal",
+        "notes": "Advances across major story milestones or dark violent choices. Unlocks divine innate powers (Cure Light Wounds, Slow Poison, Horror, Vampiric Touch)."
+      }
+    ]
+  }
+}
