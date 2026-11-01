@@ -132,19 +132,23 @@
       };
     }
 
-    function resolveEdgeEndpointsAndMetrics(edgeItem, targetTopo) {
-      if (!edgeItem || !targetTopo) return edgeItem;
-      const nodes = targetTopo.nodes || [];
+    function buildNodeDict(nodes) {
       const nodeDict = {};
       if (Array.isArray(nodes)) {
         nodes.forEach(n => {
           if (n && n.id !== undefined) nodeDict[String(n.id)] = n;
         });
-      } else if (typeof nodes === 'object') {
+      } else if (typeof nodes === 'object' && nodes !== null) {
         Object.keys(nodes).forEach(k => {
           if (nodes[k]) nodeDict[String(k)] = nodes[k];
         });
       }
+      return nodeDict;
+    }
+
+    function resolveEdgeEndpointsAndMetrics(edgeItem, targetTopo) {
+      if (!edgeItem || !targetTopo) return edgeItem;
+      const nodeDict = buildNodeDict(targetTopo.nodes);
 
       edgeItem.uNode = nodeDict[String(edgeItem.uId)] || null;
       edgeItem.vNode = nodeDict[String(edgeItem.vId)] || null;
@@ -180,17 +184,7 @@
 
       const extractEdgesFromMap = (mId, mName, mapObj) => {
         if (!mapObj) return [];
-        const mNodes = mapObj.nodes || [];
-        const nodeDict = {};
-        if (Array.isArray(mNodes)) {
-          mNodes.forEach(n => {
-            if (n && n.id !== undefined) nodeDict[String(n.id)] = n;
-          });
-        } else if (typeof mNodes === 'object') {
-          Object.keys(mNodes).forEach(k => {
-            if (mNodes[k]) nodeDict[String(k)] = mNodes[k];
-          });
-        }
+        const nodeDict = buildNodeDict(mapObj.nodes);
 
         const mEdgeData = mapObj.edgeData || {};
         const mEdgeNotes = mapObj.edgeNotes || {};
@@ -374,8 +368,9 @@
       }
       const topo = Workstation.activeTopology;
       if (topo && topo.nodes) {
-        const u = topo.nodes[String(uId)];
-        const v = topo.nodes[String(vId)];
+        const nodeDict = buildNodeDict(topo.nodes);
+        const u = nodeDict[String(uId)];
+        const v = nodeDict[String(vId)];
         if (u && v) {
           const midX = (u.x + v.x) / 2;
           const midY = (u.y + v.y) / 2;
@@ -482,13 +477,13 @@
         const activeNodes = getNodesForMapScope('all');
         const allMapsNodes = getNodesForMapScope('map:all');
 
-        // 1. Map Hierarchy & Sub-Maps Scope
+        // 1. Map Hierarchy & Scale-Fluid Child Maps Scope
         const mapHeader = document.createElement('div');
         mapHeader.style.padding = '4px 6px 2px 6px';
         mapHeader.style.fontSize = '10px';
         mapHeader.style.fontWeight = 'bold';
         mapHeader.style.color = '#555';
-        mapHeader.textContent = 'MAP SCOPE & SUBMAPS:';
+        mapHeader.textContent = 'MAP SCOPE & CHILD MAPS:';
         container.appendChild(mapHeader);
 
         addTreeItem(container, `Active Map: ${curMapName} (${activeNodes.length})`, 'all');
@@ -563,13 +558,13 @@
         const activeEdges = getEdgesForMapScope('all');
         const allMapsEdges = getEdgesForMapScope('map:all');
 
-        // 1. Map Hierarchy & Sub-Maps Scope
+        // 1. Map Hierarchy & Scale-Fluid Child Maps Scope
         const mapHeader = document.createElement('div');
         mapHeader.style.padding = '4px 6px 2px 6px';
         mapHeader.style.fontSize = '10px';
         mapHeader.style.fontWeight = 'bold';
         mapHeader.style.color = '#555';
-        mapHeader.textContent = 'MAP SCOPE & SUBMAPS:';
+        mapHeader.textContent = 'MAP SCOPE & CHILD MAPS:';
         container.appendChild(mapHeader);
 
         addTreeItem(container, `Active Map: ${curMapName} (${activeEdges.length})`, 'all');
@@ -1523,7 +1518,7 @@
           <!-- Action Footer -->
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:4px;">
             <button class="win-btn" onclick="jumpToEdgeMap('${escapedMapId}', '${escapedKey}', '${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}')"><strong>🎯 Select &amp; Center on CAD Canvas</strong></button>
-            <button class="win-btn" style="color:#b91c1c; font-weight:bold; margin-top:2px;" onclick="if (confirm('Sever this ${edge.edgeType} connection between Node ${edge.uId} and Node ${edge.vId}?')) { deleteEdge('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}'); renderEntityManagerTree(); renderEntityManagerList(); document.getElementById('em-detail-pane').innerHTML = '<div style=\\'font-size:11px; color:#666; text-align:center; margin-top:40px;\\'>Corridor severed successfully.</div>'; }">✂️ Sever / Delete Corridor...</button>
+            <button class="win-btn" style="color:#b91c1c; font-weight:bold; margin-top:2px;" onclick="if (confirm('Sever this ${edge.edgeType} connection between Node ${edge.uId} and Node ${edge.vId}?')) { deleteEdge('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}', '${escapedMapId}'); renderEntityManagerTree(); renderEntityManagerList(); document.getElementById('em-detail-pane').innerHTML = '<div style=\\'font-size:11px; color:#666; text-align:center; margin-top:40px;\\'>Corridor severed successfully.</div>'; }">✂️ Sever / Delete Corridor...</button>
           </div>
         `;
 

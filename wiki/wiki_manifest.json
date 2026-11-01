@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T02:09:59.460Z",
+  "generatedAt": "2026-11-01T02:50:21.895Z",
   "totalFiles": 298,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2583,
+  "totalBidirectionalEdges": 2576,
   "staleCount": 0,
   "duplicateAuditTargets": 9,
   "volumes": [
@@ -73,7 +73,7 @@
       "relatedFiles": [
         "docs/srd/authoring_engine_srd.md",
         "network/presets/blank_canvas.json",
-        "src/workstation/scripts/stage_5_slotting.js"
+        "src/workstation/scripts/supply_chain_simulator.js"
       ]
     },
     {
@@ -112,7 +112,7 @@
       "relatedFiles": [
         "docs/adr/0002-dual-srd-and-tiered-module-architecture.md",
         "docs/srd/tier_0_substratum_srd.md",
-        "src/workstation/scripts/stage_5_slotting.js",
+        "src/workstation/scripts/supply_chain_simulator.js",
         "src/workstation/scripts/module_explorer.js",
         "src/workstation/scripts/entity_core.js",
         "src/workstation/scripts/entity_manager_ui.js",
@@ -179,11 +179,11 @@
       "title": "AGENTS.md: Creator Studio Agent Operating Manual & Router",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "hash": "e69b62e1573f4f45",
-      "reviewedHash": "e69b62e1573f4f45",
+      "hash": "a7c6bb73137b725a",
+      "reviewedHash": "a7c6bb73137b725a",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 49,
+      "outboundCount": 50,
       "inboundBacklinkCount": 11
     },
     {
@@ -211,7 +211,7 @@
       "reviewedHash": "85c6029c3776140b",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 32,
+      "outboundCount": 31,
       "inboundBacklinkCount": 19
     },
     {
@@ -295,7 +295,7 @@
       "reviewedHash": "25d38296c2aa8811",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 17,
+      "outboundCount": 16,
       "inboundBacklinkCount": 3
     },
     {
@@ -361,8 +361,8 @@
       "title": "Creator Studio — Master Administrative Directory & Surface Catalog",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "a9e90295bb04feb4",
-      "reviewedHash": "a9e90295bb04feb4",
+      "hash": "b34f774512574b87",
+      "reviewedHash": "b34f774512574b87",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 20,
@@ -375,11 +375,11 @@
       "title": "build_suite.js",
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "7efb5484282363a5",
-      "reviewedHash": "7efb5484282363a5",
+      "hash": "4c8103d16f7a63c5",
+      "reviewedHash": "4c8103d16f7a63c5",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 60,
+      "outboundCount": 61,
       "inboundBacklinkCount": 163
     },
     {
@@ -2367,7 +2367,7 @@
       "reviewedHash": "5da8ac8a3cdead6f",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 25,
+      "outboundCount": 23,
       "inboundBacklinkCount": 9
     },
     {
@@ -2690,7 +2690,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "docs/adr/desktop.ini",
@@ -2755,11 +2755,11 @@
       "title": "navigation_manifest.json",
       "volume": "vol-3",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "75d7515f54c58d1f",
-      "reviewedHash": "75d7515f54c58d1f",
+      "hash": "728e8e00d46f24b6",
+      "reviewedHash": "728e8e00d46f24b6",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 45,
+      "outboundCount": 46,
       "inboundBacklinkCount": 10
     },
     {
@@ -2787,7 +2787,7 @@
       "reviewedHash": "204ff0f3501b724d",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 13,
+      "outboundCount": 12,
       "inboundBacklinkCount": 0
     },
     {
@@ -2815,7 +2815,7 @@
       "reviewedHash": "04763b5c60a91c9a",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 38,
+      "outboundCount": 37,
       "inboundBacklinkCount": 113
     },
     {
@@ -3105,8 +3105,8 @@
       "title": "Creator Studio: Platform Explorer & Master Audit",
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "32ef01ec65c778ff",
-      "reviewedHash": "32ef01ec65c778ff",
+      "hash": "fb0a4ba8cdcb50f4",
+      "reviewedHash": "fb0a4ba8cdcb50f4",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 147,
@@ -3749,12 +3749,26 @@
       "title": "cad_interaction.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "457a0d39a473b438",
-      "reviewedHash": "457a0d39a473b438",
+      "hash": "3e1c145808a8a5ca",
+      "reviewedHash": "3e1c145808a8a5ca",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 10,
       "inboundBacklinkCount": 15
+    },
+    {
+      "relPath": "src/workstation/scripts/campaign_exporter.js",
+      "wikiHtml": "wiki/pages/src/workstation/scripts/campaign_exporter.js.html",
+      "wikiSrc": "wiki/src/files/src/workstation/scripts/campaign_exporter.js.md",
+      "title": "campaign_exporter.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "hash": "bc5a566615443fa6",
+      "reviewedHash": "bc5a566615443fa6",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 15,
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "src/workstation/scripts/canvas_hud.js",
@@ -3833,8 +3847,8 @@
       "title": "entity_manager_ui.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "44a46d5aa7968538",
-      "reviewedHash": "44a46d5aa7968538",
+      "hash": "130414dd457b7ec7",
+      "reviewedHash": "130414dd457b7ec7",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 14,
@@ -3917,8 +3931,8 @@
       "title": "pack_engine.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "522068af272b54ce",
-      "reviewedHash": "522068af272b54ce",
+      "hash": "6dc37213c87b58c0",
+      "reviewedHash": "6dc37213c87b58c0",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 10,
@@ -3981,34 +3995,6 @@
       "inboundBacklinkCount": 12
     },
     {
-      "relPath": "src/workstation/scripts/stage_5_slotting.js",
-      "wikiHtml": "wiki/pages/src/workstation/scripts/stage_5_slotting.js.html",
-      "wikiSrc": "wiki/src/files/src/workstation/scripts/stage_5_slotting.js.md",
-      "title": "stage_5_slotting.js",
-      "volume": "vol-4",
-      "kind": "Workstation Modular JS Engine",
-      "hash": "1d47a45eeaf1c426",
-      "reviewedHash": "1d47a45eeaf1c426",
-      "stale": false,
-      "auditFlag": null,
-      "outboundCount": 8,
-      "inboundBacklinkCount": 20
-    },
-    {
-      "relPath": "src/workstation/scripts/stage_6_export.js",
-      "wikiHtml": "wiki/pages/src/workstation/scripts/stage_6_export.js.html",
-      "wikiSrc": "wiki/src/files/src/workstation/scripts/stage_6_export.js.md",
-      "title": "stage_6_export.js",
-      "volume": "vol-4",
-      "kind": "Workstation Modular JS Engine",
-      "hash": "574d94dad09b67da",
-      "reviewedHash": "574d94dad09b67da",
-      "stale": false,
-      "auditFlag": null,
-      "outboundCount": 15,
-      "inboundBacklinkCount": 8
-    },
-    {
       "relPath": "src/workstation/scripts/state_adapter.js",
       "wikiHtml": "wiki/pages/src/workstation/scripts/state_adapter.js.html",
       "wikiSrc": "wiki/src/files/src/workstation/scripts/state_adapter.js.md",
@@ -4021,6 +4007,20 @@
       "auditFlag": null,
       "outboundCount": 13,
       "inboundBacklinkCount": 25
+    },
+    {
+      "relPath": "src/workstation/scripts/supply_chain_simulator.js",
+      "wikiHtml": "wiki/pages/src/workstation/scripts/supply_chain_simulator.js.html",
+      "wikiSrc": "wiki/src/files/src/workstation/scripts/supply_chain_simulator.js.md",
+      "title": "supply_chain_simulator.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "hash": "1d47a45eeaf1c426",
+      "reviewedHash": "1d47a45eeaf1c426",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 8,
+      "inboundBacklinkCount": 11
     },
     {
       "relPath": "src/workstation/scripts/ticket_center.js",
@@ -4113,8 +4113,8 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "hash": "372bb9ffef5d5689",
-      "reviewedHash": "372bb9ffef5d5689",
+      "hash": "a95f12ba933faecf",
+      "reviewedHash": "a95f12ba933faecf",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 46,
@@ -4127,11 +4127,11 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "caba002b5ab82a5b",
-      "reviewedHash": "caba002b5ab82a5b",
+      "hash": "df96d1929bf7284f",
+      "reviewedHash": "df96d1929bf7284f",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 161,
+      "outboundCount": 162,
       "inboundBacklinkCount": 71
     },
     {
@@ -4281,8 +4281,8 @@
       "title": "run_tests.js",
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "7fe9961e3a167e2b",
-      "reviewedHash": "7fe9961e3a167e2b",
+      "hash": "47062fb948f3cee9",
+      "reviewedHash": "47062fb948f3cee9",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 22,

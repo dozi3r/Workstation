@@ -1,6 +1,6 @@
 ---
-file_path: "src/workstation/scripts/stage_5_slotting.js"
-title: "stage_5_slotting.js"
+file_path: "src/workstation/scripts/supply_chain_simulator.js"
+title: "supply_chain_simulator.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
 current_hash: "1d47a45eeaf1c426"
@@ -10,7 +10,7 @@ size_bytes: 62056
 line_count: 1403
 ---
 
-# stage_5_slotting.js
+# supply_chain_simulator.js
 
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role

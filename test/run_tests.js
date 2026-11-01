@@ -1940,7 +1940,7 @@ async function testModuleDeletionAndEntityExplorer() {
 // ============================================================================
 function testAdHocResourceFlowsAndCustomModules() {
   console.log('\n--> SUITE 12: Ad-Hoc Resource Supply Flows & Custom Module Studio (SYS-START-08 / SYS-START-09)...');
-  const slottingCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/stage_5_slotting.js'), 'utf8');
+  const slottingCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/supply_chain_simulator.js'), 'utf8');
   const explorerCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/module_explorer.js'), 'utf8');
 
   const topo = {
@@ -2308,7 +2308,7 @@ function testThreatClocksAndHazardRoller() {
 
 function testCrossScalePortalLogistics() {
   console.log('\n--> SUITE 16: Trans-Scale Cartographic Logistics & Portal Flow (SYS-START-12)...');
-  const slottingCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/stage_5_slotting.js'), 'utf8');
+  const slottingCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/supply_chain_simulator.js'), 'utf8');
 
   const rootMap = {
     id: 'map_root',
@@ -2413,7 +2413,7 @@ function testCrossScalePortalLogistics() {
 
 function testQuantitativeResourceAccountingAndCorridorBandwidth() {
   console.log('\n--> SUITE 17: Quantitative Resource Accounting & Corridor Capacity (SYS-START-13)...');
-  const slottingCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/stage_5_slotting.js'), 'utf8');
+  const slottingCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/supply_chain_simulator.js'), 'utf8');
 
   const sandbox = {
     window: {},
@@ -2481,7 +2481,7 @@ function testQuantitativeResourceAccountingAndCorridorBandwidth() {
 
 function testNativeMdiOdvMatrixAndFogControls() {
   console.log('\n--> SUITE 18: Native MDI 64-Cell ODV Matrix Window & In-App Fog Controls (SYS-START-14)...');
-  const slottingCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/stage_5_slotting.js'), 'utf8');
+  const slottingCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/supply_chain_simulator.js'), 'utf8');
   const socCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/sociology_data.js'), 'utf8');
 
   let historyItem = '';
@@ -2551,7 +2551,7 @@ function testExtensibleWikiMentionsAndDemographics() {
   const rendererCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/cad_canvas_renderer.js'), 'utf8');
   const entityCoreCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_core.js'), 'utf8');
   const wikiCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/wiki_engine.js'), 'utf8');
-  const exportCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/stage_6_export.js'), 'utf8');
+  const exportCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/campaign_exporter.js'), 'utf8');
 
   let pushHistorySpy = [];
   let openedEntityId = null;
@@ -3489,7 +3489,7 @@ async function testIndexedDbSeparationAndConcurrencyGate() {
   const mapStorePath = path.join(ROOT_DIR, 'src/workstation/scripts/map_store.js');
   const stateAdapterPath = path.join(ROOT_DIR, 'src/workstation/scripts/state_adapter.js');
   const statePath = path.join(ROOT_DIR, 'src/workstation/scripts/workstation_state.js');
-  const exportPath = path.join(ROOT_DIR, 'src/workstation/scripts/stage_6_export.js');
+  const exportPath = path.join(ROOT_DIR, 'src/workstation/scripts/campaign_exporter.js');
 
   const zipCode = fs.readFileSync(zipPath, 'utf8');
   const mapStoreCode = fs.readFileSync(mapStorePath, 'utf8');
@@ -3642,7 +3642,7 @@ async function testEntityModulePackEngine() {
 
   const zipPath = path.join(ROOT_DIR, 'src/workstation/scripts/zip_engine.js');
   const packEnginePath = path.join(ROOT_DIR, 'src/workstation/scripts/pack_engine.js');
-  const exportPath = path.join(ROOT_DIR, 'src/workstation/scripts/stage_6_export.js');
+  const exportPath = path.join(ROOT_DIR, 'src/workstation/scripts/campaign_exporter.js');
 
   const zipCode = fs.readFileSync(zipPath, 'utf8');
   const packEngineCode = fs.readFileSync(packEnginePath, 'utf8');
@@ -4016,6 +4016,28 @@ async function testEntityModulePackEngine() {
   assertEqual(reimportedPack.entities.npcs[0].id, 'npc_miner', 'Round-trip: NPC ID preserved');
   assert(reimportedPack.assets['caverns.png'] !== undefined, 'Round-trip: raster image asset preserved');
   assertEqual(reimportedPack.assets['caverns.png'].length, 4, 'Round-trip: image bytes preserved byte-for-byte');
+
+  // Verify remapEntityCluster submapId remapping on collision
+  const testEntities = {
+    npcs: [{ id: 'npc_1', submapId: 'map_old_1' }],
+    quests: [{ id: 'q_1', submapId: 'map_old_1' }],
+    items: [{ id: 'item_1', submapId: 'map_old_1' }],
+    trackers: [{ id: 'tr_1', submapId: 'map_old_1' }]
+  };
+  const testSubmaps = {
+    map_old_1: {
+      nodes: [{ id: 'n1', childMapId: 'map_old_child' }]
+    }
+  };
+  sandbox.remapEntityCluster(testEntities, testSubmaps, {}, {
+    map_old_1: 'map_new_1',
+    map_old_child: 'map_new_child'
+  });
+  assertEqual(testEntities.npcs[0].submapId, 'map_new_1', 'remapEntityCluster remaps NPC submapId on collision');
+  assertEqual(testEntities.quests[0].submapId, 'map_new_1', 'remapEntityCluster remaps Quest submapId on collision');
+  assertEqual(testEntities.items[0].submapId, 'map_new_1', 'remapEntityCluster remaps Item submapId on collision');
+  assertEqual(testEntities.trackers[0].submapId, 'map_new_1', 'remapEntityCluster remaps Tracker submapId on collision');
+  assertEqual(testSubmaps.map_old_1.nodes[0].childMapId, 'map_new_child', 'remapEntityCluster remaps submap node childMapId');
 }
 
 // ============================================================================
@@ -4306,6 +4328,16 @@ async function testEdgeExplorerAndConduitCatalog() {
   assertEqual(selectedEdgeV, 3, 'jumpToEdgeMap invokes selectEdge with end node 3');
   assertEqual(sandbox.Workstation.pan.x, 250, 'jumpToEdgeMap centers canvas pan.x at corridor midpoint ( (800/2) - 150 = 250 )');
   assertEqual(sandbox.Workstation.pan.y, 100, 'jumpToEdgeMap centers canvas pan.y at corridor midpoint ( (600/2) - 200 = 100 )');
+
+  // Verify Multi-Scale Corridor Deletion targeting child map
+  const submapDungeon = sandbox.maps['submap_dungeon'];
+  const initialRootNode1Adj = [...sandbox.Workstation.activeTopology.nodes['1'].adj];
+  sandbox.deleteEdge('d1', 'd2', 'road', 'submap_dungeon');
+  const dungeonNodeD1 = submapDungeon.nodes.find(n => n.id === 'd1');
+  const dungeonNodeD2 = submapDungeon.nodes.find(n => n.id === 'd2');
+  assert(!dungeonNodeD1.adj.includes('d2'), 'deleteEdge removes corridor from child map node d1 adj');
+  assert(!dungeonNodeD2.adj.includes('d1'), 'deleteEdge removes corridor from child map node d2 adj');
+  assertEqual(sandbox.Workstation.activeTopology.nodes['1'].adj, initialRootNode1Adj, 'deleteEdge targeting child map preserves active root map adjacency intact');
 }
 
 // ============================================================================

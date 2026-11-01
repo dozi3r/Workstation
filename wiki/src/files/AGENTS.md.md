@@ -3,11 +3,11 @@ file_path: "AGENTS.md"
 title: "AGENTS.md: Creator Studio Agent Operating Manual & Router"
 volume: "vol-1"
 kind: "Technical Documentation / Guide"
-current_hash: "e69b62e1573f4f45"
-reviewed_hash: "e69b62e1573f4f45"
+current_hash: "a7c6bb73137b725a"
+reviewed_hash: "a7c6bb73137b725a"
 stale: false
-size_bytes: 14301
-line_count: 71
+size_bytes: 14549
+line_count: 72
 ---
 
 # AGENTS.md: Creator Studio Agent Operating Manual & Router

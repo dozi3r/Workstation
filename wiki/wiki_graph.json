@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T02:09:59.460Z",
+  "generatedAt": "2026-11-01T02:50:21.895Z",
   "totalFiles": 298,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2583,
+  "totalBidirectionalEdges": 2576,
   "staleCount": 0,
   "nodes": [
     {
@@ -11,10 +11,10 @@
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
       "stale": false,
-      "hash": "e69b62e1573f4f45",
-      "reviewedHash": "e69b62e1573f4f45",
-      "lineCount": 71,
-      "sizeBytes": 14301,
+      "hash": "a7c6bb73137b725a",
+      "reviewedHash": "a7c6bb73137b725a",
+      "lineCount": 72,
+      "sizeBytes": 14549,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -223,6 +223,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
+        },
+        {
+          "target": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
         },
         {
           "target": "docs/srd/campaign_preset_specification_srd.md",
@@ -705,12 +711,6 @@
           "targetType": "file",
           "type": "Wiki Citation",
           "reason": "Explicit [[File:docs/srd/ip_module_framework_srd.md]] reference"
-        },
-        {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference"
         },
         {
           "target": "series_d_module_supply_chains_and_contracts",
@@ -1237,12 +1237,6 @@
           "targetType": "file",
           "type": "Wiki Citation",
           "reason": "Explicit [[File:sociology/07_Granular_64_Disposition_Matrix.md]] reference"
-        },
-        {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference"
         },
         {
           "target": "index.html",
@@ -1829,10 +1823,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "a9e90295bb04feb4",
-      "reviewedHash": "a9e90295bb04feb4",
+      "hash": "b34f774512574b87",
+      "reviewedHash": "b34f774512574b87",
       "lineCount": 554,
-      "sizeBytes": 28824,
+      "sizeBytes": 28861,
       "symbols": [
         "renderSurfaces()",
         "setCategoryFilter(cat)",
@@ -1941,16 +1935,16 @@
           "reason": "References regions/regional_image_browser.html"
         },
         {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
+          "target": "src/workstation/scripts/campaign_exporter.js",
           "targetType": "file",
           "type": "Path Reference",
-          "reason": "References src/workstation/scripts/stage_5_slotting.js"
+          "reason": "References src/workstation/scripts/campaign_exporter.js"
         },
         {
-          "target": "src/workstation/scripts/stage_6_export.js",
+          "target": "src/workstation/scripts/supply_chain_simulator.js",
           "targetType": "file",
           "type": "Path Reference",
-          "reason": "References src/workstation/scripts/stage_6_export.js"
+          "reason": "References src/workstation/scripts/supply_chain_simulator.js"
         },
         {
           "target": "src/workstation/template.html",
@@ -2058,10 +2052,10 @@
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "7efb5484282363a5",
-      "reviewedHash": "7efb5484282363a5",
-      "lineCount": 1216,
-      "sizeBytes": 59557,
+      "hash": "4c8103d16f7a63c5",
+      "reviewedHash": "4c8103d16f7a63c5",
+      "lineCount": 1217,
+      "sizeBytes": 59739,
       "symbols": [
         "toRootRelUrl(absPath)",
         "rebaseFileUrls(jsonStr, prefix)",
@@ -2285,6 +2279,12 @@
           "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
         },
         {
+          "target": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
+        },
+        {
           "target": "docs/srd/campaign_preset_specification_srd.md",
           "targetType": "file",
           "type": "Path Reference",
@@ -2346,6 +2346,12 @@
         },
         {
           "target": "src/workstation/scripts/cad_interaction.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "target": "src/workstation/scripts/campaign_exporter.js",
           "targetType": "file",
           "type": "Bundles Source",
           "reason": "Inlines modular source during suite compilation"
@@ -2441,13 +2447,7 @@
           "reason": "Inlines modular source during suite compilation"
         },
         {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Bundles Source",
-          "reason": "Inlines modular source during suite compilation"
-        },
-        {
-          "target": "src/workstation/scripts/stage_6_export.js",
+          "target": "src/workstation/scripts/supply_chain_simulator.js",
           "targetType": "file",
           "type": "Bundles Source",
           "reason": "Inlines modular source during suite compilation"
@@ -17365,12 +17365,6 @@
           "reason": "Explicit [[File:src/workstation/scripts/canvas_hud.js]] reference"
         },
         {
-          "target": "src/workstation/scripts/stage_6_export.js",
-          "targetType": "file",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_6_export.js]] reference"
-        },
-        {
           "target": "build_suite.js",
           "targetType": "file",
           "type": "Wiki Citation",
@@ -17423,12 +17417,6 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/sociology_data.js"
-        },
-        {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/stage_5_slotting.js"
         },
         {
           "target": "src/workstation/scripts/ticket_center.js",
@@ -19508,7 +19496,32 @@
           "reason": "References src/workstation/scripts/property_grid_inspector.js"
         }
       ],
-      "inbound": []
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Governing Spec",
+          "reason": "Authoritative specification for start.html"
+        },
+        {
+          "source": "AGENTS.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
+        },
+        {
+          "source": "docs/navigation_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
+        }
+      ]
     },
     {
       "relPath": "docs/adr/desktop.ini",
@@ -20048,10 +20061,10 @@
       "volume": "vol-3",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "75d7515f54c58d1f",
-      "reviewedHash": "75d7515f54c58d1f",
-      "lineCount": 242,
-      "sizeBytes": 10002,
+      "hash": "728e8e00d46f24b6",
+      "reviewedHash": "728e8e00d46f24b6",
+      "lineCount": 243,
+      "sizeBytes": 10076,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -20254,6 +20267,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
+        },
+        {
+          "target": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
         },
         {
           "target": "docs/srd/campaign_preset_specification_srd.md",
@@ -20464,12 +20483,6 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/selective_importer.js"
-        },
-        {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/stage_5_slotting.js"
         },
         {
           "target": "src/workstation/scripts/state_adapter.js",
@@ -21347,12 +21360,6 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/sociology_data.js"
-        },
-        {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/stage_5_slotting.js"
         },
         {
           "target": "start.html",
@@ -24198,10 +24205,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "32ef01ec65c778ff",
-      "reviewedHash": "32ef01ec65c778ff",
+      "hash": "fb0a4ba8cdcb50f4",
+      "reviewedHash": "fb0a4ba8cdcb50f4",
       "lineCount": 14564,
-      "sizeBytes": 4478319,
+      "sizeBytes": 4480018,
       "symbols": [
         "moduleMatchesTrack(m, track)",
         "getModuleTrackBadges(m)",
@@ -28867,16 +28874,16 @@
           "reason": "Invokes isEntitySelected() defined in selection_engine.js"
         },
         {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes checkNodeAdHocSupplyLine() defined in stage_5_slotting.js"
-        },
-        {
           "target": "src/workstation/scripts/state_adapter.js",
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes switchActiveMap() defined in state_adapter.js"
+        },
+        {
+          "target": "src/workstation/scripts/supply_chain_simulator.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes checkNodeAdHocSupplyLine() defined in supply_chain_simulator.js"
         },
         {
           "target": "src/workstation/scripts/workstation_state.js",
@@ -28971,13 +28978,13 @@
           "reason": "Invokes renderCanvas() defined in cad_canvas_renderer.js"
         },
         {
-          "source": "src/workstation/scripts/stage_5_slotting.js",
+          "source": "src/workstation/scripts/state_adapter.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes renderCanvas() defined in cad_canvas_renderer.js"
         },
         {
-          "source": "src/workstation/scripts/state_adapter.js",
+          "source": "src/workstation/scripts/supply_chain_simulator.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes renderCanvas() defined in cad_canvas_renderer.js"
@@ -29020,10 +29027,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "457a0d39a473b438",
-      "reviewedHash": "457a0d39a473b438",
-      "lineCount": 1325,
-      "sizeBytes": 52029,
+      "hash": "3e1c145808a8a5ca",
+      "reviewedHash": "3e1c145808a8a5ca",
+      "lineCount": 1398,
+      "sizeBytes": 54886,
       "symbols": [
         "setTool(toolName)",
         "getToolKey(name)",
@@ -29044,7 +29051,7 @@
         "deleteNodeDirect(nodeId)",
         "deleteNode(nodeId)",
         "createEdge(uId, vId, edgeType)",
-        "deleteEdge(uId, vId, edgeType)",
+        "deleteEdge(uId, vId, edgeType, targetMapId = null)",
         "promptMoveNode(nodeId)",
         "zoomIn(centerPoint)",
         "zoomOut(centerPoint)",
@@ -29143,6 +29150,12 @@
           "reason": "Inlines modular source during suite compilation"
         },
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes setTool() defined in cad_interaction.js"
+        },
+        {
           "source": "src/workstation/scripts/entity_core.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -29173,12 +29186,6 @@
           "reason": "Invokes createEdge() defined in cad_interaction.js"
         },
         {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes setTool() defined in cad_interaction.js"
-        },
-        {
           "source": "src/workstation/scripts/wiki_engine.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -29207,6 +29214,166 @@
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/cad_interaction.js"
+        }
+      ]
+    },
+    {
+      "relPath": "src/workstation/scripts/campaign_exporter.js",
+      "title": "campaign_exporter.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "stale": false,
+      "hash": "bc5a566615443fa6",
+      "reviewedHash": "bc5a566615443fa6",
+      "lineCount": 763,
+      "sizeBytes": 32821,
+      "symbols": [
+        "generateCampaignJSON()",
+        "generateCampaignMarkdown()",
+        "generateHydratedCampaignJSON()",
+        "renderStage6()",
+        "handleCampaignFileIngestion(file)",
+        "importCampaignData(data, sourceLabel = \"\")",
+        "executeExportCsmodPack()"
+      ],
+      "globals": [
+        "activeExportTab",
+        "tabJson",
+        "tabMd",
+        "btnCopyJson",
+        "btnDownloadJson",
+        "btnOpenExport"
+      ],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "src/workstation/template.html",
+          "targetType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "target": "src/workstation/scripts/cad_interaction.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes setTool() defined in cad_interaction.js"
+        },
+        {
+          "target": "src/workstation/scripts/canvas_hud.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes updateBreadcrumbsHUD() defined in canvas_hud.js"
+        },
+        {
+          "target": "src/workstation/scripts/entity_core.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes normalizeDemographics() defined in entity_core.js"
+        },
+        {
+          "target": "src/workstation/scripts/entity_manager_ui.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderEntityManagerTree() defined in entity_manager_ui.js"
+        },
+        {
+          "target": "src/workstation/scripts/layer_manager.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes getDefaultLayers() defined in layer_manager.js"
+        },
+        {
+          "target": "src/workstation/scripts/map_store.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes saveMapImageToDB() defined in map_store.js"
+        },
+        {
+          "target": "src/workstation/scripts/pack_engine.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes dataUrlToUint8Array() defined in pack_engine.js"
+        },
+        {
+          "target": "src/workstation/scripts/module_explorer.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes syncCustomModulesToCatalog() defined in module_explorer.js"
+        },
+        {
+          "target": "src/workstation/scripts/property_grid_inspector.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes updatePropertiesGrid() defined in property_grid_inspector.js"
+        },
+        {
+          "target": "src/workstation/scripts/state_adapter.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes initMapsRegistry() defined in state_adapter.js"
+        },
+        {
+          "target": "src/workstation/scripts/supply_chain_simulator.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes getSeveranceTick() defined in supply_chain_simulator.js"
+        },
+        {
+          "target": "src/workstation/scripts/wiki_engine.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes buildWikiIndex() defined in wiki_engine.js"
+        },
+        {
+          "target": "src/workstation/scripts/workstation_state.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes ensureEntityCollections() defined in workstation_state.js"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "admin.html",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/campaign_exporter.js"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "source": "src/workstation/scripts/map_store.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes generateCampaignJSON() defined in campaign_exporter.js"
+        },
+        {
+          "source": "src/workstation/scripts/mdi_window_manager.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes importCampaignData() defined in campaign_exporter.js"
+        },
+        {
+          "source": "src/workstation/scripts/workstation_state.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes generateCampaignJSON() defined in campaign_exporter.js"
+        },
+        {
+          "source": "src/workstation/template.html",
+          "sourceType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/campaign_exporter.js @@"
         }
       ]
     },
@@ -29370,6 +29537,12 @@
           "reason": "Invokes getMapNodePrefix() defined in canvas_hud.js"
         },
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes updateBreadcrumbsHUD() defined in canvas_hud.js"
+        },
+        {
           "source": "build_suite.js",
           "sourceType": "file",
           "type": "Bundles Source",
@@ -29413,12 +29586,6 @@
         },
         {
           "source": "src/workstation/scripts/selective_importer.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes updateBreadcrumbsHUD() defined in canvas_hud.js"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes updateBreadcrumbsHUD() defined in canvas_hud.js"
@@ -29805,6 +29972,12 @@
           "reason": "Invokes getItemEffectiveNodeId() defined in entity_core.js"
         },
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes normalizeDemographics() defined in entity_core.js"
+        },
+        {
           "source": "src/workstation/scripts/entity_cascade_delete.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -29833,12 +30006,6 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes getDemographicNames() defined in entity_core.js"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes normalizeDemographics() defined in entity_core.js"
         },
         {
           "source": "src/workstation/template.html",
@@ -29978,14 +30145,15 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "44a46d5aa7968538",
-      "reviewedHash": "44a46d5aa7968538",
-      "lineCount": 2222,
-      "sizeBytes": 130897,
+      "hash": "130414dd457b7ec7",
+      "reviewedHash": "130414dd457b7ec7",
+      "lineCount": 2217,
+      "sizeBytes": 130746,
       "symbols": [
         "escapeJsArg(str)",
         "getNodesForMapScope(scope = 'all')",
         "jumpToNodeMap(mapId, nodeId)",
+        "buildNodeDict(nodes)",
         "resolveEdgeEndpointsAndMetrics(edgeItem, targetTopo)",
         "getEdgesForMapScope(scope = 'all')",
         "jumpToEdgeMap(mapId, edgeKey, uId, vId, edgeType)",
@@ -30072,16 +30240,16 @@
           "reason": "Invokes selectNode() defined in property_grid_inspector.js"
         },
         {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes slotEdgeModule() defined in stage_5_slotting.js"
-        },
-        {
           "target": "src/workstation/scripts/state_adapter.js",
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes switchActiveMap() defined in state_adapter.js"
+        },
+        {
+          "target": "src/workstation/scripts/supply_chain_simulator.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes slotEdgeModule() defined in supply_chain_simulator.js"
         },
         {
           "target": "src/workstation/scripts/workstation_state.js",
@@ -30114,6 +30282,12 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes openEntityManager() defined in entity_manager_ui.js"
+        },
+        {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderEntityManagerTree() defined in entity_manager_ui.js"
         },
         {
           "source": "src/workstation/scripts/entity_cascade_delete.js",
@@ -30159,12 +30333,6 @@
         },
         {
           "source": "src/workstation/scripts/selective_importer.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes renderEntityManagerTree() defined in entity_manager_ui.js"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes renderEntityManagerTree() defined in entity_manager_ui.js"
@@ -30276,6 +30444,12 @@
           "reason": "Invokes getLayerById() defined in layer_manager.js"
         },
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes getDefaultLayers() defined in layer_manager.js"
+        },
+        {
           "source": "src/workstation/scripts/canvas_hud.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -30298,12 +30472,6 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes getTopologyLayers() defined in layer_manager.js"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes getDefaultLayers() defined in layer_manager.js"
         },
         {
           "source": "src/workstation/scripts/state_adapter.js",
@@ -30563,6 +30731,12 @@
           "reason": "Bundled into standalone offline workstation via build_suite.js"
         },
         {
+          "target": "src/workstation/scripts/campaign_exporter.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes generateCampaignJSON() defined in campaign_exporter.js"
+        },
+        {
           "target": "src/workstation/scripts/canvas_hud.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -30591,12 +30765,6 @@
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes filterModules() defined in module_explorer.js"
-        },
-        {
-          "target": "src/workstation/scripts/stage_6_export.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes generateCampaignJSON() defined in stage_6_export.js"
         },
         {
           "target": "src/workstation/scripts/state_adapter.js",
@@ -30649,6 +30817,12 @@
           "reason": "References src/workstation/scripts/map_store.js"
         },
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes saveMapImageToDB() defined in map_store.js"
+        },
+        {
           "source": "src/workstation/scripts/canvas_hud.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -30680,12 +30854,6 @@
         },
         {
           "source": "src/workstation/scripts/selective_importer.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes saveMapImageToDB() defined in map_store.js"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes saveMapImageToDB() defined in map_store.js"
@@ -30815,6 +30983,12 @@
           "reason": "Invokes setTool() defined in cad_interaction.js"
         },
         {
+          "target": "src/workstation/scripts/campaign_exporter.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes importCampaignData() defined in campaign_exporter.js"
+        },
+        {
           "target": "src/workstation/scripts/entity_manager_ui.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -30867,12 +31041,6 @@
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes renderMdiOdvMatrix() defined in sociology_data.js"
-        },
-        {
-          "target": "src/workstation/scripts/stage_6_export.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes importCampaignData() defined in stage_6_export.js"
         },
         {
           "target": "src/workstation/scripts/state_adapter.js",
@@ -31057,10 +31225,10 @@
           "reason": "Invokes updatePropertiesGrid() defined in property_grid_inspector.js"
         },
         {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
+          "target": "src/workstation/scripts/supply_chain_simulator.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes auditAllSupplyLines() defined in stage_5_slotting.js"
+          "reason": "Invokes auditAllSupplyLines() defined in supply_chain_simulator.js"
         },
         {
           "target": "src/workstation/scripts/ticket_center.js",
@@ -31087,6 +31255,12 @@
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/module_explorer.js"
+        },
+        {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes syncCustomModulesToCatalog() defined in module_explorer.js"
         },
         {
           "source": "src/workstation/scripts/entity_cascade_delete.js",
@@ -31137,12 +31311,6 @@
           "reason": "Invokes syncCustomModulesToCatalog() defined in module_explorer.js"
         },
         {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes syncCustomModulesToCatalog() defined in module_explorer.js"
-        },
-        {
           "source": "src/workstation/scripts/state_adapter.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -31168,10 +31336,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "522068af272b54ce",
-      "reviewedHash": "522068af272b54ce",
-      "lineCount": 970,
-      "sizeBytes": 38472,
+      "hash": "6dc37213c87b58c0",
+      "reviewedHash": "6dc37213c87b58c0",
+      "lineCount": 983,
+      "sizeBytes": 39059,
       "symbols": [
         "uint8ArrayToDataUrl(bytes, mimeType)",
         "inferMimeType(fileName)",
@@ -31255,6 +31423,12 @@
       ],
       "inbound": [
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes dataUrlToUint8Array() defined in pack_engine.js"
+        },
+        {
           "source": "src/workstation/scripts/map_store.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -31265,12 +31439,6 @@
           "sourceType": "file",
           "type": "Bundles Source",
           "reason": "Inlines modular source during suite compilation"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes dataUrlToUint8Array() defined in pack_engine.js"
         },
         {
           "source": "src/workstation/template.html",
@@ -31438,16 +31606,16 @@
           "reason": "Invokes deriveCvfQuadrant() defined in sociology_data.js"
         },
         {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes isMaterialRequirement() defined in stage_5_slotting.js"
-        },
-        {
           "target": "src/workstation/scripts/state_adapter.js",
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes switchActiveMap() defined in state_adapter.js"
+        },
+        {
+          "target": "src/workstation/scripts/supply_chain_simulator.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes isMaterialRequirement() defined in supply_chain_simulator.js"
         },
         {
           "target": "src/workstation/scripts/ticket_center.js",
@@ -31492,6 +31660,12 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes selectNode() defined in property_grid_inspector.js"
+        },
+        {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes updatePropertiesGrid() defined in property_grid_inspector.js"
         },
         {
           "source": "src/workstation/scripts/canvas_hud.js",
@@ -31566,22 +31740,16 @@
           "reason": "Invokes selectNode() defined in property_grid_inspector.js"
         },
         {
-          "source": "src/workstation/scripts/stage_5_slotting.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes updatePropertiesGrid() defined in property_grid_inspector.js"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes updatePropertiesGrid() defined in property_grid_inspector.js"
-        },
-        {
           "source": "src/workstation/scripts/state_adapter.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes selectGlobal() defined in property_grid_inspector.js"
+        },
+        {
+          "source": "src/workstation/scripts/supply_chain_simulator.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes updatePropertiesGrid() defined in property_grid_inspector.js"
         },
         {
           "source": "src/workstation/scripts/wiki_engine.js",
@@ -32006,416 +32174,6 @@
       ]
     },
     {
-      "relPath": "src/workstation/scripts/stage_5_slotting.js",
-      "title": "stage_5_slotting.js",
-      "volume": "vol-4",
-      "kind": "Workstation Modular JS Engine",
-      "stale": false,
-      "hash": "1d47a45eeaf1c426",
-      "reviewedHash": "1d47a45eeaf1c426",
-      "lineCount": 1403,
-      "sizeBytes": 62056,
-      "symbols": [
-        "revealNode(nodeId)",
-        "shroudNode(nodeId)",
-        "toggleTier0Substratum(enabled)",
-        "initOptionGroupFilter()",
-        "initAncestryFilter()",
-        "initSourceFilter()",
-        "getSeveranceTick(nodeId, modId)",
-        "stepSeveranceTick(nodeId, modId, delta)",
-        "advanceSeveranceTurn()",
-        "isEdgeBlocked(u, v)",
-        "toggleEdgeBlocked(edgeKey)",
-        "isMaterialRequirement(req)",
-        "collectMapNetworkProvides(mapObj, startNodeId, context)",
-        "collectSubmapAllProvides(childMap, context)",
-        "checkModuleSupplyLine(nodeId, mod, context)",
-        "calculateRecommendationScore(nodeId, mod)",
-        "getBestModule(nid, filterFn)",
-        "getBestModuleForSet(nid, setPrefix)",
-        "checkNodeAdHocSupplyLine(nodeId, context)",
-        "parseResourceTag(str)",
-        "auditQuantitativeResourceBalances(nodesList)",
-        "checkCorridorBandwidth(edgeRecord, transmittedFlow)",
-        "auditAllSupplyLines()",
-        "setSlottingMode(mode)",
-        "renderStage5()",
-        "updateTargetNodeSidebar()",
-        "renderCatalogModules()",
-        "slotModule(nid, modId)",
-        "unslotModule(nid, modId)",
-        "slotEdgeModule(edgeKey, modId)",
-        "unslotEdgeModule(edgeKey, modId)",
-        "initResourceTagFilter()",
-        "initSourcebookFilter()",
-        "smartSlotAllNodes()"
-      ],
-      "globals": [
-        "slottingMode",
-        "targetSlottingEdgeId",
-        "blockedEdges",
-        "selectedCatalogSourcebook",
-        "selectedCatalogAncestry",
-        "selectedCatalogSource",
-        "selectedCatalogOptionGroup",
-        "moduleSeveranceClocks",
-        "slotNodeSelector",
-        "tierSelectEl",
-        "tagSelectEl",
-        "searchInputEl",
-        "recOnlyEl",
-        "btnSmartSlot",
-        "btnAutoSlot"
-      ],
-      "provides": [],
-      "requires": [],
-      "outbound": [
-        {
-          "target": "series_a_balancing_and_smothering_math",
-          "targetType": "series",
-          "type": "In Deep Series",
-          "reason": "Part of cross-cutting subsystem Series A: Pointcrawl Topological Mathematics & Network Centrality"
-        },
-        {
-          "target": "series_d_module_supply_chains_and_contracts",
-          "targetType": "series",
-          "type": "In Deep Series",
-          "reason": "Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) & Fallbacks"
-        },
-        {
-          "target": "src/workstation/template.html",
-          "targetType": "file",
-          "type": "Included By Template",
-          "reason": "Assembled into master Workstation template"
-        },
-        {
-          "target": "start.html",
-          "targetType": "file",
-          "type": "Compiles Into",
-          "reason": "Bundled into standalone offline workstation via build_suite.js"
-        },
-        {
-          "target": "src/workstation/scripts/cad_canvas_renderer.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes renderCanvas() defined in cad_canvas_renderer.js"
-        },
-        {
-          "target": "src/workstation/scripts/property_grid_inspector.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes updatePropertiesGrid() defined in property_grid_inspector.js"
-        },
-        {
-          "target": "src/workstation/scripts/state_adapter.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes getNode() defined in state_adapter.js"
-        },
-        {
-          "target": "src/workstation/scripts/workstation_state.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes pushHistoryState() defined in workstation_state.js"
-        }
-      ],
-      "inbound": [
-        {
-          "source": "series_a_balancing_and_smothering_math",
-          "sourceType": "series",
-          "type": "Series Component",
-          "reason": "Core file analyzed in Series A: Pointcrawl Topological Mathematics & Network Centrality"
-        },
-        {
-          "source": "series_b_scale_fluid_nested_cartography",
-          "sourceType": "series",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference"
-        },
-        {
-          "source": "series_d_module_supply_chains_and_contracts",
-          "sourceType": "series",
-          "type": "Series Component",
-          "reason": "Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) & Fallbacks"
-        },
-        {
-          "source": "series_e_zero_cors_compiler_and_agent_router",
-          "sourceType": "series",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference"
-        },
-        {
-          "source": "series_f_campaign_authoring_and_ip_conversion",
-          "sourceType": "series",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference"
-        },
-        {
-          "source": "series_g_duplicate_and_orphan_audit",
-          "sourceType": "series",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference"
-        },
-        {
-          "source": "CONTEXT.md",
-          "sourceType": "file",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference"
-        },
-        {
-          "source": "QUICKSTART.md",
-          "sourceType": "file",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference"
-        },
-        {
-          "source": "admin.html",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/stage_5_slotting.js"
-        },
-        {
-          "source": "docs/AI_DEVELOPER_GUIDE.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/stage_5_slotting.js"
-        },
-        {
-          "source": "docs/reviews/start_html_review_log.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/stage_5_slotting.js"
-        },
-        {
-          "source": "docs/srd/authoring_engine_srd.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/stage_5_slotting.js"
-        },
-        {
-          "source": "src/workstation/scripts/cad_canvas_renderer.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes checkNodeAdHocSupplyLine() defined in stage_5_slotting.js"
-        },
-        {
-          "source": "src/workstation/scripts/entity_manager_ui.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes slotEdgeModule() defined in stage_5_slotting.js"
-        },
-        {
-          "source": "src/workstation/scripts/module_explorer.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes auditAllSupplyLines() defined in stage_5_slotting.js"
-        },
-        {
-          "source": "src/workstation/scripts/property_grid_inspector.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes isMaterialRequirement() defined in stage_5_slotting.js"
-        },
-        {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Bundles Source",
-          "reason": "Inlines modular source during suite compilation"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes getSeveranceTick() defined in stage_5_slotting.js"
-        },
-        {
-          "source": "src/workstation/scripts/wiki_engine.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes renderCatalogModules() defined in stage_5_slotting.js"
-        },
-        {
-          "source": "src/workstation/template.html",
-          "sourceType": "file",
-          "type": "Template Include",
-          "reason": "Inlined via @@INCLUDE: scripts/stage_5_slotting.js @@"
-        }
-      ]
-    },
-    {
-      "relPath": "src/workstation/scripts/stage_6_export.js",
-      "title": "stage_6_export.js",
-      "volume": "vol-4",
-      "kind": "Workstation Modular JS Engine",
-      "stale": false,
-      "hash": "574d94dad09b67da",
-      "reviewedHash": "574d94dad09b67da",
-      "lineCount": 738,
-      "sizeBytes": 32203,
-      "symbols": [
-        "generateCampaignJSON()",
-        "generateCampaignMarkdown()",
-        "generateHydratedCampaignJSON()",
-        "renderStage6()",
-        "handleCampaignFileIngestion(file)",
-        "importCampaignData(data, sourceLabel = \"\")",
-        "executeExportCsmodPack()"
-      ],
-      "globals": [
-        "activeExportTab",
-        "tabJson",
-        "tabMd",
-        "btnCopyJson",
-        "btnDownloadJson",
-        "btnOpenExport"
-      ],
-      "provides": [],
-      "requires": [],
-      "outbound": [
-        {
-          "target": "src/workstation/template.html",
-          "targetType": "file",
-          "type": "Included By Template",
-          "reason": "Assembled into master Workstation template"
-        },
-        {
-          "target": "start.html",
-          "targetType": "file",
-          "type": "Compiles Into",
-          "reason": "Bundled into standalone offline workstation via build_suite.js"
-        },
-        {
-          "target": "src/workstation/scripts/cad_interaction.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes setTool() defined in cad_interaction.js"
-        },
-        {
-          "target": "src/workstation/scripts/canvas_hud.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes updateBreadcrumbsHUD() defined in canvas_hud.js"
-        },
-        {
-          "target": "src/workstation/scripts/entity_core.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes normalizeDemographics() defined in entity_core.js"
-        },
-        {
-          "target": "src/workstation/scripts/entity_manager_ui.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes renderEntityManagerTree() defined in entity_manager_ui.js"
-        },
-        {
-          "target": "src/workstation/scripts/layer_manager.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes getDefaultLayers() defined in layer_manager.js"
-        },
-        {
-          "target": "src/workstation/scripts/map_store.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes saveMapImageToDB() defined in map_store.js"
-        },
-        {
-          "target": "src/workstation/scripts/pack_engine.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes dataUrlToUint8Array() defined in pack_engine.js"
-        },
-        {
-          "target": "src/workstation/scripts/module_explorer.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes syncCustomModulesToCatalog() defined in module_explorer.js"
-        },
-        {
-          "target": "src/workstation/scripts/property_grid_inspector.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes updatePropertiesGrid() defined in property_grid_inspector.js"
-        },
-        {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes getSeveranceTick() defined in stage_5_slotting.js"
-        },
-        {
-          "target": "src/workstation/scripts/state_adapter.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes initMapsRegistry() defined in state_adapter.js"
-        },
-        {
-          "target": "src/workstation/scripts/wiki_engine.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes buildWikiIndex() defined in wiki_engine.js"
-        },
-        {
-          "target": "src/workstation/scripts/workstation_state.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes ensureEntityCollections() defined in workstation_state.js"
-        }
-      ],
-      "inbound": [
-        {
-          "source": "series_b_scale_fluid_nested_cartography",
-          "sourceType": "series",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_6_export.js]] reference"
-        },
-        {
-          "source": "admin.html",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/stage_6_export.js"
-        },
-        {
-          "source": "docs/AI_DEVELOPER_GUIDE.md",
-          "sourceType": "file",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:src/workstation/scripts/stage_6_export.js]] reference"
-        },
-        {
-          "source": "src/workstation/scripts/map_store.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes generateCampaignJSON() defined in stage_6_export.js"
-        },
-        {
-          "source": "src/workstation/scripts/mdi_window_manager.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes importCampaignData() defined in stage_6_export.js"
-        },
-        {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Bundles Source",
-          "reason": "Inlines modular source during suite compilation"
-        },
-        {
-          "source": "src/workstation/scripts/workstation_state.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes generateCampaignJSON() defined in stage_6_export.js"
-        },
-        {
-          "source": "src/workstation/template.html",
-          "sourceType": "file",
-          "type": "Template Include",
-          "reason": "Inlined via @@INCLUDE: scripts/stage_6_export.js @@"
-        }
-      ]
-    },
-    {
       "relPath": "src/workstation/scripts/state_adapter.js",
       "title": "state_adapter.js",
       "volume": "vol-4",
@@ -32593,6 +32351,12 @@
           "reason": "Invokes switchActiveMap() defined in state_adapter.js"
         },
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes initMapsRegistry() defined in state_adapter.js"
+        },
+        {
           "source": "src/workstation/scripts/canvas_hud.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -32659,16 +32423,10 @@
           "reason": "Invokes getNode() defined in state_adapter.js"
         },
         {
-          "source": "src/workstation/scripts/stage_5_slotting.js",
+          "source": "src/workstation/scripts/supply_chain_simulator.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes getNode() defined in state_adapter.js"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes initMapsRegistry() defined in state_adapter.js"
         },
         {
           "source": "src/workstation/scripts/wiki_engine.js",
@@ -32693,6 +32451,190 @@
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/state_adapter.js"
+        }
+      ]
+    },
+    {
+      "relPath": "src/workstation/scripts/supply_chain_simulator.js",
+      "title": "supply_chain_simulator.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "stale": false,
+      "hash": "1d47a45eeaf1c426",
+      "reviewedHash": "1d47a45eeaf1c426",
+      "lineCount": 1403,
+      "sizeBytes": 62056,
+      "symbols": [
+        "revealNode(nodeId)",
+        "shroudNode(nodeId)",
+        "toggleTier0Substratum(enabled)",
+        "initOptionGroupFilter()",
+        "initAncestryFilter()",
+        "initSourceFilter()",
+        "getSeveranceTick(nodeId, modId)",
+        "stepSeveranceTick(nodeId, modId, delta)",
+        "advanceSeveranceTurn()",
+        "isEdgeBlocked(u, v)",
+        "toggleEdgeBlocked(edgeKey)",
+        "isMaterialRequirement(req)",
+        "collectMapNetworkProvides(mapObj, startNodeId, context)",
+        "collectSubmapAllProvides(childMap, context)",
+        "checkModuleSupplyLine(nodeId, mod, context)",
+        "calculateRecommendationScore(nodeId, mod)",
+        "getBestModule(nid, filterFn)",
+        "getBestModuleForSet(nid, setPrefix)",
+        "checkNodeAdHocSupplyLine(nodeId, context)",
+        "parseResourceTag(str)",
+        "auditQuantitativeResourceBalances(nodesList)",
+        "checkCorridorBandwidth(edgeRecord, transmittedFlow)",
+        "auditAllSupplyLines()",
+        "setSlottingMode(mode)",
+        "renderStage5()",
+        "updateTargetNodeSidebar()",
+        "renderCatalogModules()",
+        "slotModule(nid, modId)",
+        "unslotModule(nid, modId)",
+        "slotEdgeModule(edgeKey, modId)",
+        "unslotEdgeModule(edgeKey, modId)",
+        "initResourceTagFilter()",
+        "initSourcebookFilter()",
+        "smartSlotAllNodes()"
+      ],
+      "globals": [
+        "slottingMode",
+        "targetSlottingEdgeId",
+        "blockedEdges",
+        "selectedCatalogSourcebook",
+        "selectedCatalogAncestry",
+        "selectedCatalogSource",
+        "selectedCatalogOptionGroup",
+        "moduleSeveranceClocks",
+        "slotNodeSelector",
+        "tierSelectEl",
+        "tagSelectEl",
+        "searchInputEl",
+        "recOnlyEl",
+        "btnSmartSlot",
+        "btnAutoSlot"
+      ],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "series_a_balancing_and_smothering_math",
+          "targetType": "series",
+          "type": "In Deep Series",
+          "reason": "Part of cross-cutting subsystem Series A: Pointcrawl Topological Mathematics & Network Centrality"
+        },
+        {
+          "target": "series_d_module_supply_chains_and_contracts",
+          "targetType": "series",
+          "type": "In Deep Series",
+          "reason": "Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) & Fallbacks"
+        },
+        {
+          "target": "src/workstation/template.html",
+          "targetType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "target": "src/workstation/scripts/cad_canvas_renderer.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderCanvas() defined in cad_canvas_renderer.js"
+        },
+        {
+          "target": "src/workstation/scripts/property_grid_inspector.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes updatePropertiesGrid() defined in property_grid_inspector.js"
+        },
+        {
+          "target": "src/workstation/scripts/state_adapter.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes getNode() defined in state_adapter.js"
+        },
+        {
+          "target": "src/workstation/scripts/workstation_state.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes pushHistoryState() defined in workstation_state.js"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "series_a_balancing_and_smothering_math",
+          "sourceType": "series",
+          "type": "Series Component",
+          "reason": "Core file analyzed in Series A: Pointcrawl Topological Mathematics & Network Centrality"
+        },
+        {
+          "source": "series_d_module_supply_chains_and_contracts",
+          "sourceType": "series",
+          "type": "Series Component",
+          "reason": "Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) & Fallbacks"
+        },
+        {
+          "source": "admin.html",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/supply_chain_simulator.js"
+        },
+        {
+          "source": "src/workstation/scripts/cad_canvas_renderer.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes checkNodeAdHocSupplyLine() defined in supply_chain_simulator.js"
+        },
+        {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes getSeveranceTick() defined in supply_chain_simulator.js"
+        },
+        {
+          "source": "src/workstation/scripts/entity_manager_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes slotEdgeModule() defined in supply_chain_simulator.js"
+        },
+        {
+          "source": "src/workstation/scripts/module_explorer.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes auditAllSupplyLines() defined in supply_chain_simulator.js"
+        },
+        {
+          "source": "src/workstation/scripts/property_grid_inspector.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes isMaterialRequirement() defined in supply_chain_simulator.js"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "source": "src/workstation/scripts/wiki_engine.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderCatalogModules() defined in supply_chain_simulator.js"
+        },
+        {
+          "source": "src/workstation/template.html",
+          "sourceType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/supply_chain_simulator.js @@"
         }
       ]
     },
@@ -32905,16 +32847,16 @@
           "reason": "Invokes selectNode() defined in property_grid_inspector.js"
         },
         {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes renderCatalogModules() defined in stage_5_slotting.js"
-        },
-        {
           "target": "src/workstation/scripts/state_adapter.js",
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes syncActiveMapToRegistry() defined in state_adapter.js"
+        },
+        {
+          "target": "src/workstation/scripts/supply_chain_simulator.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderCatalogModules() defined in supply_chain_simulator.js"
         }
       ],
       "inbound": [
@@ -32955,6 +32897,12 @@
           "reason": "References src/workstation/scripts/wiki_engine.js"
         },
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes buildWikiIndex() defined in wiki_engine.js"
+        },
+        {
           "source": "src/workstation/scripts/map_navigator.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -32962,12 +32910,6 @@
         },
         {
           "source": "src/workstation/scripts/property_grid_inspector.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes buildWikiIndex() defined in wiki_engine.js"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes buildWikiIndex() defined in wiki_engine.js"
@@ -33076,6 +33018,12 @@
           "reason": "Invokes initCanvasInteractions() defined in cad_interaction.js"
         },
         {
+          "target": "src/workstation/scripts/campaign_exporter.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes generateCampaignJSON() defined in campaign_exporter.js"
+        },
+        {
           "target": "src/workstation/scripts/canvas_hud.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -33110,12 +33058,6 @@
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes selectNode() defined in property_grid_inspector.js"
-        },
-        {
-          "target": "src/workstation/scripts/stage_6_export.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes generateCampaignJSON() defined in stage_6_export.js"
         },
         {
           "target": "src/workstation/scripts/state_adapter.js",
@@ -33258,6 +33200,12 @@
           "reason": "Invokes pushHistoryState() defined in workstation_state.js"
         },
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes ensureEntityCollections() defined in workstation_state.js"
+        },
+        {
           "source": "src/workstation/scripts/canvas_hud.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -33342,22 +33290,16 @@
           "reason": "Invokes resetWorkstationSlate() defined in workstation_state.js"
         },
         {
-          "source": "src/workstation/scripts/stage_5_slotting.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes pushHistoryState() defined in workstation_state.js"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes ensureEntityCollections() defined in workstation_state.js"
-        },
-        {
           "source": "src/workstation/scripts/state_adapter.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes resetWorkstationSlate() defined in workstation_state.js"
+        },
+        {
+          "source": "src/workstation/scripts/supply_chain_simulator.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes pushHistoryState() defined in workstation_state.js"
         },
         {
           "source": "src/workstation/scripts/ticket_center.js",
@@ -33564,10 +33506,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "372bb9ffef5d5689",
-      "reviewedHash": "372bb9ffef5d5689",
+      "hash": "a95f12ba933faecf",
+      "reviewedHash": "a95f12ba933faecf",
       "lineCount": 723,
-      "sizeBytes": 48101,
+      "sizeBytes": 48110,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -33718,10 +33660,10 @@
           "reason": "Inlined via @@INCLUDE: scripts/module_explorer.js @@"
         },
         {
-          "target": "src/workstation/scripts/stage_5_slotting.js",
+          "target": "src/workstation/scripts/supply_chain_simulator.js",
           "targetType": "file",
           "type": "Template Include",
-          "reason": "Inlined via @@INCLUDE: scripts/stage_5_slotting.js @@"
+          "reason": "Inlined via @@INCLUDE: scripts/supply_chain_simulator.js @@"
         },
         {
           "target": "src/workstation/scripts/ticket_center.js",
@@ -33736,10 +33678,10 @@
           "reason": "Inlined via @@INCLUDE: scripts/map_navigator.js @@"
         },
         {
-          "target": "src/workstation/scripts/stage_6_export.js",
+          "target": "src/workstation/scripts/campaign_exporter.js",
           "targetType": "file",
           "type": "Template Include",
-          "reason": "Inlined via @@INCLUDE: scripts/stage_6_export.js @@"
+          "reason": "Inlined via @@INCLUDE: scripts/campaign_exporter.js @@"
         },
         {
           "target": "src/workstation/scripts/selective_importer.js",
@@ -33948,6 +33890,12 @@
           "reason": "Assembled into master Workstation template"
         },
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
           "source": "src/workstation/scripts/canvas_hud.js",
           "sourceType": "file",
           "type": "Included By Template",
@@ -34044,19 +33992,13 @@
           "reason": "Assembled into master Workstation template"
         },
         {
-          "source": "src/workstation/scripts/stage_5_slotting.js",
-          "sourceType": "file",
-          "type": "Included By Template",
-          "reason": "Assembled into master Workstation template"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Included By Template",
-          "reason": "Assembled into master Workstation template"
-        },
-        {
           "source": "src/workstation/scripts/state_adapter.js",
+          "sourceType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "source": "src/workstation/scripts/supply_chain_simulator.js",
           "sourceType": "file",
           "type": "Included By Template",
           "reason": "Assembled into master Workstation template"
@@ -34093,10 +34035,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "caba002b5ab82a5b",
-      "reviewedHash": "caba002b5ab82a5b",
-      "lineCount": 44771,
-      "sizeBytes": 5986566,
+      "hash": "df96d1929bf7284f",
+      "reviewedHash": "df96d1929bf7284f",
+      "lineCount": 44879,
+      "sizeBytes": 5990616,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -34191,6 +34133,12 @@
         },
         {
           "target": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+          "targetType": "file",
+          "type": "Governing Spec",
+          "reason": "Authoritative specification for start.html"
+        },
+        {
+          "target": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
           "targetType": "file",
           "type": "Governing Spec",
           "reason": "Authoritative specification for start.html"
@@ -35380,6 +35328,12 @@
           "reason": "Bundled into standalone offline workstation via build_suite.js"
         },
         {
+          "source": "src/workstation/scripts/campaign_exporter.js",
+          "sourceType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
           "source": "src/workstation/scripts/canvas_hud.js",
           "sourceType": "file",
           "type": "Compiles Into",
@@ -35476,19 +35430,13 @@
           "reason": "Bundled into standalone offline workstation via build_suite.js"
         },
         {
-          "source": "src/workstation/scripts/stage_5_slotting.js",
-          "sourceType": "file",
-          "type": "Compiles Into",
-          "reason": "Bundled into standalone offline workstation via build_suite.js"
-        },
-        {
-          "source": "src/workstation/scripts/stage_6_export.js",
-          "sourceType": "file",
-          "type": "Compiles Into",
-          "reason": "Bundled into standalone offline workstation via build_suite.js"
-        },
-        {
           "source": "src/workstation/scripts/state_adapter.js",
+          "sourceType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "source": "src/workstation/scripts/supply_chain_simulator.js",
           "sourceType": "file",
           "type": "Compiles Into",
           "reason": "Bundled into standalone offline workstation via build_suite.js"
@@ -35990,10 +35938,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "7fe9961e3a167e2b",
-      "reviewedHash": "7fe9961e3a167e2b",
-      "lineCount": 4359,
-      "sizeBytes": 203159,
+      "hash": "47062fb948f3cee9",
+      "reviewedHash": "47062fb948f3cee9",
+      "lineCount": 4391,
+      "sizeBytes": 205110,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -37386,7 +37334,7 @@
     },
     {
       "name": "deleteEdge",
-      "signature": "deleteEdge(uId, vId, edgeType)",
+      "signature": "deleteEdge(uId, vId, edgeType, targetMapId = null)",
       "file": "src/workstation/scripts/cad_interaction.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -37424,6 +37372,48 @@
       "name": "initCanvasInteractions",
       "signature": "initCanvasInteractions()",
       "file": "src/workstation/scripts/cad_interaction.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "generateCampaignJSON",
+      "signature": "generateCampaignJSON()",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "generateCampaignMarkdown",
+      "signature": "generateCampaignMarkdown()",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "generateHydratedCampaignJSON",
+      "signature": "generateHydratedCampaignJSON()",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "renderStage6",
+      "signature": "renderStage6()",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "handleCampaignFileIngestion",
+      "signature": "handleCampaignFileIngestion(file)",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "importCampaignData",
+      "signature": "importCampaignData(data, sourceLabel = \"\")",
+      "file": "src/workstation/scripts/campaign_exporter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "executeExportCsmodPack",
+      "signature": "executeExportCsmodPack()",
+      "file": "src/workstation/scripts/campaign_exporter.js",
       "kind": "Workstation Modular JS Engine"
     },
     {
@@ -37951,6 +37941,12 @@
     {
       "name": "jumpToNodeMap",
       "signature": "jumpToNodeMap(mapId, nodeId)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "buildNodeDict",
+      "signature": "buildNodeDict(nodes)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -39665,252 +39661,6 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
-      "name": "revealNode",
-      "signature": "revealNode(nodeId)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "shroudNode",
-      "signature": "shroudNode(nodeId)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "toggleTier0Substratum",
-      "signature": "toggleTier0Substratum(enabled)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "initOptionGroupFilter",
-      "signature": "initOptionGroupFilter()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "initAncestryFilter",
-      "signature": "initAncestryFilter()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "initSourceFilter",
-      "signature": "initSourceFilter()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "getSeveranceTick",
-      "signature": "getSeveranceTick(nodeId, modId)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "stepSeveranceTick",
-      "signature": "stepSeveranceTick(nodeId, modId, delta)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "advanceSeveranceTurn",
-      "signature": "advanceSeveranceTurn()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "isEdgeBlocked",
-      "signature": "isEdgeBlocked(u, v)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "toggleEdgeBlocked",
-      "signature": "toggleEdgeBlocked(edgeKey)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "isMaterialRequirement",
-      "signature": "isMaterialRequirement(req)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "collectMapNetworkProvides",
-      "signature": "collectMapNetworkProvides(mapObj, startNodeId, context)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "collectSubmapAllProvides",
-      "signature": "collectSubmapAllProvides(childMap, context)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "checkModuleSupplyLine",
-      "signature": "checkModuleSupplyLine(nodeId, mod, context)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "calculateRecommendationScore",
-      "signature": "calculateRecommendationScore(nodeId, mod)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "getBestModule",
-      "signature": "getBestModule(nid, filterFn)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "getBestModuleForSet",
-      "signature": "getBestModuleForSet(nid, setPrefix)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "checkNodeAdHocSupplyLine",
-      "signature": "checkNodeAdHocSupplyLine(nodeId, context)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "parseResourceTag",
-      "signature": "parseResourceTag(str)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "auditQuantitativeResourceBalances",
-      "signature": "auditQuantitativeResourceBalances(nodesList)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "checkCorridorBandwidth",
-      "signature": "checkCorridorBandwidth(edgeRecord, transmittedFlow)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "auditAllSupplyLines",
-      "signature": "auditAllSupplyLines()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "setSlottingMode",
-      "signature": "setSlottingMode(mode)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "renderStage5",
-      "signature": "renderStage5()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "updateTargetNodeSidebar",
-      "signature": "updateTargetNodeSidebar()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "renderCatalogModules",
-      "signature": "renderCatalogModules()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "slotModule",
-      "signature": "slotModule(nid, modId)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "unslotModule",
-      "signature": "unslotModule(nid, modId)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "slotEdgeModule",
-      "signature": "slotEdgeModule(edgeKey, modId)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "unslotEdgeModule",
-      "signature": "unslotEdgeModule(edgeKey, modId)",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "initResourceTagFilter",
-      "signature": "initResourceTagFilter()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "initSourcebookFilter",
-      "signature": "initSourcebookFilter()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "smartSlotAllNodes",
-      "signature": "smartSlotAllNodes()",
-      "file": "src/workstation/scripts/stage_5_slotting.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "generateCampaignJSON",
-      "signature": "generateCampaignJSON()",
-      "file": "src/workstation/scripts/stage_6_export.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "generateCampaignMarkdown",
-      "signature": "generateCampaignMarkdown()",
-      "file": "src/workstation/scripts/stage_6_export.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "generateHydratedCampaignJSON",
-      "signature": "generateHydratedCampaignJSON()",
-      "file": "src/workstation/scripts/stage_6_export.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "renderStage6",
-      "signature": "renderStage6()",
-      "file": "src/workstation/scripts/stage_6_export.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "handleCampaignFileIngestion",
-      "signature": "handleCampaignFileIngestion(file)",
-      "file": "src/workstation/scripts/stage_6_export.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "importCampaignData",
-      "signature": "importCampaignData(data, sourceLabel = \"\")",
-      "file": "src/workstation/scripts/stage_6_export.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
-      "name": "executeExportCsmodPack",
-      "signature": "executeExportCsmodPack()",
-      "file": "src/workstation/scripts/stage_6_export.js",
-      "kind": "Workstation Modular JS Engine"
-    },
-    {
       "name": "initMapsRegistry",
       "signature": "initMapsRegistry(forceReset = false)",
       "file": "src/workstation/scripts/state_adapter.js",
@@ -40022,6 +39772,210 @@
       "name": "loadCampaignProjectPackage",
       "signature": "loadCampaignProjectPackage(rawPkg, options = {})",
       "file": "src/workstation/scripts/state_adapter.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "revealNode",
+      "signature": "revealNode(nodeId)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "shroudNode",
+      "signature": "shroudNode(nodeId)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "toggleTier0Substratum",
+      "signature": "toggleTier0Substratum(enabled)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "initOptionGroupFilter",
+      "signature": "initOptionGroupFilter()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "initAncestryFilter",
+      "signature": "initAncestryFilter()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "initSourceFilter",
+      "signature": "initSourceFilter()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getSeveranceTick",
+      "signature": "getSeveranceTick(nodeId, modId)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "stepSeveranceTick",
+      "signature": "stepSeveranceTick(nodeId, modId, delta)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "advanceSeveranceTurn",
+      "signature": "advanceSeveranceTurn()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "isEdgeBlocked",
+      "signature": "isEdgeBlocked(u, v)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "toggleEdgeBlocked",
+      "signature": "toggleEdgeBlocked(edgeKey)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "isMaterialRequirement",
+      "signature": "isMaterialRequirement(req)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "collectMapNetworkProvides",
+      "signature": "collectMapNetworkProvides(mapObj, startNodeId, context)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "collectSubmapAllProvides",
+      "signature": "collectSubmapAllProvides(childMap, context)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "checkModuleSupplyLine",
+      "signature": "checkModuleSupplyLine(nodeId, mod, context)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "calculateRecommendationScore",
+      "signature": "calculateRecommendationScore(nodeId, mod)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getBestModule",
+      "signature": "getBestModule(nid, filterFn)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getBestModuleForSet",
+      "signature": "getBestModuleForSet(nid, setPrefix)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "checkNodeAdHocSupplyLine",
+      "signature": "checkNodeAdHocSupplyLine(nodeId, context)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "parseResourceTag",
+      "signature": "parseResourceTag(str)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "auditQuantitativeResourceBalances",
+      "signature": "auditQuantitativeResourceBalances(nodesList)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "checkCorridorBandwidth",
+      "signature": "checkCorridorBandwidth(edgeRecord, transmittedFlow)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "auditAllSupplyLines",
+      "signature": "auditAllSupplyLines()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "setSlottingMode",
+      "signature": "setSlottingMode(mode)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "renderStage5",
+      "signature": "renderStage5()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "updateTargetNodeSidebar",
+      "signature": "updateTargetNodeSidebar()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "renderCatalogModules",
+      "signature": "renderCatalogModules()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "slotModule",
+      "signature": "slotModule(nid, modId)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "unslotModule",
+      "signature": "unslotModule(nid, modId)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "slotEdgeModule",
+      "signature": "slotEdgeModule(edgeKey, modId)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "unslotEdgeModule",
+      "signature": "unslotEdgeModule(edgeKey, modId)",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "initResourceTagFilter",
+      "signature": "initResourceTagFilter()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "initSourcebookFilter",
+      "signature": "initSourcebookFilter()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "smartSlotAllNodes",
+      "signature": "smartSlotAllNodes()",
+      "file": "src/workstation/scripts/supply_chain_simulator.js",
       "kind": "Workstation Modular JS Engine"
     },
     {

@@ -81,7 +81,7 @@ Before editing any file, consult this router to identify authoritative specifica
 - **Fast Scoped Search (Ripgrep)**: Run \`rg "<pattern>" .\` (automatically respects root \`.ignore\` and skips compiled distributions).
 - **Diff-Driven Context & Git State**: Run \`git status -s\` or \`git diff -U3 "<path>"\` for minimal-token change verification. Run \`git log -S "<symbol>" -p\` to trace historical changes without large file reads.
 - **Workstation UI / MDI / Canvas (\`start.html\`)**: Read \`docs/adr/0004-desktop-workstation-start-html.md\` and \`docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md\`. Edit \`src/workstation/scripts/*.js\` and \`src/workstation/template.html\`.
-- **Entities / Slotting / Module Explorer**: Read \`docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md\` and \`docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md\`. Edit \`src/workstation/scripts/entity_core.js\`, \`entity_manager_ui.js\`, \`entity_crud_dialogs.js\`, \`entity_cascade_delete.js\`, \`module_explorer.js\`, \`stage_5_slotting.js\`.
+- **Entities / Slotting / Module Explorer**: Read \`docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md\` and \`docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md\`. Edit \`src/workstation/scripts/entity_core.js\`, \`entity_manager_ui.js\`, \`entity_crud_dialogs.js\`, \`entity_cascade_delete.js\`, \`module_explorer.js\`, \`supply_chain_simulator.js\`.
 - **Campaign Presets & Worldbuilding Modules**: Read \`docs/srd/campaign_preset_specification_srd.md\`, \`docs/srd/ip_module_framework_srd.md\`, \`docs/srd/scenario_primitives_srd.md\`. Validate via \`powershell -File .\\campaigns\\Test-CampaignPackage.ps1\`.
 - **Multi-Scale Maps & In-App Wiki (\`[[Token]]\`)**: Read \`docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md\` and \`docs/AI_DEVELOPER_GUIDE.md\`. Edit \`src/workstation/scripts/state_adapter.js\`, \`map_navigator.js\`, \`wiki_engine.js\`.
 - **Git Architecture & Token Economy**: Read \`docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md\`.
@@ -117,6 +117,7 @@ Before editing any file, consult this router to identify authoritative specifica
 | \`docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md\` | server.js, server.ps1, loopback, zero-install | atomic-prose |
 | \`docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md\` | node explorer, dynamic svg stacking, desktop shell | atomic-prose |
 | \`docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md\` | git, diff, worktrees, token savings, atomic commits, node shim, ripgrep, unbounded read-ban, ast-inspection | atomic-prose |
+| \`docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md\` | edge explorer, conduits, dedicated flows, property grid mounting, scale-fluid corridors | atomic-prose |
 
 ## 5. Domain Terminology
 Always consult [\`CONTEXT.md\`](CONTEXT.md) for canonical terminology.

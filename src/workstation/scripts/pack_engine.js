@@ -76,6 +76,7 @@
 
     const remapId = (id) => (hasEntityRemaps && entityIdMap[id]) ? entityIdMap[id] : id;
     const remapArr = (arr) => Array.isArray(arr) ? arr.map(remapId) : arr;
+    const remapMapId = (id) => (hasMapRemaps && mapIdMap[id]) ? mapIdMap[id] : id;
 
     // Remap NPCs
     if (entities && Array.isArray(entities.npcs)) {
@@ -83,6 +84,7 @@
         if (!npc) continue;
         if (npc.questIds) npc.questIds = remapArr(npc.questIds);
         if (npc.itemIds) npc.itemIds = remapArr(npc.itemIds);
+        if (npc.submapId) npc.submapId = remapMapId(npc.submapId);
         if (Array.isArray(npc.relationships)) {
           for (const rel of npc.relationships) {
             if (rel && rel.targetNpcId) rel.targetNpcId = remapId(rel.targetNpcId);
@@ -99,6 +101,7 @@
         if (q.targetNpcId) q.targetNpcId = remapId(q.targetNpcId);
         if (q.giverNpcId) q.giverNpcId = remapId(q.giverNpcId);
         if (q.itemIds) q.itemIds = remapArr(q.itemIds);
+        if (q.submapId) q.submapId = remapMapId(q.submapId);
       }
     }
 
@@ -107,6 +110,15 @@
       for (const it of entities.items) {
         if (!it) continue;
         if (it.ownerNpcId) it.ownerNpcId = remapId(it.ownerNpcId);
+        if (it.submapId) it.submapId = remapMapId(it.submapId);
+      }
+    }
+
+    // Remap Trackers
+    if (entities && Array.isArray(entities.trackers)) {
+      for (const tr of entities.trackers) {
+        if (!tr) continue;
+        if (tr.submapId) tr.submapId = remapMapId(tr.submapId);
       }
     }
 
@@ -114,8 +126,9 @@
     if (submaps && typeof submaps === 'object') {
       for (const mId of Object.keys(submaps)) {
         const mapObj = submaps[mId];
-        if (mapObj && Array.isArray(mapObj.nodes)) {
-          for (const node of mapObj.nodes) {
+        if (mapObj && mapObj.nodes) {
+          const nodesList = Array.isArray(mapObj.nodes) ? mapObj.nodes : Object.values(mapObj.nodes);
+          for (const node of nodesList) {
             if (!node) continue;
             if (node.stationedNpcIds) node.stationedNpcIds = remapArr(node.stationedNpcIds);
             if (node.npcIds) node.npcIds = remapArr(node.npcIds);

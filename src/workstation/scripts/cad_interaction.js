@@ -1120,13 +1120,76 @@
       saveActiveCampaign();
     }
 
-    function deleteEdge(uId, vId, edgeType) {
-      const topo = Workstation.activeTopology;
-      if (!topo || !topo.nodes) return;
+    function deleteEdge(uId, vId, edgeType, targetMapId = null) {
+      const curId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
+      const isTargetingChildMap = targetMapId && targetMapId !== curId;
+      const mapDict = (typeof maps !== "undefined" && maps) ? maps : (Workstation.activeTopology && Workstation.activeTopology.maps ? Workstation.activeTopology.maps : {});
+
       const uKey = String(uId);
       const vKey = String(vId);
       const pairKey = [uKey, vKey].sort().join('-');
       const edgeKey = (edgeType === 'hegemony') ? `${uId}->${vId}` : pairKey;
+
+      if (isTargetingChildMap) {
+        const targetMap = mapDict[targetMapId];
+        if (!targetMap) return;
+
+        const findNode = (m, id) => {
+          const sId = String(id);
+          if (Array.isArray(m.nodes)) {
+            return m.nodes.find(n => n && String(n.id) === sId);
+          }
+          return m.nodes ? m.nodes[sId] : null;
+        };
+
+        const u = findNode(targetMap, uKey);
+        const v = findNode(targetMap, vKey);
+
+        if (edgeType === 'hegemony') {
+          if (v && v.infBy) {
+            v.infBy = v.infBy.filter(id => String(id) !== uKey);
+          }
+        } else {
+          if (u && u.adj) {
+            u.adj = u.adj.filter(id => String(id) !== vKey);
+          }
+          if (v && v.adj) {
+            v.adj = v.adj.filter(id => String(id) !== uKey);
+          }
+        }
+
+        if (Array.isArray(targetMap.links)) {
+          targetMap.links = targetMap.links.filter(l => {
+            if (!l) return false;
+            const lSource = String(l.source !== undefined ? l.source : l.u);
+            const lTarget = String(l.target !== undefined ? l.target : l.v);
+            const lKey = (edgeType === 'hegemony') ? `${lSource}->${lTarget}` : [lSource, lTarget].sort().join('-');
+            return lKey !== edgeKey && lKey !== pairKey;
+          });
+        }
+
+        if (targetMap.edgeData) {
+          delete targetMap.edgeData[edgeKey];
+          delete targetMap.edgeData[pairKey];
+        }
+        if (targetMap.edgeNotes) {
+          delete targetMap.edgeNotes[edgeKey];
+          delete targetMap.edgeNotes[pairKey];
+        }
+        if (targetMap.edgeSlottedModules) {
+          delete targetMap.edgeSlottedModules[edgeKey];
+          delete targetMap.edgeSlottedModules[pairKey];
+        }
+
+        if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        if (typeof setStatusBarMessage === 'function') {
+          setStatusBarMessage(`Deleted corridor on child map ${targetMap.name || targetMapId}: ${uId} -> ${vId}.`);
+        }
+        return;
+      }
+
+      const topo = Workstation.activeTopology;
+      if (!topo || !topo.nodes) return;
 
       if (typeof pushHistoryState === 'function') {
         pushHistoryState(`Sever ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'}: ${uId} -> ${vId}`);
@@ -1146,6 +1209,16 @@
         if (v && v.adj) {
           v.adj = v.adj.filter(id => String(id) !== uKey);
         }
+      }
+
+      if (Array.isArray(topo.links)) {
+        topo.links = topo.links.filter(l => {
+          if (!l) return false;
+          const lSource = String(l.source !== undefined ? l.source : l.u);
+          const lTarget = String(l.target !== undefined ? l.target : l.v);
+          const lKey = (edgeType === 'hegemony') ? `${lSource}->${lTarget}` : [lSource, lTarget].sort().join('-');
+          return lKey !== edgeKey && lKey !== pairKey;
+        });
       }
 
       if (topo.edgeData) {

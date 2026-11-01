@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/pack_engine.js"
 title: "pack_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "522068af272b54ce"
-reviewed_hash: "522068af272b54ce"
+current_hash: "6dc37213c87b58c0"
+reviewed_hash: "6dc37213c87b58c0"
 stale: false
-size_bytes: 38472
-line_count: 970
+size_bytes: 39059
+line_count: 983
 ---
 
 # pack_engine.js

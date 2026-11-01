@@ -627,30 +627,55 @@ async function executeExportCsmodPack() {
   const mapsToExport = {};
   mapsToExport[rootSubmapId] = targetMap;
 
-  // Collect nodes and entities
-  const mapNodes = Array.isArray(targetMap.nodes) ? targetMap.nodes : Object.values(targetMap.nodes || {});
-  const nodeIds = new Set(mapNodes.map(n => n.id));
+  // Collect all maps in hierarchy (root + recursive child maps) via BFS
+  const queue = [rootSubmapId];
+  const allExportedMapIds = new Set([rootSubmapId]);
 
-  // Check child submaps attached to portal nodes
-  for (const n of mapNodes) {
-    if (n.childMapId && allMaps[n.childMapId]) {
-      mapsToExport[n.childMapId] = allMaps[n.childMapId];
+  while (queue.length > 0) {
+    const curMid = queue.shift();
+    const curMap = mapsToExport[curMid];
+    if (!curMap) continue;
+    const curNodes = Array.isArray(curMap.nodes) ? curMap.nodes : Object.values(curMap.nodes || {});
+    for (const n of curNodes) {
+      if (n && n.childMapId && allMaps[n.childMapId] && !allExportedMapIds.has(n.childMapId)) {
+        allExportedMapIds.add(n.childMapId);
+        mapsToExport[n.childMapId] = allMaps[n.childMapId];
+        queue.push(n.childMapId);
+      }
+    }
+  }
+
+  // Collect node IDs across ALL exported maps
+  const allExportedNodeIds = new Set();
+  for (const mId of allExportedMapIds) {
+    const mMap = mapsToExport[mId];
+    if (mMap) {
+      const mNodes = Array.isArray(mMap.nodes) ? mMap.nodes : Object.values(mMap.nodes || {});
+      mNodes.forEach(n => {
+        if (n && n.id !== undefined) allExportedNodeIds.add(n.id);
+      });
     }
   }
 
   const entitiesToExport = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
   if (topo) {
+    const matchesMapScope = (e) => {
+      if (!e) return false;
+      if (allExportedNodeIds.has(e.nodeId)) return true;
+      if (e.submapId && allExportedMapIds.has(e.submapId)) return true;
+      return false;
+    };
     if (Array.isArray(topo.npcs)) {
-      entitiesToExport.npcs = topo.npcs.filter(npc => npc && (nodeIds.has(npc.nodeId) || (npc.submapId && npc.submapId === rootSubmapId)));
+      entitiesToExport.npcs = topo.npcs.filter(matchesMapScope);
     }
     if (Array.isArray(topo.quests)) {
-      entitiesToExport.quests = topo.quests.filter(q => q && (nodeIds.has(q.nodeId) || (q.submapId && q.submapId === rootSubmapId)));
+      entitiesToExport.quests = topo.quests.filter(matchesMapScope);
     }
     if (Array.isArray(topo.items)) {
-      entitiesToExport.items = topo.items.filter(it => it && (nodeIds.has(it.nodeId) || (it.submapId && it.submapId === rootSubmapId)));
+      entitiesToExport.items = topo.items.filter(matchesMapScope);
     }
     if (Array.isArray(topo.trackers)) {
-      entitiesToExport.trackers = topo.trackers.filter(tr => tr && (nodeIds.has(tr.nodeId) || (tr.submapId && tr.submapId === rootSubmapId)));
+      entitiesToExport.trackers = topo.trackers.filter(matchesMapScope);
     }
   }
 

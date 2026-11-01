@@ -122,7 +122,7 @@ const SERIES_LIST = [
     relatedFiles: [
       'docs/srd/authoring_engine_srd.md',
       'network/presets/blank_canvas.json',
-      'src/workstation/scripts/stage_5_slotting.js'
+      'src/workstation/scripts/supply_chain_simulator.js'
     ]
   },
   {
@@ -161,7 +161,7 @@ const SERIES_LIST = [
     relatedFiles: [
       'docs/adr/0002-dual-srd-and-tiered-module-architecture.md',
       'docs/srd/tier_0_substratum_srd.md',
-      'src/workstation/scripts/stage_5_slotting.js',
+      'src/workstation/scripts/supply_chain_simulator.js',
       'src/workstation/scripts/module_explorer.js',
       'src/workstation/scripts/entity_core.js',
       'src/workstation/scripts/entity_manager_ui.js',

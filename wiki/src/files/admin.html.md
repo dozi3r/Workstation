@@ -3,10 +3,10 @@ file_path: "admin.html"
 title: "Creator Studio — Master Administrative Directory & Surface Catalog"
 volume: "vol-1"
 kind: "Standalone Zero-CORS HTML Workstation"
-current_hash: "a9e90295bb04feb4"
-reviewed_hash: "a9e90295bb04feb4"
+current_hash: "b34f774512574b87"
+reviewed_hash: "b34f774512574b87"
 stale: false
-size_bytes: 28824
+size_bytes: 28861
 line_count: 554
 ---
 

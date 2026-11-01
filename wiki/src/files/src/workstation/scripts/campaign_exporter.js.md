@@ -1,16 +1,16 @@
 ---
-file_path: "src/workstation/scripts/stage_6_export.js"
-title: "stage_6_export.js"
+file_path: "src/workstation/scripts/campaign_exporter.js"
+title: "campaign_exporter.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "574d94dad09b67da"
-reviewed_hash: "574d94dad09b67da"
+current_hash: "bc5a566615443fa6"
+reviewed_hash: "bc5a566615443fa6"
 stale: false
-size_bytes: 32203
-line_count: 738
+size_bytes: 32821
+line_count: 763
 ---
 
-# stage_6_export.js
+# campaign_exporter.js
 
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role
