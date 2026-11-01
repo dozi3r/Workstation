@@ -1,0 +1,239 @@
+{
+  "project": "Tier 0: Baseline Settlement Substratum",
+  "version": "1.0.0",
+  "last_updated": "2026-10-21T00:02:27.124Z",
+  "domains": [
+    {
+      "id": "DOM-01",
+      "name": "Food & Caloric Subsistence",
+      "icon": "🌾",
+      "desc": "Dryland crop rotation, root cellars, foraging perimeters, livestock calories."
+    },
+    {
+      "id": "DOM-02",
+      "name": "Water & Hydrology",
+      "icon": "💧",
+      "desc": "Artesian wells, snowmelt flumes, communal cisterns, gravity head flow."
+    },
+    {
+      "id": "DOM-03",
+      "name": "Shelter & Civic Municipal",
+      "icon": "🪵",
+      "desc": "Vernacular timber framing, stone masonry, thatch weatherproofing, hearth soot."
+    },
+    {
+      "id": "DOM-04",
+      "name": "Peacekeeping & Perimeter Defense",
+      "icon": "🛡️",
+      "desc": "Ditch-and-palisade, communal militia bailiff, gate alarm horns."
+    },
+    {
+      "id": "DOM-05",
+      "name": "Trade, Barter & Mundane Craft",
+      "icon": "⚒️",
+      "desc": "Village smithy, copper barter squares, horse shoes, tool repair."
+    },
+    {
+      "id": "DOM-06",
+      "name": "Health, Folk Medicine & Midwifery",
+      "icon": "🌿",
+      "desc": "Herbal leachcraft, fever willow teas, bone setting, quarantine huts."
+    },
+    {
+      "id": "DOM-07",
+      "name": "Waste, Drainage & Sanitation",
+      "icon": "🐖",
+      "desc": "Midden trenches, scavenger swine, night-soil pits, cholera prevention."
+    },
+    {
+      "id": "DOM-08",
+      "name": "Folklore, Shrine & Communal Rites",
+      "icon": "🕯️",
+      "desc": "Wayside boundary shrines, hearth vigils, seasonal taboos, funeral cairns."
+    }
+  ],
+  "notes": [
+    {
+      "file": "01_caloric_and_water_scaffolding.md",
+      "path": "tickets/tier_0/notes/01_caloric_and_water_scaffolding.md",
+      "title": "Caloric & Water Scaffolding for Tabletop Worldbuilding",
+      "domain": "DOM-01 Food & DOM-02 Water",
+      "type": "Research & Design Note",
+      "status": "in_research",
+      "preview": "01: Caloric & Water Scaffolding for Tabletop Worldbuilding\n\n 1. The Core Numbers (Rule of Thumb for GMs)\nTo give GMs believable verisimilitude without turning tabletop into an accounting spreadshe",
+      "raw_markdown": "---\ntitle: \"Caloric & Water Scaffolding for Tabletop Worldbuilding\"\nauthor: \"Creator Studio Architecture\"\ndomain: \"DOM-01 Food & DOM-02 Water\"\ntype: \"Research & Design Note\"\nstatus: \"in_research\"\n---\n\n# 01: Caloric & Water Scaffolding for Tabletop Worldbuilding\n\n## 1. The Core Numbers (Rule of Thumb for GMs)\nTo give GMs believable verisimilitude without turning tabletop into an accounting spreadsheet:\n\n1. **Daily Caloric Threshold**:\n   * Average human: **2,000–2,500 kcal/day** (~1–1.5 lbs of dense grain bread, dried peas, or porridge).\n   * Manual laborer / soldier / traveler: **3,000–3,500 kcal/day**.\n2. **Daily Water Threshold**:\n   * Survival minimum: **2 liters/day**.\n   * Functional baseline (drinking, pot cooking, minimal wash): **8–10 liters/day** per adult.\n   * Work beast (ox, mule, warhorse): **30–50 liters/day**.\n\n## 2. The Agrarian Radius\n* A standard pre-industrial settlement feeds itself from an agricultural radius extending **1 to 3 miles** from its perimeter.\n* Beyond 3 miles, hauling manure and grain by ox-cart consumes a non-trivial percentage of the food being transported.\n* This explains why Pointcrawl **Satellite Nodes** exist around a **Sovereign Hub**: the Hub cannot grow its own calories within its walls and must extract food along transit edges.\n\n## 3. The Seasonal \"Hunger Gap\"\n* Tabletop fantasy often treats food as constant. Historically, pre-industrial societies experienced the **Hunger Gap** in late spring:\n  * Grain stores from last autumn are nearly empty or spoiling with weevils.\n  * Winter crops are eaten, but spring crops have not yet matured.\n* This creates an incredible narrative hook for mid-campaign adventures: tension, bread riots, hoarding, and desperate foraging.\n",
+      "file_url": "tickets/tier_0/notes/01_caloric_and_water_scaffolding.md"
+    },
+    {
+      "file": "02_settlement_scale_and_carrying_capacity.md",
+      "path": "tickets/tier_0/notes/02_settlement_scale_and_carrying_capacity.md",
+      "title": "Settlement Scales & Carrying Capacity in Pointcrawl Networks",
+      "domain": "DOM-03 Shelter & Civic Municipal",
+      "type": "Research & Design Note",
+      "status": "in_research",
+      "preview": "02: Settlement Scales & Carrying Capacity in Pointcrawl Networks\n\n 1. Settlement Hierarchy\n\n| Scale Tier | Population | Mundane Substratum Infrastructure | Pointcrawl Graph Role |\n| :--- | :--- |",
+      "raw_markdown": "---\ntitle: \"Settlement Scales & Carrying Capacity in Pointcrawl Networks\"\nauthor: \"Creator Studio Architecture\"\ndomain: \"DOM-03 Shelter & Civic Municipal\"\ntype: \"Research & Design Note\"\nstatus: \"in_research\"\n---\n\n# 02: Settlement Scales & Carrying Capacity in Pointcrawl Networks\n\n## 1. Settlement Hierarchy\n\n| Scale Tier | Population | Mundane Substratum Infrastructure | Pointcrawl Graph Role |\n| :--- | :--- | :--- | :--- |\n| **Thorp** | 20–60 | 1 communal artesian well, perimeter gardens, 1 woodcutter / herbalist | Minor Waypoint / Hazard Edge Anchor |\n| **Hamlet** | 60–250 | 3-field crop rotation, communal smithy, flour mill, ditch-and-palisade | Satellite Node (3 Sockets) |\n| **Village** | 250–1,000 | Weekly barter square, dedicated watch bailiff, parish chapel, craft shops | Major Satellite / Secondary Trade Anchor |\n| **Market Town** | 1,000–5,000 | Stone walls, guild halls, regional grain silos, formal magistrates | Buffer Sovereign / Regional Bastion |\n| **Sovereign Hub**| 5,000–25,000+ | Monumental palaces, aqueducts, standing garrison, specialized academies | Sovereign Hub (4 Sockets) |\n\n## 2. Supply Hop Dependencies\n* **Thorps and Hamlets** are 100% self-sufficient for basic survival (Tier 0), but generate zero industrial surplus.\n* **Sovereign Hubs** run a permanent calorie deficit:\n  * A 10,000-person Hub requires at least **3 to 4 connected Satellite Nodes** dedicated to agriculture, fisheries, or timber.\n  * If an enemy faction blockades or severs a single transit edge, the Sovereign Hub begins ticking its **Threat Clock** within 2 campaign turns.\n",
+      "file_url": "tickets/tier_0/notes/02_settlement_scale_and_carrying_capacity.md"
+    },
+    {
+      "file": "03_smooth_generic_vs_granular_modularity_rules.md",
+      "path": "tickets/tier_0/notes/03_smooth_generic_vs_granular_modularity_rules.md",
+      "title": "Smooth Generic vs Granular Modularity: Technical Rules of Engagement",
+      "domain": "Cross-Cutting System Architecture",
+      "type": "Architectural Rule Specification",
+      "status": "in_research",
+      "preview": "03: Smooth Generic vs Granular Modularity: Technical Rules of Engagement\n\n 1. The Core Principle\n> **\"Never force the GM to think about mundane infrastructure unless a crisis makes it dramatic.\"**",
+      "raw_markdown": "---\ntitle: \"Smooth Generic vs Granular Modularity: Technical Rules of Engagement\"\nauthor: \"Creator Studio Architecture\"\ndomain: \"Cross-Cutting System Architecture\"\ntype: \"Architectural Rule Specification\"\nstatus: \"in_research\"\n---\n\n# 03: Smooth Generic vs Granular Modularity: Technical Rules of Engagement\n\n## 1. The Core Principle\n> **\"Never force the GM to think about mundane infrastructure unless a crisis makes it dramatic.\"**\n\n## 2. Technical Implementation in Simulation Engines\n\n### Mode A: Smooth Generic\n* In `campaign_studio.html` and `Run-NetworkEngine.ps1`, when `enable_tier_0_substratum: true`:\n  * Every node with node type `Settlement`, `Hub`, or `Outpost` has its baseline `Food:`, `Water:`, and `Shelter:` flags satisfied implicitly.\n  * No warning badges are thrown for missing low-level survival resources.\n  * The recommendation engine prioritizes high-concept Tier 1–5 modules (alchemy, bastions, leylines, politics).\n\n### Mode B: Granular Modularity\n* When `enable_tier_0_substratum: false` (or set to \"Granular / Survival Mode\"):\n  * Settlements require explicit Tier 2/3 food and water modules within reachability distance ($k \\le 2$ graph hops).\n  * Nodes lacking food or water trigger active **Starvation / Drought Clocks**.\n  * GMs can socket specific Tier 0 templates (e.g. `T0-DOM-01` or `T0-DOM-02`) directly into node auxiliary sockets.\n",
+      "file_url": "tickets/tier_0/notes/03_smooth_generic_vs_granular_modularity_rules.md"
+    }
+  ],
+  "tickets": [
+    {
+      "file": "T0-DOM-01_subsistence_agrarian_perimeter_root_cellars.md",
+      "path": "tickets/tier_0/tickets/T0-DOM-01_subsistence_agrarian_perimeter_root_cellars.md",
+      "id": "T0-DOM-01",
+      "domain": "DOM-01 Food & Caloric Subsistence",
+      "title": "Subsistence Agrarian Perimeter & Root Cellars",
+      "scale": "Hamlet / Village",
+      "status": "shipped",
+      "provides": [
+        "Food: Baseline-Subsistence-Rations"
+      ],
+      "requires": [
+        "Geography: Arable-Perimeter-Soil"
+      ],
+      "preview": "T0-DOM-01: Subsistence Agrarian Perimeter & Root Cellars\n*Domain: DOM-01 Food & Caloric Subsistence | Scale: Hamlet / Village*\n*Status: ready_for_spec*\n\n---\n\n 1. Baseline Concept & Mundane Reality",
+      "raw_markdown": "---\nid: T0-DOM-01\ndomain: \"DOM-01 Food & Caloric Subsistence\"\ntitle: \"Subsistence Agrarian Perimeter & Root Cellars\"\nscale: \"Hamlet / Village\"\nstatus: \"shipped\"\nmode_support: \"Both (Implicit Default + Granular Socket)\"\nprovides: [\"Food: Baseline-Subsistence-Rations\"]\nrequires: [\"Geography: Arable-Perimeter-Soil\"]\n---\n\n# T0-DOM-01: Subsistence Agrarian Perimeter & Root Cellars\n*Domain: DOM-01 Food & Caloric Subsistence | Scale: Hamlet / Village*\n*Status: ready_for_spec*\n\n---\n\n## 1. Baseline Concept & Mundane Reality\nDryland crop rotation, cabbage patches, communal threshing floors, and subterranean root storage keeping 200–500 souls alive through winter.\n\n---\n\n## 2. Smooth Generic Mode (\"Checkbox Through\")\n* Automatically satisfies baseline calorie needs for up to 500 inhabitants. Ambient stability +1.\n* When \"Enable Baseline Substratum: ON\" is set, all settlement nodes receive this benefit implicitly with zero GM bookkeeping.\n\n---\n\n## 3. Granular Modularity Mode (Deep Authoring)\n\n### 4-Level Vulnerability & Crisis Dial\n* Level 1 (Bountiful): Full winter root cellars; lard and salt-pork surplus.\n* Level 2 (Normal): Standard 2,000 kcal rations; porridge, bread, cabbage.\n* Level 3 (Lean): Spring hunger gap; rations halved; wild greens foraging.\n* Level 4 (Famine): Grain seed-corn eaten; draft beasts slaughtered; starvation checks.\n\n### Resource Flow Contract\n* **Provides:** `Food: Baseline-Subsistence-Rations`\n* **Requires:** `Geography: Arable-Perimeter-Soil`\n\n---\n\n## 4. GM Adventure Hooks & Crises\n* **Hook 1 (Local Tension):** A vital component breaks, forcing players to mediate an internal clan dispute or seek replacement parts from a neighboring satellite.\n* **Hook 2 (Vulnerability to High-Concept Threat):** A Tier 1–5 macro faction targets this mundane system, turning a simple supply outage into an existential countdown.\n",
+      "file_url": "tickets/tier_0/tickets/T0-DOM-01_subsistence_agrarian_perimeter_root_cellars.md"
+    },
+    {
+      "file": "T0-DOM-02_communal_artesian_well_village_cistern.md",
+      "path": "tickets/tier_0/tickets/T0-DOM-02_communal_artesian_well_village_cistern.md",
+      "id": "T0-DOM-02",
+      "domain": "DOM-02 Water & Hydrology",
+      "title": "Communal Artesian Well & Village Cistern",
+      "scale": "All Settlement Scales",
+      "status": "shipped",
+      "provides": [
+        "Water: Baseline-Potable-Well-Head"
+      ],
+      "requires": [
+        "Geography: Subterranean-Aquifer-Seep"
+      ],
+      "preview": "T0-DOM-02: Communal Artesian Well & Village Cistern\n*Domain: DOM-02 Water & Hydrology | Scale: All Settlement Scales*\n*Status: ready_for_spec*\n\n---\n\n 1. Baseline Concept & Mundane Reality\nDeep sto",
+      "raw_markdown": "---\nid: T0-DOM-02\ndomain: \"DOM-02 Water & Hydrology\"\ntitle: \"Communal Artesian Well & Village Cistern\"\nscale: \"All Settlement Scales\"\nstatus: \"shipped\"\nmode_support: \"Both (Implicit Default + Granular Socket)\"\nprovides: [\"Water: Baseline-Potable-Well-Head\"]\nrequires: [\"Geography: Subterranean-Aquifer-Seep\"]\n---\n\n# T0-DOM-02: Communal Artesian Well & Village Cistern\n*Domain: DOM-02 Water & Hydrology | Scale: All Settlement Scales*\n*Status: ready_for_spec*\n\n---\n\n## 1. Baseline Concept & Mundane Reality\nDeep stone-lined artesian well with bucket windlass and communal rain collection cistern providing safe, year-round potable drinking water.\n\n---\n\n## 2. Smooth Generic Mode (\"Checkbox Through\")\n* Prevents settlement water stress under non-catastrophic climate conditions.\n* When \"Enable Baseline Substratum: ON\" is set, all settlement nodes receive this benefit implicitly with zero GM bookkeeping.\n\n---\n\n## 3. Granular Modularity Mode (Deep Authoring)\n\n### 4-Level Vulnerability & Crisis Dial\n* Level 1 (Abundant): Cold sweet water; cattle trough overflowing; stone wash house active.\n* Level 2 (Normal): Standard well draw; 8 gallons daily per hearth.\n* Level 3 (Brackish/Drought): Water table drops; bucket scrapes mud; cloudy mineral taste.\n* Level 4 (Tainted/Dry): Well poisoned or dry; typhoid outbreak; population forced to migrate.\n\n### Resource Flow Contract\n* **Provides:** `Water: Baseline-Potable-Well-Head`\n* **Requires:** `Geography: Subterranean-Aquifer-Seep`\n\n---\n\n## 4. GM Adventure Hooks & Crises\n* **Hook 1 (Local Tension):** A vital component breaks, forcing players to mediate an internal clan dispute or seek replacement parts from a neighboring satellite.\n* **Hook 2 (Vulnerability to High-Concept Threat):** A Tier 1–5 macro faction targets this mundane system, turning a simple supply outage into an existential countdown.\n",
+      "file_url": "tickets/tier_0/tickets/T0-DOM-02_communal_artesian_well_village_cistern.md"
+    },
+    {
+      "file": "T0-DOM-03_vernacular_timber_wattle_stone_masonry.md",
+      "path": "tickets/tier_0/tickets/T0-DOM-03_vernacular_timber_wattle_stone_masonry.md",
+      "id": "T0-DOM-03",
+      "domain": "DOM-03 Shelter & Civic Municipal",
+      "title": "Vernacular Timber, Wattle & Stone Masonry",
+      "scale": "Hamlet / Village / Market Town",
+      "status": "shipped",
+      "provides": [
+        "Shelter: Weatherproof-Civic-Fabric"
+      ],
+      "requires": [
+        "Material: Local-Timber-and-Clay"
+      ],
+      "preview": "T0-DOM-03: Vernacular Timber, Wattle & Stone Masonry\n*Domain: DOM-03 Shelter & Civic Municipal | Scale: Hamlet / Village / Market Town*\n*Status: ready_for_spec*\n\n---\n\n 1. Baseline Concept & Mundan",
+      "raw_markdown": "---\nid: T0-DOM-03\ndomain: \"DOM-03 Shelter & Civic Municipal\"\ntitle: \"Vernacular Timber, Wattle & Stone Masonry\"\nscale: \"Hamlet / Village / Market Town\"\nstatus: \"shipped\"\nmode_support: \"Both (Implicit Default + Granular Socket)\"\nprovides: [\"Shelter: Weatherproof-Civic-Fabric\"]\nrequires: [\"Material: Local-Timber-and-Clay\"]\n---\n\n# T0-DOM-03: Vernacular Timber, Wattle & Stone Masonry\n*Domain: DOM-03 Shelter & Civic Municipal | Scale: Hamlet / Village / Market Town*\n*Status: ready_for_spec*\n\n---\n\n## 1. Baseline Concept & Mundane Reality\nLocally sourced wattle-and-daub cottages, split-timber cabins, or slate stone masonry protecting against frost, wind, and predators.\n\n---\n\n## 2. Smooth Generic Mode (\"Checkbox Through\")\n* Ensures weather protection and restful sleep for inhabitants without tracking building materials.\n* When \"Enable Baseline Substratum: ON\" is set, all settlement nodes receive this benefit implicitly with zero GM bookkeeping.\n\n---\n\n## 3. Granular Modularity Mode (Deep Authoring)\n\n### 4-Level Vulnerability & Crisis Dial\n* Level 1 (Solid): Dry thatched roofs, glazed windows, hearth flue drafts cleanly.\n* Level 2 (Weathered): Minor roof leaks, drafty walls, soot on beams.\n* Level 3 (Dilapidated): Collapsed timbers, leaking straw, hypothermia risk in rain.\n* Level 4 (Blaze/Ruin): Fire sweeps through timber quarter; 50% left homeless in winter.\n\n### Resource Flow Contract\n* **Provides:** `Shelter: Weatherproof-Civic-Fabric`\n* **Requires:** `Material: Local-Timber-and-Clay`\n\n---\n\n## 4. GM Adventure Hooks & Crises\n* **Hook 1 (Local Tension):** A vital component breaks, forcing players to mediate an internal clan dispute or seek replacement parts from a neighboring satellite.\n* **Hook 2 (Vulnerability to High-Concept Threat):** A Tier 1–5 macro faction targets this mundane system, turning a simple supply outage into an existential countdown.\n",
+      "file_url": "tickets/tier_0/tickets/T0-DOM-03_vernacular_timber_wattle_stone_masonry.md"
+    },
+    {
+      "file": "T0-DOM-04_ditch_and_palisade_with_town_watch_bailiff.md",
+      "path": "tickets/tier_0/tickets/T0-DOM-04_ditch_and_palisade_with_town_watch_bailiff.md",
+      "id": "T0-DOM-04",
+      "domain": "DOM-04 Peacekeeping & Perimeter Defense",
+      "title": "Ditch-and-Palisade with Town Watch Bailiff",
+      "scale": "Village / Market Town",
+      "status": "shipped",
+      "provides": [
+        "Defense: Local-Palisade-and-Watch"
+      ],
+      "requires": [
+        "Material: Hewn-Log-Stakes",
+        "Social: Able-Bodied-Militia"
+      ],
+      "preview": "T0-DOM-04: Ditch-and-Palisade with Town Watch Bailiff\n*Domain: DOM-04 Peacekeeping & Perimeter Defense | Scale: Village / Market Town*\n*Status: ready_for_spec*\n\n---\n\n 1. Baseline Concept & Mundane",
+      "raw_markdown": "---\nid: T0-DOM-04\ndomain: \"DOM-04 Peacekeeping & Perimeter Defense\"\ntitle: \"Ditch-and-Palisade with Town Watch Bailiff\"\nscale: \"Village / Market Town\"\nstatus: \"shipped\"\nmode_support: \"Both (Implicit Default + Granular Socket)\"\nprovides: [\"Defense: Local-Palisade-and-Watch\"]\nrequires: [\"Material: Hewn-Log-Stakes\", \"Social: Able-Bodied-Militia\"]\n---\n\n# T0-DOM-04: Ditch-and-Palisade with Town Watch Bailiff\n*Domain: DOM-04 Peacekeeping & Perimeter Defense | Scale: Village / Market Town*\n*Status: ready_for_spec*\n\n---\n\n## 1. Baseline Concept & Mundane Reality\nSharpened wooden stake palisade, earthen ditch embankment, heavy timber gate, and a roster of 12 local militia armed with bills and hunting bows.\n\n---\n\n## 2. Smooth Generic Mode (\"Checkbox Through\")\n* Deters roving wild beasts, petty bandits, and unorganized raiders (CR 1/8 to 1/2).\n* When \"Enable Baseline Substratum: ON\" is set, all settlement nodes receive this benefit implicitly with zero GM bookkeeping.\n\n---\n\n## 3. Granular Modularity Mode (Deep Authoring)\n\n### 4-Level Vulnerability & Crisis Dial\n* Level 1 (Vigilant): Gate barred at sundown; watch horn signals every 2 hours.\n* Level 2 (Routine): Sleepy watchman at gate; occasional contraband smuggled in.\n* Level 3 (Breached): Rotted palisade stakes; night raiders slip in through gaps.\n* Level 4 (Overrun): Gatehouse torched; bailiff slain; settlement plundered.\n\n### Resource Flow Contract\n* **Provides:** `Defense: Local-Palisade-and-Watch`\n* **Requires:** `Material: Hewn-Log-Stakes, Social: Able-Bodied-Militia`\n\n---\n\n## 4. GM Adventure Hooks & Crises\n* **Hook 1 (Local Tension):** A vital component breaks, forcing players to mediate an internal clan dispute or seek replacement parts from a neighboring satellite.\n* **Hook 2 (Vulnerability to High-Concept Threat):** A Tier 1–5 macro faction targets this mundane system, turning a simple supply outage into an existential countdown.\n",
+      "file_url": "tickets/tier_0/tickets/T0-DOM-04_ditch_and_palisade_with_town_watch_bailiff.md"
+    },
+    {
+      "file": "T0-DOM-05_weekly_barter_square_village_blacksmith.md",
+      "path": "tickets/tier_0/tickets/T0-DOM-05_weekly_barter_square_village_blacksmith.md",
+      "id": "T0-DOM-05",
+      "domain": "DOM-05 Trade, Barter & Mundane Craft",
+      "title": "Weekly Barter Square & Village Blacksmith",
+      "scale": "Village / Market Town",
+      "status": "shipped",
+      "provides": [
+        "Economy: Baseline-Mundane-Smithy-and-Trade"
+      ],
+      "requires": [
+        "Material: Scrap-Iron-Billets",
+        "Fuel: Hardwood-Charcoal"
+      ],
+      "preview": "T0-DOM-05: Weekly Barter Square & Village Blacksmith\n*Domain: DOM-05 Trade, Barter & Mundane Craft | Scale: Village / Market Town*\n*Status: ready_for_spec*\n\n---\n\n 1. Baseline Concept & Mundane Rea",
+      "raw_markdown": "---\nid: T0-DOM-05\ndomain: \"DOM-05 Trade, Barter & Mundane Craft\"\ntitle: \"Weekly Barter Square & Village Blacksmith\"\nscale: \"Village / Market Town\"\nstatus: \"shipped\"\nmode_support: \"Both (Implicit Default + Granular Socket)\"\nprovides: [\"Economy: Baseline-Mundane-Smithy-and-Trade\"]\nrequires: [\"Material: Scrap-Iron-Billets\", \"Fuel: Hardwood-Charcoal\"]\n---\n\n# T0-DOM-05: Weekly Barter Square & Village Blacksmith\n*Domain: DOM-05 Trade, Barter & Mundane Craft | Scale: Village / Market Town*\n*Status: ready_for_spec*\n\n---\n\n## 1. Baseline Concept & Mundane Reality\nCharcoal forge shaping plowshares, scythes, and horse shoes alongside a weekly open-air barter market trading butter, eggs, homespun cloth, and copper bits.\n\n---\n\n## 2. Smooth Generic Mode (\"Checkbox Through\")\n* Supplies basic equipment repairs, draft animal shoeing, and mundane gear replenishment.\n* When \"Enable Baseline Substratum: ON\" is set, all settlement nodes receive this benefit implicitly with zero GM bookkeeping.\n\n---\n\n## 3. Granular Modularity Mode (Deep Authoring)\n\n### 4-Level Vulnerability & Crisis Dial\n* Level 1 (Thriving): Traveling tinkers present; good iron tools; lively barter trade.\n* Level 2 (Steady): Local smith busy shoeing plow-oxen; modest trade.\n* Level 3 (Scarcity): Iron scraps exhausted; tools break without replacement; barter gridlock.\n* Level 4 (Depleted): Forge cold; charcoal gone; economy collapses into pure desperation.\n\n### Resource Flow Contract\n* **Provides:** `Economy: Baseline-Mundane-Smithy-and-Trade`\n* **Requires:** `Material: Scrap-Iron-Billets, Fuel: Hardwood-Charcoal`\n\n---\n\n## 4. GM Adventure Hooks & Crises\n* **Hook 1 (Local Tension):** A vital component breaks, forcing players to mediate an internal clan dispute or seek replacement parts from a neighboring satellite.\n* **Hook 2 (Vulnerability to High-Concept Threat):** A Tier 1–5 macro faction targets this mundane system, turning a simple supply outage into an existential countdown.\n",
+      "file_url": "tickets/tier_0/tickets/T0-DOM-05_weekly_barter_square_village_blacksmith.md"
+    },
+    {
+      "file": "T0-DOM-06_village_herbalist_midwife_leechcraft_hearth.md",
+      "path": "tickets/tier_0/tickets/T0-DOM-06_village_herbalist_midwife_leechcraft_hearth.md",
+      "id": "T0-DOM-06",
+      "domain": "DOM-06 Health, Folk Medicine & Midwifery",
+      "title": "Village Herbalist, Midwife & Leechcraft Hearth",
+      "scale": "All Settlement Scales",
+      "status": "shipped",
+      "provides": [
+        "Health: Folk-Leechcraft-and-Midwifery"
+      ],
+      "requires": [
+        "Ecology: Wild-Hedgerow-Botanicals"
+      ],
+      "preview": "T0-DOM-06: Village Herbalist, Midwife & Leechcraft Hearth\n*Domain: DOM-06 Health, Folk Medicine & Midwifery | Scale: All Settlement Scales*\n*Status: ready_for_spec*\n\n---\n\n 1. Baseline Concept & Mu",
+      "raw_markdown": "---\nid: T0-DOM-06\ndomain: \"DOM-06 Health, Folk Medicine & Midwifery\"\ntitle: \"Village Herbalist, Midwife & Leechcraft Hearth\"\nscale: \"All Settlement Scales\"\nstatus: \"shipped\"\nmode_support: \"Both (Implicit Default + Granular Socket)\"\nprovides: [\"Health: Folk-Leechcraft-and-Midwifery\"]\nrequires: [\"Ecology: Wild-Hedgerow-Botanicals\"]\n---\n\n# T0-DOM-06: Village Herbalist, Midwife & Leechcraft Hearth\n*Domain: DOM-06 Health, Folk Medicine & Midwifery | Scale: All Settlement Scales*\n*Status: ready_for_spec*\n\n---\n\n## 1. Baseline Concept & Mundane Reality\nKnowledgeable elder gathering willow bark, yarrow, and wild honey to soothe childbed fevers, stitch farm wounds, and deliver infants.\n\n---\n\n## 2. Smooth Generic Mode (\"Checkbox Through\")\n* Allows recovery from non-magical disease and mundane injuries during resting watches.\n* When \"Enable Baseline Substratum: ON\" is set, all settlement nodes receive this benefit implicitly with zero GM bookkeeping.\n\n---\n\n## 3. Granular Modularity Mode (Deep Authoring)\n\n### 4-Level Vulnerability & Crisis Dial\n* Level 1 (Healing): Abundant dried herbs; clean bandages; fever broken safely.\n* Level 2 (Coping): Basic poultices; wounds take 1d4 days to close.\n* Level 3 (Infected): Rotting herbs; gangrene in open wounds; infant mortality spikes.\n* Level 4 (Pestilence): Black tongue contagion spreads; herbalist dies; quarantine hut burned.\n\n### Resource Flow Contract\n* **Provides:** `Health: Folk-Leechcraft-and-Midwifery`\n* **Requires:** `Ecology: Wild-Hedgerow-Botanicals`\n\n---\n\n## 4. GM Adventure Hooks & Crises\n* **Hook 1 (Local Tension):** A vital component breaks, forcing players to mediate an internal clan dispute or seek replacement parts from a neighboring satellite.\n* **Hook 2 (Vulnerability to High-Concept Threat):** A Tier 1–5 macro faction targets this mundane system, turning a simple supply outage into an existential countdown.\n",
+      "file_url": "tickets/tier_0/tickets/T0-DOM-06_village_herbalist_midwife_leechcraft_hearth.md"
+    },
+    {
+      "file": "T0-DOM-07_midden_trenches_swine_scavengers_night_soil_pit.md",
+      "path": "tickets/tier_0/tickets/T0-DOM-07_midden_trenches_swine_scavengers_night_soil_pit.md",
+      "id": "T0-DOM-07",
+      "domain": "DOM-07 Waste, Drainage & Sanitation",
+      "title": "Midden Trenches, Swine Scavengers & Night-Soil Pit",
+      "scale": "Hamlet / Village / Market Town",
+      "status": "shipped",
+      "provides": [
+        "Sanitation: Vernacular-Midden-Management"
+      ],
+      "requires": [
+        "Material: Slaked-Lime-Dust",
+        "Fauna: Scavenger-Swine"
+      ],
+      "preview": "T0-DOM-07: Midden Trenches, Swine Scavengers & Night-Soil Pit\n*Domain: DOM-07 Waste, Drainage & Sanitation | Scale: Hamlet / Village / Market Town*\n*Status: ready_for_spec*\n\n---\n\n 1. Baseline Conc",
+      "raw_markdown": "---\nid: T0-DOM-07\ndomain: \"DOM-07 Waste, Drainage & Sanitation\"\ntitle: \"Midden Trenches, Swine Scavengers & Night-Soil Pit\"\nscale: \"Hamlet / Village / Market Town\"\nstatus: \"shipped\"\nmode_support: \"Both (Implicit Default + Granular Socket)\"\nprovides: [\"Sanitation: Vernacular-Midden-Management\"]\nrequires: [\"Material: Slaked-Lime-Dust\", \"Fauna: Scavenger-Swine\"]\n---\n\n# T0-DOM-07: Midden Trenches, Swine Scavengers & Night-Soil Pit\n*Domain: DOM-07 Waste, Drainage & Sanitation | Scale: Hamlet / Village / Market Town*\n*Status: ready_for_spec*\n\n---\n\n## 1. Baseline Concept & Mundane Reality\nDedicated community compost trench, pig pens consuming refuse, and lime-dusted night-soil pits keeping streets free of lethal cholera.\n\n---\n\n## 2. Smooth Generic Mode (\"Checkbox Through\")\n* Maintains settlement hygiene without requiring sewers or magical cleansing.\n* When \"Enable Baseline Substratum: ON\" is set, all settlement nodes receive this benefit implicitly with zero GM bookkeeping.\n\n---\n\n## 3. Granular Modularity Mode (Deep Authoring)\n\n### 4-Level Vulnerability & Crisis Dial\n* Level 1 (Clean): Lime applied weekly; swine pen contained; clean runnels.\n* Level 2 (Normal): Standard animal smell; muddy ditches; flies in summer.\n* Level 3 (Foul): Overfilled middens; foul runoff enters street puddles; dysentery.\n* Level 4 (Epidemic): Night-soil floods wells; flies blacken the air; cholera plague.\n\n### Resource Flow Contract\n* **Provides:** `Sanitation: Vernacular-Midden-Management`\n* **Requires:** `Material: Slaked-Lime-Dust, Fauna: Scavenger-Swine`\n\n---\n\n## 4. GM Adventure Hooks & Crises\n* **Hook 1 (Local Tension):** A vital component breaks, forcing players to mediate an internal clan dispute or seek replacement parts from a neighboring satellite.\n* **Hook 2 (Vulnerability to High-Concept Threat):** A Tier 1–5 macro faction targets this mundane system, turning a simple supply outage into an existential countdown.\n",
+      "file_url": "tickets/tier_0/tickets/T0-DOM-07_midden_trenches_swine_scavengers_night_soil_pit.md"
+    },
+    {
+      "file": "T0-DOM-08_wayside_boundary_shrine_hearth_vigil.md",
+      "path": "tickets/tier_0/tickets/T0-DOM-08_wayside_boundary_shrine_hearth_vigil.md",
+      "id": "T0-DOM-08",
+      "domain": "DOM-08 Folklore, Shrine & Communal Rites",
+      "title": "Wayside Boundary Shrine & Hearth Vigil",
+      "scale": "All Settlement Scales",
+      "status": "shipped",
+      "provides": [
+        "Social: Communal-Folklore-Solidarity"
+      ],
+      "requires": [
+        "Social: Shared-Cultural-Lineage"
+      ],
+      "preview": "T0-DOM-08: Wayside Boundary Shrine & Hearth Vigil\n*Domain: DOM-08 Folklore, Shrine & Communal Rites | Scale: All Settlement Scales*\n*Status: ready_for_spec*\n\n---\n\n 1. Baseline Concept & Mundane Re",
+      "raw_markdown": "---\nid: T0-DOM-08\ndomain: \"DOM-08 Folklore, Shrine & Communal Rites\"\ntitle: \"Wayside Boundary Shrine & Hearth Vigil\"\nscale: \"All Settlement Scales\"\nstatus: \"shipped\"\nmode_support: \"Both (Implicit Default + Granular Socket)\"\nprovides: [\"Social: Communal-Folklore-Solidarity\"]\nrequires: [\"Social: Shared-Cultural-Lineage\"]\n---\n\n# T0-DOM-08: Wayside Boundary Shrine & Hearth Vigil\n*Domain: DOM-08 Folklore, Shrine & Communal Rites | Scale: All Settlement Scales*\n*Status: ready_for_spec*\n\n---\n\n## 1. Baseline Concept & Mundane Reality\nCarved wooden wayside icon or stone cairn dedicated to ancestral protectors, binding the community through seasonal festivals and boundary walks.\n\n---\n\n## 2. Smooth Generic Mode (\"Checkbox Through\")\n* Establishes communal morale and baseline resistance to fear or despair.\n* When \"Enable Baseline Substratum: ON\" is set, all settlement nodes receive this benefit implicitly with zero GM bookkeeping.\n\n---\n\n## 3. Granular Modularity Mode (Deep Authoring)\n\n### 4-Level Vulnerability & Crisis Dial\n* Level 1 (Sanctified): Fresh wildflowers on altar; harvest feast; high solidarity.\n* Level 2 (Quiet): Seasonal candles lit; minor squabbles resolved by village elder.\n* Level 3 (Desecrated): Shrine vandalized; ominous omens; distrust between families.\n* Level 4 (Cursed): Sacred icon weeps blood; paranoia turns to witch hunts and bloodletting.\n\n### Resource Flow Contract\n* **Provides:** `Social: Communal-Folklore-Solidarity`\n* **Requires:** `Social: Shared-Cultural-Lineage`\n\n---\n\n## 4. GM Adventure Hooks & Crises\n* **Hook 1 (Local Tension):** A vital component breaks, forcing players to mediate an internal clan dispute or seek replacement parts from a neighboring satellite.\n* **Hook 2 (Vulnerability to High-Concept Threat):** A Tier 1–5 macro faction targets this mundane system, turning a simple supply outage into an existential countdown.\n",
+      "file_url": "tickets/tier_0/tickets/T0-DOM-08_wayside_boundary_shrine_hearth_vigil.md"
+    }
+  ]
+}

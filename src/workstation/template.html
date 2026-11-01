@@ -1,0 +1,711 @@
+<!--
+================================================================================
+CREATOR STUDIO COMPASS HEADER (AUTO-GENERATED VIA build_suite.js)
+SURFACE: Universal Desktop Workstation Shell & Pointcrawl CAD Canvas
+WIKI PAGE: wiki/pages/start.html.html (Markdown Source: wiki/src/files/start.html.md)
+AUTHORITATIVE SPECIFICATIONS:
+  - docs/adr/0004-desktop-workstation-start-html.md
+  - docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md
+  - docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md
+  - docs/srd/authoring_engine_srd.md
+  - CONTEXT.md
+DATA PROVENANCE & BUILD PIPELINE:
+  - network/generic_network_topology.json
+  - network/presets/generic_archetype.json
+  - campaigns/
+CRITICAL INSTRUCTION:
+  Standalone zero-CORS Win95/VB6 desktop workstation shell consolidating index.html and campaign_studio.html.
+  Edit modular source files in src/workstation/ and recompile via:
+  powershell -ExecutionPolicy Bypass -File .\Build-Suite.ps1
+================================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creator Studio - Campaign Authoring Workstation</title>
+<style>
+/* @@INCLUDE: styles/win95_workstation.css @@ */
+</style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       MAIN APPLICATION WINDOW CONTAINER
+       ======================================================================== -->
+  <div id="app-window" class="bevel-outset">
+
+    <!-- 1. WINDOW TITLE BAR -->
+    <div class="title-bar">
+      <div class="title-bar-text">
+        <span style="display:inline-block; width:12px; height:12px; background:#fff; border:1px solid #000; text-align:center; line-height:10px; font-size:8px; color:#000;">CS</span>
+        <span>Creator Studio - Pointcrawl Authoring Workstation</span>
+      </div>
+      <div class="title-bar-controls">
+        <button class="win-btn" onclick="alert('Creator Studio Desktop Workstation v1.2')">_</button>
+        <button class="win-btn" onclick="toggleMaximize()">[]</button>
+        <button class="win-btn" onclick="openWelcomeModal()">X</button>
+      </div>
+    </div>
+
+    <!-- Hidden Map Image File Ingestion Input -->
+    <input type="file" id="cad-map-file-input" accept="image/png,image/jpeg,image/webp,image/svg+xml" style="display:none;" onchange="onMapFileSelected(event)">
+
+    <!-- 2. TOP MENU BAR -->
+    <div class="menu-bar">
+      <!-- File Menu -->
+      <div class="menu-item" data-menu="menu-file">File
+        <div id="menu-file" class="menu-dropdown bevel-outset">
+          <div class="dropdown-row" onclick="openNewCampaignWizard()">New Campaign... <span class="hotkey">Ctrl+N</span></div>
+          <div class="dropdown-row" onclick="openLoadPresetModal()">Open Preset / Campaign... <span class="hotkey">Ctrl+O</span></div>
+          <div class="dropdown-row" onclick="openCampaignFolder()">Open Campaign Folder (Disk / USB)...</div>
+          <div class="dropdown-row" onclick="triggerSelectiveImportPackage()">Import Maps from Package / Folder...</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="handleToolbarSave(); closeAllMenus();">Save Campaign <span class="hotkey">Ctrl+S</span></div>
+          <div class="dropdown-row" onclick="openSaveAsNewCampaignModal()">Save As New Campaign... <span class="hotkey">Ctrl+Shift+S</span></div>
+          <div class="dropdown-row" onclick="saveCampaignAsFolder()">Save As Campaign Folder (Disk / USB)...</div>
+          <div class="dropdown-row" onclick="saveCampaignAsCreatorJson()">Save As Monolithic (.creator.json)...</div>
+          <div class="dropdown-row" onclick="saveCampaignAsZip()">Export Campaign Package (.zip)...</div>
+          <div class="dropdown-row" onclick="connectCampaignsFolder()">Link /campaigns Folder (Live Disk Sync)...</div>
+          <div class="dropdown-row" onclick="refreshCampaignsManager(true)">Refresh Campaigns from Disk...</div>
+          <div class="dropdown-row" onclick="setProjectDirectory()">Set Project Directory (Direct Disk Sync)...</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="triggerMapImageUpload()">Insert Map Image (PNG/JPG)...</div>
+          <div class="dropdown-row" onclick="exportTopologyJson()">Export Active Map Topology JSON...</div>
+          <div class="dropdown-row" onclick="exportSvgMap()">Export SVG Map...</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openWelcomeModal()">Return to Welcome Dialog</div>
+          <div class="dropdown-row" onclick="exitWorkstationServer()">Exit Workstation (Stop Server)</div>
+        </div>
+      </div>
+
+      <!-- Edit Menu -->
+      <div class="menu-item" data-menu="menu-edit">Edit
+        <div id="menu-edit" class="menu-dropdown bevel-outset">
+          <div class="dropdown-row" onclick="undoAction()">Undo <span class="hotkey">Ctrl+Z</span></div>
+          <div class="dropdown-row" onclick="redoAction()">Redo <span class="hotkey">Ctrl+Y</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="deleteSelected()">Delete Selection <span class="hotkey">Del</span></div>
+          <div class="dropdown-row" onclick="selectAllNodes()">Select All <span class="hotkey">Ctrl+A</span></div>
+          <div class="dropdown-row" onclick="lockAllNodes(true)">Lock All Node Positions</div>
+          <div class="dropdown-row" onclick="lockAllNodes(false)">Unlock All Node Positions</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="triggerMapImageUpload()">Map Image: Change Background...</div>
+          <div class="dropdown-row" onclick="openMapPropertiesDialog(activeMapId)">Map Image Properties &amp; Opacity...</div>
+          <div class="dropdown-row" onclick="clearMapImageFromProp()">Clear Map Background Image</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openSetMapScaleDialog()">Set Map Scale &amp; Distance Units...</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="resetZoom()">Reset 1:1 Scale <span class="hotkey">0</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openSettingsModal()">Preferences...</div>
+        </div>
+      </div>
+
+      <!-- View Menu -->
+      <div class="menu-item" data-menu="menu-view">View
+        <div id="menu-view" class="menu-dropdown bevel-outset">
+          <div class="dropdown-row" onclick="zoomIn()">Zoom In <span class="hotkey">+</span></div>
+          <div class="dropdown-row" onclick="zoomOut()">Zoom Out <span class="hotkey">-</span></div>
+          <div class="dropdown-row" onclick="resetZoom()">Fit 1:1 Scale <span class="hotkey">0</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="toggleGrid()">Toggle Grid <span class="hotkey">G</span></div>
+          <div class="dropdown-row" onclick="toggleInfluenceVectors()">Toggle Hegemony Vectors</div>
+          <div class="dropdown-row" onclick="toggleGmVision()">Toggle GM Vision (Fog of War)</div>
+          <div class="dropdown-row" onclick="togglePropertiesDock()">Properties Inspector <span class="hotkey">F4</span></div>
+          <div class="dropdown-row" onclick="toggleToolPalette()">CAD Tool Palette</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openMapNavigatorModal()">Map Navigator... <span class="hotkey">Ctrl+Shift+M</span></div>
+          <div class="dropdown-row" onclick="openOdvMatrixModal()">64-Cell ODV Archetype Matrix... <span class="hotkey">Ctrl+Shift+O</span></div>
+          <div class="dropdown-row" onclick="openSourcebooksModal()">Campaign Sourcebooks... <span class="hotkey">Ctrl+B</span></div>
+          <div class="dropdown-row" onclick="openCampaignExportModal()">Campaign Exporter... <span class="hotkey">Ctrl+E</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openModuleExplorer()">Module Explorer... <span class="hotkey">Ctrl+M</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('npc')">NPC Manager... <span class="hotkey">Ctrl+F5</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('quest')">Quest Tracker... <span class="hotkey">Ctrl+F6</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('item')">Item Catalog... <span class="hotkey">Ctrl+F7</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('tracker')">Threat Clocks &amp; Dials... <span class="hotkey">Ctrl+K</span></div>
+          <div class="dropdown-row" onclick="openTicketCenter()">Ticket Command Center... <span class="hotkey">F9</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('node')">Node Explorer... <span class="hotkey">Ctrl+F10</span></div>
+        </div>
+      </div>
+
+      <!-- Insert Menu -->
+      <div class="menu-item" data-menu="menu-insert">Insert
+        <div id="menu-insert" class="menu-dropdown bevel-outset">
+          <div class="dropdown-row" onclick="triggerMapImageUpload()"><strong>Map Background Image (PNG/JPG)...</strong></div>
+          <div class="dropdown-row" onclick="openNewMapModal()">Create New Sub-Map / Layout...</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="setTool('node-t2')">Standard Node (Tier 2) <span class="hotkey">N</span></div>
+          <div class="dropdown-row" onclick="setTool('node-t3')">Apex / Hazard Node (Tier 3) <span class="hotkey">A</span></div>
+          <div class="dropdown-row" onclick="setTool('move')">Move / Reposition Node Tool <span class="hotkey">M</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="setTool('road')">Transit Road Edge (E_adj) <span class="hotkey">L</span></div>
+          <div class="dropdown-row" onclick="setTool('hegemony')">Hegemony Influence Vector (E_inf) <span class="hotkey">I</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="setTool('rect')">CAD Drawing: Box / Rectangle <span class="hotkey">R</span></div>
+          <div class="dropdown-row" onclick="setTool('circle')">CAD Drawing: Circle / Ellipse <span class="hotkey">C</span></div>
+          <div class="dropdown-row" onclick="setTool('line')">CAD Drawing: Vector Line <span class="hotkey">W</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openModuleExplorer()">Slot Module onto Node... <span class="hotkey">Ctrl+M</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openNewEntityModal('npc')">Create New NPC...</div>
+          <div class="dropdown-row" onclick="openNewEntityModal('quest')">Create New Quest...</div>
+          <div class="dropdown-row" onclick="openNewEntityModal('item')">Create New Item...</div>
+          <div class="dropdown-row" onclick="openNewEntityModal('tracker')">Create New Threat Clock...</div>
+          <div class="dropdown-row" onclick="openNewCampaignTicketModal()">Create New Campaign Ticket...</div>
+        </div>
+      </div>
+
+      <!-- Tools Menu -->
+      <div class="menu-item" data-menu="menu-tools">Tools
+        <div id="menu-tools" class="menu-dropdown bevel-outset" style="min-width:270px;">
+          <div class="dropdown-row" onclick="openSurfaceCatalogModal()"><strong>System Directory &amp; Surface Catalog...</strong> <span class="hotkey">Ctrl+Shift+A</span></div>
+          <div class="dropdown-row" onclick="openOdvMatrixModal()"><strong>64-Cell ODV Archetype Matrix...</strong> <span class="hotkey">Ctrl+Shift+O</span></div>
+          <div class="dropdown-separator"></div>
+          <!-- System Dashboards Submenu -->
+          <div class="dropdown-row has-submenu">
+            <span><strong>System Dashboards &amp; Explorers</strong></span>
+            <span class="submenu-arrow">&#9658;</span>
+            <div class="dropdown-submenu bevel-outset" style="min-width:260px;">
+              <div class="dropdown-row" onclick="openAuditDashboard()">Platform Module Explorer &amp; Catalog &rarr;</div>
+              <div class="dropdown-row" onclick="window.open('network/odv_archetype_matrix.html', '_blank')">64-Cell ODV Archetype Matrix &rarr;</div>
+              <div class="dropdown-separator"></div>
+              <div class="dropdown-row" onclick="window.open('tickets/tier_0/tier_0_project_visualizer.html', '_blank')">Tier 0 Substratum Visualizer &rarr;</div>
+              <div class="dropdown-row" onclick="window.open('tickets/unified_ticket_tracker.html', '_blank')">Master Unified Backlog Tracker &rarr;</div>
+              <div class="dropdown-separator"></div>
+              <div class="dropdown-row" onclick="window.open('regions/regional_image_browser.html', '_blank')">Regional Image Browser &rarr;</div>
+              <div class="dropdown-separator"></div>
+              <div class="dropdown-row" onclick="window.open('admin.html', '_blank')">Administrative Hub (admin.html) &rarr;</div>
+            </div>
+          </div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openMapNavigatorModal()"><strong>Map Navigator...</strong> <span class="hotkey">Ctrl+Shift+M</span></div>
+          <div class="dropdown-row" onclick="openSourcebooksModal()"><strong>Campaign Sourcebooks &amp; Packages...</strong> <span class="hotkey">Ctrl+B</span></div>
+          <div class="dropdown-row" onclick="openCampaignExportModal()"><strong>Campaign Dossier &amp; Exporter...</strong> <span class="hotkey">Ctrl+E</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openModuleExplorer()"><strong>Module Explorer...</strong> <span class="hotkey">Ctrl+M</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('npc')">NPC Manager <span class="hotkey">Ctrl+F5</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('quest')">Quest Tracker <span class="hotkey">Ctrl+F6</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('item')">Item Catalog <span class="hotkey">Ctrl+F7</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('tracker')">Threat Clocks &amp; Dials <span class="hotkey">Ctrl+K</span></div>
+          <div class="dropdown-row" onclick="openTicketCenter()">Ticket Command Center <span class="hotkey">F9</span></div>
+          <div class="dropdown-row" onclick="openEntityManager('node')">Node Explorer <span class="hotkey">Ctrl+F10</span></div>
+        </div>
+      </div>
+
+      <!-- Window Menu (MDI Desktop Management) -->
+      <div class="menu-item" data-menu="menu-window">Window
+        <div id="menu-window" class="menu-dropdown bevel-outset" style="min-width:230px;">
+          <div class="dropdown-row" onclick="MDIWindowManager.cascadeWindows()">Cascade Windows</div>
+          <div class="dropdown-row" onclick="MDIWindowManager.tileHorizontally()">Tile Horizontally</div>
+          <div class="dropdown-row" onclick="MDIWindowManager.tileVertically()">Tile Vertically</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="MDIWindowManager.minimizeAll()">Minimize All Windows</div>
+          <div class="dropdown-row" onclick="MDIWindowManager.restoreAll()">Restore All Windows</div>
+          <div class="dropdown-row" onclick="MDIWindowManager.closeAll()">Close All Windows</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="MDIWindowManager.open('modal-module-explorer')">1 Module Explorer <span class="hotkey">Ctrl+M</span></div>
+          <div class="dropdown-row" onclick="MDIWindowManager.open('modal-entity-manager')">2 Entity Manager <span class="hotkey">Ctrl+F5</span></div>
+          <div class="dropdown-row" onclick="MDIWindowManager.open('modal-ticket-center')">3 Ticket Command Center <span class="hotkey">F9</span></div>
+          <div class="dropdown-row" onclick="openMapNavigatorModal()">4 Map Navigator <span class="hotkey">Ctrl+Shift+M</span></div>
+          <div class="dropdown-row" onclick="openSourcebooksModal()">5 Campaign Packages &amp; Presets... <span class="hotkey">Ctrl+B</span></div>
+          <div class="dropdown-row" onclick="openCampaignExportModal()">6 Campaign Exporter <span class="hotkey">Ctrl+E</span></div>
+          <div class="dropdown-row" onclick="openSurfaceCatalogModal()">7 System Surface Catalog <span class="hotkey">Ctrl+Shift+A</span></div>
+          <div class="dropdown-row" onclick="toggleLayersPane()">8 Canvas Layers Manager <span class="hotkey">Ctrl+L</span></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="togglePropertiesDock()">Properties Inspector <span class="hotkey">F4</span></div>
+          <div class="dropdown-row" onclick="toggleToolPalette()">CAD Tool Palette</div>
+        </div>
+      </div>
+
+      <!-- Mods Menu (Dynamic Extension Point) -->
+      <div class="menu-item" data-menu="menu-mods">Mods
+        <div id="menu-mods" class="menu-dropdown bevel-outset">
+          <div class="dropdown-row" style="color:#666; font-style:italic;">No active external mods</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="showModSdkInfo()">Mod SDK Documentation...</div>
+        </div>
+      </div>
+
+      <!-- Help Menu -->
+      <div class="menu-item" data-menu="menu-help">Help
+        <div id="menu-help" class="menu-dropdown bevel-outset" style="min-width:260px;">
+          <div class="dropdown-row" onclick="copyMasterBuildCommand()">📋 Copy Master Build Command</div>
+          <div class="dropdown-row" onclick="copyModUpdateCommand()">⚡ Copy Mod Update Command</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openSurfaceCatalogModal()"><strong>System Directory &amp; Surface Catalog...</strong></div>
+          <div class="dropdown-row" onclick="window.open('admin.html', '_blank')">Administrative Hub (admin.html) &rarr;</div>
+          <div class="dropdown-row" onclick="window.open('wiki/index.html')">Technical Wiki (8 Volumes)</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="window.open('docs/srd/authoring_engine_srd.md')">Authoring Engine SRD</div>
+          <div class="dropdown-row" onclick="window.open('docs/srd/adventure_framework_srd.md')">Adventure Framework SRD</div>
+          <div class="dropdown-row" onclick="window.open('docs/srd/tier_0_substratum_srd.md')">Tier 0 Substratum SRD</div>
+          <div class="dropdown-row" onclick="window.open('docs/adr/0001-dual-mode-preset-architecture.md')">Architectural Decision Records (ADRs)</div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openShortcutsHelp()">Keyboard Shortcuts <span class="hotkey">F1</span></div>
+          <div class="dropdown-row" onclick="openAboutModal()">About Creator Studio...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. STANDARD TOOLBAR -->
+    <div class="standard-toolbar">
+      <button class="win-btn" onclick="openNewCampaignWizard()" title="New Campaign (Ctrl+N)">New</button>
+      <button class="win-btn" onclick="openLoadPresetModal()" title="Open Preset (Ctrl+O)">Open</button>
+      <button class="win-btn" onclick="handleToolbarSave()" title="Save (Ctrl+S)">Save</button>
+      <button class="win-btn" onclick="openSaveAsNewCampaignModal()" title="Save As New Campaign (Ctrl+Shift+S)">Save As...</button>
+      <div class="toolbar-sep"></div>
+      <button class="win-btn" onclick="deleteSelected()" title="Delete Selected (Del)">Delete</button>
+      <button class="win-btn" onclick="undoAction()" title="Undo (Ctrl+Z)">Undo</button>
+      <button class="win-btn" onclick="redoAction()" title="Redo (Ctrl+Y)">Redo</button>
+      <div class="toolbar-sep"></div>
+      <button class="win-btn" onclick="openModuleExplorer()" title="Open Comprehensive Module Explorer (Ctrl+M)"><strong>Modules</strong></button>
+      <button class="win-btn" onclick="openEntityManager('npc')" title="Open NPC Manager (Ctrl+F5)"><strong>NPCs</strong></button>
+      <button class="win-btn" onclick="openEntityManager('quest')" title="Open Quest Tracker (Ctrl+F6)"><strong>Quests</strong></button>
+      <button class="win-btn" onclick="openEntityManager('item')" title="Open Item Catalog (Ctrl+F7)"><strong>Items</strong></button>
+      <button class="win-btn" onclick="openEntityManager('tracker')" title="Threat Clocks &amp; Severity Dials (Ctrl+K / Ctrl+F9)"><strong>Clocks</strong></button>
+      <button class="win-btn" onclick="openTicketCenter()" title="Gamedev Ticket Command Center (F9)"><strong>Tickets</strong></button>
+      <button class="win-btn" onclick="openEntityManager('node')" title="Open Node Explorer (Ctrl+F10)"><strong>Nodes</strong></button>
+      <button class="win-btn" onclick="toggleLayersPane()" title="Canvas Layers Manager (Ctrl+L)"><strong>Layers</strong></button>
+      <div class="toolbar-sep"></div>
+      <button class="win-btn" onclick="openMapNavigatorModal()" title="Cartographic Hierarchy &amp; Map Navigator (Ctrl+Shift+M)"><strong>Maps</strong></button>
+      <button class="win-btn" onclick="openSourcebooksModal()" title="Campaign Sourcebooks (Ctrl+B)"><strong>Sourcebooks</strong></button>
+      <button class="win-btn" onclick="openCampaignExportModal()" title="Export Campaign Dossier, JSON &amp; VTT (Ctrl+E)"><strong>Export</strong></button>
+      <button class="win-btn" onclick="openSurfaceCatalogModal()" title="System Directory &amp; Surface Catalog (Ctrl+Shift+A)"><strong>Catalog</strong></button>
+      <div class="toolbar-sep"></div>
+      <button class="win-btn" onclick="zoomIn()" title="Zoom In (+)">Zoom +</button>
+      <button class="win-btn" onclick="zoomOut()" title="Zoom Out (-)">Zoom -</button>
+      <button class="win-btn" onclick="resetZoom()" title="Reset Zoom (0)">100%</button>
+      <button class="win-btn" onclick="toggleGrid()" title="Toggle Grid (G)">Grid</button>
+    </div>
+
+    <!-- 4. MAIN WORKSPACE (PALETTE + CANVAS + PROPERTIES) -->
+    <div class="workspace-layout">
+
+      <!-- LEFT CAD TOOL PALETTE -->
+      <div id="cad-palette">
+        <div class="palette-header bevel-thin-inset">Toolbox</div>
+        <div class="palette-list">
+          <button id="tool-select" class="win-btn palette-tool-btn active" onclick="setTool('select')" title="Select &amp; Move Nodes, Edges, and Shapes (V)">
+            <span class="tool-left"><span class="tool-icon">↖</span><span class="tool-label">Select</span></span>
+            <span class="tool-tag">[V]</span>
+          </button>
+          <button id="tool-pan" class="win-btn palette-tool-btn" onclick="setTool('pan')" title="Pan Viewport Canvas (H)">
+            <span class="tool-left"><span class="tool-icon">✋</span><span class="tool-label">Pan</span></span>
+            <span class="tool-tag">[H]</span>
+          </button>
+          <button id="tool-node-t2" class="win-btn palette-tool-btn" onclick="setTool('node-t2')" title="Add Standard Node (Tier 2 Settlement) (N)">
+            <span class="tool-left"><span class="tool-icon">●</span><span class="tool-label">Node T2</span></span>
+            <span class="tool-tag">[N]</span>
+          </button>
+          <button id="tool-road" class="win-btn palette-tool-btn" onclick="setTool('road')" title="Draw 2-Way Transit Corridor Edge (E_adj) (L)">
+            <span class="tool-left"><span class="tool-icon">═</span><span class="tool-label">Road</span></span>
+            <span class="tool-tag">[L]</span>
+          </button>
+          <button id="tool-hegemony" class="win-btn palette-tool-btn" onclick="setTool('hegemony')" title="Draw 1-Way Hegemony Influence Vector (E_inf) (I)">
+            <span class="tool-left"><span class="tool-icon">➔</span><span class="tool-label">Hegemony</span></span>
+            <span class="tool-tag">[I]</span>
+          </button>
+          <button id="tool-rect" class="win-btn palette-tool-btn" onclick="setTool('rect')" title="Draw Vector Rectangle / Zone (R)">
+            <span class="tool-left"><span class="tool-icon">▭</span><span class="tool-label">Box</span></span>
+            <span class="tool-tag">[R]</span>
+          </button>
+          <button id="tool-circle" class="win-btn palette-tool-btn" onclick="setTool('circle')" title="Draw Vector Circle / Perimeter (C)">
+            <span class="tool-left"><span class="tool-icon">○</span><span class="tool-label">Circle</span></span>
+            <span class="tool-tag">[C]</span>
+          </button>
+          <button id="tool-line" class="win-btn palette-tool-btn" onclick="setTool('line')" title="Draw Vector Line / Corridor (W)">
+            <span class="tool-left"><span class="tool-icon">╱</span><span class="tool-label">Line</span></span>
+            <span class="tool-tag">[W]</span>
+          </button>
+          <button id="tool-erase" class="win-btn palette-tool-btn" onclick="setTool('erase')" title="Erase Selected Node, Corridor, or Shape (E)">
+            <span class="tool-left"><span class="tool-icon">✕</span><span class="tool-label">Erase</span></span>
+            <span class="tool-tag">[E]</span>
+          </button>
+        </div>
+
+        <!-- Mod Tools Extensibility Section -->
+        <div class="mod-tools-section">
+          <div class="palette-header bevel-thin-inset">Mod Tools</div>
+          <div id="dynamic-mod-tools-container" style="display:flex; flex-direction:column; gap:2px;">
+            <div style="font-size:9px; color:#555; text-align:center; padding:4px;">(No active mods)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER CAD VIEWPORT & LAYOUT TABS COLUMN -->
+      <div class="cad-viewport-column">
+        <div id="canvas-container" onmousedown="onCanvasMouseDown(event)" onmousemove="onCanvasMouseMove(event)" onmouseup="onCanvasMouseUp(event)" ondragover="event.preventDefault()" ondrop="onCanvasDrop(event)">
+        
+        <!-- FLOATING CAD HUD 1: BREADCRUMBS & SCALE LINEAGE (TOP-LEFT) -->
+        <div id="hud-breadcrumbs-panel" class="cad-hud-panel hud-top-left bevel-thin">
+          <button class="win-btn hud-btn hidden" id="hud-btn-ascend" onclick="ascendToParentMap()" title="Ascend to Parent Map">&#8593; Up</button>
+          <div id="hud-breadcrumbs-lineage" class="hud-lineage-trail"></div>
+          <button class="win-btn hud-btn" onclick="openNewSubMapPrompt()" title="Create New Map or Sub-Map">+ Map</button>
+        </div>
+
+        <!-- FLOATING CAD HUD: LAYER FOCUS TOOLBAR (TOP-RIGHT) -->
+        <div id="hud-layer-focus" class="cad-hud-panel hud-top-right bevel-thin">
+          <button class="win-btn hud-btn active" id="btn-focus-all" onclick="setLayerFocus('all')">All</button>
+          <button class="win-btn hud-btn active" id="btn-focus-roads" onclick="toggleLayerVisibility('roads')">Roads</button>
+          <button class="win-btn hud-btn active" id="btn-focus-hegemony" onclick="toggleLayerVisibility('hegemony')">Hegemony</button>
+          <button class="win-btn hud-btn active" id="btn-focus-clocks" onclick="toggleLayerVisibility('clocks')">Clocks</button>
+          <button class="win-btn hud-btn" id="btn-focus-bg" onclick="toggleLayerVisibility('bg')" title="Toggle Map Background Image">Map BG</button>
+          <button class="win-btn hud-btn active" id="btn-focus-gm-vision" onclick="toggleGmVision()" title="Toggle GM Vision (Show Hidden Fog Nodes &amp; Edges with Ghost Outline)">GM Vision</button>
+          <button class="win-btn hud-btn" id="btn-focus-layers" onclick="toggleLayersPane()" title="Open Canvas Layers Manager (Ctrl+L)">Layers</button>
+          <button class="win-btn hud-btn" id="btn-toggle-legend" onclick="toggleCanvasLegend()" title="Toggle Visual Grammar Legend">Legend</button>
+        </div>
+
+        <!-- FLOATING CAD HUD 3: COLLAPSIBLE MAP LEGEND (BOTTOM-LEFT) -->
+        <div id="hud-map-legend" class="cad-hud-panel hud-bottom-left bevel-thin hidden">
+          <div class="props-titlebar" style="cursor:move;">
+            <span>Visual Grammar &amp; Graph Legend</span>
+            <button class="win-btn" style="width:14px; height:14px; font-size:8px; line-height:10px; padding:0;" onclick="toggleCanvasLegend()">X</button>
+          </div>
+          <div class="dock-tab-bar" style="padding: 2px 2px 0 2px;">
+            <button class="dock-tab-btn active" id="ltab-btn-corridors" onclick="switchLegendTab('corridors')">Corridors</button>
+            <button class="dock-tab-btn" id="ltab-btn-nodes" onclick="switchLegendTab('nodes')">Nodes &amp; Portals</button>
+            <button class="dock-tab-btn" id="ltab-btn-cultures" onclick="switchLegendTab('cultures')">Cultures (CVF)</button>
+          </div>
+          <div class="props-table-scroll bevel-inset" style="max-height: 250px; padding: 6px; font-size: 10px; line-height: 1.3;">
+            <!-- Tab 1: Corridors -->
+            <div id="ltab-content-corridors">
+              <div style="font-weight:bold; color:#000080; margin-bottom:4px;">Corridor &amp; Conduit Links</div>
+              <div style="margin-bottom:6px;"><strong>2-Way Mutual Transit (Blue/Green solid line):</strong> Open highway or pass establishing bidirectional travel between nodes.</div>
+              <div style="margin-bottom:6px;"><strong>1-Way Directional Transit (Amber line with arrow):</strong> Downriver flume or one-way pass. Flow moves in destination direction.</div>
+              <div style="margin-bottom:6px;"><strong>Hegemonic Conduit (Purple dashed line):</strong> Ideological vassalage, tithe flow, or leyline tether projecting regional influence.</div>
+              <div style="margin-bottom:6px;"><strong>Selected Corridor (Rose thick line):</strong> Active corridor under inspection in the property grid.</div>
+            </div>
+            <!-- Tab 2: Nodes -->
+            <div id="ltab-content-nodes" class="hidden">
+              <div style="font-weight:bold; color:#000080; margin-bottom:4px;">Node Tiers &amp; Status Rings</div>
+              <div style="margin-bottom:6px;"><strong>Primary Settlement (Standard POI):</strong> Major city, township, or fortified regional haven.</div>
+              <div style="margin-bottom:6px;"><strong>Frontier Outpost / Hazard (Diamond/Hazard):</strong> Outpost, extraction mine, or wilderness hazard location.</div>
+              <div style="margin-bottom:6px;"><strong>🌀 Nested Portal (Pulsing Ring):</strong> Node connected to a deeper sub-map pointcrawl. Double-click to drill down!</div>
+            </div>
+            <!-- Tab 3: Cultures -->
+            <div id="ltab-content-cultures" class="hidden">
+              <div style="font-weight:bold; color:#000080; margin-bottom:4px;">Cultural Quadrants (CVF)</div>
+              <div style="margin-bottom:6px;"><strong>🏛️ Clan (Ivory):</strong> Bastion, communal covenant, collective defense, sacred traditions.</div>
+              <div style="margin-bottom:6px;"><strong>⚙️ Hierarchy (Blue):</strong> Syndicate, industrial dynamo, legal order, craft monopolies.</div>
+              <div style="margin-bottom:6px;"><strong>🗡️ Market (Black/Red):</strong> Corsair freehold, privateers, cutthroat trade, underworld brokers.</div>
+              <div style="margin-bottom:6px;"><strong>🌿 Adhocracy (Green):</strong> Adaptor commune, nomadic mobility, druidic and ecological resilience.</div>
+            </div>
+          </div>
+        </div>
+
+        <svg id="cad-svg">
+          <defs>
+            <marker id="arrow-hegemony" viewBox="0 0 10 10" refX="24" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b5cf6" />
+            </marker>
+            <marker id="arrow-oneway" viewBox="0 0 10 10" refX="24" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b" />
+            </marker>
+            <marker id="arrow-twoway-start" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 10 1 L 0 5 L 10 9 z" fill="#3b82f6" />
+            </marker>
+            <marker id="arrow-twoway-end" viewBox="0 0 10 10" refX="24" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#3b82f6" />
+            </marker>
+            <marker id="arrow-dim" viewBox="0 0 10 10" refX="24" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569" opacity="0.3" />
+            </marker>
+          </defs>
+          <g id="map-bg-layer">
+            <image id="canvas-bg-image" x="0" y="0" style="display:none;"></image>
+          </g>
+          <g id="grid-layer"></g>
+          <g id="drawings-layer"></g>
+          <g id="edges-layer"></g>
+          <g id="corridor-labels-layer"></g>
+          <g id="nodes-layer"></g>
+          <g id="portals-layer"></g>
+          <g id="clocks-layer"></g>
+          <g id="interaction-layer"></g>
+        </svg>
+      </div>
+
+      <!-- AUTOCAD-STYLE MODEL & LAYOUT TABS BAR -->
+      <div id="cad-layout-tabs-bar" class="cad-layout-tabs-bar">
+        <div class="layout-tabs-scroll-container">
+          <div id="layout-tabs-list" style="display:flex; align-items:flex-end; gap:2px;">
+            <!-- Injected dynamically by renderLayoutTabs() -->
+          </div>
+          <button class="win-btn layout-tab-add" onclick="openNewMapModal()" title="Create New Sub-Map / Layout Tab">+</button>
+        </div>
+        <div class="cad-tabs-quick-tools">
+          <button class="win-btn" onclick="openSetMapScaleDialog()" style="font-size:10px; padding:1px 6px; gap:3px;" title="Set Map Scale &amp; Distance Units">
+            <span>📏</span>
+            <span id="cad-tab-scale-val">1 sq = 5 mi</span>
+          </button>
+          <button class="win-btn" onclick="triggerMapImageUpload()" style="font-size:10px; padding:1px 6px; gap:3px;" title="Insert or Replace Active Map Background Image (Napkin sketch / Photoshop PNG)">
+            <span>🖼️</span>
+            <span>+ Image</span>
+          </button>
+          <label style="display:flex; align-items:center; gap:3px; font-size:10px; color:#333; cursor:pointer;" title="Adjust Background Map Image Opacity">
+            <span>Opacity:</span>
+            <input type="range" id="cad-tab-opacity-slider" min="0" max="100" value="85" style="width:60px; height:11px;" oninput="updateMapOpacity(this.value)">
+            <span id="cad-tab-opacity-val" style="font-family:monospace; font-size:9px; width:26px;">85%</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+      <!-- RIGHT VISUAL BASIC 6 PROPERTIES & BALANCING DOCK -->
+      <div id="properties-dock">
+        <div class="props-titlebar">
+          <span id="props-titlebar-text">Properties - Inspector</span>
+          <button class="win-btn" style="width:14px; height:14px; font-size:8px; line-height:10px; padding:0;" onclick="togglePropertiesDock()">X</button>
+        </div>
+
+        <div class="dock-tab-bar">
+          <button class="dock-tab-btn active" id="btn-dock-properties" onclick="switchDockTab('properties')">Properties</button>
+          <button class="dock-tab-btn" id="btn-dock-layers" onclick="switchDockTab('layers')">Layers</button>
+        </div>
+
+        <!-- PANEL 1: VISUAL BASIC 6 PROPERTY GRID -->
+        <div id="panel-dock-properties" class="dock-panel">
+          <div class="object-selector-box">
+            <select id="prop-object-selector" class="win-select-input" onchange="onObjectSelectorChange(this.value)">
+              <option value="global">Global: Active Campaign</option>
+            </select>
+          </div>
+
+          <div class="props-table-scroll bevel-inset">
+            <table class="vb-property-table">
+              <tbody id="vb-props-body">
+                <!-- Dynamically populated by updatePropertiesGrid() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PANEL 2: CANVAS LAYERS MANAGER DOCK -->
+        <div id="panel-dock-layers" class="dock-panel hidden" style="height:calc(100% - 24px); box-sizing:border-box;">
+          <div id="dock-layers-mount" style="display:flex; flex-direction:column; height:100%; gap:4px; padding:4px; box-sizing:border-box;"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 5. WORKSTATION STATUS BAR -->
+    <div class="status-bar">
+      <div id="sb-status" class="status-pane bevel-inset" style="flex:1;">Ready.</div>
+      <div id="sb-origin" class="status-pane bevel-inset" style="width:140px; cursor:pointer;" onclick="showOriginDiagnostics()" title="Click to view workstation runtime protocol & security context">[STANDALONE OFFLINE]</div>
+      <div id="sb-disk" class="status-pane bevel-inset" style="width:150px; cursor:pointer; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" onclick="onDiskSyncIndicatorClick()" title="Direct Disk Sync status. Click to reconnect, sync now, or bind folder.">Disk: not linked</div>
+      <div id="sb-tool" class="status-pane bevel-inset" style="width:120px;">Tool: Select [V]</div>
+      <div id="sb-coords" class="status-pane bevel-inset" style="width:100px;">X: 0, Y: 0</div>
+      <div id="sb-scale" class="status-pane bevel-inset" style="width:130px; cursor:pointer;" onclick="openSetMapScaleDialog()" title="Click to configure dimensional map scale &amp; units">Scale: 1 sq = 5 mi</div>
+      <div id="sb-zoom" class="status-pane bevel-inset" style="width:80px; cursor:pointer;" onclick="resetZoom()" title="Click to reset zoom to 100% (1:1)">Zoom: 100%</div>
+      <div id="sb-campaign" class="status-pane bevel-inset" style="width:170px;">Emerald Isle (59 Nodes)</div>
+    </div>
+
+    <!-- 6. WINDOWS 95 MDI TASKBAR -->
+    <div class="win95-taskbar">
+      <button id="btn-start" class="win-btn win95-start-btn" onclick="toggleStartMenu()">
+        <span class="win95-start-logo">CS</span>
+        <span>Start</span>
+      </button>
+
+      <div class="toolbar-sep" style="height:18px;"></div>
+
+      <div id="win95-task-list" class="win95-task-list">
+        <!-- Dynamically injected window tasks -->
+      </div>
+
+      <div class="toolbar-sep" style="height:18px;"></div>
+
+      <div class="win95-systray bevel-thin-inset">
+        <span id="systray-telemetry" style="color:#555; font-size:10px;">M:118 N:242 Q:195 I:349</span>
+        <span style="border-left:1px solid #808080; height:12px; margin:0 2px;"></span>
+        <span id="systray-clock" style="font-weight:bold;">12:00 PM</span>
+      </div>
+    </div>
+
+    <!-- WINDOWS 95 START MENU POPUP (CASCADING SUBMENUS) -->
+    <div id="win95-start-menu" class="win95-start-menu">
+      <div class="start-menu-side-banner">CREATOR STUDIO 95</div>
+
+      <!-- Authoring Tools Submenu -->
+      <div class="dropdown-row has-submenu">
+        <span><strong>Authoring Tools</strong></span>
+        <span class="submenu-arrow">&#9658;</span>
+        <div class="dropdown-submenu">
+          <div class="dropdown-row" onclick="openModuleExplorer(); toggleStartMenu();">
+            <strong>Module Explorer...</strong> <span class="hotkey">Ctrl+M</span>
+          </div>
+          <div class="dropdown-row" onclick="openEntityManager('node'); toggleStartMenu();">
+            <strong>Node Explorer...</strong> <span class="hotkey">Ctrl+F10</span>
+          </div>
+          <div class="dropdown-row" onclick="openEntityManager('npc'); toggleStartMenu();">
+            <strong>NPC Roster...</strong> <span class="hotkey">Ctrl+F5</span>
+          </div>
+          <div class="dropdown-row" onclick="openEntityManager('quest'); toggleStartMenu();">
+            <strong>Quest Matrix...</strong> <span class="hotkey">Ctrl+F6</span>
+          </div>
+          <div class="dropdown-row" onclick="openEntityManager('item'); toggleStartMenu();">
+            <strong>Item Vault...</strong> <span class="hotkey">Ctrl+F7</span>
+          </div>
+          <div class="dropdown-row" onclick="openEntityManager('tracker'); toggleStartMenu();">
+            <strong>Threat Clocks &amp; Dials...</strong> <span class="hotkey">Ctrl+K</span>
+          </div>
+          <div class="dropdown-row" onclick="openTicketCenter(); toggleStartMenu();">
+            <strong>Ticket Command Center...</strong> <span class="hotkey">F9</span>
+          </div>
+          <div class="dropdown-row" onclick="openMapNavigatorModal(); toggleStartMenu();">
+            <strong>Map Navigator...</strong> <span class="hotkey">Ctrl+Shift+M</span>
+          </div>
+          <div class="dropdown-row" onclick="openCampaignExportModal(); toggleStartMenu();">
+            <strong>Campaign Exporter...</strong> <span class="hotkey">Ctrl+E</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Administrative Surfaces Submenu (MDI Embedded Zero-CORS) -->
+      <div class="dropdown-row has-submenu">
+        <span><strong>Administrative Surfaces</strong></span>
+        <span class="submenu-arrow">&#9658;</span>
+        <div class="dropdown-submenu">
+          <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('odv-matrix', '64-Cell ODV Archetype Matrix', 'network/odv_archetype_matrix.html', 'ODV'); toggleStartMenu();">
+            <strong>ODV Archetype Matrix...</strong>
+          </div>
+          <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('platform-audit', 'Platform Explorer &amp; Module Audit', 'network/platform_audit_dashboard.html', 'AUD'); toggleStartMenu();">
+            <strong>Platform Audit Dashboard...</strong>
+          </div>
+          <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('unified-tickets', 'Master Ticket Backlog Command Center', 'tickets/unified_ticket_tracker.html', 'TCK'); toggleStartMenu();">
+            <strong>Unified Ticket Backlog...</strong>
+          </div>
+          <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('tier-0-visualizer', 'Tier 0 Substratum Project Visualizer', 'tickets/tier_0/tier_0_project_visualizer.html', 'T0'); toggleStartMenu();">
+            <strong>Tier 0 Project Visualizer...</strong>
+          </div>
+          <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('image-browser', 'Regional Visual Asset Browser', 'regions/regional_image_browser.html', 'IMG'); toggleStartMenu();">
+            <strong>Regional Image Browser...</strong>
+          </div>
+          <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('codebase-wiki', 'Technical Manual &amp; Bidirectional Wiki', 'wiki/index.html', 'WIK'); toggleStartMenu();">
+            <strong>Codebase Wiki (8 Vols)...</strong>
+          </div>
+          <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('admin-hub', 'Workstation Administrative Hub', 'admin.html', 'ADM'); toggleStartMenu();">
+            <strong>Admin Surface Hub...</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campaign & Packages Submenu -->
+      <div class="dropdown-row has-submenu">
+        <span><strong>Campaign &amp; Packages</strong></span>
+        <span class="submenu-arrow">&#9658;</span>
+        <div class="dropdown-submenu">
+          <div class="dropdown-row" onclick="openSourcebooksModal(); toggleStartMenu();">
+            <strong>Campaign Packages &amp; Presets...</strong> <span class="hotkey">Ctrl+B</span>
+          </div>
+          <div class="dropdown-row" onclick="openNewCampaignWizard(); toggleStartMenu();">
+            New Campaign Wizard... <span class="hotkey">Ctrl+N</span>
+          </div>
+          <div class="dropdown-row" onclick="openLoadPresetModal(); toggleStartMenu();">
+            Load Preset Package... <span class="hotkey">Ctrl+O</span>
+          </div>
+          <div class="dropdown-row" onclick="handleToolbarSave(); toggleStartMenu();">
+            Save Campaign <span class="hotkey">Ctrl+S</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dropdown-separator"></div>
+
+      <div class="dropdown-row" onclick="openSettingsModal(); toggleStartMenu();">
+        Workstation Settings...
+      </div>
+      <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('codebase-wiki', 'Technical Manual &amp; Bidirectional Wiki', 'wiki/index.html', 'WIK'); toggleStartMenu();">
+        Technical Wiki (8 Vols)...
+      </div>
+      <div class="dropdown-row" onclick="openAboutModal(); toggleStartMenu();">
+        About Creator Studio...
+      </div>
+    </div>
+
+  </div>
+
+  <!-- @@INCLUDE: modals/lifecycle_modals.html @@ -->
+  <!-- @@INCLUDE: modals/entity_modals.html @@ -->
+  <!-- @@INCLUDE: modals/explorer_modals.html @@ -->
+  <!-- @@INCLUDE: modals/ticket_modals.html @@ -->
+
+  <!-- @@INCLUDE: modals/studio_mdi_windows.html @@ -->
+
+  <!-- ========================================================================
+       APPLICATION JAVASCRIPT RUNTIME (CORE CAD ENGINE + VB6 PROPERTIES + MOD API)
+       ======================================================================== -->
+  <script>
+    const BUNDLED_TOPOLOGIES = {};
+
+// @@INJECT_CAMPAIGN_REGISTRY@@
+
+    if (typeof CAMPAIGN_REGISTRY !== "undefined") {
+      Object.keys(CAMPAIGN_REGISTRY).forEach(k => {
+        if (CAMPAIGN_REGISTRY[k] && CAMPAIGN_REGISTRY[k].preset) {
+          BUNDLED_TOPOLOGIES[k] = CAMPAIGN_REGISTRY[k].preset;
+        }
+      });
+    }
+
+// @@INJECT_ALL_MODULES@@
+
+// @@INJECT_MASTER_TICKETS_DATA@@
+
+// @@INJECT_ALL_SURFACES@@
+
+// @@INCLUDE: scripts/zip_engine.js @@
+
+// @@INCLUDE: scripts/map_store.js @@
+
+// @@INCLUDE: scripts/state_adapter.js @@
+
+// @@INCLUDE: scripts/sociology_data.js @@
+
+// @@INCLUDE: scripts/wiki_engine.js @@
+
+// @@INCLUDE: scripts/canvas_hud.js @@
+
+// @@INCLUDE: scripts/workstation_state.js @@
+
+// @@INCLUDE: scripts/layer_manager.js @@
+
+// @@INCLUDE: scripts/selection_engine.js @@
+
+// @@INCLUDE: scripts/cad_canvas_renderer.js @@
+
+// @@INCLUDE: scripts/cad_interaction.js @@
+
+// @@INCLUDE: scripts/property_grid_inspector.js @@
+
+// @@INCLUDE: scripts/mdi_window_manager.js @@
+
+// @@INCLUDE: scripts/entity_core.js @@
+
+// @@INCLUDE: scripts/entity_manager_ui.js @@
+
+// @@INCLUDE: scripts/entity_crud_dialogs.js @@
+
+// @@INCLUDE: scripts/entity_cascade_delete.js @@
+
+// @@INCLUDE: scripts/module_explorer.js @@
+
+// @@INCLUDE: scripts/stage_5_slotting.js @@
+
+// @@INCLUDE: scripts/ticket_center.js @@
+
+// @@INCLUDE: scripts/map_navigator.js @@
+
+// @@INCLUDE: scripts/stage_6_export.js @@
+
+// @@INCLUDE: scripts/selective_importer.js @@
+ 
+// @@INCLUDE: scripts/pack_engine.js @@
+ 
+// @@INJECT_WORKSTATION_MODS@@
+  </script>
+</body>
+</html>

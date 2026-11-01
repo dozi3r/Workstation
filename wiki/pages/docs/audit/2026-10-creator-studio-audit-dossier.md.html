@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CREATOR STUDIO &amp;bull; COMPREHENSIVE SYSTEM AUDIT &amp; ASSESSMENT DOSSIER — Creator Studio Technical Manual &amp; Wiki</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../../index.html#vol-1">Volume I: System Architecture, Governance &amp; Ontology</a> &rsaquo;
+        <span>docs/audit/2026-10-creator-studio-audit-dossier.md</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">CREATOR STUDIO &amp;bull; COMPREHENSIVE SYSTEM AUDIT &amp; ASSESSMENT DOSSIER</h1>
+        <div class="article-subtitle">
+          <span class="badge">Technical Documentation / Guide</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 40815bba)</span>
+          
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (7)</a>
+        </div>
+      </div>
+
+      <aside class="infobox">
+        <div class="infobox-header">2026-10-creator-studio-audit-dossier.md</div>
+        <table class="infobox-table">
+          
+    <tr><th>File Path</th><td><code>docs/audit/2026-10-creator-studio-audit-dossier.md</code></td></tr>
+    <tr><th>Manual Volume</th><td><a href="../../../index.html#vol-1">Volume I</a></td></tr>
+    <tr><th>Surface Kind</th><td>Technical Documentation / Guide</td></tr>
+    <tr><th>File Metrics</th><td>300 lines &bull; 25.4 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 40815bba)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>70</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>7</strong> backlinks</td></tr>
+    <tr><th>Raw File</th><td><a href="../../../../docs/audit/2026-10-creator-studio-audit-dossier.md" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
+  
+        </table>
+      </aside>
+
+      
+    <div class="ai-digest">
+      <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
+      <p style="margin:4px 0;"><strong>Summary:</strong> The **Creator Studio** is a tabletop campaign authoring workstation designed to generate procedural pointcrawl networks, sociological faction profiles, and modular worldbuilding components.</p>
+      
+      
+      
+    </div>
+  
+      
+      <h2>Architectural Role & Subsystem Context</h2>
+<p><code>docs/audit/2026-10-creator-studio-audit-dossier.md</code> is the <strong>Foundational October 2026 System Audit & Assessment Dossier</strong> within <strong>Volume I: System Architecture, Governance & Ontology</strong>. Authored by the DeepMind Antigravity Advanced Agentic Team, this 300-line forensic report diagnosed the prototype Creator Studio across five architectural dimensions, uncovered the critical 26-link vs. 52-link Adjacency Smothering divergence between the browser UI and PowerShell CLI, audited all 48 Opal Island modules to discover the hidden industrial supply-chain graph, and decomposed the remediation into the 12 tracer-bullet tickets stored in <code>.scratch/creator-remediation/issues/</code>.</p>
+<p>It is the historical precursor to <span class="wiki-tag">🎫 SYS-AUDIT-01</span> and is cross-referenced throughout <a class="wiki-link series-link" href="../../../pages/series/series_a_balancing_and_smothering_math.html">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a>, <a class="wiki-link series-link" href="../../../pages/series/series_d_module_supply_chains_and_contracts.html">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a>, <a class="wiki-link series-link" href="../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a>, and <a class="wiki-link series-link" href="../../../pages/series/series_g_duplicate_and_orphan_audit.html">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a>.</p>
+<hr class="wiki-hr"/>
+<h2>Core Audit Findings & Architectural Scorecard</h2>
+<p>The dossier evaluated the pre-remediation repository across five dimensions:</p>
+<ul class="wiki-list">
+<li><strong>1. Runtime Seams & Zero-CORS (Grade: B- -> Remediated via <a class="wiki-link" href="../../../pages/build_suite.js.html">📄 build_suite.js</a>)</strong>:</li>
+<li>Identified the <strong>Multiple Source of Truth Hazard</strong> where the 22 nodes and 52 links were copy-pasted across <a class="wiki-link" href="../../../pages/network/generic_network_topology.json.html">📄 network/generic_network_topology.json</a>, <a class="wiki-link" href="../../../pages/network/Run-NetworkEngine.ps1.html">📄 network/Run-NetworkEngine.ps1</a>, <a class="wiki-link" href="../../../pages/network/campaign_studio.html.html">📄 network/campaign_studio.html</a>, and <a class="wiki-link" href="../../../pages/network/network_visualizer.html.html">📄 network/network_visualizer.html</a>.</li>
+<li>Identified that <code>network/modules_manifest.json</code> previously started with <code>const MODULES_MANIFEST = [</code> (invalid pure JSON) and contained raw prompt provenance strings (<code><em>MyActivity.html</em></code>) in <code>ESOT-04</code>, <code>ESOT-05</code>, and <code>ESOT-06</code>.</li>
+<li><strong>2. Algorithmic & Mathematical Parity (Grade: C+ -> Remediated via Tickets 02 & 03)</strong>:</li>
+<li>Uncovered the <strong>Critical Adjacency Smothering Divergence</strong>: <code>CANONICAL_LINKS_DATA</code> in <code>campaign_studio.html</code> previously defined only 26 links instead of the full 52 directed links in <a class="wiki-link" href="../../../pages/network/generic_network_topology.json.html">📄 network/generic_network_topology.json</a> (missing links between Node 1 and Nodes 2, 6, and 20), causing <code>getNodeAdjacents()</code> in the browser to fail to smother adjacent hub candidates that PowerShell (<code>Run-NetworkEngine.ps1</code>) properly smothered.</li>
+<li>Identified amalgamation rounding divergence (<code>Math.round(... * 10) / 10</code> 1-decimal in JS vs. <code>[Math]::Round(..., 2)</code> 2-decimal in PowerShell) and non-deterministic tie-breaking in <code>b.score - a.score</code>.</li>
+<li><strong>3. 48-Module Dependency & Typology Audit (Grade: C -> Remediated via <a class="wiki-link" href="../../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a>)</strong>:</li>
+<li>Provided the <strong>Master 48-Module Diagnostic Matrix</strong> (Section 4.1) classifying every module (<code>INFRA-01</code>..<code>ESOT-06</code>) into its true <strong>5-Tier Worldbuilding Pipeline</strong> tier (<code>Tier 1</code>..<code>Tier 5</code>), extracting explicit <code>provides</code> and <code>requires</code> tags, and proving that <code>FACT-01</code>, <code>FACT-02</code>, and <code>FACT-04</code> are macro system rules while <code>EDGE-01</code>..<code>EDGE-05</code> are edge transit corridors.</li>
+<li>Mapped the core <strong>Industrial Defense Ecosystem</strong> supply chain: High-Head Water $\to$ <span class="wiki-tag">📦 INFRA-01</span> (Pelton Wheel, <code>60V DC 24kW</code>) $\to$ <span class="wiki-tag">📦 INFRA-02</span> (Arc Smelter, <code>CaC2 Pellets</code>) $\to$ <span class="wiki-tag">📦 INFRA-03</span> (Argent-Fume Smokewall repelling <span class="wiki-tag">📦 ECOL-01</span> Stirge Swarms) and <span class="wiki-tag">📦 INFRA-06</span> (RF Radios).</li>
+<li><strong>4. Portability & Setting Agnosticism (Grade: B -> Remediated via Tickets 01, 05 & 11)</strong>:</li>
+<li>Flagged stale hardcoded <code>file:///c:/Users/Milo/Documents/Antigravity/Creator/...</code> links in <a class="wiki-link" href="../../../pages/README.md.html">📄 README.md</a> and <a class="wiki-link" href="../../../pages/modules/README.md.html">📄 modules/README.md</a> and recommended extracting setting canon into <code>network/presets/</code>.</li>
+<li><strong>5. Specifications & SRD Structure (Grade: A- -> Codified in Volume II)</strong>:</li>
+<li>Established the Dual SRD architecture (<a class="wiki-link" href="../../../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a> and <a class="wiki-link" href="../../../pages/docs/srd/adventure_framework_srd.md.html">📄 docs/srd/adventure_framework_srd.md</a>).</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>Data Flow: The 12 Tracer-Bullet Remediation Tickets</h2>
+<p>Section 6 of the dossier defined the dependency DAG for the 12 remediation issues tracked in <code>.scratch/creator-remediation/issues/</code>:</p>
+<ul class="wiki-list">
+<li><code>TICKET-01</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/01-fix-stale-desktop-links.md.html">📄 .scratch/creator-remediation/issues/01-fix-stale-desktop-links.md</a>) & <code>TICKET-02</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/02-restore-canonical-links-parity.md.html">📄 .scratch/creator-remediation/issues/02-restore-canonical-links-parity.md</a>) $\to$ <code>TICKET-03</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/03-align-amalgamation-math-and-sorting.md.html">📄 .scratch/creator-remediation/issues/03-align-amalgamation-math-and-sorting.md</a>) $\to$ <code>TICKET-04</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/04-build-centralized-compiler.md.html">📄 .scratch/creator-remediation/issues/04-build-centralized-compiler.md</a>) $\to$ <code>TICKET-05</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/05-extract-preset-adapters.md.html">📄 .scratch/creator-remediation/issues/05-extract-preset-adapters.md</a>) $\to$ <code>TICKET-06</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/06-authoring-engine-srd.md.html">📄 .scratch/creator-remediation/issues/06-authoring-engine-srd.md</a>) $\to$ <code>TICKET-07</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/07-universal-adventure-framework-srd.md.html">📄 .scratch/creator-remediation/issues/07-universal-adventure-framework-srd.md</a>) $\to$ <code>TICKET-08</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/08-standardize-modules-with-resource-tags.md.html">📄 .scratch/creator-remediation/issues/08-standardize-modules-with-resource-tags.md</a>) $\to$ <code>TICKET-09</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/09-add-edge-module-slotting.md.html">📄 .scratch/creator-remediation/issues/09-add-edge-module-slotting.md</a>), <code>TICKET-10</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/10-add-supply-line-severance-checker.md.html">📄 .scratch/creator-remediation/issues/10-add-supply-line-severance-checker.md</a>), <code>TICKET-11</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/11-clean-raw-prompt-provenance-text.md.html">📄 .scratch/creator-remediation/issues/11-clean-raw-prompt-provenance-text.md</a>) $\to$ <code>TICKET-12</code> (<a class="wiki-link" href="../../../pages/.scratch/creator-remediation/issues/12-end-to-end-zero-cors-verification.md.html">📄 .scratch/creator-remediation/issues/12-end-to-end-zero-cors-verification.md</a>).</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>AI Agent Maintenance Checklist</h2>
+<ul class="wiki-list">
+<li><strong>Preserve Historical Integrity</strong>: <code>docs/audit/2026-10-creator-studio-audit-dossier.md</code> is a point-in-time historical audit record. Do not alter its historical findings; track newer repository hygiene audits in <a class="wiki-link" href="../../../pages/tickets/system/SYS-AUDIT-01_duplicate_mirror_and_orphan_file_remediation.md.html">📄 tickets/system/SYS-AUDIT-01_duplicate_mirror_and_orphan_file_remediation.md</a> and <a class="wiki-link series-link" href="../../../pages/series/series_g_duplicate_and_orphan_audit.html">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a>.</li>
+</ul>
+      <h2>Document Section Outline</h2><ul class="wiki-list"><li style="margin-left:0px;"><code>H1</code> CREATOR STUDIO &amp;bull; COMPREHENSIVE SYSTEM AUDIT &amp; ASSESSMENT DOSSIER</li><li style="margin-left:18px;"><code>H2</code> 1. Executive Summary &amp; Audit Scorecard</li><li style="margin-left:18px;"><code>H2</code> 2. Stage 1: Runtime Seams, Data Authority &amp; Zero-CORS</li><li style="margin-left:36px;"><code>H3</code> 1.1 The Multiple Source of Truth Hazard</li><li style="margin-left:36px;"><code>H3</code> 1.2 Manifest Drift &amp; Provenance Artifacts</li><li style="margin-left:36px;"><code>H3</code> 1.3 Recommended Seam Architecture (Centralized Compiler)</li><li style="margin-left:18px;"><code>H2</code> 3. Stage 2: Algorithmic &amp; Mathematical Parity</li><li style="margin-left:36px;"><code>H3</code> 2.1 Critical Adjacency Smothering Divergence</li><li style="margin-left:36px;"><code>H3</code> 2.2 Mathematical Formula Parity</li><li style="margin-left:18px;"><code>H2</code> 4. Stage 3: Exhaustive 48-Module Dependency &amp; Typology Audit</li><li style="margin-left:36px;"><code>H3</code> 4.1 Master 48-Module Diagnostic Matrix</li><li style="margin-left:36px;"><code>H3</code> 4.2 Core Supply Chain Graph Discovered</li><li style="margin-left:18px;"><code>H2</code> 5. Stage 4: Portability, Setting Agnosticism &amp; Authoring UX</li><li style="margin-left:36px;"><code>H3</code> 5.1 Hardcoded Stale Paths</li><li style="margin-left:36px;"><code>H3</code> 5.2 3-Step Authoring Pipeline Friction</li><li style="margin-left:18px;"><code>H2</code> 6. Stage 5: Remediation Specification &amp; Ticket Decomposition</li><li style="margin-left:36px;"><code>H3</code> Ticket Queue Breakdown</li><li style="margin-left:18px;"><code>H2</code> 6. Post-Audit Implementation Addendum: Multi-Campaign Decoupling (October 2026)</li><li style="margin-left:36px;"><code>H3</code> 6.1 Architectural Evolution: Decoupling &quot;2 Settings and a System&quot;</li></ul><h2>Mechanical Contracts, Dials &amp; Real-World Reference Data</h2><h3>Reference Foundations &amp; Design Provenance (For GM / Downstream Expansion)</h3><ul class="wiki-list"><li>Real-World Engineering: Lester Allan Pelton impulse water turbine (1870s high-head hydro-electric generation) &amp; early direct-current dynamos.</li><li>Real-World Chemistry: Electric arc furnace synthesis of Calcium Carbide (CaC2 + H2O -&gt; C2H2 acetylene gas lighting &amp; chemical smudge defense).</li><li>Historical Military Chemistry: French nitre beds (calcareous earth, wood ash, and organic nitrogen leaching for black powder).</li><li>Real-World Geography: Walters Wiggles (21 steep masonry switchbacks built in 1926 on the Angels Landing trail, Zion Canyon, Utah).</li><li>Indus Valley Civilization: Mohenjo-daro &amp; Dholavira standardized baked-brick municipal sewers and Ghaggar-Hakra monsoon river desiccation.</li><li>Tabletop &amp; CRPG Design Classics: Might &amp; Magic III: Isles of Terra (1991), B2 Keep on the Borderlands, and X1 The Isle of Dread.</li></ul>
+      <h2 id="outbound-links">Outbound References (70)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+        <td><a href="../../../pages/series/series_a_balancing_and_smothering_math.html"><strong>Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</strong></a></td>
+        <td><span class="badge badge-Series">Series Citation</span></td>
+        <td>Explicit [[Series:series_a_balancing_and_smothering_math]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
+        <td><span class="badge badge-Series">Series Citation</span></td>
+        <td>Explicit [[Series:series_d_module_supply_chains_and_contracts]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
+        <td><span class="badge badge-Series">Series Citation</span></td>
+        <td>Explicit [[Series:series_e_zero_cors_compiler_and_agent_router]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/series/series_g_duplicate_and_orphan_audit.html"><strong>Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</strong></a></td>
+        <td><span class="badge badge-Series">Series Citation</span></td>
+        <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:network/campaign_studio.html]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0002-dual-srd-and-tiered-module-architecture.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Citation</span></td>
+        <td>References module INFRA-01</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Citation</span></td>
+        <td>References module INFRA-02</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Citation</span></td>
+        <td>References module INFRA-03</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Citation</span></td>
+        <td>References module ECOL-01</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-06_Gnomish_Freewave_Vacuum_Tube_Transceivers.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-06_Gnomish_Freewave_Vacuum_Tube_Transceivers.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Citation</span></td>
+        <td>References module INFRA-06</td>
+      </tr><tr>
+        <td><a href="../../../pages/README.md.html"><strong>README.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:README.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/authoring_engine_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/adventure_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/index.html.html"><strong>index.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References index.html</td>
+      </tr><tr>
+        <td><a href="../../../pages/network/modules_manifest.json.html"><strong>network/modules_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References network/modules_manifest.json</td>
+      </tr><tr>
+        <td><a href="../../../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References network/platform_audit_dashboard.html</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-04_Aquabah_The_Hanging_Canyon_Cliff_City.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-04_Aquabah_The_Hanging_Canyon_Cliff_City.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ESOT-04</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-05_Reformation_Penal_Slave_Exchanges.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-05_Reformation_Penal_Slave_Exchanges.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ESOT-05</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ESOT-06</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md.html"><strong>campaigns/Emerald Isle/modules/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-01</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-01</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-02</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-02</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md.html"><strong>campaigns/Emerald Isle/modules/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-04</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-04</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module EDGE-01</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-05_Littoral_Smuggler_Sea_Arches_and_Reef_Gates.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-05_Littoral_Smuggler_Sea_Arches_and_Reef_Gates.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module EDGE-05</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-04_Operation_White_Bloom_Nitrification_Beds.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-04_Operation_White_Bloom_Nitrification_Beds.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module INFRA-04</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-05_Swamp_Mist_Maker_Poles_and_Pitcher_Distillery.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-05_Swamp_Mist_Maker_Poles_and_Pitcher_Distillery.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module INFRA-05</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-07_Lakestone_Resonant_Menhir_Relay.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-07_Lakestone_Resonant_Menhir_Relay.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module INFRA-07</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-08_Cryo_Pyramid_Refrigeration_Core.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-08_Cryo_Pyramid_Refrigeration_Core.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module INFRA-08</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-09_Zim_Sharr_Perimeter_Braziers_and_Sonic_Wards.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-09_Zim_Sharr_Perimeter_Braziers_and_Sonic_Wards.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module INFRA-09</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-02_Razor_Sedge_and_Narcotic_Poppy_Basin.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-02_Razor_Sedge_and_Narcotic_Poppy_Basin.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ECOL-02</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-03_Iron_Thorn_Living_Immune_Barrier.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-03_Iron_Thorn_Living_Immune_Barrier.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ECOL-03</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-04_Carnivorous_Pitcher_Bogs_and_Giant_Slugs.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-04_Carnivorous_Pitcher_Bogs_and_Giant_Slugs.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ECOL-04</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-05_Glacial_Quartz_Meltwater_Filtration.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-05_Glacial_Quartz_Meltwater_Filtration.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ECOL-05</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-06_High_Canopy_Redwoods_and_Amber_Resin_Taps.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-06_High_Canopy_Redwoods_and_Amber_Resin_Taps.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ECOL-06</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-07_Siren_Roosts_and_Volcanic_Skerry_Reefs.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-07_Siren_Roosts_and_Volcanic_Skerry_Reefs.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ECOL-07</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/FACT-03_Decapitation_Proof_Mosaic_Governance.md.html"><strong>campaigns/Emerald Isle/modules/FACT-03_Decapitation_Proof_Mosaic_Governance.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-03</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-03_Decapitation_Proof_Mosaic_Governance.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-03_Decapitation_Proof_Mosaic_Governance.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-03</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-05_The_Beheaded_Distributed_Cell_Syndicate.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-05_The_Beheaded_Distributed_Cell_Syndicate.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-05</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/FACT-06_Tactical_Bastion_Fortification_Ranks.md.html"><strong>campaigns/Emerald Isle/modules/FACT-06_Tactical_Bastion_Fortification_Ranks.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-06</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-06_Tactical_Bastion_Fortification_Ranks.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-06_Tactical_Bastion_Fortification_Ranks.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-06</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-07_Canonical_22_Node_Faction_Distribution.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-07_Canonical_22_Node_Faction_Distribution.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module FACT-07</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module CONF-01</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-02_Green_Red_Conflation_The_Wild_Rage.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-02_Green_Red_Conflation_The_Wild_Rage.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module CONF-02</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-03_Green_Blue_Conflation_Traditionalist_Stagnation.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-03_Green_Blue_Conflation_Traditionalist_Stagnation.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module CONF-03</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-04_Ally_Assisted_Conflation_and_Hegemony_Tactics.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-04_Ally_Assisted_Conflation_and_Hegemony_Tactics.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module CONF-04</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-05_Deception_Hardware_Holy_Silver_Bracelets_and_Fume.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-05_Deception_Hardware_Holy_Silver_Bracelets_and_Fume.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module CONF-05</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-06_The_Small_Hat_Fallacy_and_Ideological_Flatlining.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-06_The_Small_Hat_Fallacy_and_Ideological_Flatlining.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module CONF-06</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-02_The_South_Coastal_Road_Paving_Initiative.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-02_The_South_Coastal_Road_Paving_Initiative.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module EDGE-02</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.jpg.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.jpg</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Module Cross-Ref</span></td>
+        <td>Mentions module EDGE-03</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module EDGE-03</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-04_High_Arboreal_Suspension_Highways.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-04_High_Arboreal_Suspension_Highways.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module EDGE-04</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module SPARK-01</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-02_The_Living_Statue_Blue_Rot_Quarantine_Ward.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-02_The_Living_Statue_Blue_Rot_Quarantine_Ward.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module SPARK-02</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-03_The_Memory_Tithe_Altar_of_the_Fey_Court.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-03_The_Memory_Tithe_Altar_of_the_Fey_Court.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module SPARK-03</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-04_The_Iron_Blight_Oxidation_Clock.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-04_The_Iron_Blight_Oxidation_Clock.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module SPARK-04</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-05_Independent_Conspiracies_The_Hollow_Architects.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-05_Independent_Conspiracies_The_Hollow_Architects.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module SPARK-05</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-06_Independent_Conspiracies_The_Promethean_Lodge.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-06_Independent_Conspiracies_The_Promethean_Lodge.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module SPARK-06</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-07_The_Competent_Hero_vs_The_Hoarding_Bureaucrat.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-07_The_Competent_Hero_vs_The_Hoarding_Bureaucrat.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module SPARK-07</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md.html"><strong>campaigns/Emerald Isle/modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module SPARK-08</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module SPARK-08</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-01_Yellow_Rags_Weaponized_Print_Media_and_Forgery_Engine.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-01_Yellow_Rags_Weaponized_Print_Media_and_Forgery_Engine.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ESOT-01</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-02_Divine_Council_Theory_as_System_Administration.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-02_Divine_Council_Theory_as_System_Administration.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ESOT-02</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-03_The_Saturnine_Mainframe_and_The_Linear_Time_Loop.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-03_The_Saturnine_Mainframe_and_The_Linear_Time_Loop.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module ESOT-03</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/STARTER-01_River_Watermill_and_Grain_Silo.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-01_River_Watermill_and_Grain_Silo.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module STARTER-01</td>
+      </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (7)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+        <td><a href="../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
+        <td><span class="badge badge-Series">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/audit/2026-10-creator-studio-audit-dossier.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/series/series_g_duplicate_and_orphan_audit.html"><strong>Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</strong></a></td>
+        <td><span class="badge badge-Series">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/audit/2026-10-creator-studio-audit-dossier.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/README.md.html"><strong>README.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/audit/2026-10-creator-studio-audit-dossier.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/audit/2026-10-creator-studio-audit-dossier.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/adr/0001-dual-mode-preset-architecture.md.html"><strong>docs/adr/0001-dual-mode-preset-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/audit/2026-10-creator-studio-audit-dossier.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/audit/2026-10-creator-studio-audit-dossier.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md.html"><strong>system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/audit/2026-10-creator-studio-audit-dossier.md]] reference</td>
+      </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

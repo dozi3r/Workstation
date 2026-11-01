@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>build_suite.js — Creator Studio Technical Manual &amp; Wiki</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../index.html#vol-3">Volume III: Build Pipeline &amp; Workstation Tooling</a> &rsaquo;
+        <span>build_suite.js</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">build_suite.js</h1>
+        <div class="article-subtitle">
+          <span class="badge">Node.js / Browser Engine Script</span>
+          <span class="badge badge-ok">✓ Synced (SHA: afae1fde)</span>
+          
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (163)</a>
+        </div>
+      </div>
+
+      <aside class="infobox">
+        <div class="infobox-header">build_suite.js</div>
+        <table class="infobox-table">
+          
+    <tr><th>File Path</th><td><code>build_suite.js</code></td></tr>
+    <tr><th>Manual Volume</th><td><a href="../index.html#vol-3">Volume III</a></td></tr>
+    <tr><th>Surface Kind</th><td>Node.js / Browser Engine Script</td></tr>
+    <tr><th>File Metrics</th><td>1200 lines &bull; 55.7 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: afae1fde)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>55</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>163</strong> backlinks</td></tr>
+    <tr><th>Raw File</th><td><a href="../../build_suite.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
+  
+        </table>
+      </aside>
+
+      
+    <div class="ai-digest">
+      <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
+      <p style="margin:4px 0;"><strong>Summary:</strong> BUILD SUITE - Centralized Asset Compiler, Zero-CORS Bundler &amp; Agent Navigation Engine Authority: ADR-0001, ADR-0002, docs/navigation_manifest.json Functions:</p>
+      
+      
+      
+    </div>
+  
+      
+      <h2>Architectural Role & Subsystem Context</h2>
+<p><code>build_suite.js</code> is the <strong>Centralized Asset Compiler, Zero-CORS Bundler & Agent Navigation Engine</strong> within <strong>Volume III: Build Pipeline, Compiler & Legacy Scratch Tooling</strong>. Created under <a class="wiki-link" href="../pages/.scratch/creator-remediation/issues/04-build-centralized-compiler.md.html">📄 .scratch/creator-remediation/issues/04-build-centralized-compiler.md</a> to eliminate the Multiple Source of Truth Hazard identified in <a class="wiki-link" href="../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html">📄 docs/audit/2026-10-creator-studio-audit-dossier.md</a> and governed by <a class="wiki-link" href="../pages/docs/adr/0001-dual-mode-preset-architecture.md.html">📄 docs/adr/0001-dual-mode-preset-architecture.md</a>, <a class="wiki-link" href="../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a>, and <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a>, it is the single build orchestrator that compiles modular HTML/JS sources, multi-campaign sourcebooks, Tarot decks, unified ticket trackers, Compass Headers, and the Bidirectional Codebase Wiki into 100% offline <code>file:///</code> distributions.</p>
+<p>For a deep cross-cutting analysis of this subsystem, consult <a class="wiki-link series-link" href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a>.</p>
+<hr class="wiki-hr"/>
+<h2>Core Invariants & Contracts</h2>
+<ul class="wiki-list">
+<li><strong>Zero External Dependencies</strong>: Uses only built-in Node.js standard library modules (<code>fs</code>, <code>path</code>, <code>child_process.execSync</code>) so it can execute on any standalone Node binary discovered by <a class="wiki-link" href="../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>.</li>
+<li><strong>Idempotent Fenced Injection</strong>: Every dataset injected into HTML distributions (<code>CAMPAIGN_REGISTRY</code>, <code>MODULES_MANIFEST</code>, <code>DEFAULT_WAVES</code>, <code>ALL_MODULES</code>, <code>TICKETS</code>, <code>MASTER_TICKETS_DATA</code>) is wrapped in deterministic comment fences (<code>// [AUTO-GENERATED ... VIA build_suite.js]</code>) or resolved from <a class="wiki-link" href="../pages/src/workstation/template.html.html">📄 src/workstation/template.html</a> (<code>// @@INJECT_*@@</code>), guaranteeing repeatable builds without file corruption.</li>
+<li><strong>Script-Safe HTML Serialization</strong>: When inlining raw Markdown module bodies or ticket manifests into <code><script></code> blocks (such as <code>ALL_MODULES</code> in <a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a> and <code>MASTER_TICKETS_DATA</code> in <a class="wiki-link" href="../pages/start.html.html">📄 start.html</a>), <code>build_suite.js</code> escapes closing <code></script></code> tags via <code>.replace(/<\/script>/gi, '<\\/script>')</code> and avoids regex <code>$</code> dollar sign replacement hazards using functional replacers <code>() => replacement</code>.</li>
+<li><strong>Build-Time Mirror Note (<span class="wiki-tag">🎫 SYS-AUDIT-01</span>)</strong>: Lines 487–494 write an identical mirror of <a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a> to <a class="wiki-link" href="../pages/tickets/creative/platform_audit_visualizer.html.html">📄 tickets/creative/platform_audit_visualizer.html</a>, tracked under Category A of <a class="wiki-link series-link" href="../pages/series/series_g_duplicate_and_orphan_audit.html">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a>.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>Data Flow & 9-Stage Execution Pipeline</h2>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Stage</th><th>Lines</th><th>Input Files / Directories</th><th>Transformation & Processing Logic</th><th>Compiled Output Files</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>1. Load Nav Manifest</strong></td><td>31–45</td><td><a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a></td><td>Parses JSON registry of 14 workstation surfaces.</td><td>In-memory <code>navManifest</code></td></tr>
+<tr><td><strong>2. Generate <code>AGENTS.md</code></strong></td><td>47–94</td><td><code>navManifest.surfaces</code></td><td>Formats Ground Rules, Surface-to-Authority table, and Domain Terminology.</td><td><a class="wiki-link" href="../pages/AGENTS.md.html">📄 AGENTS.md</a></td></tr>
+<tr><td><strong>3. Campaign Discovery</strong></td><td>96–204</td><td><code>campaigns/<id>/campaign.json</code>, <code>preset.json</code>, <code>modules_manifest.json</code>, <code>modules/<em>.md</code>, <code>assets/</em></code></td><td>Discovers active campaigns, auto-discovers and inlines <code>assets/<mapId>_bg.*</code> raster images for offline portability, and enriches modules with regex-extracted <code>threat_clocks</code>, <code>dials</code>, <code>four_corners</code>, and <code>file_url</code>.</td><td><code>campaignRegistry</code>, <a class="wiki-link" href="../pages/network/modules_manifest.json.html">📄 network/modules_manifest.json</a></td></tr>
+<tr><td><strong>4b. Tarot Registry</strong></td><td>206–317</td><td><a class="wiki-link" href="../pages/tarot/decks/deck_manifest.json.html">📄 tarot/decks/deck_manifest.json</a>, <a class="wiki-link" href="../pages/tarot/decks/minor/minor_deck_manifest.json.html">📄 tarot/decks/minor/minor_deck_manifest.json</a></td><td>Compiles 6 Major Arcana decks and 4 Minor Arcana decks into <code>TAROT_DECKS_DATA</code>.</td><td>In-memory <code>TAROT_DECKS_DATA</code></td></tr>
+<tr><td><strong>5. Workstation Assembly</strong></td><td>320–366</td><td><a class="wiki-link" href="../pages/src/workstation/template.html.html">📄 src/workstation/template.html</a>, <code>src/workstation/scripts/*.js</code>, <code>mods/</code></td><td>Resolves <code>// @@INCLUDE: scripts/<file>.js @@</code> directives and injects <code>TAROT_DECKS_DATA</code>, <code>MODS_REGISTRY</code>, and <code>MASTER_TICKETS_DATA</code>.</td><td><a class="wiki-link" href="../pages/start.html.html">📄 start.html</a></td></tr>
+<tr><td><strong>6. Network, Audit & Workstation Inlining</strong></td><td>368–706</td><td><code>campaignRegistry</code>, <a class="wiki-link" href="../pages/tickets/master_ticket_manifest.json.html">📄 tickets/master_ticket_manifest.json</a>, <a class="wiki-link" href="../pages/tickets/build_unified_tracker.js.html">📄 tickets/build_unified_tracker.js</a></td><td>Updates fenced datasets in Visualizer, Builder, Audit Dashboard (+ mirror), inlines 60 enriched tickets into <code>MASTER_TICKETS_DATA</code> in <a class="wiki-link" href="../pages/start.html.html">📄 start.html</a>, and invokes <code>build_unified_tracker.js</code>.</td><td><a class="wiki-link" href="../pages/network/network_visualizer.html.html">📄 network/network_visualizer.html</a>, <a class="wiki-link" href="../pages/network/network_builder.html.html">📄 network/network_builder.html</a>, <a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>, <a class="wiki-link" href="../pages/start.html.html">📄 start.html</a>, <a class="wiki-link" href="../pages/tickets/creative/platform_audit_visualizer.html.html">📄 tickets/creative/platform_audit_visualizer.html</a>, <a class="wiki-link" href="../pages/tickets/unified_ticket_tracker.html.html">📄 tickets/unified_ticket_tracker.html</a></td></tr>
+<tr><td><strong>7. Tarot Compilers & Zero-CORS</strong></td><td>708–750</td><td><a class="wiki-link" href="../pages/tarot/generate_minor_matrix.js.html">📄 tarot/generate_minor_matrix.js</a>, <a class="wiki-link" href="../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a>, <a class="wiki-link" href="../pages/scripts/build_zero_cors_css.js.html">📄 scripts/build_zero_cors_css.js</a></td><td>Executes child Node compilers to regenerate Tarot JSON matrices/browsers, and runs <code>build_zero_cors_css.js</code> to compile inline offline CSS and strip external fonts/scripts.</td><td><a class="wiki-link" href="../pages/tarot/minor_matrix_browser.html.html">📄 tarot/minor_matrix_browser.html</a>, <a class="wiki-link" href="../pages/tarot/tarot_matrix_browser.html.html">📄 tarot/tarot_matrix_browser.html</a>, <a class="wiki-link" href="../pages/admin.html.html">📄 admin.html</a>, <a class="wiki-link" href="../pages/network/network_builder.html.html">📄 network/network_builder.html</a>, <a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>, <a class="wiki-link" href="../pages/network/contradiction_matrix_dashboard.html.html">📄 network/contradiction_matrix_dashboard.html</a></td></tr>
+<tr><td><strong>8. Compass Headers</strong></td><td>750–813</td><td><code>navManifest.surfaces</code></td><td>Prepends/updates <code>CREATOR STUDIO COMPASS HEADER</code> comments at line 1 of all <code>.html</code> and <code>.ps1</code> surfaces (except <code>wiki/index.html</code>).</td><td>All registered HTML/PS1 surfaces</td></tr>
+<tr><td><strong>9. Codebase Wiki</strong></td><td>815–830</td><td><a class="wiki-link" href="../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a></td><td>Executes the Bidirectional Codebase Wiki compiler via <code>process.execPath</code>.</td><td><a class="wiki-link" href="../pages/wiki/index.html.html">📄 wiki/index.html</a>, <code>wiki/pages/**</code>, <code>wiki/wiki_manifest.json</code></td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>AI Agent Maintenance Checklist</h2>
+<ul class="wiki-list">
+<li><strong>When adding a new script to <code>src/workstation/scripts/</code></strong>: Add the <code>// @@INCLUDE: scripts/<file>.js @@</code> directive in <a class="wiki-link" href="../pages/src/workstation/template.html.html">📄 src/workstation/template.html</a> and run <a class="wiki-link" href="../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>.</li>
+<li><strong>When adding a new campaign package under <code>campaigns/<id>/</code></strong>: Ensure <code>campaign.json</code>, <code>preset.json</code>, and <code>modules_manifest.json</code> pass <a class="wiki-link" href="../pages/campaigns/Test-CampaignPackage.ps1.html">📄 campaigns/Test-CampaignPackage.ps1</a>; <code>build_suite.js</code> Stage 3 will automatically discover and bundle the new campaign on the next build.</li>
+<li><strong>When modifying <code>AGENTS.md</code> Ground Rules</strong>: Edit the template string in Stage 2 of <code>build_suite.js</code> (lines 52–90) rather than editing <code>AGENTS.md</code> directly.</li>
+</ul>
+<h2>Portable <code>file_url</code> Convention (Tech Debt Wave 0, 2026-10-20)</h2>
+<ul class="wiki-list">
+<li>Module <code>file_url</code> values are <strong>root-relative</strong> (<code>campaigns/<id>/modules/<file>.md</code>, URI-encoded per segment) via <code>toRootRelUrl()</code>. No absolute <code>file:///C:/Users/...</code> paths are emitted.</li>
+<li>Root surfaces (<a class="wiki-link" href="../pages/start.html.html">📄 start.html</a>) use them as-is. Subfolder surfaces (<a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>, <a class="wiki-link" href="../pages/network/network_builder.html.html">📄 network/network_builder.html</a>, <a class="wiki-link" href="../pages/network/network_visualizer.html.html">📄 network/network_visualizer.html</a>) get a <code>../</code> prefix at injection time via <code>rebaseFileUrls(json, '../')</code>.</li>
+<li><a class="wiki-link" href="../pages/network/modules_manifest.json.html">📄 network/modules_manifest.json</a> stores root-relative paths (resolve against the repo root, not <code>network/</code>).</li>
+<li>Injection replacers use functional form <code>() => block</code> so <code>$</code> sequences in module markdown cannot corrupt output.</li>
+</ul>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">fs</span><span class="pill">path</span><span class="pill">ROOT_DIR</span><span class="pill">NETWORK_DIR</span><span class="pill">DOCS_DIR</span><span class="pill">SRC_WORKSTATION_DIR</span><span class="pill">navManifestPath</span><span class="pill">navManifest</span><span class="pill">campaignsDir</span><span class="pill">campaignRegistry</span><span class="pill">defaultCampaignId</span><span class="pill">modules</span><span class="pill">networkManifestPath</span><span class="pill">compiledSurfacesData</span><span class="pill">auditDashboardPath</span><span class="pill">ticketsManifestPath</span><span class="pill">ticketsData</span><span class="pill">allEnrichedModules</span><span class="pill">auditDatasetsBlock</span><span class="pill">CAMPAIGN_REGISTRY</span><span class="pill">ALL_MODULES</span><span class="pill">TICKETS</span><span class="pill">auditDatasetsBlockRebased</span><span class="pill">unifiedTrackerScript</span><span class="pill">masterTickets</span><span class="pill">masterTicketsManifestPath</span><span class="pill">MODS_DIR</span><span class="pill">activeMods</span><span class="pill">modsScriptBundle</span><span class="pill">startModsBlock</span><span class="pill">startHtmlPath</span><span class="pill">workstationTemplatePath</span><span class="pill">registryFenced</span><span class="pill">CAMPAIGN_REGISTRY</span><span class="pill">startModulesBlock</span><span class="pill">ALL_MODULES</span><span class="pill">MODULES_MANIFEST</span><span class="pill">startTicketsBlock</span><span class="pill">MASTER_TICKETS_DATA</span><span class="pill">startSurfacesBlock</span></div><h3>Declared Functions / Subroutines (7)</h3><div class="pill-list"><span class="pill">toRootRelUrl(absPath)</span><span class="pill">rebaseFileUrls(jsonStr, prefix)</span><span class="pill">parseYamlListOrArray(val)</span><span class="pill">scanModulesDirRecursive(modulesRootDir, campaignRootDir, deletedIdsSet = new Set()</span><span class="pill">walk(currentDir)</span><span class="pill">enrichModuleEntities(m, rawMarkdown)</span><span class="pill">injectCompassHeaders()</span></div>
+      <h2 id="outbound-links">Outbound References (55)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+        <td><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
+        <td><span class="badge badge-Series">In Deep Series</span></td>
+        <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+      </tr><tr>
+        <td><a href="../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html"><strong>docs/audit/2026-10-creator-studio-audit-dossier.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/audit/2026-10-creator-studio-audit-dossier.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0001-dual-mode-preset-architecture.md.html"><strong>docs/adr/0001-dual-mode-preset-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0001-dual-mode-preset-architecture.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0002-dual-srd-and-tiered-module-architecture.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/navigation_manifest.json]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
+        <td>Explicit [[File:Build-Suite.ps1]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
+        <td><span class="badge badge-Workstation Shell Template">Wiki Citation</span></td>
+        <td>Explicit [[File:src/workstation/template.html]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:network/platform_audit_dashboard.html]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/start.html.html"><strong>start.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:start.html]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/series/series_g_duplicate_and_orphan_audit.html"><strong>Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</strong></a></td>
+        <td><span class="badge badge-Series">Series Citation</span></td>
+        <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:AGENTS.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/network/modules_manifest.json.html"><strong>network/modules_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Wiki Citation</span></td>
+        <td>Explicit [[File:network/modules_manifest.json]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/network/network_builder.html.html"><strong>network/network_builder.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:network/network_builder.html]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/scripts/build_zero_cors_css.js.html"><strong>scripts/build_zero_cors_css.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Wiki Citation</span></td>
+        <td>Explicit [[File:scripts/build_zero_cors_css.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/admin.html.html"><strong>admin.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:admin.html]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/network/contradiction_matrix_dashboard.html.html"><strong>network/contradiction_matrix_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:network/contradiction_matrix_dashboard.html]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Test-CampaignPackage.ps1.html"><strong>campaigns/Test-CampaignPackage.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
+        <td>Explicit [[File:campaigns/Test-CampaignPackage.ps1]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../pages/Find-CodebaseNode.ps1.html"><strong>Find-CodebaseNode.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
+        <td>References Find-CodebaseNode.ps1</td>
+      </tr><tr>
+        <td><a href="../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References docs/AI_DEVELOPER_GUIDE.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md.html"><strong>docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0004-desktop-workstation-start-html.md.html"><strong>docs/adr/0004-desktop-workstation-start-html.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0004-desktop-workstation-start-html.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md.html"><strong>docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md.html"><strong>docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md.html"><strong>docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/campaign_preset_specification_srd.md.html"><strong>docs/srd/campaign_preset_specification_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
+        <td>References docs/srd/campaign_preset_specification_srd.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/ip_module_framework_srd.md.html"><strong>docs/srd/ip_module_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
+        <td>References docs/srd/ip_module_framework_srd.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/scenario_primitives_srd.md.html"><strong>docs/srd/scenario_primitives_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
+        <td>References docs/srd/scenario_primitives_srd.md</td>
+      </tr><tr>
+        <td><a href="../pages/index.html.html"><strong>index.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References index.html</td>
+      </tr><tr>
+        <td><a href="../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References network/campaign_studio.html</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
+        <td>References src/workstation/scripts/entity_core.js</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
+        <td>References src/workstation/scripts/state_adapter.js</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/cad_canvas_renderer.js.html"><strong>src/workstation/scripts/cad_canvas_renderer.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/cad_interaction.js.html"><strong>src/workstation/scripts/cad_interaction.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/desktop.ini.html"><strong>src/workstation/scripts/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/entity_cascade_delete.js.html"><strong>src/workstation/scripts/entity_cascade_delete.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/entity_crud_dialogs.js.html"><strong>src/workstation/scripts/entity_crud_dialogs.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/entity_manager_ui.js.html"><strong>src/workstation/scripts/entity_manager_ui.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/layer_manager.js.html"><strong>src/workstation/scripts/layer_manager.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/map_navigator.js.html"><strong>src/workstation/scripts/map_navigator.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/map_store.js.html"><strong>src/workstation/scripts/map_store.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/mdi_window_manager.js.html"><strong>src/workstation/scripts/mdi_window_manager.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/module_explorer.js.html"><strong>src/workstation/scripts/module_explorer.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/pack_engine.js.html"><strong>src/workstation/scripts/pack_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/property_grid_inspector.js.html"><strong>src/workstation/scripts/property_grid_inspector.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/selection_engine.js.html"><strong>src/workstation/scripts/selection_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/selective_importer.js.html"><strong>src/workstation/scripts/selective_importer.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/sociology_data.js.html"><strong>src/workstation/scripts/sociology_data.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/stage_5_slotting.js.html"><strong>src/workstation/scripts/stage_5_slotting.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/stage_6_export.js.html"><strong>src/workstation/scripts/stage_6_export.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/ticket_center.js.html"><strong>src/workstation/scripts/ticket_center.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/wiki_engine.js.html"><strong>src/workstation/scripts/wiki_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/workstation_state.js.html"><strong>src/workstation/scripts/workstation_state.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/zip_engine.js.html"><strong>src/workstation/scripts/zip_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (163)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+        <td><a href="../pages/series/series_c_sociology_and_tarot_hermeneutics.html"><strong>Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</strong></a></td>
+        <td><span class="badge badge-Series">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
+        <td><span class="badge badge-Series">Series Component</span></td>
+        <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+      </tr><tr>
+        <td><a href="../pages/series/series_f_campaign_authoring_and_ip_conversion.html"><strong>Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</strong></a></td>
+        <td><span class="badge badge-Series">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/series/series_g_duplicate_and_orphan_audit.html"><strong>Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</strong></a></td>
+        <td><span class="badge badge-Series">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/Find-CodebaseNode.ps1.html"><strong>Find-CodebaseNode.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/Test-Suite.ps1.html"><strong>Test-Suite.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/admin.html.html"><strong>admin.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-010_The_Biogenic_Spore_Bloom_and_Planetary_Rebirth.md.html"><strong>campaigns/Emerald Isle/modules/CWT-010_The_Biogenic_Spore_Bloom_and_Planetary_Rebirth.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md.html"><strong>campaigns/Emerald Isle/modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md.html"><strong>campaigns/Emerald Isle/modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md.html"><strong>campaigns/Emerald Isle/modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md.html"><strong>campaigns/Emerald Isle/modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md.html"><strong>campaigns/Emerald Isle/modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md.html"><strong>campaigns/Emerald Isle/modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md.html"><strong>campaigns/Emerald Isle/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md.html"><strong>campaigns/Emerald Isle/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md.html"><strong>campaigns/Emerald Isle/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md.html"><strong>campaigns/Emerald Isle/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md.html"><strong>campaigns/Emerald Isle/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md.html"><strong>campaigns/Emerald Isle/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md.html"><strong>campaigns/Emerald Isle/modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-032_Subterranean_Fungiculture_Vaults_and_Yeast_Silos.md.html"><strong>campaigns/Emerald Isle/modules/CWT-032_Subterranean_Fungiculture_Vaults_and_Yeast_Silos.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-033_High_Altiplano_Highland_Camelid_and_Wool_Herds.md.html"><strong>campaigns/Emerald Isle/modules/CWT-033_High_Altiplano_Highland_Camelid_and_Wool_Herds.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-034_Deep_Well_Aquifer_Siphon_and_Solar_Distillation_Array.md.html"><strong>campaigns/Emerald Isle/modules/CWT-034_Deep_Well_Aquifer_Siphon_and_Solar_Distillation_Array.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-040_The_Sylvan_Sanctuary_of_The_Lovers.md.html"><strong>campaigns/Emerald Isle/modules/CWT-040_The_Sylvan_Sanctuary_of_The_Lovers.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-041_The_Scholastic_Scriptorium_and_Codex_Archive.md.html"><strong>campaigns/Emerald Isle/modules/CWT-041_The_Scholastic_Scriptorium_and_Codex_Archive.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-042_The_Solitary_Peak_Hermitage_and_Stargazer_Spire.md.html"><strong>campaigns/Emerald Isle/modules/CWT-042_The_Solitary_Peak_Hermitage_and_Stargazer_Spire.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-043_The_Colossal_Foundry_of_Strength_and_Crucible_Steel.md.html"><strong>campaigns/Emerald Isle/modules/CWT-043_The_Colossal_Foundry_of_Strength_and_Crucible_Steel.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-044_The_Dawn_Cathedral_and_Solar_Solstice_Mirror.md.html"><strong>campaigns/Emerald Isle/modules/CWT-044_The_Dawn_Cathedral_and_Solar_Solstice_Mirror.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-045_The_Chasm_Tollbridge_and_Pact_of_Mutual_Devotion.md.html"><strong>campaigns/Emerald Isle/modules/CWT-045_The_Chasm_Tollbridge_and_Pact_of_Mutual_Devotion.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-050_The_22_Node_Tutorial_Isle_Generic_Campaign_Setting.md.html"><strong>campaigns/Emerald Isle/modules/CWT-050_The_22_Node_Tutorial_Isle_Generic_Campaign_Setting.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-060A_The_Cypriot_Copper_Smelting_Slag_Foundries.md.html"><strong>campaigns/Emerald Isle/modules/CWT-060A_The_Cypriot_Copper_Smelting_Slag_Foundries.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-060_The_Systemic_Interdependence_Collapse_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/CWT-060_The_Systemic_Interdependence_Collapse_Matrix.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-061_The_Derinkuyu_18_Tier_Troglodyte_Bastion.md.html"><strong>campaigns/Emerald Isle/modules/CWT-061_The_Derinkuyu_18_Tier_Troglodyte_Bastion.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-062_The_Thonis_Heracleion_Liquefaction_Port.md.html"><strong>campaigns/Emerald Isle/modules/CWT-062_The_Thonis_Heracleion_Liquefaction_Port.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-063_The_Angkor_Monsoon_Canal_and_Silt_Trap.md.html"><strong>campaigns/Emerald Isle/modules/CWT-063_The_Angkor_Monsoon_Canal_and_Silt_Trap.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-064_The_Garamantes_Fossil_Aquifer_Foggara.md.html"><strong>campaigns/Emerald Isle/modules/CWT-064_The_Garamantes_Fossil_Aquifer_Foggara.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-065_The_Tainter_Complexity_Trap_and_Monument_Mania.md.html"><strong>campaigns/Emerald Isle/modules/CWT-065_The_Tainter_Complexity_Trap_and_Monument_Mania.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-066_The_Gobekli_Tepe_Pre_Agrarian_Pillars.md.html"><strong>campaigns/Emerald Isle/modules/CWT-066_The_Gobekli_Tepe_Pre_Agrarian_Pillars.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-067_The_Tollense_Valley_Unwritten_War_Reliquary.md.html"><strong>campaigns/Emerald Isle/modules/CWT-067_The_Tollense_Valley_Unwritten_War_Reliquary.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-068_Amazonian_Upano_LiDAR_Garden_Cities.md.html"><strong>campaigns/Emerald Isle/modules/CWT-068_Amazonian_Upano_LiDAR_Garden_Cities.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-069_Roman_Lead_Fistulae_Toxicity_and_Currency_Debasement.md.html"><strong>campaigns/Emerald Isle/modules/CWT-069_Roman_Lead_Fistulae_Toxicity_and_Currency_Debasement.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-070_Rapa_Nui_Moai_Quarry_and_Rodent_Ecocide.md.html"><strong>campaigns/Emerald Isle/modules/CWT-070_Rapa_Nui_Moai_Quarry_and_Rodent_Ecocide.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-071_Cahokia_Mississippian_Mounds_and_Mega_Flood.md.html"><strong>campaigns/Emerald Isle/modules/CWT-071_Cahokia_Mississippian_Mounds_and_Mega_Flood.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-072_Antikythera_Clockwork_Astronomical_Reliquary.md.html"><strong>campaigns/Emerald Isle/modules/CWT-072_Antikythera_Clockwork_Astronomical_Reliquary.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-073_The_Harappan_Sanitary_Grid_and_Saraswati_Desiccation.md.html"><strong>campaigns/Emerald Isle/modules/CWT-073_The_Harappan_Sanitary_Grid_and_Saraswati_Desiccation.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-074_The_Teotihuacan_Palace_Immolation_and_Pyramidal_Revolt.md.html"><strong>campaigns/Emerald Isle/modules/CWT-074_The_Teotihuacan_Palace_Immolation_and_Pyramidal_Revolt.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-075_The_Chaco_Canyon_Timber_Roads_and_Megadrought.md.html"><strong>campaigns/Emerald Isle/modules/CWT-075_The_Chaco_Canyon_Timber_Roads_and_Megadrought.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-076_The_Great_Zimbabwe_Mortarless_Granite_and_Gold_Monopoly.md.html"><strong>campaigns/Emerald Isle/modules/CWT-076_The_Great_Zimbabwe_Mortarless_Granite_and_Gold_Monopoly.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-077_The_Nan_Madol_Columnar_Basalt_Canal_Megacity.md.html"><strong>campaigns/Emerald Isle/modules/CWT-077_The_Nan_Madol_Columnar_Basalt_Canal_Megacity.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/CWT-078_The_Skara_Brae_Subterranean_Dune_Stone_Haven.md.html"><strong>campaigns/Emerald Isle/modules/CWT-078_The_Skara_Brae_Subterranean_Dune_Stone_Haven.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md.html"><strong>campaigns/Emerald Isle/modules/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/FACT-03_Decapitation_Proof_Mosaic_Governance.md.html"><strong>campaigns/Emerald Isle/modules/FACT-03_Decapitation_Proof_Mosaic_Governance.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md.html"><strong>campaigns/Emerald Isle/modules/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/FACT-06_Tactical_Bastion_Fortification_Ranks.md.html"><strong>campaigns/Emerald Isle/modules/FACT-06_Tactical_Bastion_Fortification_Ranks.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/HOOK-01_The_Indentured_Caravan_Desperation_Leap.md.html"><strong>campaigns/Emerald Isle/modules/HOOK-01_The_Indentured_Caravan_Desperation_Leap.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md.html"><strong>campaigns/Emerald Isle/modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/STARTER-01_River_Watermill_and_Grain_Silo.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-01_River_Watermill_and_Grain_Silo.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/STARTER-02_Smugglers_Cove_and_Hidden_Sea_Cave.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-02_Smugglers_Cove_and_Hidden_Sea_Cave.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/STARTER-03_Goblin_Warrens_and_Clay_Pits.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-03_Goblin_Warrens_and_Clay_Pits.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/STARTER-04_Ancient_Barrow_and_Restless_Dead.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-04_Ancient_Barrow_and_Restless_Dead.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/STARTER-05_Mountain_Watchtower_and_Signal_Pylon.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-05_Mountain_Watchtower_and_Signal_Pylon.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/STARTER-06_Whispering_Old_Woods_and_Herbalist_Cloister.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-06_Whispering_Old_Woods_and_Herbalist_Cloister.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-04_Operation_White_Bloom_Nitrification_Beds.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-04_Operation_White_Bloom_Nitrification_Beds.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-05_Swamp_Mist_Maker_Poles_and_Pitcher_Distillery.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-05_Swamp_Mist_Maker_Poles_and_Pitcher_Distillery.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-06_Gnomish_Freewave_Vacuum_Tube_Transceivers.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-06_Gnomish_Freewave_Vacuum_Tube_Transceivers.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-07_Lakestone_Resonant_Menhir_Relay.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-07_Lakestone_Resonant_Menhir_Relay.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-08_Cryo_Pyramid_Refrigeration_Core.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-08_Cryo_Pyramid_Refrigeration_Core.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-09_Zim_Sharr_Perimeter_Braziers_and_Sonic_Wards.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-09_Zim_Sharr_Perimeter_Braziers_and_Sonic_Wards.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-02_Razor_Sedge_and_Narcotic_Poppy_Basin.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-02_Razor_Sedge_and_Narcotic_Poppy_Basin.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-03_Iron_Thorn_Living_Immune_Barrier.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-03_Iron_Thorn_Living_Immune_Barrier.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-04_Carnivorous_Pitcher_Bogs_and_Giant_Slugs.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-04_Carnivorous_Pitcher_Bogs_and_Giant_Slugs.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-05_Glacial_Quartz_Meltwater_Filtration.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-05_Glacial_Quartz_Meltwater_Filtration.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-06_High_Canopy_Redwoods_and_Amber_Resin_Taps.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-06_High_Canopy_Redwoods_and_Amber_Resin_Taps.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-07_Siren_Roosts_and_Volcanic_Skerry_Reefs.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-07_Siren_Roosts_and_Volcanic_Skerry_Reefs.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-03_Decapitation_Proof_Mosaic_Governance.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-03_Decapitation_Proof_Mosaic_Governance.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-05_The_Beheaded_Distributed_Cell_Syndicate.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-05_The_Beheaded_Distributed_Cell_Syndicate.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-06_Tactical_Bastion_Fortification_Ranks.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-06_Tactical_Bastion_Fortification_Ranks.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-07_Canonical_22_Node_Faction_Distribution.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-07_Canonical_22_Node_Faction_Distribution.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-02_Green_Red_Conflation_The_Wild_Rage.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-02_Green_Red_Conflation_The_Wild_Rage.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-03_Green_Blue_Conflation_Traditionalist_Stagnation.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-03_Green_Blue_Conflation_Traditionalist_Stagnation.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-04_Ally_Assisted_Conflation_and_Hegemony_Tactics.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-04_Ally_Assisted_Conflation_and_Hegemony_Tactics.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-05_Deception_Hardware_Holy_Silver_Bracelets_and_Fume.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-05_Deception_Hardware_Holy_Silver_Bracelets_and_Fume.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-06_The_Small_Hat_Fallacy_and_Ideological_Flatlining.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-06_The_Small_Hat_Fallacy_and_Ideological_Flatlining.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-02_The_South_Coastal_Road_Paving_Initiative.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-02_The_South_Coastal_Road_Paving_Initiative.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.jpg.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.jpg</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-04_High_Arboreal_Suspension_Highways.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-04_High_Arboreal_Suspension_Highways.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-05_Littoral_Smuggler_Sea_Arches_and_Reef_Gates.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-05_Littoral_Smuggler_Sea_Arches_and_Reef_Gates.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-02_The_Living_Statue_Blue_Rot_Quarantine_Ward.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-02_The_Living_Statue_Blue_Rot_Quarantine_Ward.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-03_The_Memory_Tithe_Altar_of_the_Fey_Court.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-03_The_Memory_Tithe_Altar_of_the_Fey_Court.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-04_The_Iron_Blight_Oxidation_Clock.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-04_The_Iron_Blight_Oxidation_Clock.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-05_Independent_Conspiracies_The_Hollow_Architects.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-05_Independent_Conspiracies_The_Hollow_Architects.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-06_Independent_Conspiracies_The_Promethean_Lodge.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-06_Independent_Conspiracies_The_Promethean_Lodge.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-07_The_Competent_Hero_vs_The_Hoarding_Bureaucrat.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-07_The_Competent_Hero_vs_The_Hoarding_Bureaucrat.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-01_Yellow_Rags_Weaponized_Print_Media_and_Forgery_Engine.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-01_Yellow_Rags_Weaponized_Print_Media_and_Forgery_Engine.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-02_Divine_Council_Theory_as_System_Administration.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-02_Divine_Council_Theory_as_System_Administration.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-03_The_Saturnine_Mainframe_and_The_Linear_Time_Loop.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-03_The_Saturnine_Mainframe_and_The_Linear_Time_Loop.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-04_Aquabah_The_Hanging_Canyon_Cliff_City.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-04_Aquabah_The_Hanging_Canyon_Cliff_City.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-05_Reformation_Penal_Slave_Exchanges.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-05_Reformation_Penal_Slave_Exchanges.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/OPT-BREACH-01_The_Hellmouth_Inversion_Cathedral_and_The_Silver_Well.md.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/OPT-BREACH-01_The_Hellmouth_Inversion_Cathedral_and_The_Silver_Well.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/OPT-FACTION-01_The_Bleeding_Bastion_Vampire_Commandant_and_Werewolf_Elites.md.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/OPT-FACTION-01_The_Bleeding_Bastion_Vampire_Commandant_and_Werewolf_Elites.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/OPT-ORIGIN-01_The_Wayward_Archipelago_and_Barnabys_Civil_Rehabilitation.md.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/OPT-ORIGIN-01_The_Wayward_Archipelago_and_Barnabys_Civil_Rehabilitation.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/OPT-RESORT-01_Adventure_Island_The_Dilapidated_Imperial_Cruise_Port.md.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/OPT-RESORT-01_Adventure_Island_The_Dilapidated_Imperial_Cruise_Port.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/OPT-ZOO-01_Barnabys_Cage_Free_Apex_Menagerie_and_The_Purple_Dragon.md.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/OPT-ZOO-01_Barnabys_Cage_Free_Apex_Menagerie_and_The_Purple_Dragon.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Emerald%20Isle/modules/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/MODULES_CATALOG.md.html"><strong>docs/MODULES_CATALOG.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0001-dual-mode-preset-architecture.md.html"><strong>docs/adr/0001-dual-mode-preset-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md.html"><strong>docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md.html"><strong>docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0008-workstation-mod-extension-architecture-and-save-isolation.md.html"><strong>docs/adr/0008-workstation-mod-extension-architecture-and-save-isolation.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0009-tarot-and-wave-balancing-mod-extraction.md.html"><strong>docs/adr/0009-tarot-and-wave-balancing-mod-extraction.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html"><strong>docs/audit/2026-10-creator-studio-audit-dossier.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/reviews/start_html_review_log.md.html"><strong>docs/reviews/start_html_review_log.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/campaign_preset_specification_srd.md.html"><strong>docs/srd/campaign_preset_specification_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/ip_module_framework_srd.md.html"><strong>docs/srd/ip_module_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/mods/Update-Mods.ps1.html"><strong>mods/Update-Mods.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/network/contradiction_matrix_dashboard.html.html"><strong>network/contradiction_matrix_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/network/modules_manifest.json.html"><strong>network/modules_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/network/network_builder.html.html"><strong>network/network_builder.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/network/odv_archetype_matrix.html.html"><strong>network/odv_archetype_matrix.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/regions/Find-RegionalImage.ps1.html"><strong>regions/Find-RegionalImage.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/regions/regional_image_browser.html.html"><strong>regions/regional_image_browser.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/scripts/build_zero_cors_css.js.html"><strong>scripts/build_zero_cors_css.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
+        <td><span class="badge badge-Workstation Shell Template">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/start.html.html"><strong>start.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

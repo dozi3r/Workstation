@@ -1,0 +1,397 @@
+<!-- ========================================================================
+       MDI WINDOW 1: COMPREHENSIVE MODULE EXPLORER & WORLDBUILDING SOURCEBOOK
+       ======================================================================== -->
+  <div id="modal-module-explorer" class="mdi-window hidden" style="width:960px; height:640px; top:45px; left:60px;">
+    <div class="mdi-title-bar">
+      <div class="mdi-title-text">
+        <span class="win95-start-logo" style="width:12px; height:12px; font-size:8px;">MD</span>
+        <span id="me-dialog-title">Module Explorer - Primary Worldbuilding Sourcebook &amp; Mechanics Inspector</span>
+      </div>
+      <div class="mdi-title-controls">
+        <button class="win-btn" onclick="MDIWindowManager.minimize('modal-module-explorer')" title="Minimize">_</button>
+        <button class="win-btn" onclick="MDIWindowManager.restoreOrMaximize('modal-module-explorer')" title="Maximize / Restore">&#9633;</button>
+        <button class="win-btn" onclick="MDIWindowManager.close('modal-module-explorer')" title="Close">X</button>
+      </div>
+    </div>
+    <div class="mdi-body">
+
+      <!-- Filter Bar -->
+      <div class="me-filter-bar">
+        <label>
+          <span>Scope:</span>
+          <select id="me-filter-scope" class="win-select-input" onchange="filterModules()" style="width:145px;">
+            <option value="all">All Project Modules (118)</option>
+            <option value="in_campaign">In Current Campaign</option>
+            <option value="outside_campaign">Outside Campaign (Available)</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Campaign:</span>
+          <select id="me-filter-campaign" class="win-select-input" onchange="filterModules()" style="width:140px;">
+            <option value="all">All Campaigns</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Tier:</span>
+          <select id="me-filter-tier" class="win-select-input" onchange="filterModules()" style="width:110px;">
+            <option value="all">All Tiers (1-5)</option>
+            <option value="1">Tier 1: Macro</option>
+            <option value="2">Tier 2: Biomes</option>
+            <option value="3">Tier 3: Infra</option>
+            <option value="4">Tier 4: Sparks</option>
+            <option value="5">Tier 5: Esoteric</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Quadrant:</span>
+          <select id="me-filter-culture" class="win-select-input" onchange="filterModules()" style="width:100px;">
+            <option value="all">All Cultures</option>
+            <option value="Clan">Clan</option>
+            <option value="Adhocracy">Adhocracy</option>
+            <option value="Market">Market</option>
+            <option value="Hierarchy">Hierarchy</option>
+            <option value="Crisis">Crisis</option>
+          </select>
+        </label>
+
+        <label style="flex-grow:1;">
+          <span>Search:</span>
+          <input type="text" id="me-search-input" class="win-select-input" placeholder="Search ID, title, tags, text..." oninput="filterModules()" style="width:100%;">
+        </label>
+
+        <label>
+          <span>Slot Target Node:</span>
+          <select id="me-target-node" class="win-select-input" onchange="onTargetNodeChange()" style="width:140px;">
+            <option value="">(No Node Selected)</option>
+          </select>
+        </label>
+
+        <button class="win-btn bold" onclick="openCustomModuleEditor()" style="background:#dbeafe; color:#000080; padding:2px 8px; height:22px; align-self:flex-end;" title="Open Custom Module Studio to create a new worldbuilding module">+ New Custom Module</button>
+      </div>
+
+      <!-- Split Layout: Catalog Table on Left, Rich Inspector on Right -->
+      <div class="me-split-layout">
+        <!-- LEFT: Module Catalog List -->
+        <div class="me-catalog-pane bevel-thin-inset">
+          <div class="me-catalog-table-container">
+            <table class="me-catalog-table">
+              <thead>
+                <tr>
+                  <th style="width:65px;">ID</th>
+                  <th>Module Title</th>
+                  <th style="width:45px;">Tier</th>
+                  <th style="width:60px;">Status</th>
+                  <th style="width:40px; text-align:center;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="me-table-body">
+                <!-- Injected dynamically -->
+              </tbody>
+            </table>
+          </div>
+          <div id="me-catalog-count" style="font-size:10px; color:#555; padding:3px 6px; background:#e8e8e8; border-top:1px solid #ccc;">
+            Showing 0 of 0 modules
+          </div>
+        </div>
+
+        <!-- RIGHT: Comprehensive Multi-Tab Module Inspector -->
+        <div class="me-detail-pane bevel-thin-inset">
+          <!-- Top Header Banner -->
+          <div class="me-detail-header">
+            <div style="flex-grow:1; min-width:0;">
+              <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:3px;">
+                <span id="me-detail-id" class="me-badge me-badge-tier" style="font-size:11px; padding:2px 6px;">ID</span>
+                <span id="me-detail-tier" class="me-badge">Tier</span>
+                <span id="me-detail-set" class="me-badge">Set</span>
+                <span id="me-detail-culture" class="me-badge">Culture</span>
+                <span id="me-detail-color" class="me-badge">Color</span>
+              </div>
+              <h2 id="me-detail-title" style="font-size:14px; color:#000080; margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Select a module</h2>
+              <div id="me-detail-summary" style="font-size:11px; color:#444; margin-top:2px;">Select a module from the catalog on the left to inspect its complete worldbuilding architecture.</div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end; flex-shrink:0;">
+              <button id="me-btn-slot" class="win-btn bold" onclick="toggleSlotCurrentModule()" style="min-width:130px; height:24px;">Slot into Node</button>
+              <button id="me-btn-campaign-toggle" class="win-btn" onclick="toggleModuleInCampaign()" style="min-width:130px;">+ Add to Campaign</button>
+              <button id="me-btn-promote" class="win-btn" onclick="promoteCurrentModuleEntities()" style="min-width:130px;">+ Promote Entities</button>
+              <div style="display:flex; gap:3px; width:100%;">
+                <button id="me-btn-edit-clone" class="win-btn" onclick="editOrCloneCurrentModule()" style="flex:1; font-size:10px; padding:2px 4px; color:#000080;" title="Edit custom module or clone standard module into Custom Module Studio">✏️ Edit / Clone</button>
+                <button id="me-btn-export-md" class="win-btn" onclick="exportModuleMarkdownFile()" style="font-size:10px; padding:2px 5px;" title="Export module as standardized .md sourcebook file">📄 .md</button>
+              </div>
+              <button id="me-btn-delete" class="win-btn" onclick="promptEntityDelete('module', SelectedModuleId)" style="min-width:130px; color:#b91c1c; font-weight:bold;" title="Delete Module &amp; check dependencies">🗑️ Delete Module...</button>
+            </div>
+          </div>
+
+          <!-- Tab Bar -->
+          <div class="me-tabs-bar">
+            <button id="me-tab-btn-overview" class="me-tab-btn active" onclick="switchModuleTab('overview')">1. Overview &amp; Supply Chain</button>
+            <button id="me-tab-btn-entities" class="me-tab-btn" onclick="switchModuleTab('entities')">2. Narrative Entities (<span id="me-tab-ent-count">0</span>)</button>
+            <button id="me-tab-btn-mechanics" class="me-tab-btn" onclick="switchModuleTab('mechanics')">3. Mechanics &amp; Clocks</button>
+            <button id="me-tab-btn-notes" class="me-tab-btn" onclick="switchModuleTab('notes')">4. Full Sourcebook &amp; Notes</button>
+          </div>
+
+          <!-- Tab 1: Overview & Supply Chain -->
+          <div id="me-tab-content-overview" class="me-tab-content active">
+            <div class="me-grid-2col">
+              <div class="me-card">
+                <div class="me-card-title">5-Tier Worldbuilding Pipeline Role</div>
+                <div id="me-tier-desc" style="font-size:11px; color:#222; margin-bottom:6px;">Role description</div>
+                <div class="me-card-title" style="margin-top:8px;">Sociological Culture Alignment</div>
+                <div id="me-culture-chip" style="font-size:11px; color:#222;">(Universal)</div>
+              </div>
+
+              <div class="me-card">
+                <div class="me-card-title">Node Placement Prerequisites</div>
+                <div id="me-prereqs" style="font-size:11px; color:#222; line-height:1.4;">(None specified)</div>
+                <div class="me-card-title" style="margin-top:8px;">Standalone Fallback Execution Mode</div>
+                <div id="me-fallback" style="font-size:11px; color:#555; font-style:italic;">(None)</div>
+              </div>
+            </div>
+
+            <div class="me-card" style="margin-top:8px;">
+              <div class="me-card-title">
+                <span>Supply Chain Contracts (Topological Resource Balance)</span>
+                <span id="me-yields-badge" class="me-badge" style="background:#fef3c7; color:#92400e;">Yields</span>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div>
+                  <strong style="font-size:10px; color:#059669; display:block; margin-bottom:3px;">PROVIDES TAGS (Export to Network):</strong>
+                  <div id="me-provides-tags" style="display:flex; gap:3px; flex-wrap:wrap;">(None)</div>
+                </div>
+                <div>
+                  <strong style="font-size:10px; color:#dc2626; display:block; margin-bottom:3px;">REQUIRES TAGS (Upstream Dependencies):</strong>
+                  <div id="me-requires-tags" style="display:flex; gap:3px; flex-wrap:wrap;">(None)</div>
+                </div>
+              </div>
+              <div style="margin-top:8px; padding-top:6px; border-top:1px solid #eee; font-size:11px;">
+                <strong>Resource Yield:</strong> <span id="me-yields-text" style="color:#222;">None</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Narrative Entities (NPCs, Quests, Items) -->
+          <div id="me-tab-content-entities" class="me-tab-content">
+            <!-- NPCs Sub-section -->
+            <div class="me-card">
+              <div class="me-card-title">
+                <span>Non-Player Characters (NPCs)</span>
+                <span id="me-ent-npc-count" class="me-badge">0</span>
+              </div>
+              <div id="me-ent-npcs-list" style="display:flex; flex-direction:column; gap:4px;">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+
+            <!-- Quests & Dilemmas Sub-section -->
+            <div class="me-card">
+              <div class="me-card-title">
+                <span>Active Quests, Dilemmas &amp; Hazard Vectors</span>
+                <span id="me-ent-quest-count" class="me-badge">0</span>
+              </div>
+              <div id="me-ent-quests-list" style="display:flex; flex-direction:column; gap:4px;">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+
+            <!-- Items & Relics Sub-section -->
+            <div class="me-card">
+              <div class="me-card-title">
+                <span>Technological Apparatus, Gear &amp; Relics</span>
+                <span id="me-ent-item-count" class="me-badge">0</span>
+              </div>
+              <div id="me-ent-items-list" style="display:flex; flex-direction:column; gap:4px;">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Mechanics & Clocks -->
+          <div id="me-tab-content-mechanics" class="me-tab-content">
+            <div class="me-card">
+              <div class="me-card-title">Threat Clocks &amp; Escalation Vectors</div>
+              <div id="me-threat-clocks-container" style="display:flex; flex-direction:column; gap:4px;">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+
+            <div class="me-card">
+              <div class="me-card-title">Output Dials (Levels 1 to 4 Severity / Output)</div>
+              <div id="me-dials-container" style="display:flex; flex-direction:column; gap:4px;">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+
+            <div class="me-card">
+              <div class="me-card-title">Four-Corner Sociological Opposition</div>
+              <div id="me-four-corners-container" style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 4: Full Sourcebook & Notes -->
+          <div id="me-tab-content-notes" class="me-tab-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; background:#e0e0e0; padding:4px 8px; border:1px solid #ccc;">
+              <div style="font-size:11px;">
+                <strong>View Mode:</strong>
+                <button class="win-btn active" id="me-btn-view-rendered" onclick="setReaderViewMode('rendered')" style="font-size:10px; padding:1px 6px;">Formatted Reader</button>
+                <button class="win-btn" id="me-btn-view-raw" onclick="setReaderViewMode('raw')" style="font-size:10px; padding:1px 6px;">Raw Source</button>
+              </div>
+              <div>
+                <a id="me-source-file-link" href="#" target="_blank" style="font-size:11px; color:#000080; text-decoration:underline;">Open Source File</a>
+              </div>
+            </div>
+            <div id="me-reader-rendered" class="me-reader-container bevel-thin-inset" style="min-height:300px; max-height:450px; overflow-y:auto;">
+              <!-- Rendered Markdown goes here -->
+            </div>
+            <textarea id="me-reader-raw" class="win-select-input" rows="20" style="width:100%; height:450px; font-family:monospace; font-size:11px; display:none; background:#fff;" readonly></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="dialog-footer" style="padding:6px 10px; background-color:var(--win-base); justify-content:space-between; flex-shrink:0;">
+        <div id="me-footer-status" style="font-size:11px; color:#333;">Ready</div>
+        <button class="win-btn" onclick="MDIWindowManager.close('modal-module-explorer')" style="min-width:70px;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MDI WINDOW: IN-APP GM CUSTOM MODULE STUDIO & EDITOR (SYS-START-09)
+       ======================================================================== -->
+  <div id="modal-custom-module-editor" class="mdi-window hidden" style="width:760px; height:620px; top:65px; left:140px;">
+    <div class="mdi-title-bar">
+      <div class="mdi-title-text">
+        <span class="win95-start-logo" style="width:12px; height:12px; font-size:8px; background:#047857;">CM</span>
+        <span id="cme-dialog-title">Custom Module Studio - Author &amp; Package 5-Tier Worldbuilding Module</span>
+      </div>
+      <div class="mdi-title-controls">
+        <button class="win-btn" onclick="MDIWindowManager.minimize('modal-custom-module-editor')" title="Minimize">_</button>
+        <button class="win-btn" onclick="MDIWindowManager.restoreOrMaximize('modal-custom-module-editor')" title="Maximize / Restore">&#9633;</button>
+        <button class="win-btn" onclick="MDIWindowManager.close('modal-custom-module-editor')" title="Close">X</button>
+      </div>
+    </div>
+    <div class="mdi-body" style="padding:8px; display:flex; flex-direction:column; gap:8px; overflow-y:auto;">
+      <!-- Row 1: Identity & Pipeline Tier -->
+      <div class="me-card" style="padding:8px;">
+        <div class="me-card-title">1. Module Identity &amp; 5-Tier Pipeline Classification</div>
+        <div style="display:grid; grid-template-columns:130px 1fr 170px 120px; gap:6px; align-items:end;">
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>Module ID:</strong>
+            <input type="text" id="cme-id" class="win-select-input" placeholder="CUST-01" style="font-family:monospace; font-weight:bold;">
+          </label>
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>Module Title:</strong>
+            <input type="text" id="cme-title" class="win-select-input" placeholder="e.g., Subterranean Geode Smeltery">
+          </label>
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>Pipeline Tier (1-5):</strong>
+            <select id="cme-tier" class="win-select-input">
+              <option value="1">Tier 1: Macro Governance</option>
+              <option value="2">Tier 2: Biome / Edge</option>
+              <option value="3" selected>Tier 3: Infrastructure</option>
+              <option value="4">Tier 4: Social / Catalyst</option>
+              <option value="5">Tier 5: Esoteric / Climax</option>
+            </select>
+          </label>
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>Set / Category:</strong>
+            <input type="text" id="cme-set" class="win-select-input" value="Set H: Homebrew" placeholder="Set H: Homebrew">
+          </label>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:6px; margin-top:6px; align-items:end;">
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>CVF Cultural Quadrant:</strong>
+            <select id="cme-culture" class="win-select-input">
+              <option value="Hierarchy">Hierarchy (Order / Guilds)</option>
+              <option value="Clan">Clan (Communal / Bastion)</option>
+              <option value="Market">Market (Trade / Syndicate)</option>
+              <option value="Adhocracy">Adhocracy (Frontier / Wild)</option>
+              <option value="Universal">Universal (Any Culture)</option>
+            </select>
+          </label>
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>MTG Color Identity:</strong>
+            <select id="cme-color" class="win-select-input">
+              <option value="White (W)">White (W) - Law/Order</option>
+              <option value="Blue (U)">Blue (U) - Tech/Arcana</option>
+              <option value="Black (B)">Black (B) - Ambition/Profit</option>
+              <option value="Red (R)">Red (R) - Volcanism/Chaos</option>
+              <option value="Green (G)">Green (G) - Ecology/Growth</option>
+              <option value="Artifact / Colorless">Artifact / Colorless</option>
+              <option value="Multicolor">Multicolor</option>
+            </select>
+          </label>
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>Primary Yield Summary:</strong>
+            <input type="text" id="cme-yields" class="win-select-input" placeholder="e.g., Refined Carbide &amp; Power">
+          </label>
+        </div>
+      </div>
+
+      <!-- Row 2: Supply Chain Contracts & Fallback -->
+      <div class="me-card" style="padding:8px;">
+        <div class="me-card-title">2. Supply Chain Contracts (`provides` / `requires`) &amp; Severance Fallback</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong style="color:#059669;">Provides Tags (comma-separated `Domain: Tag`):</strong>
+            <input type="text" id="cme-provides" class="win-select-input" placeholder="Energy: Steam-Power, Material: Pig-Iron">
+          </label>
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong style="color:#dc2626;">Requires Tags (comma-separated `Domain: Tag`):</strong>
+            <input type="text" id="cme-requires" class="win-select-input" placeholder="Resource: Coal-Seam, Logistics: Heavy-Carts">
+          </label>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:6px;">
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>Node Placement Prerequisites:</strong>
+            <input type="text" id="cme-prereqs" class="win-select-input" placeholder="e.g., Mountain or Industrial Settlement Node">
+          </label>
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>Standalone Fallback Profile (When Supply Severed):</strong>
+            <input type="text" id="cme-fallback" class="win-select-input" placeholder="e.g., Output drops 50%; triggers Smelter Riot clock (4 ticks).">
+          </label>
+        </div>
+      </div>
+
+      <!-- Row 3: Narrative Sourcebook & Latent Prototypes -->
+      <div class="me-card" style="padding:8px; flex:1; display:flex; flex-direction:column; gap:6px;">
+        <div class="me-card-title">3. Narrative Overview, Encounter Hooks &amp; Latent Entities</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>Latent NPCs (`Name | Role | Motivation` per line):</strong>
+            <textarea id="cme-npcs" class="win-select-input" rows="3" style="font-family:monospace; font-size:10px;" placeholder="Foreman Vane | Chief Smelter | Keep furnaces lit at any cost"></textarea>
+          </label>
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>Latent Quests (`Title | Threat | Notes` per line):</strong>
+            <textarea id="cme-quests" class="win-select-input" rows="3" style="font-family:monospace; font-size:10px;" placeholder="Cracked Pressure Valve | 4 Ticks | Boiler threatens to rupture"></textarea>
+          </label>
+          <label style="font-size:11px; display:flex; flex-direction:column; gap:2px;">
+            <strong>Latent Items (`Name | Category | Specs` per line):</strong>
+            <textarea id="cme-items" class="win-select-input" rows="3" style="font-family:monospace; font-size:10px;" placeholder="Arc Torch | Industrial Gear | Cuts basalt &amp; iron"></textarea>
+          </label>
+        </div>
+        <label style="font-size:11px; display:flex; flex-direction:column; gap:2px; flex:1;">
+          <strong>Markdown Sourcebook Body (Lore, Encounter Hooks, Mechanics):</strong>
+          <textarea id="cme-markdown" class="win-select-input" rows="6" style="width:100%; flex:1; font-family:monospace; font-size:11px;" placeholder="## Architectural Overview&#10;Describe the worldbuilding module, its physical presence on the node, and how GMs can run encounters here..."></textarea>
+        </label>
+      </div>
+
+      <!-- Footer -->
+      <div class="dialog-footer" style="padding:6px 8px; background-color:var(--win-base); display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
+        <div style="display:flex; gap:6px; align-items:center;">
+          <button class="win-btn" onclick="exportCustomModuleDraftMarkdown()" title="Download standardized .md file with YAML frontmatter for campaigns/ directory">📄 Export to Markdown (.md)</button>
+          <span id="cme-status-msg" style="font-size:10px; color:#444;">Stored in campaign topology (`custom_modules`).</span>
+        </div>
+        <div style="display:flex; gap:6px;">
+          <button class="win-btn bold" onclick="saveCustomModuleFromStudio()" style="min-width:120px; background:#d1fae5; color:#065f46;">💾 Save Custom Module</button>
+          <button class="win-btn" onclick="MDIWindowManager.close('modal-custom-module-editor')" style="min-width:70px;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>

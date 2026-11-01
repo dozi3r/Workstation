@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>campaign.json — Creator Studio Technical Manual &amp; Wiki</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../../index.html#vol-8">Volume VIII: Campaign Packages, Modules &amp; Templates</a> &rsaquo;
+        <span>campaigns/Emerald Isle/campaign.json</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">campaign.json</h1>
+        <div class="article-subtitle">
+          <span class="badge">Authoritative JSON Data / Manifest</span>
+          <span class="badge badge-ok">✓ Synced (SHA: b8f0123c)</span>
+          
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (140)</a>
+        </div>
+      </div>
+
+      <aside class="infobox">
+        <div class="infobox-header">campaign.json</div>
+        <table class="infobox-table">
+          
+    <tr><th>File Path</th><td><code>campaigns/Emerald Isle/campaign.json</code></td></tr>
+    <tr><th>Manual Volume</th><td><a href="../../../index.html#vol-8">Volume VIII</a></td></tr>
+    <tr><th>Surface Kind</th><td>Authoritative JSON Data / Manifest</td></tr>
+    <tr><th>File Metrics</th><td>88 lines &bull; 2.1 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: b8f0123c)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>3</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>140</strong> backlinks</td></tr>
+    <tr><th>Raw File</th><td><a href="../../../../campaigns/Emerald%20Isle/campaign.json" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
+  
+        </table>
+      </aside>
+
+      
+    <div class="ai-digest">
+      <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
+      <p style="margin:4px 0;"><strong>Summary:</strong> Authored in Creator Studio Pointcrawl Workstation</p>
+      
+      
+      
+    </div>
+  
+      
+      <h3>Architectural Purpose & Role</h3>
+<p><code>campaigns/Emerald Isle/campaign.json</code> serves as a <strong>Authoritative JSON Data / Manifest</strong> within <strong>Volume VIII: Campaign Packages, Modules & Templates</strong>.</p>
+      <h2>JSON Dataset Structure</h2><p>Root Type: <code>Object</code> &bull; Top-Level Keys: <code>id</code>, <code>name</code>, <code>campaignName</code>, <code>description</code>, <code>author</code>, <code>packageType</code>, <code>enabled</code>, <code>topologyFile</code>, <code>manifestFile</code>, <code>updatedAt</code>, <code>exportedAt</code>, <code>globalDials</code>, <code>entities</code>, <code>syncToken</code></p><ul class="wiki-list"><li><code>globalDials</code>: 2 keys</li><li><code>entities</code>: 8 keys</li></ul>
+      <h2 id="outbound-links">Outbound References (3)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module CONF-01</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-02_Green_Red_Conflation_The_Wild_Rage.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-02_Green_Red_Conflation_The_Wild_Rage.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module CONF-02</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-03_Green_Blue_Conflation_Traditionalist_Stagnation.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-03_Green_Blue_Conflation_Traditionalist_Stagnation.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
+        <td>Mentions module CONF-03</td>
+      </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (140)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+        <td><a href="../../../pages/start.html.html"><strong>start.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Data Source</span></td>
+        <td>Authoritative data source in campaigns/ consumed by start.html</td>
+      </tr><tr>
+        <td><a href="../../../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Data Source</span></td>
+        <td>Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/assets/crypt.png.html"><strong>campaigns/Emerald Isle/assets/crypt.png</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/assets/desktop.ini.html"><strong>campaigns/Emerald Isle/assets/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/assets/map_mvg3e071_ip_bg.png.html"><strong>campaigns/Emerald Isle/assets/map_mvg3e071_ip_bg.png</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/assets/map_mvg3f9wx_pa_bg.jpg.html"><strong>campaigns/Emerald Isle/assets/map_mvg3f9wx_pa_bg.jpg</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/assets/map_mvj11lsr_pj_bg.png.html"><strong>campaigns/Emerald Isle/assets/map_mvj11lsr_pj_bg.png</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/assets/map_root_bg.jpg.html"><strong>campaigns/Emerald Isle/assets/map_root_bg.jpg</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/desktop.ini.html"><strong>campaigns/Emerald Isle/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-010_The_Biogenic_Spore_Bloom_and_Planetary_Rebirth.md.html"><strong>campaigns/Emerald Isle/modules/CWT-010_The_Biogenic_Spore_Bloom_and_Planetary_Rebirth.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md.html"><strong>campaigns/Emerald Isle/modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md.html"><strong>campaigns/Emerald Isle/modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md.html"><strong>campaigns/Emerald Isle/modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md.html"><strong>campaigns/Emerald Isle/modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md.html"><strong>campaigns/Emerald Isle/modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md.html"><strong>campaigns/Emerald Isle/modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md.html"><strong>campaigns/Emerald Isle/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md.html"><strong>campaigns/Emerald Isle/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md.html"><strong>campaigns/Emerald Isle/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md.html"><strong>campaigns/Emerald Isle/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md.html"><strong>campaigns/Emerald Isle/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md.html"><strong>campaigns/Emerald Isle/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md.html"><strong>campaigns/Emerald Isle/modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-032_Subterranean_Fungiculture_Vaults_and_Yeast_Silos.md.html"><strong>campaigns/Emerald Isle/modules/CWT-032_Subterranean_Fungiculture_Vaults_and_Yeast_Silos.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-033_High_Altiplano_Highland_Camelid_and_Wool_Herds.md.html"><strong>campaigns/Emerald Isle/modules/CWT-033_High_Altiplano_Highland_Camelid_and_Wool_Herds.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-034_Deep_Well_Aquifer_Siphon_and_Solar_Distillation_Array.md.html"><strong>campaigns/Emerald Isle/modules/CWT-034_Deep_Well_Aquifer_Siphon_and_Solar_Distillation_Array.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-040_The_Sylvan_Sanctuary_of_The_Lovers.md.html"><strong>campaigns/Emerald Isle/modules/CWT-040_The_Sylvan_Sanctuary_of_The_Lovers.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-041_The_Scholastic_Scriptorium_and_Codex_Archive.md.html"><strong>campaigns/Emerald Isle/modules/CWT-041_The_Scholastic_Scriptorium_and_Codex_Archive.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-042_The_Solitary_Peak_Hermitage_and_Stargazer_Spire.md.html"><strong>campaigns/Emerald Isle/modules/CWT-042_The_Solitary_Peak_Hermitage_and_Stargazer_Spire.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-043_The_Colossal_Foundry_of_Strength_and_Crucible_Steel.md.html"><strong>campaigns/Emerald Isle/modules/CWT-043_The_Colossal_Foundry_of_Strength_and_Crucible_Steel.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-044_The_Dawn_Cathedral_and_Solar_Solstice_Mirror.md.html"><strong>campaigns/Emerald Isle/modules/CWT-044_The_Dawn_Cathedral_and_Solar_Solstice_Mirror.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-045_The_Chasm_Tollbridge_and_Pact_of_Mutual_Devotion.md.html"><strong>campaigns/Emerald Isle/modules/CWT-045_The_Chasm_Tollbridge_and_Pact_of_Mutual_Devotion.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-050_The_22_Node_Tutorial_Isle_Generic_Campaign_Setting.md.html"><strong>campaigns/Emerald Isle/modules/CWT-050_The_22_Node_Tutorial_Isle_Generic_Campaign_Setting.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-060A_The_Cypriot_Copper_Smelting_Slag_Foundries.md.html"><strong>campaigns/Emerald Isle/modules/CWT-060A_The_Cypriot_Copper_Smelting_Slag_Foundries.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-060_The_Systemic_Interdependence_Collapse_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/CWT-060_The_Systemic_Interdependence_Collapse_Matrix.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-061_The_Derinkuyu_18_Tier_Troglodyte_Bastion.md.html"><strong>campaigns/Emerald Isle/modules/CWT-061_The_Derinkuyu_18_Tier_Troglodyte_Bastion.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-062_The_Thonis_Heracleion_Liquefaction_Port.md.html"><strong>campaigns/Emerald Isle/modules/CWT-062_The_Thonis_Heracleion_Liquefaction_Port.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-063_The_Angkor_Monsoon_Canal_and_Silt_Trap.md.html"><strong>campaigns/Emerald Isle/modules/CWT-063_The_Angkor_Monsoon_Canal_and_Silt_Trap.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-064_The_Garamantes_Fossil_Aquifer_Foggara.md.html"><strong>campaigns/Emerald Isle/modules/CWT-064_The_Garamantes_Fossil_Aquifer_Foggara.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-065_The_Tainter_Complexity_Trap_and_Monument_Mania.md.html"><strong>campaigns/Emerald Isle/modules/CWT-065_The_Tainter_Complexity_Trap_and_Monument_Mania.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-066_The_Gobekli_Tepe_Pre_Agrarian_Pillars.md.html"><strong>campaigns/Emerald Isle/modules/CWT-066_The_Gobekli_Tepe_Pre_Agrarian_Pillars.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-067_The_Tollense_Valley_Unwritten_War_Reliquary.md.html"><strong>campaigns/Emerald Isle/modules/CWT-067_The_Tollense_Valley_Unwritten_War_Reliquary.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-068_Amazonian_Upano_LiDAR_Garden_Cities.md.html"><strong>campaigns/Emerald Isle/modules/CWT-068_Amazonian_Upano_LiDAR_Garden_Cities.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-069_Roman_Lead_Fistulae_Toxicity_and_Currency_Debasement.md.html"><strong>campaigns/Emerald Isle/modules/CWT-069_Roman_Lead_Fistulae_Toxicity_and_Currency_Debasement.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-070_Rapa_Nui_Moai_Quarry_and_Rodent_Ecocide.md.html"><strong>campaigns/Emerald Isle/modules/CWT-070_Rapa_Nui_Moai_Quarry_and_Rodent_Ecocide.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-071_Cahokia_Mississippian_Mounds_and_Mega_Flood.md.html"><strong>campaigns/Emerald Isle/modules/CWT-071_Cahokia_Mississippian_Mounds_and_Mega_Flood.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-072_Antikythera_Clockwork_Astronomical_Reliquary.md.html"><strong>campaigns/Emerald Isle/modules/CWT-072_Antikythera_Clockwork_Astronomical_Reliquary.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-073_The_Harappan_Sanitary_Grid_and_Saraswati_Desiccation.md.html"><strong>campaigns/Emerald Isle/modules/CWT-073_The_Harappan_Sanitary_Grid_and_Saraswati_Desiccation.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-074_The_Teotihuacan_Palace_Immolation_and_Pyramidal_Revolt.md.html"><strong>campaigns/Emerald Isle/modules/CWT-074_The_Teotihuacan_Palace_Immolation_and_Pyramidal_Revolt.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-075_The_Chaco_Canyon_Timber_Roads_and_Megadrought.md.html"><strong>campaigns/Emerald Isle/modules/CWT-075_The_Chaco_Canyon_Timber_Roads_and_Megadrought.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-076_The_Great_Zimbabwe_Mortarless_Granite_and_Gold_Monopoly.md.html"><strong>campaigns/Emerald Isle/modules/CWT-076_The_Great_Zimbabwe_Mortarless_Granite_and_Gold_Monopoly.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-077_The_Nan_Madol_Columnar_Basalt_Canal_Megacity.md.html"><strong>campaigns/Emerald Isle/modules/CWT-077_The_Nan_Madol_Columnar_Basalt_Canal_Megacity.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/CWT-078_The_Skara_Brae_Subterranean_Dune_Stone_Haven.md.html"><strong>campaigns/Emerald Isle/modules/CWT-078_The_Skara_Brae_Subterranean_Dune_Stone_Haven.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md.html"><strong>campaigns/Emerald Isle/modules/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/FACT-03_Decapitation_Proof_Mosaic_Governance.md.html"><strong>campaigns/Emerald Isle/modules/FACT-03_Decapitation_Proof_Mosaic_Governance.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md.html"><strong>campaigns/Emerald Isle/modules/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/FACT-06_Tactical_Bastion_Fortification_Ranks.md.html"><strong>campaigns/Emerald Isle/modules/FACT-06_Tactical_Bastion_Fortification_Ranks.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/HOOK-01_The_Indentured_Caravan_Desperation_Leap.md.html"><strong>campaigns/Emerald Isle/modules/HOOK-01_The_Indentured_Caravan_Desperation_Leap.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md.html"><strong>campaigns/Emerald Isle/modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/STARTER-01_River_Watermill_and_Grain_Silo.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-01_River_Watermill_and_Grain_Silo.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/STARTER-02_Smugglers_Cove_and_Hidden_Sea_Cave.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-02_Smugglers_Cove_and_Hidden_Sea_Cave.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/STARTER-03_Goblin_Warrens_and_Clay_Pits.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-03_Goblin_Warrens_and_Clay_Pits.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/STARTER-04_Ancient_Barrow_and_Restless_Dead.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-04_Ancient_Barrow_and_Restless_Dead.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/STARTER-05_Mountain_Watchtower_and_Signal_Pylon.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-05_Mountain_Watchtower_and_Signal_Pylon.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/STARTER-06_Whispering_Old_Woods_and_Herbalist_Cloister.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-06_Whispering_Old_Woods_and_Herbalist_Cloister.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-04_Operation_White_Bloom_Nitrification_Beds.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-04_Operation_White_Bloom_Nitrification_Beds.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-05_Swamp_Mist_Maker_Poles_and_Pitcher_Distillery.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-05_Swamp_Mist_Maker_Poles_and_Pitcher_Distillery.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-06_Gnomish_Freewave_Vacuum_Tube_Transceivers.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-06_Gnomish_Freewave_Vacuum_Tube_Transceivers.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-07_Lakestone_Resonant_Menhir_Relay.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-07_Lakestone_Resonant_Menhir_Relay.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-08_Cryo_Pyramid_Refrigeration_Core.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-08_Cryo_Pyramid_Refrigeration_Core.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-09_Zim_Sharr_Perimeter_Braziers_and_Sonic_Wards.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-09_Zim_Sharr_Perimeter_Braziers_and_Sonic_Wards.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-02_Razor_Sedge_and_Narcotic_Poppy_Basin.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-02_Razor_Sedge_and_Narcotic_Poppy_Basin.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-03_Iron_Thorn_Living_Immune_Barrier.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-03_Iron_Thorn_Living_Immune_Barrier.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-04_Carnivorous_Pitcher_Bogs_and_Giant_Slugs.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-04_Carnivorous_Pitcher_Bogs_and_Giant_Slugs.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-05_Glacial_Quartz_Meltwater_Filtration.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-05_Glacial_Quartz_Meltwater_Filtration.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-06_High_Canopy_Redwoods_and_Amber_Resin_Taps.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-06_High_Canopy_Redwoods_and_Amber_Resin_Taps.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-07_Siren_Roosts_and_Volcanic_Skerry_Reefs.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-07_Siren_Roosts_and_Volcanic_Skerry_Reefs.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-03_Decapitation_Proof_Mosaic_Governance.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-03_Decapitation_Proof_Mosaic_Governance.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-05_The_Beheaded_Distributed_Cell_Syndicate.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-05_The_Beheaded_Distributed_Cell_Syndicate.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-06_Tactical_Bastion_Fortification_Ranks.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-06_Tactical_Bastion_Fortification_Ranks.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-07_Canonical_22_Node_Faction_Distribution.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-07_Canonical_22_Node_Faction_Distribution.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-02_Green_Red_Conflation_The_Wild_Rage.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-02_Green_Red_Conflation_The_Wild_Rage.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-03_Green_Blue_Conflation_Traditionalist_Stagnation.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-03_Green_Blue_Conflation_Traditionalist_Stagnation.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-04_Ally_Assisted_Conflation_and_Hegemony_Tactics.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-04_Ally_Assisted_Conflation_and_Hegemony_Tactics.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-05_Deception_Hardware_Holy_Silver_Bracelets_and_Fume.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-05_Deception_Hardware_Holy_Silver_Bracelets_and_Fume.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-06_The_Small_Hat_Fallacy_and_Ideological_Flatlining.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-06_The_Small_Hat_Fallacy_and_Ideological_Flatlining.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-02_The_South_Coastal_Road_Paving_Initiative.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-02_The_South_Coastal_Road_Paving_Initiative.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.jpg.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.jpg</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-04_High_Arboreal_Suspension_Highways.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-04_High_Arboreal_Suspension_Highways.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-05_Littoral_Smuggler_Sea_Arches_and_Reef_Gates.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-05_Littoral_Smuggler_Sea_Arches_and_Reef_Gates.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-02_The_Living_Statue_Blue_Rot_Quarantine_Ward.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-02_The_Living_Statue_Blue_Rot_Quarantine_Ward.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-03_The_Memory_Tithe_Altar_of_the_Fey_Court.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-03_The_Memory_Tithe_Altar_of_the_Fey_Court.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-04_The_Iron_Blight_Oxidation_Clock.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-04_The_Iron_Blight_Oxidation_Clock.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-05_Independent_Conspiracies_The_Hollow_Architects.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-05_Independent_Conspiracies_The_Hollow_Architects.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-06_Independent_Conspiracies_The_Promethean_Lodge.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-06_Independent_Conspiracies_The_Promethean_Lodge.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-07_The_Competent_Hero_vs_The_Hoarding_Bureaucrat.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-07_The_Competent_Hero_vs_The_Hoarding_Bureaucrat.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-01_Yellow_Rags_Weaponized_Print_Media_and_Forgery_Engine.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-01_Yellow_Rags_Weaponized_Print_Media_and_Forgery_Engine.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-02_Divine_Council_Theory_as_System_Administration.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-02_Divine_Council_Theory_as_System_Administration.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-03_The_Saturnine_Mainframe_and_The_Linear_Time_Loop.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-03_The_Saturnine_Mainframe_and_The_Linear_Time_Loop.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-04_Aquabah_The_Hanging_Canyon_Cliff_City.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-04_Aquabah_The_Hanging_Canyon_Cliff_City.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-05_Reformation_Penal_Slave_Exchanges.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-05_Reformation_Penal_Slave_Exchanges.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/OPT-BREACH-01_The_Hellmouth_Inversion_Cathedral_and_The_Silver_Well.md.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/OPT-BREACH-01_The_Hellmouth_Inversion_Cathedral_and_The_Silver_Well.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/OPT-FACTION-01_The_Bleeding_Bastion_Vampire_Commandant_and_Werewolf_Elites.md.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/OPT-FACTION-01_The_Bleeding_Bastion_Vampire_Commandant_and_Werewolf_Elites.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/OPT-ORIGIN-01_The_Wayward_Archipelago_and_Barnabys_Civil_Rehabilitation.md.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/OPT-ORIGIN-01_The_Wayward_Archipelago_and_Barnabys_Civil_Rehabilitation.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/OPT-RESORT-01_Adventure_Island_The_Dilapidated_Imperial_Cruise_Port.md.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/OPT-RESORT-01_Adventure_Island_The_Dilapidated_Imperial_Cruise_Port.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/OPT-ZOO-01_Barnabys_Cage_Free_Apex_Menagerie_and_The_Purple_Dragon.md.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/OPT-ZOO-01_Barnabys_Cage_Free_Apex_Menagerie_and_The_Purple_Dragon.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/Set_H_Executive_Options_and_Variants/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/Set_H_Executive_Options_and_Variants/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/desktop.ini.html"><strong>campaigns/Emerald Isle/modules/desktop.ini</strong></a></td>
+        <td><span class="badge badge-Project Asset">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules_manifest.json.html"><strong>campaigns/Emerald Isle/modules_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/preset.json.html"><strong>campaigns/Emerald Isle/preset.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/topology.json.html"><strong>campaigns/Emerald Isle/topology.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Campaign Package</span></td>
+        <td>Belongs to Emerald Isle campaign sourcebook</td>
+      </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

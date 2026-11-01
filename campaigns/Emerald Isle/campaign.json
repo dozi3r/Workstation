@@ -1,0 +1,88 @@
+{
+  "id": "emerald_isle",
+  "name": "Emerald Isle",
+  "campaignName": "Emerald Isle",
+  "description": "Authored in Creator Studio Pointcrawl Workstation",
+  "author": "Creator Studio World Architect",
+  "packageType": "workstation_project",
+  "enabled": true,
+  "topologyFile": "topology.json",
+  "manifestFile": "modules_manifest.json",
+  "updatedAt": "2026-10-31T15:50:01.893Z",
+  "exportedAt": "2026-10-31T15:50:01.893Z",
+  "globalDials": {
+    "dial8ClimaxTrigger": "crisis",
+    "tier0Substratum": false
+  },
+  "entities": {
+    "npcs": [
+      {
+        "id": "npc-394512",
+        "nodeId": "CA-2",
+        "isCustom": true,
+        "status": "Active",
+        "name": "Groundskeeper Willy",
+        "role": "Groundskeeper",
+        "faction": "Cathedral",
+        "motivation": "Wants everyone gone from the cathedral until its open again",
+        "dispositionToParty": 0,
+        "culture": "Hierarchy",
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [],
+        "leverage": {
+          "vulnerability": "",
+          "bribe": ""
+        },
+        "dialogueHooks": [],
+        "relationships": []
+      }
+    ],
+    "quests": [
+      {
+        "id": "quest-458670",
+        "nodeId": "CA-2",
+        "isCustom": true,
+        "status": "Active",
+        "title": "Open the Cathedral",
+        "type": "Locked Door",
+        "threat": "",
+        "notes": "",
+        "npcIds": [
+          "npc-394512"
+        ],
+        "itemIds": [
+          "item-431774"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "id": "item-431774",
+        "nodeId": "CA-1",
+        "isCustom": true,
+        "status": "Active",
+        "name": "Cathedral Key",
+        "category": "Key",
+        "specs": "",
+        "notes": "",
+        "ownerNpcId": "npc-394512",
+        "possessionMode": "carried"
+      }
+    ],
+    "trackers": [],
+    "tickets": [],
+    "custom_modules": [],
+    "deletedModules": [
+      "CONF-01",
+      "CONF-02",
+      "CONF-03"
+    ],
+    "deletedPrototypes": []
+  },
+  "syncToken": "mvwkumxx-4mk0x2qo"
+}

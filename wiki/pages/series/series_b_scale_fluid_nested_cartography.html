@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB — Creator Studio Technical Manual</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../pages/series/series_b_scale_fluid_nested_cartography.html" class="active" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../index.html#series-index">Cross-Cutting Series</a> &rsaquo;
+        <span>Series B</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</h1>
+        <div class="article-subtitle">
+          <span class="badge badge-Series">Cross-Cutting Subsystem Series</span>
+          <span class="badge">Volume IV</span>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (14)</a>
+        </div>
+      </div>
+
+      <div class="ai-digest">
+        <div class="ai-digest-title">🤖 Analytical Knife Seam Summary</div>
+        <p style="margin:4px 0;">How top-down, bottom-up, and lateral campaigns operate across 7 descriptive scale tiers using the Global State Swap Adapter and CreatorStudioMapDB v2.</p>
+      </div>
+
+      <h2>1. Architectural Purpose & ADR-0003 Foundation</h2>
+<p>Series B documents the <strong>Scale-Fluid Nested Cartography</strong> architecture introduced in <code><a class="wiki-link" href="../../pages/docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md.html">📄 docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</a></code>. Rather than restricting a campaign to a single fixed-scale overland pointcrawl, Creator Studio treats every map as a self-contained pointcrawl graph at one of <strong>7 descriptive scale tiers</strong> (<code>cosmic</code> down to <code>floorplan</code>), where any node on a parent map can act as a <strong>Portal Node</strong> (<code>node.childMapId</code>) drilling down into an entire child map.</p>
+<p>Crucially, this multi-map architecture is achieved <strong>without rewriting the single-map simulation engines</strong> (<code><a class="wiki-link" href="../../pages/mods/tarot_balancing/mod.js.html">📄 mods/tarot_balancing/mod.js</a></code>, <code><a class="wiki-link" href="../../pages/src/workstation/scripts/stage_5_slotting.js.html">📄 src/workstation/scripts/stage_5_slotting.js</a></code>) by employing a <strong>Global State Swap Adapter</strong> pattern in <code><a class="wiki-link" href="../../pages/src/workstation/scripts/state_adapter.js.html">📄 src/workstation/scripts/state_adapter.js</a></code>, paired with zero-CORS binary image persistence in browser <code>IndexedDB</code> via <code><a class="wiki-link" href="../../pages/src/workstation/scripts/map_store.js.html">📄 src/workstation/scripts/map_store.js</a></code>.</p>
+<hr class="wiki-hr"/>
+<h2>2. The 7 Descriptive Scale Tiers (<code>SCALE_TIERS</code>)</h2>
+<p>Defined in <code><a class="wiki-link" href="../../pages/src/workstation/scripts/state_adapter.js.html">📄 src/workstation/scripts/state_adapter.js</a></code>, the <code>SCALE_TIERS</code> registry provides visual iconography, topological ordering (<code>order: 1..7</code>), and default node nomenclature across seven orders of magnitude:</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Scale ID</th><th>Order</th><th>Icon</th><th>Label</th><th>Default Node Term</th><th>Typical Authoring Use Case</th></tr>
+</thead>
+<tbody>
+<tr><td><code>cosmic</code></td><td>1</td><td>🌌</td><td>Cosmic / Planar</td><td>Plane / Sphere</td><td>Planar cosmology, crystal spheres, astral conduits</td></tr>
+<tr><td><code>continent</code></td><td>2</td><td>🗺️</td><td>Continent / World</td><td>Region / Realm</td><td>Macro world maps, multi-empire geopolitical theatres</td></tr>
+<tr><td><code>region</code></td><td>3</td><td>🌲</td><td>Region / Island</td><td>Settlement / Landmark</td><td><strong>Default Root Scale</strong> (<code>map_root</code>); island/province pointcrawls</td></tr>
+<tr><td><code>settlement</code></td><td>4</td><td>🏰</td><td>Settlement / City</td><td>District / Ward</td><td>City pointcrawls, faction wards, urban power struggles</td></tr>
+<tr><td><code>district</code></td><td>5</td><td>🏘️</td><td>District / Sector</td><td>Building / Site</td><td>Neighborhood blocks, industrial complexes, dockyards</td></tr>
+<tr><td><code>building</code></td><td>6</td><td>🏛️</td><td>Building / Complex</td><td>Room / Chamber</td><td>Citadel wings, megadungeon levels, temple complexes</td></tr>
+<tr><td><code>floorplan</code></td><td>7</td><td>⚔️</td><td>Dungeon / Floorplan</td><td>Zone / Encounter</td><td>Tactical room-by-room dungeon graphs and encounter zones</td></tr>
+</tbody>
+</table></div>
+<p>When a user clicks <strong>Create Sub-Map</strong> inside the Node Inspector (<code>promptCreateChildMapForNode(nid)</code> in <code><a class="wiki-link" href="../../pages/src/workstation/scripts/map_navigator.js.html">📄 src/workstation/scripts/map_navigator.js</a></code>), the engine automatically suggests the next logical child scale (<code>cosmic/continent -> region -> settlement -> district -> floorplan</code>, or <code>building -> floorplan</code>).</p>
+<hr class="wiki-hr"/>
+<h2>3. Global State Swap Adapter (<code>state_adapter.js</code>)</h2>
+<p>Because workstation controllers and the SVG renderer operate on top-level mutable globals (<code>nodes</code>, <code>links</code>, <code>waves</code>, <code>drawnCards</code>, <code>sovereignHubs</code>, <code>sovereignHubTarget</code>, <code>smotheredNodes</code>, <code>nodeSlottedModules</code>, <code>edgeSlottedModules</code>, <code>revealedNodes</code>, <code>activeMapMetadata</code>), <code><a class="wiki-link" href="../../pages/src/workstation/scripts/state_adapter.js.html">📄 src/workstation/scripts/state_adapter.js</a></code> maintains a master <code>maps</code> dictionary keyed by <code>mapId</code> (initialized with <code>activeMapId = "map_root"</code>).</p>
+<pre class="code-block"><code class="lang-mermaid">sequenceDiagram
+    participant User as User / Portal DblClick
+    participant Nav as map_navigator.js
+    participant State as state_adapter.js (Swap Adapter)
+    participant IDB as map_store.js (IndexedDB)
+    participant Engine as workstation_core.js &amp; canvas_hud.js
+
+    User-&gt;&gt;Nav: drillDownToChildMap(childMapId)
+    Nav-&gt;&gt;State: switchActiveMap(childMapId)
+    State-&gt;&gt;State: syncActiveMapToRegistry()&lt;br/&gt;(Deep-clone current globals into maps[activeMapId])
+    State-&gt;&gt;State: activeMapId = childMapId&lt;br/&gt;(Unpack maps[childMapId] into top-level globals)
+    State-&gt;&gt;State: Clear selection (selectedCanvasNodeId = null)
+    State-&gt;&gt;IDB: loadPersistedMapFromDB(childMapId)
+    State-&gt;&gt;Engine: recalculateBalancing() -&gt; renderCanvasGraph()
+    State-&gt;&gt;Nav: updateBreadcrumbsHUD() &amp; renderInspectorDrawer()</code></pre>
+<h3>Core Registry Lifecycle Functions in <code><a class="wiki-link" href="../../pages/src/workstation/scripts/state_adapter.js.html">📄 src/workstation/scripts/state_adapter.js</a></code></h3>
+<ul class="wiki-list">
+<li><code>createDefaultMapEntry(id, name, scale, parentMapId, parentNodeId)</code>: Instantiates a clean map record with empty <code>nodes</code>, <code>links</code>, <code>waves</code> (<code>1..4</code>), <code>drawnCards</code>, <code>sovereignHubs</code>, <code>smotheredNodes</code>, <code>nodeSlottedModules</code>, and <code>edgeSlottedModules</code>.</li>
+<li><code>syncActiveMapToRegistry()</code>: Serializes the live top-level globals (<code>JSON.parse(JSON.stringify(...))</code>) into <code>maps[activeMapId]</code> so no mutations are lost before switching or exporting.</li>
+<li><code>switchActiveMap(targetMapId)</code>:</li>
+</ul>
+<p>1. Calls <code>syncActiveMapToRegistry()</code> to snapshot the outgoing map.</p>
+<p>2. Sets <code>activeMapId = targetMapId</code> and unpacks <code>maps[targetMapId]</code> into the top-level globals.</p>
+<p>3. Resets <code>selectedCanvasNodeId</code> and <code>selectedCanvasEdgeIndex</code>.</p>
+<p>4. Invokes <code>loadPersistedMapFromDB(targetMapId)</code> to swap the SVG <code><image id="canvas-map-image"></code> background layer.</p>
+<p>5. Re-runs <code>recalculateBalancing()</code>, <code>renderCanvasGraph()</code>, <code>updateBreadcrumbsHUD()</code>, <code>renderInspectorDrawer()</code>, and <code>buildWikiIndex()</code>.</p>
+<ul class="wiki-list">
+<li><code>attachChildMapToNode(parentMapId, nodeId, childMapId)</code>: Sets <code>node.childMapId = childMapId</code> on the parent node and sets <code>childMap.parentMapId = parentMapId</code> and <code>childMap.parentNodeId = nodeId</code>.</li>
+<li><code>getBreadcrumbPath(mapId)</code>: Walks <code>parentMapId</code> pointers upward with a <code>visited</code> set guard (preventing infinite loops if a circular reference ever occurs) and returns the ordered lineage array <code>[rootMap, ..., activeMap]</code>.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>4. Portal Node Rendering & Navigation (<code>canvas_hud.js</code> & <code>map_navigator.js</code>)</h2>
+<h3>Visual Portal Indicators (<code><a class="wiki-link" href="../../pages/src/workstation/scripts/canvas_hud.js.html">📄 src/workstation/scripts/canvas_hud.js</a></code>)</h3>
+<p>During <code>renderCanvasGraph()</code>, any node <code>n</code> with a truthy <code>n.childMapId</code> pointing to an existing entry in <code>maps[n.childMapId]</code> is decorated as a <strong>Portal Node</strong>:</p>
+<p>1. <strong>Dashed Cyan Outer Halo</strong>: An SVG <code><circle class="portal-outer-ring"></code> with radius <code>r = isHub ? 27 : 21</code>, <code>stroke="#38bdf8"</code>, and <code>stroke-dasharray="4 2"</code> surrounds the node.</p>
+<p>2. <strong>Interactive Scale Badge</strong>: An SVG <code><g class="portal-badge"></code> is rendered at offset <code>(14, 14)</code> displaying a dark pill (<code>#0284c7</code> border) and the child map's <code>SCALE_TIERS</code> icon (<code>🏰</code>, <code>🏘️</code>, <code>⚔️</code>, etc.).</p>
+<p>3. <strong>Drill-Down Triggers</strong>:</p>
+<ul class="wiki-list">
+<li><strong>Single-clicking</strong> the <code>.portal-badge</code> stops event propagation and immediately calls <code>drillDownToChildMap(n.childMapId)</code>.</li>
+<li><strong>Double-clicking (<code>dblclick</code>)</strong> anywhere on a Portal Node invokes <code>drillDownToChildMap(n.childMapId)</code>.</li>
+</ul>
+<h3>Breadcrumb HUD & Keyboard Ascent (<code><a class="wiki-link" href="../../pages/src/workstation/scripts/map_navigator.js.html">📄 src/workstation/scripts/map_navigator.js</a></code>)</h3>
+<ul class="wiki-list">
+<li><strong>Top-Left Breadcrumb Bar (<code>#canvas-breadcrumbs-hud</code>)</strong>: <code>updateBreadcrumbsHUD()</code> renders clickable ancestor links (<code>🗺️ Opal Island › 🏰 Port Sump</code>), the active scale badge, an <strong>Up (<code>↑ Up</code>)</strong> button (visible whenever <code>parentMapId</code> is non-null), and the <strong>Maps (<code>🗂️ Maps (N)</code>)</strong> modal button.</li>
+<li><strong>Escape Key Ascent</strong>: Pressing <code>Escape</code> on the canvas (<code>initCanvasEngine()</code> in <code><a class="wiki-link" href="../../pages/src/workstation/scripts/workstation_core.js.html">📄 src/workstation/scripts/workstation_core.js</a></code>) first clears any active node/edge selection (<code>selectedCanvasNodeId</code> / <code>selectedCanvasEdgeIndex</code>); if nothing is selected and the active map has a <code>parentMapId</code>, pressing <code>Escape</code> ascends directly to the parent map via <code>ascendToParentMap()</code>.</li>
+<li><strong>Map Hierarchy Modal (<code>#map-navigator-modal</code>)</strong>: <code>renderMapNavigatorList()</code> builds a recursive tree of all maps in <code>maps</code>, displaying each map's scale icon, node count, background image indicator (<code>🖼️</code>), parent node link, and quick actions (<strong>Open</strong>, <strong>+ Child</strong>, <strong>Delete</strong>).</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>5. Multi-Map IndexedDB Binary Storage (<code>map_store.js</code>)</h2>
+<p>Because high-resolution cartographic images (PNG, JPG, WEBP, SVG) routinely exceed the 5 MB quota of <code>localStorage</code> and Creator Studio must run offline via <code>file:///</code> with zero CORS dependencies, <code><a class="wiki-link" href="../../pages/src/workstation/scripts/map_store.js.html">📄 src/workstation/scripts/map_store.js</a></code> persists map artwork inside browser <code>IndexedDB</code>:</p>
+<ul class="wiki-list">
+<li><strong>Database Schema</strong>:</li>
+<li>Database Name: <code>CreatorStudioMapDB</code> (<code>DB_VERSION = 2</code>)</li>
+<li>Object Store: <code>active_map</code> with <code>{ keyPath: "id" }</code></li>
+<li><strong>Per-Map Keying & Legacy Compatibility</strong>:</li>
+<li>Every map stores its binary DataURL record under <code>id: mapId</code> (e.g., <code>"map_root"</code>, <code>"map_m9x8a_k2p"</code>).</li>
+<li>For backward compatibility with single-map tools, saving <code>"map_root"</code> also writes a mirror record under <code>id: "active_map"</code>.</li>
+<li>If <code>"map_root"</code> is queried on startup and no <code>"map_root"</code> record exists yet, <code>loadPersistedMapFromDB("map_root")</code> automatically falls back to reading <code>"active_map"</code>.</li>
+<li><strong>Lightweight Metadata Mirror (<code>localStorage</code>)</strong>:</li>
+<li><code>saveMapImageToDB()</code> caches non-binary metadata (<code>name</code>, <code>width</code>, <code>height</code>, <code>opacity</code>, <code>timestamp</code>) in <code>localStorage["cs_maps_meta_catalog"]</code> (keyed by <code>mapId</code>) and <code>localStorage["cs_active_map_meta"]</code> for instant synchronous inspection without awaiting an IndexedDB transaction.</li>
+<li><strong>SVG Coordinate Auto-Projection</strong>:</li>
+<li>When <code>applyMapImageToCanvas(dataUrl, width, height, opacity, name)</code> mounts a background image into <code><image id="canvas-map-image"></code>, it fits the image proportionally inside the <code>960 × 750</code> SVG coordinate space (<code>preserveAspectRatio="xMidYMid meet"</code>). If the current map's nodes are still in their default circular layout, it gently rescales node coordinates around <code>(480, 375)</code> to remain framed within the uploaded map bounds.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>6. Cross-Map Wiki Citations & Nested Export (<code>wiki_engine.js</code> & <code>stage_6_export.js</code>)</h2>
+<ul class="wiki-list">
+<li><strong>Cross-Map Bidirectional Wiki Links (<code><a class="wiki-link" href="../../pages/src/workstation/scripts/wiki_engine.js.html">📄 src/workstation/scripts/wiki_engine.js</a></code>)</strong>:</li>
+<li><code>buildWikiIndex()</code> iterates across <strong>all</strong> maps in <code>maps</code> (<code>Object.keys(maps)</code>), indexing every node, corridor, and slotted module across the entire nested hierarchy.</li>
+<li>Authors can cite nodes on other maps using explicit cross-map syntax <code>[[Node:mapId/nodeId]]</code> or map links <code>[[Map:mapId]]</code>. Clicking a cross-map link automatically calls <code>switchActiveMap(targetMapId)</code> before centering the camera (<code>centerCanvasOnNode(nodeId)</code>) and opening the Node Inspector.</li>
+<li><strong>Full Nested Serialization (<code><a class="wiki-link" href="../../pages/src/workstation/scripts/stage_6_export.js.html">📄 src/workstation/scripts/stage_6_export.js</a></code>)</strong>:</li>
+<li><code>generateCampaignJSON()</code> calls <code>syncActiveMapToRegistry()</code> and exports <code>version: "2.0.0-nested"</code> containing both the complete <code>maps</code> registry (<code>maps[mapId]</code>) and the root-level snapshot fields for backward compatibility.</li>
+<li><code>importCampaignData(data)</code> restores <code>maps</code> and calls <code>switchActiveMap(targetMapId)</code> to rehydrate the entire multi-scale hierarchy cleanly.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>7. Cross-References & Participating Surfaces</h2>
+<ul class="wiki-list">
+<li><strong>Authoritative Specifications</strong>: <code><a class="wiki-link" href="../../pages/docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md.html">📄 docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</a></code>, <code><a class="wiki-link" href="../../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a></code>, <code><a class="wiki-link" href="../../pages/CONTEXT.md.html">📄 CONTEXT.md</a></code></li>
+<li><strong>Core Implementation Files</strong>: <code><a class="wiki-link" href="../../pages/src/workstation/scripts/state_adapter.js.html">📄 src/workstation/scripts/state_adapter.js</a></code>, <code><a class="wiki-link" href="../../pages/src/workstation/scripts/map_store.js.html">📄 src/workstation/scripts/map_store.js</a></code>, <code><a class="wiki-link" href="../../pages/src/workstation/scripts/map_navigator.js.html">📄 src/workstation/scripts/map_navigator.js</a></code>, <code><a class="wiki-link" href="../../pages/src/workstation/scripts/canvas_hud.js.html">📄 src/workstation/scripts/canvas_hud.js</a></code>, <code><a class="wiki-link" href="../../pages/src/workstation/scripts/workstation_core.js.html">📄 src/workstation/scripts/workstation_core.js</a></code>, <code><a class="wiki-link" href="../../pages/src/workstation/scripts/wiki_engine.js.html">📄 src/workstation/scripts/wiki_engine.js</a></code>, <code><a class="wiki-link" href="../../pages/src/workstation/scripts/stage_6_export.js.html">📄 src/workstation/scripts/stage_6_export.js</a></code></li>
+<li><strong>Compiled Target</strong>: <code><a class="wiki-link" href="../../pages/start.html.html">📄 start.html</a></code></li>
+<li><strong>Related Series</strong>: <code><a class="wiki-link series-link" href="../../pages/series/series_a_balancing_and_smothering_math.html">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></code></li>
+</ul>
+      <h2 id="outbound-links">Subsystem Files Covered in This Series (14)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>File / Page</th><th>Role</th><th>Notes</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md.html"><strong>docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/map_store.js.html"><strong>src/workstation/scripts/map_store.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/map_navigator.js.html"><strong>src/workstation/scripts/map_navigator.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/cad_canvas_renderer.js.html"><strong>src/workstation/scripts/cad_canvas_renderer.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/cad_interaction.js.html"><strong>src/workstation/scripts/cad_interaction.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/stage_5_slotting.js.html"><strong>src/workstation/scripts/stage_5_slotting.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/wiki_engine.js.html"><strong>src/workstation/scripts/wiki_engine.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:src/workstation/scripts/wiki_engine.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/stage_6_export.js.html"><strong>src/workstation/scripts/stage_6_export.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:src/workstation/scripts/stage_6_export.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/srd/authoring_engine_srd.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:CONTEXT.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/start.html.html"><strong>start.html</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:start.html]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_a_balancing_and_smothering_math.html"><strong>Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_a_balancing_and_smothering_math]] reference</td>
+        </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (14)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page</th><th>Relationship</th><th>Context</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md.html"><strong>docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/map_store.js.html"><strong>src/workstation/scripts/map_store.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/map_navigator.js.html"><strong>src/workstation/scripts/map_navigator.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/cad_canvas_renderer.js.html"><strong>src/workstation/scripts/cad_canvas_renderer.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/cad_interaction.js.html"><strong>src/workstation/scripts/cad_interaction.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
+        </tr><tr>
+          <td><a href="../../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_b_scale_fluid_nested_cartography]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_b_scale_fluid_nested_cartography]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/README.md.html"><strong>network/README.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_b_scale_fluid_nested_cartography]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network%20map.JPG.html"><strong>network/network map.JPG</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_b_scale_fluid_nested_cartography]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network%20v2.png.html"><strong>network/network v2.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_b_scale_fluid_nested_cartography]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network%20v3.png.html"><strong>network/network v3.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_b_scale_fluid_nested_cartography]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network.png.html"><strong>network/network.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_b_scale_fluid_nested_cartography]] reference</td>
+        </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

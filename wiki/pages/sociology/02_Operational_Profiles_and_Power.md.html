@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MODULE SOC-02: OPERATIONAL PROFILES &amp; POWER ARCHITECTURE — Creator Studio Technical Manual &amp; Wiki</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../index.html#vol-6">Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a> &rsaquo;
+        <span>sociology/02_Operational_Profiles_and_Power.md</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">MODULE SOC-02: OPERATIONAL PROFILES &amp; POWER ARCHITECTURE</h1>
+        <div class="article-subtitle">
+          <span class="badge">Sociology Specification</span>
+          <span class="badge badge-ok">✓ Synced (SHA: b94900f7)</span>
+          
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (8)</a>
+        </div>
+      </div>
+
+      <aside class="infobox">
+        <div class="infobox-header">02_Operational_Profiles_and_Power.md</div>
+        <table class="infobox-table">
+          
+    <tr><th>File Path</th><td><code>sociology/02_Operational_Profiles_and_Power.md</code></td></tr>
+    <tr><th>Manual Volume</th><td><a href="../../index.html#vol-6">Volume VI</a></td></tr>
+    <tr><th>Surface Kind</th><td>Sociology Specification</td></tr>
+    <tr><th>File Metrics</th><td>93 lines &bull; 7.0 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: b94900f7)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>6</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>8</strong> backlinks</td></tr>
+    <tr><th>Raw File</th><td><a href="../../../sociology/02_Operational_Profiles_and_Power.md" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
+  
+        </table>
+      </aside>
+
+      
+    <div class="ai-digest">
+      <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
+      <p style="margin:4px 0;"><strong>Summary:</strong> Beyond cultural values, institutions survive in hostile sandboxes through their operational machinery. The Operational Grid maps how power flows, how labor is organized, and how commands are executed across **Flexibility vs. Stability** and **Independence vs. Interdependence**.</p>
+      
+      
+      
+    </div>
+  
+      
+      <h3>1. Architectural Purpose & Theoretical Foundation</h3>
+<p><code>sociology/02_Operational_Profiles_and_Power.md</code> (<strong>Module SOC-02</strong>) defines the operational machinery, labor division, and power architecture of pointcrawl institutions. Grounded in Michael Porter's strategic trade-off theory, Boris Groysberg's operational alignment research, and Richard Daft's <em>Organization Theory & Design</em>, <code>SOC-02</code> answers how commands are executed and what every institution must sacrifice to survive.</p>
+<p>Whereas <a class="wiki-link" href="../../pages/sociology/01_Core_Cultural_Quadrants.md.html">📄 sociology/01_Core_Cultural_Quadrants.md</a> crosses Stability (<code>S</code>) with Boundary Focus (<code>E</code>), <code>SOC-02</code> crosses <strong>Stability vs. Flexibility (<code>S</code> Dial)</strong> with <strong>Independence vs. Interdependence (<code>C</code> Coupling Dial in <a class="wiki-link" href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html">📄 sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</a>)</strong>:</p>
+<ul class="wiki-list">
+<li><strong>Independence (<code>C <= 2</code>)</strong>: Autonomous specialist cells, decoupled guild workshops, or isolated production silos that can survive severed from external grids.</li>
+<li><strong>Interdependence (<code>C >= 3</code>)</strong>: Networked mutualist leagues or cross-functional matrix bastions wired into shared logistical pipelines and redundant command relays.</li>
+</ul>
+<h3>2. The Four Strategic Operational Profiles</h3>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Operational Profile</th><th>Coordinate Split (<code>[S, C]</code>)</th><th>Strategy, Org & Execution</th><th>Basis of Institutional Power</th><th>Inherent Strategic Sacrifice</th><th>Effective Player Lever vs. Fatal Error</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>1. The Design Cell</strong><br><em>(Specialist Enclaves)</em></td><td><code>S >= 3, C <= 2</code><br><em>(Flexible + Independent)</em></td><td><strong>Strategy</strong>: Design<br><strong>Org</strong>: Independent Specialized<br><strong>Ops</strong>: Enable & Support</td><td><strong>Monopoly on Technical Insight</strong>: Grand Artificer rules via exclusive esoteric/technical mastery.</td><td>Sacrifices organizational coordination and physical defense for breakthrough innovation.</td><td><strong>Lever</strong>: Exotic raw components or lost schematics.<br><strong>Error</strong>: Threatening with legal bureaucracy.</td></tr>
+<tr><td><strong>2. The Service League</strong><br><em>(Decentralized Mutualists)</em></td><td><code>S >= 3, C >= 3</code><br><em>(Flexible + Interdependent)</em></td><td><strong>Strategy</strong>: Service<br><strong>Org</strong>: Flexible Decentralized<br><strong>Ops</strong>: Experience & Accountability</td><td><strong>Reputational Debt & Moral Authority</strong>: Power held by veterans with the longest survival track record.</td><td>Sacrifices decision-making speed and centralized force for distributed resilience.</td><td><strong>Lever</strong>: Appealing to shared suffering; selfless aid.<br><strong>Error</strong>: Attempting to buy off leaders with raw gold.</td></tr>
+<tr><td><strong>3. The Production Mill</strong><br><em>(Industrial Extractors)</em></td><td><code>S <= 2, C <= 2</code><br><em>(Stable + Independent)</em></td><td><strong>Strategy</strong>: Produce<br><strong>Org</strong>: Stable Hierarchy<br><strong>Ops</strong>: Enforce & Control</td><td><strong>Physical Coercion & Resource Monopolies</strong>: Overseer controls water, food vaults, and armories.</td><td>Sacrifices worker morale, loyalty, and adaptive thinking for brute production volume.</td><td><strong>Lever</strong>: Bribing corrupt middle management/clerks.<br><strong>Error</strong>: Demanding ethical working conditions.</td></tr>
+<tr><td><strong>4. The Delivery Matrix</strong><br><em>(Fortress Bastions)</em></td><td><code>S <= 2, C >= 3</code><br><em>(Stable + Interdependent)</em></td><td><strong>Strategy</strong>: Deliver<br><strong>Org</strong>: Interdependent Matrix<br><strong>Ops</strong>: Enroll & Responsibility</td><td><strong>Institutional Legitimacy & Redundancy</strong>: Co-equal matrix councils seamlessly replace fallen commanders.</td><td>Sacrifices individual liberty, speed, and improvisation for bulletproof survivability.</td><td><strong>Lever</strong>: Authentic manifests or forged official stamps.<br><strong>Error</strong>: Bypassing protocols or entering without permits.</td></tr>
+</tbody>
+</table></div>
+<h3>3. Visual Diagrams & Compiler Integration</h3>
+<ul class="wiki-list">
+<li><strong>Associated Reference Diagrams</strong>: Illustrated by <a class="wiki-link" href="../../pages/sociology/Culture-and-organization-design.png.html">📄 sociology/Culture-and-organization-design.png</a> and <a class="wiki-link" href="../../pages/sociology/https3A2F2Fblogs-imag4es.png.html">📄 sociology/https3A2F2Fblogs-imag4es.png</a> (flagged for URL-encoded filename cleanup under <span class="wiki-tag">🎫 SYS-AUDIT-01</span>), and synthesized in <a class="wiki-link" href="../../pages/sociology/00%20sociology%20all.png.html">📄 sociology/00 sociology all.png</a>.</li>
+<li><strong>Compiler Derivation</strong>: Formalized as <code>getOperationalProfile(s, c)</code> in <a class="wiki-link" href="../../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a> (lines 55–60), automatically assigning <code>Design</code>, <code>Service</code>, <code>Produce</code>, or <code>Deliver</code> to every Tarot profile in <a class="wiki-link" href="../../pages/tarot/tarot_sociology_matrix.json.html">📄 tarot/tarot_sociology_matrix.json</a> and <a class="wiki-link" href="../../pages/sociology/08_Tarot_Sociology_Matrix.md.html">📄 sociology/08_Tarot_Sociology_Matrix.md</a>, and rendered in <a class="wiki-link" href="../../pages/tarot/tarot_matrix_browser.html.html">📄 tarot/tarot_matrix_browser.html</a> and <a class="wiki-link" href="../../pages/tarot/tarot_deck_analytics.html.html">📄 tarot/tarot_deck_analytics.html</a>.</li>
+<li><strong>Cross-Cutting Series</strong>: Detailed in <a class="wiki-link series-link" href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a> and consolidated in <a class="wiki-link" href="../../pages/sociology/SOCIOLOGY_MASTER_COMPENDIUM.md.html">📄 sociology/SOCIOLOGY_MASTER_COMPENDIUM.md</a>.</li>
+</ul>
+      <h2>Document Section Outline</h2><ul class="wiki-list"><li style="margin-left:0px;"><code>H1</code> MODULE SOC-02: OPERATIONAL PROFILES &amp; POWER ARCHITECTURE</li><li style="margin-left:18px;"><code>H2</code> Strategic Institutional Levers &amp; Trade-off Mechanics</li><li style="margin-left:36px;"><code>H3</code> 1. The Operational Alignment Grid</li><li style="margin-left:36px;"><code>H3</code> 2. The Four Operational Profiles</li><li style="margin-left:36px;"><code>H3</code> 3. Institutional Trade-Off Matrix</li></ul><h2>Mechanical Contracts, Dials &amp; Real-World Reference Data</h2><h3>Reference Foundations &amp; Design Provenance (For GM / Downstream Expansion)</h3><ul class="wiki-list"><li>Historical Metallurgy: Enkomi &amp; oxhide copper ingot smelting monopolies of Late Bronze Age Cyprus.</li><li>Indus Valley Civilization: Mohenjo-daro &amp; Dholavira standardized baked-brick municipal sewers and Ghaggar-Hakra monsoon river desiccation.</li></ul>
+      <h2 id="outbound-links">Outbound References (6)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+        <td><a href="../../pages/sociology/01_Core_Cultural_Quadrants.md.html"><strong>sociology/01_Core_Cultural_Quadrants.md</strong></a></td>
+        <td><span class="badge badge-Sociology Specification">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/01_Core_Cultural_Quadrants.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html"><strong>sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</strong></a></td>
+        <td><span class="badge badge-Sociology Specification">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/sociology/Culture-and-organization-design.png.html"><strong>sociology/Culture-and-organization-design.png</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/Culture-and-organization-design.png]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/sociology/00%20sociology%20all.png.html"><strong>sociology/00 sociology all.png</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/00 sociology all.png]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html"><strong>Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</strong></a></td>
+        <td><span class="badge badge-Series">Series Citation</span></td>
+        <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/sociology/SOCIOLOGY_MASTER_COMPENDIUM.md.html"><strong>sociology/SOCIOLOGY_MASTER_COMPENDIUM.md</strong></a></td>
+        <td><span class="badge badge-Sociology Specification">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/SOCIOLOGY_MASTER_COMPENDIUM.md]] reference</td>
+      </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (8)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+        <td><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html"><strong>Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</strong></a></td>
+        <td><span class="badge badge-Series">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/02_Operational_Profiles_and_Power.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html"><strong>Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</strong></a></td>
+        <td><span class="badge badge-Series">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/02_Operational_Profiles_and_Power.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md.html"><strong>sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md</strong></a></td>
+        <td><span class="badge badge-Sociology Specification">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/02_Operational_Profiles_and_Power.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html"><strong>sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</strong></a></td>
+        <td><span class="badge badge-Sociology Specification">Path Reference</span></td>
+        <td>References sociology/02_Operational_Profiles_and_Power.md</td>
+      </tr><tr>
+        <td><a href="../../pages/sociology/Culture-and-organization-design.png.html"><strong>sociology/Culture-and-organization-design.png</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/02_Operational_Profiles_and_Power.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/sociology/README.md.html"><strong>sociology/README.md</strong></a></td>
+        <td><span class="badge badge-Sociology Specification">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/02_Operational_Profiles_and_Power.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/sociology/SOCIOLOGY_MASTER_COMPENDIUM.md.html"><strong>sociology/SOCIOLOGY_MASTER_COMPENDIUM.md</strong></a></td>
+        <td><span class="badge badge-Sociology Specification">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/02_Operational_Profiles_and_Power.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../pages/sociology/porter_groysberg_operational_profiles.png.html"><strong>sociology/porter_groysberg_operational_profiles.png</strong></a></td>
+        <td><span class="badge badge-Visual Diagram / Cartographic Asset">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/02_Operational_Profiles_and_Power.md]] reference</td>
+      </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

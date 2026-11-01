@@ -1,0 +1,31 @@
+{
+  "id": "blank_canvas",
+  "name": "Blank Pointcrawl Canvas",
+  "campaignName": "Blank Pointcrawl Canvas",
+  "rootMapId": "map_root",
+  "activeMapId": "map_root",
+  "maps": {
+    "map_root": {
+      "id": "map_root",
+      "name": "Root Map",
+      "nodePrefix": "",
+      "scaleTier": "region",
+      "parentMapId": null,
+      "parentNodeId": null,
+      "dispositionModifier": "",
+      "nodes": [],
+      "links": [],
+      "backgroundImage": null,
+      "backgroundColor": "#008080"
+    }
+  },
+  "nodes": [],
+  "links": [],
+  "campaignEntities": {
+    "npcs": [],
+    "quests": [],
+    "items": [],
+    "dials": [],
+    "tickets": []
+  }
+}

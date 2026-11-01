@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "project": "Creator Studio",
+  "version": "2.5.0",
+  "description": "Universal System-Agnostic Campaign Authoring Workstation",
+  "master_build_command": "powershell -ExecutionPolicy Bypass -File .\\Build-Suite.ps1",
+  "surfaces": [
+    {
+      "file": "start.html",
+      "type": "html",
+      "title": "Universal Desktop Workstation Shell & Pointcrawl CAD Canvas",
+      "authoritative_specs": [
+        "docs/adr/0004-desktop-workstation-start-html.md",
+        "docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md",
+        "docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md",
+        "docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md",
+        "docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md",
+        "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
+        "docs/srd/authoring_engine_srd.md",
+        "CONTEXT.md"
+      ],
+      "data_sources": [
+        "src/workstation/template.html (and src/workstation/scripts/*.js)",
+        "network/presets/blank_canvas.json",
+        "campaigns/"
+      ],
+      "immutable_rule": "Standalone zero-CORS Win95/VB6 desktop workstation shell consolidating index.html and campaign_studio.html."
+    },
+    {
+      "file": "network/campaign_studio.html",
+      "type": "html",
+      "title": "Universal Campaign Studio (Deprecated Redirect Stub)",
+      "authoritative_specs": [
+        "docs/srd/authoring_engine_srd.md",
+        "docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md",
+        "docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md",
+        "docs/AI_DEVELOPER_GUIDE.md",
+        "CONTEXT.md"
+      ],
+      "data_sources": [
+        "src/workstation/template.html"
+      ],
+      "immutable_rule": "Deprecated surface emitting a zero-CORS instant redirect to start.html."
+    },
+    {
+      "file": "network/network_builder.html",
+      "type": "html",
+      "title": "Universal Network Builder & Topological Graph Canvas (Deprecated Redirect Stub)",
+      "authoritative_specs": [
+        "docs/srd/authoring_engine_srd.md (Section 2: Topology)",
+        "docs/adr/0004-desktop-workstation-start-html.md",
+        "CONTEXT.md"
+      ],
+      "data_sources": [
+        "src/workstation/template.html"
+      ],
+      "immutable_rule": "Deprecated surface emitting a zero-CORS instant redirect to start.html."
+    },
+    {
+      "file": "network/contradiction_matrix_dashboard.html",
+      "type": "html",
+      "title": "Network Contradiction Matrix Dashboard (Deprecated Redirect Stub)",
+      "authoritative_specs": [
+        "docs/srd/authoring_engine_srd.md",
+        "docs/adr/0001-dual-mode-preset-architecture.md",
+        "docs/adr/0014-campaign-state-reflection-and-edge-odv-on-64-matrix.md"
+      ],
+      "data_sources": [
+        "src/workstation/template.html"
+      ],
+      "immutable_rule": "Deprecated surface emitting a zero-CORS instant redirect to start.html."
+    },
+    {
+      "file": "network/platform_audit_dashboard.html",
+      "type": "html",
+      "title": "Universal Platform Explorer & Audit Visualizer (Step 3)",
+      "authoritative_specs": [
+        "docs/srd/authoring_engine_srd.md",
+        "docs/srd/adventure_framework_srd.md",
+        "tickets/creative/README.md"
+      ],
+      "data_sources": [
+        "campaigns/ (Multi-Campaign Presets & Modules)",
+        "tickets/creative/creative_backlog_manifest.json"
+      ],
+      "immutable_rule": "Unified interactive multi-axis catalog explorer and full module reader with live gap analytics."
+    },
+    {
+      "file": "network/odv_archetype_matrix.html",
+      "type": "html",
+      "title": "64-Cell ODV Archetype Matrix & Hermeneutics Explorer",
+      "authoritative_specs": [
+        "docs/srd/authoring_engine_srd.md (Section 3: Sociological Algebra)",
+        "CONTEXT.md"
+      ],
+      "data_sources": [
+        "src/workstation/scripts/sociology_data.js"
+      ],
+      "immutable_rule": "Dynamic zero-CORS visualizer referencing sociology_data.js to explore the 64-cell [S, E, C] matrix, CVF quadrants, and operational modes."
+    },
+    {
+      "file": "regions/regional_image_browser.html",
+      "type": "html",
+      "title": "Universal Regional Visual Asset Recommendation Browser",
+      "authoritative_specs": [
+        "regions/IMAGE_ENGINE_SPEC.md",
+        "regions/HOW_TO_USE.md"
+      ],
+      "data_sources": [
+        "regions/regional_image_catalog.json"
+      ],
+      "immutable_rule": "Catalog is maintained via Update-RegionalImageCatalog.ps1."
+    },
+    {
+      "file": "regions/Find-RegionalImage.ps1",
+      "type": "powershell",
+      "title": "CLI Scenery Recommendation Tool",
+      "authoritative_specs": [
+        "regions/IMAGE_ENGINE_SPEC.md"
+      ],
+      "data_sources": [
+        "regions/regional_image_catalog.json"
+      ],
+      "build_cmd": "powershell -File .\\regions\\Find-RegionalImage.ps1",
+      "immutable_rule": "CLI tool to recommend images by environment tags and building categories directly from the terminal."
+    },
+    {
+      "file": "docs/MODULES_CATALOG.md",
+      "type": "markdown",
+      "title": "Universal Worldbuilding Modules & Campaigns Catalog",
+      "authoritative_specs": [
+        "docs/adr/0002-dual-srd-and-tiered-module-architecture.md",
+        "docs/srd/adventure_framework_srd.md",
+        "docs/srd/campaign_preset_specification_srd.md",
+        "docs/srd/ip_module_framework_srd.md",
+        "docs/srd/scenario_primitives_srd.md"
+      ],
+      "data_sources": [
+        "campaigns/Emerald Isle/modules/**/*.md"
+      ],
+      "immutable_rule": "Each module file must declare typed pipeline_tier, provides, and requires tags in YAML frontmatter."
+    },
+    {
+      "file": "tickets/unified_ticket_tracker.html",
+      "type": "html",
+      "title": "Master Unified Backlog & Ticket Execution Command Center",
+      "authoritative_specs": [
+        "docs/srd/tier_0_substratum_srd.md",
+        "tickets/creative/README.md",
+        "tickets/tier_0/README.md",
+        "Skills/reference/04_PRODUCT_DISCOVERY_TO_DELIVERY.md"
+      ],
+      "data_sources": [
+        "tickets/master_ticket_manifest.json",
+        "tickets/creative/creative_backlog_manifest.json",
+        "tickets/tier_0/tier_0_manifest.json",
+        "tickets/system/*.md"
+      ],
+      "immutable_rule": "Unified interactive backlog tracking CWT modules, Tier 0 substratum, and platform architecture tickets."
+    },
+    {
+      "file": "tickets/tier_0/tier_0_project_visualizer.html",
+      "type": "html",
+      "title": "Tier 0 Substratum Project Visualizer & Agrarian Infrastructure Matrix",
+      "authoritative_specs": [
+        "docs/srd/tier_0_substratum_srd.md",
+        "tickets/tier_0/README.md"
+      ],
+      "data_sources": [
+        "tickets/tier_0/tier_0_manifest.json"
+      ],
+      "immutable_rule": "Dedicated visualization of Tier 0 agrarian, subsistence, and vernacular settlement infrastructure modules (T0-DOM-01 through T0-DOM-08)."
+    },
+    {
+      "file": "wiki/index.html",
+      "type": "html",
+      "title": "Technical Manual & Bidirectional Codebase Wiki (8 Volumes, 350+ File Pages)",
+      "authoritative_specs": [
+        "docs/AI_DEVELOPER_GUIDE.md",
+        "docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md",
+        "tickets/system/SYS-AUDIT-01_duplicate_mirror_and_orphan_file_remediation.md",
+        "CONTEXT.md"
+      ],
+      "data_sources": [
+        "wiki/src/files/** (1:1 Per-File Markdown Notes)",
+        "wiki/src/series/*.md (7 Cross-Cutting Subsystem Series)",
+        "wiki/build_wiki.js (AST, Frontmatter & Backlink Compiler)",
+        "wiki/wiki_graph.json"
+      ],
+      "immutable_rule": "Compiled by wiki/build_wiki.js (invoked by Build-Suite.ps1). Edit Markdown sources in wiki/src/ and re-run Build-Suite.ps1."
+    },
+    {
+      "file": "Find-CodebaseNode.ps1",
+      "type": "powershell",
+      "title": "Zero-Token CLI Codebase Graph, Symbol & Supply-Chain Inspector",
+      "authoritative_specs": [
+        "docs/AI_DEVELOPER_GUIDE.md",
+        "docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md"
+      ],
+      "data_sources": [
+        "wiki/wiki_graph.json",
+        "wiki/wiki_manifest.json"
+      ],
+      "build_cmd": "powershell -ExecutionPolicy Bypass -File .\\Find-CodebaseNode.ps1",
+      "immutable_rule": "CLI tool to query inbound backlinks, outbound dependencies, declared symbols, and resource supply chains with zero token overhead."
+    },
+    {
+      "file": "Test-Suite.ps1",
+      "type": "powershell",
+      "title": "Master Automated Test Harness & Quality Assurance Gate",
+      "authoritative_specs": [
+        "docs/srd/authoring_engine_srd.md",
+        "docs/adr/0004-desktop-workstation-start-html.md",
+        "docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md"
+      ],
+      "data_sources": [
+        "test/run_tests.js",
+        "campaigns/Test-CampaignPackage.ps1",
+        "Find-CodebaseNode.ps1"
+      ],
+      "build_cmd": "powershell -ExecutionPolicy Bypass -File .\\Test-Suite.ps1",
+      "immutable_rule": "Master test harness executing compilation, core HTML surface JS syntax, unit tests, campaign validation, zero-CORS isolation, and wiki graph drift in <15s."
+    },
+    {
+      "file": "admin.html",
+      "type": "html",
+      "title": "Workstation Administrative Hub & Master HTML/Wiki Directory",
+      "authoritative_specs": [
+        "docs/navigation_manifest.json",
+        "docs/AI_DEVELOPER_GUIDE.md",
+        "CONTEXT.md"
+      ],
+      "data_sources": [
+        "docs/navigation_manifest.json",
+        "wiki/wiki_manifest.json"
+      ],
+      "immutable_rule": "Master administrative command center providing direct links to every HTML tool and corresponding wiki page."
+    }
+  ]
+}

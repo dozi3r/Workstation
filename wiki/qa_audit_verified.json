@@ -1,0 +1,590 @@
+{
+  "timestamp": "2026-10-16T00:23:02.795Z",
+  "manifest": {
+    "trackedFilesCount": 352,
+    "seriesCount": 7,
+    "totalPages": 359,
+    "staleCount": 0,
+    "staleFiles": []
+  },
+  "searchIndex": {
+    "exists": true,
+    "sizeBytes": 137831,
+    "entriesCount": 359
+  },
+  "zeroCors": {
+    "passed": true,
+    "violations": []
+  },
+  "series": {
+    "totalExpected": 7,
+    "found": 7,
+    "list": [
+      {
+        "code": "Series A",
+        "id": "series_a_balancing_and_smothering_math",
+        "title": "Pointcrawl Balancing, Amalgamation & Adjacency Smothering Math Engine",
+        "volume": "vol-2",
+        "sizeBytes": 49021,
+        "wordCount": 3218,
+        "hasTables": true,
+        "hasCodeBlocks": false,
+        "hasRelatedFiles": 5,
+        "hasInboundBacklinksSection": true
+      },
+      {
+        "code": "Series B",
+        "id": "series_b_scale_fluid_nested_cartography",
+        "title": "Scale-Fluid Hierarchical Cartography, Global State Swap & IndexedDB",
+        "volume": "vol-4",
+        "sizeBytes": 46687,
+        "wordCount": 3062,
+        "hasTables": true,
+        "hasCodeBlocks": false,
+        "hasRelatedFiles": 5,
+        "hasInboundBacklinksSection": true
+      },
+      {
+        "code": "Series C",
+        "id": "series_c_sociology_and_tarot_hermeneutics",
+        "title": "The 64-Cell [S, E, C] Disposition Algebra, CVF Quadrants & Tarot Compilers",
+        "volume": "vol-6",
+        "sizeBytes": 92293,
+        "wordCount": 5809,
+        "hasTables": true,
+        "hasCodeBlocks": false,
+        "hasRelatedFiles": 6,
+        "hasInboundBacklinksSection": true
+      },
+      {
+        "code": "Series D",
+        "id": "series_d_module_supply_chains_and_contracts",
+        "title": "The 5-Tier Module Pipeline, Resource Contracts (provides/requires) & Fallbacks",
+        "volume": "vol-8",
+        "sizeBytes": 143101,
+        "wordCount": 6848,
+        "hasTables": true,
+        "hasCodeBlocks": false,
+        "hasRelatedFiles": 6,
+        "hasInboundBacklinksSection": true
+      },
+      {
+        "code": "Series E",
+        "id": "series_e_zero_cors_compiler_and_agent_router",
+        "title": "Zero-CORS Offline Bundling, Compass Headers & Self-Updating Wiki Architecture",
+        "volume": "vol-3",
+        "sizeBytes": 60819,
+        "wordCount": 3674,
+        "hasTables": true,
+        "hasCodeBlocks": false,
+        "hasRelatedFiles": 6,
+        "hasInboundBacklinksSection": true
+      },
+      {
+        "code": "Series F",
+        "id": "series_f_campaign_authoring_and_ip_conversion",
+        "title": "Authoring Custom Campaign Presets, IP Conversions & Scenario Primitives",
+        "volume": "vol-2",
+        "sizeBytes": 49707,
+        "wordCount": 3149,
+        "hasTables": true,
+        "hasCodeBlocks": false,
+        "hasRelatedFiles": 6,
+        "hasInboundBacklinksSection": true
+      },
+      {
+        "code": "Series G",
+        "id": "series_g_duplicate_and_orphan_audit",
+        "title": "Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch & Orphan Remediation",
+        "volume": "vol-1",
+        "sizeBytes": 95248,
+        "wordCount": 4212,
+        "hasTables": true,
+        "hasCodeBlocks": false,
+        "hasRelatedFiles": 7,
+        "hasInboundBacklinksSection": true
+      }
+    ]
+  },
+  "sampledPages": [
+    {
+      "relPath": "AGENTS.md.html",
+      "exists": true,
+      "sizeBytes": 49035,
+      "wordCount": 2616,
+      "volumeBadge": null,
+      "inboundBacklinksCount": 25,
+      "hasCompassHeader": false,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "relPath": "src/campaign_studio/template.html.html",
+      "exists": true,
+      "sizeBytes": 49773,
+      "wordCount": 2574,
+      "volumeBadge": null,
+      "inboundBacklinksCount": 27,
+      "hasCompassHeader": false,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "relPath": "network/Run-NetworkEngine.ps1.html",
+      "exists": true,
+      "sizeBytes": 37483,
+      "wordCount": 2132,
+      "volumeBadge": null,
+      "inboundBacklinksCount": 32,
+      "hasCompassHeader": false,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "relPath": "sociology/07_Granular_64_Disposition_Matrix.md.html",
+      "exists": true,
+      "sizeBytes": 36067,
+      "wordCount": 2447,
+      "volumeBadge": null,
+      "inboundBacklinksCount": 17,
+      "hasCompassHeader": false,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "relPath": "tarot/tarot_matrix_browser.html.html",
+      "exists": true,
+      "sizeBytes": 43865,
+      "wordCount": 2354,
+      "volumeBadge": null,
+      "inboundBacklinksCount": 35,
+      "hasCompassHeader": false,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "relPath": "regions/regional_image_catalog.json.html",
+      "exists": true,
+      "sizeBytes": 26803,
+      "wordCount": 1765,
+      "volumeBadge": null,
+      "inboundBacklinksCount": 9,
+      "hasCompassHeader": false,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "relPath": "campaigns/opal_island/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md.html",
+      "exists": true,
+      "sizeBytes": 36364,
+      "wordCount": 2004,
+      "volumeBadge": null,
+      "inboundBacklinksCount": 27,
+      "hasCompassHeader": false,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "relPath": "campaigns/opal_island/modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md.html",
+      "exists": true,
+      "sizeBytes": 30321,
+      "wordCount": 1850,
+      "volumeBadge": null,
+      "inboundBacklinksCount": 14,
+      "hasCompassHeader": false,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "relPath": "tickets/system/SYS-AUDIT-01_duplicate_mirror_and_orphan_file_remediation.md.html",
+      "exists": true,
+      "sizeBytes": 60986,
+      "wordCount": 2509,
+      "volumeBadge": null,
+      "inboundBacklinksCount": 79,
+      "hasCompassHeader": false,
+      "hasZeroCorsStyles": true
+    }
+  ],
+  "backlinkNetwork": {
+    "totalFiles": 352,
+    "pagesWithInboundBacklinks": 347,
+    "pagesWithZeroInboundBacklinks": 5,
+    "totalInboundBacklinksRecorded": 3612,
+    "averageBacklinksPerPage": "10.26",
+    "topReferencedPages": [
+      {
+        "relPath": "build_suite.js",
+        "inboundBacklinkCount": 182,
+        "volume": "vol-3",
+        "kind": "Node.js / Browser Engine Script"
+      },
+      {
+        "relPath": "docs/srd/authoring_engine_srd.md",
+        "inboundBacklinkCount": 114,
+        "volume": "vol-2",
+        "kind": "System Reference Document (SRD)"
+      },
+      {
+        "relPath": "sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md",
+        "inboundBacklinkCount": 108,
+        "volume": "vol-6",
+        "kind": "Sociology Specification"
+      },
+      {
+        "relPath": "docs/srd/adventure_framework_srd.md",
+        "inboundBacklinkCount": 106,
+        "volume": "vol-2",
+        "kind": "System Reference Document (SRD)"
+      },
+      {
+        "relPath": "tickets/system/SYS-AUDIT-01_duplicate_mirror_and_orphan_file_remediation.md",
+        "inboundBacklinkCount": 79,
+        "volume": "vol-8",
+        "kind": "Platform Architecture Ticket (SYS)"
+      },
+      {
+        "relPath": "network/campaign_studio.html",
+        "inboundBacklinkCount": 75,
+        "volume": "vol-5",
+        "kind": "Standalone Zero-CORS HTML Workstation"
+      },
+      {
+        "relPath": "tickets/unified_ticket_tracker.html",
+        "inboundBacklinkCount": 73,
+        "volume": "vol-8",
+        "kind": "Standalone Zero-CORS HTML Workstation"
+      },
+      {
+        "relPath": "tickets/master_ticket_manifest.json",
+        "inboundBacklinkCount": 72,
+        "volume": "vol-8",
+        "kind": "Authoritative JSON Data / Manifest"
+      },
+      {
+        "relPath": "campaigns/generic_starter/campaign.json",
+        "inboundBacklinkCount": 70,
+        "volume": "vol-8",
+        "kind": "Authoritative JSON Data / Manifest"
+      },
+      {
+        "relPath": "tickets/build_unified_tracker.js",
+        "inboundBacklinkCount": 70,
+        "volume": "vol-8",
+        "kind": "Node.js / Browser Engine Script"
+      }
+    ]
+  },
+  "linkIntegrity": {
+    "totalAnchorLinksChecked": 18713,
+    "brokenLinks": [
+      {
+        "sourcePage": "wiki\\pages\\.scratch\\creator-remediation\\issues\\06-authoring-engine-srd.md.html",
+        "brokenHref": "../../../../pages/series/series_b_network_balancing_and_amalgamation_engine.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_b_network_balancing_and_amalgamation_engine.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\.scratch\\creator-remediation\\issues\\06-authoring-engine-srd.md.html",
+        "brokenHref": "../../../../pages/src/campaign_studio/scripts/balancing_engine.js.html",
+        "resolvedMissingPath": "wiki\\pages\\src\\campaign_studio\\scripts\\balancing_engine.js.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\.scratch\\creator-remediation\\issues\\06-authoring-engine-srd.md.html",
+        "brokenHref": "../../../../pages/series/series_b_network_balancing_and_amalgamation_engine.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_b_network_balancing_and_amalgamation_engine.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\build_suite.js.html",
+        "brokenHref": "../pages/wiki/index.html.html",
+        "resolvedMissingPath": "wiki\\pages\\wiki\\index.html.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\campaigns\\generic_starter\\campaign.json.html",
+        "brokenHref": "../../../pages/src/campaign_studio/core_engine.js.html",
+        "resolvedMissingPath": "wiki\\pages\\src\\campaign_studio\\core_engine.js.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\campaigns\\Test-CampaignPackage.ps1.html",
+        "brokenHref": "../../pages/src/campaign_studio/core_engine.js.html",
+        "resolvedMissingPath": "wiki\\pages\\src\\campaign_studio\\core_engine.js.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\campaigns\\Test-CampaignPackage.ps1.html",
+        "brokenHref": "../../pages/docs/adr/0002-5-tier-worldbuilding-module-schema.md.html",
+        "resolvedMissingPath": "wiki\\pages\\docs\\adr\\0002-5-tier-worldbuilding-module-schema.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\docs\\adr\\0001-dual-mode-preset-architecture.md.html",
+        "brokenHref": "../../../pages/network/presets/canonical_preset.json.html",
+        "resolvedMissingPath": "wiki\\pages\\network\\presets\\canonical_preset.json.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\docs\\srd\\campaign_preset_specification_srd.md.html",
+        "brokenHref": "../../../pages/campaigns/_template/campaign.json.html",
+        "resolvedMissingPath": "wiki\\pages\\campaigns\\_template\\campaign.json.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\docs\\srd\\campaign_preset_specification_srd.md.html",
+        "brokenHref": "../../../pages/campaigns/_template/preset.json.html",
+        "resolvedMissingPath": "wiki\\pages\\campaigns\\_template\\preset.json.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\docs\\srd\\campaign_preset_specification_srd.md.html",
+        "brokenHref": "../../../pages/campaigns/_template/modules_manifest.json.html",
+        "resolvedMissingPath": "wiki\\pages\\campaigns\\_template\\modules_manifest.json.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\docs\\srd\\ip_module_framework_srd.md.html",
+        "brokenHref": "../../../pages/templates/examples/HIST-01_The_Crossing_of_the_Rubicon.md.html",
+        "resolvedMissingPath": "wiki\\pages\\templates\\examples\\HIST-01_The_Crossing_of_the_Rubicon.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\docs\\srd\\ip_module_framework_srd.md.html",
+        "brokenHref": "../../../pages/templates/examples/DBZ-01_The_Siege_of_Planet_Namek.md.html",
+        "resolvedMissingPath": "wiki\\pages\\templates\\examples\\DBZ-01_The_Siege_of_Planet_Namek.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\docs\\srd\\ip_module_framework_srd.md.html",
+        "brokenHref": "../../../pages/templates/examples/DND-01_The_Mists_of_Barovia.md.html",
+        "resolvedMissingPath": "wiki\\pages\\templates\\examples\\DND-01_The_Mists_of_Barovia.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\index.html.html",
+        "brokenHref": "../pages/wiki/index.html.html",
+        "resolvedMissingPath": "wiki\\pages\\wiki\\index.html.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\index.html.html",
+        "brokenHref": "../pages/wiki/index.html.html",
+        "resolvedMissingPath": "wiki\\pages\\wiki\\index.html.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\modules\\README.md.html",
+        "brokenHref": "../../pages/campaigns/opal_island.html",
+        "resolvedMissingPath": "wiki\\pages\\campaigns\\opal_island.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\modules\\README.md.html",
+        "brokenHref": "../../pages/campaigns/generic_starter.html",
+        "resolvedMissingPath": "wiki\\pages\\campaigns\\generic_starter.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\network\\campaign_studio.html.html",
+        "brokenHref": "../../pages/series/series_d_module_supply_chains_and_contradictions.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_d_module_supply_chains_and_contradictions.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\network\\campaign_studio.html.html",
+        "brokenHref": "../../pages/docs/adr/0007-system-agnostic-dials.md.html",
+        "resolvedMissingPath": "wiki\\pages\\docs\\adr\\0007-system-agnostic-dials.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\network\\campaign_studio.html.html",
+        "brokenHref": "../../pages/series/series_d_module_supply_chains_and_contradictions.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_d_module_supply_chains_and_contradictions.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\network\\contradiction_matrix_dashboard.html.html",
+        "brokenHref": "../../pages/docs/adr/0007-system-agnostic-dials.md.html",
+        "resolvedMissingPath": "wiki\\pages\\docs\\adr\\0007-system-agnostic-dials.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\network\\contradiction_matrix_dashboard.html.html",
+        "brokenHref": "../../pages/series/series_d_module_supply_chains_and_contradictions.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_d_module_supply_chains_and_contradictions.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\network\\contradiction_matrix_dashboard.html.html",
+        "brokenHref": "../../pages/series/series_d_module_supply_chains_and_contradictions.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_d_module_supply_chains_and_contradictions.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\network\\modules_manifest.json.html",
+        "brokenHref": "../../pages/series/series_d_module_supply_chains_and_contradictions.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_d_module_supply_chains_and_contradictions.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\network\\modules_manifest.json.html",
+        "brokenHref": "../../pages/series/series_d_module_supply_chains_and_contradictions.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_d_module_supply_chains_and_contradictions.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\regions\\Find-RegionalImage.ps1.html",
+        "brokenHref": "relative_path",
+        "resolvedMissingPath": "wiki\\pages\\regions\\relative_path"
+      },
+      {
+        "sourcePage": "wiki\\pages\\regions\\IMAGE_ENGINE_SPEC.md.html",
+        "brokenHref": "../../pages/docs/adr/0007-system-agnostic-dials.md.html",
+        "resolvedMissingPath": "wiki\\pages\\docs\\adr\\0007-system-agnostic-dials.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\regions\\regional_image_browser.html.html",
+        "brokenHref": "relative_path",
+        "resolvedMissingPath": "wiki\\pages\\regions\\relative_path"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_a_balancing_and_smothering_math.html",
+        "brokenHref": "../../pages/series/series_c_64_archetype_odv_sociology.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_c_64_archetype_odv_sociology.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_a_balancing_and_smothering_math.html",
+        "brokenHref": "../../pages/series/series_d_5_tier_module_and_supply_chain.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_d_5_tier_module_and_supply_chain.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_a_balancing_and_smothering_math.html",
+        "brokenHref": "../../pages/series/series_c_64_archetype_odv_sociology.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_c_64_archetype_odv_sociology.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_a_balancing_and_smothering_math.html",
+        "brokenHref": "../../pages/series/series_d_5_tier_module_and_supply_chain.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_d_5_tier_module_and_supply_chain.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_d_module_supply_chains_and_contracts.html",
+        "brokenHref": "../../pages/src/campaign_studio/stages/stage_5.html.html",
+        "resolvedMissingPath": "wiki\\pages\\src\\campaign_studio\\stages\\stage_5.html.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_e_zero_cors_compiler_and_agent_router.html",
+        "brokenHref": "../../pages/relative/path.html",
+        "resolvedMissingPath": "wiki\\pages\\relative\\path.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_e_zero_cors_compiler_and_agent_router.html",
+        "brokenHref": "../../pages/series/series_id.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_id.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_e_zero_cors_compiler_and_agent_router.html",
+        "brokenHref": "../../pages/series/series_id.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_id.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_f_campaign_authoring_and_ip_conversion.html",
+        "brokenHref": "../../pages/templates/examples/HIST-01_The_Crossing_of_the_Rubicon.md.html",
+        "resolvedMissingPath": "wiki\\pages\\templates\\examples\\HIST-01_The_Crossing_of_the_Rubicon.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_f_campaign_authoring_and_ip_conversion.html",
+        "brokenHref": "../../pages/templates/examples/DBZ-01_The_Siege_of_Planet_Namek.md.html",
+        "resolvedMissingPath": "wiki\\pages\\templates\\examples\\DBZ-01_The_Siege_of_Planet_Namek.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_f_campaign_authoring_and_ip_conversion.html",
+        "brokenHref": "../../pages/templates/examples/DND-01_The_Mists_of_Barovia.md.html",
+        "resolvedMissingPath": "wiki\\pages\\templates\\examples\\DND-01_The_Mists_of_Barovia.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\series\\series_g_duplicate_and_orphan_audit.html",
+        "brokenHref": "../../pages/network/presets/canonical_preset.json.html",
+        "resolvedMissingPath": "wiki\\pages\\network\\presets\\canonical_preset.json.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\src\\campaign_studio\\scripts\\inspector.js.html",
+        "brokenHref": "../../../../pages/series/series_c_64_archetype_odv_sociology.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_c_64_archetype_odv_sociology.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\src\\campaign_studio\\scripts\\inspector.js.html",
+        "brokenHref": "../../../../pages/series/series_c_64_archetype_odv_sociology.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_c_64_archetype_odv_sociology.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\src\\campaign_studio\\scripts\\sociology_data.js.html",
+        "brokenHref": "../../../../pages/series/series_c_64_archetype_odv_sociology.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_c_64_archetype_odv_sociology.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\src\\campaign_studio\\scripts\\sociology_data.js.html",
+        "brokenHref": "../../../../pages/series/series_c_64_archetype_odv_sociology.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_c_64_archetype_odv_sociology.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\src\\campaign_studio\\scripts\\stage_5_slotting.js.html",
+        "brokenHref": "../../../../pages/series/series_d_5_tier_module_and_supply_chain.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_d_5_tier_module_and_supply_chain.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\src\\campaign_studio\\scripts\\stage_5_slotting.js.html",
+        "brokenHref": "../../../../pages/docs/adr/0002-5-tier-worldbuilding-module-schema.md.html",
+        "resolvedMissingPath": "wiki\\pages\\docs\\adr\\0002-5-tier-worldbuilding-module-schema.md.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\src\\campaign_studio\\scripts\\stage_5_slotting.js.html",
+        "brokenHref": "../../../../pages/series/series_d_5_tier_module_and_supply_chain.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\series_d_5_tier_module_and_supply_chain.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\wiki\\build_wiki.js.html",
+        "brokenHref": "../../pages/wiki/index.html.html",
+        "resolvedMissingPath": "wiki\\pages\\wiki\\index.html.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\wiki\\build_wiki.js.html",
+        "brokenHref": "../../pages/....html",
+        "resolvedMissingPath": "wiki\\pages\\....html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\wiki\\build_wiki.js.html",
+        "brokenHref": "../../pages/series/....html",
+        "resolvedMissingPath": "wiki\\pages\\series\\....html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\wiki\\build_wiki.js.html",
+        "brokenHref": "../../pages/wiki/index.html.html",
+        "resolvedMissingPath": "wiki\\pages\\wiki\\index.html.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\wiki\\build_wiki.js.html",
+        "brokenHref": "../../pages/series/....html",
+        "resolvedMissingPath": "wiki\\pages\\series\\....html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\wiki\\build_wiki.js.html",
+        "brokenHref": "../../pages/series/id.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\id.html"
+      },
+      {
+        "sourcePage": "wiki\\pages\\wiki\\build_wiki.js.html",
+        "brokenHref": "../../pages/series/${val}.html",
+        "resolvedMissingPath": "wiki\\pages\\series\\${val}.html"
+      }
+    ]
+  },
+  "userRuleAdherence": {
+    "systemicContracts": {
+      "totalModulesExamined": 113,
+      "withProvidesRequires": 113,
+      "withThreatClocks": 88,
+      "withDispositionVectors": 81,
+      "withReferencesAndSources": 12
+    },
+    "sysAudit01": {
+      "legacyAndOrphanFilesExamined": 0,
+      "taggedWithSysAudit01": 0,
+      "untagged": [],
+      "totalFlaggedInManifest": 15,
+      "sampleFlagged": [
+        {
+          "relPath": "network/balance_matrix.csv",
+          "auditFlag": "⚠️ STALE SIMULATION OUTPUT (SYS-AUDIT-01)"
+        },
+        {
+          "relPath": "network/balance_report.md",
+          "auditFlag": "⚠️ STALE SIMULATION OUTPUT (SYS-AUDIT-01)"
+        },
+        {
+          "relPath": "network/sample_balance_run.md",
+          "auditFlag": "⚠️ HISTORICAL SAMPLE (SYS-AUDIT-01)"
+        },
+        {
+          "relPath": "sociology/05_Node_and_Faction_Mapping.md",
+          "auditFlag": "⚠️ LEGACY OVERLAP (SYS-AUDIT-01)"
+        },
+        {
+          "relPath": "sociology/1-s2.png",
+          "auditFlag": "⚠️ RAW DIAGRAM ASSET (SYS-AUDIT-01)"
+        }
+      ],
+      "totalWikiSourceNotes": 352,
+      "wikiNotesReferencingSysAudit01": 74
+    }
+  },
+  "totalHtmlPagesOnDisk": 360
+}

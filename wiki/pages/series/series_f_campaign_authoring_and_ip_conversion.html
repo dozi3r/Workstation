@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives — Creator Studio Technical Manual</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="active" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../index.html#series-index">Cross-Cutting Series</a> &rsaquo;
+        <span>Series F</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</h1>
+        <div class="article-subtitle">
+          <span class="badge badge-Series">Cross-Cutting Subsystem Series</span>
+          <span class="badge">Volume II</span>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (8)</a>
+        </div>
+      </div>
+
+      <div class="ai-digest">
+        <div class="ai-digest-title">🤖 Analytical Knife Seam Summary</div>
+        <p style="margin:4px 0;">End-to-end engineering guide for transforming any setting, historical era, or IP into a validated Creator Studio Campaign Package without setting bleed.</p>
+      </div>
+
+      <div class="callout callout-important"><strong>IMPORTANT:</strong> <strong>Cross-Cutting Analytical Series</strong>: End-to-end engineering and design specification for transforming any setting, historical era, or Intellectual Property (IP) into a 100% validated Creator Studio Campaign Preset Package (<code>campaigns/<campaign_id>/</code>) without setting bleed or system lock-in.</div>
+<hr class="wiki-hr"/>
+<h2>1. Architectural Seam Overview & The "Universes Beyond" Paradigm</h2>
+<p>Creator Studio is engineered around <strong>ADR-0001 (Dual-Mode Preset Architecture)</strong> (<a class="wiki-link" href="../../pages/docs/adr/0001-dual-mode-preset-architecture.md.html">📄 docs/adr/0001-dual-mode-preset-architecture.md</a>) and <strong>ADR-0002 (Dual SRD and Tiered Module Architecture)</strong> (<a class="wiki-link" href="../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a>). Rather than hardcoding setting lore into the simulation engine, Creator Studio treats every campaign world as an isolated, plug-and-play <strong>Sourcebook Package</strong> under <code>campaigns/<campaign_id>/</code>.</p>
+<p>Whether an author is converting a classical myth (<em>Journey to the West</em> in <code>campaigns/sun_wukong/</code>), a historical crisis (<em>The Crossing of the Rubicon</em> in <a class="wiki-link" href="../../pages/templates/examples/HIST-01_The_Crossing_of_the_Rubicon.md.html">📄 templates/examples/HIST-01_The_Crossing_of_the_Rubicon.md</a>), an anime/sci-fi conflict (<em>Planet Namek</em> in <a class="wiki-link" href="../../pages/templates/examples/DBZ-01_The_Siege_of_Planet_Namek.md.html">📄 templates/examples/DBZ-01_The_Siege_of_Planet_Namek.md</a>), a gothic tabletop classic (<em>Barovia</em> in <a class="wiki-link" href="../../pages/templates/examples/DND-01_The_Mists_of_Barovia.md.html">📄 templates/examples/DND-01_The_Mists_of_Barovia.md</a>), or a tutorial sandbox (<code>campaigns/generic_starter/</code>), the conversion follows a strict structural pipeline.</p>
+<h3>Primary Collaborating Subsystem Files</h3>
+<ul class="wiki-list">
+<li><a class="wiki-link" href="../../pages/docs/srd/campaign_preset_specification_srd.md.html">📄 docs/srd/campaign_preset_specification_srd.md</a> — Defines the directory layout and JSON schemas (<code>campaign.json</code>, <code>preset.json</code>, <code>modules_manifest.json</code>) required for a campaign package.</li>
+<li><a class="wiki-link" href="../../pages/docs/srd/ip_module_framework_srd.md.html">📄 docs/srd/ip_module_framework_srd.md</a> — The cross-domain Rosetta Stone mapping narrative IP elements onto the 5-Tier Pipeline, <code>[S, E, C]</code> sociology, typed resource tags, and 4-Corner Opposition webs.</li>
+<li><a class="wiki-link" href="../../pages/docs/srd/scenario_primitives_srd.md.html">📄 docs/srd/scenario_primitives_srd.md</a> — Codifies the deconstruction of setting-bound lore into reusable dramatic syllogisms, hazard dials, and semantic resource tokens (<code>CWT-051</code>).</li>
+<li><a class="wiki-link" href="../../pages/system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md.html">📄 system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md</a> — System-level primitives extraction baseline mirrored from <code>CWT-051</code>.</li>
+<li><a class="wiki-link" href="../../pages/templates/IP_MODULE_TEMPLATE.md.html">📄 templates/IP_MODULE_TEMPLATE.md</a> — Copy-and-fill YAML frontmatter and Markdown authoring template for individual worldbuilding modules.</li>
+<li><a class="wiki-link" href="../../pages/campaigns/Test-CampaignPackage.ps1.html">📄 campaigns/Test-CampaignPackage.ps1</a> — Automated PowerShell conformance validator auditing package structure, 22-node / 7-wave / 22-disembark / 5-color invariants, and module frontmatter integrity.</li>
+<li><a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> — Discovers active packages in <code>campaigns/</code> and compiles them into <code>CAMPAIGN_REGISTRY</code> for <a class="wiki-link" href="../../pages/start.html.html">📄 start.html</a> and <a class="wiki-link" href="../../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>2. Package Directory Contract & JSON Schemas</h2>
+<p>Per <a class="wiki-link" href="../../pages/docs/srd/campaign_preset_specification_srd.md.html">📄 docs/srd/campaign_preset_specification_srd.md</a>, every campaign package resides in <code>campaigns/<campaign_id>/</code> and must provide four core components:</p>
+<pre class="code-block"><code class="lang-text">campaigns/&lt;campaign_id&gt;/
+├── campaign.json            # Identity, author, default dials, and enablement flag
+├── preset.json              # 22-node topology, 7 waves, 22 disembark events, 5 color profiles
+├── modules_manifest.json    # JSON array indexing all setting modules
+└── modules/                 # Authoritative 5-Tier module Markdown files (*.md)</code></pre>
+<h3>2.1 <code>campaign.json</code> Metadata Contract</h3>
+<p>Declares the package identifier (<code>id</code>), human-readable title (<code>name</code>), <code>enabled</code> boolean flag (if <code>false</code>, the campaign is registered in <code>CAMPAIGN_REGISTRY</code> but excluded from active default pools), <code>author</code>, <code>description</code>, <code>presetFile</code> (<code>"preset.json"</code>), and <code>manifestFile</code> (<code>"modules_manifest.json"</code>). Folders starting with <code>_</code> (such as <code>campaigns/_template/</code>) or <code>.</code> are automatically ignored by <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a>.</p>
+<h3>2.2 <code>preset.json</code> Mathematical & Structural Invariants</h3>
+<p>To guarantee 100% mathematical compatibility with the balancing engine in <a class="wiki-link" href="../../pages/mods/tarot_balancing/mod.js.html">📄 mods/tarot_balancing/mod.js</a> and <a class="wiki-link" href="../../pages/network/Run-NetworkEngine.ps1.html">📄 network/Run-NetworkEngine.ps1</a>, <code>preset.json</code> must satisfy four strict invariants verified by <a class="wiki-link" href="../../pages/campaigns/Test-CampaignPackage.ps1.html">📄 campaigns/Test-CampaignPackage.ps1</a>:</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Top-Level Key</th><th>Cardinality Invariant</th><th>Required Per-Item Schema Fields</th><th>Governing Engine Rule</th></tr>
+</thead>
+<tbody>
+<tr><td><strong><code>nodes</code></strong></td><td>Exactly <strong>22 keys</strong> (<code>"1"</code> to <code>"22"</code>)</td><td><code>name</code>, <code>x</code>, <code>y</code>, <code>eligible</code> (<code>bool</code>), <code>hubEligibility</code> (<code>"candidate"</code> / <code>"never"</code> / <code>"always"</code>), <code>adj</code> (<code>int[]</code>), <code>infBy</code> (<code>int[]</code>), <code>cat</code>, <code>culture</code>, <code>tier</code> (<code>0..3</code>)</td><td>Nodes 1–21 are spatial POIs; Node 22 is the Tier 0 Meta-Key governing Global Inversion (<a class="wiki-link" href="../../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a> Section 4.6).</td></tr>
+<tr><td><strong><code>waves</code></strong></td><td>Exactly <strong>7 wave objects</strong></td><td><code>wave</code> (<code>1..7</code>), <code>name</code>, <code>nodes</code> (<code>int[]</code>), <code>desc</code></td><td>Sequences progressive Tarot draws from Wave 1 (Perimeter Arrival) to Wave 7 (Node 22 Synthesis).</td></tr>
+<tr><td><strong><code>disembarkTable</code></strong></td><td>Exactly <strong>22 card entries</strong></td><td><code>cardKey</code> (<code>0..21</code>), <code>cardName</code>, <code>upEvent</code>, <code>revEvent</code>, <code>upGain</code>, <code>revDebt</code></td><td>Drives the Dockside Arrival & Disembark Protocol (<a class="wiki-link" href="../../pages/docs/srd/adventure_framework_srd.md.html">📄 docs/srd/adventure_framework_srd.md</a> Section 6).</td></tr>
+<tr><td><strong><code>colorWheel</code></strong></td><td>Exactly <strong>5 color entries</strong></td><td><code>color</code> (<code>White</code>, <code>Blue</code>, <code>Black</code>, <code>Red</code>, <code>Green</code>), <code>culture</code>, <code>opsProfile</code>, <code>theme</code>, <code>perimeterDefense</code>, <code>leader</code>, <code>economy</code>, <code>flaw</code></td><td>Maps the 5 elected Sovereign Hubs (Ranks 1–5) to their macro-organizational identity (<a class="wiki-link" href="../../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a> Section 4.5).</td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>3. Deconstructing an IP into Scenario Primitives & 5-Tier Modules</h2>
+<p>Rather than writing linear plot scripts or system-locked stat blocks, <a class="wiki-link" href="../../pages/docs/srd/ip_module_framework_srd.md.html">📄 docs/srd/ip_module_framework_srd.md</a> and <a class="wiki-link" href="../../pages/docs/srd/scenario_primitives_srd.md.html">📄 docs/srd/scenario_primitives_srd.md</a> prescribe a <strong>3-Step Deconstruction & Translation Method</strong> (modeled on the extraction of the 48 Opal Island modules in <code>campaigns/opal_island/</code>):</p>
+<h3>3.1 Step 1: 5-Tier Worldbuilding Pipeline Stratification</h3>
+<p>Every narrative element, location, or crisis from the source IP is assigned a <code>pipeline_tier</code> $\in \{1, 2, 3, 4, 5\}$:</p>
+<ul class="wiki-list">
+<li><strong>Tier 1 (Macro Network & Governance)</strong>: Overarching imperial laws, cold-war tension matrices, or planar lockdowns (e.g., <em>Roman Lex Cornelia</em>, <em>Frieza Force Planetary Quotas</em>, <em>Barovian Mist Borders</em>).</li>
+<li><strong>Tier 2 (Topological & Biome Anchors)</strong>: Hazardous biomes, apex fauna, entry ports, and transit chokepoints (<code>EDGE-01..05</code> equivalents, such as <span class="wiki-tag">📦 ECOL-01</span> or <span class="wiki-tag">📦 EDGE-03</span>).</li>
+<li><strong>Tier 3 (Infrastructural Supply Chains)</strong>: Resource extractors, generators, smelters, and communication relays that transform upstream inputs into downstream outputs (e.g., <span class="wiki-tag">📦 INFRA-01</span> $\to$ <span class="wiki-tag">📦 INFRA-02</span> $\to$ <span class="wiki-tag">📦 INFRA-03</span>).</li>
+<li><strong>Tier 4 (Dynamic Narrative Sparks & Clocks)</strong>: Boiling factional dilemmas, ideological conflations, labor strikes, and plagues (e.g., <span class="wiki-tag">📦 CONF-01</span>, <span class="wiki-tag">📦 SPARK-01</span>).</li>
+<li><strong>Tier 5 (Esoteric & Eschatological Engines)</strong>: Reality-warping anomalies, superweapons, and campaign climax triggers (e.g., <span class="wiki-tag">📦 ESOT-06</span>, <em>Planet Namek 5-Minute Core Detonation</em>).</li>
+</ul>
+<h3>3.2 Step 2: Semantic Resource Tokenization (<code>provides</code> & <code>requires</code>)</h3>
+<p>Setting-specific trade goods are abstracted into typed machine-readable contracts (<code>"[Category]: [Specific-Asset-Name]"</code>) across standardized categories (<code>Power</code>, <code>Chem</code>, <code>Material</code>, <code>Fuel</code>, <code>Water</code>, <code>Defense</code>, <code>Signal</code>, <code>Bio</code>, <code>Tech</code>, <code>Authority</code>, <code>Labor</code>, <code>Climax</code>). During gameplay and authoring, <a class="wiki-link" href="../../pages/src/workstation/scripts/stage_5_slotting.js.html">📄 src/workstation/scripts/stage_5_slotting.js</a> runs a Breadth-First Search (BFS) across unsevered <code>transit</code> edges ($k \le 3$ hops) to verify whether each module's <code>requires</code> tags are satisfied by upstream <code>provides</code> tags. If an edge is severed, the module degrades gracefully to its mandatory <code>standalone_fallback</code> clause.</p>
+<h3>3.3 Step 3: Dramatic Syllogism, 4-Corner Opposition & 4-Level Hazard Dials</h3>
+<p>Using <a class="wiki-link" href="../../pages/templates/IP_MODULE_TEMPLATE.md.html">📄 templates/IP_MODULE_TEMPLATE.md</a>, each module codifies:</p>
+<ul class="wiki-list">
+<li><strong>Lajos Egri Dramatic Syllogism</strong>: The core thematic premise (<code>Character Trait + Action Conflict -> Thematic Conclusion</code>).</li>
+<li><strong>John Truby 4-Corner Dramatic Opposition Web</strong>: Four irreconcilable local forces—<strong>Establishment</strong> (entrenched authority), <strong>Main Opponent</strong> (active challenger/insurgent), <strong>Thematic Shadow</strong> (profiteer/opportunist), and <strong>Tertiary Outcast</strong> (collateral victim/exile).</li>
+<li><strong>Universal 4-Level Output Dial & Segmented Threat Clocks</strong>:</li>
+<li><strong>Level 1 (Light Tier)</strong>: DC 10 / 2d6 6+ / 1d6 (3) damage.</li>
+<li><strong>Level 2 (Moderate Tier)</strong>: DC 13 / 2d6 8+ / 2d8 (9) damage.</li>
+<li><strong>Level 3 (Severe Tier)</strong>: DC 16 / 2d6 10+ / 4d10 (22) damage.</li>
+<li><strong>Level 4 (Lethal Tier)</strong>: DC 20 / 2d6 12+ / 8d12 (52) damage.</li>
+<li><strong>Threat Clocks</strong>: 4-Tick (Tactical), 6-Tick (Operational/Node-Wide), and 8-Tick (Macro/Climax) progress clocks.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>4. Automated Validation & Build Ingestion Pipeline</h2>
+<p>Once a campaign package is authored under <code>campaigns/<campaign_id>/</code>, it undergoes a two-step verification and compilation workflow:</p>
+<ul class="wiki-list">
+<li><strong>Step 1: Package Validation (<code>campaigns/Test-CampaignPackage.ps1</code>)</strong>:</li>
+</ul>
+<pre class="code-block"><code class="lang-powershell">  powershell -ExecutionPolicy Bypass -File .\campaigns\Test-CampaignPackage.ps1 -Campaign &lt;campaign_id&gt;</code></pre>
+<p><a class="wiki-link" href="../../pages/campaigns/Test-CampaignPackage.ps1.html">📄 campaigns/Test-CampaignPackage.ps1</a> verifies:</p>
+<ul class="wiki-list">
+<li>Existence and JSON validity of <code>campaign.json</code>, <code>preset.json</code>, and <code>modules_manifest.json</code>.</li>
+<li>Exact node count (<code>22</code>), keys <code>"1"</code> through <code>"22"</code>, and presence of <code>name</code>, <code>x</code>, <code>y</code>, <code>cat</code>, <code>culture</code>, <code>tier</code>, and <code>hubEligibility</code> on every node.</li>
+<li>Exact wave count (<code>7</code>), disembark card count (<code>22</code>), and color wheel count (<code>5</code>).</li>
+<li>Physical file existence on disk for every module path in <code>modules_manifest.json</code>, plus YAML frontmatter verification for <code>pipeline_tier</code>, <code>provides</code>, and <code>requires</code>.</li>
+<li><strong>Step 2: Master Suite Compilation (<code>Build-Suite.ps1</code>)</strong>:</li>
+</ul>
+<pre class="code-block"><code class="lang-powershell">  powershell -ExecutionPolicy Bypass -File .\Build-Suite.ps1</code></pre>
+<p><a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> ingests the validated campaign into <code>CAMPAIGN_REGISTRY</code>, extracts regex-backed <code>dials</code>, <code>threat_clocks</code>, and <code>four_corners</code> from each module's Markdown body, bundles them into <a class="wiki-link" href="../../pages/start.html.html">📄 start.html</a> and <a class="wiki-link" href="../../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>, and generates 1:1 wiki pages for every new file via <a class="wiki-link" href="../../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> (see <a class="wiki-link series-link" href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a>).</p>
+      <h2 id="outbound-links">Subsystem Files Covered in This Series (26)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>File / Page</th><th>Role</th><th>Notes</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/docs/srd/campaign_preset_specification_srd.md.html"><strong>docs/srd/campaign_preset_specification_srd.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/ip_module_framework_srd.md.html"><strong>docs/srd/ip_module_framework_srd.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/scenario_primitives_srd.md.html"><strong>docs/srd/scenario_primitives_srd.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Test-CampaignPackage.ps1.html"><strong>campaigns/Test-CampaignPackage.ps1</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/templates/IP_MODULE_TEMPLATE.md.html"><strong>templates/IP_MODULE_TEMPLATE.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md.html"><strong>system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/adr/0001-dual-mode-preset-architecture.md.html"><strong>docs/adr/0001-dual-mode-preset-architecture.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/adr/0001-dual-mode-preset-architecture.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/adr/0002-dual-srd-and-tiered-module-architecture.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:build_suite.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/start.html.html"><strong>start.html</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:start.html]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/platform_audit_dashboard.html]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/srd/authoring_engine_srd.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/srd/adventure_framework_srd.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module ECOL-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.jpg.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.jpg</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module EDGE-03</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module EDGE-03</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-02</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-03</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CONF-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module SPARK-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module ESOT-06</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/stage_5_slotting.js.html"><strong>src/workstation/scripts/stage_5_slotting.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_e_zero_cors_compiler_and_agent_router]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+          <td><span class="badge">Path Reference</span></td>
+          <td>References Build-Suite.ps1</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md</strong></a></td>
+          <td><span class="badge">Module Cross-Ref</span></td>
+          <td>Mentions module EDGE-01</td>
+        </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (8)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page</th><th>Relationship</th><th>Context</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_f_campaign_authoring_and_ip_conversion]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/campaign_preset_specification_srd.md.html"><strong>docs/srd/campaign_preset_specification_srd.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/ip_module_framework_srd.md.html"><strong>docs/srd/ip_module_framework_srd.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/scenario_primitives_srd.md.html"><strong>docs/srd/scenario_primitives_srd.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Test-CampaignPackage.ps1.html"><strong>campaigns/Test-CampaignPackage.ps1</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/templates/IP_MODULE_TEMPLATE.md.html"><strong>templates/IP_MODULE_TEMPLATE.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md.html"><strong>system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/adr/0001-dual-mode-preset-architecture.md.html"><strong>docs/adr/0001-dual-mode-preset-architecture.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_f_campaign_authoring_and_ip_conversion]] reference</td>
+        </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

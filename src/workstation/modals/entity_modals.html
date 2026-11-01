@@ -1,0 +1,312 @@
+<!-- ========================================================================
+       MDI WINDOW 2: UNIVERSAL CAMPAIGN ENTITY MANAGER (NPCS / QUESTS / ITEMS)
+       ======================================================================== -->
+  <div id="modal-entity-manager" class="mdi-window hidden" style="width:980px; height:620px; min-width:760px; min-height:480px; top:50px; left:80px;">
+    <div class="mdi-title-bar">
+      <div class="mdi-title-text">
+        <span class="win95-start-logo" style="width:12px; height:12px; font-size:8px;">EM</span>
+        <span id="em-dialog-title">Campaign Entity Manager</span>
+      </div>
+      <div class="mdi-title-controls">
+        <button class="win-btn" onclick="MDIWindowManager.minimize('modal-entity-manager')" title="Minimize">_</button>
+        <button class="win-btn" onclick="MDIWindowManager.restoreOrMaximize('modal-entity-manager')" title="Maximize / Restore">&#9633;</button>
+        <button class="win-btn" onclick="MDIWindowManager.close('modal-entity-manager')" title="Close">X</button>
+      </div>
+    </div>
+    <div class="mdi-body" style="padding:8px; gap:8px;">
+        <!-- Top Filter & Search Bar -->
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
+            <button id="em-tab-npc" class="win-btn" onclick="switchEntityManagerTab('npc')"><strong>NPCs</strong></button>
+            <button id="em-tab-quest" class="win-btn" onclick="switchEntityManagerTab('quest')"><strong>Quests</strong></button>
+            <button id="em-tab-item" class="win-btn" onclick="switchEntityManagerTab('item')"><strong>Items &amp; Relics</strong></button>
+            <button id="em-tab-tracker" class="win-btn" onclick="switchEntityManagerTab('tracker')"><strong>Trackers &amp; Clocks</strong></button>
+            <button id="em-tab-node" class="win-btn" onclick="switchEntityManagerTab('node')"><strong>Nodes &amp; Hubs</strong></button>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <input type="text" id="em-search-input" placeholder="Filter entities..." class="win-select-input" style="width:160px;" oninput="renderEntityManagerList()">
+            <button id="em-btn-new-entity" class="win-btn" onclick="openNewEntityModal(CurrentEntityTab)">+ New Entity...</button>
+          </div>
+        </div>
+
+        <!-- 3-Column Manager Layout -->
+        <div class="entity-manager-grid">
+          <!-- Col 1: Scope & Module Tree -->
+          <div class="bevel-inset entity-sidebar-tree" id="em-tree-container">
+            <!-- Populated dynamically -->
+          </div>
+
+          <!-- Col 2: Entity Table -->
+          <div class="bevel-inset entity-list-container">
+            <table class="entity-win-table">
+              <thead>
+                <tr id="em-table-head">
+                  <!-- Dynamic headers -->
+                </tr>
+              </thead>
+              <tbody id="em-table-body">
+                <!-- Dynamic rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Col 3: Detail & Assignment Inspector -->
+          <div class="bevel-inset entity-detail-pane" id="em-detail-pane">
+            <div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Select an entity to inspect, edit, or assign to a node.</div>
+          </div>
+        </div>
+
+        <!-- Dialog Footer -->
+        <div class="dialog-footer" style="flex-shrink:0;">
+          <div id="em-footer-stats" style="font-size:11px; color:#333;">Showing 0 entities.</div>
+          <button class="win-btn" onclick="MDIWindowManager.close('modal-entity-manager')" style="min-width:70px;">Close</button>
+        </div>
+      </div>
+  </div>
+
+  
+<!-- ========================================================================
+       MODAL 6: CREATE / EDIT CUSTOM ENTITY MODAL
+       ======================================================================== -->
+  <div id="modal-entity-edit" class="modal-overlay hidden">
+    <div class="win-dialog bevel-outset" style="width:520px; max-height:88vh; display:flex; flex-direction:column;">
+      <div class="title-bar">
+        <div class="title-bar-text"><span id="ee-modal-title">Create Entity</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-entity-edit')">X</button></div>
+      </div>
+      <div class="dialog-body" style="gap:8px; overflow-y:auto; flex:1; padding:8px 10px;">
+        <input type="hidden" id="ee-entity-id">
+        <input type="hidden" id="ee-entity-type">
+
+        <label style="display:flex; flex-direction:column; gap:2px;">
+          <strong>Name / Title:</strong>
+          <input type="text" id="ee-name" class="win-select-input">
+        </label>
+
+        <label style="display:flex; flex-direction:column; gap:2px;">
+          <strong id="ee-role-label">Role / Category:</strong>
+          <input type="text" id="ee-role" class="win-select-input">
+        </label>
+
+        <label style="display:flex; flex-direction:column; gap:2px;">
+          <strong id="ee-meta-label">Faction / Stakes / Specs:</strong>
+          <input type="text" id="ee-meta" class="win-select-input">
+        </label>
+
+        <label style="display:flex; flex-direction:column; gap:2px;">
+          <strong id="ee-notes-label">Motivation / Description:</strong>
+          <textarea id="ee-notes" class="win-select-input" rows="3" style="resize:vertical;"></textarea>
+        </label>
+
+        <label style="display:flex; align-items:center; justify-content:space-between;">
+          <strong id="ee-node-label">Stationed Node:</strong>
+          <select id="ee-node-select" class="win-select-input" style="width:230px;">
+            <option value="">(Unassigned / In Pool)</option>
+          </select>
+        </label>
+
+        <!-- NPC Overhaul Extensions (Sociology, Standing, Secrets, Leverage, Dramaturgy) -->
+        <div id="ee-npc-extensions" style="display:none; flex-direction:column; gap:6px; border-top:1px solid #ccc; padding-top:6px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Status / Condition:</strong>
+              <select id="ee-npc-status" class="win-select-input">
+                <option value="Active">Active (Normal)</option>
+                <option value="Captured">Captured / Imprisoned</option>
+                <option value="In Hiding">In Hiding / Concealed</option>
+                <option value="Exiled">Exiled / Displaced</option>
+                <option value="Deceased">Deceased / KIA</option>
+                <option value="Missing">Missing / MIA</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Party Standing / Disposition:</strong>
+              <select id="ee-npc-standing" class="win-select-input">
+                <option value="2">Allied (+2) [Blue]</option>
+                <option value="1">Friendly (+1) [Green]</option>
+                <option value="0" selected>Neutral (0) [Gray]</option>
+                <option value="-1">Unfriendly (-1) [Orange]</option>
+                <option value="-2">Hostile (-2) [Red]</option>
+              </select>
+            </label>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>CVF Cultural Quadrant:</strong>
+              <select id="ee-npc-culture" class="win-select-input">
+                <option value="">(Inherit Host Node Culture)</option>
+                <option value="Clan">Clan (Cohesion / Internal)</option>
+                <option value="Adhocracy">Adhocracy (Energy / Innovation)</option>
+                <option value="Market">Market (Structure / Extraction)</option>
+                <option value="Hierarchy">Hierarchy (Stability / Control)</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Four-Corners Role:</strong>
+              <select id="ee-npc-four-corners" class="win-select-input">
+                <option value="">(None / Supporting)</option>
+                <option value="Active">Active (Protagonist / Catalyst)</option>
+                <option value="Adversary">Adversary (Opposition Force)</option>
+                <option value="Shadow">Shadow (Internal Doubts / Mirror)</option>
+                <option value="Target">Target (Prize / Objective / Victim)</option>
+              </select>
+            </label>
+          </div>
+
+          <!-- Granular [S, E, C] Vector -->
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Granular Disposition Vector [S, E, C]:</strong>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px;">
+              <label style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>S:</span>
+                <select id="ee-npc-odv-s" class="win-select-input" style="flex:1;">
+                  <option value="1">1: Passive</option>
+                  <option value="2" selected>2: Moderate</option>
+                  <option value="3">3: Active</option>
+                  <option value="4">4: Extreme</option>
+                </select>
+              </label>
+              <label style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>E:</span>
+                <select id="ee-npc-odv-e" class="win-select-input" style="flex:1;">
+                  <option value="1">1: Rigid</option>
+                  <option value="2" selected>2: Guarded</option>
+                  <option value="3">3: Dynamic</option>
+                  <option value="4">4: Volatile</option>
+                </select>
+              </label>
+              <label style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>C:</span>
+                <select id="ee-npc-odv-c" class="win-select-input" style="flex:1;">
+                  <option value="1">1: Isolated</option>
+                  <option value="2" selected>2: Local</option>
+                  <option value="3">3: Regional</option>
+                  <option value="4">4: Universal</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Secrets Known (1 per line - Three-Clue Tracker):</strong>
+            <textarea id="ee-npc-secrets" class="win-select-input" rows="2" placeholder="e.g. Secretly funnels silver to Smuggler Voss&#10;Knows password to the basalt gate" style="resize:vertical;"></textarea>
+          </label>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Leverage / Vulnerability:</strong>
+              <input type="text" id="ee-npc-vulnerability" class="win-select-input" placeholder="e.g. Protective of sibling at Node 4">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Bribe / Price:</strong>
+              <input type="text" id="ee-npc-bribe" class="win-select-input" placeholder="e.g. Imperial pardon or medical supplies">
+            </label>
+          </div>
+
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Dialogue Hooks (1 per line):</strong>
+            <textarea id="ee-npc-dialogue" class="win-select-input" rows="2" placeholder="e.g. 'Keep your voice down; the walls have colonial ears.'&#10;'If the grain shipment is late, blood will flow.'" style="resize:vertical;"></textarea>
+          </label>
+        </div>
+
+        <!-- Item Overhaul Extensions (Assigned Owner & Possession Mode) -->
+        <div id="ee-item-extensions" style="display:none; flex-direction:column; gap:6px; border-top:1px solid #ccc; padding-top:6px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Assigned / Owning NPC:</strong>
+              <select id="ee-item-owner" class="win-select-input">
+                <option value="">(None - Unassigned / Public)</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Possession / Storage Status:</strong>
+              <select id="ee-item-possession-mode" class="win-select-input">
+                <option value="stored">Stored at Node (Explicit Station Node)</option>
+                <option value="carried">Equipped / Carried by NPC (Inherits NPC Node)</option>
+              </select>
+            </label>
+          </div>
+          <div id="ee-item-possession-hint" style="font-size:10px; color:#475569; background:#f8fafc; border:1px solid #cbd5e1; padding:4px 6px; border-radius:2px;">
+            When "Equipped / Carried", this item automatically moves wherever its owning character is stationed. When "Stored", it remains at its designated Stationed Node (e.g. in a vault, armory, or home base).
+          </div>
+        </div>
+
+        <!-- Quest Overhaul Extensions (Associated NPCs, Items & Spanning Nodes) -->
+        <div id="ee-quest-extensions" style="display:none; flex-direction:column; gap:6px; border-top:1px solid #ccc; padding-top:6px;">
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Associated NPCs (Involved in Quest):</strong>
+            <div id="ee-quest-npcs-list" class="bevel-inset" style="max-height:85px; overflow-y:auto; background:#fff; padding:4px; font-size:11px; display:flex; flex-direction:column; gap:2px;">
+              <!-- Dynamic NPC Checkboxes -->
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Associated Items &amp; Relics (Quest Objectives / Rewards):</strong>
+            <div id="ee-quest-items-list" class="bevel-inset" style="max-height:85px; overflow-y:auto; background:#fff; padding:4px; font-size:11px; display:flex; flex-direction:column; gap:2px;">
+              <!-- Dynamic Item Checkboxes -->
+            </div>
+          </div>
+
+          <div id="ee-quest-spanning-box" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:6px; border-radius:2px; font-size:10px;">
+            <div style="font-weight:bold; color:#000080; margin-bottom:2px;">📍 Spanning Quest Nodes:</div>
+            <div id="ee-quest-spanning-nodes-text" style="color:#334155;">(Select main node, NPCs, or items above)</div>
+          </div>
+        </div>
+
+        <div class="dialog-footer" style="justify-content:flex-end; gap:6px; margin-top:8px;">
+          <button class="win-btn" onclick="saveCustomEntity()" style="min-width:70px;">Save</button>
+          <button class="win-btn" onclick="closeModal('modal-entity-edit')" style="min-width:70px;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<!-- ========================================================================
+       MODAL: ENTITY DELETION & DEPENDENCY CASCADE CONFIRMATION
+       ======================================================================== -->
+  <div id="modal-entity-delete-confirm" class="modal-overlay hidden" style="z-index:9999;">
+    <div class="win-dialog bevel-outset" style="width:650px; max-width:92vw; max-height:88vh; display:flex; flex-direction:column;">
+      <div class="title-bar" style="background:linear-gradient(90deg, #7f1d1d, #b91c1c);">
+        <div class="title-bar-text"><span id="ed-modal-title">Confirm Deletion &amp; Relational Cascade</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-entity-delete-confirm')">X</button></div>
+      </div>
+      <div class="dialog-body" style="gap:8px; display:flex; flex-direction:column; overflow:hidden; flex:1; padding:10px;">
+        <!-- Target Info & Alert Banner Container -->
+        <div id="ed-alert-container">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Dependency Review & Selection Header -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
+          <strong style="font-size:11px; color:#111827;">Select Linked Entities to Delete Together:</strong>
+          <div style="display:flex; gap:4px;">
+            <button class="win-btn" type="button" onclick="setAllDeletionCheckboxes(true)" style="font-size:10px; padding:2px 6px;">Select All</button>
+            <button class="win-btn" type="button" onclick="setActiveOnlyDeletionCheckboxes()" style="font-size:10px; padding:2px 6px; font-weight:bold; color:#b91c1c;">Active Only</button>
+            <button class="win-btn" type="button" onclick="setAllDeletionCheckboxes(false)" style="font-size:10px; padding:2px 6px;">Deselect All</button>
+          </div>
+        </div>
+
+        <!-- Scrollable Dependency List Container -->
+        <div id="ed-dependencies-list" class="bevel-inset" style="padding:6px; background:#fff; overflow-y:auto; flex:1; max-height:280px; display:flex; flex-direction:column; gap:4px;">
+          <!-- Populated dynamically with checkboxes and active badges -->
+        </div>
+
+        <!-- Status Summary & Instructions -->
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px 8px; font-size:10px; color:#475569; display:flex; justify-content:space-between; align-items:center;">
+          <div id="ed-selection-summary" style="font-weight:bold; color:#0f172a;">Selected: 1 target entity.</div>
+          <div style="font-style:italic;">Unchecked entities will be safely preserved &amp; unlinked.</div>
+        </div>
+
+        <!-- Dialog Footer with Action Buttons -->
+        <div class="dialog-footer" style="justify-content:space-between; gap:6px; margin-top:6px; flex-shrink:0;">
+          <button class="win-btn" type="button" onclick="closeModal('modal-entity-delete-confirm')" style="min-width:70px;">Cancel</button>
+          <div style="display:flex; gap:6px;">
+            <button id="ed-btn-delete-only" class="win-btn" type="button" onclick="confirmExecuteDeletion(false)" style="color:#b91c1c; font-weight:bold; min-width:115px;">Delete (No Backup)</button>
+            <button id="ed-btn-backup-delete" class="win-btn" type="button" onclick="confirmExecuteDeletion(true)" style="background:#000080; color:#fff; font-weight:bold; min-width:175px; border-color:#000040;">📦 Backup &amp; Delete (.zip)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

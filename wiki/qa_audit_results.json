@@ -1,0 +1,207 @@
+{
+  "manifest": {
+    "totalFiles": 352,
+    "totalSeries": 7,
+    "totalPages": 359,
+    "staleCount": 0,
+    "staleFiles": []
+  },
+  "zeroCors": {
+    "externalRefs": []
+  },
+  "searchIndex": {
+    "exists": true,
+    "sizeBytes": 137831,
+    "entriesCount": 359
+  },
+  "seriesPages": [
+    {
+      "seriesFile": "SERIES-A_Topological_Network_Orchestration.html",
+      "exists": false
+    },
+    {
+      "seriesFile": "SERIES-B_Pointcrawl_Spatial_Geometry.html",
+      "exists": false
+    },
+    {
+      "seriesFile": "SERIES-C_Granular_Sociology_and_Disposition_Vectors.html",
+      "exists": false
+    },
+    {
+      "seriesFile": "SERIES-D_Tarot_Archetypes_and_Edge_Sociology.html",
+      "exists": false
+    },
+    {
+      "seriesFile": "SERIES-E_Worldbuilding_Pipeline_and_Modular_Contracts.html",
+      "exists": false
+    },
+    {
+      "seriesFile": "SERIES-F_Regional_Scenery_and_Visual_Catalog.html",
+      "exists": false
+    },
+    {
+      "seriesFile": "SERIES-G_Universal_Backlog_and_Ticket_Architecture.html",
+      "exists": false
+    }
+  ],
+  "sampledPages": [
+    {
+      "target": "AGENTS.md.html",
+      "exists": true,
+      "sizeBytes": 49035,
+      "wordCount": 2616,
+      "hasBacklinksTable": true,
+      "inboundBacklinkRows": 0,
+      "hasVolumeBadge": true,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "target": "src/campaign_studio/template.html.html",
+      "exists": true,
+      "sizeBytes": 49773,
+      "wordCount": 2574,
+      "hasBacklinksTable": true,
+      "inboundBacklinkRows": 0,
+      "hasVolumeBadge": true,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "target": "network/Run-NetworkEngine.ps1.html",
+      "exists": true,
+      "sizeBytes": 37483,
+      "wordCount": 2132,
+      "hasBacklinksTable": true,
+      "inboundBacklinkRows": 0,
+      "hasVolumeBadge": true,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "target": "sociology/07_Granular_64_Disposition_Matrix.md.html",
+      "exists": true,
+      "sizeBytes": 36067,
+      "wordCount": 2447,
+      "hasBacklinksTable": true,
+      "inboundBacklinkRows": 0,
+      "hasVolumeBadge": true,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "target": "tarot/tarot_matrix_browser.html.html",
+      "exists": true,
+      "sizeBytes": 43865,
+      "wordCount": 2354,
+      "hasBacklinksTable": true,
+      "inboundBacklinkRows": 0,
+      "hasVolumeBadge": true,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "target": "regions/regional_image_catalog.json.html",
+      "exists": true,
+      "sizeBytes": 26803,
+      "wordCount": 1765,
+      "hasBacklinksTable": true,
+      "inboundBacklinkRows": 0,
+      "hasVolumeBadge": true,
+      "hasZeroCorsStyles": true
+    },
+    {
+      "target": "campaigns/opal_island/modules/Set_A_Macro_Governance/T1-01_Opal_Council_Hegemony_and_Sanctuary_Charter.md.html",
+      "exists": false
+    },
+    {
+      "target": "tickets/system/SYS-AUDIT-01_duplicate_mirror_and_orphan_file_remediation.md.html",
+      "exists": true,
+      "sizeBytes": 60986,
+      "wordCount": 2509,
+      "hasBacklinksTable": true,
+      "inboundBacklinkRows": 0,
+      "hasVolumeBadge": true,
+      "hasZeroCorsStyles": true
+    }
+  ],
+  "brokenLinks": [],
+  "backlinksStats": {
+    "totalPagesChecked": 359,
+    "pagesWithBacklinks": 0,
+    "pagesWithZeroBacklinks": 359,
+    "totalInboundBacklinkReferences": 0,
+    "averageBacklinksPerPage": "0.00"
+  },
+  "sysAudit01Check": {
+    "totalFilesExamined": 35,
+    "taggedWithSysAudit01": 28,
+    "untaggedFiles": [
+      "tarot/minor_matrix_browser.html",
+      "network/network_balance_matrix.csv",
+      "network/network_balance_report.md",
+      "network/network.png",
+      "network/network v2.png",
+      "network/network v3.png",
+      "network/network map.JPG"
+    ]
+  },
+  "systemicContractsCheck": {
+    "modulesChecked": 126,
+    "modulesWithProvidesRequires": 126,
+    "modulesWithThreatClocks": 120,
+    "modulesWithDisposition": 126
+  },
+  "totalHtmlFiles": 360,
+  "linkIntegrity": {
+    "totalInternalLinksChecked": 2276,
+    "brokenLinksCount": 51,
+    "sampleBrokenLinks": [
+      {
+        "sourceFile": "wiki\\index.html",
+        "targetHref": "' + '' + m.href + '",
+        "resolvedPath": "wiki\\' + '' + m.href + '"
+      },
+      {
+        "sourceFile": "wiki\\index.html",
+        "targetHref": "pages/network/network%20map.JPG.html",
+        "resolvedPath": "wiki\\pages\\network\\network%20map.JPG.html"
+      },
+      {
+        "sourceFile": "wiki\\index.html",
+        "targetHref": "pages/network/network%20map.JPG.html#backlinks",
+        "resolvedPath": "wiki\\pages\\network\\network%20map.JPG.html"
+      },
+      {
+        "sourceFile": "wiki\\index.html",
+        "targetHref": "pages/network/network%20v2.png.html",
+        "resolvedPath": "wiki\\pages\\network\\network%20v2.png.html"
+      },
+      {
+        "sourceFile": "wiki\\index.html",
+        "targetHref": "pages/network/network%20v2.png.html#backlinks",
+        "resolvedPath": "wiki\\pages\\network\\network%20v2.png.html"
+      },
+      {
+        "sourceFile": "wiki\\index.html",
+        "targetHref": "pages/network/network%20v3.png.html",
+        "resolvedPath": "wiki\\pages\\network\\network%20v3.png.html"
+      },
+      {
+        "sourceFile": "wiki\\index.html",
+        "targetHref": "pages/network/network%20v3.png.html#backlinks",
+        "resolvedPath": "wiki\\pages\\network\\network%20v3.png.html"
+      },
+      {
+        "sourceFile": "wiki\\index.html",
+        "targetHref": "pages/sociology/00%20sociology%20all.png.html",
+        "resolvedPath": "wiki\\pages\\sociology\\00%20sociology%20all.png.html"
+      },
+      {
+        "sourceFile": "wiki\\index.html",
+        "targetHref": "pages/sociology/00%20sociology%20all.png.html#backlinks",
+        "resolvedPath": "wiki\\pages\\sociology\\00%20sociology%20all.png.html"
+      },
+      {
+        "sourceFile": "wiki\\index.html",
+        "targetHref": "pages/campaigns/opal_island/Opal%20Scaled%20backside.JPG.html",
+        "resolvedPath": "wiki\\pages\\campaigns\\opal_island\\Opal%20Scaled%20backside.JPG.html"
+      }
+    ]
+  }
+}

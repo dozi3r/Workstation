@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AGENTS.md: Creator Studio Agent Operating Manual &amp; Router — Creator Studio Technical Manual &amp; Wiki</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../index.html#vol-1">Volume I: System Architecture, Governance &amp; Ontology</a> &rsaquo;
+        <span>AGENTS.md</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">AGENTS.md: Creator Studio Agent Operating Manual &amp; Router</h1>
+        <div class="article-subtitle">
+          <span class="badge">Technical Documentation / Guide</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 4a3d4494)</span>
+          
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (11)</a>
+        </div>
+      </div>
+
+      <aside class="infobox">
+        <div class="infobox-header">AGENTS.md</div>
+        <table class="infobox-table">
+          
+    <tr><th>File Path</th><td><code>AGENTS.md</code></td></tr>
+    <tr><th>Manual Volume</th><td><a href="../index.html#vol-1">Volume I</a></td></tr>
+    <tr><th>Surface Kind</th><td>Technical Documentation / Guide</td></tr>
+    <tr><th>File Metrics</th><td>55 lines &bull; 11.5 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 4a3d4494)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>47</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>11</strong> backlinks</td></tr>
+    <tr><th>Raw File</th><td><a href="../../AGENTS.md" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
+  
+        </table>
+      </aside>
+
+      
+    <div class="ai-digest">
+      <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
+      <p style="margin:4px 0;"><strong>Summary:</strong> Welcome. You are operating in **Creator Studio**, a universal, system-agnostic campaign authoring workstation. Before editing any file, consult this router to identify authoritative specifications, data sources, and compilation requirements.</p>
+      
+      
+      
+    </div>
+  
+      
+      <h2>Architectural Role & Subsystem Context</h2>
+<p><code>AGENTS.md</code> is the <strong>Auto-Generated Root Agent Operating Manual & Surface-to-Authority Router</strong> within <strong>Volume I: System Architecture, Governance & Ontology</strong>. Positioned at the workspace root so autonomous AI coding assistants (Google Antigravity, Claude Code, Cursor) ingest it automatically as a system rule, it establishes the non-negotiable engineering ground rules and maps every interactive HTML tool, PowerShell CLI engine, and catalog surface to its governing System Reference Documents (SRDs), authoritative JSON/Markdown data sources, and compilation triggers.</p>
+<p>This file is a core component of <a class="wiki-link series-link" href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a> and works in tandem with <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a>, <a class="wiki-link" href="../pages/build_suite.js.html">📄 build_suite.js</a>, and <a class="wiki-link" href="../pages/docs/AI_DEVELOPER_GUIDE.md.html">📄 docs/AI_DEVELOPER_GUIDE.md</a>.</p>
+<hr class="wiki-hr"/>
+<h2>Core Invariants & Contracts</h2>
+<div class="callout callout-warning"><strong>WARNING:</strong> <strong>Auto-Generated Compilation Artifact</strong>: <code>AGENTS.md</code> is dynamically overwritten during <strong>Stage 2</strong> of <a class="wiki-link" href="../pages/build_suite.js.html">📄 build_suite.js</a> (lines 50–94) using the surface registry defined in <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a>. <strong>Never edit <code>AGENTS.md</code> manually</strong> without also updating <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a> or the template string in <a class="wiki-link" href="../pages/build_suite.js.html">📄 build_suite.js</a>, or your changes will be wiped on the next run of <a class="wiki-link" href="../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>.</div>
+<p>The router enforces five foundational workspace invariants across all engineering sessions:</p>
+<ul class="wiki-list">
+<li><strong>1. Zero-CORS Offline Execution (<code>file:///</code>)</strong>: All HTML workstations (<code>start.html</code>, <code>network/<em>.html</code>, <code>tarot/</em>.html</code>, <code>regions/<em>.html</code>, <code>wiki/</em>.html</code>) must execute cleanly when opened directly from local disk without a web server.</li>
+<li><strong>2. Modular Source of Truth</strong>: Edit workstation UI and logic in <code>src/workstation/template.html</code> and <code>src/workstation/scripts/*.js</code> (compiled into <code>start.html</code>). Edit data in source <code>.md</code>/<code>.json</code> files rather than inlined HTML constants (<code>ALL_MODULES</code>, <code>CAMPAIGN_REGISTRY</code>, <code>TAROT_DECKS_DATA</code>, <code>MASTER_TICKETS_DATA</code>).</li>
+<li><strong>3. Mandatory Suite Compilation</strong>: Changes to modular workstation sources (<code>src/workstation/</code>), campaign packages (<code>campaigns/</code>), Tarot decks (<code>tarot/decks/</code>), or manifests must be compiled via <a class="wiki-link" href="../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>.</li>
+<li><strong>4. Mathematical Parity</strong>: Amalgamation scoring (<code>Round(BaseWeight + 0.5 * sum(InfBy), 2)</code>), deterministic ascending Node ID tie-breaking, and Adjacency Smothering must produce identical results across <a class="wiki-link" href="../pages/src/workstation/scripts/balancing_engine.js.html">📄 src/workstation/scripts/balancing_engine.js</a> (<code>start.html</code>) and <a class="wiki-link" href="../pages/network/Run-NetworkEngine.ps1.html">📄 network/Run-NetworkEngine.ps1</a> (see <a class="wiki-link series-link" href="../pages/series/series_a_balancing_and_smothering_math.html">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a> and <a class="wiki-link" href="../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a>).</li>
+<li><strong>5. Bidirectional Codebase Wiki Synchronization</strong>: Every repository file has a 1:1 Markdown source in <code>wiki/src/files/<relPath>.md</code> compiled by <a class="wiki-link" href="../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> into <code>wiki/pages/<relPath>.html</code>.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>Data Flow & Execution Pipeline</h2>
+<ul class="wiki-list">
+<li><strong>Upstream Input</strong>: <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a> (<code>surfaces[]</code> array containing <code>file</code>, <code>title</code>, <code>authoritative_specs</code>, <code>data_sources</code>, and <code>immutable_rule</code>).</li>
+<li><strong>Transformation Engine</strong>: <a class="wiki-link" href="../pages/build_suite.js.html">📄 build_suite.js</a> (Stage 2, lines 48–94) reads <code>navManifest.surfaces</code>, formats each entry into the 4-column Surface-to-Authority Routing Matrix, prepends Task-Branch Context Pointers, appends canonical domain terminology from <a class="wiki-link" href="../pages/CONTEXT.md.html">📄 CONTEXT.md</a>, and writes <code>AGENTS.md</code>.</li>
+<li><strong>Downstream Consumers</strong>:</li>
+<li>Ingested as a top-level workspace rule by autonomous AI agents before modifying any file.</li>
+<li>Indexed by <a class="wiki-link" href="../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> to create <code>Routes Agent To</code> knowledge-graph edges connecting <code>AGENTS.md</code> to all registered workstation surfaces.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>AI Agent Maintenance Checklist</h2>
+<ul class="wiki-list">
+<li><strong>Before editing any repository file</strong>: Consult the <strong>Task-Branch Context Pointers</strong> and <strong>Surface-to-Authority Routing Matrix</strong> in <code>AGENTS.md</code> to identify the authoritative specification (e.g., <a class="wiki-link" href="../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a>, <a class="wiki-link" href="../pages/docs/srd/adventure_framework_srd.md.html">📄 docs/srd/adventure_framework_srd.md</a>, <a class="wiki-link" href="../pages/docs/srd/tier_0_substratum_srd.md.html">📄 docs/srd/tier_0_substratum_srd.md</a>) and upstream data source.</li>
+<li><strong>When adding a new HTML tool or PowerShell runner</strong>: Register the new surface in <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a> first, then run <a class="wiki-link" href="../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a> so <code>AGENTS.md</code> and the surface's line-1 Compass Header are updated automatically.</li>
+<li><strong>When updating domain terminology</strong>: Update <a class="wiki-link" href="../pages/CONTEXT.md.html">📄 CONTEXT.md</a> and synchronize Section 4 of the <code>AGENTS.md</code> generator template in <a class="wiki-link" href="../pages/build_suite.js.html">📄 build_suite.js</a>.</li>
+</ul>
+      <h2>Document Section Outline</h2><ul class="wiki-list"><li style="margin-left:0px;"><code>H1</code> AGENTS.md: Creator Studio Agent Operating Manual &amp; Router</li><li style="margin-left:18px;"><code>H2</code> 1. Ground Rules &amp; Invariants</li><li style="margin-left:18px;"><code>H2</code> 2. Task-Branch Context Pointers</li><li style="margin-left:18px;"><code>H2</code> 3. Surface-to-Authority Routing Matrix</li><li style="margin-left:18px;"><code>H2</code> 4. Domain Terminology</li><li style="margin-left:36px;"><code>H3</code> Core Workstation Vocabulary</li></ul>
+      <h2 id="outbound-links">Outbound References (47)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+        <td><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
+        <td><span class="badge badge-Series">In Deep Series</span></td>
+        <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+      </tr><tr>
+        <td><a href="../pages/start.html.html"><strong>start.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/network/network_builder.html.html"><strong>network/network_builder.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/network/contradiction_matrix_dashboard.html.html"><strong>network/contradiction_matrix_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/network/odv_archetype_matrix.html.html"><strong>network/odv_archetype_matrix.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/regions/regional_image_browser.html.html"><strong>regions/regional_image_browser.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/regions/Find-RegionalImage.ps1.html"><strong>regions/Find-RegionalImage.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/docs/MODULES_CATALOG.md.html"><strong>docs/MODULES_CATALOG.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/Find-CodebaseNode.ps1.html"><strong>Find-CodebaseNode.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/Test-Suite.ps1.html"><strong>Test-Suite.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/admin.html.html"><strong>admin.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Routes Agent To</span></td>
+        <td>Listed in AGENTS.md Surface-to-Authority Matrix</td>
+      </tr><tr>
+        <td><a href="../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/navigation_manifest.json]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/AI_DEVELOPER_GUIDE.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
+        <td>Explicit [[File:Build-Suite.ps1]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/series/series_a_balancing_and_smothering_math.html"><strong>Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</strong></a></td>
+        <td><span class="badge badge-Series">Series Citation</span></td>
+        <td>Explicit [[Series:series_a_balancing_and_smothering_math]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/authoring_engine_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:CONTEXT.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/adventure_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/tier_0_substratum_srd.md.html"><strong>docs/srd/tier_0_substratum_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/tier_0_substratum_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/README.md.html"><strong>README.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References README.md</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/Test-CampaignPackage.ps1.html"><strong>campaigns/Test-CampaignPackage.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
+        <td>References campaigns/Test-CampaignPackage.ps1</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0001-dual-mode-preset-architecture.md.html"><strong>docs/adr/0001-dual-mode-preset-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0001-dual-mode-preset-architecture.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0002-dual-srd-and-tiered-module-architecture.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md.html"><strong>docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0004-desktop-workstation-start-html.md.html"><strong>docs/adr/0004-desktop-workstation-start-html.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0004-desktop-workstation-start-html.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md.html"><strong>docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md.html"><strong>docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md.html"><strong>docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0014-campaign-state-reflection-and-edge-odv-on-64-matrix.md.html"><strong>docs/adr/0014-campaign-state-reflection-and-edge-odv-on-64-matrix.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0014-campaign-state-reflection-and-edge-odv-on-64-matrix.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md.html"><strong>docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md.html"><strong>docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/campaign_preset_specification_srd.md.html"><strong>docs/srd/campaign_preset_specification_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
+        <td>References docs/srd/campaign_preset_specification_srd.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/ip_module_framework_srd.md.html"><strong>docs/srd/ip_module_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
+        <td>References docs/srd/ip_module_framework_srd.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/scenario_primitives_srd.md.html"><strong>docs/srd/scenario_primitives_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
+        <td>References docs/srd/scenario_primitives_srd.md</td>
+      </tr><tr>
+        <td><a href="../pages/index.html.html"><strong>index.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References index.html</td>
+      </tr><tr>
+        <td><a href="../pages/network/presets/blank_canvas.json.html"><strong>network/presets/blank_canvas.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References network/presets/blank_canvas.json</td>
+      </tr><tr>
+        <td><a href="../pages/regions/HOW_TO_USE.md.html"><strong>regions/HOW_TO_USE.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References regions/HOW_TO_USE.md</td>
+      </tr><tr>
+        <td><a href="../pages/regions/IMAGE_ENGINE_SPEC.md.html"><strong>regions/IMAGE_ENGINE_SPEC.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References regions/IMAGE_ENGINE_SPEC.md</td>
+      </tr><tr>
+        <td><a href="../pages/regions/regional_image_catalog.json.html"><strong>regions/regional_image_catalog.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References regions/regional_image_catalog.json</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
+        <td>References src/workstation/scripts/entity_core.js</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/sociology_data.js.html"><strong>src/workstation/scripts/sociology_data.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
+        <td>References src/workstation/scripts/sociology_data.js</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
+        <td>References src/workstation/scripts/state_adapter.js</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
+        <td><span class="badge badge-Workstation Shell Template">Path Reference</span></td>
+        <td>References src/workstation/template.html</td>
+      </tr><tr>
+        <td><a href="../pages/test/run_tests.js.html"><strong>test/run_tests.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
+        <td>References test/run_tests.js</td>
+      </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (11)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+        <td><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
+        <td><span class="badge badge-Series">Series Component</span></td>
+        <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+      </tr><tr>
+        <td><a href="../pages/series/series_g_duplicate_and_orphan_audit.html"><strong>Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</strong></a></td>
+        <td><span class="badge badge-Series">Wiki Citation</span></td>
+        <td>Explicit [[File:AGENTS.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
+        <td>Explicit [[File:AGENTS.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:AGENTS.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Wiki Citation</span></td>
+        <td>Explicit [[File:AGENTS.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:AGENTS.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0009-tarot-and-wave-balancing-mod-extraction.md.html"><strong>docs/adr/0009-tarot-and-wave-balancing-mod-extraction.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References AGENTS.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Wiki Citation</span></td>
+        <td>Explicit [[File:AGENTS.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/reviews/start_html_review_log.md.html"><strong>docs/reviews/start_html_review_log.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References AGENTS.md</td>
+      </tr><tr>
+        <td><a href="../pages/network/README.md.html"><strong>network/README.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:AGENTS.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html"><strong>sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</strong></a></td>
+        <td><span class="badge badge-Sociology Specification">Wiki Citation</span></td>
+        <td>Explicit [[File:AGENTS.md]] reference</td>
+      </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

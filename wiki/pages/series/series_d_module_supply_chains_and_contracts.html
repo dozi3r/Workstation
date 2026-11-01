@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks — Creator Studio Technical Manual</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../pages/series/series_d_module_supply_chains_and_contracts.html" class="active" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../index.html#series-index">Cross-Cutting Series</a> &rsaquo;
+        <span>Series D</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</h1>
+        <div class="article-subtitle">
+          <span class="badge badge-Series">Cross-Cutting Subsystem Series</span>
+          <span class="badge">Volume VIII</span>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (16)</a>
+        </div>
+      </div>
+
+      <div class="ai-digest">
+        <div class="ai-digest-title">🤖 Analytical Knife Seam Summary</div>
+        <p style="margin:4px 0;">How Tier 0–5 worldbuilding modules declare machine-readable resource inputs/outputs, form industrial supply chains, and trigger Standalone Fallback Mode when severed.</p>
+      </div>
+
+      <blockquote class="wiki-quote"><strong>Cross-Cutting Analytical Series</strong>: How Tier 0–5 worldbuilding modules declare machine-readable resource inputs/outputs, form industrial supply chains across pointcrawl graphs, validate reachability via Breadth-First Search (BFS), and trigger Standalone Fallback Mode and 4-tick Severance Clocks when supply corridors are interdicted.</blockquote>
+<h2>1. Architectural Seam Overview</h2>
+<p>This cross-cutting series slices across physical directory boundaries to document how architectural decision records, System Reference Documents (SRDs), browser slotting controllers, and multi-campaign manifests collaborate as a unified supply-chain and worldbuilding subsystem:</p>
+<ul class="wiki-list">
+<li><strong>Governing Architecture & SRDs</strong>:</li>
+<li><a class="wiki-link" href="../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a> — Establishes the Dual SRD split (Authoring Engine vs. Adventure Framework) and stratifies worldbuilding modules into the 5-Tier Pipeline with typed <code>provides</code> / <code>requires</code> resource contracts.</li>
+<li><a class="wiki-link" href="../../pages/docs/srd/tier_0_substratum_srd.md.html">📄 docs/srd/tier_0_substratum_srd.md</a> — Formalizes the <strong>Tier 0 Mundane Settlement Substratum</strong> (<code>DOM-01</code> through <code>DOM-08</code>), caloric carrying capacities, the 3-mile ox-cart transport boundary, and the <strong>Dual-Mode UX</strong> (<em>Smooth Generic</em> vs. <em>Granular Modularity</em>).</li>
+<li><a class="wiki-link" href="../../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a> — Section 8 codifies the mathematical rules for module socketing, supply-line reachability, and recommendation scoring.</li>
+<li><a class="wiki-link" href="../../pages/docs/srd/adventure_framework_srd.md.html">📄 docs/srd/adventure_framework_srd.md</a> — Defines the 4-level Universal Hazard Dials (Light DC 10, Moderate DC 13, Severe DC 16, Lethal DC 20) and 4/6/8-segment Threat Clocks embedded inside every module.</li>
+<li><a class="wiki-link" href="../../pages/docs/srd/ip_module_framework_srd.md.html">📄 docs/srd/ip_module_framework_srd.md</a> & <a class="wiki-link" href="../../pages/docs/srd/scenario_primitives_srd.md.html">📄 docs/srd/scenario_primitives_srd.md</a> — Govern setting-agnostic scenario conversion and structural deconstruction (see <a class="wiki-link series-link" href="../../pages/series/series_f_campaign_authoring_and_ip_conversion.html">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a>).</li>
+<li><strong>Runtime Slotting & Supply Validation Engine</strong>:</li>
+<li><a class="wiki-link" href="../../pages/src/workstation/scripts/stage_5_slotting.js.html">📄 src/workstation/scripts/stage_5_slotting.js</a> — Implements <code>isMaterialRequirement()</code>, <code>checkModuleSupplyLine()</code>, <code>calculateRecommendationScore()</code>, <code>auditAllSupplyLines()</code>, <code>toggleEdgeBlocked()</code>, <code>stepSeveranceTick()</code>, <code>advanceSeveranceTurn()</code>, and <code>smartSlotAllNodes()</code>.</li>
+<li><a class="wiki-link" href="../../pages/src/workstation/scripts/module_explorer.js.html">📄 src/workstation/scripts/module_explorer.js</a> — Provides the Module Explorer UI, Node/Edge slotting toggle, filter bar (Sourcebook, Tier, Set, Resource Tag, Ancestry, Source), and 4-segment Severance Clock gauges.</li>
+<li><strong>Authoritative Catalogs, Manifests & Ticket Pipelines</strong>:</li>
+<li><a class="wiki-link" href="../../pages/docs/MODULES_CATALOG.md.html">📄 docs/MODULES_CATALOG.md</a> — Root cross-campaign module catalog and architectural router (tracked under <span class="wiki-tag">🎫 SYS-AUDIT-01</span> and <a class="wiki-link series-link" href="../../pages/series/series_g_duplicate_and_orphan_audit.html">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a>).</li>
+<li><a class="wiki-link" href="../../pages/campaigns/opal_island/modules_manifest.json.html">📄 campaigns/opal_island/modules_manifest.json</a> — Compiled manifest of the 48 industrial-alchemical modules (<code>INFRA-01</code> through <code>ESOT-06</code>) for the Original Opal Island campaign.</li>
+<li><a class="wiki-link" href="../../pages/campaigns/generic_starter/modules_manifest.json.html">📄 campaigns/generic_starter/modules_manifest.json</a> — Compiled manifest of 52 system-agnostic modules spanning Core Governance (<code>FACT-01</code>..<code>06</code>), Tutorial Isle Starter Pack (<code>STARTER-01</code>..<code>06</code>), Tier 0 Substratum (<code>T0-DOM-01</code>..<code>08</code>), Creative Waves 1–5 (<code>CWT-010</code>..<code>050</code>), the <em>Civilizations & Collapse</em> historical archaeology suite (<code>CWT-060</code>..<code>078</code>), and Regional Hooks (<code>HOOK-01</code>).</li>
+<li><a class="wiki-link" href="../../pages/tickets/tier_0/tier_0_manifest.json.html">📄 tickets/tier_0/tier_0_manifest.json</a> & <a class="wiki-link" href="../../pages/tickets/creative/creative_backlog_manifest.json.html">📄 tickets/creative/creative_backlog_manifest.json</a> — Upstream tracer-bullet ticket registries compiled into <a class="wiki-link" href="../../pages/tickets/master_ticket_manifest.json.html">📄 tickets/master_ticket_manifest.json</a>.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>2. The Stratified Worldbuilding Pipeline (Tiers 0–5)</h2>
+<p>Prior to <a class="wiki-link" href="../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a>, worldbuilding modules were stored in a flat catalog where macro-governance rules, road corridors, industrial smelters, and campaign-ending cataclysms competed as undifferentiated cards. Creator Studio resolves this by stratifying all worldbuilding modules into six functional layers (<strong>Tier 0</strong> through <strong>Tier 5</strong>):</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Pipeline Tier</th><th>Architectural Layer</th><th>Graph Scope</th><th>Core Mechanical Responsibility</th><th>Canonical Examples</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Tier 0</strong></td><td><strong>Mundane Settlement Substratum</strong></td><td>Node (Implicit or Auxiliary Socket)</td><td>Baseline caloric, hydrological, shelter, watch, barter, health, sanitation, and folkloric survival (<code>DOM-01</code>..<code>DOM-08</code>).</td><td><span class="wiki-tag">📦 T0-DOM-01</span>, <span class="wiki-tag">📦 T0-DOM-02</span>, <span class="wiki-tag">📦 T0-DOM-05</span>, <span class="wiki-tag">📦 T0-DOM-07</span></td></tr>
+<tr><td><strong>Tier 1</strong></td><td><strong>Macro Network & Governance Engines</strong></td><td>Graph-Wide / Sovereign Hub</td><td>Sovereign Hub election rules, adjacency smothering, 2-axis diplomatic tension matrices, mosaic state continuity, and stability clocks.</td><td><span class="wiki-tag">📦 FACT-01</span>, <span class="wiki-tag">📦 FACT-02</span>, <span class="wiki-tag">📦 FACT-03</span>, <span class="wiki-tag">📦 FACT-04</span>, <span class="wiki-tag">📦 CWT-060</span>, <span class="wiki-tag">📦 HIST-01</span>, <span class="wiki-tag">📦 DND-01</span></td></tr>
+<tr><td><strong>Tier 2</strong></td><td><strong>Topological & Biome Anchors</strong></td><td>Node (Biome) or Edge (Transit Corridor)</td><td>Physical ecology, natural resource extraction, hazard fauna, arrival gambits, and physical transit corridors (<code>E_adj</code>).</td><td><span class="wiki-tag">📦 ECOL-01</span>, <span class="wiki-tag">📦 ECOL-05</span>, <span class="wiki-tag">📦 EDGE-01</span>, <span class="wiki-tag">📦 EDGE-03</span>, <span class="wiki-tag">📦 STARTER-02</span>, <span class="wiki-tag">📦 CWT-020</span>, <span class="wiki-tag">📦 CWT-061</span></td></tr>
+<tr><td><strong>Tier 3</strong></td><td><strong>Infrastructural Supply Chains</strong></td><td>Node (Crucible / Refinery Socket)</td><td>High-order industrial conversion nodes that consume upstream <code>requires</code> tags and output refined <code>provides</code> tags along unblocked edges.</td><td><span class="wiki-tag">📦 INFRA-01</span>, <span class="wiki-tag">📦 INFRA-02</span>, <span class="wiki-tag">📦 INFRA-03</span>, <span class="wiki-tag">📦 STARTER-01</span>, <span class="wiki-tag">📦 CWT-043</span>, <span class="wiki-tag">📦 CWT-060A</span>, <span class="wiki-tag">📦 CWT-063</span></td></tr>
+<tr><td><strong>Tier 4</strong></td><td><strong>Dynamic Narrative Sparks & Social Conflation</strong></td><td>Node or Edge (Crisis / Dilemma)</td><td>Faction mutinies, quarantine wards, ideological conflations, debt-peonage collisions, and escalating social unrest clocks.</td><td><span class="wiki-tag">📦 SPARK-01</span>, <span class="wiki-tag">📦 SPARK-02</span>, <span class="wiki-tag">📦 CONF-01</span>, <span class="wiki-tag">📦 STARTER-04</span>, <span class="wiki-tag">📦 CWT-065</span>, <span class="wiki-tag">📦 CWT-074</span>, <span class="wiki-tag">📦 HOOK-01</span></td></tr>
+<tr><td><strong>Tier 5</strong></td><td><strong>Esoteric & Eschatological Climax Engines</strong></td><td>Equilibrium Key (Node #22) / Endgame</td><td>Campaign-climax singularities, planar colliders, time-loops, information-warfare presses, and existential reckonings.</td><td><span class="wiki-tag">📦 ESOT-01</span>, <span class="wiki-tag">📦 ESOT-03</span>, <span class="wiki-tag">📦 ESOT-06</span>, <span class="wiki-tag">📦 CWT-010</span>, <span class="wiki-tag">📦 CWT-012</span>, <span class="wiki-tag">📦 CWT-066</span>, <span class="wiki-tag">📦 DBZ-01</span></td></tr>
+</tbody>
+</table></div>
+<h3>2.1 The Tier 0 Dual-Mode UX Contract (<code>Smooth Generic</code> vs. <code>Granular Modularity</code>)</h3>
+<p>To prevent administrative bookkeeping fatigue while supporting hardcore survival sandboxes, <a class="wiki-link" href="../../pages/docs/srd/tier_0_substratum_srd.md.html">📄 docs/srd/tier_0_substratum_srd.md</a> and <code>toggleTier0Substratum(enabled)</code> in <a class="wiki-link" href="../../pages/src/workstation/scripts/stage_5_slotting.js.html">📄 src/workstation/scripts/stage_5_slotting.js</a> implement a two-mode switch:</p>
+<pre class="code-block"><code class="lang-text">┌──────────────────────────────────────────────────────────────────────────────┐
+│                     TIER 0 SUBSTRATUM EXECUTION MODES                        │
+├──────────────────────────────────────┬───────────────────────────────────────┤
+│ MODE A: SMOOTH GENERIC (Default ON)  │ MODE B: GRANULAR MODULARITY (OFF)     │
+│ tier0SubstratumMode = &quot;smooth&quot;       │ tier0SubstratumMode = &quot;granular&quot;      │
+├──────────────────────────────────────┼───────────────────────────────────────┤
+│ • Automatically injects 11 baseline  │ • Removes implicit baseline resources │
+│   Tier 0 tags into every node's      │ • Settlements must connect via un-    │
+│   localProvides set                  │   blocked edges to explicit Tier 0/2/3│
+│ • Zero auxiliary sockets consumed    │   food, water, and fuel providers     │
+│ • Supply auditor focuses strictly on │ • Severed agrarian corridors advance  │
+│   Tier 2–5 industrial dependencies   │   Hunger Gap &amp; Drought Clocks (+1/wk) │
+└──────────────────────────────────────┴───────────────────────────────────────┘</code></pre>
+<p>When <code>tier0SubstratumEnabled === true</code> (<code>Smooth Generic</code>), <code>checkModuleSupplyLine()</code> automatically injects the following 11 foundational tags into every node's <code>localProvides</code> set (<code>stage_5_slotting.js</code> lines 139–151):</p>
+<ul class="wiki-list">
+<li><code>Food: Baseline-Subsistence-Rations</code> and <code>Cal: Grain-Bushels</code></li>
+<li><code>Water: Baseline-Potable-Well-Head</code> and <code>Water: Artesian-Flow</code></li>
+<li><code>Shelter: Weatherproof-Civic-Fabric</code> and <code>Civic: Vernacular-Shelter</code></li>
+<li><code>Defense: Local-Palisade-and-Watch</code></li>
+<li><code>Economy: Baseline-Mundane-Smithy-and-Trade</code></li>
+<li><code>Health: Folk-Leechcraft-and-Midwifery</code></li>
+<li><code>Sanitation: Vernacular-Midden-Management</code></li>
+<li><code>Social: Communal-Folklore-Solidarity</code></li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>3. Typed Resource Tag Taxonomy (<code>provides</code> / <code>requires</code>)</h2>
+<p>Every module in <code>campaigns/<campaign_id>/modules_manifest.json</code> declares its supply-chain interface through two arrays of machine-readable strings formatted as <code>"[Category]: [Asset-Identifier]"</code>:</p>
+<ul class="wiki-list">
+<li><strong><code>provides</code></strong>: Resources, capabilities, infrastructure states, or narrative conditions exported by the module to its host node and any connected unblocked subgraph.</li>
+<li><strong><code>requires</code></strong>: Upstream inputs required for the module to operate at its normal (Level 2) or overdriven (Level 3) dial state without ticking a severance clock.</li>
+</ul>
+<h3>3.1 Material vs. Conceptual Requirement Classifier (<code>isMaterialRequirement</code>)</h3>
+<p>A critical design insight in <a class="wiki-link" href="../../pages/src/workstation/scripts/stage_5_slotting.js.html">📄 src/workstation/scripts/stage_5_slotting.js</a> (lines 104–116) is that not all <code>requires</code> tags represent haulable physical commodities that can be blockaded on a road. Some tags describe <strong>environmental topology</strong> (<code>Geography: High-Elevation-Water-Head</code>) or <strong>sociological preconditions</strong> (<code>Sociology: Enforced-Labor-Quotas</code>).</p>
+<p>The function <code>isMaterialRequirement(req)</code> separates <code>requires</code> tags into two enforcement classes:</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Requirement Class</th><th>Category Prefixes Matched</th><th>Runtime Validation Behavior in <code>checkModuleSupplyLine()</code></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Conceptual / Environmental Preconditions</strong> <em>(Non-Blockadable)</em></td><td><code>Geography:</code>, <code>Ecology:</code>, <code>Environment:</code>, <code>Sociology:</code>, <code>Authority:</code>, <code>Topology:</code>, <code>Network:</code>, <code>System:</code>, <code>Tarot:</code>, <code>Facility:</code>, <code>Military:</code>, <code>Perimeter:</code>, <code>Trigger:</code>, <code>Relics:</code>, <code>Physics:</code>, <code>Cosmology:</code>, <code>Factions:</code>, <code>Statecraft:</code>, <code>Resilience:</code>, <code>Doctrine:</code>, <code>Diagnostics:</code>, <code>Strategy:</code></td><td>Filtered out of <code>materialReqs</code> (<code>isMaterialRequirement(req) === false</code>). Serves as semantic placement guidance for the GM and AI authoring agents without triggering false-positive supply-line severance alerts.</td></tr>
+<tr><td><strong>Material / Logistical Supply Inputs</strong> <em>(Graph-Validated)</em></td><td><code>Power:</code>, <code>Material:</code>, <code>Mat:</code>, <code>Chem:</code>, <code>Water:</code>, <code>Food:</code>, <code>Cal:</code>, <code>Fuel:</code>, <code>Munitions:</code>, <code>Signal:</code>, <code>Comms:</code>, <code>Bio:</code>, <code>Medicine:</code>, <code>Labor:</code>, <code>Trade:</code>, <code>Transit:</code>, <code>Mineral:</code>, <code>Metal:</code>, <code>Bullion:</code>, <code>Agriculture:</code>, <code>Hydrology:</code>, <code>Hydraulics:</code>, <code>Forest:</code>, <code>Pasture:</code>, <code>Textile:</code>, <code>Meat:</code>, <code>Glass:</code>, <code>Energy:</code>, <code>Moisture:</code>, <code>Organic:</code>, <code>Insulation:</code>, <code>Resource:</code>, <code>Life-Support:</code></td><td>Strictly enforced (<code>isMaterialRequirement(req) === true</code>). Must be satisfied by a module's <code>provides</code> array on the <strong>same node</strong>, a <strong>reachable node</strong> across unblocked edges, or an <strong>unblocked incident edge</strong>; otherwise the module is flagged <code>⚠️ Severed</code>.</td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>4. Supply-Line Validation, Edge Slotting & Recommendation Math</h2>
+<p>All runtime supply-chain verification and module recommendation logic resides in <a class="wiki-link" href="../../pages/src/workstation/scripts/stage_5_slotting.js.html">📄 src/workstation/scripts/stage_5_slotting.js</a>.</p>
+<h3>4.1 Graph-Traversing Supply Verification (<code>checkModuleSupplyLine</code>)</h3>
+<p>When evaluating whether module <code>mod</code> slotted at <code>nodeId</code> has intact supply lines, <code>checkModuleSupplyLine(nodeId, mod)</code> executes a 3-stage algorithm:</p>
+<pre class="code-block"><code class="lang-text">[Stage 1: Local Node Aggregation]
+  localProvides = union of m.provides for all m in nodeSlottedModules[nodeId]
+  if (tier0SubstratumEnabled &amp;&amp; mode === &quot;smooth&quot;) -&gt; inject 11 Tier 0 baseline tags
+
+[Stage 2: Unblocked Breadth-First Search (BFS)]
+  reachableNodes = { nodeId }
+  queue = [ nodeId ]
+  while queue not empty:
+    curr = queue.shift()
+    for each neighbor in getNodeAdjacents(curr):
+      if isEdgeBlocked(curr, neighbor) -&gt; CONTINUE (severed edge halts flow!)
+      if neighbor not in reachableNodes:
+        reachableNodes.add(neighbor)
+        queue.push(neighbor)
+
+[Stage 3: Network &amp; Corridor Aggregation]
+  networkProvides = union of m.provides across all nodes in reachableNodes
+                  + union of m.provides across all unblocked edges (u-&gt;v)
+                    where u in reachableNodes OR v in reachableNodes
+  missing = materialReqs.filter(req =&gt; !networkProvides.has(req))
+  return { ok: missing.length === 0, missing, fallback: mod.fallback }</code></pre>
+<ul class="wiki-list">
+<li><strong>Global Integrity Badge (<code>auditAllSupplyLines</code>)</strong>: Iterates over all 22 nodes and counts every slotted module where <code>checkModuleSupplyLine(nid, mod).ok === false</code>. Updates <code>#supply-integrity-badge</code> in the studio header between <code>✅ Supply Lines Intact</code> (emerald) and <code>⚠️ N Severed Supply Line(s)</code> (pulsing rose).</li>
+</ul>
+<h3>4.2 Dual-Target Slotting: Nodes vs. Transit Edges (<code>setSlottingMode</code>)</h3>
+<p>Stage 5 supports two distinct socketing targets toggled via <code>setSlottingMode("node" | "edge")</code>:</p>
+<ul class="wiki-list">
+<li><strong>Node Slotting Mode (<code>slottingMode === "node"</code>)</strong>: Sockets modules into <code>nodeSlottedModules[nodeId]</code>. Displays node sociological metadata (CVF Culture, Category, Hub/Satellite status, drawn Major Arcana card, Amalgamation score, and <code>demographics</code> census from <span class="wiki-tag">🎫 SYS-RACE-02</span>).</li>
+<li><strong>Edge Slotting Mode (<code>slottingMode === "edge"</code>)</strong>: Targets directed or bidirectional pointcrawl links (<code>targetSlottingEdgeId = "u->v"</code>), socketing Tier 2 transit corridors (<code>EDGE-01</code>..<code>05</code>, <code>CWT-020</code>..<code>025</code>, <code>HOOK-01</code>) into <code>edgeSlottedModules["u->v"]</code>. Provides an interactive <strong>Sever / Reopen Transit Edge</strong> button (<code>toggleEdgeBlocked(edgeKey)</code>) that sets <code>blockedEdges["u->v"] = true</code>, immediately recalculating supply reachability across the entire graph.</li>
+</ul>
+<h3>4.3 Multi-Factor Module Recommendation Engine (<code>calculateRecommendationScore</code>)</h3>
+<p>To help GMs and automated builders select synergetic modules for any node <code>nodeId</code>, <code>calculateRecommendationScore(nodeId, mod)</code> computes an additive heuristic score:</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Scoring Factor</th><th>Condition</th><th>Delta</th><th>Badge / UI Feedback</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>1. Tarot Archetype Affinity</strong></td><td>Node's drawn Major Arcana card (<code>drawnCards[nodeId].name</code>) matches an entry in <code>mod.tarot</code></td><td><strong><code>+10</code></strong></td><td><code>🌟 Tarot Synergy (+10)</code> (Amber ring highlight)</td></tr>
+<tr><td><strong>2. CVF Culture Quadrant Match</strong></td><td>Node <code>culture</code> matches <code>mod.culture</code> (e.g. <code>Hierarchy</code> in <code>Hierarchy / Market</code>)</td><td><strong><code>+5</code></strong></td><td><code>⭐ Cultural Fit (+5)</code> (Sky ring highlight)</td></tr>
+<tr><td><strong>3. CVF Culture Quadrant Clash</strong></td><td><code>mod.culture</code> contains the diagonal CVF opposite (<code>Clan <-> Market</code> or <code>Hierarchy <-> Adhocracy</code>)</td><td><strong><code>-5</code></strong></td><td><code>⚠️ Cultural Friction (-5)</code> (Rose warning border)</td></tr>
+<tr><td><strong>4. MTG Color Wheel Share</strong></td><td>Node <code>color</code> and <code>mod.color</code> share at least one ideological color token (<code>W/U/B/R/G</code>)</td><td><strong><code>+3</code></strong></td><td><code>Color Match: [Color] (+3)</code></td></tr>
+<tr><td><strong>5. Downstream Supply Synergy</strong></td><td><code>mod.provides</code> resolves an active <code>missing</code> material requirement on any node in <code>reachableNodes</code></td><td><strong><code>+3</code></strong></td><td><code>Supplies: [Tag] (+3)</code></td></tr>
+<tr><td><strong>6. Upstream Inputs Intact</strong></td><td><code>mod</code> has material requirements AND <code>checkModuleSupplyLine(nodeId, mod).ok === true</code></td><td><strong><code>+2</code></strong></td><td><code>Inputs Intact (+2)</code></td></tr>
+<tr><td><strong>7. Duplicate Socket Penalty</strong></td><td><code>nodeSlottedModules[nodeId]</code> already contains <code>mod.id</code></td><td><strong><code>-10</code></strong></td><td>Prevents redundant recommendation</td></tr>
+</tbody>
+</table></div>
+<p>When the user clicks <strong>Smart Slot All Nodes</strong> (<code>smartSlotAllNodes()</code>), the engine executes a 4-pass greedy assignment across all 22 nodes using <code>getBestModule(nid, filterFn)</code>:</p>
+<ul class="wiki-list">
+<li><strong>Pass 1 (Infrastructure)</strong>: Best Tier 3 / Set A / Life-Support module.</li>
+<li><strong>Pass 2 (Ecology)</strong>: Best Tier 2 / Set B / Ecology / Maritime module.</li>
+<li><strong>Pass 3 (Social & Governance)</strong>: Best Tier 1 or Tier 4 / Set C / Set D module.</li>
+<li><strong>Pass 4 (Catalysts & Climax)</strong>: Best Tier 5 / Set F / Set G module.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>5. Standalone Fallback Mode, Severance Clocks & Dial 8 Crisis Gate</h2>
+<p>Every module in Creator Studio is required by <a class="wiki-link" href="../../pages/campaigns/Test-CampaignPackage.ps1.html">📄 campaigns/Test-CampaignPackage.ps1</a> and <a class="wiki-link" href="../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a> to define a <code>fallback</code> (in <code>modules_manifest.json</code>) / <code>standalone_fallback</code> (in Markdown YAML frontmatter).</p>
+<h3>5.1 Dual Purpose of the Standalone Fallback Contract</h3>
+<ul class="wiki-list">
+<li><strong>1. One-Shot / Isolated Node Portability</strong>: Allows a GM to pluck a single module (e.g., <code>INFRA-02</code> Arc Smelter or <code>CWT-061</code> Derinkuyu Bastion) out of its parent campaign and drop it into an unrelated homebrew session without importing the rest of the 22-node supply web.</li>
+<li><strong>2. Runtime Degradation State</strong>: Defines the exact physical and mechanical behavior of the facility when its upstream <code>requires</code> tags are severed by player sabotage, enemy blockade, or environmental disaster.</li>
+</ul>
+<h3>5.2 The 4-Segment Severance Clock & Dial 8 Branching</h3>
+<p>When <code>checkModuleSupplyLine(nid, mod).ok</code> evaluates to <code>false</code>, the Stage 5 sidebar renders an interactive 4-segment <strong>Severance Threat Clock</strong> (<code>moduleSeveranceClocks["${nodeId}:${modId}"]</code>) governed by <code>stepSeveranceTick(nodeId, modId, delta)</code> and global turn progression (<code>advanceSeveranceTurn()</code>):</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Severance Clock Tick</th><th>Operational State & Mechanical Consequence</th><th>Visual Gauge Color</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Tick 0 / 4</strong></td><td><strong>Supply Severed (Grace Window)</strong>: Local emergency stockpiles holding; <strong>Active Fallback</strong> mode engaged.</td><td>Slate (0 bars lit)</td></tr>
+<tr><td><strong>Tick 1 / 4</strong></td><td><strong>Stockpiles Depleted</strong>: Primary output dial drops (<code>-1 Yield</code>); rationing instituted.</td><td>Amber (1 bar lit)</td></tr>
+<tr><td><strong>Tick 2 / 4</strong></td><td><strong>Operational Strain</strong>: Equipment degradation and civil unrest checks (<code>+1 Regional Peril</code>).</td><td>Orange (2 bars lit)</td></tr>
+<tr><td><strong>Tick 3 / 4</strong></td><td><strong>Critical Distress</strong>: Cascading systemic failure imminent on next campaign turn.</td><td>Rose (3 bars lit)</td></tr>
+<tr><td><strong>Tick 4 / 4 (Branch A)</strong><br><em>Dial 8 = <code>crisis</code></em></td><td><strong>🚨 HEROIC CRISIS GATE ACTIVE</strong>: Opens a mandatory 1-session emergency encounter window for players to reopen the severed corridor or deliver relief supplies (<code>Relief -2</code>) before permanent ruin.</td><td>Pulsing Purple (4 bars lit)</td></tr>
+<tr><td><strong>Tick 4 / 4 (Branch B)</strong><br><em>Dial 8 = <code>hardcore</code></em></td><td><strong>💀 SYSTEMIC COLLAPSE</strong>: Hardcore Cataclysm mode; module infrastructure is permanently ruined and node collapses.</td><td>Pinging Crimson (4 bars lit)</td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>6. Complete Supply-Chain Topology: <code>opal_island</code> (48 Modules)</h2>
+<p>In <a class="wiki-link" href="../../pages/campaigns/opal_island/modules_manifest.json.html">📄 campaigns/opal_island/modules_manifest.json</a>, the 48 modules form a tightly interlocked industrial-alchemical ecosystem where hydro-electric generation, metallurgy, chemical synthesis, radio telemetry, and ecological harvesting feed one another across the 22-node pointcrawl graph.</p>
+<h3>6.1 Primary Industrial & Alchemical Supply-Chain Graph (<code>opal_island</code>)</h3>
+<pre class="code-block"><code class="lang-text">[Geography: High-Elevation-Water-Head] (Alpine Node #8 / Waterfall Node #14)
+   │
+   ├──► [[Mod:INFRA-01]] Hydro Pelton Wheel &amp; DC Dynamo
+   │       │  provides: [Power: High-Amperage-DC], [Hydraulics: Industrial-Tailrace-Flow]
+   │       │
+   │       ├──► [[Mod:INFRA-02]] Carbon Electric Arc Smelting Furnace (+ Direct-Reduced-Iron from INFRA-04)
+   │       │       │  provides: [Chem: CaC2-Carbide-Pellets], [Material: Smelted-Alloy]
+   │       │       │
+   │       │       ├──► [[Mod:INFRA-03]] &quot;Argent-Fume&quot; Incendiary Smokewall (+ Distilled-Potable-Water from INFRA-07)
+   │       │       │       └──► provides: [Defense: Acetylene-Smoke-Screen], [Defense: Stirge-Swarm-Immunity]
+   │       │       │            (Neutralizes [[Mod:ECOL-01]] Crystalline Stirge Hives!)
+   │       │       │
+   │       │       ├──► [[Mod:FACT-06]] Tactical Bastion Fortification Ranks (Levels 1-4)
+   │       │       ├──► [[Mod:EDGE-02]] South Coastal Road Paving Initiative
+   │       │       ├──► [[Mod:CONF-05]] Deception Hardware: Holy Silver Tracking Bracelets
+   │       │       └──► [[Mod:ESOT-06]] The Cosmic Collider &amp; Planar Breach Trigger (Tier 5 Climax)
+   │       │
+   │       ├──► [[Mod:INFRA-06]] Gnomish Freewave Vacuum-Tube Transceivers
+   │       │       │  provides: [Signal: Freewave-HF-Radio], [Chem: Commercial-Sulfuric-Acid]
+   │       │       └──► [[Mod:INFRA-07]] Lakestone Resonant Menhir Radio Relay (+ Deep-Brine-Well)
+   │       │               │  provides: [Water: Distilled-Potable-Water], [Chem: Refined-Salt-and-Bromine]
+   │       │               ├──► Feeds Water to [[Mod:INFRA-03]] Argent-Fume Smokewall
+   │       │               └──► Feeds Salt/Bromine to [[Mod:SPARK-01]] Salt Warehouse Famine Riots
+   │       │
+   │       ├──► [[Mod:INFRA-08]] Cyclopean Cryo-Pyramid &amp; Refrigeration Coils
+   │       └──► [[Mod:SPARK-06]] Independent Conspiracy: The Promethean Lodge
+   │
+   └──► [[Mod:INFRA-04]] Operation White-Bloom Nitrification Beds (+ Hardwood-Timber from ECOL-06)
+           └──► provides: [Material: Direct-Reduced-Iron], [Chem: Saltpeter-Nitrate], [Fuel: Black-Powder]
+                   └──► Feeds Iron to [[Mod:INFRA-02]], [[Mod:FACT-06]], [[Mod:EDGE-02]]
+
+[Ecology: Ancient-Temperate-Rainforest] (Redwoods Node #4 / High Canopy Node #9)
+   └──► [[Mod:ECOL-06]] High Canopy Redwoods &amp; Amber-Resin Taps
+           │  provides: [Material: Hardwood-Timber], [Material: Amber-Pitch]
+           ├──► Feeds Timber to [[Mod:INFRA-04]] Nitrification Beds &amp; [[Mod:ESOT-01]] Yellow Rags Print Media
+           └──► Feeds Timber + Amber-Pitch to [[Mod:EDGE-04]] High Arboreal Suspension Highways
+
+[Geography: Marine-Tidal-Flume] (Blackmire Swamp Node #5 / Coastal Shelf Node #6)
+   └──► [[Mod:INFRA-05]] Swamp Mist-Maker Poles &amp; Pitcher Distillery
+           │  provides: [Power: Compressed-Air-8Bar], [Bio: Scent-Stripping-Mist]
+           ├──► Feeds 8-Bar Air to [[Mod:EDGE-03]] Walters Wiggles Pneumatic Capsule Tube
+           └──► Feeds 8-Bar Air (+ Smelted-Alloy from INFRA-02) to [[Mod:INFRA-09]] Zim-Sharr Perimeter Braziers</code></pre>
+<h3>6.2 Master Contract Table: <code>opal_island</code> Infrastructure, Ecology & Climax Chains</h3>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Module ID</th><th>Title</th><th>Tier</th><th>Requires (<code>requires</code>)</th><th>Provides (<code>provides</code>)</th><th>Standalone Fallback Degradation</th></tr>
+</thead>
+<tbody>
+<tr><td><span class="wiki-tag">📦 INFRA-01</span></td><td>Hydro Pelton Wheel & DC Dynamo</td><td><strong>3</strong></td><td><code>Geography: High-Elevation-Water-Head</code></td><td><code>Power: High-Amperage-DC</code><br><code>Hydraulics: Industrial-Tailrace-Flow</code></td><td>Rigged to tidal flume or mule treadmill; drops to 20% output (illumination only; cannot drive arc furnaces).</td></tr>
+<tr><td><span class="wiki-tag">📦 INFRA-02</span></td><td>Carbon Electric Arc Smelting Furnace</td><td><strong>3</strong></td><td><code>Power: High-Amperage-DC</code><br><code>Material: Direct-Reduced-Iron</code></td><td><code>Material: Smelted-Alloy</code><br><code>Chem: CaC2-Carbide-Pellets</code></td><td>Converts to coal-blast cupola furnace (2200°F vs 4500°F); casts basic iron tools but <strong>cannot synthesize Calcium Carbide</strong>.</td></tr>
+<tr><td><span class="wiki-tag">📦 INFRA-03</span></td><td>"Argent-Fume" Incendiary Smokewall</td><td><strong>3</strong></td><td><code>Chem: CaC2-Carbide-Pellets</code><br><code>Water: Distilled-Potable-Water</code></td><td><code>Defense: Acetylene-Smoke-Screen</code><br><code>Defense: Stirge-Swarm-Immunity</code></td><td>Converts to sulfur-pitch smudge pots; defense drops from Level 4 to Level 2 (vulnerable to full stirge swarms).</td></tr>
+<tr><td><span class="wiki-tag">📦 INFRA-04</span></td><td>Operation White-Bloom Nitrification Beds</td><td><strong>3</strong></td><td><code>Material: Hardwood-Timber</code><br><code>Geography: High-Elevation-Water-Head</code></td><td><code>Material: Direct-Reduced-Iron</code><br><code>Chem: Saltpeter-Nitrate</code><br><code>Fuel: Black-Powder</code></td><td>Operates at homestead latrine scale (10% saltpeter volume; supports hunting muskets but not artillery).</td></tr>
+<tr><td><span class="wiki-tag">📦 INFRA-05</span></td><td>Swamp Mist-Maker Poles & Distillery</td><td><strong>3</strong></td><td><code>Geography: Marine-Tidal-Flume</code></td><td><code>Power: Compressed-Air-8Bar</code><br><code>Bio: Scent-Stripping-Mist</code></td><td>Handheld atomizers / smudge pots creating 10-ft clouds for 10 mins instead of continuous perimeter mist.</td></tr>
+<tr><td><span class="wiki-tag">📦 INFRA-06</span></td><td>Gnomish Freewave Vacuum-Tube Radio</td><td><strong>3</strong></td><td><code>Power: High-Amperage-DC</code></td><td><code>Signal: Freewave-HF-Radio</code><br><code>Chem: Commercial-Sulfuric-Acid</code></td><td>Unpowered crystal detector receiver; can listen to high-power broadcasts but cannot transmit.</td></tr>
+<tr><td><span class="wiki-tag">📦 INFRA-07</span></td><td>Lakestone Resonant Menhir Relay</td><td><strong>3</strong></td><td><code>Geography: Deep-Brine-Well</code><br><code>Signal: Freewave-HF-Radio</code></td><td><code>Signal: Resonant-Menhir-Relay</code><br><code>Chem: Refined-Salt-and-Bromine</code><br><code>Water: Distilled-Potable-Water</code></td><td>Functions as a passive acoustic menhir granting advantage on concentration/divination within 100 yards.</td></tr>
+<tr><td><span class="wiki-tag">📦 INFRA-08</span></td><td>Cyclopean Cryo-Pyramid & Coils</td><td><strong>3</strong></td><td><code>Power: High-Amperage-DC</code></td><td><code>Facility: Cryo-Preservation-Vaults</code><br><code>Thermal: Cryogenic-Cooling-Grid</code></td><td>Permafrost melts over 3 months, flooding forest and releasing dormant prehistoric pathogen spores.</td></tr>
+<tr><td><span class="wiki-tag">📦 INFRA-09</span></td><td>Zim-Sharr Perimeter Braziers & Wards</td><td><strong>3</strong></td><td><code>Material: Smelted-Alloy</code><br><code>Power: Compressed-Air-8Bar</code></td><td><code>Defense: Sonic-Resonator-Wards</code><br><code>Defense: Heavy-Harbor-Boom-Grid</code></td><td>Replaces sonic crystals with rhythmic bronze bell towers and chemical fuel with sulfur-tallow smudge pots.</td></tr>
+<tr><td><span class="wiki-tag">📦 ECOL-01</span></td><td>Crystalline Stirge Hives & Queen</td><td><strong>2</strong></td><td><code>Ecology: Subterranean-Moist-Vaults</code></td><td><code>Hazard: Subterranean-Stirge-Swarm</code><br><code>Bio: Concentrated-Blood-Alkaloids</code></td><td>Solitary scouting flights of 1d6 stirges repelled by ordinary wood smoke.</td></tr>
+<tr><td><span class="wiki-tag">📦 ECOL-05</span></td><td>Glacial Quartz Meltwater Caverns</td><td><strong>2</strong></td><td><code>Ecology: Alpine-Glacial-Caverns</code></td><td><code>Water: Sterile-Quartz-Water</code><br><code>Material: Pure-Quartz-Crystals</code></td><td>High mountain mineral spring yielding drinking water without subterranean sluice gates (feeds <span class="wiki-tag">📦 SPARK-02</span>).</td></tr>
+<tr><td><span class="wiki-tag">📦 ECOL-06</span></td><td>High Canopy Redwoods & Amber Taps</td><td><strong>2</strong></td><td><code>Ecology: Ancient-Temperate-Rainforest</code></td><td><code>Material: Amber-Pitch</code><br><code>Material: Hardwood-Timber</code></td><td>Small hillside cedar grove yielding limited amber pitch (counters <span class="wiki-tag">📦 SPARK-04</span> Iron-Blight).</td></tr>
+<tr><td><span class="wiki-tag">📦 EDGE-02</span></td><td>South Coastal Road Paving Initiative</td><td><strong>2</strong></td><td><code>Material: Smelted-Alloy</code><br><code>Material: Direct-Reduced-Iron</code></td><td><code>Transit: Paved-Coastal-Highway</code></td><td>Half-buried ancient Roman-style causeway clearable node-by-node.</td></tr>
+<tr><td><span class="wiki-tag">📦 EDGE-03</span></td><td>Walters Wiggles Switchback Ascent</td><td><strong>2</strong></td><td><code>Power: Compressed-Air-8Bar</code></td><td><code>Transit: Switchback-Cliff-Stairway</code><br><code>Comms: Pneumatic-Capsule-Tube</code></td><td>Grueling manual foot-climb switchback trail without pneumatic capsule message delivery.</td></tr>
+<tr><td><span class="wiki-tag">📦 EDGE-04</span></td><td>High Arboreal Suspension Highways</td><td><strong>2</strong></td><td><code>Material: Amber-Pitch</code><br><code>Material: Hardwood-Timber</code></td><td><code>Transit: Canopy-Suspension-Highway</code></td><td>Isolated rope-bridge bottleneck spanning a single forest ravine.</td></tr>
+<tr><td><span class="wiki-tag">📦 ESOT-01</span></td><td>Yellow Rags: Weaponized Print Media</td><td><strong>5</strong></td><td><code>Material: Hardwood-Timber</code></td><td><code>Subversion: Weaponized-Print-Media</code><br><code>Info-War: Counterfeit-Pardons-and-Scandal</code></td><td>Handwritten broadsheets and chalk notices in an illiterate shantytown.</td></tr>
+<tr><td><span class="wiki-tag">📦 ESOT-06</span></td><td>The Cosmic Collider & Planar Breach</td><td><strong>5</strong></td><td><code>Power: High-Amperage-DC</code><br><code>Material: Smelted-Alloy</code></td><td><code>Climax: Subterranean-Particle-Collider</code><br><code>Anomaly: Planar-Breach-Trigger</code></td><td>Unstable arcane accelerator causing localized gravity anomalies.</td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>7. Complete Supply-Chain Topology: <code>generic_starter</code> (52 Modules)</h2>
+<p>In <a class="wiki-link" href="../../pages/campaigns/generic_starter/modules_manifest.json.html">📄 campaigns/generic_starter/modules_manifest.json</a>, the 52 modules are organized into five modular layers designed for plug-and-play fantasy sandboxes and historical-archaeological simulations:</p>
+<h3>7.1 Layer Breakdown in <code>generic_starter</code></h3>
+<p>1. <strong>System Core Governance (<code>FACT-01</code>..<code>04</code>, <code>FACT-06</code>, <code>SPARK-08</code>)</strong>:</p>
+<ul class="wiki-list">
+<li><code><span class="wiki-tag">📦 FACT-01</span></code> provides <code>Governance: Sovereign-Hub-Archetypes</code>, which directly satisfies the upstream requirement of <code><span class="wiki-tag">📦 FACT-02</span></code> (2-Axis Tension Matrix) and <code><span class="wiki-tag">📦 FACT-03</span></code> (Decapitation-Proof Mosaic Governance).</li>
+</ul>
+<p>2. <strong>Tutorial Isle Starter Pack (<code>STARTER-01</code>..<code>06</code>)</strong>:</p>
+<ul class="wiki-list">
+<li>Self-contained Level 1–6 borderland modules (<code><span class="wiki-tag">📦 STARTER-01</span></code> River Watermill -> <code>Food: Milled-Flour-Stores</code> & <code>Hydraulics: River-Weir-Control</code>; <code><span class="wiki-tag">📦 STARTER-02</span></code> Smugglers' Cove; <code><span class="wiki-tag">📦 STARTER-03</span></code> Goblin Warrens -> <code>Material: Crude-Iron-Scrap</code>; <code><span class="wiki-tag">📦 STARTER-04</span></code> Ancient Barrow; <code><span class="wiki-tag">📦 STARTER-05</span></code> Mountain Watchtower; <code><span class="wiki-tag">📦 STARTER-06</span></code> Whispering Old Woods -> <code>Medicine: Healing-Herbal-Salves</code> & <code>Material: Heartwood-Timber</code>).</li>
+</ul>
+<p>3. <strong>Tier 0 Mundane Settlement Substratum (<code>T0-DOM-01</code>..<code>08</code>)</strong>:</p>
+<ul class="wiki-list">
+<li>Granular socketable versions of the 8 survival domains (<code><span class="wiki-tag">📦 T0-DOM-01</span></code> through <code><span class="wiki-tag">📦 T0-DOM-08</span></code>), allowing GMs running in <strong>Granular Modularity Mode</strong> to model village subsistence, artesian wells, cruck timber framing, parish watch bailiffs, blacksmith barter squares (<code>requires: [Material: Scrap-Iron-Billets, Fuel: Hardwood-Charcoal]</code>), midwifery hearths, swine midden trenches, and boundary shrines.</li>
+</ul>
+<p>4. <strong>Creative Backlog Waves 1–5 (<code>CWT-010</code>..<code>050</code>)</strong>:</p>
+<ul class="wiki-list">
+<li><strong>Wave 1 Climax Engines (Tier 5)</strong>: <code><span class="wiki-tag">📦 CWT-010</span></code> Biogenic Spore Bloom (consumes <code>Bio: Concentrated-Blood-Alkaloids</code> from <code><span class="wiki-tag">📦 CWT-031</span></code> or <code><span class="wiki-tag">📦 ECOL-01</span></code>), <code><span class="wiki-tag">📦 CWT-011</span></code> Imperial Regicide, <code><span class="wiki-tag">📦 CWT-012</span></code> Clockwork Demiurge, <code><span class="wiki-tag">📦 CWT-013</span></code> Necrotic Eclipse, <code><span class="wiki-tag">📦 CWT-014</span></code> Cosmic Planar Collision, and <code><span class="wiki-tag">📦 CWT-015</span></code> Great Peasant Levée.</li>
+<li><strong>Wave 2 Transit Corridors (Tier 2)</strong>: <code><span class="wiki-tag">📦 CWT-020</span></code> Minecart Gravity Incline, <code><span class="wiki-tag">📦 CWT-021</span></code> River Sluice Lock, <code><span class="wiki-tag">📦 CWT-022</span></code> Glacial Cable Funicular, <code><span class="wiki-tag">📦 CWT-023</span></code> Sunken Willow Canal, <code><span class="wiki-tag">📦 CWT-024</span></code> High Sierra Switchback Trail, and <code><span class="wiki-tag">📦 CWT-025</span></code> Volcanic Basalt Causeway.</li>
+<li><strong>Wave 3 Biological Life-Support (Tiers 2–3)</strong>: <code><span class="wiki-tag">📦 CWT-030</span></code> Terraced Hydroponic Rice Flumes (consumes <code>Hydraulics: Industrial-Tailrace-Flow</code> from <code><span class="wiki-tag">📦 INFRA-01</span></code>), <code><span class="wiki-tag">📦 CWT-031</span></code> Botanical Apothecary & Anti-Venom Foundry (provides <code>Bio: Concentrated-Blood-Alkaloids</code> to <code><span class="wiki-tag">📦 CWT-010</span></code>), <code><span class="wiki-tag">📦 CWT-032</span></code> Subterranean Fungiculture Vaults, <code><span class="wiki-tag">📦 CWT-033</span></code> Altiplano Camelid Herds, and <code><span class="wiki-tag">📦 CWT-034</span></code> Deep-Well Aquifer Siphon.</li>
+<li><strong>Wave 4 Color & Tarot Balancing (Tiers 1–3)</strong>: <code><span class="wiki-tag">📦 CWT-040</span></code> Sylvan Sanctuary of The Lovers, <code><span class="wiki-tag">📦 CWT-041</span></code> Scholastic Scriptorium, <code><span class="wiki-tag">📦 CWT-042</span></code> Stargazer Spire, <code><span class="wiki-tag">📦 CWT-043</span></code> Colossal Foundry of Strength (consumes <code>Material: Direct-Reduced-Iron</code> and provides <code>Material: High-Tensile-Crucible-Steel</code>), <code><span class="wiki-tag">📦 CWT-044</span></code> Dawn Cathedral, and <code><span class="wiki-tag">📦 CWT-045</span></code> Chasm Tollbridge.</li>
+</ul>
+<p>5. *<em>Wave 6 </em>Civilizations & Collapse<em> Archaeological Suite (<code>CWT-060</code>..<code>078</code>) & <code>HOOK-01</code></em>*:</p>
+<ul class="wiki-list">
+<li>Grounded in real-world historical and archaeological collapse mechanics (attributed to <code>Chill Dude Explains</code> / historical anthropology):</li>
+</ul>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Module ID</th><th>Historical / Archaeological Reference Anchor</th><th>Tier</th><th>Requires (<code>requires</code>)</th><th>Provides (<code>provides</code>)</th><th>Collapse / Fallback Trigger</th></tr>
+</thead>
+<tbody>
+<tr><td><span class="wiki-tag">📦 CWT-060</span></td><td><strong>1177 BC Late Bronze Age Collapse</strong> (Palatial trade cascade)</td><td><strong>1</strong></td><td><code>Trade: Maritime-Tin-Corridor</code><br><code>Mineral: Refined-Ingot-Supply</code></td><td><code>Governance: Systemic-Interdependence-Matrix</code><br><code>Tension: Trade-Cascade-Contagion</code></td><td>Severed tin/copper corridors dissolve palatial hubs into autarkic subsistence.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-060A</span></td><td><strong>Late Bronze Age Cyprus</strong> (Enkomi oxhide copper smelting)</td><td><strong>3</strong></td><td><code>Fuel: Highland-Charcoal-Timber</code><br><code>Labor: Conscripted-Slag-Workers</code></td><td><code>Mineral: Refined-Copper-Ingots</code><br><code>Industry: Blast-Furnace-Crucibles</code></td><td>Deforestation forces scrub-brush firing (-80% output, toxic sulfur fumes).</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-061</span></td><td><strong>Derinkuyu Underground City</strong> (Cappadocia 18-tier tuff refuge)</td><td><strong>2</strong></td><td><code>Geology: Soft-Volcanic-Tuff-Stratum</code><br><code>Air: Vertical-Convection-Airshafts</code></td><td><code>Topography: Subterranean-Refuge-Node</code><br><code>Defense: Hermetic-Rolling-Door-Seals</code><br><code>Life-Support: Deep-Tuff-Aquifer-Well</code></td><td>Poisoned airshafts trigger hermetic blast-door lockdown (14-day oxygen clock).</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-062</span></td><td><strong>Thonis-Heracleion</strong> (Canopic Nile seismic clay liquefaction)</td><td><strong>2</strong></td><td><code>Geography: Alluvial-Nile-Silt-Islands</code><br><code>Hydrology: High-Tide-Barrier-Jetties</code></td><td><code>Transit: Delta-Maritime-Gateway</code><br><code>Commerce: Royal-Customs-Toll-Office</code><br><code>Relic: Submerged-Amun-Gereb-Treasury</code></td><td>Seismic liquefaction sinks port 10m underwater (-90% trade, wreck scavengers).</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-063</span></td><td><strong>Greater Angkor Hydraulic Network</strong> (Khmer barays & monsoons)</td><td><strong>3</strong></td><td><code>Labor: Corv-e-Canal-Dredging-Crews</code><br><code>Climate: Predictable-Bimodal-Monsoon-Cycle</code></td><td><code>Agriculture: Quad-Harvest-Wetland-Rice</code><br><code>Hydrology: Macro-Baray-Reservoir-Network</code><br><code>Engineering: Masonry-Silt-Scouring-Sluice</code></td><td>ENSO mega-monsoon siltation incises river 5m below canal intakes (-85% rice).</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-064</span></td><td><strong>Garamantian Empire</strong> (Saharan foggara fossil water mining)</td><td><strong>3</strong></td><td><code>Labor: Chattel-Slave-Tunneling-Crews</code><br><code>Engineering: Subterranean-Gradient-Surveyors</code></td><td><code>Life-Support: Subterranean-Fossil-Water-Flow</code><br><code>Agriculture: Saharan-Polyculture-Oasis</code><br><code>Mineral: Leached-Saline-Salt-Cakes</code></td><td>Non-renewable water table drops below foggara gradient; oasis salinizes.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-065</span></td><td><strong>Joseph Tainter Complexity Trap</strong> (<em>Collapse of Complex Societies</em>)</td><td><strong>4</strong></td><td><code>Food: Agrarian-Surplus-Tribute</code><br><code>Bureaucracy: Hyper-Specialized-Scribe-Castes</code></td><td><code>Governance: Diminishing-Marginal-Returns-Engine</code><br><code>Tension: Elite-Overproduction-Sclerosis</code></td><td>Tribute drops below bureaucratic overhead; peasantry de-affiliates to Tier 0.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-066</span></td><td><strong>Göbekli Tepe</strong> (PPNA hunter-gatherer T-pillar sanctuaries)</td><td><strong>5</strong></td><td><code>Ecology: Wild-Einkorn-Gazelle-Herds</code><br><code>Culture: Multi-Clan-Pilgrimage-Compact</code></td><td><code>Climax: Pre-Agrarian-Apotheosis</code><br><code>Ritual: Megalithic-T-Pillar-Enclosure</code></td><td>Sanctuary intentionally backfilled with limestone rubble when compact expires.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-067</span></td><td><strong>Tollense Valley Battlefield</strong> (c. 1250 BC unwritten causeway war)</td><td><strong>5</strong></td><td><code>Geography: Marshland-River-Causeway</code><br><code>Military: Heavy-Bronze-Warrior-Retinues</code></td><td><code>Climax: Total-Bronze-Age-Battlefield-Rift</code><br><code>Relic: Standardized-Bronze-War-Spur</code></td><td>Mutual annihilation swallowed by anaerobic river peat for 3,200 years.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-068</span></td><td><strong>Upano Valley Amazonian Cities</strong> (LiDAR earthen tolas & canals)</td><td><strong>2</strong></td><td><code>Ecology: Managed-Canopy-Agroforestry</code><br><code>Labor: Community-Biochar-Composters</code></td><td><code>Agriculture: Anthropogenic-Terra-Preta</code><br><code>Topography: Sunken-Canal-Causeway-Grid</code></td><td>Mount Sangay volcanic tephra chokes canals (-70% yield, jungle regrowth).</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-069</span></td><td><strong>Roman Plumbum Fistulae & Antoninianus Debasement</strong></td><td><strong>3</strong></td><td><code>Metal: Refined-Lead-Pig-Ingots</code><br><code>Bullion: Silver-Denarius-Reserves</code></td><td><code>Infrastructure: Lead-Fistulae-Aqueduct-Grid</code><br><code>Economy: Imperial-Coinage-Mint</code></td><td>Hyperinflation and elite saturnine gout trigger municipal flight and barter.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-070</span></td><td><strong>Rapa Nui (Easter Island)</strong> (Rano Raraku moai & palm extinction)</td><td><strong>3</strong></td><td><code>Material: Palm-Fiber-Hauling-Cables</code><br><code>Food: Deep-Sea-Tuna-Porpoise-Catch</code></td><td><code>Structure: Megalithic-Moai-Effigies</code><br><code>Agriculture: Lithic-Basalt-Mulch</code></td><td>Polynesian rat seed predation and timber hauling end canoe fisheries; Birdman cult rises.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-071</span></td><td><strong>Cahokia & Monks Mound</strong> (Mississippian maize & mega-flood)</td><td><strong>4</strong></td><td><code>Labor: Basket-Carried-Alluvial-Earth</code><br><code>Forest: Upland-Oak-Palisade-Timber</code></td><td><code>Agriculture: Intensive-Floodplain-Maize</code><br><code>Structure: Monumental-Earthen-Monks-Mound</code></td><td>1200 CE mega-flood inundates floodplain; commoners torch 2-mile palisade.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-072</span></td><td><strong>The Antikythera Mechanism</strong> (37-gear differential bronze computer)</td><td><strong>5</strong></td><td><code>Metal: Low-Oxidation-Fine-Bronze-Gears</code><br><code>Mathematics: Hipparchian-Lunar-Calculus</code></td><td><code>Relic: Differential-Bronze-Clockwork-Computer</code><br><code>Science: Saros-Eclipse-Predictor</code></td><td>Shipwreck sinks into seabed calcification, triggering a 1,500-year horological dark age.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-073</span></td><td><strong>Harappan / Indus Valley Grid</strong> (Mohenjo-daro drains & Saraswati)</td><td><strong>2</strong></td><td><code>Hydrology: Perennial-Glacial-River-Flow</code><br><code>Resource: Kiln-Baked-Mudbrick-Supply</code></td><td><code>Infrastructure: Municipal-Sanitary-Drain-Grid</code><br><code>Metrology: Standardized-Cubical-Chert-Weights</code></td><td>River avulsion dries Ghaggar-Hakra; brick sewers clog and cities de-urbanize.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-074</span></td><td><strong>Teotihuacan Burn Horizon</strong> (Avenue of the Dead selective revolt)</td><td><strong>4</strong></td><td><code>Material: Volcanic-Basalt-Lime-Plaster</code><br><code>Agriculture: Valley-Chinampa-Irrigation</code></td><td><code>Structure: Talud-Tablero-Pyramidal-Citadel</code><br><code>Industry: Green-Pachuca-Obsidian-Blade-Cores</code></td><td>Populist uprising surgically incinerates elite palaces while sparing apartment compounds.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-075</span></td><td><strong>Chaco Canyon Great Houses</strong> (Pueblo Bonito timber roads & drought)</td><td><strong>3</strong></td><td><code>Forest: High-Altitude-Ponderosa-Pine-Timbers</code><br><code>Hydrology: Ephemeral-Wash-Runoff-Harvesting</code></td><td><code>Topography: Prehistoric-Chaco-Road-Radial-Grid</code><br><code>Structure: Multi-Story-Core-and-Veneer-Great-House</code></td><td>1130 CE 50-year megadrought triggers ritual kiva sealing and cliff-dwelling migration.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-076</span></td><td><strong>Great Zimbabwe Enclosure</strong> (Shona mortarless granite & gold trade)</td><td><strong>3</strong></td><td><code>Fauna: Highveld-Humped-Cattle-Herds</code><br><code>Material: Thermal-Exfoliated-Granite-Slabs</code></td><td><code>Structure: Mortarless-Curved-Granite-Great-Enclosure</code><br><code>Trade: Indian-Ocean-Dhow-Monopoly</code></td><td>Savanna cattle overgrazing and firewood exhaustion force northward dynastic shift.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-077</span></td><td><strong>Nan Madol Basalt Megacity</strong> (Pohnpei 92 artificial lagoon islets)</td><td><strong>2</strong></td><td><code>Transit: Double-Hulled-Log-Raft-Flotilla</code><br><code>Life-Support: Mainland-Freshwater-and-Taro-Tribute</code></td><td><code>Topography: Inter-Tidal-Canal-Artificial-Islet-Network</code><br><code>Structure: Columnar-Basalt-Log-Stacked-Fortress</code></td><td>Overthrow of Saudeleur dynasty halts mainland water/breadfruit tribute; mangroves engulf canals.</td></tr>
+<tr><td><span class="wiki-tag">📦 CWT-078</span></td><td><strong>Skara Brae Midden Haven</strong> (Orkney subterranean flagstone village)</td><td><strong>2</strong></td><td><code>Material: Marine-Flagstone-Quarry-Beds</code><br><code>Insulation: Decomposed-Bio-Midden-Earth</code></td><td><code>Topography: Subterranean-Midden-Insulated-Haven</code><br><code>Life-Support: Peat-Fired-Communal-Hearth-Grid</code></td><td>North Atlantic winter gales bury sunken roofs beneath sand dunes for 5,000 years.</td></tr>
+<tr><td><span class="wiki-tag">📦 HOOK-01</span></td><td><strong>Company Town & Truck-System Fracture</strong> (19th-c. scrip peonage)</td><td><strong>4</strong></td><td><code>Authority: Company-Bailiff-Garrison</code><br><code>Logistics: Truck-Store-Grain-Rations</code><br><code>Transit: Physical-Arterial-Corridor</code></td><td><code>Labor: Indentured-Resource-Extraction</code><br><code>Intel: Company-Store-Debt-Ledger</code><br><code>Faction: Radicalized-Labor-Solidarity-Cell</code></td><td>Slots onto any arterial ore/resource transit edge (<code>E_adj</code>) to spark a labor-strike dilemma.</td></tr>
+</tbody>
+</table></div>
+      <h2 id="outbound-links">Subsystem Files Covered in This Series (113)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>File / Page</th><th>Role</th><th>Notes</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/tier_0_substratum_srd.md.html"><strong>docs/srd/tier_0_substratum_srd.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/stage_5_slotting.js.html"><strong>src/workstation/scripts/stage_5_slotting.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/module_explorer.js.html"><strong>src/workstation/scripts/module_explorer.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/entity_manager_ui.js.html"><strong>src/workstation/scripts/entity_manager_ui.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/entity_crud_dialogs.js.html"><strong>src/workstation/scripts/entity_crud_dialogs.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/entity_cascade_delete.js.html"><strong>src/workstation/scripts/entity_cascade_delete.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/MODULES_CATALOG.md.html"><strong>docs/MODULES_CATALOG.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules_manifest.json.html"><strong>campaigns/Emerald Isle/modules_manifest.json</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/srd/authoring_engine_srd.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/srd/adventure_framework_srd.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/ip_module_framework_srd.md.html"><strong>docs/srd/ip_module_framework_srd.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/srd/ip_module_framework_srd.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/scenario_primitives_srd.md.html"><strong>docs/srd/scenario_primitives_srd.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/srd/scenario_primitives_srd.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_f_campaign_authoring_and_ip_conversion.html"><strong>Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_f_campaign_authoring_and_ip_conversion]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html"><strong>Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module T0-DOM-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module T0-DOM-02</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module T0-DOM-05</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module T0-DOM-07</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md.html"><strong>campaigns/Emerald Isle/modules/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module FACT-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module FACT-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module FACT-02</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module FACT-02</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/FACT-03_Decapitation_Proof_Mosaic_Governance.md.html"><strong>campaigns/Emerald Isle/modules/FACT-03_Decapitation_Proof_Mosaic_Governance.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module FACT-03</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-03_Decapitation_Proof_Mosaic_Governance.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-03_Decapitation_Proof_Mosaic_Governance.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module FACT-03</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md.html"><strong>campaigns/Emerald Isle/modules/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module FACT-04</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module FACT-04</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-060_The_Systemic_Interdependence_Collapse_Matrix.md.html"><strong>campaigns/Emerald Isle/modules/CWT-060_The_Systemic_Interdependence_Collapse_Matrix.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-060</td>
+        </tr><tr>
+          <td><a href="../../pages/templates/examples/HIST-01_Crossing_of_the_Rubicon_and_Senate_Flight.md.html"><strong>templates/examples/HIST-01_Crossing_of_the_Rubicon_and_Senate_Flight.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module HIST-01</td>
+        </tr><tr>
+          <td><a href="../../pages/templates/examples/DND-01_Barovian_Mists_and_the_Vampire_Sovereign.md.html"><strong>templates/examples/DND-01_Barovian_Mists_and_the_Vampire_Sovereign.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module DND-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module ECOL-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-05_Glacial_Quartz_Meltwater_Filtration.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-05_Glacial_Quartz_Meltwater_Filtration.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module ECOL-05</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module EDGE-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.jpg.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.jpg</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module EDGE-03</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module EDGE-03</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/STARTER-02_Smugglers_Cove_and_Hidden_Sea_Cave.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-02_Smugglers_Cove_and_Hidden_Sea_Cave.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module STARTER-02</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md.html"><strong>campaigns/Emerald Isle/modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-020</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-061_The_Derinkuyu_18_Tier_Troglodyte_Bastion.md.html"><strong>campaigns/Emerald Isle/modules/CWT-061_The_Derinkuyu_18_Tier_Troglodyte_Bastion.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-061</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-02</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-03</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/STARTER-01_River_Watermill_and_Grain_Silo.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-01_River_Watermill_and_Grain_Silo.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module STARTER-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-043_The_Colossal_Foundry_of_Strength_and_Crucible_Steel.md.html"><strong>campaigns/Emerald Isle/modules/CWT-043_The_Colossal_Foundry_of_Strength_and_Crucible_Steel.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-043</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-060A_The_Cypriot_Copper_Smelting_Slag_Foundries.md.html"><strong>campaigns/Emerald Isle/modules/CWT-060A_The_Cypriot_Copper_Smelting_Slag_Foundries.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-060A</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-063_The_Angkor_Monsoon_Canal_and_Silt_Trap.md.html"><strong>campaigns/Emerald Isle/modules/CWT-063_The_Angkor_Monsoon_Canal_and_Silt_Trap.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-063</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module SPARK-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-02_The_Living_Statue_Blue_Rot_Quarantine_Ward.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-02_The_Living_Statue_Blue_Rot_Quarantine_Ward.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module SPARK-02</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-01_White_Blue_Conflation_The_Divine_Bureaucracy.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CONF-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/STARTER-04_Ancient_Barrow_and_Restless_Dead.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-04_Ancient_Barrow_and_Restless_Dead.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module STARTER-04</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-065_The_Tainter_Complexity_Trap_and_Monument_Mania.md.html"><strong>campaigns/Emerald Isle/modules/CWT-065_The_Tainter_Complexity_Trap_and_Monument_Mania.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-065</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-074_The_Teotihuacan_Palace_Immolation_and_Pyramidal_Revolt.md.html"><strong>campaigns/Emerald Isle/modules/CWT-074_The_Teotihuacan_Palace_Immolation_and_Pyramidal_Revolt.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-074</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/HOOK-01_The_Indentured_Caravan_Desperation_Leap.md.html"><strong>campaigns/Emerald Isle/modules/HOOK-01_The_Indentured_Caravan_Desperation_Leap.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module HOOK-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-01_Yellow_Rags_Weaponized_Print_Media_and_Forgery_Engine.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-01_Yellow_Rags_Weaponized_Print_Media_and_Forgery_Engine.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module ESOT-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-03_The_Saturnine_Mainframe_and_The_Linear_Time_Loop.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-03_The_Saturnine_Mainframe_and_The_Linear_Time_Loop.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module ESOT-03</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module ESOT-06</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-010_The_Biogenic_Spore_Bloom_and_Planetary_Rebirth.md.html"><strong>campaigns/Emerald Isle/modules/CWT-010_The_Biogenic_Spore_Bloom_and_Planetary_Rebirth.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-010</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md.html"><strong>campaigns/Emerald Isle/modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-012</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-066_The_Gobekli_Tepe_Pre_Agrarian_Pillars.md.html"><strong>campaigns/Emerald Isle/modules/CWT-066_The_Gobekli_Tepe_Pre_Agrarian_Pillars.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-066</td>
+        </tr><tr>
+          <td><a href="../../pages/templates/examples/DBZ-01_Namek_Planetary_Meltdown_and_Dragon_Ball_Harvest.md.html"><strong>templates/examples/DBZ-01_Namek_Planetary_Meltdown_and_Dragon_Ball_Harvest.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module DBZ-01</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Test-CampaignPackage.ps1.html"><strong>campaigns/Test-CampaignPackage.ps1</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:campaigns/Test-CampaignPackage.ps1]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/FACT-06_Tactical_Bastion_Fortification_Ranks.md.html"><strong>campaigns/Emerald Isle/modules/FACT-06_Tactical_Bastion_Fortification_Ranks.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module FACT-06</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_C_Faction_and_Governance/FACT-06_Tactical_Bastion_Fortification_Ranks.md.html"><strong>campaigns/Emerald Isle/modules/Set_C_Faction_and_Governance/FACT-06_Tactical_Bastion_Fortification_Ranks.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module FACT-06</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-02_The_South_Coastal_Road_Paving_Initiative.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-02_The_South_Coastal_Road_Paving_Initiative.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module EDGE-02</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-05_Deception_Hardware_Holy_Silver_Bracelets_and_Fume.md.html"><strong>campaigns/Emerald Isle/modules/Set_D_Social_Dynamics_and_Conflation/CONF-05_Deception_Hardware_Holy_Silver_Bracelets_and_Fume.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CONF-05</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-06_Gnomish_Freewave_Vacuum_Tube_Transceivers.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-06_Gnomish_Freewave_Vacuum_Tube_Transceivers.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-06</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-07_Lakestone_Resonant_Menhir_Relay.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-07_Lakestone_Resonant_Menhir_Relay.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-07</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-08_Cryo_Pyramid_Refrigeration_Core.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-08_Cryo_Pyramid_Refrigeration_Core.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-08</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-06_Independent_Conspiracies_The_Promethean_Lodge.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-06_Independent_Conspiracies_The_Promethean_Lodge.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module SPARK-06</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-04_Operation_White_Bloom_Nitrification_Beds.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-04_Operation_White_Bloom_Nitrification_Beds.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-04</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_B_Ecology_and_Biomes/ECOL-06_High_Canopy_Redwoods_and_Amber_Resin_Taps.md.html"><strong>campaigns/Emerald Isle/modules/Set_B_Ecology_and_Biomes/ECOL-06_High_Canopy_Redwoods_and_Amber_Resin_Taps.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module ECOL-06</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_E_Transit_and_Edges/EDGE-04_High_Arboreal_Suspension_Highways.md.html"><strong>campaigns/Emerald Isle/modules/Set_E_Transit_and_Edges/EDGE-04_High_Arboreal_Suspension_Highways.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module EDGE-04</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-05_Swamp_Mist_Maker_Poles_and_Pitcher_Distillery.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-05_Swamp_Mist_Maker_Poles_and_Pitcher_Distillery.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-05</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-09_Zim_Sharr_Perimeter_Braziers_and_Sonic_Wards.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-09_Zim_Sharr_Perimeter_Braziers_and_Sonic_Wards.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-09</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-04_The_Iron_Blight_Oxidation_Clock.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-04_The_Iron_Blight_Oxidation_Clock.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module SPARK-04</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/STARTER-03_Goblin_Warrens_and_Clay_Pits.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-03_Goblin_Warrens_and_Clay_Pits.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module STARTER-03</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/STARTER-05_Mountain_Watchtower_and_Signal_Pylon.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-05_Mountain_Watchtower_and_Signal_Pylon.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module STARTER-05</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/STARTER-06_Whispering_Old_Woods_and_Herbalist_Cloister.md.html"><strong>campaigns/Emerald Isle/modules/STARTER-06_Whispering_Old_Woods_and_Herbalist_Cloister.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module STARTER-06</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module T0-DOM-08</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md.html"><strong>campaigns/Emerald Isle/modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-031</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md.html"><strong>campaigns/Emerald Isle/modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-011</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md.html"><strong>campaigns/Emerald Isle/modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-013</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md.html"><strong>campaigns/Emerald Isle/modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-014</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md.html"><strong>campaigns/Emerald Isle/modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-015</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md.html"><strong>campaigns/Emerald Isle/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-021</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md.html"><strong>campaigns/Emerald Isle/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-022</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md.html"><strong>campaigns/Emerald Isle/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-023</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md.html"><strong>campaigns/Emerald Isle/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-024</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md.html"><strong>campaigns/Emerald Isle/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-025</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md.html"><strong>campaigns/Emerald Isle/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-030</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-032_Subterranean_Fungiculture_Vaults_and_Yeast_Silos.md.html"><strong>campaigns/Emerald Isle/modules/CWT-032_Subterranean_Fungiculture_Vaults_and_Yeast_Silos.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-032</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-033_High_Altiplano_Highland_Camelid_and_Wool_Herds.md.html"><strong>campaigns/Emerald Isle/modules/CWT-033_High_Altiplano_Highland_Camelid_and_Wool_Herds.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-033</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-034_Deep_Well_Aquifer_Siphon_and_Solar_Distillation_Array.md.html"><strong>campaigns/Emerald Isle/modules/CWT-034_Deep_Well_Aquifer_Siphon_and_Solar_Distillation_Array.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-034</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-040_The_Sylvan_Sanctuary_of_The_Lovers.md.html"><strong>campaigns/Emerald Isle/modules/CWT-040_The_Sylvan_Sanctuary_of_The_Lovers.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-040</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-041_The_Scholastic_Scriptorium_and_Codex_Archive.md.html"><strong>campaigns/Emerald Isle/modules/CWT-041_The_Scholastic_Scriptorium_and_Codex_Archive.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-041</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-042_The_Solitary_Peak_Hermitage_and_Stargazer_Spire.md.html"><strong>campaigns/Emerald Isle/modules/CWT-042_The_Solitary_Peak_Hermitage_and_Stargazer_Spire.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-042</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-044_The_Dawn_Cathedral_and_Solar_Solstice_Mirror.md.html"><strong>campaigns/Emerald Isle/modules/CWT-044_The_Dawn_Cathedral_and_Solar_Solstice_Mirror.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-044</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-045_The_Chasm_Tollbridge_and_Pact_of_Mutual_Devotion.md.html"><strong>campaigns/Emerald Isle/modules/CWT-045_The_Chasm_Tollbridge_and_Pact_of_Mutual_Devotion.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-045</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-062_The_Thonis_Heracleion_Liquefaction_Port.md.html"><strong>campaigns/Emerald Isle/modules/CWT-062_The_Thonis_Heracleion_Liquefaction_Port.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-062</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-064_The_Garamantes_Fossil_Aquifer_Foggara.md.html"><strong>campaigns/Emerald Isle/modules/CWT-064_The_Garamantes_Fossil_Aquifer_Foggara.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-064</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-067_The_Tollense_Valley_Unwritten_War_Reliquary.md.html"><strong>campaigns/Emerald Isle/modules/CWT-067_The_Tollense_Valley_Unwritten_War_Reliquary.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-067</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-068_Amazonian_Upano_LiDAR_Garden_Cities.md.html"><strong>campaigns/Emerald Isle/modules/CWT-068_Amazonian_Upano_LiDAR_Garden_Cities.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-068</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-069_Roman_Lead_Fistulae_Toxicity_and_Currency_Debasement.md.html"><strong>campaigns/Emerald Isle/modules/CWT-069_Roman_Lead_Fistulae_Toxicity_and_Currency_Debasement.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-069</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-070_Rapa_Nui_Moai_Quarry_and_Rodent_Ecocide.md.html"><strong>campaigns/Emerald Isle/modules/CWT-070_Rapa_Nui_Moai_Quarry_and_Rodent_Ecocide.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-070</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-071_Cahokia_Mississippian_Mounds_and_Mega_Flood.md.html"><strong>campaigns/Emerald Isle/modules/CWT-071_Cahokia_Mississippian_Mounds_and_Mega_Flood.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-071</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-072_Antikythera_Clockwork_Astronomical_Reliquary.md.html"><strong>campaigns/Emerald Isle/modules/CWT-072_Antikythera_Clockwork_Astronomical_Reliquary.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-072</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-073_The_Harappan_Sanitary_Grid_and_Saraswati_Desiccation.md.html"><strong>campaigns/Emerald Isle/modules/CWT-073_The_Harappan_Sanitary_Grid_and_Saraswati_Desiccation.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-073</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-075_The_Chaco_Canyon_Timber_Roads_and_Megadrought.md.html"><strong>campaigns/Emerald Isle/modules/CWT-075_The_Chaco_Canyon_Timber_Roads_and_Megadrought.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-075</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-076_The_Great_Zimbabwe_Mortarless_Granite_and_Gold_Monopoly.md.html"><strong>campaigns/Emerald Isle/modules/CWT-076_The_Great_Zimbabwe_Mortarless_Granite_and_Gold_Monopoly.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-076</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-077_The_Nan_Madol_Columnar_Basalt_Canal_Megacity.md.html"><strong>campaigns/Emerald Isle/modules/CWT-077_The_Nan_Madol_Columnar_Basalt_Canal_Megacity.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-077</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/CWT-078_The_Skara_Brae_Subterranean_Dune_Stone_Haven.md.html"><strong>campaigns/Emerald Isle/modules/CWT-078_The_Skara_Brae_Subterranean_Dune_Stone_Haven.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module CWT-078</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md.html"><strong>campaigns/Emerald Isle/modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md</strong></a></td>
+          <td><span class="badge">Module Cross-Ref</span></td>
+          <td>Mentions module SPARK-08</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md.html"><strong>campaigns/Emerald Isle/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md</strong></a></td>
+          <td><span class="badge">Module Cross-Ref</span></td>
+          <td>Mentions module SPARK-08</td>
+        </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (16)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page</th><th>Relationship</th><th>Context</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/tier_0_substratum_srd.md.html"><strong>docs/srd/tier_0_substratum_srd.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/stage_5_slotting.js.html"><strong>src/workstation/scripts/stage_5_slotting.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/module_explorer.js.html"><strong>src/workstation/scripts/module_explorer.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/entity_manager_ui.js.html"><strong>src/workstation/scripts/entity_manager_ui.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/entity_crud_dialogs.js.html"><strong>src/workstation/scripts/entity_crud_dialogs.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/entity_cascade_delete.js.html"><strong>src/workstation/scripts/entity_cascade_delete.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/MODULES_CATALOG.md.html"><strong>docs/MODULES_CATALOG.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules_manifest.json.html"><strong>campaigns/Emerald Isle/modules_manifest.json</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+        </tr><tr>
+          <td><a href="../../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_d_module_supply_chains_and_contracts]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html"><strong>docs/audit/2026-10-creator-studio-audit-dossier.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_d_module_supply_chains_and_contracts]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_d_module_supply_chains_and_contracts]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/templates/examples/DBZ-01_Namek_Planetary_Meltdown_and_Dragon_Ball_Harvest.md.html"><strong>templates/examples/DBZ-01_Namek_Planetary_Meltdown_and_Dragon_Ball_Harvest.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_d_module_supply_chains_and_contracts]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/templates/examples/DND-01_Barovian_Mists_and_the_Vampire_Sovereign.md.html"><strong>templates/examples/DND-01_Barovian_Mists_and_the_Vampire_Sovereign.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_d_module_supply_chains_and_contracts]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/templates/examples/HIST-01_Crossing_of_the_Rubicon_and_Senate_Flight.md.html"><strong>templates/examples/HIST-01_Crossing_of_the_Rubicon_and_Senate_Flight.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_d_module_supply_chains_and_contracts]] reference</td>
+        </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

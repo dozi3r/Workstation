@@ -1,0 +1,1653 @@
+  /* ==========================================================================
+     WINDOWS 95 / VISUAL BASIC 6 PURE CSS DESIGN SYSTEM (ZERO-CORS OFFLINE)
+     ========================================================================== */
+  :root {
+    --win-teal: #008080;
+    --win-grey: #c0c0c0;
+    --win-light: #ffffff;
+    --win-dark: #808080;
+    --win-darkest: #000000;
+    --win-title-blue: #000080;
+    --win-title-grad: #1084d0;
+    --win-select: #000080;
+    --win-select-text: #ffffff;
+    --font-stack: "Segoe UI", Tahoma, "MS Sans Serif", Geneva, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  body {
+    background-color: var(--win-teal);
+    font-family: var(--font-stack);
+    font-size: 11px;
+    color: var(--win-darkest);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 3D Bevel Classes */
+  .bevel-outset {
+    border-top: 2px solid var(--win-light);
+    border-left: 2px solid var(--win-light);
+    border-right: 2px solid var(--win-darkest);
+    border-bottom: 2px solid var(--win-darkest);
+    background-color: var(--win-grey);
+  }
+
+  .bevel-inset {
+    border-top: 2px solid var(--win-dark);
+    border-left: 2px solid var(--win-dark);
+    border-right: 2px solid var(--win-light);
+    border-bottom: 2px solid var(--win-light);
+    background-color: var(--win-light);
+  }
+
+  .bevel-thin-inset {
+    border-top: 1px solid var(--win-dark);
+    border-left: 1px solid var(--win-dark);
+    border-right: 1px solid var(--win-light);
+    border-bottom: 1px solid var(--win-light);
+  }
+
+  /* Buttons */
+  button.win-btn {
+    background-color: var(--win-grey);
+    border-top: 2px solid var(--win-light);
+    border-left: 2px solid var(--win-light);
+    border-right: 2px solid var(--win-darkest);
+    border-bottom: 2px solid var(--win-darkest);
+    font-family: var(--font-stack);
+    font-size: 11px;
+    padding: 2px 8px;
+    cursor: pointer;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: var(--win-darkest);
+  }
+
+  button.win-btn:active, button.win-btn.active {
+    border-top: 2px solid var(--win-darkest);
+    border-left: 2px solid var(--win-darkest);
+    border-right: 2px solid var(--win-light);
+    border-bottom: 2px solid var(--win-light);
+    padding: 3px 7px 1px 9px;
+    background-color: #d4d0c8;
+  }
+
+  button.win-btn:focus-visible {
+    outline: 1px dotted var(--win-darkest);
+    outline-offset: -4px;
+  }
+
+  /* Main Application Window Shell */
+  #app-window {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 2px;
+    background-color: var(--win-grey);
+    box-shadow: 1px 1px 0px var(--win-darkest);
+    overflow: hidden;
+  }
+
+  /* Main Titlebar */
+  .title-bar {
+    background: linear-gradient(90deg, var(--win-title-blue), var(--win-title-grad));
+    padding: 3px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--win-light);
+    font-weight: bold;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+  }
+
+  .title-bar-text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .title-bar-controls {
+    display: flex;
+    gap: 2px;
+  }
+
+  .title-bar-controls button {
+    width: 16px;
+    height: 14px;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 0;
+    line-height: 12px;
+  }
+
+  /* Top Menu Bar */
+  .menu-bar {
+    background-color: var(--win-grey);
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--win-dark);
+    padding: 1px 2px;
+    position: relative;
+    z-index: 50;
+  }
+
+  .menu-item {
+    padding: 3px 8px;
+    cursor: pointer;
+    position: relative;
+    color: var(--win-darkest);
+  }
+
+  .menu-item:hover, .menu-item.active {
+    background-color: var(--win-select);
+    color: var(--win-select-text);
+  }
+
+  .menu-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--win-grey);
+    min-width: 170px;
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    padding: 2px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  }
+
+  .menu-dropdown.show {
+    display: flex !important;
+  }
+
+  .dropdown-row {
+    padding: 4px 14px 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    color: var(--win-darkest);
+    white-space: nowrap;
+  }
+
+  .dropdown-row:hover {
+    background-color: var(--win-select);
+    color: var(--win-select-text);
+  }
+
+  .dropdown-row .hotkey {
+    color: #666;
+    margin-left: 16px;
+    font-size: 10px;
+  }
+  .dropdown-row:hover .hotkey {
+    color: #ccc;
+  }
+
+  .dropdown-separator {
+    height: 1px;
+    border-top: 1px solid var(--win-dark);
+    border-bottom: 1px solid var(--win-light);
+    margin: 3px 1px;
+  }
+
+  /* Hierarchical Dropdown Submenus (Flyout) */
+  .dropdown-row.has-submenu {
+    position: relative;
+  }
+
+  .dropdown-row.has-submenu .submenu-arrow {
+    margin-left: 12px;
+    font-size: 9px;
+  }
+
+  .dropdown-submenu {
+    position: absolute;
+    top: -2px;
+    left: 100%;
+    background-color: var(--win-grey);
+    min-width: 220px;
+    display: none;
+    flex-direction: column;
+    z-index: 1050;
+    padding: 2px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  }
+
+  .dropdown-row.has-submenu:hover > .dropdown-submenu,
+  .dropdown-row.has-submenu.open > .dropdown-submenu {
+    display: flex !important;
+  }
+
+  /* Standard Toolbar */
+  .standard-toolbar {
+    background-color: var(--win-grey);
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border-bottom: 1px solid var(--win-dark);
+  }
+
+  .toolbar-sep {
+    width: 2px;
+    height: 20px;
+    border-left: 1px solid var(--win-dark);
+    border-right: 1px solid var(--win-light);
+    margin: 0 4px;
+  }
+
+  /* Workspace Body */
+  .workspace-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    background-color: var(--win-dark);
+    position: relative;
+  }
+
+  /* Left CAD Tool Palette */
+  #cad-palette {
+    width: 144px;
+    background-color: var(--win-grey);
+    border-right: 2px solid var(--win-light);
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    gap: 4px;
+    flex-shrink: 0;
+    z-index: 10;
+    overflow-y: auto;
+  }
+
+  .palette-header {
+    background-color: var(--win-dark);
+    color: var(--win-light);
+    font-weight: bold;
+    font-size: 10px;
+    text-align: center;
+    padding: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .palette-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .palette-tool-btn {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    padding: 2px 6px;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+
+  .palette-tool-btn .tool-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+  }
+
+  .palette-tool-btn .tool-icon {
+    font-size: 12px;
+    font-weight: bold;
+    width: 14px;
+    text-align: center;
+    color: #000080;
+    flex-shrink: 0;
+  }
+
+  .palette-tool-btn .tool-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #111;
+  }
+
+  .palette-tool-btn .tool-tag {
+    font-size: 9px;
+    font-family: monospace;
+    color: #555;
+    background: rgba(0,0,0,0.06);
+    padding: 1px 3px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+
+  .palette-tool-btn.active .tool-label {
+    color: #000080;
+  }
+
+  .palette-tool-btn.active .tool-tag {
+    background: #000080;
+    color: #ffffff;
+    border-color: #000080;
+    font-weight: bold;
+  }
+
+  .mod-tools-section {
+    margin-top: 4px;
+    border-top: 1px solid var(--win-dark);
+    padding-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* Center CAD Viewport & Layout Tabs Column */
+  .cad-viewport-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* AutoCAD-Style Model / Paperspace Layout Tabs */
+  .cad-layout-tabs-bar {
+    height: 25px;
+    background-color: var(--win-grey);
+    border-top: 2px solid var(--win-light);
+    border-bottom: 1px solid var(--win-dark);
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 0 4px;
+    box-sizing: border-box;
+    user-select: none;
+    z-index: 15;
+  }
+
+  .layout-tabs-scroll-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding-bottom: 1px;
+    flex: 1;
+  }
+
+  .layout-tab {
+    height: 21px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 8px;
+    font-family: var(--font-stack);
+    font-size: 11px;
+    background-color: #c0c0c0;
+    border-top: 2px solid var(--win-light);
+    border-left: 2px solid var(--win-light);
+    border-right: 2px solid var(--win-darkest);
+    border-bottom: none;
+    cursor: pointer;
+    color: #333;
+    white-space: nowrap;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
+  .layout-tab:hover {
+    background-color: #d8d8d8;
+    color: #000;
+  }
+
+  .layout-tab.active {
+    height: 23px;
+    background-color: #ffffff;
+    color: #000080;
+    font-weight: bold;
+    border-top: 2px solid #000080;
+    border-left: 2px solid var(--win-light);
+    border-right: 2px solid var(--win-darkest);
+    box-shadow: 0 -1px 3px rgba(0,0,0,0.15);
+    margin-top: -2px;
+  }
+
+  .layout-tab-icon {
+    font-size: 11px;
+  }
+
+  .layout-tab-title {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .layout-tab-tier {
+    font-size: 9px;
+    color: #64748b;
+    font-weight: normal;
+    padding: 0 3px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 2px;
+  }
+
+  .layout-tab-add {
+    height: 20px;
+    width: 22px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0;
+    margin-left: 4px;
+    align-self: center;
+  }
+
+  .cad-tabs-quick-tools {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-left: 8px;
+    border-left: 1px solid var(--win-dark);
+  }
+
+  /* Center CAD Viewport */
+  #canvas-container {
+    flex: 1;
+    position: relative;
+    background-color: #111e2e;
+    overflow: hidden;
+    cursor: crosshair;
+  }
+
+  #cad-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  /* CAD Translucent Inset HUD Panels */
+  .cad-hud-panel {
+    position: absolute;
+    background: rgba(212, 208, 200, 0.94);
+    padding: 3px 5px;
+    border: 2px solid;
+    border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.45);
+    font-family: var(--font-stack);
+    font-size: 11px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    pointer-events: auto;
+  }
+
+  .hud-top-left {
+    top: 8px;
+    left: 8px;
+  }
+
+  .hud-top-right {
+    top: 8px;
+    right: 8px;
+  }
+
+  .hud-bottom-left {
+    bottom: 8px;
+    left: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    width: 330px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .hud-btn {
+    padding: 2px 5px;
+    font-size: 10px;
+    font-family: var(--font-stack);
+    cursor: pointer;
+    white-space: nowrap;
+    line-height: 1.1;
+  }
+
+  .hud-btn.active {
+    background: #ffffff;
+    color: #000080;
+    font-weight: bold;
+    border-color: #000080;
+  }
+
+  .hud-lineage-trail {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    font-weight: bold;
+    max-width: 280px;
+    overflow-x: auto;
+  }
+
+  .hud-map-step {
+    color: #000080;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .hud-map-step:hover {
+    text-decoration: underline;
+  }
+
+  .portal-badge {
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out;
+  }
+
+  .portal-badge:hover {
+    transform: scale(1.2);
+  }
+
+  /* Right Properties Dock (Visual Basic 6 Grid) */
+  #properties-dock {
+    width: 310px;
+    background-color: var(--win-grey);
+    border-left: 2px solid var(--win-light);
+    display: flex;
+    flex-direction: column;
+    shrink: 0;
+    z-index: 10;
+  }
+
+  .props-titlebar {
+    background: linear-gradient(90deg, #3a6ea5, #004e92);
+    color: white;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 3px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dock-tab-bar {
+    display: flex;
+    background-color: var(--win-base);
+    border-bottom: 2px solid var(--win-dark);
+    padding: 3px 4px 0 4px;
+    gap: 2px;
+  }
+
+  .dock-tab-btn {
+    flex: 1;
+    padding: 3px 2px;
+    font-size: 10px;
+    font-family: var(--font-stack);
+    border: 1px solid var(--win-dark);
+    border-bottom: none;
+    background: var(--win-base);
+    cursor: pointer;
+    border-radius: 3px 3px 0 0;
+    white-space: nowrap;
+    text-align: center;
+    color: #222;
+  }
+
+  .dock-tab-btn.active {
+    background: #ffffff;
+    font-weight: bold;
+    border-top: 2px solid #000080;
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: -2px;
+    z-index: 2;
+    color: #000080;
+  }
+
+  .dock-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--win-base);
+  }
+
+  .dock-panel.hidden {
+    display: none !important;
+  }
+
+  .object-selector-box {
+    padding: 4px;
+    background-color: var(--win-grey);
+    border-bottom: 1px solid var(--win-dark);
+  }
+
+  .win-select-input {
+    width: 100%;
+    background-color: white;
+    border: 2px solid;
+    border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+    font-family: var(--font-stack);
+    font-size: 11px;
+    padding: 2px;
+    outline: none;
+  }
+
+  .props-table-scroll {
+    flex: 1;
+    overflow-y: auto;
+    background-color: white;
+    border-top: 2px solid var(--win-dark);
+    border-left: 2px solid var(--win-dark);
+    border-right: 2px solid var(--win-light);
+    border-bottom: 2px solid var(--win-light);
+    margin: 3px;
+  }
+
+  .vb-property-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+
+  .vb-property-table tr.category-row td {
+    background-color: #d4d0c8;
+    color: #111;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #808080;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+
+  .vb-property-table tr.prop-row td {
+    padding: 2px 4px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+  }
+
+  .vb-property-table tr.prop-row td.prop-name {
+    width: 40%;
+    background-color: #f7f7f7;
+    border-right: 1px solid #ccc;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .vb-property-table tr.prop-row td.prop-val {
+    width: 60%;
+    padding: 1px;
+  }
+
+  .vb-cell-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: var(--font-stack);
+    font-size: 11px;
+    padding: 2px 4px;
+    background: transparent;
+  }
+
+  .vb-cell-input:focus {
+    background-color: #eef5ff;
+    outline: 1px solid #316ac5;
+  }
+
+  /* Bottom Workstation Status Bar */
+  .status-bar {
+    background-color: var(--win-grey);
+    border-top: 1px solid var(--win-dark);
+    display: flex;
+    align-items: center;
+    padding: 2px 3px;
+    gap: 3px;
+    font-size: 11px;
+  }
+
+  .status-pane {
+    padding: 2px 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ========================================================================
+     WINDOWS 95 MDI TASKBAR & DESKTOP WINDOW SYSTEM
+     ======================================================================== */
+  .win95-taskbar {
+    height: 28px;
+    background-color: var(--win-grey);
+    border-top: 2px solid var(--win-light);
+    display: flex;
+    align-items: center;
+    padding: 2px 3px;
+    gap: 4px;
+    z-index: 999;
+    user-select: none;
+    box-sizing: border-box;
+  }
+
+  .win95-start-btn {
+    height: 22px;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: pointer;
+  }
+
+  .win95-start-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    background: #000080;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 900;
+    border-radius: 2px;
+  }
+
+  .win95-task-list {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .win95-task-item {
+    height: 22px;
+    min-width: 120px;
+    max-width: 180px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 6px;
+    font-size: 11px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .win95-task-item.active {
+    border: 2px solid;
+    border-color: var(--win-darkest) var(--win-light) var(--win-light) var(--win-darkest);
+    background-color: #e2e2e2;
+    font-weight: bold;
+    padding-top: 1px;
+    padding-left: 7px;
+  }
+
+  .win95-task-item.minimized {
+    opacity: 0.8;
+    font-style: italic;
+  }
+
+  .win95-systray {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 22px;
+    padding: 0 8px;
+    font-size: 11px;
+  }
+
+  /* MDI Draggable Window Chrome */
+  .mdi-window {
+    position: absolute;
+    background-color: var(--win-grey);
+    border: 2px solid;
+    border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    min-width: 320px;
+    min-height: 200px;
+    resize: both;
+    overflow: hidden;
+  }
+
+  .mdi-window.hidden, .hidden {
+    display: none !important;
+  }
+
+  .mdi-window.minimized {
+    display: none !important;
+  }
+
+  .mdi-window.maximized {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: calc(100% - 28px) !important;
+    resize: none !important;
+  }
+
+  .mdi-window.active-focus {
+    z-index: 200;
+  }
+
+  .mdi-title-bar {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: #ffffff;
+    padding: 3px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: move;
+    user-select: none;
+  }
+
+  .mdi-window:not(.active-focus) .mdi-title-bar {
+    background: #808080;
+    color: #c0c0c0;
+  }
+
+  .mdi-title-text {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mdi-title-controls {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  .mdi-title-controls button {
+    width: 16px;
+    height: 14px;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 0;
+    line-height: 12px;
+    cursor: pointer;
+  }
+
+  .mdi-body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* Start Menu Popup */
+  .win95-start-menu {
+    position: fixed;
+    bottom: 28px;
+    left: 2px;
+    width: 210px;
+    background-color: var(--win-grey);
+    border: 2px solid;
+    border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    padding: 2px;
+  }
+
+  .win95-start-menu.show {
+    display: flex;
+  }
+
+  .start-menu-side-banner {
+    background: linear-gradient(180deg, #000080 0%, #1084d0 100%);
+    color: #fff;
+    padding: 6px 4px;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #808080;
+    margin-bottom: 2px;
+  }
+
+  .win95-start-menu .dropdown-submenu {
+    bottom: -2px;
+    top: auto;
+    border: 2px solid;
+    border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+  }
+
+  body.mdi-dragging iframe {
+    pointer-events: none !important;
+  }
+
+  /* Startup Welcome Modal Dialog */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 128, 128, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+  }
+
+  .modal-overlay.hidden {
+    display: none;
+  }
+
+  .win-dialog {
+    width: 520px;
+    background-color: var(--win-grey);
+    border: 2px solid;
+    border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+  }
+
+  .dialog-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dialog-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid var(--win-dark);
+    padding-bottom: 10px;
+  }
+
+  .banner-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #000080;
+    border: 2px solid var(--win-light);
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .banner-text h2 {
+    font-size: 14px;
+    color: #000080;
+  }
+
+  .banner-text p {
+    font-size: 11px;
+    color: #444;
+    margin-top: 2px;
+  }
+
+  .action-tiles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .action-tile-btn {
+    text-align: left;
+    padding: 10px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .action-tile-btn strong {
+    font-size: 12px;
+    display: block;
+    color: #000080;
+  }
+
+  .action-tile-btn span {
+    font-size: 10px;
+    color: #555;
+    line-height: 1.3;
+  }
+
+  .dialog-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid var(--win-dark);
+  }
+
+  /* Entity Manager Win95 Multi-Pane Styles */
+  .entity-manager-grid {
+    display: grid;
+    grid-template-columns: 210px 1fr 280px;
+    gap: 6px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Threat Clock & Dial Gauges */
+  .clock-tick-track {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 4px;
+    background: #e8e8e8;
+    border: 1px solid #999;
+  }
+  .clock-tick-box {
+    flex: 1;
+    height: 16px;
+    border: 1px solid #808080;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: bold;
+    color: #888;
+  }
+  .clock-tick-box.filled {
+    background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+    border-color: #7f1d1d;
+    color: #ffffff;
+  }
+  .clock-tick-box.filled-warning {
+    background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+    border-color: #78350f;
+    color: #ffffff;
+  }
+  .clock-tick-box.active-last {
+    box-shadow: 0 0 4px #dc2626;
+  }
+  .clock-mini-gauge {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5px;
+    font-size: 8px;
+    letter-spacing: -1px;
+    font-family: monospace;
+    font-weight: bold;
+  }
+
+  .entity-sidebar-tree {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background-color: white;
+  }
+
+  .entity-sidebar-tree > div {
+    flex-shrink: 0;
+  }
+
+  .entity-tree-item {
+    padding: 4px 6px;
+    cursor: pointer;
+    font-size: 11px;
+    border-bottom: 1px solid #f0f0f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+    min-height: 22px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+  }
+
+  .entity-tree-item:hover {
+    background-color: #f5f5f5;
+  }
+
+  .entity-tree-item.active {
+    background-color: var(--win-select);
+    color: var(--win-select-text);
+  }
+
+  .entity-list-container {
+    overflow-y: auto;
+    background-color: white;
+  }
+
+  .entity-win-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .entity-win-table th {
+    background-color: #d4d0c8;
+    color: #111;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 6px 8px;
+    border-bottom: 1px solid #808080;
+    border-right: 1px solid #808080;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .entity-win-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    cursor: pointer;
+    line-height: 1.35;
+    vertical-align: middle;
+  }
+
+  .entity-win-table tr:hover td {
+    background-color: #f0f7ff;
+  }
+
+  .entity-win-table tr.selected td {
+    background-color: var(--win-select);
+    color: var(--win-select-text);
+  }
+
+  .entity-detail-pane {
+    background-color: #f8f8f8;
+    padding: 8px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .entity-badge-tag {
+    display: inline-block;
+    padding: 1px 4px;
+    font-size: 9px;
+    font-weight: bold;
+    border: 1px solid #808080;
+    background-color: #e0e0e0;
+    margin-right: 3px;
+  }
+
+  /* Node and Link Canvas Styles */
+  .canvas-grid-line {
+    stroke: rgba(255, 255, 255, 0.05);
+    stroke-width: 1px;
+  }
+
+  .canvas-edge-road {
+    stroke: #7dd3fc;
+    stroke-width: 2.5px;
+    cursor: pointer;
+    transition: stroke-width 0.1s;
+  }
+
+  .canvas-edge-road:hover {
+    stroke: #ffffff;
+    stroke-width: 4px;
+  }
+
+  .canvas-edge-hegemony {
+    stroke: #f59e0b;
+    stroke-width: 2px;
+    stroke-dasharray: 5,4;
+    cursor: pointer;
+    marker-end: url(#arrow-hegemony);
+  }
+
+  .canvas-edge-hegemony:hover {
+    stroke: #fbbf24;
+    stroke-width: 3.5px;
+  }
+
+  .canvas-edge.selected {
+    stroke: #ec4899 !important;
+    stroke-width: 4px !important;
+  }
+
+  .node-group {
+    cursor: grab;
+  }
+
+  .node-group:active {
+    cursor: grabbing;
+  }
+
+  .node-circle {
+    stroke-width: 2px;
+    transition: filter 0.1s;
+  }
+
+  .node-group.selected .node-circle {
+    stroke: #ffff00 !important;
+    stroke-width: 3.5px !important;
+    filter: drop-shadow(0 0 6px #ffff00);
+  }
+
+  /* Threat Clocks Canvas Callout & Pulsing Hazard */
+  @keyframes pulseHazardStroke {
+    0% { stroke: #dc2626; stroke-width: 2.5px; filter: drop-shadow(0 0 2px #dc2626); }
+    50% { stroke: #ff0000; stroke-width: 5px; filter: drop-shadow(0 0 8px #ff0000); }
+    100% { stroke: #dc2626; stroke-width: 2.5px; filter: drop-shadow(0 0 2px #dc2626); }
+  }
+  .node-hazard-pulse {
+    animation: pulseHazardStroke 1.2s infinite ease-in-out;
+  }
+  .canvas-clock-callout {
+    cursor: pointer;
+    user-select: none;
+    transition: filter 0.1s;
+  }
+  .canvas-clock-callout:hover {
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));
+  }
+
+  /* Ticket Command Center Win95 Workstation Styles */
+  .ticket-center-grid {
+    display: grid;
+    grid-template-columns: 440px 1fr;
+    gap: 8px;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+  .ticket-list-pane {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: #ffffff;
+  }
+  .ticket-detail-pane {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: #f7f7f7;
+    padding: 10px;
+    gap: 8px;
+  }
+  .ticket-badge-status {
+    display: inline-block;
+    padding: 1px 5px;
+    font-size: 9px;
+    font-weight: bold;
+    border-radius: 2px;
+    border: 1px solid #999;
+  }
+  .ticket-badge-shipped { background: #dcfce7; color: #15803d; border-color: #86efac; }
+  .ticket-badge-drafting { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+  .ticket-badge-authoring { background: #fef3c7; color: #b45309; border-color: #fcd34d; }
+  .ticket-badge-backlog { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+  .ticket-badge-critical { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
+
+  .selection-box {
+    stroke: #ffff00;
+    stroke-width: 1px;
+    stroke-dasharray: 3,3;
+    fill: none;
+  }
+
+  .node-label {
+    fill: #ffffff;
+    font-family: var(--font-stack);
+    font-size: 10px;
+    text-anchor: middle;
+    pointer-events: none;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  .node-badge {
+    font-family: var(--font-stack);
+    font-size: 8px;
+    font-weight: bold;
+    fill: #ffffff;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+
+  /* Module Explorer Win95 Workstation Dialog Styles */
+  .me-dialog {
+    width: 95vw;
+    max-width: 1220px;
+    height: 88vh;
+    max-height: 840px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .me-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--win-base);
+    padding: 4px 6px;
+    border-bottom: 1px solid var(--win-dark);
+    flex-wrap: wrap;
+  }
+
+  .me-filter-bar label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .me-split-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 6px;
+    flex-grow: 1;
+    overflow: hidden;
+    padding: 6px;
+    background-color: var(--win-base);
+  }
+
+  .me-catalog-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+    background-color: white;
+  }
+
+  .me-catalog-table-container {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .me-catalog-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+
+  .me-catalog-table th {
+    background-color: #d4d0c8;
+    color: #111;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 3px 5px;
+    border-bottom: 1px solid #808080;
+    border-right: 1px solid #808080;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .me-catalog-table td {
+    padding: 3px 5px;
+    border-bottom: 1px solid #ececec;
+    border-right: 1px solid #f0f0f0;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .me-catalog-table tr:hover td {
+    background-color: #eef6ff;
+  }
+
+  .me-catalog-table tr.selected td {
+    background-color: var(--win-select);
+    color: var(--win-select-text);
+  }
+
+  .me-catalog-table tr.selected td .me-badge {
+    background-color: #ffffff;
+    color: #000080;
+    border-color: #ffffff;
+  }
+
+  .me-badge {
+    display: inline-block;
+    padding: 1px 4px;
+    font-size: 9px;
+    font-weight: bold;
+    border: 1px solid #999;
+    background-color: #e8e8e8;
+    color: #222;
+    border-radius: 2px;
+  }
+
+  .me-badge-slotted {
+    background-color: #10b981;
+    color: #ffffff;
+    border-color: #059669;
+  }
+
+  .me-badge-tier {
+    background-color: #3b82f6;
+    color: #ffffff;
+    border-color: #2563eb;
+  }
+
+  .me-badge-crisis {
+    background-color: #ef4444;
+    color: #ffffff;
+    border-color: #dc2626;
+  }
+
+  .me-detail-pane {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #f7f7f7;
+  }
+
+  .me-detail-header {
+    background-color: #eae7df;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--win-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .me-tabs-bar {
+    display: flex;
+    background-color: var(--win-base);
+    border-bottom: 2px solid var(--win-dark);
+    padding: 4px 6px 0 6px;
+    gap: 3px;
+  }
+
+  .me-tab-btn {
+    padding: 3px 10px;
+    font-size: 11px;
+    border: 1px solid var(--win-dark);
+    border-bottom: none;
+    background: #d4d0c8;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 3px 3px 0 0;
+  }
+
+  .me-tab-btn.active {
+    background: #f7f7f7;
+    font-weight: bold;
+    border-top: 2px solid #000080;
+    margin-bottom: -2px;
+    padding-bottom: 5px;
+    z-index: 2;
+  }
+
+  .me-tab-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    display: none;
+  }
+
+  .me-tab-content.active {
+    display: block;
+  }
+
+  .me-card {
+    background: white;
+    border: 1px solid #c0c0c0;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+  }
+
+  .me-card-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #000080;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 3px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .me-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .me-clock-box {
+    background: #fff8f8;
+    border: 1px solid #fca5a5;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    border-left: 3px solid #ef4444;
+  }
+
+  .me-dial-box {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    border-left: 3px solid #10b981;
+  }
+
+  .me-reader-container {
+    background: white;
+    padding: 12px 16px;
+    line-height: 1.5;
+    font-size: 12px;
+    color: #1a1a1a;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+  }
+
+  .me-reader-container h1 { font-size: 15px; color: #000080; margin: 8px 0 4px 0; border-bottom: 1px solid #000080; padding-bottom: 2px; }
+  .me-reader-container h2 { font-size: 13px; color: #000080; margin: 8px 0 4px 0; }
+  .me-reader-container h3 { font-size: 12px; color: #1e3a8a; margin: 6px 0 3px 0; font-weight: bold; }
+  .me-reader-container p { margin-bottom: 6px; }
+  .me-reader-container ul { margin-left: 18px; margin-bottom: 6px; }
+  .me-reader-container li { margin-bottom: 2px; }
+  .me-reader-container code { background: #eee; padding: 1px 4px; font-family: monospace; font-size: 11px; }
+  .me-reader-container hr { border: none; border-top: 1px solid #ccc; margin: 8px 0; }
+  .me-reader-container table { border-collapse: collapse; width: 100%; margin-bottom: 8px; font-size: 11px; }
+  .me-reader-container th, .me-reader-container td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; }
+  .me-reader-container th { background: #e0e0e0; }
+
+  /* Win95 Bidirectional Wiki & Autocomplete Styles */
+  #wiki-hovercard {
+    position: fixed;
+    z-index: 10000;
+    max-width: 300px;
+    background: #ffffcc;
+    border: 2px solid #000080;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+    padding: 6px 8px;
+    font-size: 11px;
+    color: #000000;
+    font-family: var(--font-stack);
+    pointer-events: none;
+  }
+  #wiki-hovercard.hidden {
+    display: none !important;
+  }
+
+  #wiki-autocomplete-dropdown {
+    position: fixed;
+    z-index: 11000;
+    width: 280px;
+    max-height: 220px;
+    overflow-y: auto;
+    background: var(--win-base);
+    border: 2px solid;
+    border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    padding: 2px;
+    font-size: 11px;
+    font-family: var(--font-stack);
+  }
+  #wiki-autocomplete-dropdown.hidden {
+    display: none !important;
+  }
+
+  .wiki-autocomplete-item {
+    padding: 3px 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: var(--win-darkest);
+    border: 1px solid transparent;
+  }
+  .wiki-autocomplete-item.selected, .wiki-autocomplete-item:hover {
+    background: var(--win-select);
+    color: var(--win-select-text);
+  }
+
+  .wiki-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #7dd3fc;
+  }
+  .wiki-pill:hover {
+    background: #bae6fd;
+    color: #0c4a6e;
+  }
+</style>

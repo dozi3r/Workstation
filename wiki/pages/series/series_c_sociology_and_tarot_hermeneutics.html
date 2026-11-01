@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants — Creator Studio Technical Manual</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="active" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../index.html#series-index">Cross-Cutting Series</a> &rsaquo;
+        <span>Series C</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</h1>
+        <div class="article-subtitle">
+          <span class="badge badge-Series">Cross-Cutting Subsystem Series</span>
+          <span class="badge">Volume VI</span>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (19)</a>
+        </div>
+      </div>
+
+      <div class="ai-digest">
+        <div class="ai-digest-title">🤖 Analytical Knife Seam Summary</div>
+        <p style="margin:4px 0;">Complete mapping between organizational sociology (Structure, Energy, Cohesion), the 4 Cultural Quadrants, and Operational Profiles.</p>
+      </div>
+
+      <blockquote class="wiki-quote"><strong>Cross-Cutting Analytical Series</strong>: Complete mapping between organizational sociology (Structure, Energy, Cohesion), the 4 Competing Values Framework (CVF) Cultural Quadrants, Operational Profiles, the 6-Step Deterministic Diagnostic Battery, and the Major/Minor Arcana compiler pipelines.</blockquote>
+<h2>1. Architectural Seam Overview</h2>
+<p>The <strong>Sociology & Tarot Hermeneutics Engine</strong> translates academic organizational sociology—specifically Cameron & Quinn's Competing Values Framework (CVF), Porter & Groysberg's Strategic Operations Alignment, Richard Daft's Organizational Design, Robert Duncan's Environmental Uncertainty Matrix, and Boris Groysberg's 5-Dimension Culture Radar—into a deterministic, system-agnostic behavioral algebra. Rather than leaving settlement behavior, faction politics, and esoteric Tarot interpretations to subjective improvisation, this subsystem binds every pointcrawl node and transit corridor to reproducible mathematical coordinates.</p>
+<p>This series slices across physical directory boundaries (<code>sociology/</code>, <code>tarot/</code>, <code>src/workstation/</code>, <code>mods/</code>, and <code>network/</code>) to document how the following authoritative specifications, databases, compilers, and interactive surfaces collaborate:</p>
+<ul class="wiki-list">
+<li><strong>Sociological Specifications (<code>sociology/</code>)</strong>:</li>
+<li><a class="wiki-link" href="../../pages/sociology/01_Core_Cultural_Quadrants.md.html">📄 sociology/01_Core_Cultural_Quadrants.md</a> — Macro 4-quadrant behavioral engine (Clan, Adhocracy, Market, Hierarchy).</li>
+<li><a class="wiki-link" href="../../pages/sociology/02_Operational_Profiles_and_Power.md.html">📄 sociology/02_Operational_Profiles_and_Power.md</a> — Strategic labor, power flow, and operational trade-offs (Design, Service, Produce, Deliver).</li>
+<li><a class="wiki-link" href="../../pages/sociology/03_Environmental_Uncertainty_and_Crisis.md.html">📄 sociology/03_Environmental_Uncertainty_and_Crisis.md</a> — Duncan's environmental uncertainty matrix and 4-tick Crisis Metamorphism Clocks.</li>
+<li><a class="wiki-link" href="../../pages/sociology/04_Sensory_Pentagon_Generator.md.html">📄 sociology/04_Sensory_Pentagon_Generator.md</a> — Groysberg 5-dimension (<code>1d6</code>) procedural sensory settlement generator (Behaviors, Relationships, Attitudes, Values, Environment).</li>
+<li><a class="wiki-link" href="../../pages/sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md.html">📄 sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md</a> — Graph-to-sociology mapping across ideological colors and topological functions (superseding the legacy archive <a class="wiki-link" href="../../pages/sociology/05_Node_and_Faction_Mapping.md.html">📄 sociology/05_Node_and_Faction_Mapping.md</a> per <span class="wiki-tag">🎫 SYS-AUDIT-01</span>).</li>
+<li><a class="wiki-link" href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html">📄 sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</a> — Formal specification of the 3-dial Organizational Disposition Vector (<code>[S, E, C]</code>), the 6-Step Diagnostic Battery, and multi-deck Tarot calibration.</li>
+<li><a class="wiki-link" href="../../pages/sociology/07_Granular_64_Disposition_Matrix.md.html">📄 sociology/07_Granular_64_Disposition_Matrix.md</a> — The complete 64-cell archetypal taxonomy with Core Boons, Core Burdens, Micro/Macro Passives, and Exemplar NPCs.</li>
+<li><code>sociology/08_Tarot_Sociology_Matrix.md</code> & <code>09_Minor_Arcana_Edge_Matrix.md</code> — Legacy Tarot compendiums retired from the core workstation to optional modular extensions (see <a class="wiki-link" href="../../pages/docs/adr/0011-retirement-of-vestigial-tarot-balancing-engine.md.html">📄 docs/adr/0011-retirement-of-vestigial-tarot-balancing-engine.md</a> and <a class="wiki-link" href="../../pages/docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md.html">📄 docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md</a>).</li>
+<li><a class="wiki-link" href="../../pages/sociology/SOCIOLOGY_MASTER_COMPENDIUM.md.html">📄 sociology/SOCIOLOGY_MASTER_COMPENDIUM.md</a> — Consolidated single-file reference uniting <code>SOC-01</code> through <code>SOC-05</code>.</li>
+<li><strong>Downstream Workstation & Surface Integration</strong>:</li>
+<li><a class="wiki-link" href="../../pages/src/workstation/scripts/sociology_data.js.html">📄 src/workstation/scripts/sociology_data.js</a> — Inlined into <a class="wiki-link" href="../../pages/start.html.html">📄 start.html</a> and referenced by <a class="wiki-link" href="../../pages/network/odv_archetype_matrix.html.html">📄 network/odv_archetype_matrix.html</a> to provide the 64-cell <code>[S, E, C]</code> disposition lookup, CVF quadrants, and operational profiles.</li>
+<li>Core math relies on native mathematical baseline <code>[2, 2, 2]</code> ("The Deliberative Concord") with dynamic mod hooks (<code>window.CreatorStudio.registerOdvFallbackResolver</code>) for future deck extensions.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>2. The 3D Granular Disposition Vector <code>[S, E, C]</code></h2>
+<p>At the core of <a class="wiki-link" href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html">📄 sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</a> and <a class="wiki-link" href="../../pages/sociology/07_Granular_64_Disposition_Matrix.md.html">📄 sociology/07_Granular_64_Disposition_Matrix.md</a> is the <strong>Organizational Disposition Vector (ODV)</strong>. Every entity—whether a sovereign settlement, splinter faction, NPC leader, or Tarot card orientation—is parameterized as a 3-tuple of integer dials ranging from <code>1</code> to <code>4</code>:</p>
+<pre class="code-block"><code class="lang-text">ODV = [S, E, C]   where   S, E, C in {1, 2, 3, 4}   (4 x 4 x 4 = 64 Discrete Archetypes)</code></pre>
+<h3>Parameter Definitions & Scale Gradations</h3>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Dial</th><th>Sociological Dimension</th><th>Rating <code>1</code> (Extreme Low)</th><th>Rating <code>2</code> (Moderate Low)</th><th>Rating <code>3</code> (Moderate High)</th><th>Rating <code>4</code> (Extreme High)</th></tr>
+</thead>
+<tbody>
+<tr><td><strong><code>S</code></strong></td><td><strong>Structure / Stability vs. Entropy</strong> <em>(Rate of internal reconfiguration, error tolerance, authority rigidity)</em></td><td><strong>Immutable Order / Clockwork</strong>: Totalitarian stasis; stone-carved protocol; zero procedural variance; deviation treated as capital treason.</td><td><strong>Codified Protocol</strong>: Written charters, standardized operating procedures (SOPs), formal hierarchy; bounded legislative review.</td><td><strong>Adaptive Heuristics</strong>: Decentralized problem-solving; policies treated as rough heuristics; situational task-force rotation.</td><td><strong>Hyper-Entropy / Fluid Flux</strong>: Radical ad-hocracy, feral nomadism, or continuous metamorphosis; hourly role reinvention.</td></tr>
+<tr><td><strong><code>E</code></strong></td><td><strong>Energy / Boundary Focus</strong> <em>(Locus of purpose, success metric, posture toward outsiders)</em></td><td><strong>Hermetic Autarky</strong>: Hyper-internal centripetal focus; outsiders treated as contagion; victory defined by sacred/kin preservation.</td><td><strong>Protective Cohesion</strong>: Community-first mutualism; guarded perimeters; defensive reciprocity and vouched hospitality.</td><td><strong>Transactional Exchange</strong>: Centrifugal mercantile engagement; contract-driven trade volume, tariffs, and competitive leverage.</td><td><strong>Predatory Conquest</strong>: Hyper-external zero-sum expansion; territorial annexation, debt peonage, or biomass/resource extraction.</td></tr>
+<tr><td><strong><code>C</code></strong></td><td><strong>Cohesion / Systemic Coupling</strong> <em>(Topological interdependence, logistics, decapitation resilience)</em></td><td><strong>Atomized Silo</strong>: Fully self-contained lone workshops or solo agents; indefinite local autarky; leader death disperses cells without killing individuals.</td><td><strong>Loose Confederation</strong>: Decoupled guilds or autonomous skiffs with voluntary treaties; seasonal stockpiled independence (3–6 months).</td><td><strong>Integrated Network</strong>: Federated regional mesh sharing water, fuel, or defense; orderly council succession; 2–4 week logistical horizon.</td><td><strong>Monolithic Matrix / Hive</strong>: Hardwired continental grid or cyber-somatic symbiosis; instant matrix succession upon leader loss, but shuts down in 48–72h if supply lines are severed.</td></tr>
+</tbody>
+</table></div>
+<div class="callout callout-important"><strong>IMPORTANT:</strong> <strong>Polarity Convention Note (<code>S</code> Dial)</strong>: In <code>SOC-06</code> and <code>SOC-07</code>, <code>S = 1</code> represents maximum <strong>Structural Rigidity / Stability</strong> (Low Entropy), whereas <code>S = 4</code> represents maximum <strong>Flexibility / Fluid Entropy</strong>. All downstream derivations (<code>getCvfQuadrant</code>, <code>getOperationalProfile</code>, <code>getDuncanUncertainty</code>, and <code>getGroysberg5D</code> in <a class="wiki-link" href="../../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a>) strictly follow <code>S <= 2</code> = Stable/Ordered and <code>S >= 3</code> = Flexible/Entropic.</div>
+<hr class="wiki-hr"/>
+<h2>3. Deterministic Sociological Derivations</h2>
+<p>From the primitive <code>[S, E, C]</code> coordinate vector, the engine deterministically derives six secondary sociological and mechanical attributes without human guesswork. These pure functions are implemented in <a class="wiki-link" href="../../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a> (lines 48–98) and specified in <a class="wiki-link" href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html">📄 sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</a> (Section 3).</p>
+<pre class="code-block"><code class="lang-text">                        +------------------------+
+                        |     ODV: [S, E, C]     |
+                        +-----------+------------+
+                                    |
+        +---------------------------+---------------------------+
+        |                           |                           |
+        v                           v                           v
++-------+---------------+   +-------+---------------+   +-------+---------------+
+| CVF Cultural Quadrant |   |  Operational Profile  |   |  Groysberg 5D Radar   |
+|   f(S, E) -&gt; SOC-01   |   |   f(S, C) -&gt; SOC-02   |   | f(S, E, C) -&gt; SOC-04  |
+| • Clan      (S&gt;=3,E&lt;=2|   | • Design   (S&gt;=3,C&lt;=2)|   | • Behaviors     (1-6) |
+| • Adhocracy (S&gt;=3,E&gt;=3|   | • Service  (S&gt;=3,C&gt;=3)|   | • Relationships (1-6) |
+| • Hierarchy (S&lt;=2,E&lt;=2|   | • Produce  (S&lt;=2,C&lt;=2)|   | • Attitudes     (1-6) |
+| • Market    (S&lt;=2,E&gt;=3|   | • Deliver  (S&lt;=2,C&gt;=3)|   | • Values        (1-6) |
++-----------------------+   +-----------------------+   | • Environment   (1-6) |
+                                                        +-----------------------+</code></pre>
+<h3>3.1 Competing Values Framework (CVF) Cultural Quadrants: $f(S, E)$</h3>
+<p>Crossing <strong>Stability/Entropy (<code>S</code>)</strong> with <strong>Boundary Focus (<code>E</code>)</strong> yields the four macro cultural archetypes from Cameron & Quinn (1999), documented in <a class="wiki-link" href="../../pages/sociology/01_Core_Cultural_Quadrants.md.html">📄 sociology/01_Core_Cultural_Quadrants.md</a>:</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Stability (<code>S</code>)</th><th>Boundary Focus (<code>E</code>)</th><th>CVF Quadrant</th><th>Institutional Motto & Leader Type</th><th>Daft Strategic Focus</th><th>Fatal Structural Flaw</th></tr>
+</thead>
+<tbody>
+<tr><td><strong><code>S >= 3</code></strong> <em>(Flexible)</em></td><td><strong><code>E <= 2</code></strong> <em>(Internal)</em></td><td><strong>Clan</strong> <em>(Collaborate)</em></td><td><em>"We stand together, or we drown together."</em><br>Facilitator / Mentor / Patriarch</td><td>Internal Maintenance & Flexibility (Collaborative / Human Relations)</td><td><strong>Consensus Paralysis</strong>: Marathon council debates delay rapid crisis response.</td></tr>
+<tr><td><strong><code>S >= 3</code></strong> <em>(Flexible)</em></td><td><strong><code>E >= 3</code></strong> <em>(External)</em></td><td><strong>Adhocracy</strong> <em>(Create)</em></td><td><em>"First to invent, last to surrender."</em><br>Visionary / Artificer / Maverick</td><td>External Positioning & Flexibility (Open Systems / Creative Innovation)</td><td><strong>Exhaustion & Anarchy</strong>: Constant pivoting burns through personnel and capital.</td></tr>
+<tr><td><strong><code>S <= 2</code></strong> <em>(Stable)</em></td><td><strong><code>E <= 2</code></strong> <em>(Internal)</em></td><td><strong>Hierarchy</strong> <em>(Control)</em></td><td><em>"Protocol is life; deviation is extinction."</em><br>Coordinator / Monitor / High Arbiter</td><td>Internal Maintenance & Stability (Internal Process / Bureaucratic Control)</td><td><strong>Brittle Rigidity</strong>: Paralyzed by out-of-manual anomalies; guards await dead superiors' orders.</td></tr>
+<tr><td><strong><code>S <= 2</code></strong> <em>(Stable)</em></td><td><strong><code>E >= 3</code></strong> <em>(External)</em></td><td><strong>Market</strong> <em>(Compete)</em></td><td><em>"Results justify the balance sheet."</em><br>Hard-Driver / Producer / Cartel Boss</td><td>External Positioning & Stability (Rational Goal / Competitive Productivity)</td><td><strong>Moral Attrition & Sabotage</strong>: Cutthroat quotas breed internal paranoia and backstabbing.</td></tr>
+</tbody>
+</table></div>
+<h3>3.2 Strategic Operational Profiles: $f(S, C)$</h3>
+<p>Crossing <strong>Stability/Entropy (<code>S</code>)</strong> with <strong>Systemic Coupling (<code>C</code>)</strong> yields the four operational machinery profiles from Porter, Groysberg, and Daft, documented in <a class="wiki-link" href="../../pages/sociology/02_Operational_Profiles_and_Power.md.html">📄 sociology/02_Operational_Profiles_and_Power.md</a>:</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Stability (<code>S</code>)</th><th>Coupling (<code>C</code>)</th><th>Operational Profile</th><th>Organizational Structure & Execution</th><th>Basis of Power</th><th>Inherent Strategic Sacrifice</th></tr>
+</thead>
+<tbody>
+<tr><td><strong><code>S >= 3</code></strong> <em>(Flexible)</em></td><td><strong><code>C <= 2</code></strong> <em>(Independent)</em></td><td><strong>Design</strong> <em>(Specialist Enclave)</em></td><td>Autonomous master-apprentice cells $\to$ <em>Enable & Support</em></td><td>Monopoly on technical insight & esoteric craft</td><td>Sacrifices defensive unity and mass scalability for bespoke breakthroughs.</td></tr>
+<tr><td><strong><code>S >= 3</code></strong> <em>(Flexible)</em></td><td><strong><code>C >= 3</code></strong> <em>(Interdependent)</em></td><td><strong>Service</strong> <em>(Mutualist League)</em></td><td>Flat rotating committees $\to$ <em>Experience & Accountability</em></td><td>Reputational debt & moral authority</td><td>Sacrifices command speed and centralized force for distributed resilience.</td></tr>
+<tr><td><strong><code>S <= 2</code></strong> <em>(Stable)</em></td><td><strong><code>C <= 2</code></strong> <em>(Independent)</em></td><td><strong>Produce</strong> <em>(Extractive Mill)</em></td><td>Rigid foreman-overseer pyramid $\to$ <em>Enforce & Control</em></td><td>Physical coercion & resource monopolies</td><td>Sacrifices worker morale and adaptive thinking for brute production volume.</td></tr>
+<tr><td><strong><code>S <= 2</code></strong> <em>(Stable)</em></td><td><strong><code>C >= 3</code></strong> <em>(Interdependent)</em></td><td><strong>Deliver</strong> <em>(Matrix Bastion)</em></td><td>Cross-functional matrix councils $\to$ <em>Enroll & Responsibility</em></td><td>Institutional legitimacy & systemic redundancy</td><td>Sacrifices individual liberty and improvisation for bulletproof survivability.</td></tr>
+</tbody>
+</table></div>
+<h3>3.3 The 8 Octants & 64-Cell Dual-Horizon Matrix</h3>
+<p>When all three binary splits (<code>Low 1–2</code> vs. <code>High 3–4</code> across <code>S</code>, <code>E</code>, <code>C</code>) are combined, they form the <strong>8 Macro Octants</strong> defined in <a class="wiki-link" href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html">📄 sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</a> (Section 7):</p>
+<ul class="wiki-list">
+<li><strong>Octant #1 <code>[Low, Low, Low]</code></strong>: <em>The Hermetic Vault</em> (<code>Hierarchy</code> / <code>Produce</code> — Passive: <em>Hermetic Seal</em>)</li>
+<li><strong>Octant #2 <code>[Low, Low, High]</code></strong>: <em>The Fortress Bastion</em> (<code>Hierarchy</code> / <code>Deliver</code> — Passive: <em>Phalanx Redundancy</em>)</li>
+<li><strong>Octant #3 <code>[Low, High, Low]</code></strong>: <em>The Extractive Slag-Mill</em> (<code>Market</code> / <code>Produce</code> — Passive: <em>Grim Quota</em>)</li>
+<li><strong>Octant #4 <code>[Low, High, High]</code></strong>: <em>The Predatory Syndicate</em> (<code>Market</code> / <code>Deliver</code> — Passive: <em>Monopolistic Stranglehold</em>)</li>
+<li><strong>Octant #5 <code>[High, Low, Low]</code></strong>: <em>The Artisan Enclave</em> (<code>Clan</code> / <code>Design</code> — Passive: <em>Esoteric Crucible</em>)</li>
+<li><strong>Octant #6 <code>[High, Low, High]</code></strong>: <em>The Mutualist Hearth</em> (<code>Clan</code> / <code>Service</code> — Passive: <em>Communal Hearth</em>)</li>
+<li><strong>Octant #7 <code>[High, High, Low]</code></strong>: <em>The Rogue Corsair</em> (<code>Adhocracy</code> / <code>Design</code> — Passive: <em>Ghost Trade</em>)</li>
+<li><strong>Octant #8 <code>[High, High, High]</code></strong>: <em>The Swarm Armada</em> (<code>Adhocracy</code> / <code>Service</code> — Passive: <em>Swarm Momentum</em>)</li>
+</ul>
+<p>In <a class="wiki-link" href="../../pages/sociology/07_Granular_64_Disposition_Matrix.md.html">📄 sociology/07_Granular_64_Disposition_Matrix.md</a>, each of the 8 Octants is subdivided into 8 specific integer coordinates ($8 \times 8 = 64$ cells, from <code>[1, 1, 1]</code> <em>The Sealed Monolith</em> to <code>[4, 4, 4]</code> <em>The Entropic Vortex</em>). Every cell defines:</p>
+<ul class="wiki-list">
+<li><strong>Core Boon</strong> & <strong>Core Burden</strong>: The structural superpower and its inescapable organizational blind spot.</li>
+<li><strong>Micro Passive (Internal Mechanics)</strong>: Governs interior damage sharing, morale, research speed, and deviance handling inside the node perimeter.</li>
+<li><strong>Macro Passive (Influence Sphere)</strong>: Projects outward across connected pointcrawl edges (e.g., quarantine null-zones, tariff liens, assimilation creep, or boomtown liquidity).</li>
+<li><strong>Exemplar NPC & Interaction Hook</strong>: A concrete voice line and immediate tabletop dilemma.</li>
+</ul>
+<h3>3.4 Secondary Algebraic Formulas (Uncertainty, Radar, Friction & Affinity)</h3>
+<p><a class="wiki-link" href="../../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a> and <a class="wiki-link" href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html">📄 sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</a> compute four additional metrics from <code>[S, E, C]</code>:</p>
+<ul class="wiki-list">
+<li><strong>Groysberg 5D Pentagon Radar (<code>1</code> to <code>6</code> scale per dimension, matching <a class="wiki-link" href="../../pages/sociology/04_Sensory_Pentagon_Generator.md.html">📄 sociology/04_Sensory_Pentagon_Generator.md</a>)</strong>:</li>
+</ul>
+<pre class="code-block"><code class="lang-javascript">  const behaviors     = s === 4 ? 6 : s === 3 ? 4 : s === 2 ? 2 : 1;
+  const relationships = Math.min(6, Math.max(1, Math.round((5 - s + c) * 0.75)));
+  const attitudes     = Math.min(6, Math.max(1, Math.round((s + e) * 0.75)));
+  const values        = Math.min(6, Math.max(1, Math.round((5 - e + s) * 0.75)));
+  const environment   = Math.min(6, Math.max(1, Math.round((5 - s + c * 1.2) * 0.65)));</code></pre>
+<ul class="wiki-list">
+<li><strong>Baseline & Party Social Friction Dial ($F_p \in \{1, 2, 3, 4\}$)</strong>:</li>
+<li><em>Card Baseline Friction</em> (relative to a pragmatic adventurer party at <code>[S=3, E=3]</code>):</li>
+</ul>
+<p>$$F_{\text{base}} = \text{clamp}\left(1, 4, 1 + \left\lfloor \frac{|3 - S| + |3 - E|}{2} \right\rfloor \right)$$</p>
+<ul class="wiki-list">
+<li><em>Dynamic Party-to-Target Friction</em>:</li>
+</ul>
+<p>$$F_p = \text{clamp}\left(1, 4, 1 + \left\lfloor \frac{|S_{\text{party}} - S_{\text{target}}| + |E_{\text{party}} - E_{\text{target}}|}{2} \right\rfloor \right)$$</p>
+<p>Where $F_p = 1$ grants social advantage (Harmonic Resonance) and $F_p = 4$ makes verbal negotiation impossible without radical concession (Existential Incompatibility).</p>
+<ul class="wiki-list">
+<li><strong>Topological Network Influence Affinity ($\text{Affinity}(A, B) \in [0, 1]$)</strong>:</li>
+</ul>
+<p>$$\text{Affinity}(A, B) = 1.0 - \left(\frac{|S_A - S_B| + |E_A - E_B| + |C_A - C_B|}{9}\right)$$</p>
+<p>When $\text{Affinity} \ge 0.75$, cultural influence propagates smoothly across the edge; when $\text{Affinity} \le 0.35$, severe ideological rejection triggers border skirmishes and Conflation Rumors.</p>
+<ul class="wiki-list">
+<li><strong>Dial Intensity Scaling</strong>:</li>
+</ul>
+<p>$$\text{Intensity} = |S - 2.5| + |E - 2.5| + |C - 2.5|$$</p>
+<p>Moderate coordinates (<code>2</code> or <code>3</code> on all dials, $\text{Intensity} = 1.5$) yield <code>d6/d8</code> resource dice and <code>1-tick</code> clock progression; extreme corner coordinates (<code>1</code> or <code>4</code> on all dials, $\text{Intensity} = 4.5$) yield <code>d10/d12</code> supercharged boons alongside <code>2-tick</code> catastrophic vulnerability clocks.</p>
+<hr class="wiki-hr"/>
+<h2>4. The 6-Step Deterministic Diagnostic Battery (<code>SOC-06</code>)</h2>
+<p>To guarantee high <strong>inter-rater reliability</strong> when scoring a faction or Tarot card, authors never assign <code>[S, E, C]</code> numbers by intuition. Instead, <a class="wiki-link" href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html">📄 sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</a> (Section 4) and <a class="wiki-link" href="../../pages/tarot/decks/_deck_template.json.html">📄 tarot/decks/_deck_template.json</a> enforce a <strong>6-question diagnostic battery</strong> (two empirical tests per dial, each scored <code>1</code> to <code>4</code>):</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Dial</th><th>Test ID</th><th>Diagnostic Inquiry</th><th>Score <code>1</code> Anchor</th><th>Score <code>2</code> Anchor</th><th>Score <code>3</code> Anchor</th><th>Score <code>4</code> Anchor</th><th>Formula</th></tr>
+</thead>
+<tbody>
+<tr><td><strong><code>E</code></strong></td><td><strong><code>tE1</code></strong></td><td><strong>The Metric of Triumph</strong>: <em>How does leadership calculate a successful cycle?</em></td><td>Zero internal losses; sacred purity preserved.</td><td>Local stockpiles full; defensive border equilibrium.</td><td>Trade surplus expanded; rivals indebted.</td><td>New territory annexed; external resources stripped.</td><td>$E = \text{round}\left(\frac{\text{tE1} + \text{tE2}}{2}\right)$</td></tr>
+<tr><td><strong><code>E</code></strong></td><td><strong><code>tE2</code></strong></td><td><strong>The Stranger Encounter</strong>: <em>How is an unaccompanied outsider processed at the gate?</em></td><td>Immediate quarantine, blinding, or execution as contaminant.</td><td>Barred unless vouched by a member under shared penalty.</td><td>Escorted to customs bazaar; taxed and appraised for trade.</td><td>Stripped of gear, conscripted, or harvested as feedstock.</td><td><em>(Computed in <code>generate_tarot_matrix.js</code>)</em></td></tr>
+<tr><td><strong><code>S</code></strong></td><td><strong><code>tS1</code></strong></td><td><strong>The Deviance / Error Threshold</strong>: <em>How is an unapproved procedural shortcut treated?</em></td><td>Capital treason or sacrilege; immediate trial/purge.</td><td>Bureaucratic reprimand, demotion, or docked rations.</td><td>Quietly adopted as local heuristic if it solved a problem.</td><td>Celebrated breakthrough; rulebook discarded immediately.</td><td>$S = \text{round}\left(\frac{\text{tS1} + \text{tS2}}{2}\right)$</td></tr>
+<tr><td><strong><code>S</code></strong></td><td><strong><code>tS2</code></strong></td><td><strong>Reconfiguration Cadence</strong>: <em>How rapidly do command roles and laws shift?</em></td><td>Millennial granite; ancestral castes unchanged for eras.</td><td>Codified legislative review and stamped charters.</td><td>Situational committee rotation among veteran peers.</td><td>Hourly ad-hocracy; command belongs to whoever seizes the wheel.</td><td><em>(Computed in <code>generate_tarot_matrix.js</code>)</em></td></tr>
+<tr><td><strong><code>C</code></strong></td><td><strong><code>tC1</code></strong></td><td><strong>Decapitation Vulnerability</strong>: <em>What happens 24 hours after the leader is assassinated?</em></td><td>Immediate cell dispersal into solo wilderness survival.</td><td>Autonomous sub-guilds lock doors and compete for assets.</td><td>Orderly council succession via designated deputy.</td><td>Seamless matrix absorption without missing a shift.</td><td>$C = \text{round}\left(\frac{\text{tC1} + \text{tC2}}{2}\right)$</td></tr>
+<tr><td><strong><code>C</code></strong></td><td><strong><code>tC2</code></strong></td><td><strong>Logistical Autarky Horizon</strong>: <em>How long can an outpost survive if all edges are severed?</em></td><td>Indefinite autarky (own water, seed vault, repair forge).</td><td>Seasonal independence (3–6 months on local caches).</td><td>Fragile interdependence (2–4 weeks before fuel/food dry).</td><td>Critical grid-lock (shuts down in 48–72h without feed).</td><td><em>(Computed in <code>generate_tarot_matrix.js</code>)</em></td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>5. Major Arcana Node Hermeneutics (6 Decks, 264 Profiles)</h2>
+<p>In the pointcrawl graph $G = (V, E_{\text{adj}}, E_{\text{inf}})$, the <strong>22 Major Arcana (Keys <code>0</code> to <code>XXI</code>)</strong> govern the <strong>22 Regional Nodes ($V$)</strong>. Because different esoteric and artistic traditions interpret the same card through radically different ontological lenses, Creator Studio decouples Major Arcana sociology into <strong>6 modular deck databases</strong> in <code>tarot/decks/</code> ($6 \text{ decks} \times 22 \text{ cards} \times 2 \text{ orientations} = 264 \text{ evaluated profiles}$):</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Deck ID & File</th><th>Tradition Name</th><th>Author / Source Canon</th><th>Ontological Lens</th><th>Reversal / Ill-Dignified Hermeneutic Rule</th></tr>
+</thead>
+<tbody>
+<tr><td><code>crowley_thoth</code><br><a class="wiki-link" href="../../pages/tarot/decks/crowley_thoth.json.html">📄 tarot/decks/crowley_thoth.json</a></td><td><strong>Crowley Thoth</strong></td><td>Aleister Crowley & Lady Frieda Harris (<em>Book of Thoth</em>; Akron & Banzhaf)</td><td>Esoteric Alchemical-Thelemic</td><td>Represents intellectual hubris, cold solipsism, <em>"The Ape of Thoth"</em> (mockery of wisdom), or detached arcane megalomania.</td></tr>
+<tr><td><code>rider_waite_smith</code><br><a class="wiki-link" href="../../pages/tarot/decks/rider_waite_smith.json.html">📄 tarot/decks/rider_waite_smith.json</a></td><td><strong>Rider-Waite-Smith</strong></td><td>Arthur Edward Waite & Pamela Colman Smith (<em>Pictorial Key to the Tarot</em>)</td><td>Exoteric Moral-Humanist</td><td>Represents human ethical failure, street con-artistry, broken civic covenants, weakness, or pettiness.</td></tr>
+<tr><td><code>hr_giger</code><br><a class="wiki-link" href="../../pages/tarot/decks/hr_giger.json.html">📄 tarot/decks/hr_giger.json</a></td><td><strong>H.R. Giger (Baphomet)</strong></td><td>H.R. Giger & Akron (<em>Baphomet: Tarot der Unterwelt</em>)</td><td>Biomechanical Alienist</td><td>Represents catastrophic reactor breaches, necrotic tissue rejection, and predatory flesh-machine hive assimilation.</td></tr>
+<tr><td><code>salvador_dali</code><br><a class="wiki-link" href="../../pages/tarot/decks/salvador_dali.json.html">📄 tarot/decks/salvador_dali.json</a></td><td><strong>Salvador Dalí Universal Tarot</strong></td><td>Salvador & Gala Dalí (Rachel Pollack; Johannes Fiebig)</td><td>Surrealist Paranoiac-Critical & Alchemical-Mystic</td><td>Represents paranoiac delirium, temporal disintegration (melting watches), narcissistic grandiosity, or collapse of crutches.</td></tr>
+<tr><td><code>qabalistic_wang</code><br><a class="wiki-link" href="../../pages/tarot/decks/qabalistic_wang.json.html">📄 tarot/decks/qabalistic_wang.json</a></td><td><strong>The Qabalistic Tarot</strong></td><td>Dr. Robert Wang & Israel Regardie (Golden Dawn <em>Book 'T'</em>)</td><td>Hermetic-Qabalistic (32 Paths of Wisdom)</td><td>Represents energetic obstruction on the Tree of Life, astral friction, unbalanced elemental forces, or dogmatic blindness in Assiah.</td></tr>
+<tr><td><code>paul_foster_case</code><br><a class="wiki-link" href="../../pages/tarot/decks/paul_foster_case.json.html">📄 tarot/decks/paul_foster_case.json</a></td><td><strong>Paul Foster Case (B.O.T.A.)</strong></td><td>Dr. Paul Foster Case & Jessie Burns Parke (<em>Wisdom of the Ages</em>)</td><td>Ageless Wisdom, Sound-Color Qabalah & Esoteric Psychology</td><td>Represents inverted suggestion, subconscious friction, servitude to external appearances, or scattered conscious attention.</td></tr>
+</tbody>
+</table></div>
+<h3>Comparative Calibration Proof: Key I (The Magician — Reversed)</h3>
+<p>Section 5.2 of <a class="wiki-link" href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html">📄 sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</a> demonstrates why deck ontology matters by running <strong>The Reversed Magician (Key I)</strong> through the 6-Step Diagnostic Battery across three traditions:</p>
+<ul class="wiki-list">
+<li>*<em>Rider-Waite-Smith (<code>[4, 4, 1]</code> — </em>The Lone Apex Predator / Stage Prestidigitator<em>)</em>*:</li>
+<li><em>Diagnostics</em>: Fleeces marks (<code>tE1=4</code>, <code>tE2=4</code> $\to E=4$), pivots aliases hourly (<code>tS1=4</code>, <code>tS2=4</code> $\to S=4$), operates out of a solo carpetbag (<code>tC1=1</code>, <code>tC2=1</code> $\to C=1$).</li>
+<li><em>Sociology</em>: <strong>Adhocracy / Design</strong> (<code>Red / Black</code>). Injects false lore and black-market arbitrage into the host node.</li>
+<li>*<em>Crowley Thoth (<code>[2, 1, 1]</code> — </em>The Hermetic Academy / Ape of Thoth<em>)</em>*:</li>
+<li><em>Diagnostics</em>: Obsessed with solitary esoteric gnosis and indifferent to commoners (<code>tE1=1</code>, <code>tE2=1</code> $\to E=1$), bound to strict astrological formulas (<code>tS1=2</code>, <code>tS2=2</code> $\to S=2<code>), isolated in a lone tower (</code>tC1=1<code>, </code>tC2=1` $\to C=1$).</li>
+<li><em>Sociology</em>: <strong>Hierarchy / Produce</strong> (<code>White / Blue</code>). Hoards arcane schematics and imposes high social friction.</li>
+<li>*<em>H.R. Giger (<code>[1, 4, 4]</code> — </em>The Biomechanical Hive / Conduit<em>)</em>*:</li>
+<li><em>Diagnostics</em>: Harvests external biomass and electrical wattage (<code>tE1=4</code>, <code>tE2=4</code> $\to E=4$), enforces zero-tolerance biological-industrial cycles (<code>tS1=1</code>, <code>tS2=1</code> $\to S=1$), hardwired into a cybernetic neural matrix (<code>tC1=4</code>, <code>tC2=4</code> $\to C=4$).</li>
+<li><em>Sociology</em>: <strong>Market / Deliver</strong> (<code>Black / White</code>). Radiates <em>Assimilation Creep</em> across adjacent edges and forces neighboring nodes into Crisis Metamorphism.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>6. Minor Arcana Edge & Corridor Topology (4 Decks, 224 Profiles)</h2>
+<p>While Major Arcana cards govern <strong>Nodes ($V$)</strong>, <code>sociology/09_Minor_Arcana_Edge_Matrix.md</code> and <a class="wiki-link" href="../../pages/tarot/generate_minor_matrix.js.html">📄 tarot/generate_minor_matrix.js</a> map the <strong>56 Minor Arcana</strong> across 4 canonical traditions ($4 \times 56 = 224 \text{ profiles}$) to the <strong>52 Directed Edges ($E_{\text{adj}}$ / 26 Transit Corridors)</strong> connecting the pointcrawl graph.</p>
+<h3>6.1 Suit Domains & Elemental Conduits</h3>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Suit</th><th>Element</th><th>Kabbalistic World</th><th>Corridor Domain & Topological Pressure</th><th>Typical Sensory Atmosphere</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Wands</strong> (<code>wands_01</code>..<code>14</code>)</td><td>Fire</td><td><em>Atziluth</em> (Archetypal)</td><td>Thermal energy, volcanic/industrial conduits, aggressive military vectors, swift initiative pushes.</td><td>Scorching dry winds, sulfur vents, glowing furnace ash, static electricity along ridge lines.</td></tr>
+<tr><td><strong>Cups</strong> (<code>cups_01</code>..<code>14</code>)</td><td>Water</td><td><em>Briah</em> (Creative)</td><td>Hydrological drainage, maritime trade, estuarine navigation, psionic and emotional currents.</td><td>Dense sea fog, tidal surges, bioluminescent currents, subterranean mist, siren echoes.</td></tr>
+<tr><td><strong>Swords</strong> (<code>swords_01</code>..<code>14</code>)</td><td>Air</td><td><em>Yetzirah</em> (Formative)</td><td>High-altitude gales, alpine chokepoints, contested border skirmishes, intellectual espionage.</td><td>Biting frost winds, razor-thin mountain ledges, whistling canyon drafts, squall fronts.</td></tr>
+<tr><td><strong>Disks / Pentacles</strong> (<code>disks_01</code>..<code>14</code>)</td><td>Earth</td><td><em>Assiah</em> (Material)</td><td>Telluric conduits, deep mining tramways, heavy cargo haulage, mercantile checkpoints.</td><td>Deep subterranean rumbles, grinding tectonic plates, rich mineral dust, damp stone vaults.</td></tr>
+</tbody>
+</table></div>
+<h3>6.2 Corridor Friction Dials & Edge Schema</h3>
+<p>Each Minor Arcana card profile in <code>tarot/decks/minor/*.json</code> defines a <code>corridorTopologicalProfile</code> and <code>tabletopRuntime</code> block:</p>
+<ul class="wiki-list">
+<li><strong><code>transitFriction</code> (<code>0</code> to <code>4</code>)</strong>:</li>
+<li><code>Friction 0–1 (Root / Highway)</code>: Unobstructed conduits (<code>Ace</code>, <code>Six</code>, <code>Eight of Wands</code>); high flow rate, <code>+2</code> to <code>+4</code> upstream force push, <code>0</code> attrition drain.</li>
+<li><code>Friction 2 (Established Route)</code>: Regulated highways and maintained roads; predictable customs tolls, steady flow.</li>
+<li><code>Friction 3 (Contested Chokepoint)</code>: Active skirmish zones, ambush ravines, heavy weather hazards, <code>-1</code> to <code>-2</code> leech drain.</li>
+<li><code>Friction 4 (Extreme Impasse)</code>: Blockaded gauntlets (<code>Three</code>, <code>Five</code>, <code>Nine</code>, <code>Ten of Swords</code>, <code>Ten of Wands</code>); crushing labor corridors, <code>-3</code> to <code>-4</code> severe attrition drain.</li>
+<li><strong><code>flowDirectionBias</code></strong>, <strong><code>upstreamPressure</code></strong>, and <strong><code>downstreamDrain</code></strong>: Govern directional influence modifiers along directed graph links.</li>
+<li><strong><code>tabletopRuntime</code></strong>: Provides an immediate <code>patrolEncounter</code>, a 4-tick <code>travelHazardClock</code>, an <code>effectiveTravelLever</code>, a <code>fatalTravelError</code>, a hidden <code>smugglersVector</code> bypass, and a <code>scenarioPrompt</code>.</li>
+</ul>
+<div class="callout callout-warning"><strong>WARNING:</strong> <strong>Duplicate Minor Arcana Mirror Notice (<span class="wiki-tag">🎫 SYS-AUDIT-01</span>)</strong>: The authoritative Minor Arcana JSON files reside in <code>tarot/decks/minor/</code> (<a class="wiki-link" href="../../pages/tarot/decks/minor/crowley_thoth_minor.json.html">📄 tarot/decks/minor/crowley_thoth_minor.json</a>, <a class="wiki-link" href="../../pages/tarot/decks/minor/qabalistic_wang_minor.json.html">📄 tarot/decks/minor/qabalistic_wang_minor.json</a>, <a class="wiki-link" href="../../pages/tarot/decks/minor/rider_waite_smith_minor.json.html">📄 tarot/decks/minor/rider_waite_smith_minor.json</a>, <a class="wiki-link" href="../../pages/tarot/decks/minor/salvador_dali_minor.json.html">📄 tarot/decks/minor/salvador_dali_minor.json</a>). Note that <a class="wiki-link" href="../../pages/tarot/generate_minor_matrix.js.html">📄 tarot/generate_minor_matrix.js</a> writes duplicate mirrors of <code>minor_deck_manifest.json</code> and <code>minor_decks_registry.js</code> to both <code>tarot/decks/minor/</code> and <code>tarot/decks/</code>, and root copies of <code>*_minor.json</code> exist in <code>tarot/decks/</code>. Always edit the canonical files in <code>tarot/decks/minor/</code> (see <a class="wiki-link series-link" href="../../pages/series/series_g_duplicate_and_orphan_audit.html">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a>).</div>
+<hr class="wiki-hr"/>
+<h2>7. End-to-End Compiler & Data Flow Pipeline</h2>
+<pre class="code-block"><code class="lang-mermaid">flowchart TD
+    subgraph Specs[&quot;1. Sociological Specifications (sociology/)&quot;]
+        SOC06[&quot;SOC-06: ODV [S,E,C] &amp; 6-Test Battery&quot;]
+        SOC07[&quot;SOC-07: 64-Cell Granular Matrix (.md)&quot;]
+    end
+
+    subgraph Decks[&quot;2. Modular Deck Sources (tarot/decks/)&quot;]
+        MAJ[&quot;6 Major Decks (tarot/decks/*.json)\n132 Cards / 264 Profiles&quot;]
+        MIN[&quot;4 Minor Decks (tarot/decks/minor/*.json)\n224 Corridor Profiles&quot;]
+    end
+
+    subgraph Compilers[&quot;3. Node.js &amp; PowerShell Compilers&quot;]
+        GEN_MAJ[&quot;tarot/generate_tarot_matrix.js\n(or Generate-TarotSociologyMatrix.ps1)&quot;]
+        GEN_MIN[&quot;tarot/generate_minor_matrix.js\n(+ compile_rws_minor.js)&quot;]
+        BUILD[&quot;build_suite.js / Build-Suite.ps1&quot;]
+    end
+
+    subgraph Outputs[&quot;4. Compiled Databases &amp; Zero-CORS Workstations&quot;]
+        JSON_MAJ[&quot;tarot/tarot_sociology_matrix.json\n+ sociology/08_Tarot_Sociology_Matrix.md&quot;]
+        JSON_MIN[&quot;tarot/tarot_minor_arcana_matrix.json\n+ sociology/09_Minor_Arcana_Edge_Matrix.md&quot;]
+        BROWSERS[&quot;tarot/tarot_matrix_browser.html\ntarot/minor_matrix_browser.html\ntarot/tarot_deck_analytics.html&quot;]
+        STUDIO[&quot;start.html\n(TAROT_DECKS_DATA)&quot;]
+    end
+
+    SOC06 --&gt; GEN_MAJ
+    SOC07 --&gt; GEN_MAJ
+    MAJ --&gt; GEN_MAJ
+    MIN --&gt; GEN_MIN
+    GEN_MAJ --&gt; JSON_MAJ
+    GEN_MAJ --&gt; BROWSERS
+    GEN_MIN --&gt; JSON_MIN
+    GEN_MIN --&gt; BROWSERS
+    MAJ --&gt; BUILD
+    MIN --&gt; BUILD
+    BUILD --&gt; STUDIO</code></pre>
+<p>1. <strong>Matrix Parsing</strong>: <a class="wiki-link" href="../../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a> parses the 64 Markdown table rows directly out of <a class="wiki-link" href="../../pages/sociology/07_Granular_64_Disposition_Matrix.md.html">📄 sociology/07_Granular_64_Disposition_Matrix.md</a> using regex extraction and indexes them by <code>[S, E, C]</code> coordinate tag.</p>
+<p>2. <strong>Major Deck Compilation</strong>: For every deck in <code>tarot/decks/*.json</code>, <code>generate_tarot_matrix.js</code> evaluates <code>diagnosticScores</code> (<code>tE1..tC2</code>), computes <code>odv = [s, e, c]</code>, derives CVF quadrant, Operational Profile, Daft focus, Duncan uncertainty, MTG color, Friction Base, and Groysberg 5D radar, links the matching <code>SOC-07</code> row, and emits <a class="wiki-link" href="../../pages/tarot/tarot_sociology_matrix.json.html">📄 tarot/tarot_sociology_matrix.json</a>, <a class="wiki-link" href="../../pages/tarot/decks/deck_manifest.json.html">📄 tarot/decks/deck_manifest.json</a>, <a class="wiki-link" href="../../pages/tarot/decks/decks_registry.js.html">📄 tarot/decks/decks_registry.js</a>, <code>sociology/08_Tarot_Sociology_Matrix.md</code>, and the unified Major+Minor workstation <a class="wiki-link" href="../../pages/tarot/tarot_matrix_browser.html.html">📄 tarot/tarot_matrix_browser.html</a>.</p>
+<p>3. <strong>Minor Deck Compilation</strong>: <a class="wiki-link" href="../../pages/tarot/generate_minor_matrix.js.html">📄 tarot/generate_minor_matrix.js</a> scans <code>tarot/decks/minor/*.json</code>, compiles <a class="wiki-link" href="../../pages/tarot/tarot_minor_arcana_matrix.json.html">📄 tarot/tarot_minor_arcana_matrix.json</a>, <a class="wiki-link" href="../../pages/tarot/decks/minor/minor_deck_manifest.json.html">📄 tarot/decks/minor/minor_deck_manifest.json</a>, <a class="wiki-link" href="../../pages/tarot/decks/minor/minor_decks_registry.js.html">📄 tarot/decks/minor/minor_decks_registry.js</a>, <code>sociology/09_Minor_Arcana_Edge_Matrix.md</code>, and <a class="wiki-link" href="../../pages/tarot/minor_matrix_browser.html.html">📄 tarot/minor_matrix_browser.html</a>.</p>
+<p>4. <strong>Master Suite Bundling</strong>: <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> (invoked via <a class="wiki-link" href="../../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>) compiles all Major and Minor decks into <code>TAROT_DECKS_DATA</code> inlined into <a class="wiki-link" href="../../pages/start.html.html">📄 start.html</a> for offline <code>file:///</code> execution (see <a class="wiki-link series-link" href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a>).</p>
+      <h2 id="outbound-links">Subsystem Files Covered in This Series (17)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>File / Page</th><th>Role</th><th>Notes</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html"><strong>sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/07_Granular_64_Disposition_Matrix.md.html"><strong>sociology/07_Granular_64_Disposition_Matrix.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/01_Core_Cultural_Quadrants.md.html"><strong>sociology/01_Core_Cultural_Quadrants.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/01_Core_Cultural_Quadrants.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/02_Operational_Profiles_and_Power.md.html"><strong>sociology/02_Operational_Profiles_and_Power.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/02_Operational_Profiles_and_Power.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/03_Environmental_Uncertainty_and_Crisis.md.html"><strong>sociology/03_Environmental_Uncertainty_and_Crisis.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/03_Environmental_Uncertainty_and_Crisis.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/04_Sensory_Pentagon_Generator.md.html"><strong>sociology/04_Sensory_Pentagon_Generator.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/04_Sensory_Pentagon_Generator.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md.html"><strong>sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/adr/0011-retirement-of-vestigial-tarot-balancing-engine.md.html"><strong>docs/adr/0011-retirement-of-vestigial-tarot-balancing-engine.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/adr/0011-retirement-of-vestigial-tarot-balancing-engine.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md.html"><strong>docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/SOCIOLOGY_MASTER_COMPENDIUM.md.html"><strong>sociology/SOCIOLOGY_MASTER_COMPENDIUM.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/SOCIOLOGY_MASTER_COMPENDIUM.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/sociology_data.js.html"><strong>src/workstation/scripts/sociology_data.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:src/workstation/scripts/sociology_data.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/start.html.html"><strong>start.html</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:start.html]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/odv_archetype_matrix.html.html"><strong>network/odv_archetype_matrix.html</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/odv_archetype_matrix.html]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html"><strong>Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:build_suite.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:Build-Suite.ps1]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_e_zero_cors_compiler_and_agent_router]] reference</td>
+        </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (19)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page</th><th>Relationship</th><th>Context</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/series/series_a_balancing_and_smothering_math.html"><strong>Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html"><strong>sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/07_Granular_64_Disposition_Matrix.md.html"><strong>sociology/07_Granular_64_Disposition_Matrix.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</td>
+        </tr><tr>
+          <td><a href="../../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/00%20sociology%20all.png.html"><strong>sociology/00 sociology all.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/01_Core_Cultural_Quadrants.md.html"><strong>sociology/01_Core_Cultural_Quadrants.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/02_Operational_Profiles_and_Power.md.html"><strong>sociology/02_Operational_Profiles_and_Power.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/03_Environmental_Uncertainty_and_Crisis.md.html"><strong>sociology/03_Environmental_Uncertainty_and_Crisis.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/04_Sensory_Pentagon_Generator.md.html"><strong>sociology/04_Sensory_Pentagon_Generator.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md.html"><strong>sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/4_culture_types.png.html"><strong>sociology/4_culture_types.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/Culture-Diagram-Clean.png.html"><strong>sociology/Culture-Diagram-Clean.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/Culture-and-organization-design.png.html"><strong>sociology/Culture-and-organization-design.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/README.md.html"><strong>sociology/README.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/SOCIOLOGY_MASTER_COMPENDIUM.md.html"><strong>sociology/SOCIOLOGY_MASTER_COMPENDIUM.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/competing_values_extended_matrix.png.html"><strong>sociology/competing_values_extended_matrix.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/duncan_environmental_uncertainty_matrix.png.html"><strong>sociology/duncan_environmental_uncertainty_matrix.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/groysberg_5d_culture_radar.png.html"><strong>sociology/groysberg_5d_culture_radar.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/porter_groysberg_operational_profiles.png.html"><strong>sociology/porter_groysberg_operational_profiles.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+        </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

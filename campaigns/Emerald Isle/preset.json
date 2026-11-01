@@ -1,0 +1,6993 @@
+{
+  "id": "emerald_isle",
+  "name": "Emerald Isle",
+  "campaignName": "Emerald Isle",
+  "rootMapId": "map_root",
+  "activeMapId": "map_mvj11lsr_pj",
+  "maps": {
+    "map_root": {
+      "id": "map_root",
+      "name": "Emerald Isle",
+      "nodePrefix": "",
+      "scaleTier": "region",
+      "parentMapId": null,
+      "parentNodeId": null,
+      "dispositionModifier": "",
+      "nodes": [
+        {
+          "id": 1,
+          "name": "Outpost",
+          "displayName": "Outpost",
+          "x": 1187,
+          "y": 482,
+          "coordinates": {
+            "x": 1187,
+            "y": 482
+          },
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "pentagon",
+          "adj": [
+            2
+          ],
+          "infBy": [
+            2
+          ],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_mvg3e071_ip",
+          "customNotes": "@Farmland is only real neighbor",
+          "locked": true,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            1,
+            3,
+            1
+          ],
+          "odvOverridden": false,
+          "faction": "Military",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": 2,
+          "name": "Farmland",
+          "displayName": "Farmland",
+          "x": 1066,
+          "y": 401,
+          "coordinates": {
+            "x": 1066,
+            "y": 401
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            1,
+            4,
+            3,
+            5
+          ],
+          "infBy": [
+            1,
+            4
+          ],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-phase_2-mvvysbid"
+        },
+        {
+          "id": 3,
+          "name": "Grasslands",
+          "displayName": "Grasslands",
+          "x": 909,
+          "y": 343,
+          "coordinates": {
+            "x": 909,
+            "y": 343
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            2,
+            4,
+            5,
+            6,
+            7
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-phase_2-mvvysbid"
+        },
+        {
+          "id": 4,
+          "name": "Stone Mountain",
+          "displayName": "Stone Mountain",
+          "x": 970,
+          "y": 487,
+          "coordinates": {
+            "x": 970,
+            "y": 487
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [
+            2,
+            3
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            1,
+            3,
+            4
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-phase_2-mvvysbid"
+        },
+        {
+          "id": 5,
+          "name": "Third Party",
+          "displayName": "Third Party",
+          "x": 1034,
+          "y": 269,
+          "coordinates": {
+            "x": 1034,
+            "y": 269
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            2,
+            3
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": false,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-phase_2-mvvysbid"
+        },
+        {
+          "id": 6,
+          "name": "Waterfall",
+          "displayName": "Waterfall",
+          "x": 847,
+          "y": 224,
+          "coordinates": {
+            "x": 847,
+            "y": 224
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            3,
+            8
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": false,
+          "color": null,
+          "modules": [
+            "INFRA-01"
+          ],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-phase_3-mvvytidl"
+        },
+        {
+          "id": 7,
+          "name": "River and Road",
+          "displayName": "River and Road",
+          "x": 719,
+          "y": 410,
+          "coordinates": {
+            "x": 719,
+            "y": 410
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            3,
+            9,
+            10
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": false,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-phase_3-mvvytidl"
+        },
+        {
+          "id": 8,
+          "name": "Cliffs",
+          "displayName": "Cliffs",
+          "x": 751,
+          "y": 333,
+          "coordinates": {
+            "x": 751,
+            "y": 333
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            9,
+            6
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": false,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-phase_3-mvvytidl"
+        },
+        {
+          "id": 9,
+          "name": "Highlands",
+          "displayName": "Highlands",
+          "x": 445,
+          "y": 468,
+          "coordinates": {
+            "x": 445,
+            "y": 468
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            7,
+            8,
+            10
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": false,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-node_phase_4-mvvyv7fi"
+        },
+        {
+          "id": 10,
+          "name": "Swamp",
+          "displayName": "Swamp",
+          "x": 587,
+          "y": 679,
+          "coordinates": {
+            "x": 587,
+            "y": 679
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            7,
+            9,
+            11
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": false,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-node_phase_4-mvvyv7fi"
+        },
+        {
+          "id": 11,
+          "name": "Beach",
+          "displayName": "Beach",
+          "x": 1058,
+          "y": 653,
+          "coordinates": {
+            "x": 1058,
+            "y": 653
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            10
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": false,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-node_phase_4-mvvyv7fi"
+        }
+      ],
+      "links": [
+        {
+          "from": 1,
+          "to": 2,
+          "type": "twoway",
+          "layer": "both"
+        },
+        {
+          "from": 2,
+          "to": 4,
+          "type": "twoway",
+          "layer": "both"
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 2,
+          "to": 5,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 3,
+          "to": 5,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 3,
+          "to": 6,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 3,
+          "to": 7,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 6,
+          "to": 8,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 7,
+          "to": 9,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 7,
+          "to": 10,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 8,
+          "to": 9,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": 10,
+          "to": 11,
+          "type": "twoway",
+          "layer": "transit"
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [
+          "INFRA-01"
+        ],
+        "7": [],
+        "8": [],
+        "9": [],
+        "10": [],
+        "11": [],
+        "12": [],
+        "13": [],
+        "14": [],
+        "15": [],
+        "16": [],
+        "17": [],
+        "18": []
+      },
+      "edgeSlottedModules": {},
+      "revealedNodes": {
+        "CA-1": true
+      },
+      "mapMetadata": {
+        "id": "map_root",
+        "name": "map_root_bg.jpg",
+        "width": 1308,
+        "height": 867,
+        "opacity": 0.85,
+        "timestamp": 1793240369735,
+        "assetPath": "assets/map_root_bg.jpg"
+      },
+      "customNotes": "SIcilian",
+      "mapScale": {
+        "value": 5,
+        "unit": "miles",
+        "pixels": 20
+      },
+      "edgeData": {
+        "2-5": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": [],
+          "dedicatedFlows": [],
+          "visible": false
+        },
+        "3-5": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "None",
+          "patrolFaction": "neutral",
+          "modules": [],
+          "dedicatedFlows": []
+        },
+        "2-3": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": [],
+          "dedicatedFlows": [],
+          "conduitType": "Caravan Trade Route"
+        },
+        "3-7": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": [],
+          "dedicatedFlows": [],
+          "conduitType": "Caravan Trade Route"
+        },
+        "10-7": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": [],
+          "dedicatedFlows": [],
+          "conduitType": "Caravan Trade Route"
+        },
+        "2->4": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": [],
+          "dedicatedFlows": []
+        },
+        "4->3": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": [],
+          "dedicatedFlows": []
+        },
+        "1-2": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": [],
+          "dedicatedFlows": []
+        },
+        "1->2": {
+          "name": "",
+          "condition": "Paved Highway",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": [],
+          "dedicatedFlows": []
+        }
+      },
+      "edgeNotes": {},
+      "modData": {},
+      "layers": [
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-nodes",
+          "name": "Topological Nodes",
+          "zIndex": 4,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-phase_2-mvvysbid",
+          "name": "Node Phase 2",
+          "zIndex": 6,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": false
+        },
+        {
+          "id": "layer-phase_3-mvvytidl",
+          "name": "Node Phase 3",
+          "zIndex": 7,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": false
+        },
+        {
+          "id": "layer-node_phase_4-mvvyv7fi",
+          "name": "Node Phase 4",
+          "zIndex": 8,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": false
+        }
+      ],
+      "shapes": [],
+      "custom_modules": []
+    },
+    "map_mvg3e071_ip": {
+      "id": "map_mvg3e071_ip",
+      "name": "Outpost",
+      "nodePrefix": "OU-",
+      "scaleTier": "settlement",
+      "parentMapId": "map_root",
+      "parentNodeId": "1",
+      "dispositionModifier": "",
+      "nodes": [
+        {
+          "id": "OU-1",
+          "name": "OU-Drawbridge",
+          "displayName": "OU-Drawbridge",
+          "x": 739,
+          "y": 372,
+          "coordinates": {
+            "x": 739,
+            "y": 372
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-2",
+            "OU-5"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-10",
+          "name": "OU-Guardroom",
+          "displayName": "OU-Guardroom",
+          "x": 585,
+          "y": 418,
+          "coordinates": {
+            "x": 585,
+            "y": 418
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-11",
+            "OU-7"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-11",
+          "name": "OU-Lower courtyard – moat",
+          "displayName": "OU-Lower courtyard – moat",
+          "x": 591,
+          "y": 303,
+          "coordinates": {
+            "x": 591,
+            "y": 303
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-2",
+            "OU-10",
+            "OU-29",
+            "OU-25"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-12",
+          "name": "OU-Upper courtyard",
+          "displayName": "OU-Upper courtyard",
+          "x": 401,
+          "y": 408,
+          "coordinates": {
+            "x": 401,
+            "y": 408
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-21",
+            "OU-14",
+            "OU-13",
+            "OU-15"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-13",
+          "name": "OU-Gallery (Cloister gallery)",
+          "displayName": "OU-Gallery (Cloister gallery)",
+          "x": 462,
+          "y": 366,
+          "coordinates": {
+            "x": 462,
+            "y": 366
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-21",
+            "OU-14",
+            "OU-12",
+            "OU-8",
+            "OU-9"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-14",
+          "name": "OU-Great Hall",
+          "displayName": "OU-Great Hall",
+          "x": 415,
+          "y": 330,
+          "coordinates": {
+            "x": 415,
+            "y": 330
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-13",
+            "OU-12"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-15",
+          "name": "OU-120m-long corridor",
+          "displayName": "OU-120m-long corridor",
+          "x": 357,
+          "y": 353,
+          "coordinates": {
+            "x": 357,
+            "y": 353
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-12",
+            "OU-17",
+            "OU-16",
+            "OU-19",
+            "OU-18",
+            "OU-29",
+            "OU-9"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-16",
+          "name": "OU-WEST watchtower",
+          "displayName": "OU-WEST watchtower",
+          "x": 272,
+          "y": 537,
+          "coordinates": {
+            "x": 272,
+            "y": 537
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-15",
+            "OU-21"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-17",
+          "name": "OU-CENTER watchtower",
+          "displayName": "OU-CENTER watchtower",
+          "x": 381,
+          "y": 549,
+          "coordinates": {
+            "x": 381,
+            "y": 549
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-15",
+            "OU-21"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-18",
+          "name": "OU-EAST watchtower",
+          "displayName": "OU-EAST watchtower",
+          "x": 520,
+          "y": 547,
+          "coordinates": {
+            "x": 520,
+            "y": 547
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-15",
+            "OU-21"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-19",
+          "name": "OU-Olive oil press",
+          "displayName": "OU-Olive oil press",
+          "x": 444,
+          "y": 550,
+          "coordinates": {
+            "x": 444,
+            "y": 550
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-15",
+            "OU-21"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-2",
+          "name": "OU- High entrance gate (Main gate)",
+          "displayName": "OU- High entrance gate (Main gate)",
+          "x": 660,
+          "y": 329,
+          "coordinates": {
+            "x": 660,
+            "y": 329
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-1",
+            "OU-3",
+            "OU-11"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-20",
+          "name": "OU-Warehouse / Storeroom",
+          "displayName": "OU-Warehouse / Storeroom",
+          "x": 526,
+          "y": 469,
+          "coordinates": {
+            "x": 526,
+            "y": 469
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-7"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-21",
+          "name": "OU-Pillared hall",
+          "displayName": "OU-Pillared hall",
+          "x": 425,
+          "y": 467,
+          "coordinates": {
+            "x": 425,
+            "y": 467
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-7",
+            "OU-12",
+            "OU-13",
+            "OU-18",
+            "OU-19",
+            "OU-17",
+            "OU-16"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-22",
+          "name": "OU-Arab baths",
+          "displayName": "OU-Arab baths",
+          "x": 610,
+          "y": 710,
+          "coordinates": {
+            "x": 610,
+            "y": 710
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-23",
+          "name": "OU-60m-long hall",
+          "displayName": "OU-60m-long hall",
+          "x": 304,
+          "y": 693,
+          "coordinates": {
+            "x": 304,
+            "y": 693
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-24",
+          "name": "OU-Aqueduct",
+          "displayName": "OU-Aqueduct",
+          "x": 149,
+          "y": 764,
+          "coordinates": {
+            "x": 149,
+            "y": 764
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-25"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-25",
+          "name": "OU-Water reservoir (Cistern)",
+          "displayName": "OU-Water reservoir (Cistern)",
+          "x": 280,
+          "y": 620,
+          "coordinates": {
+            "x": 280,
+            "y": 620
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-24",
+            "OU-11"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-26",
+          "name": "OU-Secret passage",
+          "displayName": "OU-Secret passage",
+          "x": 323,
+          "y": 768,
+          "coordinates": {
+            "x": 323,
+            "y": 768
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-27",
+          "name": "OU-New Arab bastion",
+          "displayName": "OU-New Arab bastion",
+          "x": 268,
+          "y": 805,
+          "coordinates": {
+            "x": 268,
+            "y": 805
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-28",
+          "name": "OU-Arab bastion",
+          "displayName": "OU-Arab bastion",
+          "x": 399,
+          "y": 818,
+          "coordinates": {
+            "x": 399,
+            "y": 818
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-29",
+          "name": "OU-Tower of the King's Daughter",
+          "displayName": "OU-Tower of the King's Daughter",
+          "x": 405,
+          "y": 176,
+          "coordinates": {
+            "x": 405,
+            "y": 176
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "OU-15",
+            "OU-9",
+            "OU-11"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-3",
+          "name": "OU-Inner staircase (Access ramp/passage)",
+          "displayName": "OU-Inner staircase (Access ramp/passage)",
+          "x": 651,
+          "y": 402,
+          "coordinates": {
+            "x": 651,
+            "y": 402
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-2",
+            "OU-4",
+            "OU-6"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-30",
+          "name": "OU-Inscription of Sultan Qalawun",
+          "displayName": "OU-Inscription of Sultan Qalawun",
+          "x": 225,
+          "y": 730,
+          "coordinates": {
+            "x": 225,
+            "y": 730
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-31",
+          "name": "OU- Inscription of Sultan Baibars",
+          "displayName": "OU- Inscription of Sultan Baibars",
+          "x": 114,
+          "y": 689,
+          "coordinates": {
+            "x": 114,
+            "y": 689
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-4",
+          "name": "OU-Guard post",
+          "displayName": "OU-Guard post",
+          "x": 677,
+          "y": 465,
+          "coordinates": {
+            "x": 677,
+            "y": 465
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-3"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-5",
+          "name": "OU-Guard post",
+          "displayName": "OU-Guard post",
+          "x": 678,
+          "y": 517,
+          "coordinates": {
+            "x": 678,
+            "y": 517
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-1"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-6",
+          "name": "OU-Stables (kitchens, dining halls)",
+          "displayName": "OU-Stables (kitchens, dining halls)",
+          "x": 620,
+          "y": 578,
+          "coordinates": {
+            "x": 620,
+            "y": 578
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-3"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-7",
+          "name": "OU-Upper entrance",
+          "displayName": "OU-Upper entrance",
+          "x": 524,
+          "y": 418,
+          "coordinates": {
+            "x": 524,
+            "y": 418
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-10",
+            "OU-20",
+            "OU-8",
+            "OU-21"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-8",
+          "name": "OU-Long guardroom",
+          "displayName": "OU-Long guardroom",
+          "x": 518,
+          "y": 325,
+          "coordinates": {
+            "x": 518,
+            "y": 325
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "radius": 12,
+          "adj": [
+            "OU-7",
+            "OU-13"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "OU-9",
+          "name": "OU-Cathedral",
+          "displayName": "OU-Cathedral",
+          "x": 483,
+          "y": 258,
+          "coordinates": {
+            "x": 483,
+            "y": 258
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "diamond",
+          "radius": 12,
+          "adj": [
+            "OU-29",
+            "OU-13",
+            "OU-15"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_mvg3f9wx_pa",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": "#c0c0c0",
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [
+        {
+          "from": "OU-1",
+          "to": "OU-2",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-1",
+          "to": "OU-5",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-10",
+          "to": "OU-11",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-10",
+          "to": "OU-7",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-11",
+          "to": "OU-2",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-11",
+          "to": "OU-29",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-11",
+          "to": "OU-25",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-12",
+          "to": "OU-21",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-12",
+          "to": "OU-14",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-12",
+          "to": "OU-13",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-12",
+          "to": "OU-15",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-13",
+          "to": "OU-21",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-13",
+          "to": "OU-14",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-13",
+          "to": "OU-8",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-13",
+          "to": "OU-9",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-15",
+          "to": "OU-17",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-15",
+          "to": "OU-16",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-15",
+          "to": "OU-19",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-15",
+          "to": "OU-18",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-15",
+          "to": "OU-29",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-15",
+          "to": "OU-9",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-16",
+          "to": "OU-21",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-17",
+          "to": "OU-21",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-18",
+          "to": "OU-21",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-19",
+          "to": "OU-21",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-2",
+          "to": "OU-3",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-20",
+          "to": "OU-7",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-21",
+          "to": "OU-7",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-24",
+          "to": "OU-25",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-29",
+          "to": "OU-9",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-3",
+          "to": "OU-4",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-3",
+          "to": "OU-6",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "OU-7",
+          "to": "OU-8",
+          "type": "twoway",
+          "layer": "transit"
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "OU-1": [],
+        "OU-2": [],
+        "OU-3": [],
+        "OU-4": [],
+        "OU-5": [],
+        "OU-6": [],
+        "OU-7": [],
+        "OU-8": [],
+        "OU-9": [],
+        "OU-10": [],
+        "OU-11": [],
+        "OU-12": [],
+        "OU-13": [],
+        "OU-14": [],
+        "OU-15": [],
+        "OU-16": [],
+        "OU-17": [],
+        "OU-18": [],
+        "OU-19": [],
+        "OU-20": [],
+        "OU-21": [],
+        "OU-22": [],
+        "OU-23": [],
+        "OU-24": [],
+        "OU-25": [],
+        "OU-26": [],
+        "OU-27": [],
+        "OU-28": [],
+        "OU-29": [],
+        "OU-30": [],
+        "OU-31": []
+      },
+      "edgeSlottedModules": {},
+      "revealedNodes": {
+        "OU-1": true
+      },
+      "mapMetadata": {
+        "id": "map_mvg3e071_ip",
+        "name": "map_mvg3e071_ip_bg.png",
+        "width": 806,
+        "height": 874,
+        "opacity": 0.85,
+        "timestamp": 1793240375764,
+        "assetPath": "assets/map_mvg3e071_ip_bg.png"
+      },
+      "customNotes": "",
+      "edgeData": {
+        "OU-2-OU-3": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": []
+        },
+        "OU-3-OU-4": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": []
+        },
+        "OU-4-OU-6": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": []
+        },
+        "OU-1-OU-6": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": []
+        },
+        "OU-1-OU-25": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": []
+        },
+        "OU-25-OU-29": {
+          "name": "",
+          "condition": "Passable",
+          "hazardLevel": 0,
+          "tollCost": "",
+          "patrolFaction": "neutral",
+          "modules": []
+        }
+      },
+      "edgeNotes": {},
+      "modData": {},
+      "layers": [
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-nodes",
+          "name": "Topological Nodes",
+          "zIndex": 4,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": [],
+      "custom_modules": [],
+      "mapScale": {
+        "value": 500,
+        "unit": "feet",
+        "pixels": 20
+      }
+    },
+    "map_mvg3f9wx_pa": {
+      "id": "map_mvg3f9wx_pa",
+      "name": "Cathedral",
+      "nodePrefix": "CA-",
+      "scaleTier": "floorplan",
+      "parentMapId": "map_mvg3e071_ip",
+      "parentNodeId": "OU-9",
+      "dispositionModifier": "",
+      "nodes": [
+        {
+          "id": "CA-1",
+          "name": "CA-1 Arrival Portal",
+          "displayName": "CA-1 Arrival Portal",
+          "x": 28,
+          "y": 393,
+          "coordinates": {
+            "x": 28,
+            "y": 393
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [
+            "CA-2"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "CA-2",
+          "name": "CA-Tower Stairs",
+          "displayName": "CA-Tower Stairs",
+          "x": 345,
+          "y": 442,
+          "coordinates": {
+            "x": 345,
+            "y": 442
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [
+            "CA-1"
+          ],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "CA-3",
+          "name": "CA-Crypt",
+          "displayName": "CA-Crypt",
+          "x": 760,
+          "y": 468,
+          "coordinates": {
+            "x": 760,
+            "y": 468
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "CA-4",
+          "name": "CA-4",
+          "displayName": "CA-4",
+          "x": 372,
+          "y": 15,
+          "coordinates": {
+            "x": 372,
+            "y": 15
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_mvj11lsr_pj",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [
+        {
+          "from": "CA-1",
+          "to": "CA-2",
+          "type": "twoway",
+          "layer": "transit"
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "CA-1": [],
+        "CA-2": [],
+        "CA-3": [],
+        "CA-4": []
+      },
+      "edgeSlottedModules": {},
+      "revealedNodes": {
+        "CA-1": true
+      },
+      "mapMetadata": {
+        "id": "map_mvg3f9wx_pa",
+        "name": "map_mvg3f9wx_pa_bg.jpg",
+        "width": 1024,
+        "height": 765,
+        "opacity": 0.85,
+        "timestamp": 1793240386200,
+        "assetPath": "assets/map_mvg3f9wx_pa_bg.jpg"
+      },
+      "customNotes": "",
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "layers": [
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-nodes",
+          "name": "Topological Nodes",
+          "zIndex": 4,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": [],
+      "custom_modules": [],
+      "mapScale": {
+        "value": 5,
+        "unit": "feet",
+        "pixels": 20
+      }
+    },
+    "map_mvj11lsr_pj": {
+      "id": "map_mvj11lsr_pj",
+      "name": "Crypt",
+      "nodePrefix": "CR-",
+      "scaleTier": "district",
+      "parentMapId": "map_mvg3f9wx_pa",
+      "parentNodeId": "CA-4",
+      "dispositionModifier": "",
+      "nodes": [
+        {
+          "id": "CR-1",
+          "name": "CR-1 Stairs Up",
+          "displayName": "CR-1 Stairs Up",
+          "x": 376,
+          "y": 697,
+          "coordinates": {
+            "x": 376,
+            "y": 697
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "CR-2",
+          "name": "CR-Stairs Down",
+          "displayName": "CR-Stairs Down",
+          "x": 140,
+          "y": 303,
+          "coordinates": {
+            "x": 140,
+            "y": 303
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "CR-3",
+          "name": "CR-Door Northwest",
+          "displayName": "CR-Door Northwest",
+          "x": 127,
+          "y": 210,
+          "coordinates": {
+            "x": 127,
+            "y": 210
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "CR-4",
+          "name": "CR-Canvas Slit",
+          "displayName": "CR-Canvas Slit",
+          "x": 96,
+          "y": 544,
+          "coordinates": {
+            "x": 96,
+            "y": 544
+          },
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            3,
+            3
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "CR-5",
+          "name": "CR-Double Door",
+          "displayName": "CR-Double Door",
+          "x": 401,
+          "y": 137,
+          "coordinates": {
+            "x": 401,
+            "y": 137
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "CR-6",
+          "name": "CR-Door North East",
+          "displayName": "CR-Door North East",
+          "x": 619,
+          "y": 154,
+          "coordinates": {
+            "x": 619,
+            "y": 154
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "CR-7",
+          "name": "CR-Door North Northwest",
+          "displayName": "CR-Door North Northwest",
+          "x": 197,
+          "y": 140,
+          "coordinates": {
+            "x": 197,
+            "y": 140
+          },
+          "cat": "Standard POI",
+          "culture": "Clan",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "CR-1": [],
+        "CR-2": [],
+        "CR-3": [],
+        "CR-4": [],
+        "CR-5": [],
+        "CR-6": [],
+        "CR-7": []
+      },
+      "edgeSlottedModules": {},
+      "revealedNodes": {
+        "CR-1": true
+      },
+      "layers": [
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-nodes",
+          "name": "Topological Nodes",
+          "zIndex": 4,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": [],
+      "mapMetadata": {
+        "id": "map_mvj11lsr_pj",
+        "name": "crypt.png",
+        "width": 791,
+        "height": 791,
+        "opacity": 0.85,
+        "timestamp": 1793322054756,
+        "assetPath": "assets/map_mvj11lsr_pj_bg.png"
+      },
+      "customNotes": "",
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "mapScale": {
+        "value": 100,
+        "unit": "feet",
+        "pixels": 20
+      },
+      "custom_modules": []
+    }
+  },
+  "activeTopology": {
+    "id": "map_mvj11lsr_pj",
+    "name": "Crypt",
+    "campaignName": "Emerald Isle",
+    "rootMapId": "map_root",
+    "activeMapId": "map_root",
+    "maps": {
+      "map_root": {
+        "id": "map_root",
+        "name": "Emerald Isle",
+        "nodePrefix": "",
+        "scaleTier": "region",
+        "parentMapId": null,
+        "parentNodeId": null,
+        "dispositionModifier": "",
+        "nodes": [
+          {
+            "id": 1,
+            "name": "Outpost",
+            "displayName": "Outpost",
+            "x": 1187,
+            "y": 482,
+            "coordinates": {
+              "x": 1187,
+              "y": 482
+            },
+            "cat": "Standard POI",
+            "culture": "Market",
+            "shape": "pentagon",
+            "adj": [
+              2
+            ],
+            "infBy": [
+              2
+            ],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": "map_mvg3e071_ip",
+            "customNotes": "@Farmland is only real neighbor",
+            "locked": true,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              1,
+              3,
+              1
+            ],
+            "odvOverridden": false,
+            "faction": "Military",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": 2,
+            "name": "Farmland",
+            "displayName": "Farmland",
+            "x": 1066,
+            "y": 401,
+            "coordinates": {
+              "x": 1066,
+              "y": 401
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              1,
+              4,
+              3,
+              5
+            ],
+            "infBy": [
+              1,
+              4
+            ],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-phase_2-mvvysbid"
+          },
+          {
+            "id": 3,
+            "name": "Grasslands",
+            "displayName": "Grasslands",
+            "x": 909,
+            "y": 343,
+            "coordinates": {
+              "x": 909,
+              "y": 343
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              2,
+              4,
+              5,
+              6,
+              7
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-phase_2-mvvysbid"
+          },
+          {
+            "id": 4,
+            "name": "Stone Mountain",
+            "displayName": "Stone Mountain",
+            "x": 970,
+            "y": 487,
+            "coordinates": {
+              "x": 970,
+              "y": 487
+            },
+            "cat": "Standard POI",
+            "culture": "Hierarchy",
+            "shape": "circle",
+            "adj": [
+              2,
+              3
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              1,
+              3,
+              4
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-phase_2-mvvysbid"
+          },
+          {
+            "id": 5,
+            "name": "Third Party",
+            "displayName": "Third Party",
+            "x": 1034,
+            "y": 269,
+            "coordinates": {
+              "x": 1034,
+              "y": 269
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              2,
+              3
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": false,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-phase_2-mvvysbid"
+          },
+          {
+            "id": 6,
+            "name": "Waterfall",
+            "displayName": "Waterfall",
+            "x": 847,
+            "y": 224,
+            "coordinates": {
+              "x": 847,
+              "y": 224
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              3,
+              8
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": false,
+            "color": null,
+            "modules": [
+              "INFRA-01"
+            ],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-phase_3-mvvytidl"
+          },
+          {
+            "id": 7,
+            "name": "River and Road",
+            "displayName": "River and Road",
+            "x": 719,
+            "y": 410,
+            "coordinates": {
+              "x": 719,
+              "y": 410
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              3,
+              9,
+              10
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": false,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-phase_3-mvvytidl"
+          },
+          {
+            "id": 8,
+            "name": "Cliffs",
+            "displayName": "Cliffs",
+            "x": 751,
+            "y": 333,
+            "coordinates": {
+              "x": 751,
+              "y": 333
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              9,
+              6
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": false,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-phase_3-mvvytidl"
+          },
+          {
+            "id": 9,
+            "name": "Highlands",
+            "displayName": "Highlands",
+            "x": 445,
+            "y": 468,
+            "coordinates": {
+              "x": 445,
+              "y": 468
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              7,
+              8,
+              10
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": false,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-node_phase_4-mvvyv7fi"
+          },
+          {
+            "id": 10,
+            "name": "Swamp",
+            "displayName": "Swamp",
+            "x": 587,
+            "y": 679,
+            "coordinates": {
+              "x": 587,
+              "y": 679
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              7,
+              9,
+              11
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": false,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-node_phase_4-mvvyv7fi"
+          },
+          {
+            "id": 11,
+            "name": "Beach",
+            "displayName": "Beach",
+            "x": 1058,
+            "y": 653,
+            "coordinates": {
+              "x": 1058,
+              "y": 653
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              10
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": false,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-node_phase_4-mvvyv7fi"
+          }
+        ],
+        "links": [
+          {
+            "from": 1,
+            "to": 2,
+            "type": "twoway",
+            "layer": "both"
+          },
+          {
+            "from": 2,
+            "to": 4,
+            "type": "twoway",
+            "layer": "both"
+          },
+          {
+            "from": 2,
+            "to": 3,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 2,
+            "to": 5,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 3,
+            "to": 4,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 3,
+            "to": 5,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 3,
+            "to": 6,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 3,
+            "to": 7,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 6,
+            "to": 8,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 7,
+            "to": 9,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 7,
+            "to": 10,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 8,
+            "to": 9,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 9,
+            "to": 10,
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": 10,
+            "to": 11,
+            "type": "twoway",
+            "layer": "transit"
+          }
+        ],
+        "waves": [],
+        "drawnCards": {},
+        "nodeSlottedModules": {
+          "1": [],
+          "2": [],
+          "3": [],
+          "4": [],
+          "5": [],
+          "6": [
+            "INFRA-01"
+          ],
+          "7": [],
+          "8": [],
+          "9": [],
+          "10": [],
+          "11": [],
+          "12": [],
+          "13": [],
+          "14": [],
+          "15": [],
+          "16": [],
+          "17": [],
+          "18": []
+        },
+        "edgeSlottedModules": {},
+        "revealedNodes": {
+          "CA-1": true
+        },
+        "mapMetadata": {
+          "id": "map_root",
+          "name": "map_root_bg.jpg",
+          "width": 1308,
+          "height": 867,
+          "opacity": 0.85,
+          "timestamp": 1793240369735,
+          "assetPath": "assets/map_root_bg.jpg"
+        },
+        "customNotes": "SIcilian",
+        "mapScale": {
+          "value": 5,
+          "unit": "miles",
+          "pixels": 20
+        },
+        "edgeData": {
+          "2-5": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": [],
+            "dedicatedFlows": [],
+            "visible": false
+          },
+          "3-5": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "None",
+            "patrolFaction": "neutral",
+            "modules": [],
+            "dedicatedFlows": []
+          },
+          "2-3": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": [],
+            "dedicatedFlows": [],
+            "conduitType": "Caravan Trade Route"
+          },
+          "3-7": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": [],
+            "dedicatedFlows": [],
+            "conduitType": "Caravan Trade Route"
+          },
+          "10-7": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": [],
+            "dedicatedFlows": [],
+            "conduitType": "Caravan Trade Route"
+          },
+          "2->4": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": [],
+            "dedicatedFlows": []
+          },
+          "4->3": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": [],
+            "dedicatedFlows": []
+          },
+          "1-2": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": [],
+            "dedicatedFlows": []
+          },
+          "1->2": {
+            "name": "",
+            "condition": "Paved Highway",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": [],
+            "dedicatedFlows": []
+          }
+        },
+        "edgeNotes": {},
+        "modData": {},
+        "layers": [
+          {
+            "id": "layer-bg",
+            "name": "Background & Grid",
+            "zIndex": 1,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-drawings",
+            "name": "Drawing Shapes",
+            "zIndex": 0,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-roads",
+            "name": "Transit Roads",
+            "zIndex": 2,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-hegemony",
+            "name": "Hegemony Conduits",
+            "zIndex": 3,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-nodes",
+            "name": "Topological Nodes",
+            "zIndex": 4,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-annotations",
+            "name": "Annotations & Clocks",
+            "zIndex": 5,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-phase_2-mvvysbid",
+            "name": "Node Phase 2",
+            "zIndex": 6,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": false
+          },
+          {
+            "id": "layer-phase_3-mvvytidl",
+            "name": "Node Phase 3",
+            "zIndex": 7,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": false
+          },
+          {
+            "id": "layer-node_phase_4-mvvyv7fi",
+            "name": "Node Phase 4",
+            "zIndex": 8,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": false
+          }
+        ],
+        "shapes": [],
+        "custom_modules": []
+      },
+      "map_mvg3e071_ip": {
+        "id": "map_mvg3e071_ip",
+        "name": "Outpost",
+        "nodePrefix": "OU-",
+        "scaleTier": "settlement",
+        "parentMapId": "map_root",
+        "parentNodeId": "1",
+        "dispositionModifier": "",
+        "nodes": [
+          {
+            "id": "OU-1",
+            "name": "OU-Drawbridge",
+            "displayName": "OU-Drawbridge",
+            "x": 739,
+            "y": 372,
+            "coordinates": {
+              "x": 739,
+              "y": 372
+            },
+            "cat": "Standard POI",
+            "culture": "Hierarchy",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-2",
+              "OU-5"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-10",
+            "name": "OU-Guardroom",
+            "displayName": "OU-Guardroom",
+            "x": 585,
+            "y": 418,
+            "coordinates": {
+              "x": 585,
+              "y": 418
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-11",
+              "OU-7"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-11",
+            "name": "OU-Lower courtyard – moat",
+            "displayName": "OU-Lower courtyard – moat",
+            "x": 591,
+            "y": 303,
+            "coordinates": {
+              "x": 591,
+              "y": 303
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-2",
+              "OU-10",
+              "OU-29",
+              "OU-25"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-12",
+            "name": "OU-Upper courtyard",
+            "displayName": "OU-Upper courtyard",
+            "x": 401,
+            "y": 408,
+            "coordinates": {
+              "x": 401,
+              "y": 408
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-21",
+              "OU-14",
+              "OU-13",
+              "OU-15"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-13",
+            "name": "OU-Gallery (Cloister gallery)",
+            "displayName": "OU-Gallery (Cloister gallery)",
+            "x": 462,
+            "y": 366,
+            "coordinates": {
+              "x": 462,
+              "y": 366
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-21",
+              "OU-14",
+              "OU-12",
+              "OU-8",
+              "OU-9"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-14",
+            "name": "OU-Great Hall",
+            "displayName": "OU-Great Hall",
+            "x": 415,
+            "y": 330,
+            "coordinates": {
+              "x": 415,
+              "y": 330
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-13",
+              "OU-12"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-15",
+            "name": "OU-120m-long corridor",
+            "displayName": "OU-120m-long corridor",
+            "x": 357,
+            "y": 353,
+            "coordinates": {
+              "x": 357,
+              "y": 353
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-12",
+              "OU-17",
+              "OU-16",
+              "OU-19",
+              "OU-18",
+              "OU-29",
+              "OU-9"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-16",
+            "name": "OU-WEST watchtower",
+            "displayName": "OU-WEST watchtower",
+            "x": 272,
+            "y": 537,
+            "coordinates": {
+              "x": 272,
+              "y": 537
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-15",
+              "OU-21"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-17",
+            "name": "OU-CENTER watchtower",
+            "displayName": "OU-CENTER watchtower",
+            "x": 381,
+            "y": 549,
+            "coordinates": {
+              "x": 381,
+              "y": 549
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-15",
+              "OU-21"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-18",
+            "name": "OU-EAST watchtower",
+            "displayName": "OU-EAST watchtower",
+            "x": 520,
+            "y": 547,
+            "coordinates": {
+              "x": 520,
+              "y": 547
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-15",
+              "OU-21"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-19",
+            "name": "OU-Olive oil press",
+            "displayName": "OU-Olive oil press",
+            "x": 444,
+            "y": 550,
+            "coordinates": {
+              "x": 444,
+              "y": 550
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-15",
+              "OU-21"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-2",
+            "name": "OU- High entrance gate (Main gate)",
+            "displayName": "OU- High entrance gate (Main gate)",
+            "x": 660,
+            "y": 329,
+            "coordinates": {
+              "x": 660,
+              "y": 329
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-1",
+              "OU-3",
+              "OU-11"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-20",
+            "name": "OU-Warehouse / Storeroom",
+            "displayName": "OU-Warehouse / Storeroom",
+            "x": 526,
+            "y": 469,
+            "coordinates": {
+              "x": 526,
+              "y": 469
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-7"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-21",
+            "name": "OU-Pillared hall",
+            "displayName": "OU-Pillared hall",
+            "x": 425,
+            "y": 467,
+            "coordinates": {
+              "x": 425,
+              "y": 467
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-7",
+              "OU-12",
+              "OU-13",
+              "OU-18",
+              "OU-19",
+              "OU-17",
+              "OU-16"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-22",
+            "name": "OU-Arab baths",
+            "displayName": "OU-Arab baths",
+            "x": 610,
+            "y": 710,
+            "coordinates": {
+              "x": 610,
+              "y": 710
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-23",
+            "name": "OU-60m-long hall",
+            "displayName": "OU-60m-long hall",
+            "x": 304,
+            "y": 693,
+            "coordinates": {
+              "x": 304,
+              "y": 693
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-24",
+            "name": "OU-Aqueduct",
+            "displayName": "OU-Aqueduct",
+            "x": 149,
+            "y": 764,
+            "coordinates": {
+              "x": 149,
+              "y": 764
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-25"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-25",
+            "name": "OU-Water reservoir (Cistern)",
+            "displayName": "OU-Water reservoir (Cistern)",
+            "x": 280,
+            "y": 620,
+            "coordinates": {
+              "x": 280,
+              "y": 620
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-24",
+              "OU-11"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-26",
+            "name": "OU-Secret passage",
+            "displayName": "OU-Secret passage",
+            "x": 323,
+            "y": 768,
+            "coordinates": {
+              "x": 323,
+              "y": 768
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-27",
+            "name": "OU-New Arab bastion",
+            "displayName": "OU-New Arab bastion",
+            "x": 268,
+            "y": 805,
+            "coordinates": {
+              "x": 268,
+              "y": 805
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-28",
+            "name": "OU-Arab bastion",
+            "displayName": "OU-Arab bastion",
+            "x": 399,
+            "y": 818,
+            "coordinates": {
+              "x": 399,
+              "y": 818
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-29",
+            "name": "OU-Tower of the King's Daughter",
+            "displayName": "OU-Tower of the King's Daughter",
+            "x": 405,
+            "y": 176,
+            "coordinates": {
+              "x": 405,
+              "y": 176
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "OU-15",
+              "OU-9",
+              "OU-11"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-3",
+            "name": "OU-Inner staircase (Access ramp/passage)",
+            "displayName": "OU-Inner staircase (Access ramp/passage)",
+            "x": 651,
+            "y": 402,
+            "coordinates": {
+              "x": 651,
+              "y": 402
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-2",
+              "OU-4",
+              "OU-6"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-30",
+            "name": "OU-Inscription of Sultan Qalawun",
+            "displayName": "OU-Inscription of Sultan Qalawun",
+            "x": 225,
+            "y": 730,
+            "coordinates": {
+              "x": 225,
+              "y": 730
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-31",
+            "name": "OU- Inscription of Sultan Baibars",
+            "displayName": "OU- Inscription of Sultan Baibars",
+            "x": 114,
+            "y": 689,
+            "coordinates": {
+              "x": 114,
+              "y": 689
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-4",
+            "name": "OU-Guard post",
+            "displayName": "OU-Guard post",
+            "x": 677,
+            "y": 465,
+            "coordinates": {
+              "x": 677,
+              "y": 465
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-3"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-5",
+            "name": "OU-Guard post",
+            "displayName": "OU-Guard post",
+            "x": 678,
+            "y": 517,
+            "coordinates": {
+              "x": 678,
+              "y": 517
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-1"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-6",
+            "name": "OU-Stables (kitchens, dining halls)",
+            "displayName": "OU-Stables (kitchens, dining halls)",
+            "x": 620,
+            "y": 578,
+            "coordinates": {
+              "x": 620,
+              "y": 578
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-3"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-7",
+            "name": "OU-Upper entrance",
+            "displayName": "OU-Upper entrance",
+            "x": 524,
+            "y": 418,
+            "coordinates": {
+              "x": 524,
+              "y": 418
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-10",
+              "OU-20",
+              "OU-8",
+              "OU-21"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-8",
+            "name": "OU-Long guardroom",
+            "displayName": "OU-Long guardroom",
+            "x": 518,
+            "y": 325,
+            "coordinates": {
+              "x": 518,
+              "y": 325
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "radius": 12,
+            "adj": [
+              "OU-7",
+              "OU-13"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "OU-9",
+            "name": "OU-Cathedral",
+            "displayName": "OU-Cathedral",
+            "x": 483,
+            "y": 258,
+            "coordinates": {
+              "x": 483,
+              "y": 258
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "diamond",
+            "radius": 12,
+            "adj": [
+              "OU-29",
+              "OU-13",
+              "OU-15"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": "map_mvg3f9wx_pa",
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": "#c0c0c0",
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          }
+        ],
+        "links": [
+          {
+            "from": "OU-1",
+            "to": "OU-2",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-1",
+            "to": "OU-5",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-10",
+            "to": "OU-11",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-10",
+            "to": "OU-7",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-11",
+            "to": "OU-2",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-11",
+            "to": "OU-29",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-11",
+            "to": "OU-25",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-12",
+            "to": "OU-21",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-12",
+            "to": "OU-14",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-12",
+            "to": "OU-13",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-12",
+            "to": "OU-15",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-13",
+            "to": "OU-21",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-13",
+            "to": "OU-14",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-13",
+            "to": "OU-8",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-13",
+            "to": "OU-9",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-15",
+            "to": "OU-17",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-15",
+            "to": "OU-16",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-15",
+            "to": "OU-19",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-15",
+            "to": "OU-18",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-15",
+            "to": "OU-29",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-15",
+            "to": "OU-9",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-16",
+            "to": "OU-21",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-17",
+            "to": "OU-21",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-18",
+            "to": "OU-21",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-19",
+            "to": "OU-21",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-2",
+            "to": "OU-3",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-20",
+            "to": "OU-7",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-21",
+            "to": "OU-7",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-24",
+            "to": "OU-25",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-29",
+            "to": "OU-9",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-3",
+            "to": "OU-4",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-3",
+            "to": "OU-6",
+            "type": "twoway",
+            "layer": "transit"
+          },
+          {
+            "from": "OU-7",
+            "to": "OU-8",
+            "type": "twoway",
+            "layer": "transit"
+          }
+        ],
+        "waves": [],
+        "drawnCards": {},
+        "nodeSlottedModules": {
+          "OU-1": [],
+          "OU-2": [],
+          "OU-3": [],
+          "OU-4": [],
+          "OU-5": [],
+          "OU-6": [],
+          "OU-7": [],
+          "OU-8": [],
+          "OU-9": [],
+          "OU-10": [],
+          "OU-11": [],
+          "OU-12": [],
+          "OU-13": [],
+          "OU-14": [],
+          "OU-15": [],
+          "OU-16": [],
+          "OU-17": [],
+          "OU-18": [],
+          "OU-19": [],
+          "OU-20": [],
+          "OU-21": [],
+          "OU-22": [],
+          "OU-23": [],
+          "OU-24": [],
+          "OU-25": [],
+          "OU-26": [],
+          "OU-27": [],
+          "OU-28": [],
+          "OU-29": [],
+          "OU-30": [],
+          "OU-31": []
+        },
+        "edgeSlottedModules": {},
+        "revealedNodes": {
+          "OU-1": true
+        },
+        "mapMetadata": {
+          "id": "map_mvg3e071_ip",
+          "name": "map_mvg3e071_ip_bg.png",
+          "width": 806,
+          "height": 874,
+          "opacity": 0.85,
+          "timestamp": 1793240375764,
+          "assetPath": "assets/map_mvg3e071_ip_bg.png"
+        },
+        "customNotes": "",
+        "edgeData": {
+          "OU-2-OU-3": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": []
+          },
+          "OU-3-OU-4": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": []
+          },
+          "OU-4-OU-6": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": []
+          },
+          "OU-1-OU-6": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": []
+          },
+          "OU-1-OU-25": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": []
+          },
+          "OU-25-OU-29": {
+            "name": "",
+            "condition": "Passable",
+            "hazardLevel": 0,
+            "tollCost": "",
+            "patrolFaction": "neutral",
+            "modules": []
+          }
+        },
+        "edgeNotes": {},
+        "modData": {},
+        "layers": [
+          {
+            "id": "layer-bg",
+            "name": "Background & Grid",
+            "zIndex": 0,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-drawings",
+            "name": "Drawing Shapes",
+            "zIndex": 1,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-roads",
+            "name": "Transit Roads",
+            "zIndex": 2,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-hegemony",
+            "name": "Hegemony Conduits",
+            "zIndex": 3,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-nodes",
+            "name": "Topological Nodes",
+            "zIndex": 4,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-annotations",
+            "name": "Annotations & Clocks",
+            "zIndex": 5,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          }
+        ],
+        "shapes": [],
+        "custom_modules": [],
+        "mapScale": {
+          "value": 500,
+          "unit": "feet",
+          "pixels": 20
+        }
+      },
+      "map_mvg3f9wx_pa": {
+        "id": "map_mvg3f9wx_pa",
+        "name": "Cathedral",
+        "nodePrefix": "CA-",
+        "scaleTier": "floorplan",
+        "parentMapId": "map_mvg3e071_ip",
+        "parentNodeId": "OU-9",
+        "dispositionModifier": "",
+        "nodes": [
+          {
+            "id": "CA-1",
+            "name": "CA-1 Arrival Portal",
+            "displayName": "CA-1 Arrival Portal",
+            "x": 28,
+            "y": 393,
+            "coordinates": {
+              "x": 28,
+              "y": 393
+            },
+            "cat": "Standard POI",
+            "culture": "Hierarchy",
+            "shape": "circle",
+            "adj": [
+              "CA-2"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "CA-2",
+            "name": "CA-Tower Stairs",
+            "displayName": "CA-Tower Stairs",
+            "x": 345,
+            "y": 442,
+            "coordinates": {
+              "x": 345,
+              "y": 442
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [
+              "CA-1"
+            ],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "CA-3",
+            "name": "CA-Crypt",
+            "displayName": "CA-Crypt",
+            "x": 760,
+            "y": 468,
+            "coordinates": {
+              "x": 760,
+              "y": 468
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "CA-4",
+            "name": "CA-4",
+            "displayName": "CA-4",
+            "x": 372,
+            "y": 15,
+            "coordinates": {
+              "x": 372,
+              "y": 15
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": "map_mvj11lsr_pj",
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          }
+        ],
+        "links": [
+          {
+            "from": "CA-1",
+            "to": "CA-2",
+            "type": "twoway",
+            "layer": "transit"
+          }
+        ],
+        "waves": [],
+        "drawnCards": {},
+        "nodeSlottedModules": {
+          "CA-1": [],
+          "CA-2": [],
+          "CA-3": [],
+          "CA-4": []
+        },
+        "edgeSlottedModules": {},
+        "revealedNodes": {
+          "CA-1": true
+        },
+        "mapMetadata": {
+          "id": "map_mvg3f9wx_pa",
+          "name": "map_mvg3f9wx_pa_bg.jpg",
+          "width": 1024,
+          "height": 765,
+          "opacity": 0.85,
+          "timestamp": 1793240386200,
+          "assetPath": "assets/map_mvg3f9wx_pa_bg.jpg"
+        },
+        "customNotes": "",
+        "edgeData": {},
+        "edgeNotes": {},
+        "modData": {},
+        "layers": [
+          {
+            "id": "layer-bg",
+            "name": "Background & Grid",
+            "zIndex": 0,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-drawings",
+            "name": "Drawing Shapes",
+            "zIndex": 1,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-roads",
+            "name": "Transit Roads",
+            "zIndex": 2,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-hegemony",
+            "name": "Hegemony Conduits",
+            "zIndex": 3,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-nodes",
+            "name": "Topological Nodes",
+            "zIndex": 4,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-annotations",
+            "name": "Annotations & Clocks",
+            "zIndex": 5,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          }
+        ],
+        "shapes": [],
+        "custom_modules": [],
+        "mapScale": {
+          "value": 5,
+          "unit": "feet",
+          "pixels": 20
+        }
+      },
+      "map_mvj11lsr_pj": {
+        "id": "map_mvj11lsr_pj",
+        "name": "Crypt",
+        "nodePrefix": "CR-",
+        "scaleTier": "district",
+        "parentMapId": "map_mvg3f9wx_pa",
+        "parentNodeId": "CA-4",
+        "dispositionModifier": "",
+        "nodes": [
+          {
+            "id": "CR-1",
+            "name": "CR-1 Stairs Up",
+            "displayName": "CR-1 Stairs Up",
+            "x": 376,
+            "y": 697,
+            "coordinates": {
+              "x": 376,
+              "y": 697
+            },
+            "cat": "Standard POI",
+            "culture": "Hierarchy",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "CR-2",
+            "name": "CR-Stairs Down",
+            "displayName": "CR-Stairs Down",
+            "x": 140,
+            "y": 303,
+            "coordinates": {
+              "x": 140,
+              "y": 303
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "CR-3",
+            "name": "CR-Door Northwest",
+            "displayName": "CR-Door Northwest",
+            "x": 127,
+            "y": 210,
+            "coordinates": {
+              "x": 127,
+              "y": 210
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "CR-4",
+            "name": "CR-Canvas Slit",
+            "displayName": "CR-Canvas Slit",
+            "x": 96,
+            "y": 544,
+            "coordinates": {
+              "x": 96,
+              "y": 544
+            },
+            "cat": "Standard POI",
+            "culture": "Market",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              3,
+              3
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "CR-5",
+            "name": "CR-Double Door",
+            "displayName": "CR-Double Door",
+            "x": 401,
+            "y": 137,
+            "coordinates": {
+              "x": 401,
+              "y": 137
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "CR-6",
+            "name": "CR-Door North East",
+            "displayName": "CR-Door North East",
+            "x": 619,
+            "y": 154,
+            "coordinates": {
+              "x": 619,
+              "y": 154
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          },
+          {
+            "id": "CR-7",
+            "name": "CR-Door North Northwest",
+            "displayName": "CR-Door North Northwest",
+            "x": 197,
+            "y": 140,
+            "coordinates": {
+              "x": 197,
+              "y": 140
+            },
+            "cat": "Standard POI",
+            "culture": "Clan",
+            "shape": "circle",
+            "adj": [],
+            "infBy": [],
+            "hubEligibility": "candidate",
+            "eligible": true,
+            "wave": 1,
+            "tier": 2,
+            "childMapId": null,
+            "customNotes": "",
+            "locked": false,
+            "visible": true,
+            "color": null,
+            "modules": [],
+            "provides": [],
+            "requires": [],
+            "modData": {},
+            "odv": [
+              2,
+              2,
+              2
+            ],
+            "odvOverridden": false,
+            "faction": "neutral",
+            "layerId": "layer-nodes"
+          }
+        ],
+        "links": [],
+        "waves": [],
+        "drawnCards": {},
+        "nodeSlottedModules": {
+          "CR-1": [],
+          "CR-2": [],
+          "CR-3": [],
+          "CR-4": [],
+          "CR-5": [],
+          "CR-6": [],
+          "CR-7": []
+        },
+        "edgeSlottedModules": {},
+        "revealedNodes": {
+          "CR-1": true
+        },
+        "layers": [
+          {
+            "id": "layer-bg",
+            "name": "Background & Grid",
+            "zIndex": 0,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-drawings",
+            "name": "Drawing Shapes",
+            "zIndex": 1,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-roads",
+            "name": "Transit Roads",
+            "zIndex": 2,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-hegemony",
+            "name": "Hegemony Conduits",
+            "zIndex": 3,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-nodes",
+            "name": "Topological Nodes",
+            "zIndex": 4,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          },
+          {
+            "id": "layer-annotations",
+            "name": "Annotations & Clocks",
+            "zIndex": 5,
+            "visible": true,
+            "locked": false,
+            "opacity": 1,
+            "isCore": true
+          }
+        ],
+        "shapes": [],
+        "mapMetadata": {
+          "id": "map_mvj11lsr_pj",
+          "name": "crypt.png",
+          "width": 791,
+          "height": 791,
+          "opacity": 0.85,
+          "timestamp": 1793322054756,
+          "assetPath": "assets/map_mvj11lsr_pj_bg.png"
+        },
+        "customNotes": "",
+        "edgeData": {},
+        "edgeNotes": {},
+        "modData": {},
+        "mapScale": {
+          "value": 100,
+          "unit": "feet",
+          "pixels": 20
+        },
+        "custom_modules": []
+      }
+    },
+    "nodes": {
+      "CR-1": {
+        "id": "CR-1",
+        "name": "CR-1 Stairs Up",
+        "x": 376,
+        "y": 697,
+        "coordinates": {
+          "x": 376,
+          "y": 697
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Hierarchy",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "CR-2": {
+        "id": "CR-2",
+        "name": "CR-Stairs Down",
+        "x": 140,
+        "y": 303,
+        "coordinates": {
+          "x": 140,
+          "y": 303
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Clan",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "CR-3": {
+        "id": "CR-3",
+        "name": "CR-Door Northwest",
+        "x": 127,
+        "y": 210,
+        "coordinates": {
+          "x": 127,
+          "y": 210
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Clan",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "CR-4": {
+        "id": "CR-4",
+        "name": "CR-Canvas Slit",
+        "x": 96,
+        "y": 544,
+        "coordinates": {
+          "x": 96,
+          "y": 544
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Market",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 3
+        },
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes",
+        "opProfile": "Service"
+      },
+      "CR-5": {
+        "id": "CR-5",
+        "name": "CR-Double Door",
+        "x": 401,
+        "y": 137,
+        "coordinates": {
+          "x": 401,
+          "y": 137
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Clan",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "CR-6": {
+        "id": "CR-6",
+        "name": "CR-Door North East",
+        "x": 619,
+        "y": 154,
+        "coordinates": {
+          "x": 619,
+          "y": 154
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Clan",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "CR-7": {
+        "id": "CR-7",
+        "name": "CR-Door North Northwest",
+        "x": 197,
+        "y": 140,
+        "coordinates": {
+          "x": 197,
+          "y": 140
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Clan",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      }
+    },
+    "links": [],
+    "waves": [],
+    "entities": {
+      "npcs": [
+        {
+          "id": "npc-394512",
+          "nodeId": "CA-2",
+          "isCustom": true,
+          "status": "Active",
+          "name": "Groundskeeper Willy",
+          "role": "Groundskeeper",
+          "faction": "Cathedral",
+          "motivation": "Wants everyone gone from the cathedral until its open again",
+          "dispositionToParty": 0,
+          "culture": "Hierarchy",
+          "fourCornersRole": "Adversary",
+          "odv": {
+            "s": 2,
+            "e": 2,
+            "c": 2
+          },
+          "secretsKnown": [],
+          "leverage": {
+            "vulnerability": "",
+            "bribe": ""
+          },
+          "dialogueHooks": [],
+          "relationships": []
+        }
+      ],
+      "quests": [
+        {
+          "id": "quest-458670",
+          "nodeId": "CA-2",
+          "isCustom": true,
+          "status": "Active",
+          "title": "Open the Cathedral",
+          "type": "Locked Door",
+          "threat": "",
+          "notes": "",
+          "npcIds": [
+            "npc-394512"
+          ],
+          "itemIds": [
+            "item-431774"
+          ]
+        }
+      ],
+      "items": [
+        {
+          "id": "item-431774",
+          "nodeId": "CA-1",
+          "isCustom": true,
+          "status": "Active",
+          "name": "Cathedral Key",
+          "category": "Key",
+          "specs": "",
+          "notes": "",
+          "ownerNpcId": "npc-394512",
+          "possessionMode": "carried"
+        }
+      ],
+      "trackers": [],
+      "tickets": [],
+      "custom_modules": [],
+      "deletedModules": [
+        "CONF-01",
+        "CONF-02",
+        "CONF-03"
+      ],
+      "deletedPrototypes": []
+    },
+    "npcs": [
+      {
+        "id": "npc-394512",
+        "nodeId": "CA-2",
+        "isCustom": true,
+        "status": "Active",
+        "name": "Groundskeeper Willy",
+        "role": "Groundskeeper",
+        "faction": "Cathedral",
+        "motivation": "Wants everyone gone from the cathedral until its open again",
+        "dispositionToParty": 0,
+        "culture": "Hierarchy",
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [],
+        "leverage": {
+          "vulnerability": "",
+          "bribe": ""
+        },
+        "dialogueHooks": [],
+        "relationships": []
+      }
+    ],
+    "quests": [
+      {
+        "id": "quest-458670",
+        "nodeId": "CA-2",
+        "isCustom": true,
+        "status": "Active",
+        "title": "Open the Cathedral",
+        "type": "Locked Door",
+        "threat": "",
+        "notes": "",
+        "npcIds": [
+          "npc-394512"
+        ],
+        "itemIds": [
+          "item-431774"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "id": "item-431774",
+        "nodeId": "CA-1",
+        "isCustom": true,
+        "status": "Active",
+        "name": "Cathedral Key",
+        "category": "Key",
+        "specs": "",
+        "notes": "",
+        "ownerNpcId": "npc-394512",
+        "possessionMode": "carried"
+      }
+    ],
+    "trackers": [],
+    "tickets": [],
+    "deletedPrototypes": [],
+    "deletedModules": [
+      "CONF-01",
+      "CONF-02",
+      "CONF-03"
+    ],
+    "custom_modules": [],
+    "layers": [
+      {
+        "id": "layer-bg",
+        "name": "Background & Grid",
+        "zIndex": 0,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      },
+      {
+        "id": "layer-drawings",
+        "name": "Drawing Shapes",
+        "zIndex": 1,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      },
+      {
+        "id": "layer-roads",
+        "name": "Transit Roads",
+        "zIndex": 2,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      },
+      {
+        "id": "layer-hegemony",
+        "name": "Hegemony Conduits",
+        "zIndex": 3,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      },
+      {
+        "id": "layer-nodes",
+        "name": "Topological Nodes",
+        "zIndex": 4,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      },
+      {
+        "id": "layer-annotations",
+        "name": "Annotations & Clocks",
+        "zIndex": 5,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      }
+    ],
+    "shapes": [],
+    "scaleTier": "district",
+    "edgeData": {},
+    "edgeNotes": {},
+    "modData": {},
+    "description": "Authored in Creator Studio Pointcrawl Workstation",
+    "campaign_modules": [
+      "CWT-010",
+      "CWT-011",
+      "CWT-012",
+      "CWT-013",
+      "CWT-014",
+      "CWT-015",
+      "CWT-020",
+      "CWT-021",
+      "CWT-022",
+      "CWT-023",
+      "CWT-024",
+      "CWT-025",
+      "CWT-030",
+      "CWT-031",
+      "CWT-032",
+      "CWT-033",
+      "CWT-034",
+      "CWT-040",
+      "CWT-041",
+      "CWT-042",
+      "CWT-043",
+      "CWT-044",
+      "CWT-045",
+      "CWT-050",
+      "CWT-060A",
+      "CWT-060",
+      "CWT-061",
+      "CWT-062",
+      "CWT-063",
+      "CWT-064",
+      "CWT-065",
+      "CWT-066",
+      "CWT-067",
+      "CWT-068",
+      "CWT-069",
+      "CWT-070",
+      "CWT-071",
+      "CWT-072",
+      "CWT-073",
+      "CWT-074",
+      "CWT-075",
+      "CWT-076",
+      "CWT-077",
+      "CWT-078",
+      "FACT-01",
+      "FACT-02",
+      "FACT-03",
+      "FACT-04",
+      "FACT-06",
+      "HOOK-01",
+      "INFRA-01",
+      "INFRA-02",
+      "INFRA-03",
+      "INFRA-04",
+      "INFRA-05",
+      "INFRA-06",
+      "INFRA-07",
+      "INFRA-08",
+      "INFRA-09",
+      "ECOL-01",
+      "ECOL-02",
+      "ECOL-03",
+      "ECOL-04",
+      "ECOL-05",
+      "ECOL-06",
+      "ECOL-07",
+      "FACT-05",
+      "FACT-07",
+      "CONF-04",
+      "CONF-05",
+      "CONF-06",
+      "EDGE-01",
+      "EDGE-02",
+      "EDGE-03",
+      "EDGE-04",
+      "EDGE-05",
+      "SPARK-01",
+      "SPARK-02",
+      "SPARK-03",
+      "SPARK-04",
+      "SPARK-05",
+      "SPARK-06",
+      "SPARK-07",
+      "SPARK-08",
+      "ESOT-01",
+      "ESOT-02",
+      "ESOT-03",
+      "ESOT-04",
+      "ESOT-05",
+      "ESOT-06",
+      "OPT-BREACH-01",
+      "OPT-FACTION-01",
+      "OPT-ORIGIN-01",
+      "OPT-RESORT-01",
+      "OPT-ZOO-01",
+      "STARTER-01",
+      "STARTER-02",
+      "STARTER-03",
+      "STARTER-04",
+      "STARTER-05",
+      "STARTER-06",
+      "T0-DOM-01",
+      "T0-DOM-02",
+      "T0-DOM-03",
+      "T0-DOM-04",
+      "T0-DOM-05",
+      "T0-DOM-06",
+      "T0-DOM-07",
+      "T0-DOM-08"
+    ]
+  },
+  "edgeData": {},
+  "edgeNotes": {},
+  "nodes": {
+    "CR-1": {
+      "id": "CR-1",
+      "name": "CR-1 Stairs Up",
+      "x": 376,
+      "y": 697,
+      "coordinates": {
+        "x": 376,
+        "y": 697
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "CR-2": {
+      "id": "CR-2",
+      "name": "CR-Stairs Down",
+      "x": 140,
+      "y": 303,
+      "coordinates": {
+        "x": 140,
+        "y": 303
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Clan",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "CR-3": {
+      "id": "CR-3",
+      "name": "CR-Door Northwest",
+      "x": 127,
+      "y": 210,
+      "coordinates": {
+        "x": 127,
+        "y": 210
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Clan",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "CR-4": {
+      "id": "CR-4",
+      "name": "CR-Canvas Slit",
+      "x": 96,
+      "y": 544,
+      "coordinates": {
+        "x": 96,
+        "y": 544
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Market",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 3
+      },
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes",
+      "opProfile": "Service"
+    },
+    "CR-5": {
+      "id": "CR-5",
+      "name": "CR-Double Door",
+      "x": 401,
+      "y": 137,
+      "coordinates": {
+        "x": 401,
+        "y": 137
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Clan",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "CR-6": {
+      "id": "CR-6",
+      "name": "CR-Door North East",
+      "x": 619,
+      "y": 154,
+      "coordinates": {
+        "x": 619,
+        "y": 154
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Clan",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "CR-7": {
+      "id": "CR-7",
+      "name": "CR-Door North Northwest",
+      "x": 197,
+      "y": 140,
+      "coordinates": {
+        "x": 197,
+        "y": 140
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Clan",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    }
+  },
+  "links": [],
+  "waves": [],
+  "entities": {
+    "npcs": [
+      {
+        "id": "npc-394512",
+        "nodeId": "CA-2",
+        "isCustom": true,
+        "status": "Active",
+        "name": "Groundskeeper Willy",
+        "role": "Groundskeeper",
+        "faction": "Cathedral",
+        "motivation": "Wants everyone gone from the cathedral until its open again",
+        "dispositionToParty": 0,
+        "culture": "Hierarchy",
+        "fourCornersRole": "Adversary",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
+        "secretsKnown": [],
+        "leverage": {
+          "vulnerability": "",
+          "bribe": ""
+        },
+        "dialogueHooks": [],
+        "relationships": []
+      }
+    ],
+    "quests": [
+      {
+        "id": "quest-458670",
+        "nodeId": "CA-2",
+        "isCustom": true,
+        "status": "Active",
+        "title": "Open the Cathedral",
+        "type": "Locked Door",
+        "threat": "",
+        "notes": "",
+        "npcIds": [
+          "npc-394512"
+        ],
+        "itemIds": [
+          "item-431774"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "id": "item-431774",
+        "nodeId": "CA-1",
+        "isCustom": true,
+        "status": "Active",
+        "name": "Cathedral Key",
+        "category": "Key",
+        "specs": "",
+        "notes": "",
+        "ownerNpcId": "npc-394512",
+        "possessionMode": "carried"
+      }
+    ],
+    "trackers": [],
+    "tickets": [],
+    "custom_modules": [],
+    "deletedModules": [
+      "CONF-01",
+      "CONF-02",
+      "CONF-03"
+    ],
+    "deletedPrototypes": []
+  },
+  "npcs": [
+    {
+      "id": "npc-394512",
+      "nodeId": "CA-2",
+      "isCustom": true,
+      "status": "Active",
+      "name": "Groundskeeper Willy",
+      "role": "Groundskeeper",
+      "faction": "Cathedral",
+      "motivation": "Wants everyone gone from the cathedral until its open again",
+      "dispositionToParty": 0,
+      "culture": "Hierarchy",
+      "fourCornersRole": "Adversary",
+      "odv": {
+        "s": 2,
+        "e": 2,
+        "c": 2
+      },
+      "secretsKnown": [],
+      "leverage": {
+        "vulnerability": "",
+        "bribe": ""
+      },
+      "dialogueHooks": [],
+      "relationships": []
+    }
+  ],
+  "quests": [
+    {
+      "id": "quest-458670",
+      "nodeId": "CA-2",
+      "isCustom": true,
+      "status": "Active",
+      "title": "Open the Cathedral",
+      "type": "Locked Door",
+      "threat": "",
+      "notes": "",
+      "npcIds": [
+        "npc-394512"
+      ],
+      "itemIds": [
+        "item-431774"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "item-431774",
+      "nodeId": "CA-1",
+      "isCustom": true,
+      "status": "Active",
+      "name": "Cathedral Key",
+      "category": "Key",
+      "specs": "",
+      "notes": "",
+      "ownerNpcId": "npc-394512",
+      "possessionMode": "carried"
+    }
+  ],
+  "trackers": [],
+  "tickets": [],
+  "custom_modules": [],
+  "deletedModules": [
+    "CONF-01",
+    "CONF-02",
+    "CONF-03"
+  ],
+  "deletedPrototypes": []
+}

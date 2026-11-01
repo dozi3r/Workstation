@@ -1,0 +1,2246 @@
+[
+  {
+    "id": "CWT-010",
+    "title": "The Biogenic Spore Bloom & Planetary Rebirth",
+    "set": "Wave 1 Climax Engines (Tier 5)",
+    "tier": "Tier 5 (Esoteric & Eschatological Engine)",
+    "pipeline_tier": 5,
+    "culture": "Clan / Bio-Symbiosis",
+    "color": "Green / Red",
+    "provides": [
+      "Climax: Biogenic-Spore-Awakening",
+      "Bio: Planetary-Symbiotic-Sap"
+    ],
+    "requires": [
+      "Ecology: Subterranean-Moist-Vaults",
+      "Bio: Concentrated-Blood-Alkaloids"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-010_The_Biogenic_Spore_Bloom_and_Planetary_Rebirth.md",
+    "standalone_fallback": "If upstream alchemical nutrient lines are severed, the mycelium digests local limestone bedrock directly, exuding a warm bioluminescent mist that sustains root tunnels while reducing spore virulence to Light Tier."
+  },
+  {
+    "id": "CWT-011",
+    "title": "The Imperial Regicide & Total Succession War",
+    "set": "Wave 1 Climax Engines (Tier 5)",
+    "tier": "Tier 5 (Esoteric & Eschatological Engine)",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy / Military Anarchy",
+    "color": "White / Black",
+    "provides": [
+      "Climax: Succession-War-Vacuum",
+      "Governance: Sovereign-Regency-Mandate"
+    ],
+    "requires": [
+      "Governance: High-Feudal-Charter",
+      "Military: Heavy-Armored-Pikes"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md",
+    "standalone_fallback": "If imperial charter supply links collapse, local martial garrisons declare autonomous feudal city-states, levying heavy 40% trade tolls on passing caravans while freezing inter-node communication."
+  },
+  {
+    "id": "CWT-012",
+    "title": "The Clockwork Demiurge Awakening & Techno-Apotheosis",
+    "set": "Wave 1 Climax Engines (Tier 5)",
+    "tier": "Tier 5 (Esoteric & Eschatological Engine)",
+    "pipeline_tier": 5,
+    "culture": "Market / High-Order Tech",
+    "color": "Blue / White",
+    "provides": [
+      "Climax: Mechanical-Singularity",
+      "Tech: Autonomous-Calculating-Engines"
+    ],
+    "requires": [
+      "Power: High-Voltage-DC",
+      "Mat: High-Purity-Silver"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md",
+    "standalone_fallback": "If high-voltage direct current lines are cut, the calculation core relies on heavy brass counterweights and water-driven escapements, maintaining 20% calculation speed while venting high-pressure scalding steam into surrounding vaults."
+  },
+  {
+    "id": "CWT-013",
+    "title": "The Eschatological Miasma & Necrotic Eclipse",
+    "set": "Wave 1 Climax Engines (Tier 5)",
+    "tier": "Tier 5 (Esoteric & Eschatological Engine)",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy / Thanatocratic Order",
+    "color": "Black / Blue",
+    "provides": [
+      "Climax: Necrotic-Planar-Eclipse",
+      "Arcana: Bound-Wraith-Phalanxes"
+    ],
+    "requires": [
+      "Esot: Necrotic-Resonance-Catalyst",
+      "Geo: Glacial-Quartz-Meltwater"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md",
+    "standalone_fallback": "If glacial quartz meltwater is cut off, necrotic condensation dries into an ash-like powder; wraith mobilization ceases, but ambient living creatures suffer permanent vision blur and Light Tier stamina drain."
+  },
+  {
+    "id": "CWT-014",
+    "title": "The Cosmic Planar Collision & Leyline Shatter",
+    "set": "Wave 1 Climax Engines (Tier 5)",
+    "tier": "Tier 5 (Esoteric & Eschatological Engine)",
+    "pipeline_tier": 5,
+    "culture": "Adhocracy / Reality Flux",
+    "color": "Red / Blue",
+    "provides": [
+      "Climax: Multiversal-Planar-Collision",
+      "Matter: Exotic-Planar-Alloys"
+    ],
+    "requires": [
+      "Esot: Resonant-Menhir-Array",
+      "Power: Extreme-Arc-Current"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md",
+    "standalone_fallback": "If high-amperage arc power lines drop, the rift collapses into localized spatial micro-shears (30-yard zones where gravity inverts and compasses spin wildly, inflicting Moderate Tier falling hazard checks)."
+  },
+  {
+    "id": "CWT-015",
+    "title": "The Great Peasant Levée & Total Class Insurgency",
+    "set": "Wave 1 Climax Engines (Tier 5)",
+    "tier": "Tier 5 (Esoteric & Eschatological Engine)",
+    "pipeline_tier": 5,
+    "culture": "Clan / Radical Egalitarianism",
+    "color": "Red / White",
+    "provides": [
+      "Climax: Total-Class-Insurgency",
+      "Labor: Mobilized-Mass-Levies"
+    ],
+    "requires": [
+      "Social: Starvation-State-Crisis",
+      "Munitions: Black-Powder-Reserves"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md",
+    "standalone_fallback": "If black powder reserves are exhausted, peasant insurgents resort to scythes, timber clubs, and incendiary pitch torches; siege effectiveness drops by half, but swarm numbers triple, maintaining constant civil pressure."
+  },
+  {
+    "id": "CWT-020",
+    "title": "The Subterranean Minecart Gravity Incline",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Market / Hierarchy",
+    "color": "Blue / Black",
+    "provides": [
+      "Transit: Deep-Gravity-Incline",
+      "Logistics: High-Speed-Subterranean-Corridor"
+    ],
+    "requires": [
+      "Material: Cast-Bronze-Rails",
+      "Geography: Mountain-Vertical-Drop"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md",
+    "standalone_fallback": "If the bronze cables snap or rails are torn up, travelers must pick their way on foot through the pitch-black 15-mile maintenance flumes, multiplying travel time by eight and facing toxic firedamp gas pockets."
+  },
+  {
+    "id": "CWT-021",
+    "title": "The Torrential River Sluice Lock & Rapid Chute",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Market / Clan",
+    "color": "Blue / Green",
+    "provides": [
+      "Transit: Downstream-River-Chute",
+      "Hydraulics: River-Level-Regulation"
+    ],
+    "requires": [
+      "Geography: Rapids-River-Canyon",
+      "Hydraulics: Heavy-Timber-Weir"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md",
+    "standalone_fallback": "If the sluice locks are jammed shut, river craft must portage overland across six miles of boulder scree, demanding team draft animals and exposing cargo to robber ambushes."
+  },
+  {
+    "id": "CWT-022",
+    "title": "The Glacial Crevasse Cable Funicular",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy / Adhocracy",
+    "color": "Blue / White",
+    "provides": [
+      "Transit: Glacial-Cable-Funicular",
+      "Logistics: Sub-Zero-High-Altitude-Corridor"
+    ],
+    "requires": [
+      "Material: Braided-Iron-Cable",
+      "Geography: Glacial-Chasm"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md",
+    "standalone_fallback": "If the suspended cable car freezes in mid-air, travelers must crawl along the frost-slicked iron guide-cable with carabiners and crampons, facing gale-force winds and Severe Tier hypothermia."
+  },
+  {
+    "id": "CWT-023",
+    "title": "The Sunken Canal of the Weeping Willow",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Adhocracy",
+    "color": "Black / Green",
+    "provides": [
+      "Transit: Sunken-Canal-Artery",
+      "Camouflage: Submerged-Vessel-Cover"
+    ],
+    "requires": [
+      "Geography: Lowland-Cypress-Basin",
+      "Hydro: Slow-Current-Drainage"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md",
+    "standalone_fallback": "If canal waters choke with weed and sink beneath boat draft, travelers must wade waist-deep in black swamp muck, attracting blood-leeches and slowing travel to a crawl."
+  },
+  {
+    "id": "CWT-024",
+    "title": "The High Sierra Switchback Caravan Trail",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy / Clan",
+    "color": "Red / White",
+    "provides": [
+      "Transit: High-Alpine-Pass",
+      "Logistics: Pack-Mule-Caravan-Corridor"
+    ],
+    "requires": [
+      "Geography: Sheer-Granite-Escarpment",
+      "Infrastructure: Stone-Retaining-Walls"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md",
+    "standalone_fallback": "If rockslides breach the retaining walls, caravans must unburden draft animals, portaging supplies bag by bag across loose shale scree with a high risk of lethal falls."
+  },
+  {
+    "id": "CWT-025",
+    "title": "The Volcanic Basalt Causeway & Sulfur Fords",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Market / Adhocracy",
+    "color": "Black / Red",
+    "provides": [
+      "Transit: Volcanic-Causeway-Crossing",
+      "Chem: Raw-Sulfur-Harvest"
+    ],
+    "requires": [
+      "Geography: Active-Caldera-Basin",
+      "Geo: Solid-Basalt-Strata"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md",
+    "standalone_fallback": "If steam vents fracture the basalt causeway, crossings can only be attempted by hopping across unstable crust islands, risking immersion in boiling acid sludge."
+  },
+  {
+    "id": "CWT-030",
+    "title": "Terraced Hydroponic Rice Flumes & Silt Fisheries",
+    "set": "Wave 3 Biological Life-Support (Tier 2)",
+    "tier": "Tier 2 (Linear Corridors & Production Infrastructure)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Market",
+    "color": "Green / Blue",
+    "provides": [
+      "Food: Staple-Grain-and-Protein",
+      "Water: Filtered-Agricultural-Effluent"
+    ],
+    "requires": [
+      "Water: Feedstock-Cistern",
+      "Hydraulics: Industrial-Tailrace-Flow"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md",
+    "standalone_fallback": "If upstream industrial tailrace flow is severed, the flume bailiffs engage gravity-fed rainwater retention cisterns and manual bamboo bucket treadmills, keeping the silt carp alive and yielding subsistence rations at Light Tier."
+  },
+  {
+    "id": "CWT-031",
+    "title": "Botanical Apothecary Dispensary & Anti-Venom Foundry",
+    "set": "Wave 3 Biological Life-Support (Tier 3)",
+    "tier": "Tier 3 (Crucible Workshops & Resource Refineries)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy / Bio-Science",
+    "color": "Green / Black",
+    "provides": [
+      "Bio: Concentrated-Blood-Alkaloids",
+      "Medicine: Broad-Spectrum-Antitoxin"
+    ],
+    "requires": [
+      "Bio: Fungal-Toxin-Extract",
+      "Glass: Pyrex-Distillation-Apparatus"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md",
+    "standalone_fallback": "If specialized Pyrex glassware and imported serpent venoms are cut off, the apothecaries crush dried swamp willow bark in unglazed stone mortars, brewing astringent fever tea that manages pain and minor sepsis at Light Tier."
+  },
+  {
+    "id": "CWT-032",
+    "title": "Subterranean Fungiculture Vaults & Yeast Silos",
+    "set": "Wave 3 Biological Life-Support (Tier 2)",
+    "tier": "Tier 2 (Linear Corridors & Production Infrastructure)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Subterranean Autarky",
+    "color": "Black / Green",
+    "provides": [
+      "Food: Caloric-Fungal-Protein",
+      "Bio: Dry-Active-Yeast"
+    ],
+    "requires": [
+      "Moisture: Geothermal-Steam-Condensation",
+      "Organic: Compost-Mulch-Slag"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-032_Subterranean_Fungiculture_Vaults_and_Yeast_Silos.md",
+    "standalone_fallback": "If geothermal steam headers freeze or fracture, the growers burn dried cavern peat inside stone fire-trenches, sustaining damp subterranean micro-climates that produce woody shelf-fungus rations at Light Tier."
+  },
+  {
+    "id": "CWT-033",
+    "title": "High-Altiplano Highland Camelid & Wool Herds",
+    "set": "Wave 3 Biological Life-Support (Tier 2)",
+    "tier": "Tier 2 (Linear Corridors & Production Infrastructure)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Pastoral Nomadism",
+    "color": "Red / White",
+    "provides": [
+      "Textile: Thermal-Camelid-Fleece",
+      "Meat: Cured-Jerky-Protein"
+    ],
+    "requires": [
+      "Pasture: Sub-Alpine-Fescue-Tussock",
+      "Mineral: High-Salt-Licks"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-033_High_Altiplano_Highland_Camelid_and_Wool_Herds.md",
+    "standalone_fallback": "If lowland winter pastures and mineral salt shipments are blocked, the clans scatter herds across windswept sub-alpine ridge-lines; camelids graze on dry mountain moss, cutting wool harvest in half while maintaining flock survival at Light Tier."
+  },
+  {
+    "id": "CWT-034",
+    "title": "Deep-Well Aquifer Siphon & Solar Distillation Array",
+    "set": "Wave 3 Biological Life-Support (Tier 3)",
+    "tier": "Tier 3 (Crucible Workshops & Resource Refineries)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Hydraulic Bureaucracy",
+    "color": "Blue / White",
+    "provides": [
+      "Water: Artesian-Potable-Yield",
+      "Mineral: Refined-Brine-Salts"
+    ],
+    "requires": [
+      "Hydraulics: Deep-Bore-Steel-Pipes",
+      "Energy: Concentrated-Solar-Panels"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-034_Deep_Well_Aquifer_Siphon_and_Solar_Distillation_Array.md",
+    "standalone_fallback": "If polished solar collector mirrors shatter or hydraulic siphon pumps seize, laborers operate counter-weighted donkey sweeps over the bore-shaft, skimming mineral brine into open-air earthen pans to yield potable brackish water at Light Tier."
+  },
+  {
+    "id": "CWT-040",
+    "title": "The Sylvan Sanctuary of The Lovers",
+    "set": "Faction & Ideological Sanctuaries (Tier 2)",
+    "tier": "Tier 2 (Linear Corridors & Production Infrastructure)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Adhocracy",
+    "color": "Green / White",
+    "provides": [
+      "Governance: Binding-Peace-Covenant",
+      "Social: Cross-Faction-Trust"
+    ],
+    "requires": [
+      "Ecology: Sacred-Silver-Oak-Grove",
+      "Social: Willing-Treaty-Partners"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-040_The_Sylvan_Sanctuary_of_The_Lovers.md",
+    "standalone_fallback": "If warring delegations refuse to meet at the grove, the Druidic Wardens tend the silver saplings in isolation, weaving peace-ribbons that bless pilgrims with calming herbal incense and emotional fortitude at Light Tier."
+  },
+  {
+    "id": "CWT-041",
+    "title": "The Scholastic Scriptorium & Codex Archive",
+    "set": "Faction & Ideological Sanctuaries (Tier 1)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy / Market",
+    "color": "White / Blue",
+    "provides": [
+      "Knowledge: Verified-Legal-Precedents",
+      "Governance: Uncontested-Charter-Deeds"
+    ],
+    "requires": [
+      "Material: Cured-Vellum-and-Ink",
+      "Governance: Monastic-Sanctuary-Charter"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-041_The_Scholastic_Scriptorium_and_Codex_Archive.md",
+    "standalone_fallback": "If vellum shipments and imported walnut gall ink are halted by war, the archivists engrave abbreviated legal precedents and land boundaries onto split roofing slate with iron styluses, preserving core judicial functions at Light Tier."
+  },
+  {
+    "id": "CWT-042",
+    "title": "The Solitary Peak Hermitage & Stargazer Spire",
+    "set": "Faction & Ideological Sanctuaries (Tier 2)",
+    "tier": "Tier 2 (Linear Corridors & Production Infrastructure)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy / High-Order Tech",
+    "color": "Blue / Red",
+    "provides": [
+      "Knowledge: Planetary-Astrological-Tables",
+      "Signal: High-Altitude-Beacon-Flash"
+    ],
+    "requires": [
+      "Geography: High-Cloudless-Peak",
+      "Material: Polished-Quartz-Lenses"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-042_The_Solitary_Peak_Hermitage_and_Stargazer_Spire.md",
+    "standalone_fallback": "If optical lenses crack from sub-zero mountain hail, the stargazer tracks planetary transit via shadow gnomons carved into the stone balustrade, signaling downstream valleys with pitch-pine smoke columns at Light Tier."
+  },
+  {
+    "id": "CWT-043",
+    "title": "The Colossal Foundry of Strength & Crucible Steel",
+    "set": "Faction & Ideological Sanctuaries (Tier 3)",
+    "tier": "Tier 3 (Crucible Workshops & Resource Refineries)",
+    "pipeline_tier": 3,
+    "culture": "Market / Hierarchy",
+    "color": "Red / White",
+    "provides": [
+      "Material: High-Tensile-Crucible-Steel",
+      "Material: Heavy-Structural-Girders"
+    ],
+    "requires": [
+      "Material: Direct-Reduced-Iron",
+      "Power: Waterwheel-Hydraulic-Torque"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-043_The_Colossal_Foundry_of_Strength_and_Crucible_Steel.md",
+    "standalone_fallback": "If upstream water flumes freeze or iron sponge shipments halt, smiths fire small charcoal bloomeries with double-acting leather bellows, hand-forging basic wrought iron spikes and crowbars at Light Tier."
+  },
+  {
+    "id": "CWT-044",
+    "title": "The Dawn Cathedral & Solar Solstice Mirror",
+    "set": "Faction & Ideological Sanctuaries (Tier 1)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy / Clan",
+    "color": "White / Red",
+    "provides": [
+      "Governance: Radiant-Civic-Unity",
+      "Esoteric: Focused-Solar-Plasma"
+    ],
+    "requires": [
+      "Material: Gilded-Bronze-Parabola",
+      "Geography: East-Facing-Sun-Ridge"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-044_The_Dawn_Cathedral_and_Solar_Solstice_Mirror.md",
+    "standalone_fallback": "If the parabolic gilded mirror is fractured or cloud cover obscures dawn for weeks, the clerics light thousands of fragrant bayberry candles across tiered nave candelabras, sustaining communal faith and civic unity at Light Tier."
+  },
+  {
+    "id": "CWT-045",
+    "title": "The Chasm Tollbridge & Pact of Mutual Devotion",
+    "set": "Faction & Ideological Sanctuaries (Tier 2)",
+    "tier": "Tier 2 (Linear Corridors & Production Infrastructure)",
+    "pipeline_tier": 2,
+    "culture": "Market / Clan",
+    "color": "Red / White",
+    "provides": [
+      "Transit: Fortified-Chasm-Bridge",
+      "Social: Inter-Clan-Devotion-Pact"
+    ],
+    "requires": [
+      "Geography: Deep-Canyon-Chasm",
+      "Material: Hewn-Granite-Arch-Stones"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-045_The_Chasm_Tollbridge_and_Pact_of_Mutual_Devotion.md",
+    "standalone_fallback": "If the iron portcullis gates are padlocked in a feud, travelers traverse swaying hemp rope slings hung beneath the main stone roadway, accepting slow transit queues and gusty crosswinds at Light Tier."
+  },
+  {
+    "id": "CWT-050",
+    "title": "The 22-Node 'Tutorial Isle' Generic Campaign Setting (Levels 1-6)",
+    "set": "Wave 5 Campaign Presets & Sandboxes",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "All Quadrants (Universal)",
+    "color": "WUBRG",
+    "provides": [
+      "Preset: Generic-Tutorial-Isle-22Node",
+      "Playbook: Level-1-6-Starter-Sandbox"
+    ],
+    "requires": [
+      "System: Authoring-Engine-Core"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-050_The_22_Node_Tutorial_Isle_Generic_Campaign_Setting.md",
+    "standalone_fallback": "If advanced high-tier modules are unslotted, Tutorial Isle operates completely self-contained on its 6 Starter primitives and Tier 0 settlement substratum, delivering a seamless Level 1-6 sandbox progression without external dependencies."
+  },
+  {
+    "id": "CWT-060A",
+    "title": "The Cypriot Copper Smelting Slag Foundries",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Crucible Workshops & Resource Refineries)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Industrial Extraction",
+    "color": "Red / Black",
+    "provides": [
+      "Mineral: Refined-Copper-Ingots",
+      "Industry: Blast-Furnace-Crucibles"
+    ],
+    "requires": [
+      "Fuel: Highland-Charcoal-Timber",
+      "Labor: Conscripted-Slag-Workers"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-060A_The_Cypriot_Copper_Smelting_Slag_Foundries.md",
+    "standalone_fallback": "If timber shipments cease, furnaces run on scrub brush, lowering output by 80% and spewing toxic sulfur fumes that inflict Light respiratory penalties on the settlement."
+  },
+  {
+    "id": "CWT-060",
+    "title": "The Systemic Interdependence Collapse Matrix",
+    "set": "Set C (Faction & Governance)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy / Market Breakdown",
+    "color": "White / Black",
+    "provides": [
+      "Governance: Systemic-Interdependence-Matrix",
+      "Tension: Trade-Cascade-Contagion"
+    ],
+    "requires": [
+      "Trade: Maritime-Tin-Corridor",
+      "Mineral: Refined-Ingot-Supply"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-060_The_Systemic_Interdependence_Collapse_Matrix.md",
+    "standalone_fallback": "If maritime tin and copper routes are severed, regional hubs revert to autarkic barter and splinter into agrarian subsistence, dissolving influence links into high-hazard transit wastes."
+  },
+  {
+    "id": "CWT-061",
+    "title": "The Derinkuyu 18-Tier Troglodyte Bastion",
+    "set": "Set B (Topography & Corridors)",
+    "tier": "Tier 2 (Topological Nodes & Corridors)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Subterranean Siege Fortress",
+    "color": "White / Green",
+    "provides": [
+      "Topography: Subterranean-Refuge-Node",
+      "Defense: Hermetic-Rolling-Door-Seals",
+      "Life-Support: Deep-Tuff-Aquifer-Well"
+    ],
+    "requires": [
+      "Geology: Soft-Volcanic-Tuff-Stratum",
+      "Air: Vertical-Convection-Airshafts"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-061_The_Derinkuyu_18_Tier_Troglodyte_Bastion.md",
+    "standalone_fallback": "If surface ventilation flues are severed or poisoned, lower tiers seal into isolated anaerobic vaults; population enters strict oxygen rationing, trade ceases, and inhabitants survive up to 14 days on stored emergency wine and dry pulses before asphyxiation."
+  },
+  {
+    "id": "CWT-062",
+    "title": "The Thonis-Heracleion Liquefaction Port",
+    "set": "Set D (Coastal & Maritime Gateways)",
+    "tier": "Tier 2 (Maritime Corridors & Estuarine Chokepoints)",
+    "pipeline_tier": 2,
+    "culture": "Market / Maritime Toll Bastion",
+    "color": "Blue / Black",
+    "provides": [
+      "Transit: Delta-Maritime-Gateway",
+      "Commerce: Royal-Customs-Toll-Office",
+      "Relic: Submerged-Amun-Gereb-Treasury"
+    ],
+    "requires": [
+      "Geography: Alluvial-Nile-Silt-Islands",
+      "Hydrology: High-Tide-Barrier-Jetties"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-062_The_Thonis_Heracleion_Liquefaction_Port.md",
+    "standalone_fallback": "When cyclical seismic tremors liquefy the underlying clay-silt strata, the port collapses beneath 10 meters of Mediterranean waters; maritime transit converts into treacherous shoal navigation requiring diver soundings, reducing trade volume by 90% and spawning predatory wreck-scavenger syndicates."
+  },
+  {
+    "id": "CWT-063",
+    "title": "The Angkor Monsoon Canal and Silt Trap",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Hydraulic Infrastructure & Reservoirs)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Hydraulic Bureaucracy",
+    "color": "Blue / Green",
+    "provides": [
+      "Agriculture: Quad-Harvest-Wetland-Rice",
+      "Hydrology: Macro-Baray-Reservoir-Network",
+      "Engineering: Masonry-Silt-Scouring-Sluice"
+    ],
+    "requires": [
+      "Labor: Corv-e-Canal-Dredging-Crews",
+      "Climate: Predictable-Bimodal-Monsoon-Cycle"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-063_The_Angkor_Monsoon_Canal_and_Silt_Trap.md",
+    "standalone_fallback": "If dredging labor fails or mega-monsoon floods destroy sluice gates, canals choke on millions of tons of laterite silt; the river incises 5 meters below canal intake beds, permanently draining the irrigation grid into malarial marsh and reducing rice output by 85%."
+  },
+  {
+    "id": "CWT-064",
+    "title": "The Garamantes Fossil Aquifer Foggara",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Subterranean Hydraulic Extraction & Desert Qanats)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Slave-Fueled Extraction",
+    "color": "Black / Green",
+    "provides": [
+      "Life-Support: Subterranean-Fossil-Water-Flow",
+      "Agriculture: Saharan-Polyculture-Oasis",
+      "Mineral: Leached-Saline-Salt-Cakes"
+    ],
+    "requires": [
+      "Labor: Chattel-Slave-Tunneling-Crews",
+      "Engineering: Subterranean-Gradient-Surveyors"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-064_The_Garamantes_Fossil_Aquifer_Foggara.md",
+    "standalone_fallback": "When the fossil water table drops below the foggara tunnel gradient, gravity flow ceases permanently; oasis date groves wither in months, soil encrusts with bitter salt, and fortified mudbrick ksars become desiccated ghost settlements buried beneath migrating dunes."
+  },
+  {
+    "id": "CWT-065",
+    "title": "The Tainter Complexity Trap and Monument Mania",
+    "set": "Set C (Governance & Hierarchy)",
+    "tier": "Tier 4 (Systemic Sclerosis & Diminishing Returns)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy / Bureaucratic Sclerosis",
+    "color": "White / Black",
+    "provides": [
+      "Governance: Diminishing-Marginal-Returns-Engine",
+      "Tension: Elite-Overproduction-Sclerosis",
+      "Structure: Megalithic-Monument-Foundry"
+    ],
+    "requires": [
+      "Food: Agrarian-Surplus-Tribute",
+      "Bureaucracy: Hyper-Specialized-Scribe-Castes"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-065_The_Tainter_Complexity_Trap_and_Monument_Mania.md",
+    "standalone_fallback": "When agricultural tribute drops below administrative maintenance overhead, the bureaucratic machinery implodes: elite castes splinter into predatory tax cartels, while the peasant populace actively de-affiliates, abandoning cities to form autonomous agrarian bands and resetting network complexity to Tier 0."
+  },
+  {
+    "id": "CWT-066",
+    "title": "The Göbekli Tepe Pre-Agrarian Pillars",
+    "set": "Set G (Esoterica & Climax Engines)",
+    "tier": "Tier 5 (Eschatological Megaliths & Climax Sanctuaries)",
+    "pipeline_tier": 5,
+    "culture": "Clan / Megalithic Cult Sanctuaries",
+    "color": "Green / White",
+    "provides": [
+      "Climax: Pre-Agrarian-Apotheosis",
+      "Ritual: Megalithic-T-Pillar-Enclosure",
+      "Sociology: Ritualized-Intentional-Entombment"
+    ],
+    "requires": [
+      "Ecology: Wild-Einkorn-Gazelle-Herds",
+      "Culture: Multi-Clan-Pilgrimage-Compact"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-066_The_Gobekli_Tepe_Pre_Agrarian_Pillars.md",
+    "standalone_fallback": "When wild gazelle migration routes fail or inter-clan feasting covenants fracture, the sanctuaries are systematically backfilled with hundreds of tons of crushed limestone, flint flakes, and wild animal bones, sealing the gods forever beneath an artificial mound as the hunter clans scatter into anonymous nomadic memory."
+  },
+  {
+    "id": "CWT-067",
+    "title": "The Tollense Valley Unwritten War Reliquary",
+    "set": "Set G (Esoterica & Climax Engines)",
+    "tier": "Tier 5 (Prehistoric Battlefields & Historical Erasure)",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy / Total Industrialized Warfare",
+    "color": "Black / Red",
+    "provides": [
+      "Climax: Total-Bronze-Age-Battlefield-Rift",
+      "Relic: Standardized-Bronze-War-Spur",
+      "Tension: Unwritten-Civilizational-Annihilation"
+    ],
+    "requires": [
+      "Geography: Marshland-River-Causeway",
+      "Military: Heavy-Bronze-Warrior-Retinues"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-067_The_Tollense_Valley_Unwritten_War_Reliquary.md",
+    "standalone_fallback": "When the clashing armies slaughter one another to the last man, the battlefield is swallowed by anaerobic river peat; thousands of skeletal corpses, bronze leaf-swords, and cavalry mounts sink into black mud, erasing all memory of the conflict from human consciousness for 3,200 years."
+  },
+  {
+    "id": "CWT-068",
+    "title": "The Amazonian Upano LiDAR Garden Cities",
+    "set": "Set B (Agriculture & Ecological Engineering)",
+    "tier": "Tier 2 (Anthropogenic Agro-Urbanism & Earthwork Grids)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Anthropogenic Garden Agro-Urbanism",
+    "color": "Green / Blue",
+    "provides": [
+      "Agriculture: Anthropogenic-Terra-Preta",
+      "Topography: Sunken-Canal-Causeway-Grid",
+      "Engineering: Earthen-Platform-Tolas"
+    ],
+    "requires": [
+      "Ecology: Managed-Canopy-Agroforestry",
+      "Labor: Community-Biochar-Composters"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-068_Amazonian_Upano_LiDAR_Garden_Cities.md",
+    "standalone_fallback": "If communal biochar management fails, tropical downpours rapidly leach soil nutrients; sunken causeways convert into unnavigable mud sloughs; and platform settlements are swallowed beneath dense primary forest canopy within two generations."
+  },
+  {
+    "id": "CWT-069",
+    "title": "Roman Lead Fistulae Toxicity and Currency Debasement",
+    "set": "Set C (Governance & Hierarchy)",
+    "tier": "Tier 3 (Urban Infrastructure & Monetary Metallurgy)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Imperial Extraction & Fiscal Sclerosis",
+    "color": "White / Black",
+    "provides": [
+      "Infrastructure: Lead-Fistulae-Aqueduct-Grid",
+      "Economy: Imperial-Coinage-Mint",
+      "Commerce: Standardized-Market-Weights"
+    ],
+    "requires": [
+      "Metal: Refined-Lead-Pig-Ingots",
+      "Bullion: Silver-Denarius-Reserves"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-069_Roman_Lead_Fistulae_Toxicity_and_Currency_Debasement.md",
+    "standalone_fallback": "When silver reserves run dry and lead pipes sicken the ruling magistracy, fiat currency collapses into hyperinflation; cities abandon municipal maintenance; and the economy reverts to un-debased bullion hoarding, grain rations (annona), and autarkic rural estates."
+  },
+  {
+    "id": "CWT-070",
+    "title": "The Rapa Nui Moai Quarry and Rodent Ecocide",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Monumental Extraction & Insular Ecological Collapse)",
+    "pipeline_tier": 3,
+    "culture": "Clan / Competitive Monumentalism & Island Insularity",
+    "color": "Green / Red",
+    "provides": [
+      "Structure: Megalithic-Moai-Effigies",
+      "Mineral: Volcanic-Tuff-Ashlar",
+      "Agriculture: Lithic-Basalt-Mulch"
+    ],
+    "requires": [
+      "Material: Palm-Fiber-Hauling-Cables",
+      "Food: Deep-Sea-Tuna-Porpoise-Catch"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-070_Rapa_Nui_Moai_Quarry_and_Rodent_Ecocide.md",
+    "standalone_fallback": "When the giant palm forests go extinct and rodent swarms consume all replanted crops, seaworthy canoe construction ceases; deep-sea fishing collapses; colossal statues are abandoned half-carved in the crater; and society fractures into desperate stone-mulch gardening and violent statue-toppling warfare."
+  },
+  {
+    "id": "CWT-071",
+    "title": "Cahokia Mississippian Mounds and Mega-Flood",
+    "set": "Set C (Civilizations & Ancient Collapse)",
+    "tier": "Tier 4 (Mega-Flood Alluvial Inundation & Monumental Earthworks)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy / Theocratic Maize Hegemony",
+    "color": "Green / Black",
+    "provides": [
+      "Agriculture: Intensive-Floodplain-Maize",
+      "Structure: Monumental-Earthen-Monks-Mound",
+      "Ritual: Shell-Bead-Cosmic-Sacrifice"
+    ],
+    "requires": [
+      "Labor: Basket-Carried-Alluvial-Earth",
+      "Forest: Upland-Oak-Palisade-Timber"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-071_Cahokia_Mississippian_Mounds_and_Mega_Flood.md",
+    "standalone_fallback": "When catastrophic Mississippi river mega-floods drown the alluvial bottom and commoners burn the palisade, divine kingship collapses; the metropolis fragments into autonomous riverine tribes; and Monks Mound is abandoned to backwater swamps."
+  },
+  {
+    "id": "CWT-072",
+    "title": "Antikythera Clockwork Astronomical Reliquary",
+    "set": "Set G (Climax Engines & Relic Singularities)",
+    "tier": "Tier 5 (Climax Relics & Apocalyptic Singularities)",
+    "pipeline_tier": 5,
+    "culture": "Adhocracy / Hellenistic Precision Craftsmanship",
+    "color": "Blue / Colorless",
+    "provides": [
+      "Relic: Differential-Bronze-Clockwork-Computer",
+      "Science: Saros-Eclipse-Predictor",
+      "Navigation: Precision-Zodiacal-Ephemeris"
+    ],
+    "requires": [
+      "Metal: Low-Oxidation-Fine-Bronze-Gears",
+      "Mathematics: Hipparchian-Lunar-Calculus"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-072_Antikythera_Clockwork_Astronomical_Reliquary.md",
+    "standalone_fallback": "When the plunder galley sinks into the 45-meter abyssal trench, the differential mechanism corrodes beneath thick calcium carbonate and copper oxidation crusts; humanity loses the capacity for precision clockwork and planetary gearing for over 1,500 years."
+  },
+  {
+    "id": "CWT-073",
+    "title": "The Harappan Sanitary Grid and Saraswati Desiccation",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 2 (Topological Nodes & Corridors)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy / Municipal Civil Order & Standardized Metrology",
+    "color": "White / Blue",
+    "provides": [
+      "Infrastructure: Municipal-Sanitary-Drain-Grid",
+      "Metrology: Standardized-Cubical-Chert-Weights",
+      "Civil: Waterproofed-Bitumen-Great-Bath"
+    ],
+    "requires": [
+      "Hydrology: Perennial-Glacial-River-Flow",
+      "Resource: Kiln-Baked-Mudbrick-Supply"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-073_The_Harappan_Sanitary_Grid_and_Saraswati_Desiccation.md",
+    "standalone_fallback": "When river avulsion diverts glacial headwaters and the Ghaggar-Hakra dries into seasonal wadis, covered brick sewers clog with dry sediment; municipal hygiene collapses into epidemic dysentery; and the population abandons the planned city, de-urbanizing into rural agrarian hamlets."
+  },
+  {
+    "id": "CWT-074",
+    "title": "The Teotihuacan Palace Immolation and Pyramidal Revolt",
+    "set": "Set C (Governance & Hierarchy)",
+    "tier": "Tier 4 (Systemic Sclerosis & Diminishing Returns)",
+    "pipeline_tier": 4,
+    "culture": "Adhocracy / Populist Insurgency against Oligarchic Theocracy",
+    "color": "Red / White",
+    "provides": [
+      "Structure: Talud-Tablero-Pyramidal-Citadel",
+      "Industry: Green-Pachuca-Obsidian-Blade-Cores",
+      "Tension: Selective-Palatial-Immolation"
+    ],
+    "requires": [
+      "Material: Volcanic-Basalt-Lime-Plaster",
+      "Agriculture: Valley-Chinampa-Irrigation"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-074_The_Teotihuacan_Palace_Immolation_and_Pyramidal_Revolt.md",
+    "standalone_fallback": "When administrative palaces along the Avenue of the Dead are incinerated, centralized tribute collection vanishes; commoner apartment compounds self-govern autonomously for two generations before regional populations peacefully disperse across Central Mexico."
+  },
+  {
+    "id": "CWT-075",
+    "title": "The Chaco Canyon Timber Roads and Megadrought",
+    "set": "Set B (Topography & Corridors)",
+    "tier": "Tier 3 (Hydraulic Infrastructure & Reservoirs)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Astronomical Ceremony & Regional Redistribution",
+    "color": "Red / White",
+    "provides": [
+      "Topography: Prehistoric-Chaco-Road-Radial-Grid",
+      "Structure: Multi-Story-Core-and-Veneer-Great-House",
+      "Ritual: Great-Kiva-Cosmic-Alignment"
+    ],
+    "requires": [
+      "Forest: High-Altitude-Ponderosa-Pine-Timbers",
+      "Hydrology: Ephemeral-Wash-Runoff-Harvesting"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-075_The_Chaco_Canyon_Timber_Roads_and_Megadrought.md",
+    "standalone_fallback": "When multi-decadal megadrought desiccates wash runoff and pine forests recede past 75 miles, great house kivas are ritually decommissioned and sealed; timber roofs are dismantled to build cliff dwellings; and populations disperse into self-sufficient mesa communities."
+  },
+  {
+    "id": "CWT-076",
+    "title": "The Great Zimbabwe Mortarless Granite and Gold Monopoly",
+    "set": "Set C (Governance & Hierarchy)",
+    "tier": "Tier 3 (Crucible Workshops & Resource Refineries)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Royal Enclosure & Indian Ocean Trade Monopoly",
+    "color": "White / Red",
+    "provides": [
+      "Structure: Mortarless-Curved-Granite-Great-Enclosure",
+      "Mineral: Sub-Saharan-Alluvial-Gold-Dust",
+      "Trade: Indian-Ocean-Dhow-Monopoly"
+    ],
+    "requires": [
+      "Fauna: Highveld-Humped-Cattle-Herds",
+      "Material: Thermal-Exfoliated-Granite-Slabs"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-076_The_Great_Zimbabwe_Mortarless_Granite_and_Gold_Monopoly.md",
+    "standalone_fallback": "When 18,000 cattle overgraze the plateau savanna and firewood for granite-splitting fires is exhausted within 30 leagues, the Mambo royal lineage migrates northward to the Zambezi; the Great Enclosure is preserved intact as a sacred silent ruin while gold trade shifts to regional successor states."
+  },
+  {
+    "id": "CWT-077",
+    "title": "The Nan Madol Columnar Basalt Canal Megacity",
+    "set": "Set D (Coastal & Maritime Gateways)",
+    "tier": "Tier 2 (Maritime Corridors & Estuarine Chokepoints)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy / Theocratic Megalithic Extraction & Insular Tyranny",
+    "color": "Blue / Black",
+    "provides": [
+      "Topography: Inter-Tidal-Canal-Artificial-Islet-Network",
+      "Structure: Columnar-Basalt-Log-Stacked-Fortress",
+      "Ritual: Sacred-Reef-Eel-and-Turtle-Pool"
+    ],
+    "requires": [
+      "Transit: Double-Hulled-Log-Raft-Flotilla",
+      "Life-Support: Mainland-Freshwater-and-Taro-Tribute"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-077_The_Nan_Madol_Columnar_Basalt_Canal_Megacity.md",
+    "standalone_fallback": "When the Saudeleur dynasty is overthrown and mainland tribute of fresh water and breadfruit halts, the megalithic islets are uninhabitable; the tidal canal grid silts with coral sand; red mangroves engulf the 50-foot basalt log walls; and the city becomes a taboo ancestral spirit necropolis."
+  },
+  {
+    "id": "CWT-078",
+    "title": "The Skara Brae Subterranean Dune Stone Haven",
+    "set": "Set B (Topography & Corridors)",
+    "tier": "Tier 2 (Topological Nodes & Corridors)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Subterranean Midden Insulation & Agrarian Egalitarianism",
+    "color": "Green / White",
+    "provides": [
+      "Topography: Subterranean-Midden-Insulated-Haven",
+      "Craft: Fitted-Flagstone-Box-Furniture",
+      "Life-Support: Peat-Fired-Communal-Hearth-Grid"
+    ],
+    "requires": [
+      "Material: Marine-Flagstone-Quarry-Beds",
+      "Insulation: Decomposed-Bio-Midden-Earth"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/CWT-078_The_Skara_Brae_Subterranean_Dune_Stone_Haven.md",
+    "standalone_fallback": "When 80-knot North Atlantic winter gales blow shifting dunes over sunken roofs and peat fuel runs out, the village is sealed intact; the clan retreats to inland caves; and sand dunes entomb the furniture and hearths for 5,000 years until uncovered by a storm."
+  },
+  {
+    "id": "FACT-01",
+    "title": "The 5 Sovereign Hub Archetypes & Adjacency Smothering",
+    "set": "Set C (Faction & Governance)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "All Quadrants (Dynamic by Election)",
+    "color": "5-Color Strategic Matrix",
+    "provides": [
+      "Governance: Sovereign-Hub-Archetypes",
+      "System: Hegemony-Tension-Matrix"
+    ],
+    "requires": [
+      "Network: 22-Node-Topology"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md",
+    "standalone_fallback": "Can function in a static 3-hub campaign (Outpost, Stone Mountain, Lake) without live procedural Tarot re-rolling."
+  },
+  {
+    "id": "FACT-02",
+    "title": "The 2-Axis Sovereign Faction Tension Matrix",
+    "set": "Set C (Faction & Governance)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Cross-Quadrant Dynamics",
+    "color": "Dual-Color Guild Polarities",
+    "provides": [
+      "Diplomacy: 2-Axis-Tension-Matrix",
+      "Factions: Ideological-Polarities"
+    ],
+    "requires": [
+      "Governance: Sovereign-Hub-Archetypes"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_C_Faction_and_Governance/FACT-02_The_2_Axis_Sovereign_Tension_Matrix.md",
+    "standalone_fallback": "Can function as a simple two-sided border cold war (e.g., Crown Outpost vs. Highland Exiles) without multi-hub diplomacy."
+  },
+  {
+    "id": "FACT-03",
+    "title": "Decapitation-Proof State Architecture (The Mosaic Doctrine)",
+    "set": "Set C (Faction & Governance)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy / Clan",
+    "color": "White / Black",
+    "provides": [
+      "Statecraft: Decapitation-Proof-Mosaic",
+      "Resilience: Cellular-Autarky"
+    ],
+    "requires": [
+      "Sociology: Decentralized-Institutions"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_C_Faction_and_Governance/FACT-03_Decapitation_Proof_Mosaic_Governance.md",
+    "standalone_fallback": "Can function as a tribal clan with 3 co-equal elders; if one elder dies, the remaining two execute pre-arranged blood oaths."
+  },
+  {
+    "id": "FACT-04",
+    "title": "The Equilibrium Engine & Stability Points (SP)",
+    "set": "Set C (Faction & Governance)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Cross-Systemic Mechanics",
+    "color": "All Colors",
+    "provides": [
+      "Economy: Tariff-Cartel-Agreements",
+      "System: Equilibrium-Engine-Clock"
+    ],
+    "requires": [
+      "Governance: Sovereign-Hub-Archetypes"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_C_Faction_and_Governance/FACT-04_The_Equilibrium_Engine_and_Stability_Points.md",
+    "standalone_fallback": "Can be applied to a single contested node to track whether it collapses into anarchy or hardens into a military police state."
+  },
+  {
+    "id": "FACT-06",
+    "title": "Tactical Bastion Fortification Ranks (Levels 1 to 4)",
+    "set": "Set C (Faction & Governance)",
+    "tier": "Tier 2 (Topological & Settlement Anchor)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy / Clan",
+    "color": "Colorless / Any Alignment",
+    "provides": [
+      "Defense: Bastion-Garrison",
+      "Security: Fortified-Perimeter-Wall"
+    ],
+    "requires": [
+      "Material: Smelted-Alloy",
+      "Material: Direct-Reduced-Iron"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_C_Faction_and_Governance/FACT-06_Tactical_Bastion_Fortification_Ranks.md",
+    "standalone_fallback": "Can represent an abandoned ancient ruined redoubt that players can garrison and slowly rebuild over a campaign."
+  },
+  {
+    "id": "HOOK-01",
+    "title": "The Indentured Caravan Desperation Leap and Truck-System Fracture",
+    "set": "Modular Region Hooks",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Regional Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Market / Hierarchy Extraction Grid",
+    "color": "Black / White / Red",
+    "provides": [
+      "Labor: Indentured-Resource-Extraction",
+      "Transit: Ore-Caravan-Right-of-Way",
+      "Intel: Company-Store-Debt-Ledger",
+      "Faction: Radicalized-Labor-Solidarity-Cell"
+    ],
+    "requires": [
+      "Authority: Company-Bailiff-Garrison",
+      "Logistics: Truck-Store-Grain-Rations",
+      "Transit: Physical-Arterial-Corridor",
+      "Resource: High-Value-Crude-Extract"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/HOOK-01_The_Indentured_Caravan_Desperation_Leap.md",
+    "standalone_fallback": "Can slot onto ANY active physical transit corridor (E_adj) carrying critical mineral, chemical, or agricultural resources between an upstream extraction satellite and a downstream refinery or hub. If outside campaign links are severed, the hook functions as an isolated frontier mining camp mutiny, locking local gatehouses and dropping production output to Level 1."
+  },
+  {
+    "id": "INFRA-01",
+    "title": "High-Head Hydro Pelton Wheel & Industrial DC Dynamo",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Market",
+    "color": "Blue / Red",
+    "provides": [
+      "Power: High-Amperage-DC",
+      "Hydraulics: Industrial-Tailrace-Flow"
+    ],
+    "requires": [
+      "Geography: High-Elevation-Water-Head"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md",
+    "standalone_fallback": "If installed without high-head water, can be rigged to a tidal surge flume or multi-mule treadmill, producing only 20% output (illumination only, cannot drive arc furnaces)."
+  },
+  {
+    "id": "INFRA-02",
+    "title": "Carbon Electric Arc Smelting Furnace",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Market",
+    "color": "Red / Black",
+    "provides": [
+      "Material: Smelted-Alloy",
+      "Chem: CaC2-Carbide-Pellets"
+    ],
+    "requires": [
+      "Power: High-Amperage-DC",
+      "Material: Direct-Reduced-Iron"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md",
+    "standalone_fallback": "If power grid is severed, can be converted into a coal-blast cupola furnace; temperature drops from 4500°F to 2200°F, capable of casting iron tools but CANNOT synthesize Calcium Carbide."
+  },
+  {
+    "id": "INFRA-03",
+    "title": "The \"Argent-Fume\" Incendiary Smokewall Barrier",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Clan",
+    "color": "White / Blue",
+    "provides": [
+      "Defense: Acetylene-Smoke-Screen",
+      "Defense: Stirge-Swarm-Immunity"
+    ],
+    "requires": [
+      "Chem: CaC2-Carbide-Pellets",
+      "Water: Distilled-Potable-Water"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_A_Infrastructure_and_Engineering/INFRA-03_Argent_Fume_Incendiary_Smokewall.md",
+    "standalone_fallback": "If carbide supplies are severed, braziers can be converted to crude sulfur-pitch smudge pots; defense reduced from Level 4 to Level 2 (burns local fuel; protects only against minor stirge scouting probes, vulnerable to swarms)."
+  },
+  {
+    "id": "INFRA-04",
+    "title": "Operation White-Bloom Nitrification Midden Beds",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Market",
+    "color": "Red / Black",
+    "provides": [
+      "Material: Direct-Reduced-Iron",
+      "Chem: Saltpeter-Nitrate",
+      "Fuel: Black-Powder"
+    ],
+    "requires": [
+      "Material: Hardwood-Timber",
+      "Geography: High-Elevation-Water-Head"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_A_Infrastructure_and_Engineering/INFRA-04_Operation_White_Bloom_Nitrification_Beds.md",
+    "standalone_fallback": "Can function at small homestead scale using simple latrine pits; produces saltpeter at 10% volume, enough for hunting muskets but insufficient for artillery munitions."
+  },
+  {
+    "id": "INFRA-05",
+    "title": "Swamp Mist-Maker Poles & Alchemical Pitcher Distillery",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Market / Adhocracy",
+    "color": "Black / Green",
+    "provides": [
+      "Power: Compressed-Air-8Bar",
+      "Bio: Scent-Stripping-Mist"
+    ],
+    "requires": [
+      "Geography: Marine-Tidal-Flume"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_A_Infrastructure_and_Engineering/INFRA-05_Swamp_Mist_Maker_Poles_and_Pitcher_Distillery.md",
+    "standalone_fallback": "Can function as handheld atomizers or portable smudge pots; creates localized 10-foot clouds lasting 10 minutes rather than continuous regional perimeter mist."
+  },
+  {
+    "id": "INFRA-06",
+    "title": "Gnomish Freewave Vacuum-Tube Transceivers",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy / Clan",
+    "color": "Blue / Red",
+    "provides": [
+      "Signal: Freewave-HF-Radio",
+      "Chem: Commercial-Sulfuric-Acid"
+    ],
+    "requires": [
+      "Power: High-Amperage-DC"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_A_Infrastructure_and_Engineering/INFRA-06_Gnomish_Freewave_Vacuum_Tube_Transceivers.md",
+    "standalone_fallback": "Can function as a crystal detector receiver without batteries; can ONLY listen to high-power broadcasts, cannot transmit."
+  },
+  {
+    "id": "INFRA-07",
+    "title": "Lakestone Resonant Menhir Radio Relay",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Clan",
+    "color": "White / Blue",
+    "provides": [
+      "Signal: Resonant-Menhir-Relay",
+      "Chem: Refined-Salt-and-Bromine",
+      "Water: Distilled-Potable-Water"
+    ],
+    "requires": [
+      "Geography: Deep-Brine-Well",
+      "Signal: Freewave-HF-Radio"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_A_Infrastructure_and_Engineering/INFRA-07_Lakestone_Resonant_Menhir_Relay.md",
+    "standalone_fallback": "Without radio equipment, functions purely as a mystical sonic resonator; grants advantage on concentration checks and divination spells within 100 yards."
+  },
+  {
+    "id": "INFRA-08",
+    "title": "Cyclopean Cryo-Pyramid & Refrigeration Coils",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Design",
+    "color": "Blue / White",
+    "provides": [
+      "Facility: Cryo-Preservation-Vaults",
+      "Thermal: Cryogenic-Cooling-Grid"
+    ],
+    "requires": [
+      "Power: High-Amperage-DC"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_A_Infrastructure_and_Engineering/INFRA-08_Cryo_Pyramid_Refrigeration_Core.md",
+    "standalone_fallback": "If heat coils stall, permafrost melts over 3 months, flooding the surrounding forest and releasing dormant prehistoric pathogen spores."
+  },
+  {
+    "id": "INFRA-09",
+    "title": "Zim-Sharr Perimeter Braziers & Sonic Resonator Wards",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Clan",
+    "color": "White / Blue",
+    "provides": [
+      "Defense: Sonic-Resonator-Wards",
+      "Defense: Heavy-Harbor-Boom-Grid"
+    ],
+    "requires": [
+      "Material: Smelted-Alloy",
+      "Power: Compressed-Air-8Bar"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_A_Infrastructure_and_Engineering/INFRA-09_Zim_Sharr_Perimeter_Braziers_and_Sonic_Wards.md",
+    "standalone_fallback": "Usable as the primary perimeter defense system for any isolated frontier outpost, border garrison, or quarantine encampment surrounded by airborne predators, plague swarms, or miasmic beasts. In low-tech or low-magic settings, replace resonant sonic crystals with rhythmic bronze bell towers and replace chemical fuel with heavy sulfur-tallow smudge pots."
+  },
+  {
+    "id": "ECOL-01",
+    "title": "Crystalline Stirge Hives & Queen Fallout",
+    "set": "Set B (Ecology & Biomes)",
+    "tier": "Tier 2 (Topological & Biome Anchor)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy / Hierarchy",
+    "color": "Black / Red",
+    "provides": [
+      "Hazard: Subterranean-Stirge-Swarm",
+      "Bio: Concentrated-Blood-Alkaloids"
+    ],
+    "requires": [
+      "Ecology: Subterranean-Moist-Vaults"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_B_Ecology_and_Biomes/ECOL-01_Crystalline_Stirge_Hive_and_Queen_Fallout.md",
+    "standalone_fallback": "Can manifest as solitary scouting flights of 1d6 stirges rather than territorial breeding hives; repelled by ordinary smoky wood fires."
+  },
+  {
+    "id": "ECOL-02",
+    "title": "Razor-Sedge Plains & Narcotic Poppy Basins",
+    "set": "Set B (Ecology & Biomes)",
+    "tier": "Tier 2 (Topological & Biome Anchor)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy / Clan",
+    "color": "Green / Red",
+    "provides": [
+      "Material: Phosphorescent-Spores",
+      "Chem: Sulfur-Alkaloid-Extracts"
+    ],
+    "requires": [
+      "Ecology: Toxic-Sulfur-Bog"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_B_Ecology_and_Biomes/ECOL-02_Razor_Sedge_and_Narcotic_Poppy_Basin.md",
+    "standalone_fallback": "Can manifest as an isolated weed patch around a farmstead; slows foot travel by half but lacks roving Axe Beak predators."
+  },
+  {
+    "id": "ECOL-03",
+    "title": "The Iron-Thorn Living Immune Barrier",
+    "set": "Set B (Ecology & Biomes)",
+    "tier": "Tier 2 (Topological & Biome Anchor)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Adhocracy",
+    "color": "Pure Green",
+    "provides": [
+      "Hazard: Lacerating-Terrain",
+      "Defense: Iron-Thorn-Bio-Wall"
+    ],
+    "requires": [
+      "Ecology: High-Wind-Silicate-Plains"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_B_Ecology_and_Biomes/ECOL-03_Iron_Thorn_Living_Immune_Barrier.md",
+    "standalone_fallback": "Can manifest as a stubborn briar hedge around a forgotten shrine; requires chopping through with stone tools; harmless to non-metal gear."
+  },
+  {
+    "id": "ECOL-04",
+    "title": "Carnivorous Pitcher Bogs & Glandular Slugs",
+    "set": "Set B (Ecology & Biomes)",
+    "tier": "Tier 2 (Topological & Biome Anchor)",
+    "pipeline_tier": 2,
+    "culture": "Market / Adhocracy",
+    "color": "Black / Green",
+    "provides": [
+      "Chem: Industrial-Tannin-Extract",
+      "Material: Heavy-Metal-Peat"
+    ],
+    "requires": [
+      "Ecology: Chemical-Estuary-Wetlands"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_B_Ecology_and_Biomes/ECOL-04_Carnivorous_Pitcher_Bogs_and_Giant_Slugs.md",
+    "standalone_fallback": "Can manifest as a solitary deep pitcher pool in any marshy hollow; traps small game or careless scouts without affecting wide regional transit."
+  },
+  {
+    "id": "ECOL-05",
+    "title": "Glacial Quartz Meltwater Filtration Caverns",
+    "set": "Set B (Ecology & Biomes)",
+    "tier": "Tier 2 (Topological & Biome Anchor)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy / Design",
+    "color": "Blue / White",
+    "provides": [
+      "Water: Sterile-Quartz-Water",
+      "Material: Pure-Quartz-Crystals"
+    ],
+    "requires": [
+      "Ecology: Alpine-Glacial-Caverns"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_B_Ecology_and_Biomes/ECOL-05_Glacial_Quartz_Meltwater_Filtration.md",
+    "standalone_fallback": "Can function as a high mountain mineral spring in any alpine ridge; produces pristine drinking water but lacks massive subterranean sluice gates."
+  },
+  {
+    "id": "ECOL-06",
+    "title": "High Canopy Redwoods & Amber-Resin Taps",
+    "set": "Set B (Ecology & Biomes)",
+    "tier": "Tier 2 (Topological & Biome Anchor)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Adhocracy",
+    "color": "Green / Blue",
+    "provides": [
+      "Material: Amber-Pitch",
+      "Material: Hardwood-Timber"
+    ],
+    "requires": [
+      "Ecology: Ancient-Temperate-Rainforest"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_B_Ecology_and_Biomes/ECOL-06_High_Canopy_Redwoods_and_Amber_Resin_Taps.md",
+    "standalone_fallback": "Can manifest as a small grove of ancient cedar trees on any hillside; yields amber pitch in small quantities without an extensive suspended village."
+  },
+  {
+    "id": "ECOL-07",
+    "title": "Siren Roosts & Volcanic Skerry Reefs",
+    "set": "Set B (Ecology & Biomes)",
+    "tier": "Tier 2 (Topological & Biome Anchor)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy / Market",
+    "color": "Blue / Black",
+    "provides": [
+      "Hazard: Siren-Song-Hypnosis",
+      "Chem: Bio-Corrosive-Lichen-Acids"
+    ],
+    "requires": [
+      "Ecology: Volcanic-Skerry-Reefs"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_B_Ecology_and_Biomes/ECOL-07_Siren_Roosts_and_Volcanic_Skerry_Reefs.md",
+    "standalone_fallback": "Can manifest as an isolated offshore rock stack with 2 Sirens; threatens only nearby rowboats and midnight swimmers."
+  },
+  {
+    "id": "FACT-05",
+    "title": "The Beheaded Distributed Cell Syndicate",
+    "set": "Set C (Faction & Governance)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Adhocracy / Market",
+    "color": "Black / Blue",
+    "provides": [
+      "Strategy: Distributed-Cell-Command",
+      "Subversion: Cipher-Network"
+    ],
+    "requires": [
+      "Sociology: Enforced-Labor-Quotas"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_C_Faction_and_Governance/FACT-05_The_Beheaded_Distributed_Cell_Syndicate.md",
+    "standalone_fallback": "Can function as a single 6-person insurgent cell operating in a tavern cellar without contact with other cells."
+  },
+  {
+    "id": "FACT-07",
+    "title": "Canonical 22-Node Faction & Governance Distribution",
+    "set": "Set C (Faction & Governance)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "All Quadrants (Competing Values Framework Integration)",
+    "color": "All 5 Colors (WUBRG Alignment)",
+    "provides": [
+      "Sociology: 64-Cell-Disposition-Algebra",
+      "Diagnostics: Dial-SEC-Vectors"
+    ],
+    "requires": [
+      "System: Universal-Balancing-Engine"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_C_Faction_and_Governance/FACT-07_Canonical_22_Node_Faction_Distribution.md",
+    "standalone_fallback": "Serves as the canonical faction and institutional blueprint for a 22-node sandbox campaign. Can be imported as a ready-to-run 22-node campaign distribution or adapted as an organizational template for any isolated frontier territory or archipelago."
+  },
+  {
+    "id": "CONF-04",
+    "title": "Ally-Assisted Conflation & Hegemony Smothering Tactics",
+    "set": "Set D (Social Dynamics & Conflation)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Social Conflation)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy / Market",
+    "color": "White / Green / Blue (Tricolor Hegemony)",
+    "provides": [
+      "Conflict: Disinformation-Framing-Campaign"
+    ],
+    "requires": [
+      "Sociology: Rival-Faction-Paranoia"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_D_Social_Dynamics_and_Conflation/CONF-04_Ally_Assisted_Conflation_and_Hegemony_Tactics.md",
+    "standalone_fallback": "Manifests as a predatory cartel between a merchant guild and a corrupt local church, squeezing taxes out of a frontier outpost."
+  },
+  {
+    "id": "CONF-05",
+    "title": "Deception Hardware: Holy Silver Bracelets & The Sustainer's Breath",
+    "set": "Set D (Social Dynamics & Conflation)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Social Conflation)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy / Clan",
+    "color": "White / Black",
+    "provides": [
+      "Security: Occult-Tracking-Bracelets"
+    ],
+    "requires": [
+      "Material: Smelted-Alloy"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_D_Social_Dynamics_and_Conflation/CONF-05_Deception_Hardware_Holy_Silver_Bracelets_and_Fume.md",
+    "standalone_fallback": "Manifests as a superstitious village smith selling 'blessed copper torcs' that actually act as dowsing rods for local predators."
+  },
+  {
+    "id": "CONF-06",
+    "title": "The Visible-Proxy Fallacy & Ideological Flatlining",
+    "set": "Set D (Social Dynamics & Conflation)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Social Conflation)",
+    "pipeline_tier": 4,
+    "culture": "Adhocracy / Clan",
+    "color": "Black / Red",
+    "provides": [
+      "Conflict: Lynch-Mob-Hysteria-Clock"
+    ],
+    "requires": [
+      "Sociology: Communal-Scapegoating"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_D_Social_Dynamics_and_Conflation/CONF-06_The_Small_Hat_Fallacy_and_Ideological_Flatlining.md",
+    "standalone_fallback": "Manifests as paranoid tavern gossip where any newcomer with an unusual accent or badge is accused of poisoning the communal well."
+  },
+  {
+    "id": "EDGE-01",
+    "title": "The Canyon Road Fatal Funnel Chokepoint",
+    "set": "Set E (Transit & Edges)",
+    "tier": "Tier 2 (Topological & Edge Transit Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Market / Adhocracy",
+    "color": "Red / Black",
+    "provides": [
+      "Transit: Chokepoint-Gorge-Highway"
+    ],
+    "requires": [
+      "Geography: Deep-Canyon-Corridor"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_E_Transit_and_Edges/EDGE-01_The_Canyon_Road_Fatal_Funnel_Chokepoint.md",
+    "standalone_fallback": "Can bridge ANY two interior mountain nodes as a perilous bottleneck pass."
+  },
+  {
+    "id": "EDGE-02",
+    "title": "The South Coastal Road Paving Initiative",
+    "set": "Set E (Transit & Edges)",
+    "tier": "Tier 2 (Topological & Edge Transit Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Market / Hierarchy",
+    "color": "White / Green",
+    "provides": [
+      "Transit: Paved-Coastal-Highway"
+    ],
+    "requires": [
+      "Material: Smelted-Alloy",
+      "Material: Direct-Reduced-Iron"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_E_Transit_and_Edges/EDGE-02_The_South_Coastal_Road_Paving_Initiative.md",
+    "standalone_fallback": "Can exist as an ancient half-buried Roman-style causeway that players can clear of debris node-by-node."
+  },
+  {
+    "id": "EDGE-03",
+    "title": "Walters Wiggles Cliffside Switchback Ascent",
+    "set": "Set E (Transit & Edges)",
+    "tier": "Tier 2 (Topological & Edge Transit Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy / Hierarchy",
+    "color": "Red / Black",
+    "provides": [
+      "Transit: Switchback-Cliff-Stairway",
+      "Comms: Pneumatic-Capsule-Tube"
+    ],
+    "requires": [
+      "Power: Compressed-Air-8Bar"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md",
+    "standalone_fallback": "Can bridge any low node to a high alpine plateau as a grueling test of endurance."
+  },
+  {
+    "id": "EDGE-04",
+    "title": "High Arboreal Suspension Highways",
+    "set": "Set E (Transit & Edges)",
+    "tier": "Tier 2 (Topological & Edge Transit Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Clan / Adhocracy",
+    "color": "Green / Blue",
+    "provides": [
+      "Transit: Canopy-Suspension-Highway"
+    ],
+    "requires": [
+      "Material: Amber-Pitch",
+      "Material: Hardwood-Timber"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_E_Transit_and_Edges/EDGE-04_High_Arboreal_Suspension_Highways.md",
+    "standalone_fallback": "Can bridge two forest clearings across a deep ravine as an isolated rope-bridge bottleneck."
+  },
+  {
+    "id": "EDGE-05",
+    "title": "Littoral Smuggler Sea Arches & Reef Gates",
+    "set": "Set E (Transit & Edges)",
+    "tier": "Tier 2 (Topological & Edge Transit Corridor)",
+    "pipeline_tier": 2,
+    "culture": "Market / Adhocracy",
+    "color": "Blue / Black",
+    "provides": [
+      "Transit: Submerged-Smuggler-Reef-Siphon"
+    ],
+    "requires": [
+      "Geography: Littoral-Reef-Anchorage"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_E_Transit_and_Edges/EDGE-05_Littoral_Smuggler_Sea_Arches_and_Reef_Gates.md",
+    "standalone_fallback": "Can bridge two coastal beach/cove nodes by sea, subject to tidal timing clocks."
+  },
+  {
+    "id": "SPARK-01",
+    "title": "The Salt Warehouse Famine Riots",
+    "set": "Set F (Catalysts, NPCs & Dilemmas)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Market / Hierarchy Crisis",
+    "color": "White / Red",
+    "provides": [
+      "Crisis: Salt-Warehouse-Famine-Riots"
+    ],
+    "requires": [
+      "Chem: Refined-Salt-and-Bromine"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md",
+    "standalone_fallback": "Can erupt in any frontier mining outpost when grain shipments fail to arrive."
+  },
+  {
+    "id": "SPARK-02",
+    "title": "The Living Statue Ward & The Blue-Rot Horror",
+    "set": "Set F (Catalysts, NPCs & Dilemmas)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy / Clan",
+    "color": "Black / Green",
+    "provides": [
+      "Crisis: Petrification-Quarantine-Ward"
+    ],
+    "requires": [
+      "Water: Sterile-Quartz-Water"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-02_The_Living_Statue_Blue_Rot_Quarantine_Ward.md",
+    "standalone_fallback": "Can manifest as a single quarantined cottage where a family hides a petrifying daughter."
+  },
+  {
+    "id": "SPARK-03",
+    "title": "The Memory Tithe Altar of the Fey Court",
+    "set": "Set F (Catalysts, NPCs & Dilemmas)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan / Adhocracy",
+    "color": "Pure Green",
+    "provides": [
+      "Dilemma: Memory-Tithe-Border-Crossing"
+    ],
+    "requires": [
+      "Geography: Fey-Border-Pass"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-03_The_Memory_Tithe_Altar_of_the_Fey_Court.md",
+    "standalone_fallback": "Can manifest as a mysterious moss-covered well in any deep forest."
+  },
+  {
+    "id": "SPARK-04",
+    "title": "The Iron-Blight Atmospheric Degradation Clock",
+    "set": "Set F (Catalysts, NPCs & Dilemmas)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Environmental Physics",
+    "color": "Colorless / Environmental Decay",
+    "provides": [
+      "Hazard: Iron-Blight-Atmospheric-Decay"
+    ],
+    "requires": [
+      "Environment: Blighted-Salt-Air"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-04_The_Iron_Blight_Oxidation_Clock.md",
+    "standalone_fallback": "Can be applied to any survival campaign to create continuous economic pressure on steel equipment."
+  },
+  {
+    "id": "SPARK-05",
+    "title": "Independent Conspiracy: The Hollow Architects",
+    "set": "Set F (Catalysts, NPCs & Dilemmas)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy / Bureaucratic Horror",
+    "color": "Black / Colorless",
+    "provides": [
+      "Conspiracy: Extradimensional-Entity-Infiltration"
+    ],
+    "requires": [
+      "Topology: Subterranean-Core-Key"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-05_Independent_Conspiracies_The_Hollow_Architects.md",
+    "standalone_fallback": "Can run as a standalone 3-tier cosmic horror investigation in any civilized hub."
+  },
+  {
+    "id": "SPARK-06",
+    "title": "Independent Conspiracy: The Promethean Lodge",
+    "set": "Set F (Catalysts, NPCs & Dilemmas)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Market / Adhocracy (Magocracy)",
+    "color": "Red / Blue",
+    "provides": [
+      "Conspiracy: Magocratic-Planar-Escape-Lodge"
+    ],
+    "requires": [
+      "Power: High-Amperage-DC"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-06_Independent_Conspiracies_The_Promethean_Lodge.md",
+    "standalone_fallback": "Can run as a secret society of arsonist artificers attempting to build a dangerous planar collider."
+  },
+  {
+    "id": "SPARK-07",
+    "title": "The Competent Hero vs. The Hoarding Bureaucrat",
+    "set": "Set F (Catalysts, NPCs & Dilemmas)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy Crisis",
+    "color": "White / Black",
+    "provides": [
+      "Dilemma: Outpost-Command-Mutiny"
+    ],
+    "requires": [
+      "Sociology: Garrison-Supply-Hoarding"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-07_The_Competent_Hero_vs_The_Hoarding_Bureaucrat.md",
+    "standalone_fallback": "Can drop into any starting town where the military commander and civil administrator despise each other."
+  },
+  {
+    "id": "SPARK-08",
+    "title": "Tarot Disembark & Arrival Gambit Tables",
+    "set": "Set F (Catalysts, NPCs & Dilemmas)",
+    "tier": "Tier 2 (Topological & Entry Port Anchor)",
+    "pipeline_tier": 2,
+    "culture": "All Quadrants (Universal)",
+    "color": "All Colors",
+    "provides": [
+      "Table: Universal-Disembark-Outcomes",
+      "Narrative: Starting-Debts-and-Boons"
+    ],
+    "requires": [
+      "Topology: Perimeter-Entry-Bastion"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/SPARK-08_Tarot_Disembark_and_Arrival_Gambit_Tables.md",
+    "standalone_fallback": "A comprehensive 22-card arrival table granting emergent events, starter perks, and karmic debts to arriving players in any tabletop RPG system. Easily adapted from an island beachhead to a frontier starport, dark fantasy fortress gate, or dungeon portal entry."
+  },
+  {
+    "id": "ESOT-01",
+    "title": "Yellow Rags: Weaponized Print Media & The Forgery Engine",
+    "set": "Set G (Esoterica & Information Warfare)",
+    "tier": "Tier 5 (Esoteric & Eschatological Engine)",
+    "pipeline_tier": 5,
+    "culture": "Market / Adhocracy",
+    "color": "Blue / Black",
+    "provides": [
+      "Subversion: Weaponized-Print-Media",
+      "Info-War: Counterfeit-Pardons-and-Scandal"
+    ],
+    "requires": [
+      "Material: Hardwood-Timber"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_G_Esoterica_and_Information_Warfare/ESOT-01_Yellow_Rags_Weaponized_Print_Media_and_Forgery_Engine.md",
+    "standalone_fallback": "Can function as handwritten broadsheets or forged chalk notices in an illiterate shantytown."
+  },
+  {
+    "id": "ESOT-02",
+    "title": "Divine Council Theory as System Administration",
+    "set": "Set G (Esoterica & Information Warfare)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy / Esoteric Technocracy",
+    "color": "White / Blue / Colorless",
+    "provides": [
+      "Cosmology: Divine-Council-Sysadmin-Framework",
+      "Keys: Root-Command-Protocols"
+    ],
+    "requires": [
+      "Topology: 22-Node-Network"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_G_Esoterica_and_Information_Warfare/ESOT-02_Divine_Council_Theory_as_System_Administration.md",
+    "standalone_fallback": "Can manifest in an isolated node as an ancient stone altar where a 'god' communicates purely via mechanical ticker-tape printouts."
+  },
+  {
+    "id": "ESOT-03",
+    "title": "The Saturnine Mainframe & The Linear Time-Loop",
+    "set": "Set G (Esoterica & Information Warfare)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy / Esoteric Metallurgy",
+    "color": "Black / Colorless",
+    "provides": [
+      "Cosmology: Saturnine-Mainframe-Black-Cube",
+      "Mechanics: Linear-Time-Loop"
+    ],
+    "requires": [
+      "Topology: Subterranean-Heart"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_G_Esoterica_and_Information_Warfare/ESOT-03_The_Saturnine_Mainframe_and_The_Linear_Time_Loop.md",
+    "standalone_fallback": "Can manifest as a mysterious obsidian black cube in any ancient dungeon that prevents all natural aging within its chamber."
+  },
+  {
+    "id": "ESOT-04",
+    "title": "Aquabah: The Hanging Canyon Cliff-City",
+    "set": "Set G (Esoterica & Information Warfare)",
+    "tier": "Tier 2 (Topological & Settlement Anchor)",
+    "pipeline_tier": 2,
+    "culture": "Market / Adhocracy",
+    "color": "Blue / Red",
+    "provides": [
+      "Settlement: Hanging-Canyon-Metropolis",
+      "Trade: Exotic-Goods-and-Silks"
+    ],
+    "requires": [
+      "Geography: Deep-Canyon-Corridor"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_G_Esoterica_and_Information_Warfare/ESOT-04_Aquabah_The_Hanging_Canyon_Cliff_City.md",
+    "standalone_fallback": "Can drop into any sheer cliffside node as an exotic smuggler bazaar clinging to the rock face."
+  },
+  {
+    "id": "ESOT-05",
+    "title": "The \"Reformation\" Penal System & Tri-Point Discipline Triangle",
+    "set": "Set G (Esoterica & Information Warfare)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Social Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy / Market",
+    "color": "White / Black",
+    "provides": [
+      "Labor: Forced-Convict-Gangs",
+      "Trade: Inter-Faction-Labor-Contracts"
+    ],
+    "requires": [
+      "Authority: Penal-Disciplinary-Magistrates"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_G_Esoterica_and_Information_Warfare/ESOT-05_Reformation_Penal_Slave_Exchanges.md",
+    "standalone_fallback": "Can drop into any frontier prison camp as a brutal labor-exchange economy."
+  },
+  {
+    "id": "ESOT-06",
+    "title": "The Cosmic Collider & Planar Breach Trigger",
+    "set": "Set G (Esoterica & Information Warfare)",
+    "tier": "Tier 5 (Esoteric & Eschatological Engine)",
+    "pipeline_tier": 5,
+    "culture": "Adhocracy / Esoteric Physics",
+    "color": "Red / Blue / Colorless",
+    "provides": [
+      "Climax: Subterranean-Particle-Collider",
+      "Anomaly: Planar-Breach-Trigger"
+    ],
+    "requires": [
+      "Power: High-Amperage-DC",
+      "Material: Smelted-Alloy"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md",
+    "standalone_fallback": "Can manifest as an unstable arcane particle accelerator built by a renegade gnome that causes local gravity anomalies."
+  },
+  {
+    "id": "OPT-BREACH-01",
+    "title": "The Hellmouth Inversion Cathedral & The Silver Serpent Well",
+    "set": "Set H (Executive Options & Setting Addons)",
+    "tier": "Tier 5 (Esoteric & Eschatological Engine)",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy / Inverted Infernal Zeal",
+    "color": "White / Red / Black",
+    "provides": [
+      "Material: Pure-Thermal-Silver",
+      "Climax: Infernal-Gate-Inversion",
+      "Esoterica: Cold-Iron-Conduits"
+    ],
+    "requires": [
+      "Geography: Deep-Subterranean-Fissure",
+      "Power: High-Amperage-DC"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_H_Executive_Options_and_Variants/OPT-BREACH-01_The_Hellmouth_Inversion_Cathedral_and_The_Silver_Well.md",
+    "standalone_fallback": "Can manifest as a magnificent holy basilica built over a volcanic silver geyser, where the high clergy desperately chant to keep an ancient vengeful champion from ripping through the floor from the underworld."
+  },
+  {
+    "id": "OPT-FACTION-01",
+    "title": "The Bleeding Bastion: Vampire Commandant & Werewolf Elites",
+    "set": "Set H (Executive Options & Setting Addons)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Social Conflation)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy / Market",
+    "color": "White / Black / Red",
+    "provides": [
+      "Faction: Secret-Vampiric-Hegemony",
+      "Dilemma: Lycanthropic-Infiltration"
+    ],
+    "requires": [
+      "Material: Smelted-Alloy",
+      "Defense: Acetylene-Smoke-Screen"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_H_Executive_Options_and_Variants/OPT-FACTION-01_The_Bleeding_Bastion_Vampire_Commandant_and_Werewolf_Elites.md",
+    "standalone_fallback": "Can drop into any fortified frontier bastion where imperial command is secretly undead and the contracted mercenary garrison consists entirely of suppressed lycanthropes."
+  },
+  {
+    "id": "OPT-ORIGIN-01",
+    "title": "The Wayward Archipelago & Barnaby's Civil Rehabilitation Protocol",
+    "set": "Set H (Executive Options & Setting Addons)",
+    "tier": "Tier 1 (Macro Network & Governance Engine)",
+    "pipeline_tier": 1,
+    "culture": "Adhocracy / Clan",
+    "color": "Green / Blue",
+    "provides": [
+      "Lore: Wayward-Archipelago-Genesis",
+      "Governance: Silent-Civil-Separation"
+    ],
+    "requires": [
+      "Topology: Core-Network-Graph"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_H_Executive_Options_and_Variants/OPT-ORIGIN-01_The_Wayward_Archipelago_and_Barnabys_Civil_Rehabilitation.md",
+    "standalone_fallback": "Can operate as the genesis lore for any isolated archipelago where an exiled archmage secretly guides two shipwrecked populations into distinct mountain and lake biomes."
+  },
+  {
+    "id": "OPT-RESORT-01",
+    "title": "Adventure Island: The Dilapidated Imperial Cruise Port & Aquatic Shallows",
+    "set": "Set H (Executive Options & Setting Addons)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Social Spark)",
+    "pipeline_tier": 2,
+    "culture": "Market / Adhocracy",
+    "color": "Blue / Black / Green",
+    "provides": [
+      "Topology: Dilapidated-Boardwalk-Promenade",
+      "Ecology: Brackish-Lagoon-Shallows",
+      "Trade: Sunken-Luxury-Salvage"
+    ],
+    "requires": [
+      "Geography: Littoral-Coastline-Swamp"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_H_Executive_Options_and_Variants/OPT-RESORT-01_Adventure_Island_The_Dilapidated_Imperial_Cruise_Port.md",
+    "standalone_fallback": "Can replace any swamp or coastal lagoon node with a rotting luxury cruise port and water-park resort colonized by indigenous aquatic tribes."
+  },
+  {
+    "id": "OPT-ZOO-01",
+    "title": "Barnaby's \"Cage-Free\" Apex Menagerie & The Matterhorn Purple Dragon",
+    "set": "Set H (Executive Options & Setting Addons)",
+    "tier": "Tier 5 (Esoteric & Eschatological Engine)",
+    "pipeline_tier": 5,
+    "culture": "Adhocracy / High Arcane Preservation",
+    "color": "Blue / Red / Black",
+    "provides": [
+      "Apex: Purple-Dragon-Weather-Heavens",
+      "Anomaly: Cage-Free-Monster-Equilibrium",
+      "Climax: Polymorph-Identity-Crisis"
+    ],
+    "requires": [
+      "Power: High-Amperage-DC",
+      "Material: Smelted-Alloy"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/Set_H_Executive_Options_and_Variants/OPT-ZOO-01_Barnabys_Cage_Free_Apex_Menagerie_and_The_Purple_Dragon.md",
+    "standalone_fallback": "Can manifest as a high-altitude dragon lair where an ancient wizard's polymorph spell has gone permanently feral, maintaining a pocket ecosystem of bizarre captive monstrosities."
+  },
+  {
+    "id": "STARTER-01",
+    "title": "The River Watermill & Grain Silo",
+    "set": "Starter Pack (Settlement Infrastructure)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Market",
+    "color": "Blue / Green",
+    "provides": [
+      "Food: Milled-Flour-Stores",
+      "Hydraulics: River-Weir-Control"
+    ],
+    "requires": [
+      "Geography: Flowing-River-Lowlands"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/STARTER-01_River_Watermill_and_Grain_Silo.md",
+    "standalone_fallback": "If the river freezes or runs dry, hand-cranked quern stones maintain 15% flour production, sufficient for emergency bread rations."
+  },
+  {
+    "id": "STARTER-02",
+    "title": "Smugglers' Cove & Hidden Sea Cave",
+    "set": "Starter Pack (Maritime & Underworld)",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy / Market",
+    "color": "Black / Red",
+    "provides": [
+      "Trade: Black-Market-Contraband",
+      "Transit: Concealed-Tidal-Passage"
+    ],
+    "requires": [
+      "Geography: Rocky-Coastal-Shelf"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/STARTER-02_Smugglers_Cove_and_Hidden_Sea_Cave.md",
+    "standalone_fallback": "If the sea cave floods during stormy spring tides, the smugglers relocate to a hidden cliffside campsite with rope ladders."
+  },
+  {
+    "id": "STARTER-03",
+    "title": "The Goblin Warrens & Abandoned Clay Pits",
+    "set": "Starter Pack (Regional Perils)",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy / Clan",
+    "color": "Black / Red",
+    "provides": [
+      "Hazard: Goblin-Raid-Warband",
+      "Material: Crude-Iron-Scrap"
+    ],
+    "requires": [
+      "Geography: Subterranean-Tunnels"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/STARTER-03_Goblin_Warrens_and_Clay_Pits.md",
+    "standalone_fallback": "Goblins raid exclusively at night and scatter into the scrub brush if their war-chief is slain."
+  },
+  {
+    "id": "STARTER-04",
+    "title": "The Ancient Barrow & Restless Dead",
+    "set": "Starter Pack (Regional Perils)",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Clocks)",
+    "pipeline_tier": 4,
+    "culture": "Clan / Ancient Memory",
+    "color": "Black / White",
+    "provides": [
+      "Crisis: Barrow-Wight-Incursion",
+      "Relic: Ancient-Gilded-Torc"
+    ],
+    "requires": [
+      "Geography: Highland-Foothills"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/STARTER-04_Ancient_Barrow_and_Restless_Dead.md",
+    "standalone_fallback": "The restless dead cannot cross running water; they remain contained within the barrow boundary unless grave robbers disturb the center lintel stone."
+  },
+  {
+    "id": "STARTER-05",
+    "title": "The Mountain Watchtower & Signal Pylon",
+    "set": "Starter Pack (Settlement Infrastructure)",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy (Control)",
+    "color": "White / Red",
+    "provides": [
+      "Defense: Early-Raid-Warning",
+      "Comms: Line-of-Sight-Signals"
+    ],
+    "requires": [
+      "Geography: High-Mountain-Pass"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/STARTER-05_Mountain_Watchtower_and_Signal_Pylon.md",
+    "standalone_fallback": "If stormy weather or rain douses the beacon fires, large brass horns and ringing iron bells transmit alerts across adjacent valley passes."
+  },
+  {
+    "id": "STARTER-06",
+    "title": "Whispering Old Woods & Herbalist Cloister",
+    "set": "Starter Pack (Ecology & Healing)",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Clan (Collaborate)",
+    "color": "Green / White",
+    "provides": [
+      "Medicine: Healing-Herbal-Salves",
+      "Material: Heartwood-Timber"
+    ],
+    "requires": [
+      "Geography: Dense-Ancient-Forest"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/STARTER-06_Whispering_Old_Woods_and_Herbalist_Cloister.md",
+    "standalone_fallback": "The forest herbalists are politically neutral, freely trading dried poultices and fever teas for iron knives and coarse salt."
+  },
+  {
+    "id": "T0-DOM-01",
+    "title": "The Subsistence Agrarian Perimeter and Root Cellars",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Agrarian Subsistence",
+    "color": "Green",
+    "provides": [
+      "Food: Baseline-Subsistence-Rations"
+    ],
+    "requires": [
+      "Geography: Arable-Perimeter-Soil"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md",
+    "standalone_fallback": "If arable soils freeze, flood, or suffer blighted rot, the settlement opens sealed winter root cellars and transitions to parched grain rationing, wild hedgerow foraged turnip soups, and slaughtering non-essential dairy sheep, maintaining subsistence for 30 days before starvation checks begin."
+  },
+  {
+    "id": "T0-DOM-02",
+    "title": "The Communal Artesian Well and Village Cistern",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Hydrological Commons",
+    "color": "Blue / Green",
+    "provides": [
+      "Water: Baseline-Potable-Well-Head"
+    ],
+    "requires": [
+      "Geography: Subterranean-Aquifer-Seep"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md",
+    "standalone_fallback": "If the artesian springhead runs dry or suffers surface contamination, the settlement reverts to hand-hauled snowmelt runoff, roof rainwater cisterns, and strict boiling of muddy ditch water, sustaining up to 300 residents at 4 liters/day under mild dysentery risk before migration becomes unavoidable."
+  },
+  {
+    "id": "T0-DOM-03",
+    "title": "Vernacular Timber, Wattle & Stone Masonry",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Vernacular Construction",
+    "color": "Green / White",
+    "provides": [
+      "Shelter: Weatherproof-Civic-Fabric"
+    ],
+    "requires": [
+      "Material: Local-Timber-and-Clay"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md",
+    "standalone_fallback": "If timber rot, roof fires, or clay shortages compromise municipal masonry, the community crowds into smoke-choked central longhouses, turf dugouts, and sheep byres; hypothermia and respiratory coughing inflict Light checks during rain, but community cohesion keeps the node habitable without collapse."
+  },
+  {
+    "id": "T0-DOM-04",
+    "title": "The Ditch-and-Palisade with Town Watch Bailiff",
+    "set": "Set C (Governance & Hierarchy)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Hierarchy / Parish Defense",
+    "color": "White",
+    "provides": [
+      "Defense: Local-Palisade-and-Watch"
+    ],
+    "requires": [
+      "Material: Hewn-Log-Stakes",
+      "Social: Able-Bodied-Militia"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md",
+    "standalone_fallback": "If timber palisades rot or the bailiff's watch dissolves, the hamlet retreats into a central fortified stone church tower or communal barn, barricading doorways with oak tables and sounding brass alarm horns; petty marauders loot outer gardens, but residents survive sieges up to 7 days before surrender."
+  },
+  {
+    "id": "T0-DOM-05",
+    "title": "The Weekly Barter Square and Village Blacksmith",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Market / Village Barter",
+    "color": "Red",
+    "provides": [
+      "Economy: Baseline-Mundane-Smithy-and-Trade"
+    ],
+    "requires": [
+      "Material: Scrap-Iron-Billets",
+      "Fuel: Hardwood-Charcoal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md",
+    "standalone_fallback": "If iron scrap or charcoal supplies fail, the forge goes cold; the village reverts to wood-pegged plows, stone-sharpened scythes, and pure commodity barter (bushels of oats for wool fleeces); agricultural efficiency drops 30%, but mundane village exchanges continue without monetary currency."
+  },
+  {
+    "id": "T0-DOM-06",
+    "title": "The Village Herbalist, Midwife & Leechcraft Hearth",
+    "set": "Set E (Factions & Societal Tensions)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Folk Healing",
+    "color": "Green",
+    "provides": [
+      "Health: Folk-Leechcraft-and-Midwifery"
+    ],
+    "requires": [
+      "Ecology: Wild-Hedgerow-Botanicals"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md",
+    "standalone_fallback": "If medicinal herbs run out or the midwife dies, the community relies on boiled onion poultices, pine-needle tea, and elder hearth vigils; non-magical disease recovery slows by 50% and infant mortality climbs, but basic domestic care prevents immediate depopulation."
+  },
+  {
+    "id": "T0-DOM-07",
+    "title": "The Midden Trenches, Swine Scavengers & Night-Soil Pit",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Sanitation Commons",
+    "color": "Black / Green",
+    "provides": [
+      "Sanitation: Vernacular-Midden-Management"
+    ],
+    "requires": [
+      "Material: Slaked-Lime-Dust",
+      "Fauna: Scavenger-Swine"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md",
+    "standalone_fallback": "If swine die or lime dust runs out, the village digs emergency muck pits 200 yards downwind and covers waste with river gravel and pine ash; foul odors inflict Light morale penalties, but basic separation of waste from wellhead drainage prevents cholera outbreaks."
+  },
+  {
+    "id": "T0-DOM-08",
+    "title": "The Wayside Boundary Shrine & Hearth Vigil",
+    "set": "Set G (Esoterica & Climax Engines)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Ancestral Folk Vigil",
+    "color": "White / Green",
+    "provides": [
+      "Social: Communal-Folklore-Solidarity"
+    ],
+    "requires": [
+      "Social: Shared-Cultural-Lineage"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md",
+    "standalone_fallback": "If the boundary shrine is desecrated or sacred icons are smashed, the community fractures into suspicious family enclaves; solstice feasts cease, paranoia against outsiders spikes, and characters suffer disadvantage on morale checks, but private hearth candle vigils sustain baseline social survival."
+  }
+]

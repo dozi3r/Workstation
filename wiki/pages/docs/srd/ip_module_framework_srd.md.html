@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IP Module Framework SRD — Creator Studio Technical Manual &amp; Wiki</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../../index.html#vol-2">Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a> &rsaquo;
+        <span>docs/srd/ip_module_framework_srd.md</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">IP Module Framework SRD</h1>
+        <div class="article-subtitle">
+          <span class="badge">System Reference Document (SRD)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: f2829a06)</span>
+          
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (11)</a>
+        </div>
+      </div>
+
+      <aside class="infobox">
+        <div class="infobox-header">ip_module_framework_srd.md</div>
+        <table class="infobox-table">
+          
+    <tr><th>File Path</th><td><code>docs/srd/ip_module_framework_srd.md</code></td></tr>
+    <tr><th>Manual Volume</th><td><a href="../../../index.html#vol-2">Volume II</a></td></tr>
+    <tr><th>Surface Kind</th><td>System Reference Document (SRD)</td></tr>
+    <tr><th>File Metrics</th><td>136 lines &bull; 10.4 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: f2829a06)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>10</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>11</strong> backlinks</td></tr>
+    <tr><th>Raw File</th><td><a href="../../../../docs/srd/ip_module_framework_srd.md" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
+  
+        </table>
+      </aside>
+
+      
+    <div class="ai-digest">
+      <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
+      <p style="margin:4px 0;"><strong>Summary:</strong> **Version**: 1.0.0   **Status**: Authoritative Standard   **Authority**: [ADR-0001](file:///c:/Users/Milo/Documents/Antigravity/Creator/docs/adr/0001-dual-mode-preset-architecture.md), [ADR-0002](file:///c:/Users/Milo/Documents/Antigravity/Creator/docs/adr/0002-dual-srd-and-tiered-module-architecture.md), [Authoring Engine SRD](file:///c:/Users/Milo/Document</p>
+      
+      
+      
+    </div>
+  
+      
+      <h2>Architectural Role & Subsystem Context</h2>
+<p><code>docs/srd/ip_module_framework_srd.md</code> is the <strong>Universal Cross-Domain Ingestion & IP Translation Standard</strong> within <strong>Volume II: System Reference Documents (The Dual SRD & Substratum)</strong>. Functioning as the "Rosetta Stone" of Creator Studio under <a class="wiki-link" href="../../../pages/docs/adr/0001-dual-mode-preset-architecture.md.html">📄 docs/adr/0001-dual-mode-preset-architecture.md</a> and <a class="wiki-link" href="../../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a>, it specifies how any external Intellectual Property (historical eras, shonen anime, sci-fi universes, or classic tabletop modules) is translated into system-agnostic, mechanically interoperable pointcrawl modules without prose bloat or ruleset lock-in.</p>
+<p>It is the primary theoretical and practical foundation for <a class="wiki-link series-link" href="../../../pages/series/series_f_campaign_authoring_and_ip_conversion.html">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a>, <a class="wiki-link" href="../../../pages/templates/IP_MODULE_TEMPLATE.md.html">📄 templates/IP_MODULE_TEMPLATE.md</a>, and the three canonical cross-domain reference exemplars:</p>
+<ul class="wiki-list">
+<li><strong>Historical Exemplar</strong>: <a class="wiki-link" href="../../../pages/templates/examples/HIST-01_The_Crossing_of_the_Rubicon.md.html">📄 templates/examples/HIST-01_The_Crossing_of_the_Rubicon.md</a> (<em>Julius Caesar Crossing the Rubicon, 49 BC</em>).</li>
+<li><strong>Anime / Sci-Fi Exemplar</strong>: <a class="wiki-link" href="../../../pages/templates/examples/DBZ-01_The_Siege_of_Planet_Namek.md.html">📄 templates/examples/DBZ-01_The_Siege_of_Planet_Namek.md</a> (<em>Dragon Ball Z: The Siege of Planet Namek</em>).</li>
+<li><strong>Classic Tabletop Exemplar</strong>: <a class="wiki-link" href="../../../pages/templates/examples/DND-01_The_Mists_of_Barovia.md.html">📄 templates/examples/DND-01_The_Mists_of_Barovia.md</a> (<em>Ravenloft / Curse of Strahd: The Mists of Barovia</em>).</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>Core Invariants & The 7-Component Translation Contract</h2>
+<p>When translating any setting or IP element into a Creator Studio module, the author must map narrative lore into seven structured components:</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Component</th><th>Schema Field / Section</th><th>Structural Rule & Cross-Domain Examples</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>1. Pipeline Tier Classification</strong></td><td><code>pipeline_tier: 1..5</code></td><td><strong>Tier 1</strong> (Macro Governance: <em>Roman Lex Cornelia</em>, <em>Frieza Force Quotas</em>, <em>Barovian Mist Lockdown</em>); <strong>Tier 2</strong> (Biome/Corridor: <em>Rubicon River Barrier</em>, <em>Namek Coral Archipelago</em>, <em>Old Svalich Road</em>); <strong>Tier 3</strong> (Supply Chain: <em>Ostia Grain Silos</em>, <em>Scouter Relay Grid</em>, <em>Wizard of Wines</em>); <strong>Tier 4</strong> (Sparks/Clocks: <em>Plebeian Bread Riots</em>, <em>Namekian Village Cull</em>, <em>Feast of St. Andral</em>); <strong>Tier 5</strong> (Climax Engine: <em>Dictator Apotheosis</em>, <em>Namek 5-Minute Core Detonation</em>, <em>Heart of Sorrow</em>).</td></tr>
+<tr><td><strong>2. Pointcrawl Spatial Anchor</strong></td><td><code>hub_eligibility</code> (<code>candidate</code> / <code>never</code> / <code>always</code>)</td><td>Determines whether the location can win Tarot wave elections (<code>candidate</code>), is a dependent satellite/hazard (<code>never</code>), or locks a Sovereign Hub slot (<code>always</code>), plus 1-Way ($u \to v$) vs. 2-Way ($u \leftrightarrow v$) tethering.</td></tr>
+<tr><td><strong>3. Sociological CVF & Tarot Affinity</strong></td><td><code>culture_quadrant</code>, <code>operational_profile</code>, <code>mtg_color</code>, <code>tarot_affinity</code></td><td>Maps faction culture to <strong>Hierarchy (Control / White)</strong>, <strong>Adhocracy (Create / Blue-Red)</strong>, <strong>Market (Compete / Black)</strong>, or <strong>Clan (Collaborate / Green)</strong>.</td></tr>
+<tr><td><strong>4. Typed Resource Contracts</strong></td><td><code>provides: [...]</code>, <code>requires: [...]</code></td><td>Machine-readable <code>[Category]: [Specific-Asset-Name]</code> strings across <code>Power</code>, <code>Material</code>, <code>Bio</code>, <code>Tech</code>, <code>Authority</code>, <code>Labor</code>, and <code>Climax</code>.</td></tr>
+<tr><td><strong>5. 4-Level Output Dial & Clocks</strong></td><td><code>injected_mechanics.output_dial</code>, <code>threat_clocks</code></td><td>Scales across Level 1 (Light DC 10 / <code>1d6</code>), Level 2 (Moderate DC 13 / <code>2d8</code>), Level 3 (Severe DC 16 / <code>4d10</code>), and Level 4 (Lethal DC 20 / <code>8d12</code>), paired with 4/6/8-tick Threat Clocks (<a class="wiki-link" href="../../../pages/docs/srd/adventure_framework_srd.md.html">📄 docs/srd/adventure_framework_srd.md</a>).</td></tr>
+<tr><td><strong>6. 4-Corner Dramatic Opposition Web</strong></td><td>Markdown Section 2 (<code>four_corners</code>)</td><td>Pits <strong>Establishment (The Power)</strong>, <strong>Main Opponent (The Challenger)</strong>, <strong>Thematic Shadow (The Profiteer)</strong>, and <strong>Tertiary Outcast (The Victim / Pariah)</strong> in irreconcilable conflict.</td></tr>
+<tr><td><strong>7. Standalone Fallback Invariant</strong></td><td><code>standalone_fallback</code></td><td>Mandatory narrative/mechanical clause explaining how the module operates if severed from external supply edges or run as an isolated one-shot.</td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>Data Flow & Execution Pipeline</h2>
+<p>1. <strong>Authoring</strong>: Worldbuilders or AI agents copy <a class="wiki-link" href="../../../pages/templates/IP_MODULE_TEMPLATE.md.html">📄 templates/IP_MODULE_TEMPLATE.md</a> into <code>campaigns/<campaign_id>/modules/</code> and populate the 7 components defined in this SRD.</p>
+<p>2. <strong>Validation</strong>: <a class="wiki-link" href="../../../pages/campaigns/Test-CampaignPackage.ps1.html">📄 campaigns/Test-CampaignPackage.ps1</a> verifies frontmatter conformance against this SRD.</p>
+<p>3. <strong>Compilation & UI Ingestion</strong>: <a class="wiki-link" href="../../../pages/build_suite.js.html">📄 build_suite.js</a> (Stage 3) parses the Markdown body to extract <code>threat_clocks</code>, <code>dials</code>, and <code>four_corners</code>, injecting them into <code>CAMPAIGN_REGISTRY</code> for live filtering, slotting, and reader inspection in <a class="wiki-link" href="../../../pages/network/campaign_studio.html.html">📄 network/campaign_studio.html</a> and <a class="wiki-link" href="../../../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>.</p>
+<hr class="wiki-hr"/>
+<h2>AI Agent Maintenance Checklist</h2>
+<ul class="wiki-list">
+<li><strong>When converting an external IP or authoring new campaign modules</strong>: Consult <code>docs/srd/ip_module_framework_srd.md</code> alongside <a class="wiki-link" href="../../../pages/templates/IP_MODULE_TEMPLATE.md.html">📄 templates/IP_MODULE_TEMPLATE.md</a> and <a class="wiki-link series-link" href="../../../pages/series/series_f_campaign_authoring_and_ip_conversion.html">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a>.</li>
+<li><strong>Never invent ungrounded generic fantasy filler</strong>: Ground every module in concrete institutional sociology, material supply chains (<code>provides</code> / <code>requires</code>), and 4-corner dramatic opposition.</li>
+</ul>
+      <h2>Document Section Outline</h2><ul class="wiki-list"><li style="margin-left:0px;"><code>H1</code> IP Module Framework SRD</li><li style="margin-left:18px;"><code>H2</code> Universal Cross-Domain Ingestion &amp; Translation Standard</li><li style="margin-left:18px;"><code>H2</code> 1. Executive Mission &amp; System Boundaries</li><li style="margin-left:18px;"><code>H2</code> 2. The 5-Tier Pipeline Translation Matrix</li><li style="margin-left:18px;"><code>H2</code> 3. Topographical Pointcrawl Integration &amp; Hub Eligibility</li><li style="margin-left:36px;"><code>H3</code> 3.1 Hub Eligibility Archetypes</li><li style="margin-left:36px;"><code>H3</code> 3.2 Directional Influence Tethering</li><li style="margin-left:18px;"><code>H2</code> 4. Sociological Matrix &amp; Culture Quadrants</li><li style="margin-left:18px;"><code>H2</code> 5. Typed Resource Tag Contracts</li><li style="margin-left:36px;"><code>H3</code> 5.1 Standardized Categories</li><li style="margin-left:18px;"><code>H2</code> 6. Tabletop Runtime Architecture</li><li style="margin-left:36px;"><code>H3</code> 6.1 The 4-Level Output Dial</li><li style="margin-left:36px;"><code>H3</code> 6.2 Threat Clocks</li><li style="margin-left:36px;"><code>H3</code> 6.3 4-Corner Dramatic Opposition Matrix</li><li style="margin-left:18px;"><code>H2</code> 7. Standalone Fallback Invariant</li></ul><h2>Mechanical Contracts, Dials &amp; Real-World Reference Data</h2><h3>Reference Foundations &amp; Design Provenance (For GM / Downstream Expansion)</h3><ul class="wiki-list"><li>Real-World Engineering: Lester Allan Pelton impulse water turbine (1870s high-head hydro-electric generation) &amp; early direct-current dynamos.</li><li>Historical Archaeology: 1177 BC Late Bronze Age Collapse (tin/copper trade network severance, palace economy cascade failure).</li><li>IP Conversion Exemplar: Dragon Ball Z (Frieza/Namek Saga) translated into a 7-MacGuffin asymmetric triangulation race and planetary destruction clock.</li><li>IP Conversion Exemplar: Ravenloft (I6 / Curse of Strahd) translated into a closed mist-border gothic domain with an omnipresent apex predator.</li><li>Historical Campaign Exemplar: Julius Caesar crossing the Rubicon (49 BC) — rapid legionary blitzkrieg vs. senatorial treasury evacuation.</li></ul><h3>Truby 4-Corner Opposition Matrix</h3>
+        <div class="table-wrap"><table class="wiki-table">
+          <thead><tr><th>Role</th><th>Faction / Actor Vector</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Establishment</strong></td><td>The entrenched authority defending the current order.</td></tr>
+            <tr><td><strong>Opponent</strong></td><td>The active revolutionary, invader, or warlord seeking disruption.</td></tr>
+            <tr><td><strong>Shadow</strong></td><td>The corrupt merchant, mercenary, or parasite exploiting the clash.</td></tr>
+            <tr><td><strong>Outcast</strong></td><td>The collateral bystander, forgotten minority, or subterranean exile caught in between.</td></tr>
+          </tbody>
+        </table></div><h3>Systemic Escalation Dials (Levels 1–4)</h3><ul class="wiki-list"><li>Level 1 (Dormant / Routine)**: Baseline passive state. Low difficulty checks (**Light Tier: DC 10 / 1d6 damage**).</li><li>Level 2 (Operational / Supervised)**: Default active throughput. Moderate friction (**Moderate Tier: DC 13 / 2d8 damage**).</li><li>Level 3 (Overdriven / Crisis)**: Surge production or public discovery. Dangerous fallout (**Severe Tier: DC 16 / 4d10 damage**).</li><li>Level 4 (Catastrophic / Eschatological Meltdown)**: Total containment breach or collapse (**Lethal Tier: DC 20 / 8d12 damage**).</li></ul>
+      <h2 id="outbound-links">Outbound References (10)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+        <td><a href="../../../pages/series/series_f_campaign_authoring_and_ip_conversion.html"><strong>Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</strong></a></td>
+        <td><span class="badge badge-Series">In Deep Series</span></td>
+        <td>Part of cross-cutting subsystem Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/adr/0001-dual-mode-preset-architecture.md.html"><strong>docs/adr/0001-dual-mode-preset-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0001-dual-mode-preset-architecture.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0002-dual-srd-and-tiered-module-architecture.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/templates/IP_MODULE_TEMPLATE.md.html"><strong>templates/IP_MODULE_TEMPLATE.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:templates/IP_MODULE_TEMPLATE.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/adventure_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Test-CampaignPackage.ps1.html"><strong>campaigns/Test-CampaignPackage.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
+        <td>Explicit [[File:campaigns/Test-CampaignPackage.ps1]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:network/campaign_studio.html]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:network/platform_audit_dashboard.html]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
+        <td>References docs/srd/authoring_engine_srd.md</td>
+      </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (11)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+        <td><a href="../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
+        <td><span class="badge badge-Series">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/ip_module_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/series/series_f_campaign_authoring_and_ip_conversion.html"><strong>Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</strong></a></td>
+        <td><span class="badge badge-Series">Series Component</span></td>
+        <td>Core file analyzed in Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/MODULES_CATALOG.md.html"><strong>docs/MODULES_CATALOG.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Governing Spec</span></td>
+        <td>Authoritative specification for docs/MODULES_CATALOG.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References docs/srd/ip_module_framework_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/ip_module_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
+        <td>References docs/srd/ip_module_framework_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/adr/0001-dual-mode-preset-architecture.md.html"><strong>docs/adr/0001-dual-mode-preset-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/ip_module_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References docs/srd/ip_module_framework_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/srd/campaign_preset_specification_srd.md.html"><strong>docs/srd/campaign_preset_specification_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/ip_module_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/srd/scenario_primitives_srd.md.html"><strong>docs/srd/scenario_primitives_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/ip_module_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/templates/IP_MODULE_TEMPLATE.md.html"><strong>templates/IP_MODULE_TEMPLATE.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References docs/srd/ip_module_framework_srd.md</td>
+      </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

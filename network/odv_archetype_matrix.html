@@ -1,0 +1,3384 @@
+<!--
+================================================================================
+CREATOR STUDIO COMPASS HEADER (AUTO-GENERATED VIA build_suite.js)
+SURFACE: 64-Cell ODV Archetype Matrix & Hermeneutics Explorer
+WIKI PAGE: wiki/pages/network/odv_archetype_matrix.html.html (Markdown Source: wiki/src/files/network/odv_archetype_matrix.html.md)
+AUTHORITATIVE SPECIFICATIONS:
+  - docs/srd/authoring_engine_srd.md (Section 3: Sociological Algebra)
+  - CONTEXT.md
+DATA PROVENANCE & BUILD PIPELINE:
+  - src/workstation/scripts/sociology_data.js
+CRITICAL INSTRUCTION:
+  Dynamic zero-CORS visualizer referencing sociology_data.js to explore the 64-cell [S, E, C] matrix, CVF quadrants, and operational modes.
+  Re-compile suite via: powershell -ExecutionPolicy Bypass -File .\Build-Suite.ps1
+================================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Studio: 64-Cell ODV Archetype Matrix &amp; Hermeneutics Explorer</title>
+  <style id="zero-cors-tailwind">
+*, ::before, ::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #e2e8f0; }
+:root { --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0,0,0,0)); }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+.bg-\[\#080c14\] { background-color: #080c14; }
+.text-\[\#e2e8f0\] { font-size: #e2e8f0; }
+.min-h-screen { min-height: 100vh; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.p-4 { padding: 1rem; }
+@media (min-width: 768px) { .md\:p-6 { padding: 1.5rem; } }
+@media (min-width: 1024px) { .lg\:p-8 { padding: 2rem; } }
+.space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; }
+.max-w-7xl { max-width: 80rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.w-full { width: 100%; }
+.pb-6 { padding-bottom: 1.5rem; }
+.border-b { border-bottom-width: 1px; border-bottom-style: solid; }
+.border-slate-800 { border-color: #1e293b; }
+@media (min-width: 768px) { .md\:flex-row { flex-direction: row; } }
+@media (min-width: 768px) { .md\:items-center { align-items: center; } }
+.justify-between { justify-content: space-between; }
+.gap-4 { gap: 1rem; }
+.items-center { align-items: center; }
+.gap-2\.5 { gap: 0.625rem; }
+.flex-wrap { flex-wrap: wrap; }
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.font-bold { font-weight: 700; }
+.text-sky-400 { color: #38bdf8; }
+.hover\:text-sky-300:hover { color: #7dd3fc; }
+.transition { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.gap-1 { gap: 0.25rem; }
+.text-slate-600 { color: #475569; }
+.text-indigo-400 { color: #818cf8; }
+.hover\:text-indigo-300:hover { color: #a5b4fc; }
+.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+.rounded { border-radius: 0.25rem; }
+.text-\[10px\] { font-size: 10px; }
+.bg-purple-950 { background-color: #3b0764; }
+.text-purple-300 { color: #d8b4fe; }
+.border { border-width: 1px; border-style: solid; }
+.border-purple-800 { border-color: #6b21a8; }
+.uppercase { text-transform: uppercase; }
+.tracking-wider { letter-spacing: 0.05em; }
+.bg-slate-800 { background-color: #1e293b; }
+.text-slate-300 { color: #cbd5e1; }
+.border-slate-700 { border-color: #334155; }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.bg-emerald-950\/80 { background-color: rgba(2, 44, 34, 0.8); }
+.text-emerald-300 { color: #6ee7b7; }
+.border-emerald-700 { border-color: #047857; }
+.bg-sky-950 { background-color: #082f49; }
+.text-sky-300 { color: #7dd3fc; }
+.border-sky-800 { border-color: #075985; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+@media (min-width: 1024px) { .lg\:text-3xl { font-size: 1.875rem; line-height: 2.25rem; } }
+.font-extrabold { font-weight: 800; }
+.text-white { color: #ffffff; }
+.tracking-tight { letter-spacing: -0.025em; }
+.mt-2 { margin-top: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.text-slate-400 { color: #94a3b8; }
+@media (min-width: 1024px) { .lg\:text-sm { font-size: 0.875rem; line-height: 1.25rem; } }
+.mt-1 { margin-top: 0.25rem; }
+.max-w-4xl { max-width: 56rem; }
+.leading-relaxed { line-height: 1.625; }
+.text-emerald-400 { color: #34d399; }
+.font-semibold { font-weight: 600; }
+.text-amber-400 { color: #fbbf24; }
+.gap-2 { gap: 0.5rem; }
+.shrink-0 { flex-shrink: 0; }
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.rounded-lg { border-radius: 0.5rem; }
+.bg-sky-900\/80 { background-color: rgba(12, 74, 110, 0.8); }
+.hover\:bg-sky-800:hover { background-color: #075985; }
+.border-sky-600 { border-color: #0284c7; }
+.text-sky-200 { color: #bae6fd; }
+.gap-1\.5 { gap: 0.375rem; }
+.shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+.hidden { display: none; }
+.bg-slate-900 { background-color: #0f172a; }
+.hover\:bg-slate-800:hover { background-color: #1e293b; }
+.px-2\.5 { padding-left: 0.625rem; padding-right: 0.625rem; }
+.bg-rose-950\/60 { background-color: rgba(76, 5, 25, 0.6); }
+.hover\:bg-rose-900\/80:hover { background-color: rgba(136, 19, 55, 0.8); }
+.border-rose-800 { border-color: #9f1239; }
+.text-rose-300 { color: #fda4af; }
+.px-3\.5 { padding-left: 0.875rem; padding-right: 0.875rem; }
+.bg-amber-600 { background-color: #d97706; }
+.hover\:bg-amber-500:hover { background-color: #f59e0b; }
+.border-amber-500 { border-color: #f59e0b; }
+.shadow { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); }
+.bg-slate-900\/90 { background-color: rgba(15, 23, 42, 0.9); }
+.rounded-2xl { border-radius: 1rem; }
+.p-5 { padding: 1.25rem; }
+.space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+.cursor-pointer { cursor: pointer; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.mt-0\.5 { margin-top: 0.125rem; }
+.text-amber-300 { color: #fcd34d; }
+.py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.hover\:text-white:hover { color: #ffffff; }
+.hover\:bg-slate-700:hover { background-color: #334155; }
+.pt-2 { padding-top: 0.5rem; }
+.border-t { border-top-width: 1px; border-top-style: solid; }
+.border-slate-800\/80 { border-color: rgba(30, 41, 59, 0.8); }
+.pb-2 { padding-bottom: 0.5rem; }
+.py-1\.5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+.bg-sky-600 { background-color: #0284c7; }
+.bg-slate-950 { background-color: #020617; }
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+@media (min-width: 768px) { .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.rounded-xl { border-radius: 0.75rem; }
+.bg-slate-950\/60 { background-color: rgba(2, 6, 23, 0.6); }
+.border-slate-800\/90 { border-color: rgba(30, 41, 59, 0.9); }
+.space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
+.text-\[11px\] { font-size: 11px; }
+.space-y-1\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.375rem; }
+.pt-1 { padding-top: 0.25rem; }
+.p-2 { padding: 0.5rem; }
+.bg-slate-900\/80 { background-color: rgba(15, 23, 42, 0.8); }
+.hover\:border-emerald-500\/70:hover { border-color: rgba(16, 185, 129, 0.7); }
+.hover\:border-sky-500\/70:hover { border-color: rgba(14, 165, 233, 0.7); }
+.hover\:border-amber-500\/70:hover { border-color: rgba(245, 158, 11, 0.7); }
+@media (min-width: 768px) { .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.p-3\.5 { padding: 0.875rem; }
+.bg-slate-950\/40 { background-color: rgba(2, 6, 23, 0.4); }
+.text-indigo-300 { color: #a5b4fc; }
+.bg-emerald-950 { background-color: #022c22; }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.border-emerald-800\/60 { border-color: rgba(6, 95, 70, 0.6); }
+.bg-emerald-950\/40 { background-color: rgba(2, 44, 34, 0.4); }
+.border-sky-800\/60 { border-color: rgba(7, 89, 133, 0.6); }
+.bg-sky-950\/40 { background-color: rgba(8, 47, 73, 0.4); }
+.border-indigo-800\/60 { border-color: rgba(55, 48, 163, 0.6); }
+.bg-indigo-950\/40 { background-color: rgba(30, 27, 75, 0.4); }
+.border-amber-800\/60 { border-color: rgba(146, 64, 14, 0.6); }
+.bg-amber-950\/40 { background-color: rgba(69, 26, 3, 0.4); }
+.border-purple-700 { border-color: #7e22ce; }
+.text-blue-300 { color: #93c5fd; }
+.text-blue-400 { color: #60a5fa; }
+.text-orange-300 { color: #fdba74; }
+.text-purple-400 { color: #c084fc; }
+.text-teal-300 { color: #5eead4; }
+.text-teal-400 { color: #2dd4bf; }
+.text-rose-400 { color: #fb7185; }
+.bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
+.from-slate-900 { --tw-gradient-from: #0f172a; --tw-gradient-to: rgba(0,0,0,0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+.via-slate-900\/95 { --tw-gradient-to: rgba(0,0,0,0); --tw-gradient-stops: var(--tw-gradient-from), rgba(15, 23, 42, 0.95), var(--tw-gradient-to); }
+.to-slate-900 { --tw-gradient-to: #0f172a; }
+.border-sky-900\/40 { border-color: rgba(12, 74, 110, 0.4); }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+.pb-3 { padding-bottom: 0.75rem; }
+.text-base { font-size: 1rem; line-height: 1.5rem; }
+.border-sky-700 { border-color: #0369a1; }
+.gap-5 { gap: 1.25rem; }
+.items-start { align-items: flex-start; }
+.text-slate-500 { color: #64748b; }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.px-1 { padding-left: 0.25rem; padding-right: 0.25rem; }
+.text-center { text-align: center; }
+.hover\:border-emerald-500:hover { border-color: #10b981; }
+.hover\:border-sky-500:hover { border-color: #0ea5e9; }
+.hover\:border-amber-500:hover { border-color: #f59e0b; }
+.border-slate-700\/80 { border-color: rgba(51, 65, 85, 0.8); }
+.p-6 { padding: 1.5rem; }
+.shadow-2xl { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+.space-y-5 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.25rem; }
+.pb-4 { padding-bottom: 1rem; }
+.mb-1\.5 { margin-bottom: 0.375rem; }
+.bg-indigo-950 { background-color: #1e1b4b; }
+.border-indigo-800 { border-color: #3730a3; }
+@media (min-width: 768px) { .md\:text-3xl { font-size: 1.875rem; line-height: 2.25rem; } }
+.bg-emerald-950\/30 { background-color: rgba(2, 44, 34, 0.3); }
+.border-emerald-800\/80 { border-color: rgba(6, 95, 70, 0.8); }
+@media (min-width: 768px) { .md\:text-sm { font-size: 0.875rem; line-height: 1.25rem; } }
+.text-slate-200 { color: #e2e8f0; }
+.bg-rose-950\/30 { background-color: rgba(76, 5, 25, 0.3); }
+.border-rose-800\/80 { border-color: rgba(159, 18, 57, 0.8); }
+.bg-slate-950\/90 { background-color: rgba(2, 6, 23, 0.9); }
+.pb-1 { padding-bottom: 0.25rem; }
+.space-y-1 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.25rem; }
+.pt-0\.5 { padding-top: 0.125rem; }
+.bg-rose-950 { background-color: #4c0519; }
+.bg-slate-950\/80 { background-color: rgba(2, 6, 23, 0.8); }
+.bg-amber-950\/25 { background-color: rgba(69, 26, 3, 0.25); }
+.border-amber-800\/70 { border-color: rgba(146, 64, 14, 0.7); }
+.border-amber-900\/40 { border-color: rgba(120, 53, 15, 0.4); }
+.text-amber-300\/80 { color: rgba(252, 211, 77, 0.8); }
+.text-slate-100 { color: #f1f5f9; }
+.bg-purple-950\/20 { background-color: rgba(59, 7, 100, 0.2); }
+.border-purple-800\/60 { border-color: rgba(107, 33, 168, 0.6); }
+.border-purple-900\/40 { border-color: rgba(88, 28, 135, 0.4); }
+.bg-purple-900\/80 { background-color: rgba(88, 28, 135, 0.8); }
+.hover\:bg-purple-800:hover { background-color: #6b21a8; }
+.text-purple-200 { color: #e9d5ff; }
+@media (min-width: 1024px) { .lg\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.75rem; }
+.items-stretch { align-items: stretch; }
+.pt-4 { padding-top: 1rem; }
+.flex-1 { flex: 1 1 0%; }
+.max-w-md { max-width: 28rem; }
+.relative { position: relative; }
+.pl-9 { padding-left: 9; }
+.pr-3 { padding-right: 0.75rem; }
+.placeholder-slate-500::placeholder { color: rgba(100, 116, 139, undefined); }
+.focus\:outline-none:focus { outline: 2px solid transparent; outline-offset: 2px; }
+.focus\:border-sky-500:focus { border-color: #0ea5e9; }
+.focus\:ring-1:focus { box-shadow: 0 0 0 1px var(--tw-ring-color, #38bdf8); }
+.focus\:ring-sky-500:focus { --tw-ring-color: rgba(14, 165, 233, undefined); }
+.absolute { position: absolute; }
+.left-3 { left: 0.75rem; }
+.top-2\.5 { top: 0.625rem; }
+.p-1 { padding: 0.25rem; }
+.bg-slate-900\/95 { background-color: rgba(15, 23, 42, 0.95); }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-2\.5 { padding-top: 0.625rem; padding-bottom: 0.625rem; }
+.flex-grow { flex-grow: 1; }
+.pb-16 { padding-bottom: 4rem; }
+.fixed { position: fixed; }
+.z-50 { z-index: 50; }
+.border-sky-500 { border-color: #0ea5e9; }
+.transition-all { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.duration-300 { transition-duration: 300ms; }
+.pointer-events-none { pointer-events: none; }
+.bg-amber-950\/80 { background-color: rgba(69, 26, 3, 0.8); }
+.border-amber-700 { border-color: #b45309; }
+.bg-rose-950\/80 { background-color: rgba(76, 5, 25, 0.8); }
+.border-rose-700 { border-color: #be123c; }
+.bg-emerald-600 { background-color: #059669; }
+.border-emerald-400 { border-color: #34d399; }
+.border-emerald-500 { border-color: #10b981; }
+.ring-1 { box-shadow: 0 0 0 1px var(--tw-ring-color, #38bdf8); }
+.border-sky-400 { border-color: #38bdf8; }
+.border-amber-400 { border-color: #fbbf24; }
+.hover\:border-slate-700:hover { border-color: #334155; }
+.px-1\.5 { padding-left: 0.375rem; padding-right: 0.375rem; }
+.text-\[9px\] { font-size: 9px; }
+.p-2\.5 { padding: 0.625rem; }
+.py-0\.2 { padding-top: 0.05rem; padding-bottom: 0.05rem; }
+.block { display: block; }
+.p-1\.5 { padding: 0.375rem; }
+.bg-amber-950 { background-color: #451a03; }
+.border-amber-800 { border-color: #92400e; }
+.text-rose-400\/90 { color: rgba(251, 113, 133, 0.9); }
+.border-emerald-800 { border-color: #065f46; }
+.italic { font-style: italic; }
+.p-3 { padding: 0.75rem; }
+.border-sky-900\/60 { border-color: rgba(12, 74, 110, 0.6); }
+.hover\:bg-sky-500:hover { background-color: #0ea5e9; }
+.border-emerald-900\/60 { border-color: rgba(6, 78, 59, 0.6); }
+.border-rose-900\/60 { border-color: rgba(136, 19, 55, 0.6); }
+@media (min-width: 1024px) { .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.border-purple-800\/40 { border-color: rgba(107, 33, 168, 0.4); }
+.bg-teal-950\/20 { background-color: rgba(4, 47, 46, 0.2); }
+.bg-blue-950\/20 { background-color: rgba(23, 37, 84, 0.2); }
+.border-blue-800\/40 { border-color: rgba(30, 64, 175, 0.4); }
+.bg-amber-950\/20 { background-color: rgba(69, 26, 3, 0.2); }
+.border-amber-800\/40 { border-color: rgba(146, 64, 14, 0.4); }
+.bg-amber-950\/30 { background-color: rgba(69, 26, 3, 0.3); }
+.border-amber-900\/60 { border-color: rgba(120, 53, 15, 0.6); }
+.bg-sky-950\/30 { background-color: rgba(8, 47, 73, 0.3); }
+.justify-end { justify-content: flex-end; }
+.bg-emerald-950\/20 { background-color: rgba(2, 44, 34, 0.2); }
+.border-emerald-800\/40 { border-color: rgba(6, 95, 70, 0.4); }
+.bg-rose-950\/20 { background-color: rgba(76, 5, 25, 0.2); }
+.border-rose-800\/40 { border-color: rgba(159, 18, 57, 0.4); }
+.text-amber-300\/90 { color: rgba(252, 211, 77, 0.9); }
+.bg-purple-950\/30 { background-color: rgba(59, 7, 100, 0.3); }
+.bg-purple-900 { background-color: #581c87; }
+.border-purple-500 { border-color: #a855f7; }
+@media (min-width: 1024px) { .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 768px) { .md\:col-span-2 { grid-column: span 2 / span 2; } }
+@media (min-width: 1024px) { .lg\:col-span-2 { grid-column: span 2 / span 2; } }
+.border-purple-900 { border-color: #581c87; }
+.w-3 { width: 0.75rem; }
+.h-3 { height: 0.75rem; }
+.rounded-full { border-radius: 9999px; }
+.inline-block { display: inline-block; }
+.leading-tight { line-height: 1.25; }
+.border-slate-800\/70 { border-color: rgba(30, 41, 59, 0.7); }
+.overflow-x-auto { overflow-x: auto; }
+.text-left { text-align: left; }
+.border-collapse { border-collapse: collapse; }
+.w-36 { width: 9rem; }
+.bg-slate-950\/70 { background-color: rgba(2, 6, 23, 0.7); }
+.mb-1 { margin-bottom: 0.25rem; }
+.border-slate-800\/60 { border-color: rgba(30, 41, 59, 0.6); }
+.mb-8 { margin-bottom: 2rem; }
+.py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+.bg-slate-900\/50 { background-color: rgba(15, 23, 42, 0.5); }
+.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.mt-3 { margin-top: 0.75rem; }
+.space-y-2\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.625rem; }
+.overflow-y-auto { overflow-y: auto; }
+.max-h-\[600px\] { max-height: 600px; }
+.pr-1 { padding-right: 0.25rem; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.bg-black\/80 { background-color: rgba(0, 0, 0, 0.8); }
+.justify-center { justify-content: center; }
+.max-w-2xl { max-width: 42rem; }
+.max-h-\[90vh\] { max-height: 90vh; }
+</style>
+  <style>
+    :root {
+      --background: #080c14;
+      --foreground: #e2e8f0;
+      --card: #0f172a;
+      --border: #1e293b;
+    }
+    html, body {
+      background-color: #080c14 !important;
+      color: #e2e8f0 !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    button {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      border: 1px solid #1e293b;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1e293b;
+    }
+    .filter-quad-btn:not(.active),
+    .view-mode-btn:not(.active),
+    .tier-axis-btn:not(.active) {
+      background-color: #0f172a !important;
+      color: #cbd5e1 !important;
+      border: 1px solid #1e293b !important;
+    }
+    input[type="text"] {
+      background-color: #0f172a !important;
+      color: #f1f5f9 !important;
+      border: 1px solid #1e293b !important;
+    }
+    input[type="text"]::placeholder {
+      color: #64748b;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .quadrant-clan {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
+    }
+    .quadrant-clan:hover {
+      border-color: rgba(16, 185, 129, 0.8);
+      box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.25);
+    }
+    .quadrant-clan.quadrant-active {
+      border-color: rgba(16, 185, 129, 0.95) !important;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.35) !important;
+    }
+    .quadrant-adhocracy {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
+    }
+    .quadrant-adhocracy:hover {
+      border-color: rgba(56, 189, 248, 0.8);
+      box-shadow: 0 4px 20px -2px rgba(56, 189, 248, 0.25);
+    }
+    .quadrant-adhocracy.quadrant-active {
+      border-color: rgba(56, 189, 248, 0.95) !important;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.22) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.35) !important;
+    }
+    .quadrant-market {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
+    }
+    .quadrant-market:hover {
+      border-color: rgba(245, 158, 11, 0.8);
+      box-shadow: 0 4px 20px -2px rgba(245, 158, 11, 0.25);
+    }
+    .quadrant-market.quadrant-active {
+      border-color: rgba(245, 158, 11, 0.95) !important;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.35) !important;
+    }
+    .quadrant-hierarchy {
+      border-color: rgba(129, 140, 248, 0.4);
+      background: linear-gradient(135deg, rgba(129, 140, 248, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
+    }
+    .quadrant-hierarchy:hover {
+      border-color: rgba(129, 140, 248, 0.8);
+      box-shadow: 0 4px 20px -2px rgba(129, 140, 248, 0.25);
+    }
+    .quadrant-hierarchy.quadrant-active {
+      border-color: rgba(129, 140, 248, 0.95) !important;
+      background: linear-gradient(135deg, rgba(129, 140, 248, 0.22) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
+      box-shadow: 0 0 16px rgba(129, 140, 248, 0.35) !important;
+    }
+    .cell-selected {
+      outline: 2px solid #38bdf8 !important;
+      border-color: #38bdf8 !important;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.6) !important;
+      transform: translateY(-2px);
+    }
+    .cell-occupied {
+      border-color: rgba(16, 185, 129, 0.85) !important;
+      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.35), 0 4px 14px -2px rgba(16, 185, 129, 0.2);
+    }
+    .cell-occupied-edge:not(.cell-occupied) {
+      border-color: rgba(245, 158, 11, 0.8) !important;
+      box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.3), 0 4px 14px -2px rgba(245, 158, 11, 0.18);
+    }
+    .line-clamp-1 {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .dense-cell-card {
+      min-height: 205px;
+    }
+    .occ-badge-node {
+      background-color: rgba(2, 44, 34, 0.92);
+      color: #6ee7b7;
+      border: 1px solid #059669;
+    }
+    .occ-badge-edge {
+      background-color: rgba(69, 26, 3, 0.92);
+      color: #fcd34d;
+      border: 1px solid #d97706;
+    }
+    .occ-filter-active {
+      background-color: #059669 !important;
+      color: #ffffff !important;
+      border-color: #34d399 !important;
+    }
+    @keyframes pulseUpdate {
+      0% { opacity: 0.6; transform: scale(0.995); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .dossier-pulse {
+      animation: pulseUpdate 0.25s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-[#080c14] text-[#e2e8f0] min-h-screen flex flex-col p-4 md:p-6 lg:p-8 space-y-6">
+
+  <!-- TOP ADMINISTRATIVE NAV -->
+  <header class="max-w-7xl mx-auto w-full pb-6 border-b border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <a href="../admin.html" class="text-xs font-bold text-sky-400 hover:text-sky-300 transition flex items-center gap-1">
+          <span>&larr; Back to Admin Hub</span>
+        </a>
+        <span class="text-slate-600">&bull;</span>
+        <a href="../start.html" class="text-xs font-bold text-indigo-400 hover:text-indigo-300 transition flex items-center gap-1">
+          <span>Open Workstation</span>
+        </a>
+        <span class="text-slate-600">&bull;</span>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-950 text-purple-300 border border-purple-800 uppercase tracking-wider">Sociological Algebra</span>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700">Zero-CORS Offline</span>
+        <span id="provenance-badge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-700">● Linking game files...</span>
+        <span id="campaign-state-badge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-950 text-sky-300 border border-sky-800">🗺️ Campaign: Loading...</span>
+      </div>
+      <h1 class="text-2xl lg:text-3xl font-extrabold text-white tracking-tight mt-2 flex items-center gap-3">
+        <span>🏛️ 64-Cell ODV Archetype Matrix &amp; Hermeneutics Explorer</span>
+      </h1>
+      <p class="text-slate-400 text-xs lg:text-sm mt-1 max-w-4xl leading-relaxed">
+        Interactive GM exploration and active campaign heatmap for the 64-cell Organizational Disposition Vector <code class="text-sky-300 font-mono">[S, E, C]</code> matrix.
+        Reflects live settlement nodes (<span class="text-emerald-400 font-semibold">📍</span>) and transit road corridors (<span class="text-amber-400 font-semibold">🔗</span>) alongside core boons, burdens, micro/macro passives, and exemplar NPCs.
+      </p>
+    </div>
+
+    <!-- Quick Actions & Dynamic Mod Controls -->
+    <div class="flex flex-wrap items-center gap-2 shrink-0">
+      <button onclick="openDiagnosticWizardModal()" class="px-3 py-2 rounded-lg bg-sky-900/80 hover:bg-sky-800 border border-sky-600 text-sky-200 text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="Answer 3 questions to instantly calibrate and tune dials to the correct archetype">
+        <span>🧭 Diagnose Faction (SOC-06)</span>
+      </button>
+      <input type="file" id="campaign-file-input" accept=".json" class="hidden" onchange="handleCampaignFileUpload(event)">
+      <button onclick="document.getElementById('campaign-file-input').click()" class="px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-400 text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="Load Campaign Topology or Preset JSON to reflect on the 64-cell matrix">
+        <span>🗺️ Load Campaign JSON</span>
+      </button>
+      <input type="file" id="mod-file-input" accept=".json,.js" class="hidden" onchange="handleModFileUpload(event)">
+      <button onclick="document.getElementById('mod-file-input').click()" class="px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-sky-400 text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="Load custom matrix JSON or mod override">
+        <span>📂 Load Custom/Mod JSON</span>
+      </button>
+      <button onclick="exportCurrentMatrixJson()" class="px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-emerald-400 text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="Export current matrix as JSON">
+        <span>💾 Export Matrix JSON</span>
+      </button>
+      <button onclick="resetMatrixToDefaults()" id="btn-reset-matrix" class="hidden px-2.5 py-2 rounded-lg bg-rose-950/60 hover:bg-rose-900/80 border border-rose-800 text-rose-300 text-xs font-semibold transition" title="Reset back to game files">
+        <span>🔄 Reset Defaults</span>
+      </button>
+      <a href="../wiki/index.html" class="px-3.5 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold border border-amber-500 transition shadow flex items-center gap-1.5">
+        <span>📚 Technical Manual</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- MASTER SOCIOLOGICAL REFERENCE HUB (COLLAPSIBLE MULTI-TAB ACCORDION) -->
+  <section class="max-w-7xl mx-auto w-full" id="master-reference-hub-section">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between cursor-pointer gap-2" onclick="toggleScaleGuide()">
+        <div class="flex items-center gap-3">
+          <span class="text-xl">📚</span>
+          <div>
+            <h2 class="text-sm font-bold text-white flex items-center gap-2 flex-wrap">
+              <span>Master Sociological Reference Hub &amp; Behavioral Engine</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-950 text-purple-300 border border-purple-800">SOC-01 through SOC-06</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">
+              Operational levers, crisis metamorphism, 5D sensory generation, frontline politics, and deterministic diagnostic calibration. &nbsp;<span class="text-amber-300 font-semibold">👉 Click any card below to tune dials directly</span>
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="#dossier-section" onclick="event.stopPropagation();" class="px-3 py-1 rounded bg-slate-800 text-sky-300 hover:text-white text-xs font-semibold hover:bg-slate-700 transition">
+            Dossier &darr;
+          </a>
+          <button id="guide-toggle-btn" onclick="event.stopPropagation(); toggleScaleGuide();" class="px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700 transition">
+            Hide Reference Hub
+          </button>
+        </div>
+      </div>
+
+      <div id="guide-content" class="space-y-4 pt-2 border-t border-slate-800/80">
+        <!-- 6-Tab Navigation Bar -->
+        <div class="flex flex-wrap items-center gap-1.5 border-b border-slate-800 pb-2 text-xs" id="hub-tabs">
+          <button onclick="switchHubTab('scales')" id="tab-btn-scales" class="hub-tab-btn active px-3 py-1.5 rounded-lg bg-sky-600 text-white font-bold transition flex items-center gap-1.5 shadow-sm">
+            <span>📖 1–4 Scale Guide</span>
+          </button>
+          <button onclick="switchHubTab('levers')" id="tab-btn-levers" class="hub-tab-btn px-3 py-1.5 rounded-lg bg-slate-950 text-slate-400 hover:text-white transition flex items-center gap-1.5 border border-slate-800">
+            <span>⚡ Power &amp; Levers (SOC-02)</span>
+          </button>
+          <button onclick="switchHubTab('crisis')" id="tab-btn-crisis" class="hub-tab-btn px-3 py-1.5 rounded-lg bg-slate-950 text-slate-400 hover:text-white transition flex items-center gap-1.5 border border-slate-800">
+            <span>🌪️ Crisis Clocks (SOC-03)</span>
+          </button>
+          <button onclick="switchHubTab('sensory')" id="tab-btn-sensory" class="hub-tab-btn px-3 py-1.5 rounded-lg bg-slate-950 text-slate-400 hover:text-white transition flex items-center gap-1.5 border border-slate-800">
+            <span>🎲 5D Sensory Skin (SOC-04)</span>
+          </button>
+          <button onclick="switchHubTab('factions')" id="tab-btn-factions" class="hub-tab-btn px-3 py-1.5 rounded-lg bg-slate-950 text-slate-400 hover:text-white transition flex items-center gap-1.5 border border-slate-800">
+            <span>🗺️ Faction &amp; Colors (SOC-05)</span>
+          </button>
+          <button onclick="switchHubTab('tree')" id="tab-btn-tree" class="hub-tab-btn px-3 py-1.5 rounded-lg bg-slate-950 text-slate-400 hover:text-white transition flex items-center gap-1.5 border border-slate-800">
+            <span>🌳 Diagnostic Tree (SOC-06)</span>
+          </button>
+        </div>
+
+        <!-- TAB PANEL 1: 1-4 SCALES (Existing 3-dial grid + CVF + Modes) -->
+        <div id="tab-panel-scales" class="hub-tab-panel space-y-4">
+        <!-- 3 DIALS EXPLANATION GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- DIAL S -->
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800/90 space-y-2">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+              <span class="font-bold text-emerald-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                <span>🛡️ DIAL S: SOLIDARITY &amp; DEVIANCE</span>
+              </span>
+              <span id="guide-active-s" class="text-xs font-mono font-bold text-emerald-400">Active: Level 4</span>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              Measures how strictly internal orthodoxy is enforced versus personal liberty and dissent tolerance.
+            </p>
+            <div class="space-y-1.5 pt-1 text-xs" id="guide-cards-s">
+              <div onclick="setTunerDial('s', 1)" data-dial="s" data-val="1" class="guide-card guide-card-s p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-emerald-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">1: Panoptic Conformity</span>
+                  <span class="guide-active-badge text-emerald-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Zero deviance allowed. Inquisitorial thought-policing, ruthless purges, or literal hive minds. Dissenters are eradicated.</p>
+              </div>
+              <div onclick="setTunerDial('s', 2)" data-dial="s" data-val="2" class="guide-card guide-card-s p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-emerald-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">2: Structured Collectivism</span>
+                  <span class="guide-active-badge text-emerald-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Duty-bound tradition. Explicit social castes, oaths of fealty, and guild hierarchies. Group welfare over personal ambition.</p>
+              </div>
+              <div onclick="setTunerDial('s', 3)" data-dial="s" data-val="3" class="guide-card guide-card-s p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-emerald-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">3: Pluralistic Association</span>
+                  <span class="guide-active-badge text-emerald-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Tolerant civil society. Multiple competing guilds, philosophical debate, freedom of assembly, and civic negotiation.</p>
+              </div>
+              <div onclick="setTunerDial('s', 4)" data-dial="s" data-val="4" class="guide-card guide-card-s p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-emerald-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">4: Atomized Autonomy</span>
+                  <span class="guide-active-badge text-emerald-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Radical individualism. Sovereign persons or transient cells. No master, no dogma; bonds are informal and temporary.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- DIAL E -->
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800/90 space-y-2">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+              <span class="font-bold text-sky-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                <span>🚪 DIAL E: BOUNDARY PERMEABILITY</span>
+              </span>
+              <span id="guide-active-e" class="text-xs font-mono font-bold text-sky-400">Active: Level 2</span>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              Measures openness to foreign travelers, immigrant labor, outside news, and cross-border commerce.
+            </p>
+            <div class="space-y-1.5 pt-1 text-xs" id="guide-cards-e">
+              <div onclick="setTunerDial('e', 1)" data-dial="e" data-val="1" class="guide-card guide-card-e p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-sky-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">1: Fortress Isolationism</span>
+                  <span class="guide-active-badge text-sky-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Quarantined perimeter. Xenophobic violence, sealed gates, lethal interdiction. Trespassers shot on sight.</p>
+              </div>
+              <div onclick="setTunerDial('e', 2)" data-dial="e" data-val="2" class="guide-card guide-card-e p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-sky-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">2: Regulated Checkpoints</span>
+                  <span class="guide-active-badge text-sky-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Passports, visas, bonded escorts, and crushing trade tariffs. Monitored toll-gates with exhaustive searches.</p>
+              </div>
+              <div onclick="setTunerDial('e', 3)" data-dial="e" data-val="3" class="guide-card guide-card-e p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-sky-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">3: Commercial Open Port</span>
+                  <span class="guide-active-badge text-sky-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Free trade haven. Open docks, merchant envoys, immigrant labor, and pragmatic diplomacy with foreign flags.</p>
+              </div>
+              <div onclick="setTunerDial('e', 4)" data-dial="e" data-val="4" class="guide-card guide-card-e p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-sky-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">4: Boundary Dissolution</span>
+                  <span class="guide-active-badge text-sky-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Wild porous frontier. Cosmopolitan mixing, unpoliced wilderness trails, rogue sanctuaries without border guards.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- DIAL C -->
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800/90 space-y-2">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+              <span class="font-bold text-amber-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                <span>👑 DIAL C: CENTRALIZATION &amp; COMMAND</span>
+              </span>
+              <span id="guide-active-c" class="text-xs font-mono font-bold text-amber-400">Active: Level 2</span>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              Measures hierarchical autocracy versus cellular decentralization and decapitation vulnerability.
+            </p>
+            <div class="space-y-1.5 pt-1 text-xs" id="guide-cards-c">
+              <div onclick="setTunerDial('c', 1)" data-dial="c" data-val="1" class="guide-card guide-card-c p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-amber-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">1: Monolithic Autocracy</span>
+                  <span class="guide-active-badge text-amber-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Singular absolute ruler (monarch, archon, god-computer). Orders are absolute; strike the head and the entire system freezes.</p>
+              </div>
+              <div onclick="setTunerDial('c', 2)" data-dial="c" data-val="2" class="guide-card guide-card-c p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-amber-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">2: Oligarchic Directorate</span>
+                  <span class="guide-active-badge text-amber-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Executive council, high magistrate tribunal, or merchant board. Bureaucratic stability with vulnerability to infighting.</p>
+              </div>
+              <div onclick="setTunerDial('c', 3)" data-dial="c" data-val="3" class="guide-card guide-card-c p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-amber-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">3: Federal Guild Polyarchy</span>
+                  <span class="guide-active-badge text-amber-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Distributed institutional power. Checks and balances between wardmasters, regional burghers, and senates.</p>
+              </div>
+              <div onclick="setTunerDial('c', 4)" data-dial="c" data-val="4" class="guide-card guide-card-c p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-amber-500/70 cursor-pointer transition">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">4: Decapitation-Proof Mosaic</span>
+                  <span class="guide-active-badge text-amber-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">Autonomous cellular network. No central palace or command bunker; independent cells operate seamlessly via shared culture.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DERIVED QUADRANTS & MODES BANNER -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <!-- CVF QUADRANTS -->
+          <div class="p-3.5 rounded-xl bg-slate-950/40 border border-slate-800 text-xs space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-indigo-300">Cameron &amp; Quinn Competing Values Framework (CVF)</span>
+              <span class="text-[10px] font-mono text-slate-400 flex items-center gap-1.5">
+                <span>Derived from [S, E] &bull;</span>
+                <span id="guide-active-quadrant-badge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">Active: Clan</span>
+              </span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-[11px]" id="guide-cvf-grid">
+              <div id="guide-cvf-Clan" onclick="selectQuadrantFromGuide('Clan')" class="guide-cvf-card p-2 rounded-lg border border-emerald-800/60 bg-emerald-950/40 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-emerald-300">🏕️ Clan (S &ge; 3, E &le; 2)</span>
+                  <span class="guide-cvf-active-badge text-emerald-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-slate-400 mt-0.5">Internal focus &bull; Flexible solidarity. +25% supply line stability. Vulnerability: Xenophobia.</p>
+              </div>
+              <div id="guide-cvf-Adhocracy" onclick="selectQuadrantFromGuide('Adhocracy')" class="guide-cvf-card p-2 rounded-lg border border-sky-800/60 bg-sky-950/40 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sky-300">🏹 Adhocracy (S &ge; 3, E &ge; 3)</span>
+                  <span class="guide-cvf-active-badge text-sky-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-slate-400 mt-0.5">External focus &bull; Feral improvisation. Functions with missing supply lines. Vulnerability: Volatility.</p>
+              </div>
+              <div id="guide-cvf-Hierarchy" onclick="selectQuadrantFromGuide('Hierarchy')" class="guide-cvf-card p-2 rounded-lg border border-indigo-800/60 bg-indigo-950/40 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-indigo-300">🏛️ Hierarchy (S &le; 2, E &le; 2)</span>
+                  <span class="guide-cvf-active-badge text-indigo-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-slate-400 mt-0.5">Internal focus &bull; Fortress order. Doubles defense rating; suppresses unrest. Vulnerability: Bureaucratic inertia.</p>
+              </div>
+              <div id="guide-cvf-Market" onclick="selectQuadrantFromGuide('Market')" class="guide-cvf-card p-2 rounded-lg border border-amber-800/60 bg-amber-950/40 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-amber-300">⚖️ Market (S &le; 2, E &ge; 3)</span>
+                  <span class="guide-cvf-active-badge text-amber-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-slate-400 mt-0.5">External focus &bull; Mercenary commerce. +1 Tier bonus supplies; generates wealth. Vulnerability: Coin disloyalty.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- OPERATIONAL MODES & CORRIDOR FRICTION -->
+          <div class="p-3.5 rounded-xl bg-slate-950/40 border border-slate-800 text-xs space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-amber-300">Operational Modes &amp; Corridor Tension</span>
+              <span class="text-[10px] font-mono text-slate-400 flex items-center gap-1.5">
+                <span>Derived from [S, C] &bull;</span>
+                <span id="guide-active-mode-badge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-950 text-purple-300 border border-purple-700">Active: Design</span>
+              </span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-[11px]" id="guide-mode-grid">
+              <div id="guide-mode-Produce" onclick="selectModeFromGuide('Produce')" class="guide-mode-card p-2 rounded-lg bg-slate-900 border border-slate-800 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-blue-300">⚙️ Produce (S &le; 2, C &le; 2)</span>
+                  <span class="guide-mode-active-badge text-blue-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-slate-400 mt-0.5">Centralized, disciplined mass manufacturing &amp; agricultural yields.</p>
+              </div>
+              <div id="guide-mode-Deliver" onclick="selectModeFromGuide('Deliver')" class="guide-mode-card p-2 rounded-lg bg-slate-900 border border-slate-800 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-orange-300">📦 Deliver (S &le; 2, C &ge; 3)</span>
+                  <span class="guide-mode-active-badge text-orange-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-slate-400 mt-0.5">Decentralized logistics, courier routes, and checkpoint supply networks.</p>
+              </div>
+              <div id="guide-mode-Design" onclick="selectModeFromGuide('Design')" class="guide-mode-card p-2 rounded-lg bg-slate-900 border border-slate-800 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-purple-300">💡 Design (S &ge; 3, C &le; 2)</span>
+                  <span class="guide-mode-active-badge text-purple-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-slate-400 mt-0.5">Creative architectural formulation with directed sovereign vision.</p>
+              </div>
+              <div id="guide-mode-Service" onclick="selectModeFromGuide('Service')" class="guide-mode-card p-2 rounded-lg bg-slate-900 border border-slate-800 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-teal-300">🤝 Service (S &ge; 3, C &ge; 3)</span>
+                  <span class="guide-mode-active-badge text-teal-400 font-bold text-xs hidden">&check; ACTIVE</span>
+                </div>
+                <p class="text-slate-400 mt-0.5">Decentralized responsive community mutual aid and field support.</p>
+              </div>
+            </div>
+            <div class="text-[11px] text-slate-400 bg-slate-900/90 p-2 rounded border border-slate-800 flex items-center justify-between">
+              <span><strong>Pointcrawl Corridor Friction:</strong> <code class="text-amber-300 font-mono">Friction = |&Delta;S| + |&Delta;E| + |&Delta;C|</code> (0 to 9)</span>
+              <span class="text-rose-400 font-semibold">&Delta; &ge; 5: Contested High-Hazard Crossing</span>
+            </div>
+          </div>
+        </div>
+        </div>
+        <!-- End of TAB PANEL 1 (Scales) -->
+
+        <!-- TAB PANEL 2: SOC-02 POWER & LEVERS -->
+        <div id="tab-panel-levers" class="hub-tab-panel hidden space-y-4 text-xs"></div>
+
+        <!-- TAB PANEL 3: SOC-03 CRISIS CLOCKS & METAMORPHISM -->
+        <div id="tab-panel-crisis" class="hub-tab-panel hidden space-y-4 text-xs"></div>
+
+        <!-- TAB PANEL 4: SOC-04 5D SENSORY SKIN TABLES -->
+        <div id="tab-panel-sensory" class="hub-tab-panel hidden space-y-4 text-xs"></div>
+
+        <!-- TAB PANEL 5: SOC-05 FACTION DYNAMICS & MTG COLORS -->
+        <div id="tab-panel-factions" class="hub-tab-panel hidden space-y-4 text-xs"></div>
+
+        <!-- TAB PANEL 6: SOC-06 DETERMINISTIC DIAGNOSTIC TREE -->
+        <div id="tab-panel-tree" class="hub-tab-panel hidden space-y-4 text-xs"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE ODV DIAL TUNER CONTROLS -->
+  <section class="max-w-7xl mx-auto w-full">
+    <div class="bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-900 border border-sky-900/40 rounded-2xl p-5 shadow-lg space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <span>🎛️ Interactive ODV Dial Tuner</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-sky-950 text-sky-300 border border-sky-700 uppercase">Live 3-Dial Selector</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Click any dial button below or select any cell in the 64-matrix grid to immediately populate the full archetype dossier.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="pickRandomArchetype()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-300 text-xs font-semibold transition border border-slate-700 flex items-center gap-1">
+            <span>🎲 Random Archetype</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 DIAL SELECTORS ROW -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
+        <!-- DIAL S SELECTOR -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-emerald-400 flex items-center gap-1.5">
+              <span>🛡️ Solidarity (S):</span>
+              <span id="label-tuner-s" class="text-white font-mono">Level 4</span>
+            </span>
+            <span class="font-mono text-[11px] text-slate-500">Internal Tolerance</span>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5" id="tuner-buttons-s">
+            <button onclick="setTunerDial('s', 1)" class="tuner-btn-s py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-emerald-500 transition" data-val="1">1: Panoptic</button>
+            <button onclick="setTunerDial('s', 2)" class="tuner-btn-s py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-emerald-500 transition" data-val="2">2: Collectivist</button>
+            <button onclick="setTunerDial('s', 3)" class="tuner-btn-s py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-emerald-500 transition" data-val="3">3: Pluralist</button>
+            <button onclick="setTunerDial('s', 4)" class="tuner-btn-s py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-emerald-500 transition" data-val="4">4: Atomized</button>
+          </div>
+        </div>
+
+        <!-- DIAL E SELECTOR -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-sky-400 flex items-center gap-1.5">
+              <span>🚪 Permeability (E):</span>
+              <span id="label-tuner-e" class="text-white font-mono">Level 2</span>
+            </span>
+            <span class="font-mono text-[11px] text-slate-500">Boundary Openness</span>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5" id="tuner-buttons-e">
+            <button onclick="setTunerDial('e', 1)" class="tuner-btn-e py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-sky-500 transition" data-val="1">1: Fortress</button>
+            <button onclick="setTunerDial('e', 2)" class="tuner-btn-e py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-sky-500 transition" data-val="2">2: Checkpoint</button>
+            <button onclick="setTunerDial('e', 3)" class="tuner-btn-e py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-sky-500 transition" data-val="3">3: Open Port</button>
+            <button onclick="setTunerDial('e', 4)" class="tuner-btn-e py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-sky-500 transition" data-val="4">4: Dissolution</button>
+          </div>
+        </div>
+
+        <!-- DIAL C SELECTOR -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-amber-400 flex items-center gap-1.5">
+              <span>👑 Centralization (C):</span>
+              <span id="label-tuner-c" class="text-white font-mono">Level 2</span>
+            </span>
+            <span class="font-mono text-[11px] text-slate-500">Hierarchy Depth</span>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5" id="tuner-buttons-c">
+            <button onclick="setTunerDial('c', 1)" class="tuner-btn-c py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-amber-500 transition" data-val="1">1: Autocracy</button>
+            <button onclick="setTunerDial('c', 2)" class="tuner-btn-c py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-amber-500 transition" data-val="2">2: Directorate</button>
+            <button onclick="setTunerDial('c', 3)" class="tuner-btn-c py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-amber-500 transition" data-val="3">3: Polyarchy</button>
+            <button onclick="setTunerDial('c', 4)" class="tuner-btn-c py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-amber-500 transition" data-val="4">4: Mosaic</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTHORITATIVE FULL ARCHETYPE DOSSIER (ALWAYS DISPLAYED & LIVE UPDATED) -->
+  <section class="max-w-7xl mx-auto w-full" id="dossier-section">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-2xl p-6 shadow-2xl space-y-5" id="dossier-card">
+      <!-- HEADER ROW -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-slate-800 gap-3">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap mb-1.5">
+            <span id="dossier-tag" class="px-2.5 py-0.5 rounded font-mono font-bold text-xs bg-slate-800 text-sky-300 border border-slate-700">[4, 2, 2]</span>
+            <span id="dossier-quadrant" class="px-2.5 py-0.5 rounded font-bold text-xs bg-emerald-950 text-emerald-300 border border-emerald-700">🏕️ Clan</span>
+            <span id="dossier-mode" class="px-2.5 py-0.5 rounded font-bold text-xs bg-purple-950 text-purple-300 border border-purple-700">💡 Design</span>
+            <span id="dossier-tarot" class="px-2.5 py-0.5 rounded font-bold text-xs bg-indigo-950 text-indigo-300 border border-indigo-800 hidden">🃏 The Lovers</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-sky-950 text-sky-400 border border-sky-800">Active GM Dossier</span>
+          </div>
+          <h2 id="dossier-title" class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">The Phantom Cell</h2>
+        </div>
+
+        <!-- QUICK COPY BUTTONS -->
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="copyActiveDossierMarkdown()" id="btn-copy-dossier" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-300 text-xs font-semibold transition border border-slate-700 flex items-center gap-1.5 shadow-sm">
+            <span>📋 Copy GM Markdown</span>
+          </button>
+          <button onclick="copyActiveDossierJson()" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition border border-slate-700 flex items-center gap-1.5 shadow-sm">
+            <span>{ } Copy JSON</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- BOON & BURDEN HIGHLIGHTS -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- BOON -->
+        <div class="p-4 rounded-xl bg-emerald-950/30 border border-emerald-800/80 space-y-1.5 shadow-sm">
+          <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>✨ Core Systemic Boon</span>
+          </div>
+          <div id="dossier-boon" class="text-xs md:text-sm text-slate-200 leading-relaxed pt-1">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- BURDEN -->
+        <div class="p-4 rounded-xl bg-rose-950/30 border border-rose-800/80 space-y-1.5 shadow-sm">
+          <div class="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>⚠️ Core Systemic Burden</span>
+          </div>
+          <div id="dossier-burden" class="text-xs md:text-sm text-slate-200 leading-relaxed pt-1">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- DYNAMIC NEGOTIATION LEVERS & CRISIS METAMORPHISM (SOC-02 & SOC-03) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- LEVER CARD -->
+        <div class="p-4 rounded-xl bg-slate-950/90 border border-slate-800 space-y-1.5 shadow-sm">
+          <div class="flex items-center justify-between pb-1 border-b border-slate-800/80">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🤝 Player Negotiation Levers (SOC-02)</span>
+            </span>
+            <span id="dossier-lever-mode" class="px-2 py-0.5 rounded font-mono text-[10px] bg-slate-900 text-slate-300 border border-slate-800">Mode</span>
+          </div>
+          <div class="space-y-1 text-xs text-slate-200 pt-0.5">
+            <div><strong class="text-emerald-400">Effective Lever:</strong> <span id="dossier-lever-effective" class="text-slate-300">...</span></div>
+            <div><strong class="text-rose-400">Fatal Error:</strong> <span id="dossier-lever-fatal" class="text-slate-300">...</span></div>
+          </div>
+        </div>
+
+        <!-- CRISIS MUTATION CARD -->
+        <div class="p-4 rounded-xl bg-slate-950/90 border border-slate-800 space-y-1.5 shadow-sm">
+          <div class="flex items-center justify-between pb-1 border-b border-slate-800/80">
+            <span class="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🌪️ Crisis Metamorphic Shift (SOC-03)</span>
+            </span>
+            <span id="dossier-crisis-shift" class="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-rose-950 text-rose-300 border border-rose-800">Shift</span>
+          </div>
+          <div class="space-y-1 text-xs text-slate-200 pt-0.5">
+            <div><strong class="text-amber-400">Trigger:</strong> <span id="dossier-crisis-trigger" class="text-slate-300">...</span></div>
+            <div><strong class="text-sky-400">Result:</strong> <span id="dossier-crisis-result" class="text-slate-300">...</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASSIVES (MICRO & MACRO) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- MICRO-PASSIVE -->
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+          <div class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>⚔️ Micro-Passive (Tactical Encounter Scale)</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Rules active when adventurers are physically within the perimeter or redoubt of this node.</p>
+          <div id="dossier-micro" class="text-xs text-slate-200 leading-relaxed pt-1">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- MACRO-PASSIVE -->
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🗺️ Macro-Passive (Strategic Pointcrawl &amp; Corridor Scale)</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Auras, border friction, customs tariffs, and logistical flow along adjacent corridors.</p>
+          <div id="dossier-macro" class="text-xs text-slate-200 leading-relaxed pt-1">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- EXEMPLAR NPC PERSONA & DIALOGUE (EXPANDED) -->
+      <div class="p-5 rounded-xl bg-amber-950/25 border border-amber-800/70 space-y-2">
+        <div class="flex items-center justify-between pb-1 border-b border-amber-900/40">
+          <div class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🎭 Exemplar NPC Persona &amp; Encounter Prompt</span>
+          </div>
+          <span class="text-[10px] font-mono text-amber-300/80">Canonical GM Roleplay Archetype</span>
+        </div>
+        <div id="dossier-npc" class="text-xs md:text-sm text-slate-100 leading-relaxed pt-1">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <!-- PROCEDURAL 5D SENSORY SKIN GENERATOR (SOC-04) -->
+      <div class="p-4 rounded-xl bg-purple-950/20 border border-purple-800/60 space-y-2">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-1 border-b border-purple-900/40 gap-2">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-purple-300 uppercase tracking-wider">🎲 5-Dimension Sensory Skin (SOC-04)</span>
+            <span class="text-[10px] text-slate-400 hidden sm:inline">Instant room &amp; outpost sensory skinning</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="triggerDossierSensoryRoll()" class="px-2.5 py-1 rounded bg-purple-900/80 hover:bg-purple-800 text-purple-200 text-xs font-bold transition border border-purple-700 flex items-center gap-1 shadow-sm">
+              <span>🎲 Roll Sensory Skin</span>
+            </button>
+            <button onclick="copyDossierSensoryMarkdown()" class="px-2 py-1 rounded bg-slate-800 text-slate-300 text-xs hover:text-white transition border border-slate-700" title="Copy sensory readout to clipboard">
+              <span>📋</span>
+            </button>
+          </div>
+        </div>
+        <div id="dossier-sensory-output" class="text-xs text-slate-300 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 pt-1">
+          <!-- Populated by triggerDossierSensoryRoll() -->
+        </div>
+      </div>
+
+      <!-- ACTIVE CAMPAIGN OCCUPANTS ROSTER (NODES & CORRIDORS) -->
+      <div class="p-5 rounded-xl bg-slate-950/90 border border-slate-800 space-y-3" id="dossier-occupants-panel">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800">
+          <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+            <span>📍 Active Campaign Occupants (Nodes &amp; Corridors)</span>
+            <span id="dossier-occupancy-badge" class="px-2 py-0.5 rounded font-mono text-[10px] bg-slate-900 text-slate-300 border border-slate-700">0 Nodes &bull; 0 Corridors</span>
+          </div>
+          <span id="dossier-campaign-source-label" class="text-[11px] font-mono text-slate-400">Source: Active Campaign</span>
+        </div>
+        <div id="dossier-occupants-body" class="text-xs text-slate-300">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH, FILTER & VIEW CONTROLS -->
+  <section class="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 pt-4 border-t border-slate-800">
+    <!-- Search Bar -->
+    <div class="flex items-center gap-2 flex-1 max-w-md">
+      <div class="relative w-full">
+        <input type="text" id="archetype-search" oninput="applyFilters()" placeholder="Filter matrix by title, boon, burden, NPC, node/edge, or tag [s,e,c]..." class="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
+        <span class="absolute left-3 top-2.5 text-slate-500 text-xs">🔍</span>
+      </div>
+      <button onclick="clearSearch()" class="px-2.5 py-2 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold shrink-0">
+        Clear
+      </button>
+    </div>
+
+    <!-- Occupancy, Quadrant & View Filters -->
+    <div class="flex flex-wrap items-center gap-2">
+      <!-- Campaign Active Occupancy Toggle -->
+      <button onclick="toggleOccupiedFilter()" id="btn-filter-occupied" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-emerald-800/80 text-emerald-400 text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="Filter matrix to show only cells occupied by active campaign nodes or corridors">
+        <span>📍 Campaign Active Only (<span id="occupied-cell-count">0</span>/64)</span>
+      </button>
+
+      <!-- Quadrants -->
+      <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800 text-xs" id="quadrant-filter-group">
+        <button onclick="setFilterQuadrant('all')" class="filter-quad-btn active px-2.5 py-1 rounded bg-sky-600 text-white font-bold" data-quad="all">All (64)</button>
+        <button onclick="setFilterQuadrant('Clan')" class="filter-quad-btn px-2.5 py-1 rounded text-emerald-400 hover:bg-slate-800" data-quad="Clan">🏕️ Clan</button>
+        <button onclick="setFilterQuadrant('Adhocracy')" class="filter-quad-btn px-2.5 py-1 rounded text-sky-400 hover:bg-slate-800" data-quad="Adhocracy">🏹 Adhocracy</button>
+        <button onclick="setFilterQuadrant('Market')" class="filter-quad-btn px-2.5 py-1 rounded text-amber-400 hover:bg-slate-800" data-quad="Market">⚖️ Market</button>
+        <button onclick="setFilterQuadrant('Hierarchy')" class="filter-quad-btn px-2.5 py-1 rounded text-indigo-400 hover:bg-slate-800" data-quad="Hierarchy">🏛️ Hierarchy</button>
+      </div>
+
+      <!-- View Switcher -->
+      <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800 text-xs" id="view-mode-group">
+        <button onclick="setViewMode('layered')" id="btn-view-layered" class="view-mode-btn active px-2.5 py-1 rounded bg-slate-800 text-white font-semibold flex items-center gap-1">
+          <span>📐 3D Layers</span>
+        </button>
+        <button onclick="setViewMode('catalog')" id="btn-view-catalog" class="view-mode-btn px-2.5 py-1 rounded text-slate-400 hover:text-white flex items-center gap-1">
+          <span>🗂️ Card Catalog</span>
+        </button>
+        <button onclick="setViewMode('cvf')" id="btn-view-cvf" class="view-mode-btn px-2.5 py-1 rounded text-slate-400 hover:text-white flex items-center gap-1">
+          <span>🧭 CVF Quadrants</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAYER AXIS SELECTOR BAR (ONLY VISIBLE IN LAYERED VIEW) -->
+  <section class="max-w-7xl mx-auto w-full" id="layer-axis-bar">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/95 border border-slate-800 rounded-xl px-4 py-2.5 text-xs shadow-sm">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-bold text-sky-400 flex items-center gap-1">
+          <span>📐 Tier Slices By:</span>
+        </span>
+        <span class="text-slate-400 text-[11px] hidden md:inline">Choose which dial groups the 4 primary matrices (4&times;4&times;4 Cartesian projection):</span>
+      </div>
+
+      <!-- Axis Buttons -->
+      <div class="flex items-center gap-1.5" id="tier-axis-group">
+        <button onclick="setTierAxis('c')" id="btn-axis-c" class="tier-axis-btn active px-3 py-1 rounded-lg bg-sky-600 text-white font-bold transition flex items-center gap-1 shadow-sm">
+          <span>👑 Centralization (C)</span>
+        </button>
+        <button onclick="setTierAxis('e')" id="btn-axis-e" class="tier-axis-btn px-3 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white transition flex items-center gap-1 border border-slate-800">
+          <span>🚪 Permeability (E)</span>
+        </button>
+        <button onclick="setTierAxis('s')" id="btn-axis-s" class="tier-axis-btn px-3 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white transition flex items-center gap-1 border border-slate-800">
+          <span>🛡️ Solidarity (S)</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTER SUMMARY -->
+  <div class="max-w-7xl mx-auto w-full flex items-center justify-between text-xs text-slate-500 px-1">
+    <span>Displaying <strong id="visible-archetype-count" class="text-sky-400">64</strong> of 64 registered archetypes (Click any cell to load its complete dossier above)</span>
+    <span class="font-mono text-[11px] text-slate-400">Authority: docs/srd/authoring_engine_srd.md (Section 3) &bull; src/workstation/scripts/sociology_data.js</span>
+  </div>
+
+  <!-- MAIN EXPLORER CONTAINER -->
+  <main class="max-w-7xl mx-auto w-full flex-grow pb-16" id="archetypes-container">
+    <!-- Populated by JavaScript depending on view mode and tier axis -->
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-slate-900 border border-sky-500 text-sky-300 text-xs font-bold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none transform translate-y-2">
+    Notification
+  </div>
+
+  <!-- LOAD GAME FILES DIRECTLY (ZERO-CORS OFFLINE SCRIPT) -->
+  <script src="../src/workstation/scripts/sociology_data.js"></script>
+
+  <!-- WORKSTATION VISUALIZER ENGINE -->
+  <script>
+    // State
+    let activeMatrix = {};
+    let isModded = false;
+    let selectedTag = "[4, 2, 2]"; // Default to The Phantom Cell
+    let tunerState = { s: 4, e: 2, c: 2 };
+    let currentViewMode = "layered"; // "layered", "catalog", "cvf"
+    let currentTierAxis = "c"; // "c", "e", "s"
+    let currentFilterQuadrant = "all";
+    let filterOccupiedOnly = false;
+    let activeArchetypeData = null;
+    let activeCampaignTopology = null;
+    let activeCampaignSource = "Offline Fallback (22-Node Universal Archetypes)";
+    let activeCampaignOdvIndex = {};
+    let activeOccupiedCellCount = 0;
+
+    // Canonical Zero-CORS 22-Node Fallback Topology (Synchronized with generic_archetype.json)
+    const FALLBACK_TOPOLOGY_22 = {
+      id: "generic",
+      name: "Universal Archetypes (22-Node Default)",
+      campaignName: "Universal 22-Node Pointcrawl",
+      nodes: {
+        "1":  { id: 1,  name: "Beachhead Bastion",            adj: [2, 6, 20, 21],     cat: "Outer Perimeter Gate", culture: "Hierarchy", tier: 2 },
+        "2":  { id: 2,  name: "Frontier Lowlands",            adj: [1, 3, 13, 15],     cat: "Wild Plains",          culture: "Adhocracy", tier: 2 },
+        "3":  { id: 3,  name: "Highland Foothills",           adj: [2, 4, 15, 18],     cat: "Foothill Ramparts",    culture: "Clan",      tier: 2 },
+        "4":  { id: 4,  name: "Deep Woodlands",               adj: [3, 6, 5, 15],      cat: "Dense Timber",         culture: "Clan",      tier: 2 },
+        "5":  { id: 5,  name: "Dense Wetlands",               adj: [4, 6, 7, 15],      cat: "Chemical Bog",         culture: "Market",    tier: 2 },
+        "6":  { id: 6,  name: "Coastal Shelf",                adj: [1, 4, 5, 8, 9, 17],cat: "Littoral Approaches",  culture: "Market",    tier: 2 },
+        "7":  { id: 7,  name: "Highland Ascent Shelf",        adj: [5, 8, 12, 16, 19], cat: "Mountain Terrace",     culture: "Hierarchy", tier: 3 },
+        "8":  { id: 8,  name: "Outer Alpine Redoubt",         adj: [6, 7, 9, 10],      cat: "Fortified Pass",       culture: "Hierarchy", tier: 3 },
+        "9":  { id: 9,  name: "High Forest Canopy",           adj: [6, 8, 14, 17],     cat: "Arboreal Rookery",     culture: "Clan",      tier: 3 },
+        "10": { id: 10, name: "Stasis Core / Cryo Vault",     adj: [8, 11, 13, 19],    cat: "Ancient Preservation", culture: "Hierarchy", tier: 4 },
+        "11": { id: 11, name: "Theocratic High Sanctum",      adj: [10, 12, 16, 22],   cat: "Sacred Citadel",       culture: "Hierarchy", tier: 4 },
+        "12": { id: 12, name: "Contained Menagerie",          adj: [7, 11, 16, 21],    cat: "Quarantine Pen",       culture: "Adhocracy", tier: 3 },
+        "13": { id: 13, name: "Independent Guild Syndicate",  adj: [2, 10, 14, 16, 20],cat: "Free Trade Hub",       culture: "Market",    tier: 3 },
+        "14": { id: 14, name: "Hydro-Industrial Heart",       adj: [9, 13, 15, 22],    cat: "Arc Furnace Dynamo",   culture: "Market",    tier: 4 },
+        "15": { id: 15, name: "Blighted Inner Basin",         adj: [2, 3, 4, 5, 14],   cat: "Contaminated Hollow",  culture: "Adhocracy", tier: 3 },
+        "16": { id: 16, name: "Interior Escarpment Cliffs",   adj: [7, 11, 12, 13, 18],cat: "Vertical Transit",     culture: "Hierarchy", tier: 3 },
+        "17": { id: 17, name: "Subterranean Interior Vault",  adj: [6, 9, 18, 22],     cat: "Deep Cavern",          culture: "Adhocracy", tier: 4 },
+        "18": { id: 18, name: "Sovereign Rebel Enclave",      adj: [3, 16, 17, 19],    cat: "Hidden Grove",         culture: "Clan",      tier: 3 },
+        "19": { id: 19, name: "High Celestial Spire",         adj: [7, 10, 18, 22],    cat: "Observatory Peak",     culture: "Hierarchy", tier: 4 },
+        "20": { id: 20, name: "Maritime Salvage Anchorage",   adj: [1, 13, 21],        cat: "Wreckers Cove",        culture: "Adhocracy", tier: 2 },
+        "21": { id: 21, name: "Penal Quarantine Hulk",        adj: [1, 12, 20],        cat: "Prison Mooring",       culture: "Hierarchy", tier: 2 },
+        "22": { id: 22, name: "Subterranean Core Siphon",     adj: [11, 14, 17, 19],   cat: "Apex Climax Engine",   culture: "Hierarchy", tier: 5 }
+      },
+      edgeData: {}
+    };
+
+    // CVF Metadata Palette
+    const CVF_META = {
+      Clan: { name: "Clan", icon: "🏕️", color: "#10b981", badge: "bg-emerald-950 text-emerald-300 border-emerald-800", cardClass: "quadrant-clan" },
+      Adhocracy: { name: "Adhocracy", icon: "🏹", color: "#0284c7", badge: "bg-sky-950 text-sky-300 border-sky-800", cardClass: "quadrant-adhocracy" },
+      Market: { name: "Market", icon: "⚖️", color: "#f59e0b", badge: "bg-amber-950 text-amber-300 border-amber-800", cardClass: "quadrant-market" },
+      Hierarchy: { name: "Hierarchy", icon: "🏛️", color: "#818cf8", badge: "bg-indigo-950 text-indigo-300 border-indigo-800", cardClass: "quadrant-hierarchy" }
+    };
+
+    const MODE_META = {
+      Produce: { name: "Produce", icon: "⚙️", badge: "bg-blue-950/80 text-blue-300 border-blue-800" },
+      Deliver: { name: "Deliver", icon: "📦", badge: "bg-orange-950/80 text-orange-300 border-orange-800" },
+      Design: { name: "Design", icon: "💡", badge: "bg-purple-950/80 text-purple-300 border-purple-800" },
+      Service: { name: "Service", icon: "🤝", badge: "bg-teal-950/80 text-teal-300 border-teal-800" }
+    };
+
+    // TIER AXIS DEFINITIONS WITH RICH DESCRIPTIONS
+    const TIER_AXIS_DATA = {
+      c: {
+        axisName: "Centralization & Command Autarky (Dial C)",
+        rowAxis: "s",
+        rowName: "Solidarity (S)",
+        colAxis: "e",
+        colName: "Permeability (E)",
+        colHeaders: [
+          "E=1: Fortress Seal",
+          "E=2: Checkpoints",
+          "E=3: Open Port",
+          "E=4: Dissolution"
+        ],
+        rowLabels: [
+          "S=1: Panoptic",
+          "S=2: Collectivist",
+          "S=3: Pluralist",
+          "S=4: Atomized"
+        ],
+        tiers: {
+          1: { name: "Tier 1: Monolithic Autocracy (C=1)", icon: "👑", desc: "Singular supreme sovereign (emperor, absolute monarch, high archon, or god-computer). Commands are absolute; catastrophic decapitation vulnerability if the apex ruler is neutralized." },
+          2: { name: "Tier 2: Oligarchic Directorate (C=2)", icon: "🏛️", desc: "Executive council, judicial tribunal of magistrates, or merchant board of directors. Stable institutional quorum and legal continuity, but prone to factional deadlock." },
+          3: { name: "Tier 3: Federal Guild Polyarchy (C=3)", icon: "⚖️", desc: "Distributed checks and balances between regional assemblies, ward barons, and trade syndicates. Multiple independent institutional authorities share jurisdiction." },
+          4: { name: "Tier 4: Decapitation-Proof Mosaic (C=4)", icon: "🌐", desc: "Autonomous cellular network with zero central throne or master bunker. Striking any individual cell leaves the remaining network operating with total combat-effectiveness." }
+        }
+      },
+      e: {
+        axisName: "Boundary Permeability & Foreign Openness (Dial E)",
+        rowAxis: "s",
+        rowName: "Solidarity (S)",
+        colAxis: "c",
+        colName: "Centralization (C)",
+        colHeaders: [
+          "C=1: Autocracy",
+          "C=2: Directorate",
+          "C=3: Polyarchy",
+          "C=4: Mosaic"
+        ],
+        rowLabels: [
+          "S=1: Panoptic",
+          "S=2: Collectivist",
+          "S=3: Pluralist",
+          "S=4: Atomized"
+        ],
+        tiers: {
+          1: { name: "Tier 1: Fortress Isolationism (E=1)", icon: "🏰", desc: "Hermetically sealed borders. Quarantined approaches, xenophobic shoot-on-sight airlocks, and lethal perimeter traps. Foreign emissaries and travelers completely barred." },
+          2: { name: "Tier 2: Regulated Checkpoints (E=2)", icon: "🛂", desc: "Monitored frontier borders and heavy customs inspection. Compulsory transit papers, armed escort requirements, bonded toll houses, and strict tariffs on external freight." },
+          3: { name: "Tier 3: Commercial Open Port (E=3)", icon: "🚢", desc: "Free trade corridors, open docklands, and pragmatic merchant diplomacy. Foreign caravans, immigrant labor, and outside emissaries are welcomed to accelerate local market velocity." },
+          4: { name: "Tier 4: Boundary Dissolution (E=4)", icon: "🌍", desc: "Wild borderless frontier and unmonitored cosmopolitan sanctuary. Zero border checkpoints or immigration oversight; fluid blending with neighboring territories and wildlands." }
+        }
+      },
+      s: {
+        axisName: "Internal Solidarity & Deviance Tolerance (Dial S)",
+        rowAxis: "e",
+        rowName: "Permeability (E)",
+        colAxis: "c",
+        colName: "Centralization (C)",
+        colHeaders: [
+          "C=1: Autocracy",
+          "C=2: Directorate",
+          "C=3: Polyarchy",
+          "C=4: Mosaic"
+        ],
+        rowLabels: [
+          "E=1: Fortress",
+          "E=2: Checkpoint",
+          "E=3: Open Port",
+          "E=4: Dissolution"
+        ],
+        tiers: {
+          1: { name: "Tier 1: Panoptic Conformity (S=1)", icon: "👁️", desc: "Zero deviance or independent thought permitted. Inquisitorial thought-policing, ruthless purges of heretics, or hive-mind synchronization. Total collectivist unity." },
+          2: { name: "Tier 2: Structured Collectivism (S=2)", icon: "⚔️", desc: "Duty-bound social castes, guild bylaws, and traditional hierarchies. Members sacrifice personal interests for the community but preserve distinct roles and family lines." },
+          3: { name: "Tier 3: Pluralistic Association (S=3)", icon: "🤝", desc: "Tolerant civic society and guild pluralism. Multiple competing ideological factions, freedom of assembly, philosophical debate, and peaceful civic dispute resolution." },
+          4: { name: "Tier 4: Atomized Autonomy (S=4)", icon: "🦅", desc: "Radical individualism and sovereign persons. Free drifters, rogue mercenaries, and unchained wanderers; bonds are informal, transactional, and voluntary." }
+        }
+      }
+    };
+
+    // Helper: Parse markdown bold **text** -> <strong>text</strong>
+    function parseMd(text) {
+      if (!text) return "";
+      return text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
+    }
+
+    // Helper: Strip HTML and Markdown formatting for plain-text tooltips
+    function stripFormatting(text) {
+      if (!text) return "";
+      return String(text)
+        .replace(/<br\s*\/?>/gi, " — ")
+        .replace(/<[^>]+>/g, "")
+        .replace(/\*\*(.*?)\*\*/g, "$1")
+        .replace(/\*(.*?)\*/g, "$1")
+        .trim();
+    }
+
+    // Sprint 2: Extract concise 1-line summary snippet for dense matrix cells
+    function extractFieldSnippet(mdText) {
+      if (!mdText) return "None declared.";
+      return parseMd(String(mdText).replace(/<br\s*\/?>/gi, " ").trim());
+    }
+
+    // Sprint 2: Extract Exemplar NPC Name (and Title) without the full quote/prompt
+    function extractNpcName(npcRaw) {
+      if (!npcRaw) return "Local Ward Bailiff";
+      const str = String(npcRaw);
+      const beforeBr = str.split(/<br\s*\/?>/i)[0] || str;
+      const boldMatch = beforeBr.match(/\*\*(.*?)\*\*/);
+      if (boldMatch && boldMatch[1]) {
+        return boldMatch[1].trim();
+      }
+      return beforeBr.replace(/<[^>]+>/g, "").replace(/\*/g, "").trim() || "Local Ward Bailiff";
+    }
+
+    // Sprint 1: Normalize a Node's [S, E, C] Disposition Vector
+    function resolveNodeOdv(node, fallbackIndex) {
+      if (!node) return { s: 2, e: 2, c: 2, tag: "[2, 2, 2]", explicit: false };
+      let s = 2, e = 2, c = 2;
+      let explicit = false;
+      const raw = node.odv !== undefined ? node.odv : node.disposition;
+
+      if (raw) {
+        if (Array.isArray(raw) && raw.length >= 3) {
+          s = parseInt(raw[0]) || 2;
+          e = parseInt(raw[1]) || 2;
+          c = parseInt(raw[2]) || 2;
+          explicit = true;
+        } else if (typeof raw === "object" && (raw.s !== undefined || raw.e !== undefined || raw.c !== undefined)) {
+          s = parseInt(raw.s !== undefined ? raw.s : raw[0]) || 2;
+          e = parseInt(raw.e !== undefined ? raw.e : raw[1]) || 2;
+          c = parseInt(raw.c !== undefined ? raw.c : raw[2]) || 2;
+          explicit = true;
+        } else if (typeof raw === "string") {
+          const m = raw.match(/(\d+)\D+(\d+)\D+(\d+)/);
+          if (m) {
+            s = parseInt(m[1]) || 2;
+            e = parseInt(m[2]) || 2;
+            c = parseInt(m[3]) || 2;
+            explicit = true;
+          }
+        }
+      }
+
+      if (!explicit) {
+        let resolvedByMod = false;
+        if (typeof window !== "undefined" && window.CreatorStudio && typeof window.CreatorStudio.customOdvFallbackResolver === "function") {
+          try {
+            const modRes = window.CreatorStudio.customOdvFallbackResolver(node, fallbackIndex);
+            if (modRes && modRes.s !== undefined) {
+              s = modRes.s; e = modRes.e; c = modRes.c;
+              resolvedByMod = true;
+            }
+          } catch(_) {}
+        }
+
+        if (!resolvedByMod) {
+          if (node && node.culture) {
+            if (node.culture === "Clan")           { s = 3; e = 2; c = 2; }
+            else if (node.culture === "Adhocracy") { s = 3; e = 3; c = 3; }
+            else if (node.culture === "Market")    { s = 2; e = 3; c = 2; }
+            else if (node.culture === "Hierarchy") { s = 2; e = 2; c = 2; }
+            else                                   { s = 2; e = 2; c = 2; }
+          } else {
+            s = 2; e = 2; c = 2;
+          }
+        }
+      }
+
+      s = Math.max(1, Math.min(4, s));
+      e = Math.max(1, Math.min(4, e));
+      c = Math.max(1, Math.min(4, c));
+      return { s, e, c, tag: `[${s}, ${e}, ${c}]`, explicit };
+    }
+
+    // Sprint 1: Resolve Transit Road Corridor / Edge [S, E, C] Disposition & Friction Delta
+    function resolveEdgeOdv(edge, uNodeOdv, vNodeOdv, edgeRecord) {
+      const u = uNodeOdv || { s: 2, e: 2, c: 2 };
+      const v = vNodeOdv || { s: 2, e: 2, c: 2 };
+      const raw = (edge && (edge.odv || edge.disposition)) || (edgeRecord && (edgeRecord.odv || edgeRecord.disposition));
+
+      let s, e, c;
+      let explicit = false;
+      if (raw) {
+        if (Array.isArray(raw) && raw.length >= 3) {
+          s = parseInt(raw[0]) || 2;
+          e = parseInt(raw[1]) || 2;
+          c = parseInt(raw[2]) || 2;
+          explicit = true;
+        } else if (typeof raw === "object" && (raw.s !== undefined || raw.e !== undefined || raw.c !== undefined)) {
+          s = parseInt(raw.s !== undefined ? raw.s : raw[0]) || 2;
+          e = parseInt(raw.e !== undefined ? raw.e : raw[1]) || 2;
+          c = parseInt(raw.c !== undefined ? raw.c : raw[2]) || 2;
+          explicit = true;
+        }
+      }
+
+      if (!explicit) {
+        s = Math.round((u.s + v.s) / 2);
+        e = Math.round((u.e + v.e) / 2);
+        c = Math.round((u.c + v.c) / 2);
+      }
+
+      s = Math.max(1, Math.min(4, s));
+      e = Math.max(1, Math.min(4, e));
+      c = Math.max(1, Math.min(4, c));
+      const totalDelta = Math.abs(u.s - v.s) + Math.abs(u.e - v.e) + Math.abs(u.c - v.c);
+
+      return {
+        s, e, c,
+        tag: `[${s}, ${e}, ${c}]`,
+        explicit,
+        totalDelta,
+        isHighHazard: totalDelta >= 5
+      };
+    }
+
+    // Sprint 1: Build Campaign ODV Inverted Index from Active Topology
+    function buildCampaignOdvIndex(topology) {
+      const index = {};
+      for (let s = 1; s <= 4; s++) {
+        for (let e = 1; e <= 4; e++) {
+          for (let c = 1; c <= 4; c++) {
+            index[`[${s}, ${e}, ${c}]`] = { nodes: [], edges: [] };
+          }
+        }
+      }
+
+      if (!topology) {
+        activeCampaignOdvIndex = index;
+        activeOccupiedCellCount = 0;
+        return index;
+      }
+
+      // Support multi-map wrappers (e.g., preset.json with maps.map_root)
+      let targetTopo = topology;
+      if (!targetTopo.nodes && targetTopo.maps) {
+        const rootKey = targetTopo.activeMapId || targetTopo.rootMapId || "map_root";
+        targetTopo = targetTopo.maps[rootKey] || Object.values(targetTopo.maps)[0] || topology;
+      }
+
+      // 1. Normalize Nodes List
+      const rawNodes = targetTopo.nodes || {};
+      const nodeList = Array.isArray(rawNodes)
+        ? rawNodes
+        : Object.entries(rawNodes).map(([k, v]) => ({ id: v.id !== undefined ? v.id : (isNaN(Number(k)) ? k : Number(k)), ...v }));
+
+      const nodeById = {};
+      const nodeOdvById = {};
+
+      nodeList.forEach((n, idx) => {
+        if (!n) return;
+        const nid = n.id !== undefined ? n.id : (idx + 1);
+        const resolved = resolveNodeOdv({ ...n, id: nid }, idx + 1);
+        const nodeEntry = {
+          id: nid,
+          name: n.displayName || n.name || n.label || `Node ${nid}`,
+          cat: n.cat || n.type || "Settlement",
+          culture: n.culture || getQuadrant(resolved.s, resolved.e),
+          tier: n.tier || n.wave || 1,
+          s: resolved.s,
+          e: resolved.e,
+          c: resolved.c,
+          tag: resolved.tag,
+          explicit: resolved.explicit
+        };
+        nodeById[String(nid)] = nodeEntry;
+        nodeOdvById[String(nid)] = resolved;
+        if (index[resolved.tag]) {
+          index[resolved.tag].nodes.push(nodeEntry);
+        }
+      });
+
+      // 2. Normalize Transit Road Corridors / Edges
+      const edgeDataDict = targetTopo.edgeData || topology.edgeData || {};
+      const seenRoadPairs = new Set();
+      const rawLinks = Array.isArray(targetTopo.links) ? targetTopo.links : [];
+
+      function registerCorridor(uId, vId, linkObj, isDirected) {
+        const uKey = String(uId);
+        const vKey = String(vId);
+        if (uKey === vKey) return;
+        const pairKey = isDirected ? `${uKey}->${vKey}` : [uKey, vKey].sort((a, b) => (Number(a) - Number(b)) || a.localeCompare(b)).join("-");
+        if (seenRoadPairs.has(pairKey)) return;
+        seenRoadPairs.add(pairKey);
+
+        const edgeRecord = edgeDataDict[pairKey] || edgeDataDict[`${uKey}-${vKey}`] || edgeDataDict[`${vKey}-${uKey}`] || null;
+        const uNode = nodeById[uKey] || { id: uId, name: (linkObj && linkObj.fromName) || `Node ${uId}` };
+        const vNode = nodeById[vKey] || { id: vId, name: (linkObj && linkObj.toName) || `Node ${vId}` };
+        const resolved = resolveEdgeOdv(linkObj, nodeOdvById[uKey], nodeOdvById[vKey], edgeRecord);
+
+        const customName = (edgeRecord && edgeRecord.name) || (linkObj && linkObj.name) || `${uNode.name} ↔ ${vNode.name}`;
+        const condition = (edgeRecord && edgeRecord.condition) || (linkObj && linkObj.condition) || "Passable";
+
+        const edgeEntry = {
+          key: pairKey,
+          uId: uNode.id,
+          vId: vNode.id,
+          uName: uNode.name,
+          vName: vNode.name,
+          name: customName,
+          condition,
+          isDirected: !!isDirected,
+          s: resolved.s,
+          e: resolved.e,
+          c: resolved.c,
+          tag: resolved.tag,
+          explicit: resolved.explicit,
+          totalDelta: resolved.totalDelta,
+          isHighHazard: resolved.isHighHazard
+        };
+
+        if (index[resolved.tag]) {
+          index[resolved.tag].edges.push(edgeEntry);
+        }
+      }
+
+      // From node.adj arrays (undirected transit roads)
+      nodeList.forEach(n => {
+        if (!n || !Array.isArray(n.adj)) return;
+        const uId = n.id;
+        n.adj.forEach(vId => {
+          registerCorridor(uId, vId, null, false);
+        });
+      });
+
+      // From explicit links array
+      rawLinks.forEach(l => {
+        if (!l) return;
+        const uId = l.source !== undefined ? (typeof l.source === "object" ? l.source.id : l.source) : l.from;
+        const vId = l.target !== undefined ? (typeof l.target === "object" ? l.target.id : l.target) : l.to;
+        if (uId === undefined || vId === undefined) return;
+        const isHegemony = l.layer === "hegemony" || l.type === "hegemony" || l.type === "oneway";
+        // Per ADR 0014, Transit Road Edges carry corridor dispositions (and explicit hegemony edges if they declare .odv)
+        if (!isHegemony || l.odv) {
+          registerCorridor(uId, vId, l, isHegemony);
+        }
+      });
+
+      // Count occupied cells & totals
+      let occCells = 0;
+      let totalNodes = 0;
+      let totalEdges = 0;
+      Object.values(index).forEach(bucket => {
+        totalNodes += bucket.nodes.length;
+        totalEdges += bucket.edges.length;
+        if (bucket.nodes.length > 0 || bucket.edges.length > 0) {
+          occCells++;
+        }
+      });
+
+      activeCampaignOdvIndex = index;
+      activeOccupiedCellCount = occCells;
+
+      // Update UI Badges
+      const occCountEl = document.getElementById("occupied-cell-count");
+      if (occCountEl) occCountEl.innerText = occCells;
+
+      const campBadge = document.getElementById("campaign-state-badge");
+      if (campBadge) {
+        campBadge.innerText = `🗺️ ${activeCampaignSource} (${totalNodes} Nodes • ${totalEdges} Corridors • ${occCells}/64 Cells)`;
+      }
+
+      const srcLabel = document.getElementById("dossier-campaign-source-label");
+      if (srcLabel) {
+        srcLabel.innerText = `Campaign: ${activeCampaignSource} (${totalNodes} Nodes, ${totalEdges} Corridors)`;
+      }
+
+      return index;
+    }
+
+    // Sprint 1: Load Active Campaign State from Browser Storage or Fallback
+    function loadActiveCampaignTopology() {
+      // 1. Check creator_studio_maps_registry (multi-map workstation store)
+      try {
+        const savedMapsStr = localStorage.getItem("creator_studio_maps_registry");
+        if (savedMapsStr) {
+          const parsedMaps = JSON.parse(savedMapsStr);
+          if (parsedMaps && typeof parsedMaps === "object" && Object.keys(parsedMaps).length > 0) {
+            const activeMapId = localStorage.getItem("creator_studio_active_map_id") || "map_root";
+            const curMap = parsedMaps[activeMapId] || parsedMaps["map_root"] || Object.values(parsedMaps)[0];
+            if (curMap && curMap.nodes) {
+              activeCampaignTopology = curMap;
+              const campName = localStorage.getItem("cs_active_campaign") || curMap.name || "Active Workstation";
+              activeCampaignSource = `${curMap.name || campName}`;
+              buildCampaignOdvIndex(activeCampaignTopology);
+              return;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("[ODV Matrix] Could not read creator_studio_maps_registry:", e);
+      }
+
+      // 2. Check creator_studio_active_topology
+      try {
+        const savedTopoStr = localStorage.getItem("creator_studio_active_topology");
+        if (savedTopoStr) {
+          const parsedTopo = JSON.parse(savedTopoStr);
+          if (parsedTopo && (parsedTopo.nodes || parsedTopo.maps)) {
+            activeCampaignTopology = parsedTopo;
+            activeCampaignSource = parsedTopo.campaignName || parsedTopo.name || "Workstation Topology";
+            buildCampaignOdvIndex(activeCampaignTopology);
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn("[ODV Matrix] Could not read creator_studio_active_topology:", e);
+      }
+
+      // 3. Fallback to canonical 22-Node Universal Archetype Topology
+      activeCampaignTopology = JSON.parse(JSON.stringify(FALLBACK_TOPOLOGY_22));
+      activeCampaignSource = "Universal 22-Node Default";
+      buildCampaignOdvIndex(activeCampaignTopology);
+    }
+
+    // Helper: Derivation fallbacks if sociology_data.js functions are scoped
+    function getQuadrant(s, e) {
+      if (typeof deriveCvfQuadrant === "function") return deriveCvfQuadrant(s, e);
+      if (s >= 3 && e <= 2) return "Clan";
+      if (s >= 3 && e >= 3) return "Adhocracy";
+      if (s <= 2 && e <= 2) return "Hierarchy";
+      return "Market";
+    }
+
+    function getOpMode(s, c) {
+      if (typeof deriveOperationalMode === "function") return deriveOperationalMode(s, c);
+      if (s >= 3 && c <= 2) return "Design";
+      if (s >= 3 && c >= 3) return "Service";
+      if (s <= 2 && c <= 2) return "Produce";
+      return "Deliver";
+    }
+
+    // Reverse Tarot map to find resonant cards
+    function getResonantTarot(s, e, c) {
+      const tarotMap = (typeof TAROT_DISPOSITION_MAP !== "undefined") ? TAROT_DISPOSITION_MAP : (window.TAROT_DISPOSITION_MAP || null);
+      if (!tarotMap) return null;
+      for (const [key, card] of Object.entries(tarotMap)) {
+        if (card.s === s && card.e === e && card.c === c) {
+          return { key, ...card };
+        }
+      }
+      return null;
+    }
+
+    // Initialize Matrix Data from Game Files
+    function initMatrixData() {
+      const provBadge = document.getElementById("provenance-badge");
+      
+      // 1. Check mod override
+      if (window.ODV_MATRIX_OVERRIDE && typeof window.ODV_MATRIX_OVERRIDE === "object" && Object.keys(window.ODV_MATRIX_OVERRIDE).length > 0) {
+        activeMatrix = JSON.parse(JSON.stringify(window.ODV_MATRIX_OVERRIDE));
+        isModded = true;
+        provBadge.className = "px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950/80 text-amber-300 border border-amber-700";
+        provBadge.innerText = `● Custom Mod (${Object.keys(activeMatrix).length} Archetypes)`;
+        document.getElementById("btn-reset-matrix").classList.remove("hidden");
+        return;
+      }
+
+      // 2. Check window.ODV_MATRIX_64 or top-level ODV_MATRIX_64
+      let src = null;
+      if (typeof ODV_MATRIX_64 !== "undefined" && Object.keys(ODV_MATRIX_64).length > 0) {
+        src = ODV_MATRIX_64;
+      } else if (typeof window !== "undefined" && window.ODV_MATRIX_64 && Object.keys(window.ODV_MATRIX_64).length > 0) {
+        src = window.ODV_MATRIX_64;
+      }
+
+      if (src) {
+        activeMatrix = JSON.parse(JSON.stringify(src));
+        isModded = false;
+        provBadge.className = "px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-700";
+        provBadge.innerText = `● Linked: sociology_data.js (${Object.keys(activeMatrix).length}/64 Active)`;
+        document.getElementById("btn-reset-matrix").classList.add("hidden");
+      } else {
+        provBadge.className = "px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-950/80 text-rose-300 border border-rose-700";
+        provBadge.innerText = "⚠ Matrix Not Loaded (Select File)";
+        showToast("Warning: sociology_data.js not loaded. Please select file.");
+      }
+    }
+
+    // Refresh Tuner Buttons, Guide Cards & Matrix Highlights
+    function updateTunerUI() {
+      // 1. Lower Tuner Buttons (Dial S)
+      document.querySelectorAll(".tuner-btn-s").forEach(btn => {
+        const v = parseInt(btn.getAttribute("data-val"));
+        if (v === tunerState.s) {
+          btn.className = "tuner-btn-s py-2 px-1 text-center rounded-lg bg-emerald-600 text-white font-bold text-xs shadow-sm transition border border-emerald-400";
+        } else {
+          btn.className = "tuner-btn-s py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-emerald-500 transition";
+        }
+      });
+      const sLabels = {
+        1: "Level 1 • Panoptic Conformity",
+        2: "Level 2 • Structured Collectivism",
+        3: "Level 3 • Pluralistic Association",
+        4: "Level 4 • Atomized Autonomy"
+      };
+      const labelTunerS = document.getElementById("label-tuner-s");
+      if (labelTunerS) labelTunerS.innerText = sLabels[tunerState.s] || `Level ${tunerState.s}`;
+      const guideActiveS = document.getElementById("guide-active-s");
+      if (guideActiveS) guideActiveS.innerText = `Active: Level ${tunerState.s}`;
+
+      // Dial S Guide Cards
+      document.querySelectorAll(".guide-card-s").forEach(card => {
+        const v = parseInt(card.getAttribute("data-val"));
+        const badge = card.querySelector(".guide-active-badge");
+        if (v === tunerState.s) {
+          card.className = "guide-card guide-card-s p-2 rounded-lg bg-emerald-950/40 border border-emerald-500 ring-1 ring-emerald-500/50 shadow-sm cursor-pointer transition";
+          if (badge) badge.classList.remove("hidden");
+        } else {
+          card.className = "guide-card guide-card-s p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-emerald-500/70 cursor-pointer transition";
+          if (badge) badge.classList.add("hidden");
+        }
+      });
+
+      // 2. Lower Tuner Buttons (Dial E)
+      document.querySelectorAll(".tuner-btn-e").forEach(btn => {
+        const v = parseInt(btn.getAttribute("data-val"));
+        if (v === tunerState.e) {
+          btn.className = "tuner-btn-e py-2 px-1 text-center rounded-lg bg-sky-600 text-white font-bold text-xs shadow-sm transition border border-sky-400";
+        } else {
+          btn.className = "tuner-btn-e py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-sky-500 transition";
+        }
+      });
+      const eLabels = {
+        1: "Level 1 • Fortress Isolationism",
+        2: "Level 2 • Regulated Checkpoints",
+        3: "Level 3 • Commercial Open Port",
+        4: "Level 4 • Boundary Dissolution"
+      };
+      const labelTunerE = document.getElementById("label-tuner-e");
+      if (labelTunerE) labelTunerE.innerText = eLabels[tunerState.e] || `Level ${tunerState.e}`;
+      const guideActiveE = document.getElementById("guide-active-e");
+      if (guideActiveE) guideActiveE.innerText = `Active: Level ${tunerState.e}`;
+
+      // Dial E Guide Cards
+      document.querySelectorAll(".guide-card-e").forEach(card => {
+        const v = parseInt(card.getAttribute("data-val"));
+        const badge = card.querySelector(".guide-active-badge");
+        if (v === tunerState.e) {
+          card.className = "guide-card guide-card-e p-2 rounded-lg bg-sky-950/40 border border-sky-500 ring-1 ring-sky-500/50 shadow-sm cursor-pointer transition";
+          if (badge) badge.classList.remove("hidden");
+        } else {
+          card.className = "guide-card guide-card-e p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-sky-500/70 cursor-pointer transition";
+          if (badge) badge.classList.add("hidden");
+        }
+      });
+
+      // 3. Lower Tuner Buttons (Dial C)
+      document.querySelectorAll(".tuner-btn-c").forEach(btn => {
+        const v = parseInt(btn.getAttribute("data-val"));
+        if (v === tunerState.c) {
+          btn.className = "tuner-btn-c py-2 px-1 text-center rounded-lg bg-amber-600 text-white font-bold text-xs shadow-sm transition border border-amber-400";
+        } else {
+          btn.className = "tuner-btn-c py-2 px-1 text-center rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs hover:border-amber-500 transition";
+        }
+      });
+      const cLabels = {
+        1: "Level 1 • Monolithic Autocracy",
+        2: "Level 2 • Oligarchic Directorate",
+        3: "Level 3 • Federal Polyarchy",
+        4: "Level 4 • Decapitation-Proof Mosaic"
+      };
+      const labelTunerC = document.getElementById("label-tuner-c");
+      if (labelTunerC) labelTunerC.innerText = cLabels[tunerState.c] || `Level ${tunerState.c}`;
+      const guideActiveC = document.getElementById("guide-active-c");
+      if (guideActiveC) guideActiveC.innerText = `Active: Level ${tunerState.c}`;
+
+      // Dial C Guide Cards
+      document.querySelectorAll(".guide-card-c").forEach(card => {
+        const v = parseInt(card.getAttribute("data-val"));
+        const badge = card.querySelector(".guide-active-badge");
+        if (v === tunerState.c) {
+          card.className = "guide-card guide-card-c p-2 rounded-lg bg-amber-950/40 border border-amber-500 ring-1 ring-amber-500/50 shadow-sm cursor-pointer transition";
+          if (badge) badge.classList.remove("hidden");
+        } else {
+          card.className = "guide-card guide-card-c p-2 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-amber-500/70 cursor-pointer transition";
+          if (badge) badge.classList.add("hidden");
+        }
+      });
+
+      // 4. Derived CVF Quadrant & Operational Mode
+      const activeQuad = getQuadrant(tunerState.s, tunerState.e);
+      const activeMode = getOpMode(tunerState.s, tunerState.c);
+
+      // Update CVF Header Badge
+      const qMeta = CVF_META[activeQuad] || CVF_META.Clan;
+      const cvfBadge = document.getElementById("guide-active-quadrant-badge");
+      if (cvfBadge) {
+        cvfBadge.className = `px-2 py-0.5 rounded text-[10px] font-mono font-bold ${qMeta.badge}`;
+        cvfBadge.innerText = `Active: ${qMeta.name}`;
+      }
+
+      // Update CVF Cards in Guide
+      const cvfCardConfigs = {
+        Clan: { border: "border-emerald-500", bg: "bg-emerald-950/50", ring: "ring-emerald-500/50", inactiveBg: "bg-emerald-950/40", inactiveBorder: "border-emerald-800/60" },
+        Adhocracy: { border: "border-sky-500", bg: "bg-sky-950/50", ring: "ring-sky-500/50", inactiveBg: "bg-sky-950/40", inactiveBorder: "border-sky-800/60" },
+        Hierarchy: { border: "border-indigo-500", bg: "bg-indigo-950/50", ring: "ring-indigo-500/50", inactiveBg: "bg-indigo-950/40", inactiveBorder: "border-indigo-800/60" },
+        Market: { border: "border-amber-500", bg: "bg-amber-950/50", ring: "ring-amber-500/50", inactiveBg: "bg-amber-950/40", inactiveBorder: "border-amber-800/60" }
+      };
+      ["Clan", "Adhocracy", "Hierarchy", "Market"].forEach(q => {
+        const card = document.getElementById(`guide-cvf-${q}`);
+        if (!card) return;
+        const cfg = cvfCardConfigs[q];
+        const badge = card.querySelector(".guide-cvf-active-badge");
+        if (q === activeQuad) {
+          card.className = `guide-cvf-card p-2 rounded-lg border ${cfg.border} ${cfg.bg} ring-1 ${cfg.ring} shadow-sm transition cursor-pointer`;
+          if (badge) badge.classList.remove("hidden");
+        } else {
+          card.className = `guide-cvf-card p-2 rounded-lg border ${cfg.inactiveBorder} ${cfg.inactiveBg} hover:border-slate-700 transition cursor-pointer`;
+          if (badge) badge.classList.add("hidden");
+        }
+      });
+
+      // Update Mode Header Badge
+      const mMeta = MODE_META[activeMode] || MODE_META.Produce;
+      const modeBadge = document.getElementById("guide-active-mode-badge");
+      if (modeBadge) {
+        modeBadge.className = `px-2 py-0.5 rounded text-[10px] font-mono font-bold ${mMeta.badge}`;
+        modeBadge.innerText = `Active: ${mMeta.name}`;
+      }
+
+      // Update Mode Cards in Guide
+      const modeCardConfigs = {
+        Produce: { border: "border-blue-500", bg: "bg-blue-950/50", ring: "ring-blue-500/50", inactiveBg: "bg-slate-900", inactiveBorder: "border-slate-800" },
+        Deliver: { border: "border-orange-500", bg: "bg-orange-950/50", ring: "ring-orange-500/50", inactiveBg: "bg-slate-900", inactiveBorder: "border-slate-800" },
+        Design: { border: "border-purple-500", bg: "bg-purple-950/50", ring: "ring-purple-500/50", inactiveBg: "bg-slate-900", inactiveBorder: "border-slate-800" },
+        Service: { border: "border-teal-500", bg: "bg-teal-950/50", ring: "ring-teal-500/50", inactiveBg: "bg-slate-900", inactiveBorder: "border-slate-800" }
+      };
+      ["Produce", "Deliver", "Design", "Service"].forEach(m => {
+        const card = document.getElementById(`guide-mode-${m}`);
+        if (!card) return;
+        const cfg = modeCardConfigs[m];
+        const badge = card.querySelector(".guide-mode-active-badge");
+        if (m === activeMode) {
+          card.className = `guide-mode-card p-2 rounded-lg border ${cfg.border} ${cfg.bg} ring-1 ${cfg.ring} shadow-sm transition cursor-pointer`;
+          if (badge) badge.classList.remove("hidden");
+        } else {
+          card.className = `guide-mode-card p-2 rounded-lg border ${cfg.inactiveBorder} ${cfg.inactiveBg} hover:border-slate-700 transition cursor-pointer`;
+          if (badge) badge.classList.add("hidden");
+        }
+      });
+
+      // Compute tag and populate dossier immediately
+      const tag = `[${tunerState.s}, ${tunerState.e}, ${tunerState.c}]`;
+      selectedTag = tag;
+      renderDossier(tag);
+
+      // Highlight active cell and right quadrant in matrix
+      document.querySelectorAll(".archetype-cell").forEach(cell => {
+        const cellTag = cell.getAttribute("data-tag");
+        const cellQuad = cell.getAttribute("data-quadrant");
+
+        if (cellTag === tag) {
+          cell.classList.add("cell-selected");
+        } else {
+          cell.classList.remove("cell-selected");
+        }
+
+        if (cellQuad === activeQuad) {
+          cell.classList.add("quadrant-active");
+        } else {
+          cell.classList.remove("quadrant-active");
+        }
+      });
+
+      // Update CVF Columns in CVF view if present
+      ["Clan", "Adhocracy", "Hierarchy", "Market"].forEach(q => {
+        const col = document.getElementById(`cvf-col-${q}`);
+        if (col) {
+          if (q === activeQuad) {
+            col.classList.add("ring-2", "ring-sky-500/60", "shadow-lg");
+          } else {
+            col.classList.remove("ring-2", "ring-sky-500/60", "shadow-lg");
+          }
+        }
+      });
+    }
+
+    // Direct selection handlers from GM Scale Guide
+    function selectQuadrantFromGuide(quad) {
+      if (quad === "Clan") {
+        if (tunerState.s < 3) tunerState.s = 3;
+        if (tunerState.e > 2) tunerState.e = 2;
+      } else if (quad === "Adhocracy") {
+        if (tunerState.s < 3) tunerState.s = 3;
+        if (tunerState.e < 3) tunerState.e = 3;
+      } else if (quad === "Hierarchy") {
+        if (tunerState.s > 2) tunerState.s = 2;
+        if (tunerState.e > 2) tunerState.e = 2;
+      } else if (quad === "Market") {
+        if (tunerState.s > 2) tunerState.s = 2;
+        if (tunerState.e < 3) tunerState.e = 3;
+      }
+      updateTunerUI();
+    }
+
+    function selectModeFromGuide(mode) {
+      if (mode === "Produce") {
+        if (tunerState.s > 2) tunerState.s = 2;
+        if (tunerState.c > 2) tunerState.c = 2;
+      } else if (mode === "Deliver") {
+        if (tunerState.s > 2) tunerState.s = 2;
+        if (tunerState.c < 3) tunerState.c = 3;
+      } else if (mode === "Design") {
+        if (tunerState.s < 3) tunerState.s = 3;
+        if (tunerState.c > 2) tunerState.c = 2;
+      } else if (mode === "Service") {
+        if (tunerState.s < 3) tunerState.s = 3;
+        if (tunerState.c < 3) tunerState.c = 3;
+      }
+      updateTunerUI();
+    }
+
+    // Sprint 3: Render Active Campaign Occupants (Nodes & Corridors) in GM Dossier
+    function renderDossierOccupants(tag) {
+      const occ = activeCampaignOdvIndex[tag] || { nodes: [], edges: [] };
+      const badgeEl = document.getElementById("dossier-occupancy-badge");
+      const bodyEl = document.getElementById("dossier-occupants-body");
+      if (!bodyEl) return;
+
+      const nCount = occ.nodes.length;
+      const eCount = occ.edges.length;
+      if (badgeEl) {
+        if (nCount > 0 || eCount > 0) {
+          badgeEl.className = "px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-700";
+          badgeEl.innerText = `📍 ${nCount} Node${nCount === 1 ? '' : 's'} • 🔗 ${eCount} Corridor${eCount === 1 ? '' : 's'}`;
+        } else {
+          badgeEl.className = "px-2 py-0.5 rounded font-mono text-[10px] bg-slate-900 text-slate-400 border border-slate-800";
+          badgeEl.innerText = "0 Nodes • 0 Corridors";
+        }
+      }
+
+      if (nCount === 0 && eCount === 0) {
+        bodyEl.innerHTML = `
+          <div class="text-slate-400 text-xs py-2 flex items-center justify-between flex-wrap gap-2">
+            <span>No active campaign settlement nodes or transit corridors currently exhibit this <code class="text-sky-300 font-mono">${tag}</code> disposition.</span>
+            <a href="../start.html" class="text-sky-400 hover:text-sky-300 font-semibold text-xs">Assign on Workstation Canvas &rarr;</a>
+          </div>
+        `;
+        return;
+      }
+
+      let nodesHtml = "";
+      if (nCount === 0) {
+        nodesHtml = `<p class="text-[11px] text-slate-500">No settlement nodes stationed in this archetype cell.</p>`;
+      } else {
+        nodesHtml = `<div class="space-y-1.5">`;
+        occ.nodes.forEach(n => {
+          const provTag = n.explicit ? "Explicit ODV" : "Canonical Default";
+          const fCol = window.SOC_FACTION_COLORS && window.SOC_FACTION_COLORS[n.culture];
+          const colorBadge = fCol
+            ? `<span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold" style="color:${fCol.hex}; border:1px solid ${fCol.hex}40; background:rgba(255,255,255,0.05);">${fCol.mtgColor}</span>`
+            : '';
+          const factionBadge = `<span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-800 text-slate-300 border border-slate-700">${n.culture}</span>`;
+          nodesHtml += `
+            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between gap-2">
+              <div>
+                <div class="font-bold text-white text-xs flex items-center gap-1.5 flex-wrap">
+                  <span class="px-1.5 py-0.5 rounded text-[10px] font-mono occ-badge-node">📍 #${n.id}</span>
+                  <span>${n.name}</span>
+                  <span class="text-[10px] font-mono text-slate-400">(${n.cat} &bull; Tier ${n.tier})</span>
+                  ${factionBadge}
+                  ${colorBadge}
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5 font-mono">Culture: ${n.culture} &bull; ${provTag} ${n.tag}</div>
+              </div>
+              <a href="../start.html?selectNode=${encodeURIComponent(n.id)}" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 hover:text-white text-[10px] font-bold border border-slate-700 shrink-0 transition">
+                Open on Canvas &nearr;
+              </a>
+            </div>
+          `;
+        });
+        nodesHtml += `</div>`;
+      }
+
+      let edgesHtml = "";
+      if (eCount === 0) {
+        edgesHtml = `<p class="text-[11px] text-slate-500">No transit corridors mapped to this archetype cell.</p>`;
+      } else {
+        edgesHtml = `<div class="space-y-1.5">`;
+        occ.edges.forEach(ed => {
+          const provTag = ed.explicit ? "Explicit Corridor ODV" : "Midpoint Centroid";
+          const frictionClass = ed.totalDelta >= 5 ? "Contested Frontline Δ≥5" : ed.totalDelta >= 3 ? "Regulated Border" : "Allied Artery";
+          const hazardBadge = ed.isHighHazard
+            ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-950/80 text-rose-300 border border-rose-700" title="Contested High-Hazard Crossing (Friction Δ ≥ 5)">⚠️ High-Hazard (&Delta;=${ed.totalDelta}/9)</span>`
+            : `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700">Friction &Delta;=${ed.totalDelta}/9</span>`;
+          const corridorTag = `<span class="px-1.5 py-0.5 rounded text-[9px] font-mono ${ed.totalDelta >= 5 ? 'text-rose-400 border border-rose-900 bg-rose-950/40' : ed.totalDelta >= 3 ? 'text-amber-400 border border-amber-900 bg-amber-950/40' : 'text-emerald-400 border border-emerald-900 bg-emerald-950/40'}">[${frictionClass}]</span>`;
+          edgesHtml += `
+            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between gap-2">
+              <div>
+                <div class="font-bold text-white text-xs flex items-center gap-1.5 flex-wrap">
+                  <span class="px-1.5 py-0.5 rounded text-[10px] font-mono occ-badge-edge">🔗 ${ed.key}</span>
+                  <span>${ed.name}</span>
+                  ${hazardBadge}
+                  ${corridorTag}
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5 font-mono">${ed.condition} &bull; ${provTag} ${ed.tag}</div>
+              </div>
+              <a href="../start.html?selectEdge=${encodeURIComponent(ed.key)}" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-white text-[10px] font-bold border border-slate-700 shrink-0 transition">
+                Open Corridor &nearr;
+              </a>
+            </div>
+          `;
+        });
+        edgesHtml += `</div>`;
+      }
+
+      bodyEl.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <div class="text-[11px] font-bold text-emerald-300 uppercase tracking-wider">Stationed Settlement Nodes (${nCount})</div>
+            ${nodesHtml}
+          </div>
+          <div class="space-y-1.5">
+            <div class="text-[11px] font-bold text-amber-300 uppercase tracking-wider">Traversing Transit Corridors (${eCount})</div>
+            ${edgesHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    // Render the Authoritative Full Dossier
+    function renderDossier(tag) {
+      const arch = activeMatrix[tag] || {
+        s: tunerState.s, e: tunerState.e, c: tunerState.c, tag: tag,
+        archetypeName: "Adaptive Frontier Node",
+        coreBoon: "**Practical Improvisation:** Slotted units operate even with missing supply lines.",
+        coreBurden: "**Logistical Vulnerability:** Severe sensitivity to cascading shocks.",
+        microPassive: "**Frontier Discipline:** Internal morale remains stable during small-scale skirmishes.",
+        macroPassive: "**Neutral Transit:** Unencumbered travel along border passes.",
+        exemplarNpc: "**Warden Kaelen, Frontier Bailiff**<br>*\"Keep your peace and pay your dues.\"* Sits on a boundary milestone, inspecting caravans with weary vigilance."
+      };
+      activeArchetypeData = arch;
+
+      const quad = getQuadrant(arch.s, arch.e);
+      const mode = getOpMode(arch.s, arch.c);
+      const tarot = getResonantTarot(arch.s, arch.e, arch.c);
+      const qMeta = CVF_META[quad] || CVF_META.Hierarchy;
+      const mMeta = MODE_META[mode] || MODE_META.Produce;
+
+      // Populate elements
+      document.getElementById("dossier-tag").innerText = arch.tag;
+      document.getElementById("dossier-title").innerText = arch.archetypeName;
+
+      const qEl = document.getElementById("dossier-quadrant");
+      qEl.className = `px-2.5 py-0.5 rounded font-bold text-xs border ${qMeta.badge}`;
+      qEl.innerText = `${qMeta.icon} ${qMeta.name} Culture`;
+
+      const mEl = document.getElementById("dossier-mode");
+      mEl.className = `px-2.5 py-0.5 rounded font-bold text-xs border ${mMeta.badge}`;
+      mEl.innerText = `${mMeta.icon} ${mMeta.name} Mode`;
+
+      const tEl = document.getElementById("dossier-tarot");
+      if (tarot) {
+        tEl.classList.remove("hidden");
+        tEl.innerText = `🃏 ${tarot.name}`;
+      } else {
+        tEl.classList.add("hidden");
+      }
+
+      document.getElementById("dossier-boon").innerHTML = parseMd(arch.coreBoon || "None declared.");
+      document.getElementById("dossier-burden").innerHTML = parseMd(arch.coreBurden || "None declared.");
+      document.getElementById("dossier-micro").innerHTML = parseMd(arch.microPassive || "None declared.");
+      document.getElementById("dossier-macro").innerHTML = parseMd(arch.macroPassive || "None declared.");
+      document.getElementById("dossier-npc").innerHTML = arch.exemplarNpc || "No exemplar persona documented.";
+
+      // Populate Levers & Crisis Cards (SOC-02 & SOC-03)
+      const levers = window.SOC_OPERATIONAL_LEVERS || {};
+      const leverData = levers[mode] || levers.Produce || {};
+      const mElMode = document.getElementById("dossier-lever-mode");
+      if (mElMode) mElMode.innerText = `${leverData.icon || ''} ${leverData.mode || mode}`;
+      const mElEff = document.getElementById("dossier-lever-effective");
+      if (mElEff) mElEff.innerText = leverData.effectiveLever || "None documented.";
+      const mElFat = document.getElementById("dossier-lever-fatal");
+      if (mElFat) mElFat.innerText = leverData.fatalError || "None documented.";
+
+      const crisis = window.SOC_CRISIS_METAMORPHISM || {};
+      const crisisData = crisis[quad] || crisis.Hierarchy || {};
+      const cElShift = document.getElementById("dossier-crisis-shift");
+      if (cElShift) cElShift.innerText = `${crisisData.icon || ''} Shifts to ${crisisData.shiftTitle || 'Emergency'} (${crisisData.targetQuadrant || 'Hierarchy'})`;
+      const cElTrig = document.getElementById("dossier-crisis-trigger");
+      if (cElTrig) cElTrig.innerText = crisisData.trigger || "Severe existential strain.";
+      const cElRes = document.getElementById("dossier-crisis-result");
+      if (cElRes) cElRes.innerText = crisisData.result || "Command breakdown.";
+
+      // Populate 5D Sensory Skin output (SOC-04)
+      triggerDossierSensoryRoll();
+
+      // Populate Active Campaign Occupants roster
+      renderDossierOccupants(tag);
+
+      // Pulse animation
+      const card = document.getElementById("dossier-card");
+      card.classList.remove("dossier-pulse");
+      void card.offsetWidth; // Trigger reflow
+      card.classList.add("dossier-pulse");
+    }
+
+    function setTunerDial(dial, val) {
+      tunerState[dial] = val;
+      updateTunerUI();
+    }
+
+    function pickRandomArchetype() {
+      tunerState.s = Math.floor(Math.random() * 4) + 1;
+      tunerState.e = Math.floor(Math.random() * 4) + 1;
+      tunerState.c = Math.floor(Math.random() * 4) + 1;
+      updateTunerUI();
+      showToast(`Selected [${tunerState.s}, ${tunerState.e}, ${tunerState.c}]`);
+    }
+
+    // Toggle Scale Guide (Robust implementation)
+    function toggleScaleGuide() {
+      const el = document.getElementById("guide-content");
+      const btn = document.getElementById("guide-toggle-btn");
+      if (!el) return;
+      const isHidden = el.classList.contains("hidden") || el.style.display === "none";
+      if (isHidden) {
+        el.classList.remove("hidden");
+        el.style.display = "block";
+        if (btn) btn.innerText = "Hide Reference Hub";
+      } else {
+        el.classList.add("hidden");
+        el.style.display = "none";
+        if (btn) btn.innerText = "Show Reference Hub";
+      }
+    }
+
+    // ========================================================================
+    // SPRINT 3: DOSSIER SENSORY SKIN & DIAGNOSTIC WIZARD (SOC-04 & SOC-06)
+    // ========================================================================
+    function triggerDossierSensoryRoll() {
+      if (typeof window.rollSensoryProfile !== 'function') return;
+      const roll = window.rollSensoryProfile(tunerState.s, tunerState.e, tunerState.c);
+      window.activeDossierSensoryRoll = roll;
+      const container = document.getElementById("dossier-sensory-output");
+      if (!container) return;
+      container.innerHTML = `
+        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-1.5">
+          <div>
+            <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+              <span class="font-bold text-sky-300 text-xs">1. Behavior</span>
+              <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-sky-950 text-sky-400 border border-sky-800">d6=${roll.behavior.roll}</span>
+            </div>
+            <strong class="text-white text-xs block mt-1">${roll.behavior.title}</strong>
+            <div class="text-[10px] text-slate-400 mt-1"><strong>Sound:</strong> ${roll.behavior.sound}</div>
+          </div>
+          <div class="text-[10px] text-amber-300 font-mono bg-slate-950 p-1.5 rounded border border-slate-800/80 mt-1">
+            🎲 ${roll.behavior.effect}
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-1.5">
+          <div>
+            <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+              <span class="font-bold text-indigo-300 text-xs">2. Relationship</span>
+              <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-indigo-950 text-indigo-400 border border-indigo-800">d6=${roll.relationship.roll}</span>
+            </div>
+            <strong class="text-white text-xs block mt-1">${roll.relationship.title}</strong>
+            <div class="text-[10px] text-slate-400 mt-1"><strong>Protocol:</strong> ${roll.relationship.protocol}</div>
+          </div>
+          <div class="text-[10px] text-amber-300 font-mono bg-slate-950 p-1.5 rounded border border-slate-800/80 mt-1">
+            🎲 ${roll.relationship.effect}
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-1.5">
+          <div>
+            <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+              <span class="font-bold text-amber-300 text-xs">3. Attitude</span>
+              <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-amber-950 text-amber-400 border border-amber-800">d6=${roll.attitude.roll}</span>
+            </div>
+            <strong class="text-white text-xs block mt-1">${roll.attitude.title}</strong>
+            <div class="text-[10px] text-slate-400 mt-1"><strong>Reception:</strong> ${roll.attitude.reception}</div>
+          </div>
+          <div class="text-[10px] text-amber-300 font-mono bg-slate-950 p-1.5 rounded border border-slate-800/80 mt-1">
+            🎲 ${roll.attitude.effect}
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-1.5">
+          <div>
+            <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+              <span class="font-bold text-rose-300 text-xs">4. Values</span>
+              <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-rose-950 text-rose-400 border border-rose-800">d6=${roll.value.roll}</span>
+            </div>
+            <strong class="text-white text-xs block mt-1">${roll.value.title}</strong>
+            <div class="text-[10px] text-slate-300 mt-1"><strong>Sacred:</strong> ${roll.value.sacred}</div>
+          </div>
+          <div class="text-[10px] text-rose-400/90 font-mono bg-slate-950 p-1.5 rounded border border-slate-800/80 mt-1">
+            Expendable: ${roll.value.expendable}
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-1.5">
+          <div>
+            <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+              <span class="font-bold text-emerald-300 text-xs">5. Environment</span>
+              <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">d6=${roll.environment.roll}</span>
+            </div>
+            <strong class="text-white text-xs block mt-1">${roll.environment.title}</strong>
+            <div class="text-[10px] text-slate-400 mt-1"><strong>Decor:</strong> ${roll.environment.decor}</div>
+          </div>
+          <div class="text-[10px] text-amber-300 font-mono bg-slate-950 p-1.5 rounded border border-slate-800/80 mt-1">
+            🎲 ${roll.environment.effect}
+          </div>
+        </div>
+      `;
+    }
+
+    function copyDossierSensoryMarkdown() {
+      if (!window.activeDossierSensoryRoll) return;
+      const r = window.activeDossierSensoryRoll;
+      const md = `### Room Sensory Skin [${tunerState.s}, ${tunerState.e}, ${tunerState.c}]
+- **Behavior (d6=${r.behavior.roll})**: ${r.behavior.title} — *Sound:* ${r.behavior.sound} | *Rule:* ${r.behavior.effect}
+- **Relationship (d6=${r.relationship.roll})**: ${r.relationship.title} — *Protocol:* ${r.relationship.protocol} | *Rule:* ${r.relationship.effect}
+- **Attitude (d6=${r.attitude.roll})**: ${r.attitude.title} — *Reception:* ${r.attitude.reception} | *Rule:* ${r.attitude.effect}
+- **Values (d6=${r.value.roll})**: ${r.value.title} — *Sacred:* ${r.value.sacred} | *Expendable:* ${r.value.expendable}
+- **Environment (d6=${r.environment.roll})**: ${r.environment.title} — *Decor:* ${r.environment.decor} | *Rule:* ${r.environment.effect}`;
+      navigator.clipboard.writeText(md).then(() => showToast('Sensory readout copied to clipboard!'));
+    }
+
+    function openDiagnosticWizardModal() {
+      const modal = document.getElementById("diagnostic-modal");
+      if (!modal) return;
+      modal.classList.remove("hidden");
+      renderDiagnosticWizardModalContent();
+    }
+
+    function closeDiagnosticWizardModal() {
+      const modal = document.getElementById("diagnostic-modal");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function renderDiagnosticWizardModalContent() {
+      const container = document.getElementById("diagnostic-wizard-step-container");
+      if (!container) return;
+      const questions = window.SOC_DIAGNOSTIC_QUESTIONS || [];
+      window.modalWizardState = window.modalWizardState || { s: tunerState.s, e: tunerState.e, c: tunerState.c };
+
+      let stepsHtml = questions.map((q) => `
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+            <span class="font-bold text-sky-400 text-xs">${q.title}</span>
+            <span class="text-[10px] font-mono text-slate-400">Tunes Dial ${q.dial.toUpperCase()}</span>
+          </div>
+          <p class="text-[11px] text-slate-300 italic">${q.subtitle}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            ${q.options.map(opt => `
+              <div onclick="selectModalWizardOption('${q.dial}', ${opt.val})" class="p-2 rounded-lg bg-slate-900 border ${window.modalWizardState[q.dial] === opt.val ? 'border-sky-500 bg-sky-950/40' : 'border-slate-800'} hover:border-sky-500/70 cursor-pointer transition text-xs">
+                <div class="flex items-center justify-between font-bold text-white text-[11px]">
+                  <span>${opt.val}: ${opt.label}</span>
+                  ${window.modalWizardState[q.dial] === opt.val ? '<span class="text-sky-400">&check;</span>' : ''}
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5">${opt.desc}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      const tag = `[${window.modalWizardState.s}, ${window.modalWizardState.e}, ${window.modalWizardState.c}]`;
+      const arch = (window.ODV_MATRIX_64 && window.ODV_MATRIX_64[tag]) || {};
+      const q = getQuadrant(window.modalWizardState.s, window.modalWizardState.e);
+      const m = getOpMode(window.modalWizardState.s, window.modalWizardState.c);
+
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-sky-900/60 flex-wrap gap-2">
+            <div>
+              <span class="text-xs text-slate-400">Calibrated Archetype:</span>
+              <div class="text-sm font-bold text-white">${tag} ${arch.archetypeName || 'Calibrated Outpost'}</div>
+              <div class="text-[10px] text-slate-400 font-mono mt-0.5">${q} Culture &bull; ${m} Mode</div>
+            </div>
+            <button onclick="applyModalWizardCalibration()" class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-lg transition">
+              🎯 Apply Calibration &amp; Load Dossier
+            </button>
+          </div>
+          <div class="space-y-3">
+            ${stepsHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    function selectModalWizardOption(dial, val) {
+      window.modalWizardState[dial] = val;
+      renderDiagnosticWizardModalContent();
+    }
+
+    function applyModalWizardCalibration() {
+      tunerState.s = window.modalWizardState.s;
+      tunerState.e = window.modalWizardState.e;
+      tunerState.c = window.modalWizardState.c;
+      closeDiagnosticWizardModal();
+      updateTunerUI();
+      showToast(`Calibrated to [${tunerState.s}, ${tunerState.e}, ${tunerState.c}]!`);
+    }
+
+    // ========================================================================
+    // SPRINT 2: MASTER SOCIOLOGICAL REFERENCE HUB (TABS & HERMENEUTICS)
+    // ========================================================================
+    let activeHubTab = 'scales';
+
+    function switchHubTab(tabKey) {
+      activeHubTab = tabKey;
+      document.querySelectorAll('.hub-tab-btn').forEach(btn => {
+        btn.className = 'hub-tab-btn px-3 py-1.5 rounded-lg bg-slate-950 text-slate-400 hover:text-white transition flex items-center gap-1.5 border border-slate-800';
+      });
+      const activeBtn = document.getElementById(`tab-btn-${tabKey}`);
+      if (activeBtn) {
+        activeBtn.className = 'hub-tab-btn active px-3 py-1.5 rounded-lg bg-sky-600 text-white font-bold transition flex items-center gap-1.5 shadow-sm';
+      }
+
+      document.querySelectorAll('.hub-tab-panel').forEach(p => p.classList.add('hidden'));
+      const activePanel = document.getElementById(`tab-panel-${tabKey}`);
+      if (activePanel) {
+        activePanel.classList.remove('hidden');
+        renderHubTabContent(tabKey);
+      }
+    }
+
+    function renderHubTabContent(tabKey) {
+      if (tabKey === 'levers') renderLeversTab();
+      else if (tabKey === 'crisis') renderCrisisTab();
+      else if (tabKey === 'sensory') renderSensoryTab();
+      else if (tabKey === 'factions') renderFactionsTab();
+      else if (tabKey === 'tree') renderDiagnosticTreeTab();
+    }
+
+    function renderLeversTab() {
+      const panel = document.getElementById('tab-panel-levers');
+      if (!panel) return;
+      const levers = window.SOC_OPERATIONAL_LEVERS || {};
+
+      let cardsHtml = Object.values(levers).map(l => `
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+            <span class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
+              <span>${l.icon}</span>
+              <span style="color: ${l.color}">${l.mode} Mode</span>
+            </span>
+            <button onclick="selectModeFromGuide('${l.mode}')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-sky-300 text-[10px] border border-slate-700 transition">
+              Tune Dials &rarr;
+            </button>
+          </div>
+          <div class="space-y-1.5 text-slate-300 text-xs">
+            <div><strong class="text-indigo-300">Power Basis:</strong> ${l.powerBasis}</div>
+            <div><strong class="text-emerald-400">Core Strength:</strong> ${l.coreStrength}</div>
+            <div><strong class="text-rose-400">Blind Spot:</strong> ${l.blindSpot}</div>
+            <div class="p-2 rounded bg-emerald-950/30 border border-emerald-900/60 mt-1">
+              <strong class="text-emerald-300">Effective Player Lever:</strong> ${l.effectiveLever}
+            </div>
+            <div class="p-2 rounded bg-rose-950/30 border border-rose-900/60">
+              <strong class="text-rose-300">Fatal Player Error:</strong> ${l.fatalError}
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      panel.innerHTML = `
+        <div class="space-y-4">
+          <div class="text-slate-300 text-xs leading-relaxed bg-slate-950/40 p-3 rounded-xl border border-slate-800">
+            <strong class="text-sky-300">SOC-02 Institutional Levers:</strong> The 4 Operational Profiles represent how an archetype transforms its resource base into power, sovereignty, and authority. Use these levers at the table during NPC encounters, diplomatic summits, and ransom negotiations.
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${cardsHtml}
+          </div>
+          <!-- Strategic Operations Alignment Grid -->
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+            <div class="font-bold text-amber-400 text-xs uppercase tracking-wider">
+              Strategic Operations Alignment Grid (Porter, Groysberg et al.)
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-[11px] pt-1">
+              <div class="p-2.5 rounded bg-purple-950/20 border border-purple-800/40 space-y-1">
+                <span class="font-bold text-purple-300">💡 Design (Flexible • Independent)</span>
+                <p class="text-slate-400"><strong>Strategy:</strong> Specialized artisan prototypes &amp; breakthrough craft.</p>
+                <p class="text-slate-400"><strong>Organization:</strong> Independent virtuoso studios &amp; guilds.</p>
+                <p class="text-slate-400"><strong>Operations:</strong> Enable &amp; Support.</p>
+              </div>
+              <div class="p-2.5 rounded bg-teal-950/20 border border-teal-800/40 space-y-1">
+                <span class="font-bold text-teal-300">🤝 Service (Flexible • Interdependent)</span>
+                <p class="text-slate-400"><strong>Strategy:</strong> Dynamic field relief &amp; mutualist safehouse networks.</p>
+                <p class="text-slate-400"><strong>Organization:</strong> Decentralized experience &amp; communal circles.</p>
+                <p class="text-slate-400"><strong>Operations:</strong> Accountability &amp; Relief.</p>
+              </div>
+              <div class="p-2.5 rounded bg-blue-950/20 border border-blue-800/40 space-y-1">
+                <span class="font-bold text-blue-300">⚙️ Produce (Stable • Independent)</span>
+                <p class="text-slate-400"><strong>Strategy:</strong> High-yield mass extraction, metallurgy &amp; refining.</p>
+                <p class="text-slate-400"><strong>Organization:</strong> Hierarchical work-crews &amp; overseer syndicates.</p>
+                <p class="text-slate-400"><strong>Operations:</strong> Enforce &amp; Control.</p>
+              </div>
+              <div class="p-2.5 rounded bg-amber-950/20 border border-amber-800/40 space-y-1">
+                <span class="font-bold text-amber-300">📦 Deliver (Stable • Interdependent)</span>
+                <p class="text-slate-400"><strong>Strategy:</strong> Fortified trade corridors &amp; redundant logistics.</p>
+                <p class="text-slate-400"><strong>Organization:</strong> Interdependent corridor matrix &amp; garrisons.</p>
+                <p class="text-slate-400"><strong>Operations:</strong> Enroll &amp; Responsibility.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCrisisTab() {
+      const panel = document.getElementById('tab-panel-crisis');
+      if (!panel) return;
+      const crisis = window.SOC_CRISIS_METAMORPHISM || {};
+
+      let cardsHtml = Object.values(crisis).map(c => `
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+            <span class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
+              <span>${c.icon}</span>
+              <span>${c.quadrant} Culture</span>
+            </span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-950 text-rose-300 border border-rose-800">
+              Shifts to: ${c.shiftTitle} (${c.targetQuadrant})
+            </span>
+          </div>
+          <div class="space-y-1.5 text-slate-300 text-xs">
+            <div class="p-2 rounded bg-amber-950/30 border border-amber-900/60">
+              <strong class="text-amber-400">Existential Trigger:</strong> ${c.trigger}
+            </div>
+            <div class="p-2 rounded bg-sky-950/30 border border-sky-900/60">
+              <strong class="text-sky-300">Metamorphic Result:</strong> ${c.result}
+            </div>
+          </div>
+          <div class="pt-1 flex justify-end">
+            <button onclick="selectQuadrantFromGuide('${c.quadrant}')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-sky-300 text-[10px] border border-slate-700 transition">
+              Tune Dials to ${c.quadrant} &rarr;
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      panel.innerHTML = `
+        <div class="space-y-4">
+          <div class="text-slate-300 text-xs leading-relaxed bg-slate-950/40 p-3 rounded-xl border border-slate-800">
+            <strong class="text-rose-400">SOC-03 Crisis Metamorphism &amp; Failure Shifts:</strong> When external uncertainty spikes into existential catastrophe (prolonged siege, biological contagion, severed supply lines), an archetype's baseline governance collapses into an emergency survival posture.
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${cardsHtml}
+          </div>
+          <!-- Duncan Environmental Uncertainty Matrix -->
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+            <div class="font-bold text-sky-400 text-xs uppercase tracking-wider">
+              Duncan Environmental Uncertainty Matrix (Complexity vs. Rate of Change)
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px] pt-1">
+              <div class="p-3 rounded-lg bg-emerald-950/20 border border-emerald-800/40 space-y-1">
+                <div class="font-bold text-emerald-300">Low Uncertainty: Simple + Stable</div>
+                <p class="text-slate-400">Few external factors, slow changing. Hierarchy maintains rigid standing protocols; standard bureaucratic procedures thrive (e.g. interior mining colonies, established farming valleys).</p>
+              </div>
+              <div class="p-3 rounded-lg bg-blue-950/20 border border-blue-800/40 space-y-1">
+                <div class="font-bold text-blue-300">Low / Moderate Uncertainty: Complex + Stable</div>
+                <p class="text-slate-400">Many external factors, slow changing. High need for specialized knowledge and departmental divisions (e.g. sovereign university archives, regional banking cartels).</p>
+              </div>
+              <div class="p-3 rounded-lg bg-amber-950/20 border border-amber-800/40 space-y-1">
+                <div class="font-bold text-amber-300">High / Moderate Uncertainty: Simple + Unstable</div>
+                <p class="text-slate-400">Few factors, rapid fluctuation. Requires dynamic organic adaptation and high local speed (e.g. border contraband smugglers, seasonal harvest markets).</p>
+              </div>
+              <div class="p-3 rounded-lg bg-rose-950/20 border border-rose-800/40 space-y-1">
+                <div class="font-bold text-rose-300">High Uncertainty: Complex + Unstable</div>
+                <p class="text-slate-400">Many unpredictable variables, constant turbulence. Extreme decentralized autonomy and rapid trial-and-error (e.g. wild magical frontiers, subterranean monster warfronts).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSensoryTab() {
+      const panel = document.getElementById('tab-panel-sensory');
+      if (!panel) return;
+      const sp = window.SOC_SENSORY_PENTAGON || {};
+
+      function renderDimensionRows(items) {
+        if (!items) return '';
+        return items.map(item => `
+          <div class="p-2 rounded bg-slate-900 border border-slate-800 flex items-start gap-2 text-xs">
+            <span class="px-1.5 py-0.5 rounded font-mono font-bold text-[10px] bg-purple-950 text-purple-300 border border-purple-800 shrink-0">d6=${item.roll}</span>
+            <div class="flex-1">
+              <strong class="text-white">${item.title}</strong>
+              <div class="text-[11px] text-slate-400 mt-0.5">
+                ${item.sound ? `<strong>Sound:</strong> ${item.sound}` : ''}
+                ${item.protocol ? `<strong>Protocol:</strong> ${item.protocol}` : ''}
+                ${item.reception ? `<strong>Reception:</strong> ${item.reception}` : ''}
+                ${item.sacred ? `<strong>Sacred:</strong> ${item.sacred} &bull; <strong>Expendable:</strong> ${item.expendable}` : ''}
+                ${item.decor ? `<strong>Decor:</strong> ${item.decor}` : ''}
+              </div>
+              ${item.effect ? `<div class="text-[10px] text-amber-300/90 font-mono mt-0.5">🎲 Check Rule: ${item.effect}</div>` : ''}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      panel.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-purple-950/30 p-3.5 rounded-xl border border-purple-800/60">
+            <div>
+              <strong class="text-purple-300 text-xs">SOC-04 The 5-Dimension Cultural Pentagon:</strong>
+              <p class="text-[11px] text-slate-300 mt-0.5">Procedural d6 tables across Behaviors, Relationships, Attitudes, Values, and Environment for instantaneous room and outpost skinning.</p>
+            </div>
+            <button onclick="executeHubSensoryRoll()" class="px-3 py-1.5 rounded-lg bg-purple-900 hover:bg-purple-800 text-purple-200 text-xs font-bold transition border border-purple-700 flex items-center gap-1.5 shadow-sm shrink-0">
+              <span>🎲 Roll Full Room Skin</span>
+            </button>
+          </div>
+
+          <!-- Roll Output Box -->
+          <div id="hub-sensory-output" class="hidden p-3 rounded-xl bg-slate-950 border border-purple-500 space-y-2">
+            <!-- Injected on roll -->
+          </div>
+
+          <!-- 5 Dimensional Grids -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div class="font-bold text-sky-400 text-xs uppercase tracking-wider pb-1 border-b border-slate-800">1. Behaviors &amp; Cadence</div>
+              <div class="space-y-1.5">${renderDimensionRows(sp.behaviors)}</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div class="font-bold text-indigo-400 text-xs uppercase tracking-wider pb-1 border-b border-slate-800">2. Relationships &amp; Power</div>
+              <div class="space-y-1.5">${renderDimensionRows(sp.relationships)}</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div class="font-bold text-amber-400 text-xs uppercase tracking-wider pb-1 border-b border-slate-800">3. Attitudes &amp; Outsiders</div>
+              <div class="space-y-1.5">${renderDimensionRows(sp.attitudes)}</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div class="font-bold text-rose-400 text-xs uppercase tracking-wider pb-1 border-b border-slate-800">4. Values (Sacred vs. Expendable)</div>
+              <div class="space-y-1.5">${renderDimensionRows(sp.values)}</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2 md:col-span-2 lg:col-span-2">
+              <div class="font-bold text-emerald-400 text-xs uppercase tracking-wider pb-1 border-b border-slate-800">5. Physical Environment &amp; Sensory Decor</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${renderDimensionRows(sp.environment)}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function executeHubSensoryRoll() {
+      if (typeof window.rollSensoryProfile !== 'function') return;
+      const roll = window.rollSensoryProfile(tunerState.s, tunerState.e, tunerState.c);
+      const out = document.getElementById('hub-sensory-output');
+      if (!out) return;
+      out.classList.remove('hidden');
+      out.innerHTML = `
+        <div class="flex items-center justify-between pb-1 border-b border-purple-900">
+          <span class="text-xs font-bold text-purple-300">🎲 Procedural Room Profile for [${tunerState.s}, ${tunerState.e}, ${tunerState.c}]</span>
+          <button onclick="copyHubSensoryMarkdown()" class="text-[10px] text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-900 border border-slate-800">📋 Copy Markdown</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 pt-1">
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-1.5">
+            <div>
+              <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+                <span class="font-bold text-sky-300 text-xs">1. Behavior</span>
+                <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-sky-950 text-sky-400 border border-sky-800">d6=${roll.behavior.roll}</span>
+              </div>
+              <strong class="text-white text-xs block mt-1">${roll.behavior.title}</strong>
+              <div class="text-[10px] text-slate-400 mt-1"><strong>Sound:</strong> ${roll.behavior.sound}</div>
+            </div>
+            <div class="text-[10px] text-amber-300 font-mono bg-slate-950 p-1.5 rounded border border-slate-800/80 mt-1">
+              🎲 ${roll.behavior.effect}
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-1.5">
+            <div>
+              <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+                <span class="font-bold text-indigo-300 text-xs">2. Relationship</span>
+                <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-indigo-950 text-indigo-400 border border-indigo-800">d6=${roll.relationship.roll}</span>
+              </div>
+              <strong class="text-white text-xs block mt-1">${roll.relationship.title}</strong>
+              <div class="text-[10px] text-slate-400 mt-1"><strong>Protocol:</strong> ${roll.relationship.protocol}</div>
+            </div>
+            <div class="text-[10px] text-amber-300 font-mono bg-slate-950 p-1.5 rounded border border-slate-800/80 mt-1">
+              🎲 ${roll.relationship.effect}
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-1.5">
+            <div>
+              <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+                <span class="font-bold text-amber-300 text-xs">3. Attitude</span>
+                <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-amber-950 text-amber-400 border border-amber-800">d6=${roll.attitude.roll}</span>
+              </div>
+              <strong class="text-white text-xs block mt-1">${roll.attitude.title}</strong>
+              <div class="text-[10px] text-slate-400 mt-1"><strong>Reception:</strong> ${roll.attitude.reception}</div>
+            </div>
+            <div class="text-[10px] text-amber-300 font-mono bg-slate-950 p-1.5 rounded border border-slate-800/80 mt-1">
+              🎲 ${roll.attitude.effect}
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-1.5">
+            <div>
+              <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+                <span class="font-bold text-rose-300 text-xs">4. Values</span>
+                <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-rose-950 text-rose-400 border border-rose-800">d6=${roll.value.roll}</span>
+              </div>
+              <strong class="text-white text-xs block mt-1">${roll.value.title}</strong>
+              <div class="text-[10px] text-slate-300 mt-1"><strong>Sacred:</strong> ${roll.value.sacred}</div>
+            </div>
+            <div class="text-[10px] text-rose-400/90 font-mono bg-slate-950 p-1.5 rounded border border-slate-800/80 mt-1">
+              Expendable: ${roll.value.expendable}
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-1.5">
+            <div>
+              <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+                <span class="font-bold text-emerald-300 text-xs">5. Environment</span>
+                <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">d6=${roll.environment.roll}</span>
+              </div>
+              <strong class="text-white text-xs block mt-1">${roll.environment.title}</strong>
+              <div class="text-[10px] text-slate-400 mt-1"><strong>Decor:</strong> ${roll.environment.decor}</div>
+            </div>
+            <div class="text-[10px] text-amber-300 font-mono bg-slate-950 p-1.5 rounded border border-slate-800/80 mt-1">
+              🎲 ${roll.environment.effect}
+            </div>
+          </div>
+        </div>
+      `;
+      window.latestHubSensoryRoll = roll;
+    }
+
+    function copyHubSensoryMarkdown() {
+      if (!window.latestHubSensoryRoll) return;
+      const r = window.latestHubSensoryRoll;
+      const md = `### Room Sensory Skin [${tunerState.s}, ${tunerState.e}, ${tunerState.c}]
+- **Behavior (d6=${r.behavior.roll})**: ${r.behavior.title} — *Sound:* ${r.behavior.sound} | *Rule:* ${r.behavior.effect}
+- **Relationship (d6=${r.relationship.roll})**: ${r.relationship.title} — *Protocol:* ${r.relationship.protocol} | *Rule:* ${r.relationship.effect}
+- **Attitude (d6=${r.attitude.roll})**: ${r.attitude.title} — *Reception:* ${r.attitude.reception} | *Rule:* ${r.attitude.effect}
+- **Values (d6=${r.value.roll})**: ${r.value.title} — *Sacred:* ${r.value.sacred} | *Expendable:* ${r.value.expendable}
+- **Environment (d6=${r.environment.roll})**: ${r.environment.title} — *Decor:* ${r.environment.decor} | *Rule:* ${r.environment.effect}`;
+      navigator.clipboard.writeText(md).then(() => showToast('Sensory skin copied to clipboard!'));
+    }
+
+    function renderFactionsTab() {
+      const panel = document.getElementById('tab-panel-factions');
+      if (!panel) return;
+      const fc = window.SOC_FACTION_COLORS || {};
+
+      let factionCardsHtml = Object.entries(fc).map(([k, v]) => `
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+            <span class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
+              <span class="w-3 h-3 rounded-full inline-block" style="background-color: ${v.hex};"></span>
+              <span>${k} Faction Alignment</span>
+            </span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold" style="color: ${v.hex}; background-color: rgba(255,255,255,0.05); border: 1px solid ${v.hex}40;">
+              ${v.mtgColor}
+            </span>
+          </div>
+          <div class="text-xs text-slate-300"><strong>Dominant Sphere:</strong> ${v.domain}</div>
+          <div class="text-[11px] text-slate-400 pt-1">
+            ${k === 'Clan' ? 'High kinship trust; immune to debt revolts; hostile to foreign merchant cartels.' : ''}
+            ${k === 'Adhocracy' ? 'Maximum speed in unmapped terrain; fluid command structure; vulnerable to prolonged attrition.' : ''}
+            ${k === 'Market' ? 'Monetizes border checkpoints; buys mercenary reinforcements; vulnerable to treasury collapse.' : ''}
+            ${k === 'Hierarchy' ? 'Fortified perimeter garrisons; judicial tribunals; paralyzed when standing command orders are cut.' : ''}
+          </div>
+        </div>
+      `).join('');
+
+      panel.innerHTML = `
+        <div class="space-y-4">
+          <div class="text-slate-300 text-xs leading-relaxed bg-slate-950/40 p-3 rounded-xl border border-slate-800">
+            <strong class="text-emerald-400">SOC-05 Pointcrawl Dynamics &amp; Faction Alignment:</strong> Factions map onto CVF quadrants and MTG color philosophies. When two settlements connect via a pointcrawl transit road, cultural distance creates corridor friction.
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            ${factionCardsHtml}
+          </div>
+          <!-- Pointcrawl Corridor Tension Matrix -->
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+            <div class="font-bold text-amber-400 text-xs uppercase tracking-wider">
+              Pointcrawl Road Friction &amp; Hazard Calculation Formula
+            </div>
+            <div class="text-xs text-slate-300 font-mono bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+              Friction &Delta; = |&Delta;S| + |&Delta;E| + |&Delta;C| &nbsp;(Range: 0 to 9)
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs pt-1">
+              <div class="p-2.5 rounded bg-emerald-950/20 border border-emerald-800/40 space-y-1">
+                <span class="font-bold text-emerald-300">Allied Artery (&Delta; = 0 to 2)</span>
+                <p class="text-[11px] text-slate-400">Shared cultural philosophy. Caravans cross without delay; zero border tolls; mutual safehouses along road.</p>
+              </div>
+              <div class="p-2.5 rounded bg-amber-950/20 border border-amber-800/40 space-y-1">
+                <span class="font-bold text-amber-300">Regulated Border (&Delta; = 3 to 4)</span>
+                <p class="text-[11px] text-slate-400">Moderate friction. Customs tariffs, passport inspections, cargo declarations; courier delays of 1d4 days.</p>
+              </div>
+              <div class="p-2.5 rounded bg-rose-950/20 border border-rose-800/40 space-y-1">
+                <span class="font-bold text-rose-300">High-Hazard Crossing (&Delta; &ge; 5)</span>
+                <p class="text-[11px] text-slate-400">Contested frontline clash. Armed garrisons, interdiction ambushes, sabotage hazards, and mandatory escort checks.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDiagnosticTreeTab() {
+      const panel = document.getElementById('tab-panel-tree');
+      if (!panel) return;
+      const questions = window.SOC_DIAGNOSTIC_QUESTIONS || [];
+
+      window.diagnosticTreeState = window.diagnosticTreeState || { s: tunerState.s, e: tunerState.e, c: tunerState.c };
+
+      let stepsHtml = questions.map((q) => `
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between pb-1 border-b border-slate-800">
+            <span class="font-bold text-sky-400 text-xs">${q.title}</span>
+            <span class="text-[10px] font-mono text-slate-400">Tunes Dial ${q.dial.toUpperCase()}</span>
+          </div>
+          <p class="text-[11px] text-slate-300 italic">${q.subtitle}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            ${q.options.map(opt => `
+              <div onclick="selectDiagnosticOption('${q.dial}', ${opt.val})" class="diagnostic-opt-${q.dial} p-2 rounded-lg bg-slate-900 border ${window.diagnosticTreeState[q.dial] === opt.val ? 'border-sky-500 bg-sky-950/40' : 'border-slate-800'} hover:border-sky-500/70 cursor-pointer transition text-xs">
+                <div class="flex items-center justify-between font-bold text-white text-[11px]">
+                  <span>${opt.val}: ${opt.label}</span>
+                  ${window.diagnosticTreeState[q.dial] === opt.val ? '<span class="text-sky-400">&check;</span>' : ''}
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5">${opt.desc}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      const curTag = `[${window.diagnosticTreeState.s}, ${window.diagnosticTreeState.e}, ${window.diagnosticTreeState.c}]`;
+      const curArch = (window.ODV_MATRIX_64 && window.ODV_MATRIX_64[curTag]) || {};
+      const curQuad = getQuadrant(window.diagnosticTreeState.s, window.diagnosticTreeState.e);
+      const curMode = getOpMode(window.diagnosticTreeState.s, window.diagnosticTreeState.c);
+
+      panel.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950/40 p-3 rounded-xl border border-slate-800">
+            <div>
+              <strong class="text-sky-300 text-xs">SOC-06 Deterministic Decision Tree:</strong>
+              <p class="text-[11px] text-slate-400 mt-0.5">Answer the three behavioral questions to instantly calibrate and deduce an outpost's exact coordinate vector.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold text-sky-400">${curTag} ${curArch.archetypeName || ''} (${curQuad} • ${curMode})</span>
+              <button onclick="applyDiagnosticCalibration()" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition">
+                🎯 Apply to Dials &amp; Dossier
+              </button>
+            </div>
+          </div>
+          <div class="space-y-3">
+            ${stepsHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    function selectDiagnosticOption(dial, val) {
+      window.diagnosticTreeState[dial] = val;
+      renderDiagnosticTreeTab();
+    }
+
+    function applyDiagnosticCalibration() {
+      tunerState.s = window.diagnosticTreeState.s;
+      tunerState.e = window.diagnosticTreeState.e;
+      tunerState.c = window.diagnosticTreeState.c;
+      updateTunerUI();
+      showToast(`Calibrated to [${tunerState.s}, ${tunerState.e}, ${tunerState.c}]!`);
+    }
+
+    // Tier Axis Switcher (C, E, or S)
+    function setTierAxis(axis) {
+      currentTierAxis = axis;
+      ["c", "e", "s"].forEach(a => {
+        const btn = document.getElementById(`btn-axis-${a}`);
+        if (a === axis) {
+          btn.className = "tier-axis-btn active px-3 py-1 rounded-lg bg-sky-600 text-white font-bold transition flex items-center gap-1 shadow-sm";
+        } else {
+          btn.className = "tier-axis-btn px-3 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white transition flex items-center gap-1 border border-slate-800";
+        }
+      });
+      renderActiveView();
+      const axisName = axis === 'c' ? 'Centralization (C)' : axis === 'e' ? 'Permeability (E)' : 'Solidarity (S)';
+      showToast(`Tiered by ${axisName}`);
+    }
+
+    // Filter Logic
+    function applyFilters() {
+      renderActiveView();
+    }
+
+    function clearSearch() {
+      document.getElementById("archetype-search").value = "";
+      if (filterOccupiedOnly) toggleOccupiedFilter();
+      applyFilters();
+    }
+
+    // Sprint 4: Toggle Campaign Active Occupancy Filter
+    function toggleOccupiedFilter() {
+      filterOccupiedOnly = !filterOccupiedOnly;
+      const btn = document.getElementById("btn-filter-occupied");
+      if (btn) {
+        if (filterOccupiedOnly) {
+          btn.classList.add("occ-filter-active");
+        } else {
+          btn.classList.remove("occ-filter-active");
+        }
+      }
+      renderActiveView();
+      showToast(filterOccupiedOnly ? `Showing ${activeOccupiedCellCount} campaign-active archetypes` : "Showing all 64 archetypes");
+    }
+
+    function setFilterQuadrant(quad) {
+      currentFilterQuadrant = quad;
+      document.querySelectorAll(".filter-quad-btn").forEach(btn => {
+        if (btn.getAttribute("data-quad") === quad) {
+          btn.className = "filter-quad-btn active px-2.5 py-1 rounded bg-sky-600 text-white font-bold";
+        } else {
+          btn.className = "filter-quad-btn px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800";
+        }
+      });
+      applyFilters();
+    }
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      ["layered", "catalog", "cvf"].forEach(m => {
+        const btn = document.getElementById(`btn-view-${m}`);
+        if (m === mode) {
+          btn.className = "view-mode-btn active px-2.5 py-1 rounded bg-slate-800 text-white font-semibold flex items-center gap-1 shadow-sm";
+        } else {
+          btn.className = "view-mode-btn px-2.5 py-1 rounded text-slate-400 hover:text-white flex items-center gap-1";
+        }
+      });
+
+      // Show/hide tier axis selector bar (only applies to layered 3D view)
+      const axisBar = document.getElementById("layer-axis-bar");
+      if (axisBar) {
+        if (mode === "layered") {
+          axisBar.classList.remove("hidden");
+          axisBar.style.display = "block";
+        } else {
+          axisBar.classList.add("hidden");
+          axisBar.style.display = "none";
+        }
+      }
+
+      renderActiveView();
+    }
+
+    // Filter Matching Utility (Includes Node & Corridor Names)
+    function matchesFilter(arch, searchVal) {
+      const occ = activeCampaignOdvIndex[arch.tag] || { nodes: [], edges: [] };
+      const isOccupied = occ.nodes.length > 0 || occ.edges.length > 0;
+
+      if (filterOccupiedOnly && !isOccupied) {
+        return false;
+      }
+      if (currentFilterQuadrant !== "all") {
+        const q = getQuadrant(arch.s, arch.e);
+        if (q !== currentFilterQuadrant) return false;
+      }
+      if (searchVal) {
+        const nodeNames = occ.nodes.map(n => `#${n.id} ${n.name}`).join(" ");
+        const edgeNames = occ.edges.map(ed => `${ed.key} ${ed.name}`).join(" ");
+        const haystack = `${arch.tag} ${arch.archetypeName} ${arch.coreBoon} ${arch.coreBurden} ${arch.microPassive} ${arch.macroPassive} ${arch.exemplarNpc} ${nodeNames} ${edgeNames}`.toLowerCase();
+        if (!haystack.includes(searchVal)) return false;
+      }
+      return true;
+    }
+
+    // Sprint 2 & 3: Render Occupancy Numerical Badges + Dense 5-Row Summary Body
+    function renderOccupancyBadgesHtml(tag) {
+      const occ = activeCampaignOdvIndex[tag] || { nodes: [], edges: [] };
+      const nCount = occ.nodes.length;
+      const eCount = occ.edges.length;
+      if (nCount === 0 && eCount === 0) return "";
+
+      const nodeNamesTitle = occ.nodes.map(n => `#${n.id} ${n.name}`).join(", ");
+      const edgeNamesTitle = occ.edges.map(ed => `${ed.key}: ${ed.name}`).join(", ");
+      let badges = `<span class="flex items-center gap-1 shrink-0">`;
+      if (nCount > 0) {
+        badges += `<span class="px-1.5 py-0.2 rounded font-mono font-bold text-[10px] occ-badge-node" title="Stationed Nodes (${nCount}): ${nodeNamesTitle}">📍 ${nCount}</span>`;
+      }
+      if (eCount > 0) {
+        badges += `<span class="px-1.5 py-0.2 rounded font-mono font-bold text-[10px] occ-badge-edge" title="Traversing Corridors (${eCount}): ${edgeNamesTitle}">🔗 ${eCount}</span>`;
+      }
+      badges += `</span>`;
+      return badges;
+    }
+
+    function renderDenseCellRowsHtml(arch) {
+      const boonHtml = extractFieldSnippet(arch.coreBoon);
+      const burdenHtml = extractFieldSnippet(arch.coreBurden);
+      const microHtml = extractFieldSnippet(arch.microPassive);
+      const macroHtml = extractFieldSnippet(arch.macroPassive);
+      const npcName = extractNpcName(arch.exemplarNpc);
+
+      return `
+        <div class="space-y-1 text-[10px] leading-tight pt-1 border-t border-slate-800/70">
+          <div class="line-clamp-1 text-slate-300" title="${stripFormatting(arch.coreBoon)}">
+            <span class="text-emerald-400 font-bold">✨ Boon:</span> ${boonHtml}
+          </div>
+          <div class="line-clamp-1 text-slate-300" title="${stripFormatting(arch.coreBurden)}">
+            <span class="text-rose-400 font-bold">⚠️ Burden:</span> ${burdenHtml}
+          </div>
+          <div class="line-clamp-1 text-slate-300" title="${stripFormatting(arch.microPassive)}">
+            <span class="text-sky-400 font-bold">⚔️ Micro:</span> ${microHtml}
+          </div>
+          <div class="line-clamp-1 text-slate-300" title="${stripFormatting(arch.macroPassive)}">
+            <span class="text-indigo-300 font-bold">🗺️ Macro:</span> ${macroHtml}
+          </div>
+          <div class="line-clamp-1 text-amber-300 font-semibold" title="${stripFormatting(arch.exemplarNpc)}">
+            <span class="text-amber-400 font-bold">🎭 NPC:</span> ${npcName}
+          </div>
+        </div>
+      `;
+    }
+
+    // Main Render Dispatcher
+    function renderActiveView() {
+      const container = document.getElementById("archetypes-container");
+      const searchVal = document.getElementById("archetype-search").value.toLowerCase().trim();
+      let totalVisible = 0;
+
+      if (currentViewMode === "layered") {
+        totalVisible = renderLayeredView(container, searchVal);
+      } else if (currentViewMode === "catalog") {
+        totalVisible = renderCatalogView(container, searchVal);
+      } else if (currentViewMode === "cvf") {
+        totalVisible = renderCvfView(container, searchVal);
+      }
+
+      document.getElementById("visible-archetype-count").innerText = totalVisible;
+    }
+
+    // VIEW 1: LAYERED 3D GRIDS (TIERED DYNAMICALLY BY C, E, OR S)
+    function renderLayeredView(container, searchVal) {
+      let html = "";
+      let count = 0;
+      const config = TIER_AXIS_DATA[currentTierAxis] || TIER_AXIS_DATA.c;
+
+      for (let tierVal = 1; tierVal <= 4; tierVal++) {
+        const tierInfo = config.tiers[tierVal];
+        let tierCellsHtml = "";
+        let tierMatches = 0;
+
+        // Build 4x4 Table (Rows: rowAxis 1..4, Columns: colAxis 1..4)
+        tierCellsHtml += `
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse border border-slate-800 text-xs">
+              <thead>
+                <tr class="bg-slate-950 text-slate-400 font-mono text-[11px] border-b border-slate-800">
+                  <th class="p-2 border-r border-slate-800 w-36">${config.rowName} \\ ${config.colName}</th>
+                  <th class="p-2 border-r border-slate-800 text-center">${config.colHeaders[0]}</th>
+                  <th class="p-2 border-r border-slate-800 text-center">${config.colHeaders[1]}</th>
+                  <th class="p-2 border-r border-slate-800 text-center">${config.colHeaders[2]}</th>
+                  <th class="p-2 text-center">${config.colHeaders[3]}</th>
+                </tr>
+              </thead>
+              <tbody>
+        `;
+
+        for (let rowVal = 1; rowVal <= 4; rowVal++) {
+          tierCellsHtml += `<tr class="border-b border-slate-800/80">`;
+          tierCellsHtml += `<td class="p-2 bg-slate-950/70 border-r border-slate-800 font-bold text-slate-300 font-mono text-[11px]">${config.rowLabels[rowVal-1]}</td>`;
+
+          for (let colVal = 1; colVal <= 4; colVal++) {
+            // Determine coordinate based on which axis is primary tier
+            let s, e, c;
+            if (currentTierAxis === "c") {
+              c = tierVal;
+              s = rowVal;
+              e = colVal;
+            } else if (currentTierAxis === "e") {
+              e = tierVal;
+              s = rowVal;
+              c = colVal;
+            } else if (currentTierAxis === "s") {
+              s = tierVal;
+              e = rowVal;
+              c = colVal;
+            }
+
+            const tag = `[${s}, ${e}, ${c}]`;
+            const arch = activeMatrix[tag] || { s, e, c, tag, archetypeName: "Frontier Cell", coreBoon: "", coreBurden: "", microPassive: "", macroPassive: "", exemplarNpc: "" };
+            const isMatch = matchesFilter(arch, searchVal);
+
+            if (isMatch) {
+              tierMatches++;
+              count++;
+            }
+
+            const quad = getQuadrant(s, e);
+            const mode = getOpMode(s, c);
+            const tarot = getResonantTarot(s, e, c);
+            const qMeta = CVF_META[quad] || CVF_META.Hierarchy;
+            const mMeta = MODE_META[mode] || MODE_META.Produce;
+            const activeQuad = getQuadrant(tunerState.s, tunerState.e);
+            const isQuadActive = (quad === activeQuad);
+            const isSelected = (tag === selectedTag);
+
+            const occ = activeCampaignOdvIndex[tag] || { nodes: [], edges: [] };
+            const occClass = occ.nodes.length > 0 ? "cell-occupied" : (occ.edges.length > 0 ? "cell-occupied-edge" : "");
+
+            tierCellsHtml += `
+              <td class="p-2 border-r border-slate-800/80 align-top ${isMatch ? '' : 'opacity-25 grayscale'}">
+                <div onclick="selectArchetypeCell('${tag}')" data-tag="${tag}" data-quadrant="${quad}" class="archetype-cell dense-cell-card ${isSelected ? 'cell-selected' : ''} ${isQuadActive ? 'quadrant-active' : ''} ${occClass} p-2.5 rounded-lg border transition cursor-pointer ${qMeta.cardClass} flex flex-col justify-between space-y-1.5">
+                  <div>
+                    <div class="flex items-center justify-between gap-1 mb-1 flex-wrap">
+                      <span class="font-mono text-[10px] font-bold text-slate-300 bg-slate-900/80 px-1.5 py-0.5 rounded">${tag}</span>
+                      <div class="flex items-center gap-1">
+                        ${renderOccupancyBadgesHtml(tag)}
+                        <span class="text-[10px] px-1.5 py-0.5 rounded font-bold ${qMeta.badge}">${qMeta.icon} ${qMeta.name}</span>
+                      </div>
+                    </div>
+                    <div class="font-extrabold text-white text-xs leading-tight mb-1">${arch.archetypeName}</div>
+                    ${renderDenseCellRowsHtml(arch)}
+                  </div>
+                  <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-800/60">
+                    <span class="px-1.5 py-0.2 rounded border ${mMeta.badge}">${mMeta.icon} ${mMeta.name}</span>
+                    ${tarot ? `<span class="text-purple-300 font-bold" title="${tarot.name}">🃏 ${tarot.name}</span>` : ""}
+                  </div>
+                </div>
+              </td>
+            `;
+          }
+          tierCellsHtml += `</tr>`;
+        }
+
+        tierCellsHtml += `</tbody></table></div>`;
+
+        html += `
+          <div class="mb-8 bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-slate-800 gap-2">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <span>${tierInfo.icon} ${tierInfo.name}</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300">${tierMatches}/16 Archetypes</span>
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">${tierInfo.desc}</p>
+              </div>
+            </div>
+            ${tierCellsHtml}
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+      return count;
+    }
+
+    // VIEW 2: CARD CATALOG VIEW
+    function renderCatalogView(container, searchVal) {
+      const cards = [];
+      let count = 0;
+
+      // Iterate through all 64 keys deterministically
+      for (let s = 1; s <= 4; s++) {
+        for (let e = 1; e <= 4; e++) {
+          for (let c = 1; c <= 4; c++) {
+            const tag = `[${s}, ${e}, ${c}]`;
+            const arch = activeMatrix[tag] || { s, e, c, tag, archetypeName: "Frontier Cell" };
+            if (matchesFilter(arch, searchVal)) {
+              cards.push(arch);
+              count++;
+            }
+          }
+        }
+      }
+
+      if (cards.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-16 bg-slate-900/50 rounded-2xl border border-slate-800">
+            <span class="text-3xl">🔍</span>
+            <p class="text-slate-400 text-sm font-semibold mt-2">No archetypes matched your search and filter criteria.</p>
+            <button onclick="clearSearch()" class="mt-3 px-3 py-1.5 rounded-lg bg-sky-600 text-white text-xs font-bold">Clear Filters</button>
+          </div>
+        `;
+        return 0;
+      }
+
+      let html = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">`;
+      cards.forEach(arch => {
+        const quad = getQuadrant(arch.s, arch.e);
+        const mode = getOpMode(arch.s, arch.c);
+        const tarot = getResonantTarot(arch.s, arch.e, arch.c);
+        const qMeta = CVF_META[quad] || CVF_META.Hierarchy;
+        const mMeta = MODE_META[mode] || MODE_META.Produce;
+        const activeQuad = getQuadrant(tunerState.s, tunerState.e);
+        const isQuadActive = (quad === activeQuad);
+        const isSelected = (arch.tag === selectedTag);
+        const occ = activeCampaignOdvIndex[arch.tag] || { nodes: [], edges: [] };
+        const occClass = occ.nodes.length > 0 ? "cell-occupied" : (occ.edges.length > 0 ? "cell-occupied-edge" : "");
+
+        html += `
+          <div onclick="selectArchetypeCell('${arch.tag}')" data-tag="${arch.tag}" data-quadrant="${quad}" class="archetype-cell dense-cell-card ${isSelected ? 'cell-selected' : ''} ${isQuadActive ? 'quadrant-active' : ''} ${occClass} p-4 rounded-xl border transition cursor-pointer ${qMeta.cardClass} flex flex-col justify-between space-y-2">
+            <div>
+              <div class="flex items-center justify-between gap-1 mb-1.5 flex-wrap">
+                <span class="font-mono text-xs font-bold text-slate-300 bg-slate-900/90 px-2 py-0.5 rounded">${arch.tag}</span>
+                <div class="flex items-center gap-1">
+                  ${renderOccupancyBadgesHtml(arch.tag)}
+                  <span class="text-[10px] px-2 py-0.5 rounded font-bold border ${qMeta.badge}">${qMeta.icon} ${qMeta.name}</span>
+                  ${tarot ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-purple-950 text-purple-300 border border-purple-800" title="${tarot.name}">🃏</span>` : ""}
+                </div>
+              </div>
+              <h4 class="font-extrabold text-white text-sm mb-1">${arch.archetypeName}</h4>
+              ${renderDenseCellRowsHtml(arch)}
+            </div>
+
+            <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+              <span class="px-2 py-0.5 rounded border ${mMeta.badge}">${mMeta.icon} ${mMeta.name}</span>
+              <span class="text-sky-400 font-bold text-[10px]">Inspect Dossier &uarr;</span>
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+
+      container.innerHTML = html;
+      return count;
+    }
+
+    // VIEW 3: CVF QUADRANTS VIEW
+    function renderCvfView(container, searchVal) {
+      const quadrants = ["Clan", "Adhocracy", "Market", "Hierarchy"];
+      let html = `<div class="grid grid-cols-1 lg:grid-cols-4 gap-4">`;
+      let count = 0;
+      const activeQuad = getQuadrant(tunerState.s, tunerState.e);
+
+      quadrants.forEach(qName => {
+        const qMeta = CVF_META[qName];
+        const items = [];
+        const isColumnActive = (qName === activeQuad);
+
+        for (let s = 1; s <= 4; s++) {
+          for (let e = 1; e <= 4; e++) {
+            if (getQuadrant(s, e) === qName) {
+              for (let c = 1; c <= 4; c++) {
+                const tag = `[${s}, ${e}, ${c}]`;
+                const arch = activeMatrix[tag] || { s, e, c, tag, archetypeName: "Frontier Cell" };
+                if (matchesFilter(arch, searchVal)) {
+                  items.push(arch);
+                  count++;
+                }
+              }
+            }
+          }
+        }
+
+        html += `
+          <div id="cvf-col-${qName}" class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex flex-col space-y-3 transition-all ${isColumnActive ? 'ring-2 ring-sky-500/60 shadow-lg' : ''}">
+            <div class="pb-3 border-b border-slate-800">
+              <div class="flex items-center justify-between">
+                <span class="font-extrabold text-sm flex items-center gap-1.5" style="color: ${qMeta.color}">
+                  <span>${qMeta.icon} ${qMeta.name}</span>
+                </span>
+                <span class="text-[11px] font-mono text-slate-400">${items.length}/16</span>
+              </div>
+            </div>
+
+            <div class="space-y-2.5 overflow-y-auto max-h-[600px] custom-scroll pr-1 flex-grow">
+        `;
+
+        items.forEach(arch => {
+          const mode = getOpMode(arch.s, arch.c);
+          const mMeta = MODE_META[mode] || MODE_META.Produce;
+          const isSelected = (arch.tag === selectedTag);
+          const isQuadActive = (qName === activeQuad);
+          const occ = activeCampaignOdvIndex[arch.tag] || { nodes: [], edges: [] };
+          const occClass = occ.nodes.length > 0 ? "cell-occupied" : (occ.edges.length > 0 ? "cell-occupied-edge" : "");
+
+          html += `
+            <div onclick="selectArchetypeCell('${arch.tag}')" data-tag="${arch.tag}" data-quadrant="${qName}" class="archetype-cell ${isSelected ? 'cell-selected' : ''} ${isQuadActive ? 'quadrant-active' : ''} ${occClass} p-2.5 rounded-lg border transition cursor-pointer ${qMeta.cardClass} space-y-1">
+              <div class="flex items-center justify-between text-[10px] gap-1 flex-wrap">
+                <span class="font-mono font-bold text-slate-300 bg-slate-900 px-1 rounded">${arch.tag}</span>
+                <div class="flex items-center gap-1">
+                  ${renderOccupancyBadgesHtml(arch.tag)}
+                  <span class="px-1.5 py-0.2 rounded border ${mMeta.badge}">${mMeta.name}</span>
+                </div>
+              </div>
+              <div class="font-bold text-white text-xs truncate">${arch.archetypeName}</div>
+              ${renderDenseCellRowsHtml(arch)}
+            </div>
+          `;
+        });
+
+        html += `</div></div>`;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+      return count;
+    }
+
+    // Cell Selection Callback (Updates Tuner, Dossier, and Highlights)
+    function selectArchetypeCell(tag) {
+      selectedTag = tag;
+      const m = tag.match(/\[(\d+),\s*(\d+),\s*(\d+)\]/);
+      if (m) {
+        tunerState.s = parseInt(m[1]);
+        tunerState.e = parseInt(m[2]);
+        tunerState.c = parseInt(m[3]);
+        updateTunerUI();
+      }
+    }
+
+    // Copy Utilities
+    function copyActiveDossierMarkdown() {
+      if (!activeArchetypeData) return;
+      const arch = activeArchetypeData;
+      const quad = getQuadrant(arch.s, arch.e);
+      const mode = getOpMode(arch.s, arch.c);
+      const occ = activeCampaignOdvIndex[arch.tag] || { nodes: [], edges: [] };
+      const nodesStr = occ.nodes.length ? occ.nodes.map(n => `#${n.id} ${n.name}`).join(", ") : "None";
+      const edgesStr = occ.edges.length ? occ.edges.map(ed => `${ed.key} (${ed.name})`).join(", ") : "None";
+
+      const md = `### ${arch.archetypeName} \`${arch.tag}\`
+**Culture:** ${quad} | **Mode:** ${mode}
+- **Core Boon:** ${arch.coreBoon}
+- **Core Burden:** ${arch.coreBurden}
+- **Micro-Passive (Tactical):** ${arch.microPassive}
+- **Macro-Passive (Pointcrawl):** ${arch.macroPassive}
+- **Exemplar NPC:** ${arch.exemplarNpc}
+- **Active Campaign Nodes (${occ.nodes.length}):** ${nodesStr}
+- **Active Campaign Corridors (${occ.edges.length}):** ${edgesStr}
+`;
+      navigator.clipboard.writeText(md).then(() => {
+        showToast("Copied Markdown Dossier to clipboard!");
+      });
+    }
+
+    function copyActiveDossierJson() {
+      if (!activeArchetypeData) return;
+      const occ = activeCampaignOdvIndex[activeArchetypeData.tag] || { nodes: [], edges: [] };
+      const payload = { ...activeArchetypeData, campaignOccupants: occ };
+      navigator.clipboard.writeText(JSON.stringify(payload, null, 2)).then(() => {
+        showToast("Copied Archetype JSON to clipboard!");
+      });
+    }
+
+    // Campaign JSON Upload Handler
+    function handleCampaignFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed && (parsed.nodes || parsed.maps)) {
+            activeCampaignTopology = parsed;
+            activeCampaignSource = parsed.campaignName || parsed.name || file.name;
+            buildCampaignOdvIndex(activeCampaignTopology);
+            renderActiveView();
+            updateTunerUI();
+            showToast(`Reflected campaign "${activeCampaignSource}" onto 64-cell matrix!`);
+          } else {
+            throw new Error("JSON does not contain 'nodes' or 'maps' topology data.");
+          }
+        } catch (err) {
+          alert(`Failed to load campaign JSON: ${err.message}`);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Dynamic Mod File Upload
+    function handleModFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const content = e.target.result;
+          let parsed = null;
+
+          if (file.name.endsWith(".json")) {
+            parsed = JSON.parse(content);
+          } else if (file.name.endsWith(".js")) {
+            // Safe JSON-in-JS extraction
+            const jsonMatch = content.match(/ODV_MATRIX_64\s*=\s*(\{[\s\S]*?\});/);
+            if (jsonMatch) {
+              parsed = (new Function(`return ${jsonMatch[1]}`))();
+            } else {
+              throw new Error("Could not find ODV_MATRIX_64 declaration in JS file.");
+            }
+          }
+
+          if (parsed && (parsed.nodes || parsed.maps)) {
+            // Auto-detect if user loaded a Campaign Topology JSON via this button
+            activeCampaignTopology = parsed;
+            activeCampaignSource = parsed.campaignName || parsed.name || file.name;
+            buildCampaignOdvIndex(activeCampaignTopology);
+            renderActiveView();
+            updateTunerUI();
+            showToast(`Reflected campaign "${activeCampaignSource}" onto 64-cell matrix!`);
+            return;
+          }
+
+          if (parsed && typeof parsed === "object") {
+            window.ODV_MATRIX_OVERRIDE = parsed;
+            initMatrixData();
+            updateTunerUI();
+            renderActiveView();
+            showToast(`Loaded ${Object.keys(parsed).length} archetypes from ${file.name}`);
+          } else {
+            throw new Error("File did not contain a valid matrix dictionary.");
+          }
+        } catch (err) {
+          alert(`Failed to parse custom matrix: ${err.message}`);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Export Matrix JSON
+    function exportCurrentMatrixJson() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(activeMatrix, null, 2));
+      const downloadAnchor = document.createElement("a");
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `creator_studio_odv_matrix_${Date.now()}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("Exported active matrix JSON!");
+    }
+
+    // Reset to Game Defaults
+    function resetMatrixToDefaults() {
+      delete window.ODV_MATRIX_OVERRIDE;
+      initMatrixData();
+      loadActiveCampaignTopology();
+      renderActiveView();
+      updateTunerUI();
+      showToast("Reset to game file defaults (sociology_data.js)!");
+    }
+
+    // Toast Utility
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.classList.remove("opacity-0", "pointer-events-none", "translate-y-2");
+      t.classList.add("opacity-100", "translate-y-0");
+      setTimeout(() => {
+        t.classList.remove("opacity-100", "translate-y-0");
+        t.classList.add("opacity-0", "pointer-events-none", "translate-y-2");
+      }, 2500);
+    }
+
+    // Boot
+    document.addEventListener("DOMContentLoaded", () => {
+      initMatrixData();
+      loadActiveCampaignTopology();
+      renderActiveView();
+      updateTunerUI();
+    });
+  </script>
+  <!-- DIAGNOSTIC WIZARD MODAL (ZERO-CORS OFFLINE MODAL) -->
+  <div id="diagnostic-modal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-sky-500 rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl overflow-y-auto max-h-[90vh]">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <span>🧭 SOC-06 Deterministic Faction Diagnostic Wizard</span>
+        </h3>
+        <button onclick="closeDiagnosticWizardModal()" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+      </div>
+      <div id="diagnostic-wizard-step-container" class="space-y-4">
+        <!-- Injected dynamically via renderDiagnosticWizardModalContent() -->
+      </div>
+    </div>
+  </div>
+</body>
+</html>

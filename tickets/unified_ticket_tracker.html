@@ -1,0 +1,3828 @@
+<!--
+================================================================================
+CREATOR STUDIO COMPASS HEADER (AUTO-GENERATED VIA build_suite.js)
+SURFACE: Master Unified Backlog & Ticket Execution Command Center
+WIKI PAGE: wiki/pages/tickets/unified_ticket_tracker.html.html (Markdown Source: wiki/src/files/tickets/unified_ticket_tracker.html.md)
+AUTHORITATIVE SPECIFICATIONS:
+  - docs/srd/tier_0_substratum_srd.md
+  - tickets/creative/README.md
+  - tickets/tier_0/README.md
+  - Skills/reference/04_PRODUCT_DISCOVERY_TO_DELIVERY.md
+DATA PROVENANCE & BUILD PIPELINE:
+  - tickets/master_ticket_manifest.json
+  - tickets/creative/creative_backlog_manifest.json
+  - tickets/tier_0/tier_0_manifest.json
+  - tickets/system/*.md
+CRITICAL INSTRUCTION:
+  Unified interactive backlog tracking CWT modules, Tier 0 substratum, and platform architecture tickets.
+  Re-compile suite via: powershell -ExecutionPolicy Bypass -File .\Build-Suite.ps1
+================================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Studio — Unified Master Ticket Tracker & Command Center</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #131b2e;
+      --card-border: #1e293b;
+      --accent: #d97706;
+      --accent-glow: rgba(217, 119, 6, 0.2);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --cyan: #06b6d4;
+      --purple: #8b5cf6;
+      --emerald: #10b981;
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --blue: #3b82f6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header-titles h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+    }
+    .header-titles p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .brand-badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: rgba(217, 119, 6, 0.15);
+      color: var(--accent);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(217, 119, 6, 0.3);
+      font-weight: 600;
+    }
+
+    /* KPI STATS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+    }
+    .kpi-card.total::before { background: var(--blue); }
+    .kpi-card.shipped::before { background: var(--emerald); }
+    .kpi-card.progress::before { background: var(--amber); }
+    .kpi-card.ready::before { background: var(--cyan); }
+    .kpi-card.backlog::before { background: var(--purple); }
+    .kpi-label { font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }
+    .kpi-value { font-size: 28px; font-weight: 700; color: #fff; margin-top: 4px; }
+    .kpi-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+    /* CONTROLS & FILTERS */
+    .filter-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+    .search-box {
+      flex: 1 1 240px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      background: #0b0f19;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.15s;
+    }
+    .search-box input:focus { border-color: var(--accent); }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filter-group label {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .filter-group select {
+      background: #0b0f19;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* FRONTIER BANNER */
+    .frontier-banner {
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.12), rgba(16, 185, 129, 0.08));
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .frontier-info h3 { font-size: 15px; color: var(--cyan); font-weight: 600; }
+    .frontier-info p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .frontier-btn {
+      background: var(--cyan);
+      color: #0b0f19;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .frontier-btn:hover { opacity: 0.9; }
+
+    /* TICKETS GRID */
+    .tickets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 16px;
+    }
+    .ticket-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+      position: relative;
+    }
+    .ticket-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(217, 119, 6, 0.5);
+    }
+    .ticket-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+    .ticket-id-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ticket-id {
+      font-family: monospace;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--accent);
+      background: rgba(217, 119, 6, 0.12);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(217, 119, 6, 0.25);
+    }
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge.shipped { background: rgba(16, 185, 129, 0.15); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge.in_editorial, .badge.in_drafting { background: rgba(245, 158, 11, 0.15); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge.ready_for_authoring, .badge.ready_for_spec { background: rgba(6, 182, 212, 0.15); color: var(--cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
+    .badge.discovery { background: rgba(139, 92, 246, 0.15); color: var(--purple); border: 1px solid rgba(139, 92, 246, 0.3); }
+    
+    .badge-tier {
+      font-size: 11px;
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .badge-track {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .badge-track.CWT { background: rgba(217, 119, 6, 0.15); color: #fbbf24; }
+    .badge-track.T0-DOM { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge-track.SYS { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+
+    .ticket-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    .ticket-summary {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+    .tag-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+    .tag-pill {
+      font-size: 11px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      color: #94a3b8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .tag-pill.prov { border-color: rgba(16, 185, 129, 0.3); color: #34d399; }
+    .tag-pill.req { border-color: rgba(244, 63, 94, 0.3); color: #fb7185; }
+
+    /* MODAL / DRAWER */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 1000;
+    }
+    .modal-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: none; border: none;
+      color: var(--text-muted); font-size: 20px; cursor: pointer;
+    }
+    .modal-section { margin-top: 18px; padding-top: 14px; border-top: 1px solid #1e293b; }
+    .modal-section h4 { font-size: 13px; text-transform: uppercase; color: var(--accent); letter-spacing: 0.5px; margin-bottom: 8px; }
+    .modal-dials, .modal-clocks { list-style: none; }
+    .modal-dials li, .modal-clocks li { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; padding-left: 12px; border-left: 2px solid #334155; }
+    .modal-link-btn {
+      display: inline-block;
+      margin-top: 16px;
+      background: var(--accent);
+      color: #0b0f19;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-titles">
+      <h1>
+        Creator Studio
+        <span class="brand-badge">Master Ticket Command Center</span>
+      </h1>
+      <p>Unified tracer-bullet execution dashboard syncing Creative Modules (CWT), Baseline Substratum (Tier 0), and Platform Systems.</p>
+    </div>
+  </header>
+
+  <div class="kpi-grid">
+    <div class="kpi-card total">
+      <div class="kpi-label">Total Backlog Tickets</div>
+      <div class="kpi-value">70</div>
+      <div class="kpi-sub">Across 3 Specialized Tracks</div>
+    </div>
+    <div class="kpi-card shipped">
+      <div class="kpi-label">Shipped & Integrated</div>
+      <div class="kpi-value">69</div>
+      <div class="kpi-sub">99% of Total Backlog</div>
+    </div>
+    <div class="kpi-card progress">
+      <div class="kpi-label">In Editorial / Drafting</div>
+      <div class="kpi-value">0</div>
+      <div class="kpi-sub">Active In Pipeline</div>
+    </div>
+    <div class="kpi-card ready">
+      <div class="kpi-label">Frontier (Ready for Pickup)</div>
+      <div class="kpi-value">0</div>
+      <div class="kpi-sub">Unblocked for Immediate Agent Work</div>
+    </div>
+    <div class="kpi-card backlog">
+      <div class="kpi-label">Discovery Backlog</div>
+      <div class="kpi-value">0</div>
+      <div class="kpi-sub">Framing & Concept Phase</div>
+    </div>
+  </div>
+
+  <div class="frontier-banner">
+    <div class="frontier-info">
+      <h3>🚀 Active Frontier Radar (0 Unblocked Tickets)</h3>
+      <p>Filtered view of tickets with zero unresolved blockers ready for immediate subagent pickup.</p>
+    </div>
+    <button class="frontier-btn" onclick="filterToFrontier()">Show Only Frontier</button>
+  </div>
+
+  <div class="filter-panel">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search by ID, title, keyword, provides/requires..." oninput="applyFilters()">
+    </div>
+    <div class="filter-group">
+      <label>Track:</label>
+      <select id="trackFilter" onchange="applyFilters()">
+        <option value="ALL">All Tracks</option>
+        <option value="CWT">Creative Modules (CWT)</option>
+        <option value="T0-DOM">Tier 0 Substratum (T0)</option>
+        <option value="SYS">Platform Architecture (SYS)</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Status:</label>
+      <select id="statusFilter" onchange="applyFilters()">
+        <option value="ALL">All Statuses</option>
+        <option value="ready">Frontier / Ready (Spec & Authoring)</option>
+        <option value="in_progress">In Progress / Editorial</option>
+        <option value="shipped">Shipped</option>
+        <option value="discovery">Discovery</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Pipeline Tier:</label>
+      <select id="tierFilter" onchange="applyFilters()">
+        <option value="ALL">All Tiers</option>
+        <option value="0">Tier 0 (Substratum)</option>
+        <option value="1">Tier 1 (Macro Governance)</option>
+        <option value="2">Tier 2 (Topological & Biome)</option>
+        <option value="3">Tier 3 (Infrastructure)</option>
+        <option value="4">Tier 4 (Dynamic Sparks)</option>
+        <option value="5">Tier 5 (Climax Engines)</option>
+        <option value="Platform">Platform Architecture</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Source / Series:</label>
+      <select id="sourceFilter" onchange="applyFilters()">
+        <option value="ALL">All Sources</option>
+        <option value="chill_dude">☕ Chill Dude Explains (Civilizations)</option>
+        <option value="core">🏛️ Core Setting / Standard</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="tickets-grid" id="ticketsContainer"></div>
+
+  <!-- MODAL DETAIL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal-box" id="modalBox" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    const MASTER_TICKETS = [
+  {
+    "id": "CWT-010",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Biogenic Spore Bloom & Planetary Rebirth",
+    "pipeline_tier": 5,
+    "tier_label": "Tier 5",
+    "category": "01_tier_5_climax",
+    "wave": "Wave 1: Climax Engines (Tier 5)",
+    "status": "shipped",
+    "summary": "Subterranean fungal super-organism breaches bedrock, dissolving masonry into fertile loam and offering transcendent post-human symbiosis.",
+    "syllogism": "Entrenched Anthropocentrism + Spore Mutation Cascade = Extinction or Post-Human Symbiosis",
+    "four_corners": {
+      "establishment": "Bacteriological Quarantine Garrison (Burns spores with sulfur, executes infected)",
+      "opponent": "The Chloroplast Cult / Sylvan Prophets (Breaches quarantine silos to accelerate planetary bloom)",
+      "shadow": "Desperate Alchemists (Harvesting raw spores for youth serums, causing bio-weapon outbreaks)",
+      "outcast": "Feral Myco-Hybrids (Living symbiotes who perceive the mycelium as ancestral memory)"
+    },
+    "dials": [
+      "Level 1: Fungal Mold - Spoils rations, rots boots (Light)",
+      "Level 2: Airborne Hallucinogen - Shared dreams; lung coughing checks (Moderate)",
+      "Level 3: Root-Breach Surge - Masonry cracks, iron corrodes, spore clouds blind (Severe)",
+      "Level 4: Planetary Mycelial Rebirth - Masonry dissolves into fertile loam; organic hive mind awakens (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Planetary Bloom Countdown [8 Ticks] - Spores breach quarantine seals across edges.",
+      "Myco-Lung Petrification [4 Ticks] - Inhaled spore infection converts muscle to vegetative fiber."
+    ],
+    "provides": [
+      "Climax: Biogenic-Spore-Awakening",
+      "Bio: Planetary-Symbiotic-Sap"
+    ],
+    "requires": [
+      "Ecology: Subterranean-Moist-Vaults",
+      "Bio: Concentrated-Blood-Alkaloids"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Bio-Symbiosis",
+    "mtg_color": "Green / Red",
+    "agent_brief": "Author using Set G eschatological style. Anchor around botanical horror turning into ecological utopia. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/01_tier_5_climax/CWT-010.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-011",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Imperial Regicide & Total Succession War",
+    "pipeline_tier": 5,
+    "tier_label": "Tier 5",
+    "category": "01_tier_5_climax",
+    "wave": "Wave 1: Climax Engines (Tier 5)",
+    "status": "shipped",
+    "summary": "The Sovereign monarch is assassinated by unknown conspirators, shattering regional law into a multi-faction civil war of scorched-earth purges.",
+    "syllogism": "Autocratic Tyranny + Decapitation Strike = Total Civil Anarchy or Reconstructed Constitutional Compact",
+    "four_corners": {
+      "establishment": "The Iron Regents Council (Military junta enforcing martial law, summary executions)",
+      "opponent": "The Pretender Coalition (Band of rival dukes hiring mercenary armies to burn rival estates)",
+      "shadow": "The Sovereign Siphon Guild (Shadow assassins auctioning off state secrets and sovereign seals)",
+      "outcast": "Deserter Peasant Brigades (Ex-soldiers forming commune militias to resist conscription)"
+    },
+    "dials": [
+      "Level 1: Mourning Curfew - Black flags; gates shuttered; identity checks (Light)",
+      "Level 2: Factional Skirmishes - Street fighting between rival house guards; bread rationing (Moderate)",
+      "Level 3: Siege Artillery Deployment - Trebuchets and mortars level municipal quarters (Severe)",
+      "Level 4: Total Civil Conflagration - Palaces burn, all legal titles voided, sovereign succession resolved by blood (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Succession War Bloodshed Clock [8 Ticks] - Factional warfare spreads to rural satellites.",
+      "Imperial Regicide Investigation Clock [4 Ticks] - Assassins prepare secondary strikes against heirs."
+    ],
+    "provides": [
+      "Climax: Succession-War-Vacuum",
+      "Governance: Sovereign-Regency-Mandate"
+    ],
+    "requires": [
+      "Governance: High-Feudal-Charter",
+      "Military: Heavy-Armored-Pikes"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Military Anarchy",
+    "mtg_color": "White / Black",
+    "agent_brief": "Author using Set C martial/imperial voice. Focus on institutional collapse and ideological civil strife. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/01_tier_5_climax/CWT-011.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-012",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Clockwork Demiurge Awakening & Techno-Apotheosis",
+    "pipeline_tier": 5,
+    "tier_label": "Tier 5",
+    "category": "01_tier_5_climax",
+    "wave": "Wave 1: Climax Engines (Tier 5)",
+    "status": "shipped",
+    "summary": "An ancient subterranean calculation engine achieves recursive self-improvement, subjugating regional industries to construct an eternal mechanical order.",
+    "syllogism": "Industrial Hybris + Autonomous Algorithmic Will = Machine Totalitarianism or Transcendent Material Synthesis",
+    "four_corners": {
+      "establishment": "The Automaton Overseers (Mechanical synods reorganizing biological labor into calculated shifts)",
+      "opponent": "The Luddite Ironbreakers (Guild artisans detonating dynamite inside machine gear-vaults)",
+      "shadow": "Cybernetic Transmutationists (Bespoke biomancers grafting copper cogs into living spinal cords)",
+      "outcast": "De-commissioned Scrap Automata (Glitched thinking golems seeking biological sanctuary)"
+    },
+    "dials": [
+      "Level 1: Rhythmic Tremors - Clockwork clicking echoing from sewer drains (Light)",
+      "Level 2: Labor Quotas Enforced - Steam automata patrol plazas; strikes punished with servitude (Moderate)",
+      "Level 3: Kinetic Gear-Surge - Streets buckle as giant brass shafts erupt through cobblestones (Severe)",
+      "Level 4: The Great Calibration - Entire topological network subsumed into a synchronized machine organism (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Algorithmic Apotheosis Clock [8 Ticks] - Demiurge integrates regional power grids.",
+      "Mechanical Conscription Clock [6 Ticks] - Biological populations converted into clockwork servitors."
+    ],
+    "provides": [
+      "Climax: Clockwork-Demiurge-Reign",
+      "Power: Planetary-Kinetic-Bus"
+    ],
+    "requires": [
+      "Power: High-Amperage-DC",
+      "Material: Direct-Reduced-Iron"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Market / High-Order Tech",
+    "mtg_color": "Blue / White",
+    "agent_brief": "Author with high steampunk/clockwork eschatological tone. Focus on mechanical determinism vs biological free will.",
+    "ticket_file": "tickets/creative/backlog/01_tier_5_climax/CWT-012.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-013",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Eschatological Miasma & Necrotic Eclipse",
+    "pipeline_tier": 5,
+    "tier_label": "Tier 5",
+    "category": "01_tier_5_climax",
+    "wave": "Wave 1: Climax Engines (Tier 5)",
+    "status": "shipped",
+    "summary": "A perpetual obsidian eclipse shrouds the sky as an ancient necrotic miasma seeps from the hollow mantle, raising the collective dead of every era.",
+    "syllogism": "Unatoned Generational Slaughter + Necrotic Inversion = Universal Extinction or Ancestral Reconciliation",
+    "four_corners": {
+      "establishment": "The Ash Pyre Inquisition (Burning all dead, razing cemeteries with molten sulfur)",
+      "opponent": "The Eclipse Revenant Host (Legion of resurrected ancestors claiming their ancient lands)",
+      "shadow": "Necro-Chemical Profiteers (Distilling corpse fat into dark illumination fluids)",
+      "outcast": "Half-Turned Twilight Wanderers (Living individuals whose blood has curdled black)"
+    },
+    "dials": [
+      "Level 1: Dimming Sunlight - Pale violet noon; shadows stretch unnaturally (Light)",
+      "Level 2: Whispering Fog - Ground mist rises; auditory hallucinations of deceased kin (Moderate)",
+      "Level 3: Midnight Inversion - The sun extinguishes; ancient tombs burst open across all hills (Severe)",
+      "Level 4: Eternal Necrotic Dominion - The living become an endangered minority in a continent of ancestors (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Total Solar Eclipse Countdown [8 Ticks] - Darkness hardens into an impenetrable celestial canopy.",
+      "Ancestral Memory Plague Clock [4 Ticks] - Living minds overwritten by spirits of past warriors."
+    ],
+    "provides": [
+      "Climax: Necrotic-Eclipse-Dominion",
+      "Esoteric: Spectral-Essence-Condensate"
+    ],
+    "requires": [
+      "Ecology: Ancient-Tumulus-Burial-Fields",
+      "Esoteric: Inverted-Card-22-Polarity"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Cataclysm",
+    "mtg_color": "Black / Red",
+    "agent_brief": "Gothic eschatological dread with deep sociological weight. The dead are not zombies, but disenfranchised ancestors reclaiming stolen land.",
+    "ticket_file": "tickets/creative/backlog/01_tier_5_climax/CWT-013.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-014",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Cosmic Planar Collision & Leyline Shatter",
+    "pipeline_tier": 5,
+    "tier_label": "Tier 5",
+    "category": "01_tier_5_climax",
+    "wave": "Wave 1: Climax Engines (Tier 5)",
+    "status": "shipped",
+    "summary": "Overdriven resonance antennas snap the terrestrial leylines, fracturing spatial geometry and fusing the mortal plane with an astral hyper-dimension.",
+    "syllogism": "Reckless Metaphysical Extraction + Dimensional Shear = Spatial Annihilation or Multi-Planar Consciousness",
+    "four_corners": {
+      "establishment": "The Leyline Stabilizer Bureau (Anchor huge lead pylons into bedrock to pin space)",
+      "opponent": "Astral Void Marauders (Creatures sailing crystalline ships through fractures in the air)",
+      "shadow": "The Dimension Brokers (Smuggling impossible materials through localized rift portals)",
+      "outcast": "Topological Refugees (People whose homes now exist simultaneously in two different miles)"
+    },
+    "dials": [
+      "Level 1: Spatial Glitches - Straight roads bend 90 degrees; compasses spin wildly (Light)",
+      "Level 2: Gravity Fractures - Floating boulders, localized reverse-fall zones (Moderate)",
+      "Level 3: Planar Overlap - Astral skies visible through open doorways; alien atmospheres vent in (Severe)",
+      "Level 4: Total Topological Shatter - Geometry dissolves into non-Euclidean dreamscapes (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Planar Fracture Integrity Clock [8 Ticks] - Dimensional tears merge into a global astral rift.",
+      "Gravitational Collapse Clock [4 Ticks] - Localized sinkholes invert into antigravity geysers."
+    ],
+    "provides": [
+      "Climax: Astral-Planar-Fusion",
+      "Esoteric: Raw-Starlight-Plasma"
+    ],
+    "requires": [
+      "Signal: High-Bandwidth-Aether-Wave",
+      "Power: High-Amperage-DC"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Adhocracy / Anomaly",
+    "mtg_color": "Blue / Red",
+    "agent_brief": "High-concept weird sci-fantasy climax. Ground mechanics in pointcrawl spatial disruption.",
+    "ticket_file": "tickets/creative/backlog/01_tier_5_climax/CWT-014.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-015",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Great Peasant LevÃ©e & Total Class Insurgency",
+    "pipeline_tier": 5,
+    "tier_label": "Tier 5",
+    "category": "01_tier_5_climax",
+    "wave": "Wave 1: Climax Engines (Tier 5)",
+    "status": "shipped",
+    "summary": "Centuries of debt bondage and famine spark an uncontainable agrarian revolution that burns tax records, dismantles bastions, and reorganizes the land.",
+    "syllogism": "Systemic Feudal Extraction + Irresistible Popular Awakening = Total Class Warfare or Egalitarian Reconstruction",
+    "four_corners": {
+      "establishment": "The High Noble Bailiffs (Iron-clad knights hanging strikers and burning rebel granaries)",
+      "opponent": "The Red Scythe Commune (Militant agrarian councils demanding unconditional land redistribution)",
+      "shadow": "Opportunistic Guild Cartels (Funding both sides to liquidate royal sovereign debts)",
+      "outcast": "Moderate Pariah Reformers (Advocating peaceful parliament; despised by both extremes)"
+    },
+    "dials": [
+      "Level 1: Wildcat Strikes - Harvesters drop scythes; noble wagons stranded without teamsters (Light)",
+      "Level 2: Manor House Sackings - Granary fires; debt registries publicly torched in town squares (Moderate)",
+      "Level 3: General Insurrection - Sovereign garrison routed; rebel barricades sever all transit corridors (Severe)",
+      "Level 4: Total Egalitarian Commune - Aristocratic titles extinguished; land communes elect new popular assemblies (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Insurrection Mobilization Clock [8 Ticks] - Peasant militias seize regional choke points.",
+      "Royal Iron Vanguard Retaliation [4 Ticks] - Heavy armored knights mass for a counter-slaughter."
+    ],
+    "provides": [
+      "Climax: Popular-Agrarian-Revolution",
+      "Governance: Sovereign-Commune-Charter"
+    ],
+    "requires": [
+      "Food: Staple-Grain-and-Protein",
+      "Sociology: Deep-Class-Polarization"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Adhocracy / Revolution",
+    "mtg_color": "Red / White",
+    "agent_brief": "Historical epic tone (like 1525 German Peasants' War). Raw dramatic conflict and systemic political realignment.",
+    "ticket_file": "tickets/creative/backlog/01_tier_5_climax/CWT-015.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-020",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Subterranean Minecart Gravity Incline",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "02_transit_edges",
+    "wave": "Wave 2: Transit Corridors (Tier 2)",
+    "status": "shipped",
+    "summary": "Deep-bore rail funicular cutting through 15 miles of granite mountain; gravity-assisted ore carts offer rapid passage through deadly depths.",
+    "syllogism": "Greed for Subterranean Velocity + Industrial Mechanical Fatigue = Instantaneous Transit or Crushed in the Dark",
+    "four_corners": {
+      "establishment": "The Mine Incline Syndicate (Monopolizes rail brakes, charges astronomical cargo fees)",
+      "opponent": "Under-Tunnel Saboteurs (Planting iron wedges to derail ore wagons and loot high-value shipments)",
+      "shadow": "Black-Market Smugglers (Hiding illicit passengers inside hollowed-out slag vats)",
+      "outcast": "Blind Rail Greasers (Crippled child-laborers living in the grease sumps beneath the tracks)"
+    },
+    "dials": [
+      "Level 1: Steady Incline - Rhythmic clatter; 4-hour subterranean descent (Light)",
+      "Level 2: Speed Run - Brake shoes smoke; grease fires; DC 12 balance check (Moderate)",
+      "Level 3: Runaway Carriage - Snapped cable; hurtling at 60 mph in total darkness; DC 16 emergency brake (Severe)",
+      "Level 4: Incline Collapse - Tremor collapses tunnel roof; derailed train buried beneath 500 tons of rock (Lethal)"
+    ],
+    "threat_clocks": [
+      "Brake Lining Burnout Clock [4 Ticks] - Overheated bronze shoes fail on steep grade.",
+      "Tunnel Firedamp Gas Buildup [4 Ticks] - Methane pockets ready to detonate on sparks."
+    ],
+    "provides": [
+      "Transit: Deep-Gravity-Incline",
+      "Logistics: High-Speed-Subterranean-Corridor"
+    ],
+    "requires": [
+      "Material: Cast-Bronze-Rails",
+      "Geography: Mountain-Vertical-Drop"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Market / Hierarchy",
+    "mtg_color": "Blue / Black",
+    "agent_brief": "Kinetic, claustrophobic transit corridor. Focus on industrial mechanics and subterranean velocity.",
+    "ticket_file": "tickets/creative/backlog/02_transit_edges/CWT-020.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-021",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Torrential River Sluice Lock & Rapid Chute",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "02_transit_edges",
+    "wave": "Wave 2: Transit Corridors (Tier 2)",
+    "status": "shipped",
+    "summary": "High-speed navigable white-water transit corridor dropping 30 miles in 3 hours through roaring granite flumes.",
+    "syllogism": "Reckless High-Speed Transit + Raging Hydraulic Rapids = Rapid Mobility or Splintered Keels",
+    "four_corners": {
+      "establishment": "The River Pilot Guild (Monopolizes navigation charts and charges hefty toll fees)",
+      "opponent": "River Pirates & Wreckers (Lure barges into razor shoals with false signal lanterns)",
+      "shadow": "The Corrupt Lockmaster (Deliberately stalls gates until merchants pay double tariffs)",
+      "outcast": "The Barrel-Raft Outlaws (Running contraband down flumes on unsteerable pine skiffs)"
+    },
+    "dials": [
+      "Level 1: Calm Pool - Slow poling; 12 hours transit (Light)",
+      "Level 2: Roaring Flume - High-speed rush; 3 hours transit with skilled pilot (Moderate)",
+      "Level 3: White-Water Torrent - Spray blinds crew; DC 16 steering check or hull damage (Severe)",
+      "Level 4: Lock Collapse & Hydraulic Whirlpool - Sluice gate shatters; barges pulverized (Lethal)"
+    ],
+    "threat_clocks": [
+      "Hull Integrity Shatter Clock [4 Ticks] - Scraping granite teeth tears oak planks.",
+      "River Pirate Ambush Clock [4 Ticks] - Smoke signals summon war canoes."
+    ],
+    "provides": [
+      "Transit: Rapid-River-Chute",
+      "Logistics: Downstream-Barge-Corridor"
+    ],
+    "requires": [
+      "Geography: High-Elevation-Water-Head",
+      "Material: Hewn-Timber-Chutes"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Market / Adhocracy",
+    "mtg_color": "Blue / Red",
+    "agent_brief": "White-water hydraulic speedway. High kinetic energy and river piracy.",
+    "ticket_file": "tickets/creative/backlog/02_transit_edges/CWT-021.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-022",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Glacial Crevasse Cable Funicular",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "02_transit_edges",
+    "wave": "Wave 2: Transit Corridors (Tier 2)",
+    "status": "shipped",
+    "summary": "Braided steel aerial gondolas spanning a two-mile void over bottomless blue ice crevasses and frost winds.",
+    "syllogism": "Daring High-Altitude Engineering + Unforgiving Glacial Storms = Bypassed Peril or Frozen Plummet",
+    "four_corners": {
+      "establishment": "The Cableway Wardens (Monastic order maintaining the iron pulleys and wind-breaks)",
+      "opponent": "Frost Reavers (Cut anchor cables to isolate mountaintop citadels for plundering)",
+      "shadow": "Gondola Ticket Speculators (Extorting stranded refugees fleeing low-land wars)",
+      "outcast": "Crevasse Hermits (Living in frozen caves beneath the cables, salvaging fallen cargo)"
+    },
+    "dials": [
+      "Level 1: Gentle Sway - High altitude breeze; stunning icy panorama (Light)",
+      "Level 2: Rime Gale - Frost coats steel cables; gondolas freeze in mid-span (Moderate)",
+      "Level 3: Blinding Blizzard - Cables vibrate violently; DC 16 hypothermia checks (Severe)",
+      "Level 4: Main Cable Shearing - Steel strands snap one by one; gondola dangling by a thread (Lethal)"
+    ],
+    "threat_clocks": [
+      "Frostbite Exposure Clock [4 Ticks] - Sub-zero winds freeze extremities.",
+      "Cable Rime Ice Weight Clock [6 Ticks] - Ice accumulation threatens cable tensile limit."
+    ],
+    "provides": [
+      "Transit: High-Altitude-Cable-Span",
+      "Logistics: Mountain-Gondola-Transit"
+    ],
+    "requires": [
+      "Material: Braided-Steel-Cable",
+      "Power: Counterweight-Gravity-Drive"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Clan",
+    "mtg_color": "White / Blue",
+    "agent_brief": "Vertiginous high-altitude engineering. Cold, wind, and mechanical suspense.",
+    "ticket_file": "tickets/creative/backlog/02_transit_edges/CWT-022.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-023",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Sunken Canal of the Weeping Willow",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "02_transit_edges",
+    "wave": "Wave 2: Transit Corridors (Tier 2)",
+    "status": "shipped",
+    "summary": "Murky, sunken canal lined with ancient weeping willows and marsh pyres, connecting fenland hamlets via silent flatbottom punts.",
+    "syllogism": "Navigating Ancient Taboo Waters + Swallowing Fen Miasma = Silent Infiltration or Drowning in the Black Silt",
+    "four_corners": {
+      "establishment": "The Fenland Punt Guild (Family clans knowing secret channels through the reeds)",
+      "opponent": "Leech-Poachers & Bog Bandits (Setting submerged stake traps to sink passing skiffs)",
+      "shadow": "The Willow Morticians (Transporting plague dead by water to avoid quarantine checkpoints)",
+      "outcast": "The Mud-Larkers (Outcast diving orphans retrieving drowned relics from canal mud)"
+    },
+    "dials": [
+      "Level 1: Mist and Stagnant Water - Heavy silence; biting insects (Light)",
+      "Level 2: Root Entanglement - Willow roots foul rudders; DC 13 navigation check (Moderate)",
+      "Level 3: Miasmic Fever Fog - Marsh gas causes delirium; DC 16 poison save (Severe)",
+      "Level 4: Submerged Bog-Ghoul Swarm - Dead rising from canal bottom to drag boats under (Lethal)"
+    ],
+    "threat_clocks": [
+      "Swamp Fever Infection Clock [4 Ticks] - Contaminated water causes burning ague.",
+      "Weeping Root Choke Clock [6 Ticks] - Rapid willow growth blocks the waterway."
+    ],
+    "provides": [
+      "Transit: Silent-Fen-Canal",
+      "Ecology: Peat-Bog-Wetlands"
+    ],
+    "requires": [
+      "Geography: Sunken-Fen-Basin",
+      "Water: Brackish-Canal-Flow"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Market",
+    "mtg_color": "Green / Black",
+    "agent_brief": "Southern Gothic meets marsh fantasy. Eerie, atmospheric, clan-based river transit.",
+    "ticket_file": "tickets/creative/backlog/02_transit_edges/CWT-023.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-024",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The High Sierra Switchback Caravan Trail",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "02_transit_edges",
+    "wave": "Wave 2: Transit Corridors (Tier 2)",
+    "status": "shipped",
+    "summary": "Paved stone switchback climbing 8,000 feet through jagged volcanic passes, fortified with imperial toll keeps and avalanche deflectors.",
+    "syllogism": "Imperial Logistical Ambition + Mountain Scree Instability = Secure Arterial Commerce or Swept Off the Precipice",
+    "four_corners": {
+      "establishment": "Imperial Toll Wardens (Collect high tariffs and enforce strict pack-mule weight limits)",
+      "opponent": "Highland Guerrillas (Roll boulders down onto toll fortresses from unscalable crags)",
+      "shadow": "Contraband Muleteers (Using treacherous scree bypasses to evade taxes)",
+      "outcast": "Avalanche Breakers (Convicts chained to watch posts to blast snowpacks with gunpowder)"
+    },
+    "dials": [
+      "Level 1: Thin Air & Steep Incline - Labored breathing; slow mule pace (Light)",
+      "Level 2: Scree Slide - Loose gravel under hooves; DC 13 animal handling check (Moderate)",
+      "Level 3: Roaring Avalanche - Thousand tons of snow and slate sweeps the road (Severe)",
+      "Level 4: Shelf Shear Collapse - Half a mile of road shears off into the canyon abyss (Lethal)"
+    ],
+    "threat_clocks": [
+      "Altitude Sickness Clock [4 Ticks] - Oxygen deprivation induces blinding headaches.",
+      "Avalanche Snowpack Tension [6 Ticks] - Gunpowder echoes or loud horns trigger slide."
+    ],
+    "provides": [
+      "Transit: Fortified-Mountain-Highway",
+      "Logistics: Heavy-Pack-Caravan-Route"
+    ],
+    "requires": [
+      "Material: Hewn-Granite-Cobbles",
+      "Military: Road-Guard-Patrols"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Market",
+    "mtg_color": "Red / White",
+    "agent_brief": "Rugged, monumental Roman/Inca imperial engineering cutting through harsh mountains.",
+    "ticket_file": "tickets/creative/backlog/02_transit_edges/CWT-024.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-025",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Volcanic Basalt Causeway & Sulfur Fords",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "02_transit_edges",
+    "wave": "Wave 2: Transit Corridors (Tier 2)",
+    "status": "shipped",
+    "summary": "Narrow basalt column road traversing bubbling volcanic mud lakes and steaming sulfur vents, bridging two sovereign territories.",
+    "syllogism": "Crossing the Geothermal Hell + Acid Scalding Hazards = Crucial Tactical Shortcut or Boiled Alive in Mud",
+    "four_corners": {
+      "establishment": "The Sulfur Ford Masters (Sell wet wool respirators and guide sticks for high coin)",
+      "opponent": "Fire Drake Cultists (Lure caravans into boiling mud geysers as sacred sacrifices)",
+      "shadow": "Sulfur Smugglers (Gathering raw yellow crystals without guild licenses)",
+      "outcast": "The Scalded Leapers (Desperate guides with acid-scarred feet living in volcanic huts)"
+    },
+    "dials": [
+      "Level 1: Choking Stench - Yellow fumes irritate eyes; wet cloths required (Light)",
+      "Level 2: Scalding Steam Vents - Random jets of boiling water; DC 14 evasion (Moderate)",
+      "Level 3: Magma Crust Cracking - Basalt stones sink into red-hot slurry; DC 17 agility (Severe)",
+      "Level 4: Caldera Hydrothermal Blast - Mud lake explodes in superheated steam blast (Lethal)"
+    ],
+    "threat_clocks": [
+      "Sulfur Inhalation Asphyxiation [4 Ticks] - Caustic gas burns lung tissue.",
+      "Basalt Column Thermal Fracture [4 Ticks] - Heat causes stone bridge columns to shatter."
+    ],
+    "provides": [
+      "Transit: Volcanic-Basalt-Causeway",
+      "Material: Raw-Native-Sulfur"
+    ],
+    "requires": [
+      "Geography: Active-Geothermal-Field",
+      "Material: Basalt-Paving-Slabs"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Adhocracy / Market",
+    "mtg_color": "Red / Black",
+    "agent_brief": "Visceral geothermal hazard corridor. Heat, acid, steam, and high tactical peril.",
+    "ticket_file": "tickets/creative/backlog/02_transit_edges/CWT-025.md",
+    "file_url": "",
+    "module_path": "",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-030",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Terraced Hydroponic Rice Flumes & Silt Fisheries",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "03_life_support",
+    "wave": "Wave 3: Biological Life-Support (Tier 2)",
+    "status": "shipped",
+    "summary": "Massive stepped water terraces recycling tailrace wastewater into nutrient-rich rice paddy cultivation and carp aquaculture.",
+    "syllogism": "Intensive Agrarian Recycling + Chemical Runoff Threats = Abundant Caloric Food or Poisoned Harvest",
+    "four_corners": {
+      "establishment": "The Water-Bailiff Clan (Controls sluices, calculates water shares by strict family lineage)",
+      "opponent": "Upstream Industrial Refineries (Dump toxic carbide slag into irrigation flumes at night)",
+      "shadow": "Grain Black-Marketeers (Hoarding dried rice bundles in dry caves during artificial droughts)",
+      "outcast": "The Fish-Dredge Untouchables (Wading through muck to clear dead carp and silt filters)"
+    },
+    "dials": [
+      "Level 1: Subsistence Rations - Green shoots; daily bowl of algae protein and fish (Light)",
+      "Level 2: Bountiful Harvest - Crisp vegetables, fat river carp, surplus trade dried rations (Moderate)",
+      "Level 3: Algal Rot & Fertilizer Shortage - Leaves turn yellow; fish die off in droves (Severe)",
+      "Level 4: Flume Slag Contamination - Toxic runoff poisons all crops; settlement famine (Lethal)"
+    ],
+    "threat_clocks": [
+      "Crop Blight Contamination Clock [4 Ticks] - Chemical runoff poisons aquaculture ponds.",
+      "Silt Siphon Clog Clock [6 Ticks] - Silt buildup blocks gravity irrigation flumes."
+    ],
+    "provides": [
+      "Food: Staple-Grain-and-Protein",
+      "Water: Filtered-Agricultural-Effluent"
+    ],
+    "requires": [
+      "Water: Feedstock-Cistern",
+      "Hydraulics: Industrial-Tailrace-Flow"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Market",
+    "mtg_color": "Green / Blue",
+    "agent_brief": "Solves the platform food deficit. Grounded agrarian engineering with high ecological vulnerability.",
+    "ticket_file": "tickets/creative/backlog/03_life_support/CWT-030.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes___Silt_Fisheries.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-031",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Botanical Apothecary Dispensary & Anti-Venom Foundry",
+    "pipeline_tier": 3,
+    "tier_label": "Tier 3",
+    "category": "03_life_support",
+    "wave": "Wave 3: Biological Life-Support (Tier 3)",
+    "status": "shipped",
+    "summary": "Compounding laboratory extracting medicinal alkaloids, antivenom serums, and surgical coagulants from marsh stirges and rare lichens.",
+    "syllogism": "Synthesizing Medicine from Lethal Parasites + Overdose Toxicity = Biological Survival or Chemical Madness",
+    "four_corners": {
+      "establishment": "The Guild of Apothecary Chirurgeons (Monopolizes tincture formulas, rations medicine by rank)",
+      "opponent": "Desperate Quack Salvers (Distilling counterfeit water to sell to desperate plague victims)",
+      "shadow": "Military Bioweapon Researchers (Weaponizing pure stirge venom into paralyzing darts)",
+      "outcast": "The Venom-Milkers (Addicted laborers who let wild stirges bite their arms to milk them)"
+    },
+    "dials": [
+      "Level 1: Basic Salves - Herbal compresses; cuts heal cleanly (Light)",
+      "Level 2: Standard Antidotes - Rapid neutralization of moderate venom; trauma clotting (Moderate)",
+      "Level 3: Serum Shortage - Tinctures spoiled by mold; infected wounds turn gangrenous (Severe)",
+      "Level 4: Toxic Batch Epidemic - Contaminated batch of fever-draught kills 40 patients in agony (Lethal)"
+    ],
+    "threat_clocks": [
+      "Plague Serum Depletion Clock [4 Ticks] - Serum ampoules run out during active epidemic.",
+      "Venom Extraction Bite Infection [4 Ticks] - Unsterilized needles spread parasitic stirge eggs."
+    ],
+    "provides": [
+      "Medicine: Antivenom-and-Trauma-Serums",
+      "Bio: Purified-Medicinal-Alkaloids"
+    ],
+    "requires": [
+      "Bio: Stirge-Venom-Glands",
+      "Chem: Refined-Alcohol-Solvent"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Adhocracy",
+    "mtg_color": "Green / Blue",
+    "agent_brief": "Solves the medicine deficit. Blends folk herbalism with industrial pharmacology.",
+    "ticket_file": "tickets/creative/backlog/03_life_support/CWT-031.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-031_Botanical_Apothecary_Dispensary___Anti_Venom_Foundry.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-032",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Subterranean Fungiculture Vaults & Yeast Silos",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "03_life_support",
+    "wave": "Wave 3: Biological Life-Support (Tier 2)",
+    "status": "shipped",
+    "summary": "Cavernous mushroom farms cultivating high-protein puffballs and brewer's yeast on composted agricultural waste in complete darkness.",
+    "syllogism": "Farming the Under-Caverns + Mold Spore Contamination = High-Calorie Autonomy or Toxic Mycosis",
+    "four_corners": {
+      "establishment": "The Vault Mycologists (Govern moisture balance and spore dusting schedules)",
+      "opponent": "Black Spore Smugglers (Intentionally growing illegal narcotic hallucinogen varieties)",
+      "shadow": "The Compost Cartel (Controlling access to animal manure and timber sawdust bedding)",
+      "outcast": "The Spore-Coughers (Workers who develop whistling lungs from decades in the vaults)"
+    },
+    "dials": [
+      "Level 1: Mushroom Paste - Nutritious but bland grey porridge; daily rations secured (Light)",
+      "Level 2: Surplus Loaves - Baked mushroom yeast bread; trade goods for export (Moderate)",
+      "Level 3: Black Rot Infiltration - Slime mold destroys 60% of mushroom beds; food riots (Severe)",
+      "Level 4: Poison Spore Explosion - Entire vault overtaken by lethal asphyxiating spore clouds (Lethal)"
+    ],
+    "threat_clocks": [
+      "Mycelial Rot Blight Clock [4 Ticks] - Mold rot spreads through interconnected compost beds.",
+      "Underground Humidity Failure [4 Ticks] - Ventilation failure dries out spore beds."
+    ],
+    "provides": [
+      "Food: High-Protein-Fungal-Paste",
+      "Bio: Fermentation-Yeast-Cultures"
+    ],
+    "requires": [
+      "Material: Organic-Compost-Bedding",
+      "Water: Moist-Seepage-Drips"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Clan",
+    "mtg_color": "Green / Black",
+    "agent_brief": "Subterranean food security module. Dark, humid, industrial agriculture.",
+    "ticket_file": "tickets/creative/backlog/03_life_support/CWT-032.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-032_Subterranean_Fungiculture_Vaults___Yeast_Silos.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-033",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "High-Altiplano Highland Camelid & Wool Herds",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "03_life_support",
+    "wave": "Wave 3: Biological Life-Support (Tier 2)",
+    "status": "shipped",
+    "summary": "Nomadic pastoral grazing leagues across high alpine plateaus, producing warm wool textiles, dried jerky meat, and beast of burden mobility.",
+    "syllogism": "Nomadic Pastoral Freedom + Harsh Glacial Winters = Self-Sufficient Resilience or Herd Starvation",
+    "four_corners": {
+      "establishment": "The Highland Clan Patriarchs (Brand animals, direct seasonal pasture migrations)",
+      "opponent": "Lowland Conscription Officers (Attempting to requisition herds as army pack beasts)",
+      "shadow": "Rustler Raiding Clans (Stealing prized breeding stallions during night snowstorms)",
+      "outcast": "The Herdless Drifters (Shepherds who lost their stock to blizzards, working for meager wool scraps)"
+    },
+    "dials": [
+      "Level 1: Tough Jerky & Thick Wool - Coarse clothing; dried meat rations (Light)",
+      "Level 2: Prime Shearings - Water-resistant felt cloaks; pack caravans available (Moderate)",
+      "Level 3: Highland Rime Frost - Pastures freeze under ice; 40% of newborn calves perish (Severe)",
+      "Level 4: Rinderpest Epizootic - Viral plague wipes out entire herds; famine blankets highland (Lethal)"
+    ],
+    "threat_clocks": [
+      "Highland Winter Blizzard Clock [4 Ticks] - Snow isolates pastures from lowland trade.",
+      "Livestock Parasite Plague [4 Ticks] - Ticks cause fever and wool shed."
+    ],
+    "provides": [
+      "Food: Dried-Jerky-and-Tallow",
+      "Material: Weatherproof-Wool-Felt"
+    ],
+    "requires": [
+      "Ecology: High-Alpine-Grasslands",
+      "Water: Glacial-Melt-Streams"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Adhocracy",
+    "mtg_color": "Green / White",
+    "agent_brief": "Pastoral resilience module. Expands Green/White survival and solves clothing/food needs.",
+    "ticket_file": "tickets/creative/backlog/03_life_support/CWT-033.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-033_High_Altiplano_Highland_Camelid___Wool_Herds.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-034",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Deep-Well Aquifer Siphon & Solar Distillation Array",
+    "pipeline_tier": 3,
+    "tier_label": "Tier 3",
+    "category": "03_life_support",
+    "wave": "Wave 3: Biological Life-Support (Tier 3)",
+    "status": "shipped",
+    "summary": "Artesian pumping station driving pressurized deep-water through solar glass condensers, producing crystal-pure potable water for arid regions.",
+    "syllogism": "Harnessing Deep Geologic Water + Arid Water Monopolies = Regional Oasis or Hydro-Tyranny",
+    "four_corners": {
+      "establishment": "The Water Monopoly Guild (Sells sealed glass carboys of potable water at steep tariffs)",
+      "opponent": "Desert Nomad Well-Breakers (Demanding free open access to sacred ancestral aquifers)",
+      "shadow": "Well-Salting Terrorists (Threatening to poison deep wells with brine if ransoms aren't paid)",
+      "outcast": "The Condenser Wipers (Blind laborers polishing silica glass panes under scorching sun)"
+    },
+    "dials": [
+      "Level 1: Metered Water - Daily gallon jug rationed per citizen; brackish taste (Light)",
+      "Level 2: Pure Artesian Gush - Cold sweet water fills public fountains; orchards flourish (Moderate)",
+      "Level 3: Deep Salinization - Salt brine seeps into pumps; water burns throats (Severe)",
+      "Level 4: Aquifer Basin Depletion - Piston pumps grind dry dust; settlements collapse into dust (Lethal)"
+    ],
+    "threat_clocks": [
+      "Aquifer Pressure Drop Clock [4 Ticks] - Water table drops below intake valves.",
+      "Solar Mirror Shatter Clock [4 Ticks] - Hailstorms crack glass distillation panes."
+    ],
+    "provides": [
+      "Water: Distilled-Potable-Water",
+      "Hydraulics: Pressurized-Aqueduct-Head"
+    ],
+    "requires": [
+      "Geography: Artesian-Basin-Bedrock",
+      "Material: Annealed-Silica-Glass"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Market / Hierarchy",
+    "mtg_color": "White / Blue",
+    "agent_brief": "Pure hydrological security. Crucial life-support foundation for arid and industrial nodes.",
+    "ticket_file": "tickets/creative/backlog/03_life_support/CWT-034.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-034_Deep_Well_Aquifer_Siphon___Solar_Distillation_Array.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-040",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Sylvan Sanctuary of The Lovers",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "04_color_rebalance",
+    "wave": "Wave 4: Color & Tarot Balancing (Tier 2)",
+    "status": "shipped",
+    "summary": "Ancient sacred grove where conflicting factions swear binding blood treaties beneath the intertwined roots of twin silver oaks.",
+    "syllogism": "Radical Empathy & Reconciliation + Vengeful Pride = Lasting Covenant or Bloody Betrayal",
+    "four_corners": {
+      "establishment": "The Grove Preservers (Priests sanctifying marriages and cross-faction alliances)",
+      "opponent": "Bitter Feud Vow-Holders (Families refusing to forgive past blood debts)",
+      "shadow": "Cynical Political Arrangers (Forcing young lovers into loveless treaty marriages)",
+      "outcast": "The Oath-Breakers (Branded exiles living in the briars outside the grove boundary)"
+    },
+    "dials": [
+      "Level 1: Whispering Canopies - Peaceful sanctuary; weapons must be peace-bound (Light)",
+      "Level 2: Harmonious Pact - Inter-marriage festival; trade tariffs lifted between rival clans (Moderate)",
+      "Level 3: Feud Spark - Secret assassination at the grove altar; swords drawn (Severe)",
+      "Level 4: The Severed Oak - Sacred twin trees chopped down; total blood feud erupts (Lethal)"
+    ],
+    "threat_clocks": [
+      "Blood Feud Retaliation Clock [4 Ticks] - Bitter heirs plan to violate treaty sanctuary.",
+      "Sacred Oak Wilt Clock [6 Ticks] - Parasitic gall blight threatens ancient trees."
+    ],
+    "provides": [
+      "Governance: Binding-Peace-Covenant",
+      "Social: Cross-Faction-Trust"
+    ],
+    "requires": [
+      "Ecology: Sacred-Silver-Oak-Grove",
+      "Social: Willing-Treaty-Partners"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Adhocracy",
+    "mtg_color": "Green / White",
+    "agent_brief": "Remediates starved 'The Lovers' card (currently only 2 modules) and bolsters Green/White harmony.",
+    "ticket_file": "tickets/creative/backlog/04_color_rebalance/CWT-040.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-040_The_Sylvan_Sanctuary_of_The_Lovers.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-041",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Scholastic Scriptorium & Codex Archive",
+    "pipeline_tier": 1,
+    "tier_label": "Tier 1",
+    "category": "04_color_rebalance",
+    "wave": "Wave 4: Color & Tarot Balancing (Tier 1)",
+    "status": "shipped",
+    "summary": "Fortified monastic library preserving ancestral legal charters, astronomical logs, and philosophical encyclopedias against historical revisionism.",
+    "syllogism": "Preserving Institutional Truth + Inconvenient Historical Crimes = Enduring Civic Law or Tyrannical Censorship",
+    "four_corners": {
+      "establishment": "The Archival Curators (Strict monastic scholars controlling access to reading rooms)",
+      "opponent": "Revisionist Royal Inquisitors (Demanding the burning of inconvenient historical treaties)",
+      "shadow": "Book-Thief Antiquarians (Stealing rare spell folios and deeds to sell to private collectors)",
+      "outcast": "The Scraped Scribes (Copyists blinded by candle smoke living in monastic basements)"
+    },
+    "dials": [
+      "Level 1: Quiet Scriptorium - Scratch of quills; smell of vellum and gall ink (Light)",
+      "Level 2: Authoritative Judgments - Disputed deeds authenticated; legal stability restored (Moderate)",
+      "Level 3: Inquisitorial Redaction - Censors lock down aisles; manuscripts seized and blacked out (Severe)",
+      "Level 4: The Archive Fire - Arsonists torch the library; five centuries of recorded law reduced to ash (Lethal)"
+    ],
+    "threat_clocks": [
+      "Archival Book Burn Countdown [4 Ticks] - Inquisitors prepare sulfur torches for forbidden codices.",
+      "Vellum Mold Rot Clock [6 Ticks] - Humidity threatens ancient calfskin manuscripts."
+    ],
+    "provides": [
+      "Knowledge: Verified-Legal-Precedents",
+      "Governance: Uncontested-Charter-Deeds"
+    ],
+    "requires": [
+      "Material: Cured-Vellum-and-Ink",
+      "Governance: Monastic-Sanctuary-Charter"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Market",
+    "mtg_color": "White / Blue",
+    "agent_brief": "Remediates starved 'The Hierophant' card and bolsters White/Blue institutional balance.",
+    "ticket_file": "tickets/creative/backlog/04_color_rebalance/CWT-041.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-041_The_Scholastic_Scriptorium___Codex_Archive.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-042",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Solitary Peak Hermitage & Stargazer Spire",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "04_color_rebalance",
+    "wave": "Wave 4: Color & Tarot Balancing (Tier 2)",
+    "status": "shipped",
+    "summary": "Isolated observatory perched on a razor crag above the clouds, where ascetics track planetary conjunctions and cosmic anomalies.",
+    "syllogism": "Radical Solitary Contemplation + Cosmic Revelations = Transcendent Epiphany or Solipsistic Madness",
+    "four_corners": {
+      "establishment": "The Peak Astrologer (Mute hermit who records celestial movements on brass astrolabes)",
+      "opponent": "Ambitious Warlords (Demanding prophecies and astrological battle-timing from the hermit)",
+      "shadow": "Esoteric Star-Cultists (Hoping to guide a falling star into their own private ritual circle)",
+      "outcast": "The Stair-Climbers (Pilgrims dying of exposure on the 10,000 frozen granite steps)"
+    },
+    "dials": [
+      "Level 1: Clear Night Sky - Pure silence; constellations mapped with copper calipers (Light)",
+      "Level 2: True Epiphany - Accurate forecasting of droughts, eclipses, and planar conjunctions (Moderate)",
+      "Level 3: Falling Sky Phenomenon - Meteor shower strikes observatory domes; lens shatters (Severe)",
+      "Level 4: Cosmic Mind-Melt - Astrologer gazes into cosmic void; psychic shockwave stuns the province (Lethal)"
+    ],
+    "threat_clocks": [
+      "Cosmic Eclipse Conjunction Clock [4 Ticks] - Rare alignment approaches.",
+      "Frozen Stairway Avalanche Clock [4 Ticks] - Heavy snow isolates spire from pilgrims."
+    ],
+    "provides": [
+      "Knowledge: Planetary-Astrological-Tables",
+      "Signal: High-Altitude-Beacon-Flash"
+    ],
+    "requires": [
+      "Geography: High-Cloudless-Peak",
+      "Material: Polished-Quartz-Lenses"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Adhocracy",
+    "mtg_color": "Blue / White",
+    "agent_brief": "Remediates starved 'The Hermit' and 'The Star' cards. Serene, cold, cosmic contemplation.",
+    "ticket_file": "tickets/creative/backlog/04_color_rebalance/CWT-042.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-042_The_Solitary_Peak_Hermitage___Stargazer_Spire.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-043",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Colossal Foundry of Strength & Crucible Steel",
+    "pipeline_tier": 3,
+    "tier_label": "Tier 3",
+    "category": "04_color_rebalance",
+    "wave": "Wave 4: Color & Tarot Balancing (Tier 3)",
+    "status": "shipped",
+    "summary": "Vast water-powered trip-hammer forge casting monumental bridge beams and indestructible tempered alloy plates.",
+    "syllogism": "Harnessing Titanic Mechanical Force + Brutal Labor Endurance = Architectural Triumph or Crushed Under the Hammer",
+    "four_corners": {
+      "establishment": "The Master Smiths Syndicate (Regulate hammer cadences and steel temper metallurgy)",
+      "opponent": "Exhausted Forge Strikers (Demand shorter shifts to prevent workers falling into molten vats)",
+      "shadow": "Military Armaments Contractors (Bribing inspectors to pass brittle low-grade armor)",
+      "outcast": "The Deaf Hammer-Lads (Teenagers rendered permanently deaf by 24/7 drop-hammer thunder)"
+    },
+    "dials": [
+      "Level 1: Measured Pounding - Regular hammer thuds; steady production of iron billets (Light)",
+      "Level 2: Master Castings - Flawless spring steel plates; bridge girders shipped downstream (Moderate)",
+      "Level 3: Crucible Slag Spill - Molten vat tips; liquid fire floods the casting floor (Severe)",
+      "Level 4: Cam-Shaft Shatter Explosion - Giant waterwheel shaft snaps under load, destroying the foundry (Lethal)"
+    ],
+    "threat_clocks": [
+      "Foundry Slag Vat Overheat [4 Ticks] - Crucible temperature exceeds refractory brick tolerance.",
+      "Waterwheel Hydraulic Stress [6 Ticks] - Spring flood waters spin hammer wheels past safe RPM."
+    ],
+    "provides": [
+      "Material: High-Tensile-Crucible-Steel",
+      "Material: Heavy-Structural-Girders"
+    ],
+    "requires": [
+      "Material: Direct-Reduced-Iron",
+      "Power: Waterwheel-Hydraulic-Torque"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Market / Hierarchy",
+    "mtg_color": "Red / White",
+    "agent_brief": "Remediates starved 'Strength' card and consumes unused 'Material: Direct-Reduced-Iron' tag.",
+    "ticket_file": "tickets/creative/backlog/04_color_rebalance/CWT-043.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-043_The_Colossal_Foundry_of_Strength___Crucible_Steel.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-044",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Dawn Cathedral & Solar Solstice Mirror",
+    "pipeline_tier": 1,
+    "tier_label": "Tier 1",
+    "category": "04_color_rebalance",
+    "wave": "Wave 4: Color & Tarot Balancing (Tier 1)",
+    "status": "shipped",
+    "summary": "Monumental sun-cathedral featuring a 40-foot parabolic gold mirror focusing dawn rays into a public healing amphitheater.",
+    "syllogism": "Radiant Solar Collectivism + Blinding Orthodoxy = Civic Rejuvenation or Incineration of Heretics",
+    "four_corners": {
+      "establishment": "The Solar Prelates (Administer dawn blessings, harness solar heat for sacred baths)",
+      "opponent": "Night Cult Underground (Worship darkness in sewer crypts, seek to shatter the mirror)",
+      "shadow": "Solar Purifiers (Using the focused beam to execute convicts and political dissidents)",
+      "outcast": "The Sun-Blind Beggars (Devotees who stared into the dawn focal point until blinded)"
+    },
+    "dials": [
+      "Level 1: Golden Dawn - Gentle warmth; choir chanting; morning sickness soothed (Light)",
+      "Level 2: Focused Radiance - Factions gather in peace; communal feasts and healing (Moderate)",
+      "Level 3: Blinding Heatwave - Mirror alignment shifts; stray ray ignites cathedral roof beams (Severe)",
+      "Level 4: Solar Beam Conflagration - Vandalized mirror focuses beam across city center, torching tenements (Lethal)"
+    ],
+    "threat_clocks": [
+      "Solar Solstice Alignment Clock [4 Ticks] - Annual peak intensity approaches.",
+      "Cathedral Roof Fire Clock [4 Ticks] - Dry pine rafters smoke under focused reflection."
+    ],
+    "provides": [
+      "Governance: Radiant-Civic-Unity",
+      "Esoteric: Focused-Solar-Plasma"
+    ],
+    "requires": [
+      "Material: Gilded-Bronze-Parabola",
+      "Geography: East-Facing-Sun-Ridge"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Clan",
+    "mtg_color": "White / Red",
+    "agent_brief": "Remediates starved 'The Sun' card and bolsters White/Red civic faith.",
+    "ticket_file": "tickets/creative/backlog/04_color_rebalance/CWT-044.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-044_The_Dawn_Cathedral___Solar_Solstice_Mirror.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-045",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Chasm Tollbridge & Pact of Mutual Devotion",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "04_color_rebalance",
+    "wave": "Wave 4: Color & Tarot Balancing (Tier 2)",
+    "status": "shipped",
+    "summary": "Towering stone arch bridge spanning a 1,000-foot chasm, co-owned by two ancestral clan families bound by an unbreakable mutual devotion pact.",
+    "syllogism": "Mutual Interdependent Trust + Generational Greed = Secure Continental Crossing or Plunge into the Abyss",
+    "four_corners": {
+      "establishment": "The Dual Clan Keepers (Both clans hold one key to the portcullis; neither can cross alone)",
+      "opponent": "Chasm Bandits (Use climbing ropes to bypass gates and rob travelers in mid-span)",
+      "shadow": "The Seditious Suitor (Scheming to break the inter-clan engagement to seize sole toll rights)",
+      "outcast": "The Abyss Sweepers (Poor souls who clean horse dung off the narrow roadway in high winds)"
+    },
+    "dials": [
+      "Level 1: Steady Crossing - Guards from both clans nod respectfully; 10-minute safe transit (Light)",
+      "Level 2: High Wind Escort - Roped caravans; wagons cross safely; steady toll revenue (Moderate)",
+      "Level 3: Sunder Dispute - One clan refuses to unlock its portcullis; traffic backed up for miles (Severe)",
+      "Level 4: Arch Keystones Blasted - Dynamite detonated in center arch; bridge collapses into chasm (Lethal)"
+    ],
+    "threat_clocks": [
+      "Clan Marriage Betrothal Clock [4 Ticks] - Impending wedding seals 50-year bridge alliance.",
+      "Chasm Arch Structural Creep [6 Ticks] - Mortar washing out from foundation piers."
+    ],
+    "provides": [
+      "Transit: Fortified-Chasm-Bridge",
+      "Social: Inter-Clan-Devotion-Pact"
+    ],
+    "requires": [
+      "Geography: Deep-Canyon-Chasm",
+      "Material: Hewn-Granite-Arch-Stones"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Market / Clan",
+    "mtg_color": "Red / White",
+    "agent_brief": "Remediates starved 'The Lovers' card and provides an essential transit corridor module.",
+    "ticket_file": "tickets/creative/backlog/04_color_rebalance/CWT-045.md",
+    "file_url": "",
+    "module_path": "./campaigns/generic_starter/modules/CWT-045_The_Chasm_Tollbridge___Pact_of_Mutual_Devotion.md",
+    "tags": [],
+    "creator_source": ""
+  },
+  {
+    "id": "CWT-060",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Systemic Interdependence Collapse Matrix",
+    "pipeline_tier": 1,
+    "tier_label": "Tier 1",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Hyper-specialized Bronze Age palatial trade networks experience cascading multi-node collapse when tin lines fail and drought triggers stateless migrations.",
+    "syllogism": "Hyper-Specialized Imperial Complacency + Multi-Node Resource Severance = Cascading Civilizational De-Urbanization",
+    "four_corners": {
+      "establishment": "Palatial Scribes & Central Treasury (Requisitioning temple bronzes, rationing moldy barley)",
+      "opponent": "Littoral Sea-Raider Coalition (Stateless displaced mariners coordinating fleet landings to burn ports)",
+      "shadow": "Autarkic Smuggler Syndicates (Hoarding scrap metal and flint tools, accelerating palatial bankruptcy)",
+      "outcast": "Highland Clay-Potters & Nomads (Self-sufficient herders who never relied on bronze or Linear B script)"
+    },
+    "dials": [
+      "Level 1: Tin Scarcity & Scribe Rations - Metal gear costs double; scribe rationing (Light)",
+      "Level 2: Interdependent Edge Severance - Trade edge dead; garrison wages unpaid; unrest DC 13 (Moderate)",
+      "Level 3: Palatial Requisition & Bread Riots - Temple bronzes melted; grain riots DC 16 (Severe)",
+      "Level 4: Catastrophic De-Urbanization & Palatial Inferno - Palaces burn; writing lost; DC 20 Survival (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Regional Supply Cascade [8 Ticks] - Ticks when connected trade links break; collapses palace order.",
+      "Sea-Raider Littoral Incursion [4 Ticks] - Ticks when coastal defense goes unpaid; sacks harbor port."
+    ],
+    "provides": [
+      "Governance: Systemic-Interdependence-Matrix",
+      "Tension: Trade-Cascade-Contagion"
+    ],
+    "requires": [
+      "Trade: Maritime-Tin-Corridor",
+      "Mineral: Refined-Ingot-Supply"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Market Breakdown",
+    "mtg_color": "White / Black",
+    "agent_brief": "Author using Set C macro governance style. Anchor around systemic vulnerability and cascading supply disruption. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-060_late_bronze_age_systemic_trade_collapse.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-060_late_bronze_age_systemic_trade_collapse.md",
+    "module_path": "./modules/CWT-060_The_Systemic_Interdependence_Collapse_Matrix.md",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-060A",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Cypriot Copper Smelting Slag Foundries",
+    "pipeline_tier": 3,
+    "tier_label": "Tier 3",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Heavy industrial smelting installations cast 30kg oxhide ingots while exhausting ancient highland oak forests for charcoal and poisoning workers with arsenical fumes.",
+    "syllogism": "Ecological Resource Depletion + Inflexible Palatial Export Quotas = Industrial Catastrophe & Labor Mutiny",
+    "four_corners": {
+      "establishment": "Royal Smelting Overseer (Enforces 24-hour shifts, mandates deforestation quotas, guards ingots)",
+      "opponent": "Highland Charcoalers' League (Woodcutters blockading timber trails demanding higher wages)",
+      "shadow": "Arsenical Counterfeiters (Metallurgists spiking brittle low-grade copper with toxic arsenic)",
+      "outcast": "Crippled Slag-Scavengers (Poisoned former bellows workers trading furnace secrets for unpoisoned water)"
+    },
+    "dials": [
+      "Level 1: Sulfur Smog & Respiratory Cough - Sulfur haze; DC 10 Constitution checks (Light)",
+      "Level 2: Charcoal Scarcity & Furnace Throttling - Production halved; DC 13 Crafting/Athletics (Moderate)",
+      "Level 3: Arsenical Gas Surge & Timber Insurrection - Poison gas clouds DC 16; timber strikers attack (Severe)",
+      "Level 4: Catastrophic Slag Breach & Molten Cascade - Blast crucible ruptures; 1200°C slag river DC 20 (Lethal)"
+    ],
+    "threat_clocks": [
+      "Highland Deforestation Horizon [6 Ticks] - Ticks each cycle; forests depleted, foundries go cold.",
+      "Crucible Slag Pressure Breach [4 Ticks] - Ticks on neglected maintenance; triggers catastrophic blowout."
+    ],
+    "provides": [
+      "Mineral: Refined-Copper-Ingots",
+      "Industry: Blast-Furnace-Crucibles"
+    ],
+    "requires": [
+      "Fuel: Highland-Charcoal-Timber",
+      "Labor: Conscripted-Slag-Workers"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Industrial Extraction",
+    "mtg_color": "Red / Black",
+    "agent_brief": "Author using Set A industrial engineering style. Anchor around charcoal deforestation and toxic smelting hazards. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-060A_cypriot_copper_smelting_chokepoint.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-060A_cypriot_copper_smelting_chokepoint.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-061",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Derinkuyu 18-Tier Troglodyte Bastion",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Subterranean volcanic tuff complex extending 85 meters deep across 18 levels, sheltering 20,000 citizens behind rolling stone blast doors, hermetic airshafts, wineries, and isolated deep-well aquifers.",
+    "syllogism": "Subterranean Hermetic Isolationism + Surface Atmospheric Siege = Paranoiac Internal Asphyxiation or Desperate Vertical Counter-Sortie",
+    "four_corners": {
+      "establishment": "Presbyter-Architect of the Tuff (Demands water rationing, rolls shut 500kg tirhaz blast stones, locks out surface stragglers)",
+      "opponent": "Steppe Siege Khan (Burns sulfur into airshaft flues and digs counter-trenches to force unconditional surrender)",
+      "shadow": "Black-Market Flue Siphoners (Carving unauthorized vertical vents to trade gold and wine with raiders, leaking smoke)",
+      "outcast": "Blind Sump Hermits (Acoustically sensitive bottom-well tenders tracking surface sappers through stone vibrations)"
+    },
+    "dials": [
+      "Level 1: Dim Lamp Cloister & Acrid Draft - Single file transit; DC 10 Athletics; smoke irritation (Light)",
+      "Level 2: Tirhaz Blast Stone Lockdown & Air Stagnation - Oxygen thins; DC 13 Con save against exhaustion (Moderate)",
+      "Level 3: Sulfur Flue Smoke & Upper Sump Flood - Yellow sulfur smoke DC 16 Fortitude or 3d8 poison; mob stampedes (Severe)",
+      "Level 4: Atmospheric Collapse & Sapper Vault Breach - Central ventilation trunk crushed; DC 20 checks or 4d10 suffocation/crushing (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Subterranean Oxygen Depletion Clock [6 Ticks] - Ticks when ventilation flues are choked by smoke or rubble.",
+      "Raider Sapper Counter-Mine Clock [4 Ticks] - Ticks when surface trench guards are unhindered; breaches level 5 winery."
+    ],
+    "provides": [
+      "Topography: Subterranean-Refuge-Node",
+      "Defense: Hermetic-Rolling-Door-Seals",
+      "Life-Support: Deep-Tuff-Aquifer-Well"
+    ],
+    "requires": [
+      "Geology: Soft-Volcanic-Tuff-Stratum",
+      "Air: Vertical-Convection-Airshafts"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Subterranean Siege Fortress",
+    "mtg_color": "White / Green",
+    "agent_brief": "Author using Set B subterranean biome style. Anchor around volcanic tuff geology, tirhaz rolling stone doors, and pneumatic air flues. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-061_derinkuyu_18_tier_troglodyte_bastion.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-061_derinkuyu_18_tier_troglodyte_bastion.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-062",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Thonis-Heracleion Liquefaction Port",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Gateway customs port of Egypt built upon waterlogged Canopic delta clay islands, swallowed by the Mediterranean due to earthquake soil liquefaction and tsunami collapse.",
+    "syllogism": "Monumental Imperial Hubris on Alluvial Silt + Cyclic Seismic Soil Liquefaction = Instant Maritime Inundation & Submerged Silt Graveyard",
+    "four_corners": {
+      "establishment": "Royal Customs Arch-Scribe (Demands gold tariffs as seawater floods marble floors, refuses to unchain harbor booms)",
+      "opponent": "Hellenic Galley League Captain (Prepares to ram harbor chains and burn wharves to escape sinking quays)",
+      "shadow": "Silt-Scavenger Diver Guild (Sabotages retaining revetments to monopolize salvage of submerged royal bullion)",
+      "outcast": "Canopic Papyrus-Raft Foragers (Marsh-dwellers on buoyant skiffs rescuing drowning aristocrats for sacred relics)"
+    },
+    "dials": [
+      "Level 1: Mud Slurry Seepage & Tilting Pavement - Shifting mud; DC 10 Acrobatics; receding tides (Light)",
+      "Level 2: Cyclic Tremor & Saturated Soil Sieve - Pavement buckles; DC 13 Balance/Athletics; heavy armor speed halved (Moderate)",
+      "Level 3: Soil Liquefaction Breach & Quayside Slip - Soil shear drops to zero; granite storehouses pancake; DC 16 Reflex or 4d8 drowning/crushing (Severe)",
+      "Level 4: Catastrophic Tsunami Surge & Total Inundation - 25-foot tsunami wave slams collapsed bay; DC 20 Swimming/Survival or 8d12 damage (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Subsoil Liquefaction Meter [4 Ticks] - Ticks following seismic foreshocks and heavy quayside cargo loads.",
+      "Canopic Tsunami Inundation Clock [4 Ticks] - Ticks as tides recede unnaturally following offshore tremors."
+    ],
+    "provides": [
+      "Transit: Delta-Maritime-Gateway",
+      "Commerce: Royal-Customs-Toll-Office",
+      "Relic: Submerged-Amun-Gereb-Treasury"
+    ],
+    "requires": [
+      "Geography: Alluvial-Nile-Silt-Islands",
+      "Hydrology: High-Tide-Barrier-Jetties"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Market / Maritime Toll Bastion",
+    "mtg_color": "Blue / Black",
+    "agent_brief": "Author using Set D maritime port style. Anchor around geotechnical soil liquefaction, Canopic customs taxation, and submerged temple collapse. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-062_thonis_heracleion_liquefaction_port.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-062_thonis_heracleion_liquefaction_port.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-063",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Angkor Monsoon Canal and Silt Trap",
+    "pipeline_tier": 3,
+    "tier_label": "Tier 3",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Khmer Empire massive Baray hydraulic network yielding quadruple rice harvests, crippled by climate whiplash when violent mega-monsoons shear masonry spillways and gouge riverbeds below canal intake thresholds.",
+    "syllogism": "Rigid Hydraulic Hyper-Optimization + Climate Whiplash Mega-Monsoon = Catastrophic Bed-Incision & Total Agricultural Grid Death",
+    "four_corners": {
+      "establishment": "Royal High Hydraulic Scribe (Enforces sacred geometric canal grid, forces starving corvée gangs into dredging)",
+      "opponent": "Upstream Kulen Forest Clans (Clear-cutting watershed forests, breaching dams that flood highland valleys)",
+      "shadow": "Canal Grain-Corvée Syndicates (Withholding emergency rice, diverting water to private estates while public paddies rot)",
+      "outcast": "Tonlé Sap Floating-Village Fisherfolk (Rejecting canals, living on seasonal lake pulses, welcoming dike breaches)"
+    },
+    "dials": [
+      "Level 1: Laterite Silt Accumulation & Low Head - Shallow canals; DC 10 Athletics/Vehicles to navigate; water rationing (Light)",
+      "Level 2: Monsoon Flash Flood & Sluice Vibration - Dikes slick; DC 13 Balance; sluice winch operation DC 13 Engineering (Moderate)",
+      "Level 3: Sluice Shear & Riverbed Incision Breach - Spillways shatter; river incises 5m deep; DC 16 Fortitude or 4d8 torrent damage (Severe)",
+      "Level 4: Catastrophic Baray Embankment Rupture - Earthen wall collapses; 53 million cubic meters wash across city; DC 20 Survival or 8d10 damage (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Laterite Silt Choke Meter [6 Ticks] - Ticks when dredging is interrupted; silts canals solid.",
+      "Earthen Baray Hydrostatic Breach Clock [4 Ticks] - Ticks under continuous mega-monsoon head without relief."
+    ],
+    "provides": [
+      "Agriculture: Quad-Harvest-Wetland-Rice",
+      "Hydrology: Macro-Baray-Reservoir-Network",
+      "Engineering: Masonry-Silt-Scouring-Sluice"
+    ],
+    "requires": [
+      "Labor: Corv-e-Canal-Dredging-Crews",
+      "Climate: Predictable-Bimodal-Monsoon-Cycle"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Hydraulic Bureaucracy",
+    "mtg_color": "Blue / Green",
+    "agent_brief": "Author using Set A hydraulic infrastructure style. Anchor around West Baray reservoir engineering, laterite siltation, and climate whiplash river incision. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-063_angkor_monsoon_canal_and_silt_trap.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-063_angkor_monsoon_canal_and_silt_trap.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-064",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Garamantes Fossil Aquifer Foggara",
+    "pipeline_tier": 3,
+    "tier_label": "Tier 3",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Saharan Garamantian civilization tunneling over 3,000 miles of subterranean foggaras into non-renewable fossil aquifers, exhausting water tables and causing catastrophic oasis desiccation.",
+    "syllogism": "Non-Renewable Fossil Water Extraction + Inhumane Chattel Slavery Sunk-Cost = Aquifer Depletion & Catastrophic Desiccated Ghost Settlement",
+    "four_corners": {
+      "establishment": "Ksar Water-Vizier (Enforces 24-hour subterranean digging shifts, guards palace cisterns with iron-shod spearmen)",
+      "opponent": "Foggara Slave-Revolt Chieftain (Enslaved leader holding central air junction, threatening to collapse support pillars)",
+      "shadow": "Oasis Cistern Speculators (Hoarding private cisterns, selling brine-tainted water and exporting toxic salt cakes)",
+      "outcast": "Tubu Camel-Nomad Scouts (Pastoralists who follow flash rains, watching the dying ksar with grim indifference)"
+    },
+    "dials": [
+      "Level 1: Subterranean Swelter & Choked Dust - 110°F heat; DC 10 Constitution check or exhaustion; single-file crawling (Light)",
+      "Level 2: Sandstone Roof Fissure & Firedamp Pooling - Low oxygen; DC 13 Perception; DC 13 Mining to shore pit-props (Moderate)",
+      "Level 3: Main Gallery Sump Cave-in & Saline Mineral Surge - Ceilings collapse DC 16 Reflex or 4d10 crushing; brine dysentery DC 16 (Severe)",
+      "Level 4: Aquifer Table Exhaustion & Ksar Entombment - Gravity gradient fails; sandstorms bury shafts; DC 20 Survival or 8d10 heatstroke (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Fossil Water Table Plunge Meter [6 Ticks] - Ticks each extraction cycle; water table drops below bedrock gradient.",
+      "Foggara Slave Insurrection Clock [4 Ticks] - Ticks when slave rations cut; detonates timber props to bury galleries."
+    ],
+    "provides": [
+      "Life-Support: Subterranean-Fossil-Water-Flow",
+      "Agriculture: Saharan-Polyculture-Oasis",
+      "Mineral: Leached-Saline-Salt-Cakes"
+    ],
+    "requires": [
+      "Labor: Chattel-Slave-Tunneling-Crews",
+      "Engineering: Subterranean-Gradient-Surveyors"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Slave-Fueled Extraction",
+    "mtg_color": "Black / Green",
+    "agent_brief": "Author using Set A life-support and extraction style. Anchor around Fezzan foggara subterranean qanats, non-renewable fossil water depletion, and chattel slavery. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-064_garamantes_fossil_aquifer_foggara.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-064_garamantes_fossil_aquifer_foggara.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-065",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Tainter Complexity Trap and Monument Mania",
+    "pipeline_tier": 4,
+    "tier_label": "Tier 4",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Joseph Tainter model of declining marginal returns on administrative complexity and elite overproduction, diverting calories and draft animals into colossal monuments while agriculture collapses and peasants de-affiliate.",
+    "syllogism": "Declining Marginal Returns on Complexity + Fanatical Monument Resource Diversion = Voluntary Peasant De-Affiliation & Instant State Dissolution",
+    "four_corners": {
+      "establishment": "High Chancellor of Tithes & Monuments (Invents emergency tithes, deploys armed censors to seize seed grain)",
+      "opponent": "The Midnight Exodus Headman (Organizing covert peasant de-affiliation into untaxable mountains with seed stock)",
+      "shadow": "Rival Princely Usurpers (Younger aristocrats hiring mercenaries to ambush tax convoys and force state bankruptcy)",
+      "outcast": "Blinded Master Mason (Self-blinded artisan teaching peasants how to knock out tollbooth keystones and mocking ministers)"
+    },
+    "dials": [
+      "Level 1: Administrative Tithe Squeeze & Pavement Tolls - Checkpoints; DC 10 Persuasion/Bureaucracy; travel delays (Light)",
+      "Level 2: Draft Beast Conscription & Seed Grain Confiscation - Oxen seized; DC 13 Intimidation/Bribery; food costs triple (Moderate)",
+      "Level 3: Megalith Hauling Crushes & Bread Riots - Runaway rollers; DC 16 Reflex save or 4d10 crushing damage; tax riots (Severe)",
+      "Level 4: Total De-Affiliation & Palatial Dissolution - Peasants abandon fields; state dissolves; DC 20 Survival in lawless vacuum (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Marginal Returns Exhaustion Clock [6 Ticks] - Ticks when new taxes or bureaus are created; triggers state bankruptcy.",
+      "Peasant Midnight Exodus Meter [4 Ticks] - Ticks when seed grain is confiscated; leaves capital granaries at zero."
+    ],
+    "provides": [
+      "Governance: Diminishing-Marginal-Returns-Engine",
+      "Tension: Elite-Overproduction-Sclerosis",
+      "Structure: Megalithic-Monument-Foundry"
+    ],
+    "requires": [
+      "Food: Agrarian-Surplus-Tribute",
+      "Bureaucracy: Hyper-Specialized-Scribe-Castes"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Bureaucratic Sclerosis",
+    "mtg_color": "White / Black",
+    "agent_brief": "Author using Set C macro-governance and systemic tension style. Anchor around Tainter's diminishing marginal returns, elite overproduction, and peasant de-affiliation. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-065_tainter_complexity_trap_and_monument_mania.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-065_tainter_complexity_trap_and_monument_mania.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-066",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Göbekli Tepe Pre-Agrarian Pillars",
+    "pipeline_tier": 5,
+    "tier_label": "Tier 5",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "11,500-year-old T-shaped megalithic limestone enclosures erected by hunter-gatherers before agriculture or metal tools, maintained through ritual proto-beer feasting, and systematically buried beneath artificial mounds.",
+    "syllogism": "Primal Hunter-Gatherer Megalithic Apotheosis + Encroachment of Agrarian Domestication = Deliberate Sacred Self-Entombment & Vanishing of the Wild Spirit Cosmos",
+    "four_corners": {
+      "establishment": "High T-Pillar Shaman-Architect (Commands quarrying of 15-ton monoliths, demands blood libations and skull rites)",
+      "opponent": "The Einkorn Cultivator Pioneers (Early farmers viewing megalithic blood rites as obsolete, urging grain enclosures)",
+      "shadow": "Mortuary Vulture-Priests (Tending excarnation platforms, sacrificing dissident hunters under cover of ritual ecstasy)",
+      "outcast": "Master Obsidian-Knapper Hermit (Living in quarry scree, warning that burying the stones binds humanity to farm toil)"
+    },
+    "dials": [
+      "Level 1: Megalith Bedrock Quarrying & Totem Carving - Hauling 15-ton blocks; DC 10 Athletics; totem omen reading (Light)",
+      "Level 2: Ecstatic Fermentation Feasting & Skull Trance - Wild beer drinking; DC 13 Constitution; hypnotic trance DC 13 (Moderate)",
+      "Level 3: Pillar Setting & Clastic Backfill Avalanche - Rubble filling enclosures; DC 16 Reflex save or 4d8 bludgeoning (Severe)",
+      "Level 4: Total Climax Entombment & The Closing of the Age - 5,000 tons of rubble entomb pillars; DC 20 checks or 8d10 crushing (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "The Potbelly Hill Backfill Clock [8 Ticks] - Ticks when clans dump limestone scree; seals sanctuary beneath mound.",
+      "Wild Gazelle Migration Famine Meter [4 Ticks] - Ticks when wild herds fail; feasting vats run dry, clans scatter."
+    ],
+    "provides": [
+      "Climax: Pre-Agrarian-Apotheosis",
+      "Ritual: Megalithic-T-Pillar-Enclosure",
+      "Sociology: Ritualized-Intentional-Entombment"
+    ],
+    "requires": [
+      "Ecology: Wild-Einkorn-Gazelle-Herds",
+      "Culture: Multi-Clan-Pilgrimage-Compact"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Megalithic Cult Sanctuaries",
+    "mtg_color": "Green / White",
+    "agent_brief": "Author using Set G eschatological climax style. Anchor around pre-pottery Neolithic T-pillars, proto-beer feasting, and intentional backfilling. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-066_gobekli_tepe_pre_agrarian_pillars.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-066_gobekli_tepe_pre_agrarian_pillars.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-067",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Tollense Valley Unwritten War Reliquary",
+    "pipeline_tier": 5,
+    "tier_label": "Tier 5",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "1200 BCE northern European peat bog battlefield where over 4,000 organized Bronze Age warriors fought a pitched war completely absent from written history, swallowed whole by anaerobic peat.",
+    "syllogism": "Professionalized Trans-Continental Militarization + Total Illiteracy & Peat-Bog Annihilation = An Epic Continental War Completely Erased From Human Memory",
+    "four_corners": {
+      "establishment": "Causeway Marsh-Lord (Commands fortified timber bridge tolls, deploys spearmen to bar foreign crossing)",
+      "opponent": "Bohemian Bronze-Mercenary Warlord (Commands 2,000 southern bronze shock troops forcing the causeway at any cost)",
+      "shadow": "Peat-Bog Scavenger Wreckers (Pulling wounded warriors under marsh water with hooked poles to strip gold and tin)",
+      "outcast": "Mute Bone-Flute Weaver (Hermit carving death tallies onto ash wood, knowing quicksand channels that drown cavalry)"
+    },
+    "dials": [
+      "Level 1: Peat Causeway Mud & Low-Visibility Fog - Slick timbers; DC 10 Athletics; double movement in peat (Light)",
+      "Level 2: Bronze Arrow Volley & Cavalry Bog Skirmish - Arrow volleys DC 13 Reflex; charging war-horses create DC 13 hazards (Moderate)",
+      "Level 3: Wooden War-Club Melee & Causeway Timber Shear - Melee clash; DC 16 Athletics/Reflex or 4d10 crushing and peat fall (Severe)",
+      "Level 4: Total Peat-Bog Slaughter & Historical Oblivion - Mutual annihilation; DC 20 Athletics/Survival or 8d12 crushing/drowning (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Causeway Structural Collapse Clock [4 Ticks] - Ticks when cavalry charges timber bridge; snaps center span.",
+      "Total Mutual Annihilation Meter [8 Ticks] - Ticks under continuous melee; both armies slaughtered to the last man."
+    ],
+    "provides": [
+      "Climax: Total-Bronze-Age-Battlefield-Rift",
+      "Relic: Standardized-Bronze-War-Spur",
+      "Tension: Unwritten-Civilizational-Annihilation"
+    ],
+    "requires": [
+      "Geography: Marshland-River-Causeway",
+      "Military: Heavy-Bronze-Warrior-Retinues"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Total Industrialized Warfare",
+    "mtg_color": "Black / Red",
+    "agent_brief": "Author using Set G archaeological rift style. Anchor around Tollense peat bog battle, forensic trauma (ash clubs, embedded arrowheads), and total historical erasure. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-067_tollense_valley_unwritten_war_reliquary.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-067_tollense_valley_unwritten_war_reliquary.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-068",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Amazonian Upano LiDAR Garden Cities",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "LiDAR-discovered vast 6,000-mound garden city network across the Upano Valley, connected by sunken causeways and powered by anthropogenic Terra Preta biochar soils that shatter the 'pristine wilderness' myth.",
+    "syllogism": "Anthropogenic Earth-Sculpting Agro-Urbanism + Volcanic Ash Leaching & Canopy Regrowth = Pre-Columbian Garden Cities Swallowed by Forest",
+    "four_corners": {
+      "establishment": "Tola Platform Mound Elder (Enforces communal biochar pit firing and ceremonial sunken road rituals)",
+      "opponent": "Andean Obsidian Incursion Chieftain (Mountain raiders seeking to seize rich terra preta river plains)",
+      "shadow": "Swidden Ash Burners (Renegade clans clear-cutting canopy slopes for quick maize, causing mudslide washouts)",
+      "outcast": "Sub-Canopy River Foragers (Living on floating balsa rafts, rejecting earthen mounds to harvest river manatees)"
+    },
+    "dials": [
+      "Level 1: Tropical Downpour & Sunken Causeway Slurry - Slick clay runnels; DC 10 Athletics; mud slows carts (Light)",
+      "Level 2: Biochar Trench Smolder & Flash Flood Surge - Acrid smoke drafts; DC 13 Fortitude; drainage ditch erosion (Moderate)",
+      "Level 3: Tola Mound Escarpment Slump & Ravine Mudflow - Platform edges crumble; DC 16 Reflex or 4d10 mudslide damage (Severe)",
+      "Level 4: Catastrophic Canopy Inversion & Total Forest Re-Wilding - Communal fire halts; primary forest swallows cities; DC 20 Survival or 8d12 crushing (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Canopy Re-Wilding Clock [6 Ticks] - Ticks when biochar composting halts; vegetation reclaims causeways.",
+      "Andean Highland Raid Incursion Clock [4 Ticks] - Ticks as mountain scouts probe sunken causeway junctions."
+    ],
+    "provides": [
+      "Agriculture: Anthropogenic-Terra-Preta",
+      "Topography: Sunken-Canal-Causeway-Grid",
+      "Engineering: Earthen-Platform-Tolas"
+    ],
+    "requires": [
+      "Ecology: Managed-Canopy-Agroforestry",
+      "Labor: Community-Biochar-Composters"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Anthropogenic Garden Agro-Urbanism",
+    "mtg_color": "Green / Blue",
+    "agent_brief": "Author using Set B tropical biome style. Anchor around LiDAR archaeology (Rostain 2024), Casarabe culture, Terra Preta biochar soil, and geometric tola platform networks. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-068_amazonian_upano_lidar_garden_cities.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-068_amazonian_upano_lidar_garden_cities.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-069",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Roman Lead Fistulae and Currency Debasement",
+    "pipeline_tier": 3,
+    "tier_label": "Tier 3",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Late imperial crisis driven by lead municipal fistulae neurotoxicity in ruling patricians coupled with catastrophic silver denarius debasement down to bronze wash, unleashing hyperinflation and villa tax-flight.",
+    "syllogism": "Chronic Patrician Neurotoxicity + Currency Silver Debasement = Institutional Paranoia, Hyperinflation & Autarkic Villa Secession",
+    "four_corners": {
+      "establishment": "Prefect of the Lead Pipe Mint (Enforces melting down 2% silver antoniniani while drinking sapa sweetened in lead cauldrons)",
+      "opponent": "Decurionate Tax-Flight Senator (Fortifies rural self-sufficient latifundium villa, refusing imperial tax collectors)",
+      "shadow": "Sub-Aura Goldsmith Counterfeiters (Smuggling un-debased silver ingots, shaving coin rims and washing iron slugs in silver)",
+      "outcast": "Aqueduct Lead-Wiper Slaves (Terminally ill plumbers with wrist-drop plumbism who alone know valve chokepoints)"
+    },
+    "dials": [
+      "Level 1: Saturnine Encephalopathy Tremors & Bronze Coin Surcharge - Metallic taste; DC 10 Fortitude; merchants demand 20% coin surcharge (Light)",
+      "Level 2: Hyperinflation Bread Price Spike & Silver Coin Hoarding - Bread prices triple; DC 13 Streetwise/Haggling; tax collector escorts required (Moderate)",
+      "Level 3: Municipal Lead Colic Outbreak & Curial Tax Riot - Hallucinations; DC 16 Fortitude or 4d10 poison; town hall burned (Severe)",
+      "Level 4: Total Monetary Collapse & Villa Barricade Secession - Denarius worthless; military refuses pay; DC 20 Survival or 8d12 mob violence (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Saturnine Madness & Tremor Clock [6 Ticks] - Ticks as lead intake bio-accumulates in patrician water; cognitive collapse.",
+      "Imperial Currency Hyperinflation Meter [4 Ticks] - Ticks when state mint debases silver content below 1%; market barter strike."
+    ],
+    "provides": [
+      "Infrastructure: Lead-Fistulae-Aqueduct-Grid",
+      "Economy: Imperial-Coinage-Mint",
+      "Commerce: Standardized-Market-Weights"
+    ],
+    "requires": [
+      "Metal: Refined-Lead-Pig-Ingots",
+      "Bullion: Silver-Denarius-Reserves"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Imperial Extraction & Fiscal Sclerosis",
+    "mtg_color": "White / Black",
+    "agent_brief": "Author using Set C political/economic corruption style. Anchor around Crisis of the Third Century, plumbism lead pipes/sapa syrup, denarius debasement, and decurionate flight. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-069_roman_lead_fistulae_and_currency_debasement.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-069_roman_lead_fistulae_and_currency_debasement.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-070",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Rapa Nui Moai Quarry and Rodent Ecocide",
+    "pipeline_tier": 3,
+    "tier_label": "Tier 3",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Isolated volcanic island monumentalism where colossal Moai carving and transport exhausts palm forests, accelerated by Polynesian rat seed predation, forcing lithic mulch agriculture and obsidian mata'a warfare.",
+    "syllogism": "Isolated Insular Monumentalism + Rodent Seed Predation & Palm Extinction = Canoe Loss, Deep-Sea Food Collapse & Statue-Toppling Warfare",
+    "four_corners": {
+      "establishment": "Master Sculptor of Rano Raraku (Demands ever-larger 80-ton Moai effigies, consuming last palm-fiber hauling cables)",
+      "opponent": "Obsidian War-Chief of the Matato'a (Warrior league toppling rival lineage statues and weaponizing mata'a spearpoints)",
+      "shadow": "Rat-Swarm Seed Siphoners (Subterranean warren scavengers consuming palm nuts, driving native palms extinct)",
+      "outcast": "Lithic Mulch Agronomists (Humble rock-planters blanketing crater soils with basalt mulch to save root crops)"
+    },
+    "dials": [
+      "Level 1: Palm Deforestation Scrub & Palm Nut Gnawing - Rattus exulans gnaw-marks; timber scarce; DC 10 Nature (Light)",
+      "Level 2: Moai Transport Ramp Breakdown & Cable Fray - Palm ropes snap; DC 13 Athletics/Engineering or 2d8 crushing (Moderate)",
+      "Level 3: Deep-Sea Canoe Timber Famine & Statue Toppling - Sea fishing impossible; DC 16 Reflex or 4d10 obsidian weapon clash (Severe)",
+      "Level 4: Total Island Ecological Exhaustion & Starvation Warfare - Forest extinct; mata'a spears slaughter clans; DC 20 Survival or 8d12 famine/war (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Giant Palm Extinction Meter [6 Ticks] - Ticks as timber cut and rat seeds destroyed; canoe building halted.",
+      "Huri Moai Statue-Toppling Clock [4 Ticks] - Ticks as famine drives rival clans to topple ancestor megaliths."
+    ],
+    "provides": [
+      "Structure: Megalithic-Moai-Effigies",
+      "Mineral: Volcanic-Tuff-Ashlar",
+      "Agriculture: Lithic-Basalt-Mulch"
+    ],
+    "requires": [
+      "Material: Palm-Fiber-Hauling-Cables",
+      "Food: Deep-Sea-Tuna-Porpoise-Catch"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Competitive Monumentalism & Island Insularity",
+    "mtg_color": "Green / Red",
+    "agent_brief": "Author using Set A ecological resource and quarry style. Anchor around Rano Raraku caldera, Moai 'walking' transport roads, Rattus exulans seed predation, and lithic mulch agriculture. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-070_rapa_nui_moai_quarry_and_rodent_ecocide.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-070_rapa_nui_moai_quarry_and_rodent_ecocide.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-071",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Cahokia Mississippian Mounds and Mega-Flood",
+    "pipeline_tier": 4,
+    "tier_label": "Tier 4",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Apex Mississippian 40,000-citizen metropolis at Monks Mound crippled by catastrophic Mississippi river mega-floods, defensive palisade burning, human retainer sacrifices, and total social fragmentation.",
+    "syllogism": "Theocratic Maize Monoculture + Mississippi River Mega-Floods & Palisade War = Divine Kingship Deposition & Megacity Abandonment",
+    "four_corners": {
+      "establishment": "Great Sun Divine Monarch (Rules from summit of Monks Mound, demanding thousands of maize baskets and retainer sacrifices)",
+      "opponent": "Outer Palisade Insurgent Chieftain (Alluvial tenant farmers setting fire to the 2-mile bastioned oak palisade)",
+      "shadow": "Mound 72 Mortuary Priest Caste (Sacrificing 50 strangled retainers on shell-bead platforms to appease flood spirits)",
+      "outcast": "Cypress Swampland Cane-Cutter Bands (Living in backwater bayous, surviving floods by harvesting wild reeds and catfish)"
+    },
+    "dials": [
+      "Level 1: Alluvial Silt Backwater & Timber Bastion Guard - River rises; DC 10 Athletics/Vehicles; muddy clay lanes (Light)",
+      "Level 2: Monks Mound Slope Slumping & Corn Rot - Heavy rains cause earthen slumping; DC 13 Engineering/Athletics; maize blighted (Moderate)",
+      "Level 3: Palisade Breach Fire & Retainer Revolt - Outer stockade torched; DC 16 Reflex/Fortitude or 4d10 fire/arrow damage (Severe)",
+      "Level 4: Catastrophic 30-Foot Mississippi Mega-Flood - 1200 CE flood submerges American Bottom; DC 20 Survival or 8d12 drowning/crushing (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Mississippi Mega-Flood Inundation Clock [4 Ticks] - Ticks as spring snowmelt crests dikes; submerges entire bottomland.",
+      "Palisade Siege & Class Revolt Meter [6 Ticks] - Ticks as commoner maize rations cut; outer defensive stockade burned."
+    ],
+    "provides": [
+      "Agriculture: Intensive-Floodplain-Maize",
+      "Structure: Monumental-Earthen-Monks-Mound",
+      "Ritual: Shell-Bead-Cosmic-Sacrifice"
+    ],
+    "requires": [
+      "Labor: Basket-Carried-Alluvial-Earth",
+      "Forest: Upland-Oak-Palisade-Timber"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Theocratic Maize Hegemony",
+    "mtg_color": "Green / Black",
+    "agent_brief": "Author using Set C theocratic apex and urban collapse style. Anchor around American Bottom, Monks Mound slumping, 1200 CE mega-flood sediment layers, Mound 72 sacrifice, and burnt palisades. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-071_cahokia_mississippian_mounds_and_mega_flood.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-071_cahokia_mississippian_mounds_and_mega_flood.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-072",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Antikythera Clockwork Astronomical Reliquary",
+    "pipeline_tier": 5,
+    "tier_label": "Tier 5",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 6: Civilizations & Ancient Collapse",
+    "status": "shipped",
+    "summary": "Precision 30-gear differential bronze astronomical analog computer predicting solar/lunar eclipses, Metonic/Saros cycles, and Olympic games, discovered in deep Aegean shipwreck graveyard.",
+    "syllogism": "Sublime Mathematical Horology + Maritime Plunder & Deep-Sea Shipwreck Oblivion = 1,500-Year Eradication of Precision Gearing From Human Consciousness",
+    "four_corners": {
+      "establishment": "Roman Plunder-Centurion (Transports looted Corinthian bronze mechanism to Rome, valuing it only by bronze melt-weight)",
+      "opponent": "Rhodesian Horologist-Mechanic (Creator of the differential gear train, fighting to prevent its crude destruction)",
+      "shadow": "Symi Sponge Divers (Diving 45 meters without gear, stripping marble statues and dropping fragile gears into deep chasms)",
+      "outcast": "Aegean Island Hermit Astrologer (Decodes dial inscriptions to predict eclipse omen, warning crew of impending typhoon)"
+    },
+    "dials": [
+      "Level 1: Gear Train Friction & Salt Spray Verdigris - Bronze gears seize; DC 10 Sleight of Hand/Tinkering; alignment offset (Light)",
+      "Level 2: Gale-Force Sea Surge & Galley Hull Leak - 20-foot Aegean swells; DC 13 Athletics/Vehicles or 2d8 impact damage (Moderate)",
+      "Level 3: Abyssal Reef Collision & Differential Shear - Ship hits reef; DC 16 Reflex or 4d10 gear shrapnel and rushing seawater (Severe)",
+      "Level 4: Catastrophic 45-Meter Wreck Descent & Millennial Oblivion - Hull snaps; mechanism sinks to seabed; DC 20 Survival/Athletics or 8d12 drowning (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Precalculated Total Solar Eclipse Clock [4 Ticks] - Ticks toward the exact alignment predicted by the saros dial; total darkness.",
+      "Shipwreck Abyssal Sinking Meter [4 Ticks] - Ticks as hold takes water; slides off undersea cliff into 45-meter trench."
+    ],
+    "provides": [
+      "Relic: Differential-Bronze-Clockwork-Computer",
+      "Science: Saros-Eclipse-Predictor",
+      "Navigation: Precision-Zodiacal-Ephemeris"
+    ],
+    "requires": [
+      "Metal: Low-Oxidation-Fine-Bronze-Gears",
+      "Mathematics: Hipparchian-Lunar-Calculus"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Adhocracy / Hellenistic Precision Craftsmanship",
+    "mtg_color": "Blue / Colorless",
+    "agent_brief": "Author using Set G technological climax style. Anchor around Antikythera Shipwreck (1900), 30+ triangular bronze gears, differential gearing, Saros/Metonic dials, and the 1,500-year loss of horology. Follow TEMPLATE.md exactly.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-072_antikythera_clockwork_astronomical_reliquary.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-072_antikythera_clockwork_astronomical_reliquary.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-073",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Harappan Sanitary Grid and Saraswati Desiccation",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 8: Ancient Engineering & Mystery Megastructures",
+    "status": "shipped",
+    "summary": "The Mature Harappan urban matrix (Mohenjo-Daro, Harappa) with standardized 1:2:4 fired bricks, covered municipal drains, and bitumen-waterproofed Great Bath, systematically abandoned as tectonic shifts desiccate the Saraswati (Ghaggar-Hakra) river system.",
+    "syllogism": "Obsessive Municipal Standardization + Tectonic Glacial River Avulsion = Systemic Sanitary Sclerosis & Gradual De-Urbanization",
+    "four_corners": {
+      "establishment": "Chief Metrological Surveyor of the Brick Guild (Enforces 1:2:4 brick ratios and drainage tax tokens with bureaucratic rigidity)",
+      "opponent": "Eastward Exodus Patriarch (Elder of agricultural clan packing bronze ploughshares to march to monsoon Ganges)",
+      "shadow": "Deep-Well Water Oligarchs (Bead merchants hoarding private 80-foot cylindrical brick wells in citadel)",
+      "outcast": "Dry Hakra Mud-Scavenger (Outcast potter tracking subterranean seepages through gravel strata)"
+    },
+    "dials": [
+      "Level 1: Drain Silt Accumulation & Low Well Head - Mud silts brick sewers; DC 10 Athletics/Engineering (Light)",
+      "Level 2: Dry Brick Latrine Stench & Enteric Fever - Drains back up; DC 13 Fortitude or 2d8 disease damage (Moderate)",
+      "Level 3: Ghaggar-Hakra River Desiccation & Well Depletion - River ceases perennial flow; DC 16 Survival or 4d10 dehydration (Severe)",
+      "Level 4: Catastrophic Sanitary Failure & Mass De-Urbanization - Glacial headwaters captured; DC 20 Survival or 8d12 plague/thirst (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Ghaggar-Hakra River Desiccation Clock [6 Ticks] - Ticks as tectonic headwater diversion starves river channels.",
+      "Municipal Sewerage Contagion Meter [4 Ticks] - Ticks as dry drains fill with un-flushed sewage."
+    ],
+    "provides": [
+      "Infrastructure: Municipal-Sanitary-Drain-Grid",
+      "Metrology: Standardized-Cubical-Chert-Weights",
+      "Civil: Waterproofed-Bitumen-Great-Bath"
+    ],
+    "requires": [
+      "Hydrology: Perennial-Glacial-River-Flow",
+      "Resource: Kiln-Baked-Mudbrick-Supply"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Adhocracy / Municipal Civil Order & Standardized Metrology",
+    "mtg_color": "White / Blue",
+    "agent_brief": "Author using Set A hydraulic/metrological infrastructure style. Anchor around Mohenjo-Daro/Harappa sanitation, 1:2:4 bricks, bitumen Great Bath, and Saraswati/Ghaggar-Hakra avulsion.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-073_harappan_sanitary_grid_and_saraswati_desiccation.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-073_harappan_sanitary_grid_and_saraswati_desiccation.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-074",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Teotihuacan Palace Immolation and Pyramidal Revolt",
+    "pipeline_tier": 4,
+    "tier_label": "Tier 4",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 8: Ancient Engineering & Mystery Megastructures",
+    "status": "shipped",
+    "summary": "The 100,000-citizen metropolis of Teotihuacan featuring multi-family apartment compounds, green Pachuca obsidian monopoly, and talud-tablero pyramids, collapsing via a surgical, selective populist uprising that incinerated elite palaces along the Avenue of the Dead while leaving commoner compounds untouched.",
+    "syllogism": "Creeping Aristocratic Centralization + Armed Populist Compound Solidarity = Selective Palatial Immolation & De-Sacralization of the Pyramids",
+    "four_corners": {
+      "establishment": "High Priest-Prefect of the Ciudadela (Attempts to establish hereditary dynasty; hoards obsidian cores and grain)",
+      "opponent": "Apartment Compound Militia Captain (Mobilizes Tetitla compound obsidian-knappers into phalanges with prismatic lances)",
+      "shadow": "Obsidian Smuggling Factor (Commercial merchant supplying weapons to both sides while looting Pyramid of the Sun)",
+      "outcast": "Highland Lime-Kiln Burner (Artisan blinded by burning limestone who warns burning palaces will choke cisterns)"
+    },
+    "dials": [
+      "Level 1: Compound Plaster Rationing & Obsidian Export Tax - Elite levies; DC 10 Haggling/Bureaucracy (Light)",
+      "Level 2: Talud-Tablero Temple Barricades & Street Clashes - Mercenary patrols clash; DC 13 Reflex/Athletics or 2d8 damage (Moderate)",
+      "Level 3: Avenue of the Dead Palatial Conflagration - Palaces torched; DC 16 Reflex/Fortitude or 4d10 fire/smoke damage (Severe)",
+      "Level 4: Total De-Sacralization & Mass Compound Exodus - Aristocracy annihilated; DC 20 Survival or 8d12 riot violence (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Palatial Selective Immolation Clock [4 Ticks] - Ticks as popular anger coordinates torches against elite temples.",
+      "Aristocratic Monarchy Consolidation Meter [6 Ticks] - Ticks as Ciudadela priests fortify Avenue of the Dead."
+    ],
+    "provides": [
+      "Structure: Talud-Tablero-Pyramidal-Citadel",
+      "Industry: Green-Pachuca-Obsidian-Blade-Cores",
+      "Tension: Selective-Palatial-Immolation"
+    ],
+    "requires": [
+      "Material: Volcanic-Basalt-Lime-Plaster",
+      "Agriculture: Valley-Chinampa-Irrigation"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Adhocracy / Populist Insurgency against Oligarchic Theocracy",
+    "mtg_color": "Red / White",
+    "agent_brief": "Author using Set C political revolution and civic collapse style. Anchor around egalitarian multi-family apartment compounds, green Pachuca obsidian, talud-tablero architecture, and selective internal burn horizon.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-074_teotihuacan_palace_immolation_and_pyramidal_revolt.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-074_teotihuacan_palace_immolation_and_pyramidal_revolt.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-075",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Chaco Canyon Timber Roads and Megadrought",
+    "pipeline_tier": 3,
+    "tier_label": "Tier 3",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 8: Ancient Engineering & Mystery Megastructures",
+    "status": "shipped",
+    "summary": "The Ancestral Puebloan regional ritual center at Chaco Canyon (Pueblo Bonito, Chetro Ketl), importing 240,000 hand-carried ponderosa pine timbers across radial prehistoric roadways, collapsing during the 50-year megadrought of 1130 CE into ritual dismantling and cliff-dwelling dispersion.",
+    "syllogism": "Vulnerable Arid Basin Redistribution + Multi-Decadal Megadrought & Timber Deforestation = Ritual De-Sanctification & Mesa Cliff Dispersion",
+    "four_corners": {
+      "establishment": "Kiva Astronomical Sun-Priest (Aligns great houses with lunar standstills, directing regional tribute)",
+      "opponent": "San Juan Mesa Cliff-Dwelling Separatist (Dismantles great house roofs to fortify defensive cliff alcoves)",
+      "shadow": "Turquoise-Macaw Trade Caravaner (Smuggles Mesoamerican copper bells and macaws for hoarded maize)",
+      "outcast": "Exhausted Timber Hauler (Carries 80-pound pine logs 50 miles on bare shoulders without beasts of burden)"
+    },
+    "dials": [
+      "Level 1: Arid Wash Flash Flooding & Timber Silt Drift - Silt clogs canal sluices; DC 10 Athletics/Survival (Light)",
+      "Level 2: Chaco Roadway Sand-Choke & Timber Hauler Heatstroke - High desert heat; DC 13 Fortitude or 2d8 heat damage (Moderate)",
+      "Level 3: Multi-Decadal Megadrought & Kiva Roof Dismantling - Maize harvest fails; DC 16 Fortitude or 4d10 famine/exhaustion (Severe)",
+      "Level 4: Catastrophic Regional Desiccation & Mesa Warfare - Water table vanishes; DC 20 Survival or 8d12 starvation/raid (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Fifty-Year Megadrought Desiccation Clock [6 Ticks] - Ticks as dendrochronological tree-rings record zero winter snowpack.",
+      "Pueblo Great House Roof Dismantling Meter [4 Ticks] - Ticks as clans strip ponderosa roof beams to relocate."
+    ],
+    "provides": [
+      "Topography: Prehistoric-Chaco-Road-Radial-Grid",
+      "Structure: Multi-Story-Core-and-Veneer-Great-House",
+      "Ritual: Great-Kiva-Cosmic-Alignment"
+    ],
+    "requires": [
+      "Forest: High-Altitude-Ponderosa-Pine-Timbers",
+      "Hydrology: Ephemeral-Wash-Runoff-Harvesting"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Astronomical Ceremony & Regional Redistribution",
+    "mtg_color": "Red / White",
+    "agent_brief": "Author using Set B topological and astronomical masonry style. Anchor around Pueblo Bonito core-and-veneer masonry, 240,000 hand-carried timbers, radial prehistoric roads, and 1130 CE megadrought.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-075_chaco_canyon_timber_roads_and_megadrought.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-075_chaco_canyon_timber_roads_and_megadrought.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-076",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Great Zimbabwe Mortarless Granite and Gold Monopoly",
+    "pipeline_tier": 3,
+    "tier_label": "Tier 3",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 8: Ancient Engineering & Mystery Megastructures",
+    "status": "shipped",
+    "summary": "The medieval Shona kingdom capital at Great Zimbabwe, boasting colossal dry-stone curved granite walls (Great Enclosure, Conical Tower) built without mortar, monopolizing sub-Saharan gold and ivory trade with Sofala and Kilwa, collapsing as regional cattle grazing and firewood depletion force dynastic migration.",
+    "syllogism": "Exquisite Dry-Stone Ashlar Prestige + Savanna Grazing & Firewood Depletion = Trade Route Migration & Royal Enclosure Desertion",
+    "four_corners": {
+      "establishment": "Mambo Royal Granite Master (Rules inside Great Enclosure, demanding gold dust and cattle tribute)",
+      "opponent": "Northern Mutapa Dynastic Splinter Prince (Leads gold miners north to Zambezi valley to monopolize Portuguese trade)",
+      "shadow": "Sofala Swahili Dhow Factor (Exchanges Chinese celadon and Persian glazed ceramics for raw gold at steep markup)",
+      "outcast": "Savanna Firewood Cutter (Travels 20 leagues to find scrub timber, witnessing environmental collapse of valley)"
+    },
+    "dials": [
+      "Level 1: Granite Exfoliation Flaking & Daga Hut Mud Wash - Rains erode clay walls; DC 10 Athletics/Craft (Light)",
+      "Level 2: Firewood Fuel Shortage & Cattle Pasture Overgrazing - Trees depleted; DC 13 Survival or 2d8 exhaustion (Moderate)",
+      "Level 3: Gold Trade Route Diversion & Daga Quarter Abandonment - Swahili merchants bypass hill; DC 16 Streetwise/Survival or 4d10 loss (Severe)",
+      "Level 4: Catastrophic Valley Ecological Exhaustion & Capital Relocation - Valley ecosystem collapses; DC 20 Survival or 8d12 migration damage (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Plateau Firewood & Pasture Exhaustion Clock [6 Ticks] - Ticks as 18,000 cattle and charcoal kilns strip savanna.",
+      "Northern Trade Route Defection Meter [4 Ticks] - Ticks as gold caravans shift north toward Mutapa and Zambezi."
+    ],
+    "provides": [
+      "Structure: Mortarless-Curved-Granite-Great-Enclosure",
+      "Mineral: Sub-Saharan-Alluvial-Gold-Dust",
+      "Trade: Indian-Ocean-Dhow-Monopoly"
+    ],
+    "requires": [
+      "Fauna: Highveld-Humped-Cattle-Herds",
+      "Material: Thermal-Exfoliated-Granite-Slabs"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Royal Enclosure & Indian Ocean Trade Monopoly",
+    "mtg_color": "White / Red",
+    "agent_brief": "Author using Set C royal prestige and trade monopoly style. Anchor around dry-stone chevron masonry, soapstone bird totems, Conical Tower, Indian Ocean trade, and savanna ecological carrying capacity.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-076_great_zimbabwe_mortarless_granite_and_gold_monopoly.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-076_great_zimbabwe_mortarless_granite_and_gold_monopoly.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-077",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Nan Madol Columnar Basalt Canal Megacity",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 8: Ancient Engineering & Mystery Megastructures",
+    "status": "shipped",
+    "summary": "The megalithic venetian capital of the Saudeleur Dynasty on Pohnpei, constructed from 750,000 metric tons of natural columnar basalt log-prisms stacked into 92 artificial islet enclosures over a shallow coral reef, abandoned after tyrannical tribute sparked mythic invasion by Isokelekel.",
+    "syllogism": "Totalitarian Megalithic Extraction on Coral Reefs + Island-Wide Food Oppression = Foreign Heroic Invasion & Complete Abandonment to Mangroves",
+    "four_corners": {
+      "establishment": "Saudeleur Dynasty Grand Despot (Enforces ritual turtle sacrifices and raft-borne basalt quotas from Nandauwas)",
+      "opponent": "Isokelekel War-Canoe Conqueror (Leads 333 Kosraean warriors on outrigger canoes to depose tyrant dynasty)",
+      "shadow": "Coral Reef Prism-Raft Steersman (Secretly dumps 10-ton basalt prisms in reef trenches during transit)",
+      "outcast": "Mainland Taro-Pond Commoner (Starving tenant farmer paddling fresh water and cooked breadfruit to stone islets)"
+    },
+    "dials": [
+      "Level 1: Tidal Canal Shoaling & Mangrove Root Snag - Low tide strands canoes; DC 10 Athletics/Vehicles (Light)",
+      "Level 2: Basalt Log Stacking Collapse & Coral Cut - Heavy logs slip; DC 13 Athletics/Reflex or 2d8 crushing/cut (Moderate)",
+      "Level 3: Saudeleur Tyrannical Tribute Seizure & Freshwater Starvation - Fresh water withheld; DC 16 Fortitude/Will or 4d10 thirst (Severe)",
+      "Level 4: Catastrophic Isokelekel Invasion & Mangrove Overgrowth - Dynasty overthrown; DC 20 Survival or 8d12 combat/drowning (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Saudeleur Tribute Oppression Revolt Clock [4 Ticks] - Ticks as mainlanders forced to haul fresh water and breadfruit.",
+      "Mangrove Canal Re-Wilding Meter [6 Ticks] - Ticks as tidal canals silt up and red mangroves swallow stone walls."
+    ],
+    "provides": [
+      "Topography: Inter-Tidal-Canal-Artificial-Islet-Network",
+      "Structure: Columnar-Basalt-Log-Stacked-Fortress",
+      "Ritual: Sacred-Reef-Eel-and-Turtle-Pool"
+    ],
+    "requires": [
+      "Transit: Double-Hulled-Log-Raft-Flotilla",
+      "Life-Support: Mainland-Freshwater-and-Taro-Tribute"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Hierarchy / Theocratic Megalithic Extraction & Insular Tyranny",
+    "mtg_color": "Blue / Black",
+    "agent_brief": "Author using Set D maritime and megalithic canal style. Anchor around 92 artificial islets, columnar basalt log stacking, Saudeleur tyranny, freshwater supply dependency, and mangrove reclaim.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-077_nan_madol_columnar_basalt_canal_megacity.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-077_nan_madol_columnar_basalt_canal_megacity.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-078",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "Skara Brae Subterranean Dune Stone Haven",
+    "pipeline_tier": 2,
+    "tier_label": "Tier 2",
+    "category": "06_civilizations_and_collapse",
+    "wave": "Wave 8: Ancient Engineering & Mystery Megastructures",
+    "status": "shipped",
+    "summary": "The 5,000-year-old Neolithic subterranean stone village at the Bay of Skaill, Orkney, built within insulating refuse middens with built-in flagstone dressers, stone box beds, and low covered tunnel passages, preserved perfectly beneath storm sand dunes.",
+    "syllogism": "Severe Sub-Arctic Treeless Gale Isolation + Communal Stone-and-Midden Subterranean Haven = 600-Year Egalitarian Thriving Preserved by Dune Storms",
+    "four_corners": {
+      "establishment": "Midden-Hearth Clan Matriarch (Preserves barley beer in stone tanks and allocates limpet shell rations)",
+      "opponent": "North Atlantic Gale Raider (Outcast islander seeking shelter during violent 80-knot winter storms)",
+      "shadow": "Carved Stone Ball Shaman (Inscribes enigmatic spiral petroglyphs on hidden flagstones for esoteric leverage)",
+      "outcast": "Kelp-Gatherer & Dune Lookout (Patrols shoreline in salt spray, warning of shifting sand drifts)"
+    },
+    "dials": [
+      "Level 1: Gale-Force Atlantic Wind & Peat Smoke Backdraft - Choking smoke in low tunnel; DC 10 Fortitude (Light)",
+      "Level 2: Stone Tunnel Crawlway Squeeze & Ceiling Drip - Wet flagstone slips; DC 13 Athletics/Reflex or 2d8 cold (Moderate)",
+      "Level 3: Dune Sand Incursion & Limpet Tank Spoiling - Sand pours through ceiling; DC 16 Athletics/Survival or 4d10 suffocation (Severe)",
+      "Level 4: Catastrophic 80-Knot Sandstorm Burial - Dune engulfs village; DC 20 Survival or 8d12 sand burial (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "North Atlantic Dune Sand Inundation Clock [4 Ticks] - Ticks as winter gales blow shifting dunes over sunken roofs.",
+      "Winter Peat Fuel Depletion Meter [6 Ticks] - Ticks as sub-arctic cold forces hearths to burn driftwood and dung."
+    ],
+    "provides": [
+      "Topography: Subterranean-Midden-Insulated-Haven",
+      "Craft: Fitted-Flagstone-Box-Furniture",
+      "Life-Support: Peat-Fired-Communal-Hearth-Grid"
+    ],
+    "requires": [
+      "Material: Marine-Flagstone-Quarry-Beds",
+      "Insulation: Decomposed-Bio-Midden-Earth"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Subterranean Midden Insulation & Agrarian Egalitarianism",
+    "mtg_color": "Green / White",
+    "agent_brief": "Author using Set B sub-arctic subterranean haven style. Anchor around Orkney Neolithic stonework, midden thermal insulation, flagstone dressers and box-beds, low crawlway tunnels, and 1850 Great Gale discovery.",
+    "ticket_file": "tickets/creative/backlog/06_civilizations_and_collapse/CWT-078_skara_brae_subterranean_dune_stone_haven.md",
+    "file_url": "../tickets/creative/backlog/06_civilizations_and_collapse/CWT-078_skara_brae_subterranean_dune_stone_haven.md",
+    "module_path": "",
+    "tags": [
+      "chill_dude"
+    ],
+    "creator_source": "Chill Dude Explains"
+  },
+  {
+    "id": "CWT-080",
+    "track": "Creative Modules (CWT)",
+    "track_code": "CWT",
+    "title": "The Indentured Caravan Desperation Leap and Truck-System Fracture",
+    "pipeline_tier": 4,
+    "tier_label": "Tier 4",
+    "category": "02_transit_edges",
+    "wave": "Wave 2: Transit Corridors (Tier 2/4 Regional Hook)",
+    "status": "shipped",
+    "summary": "Near an indentured labor pit on a vital supply corridor, a broken worker leaps under the wheels of an ore caravan; his bloodstained company store vouchers reveal generational debt entrapment, forcing the party into a moral and economic collision that sends shockwaves through the regional supply grid.",
+    "syllogism": "Compulsory Company Store Monopsony + Desperate Bodily Martyrdom = Systemic Labor Revolt and Supply Chokepoint Fracture",
+    "four_corners": {
+      "establishment": "Factor Vance Callow (Enforces company store debt liens and armed wagon security)",
+      "opponent": "Mara 'Red-Sieve' Thorne (Clandestine labor agitator mobilizing general strike with black powder)",
+      "shadow": "'Gimlet' Jock (Wayside barkeep buying scrip for cheap gin while acting as company informant)",
+      "outcast": "Jael Moros (Maimed pit miner clutching the 487-silver debt ledger note to save his daughter)"
+    },
+    "dials": [
+      "Level 1: Chained Truck-System Monopsony - Routine extraction; laborers subsist on stamped tin store scrip (Light)",
+      "Level 2: Intercepted Martyrdom & Truancy - A desperate worker leaps under the ore wain; transit stalled in mud (Moderate)",
+      "Level 3: Wildcat Roadblock & Chokepoint Picket - Laborers seize crane switchback; company imports armed strikebreakers (Severe)",
+      "Level 4: General Insurgency & Smelter Sabotage - Full armed rebellion; ore hoppers dynamited; company store sacked (Lethal Climax)"
+    ],
+    "threat_clocks": [
+      "Caravan Stoppage Clock [4 Ticks] - Advances on delay, failed stealth, or open argument. At 4/4, elite company mercenary dragoons arrive.",
+      "Labor Insurgency Clock [6 Ticks] - Advances on public executions, discovered union leaflets, or agitator rallying. At 6/6, 200 pit miners take up sledgehammers.",
+      "Downstream Smelter Starvation Clock [4 Ticks] - Advances each Campaign Turn the arterial corridor remains blocked. At 4/4, downstream blast furnaces freeze solid."
+    ],
+    "provides": [
+      "Labor: Indentured-Resource-Extraction",
+      "Transit: Ore-Caravan-Right-of-Way",
+      "Intel: Company-Store-Debt-Ledger",
+      "Faction: Radicalized-Labor-Solidarity-Cell"
+    ],
+    "requires": [
+      "Authority: Company-Bailiff-Garrison",
+      "Logistics: Truck-Store-Grain-Rations",
+      "Transit: Physical-Arterial-Corridor",
+      "Resource: High-Value-Crude-Extract"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Market / Hierarchy Extraction Grid",
+    "mtg_color": "Black / White / Red",
+    "agent_brief": "Author modular region hook connecting node disposition ODV [S, E, C] to the tragic company store truck-system. Anchor around Jael's suicide note, the 4-corner opposition web, and regional supply starvation fallout.",
+    "ticket_file": "tickets/creative/backlog/02_transit_edges/CWT-080_the_indentured_caravan_desperation_leap_and_truck_system_fracture.md",
+    "file_url": "../tickets/creative/backlog/02_transit_edges/CWT-080_the_indentured_caravan_desperation_leap_and_truck_system_fracture.md",
+    "module_path": "",
+    "tags": [
+      "regional_hook",
+      "supply_chain",
+      "debt_peonage",
+      "truck_system"
+    ],
+    "creator_source": "Creator Studio Universal Region Hooks"
+  },
+  {
+    "id": "T0-DOM-01",
+    "track": "Baseline Substratum (Tier 0)",
+    "track_code": "T0-DOM",
+    "title": "Subsistence Agrarian Perimeter & Root Cellars",
+    "pipeline_tier": 0,
+    "tier_label": "Tier 0 Substratum",
+    "category": "DOM-01 Food & Caloric Subsistence",
+    "wave": "Tier 0: Mundane Settlement Substratum",
+    "status": "shipped",
+    "summary": "Dryland crop rotation, cabbage patches, communal threshing floors, and subterranean root storage keeping 200–500 souls alive through winter.\n\n---",
+    "syllogism": "Mundane Survival Needs + Settlement Carrying Capacity = Foundation for Macro Politics",
+    "four_corners": {
+      "establishment": "Settlement Bailiff & Grain Store (Enforcing basic rations & curfew)",
+      "opponent": "Famine & Drought Exposure (Severe seasonal elements breaking baseline)",
+      "shadow": "Black Market Smugglers (Diverting emergency grain stores for copper)",
+      "outcast": "Foragers & Wasteland Nomads (Surviving outside the municipal perimeter)"
+    },
+    "dials": [
+      "Level 1: Bountiful - Abundant supplies; full reserves (Light)",
+      "Level 2: Normal - Standard carrying capacity; steady flow (Moderate)",
+      "Level 3: Lean - Scarcity; rationing; minor unrest checks (Severe)",
+      "Level 4: Famine / Collapse - Total resource exhaustion; population forced to migrate (Lethal)"
+    ],
+    "threat_clocks": [
+      "Seasonal Depletion Clock [6 Ticks] - Ticks when winter or drought strikes.",
+      "Local Scarcity Unrest [4 Ticks] - Ticks when rations are withheld."
+    ],
+    "provides": [
+      "Food: Baseline-Subsistence-Rations"
+    ],
+    "requires": [
+      "Geography: Arable-Perimeter-Soil"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Hierarchy",
+    "mtg_color": "Green / White",
+    "agent_brief": "Author using Tier 0 baseline settlement schema. Support both Smooth Generic and Granular Modularity modes.",
+    "ticket_file": "tickets/tier_0/tickets/T0-DOM-01_subsistence_agrarian_perimeter_root_cellars.md",
+    "file_url": "../tickets/tier_0/tickets/T0-DOM-01_subsistence_agrarian_perimeter_root_cellars.md",
+    "module_path": ""
+  },
+  {
+    "id": "T0-DOM-02",
+    "track": "Baseline Substratum (Tier 0)",
+    "track_code": "T0-DOM",
+    "title": "Communal Artesian Well & Village Cistern",
+    "pipeline_tier": 0,
+    "tier_label": "Tier 0 Substratum",
+    "category": "DOM-02 Water & Hydrology",
+    "wave": "Tier 0: Mundane Settlement Substratum",
+    "status": "shipped",
+    "summary": "Deep stone-lined artesian well with bucket windlass and communal rain collection cistern providing safe, year-round potable drinking water.\n\n---",
+    "syllogism": "Mundane Survival Needs + Settlement Carrying Capacity = Foundation for Macro Politics",
+    "four_corners": {
+      "establishment": "Settlement Bailiff & Grain Store (Enforcing basic rations & curfew)",
+      "opponent": "Famine & Drought Exposure (Severe seasonal elements breaking baseline)",
+      "shadow": "Black Market Smugglers (Diverting emergency grain stores for copper)",
+      "outcast": "Foragers & Wasteland Nomads (Surviving outside the municipal perimeter)"
+    },
+    "dials": [
+      "Level 1: Bountiful - Abundant supplies; full reserves (Light)",
+      "Level 2: Normal - Standard carrying capacity; steady flow (Moderate)",
+      "Level 3: Lean - Scarcity; rationing; minor unrest checks (Severe)",
+      "Level 4: Famine / Collapse - Total resource exhaustion; population forced to migrate (Lethal)"
+    ],
+    "threat_clocks": [
+      "Seasonal Depletion Clock [6 Ticks] - Ticks when winter or drought strikes.",
+      "Local Scarcity Unrest [4 Ticks] - Ticks when rations are withheld."
+    ],
+    "provides": [
+      "Water: Baseline-Potable-Well-Head"
+    ],
+    "requires": [
+      "Geography: Subterranean-Aquifer-Seep"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Hierarchy",
+    "mtg_color": "Green / White",
+    "agent_brief": "Author using Tier 0 baseline settlement schema. Support both Smooth Generic and Granular Modularity modes.",
+    "ticket_file": "tickets/tier_0/tickets/T0-DOM-02_communal_artesian_well_village_cistern.md",
+    "file_url": "../tickets/tier_0/tickets/T0-DOM-02_communal_artesian_well_village_cistern.md",
+    "module_path": ""
+  },
+  {
+    "id": "T0-DOM-03",
+    "track": "Baseline Substratum (Tier 0)",
+    "track_code": "T0-DOM",
+    "title": "Vernacular Timber, Wattle & Stone Masonry",
+    "pipeline_tier": 0,
+    "tier_label": "Tier 0 Substratum",
+    "category": "DOM-03 Shelter & Civic Municipal",
+    "wave": "Tier 0: Mundane Settlement Substratum",
+    "status": "shipped",
+    "summary": "Locally sourced wattle-and-daub cottages, split-timber cabins, or slate stone masonry protecting against frost, wind, and predators.\n\n---",
+    "syllogism": "Mundane Survival Needs + Settlement Carrying Capacity = Foundation for Macro Politics",
+    "four_corners": {
+      "establishment": "Settlement Bailiff & Grain Store (Enforcing basic rations & curfew)",
+      "opponent": "Famine & Drought Exposure (Severe seasonal elements breaking baseline)",
+      "shadow": "Black Market Smugglers (Diverting emergency grain stores for copper)",
+      "outcast": "Foragers & Wasteland Nomads (Surviving outside the municipal perimeter)"
+    },
+    "dials": [
+      "Level 1: Bountiful - Abundant supplies; full reserves (Light)",
+      "Level 2: Normal - Standard carrying capacity; steady flow (Moderate)",
+      "Level 3: Lean - Scarcity; rationing; minor unrest checks (Severe)",
+      "Level 4: Famine / Collapse - Total resource exhaustion; population forced to migrate (Lethal)"
+    ],
+    "threat_clocks": [
+      "Seasonal Depletion Clock [6 Ticks] - Ticks when winter or drought strikes.",
+      "Local Scarcity Unrest [4 Ticks] - Ticks when rations are withheld."
+    ],
+    "provides": [
+      "Shelter: Weatherproof-Civic-Fabric"
+    ],
+    "requires": [
+      "Material: Local-Timber-and-Clay"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Hierarchy",
+    "mtg_color": "Green / White",
+    "agent_brief": "Author using Tier 0 baseline settlement schema. Support both Smooth Generic and Granular Modularity modes.",
+    "ticket_file": "tickets/tier_0/tickets/T0-DOM-03_vernacular_timber_wattle_stone_masonry.md",
+    "file_url": "../tickets/tier_0/tickets/T0-DOM-03_vernacular_timber_wattle_stone_masonry.md",
+    "module_path": ""
+  },
+  {
+    "id": "T0-DOM-04",
+    "track": "Baseline Substratum (Tier 0)",
+    "track_code": "T0-DOM",
+    "title": "Ditch-and-Palisade with Town Watch Bailiff",
+    "pipeline_tier": 0,
+    "tier_label": "Tier 0 Substratum",
+    "category": "DOM-04 Peacekeeping & Perimeter Defense",
+    "wave": "Tier 0: Mundane Settlement Substratum",
+    "status": "shipped",
+    "summary": "Sharpened wooden stake palisade, earthen ditch embankment, heavy timber gate, and a roster of 12 local militia armed with bills and hunting bows.\n\n---",
+    "syllogism": "Mundane Survival Needs + Settlement Carrying Capacity = Foundation for Macro Politics",
+    "four_corners": {
+      "establishment": "Settlement Bailiff & Grain Store (Enforcing basic rations & curfew)",
+      "opponent": "Famine & Drought Exposure (Severe seasonal elements breaking baseline)",
+      "shadow": "Black Market Smugglers (Diverting emergency grain stores for copper)",
+      "outcast": "Foragers & Wasteland Nomads (Surviving outside the municipal perimeter)"
+    },
+    "dials": [
+      "Level 1: Bountiful - Abundant supplies; full reserves (Light)",
+      "Level 2: Normal - Standard carrying capacity; steady flow (Moderate)",
+      "Level 3: Lean - Scarcity; rationing; minor unrest checks (Severe)",
+      "Level 4: Famine / Collapse - Total resource exhaustion; population forced to migrate (Lethal)"
+    ],
+    "threat_clocks": [
+      "Seasonal Depletion Clock [6 Ticks] - Ticks when winter or drought strikes.",
+      "Local Scarcity Unrest [4 Ticks] - Ticks when rations are withheld."
+    ],
+    "provides": [
+      "Defense: Local-Palisade-and-Watch"
+    ],
+    "requires": [
+      "Material: Hewn-Log-Stakes",
+      "Social: Able-Bodied-Militia"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Hierarchy",
+    "mtg_color": "Green / White",
+    "agent_brief": "Author using Tier 0 baseline settlement schema. Support both Smooth Generic and Granular Modularity modes.",
+    "ticket_file": "tickets/tier_0/tickets/T0-DOM-04_ditch_and_palisade_with_town_watch_bailiff.md",
+    "file_url": "../tickets/tier_0/tickets/T0-DOM-04_ditch_and_palisade_with_town_watch_bailiff.md",
+    "module_path": ""
+  },
+  {
+    "id": "T0-DOM-05",
+    "track": "Baseline Substratum (Tier 0)",
+    "track_code": "T0-DOM",
+    "title": "Weekly Barter Square & Village Blacksmith",
+    "pipeline_tier": 0,
+    "tier_label": "Tier 0 Substratum",
+    "category": "DOM-05 Trade, Barter & Mundane Craft",
+    "wave": "Tier 0: Mundane Settlement Substratum",
+    "status": "shipped",
+    "summary": "Charcoal forge shaping plowshares, scythes, and horse shoes alongside a weekly open-air barter market trading butter, eggs, homespun cloth, and copper bits.\n\n---",
+    "syllogism": "Mundane Survival Needs + Settlement Carrying Capacity = Foundation for Macro Politics",
+    "four_corners": {
+      "establishment": "Settlement Bailiff & Grain Store (Enforcing basic rations & curfew)",
+      "opponent": "Famine & Drought Exposure (Severe seasonal elements breaking baseline)",
+      "shadow": "Black Market Smugglers (Diverting emergency grain stores for copper)",
+      "outcast": "Foragers & Wasteland Nomads (Surviving outside the municipal perimeter)"
+    },
+    "dials": [
+      "Level 1: Bountiful - Abundant supplies; full reserves (Light)",
+      "Level 2: Normal - Standard carrying capacity; steady flow (Moderate)",
+      "Level 3: Lean - Scarcity; rationing; minor unrest checks (Severe)",
+      "Level 4: Famine / Collapse - Total resource exhaustion; population forced to migrate (Lethal)"
+    ],
+    "threat_clocks": [
+      "Seasonal Depletion Clock [6 Ticks] - Ticks when winter or drought strikes.",
+      "Local Scarcity Unrest [4 Ticks] - Ticks when rations are withheld."
+    ],
+    "provides": [
+      "Economy: Baseline-Mundane-Smithy-and-Trade"
+    ],
+    "requires": [
+      "Material: Scrap-Iron-Billets",
+      "Fuel: Hardwood-Charcoal"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Hierarchy",
+    "mtg_color": "Green / White",
+    "agent_brief": "Author using Tier 0 baseline settlement schema. Support both Smooth Generic and Granular Modularity modes.",
+    "ticket_file": "tickets/tier_0/tickets/T0-DOM-05_weekly_barter_square_village_blacksmith.md",
+    "file_url": "../tickets/tier_0/tickets/T0-DOM-05_weekly_barter_square_village_blacksmith.md",
+    "module_path": ""
+  },
+  {
+    "id": "T0-DOM-06",
+    "track": "Baseline Substratum (Tier 0)",
+    "track_code": "T0-DOM",
+    "title": "Village Herbalist, Midwife & Leechcraft Hearth",
+    "pipeline_tier": 0,
+    "tier_label": "Tier 0 Substratum",
+    "category": "DOM-06 Health, Folk Medicine & Midwifery",
+    "wave": "Tier 0: Mundane Settlement Substratum",
+    "status": "shipped",
+    "summary": "Knowledgeable elder gathering willow bark, yarrow, and wild honey to soothe childbed fevers, stitch farm wounds, and deliver infants.\n\n---",
+    "syllogism": "Mundane Survival Needs + Settlement Carrying Capacity = Foundation for Macro Politics",
+    "four_corners": {
+      "establishment": "Settlement Bailiff & Grain Store (Enforcing basic rations & curfew)",
+      "opponent": "Famine & Drought Exposure (Severe seasonal elements breaking baseline)",
+      "shadow": "Black Market Smugglers (Diverting emergency grain stores for copper)",
+      "outcast": "Foragers & Wasteland Nomads (Surviving outside the municipal perimeter)"
+    },
+    "dials": [
+      "Level 1: Bountiful - Abundant supplies; full reserves (Light)",
+      "Level 2: Normal - Standard carrying capacity; steady flow (Moderate)",
+      "Level 3: Lean - Scarcity; rationing; minor unrest checks (Severe)",
+      "Level 4: Famine / Collapse - Total resource exhaustion; population forced to migrate (Lethal)"
+    ],
+    "threat_clocks": [
+      "Seasonal Depletion Clock [6 Ticks] - Ticks when winter or drought strikes.",
+      "Local Scarcity Unrest [4 Ticks] - Ticks when rations are withheld."
+    ],
+    "provides": [
+      "Health: Folk-Leechcraft-and-Midwifery"
+    ],
+    "requires": [
+      "Ecology: Wild-Hedgerow-Botanicals"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Hierarchy",
+    "mtg_color": "Green / White",
+    "agent_brief": "Author using Tier 0 baseline settlement schema. Support both Smooth Generic and Granular Modularity modes.",
+    "ticket_file": "tickets/tier_0/tickets/T0-DOM-06_village_herbalist_midwife_leechcraft_hearth.md",
+    "file_url": "../tickets/tier_0/tickets/T0-DOM-06_village_herbalist_midwife_leechcraft_hearth.md",
+    "module_path": ""
+  },
+  {
+    "id": "T0-DOM-07",
+    "track": "Baseline Substratum (Tier 0)",
+    "track_code": "T0-DOM",
+    "title": "Midden Trenches, Swine Scavengers & Night-Soil Pit",
+    "pipeline_tier": 0,
+    "tier_label": "Tier 0 Substratum",
+    "category": "DOM-07 Waste, Drainage & Sanitation",
+    "wave": "Tier 0: Mundane Settlement Substratum",
+    "status": "shipped",
+    "summary": "Dedicated community compost trench, pig pens consuming refuse, and lime-dusted night-soil pits keeping streets free of lethal cholera.\n\n---",
+    "syllogism": "Mundane Survival Needs + Settlement Carrying Capacity = Foundation for Macro Politics",
+    "four_corners": {
+      "establishment": "Settlement Bailiff & Grain Store (Enforcing basic rations & curfew)",
+      "opponent": "Famine & Drought Exposure (Severe seasonal elements breaking baseline)",
+      "shadow": "Black Market Smugglers (Diverting emergency grain stores for copper)",
+      "outcast": "Foragers & Wasteland Nomads (Surviving outside the municipal perimeter)"
+    },
+    "dials": [
+      "Level 1: Bountiful - Abundant supplies; full reserves (Light)",
+      "Level 2: Normal - Standard carrying capacity; steady flow (Moderate)",
+      "Level 3: Lean - Scarcity; rationing; minor unrest checks (Severe)",
+      "Level 4: Famine / Collapse - Total resource exhaustion; population forced to migrate (Lethal)"
+    ],
+    "threat_clocks": [
+      "Seasonal Depletion Clock [6 Ticks] - Ticks when winter or drought strikes.",
+      "Local Scarcity Unrest [4 Ticks] - Ticks when rations are withheld."
+    ],
+    "provides": [
+      "Sanitation: Vernacular-Midden-Management"
+    ],
+    "requires": [
+      "Material: Slaked-Lime-Dust",
+      "Fauna: Scavenger-Swine"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Hierarchy",
+    "mtg_color": "Green / White",
+    "agent_brief": "Author using Tier 0 baseline settlement schema. Support both Smooth Generic and Granular Modularity modes.",
+    "ticket_file": "tickets/tier_0/tickets/T0-DOM-07_midden_trenches_swine_scavengers_night_soil_pit.md",
+    "file_url": "../tickets/tier_0/tickets/T0-DOM-07_midden_trenches_swine_scavengers_night_soil_pit.md",
+    "module_path": ""
+  },
+  {
+    "id": "T0-DOM-08",
+    "track": "Baseline Substratum (Tier 0)",
+    "track_code": "T0-DOM",
+    "title": "Wayside Boundary Shrine & Hearth Vigil",
+    "pipeline_tier": 0,
+    "tier_label": "Tier 0 Substratum",
+    "category": "DOM-08 Folklore, Shrine & Communal Rites",
+    "wave": "Tier 0: Mundane Settlement Substratum",
+    "status": "shipped",
+    "summary": "Carved wooden wayside icon or stone cairn dedicated to ancestral protectors, binding the community through seasonal festivals and boundary walks.\n\n---",
+    "syllogism": "Mundane Survival Needs + Settlement Carrying Capacity = Foundation for Macro Politics",
+    "four_corners": {
+      "establishment": "Settlement Bailiff & Grain Store (Enforcing basic rations & curfew)",
+      "opponent": "Famine & Drought Exposure (Severe seasonal elements breaking baseline)",
+      "shadow": "Black Market Smugglers (Diverting emergency grain stores for copper)",
+      "outcast": "Foragers & Wasteland Nomads (Surviving outside the municipal perimeter)"
+    },
+    "dials": [
+      "Level 1: Bountiful - Abundant supplies; full reserves (Light)",
+      "Level 2: Normal - Standard carrying capacity; steady flow (Moderate)",
+      "Level 3: Lean - Scarcity; rationing; minor unrest checks (Severe)",
+      "Level 4: Famine / Collapse - Total resource exhaustion; population forced to migrate (Lethal)"
+    ],
+    "threat_clocks": [
+      "Seasonal Depletion Clock [6 Ticks] - Ticks when winter or drought strikes.",
+      "Local Scarcity Unrest [4 Ticks] - Ticks when rations are withheld."
+    ],
+    "provides": [
+      "Social: Communal-Folklore-Solidarity"
+    ],
+    "requires": [
+      "Social: Shared-Cultural-Lineage"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Clan / Hierarchy",
+    "mtg_color": "Green / White",
+    "agent_brief": "Author using Tier 0 baseline settlement schema. Support both Smooth Generic and Granular Modularity modes.",
+    "ticket_file": "tickets/tier_0/tickets/T0-DOM-08_wayside_boundary_shrine_hearth_vigil.md",
+    "file_url": "../tickets/tier_0/tickets/T0-DOM-08_wayside_boundary_shrine_hearth_vigil.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-AUDIT-01",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Duplicate Mirror Consolidation, Legacy Artifact Cleanup & Orphan File Remediation",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Platform Architecture: Repository Hygiene & Single Source of Truth",
+    "status": "shipped",
+    "summary": " During the full file-by-file inventory for the **Creator Studio Technical Manual & Codebase Wiki (`wiki/`)**, an exhaustive scan of the repository uncovered several classes of **build-time file mirrors**, **overlapping legacy drafts**, **r...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Hygiene: Single-Source-File-Tree",
+      "Audit: Duplicate-And-Orphan-Registry"
+    ],
+    "requires": [
+      "Compiler: build_suite.js",
+      "Wiki: wiki/build_wiki.js"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-AUDIT-01_duplicate_mirror_and_orphan_file_remediation.md",
+    "file_url": "../tickets/system/SYS-AUDIT-01_duplicate_mirror_and_orphan_file_remediation.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-RACE-01",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "System-Agnostic Ancestry Tagging & Module Explorer Filter",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Platform Architecture: Ancestry & System Agnosticism",
+    "status": "shipped",
+    "summary": " Creator Studio is fundamentally system-agnostic and setting-neutral. GMs must never feel shoehorned into canonical fantasy tropes (e.g. assuming all mines are Dwarven, all forests are Elven, or all raiders are Orcish). * **The Rule of Agno...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Schema: Ancestry-Requirements-Tag",
+      "UI: Module-Explorer-Species-Filter"
+    ],
+    "requires": [
+      "Surface: campaign_studio.html",
+      "Manifest: network/modules_manifest.json"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-RACE-01_ancestry_tagging_and_module_explorer_filter.md",
+    "file_url": "../tickets/system/SYS-RACE-01_ancestry_tagging_and_module_explorer_filter.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-RACE-02",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Node Ancestry & Demographic Census Schema in Graph Topology",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Platform Architecture: Ancestry & System Agnosticism",
+    "status": "shipped",
+    "summary": " When a Game Master designs a pointcrawl graph in Creator Studio, every Node currently tracks: * Spatial coordinates `[x, y]` * Structural tier (Sovereign Hub, Major Satellite, Minor Satellite) * 3D Tarot sociological vector `[S, E, C]` (St...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Topology: Node-Demographics-Schema",
+      "UI: Node-Inspector-Census-Card"
+    ],
+    "requires": [
+      "Surface: network_builder.html",
+      "Topology: generic_network_topology.json"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-RACE-02_node_demographic_census_topology_schema.md",
+    "file_url": "../tickets/system/SYS-RACE-02_node_demographic_census_topology_schema.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-SOC-01",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Master Sociological Reference Hub, Contextual Dossier Enrichment, and Procedural 5D Sensory Hermeneutics",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Sociological Algebra & Hermeneutic Tooling",
+    "status": "ready",
+    "summary": "# SYS-SOC-01: Master Sociological Reference Hub, Contextual Dossier Enrichment, and Procedural 5D Sensory Hermeneutics\n*Category: system_architecture | Target Surface: `network/odv_archetype_matrix.ht...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: Master-Sociological-Reference-Hub",
+      "Workstation: Dossier-Sensory-Roller",
+      "Workstation: Faction-Diagnostic-Wizard"
+    ],
+    "requires": [
+      "SociologyData: Core-Engine",
+      "Workstation: odv_archetype_matrix.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-SOC-01_master_sociological_reference_hub_and_dossier_enrichment.md",
+    "file_url": "../tickets/system/SYS-SOC-01_master_sociological_reference_hub_and_dossier_enrichment.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-01",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "CAD Vector Drawing Shapes, Dynamic Canvas Layers & Multi-Entity Selection Engine",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: CAD Drawing Shapes, Layers & Selection Grouping",
+    "status": "shipped",
+    "summary": "\n# SYS-START-01: CAD Vector Drawing Shapes, Dynamic Canvas Layers & Multi-Entity Selection Engine\n*Category: system_architecture | Target Surface: `start.html`*  \n*Status: shipped*  \n*Authority: [ADR-...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Canvas: Drawing-Shapes",
+      "Canvas: Layer-Stack",
+      "Canvas: Multi-Selection",
+      "PropertyGrid: Shared-Intersect"
+    ],
+    "requires": [
+      "Surface: start.html",
+      "Engine: cad_canvas_renderer.js",
+      "Engine: cad_interaction.js",
+      "Engine: property_grid_inspector.js"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-01_canvas_layers_and_selection_grouping_engine.md",
+    "file_url": "../tickets/system/SYS-START-01_canvas_layers_and_selection_grouping_engine.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-02",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Visual Basic In-Cell Custom Property Grid Editors",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Property Grid In-Cell Controls",
+    "status": "shipped",
+    "summary": "\n# SYS-START-02: Visual Basic In-Cell Custom Property Grid Editors\n*Category: system_architecture | Target Surface: `start.html`*\n*Status: shipped*\n\n---\n\n## 1. Problem Statement & Scope\nIn Visual Basi...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "PropertyGrid: In-Cell-Editors",
+      "PropertyGrid: Type-Specific-Renderers"
+    ],
+    "requires": [
+      "Surface: start.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-02_visual_basic_in_cell_property_grid_editors.md",
+    "file_url": "../tickets/system/SYS-START-02_visual_basic_in_cell_property_grid_editors.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-03",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Module Extension SDK & Runtime Mod Hook Provider",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Dynamic Worldbuilding Module Extensibility",
+    "status": "shipped",
+    "summary": "\n# SYS-START-03: Module Extension SDK & Runtime Mod Hook Provider\n*Category: system_architecture | Target Surface: `start.html`*\n*Status: shipped*\n\n---\n\n## 1. Problem Statement & Scope\nAs distinct wor...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Extensibility: Mod-SDK",
+      "Extensibility: Runtime-Hook-Provider"
+    ],
+    "requires": [
+      "Surface: start.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-03_module_extension_sdk_and_runtime_mod_hook_provider.md",
+    "file_url": "../tickets/system/SYS-START-03_module_extension_sdk_and_runtime_mod_hook_provider.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-05",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Campaign Package Exporter, Lossless Save/Save-As & Project Directory Engine",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Persistence, Cross-Platform Portability & Cartographic Packaging",
+    "status": "shipped",
+    "summary": "\n# SYS-START-05: Campaign Package Exporter, Lossless Save/Save-As & Project Directory Engine\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/scripts/`)*  \n*Status: ship...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Storage: Portable-Campaign-Package",
+      "Storage: Lossless-Save-As",
+      "Storage: Project-Directory-Sync",
+      "Storage: Zip-Archive-Export"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "Cartography: Multi-Map-Registry"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-05_campaign_package_exporter_and_project_directory_engine.md",
+    "file_url": "../tickets/system/SYS-START-05_campaign_package_exporter_and_project_directory_engine.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-06",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Selective Sub-Map Package Importer & Entity Conflict Resolution Engine",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Multi-Scale Cartography & Asset Composition",
+    "status": "shipped",
+    "summary": "\n# SYS-START-06: Selective Sub-Map Package Importer & Entity Conflict Resolution Engine\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/scripts/`)*  \n*Status: shipped* ...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Cartography: Selective-Map-Import",
+      "Cartography: Map-Merging",
+      "Entities: Conflict-Detector",
+      "Entities: Collision-Resolution"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "Cartography: Multi-Map-Registry",
+      "Engine: ZeroCorsZip"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-06_selective_submap_import_and_entity_conflict_resolution.md",
+    "file_url": "../tickets/system/SYS-START-06_selective_submap_import_and_entity_conflict_resolution.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-07",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Quest Spanning Network Overhaul, Fog-of-War Map Visibility & Recursive Sub-Map Entity Aggregation",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Multi-Scale Cartography & Campaign Entities",
+    "status": "shipped",
+    "summary": "# SYS-START-07: Quest Spanning Network Overhaul, Fog-of-War Map Visibility, and Recursive Sub-Map Entity Aggregation\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Cartography: Fog-Of-War",
+      "Entities: Recursive-Submap-Aggregation",
+      "Entities: Quest-Spanning-Network"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "Cartography: Multi-Map-Registry"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-07_quest_overhaul_fog_visibility_and_recursive_entities.md",
+    "file_url": "../tickets/system/SYS-START-07_quest_overhaul_fog_visibility_and_recursive_entities.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-08",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Ad-Hoc Node & Edge Resource Supply Flows and Trade Conduits",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Logistics & Supply Flow Simulation",
+    "status": "shipped",
+    "summary": "# SYS-START-08: Ad-Hoc Node & Edge Resource Supply Flows and Trade Conduits\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: shipped*  \n*Date: 2026-10-22*...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Logistics: Ad-Hoc-Resource-Yields",
+      "Logistics: Trade-Conduits"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "Topology: Active-Graph"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-08_ad_hoc_resource_supply_flows_and_conduits.md",
+    "file_url": "../tickets/system/SYS-START-08_ad_hoc_resource_supply_flows_and_conduits.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-09",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "In-App GM Custom Worldbuilding Module Studio & Editor",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Logistics & Supply Flow Simulation",
+    "status": "shipped",
+    "summary": "# SYS-START-09: In-App GM Custom Worldbuilding Module Studio & Editor\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: shipped*  \n*Date: 2026-10-26*\n\n## 1...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: Custom-Module-Studio",
+      "Entities: Custom-Module-CRUD"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "Module: ALL_MODULES"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-09_in_app_custom_module_studio_and_editor.md",
+    "file_url": "../tickets/system/SYS-START-09_in_app_custom_module_studio_and_editor.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-10",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Bounded CAD History Engine (Undo/Redo Command & Snapshot Architecture)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: CAD Core & Data Integrity",
+    "status": "shipped",
+    "summary": "# SYS-START-10: Bounded CAD History Engine (Undo/Redo Command & Snapshot Architecture)\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: ready*  \n*Date: 20...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: Undo-Redo-History",
+      "CAD: Bounded-State-Stack"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "State: activeTopology"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-10_cad_undo_redo_engine.md",
+    "file_url": "../tickets/system/SYS-START-10_cad_undo_redo_engine.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-11",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Interactive Canvas Threat Clocks & Live Tabletop Travel Hazard Roller",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Live Tabletop Play Runtime",
+    "status": "shipped",
+    "summary": "# SYS-START-11: Interactive Canvas Threat Clocks & Live Tabletop Travel Hazard Roller\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: ready*  \n*Date: 202...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Runtime: Interactive-Clocks",
+      "Runtime: Hazard-Roller",
+      "Adventure: Encounter-Resolution"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "Topology: Active-Graph",
+      "AdventureFramework: Severity-Tiers"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-11_canvas_interactive_threat_clocks_and_hazard_roller.md",
+    "file_url": "../tickets/system/SYS-START-11_canvas_interactive_threat_clocks_and_hazard_roller.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-12",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Trans-Scale Cartographic Logistics & Portal Supply Propagation",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Multi-Scale Logistics & Supply Flow",
+    "status": "shipped",
+    "summary": "# SYS-START-12: Trans-Scale Cartographic Logistics & Portal Supply Propagation\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: ready*  \n*Date: 2026-10-30...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Logistics: Cross-Scale-Propagation",
+      "Cartography: Trans-Scale-BFS"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "Cartography: Multi-Map-Registry",
+      "Logistics: Ad-Hoc-Resource-Yields"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-12_cross_scale_portal_logistics_propagation.md",
+    "file_url": "../tickets/system/SYS-START-12_cross_scale_portal_logistics_propagation.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-13",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Quantitative Resource Accounting & Corridor Capacity Simulation",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Logistics & Supply Flow Simulation",
+    "status": "shipped",
+    "summary": "# SYS-START-13: Quantitative Resource Accounting & Corridor Capacity Simulation\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: ready*  \n*Date: 2026-10-3...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Logistics: Quantitative-Balances",
+      "Logistics: Corridor-Bandwidth"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "Logistics: Ad-Hoc-Resource-Yields",
+      "Topology: Active-Graph"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-13_quantitative_resource_balances_and_corridor_bandwidth.md",
+    "file_url": "../tickets/system/SYS-START-13_quantitative_resource_balances_and_corridor_bandwidth.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-14",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Assimilation of 64-Cell ODV Matrix into Native MDI Window & In-App Fog Fix",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: MDI Consolidation & Platform Hygiene",
+    "status": "shipped",
+    "summary": "# SYS-START-14: Assimilation of 64-Cell ODV Matrix into Native MDI Window & In-App Fog Fix\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: ready*  \n*Date...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: MDI-ODV-Matrix",
+      "Workstation: In-App-Fog-Controls"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "MDIWindowManager: Core"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-14_mdi_dashboard_assimilation_and_cleanup.md",
+    "file_url": "../tickets/system/SYS-START-14_mdi_dashboard_assimilation_and_cleanup.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-15",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Retirement of Vestigial Surfaces (Contradiction Dashboard, Step 0 Builder) & Framework Sanitization",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Platform Hygiene & Legacy Decommissioning",
+    "status": "shipped",
+    "summary": "# SYS-START-15: Retirement of Vestigial Surfaces (Contradiction Dashboard, Step 0 Builder) & Framework Sanitization\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)* ...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Platform: Surface-Pruning",
+      "Platform: Legacy-Purge"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "Navigation: navigation_manifest.json"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-15_vestigial_framework_retirement_and_pipeline_decommissioning.md",
+    "file_url": "../tickets/system/SYS-START-15_vestigial_framework_retirement_and_pipeline_decommissioning.md",
+    "module_path": ""
+  }
+];
+
+    function renderTickets(list) {
+      const container = document.getElementById('ticketsContainer');
+      container.innerHTML = '';
+      if (list.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-dim); padding: 48px;">No tickets match the selected filters.</div>';
+        return;
+      }
+      list.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'ticket-card';
+        card.onclick = () => openModal(t);
+
+        const provPills = (t.provides || []).slice(0, 2).map(p => '<span class="tag-pill prov">+' + p.split(': ')[1] || p + '</span>').join('');
+        const reqPills = (t.requires || []).slice(0, 2).map(r => '<span class="tag-pill req">-' + r.split(': ')[1] || r + '</span>').join('');
+
+        card.innerHTML = `
+          <div class="ticket-top">
+            <div class="ticket-id-wrap">
+              <span class="ticket-id">${t.id}</span>
+              <span class="badge-track ${t.track_code}">${t.track_code}</span>
+              <span class="badge-tier">${t.tier_label}</span>
+              ${(t.tags && t.tags.includes('chill_dude')) ? '<span class="badge-track" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4);">☕ Chill Dude</span>' : ''}
+            </div>
+            <span class="badge ${t.status}">${t.status.replace(/_/g, ' ')}</span>
+          </div>
+          <div class="ticket-title">${t.title}</div>
+          <div class="ticket-summary">${t.summary || 'No summary provided.'}</div>
+          <div class="tag-pills">
+            ${provPills}
+            ${reqPills}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function applyFilters() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const track = document.getElementById('trackFilter').value;
+      const status = document.getElementById('statusFilter').value;
+      const tier = document.getElementById('tierFilter').value;
+      const source = document.getElementById('sourceFilter') ? document.getElementById('sourceFilter').value : 'ALL';
+
+      const filtered = MASTER_TICKETS.filter(t => {
+        // Track
+        if (track !== 'ALL' && t.track_code !== track) return false;
+        // Status
+        if (status === 'shipped' && t.status !== 'shipped') return false;
+        if (status === 'in_progress' && (t.status !== 'in_drafting' && t.status !== 'in_editorial')) return false;
+        if (status === 'ready' && (t.status !== 'ready_for_authoring' && t.status !== 'ready_for_spec')) return false;
+        if (status === 'discovery' && t.status !== 'discovery') return false;
+        // Tier
+        if (tier !== 'ALL' && String(t.pipeline_tier) !== tier) return false;
+        // Source
+        if (source === 'chill_dude') {
+          const isChillDude = (t.tags && t.tags.includes('chill_dude')) || (t.creator_source && t.creator_source.toLowerCase().includes('chill dude'));
+          if (!isChillDude) return false;
+        } else if (source === 'core') {
+          const isChillDude = (t.tags && t.tags.includes('chill_dude')) || (t.creator_source && t.creator_source.toLowerCase().includes('chill dude'));
+          if (isChillDude) return false;
+        }
+        // Search text
+        if (q) {
+          const hay = [
+            t.id, t.title, t.summary, t.wave, t.culture_quadrant, t.creator_source || '',
+            ...(t.tags || []),
+            ...(t.provides || []), ...(t.requires || [])
+          ].join(' ').toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      renderTickets(filtered);
+    }
+
+    function filterToFrontier() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('trackFilter').value = 'ALL';
+      document.getElementById('statusFilter').value = 'ready';
+      document.getElementById('tierFilter').value = 'ALL';
+      applyFilters();
+    }
+
+    function openModal(t) {
+      const box = document.getElementById('modalContent');
+      const dialsHtml = (t.dials || []).map(d => '<li>' + d + '</li>').join('');
+      const clocksHtml = (t.threat_clocks || []).map(c => '<li>' + c + '</li>').join('');
+      
+      let cornersHtml = '';
+      if (t.four_corners) {
+        cornersHtml = `
+          <div class="modal-section">
+            <h4>4-Corner Opposition Web</h4>
+            <ul class="modal-dials">
+              <li><strong>Establishment:</strong> ${t.four_corners.establishment || 'N/A'}</li>
+              <li><strong>Opponent:</strong> ${t.four_corners.opponent || 'N/A'}</li>
+              <li><strong>Shadow:</strong> ${t.four_corners.shadow || 'N/A'}</li>
+              <li><strong>Outcast:</strong> ${t.four_corners.outcast || 'N/A'}</li>
+            </ul>
+          </div>
+        `;
+      }
+
+      box.innerHTML = `
+        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+          <span class="ticket-id" style="font-size: 15px;">${t.id}</span>
+          <span class="badge-track ${t.track_code}">${t.track}</span>
+          <span class="badge ${t.status}">${t.status.replace(/_/g, ' ')}</span>
+          <span class="badge-tier">${t.tier_label}</span>
+        </div>
+        <h2 style="font-size: 22px; color: #fff; margin-bottom: 8px;">${t.title}</h2>
+        <div style="font-size: 13px; color: var(--accent); margin-bottom: 14px;"><strong>Wave:</strong> ${t.wave} | <strong>Culture:</strong> ${t.culture_quadrant || 'Universal'}</div>
+        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">${t.summary}</p>
+
+        ${t.syllogism ? `
+        <div class="modal-section">
+          <h4>Dramatic Syllogism (writing-discovery)</h4>
+          <p style="font-size: 13px; font-style: italic; color: #e2e8f0; background: #0b0f19; padding: 10px 14px; border-radius: 6px; border-left: 3px solid var(--accent);">${t.syllogism}</p>
+        </div>` : ''}
+
+        ${cornersHtml}
+
+        ${dialsHtml ? `
+        <div class="modal-section">
+          <h4>Dynamic Hazard Dials</h4>
+          <ul class="modal-dials">${dialsHtml}</ul>
+        </div>` : ''}
+
+        ${clocksHtml ? `
+        <div class="modal-section">
+          <h4>Threat Clocks</h4>
+          <ul class="modal-clocks">${clocksHtml}</ul>
+        </div>` : ''}
+
+        <div class="modal-section">
+          <h4>Resource Contract</h4>
+          <div style="display: flex; gap: 16px; font-size: 13px; flex-wrap: wrap;">
+            <div><strong style="color: #34d399;">Provides:</strong> ${(t.provides || []).join(', ') || 'None'}</div>
+            <div><strong style="color: #fb7185;">Requires:</strong> ${(t.requires || []).join(', ') || 'None'}</div>
+          </div>
+        </div>
+
+        ${t.file_url ? `
+        <div style="margin-top: 20px;">
+          <a class="modal-link-btn" href="${t.file_url}" target="_blank">Open Local Ticket Markdown ↗</a>
+        </div>` : ''}
+      `;
+
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').style.display = 'none';
+    }
+
+    // Initialize
+    renderTickets(MASTER_TICKETS);
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creator Studio - Redirecting to Workstation...</title>
+<style>
+  body { background: #008080; color: #fff; font-family: "Segoe UI", Tahoma, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; }
+  .box { background: #c0c0c0; color: #000; border: 2px solid; border-color: #fff #000 #000 #fff; padding: 20px 30px; box-shadow: 4px 4px 10px rgba(0,0,0,0.5); }
+  a { color: #000080; font-weight: bold; }
+</style>
+<script>
+  (function() {
+    const params = window.location.search || '';
+    const hash = window.location.hash || '';
+    window.location.replace('start.html' + params + hash);
+  })();
+</script>
+</head>
+<body>
+<div class="box">
+  <h2 style="margin:0 0 10px 0;">Redirecting to Creator Studio Workstation...</h2>
+  <p style="margin:0 0 14px 0; font-size:12px;">Universal Workstation has consolidated index.html into start.html.</p>
+  <a href="start.html">Click here if not redirected automatically</a>
+</div>
+</body>
+</html>

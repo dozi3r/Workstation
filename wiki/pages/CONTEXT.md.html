@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Creator Studio — Creator Studio Technical Manual &amp; Wiki</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../index.html#vol-1">Volume I: System Architecture, Governance &amp; Ontology</a> &rsaquo;
+        <span>CONTEXT.md</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">Creator Studio</h1>
+        <div class="article-subtitle">
+          <span class="badge">Technical Documentation / Guide</span>
+          <span class="badge badge-ok">✓ Synced (SHA: c0e61f7c)</span>
+          
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (19)</a>
+        </div>
+      </div>
+
+      <aside class="infobox">
+        <div class="infobox-header">CONTEXT.md</div>
+        <table class="infobox-table">
+          
+    <tr><th>File Path</th><td><code>CONTEXT.md</code></td></tr>
+    <tr><th>Manual Volume</th><td><a href="../index.html#vol-1">Volume I</a></td></tr>
+    <tr><th>Surface Kind</th><td>Technical Documentation / Guide</td></tr>
+    <tr><th>File Metrics</th><td>314 lines &bull; 21.6 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: c0e61f7c)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>31</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>19</strong> backlinks</td></tr>
+    <tr><th>Raw File</th><td><a href="../../CONTEXT.md" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
+  
+        </table>
+      </aside>
+
+      
+    <div class="ai-digest">
+      <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
+      <p style="margin:4px 0;"><strong>Summary:</strong> Universal, system-agnostic campaign authoring suite for procedural pointcrawl network design, organizational sociological alignment, and modular worldbuilding.</p>
+      
+      
+      
+    </div>
+  
+      
+      <h2>Architectural Role & Subsystem Context</h2>
+<p><code>CONTEXT.md</code> is the <strong>Authoritative Ubiquitous Language & Domain Glossary</strong> within <strong>Volume I: System Architecture, Governance & Ontology</strong>. Designed around Domain-Driven Design (DDD) principles, it defines the exact mathematical, sociological, topological, and architectural vocabulary used across all specifications, source scripts, UI labels, and module manifests in Creator Studio, together with explicit <code>_Avoid_</code> anti-terms to prevent conceptual drift.</p>
+<p>It is referenced as a mandatory authority across almost every surface in <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a>, <a class="wiki-link" href="../pages/AGENTS.md.html">📄 AGENTS.md</a>, and <a class="wiki-link" href="../pages/docs/AI_DEVELOPER_GUIDE.md.html">📄 docs/AI_DEVELOPER_GUIDE.md</a>.</p>
+<hr class="wiki-hr"/>
+<h2>Core Invariants & Contracts</h2>
+<p>Every term defined in <code>CONTEXT.md</code> maps 1:1 to concrete data structures and algorithms in the codebase. Using imprecise synonyms (the listed <code>_Avoid_</code> terms) in code comments, UI labels, or module YAML frontmatter violates domain consistency:</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Domain Cluster</th><th>Canonical Term</th><th>Forbidden Synonyms (<code>_Avoid_</code>)</th><th>Governing Code / Spec Implementation</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Network Topology</strong></td><td><strong>Pointcrawl Graph</strong>, <strong>Node</strong>, <strong>Sovereign Hub</strong>, <strong>Satellite Node</strong>, <strong>Adjacency Smothering</strong>, <strong>Influence Link</strong></td><td><em>Map, hex grid, room, capital, major city, suppression, proximity penalty, road</em></td><td><a class="wiki-link" href="../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a>, <a class="wiki-link" href="../pages/mods/tarot_balancing/mod.js.html">📄 mods/tarot_balancing/mod.js</a>, <a class="wiki-link" href="../pages/network/Run-NetworkEngine.ps1.html">📄 network/Run-NetworkEngine.ps1</a></td></tr>
+<tr><td><strong>Sociology & Hermeneutics</strong></td><td><strong>Granular Disposition <code>[S, E, C]</code></strong>, <strong>Cultural Quadrant (CVF)</strong>, <strong>Operational Profile</strong>, <strong>Amalgamation Score</strong>, <strong>22nd Card Inversion</strong></td><td><em>Alignment, stats, faction type, work style, power level, final card flip</em></td><td><a class="wiki-link" href="../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html">📄 sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</a>, <a class="wiki-link" href="../pages/sociology/07_Granular_64_Disposition_Matrix.md.html">📄 sociology/07_Granular_64_Disposition_Matrix.md</a>, <a class="wiki-link series-link" href="../pages/series/series_c_sociology_and_tarot_hermeneutics.html">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></td></tr>
+<tr><td><strong>System Reference Docs</strong></td><td><strong>Authoring Engine SRD</strong>, <strong>Adventure Framework SRD</strong></td><td><em>Rulebook, game system, player's handbook, GM guide</em></td><td><a class="wiki-link" href="../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a>, <a class="wiki-link" href="../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a>, <a class="wiki-link" href="../pages/docs/srd/adventure_framework_srd.md.html">📄 docs/srd/adventure_framework_srd.md</a></td></tr>
+<tr><td><strong>Worldbuilding Content</strong></td><td><strong>Module</strong>, <strong>Worldbuilding Pipeline Tier (1–5)</strong>, <strong>Resource Tag (<code>provides</code> / <code>requires</code>)</strong>, <strong>Module Bundle</strong>, <strong>Standalone Fallback Mode</strong>, <strong>Preset</strong></td><td><em>Encounter, quest, add-on, level, rarity, tech tree, failsafe, theme, skin</em></td><td><a class="wiki-link" href="../pages/docs/srd/ip_module_framework_srd.md.html">📄 docs/srd/ip_module_framework_srd.md</a>, <a class="wiki-link" href="../pages/src/workstation/scripts/stage_5_slotting.js.html">📄 src/workstation/scripts/stage_5_slotting.js</a>, <a class="wiki-link series-link" href="../pages/series/series_d_module_supply_chains_and_contracts.html">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></td></tr>
+<tr><td><strong>Hierarchical Cartography</strong></td><td><strong>Hierarchical Cartography</strong>, <strong>Scale-Fluidity</strong>, <strong>Portal Node (<code>childMapId</code>)</strong>, <strong>Bidirectional Wiki & Citation Inverted Index</strong></td><td><em>Sub-maps, minimaps, map link pin, doorway, lore links, text search</em></td><td><a class="wiki-link" href="../pages/docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md.html">📄 docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</a>, <a class="wiki-link" href="../pages/src/workstation/scripts/state_adapter.js.html">📄 src/workstation/scripts/state_adapter.js</a>, <a class="wiki-link" href="../pages/src/workstation/scripts/wiki_engine.js.html">📄 src/workstation/scripts/wiki_engine.js</a>, <a class="wiki-link series-link" href="../pages/series/series_b_scale_fluid_nested_cartography.html">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></td></tr>
+<tr><td><strong>Workstation & Extensibility</strong></td><td><strong>Workstation Shell (<code>start.html</code>)</strong>, <strong>Property Grid</strong>, <strong>Mod Extension Area</strong></td><td><em>Dashboard, web page, detail view, sidebar form, plugin manager</em></td><td><a class="wiki-link" href="../pages/start.html.html">📄 start.html</a>, <a class="wiki-link" href="../pages/docs/adr/0004-desktop-workstation-start-html.md.html">📄 docs/adr/0004-desktop-workstation-start-html.md</a>, <a class="wiki-link" href="../pages/tickets/system/SYS-START-03_module_extension_sdk_and_runtime_mod_hook_provider.md.html">📄 tickets/system/SYS-START-03_module_extension_sdk_and_runtime_mod_hook_provider.md</a></td></tr>
+<tr><td><strong>Campaign Entities & Narrative</strong></td><td><strong>Active Campaign Roster</strong>, <strong>Module Entity Prototype</strong>, <strong>Node Stationing / Assignment</strong></td><td><em>Character list, database, party sheet, sample NPC, flavor text, location tag</em></td><td><a class="wiki-link" href="../pages/docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md.html">📄 docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md</a>, <a class="wiki-link" href="../pages/start.html.html">📄 start.html</a></td></tr>
+<tr><td><strong>Demographics, Factions & Rapport (ADR-0015 v2)</strong></td><td><strong>Demographics</strong> (census + <code>tags</code>), <strong>Controlling Faction</strong> (<code>node.faction</code>), <strong>Faction Presence</strong> (<code>factionPresence</code>), <strong>Party Rapport & Stance</strong> (<code>partyRapport</code>), <strong>Transitive Backlink Propagation</strong></td><td><em>Demographics-as-flat-array, factions array, partyReputation, Revered / Welcomed / Suspicious, recursive search</em></td><td><a class="wiki-link" href="../pages/docs/adr/0015-nested-backlinks-extensible-mentions-and-node-demographics.md.html">📄 docs/adr/0015-nested-backlinks-extensible-mentions-and-node-demographics.md</a>, <a class="wiki-link" href="../pages/src/workstation/scripts/wiki_engine.js.html">📄 src/workstation/scripts/wiki_engine.js</a>, <a class="wiki-link" href="../pages/src/workstation/scripts/entity_core.js.html">📄 src/workstation/scripts/entity_core.js</a></td></tr>
+<tr><td><strong>Module Exploration & Sourcebook</strong></td><td><strong>Module Explorer</strong>, <strong>Slotted Module (<code>node.modules</code>)</strong>, <strong>Module Entity Extraction</strong>, <strong>Module Sourcebook Reader</strong></td><td><em>File browser, module list, catalog viewer, attached module, character scraping</em></td><td><a class="wiki-link" href="../pages/docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md.html">📄 docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md</a>, <a class="wiki-link" href="../pages/start.html.html">📄 start.html</a></td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>Data Flow & Execution Pipeline</h2>
+<ul class="wiki-list">
+<li><strong>Upstream Architectural Sources</strong>: Synthesizes decisions recorded in <a class="wiki-link" href="../pages/docs/adr/0001-dual-mode-preset-architecture.md.html">📄 docs/adr/0001-dual-mode-preset-architecture.md</a>, <a class="wiki-link" href="../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a>, and <a class="wiki-link" href="../pages/docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md.html">📄 docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</a>.</li>
+<li><strong>Downstream Propagation</strong>:</li>
+<li>Summarized in Section 3 of <a class="wiki-link" href="../pages/AGENTS.md.html">📄 AGENTS.md</a> by <a class="wiki-link" href="../pages/build_suite.js.html">📄 build_suite.js</a>.</li>
+<li>Enforced across UI tooltips, inspector drawers, and property grids in <a class="wiki-link" href="../pages/start.html.html">📄 start.html</a>.</li>
+<li>Linked as an authoritative specification for <code>network/campaign_studio.html</code>, <code>network/network_builder.html</code>, <code>network/network_visualizer.html</code>, <code>tarot/minor_matrix_browser.html</code>, and <code>wiki/index.html</code> inside <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a>.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>AI Agent Maintenance Checklist</h2>
+<ul class="wiki-list">
+<li><strong>Before naming variables, UI controls, or YAML properties</strong>: Read <code>CONTEXT.md</code> to ensure identifiers and user-facing strings use canonical terminology (e.g., <code>sovereignHubs</code>, <code>smotheredNodes</code>, <code>standalone_fallback</code>, <code>childMapId</code>).</li>
+<li><strong>When introducing a major architectural concept (ADR)</strong>: Record a new ADR in <code>docs/adr/</code> and simultaneously add the canonical domain terms and <code>_Avoid_</code> anti-terms to <code>CONTEXT.md</code>.</li>
+</ul>
+      <h2>Document Section Outline</h2><ul class="wiki-list"><li style="margin-left:0px;"><code>H1</code> Creator Studio</li><li style="margin-left:18px;"><code>H2</code> Language</li><li style="margin-left:36px;"><code>H3</code> 1. Core Workstation Domain Vocabulary</li><li style="margin-left:36px;"><code>H3</code> 2. Topological Centrality &amp; Hegemonic Tension Vocabulary</li><li style="margin-left:36px;"><code>H3</code> Specifications &amp; System Reference Documents</li><li style="margin-left:36px;"><code>H3</code> Worldbuilding &amp; Content Architecture</li><li style="margin-left:36px;"><code>H3</code> Hierarchical Cartography &amp; Encyclopedic Engine</li><li style="margin-left:36px;"><code>H3</code> Workstation Interface &amp; Extensibility</li><li style="margin-left:36px;"><code>H3</code> Campaign Entities &amp; Narrative Topology</li><li style="margin-left:36px;"><code>H3</code> Module Exploration &amp; Worldbuilding Mechanics</li><li style="margin-left:36px;"><code>H3</code> Campaign Packaging, Persistence &amp; Storage</li><li style="margin-left:36px;"><code>H3</code> Cartographic Control &amp; Quest Topology</li><li style="margin-left:36px;"><code>H3</code> CAD Vector Drawing, Layers &amp; Selection Architecture</li><li style="margin-left:36px;"><code>H3</code> Campaign Lifecycle &amp; State Isolation</li></ul><h2>Mechanical Contracts, Dials &amp; Real-World Reference Data</h2><h3>Reference Foundations &amp; Design Provenance (For GM / Downstream Expansion)</h3><ul class="wiki-list"><li>Indus Valley Civilization: Mohenjo-daro &amp; Dholavira standardized baked-brick municipal sewers and Ghaggar-Hakra monsoon river desiccation.</li></ul>
+      <h2 id="outbound-links">Outbound References (31)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+        <td><a href="../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/navigation_manifest.json]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:AGENTS.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/AI_DEVELOPER_GUIDE.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/authoring_engine_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md.html"><strong>sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md</strong></a></td>
+        <td><span class="badge badge-Sociology Specification">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/06_Disposition_Matrix_and_Tarot_Decision_Framework.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/sociology/07_Granular_64_Disposition_Matrix.md.html"><strong>sociology/07_Granular_64_Disposition_Matrix.md</strong></a></td>
+        <td><span class="badge badge-Sociology Specification">Wiki Citation</span></td>
+        <td>Explicit [[File:sociology/07_Granular_64_Disposition_Matrix.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/series/series_c_sociology_and_tarot_hermeneutics.html"><strong>Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</strong></a></td>
+        <td><span class="badge badge-Series">Series Citation</span></td>
+        <td>Explicit [[Series:series_c_sociology_and_tarot_hermeneutics]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0002-dual-srd-and-tiered-module-architecture.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/adventure_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/ip_module_framework_srd.md.html"><strong>docs/srd/ip_module_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/ip_module_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/stage_5_slotting.js.html"><strong>src/workstation/scripts/stage_5_slotting.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Wiki Citation</span></td>
+        <td>Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
+        <td><span class="badge badge-Series">Series Citation</span></td>
+        <td>Explicit [[Series:series_d_module_supply_chains_and_contracts]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md.html"><strong>docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Wiki Citation</span></td>
+        <td>Explicit [[File:src/workstation/scripts/state_adapter.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/wiki_engine.js.html"><strong>src/workstation/scripts/wiki_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Wiki Citation</span></td>
+        <td>Explicit [[File:src/workstation/scripts/wiki_engine.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/series/series_b_scale_fluid_nested_cartography.html"><strong>Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</strong></a></td>
+        <td><span class="badge badge-Series">Series Citation</span></td>
+        <td>Explicit [[Series:series_b_scale_fluid_nested_cartography]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/start.html.html"><strong>start.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:start.html]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0004-desktop-workstation-start-html.md.html"><strong>docs/adr/0004-desktop-workstation-start-html.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0004-desktop-workstation-start-html.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md.html"><strong>docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0015-nested-backlinks-extensible-mentions-and-node-demographics.md.html"><strong>docs/adr/0015-nested-backlinks-extensible-mentions-and-node-demographics.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0015-nested-backlinks-extensible-mentions-and-node-demographics.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Wiki Citation</span></td>
+        <td>Explicit [[File:src/workstation/scripts/entity_core.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md.html"><strong>docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0001-dual-mode-preset-architecture.md.html"><strong>docs/adr/0001-dual-mode-preset-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0001-dual-mode-preset-architecture.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Wiki Citation</span></td>
+        <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
+        <td>References Build-Suite.ps1</td>
+      </tr><tr>
+        <td><a href="../pages/index.html.html"><strong>index.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References index.html</td>
+      </tr><tr>
+        <td><a href="../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References network/campaign_studio.html</td>
+      </tr><tr>
+        <td><a href="../pages/network/network_builder.html.html"><strong>network/network_builder.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References network/network_builder.html</td>
+      </tr><tr>
+        <td><a href="../pages/network/odv_archetype_matrix.html.html"><strong>network/odv_archetype_matrix.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References network/odv_archetype_matrix.html</td>
+      </tr><tr>
+        <td><a href="../pages/server.js.html"><strong>server.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
+        <td>References server.js</td>
+      </tr><tr>
+        <td><a href="../pages/server.ps1.html"><strong>server.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
+        <td>References server.ps1</td>
+      </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (19)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+        <td><a href="../pages/series/series_b_scale_fluid_nested_cartography.html"><strong>Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</strong></a></td>
+        <td><span class="badge badge-Series">Wiki Citation</span></td>
+        <td>Explicit [[File:CONTEXT.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/start.html.html"><strong>start.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Governing Spec</span></td>
+        <td>Authoritative specification for start.html</td>
+      </tr><tr>
+        <td><a href="../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Governing Spec</span></td>
+        <td>Authoritative specification for network/campaign_studio.html</td>
+      </tr><tr>
+        <td><a href="../pages/network/network_builder.html.html"><strong>network/network_builder.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Governing Spec</span></td>
+        <td>Authoritative specification for network/network_builder.html</td>
+      </tr><tr>
+        <td><a href="../pages/network/odv_archetype_matrix.html.html"><strong>network/odv_archetype_matrix.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Governing Spec</span></td>
+        <td>Authoritative specification for network/odv_archetype_matrix.html</td>
+      </tr><tr>
+        <td><a href="../pages/admin.html.html"><strong>admin.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Governing Spec</span></td>
+        <td>Authoritative specification for admin.html</td>
+      </tr><tr>
+        <td><a href="../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:CONTEXT.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/MODULES_CATALOG.md.html"><strong>docs/MODULES_CATALOG.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0009-tarot-and-wave-balancing-mod-extraction.md.html"><strong>docs/adr/0009-tarot-and-wave-balancing-mod-extraction.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0011-retirement-of-vestigial-tarot-balancing-engine.md.html"><strong>docs/adr/0011-retirement-of-vestigial-tarot-balancing-engine.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/adr/0015-nested-backlinks-extensible-mentions-and-node-demographics.md.html"><strong>docs/adr/0015-nested-backlinks-extensible-mentions-and-node-demographics.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:CONTEXT.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html"><strong>docs/audit/2026-10-creator-studio-audit-dossier.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Wiki Citation</span></td>
+        <td>Explicit [[File:CONTEXT.md]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../pages/docs/srd/tier_0_substratum_srd.md.html"><strong>docs/srd/tier_0_substratum_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
+        <td><span class="badge badge-Workstation Shell Template">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

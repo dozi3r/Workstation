@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture — Creator Studio Technical Manual</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="active" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../index.html#series-index">Cross-Cutting Series</a> &rsaquo;
+        <span>Series E</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</h1>
+        <div class="article-subtitle">
+          <span class="badge badge-Series">Cross-Cutting Subsystem Series</span>
+          <span class="badge">Volume III</span>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (12)</a>
+        </div>
+      </div>
+
+      <div class="ai-digest">
+        <div class="ai-digest-title">🤖 Analytical Knife Seam Summary</div>
+        <p style="margin:4px 0;">How build_suite.js and wiki/build_wiki.js enforce zero-CORS file:/// execution, inline fenced datasets, stamp Compass Headers, and maintain bidirectional backlinks.</p>
+      </div>
+
+      <div class="callout callout-important"><strong>IMPORTANT:</strong> <strong>Cross-Cutting Analytical Series</strong>: How <a class="wiki-link" href="../../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>, <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a>, <a class="wiki-link" href="../../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a>, and <a class="wiki-link" href="../../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a> collaborate to enforce zero-CORS <code>file:///</code> execution, inline fenced datasets, resolve <code>@@INCLUDE@@</code> directives, stamp Compass Headers, generate <a class="wiki-link" href="../../pages/AGENTS.md.html">📄 AGENTS.md</a>, and maintain SHA-256 staleness tracking across the Bidirectional Codebase Wiki.</div>
+<hr class="wiki-hr"/>
+<h2>1. Architectural Seam Overview & Core Problem Statement</h2>
+<p>Modern browser security engines treat every local file opened over the <code>file:///</code> protocol as an opaque origin (<code>Origin: null</code>). Consequently, any runtime attempt by an offline HTML application to load external JSON manifests, Markdown modules, or modular JavaScript components via <code>fetch()</code>, <code>XMLHttpRequest</code>, or ES6 <code><script type="module"></code> triggers an immediate Cross-Origin Resource Sharing (CORS) security violation.</p>
+<p>At the same time, maintaining a 15,000+ line tabletop authoring workstation inside monolithic HTML files creates a <strong>Multiple Source of Truth Hazard</strong> (documented in <a class="wiki-link" href="../../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html">📄 docs/audit/2026-10-creator-studio-audit-dossier.md</a> and remediated via <a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/04-build-centralized-compiler.md.html">📄 .scratch/creator-remediation/issues/04-build-centralized-compiler.md</a>). Without a centralized build pipeline, edits to node topologies, Tarot deck profiles, or worldbuilding modules quickly drift out of sync across surfaces.</p>
+<p><strong>Series E</strong> documents the 9-stage compilation architecture that bridges these two requirements: developers and AI agents edit clean, modular source files (<code>src/workstation/</code>, <code>mods/</code>, <code>campaigns/</code>, <code>tarot/decks/</code>, <code>wiki/src/</code>), while the master compiler assembles 100% self-contained, zero-CORS single-file HTML distributions and self-validating navigation routers.</p>
+<h3>Primary Collaborating Subsystem Files</h3>
+<ul class="wiki-list">
+<li><a class="wiki-link" href="../../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a> — Root PowerShell entry point and Node.js runtime discovery wrapper.</li>
+<li><a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> — Master 9-stage asset bundler, dataset injector, and Compass Header stamper.</li>
+<li><a class="wiki-link" href="../../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a> — Declarative JSON registry mapping all 14 workstation surfaces to their governing SRDs, data sources, and immutability rules.</li>
+<li><a class="wiki-link" href="../../pages/AGENTS.md.html">📄 AGENTS.md</a> — Auto-generated root agent operating manual and Surface-to-Authority routing matrix.</li>
+<li><a class="wiki-link" href="../../pages/docs/AI_DEVELOPER_GUIDE.md.html">📄 docs/AI_DEVELOPER_GUIDE.md</a> — Architectural manual governing modular compilation, Global State Swap, and IndexedDB persistence.</li>
+<li><a class="wiki-link" href="../../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> — AST symbol extractor, YAML contract parser, SHA-256 staleness tracker, and bidirectional backlink graph compiler.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>2. The 9-Stage Master Compilation Pipeline (<code>build_suite.js</code>)</h2>
+<p>When a human developer or autonomous agent runs <code>powershell -ExecutionPolicy Bypass -File .\Build-Suite.ps1</code>, <a class="wiki-link" href="../../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a> locates a valid <code>node.exe</code> binary (checking system <code>PATH</code>, Adobe Photoshop's bundled Node runtime, and <code>Program Files</code> / <code>LOCALAPPDATA</code>) and executes <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a>.</p>
+<p><a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> executes nine deterministic compilation stages in strict sequence:</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Stage</th><th>Subsystem Operation</th><th>Authoritative Inputs</th><th>Generated / Mutated Outputs</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Stage 1</strong></td><td>Load Navigation Manifest</td><td><a class="wiki-link" href="../../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a></td><td>In-memory <code>navManifest</code> registry (14 surfaces)</td></tr>
+<tr><td><strong>Stage 2</strong></td><td>Generate Root Agent Router</td><td><code>navManifest.surfaces</code> array</td><td><a class="wiki-link" href="../../pages/AGENTS.md.html">📄 AGENTS.md</a> (root operating manual)</td></tr>
+<tr><td><strong>Stage 3</strong></td><td>Discover & Enrich Campaigns</td><td><code>campaigns/<id>/campaign.json</code>, <code>preset.json</code>, <code>modules_manifest.json</code>, <code>modules/*.md</code></td><td>In-memory <code>campaignRegistry</code>, <a class="wiki-link" href="../../pages/network/modules_manifest.json.html">📄 network/modules_manifest.json</a></td></tr>
+<tr><td><strong>Stage 4b</strong></td><td>Compile Tarot Decks Registry</td><td><a class="wiki-link" href="../../pages/tarot/decks/deck_manifest.json.html">📄 tarot/decks/deck_manifest.json</a>, <a class="wiki-link" href="../../pages/tarot/decks/minor/minor_deck_manifest.json.html">📄 tarot/decks/minor/minor_deck_manifest.json</a></td><td>In-memory <code>TAROT_DECKS_DATA</code> (6 Major & 4 Minor decks)</td></tr>
+<tr><td><strong>Stage 5</strong></td><td>Assemble Universal Desktop Workstation</td><td><a class="wiki-link" href="../../pages/src/workstation/template.html.html">📄 src/workstation/template.html</a>, <code>src/workstation/scripts/*.js</code>, <code>mods/</code></td><td><a class="wiki-link" href="../../pages/start.html.html">📄 start.html</a></td></tr>
+<tr><td><strong>Stage 6</strong></td><td>Inline Visualizer & Audit Datasets</td><td><code>campaignRegistry</code>, <a class="wiki-link" href="../../pages/tickets/creative/creative_backlog_manifest.json.html">📄 tickets/creative/creative_backlog_manifest.json</a></td><td><a class="wiki-link" href="../../pages/network/network_visualizer.html.html">📄 network/network_visualizer.html</a>, <a class="wiki-link" href="../../pages/network/network_builder.html.html">📄 network/network_builder.html</a>, <a class="wiki-link" href="../../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>, <a class="wiki-link" href="../../pages/tickets/creative/platform_audit_visualizer.html.html">📄 tickets/creative/platform_audit_visualizer.html</a>, <a class="wiki-link" href="../../pages/tickets/unified_ticket_tracker.html.html">📄 tickets/unified_ticket_tracker.html</a></td></tr>
+<tr><td><strong>Stage 7</strong></td><td>Compile Tarot Matrix Suite</td><td><a class="wiki-link" href="../../pages/tarot/generate_minor_matrix.js.html">📄 tarot/generate_minor_matrix.js</a>, <a class="wiki-link" href="../../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a></td><td><a class="wiki-link" href="../../pages/tarot/minor_matrix_browser.html.html">📄 tarot/minor_matrix_browser.html</a>, <a class="wiki-link" href="../../pages/tarot/tarot_matrix_browser.html.html">📄 tarot/tarot_matrix_browser.html</a>, <a class="wiki-link" href="../../pages/tarot/tarot_sociology_matrix.json.html">📄 tarot/tarot_sociology_matrix.json</a>, <a class="wiki-link" href="../../pages/tarot/tarot_minor_arcana_matrix.json.html">📄 tarot/tarot_minor_arcana_matrix.json</a></td></tr>
+<tr><td><strong>Stage 8</strong></td><td>Stamp Surface Compass Headers</td><td><code>navManifest.surfaces</code> metadata</td><td>Line-1 header comments in all registered <code>.html</code> and <code>.ps1</code> surfaces</td></tr>
+<tr><td><strong>Stage 9</strong></td><td>Compile Codebase Wiki & Backlinks</td><td><a class="wiki-link" href="../../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a>, <code>wiki/src/files/*<em></code>, <code>wiki/src/series/</em>.md</code></td><td><a class="wiki-link" href="../../pages/wiki/index.html.html">📄 wiki/index.html</a>, <code>wiki/pages/**</code>, <code>wiki/wiki_manifest.json</code>, <code>wiki/search_index.js</code></td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>3. Deep Dive: Modular Template Resolution & Fenced Dataset Injection</h2>
+<h3>3.1 Recursive <code>@@INCLUDE@@</code> Resolution (Stage 5)</h3>
+<p>To prevent developers from editing a monolithic HTML file, <a class="wiki-link" href="../../pages/start.html.html">📄 start.html</a> is authored as modular JavaScript controllers and shell templates under <code>src/workstation/</code>. During Stage 5, <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> reads <a class="wiki-link" href="../../pages/src/workstation/template.html.html">📄 src/workstation/template.html</a> and resolves all JavaScript include directives matching the regular expression:</p>
+<pre class="code-block"><code class="lang-javascript">const includeRegex = /(?:&lt;!--|\/\/)\s*@@INCLUDE:\s*([^\s@]+)\s*@@\s*(?:--&gt;)?/g;</code></pre>
+<ul class="wiki-list">
+<li>JavaScript engine modules (such as <a class="wiki-link" href="../../pages/src/workstation/scripts/state_adapter.js.html">📄 src/workstation/scripts/state_adapter.js</a>, <a class="wiki-link" href="../../pages/src/workstation/scripts/entity_manager.js.html">📄 src/workstation/scripts/entity_manager.js</a>, <a class="wiki-link" href="../../pages/src/workstation/scripts/stage_5_slotting.js.html">📄 src/workstation/scripts/stage_5_slotting.js</a>, and <a class="wiki-link" href="../../pages/src/workstation/scripts/wiki_engine.js.html">📄 src/workstation/scripts/wiki_engine.js</a>) are injected via <code>// @@INCLUDE: scripts/... @@</code>.</li>
+<li>Mod extensions from <code>mods/</code> are registered dynamically via <code>window.CreatorStudio.registerMod()</code>.</li>
+</ul>
+<h3>3.2 Campaign Discovery & Markdown Metadata Extraction (Stage 3)</h3>
+<p>Before injecting datasets into HTML tools, <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> scans every subdirectory in <code>campaigns/</code> (ignoring directories prefixed with <code>_</code> or <code>.</code>). For each campaign containing a valid <code>campaign.json</code> (e.g., <a class="wiki-link" href="../../pages/campaigns/generic_starter/campaign.json.html">📄 campaigns/generic_starter/campaign.json</a>, <a class="wiki-link" href="../../pages/campaigns/opal_island/campaign.json.html">📄 campaigns/opal_island/campaign.json</a>, <a class="wiki-link" href="../../pages/campaigns/sun_wukong/campaign.json.html">📄 campaigns/sun_wukong/campaign.json</a>):</p>
+<ul class="wiki-list">
+<li>It loads the 22-node topology and 7-wave sequence from <code>preset.json</code>.</li>
+<li>It loads <code>modules_manifest.json</code> and resolves each module's <code>.md</code> file on disk.</li>
+<li>If a module entry in <code>modules_manifest.json</code> lacks explicit <code>threat_clocks</code>, <code>dials</code>, or <code>four_corners</code> properties, <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> parses the raw Markdown source on the fly using regex extractors to populate <code>m.threat_clocks</code>, <code>m.dials</code> (Levels 1–4), <code>m.four_corners</code> (<code>establishment</code>, <code>opponent</code>, <code>shadow</code>, <code>outcast</code>), and <code>m.file_url</code>.</li>
+</ul>
+<h3>3.3 Fenced Dataset Injection & Replacement Markers</h3>
+<p>Once <code>campaignRegistry</code>, <code>modules</code>, and <code>genericWaves</code> are assembled in memory, <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> injects them into the offline HTML surfaces using two mechanisms:</p>
+<ul class="wiki-list">
+<li><strong>Placeholder Token Injection (in <a class="wiki-link" href="../../pages/src/workstation/template.html.html">📄 src/workstation/template.html</a>)</strong>: Replaces <code>// @@INJECT_TAROT_DECKS_DATA@@</code>, <code>// @@INJECT_MODS_REGISTRY@@</code>, and <code>// @@INJECT_MASTER_TICKETS_DATA@@</code> with serialized JavaScript constants.</li>
+<li><strong>Fenced Block Regex Replacement (in standalone HTML tools)</strong>: In files like <a class="wiki-link" href="../../pages/network/network_visualizer.html.html">📄 network/network_visualizer.html</a>, <a class="wiki-link" href="../../pages/network/network_builder.html.html">📄 network/network_builder.html</a>, and <a class="wiki-link" href="../../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>, <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> locates fenced comment blocks (<code>// [AUTO-GENERATED ... VIA build_suite.js] ... // [END AUTO-GENERATED ...]</code>) and replaces their contents idempotently. Notice that inside <a class="wiki-link" href="../../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>, closing <code></script></code> tags inside raw module Markdown are escaped as <code><\/script></code> to prevent premature script tag termination in the browser DOM.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>4. Agent Routing: <code>navigation_manifest.json</code>, <code>AGENTS.md</code>, and Compass Headers</h2>
+<p>Creator Studio enforces architectural governance across both human contributors and AI coding agents through a three-part routing loop anchored by <a class="wiki-link" href="../../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a>:</p>
+<ul class="wiki-list">
+<li><strong>Declarative Authority Registry (<code>docs/navigation_manifest.json</code>)</strong>: Every user-facing HTML surface, PowerShell runner, and catalog README is registered as an entry in <code>surfaces[]</code> with five mandatory properties: <code>file</code>, <code>type</code> (<code>html</code>, <code>powershell</code>, or <code>markdown</code>), <code>title</code>, <code>authoritative_specs[]</code>, <code>data_sources[]</code>, and <code>immutable_rule</code>.</li>
+<li><strong>Root Operating Manual (<code>AGENTS.md</code>)</strong>: In Stage 2, <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> overwrites <a class="wiki-link" href="../../pages/AGENTS.md.html">📄 AGENTS.md</a> at the workspace root with the 5 Ground Rules and the <strong>Surface-to-Authority Routing Matrix</strong> table compiled directly from <code>navManifest.surfaces</code>. Because <a class="wiki-link" href="../../pages/AGENTS.md.html">📄 AGENTS.md</a> is auto-generated, manual edits to <a class="wiki-link" href="../../pages/AGENTS.md.html">📄 AGENTS.md</a> will be overwritten on the next build; permanent routing changes must be made in <a class="wiki-link" href="../../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a>.</li>
+<li><strong>Post-Build Compass Header Stamping (<code>injectCompassHeaders()</code>)</strong>: In Stage 8, <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> iterates over every surface in <code>navManifest.surfaces</code> (skipping <code>wiki/index.html</code>, which is generated in Stage 9) and injects or refreshes a standardized <code>CREATOR STUDIO COMPASS HEADER</code> block at line 1 of the file (<code><!-- ... --></code> for HTML files, <code><# ... #></code> for PowerShell scripts). This guarantees that even if an AI agent views a compiled surface file directly without reading <a class="wiki-link" href="../../pages/AGENTS.md.html">📄 AGENTS.md</a> first, line 1 of the file immediately alerts the agent to its compiled status, its wiki page path, its governing SRDs, and the <code>Build-Suite.ps1</code> compilation command.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>5. Self-Updating Codebase Wiki & SHA-256 Staleness Architecture (<code>wiki/build_wiki.js</code>)</h2>
+<p>Stage 9 of <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> invokes <a class="wiki-link" href="../../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> to compile the 8-Volume Technical Manual & Bidirectional Codebase Wiki.</p>
+<h3>5.1 Workspace Discovery & Volume Classification</h3>
+<p><a class="wiki-link" href="../../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> recursively walks the workspace (excluding <code>.git</code>, <code>node_modules</code>, <code>.zip</code>, <code>.pdf</code>, <code>regions/images/</code>, <code>wiki/pages/</code>, and <code>wiki/src/</code>) and classifies every tracked file into one of <strong>8 Volumes</strong> (<code>classifyVolume(relPath)</code>) and a specific <strong>File Kind</strong> (<code>classifyFileKind(relPath)</code>).</p>
+<h3>5.2 Non-Destructive Custom Notes & SHA-256 Hash Tracking</h3>
+<p>For every tracked file <code><relPath></code>, <a class="wiki-link" href="../../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> maintains a 1:1 Markdown source file at <code>wiki/src/files/<relPath>.md</code>:</p>
+<ul class="wiki-list">
+<li><strong>Content Hash Computation</strong>: <code>computeFileHash(fullPath)</code> computes the first 16 hexadecimal characters of the file's SHA-256 digest (<code>crypto.createHash('sha256').update(buf).digest('hex').slice(0, 16)</code>).</li>
+<li><strong>Custom Notes Preservation</strong>: <code>syncMarkdownSourceForFile(meta)</code> extracts everything inside the <code> ... </code> markers from the existing <code>wiki/src/files/<relPath>.md</code> file and preserves it untouched while refreshing the YAML frontmatter (<code>current_hash</code>, <code>size_bytes</code>, <code>line_count</code>).</li>
+<li><strong>Staleness Detection (<code>stale: true | false</code>)</strong>: The YAML frontmatter stores both <code>current_hash</code> (the live SHA-256 prefix of the source file on disk) and <code>reviewed_hash</code> (the hash when a human or agent last audited the wiki page). If <code>reviewed_hash !== current_hash</code>, <code>isStale</code> is set to <code>true</code> (unless <code>--stamp-reviewed</code> is passed to <code>build_wiki.js</code>), flagging the file in the compiled HTML wiki as needing documentation review.</li>
+</ul>
+<h3>5.3 Multi-Pass AST Extraction & Bidirectional Knowledge Graph</h3>
+<p><a class="wiki-link" href="../../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> combines static analysis with explicit wiki tokens to construct a complete directed graph (<code>outbound</code> and <code>inbound</code> maps in <code>buildKnowledgeGraph(allMetas)</code>):</p>
+<ul class="wiki-list">
+<li><strong>Static Code & Frontmatter Extraction</strong>:</li>
+<li><code>.js</code> files: Extracts top JSDoc comments, function signatures (<code>function name(...)</code>), and top-level globals (<code>let</code>/<code>const</code>/<code>var</code>). Cross-references function invocations across <code>src/workstation/scripts/*.js</code> and <code>mods/</code>.</li>
+<li><code>.ps1</code> files: Extracts <code>.SYNOPSIS</code>, <code>.DESCRIPTION</code>, and PowerShell <code>function</code> declarations.</li>
+<li><code>.html</code> files: Extracts <code><title></code>, <code>@@INCLUDE@@</code> directives, and inline function declarations.</li>
+<li><code>.md</code> files: Parses YAML frontmatter (<code>provides</code>, <code>requires</code>, <code>pipeline_tier</code>, <code>tarot_affinity</code>, <code>culture_quadrant</code>), headings, Threat Clocks, 4-Level Dials, Dramatic Syllogisms, 4-Corner Opposition matrices, and real-world historical/literary anchors (<code>extractReferenceSources</code>).</li>
+<li><strong>Supply Chain Matching</strong>: Automatically links any module declaring <code>requires: ["Category: Asset"]</code> to all modules declaring <code>provides: ["Category: Asset"]</code>.</li>
+<li><strong>Audit Flagging (<span class="wiki-tag">🎫 SYS-AUDIT-01</span>)</strong>: Checks every file against <code>AUDIT_FLAGS</code> and links duplicate/legacy files to their canonical counterparts and <a class="wiki-link series-link" href="../../pages/series/series_g_duplicate_and_orphan_audit.html">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a>.</li>
+<li><strong>Explicit Wiki Token Resolution (<code>scanTextForLinks</code>)</strong>:</li>
+<li><code><a class="wiki-link" href="../../pages/relative/path.html">📄 relative/path</a></code> creates a <code>Wiki Citation</code> edge to <code>file:relative/path</code>.</li>
+<li><code><a class="wiki-link series-link" href="../../pages/series/series_id.html">🧭 series_id</a></code> creates a <code>Series Citation</code> edge to <code>series:series_id</code>.</li>
+<li><code><span class="wiki-tag">🎫 ID</span></code> creates a <code>Ticket Citation</code> edge to the corresponding ticket markdown file in <code>tickets/</code>.</li>
+<li><code><span class="wiki-tag">📦 ID</span></code> creates a <code>Module Citation</code> edge to all campaign modules matching <code>ID</code> (e.g., <span class="wiki-tag">📦 INFRA-01</span>).</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>6. AI Agent Maintenance & Verification Protocol</h2>
+<p>Whenever an autonomous agent or developer modifies the build pipeline, adds a new workstation surface, or updates source files:</p>
+<ul class="wiki-list">
+<li><strong>Never edit compiled targets directly</strong>: Do not edit <a class="wiki-link" href="../../pages/AGENTS.md.html">📄 AGENTS.md</a>, <a class="wiki-link" href="../../pages/start.html.html">📄 start.html</a>, <a class="wiki-link" href="../../pages/network/campaign_studio.html.html">📄 network/campaign_studio.html</a>, or <code>wiki/pages/**</code> by hand.</li>
+<li><strong>Register new surfaces in <code>docs/navigation_manifest.json</code></strong>: Adding a surface to <a class="wiki-link" href="../../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a> automatically adds it to <a class="wiki-link" href="../../pages/AGENTS.md.html">📄 AGENTS.md</a>, stamps its Compass Header, and wires its governing specification edges into the Wiki knowledge graph.</li>
+<li><strong>Update Wiki Custom Notes</strong>: When modifying a source file <code><relPath></code>, update the `<code> section in </code>wiki/src/files/<relPath>.md<code> and synchronize </code>reviewed_hash` to match the file's new 16-char SHA-256 prefix.</li>
+<li><strong>Run the Master Compiler</strong>: Execute <code>powershell -ExecutionPolicy Bypass -File .\Build-Suite.ps1</code> to run Stages 1–9 end-to-end.</li>
+</ul>
+      <h2 id="outbound-links">Subsystem Files Covered in This Series (21)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>File / Page</th><th>Role</th><th>Notes</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/workstation_state.js.html"><strong>src/workstation/scripts/workstation_state.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/property_grid_inspector.js.html"><strong>src/workstation/scripts/property_grid_inspector.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/wiki_engine.js.html"><strong>src/workstation/scripts/wiki_engine.js</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html"><strong>docs/audit/2026-10-creator-studio-audit-dossier.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/audit/2026-10-creator-studio-audit-dossier.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/modules_manifest.json.html"><strong>network/modules_manifest.json</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/modules_manifest.json]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/start.html.html"><strong>start.html</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:start.html]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network_builder.html.html"><strong>network/network_builder.html</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/network_builder.html]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/platform_audit_dashboard.html]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:src/workstation/scripts/state_adapter.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/stage_5_slotting.js.html"><strong>src/workstation/scripts/stage_5_slotting.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html"><strong>Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_id.html"><strong>series_id</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_id]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md.html"><strong>campaigns/Emerald Isle/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md</strong></a></td>
+          <td><span class="badge">Module Citation</span></td>
+          <td>References module INFRA-01</td>
+        </tr><tr>
+          <td><a href="../../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/campaign_studio.html]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/index.html.html"><strong>index.html</strong></a></td>
+          <td><span class="badge">Path Reference</span></td>
+          <td>References index.html</td>
+        </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (12)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page</th><th>Relationship</th><th>Context</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html"><strong>Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_e_zero_cors_compiler_and_agent_router]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/workstation_state.js.html"><strong>src/workstation/scripts/workstation_state.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/property_grid_inspector.js.html"><strong>src/workstation/scripts/property_grid_inspector.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/wiki_engine.js.html"><strong>src/workstation/scripts/wiki_engine.js</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_f_campaign_authoring_and_ip_conversion.html"><strong>Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_e_zero_cors_compiler_and_agent_router]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html"><strong>docs/audit/2026-10-creator-studio-audit-dossier.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_e_zero_cors_compiler_and_agent_router]] reference</td>
+        </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

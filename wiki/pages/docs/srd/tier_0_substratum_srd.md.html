@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tier 0 Substratum SRD: Baseline Settlement Framework — Creator Studio Technical Manual &amp; Wiki</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../../pages/series/series_g_duplicate_and_orphan_audit.html" class="" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../../index.html#vol-2">Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a> &rsaquo;
+        <span>docs/srd/tier_0_substratum_srd.md</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">Tier 0 Substratum SRD: Baseline Settlement Framework</h1>
+        <div class="article-subtitle">
+          <span class="badge">System Reference Document (SRD)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: a2c7e422)</span>
+          
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (16)</a>
+        </div>
+      </div>
+
+      <aside class="infobox">
+        <div class="infobox-header">tier_0_substratum_srd.md</div>
+        <table class="infobox-table">
+          
+    <tr><th>File Path</th><td><code>docs/srd/tier_0_substratum_srd.md</code></td></tr>
+    <tr><th>Manual Volume</th><td><a href="../../../index.html#vol-2">Volume II</a></td></tr>
+    <tr><th>Surface Kind</th><td>System Reference Document (SRD)</td></tr>
+    <tr><th>File Metrics</th><td>131 lines &bull; 9.9 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: a2c7e422)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>8</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>16</strong> backlinks</td></tr>
+    <tr><th>Raw File</th><td><a href="../../../../docs/srd/tier_0_substratum_srd.md" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
+  
+        </table>
+      </aside>
+
+      
+    <div class="ai-digest">
+      <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
+      <p style="margin:4px 0;"><strong>Summary:</strong> Version: 1.0.0   Status: Authoritative Standard   Authority: ADR-0001, ADR-0002, `docs/srd/authoring_engine_srd.md`, `docs/srd/adventure_framework_srd.md`, `CONTEXT.md`</p>
+      
+      
+      
+    </div>
+  
+      
+      <h2>Architectural Role & Subsystem Context</h2>
+<p><code>docs/srd/tier_0_substratum_srd.md</code> is the <strong>Authoritative System Reference Document Governing Mundane Settlement Survival, Caloric Carrying Capacity, and the Dual-Mode Tier 0 Substratum</strong> within <strong>Volume II: System Reference Documents (The Dual SRD & Substratum)</strong>. While Tiers 1–5 of <a class="wiki-link" href="../../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a> model macro-governance, biomes, industrial alchemy, social dilemmas, and eschatological climaxes, <strong>Tier 0</strong> establishes the material baseline (food, water, vernacular shelter, parish watch, barter, leechcraft, sanitation, hearth vigils) that prevents "phantom starvation" in pointcrawl networks.</p>
+<p>It serves as the primary specification for <a class="wiki-link" href="../../../pages/tickets/unified_ticket_tracker.html.html">📄 tickets/unified_ticket_tracker.html</a>, <a class="wiki-link" href="../../../pages/tickets/tier_0/README.md.html">📄 tickets/tier_0/README.md</a>, <a class="wiki-link" href="../../../pages/tickets/tier_0/tier_0_manifest.json.html">📄 tickets/tier_0/tier_0_manifest.json</a>, and the 8 Tier 0 domain modules (<code>T0-DOM-01</code> through <code>T0-DOM-08</code> in <code>tickets/tier_0/tickets/</code>).</p>
+<hr class="wiki-hr"/>
+<h2>Core Invariants & Architectural Contracts</h2>
+<h3>1. The Dual-Mode UX Architecture (<code>enable_tier_0_substratum</code>)</h3>
+<p>To balance fast high-concept worldbuilding against gritty logistical survival simulation, Tier 0 enforces a two-mode switch in <a class="wiki-link" href="../../../pages/network/campaign_studio.html.html">📄 network/campaign_studio.html</a> and <a class="wiki-link" href="../../../pages/network/Run-NetworkEngine.ps1.html">📄 network/Run-NetworkEngine.ps1</a>:</p>
+<ul class="wiki-list">
+<li><strong>Mode A: Smooth Generic ("Checkbox Through" / <code>enable_tier_0_substratum: true</code>)</strong>:</li>
+<li>Every settlement node (<code>Hub</code>, <code>Settlement</code>, <code>Outpost</code>) automatically receives implicit baseline resources: <code>Food: Baseline-Subsistence-Rations</code>, <code>Water: Baseline-Potable-Flow</code>, and <code>Shelter: Baseline-Vernacular-Hearth</code>.</li>
+<li>Consumes <strong>zero socket slots</strong> and suppresses mundane starvation deficits so authors can focus immediately on Tiers 1–5.</li>
+<li><strong>Mode B: Granular Modularity (Deep Authoring / Survival Core / <code>enable_tier_0_substratum: false</code>)</strong>:</li>
+<li>Settlements require explicit Tier 0 (<code>T0-DOM-01..08</code>) or Tier 2/3 food and water providers within $k \le 2$ graph hops.</li>
+<li>Unmet baseline needs advance active <strong>Starvation</strong>, <strong>Drought</strong>, or <strong>Unrest Threat Clocks</strong>.</li>
+</ul>
+<h3>2. The 8 Mundane Survival Domains (<code>DOM-01</code> to <code>DOM-08</code>)</h3>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Domain Code</th><th>Ticket / Module ID</th><th>Core Physical Reality</th><th>Primary Resource Tag Provided</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>DOM-01</strong></td><td><span class="wiki-tag">🎫 T0-DOM-01</span></td><td>Dryland grain rotation, root cellars, communal threshing</td><td><code>Food: Baseline-Subsistence-Rations</code></td></tr>
+<tr><td><strong>DOM-02</strong></td><td><span class="wiki-tag">🎫 T0-DOM-02</span></td><td>Artesian wells, snowmelt flumes, rainwater cisterns</td><td><code>Water: Baseline-Potable-Flow</code></td></tr>
+<tr><td><strong>DOM-03</strong></td><td><span class="wiki-tag">🎫 T0-DOM-03</span></td><td>Timber, wattle-and-daub, fieldstone masonry, hearth flues</td><td><code>Shelter: Baseline-Vernacular-Hearth</code></td></tr>
+<tr><td><strong>DOM-04</strong></td><td><span class="wiki-tag">🎫 T0-DOM-04</span></td><td>Ditch-and-palisade, town bailiff, parish militia, horn alarms</td><td><code>Defense: Baseline-Perimeter-Watch</code></td></tr>
+<tr><td><strong>DOM-05</strong></td><td><span class="wiki-tag">🎫 T0-DOM-05</span></td><td>Weekly barter square, village blacksmith, cooperage, tool repair</td><td><code>Commerce: Baseline-Barter-Market</code></td></tr>
+<tr><td><strong>DOM-06</strong></td><td><span class="wiki-tag">🎫 T0-DOM-06</span></td><td>Village midwife, herbalist drying racks, leechcraft, quarantine</td><td><code>Health: Baseline-Leechcraft-Care</code></td></tr>
+<tr><td><strong>DOM-07</strong></td><td><span class="wiki-tag">🎫 T0-DOM-07</span></td><td>Midden trenches, swine scavenging pens, night-soil composting</td><td><code>Sanitation: Baseline-Midden-Trench</code></td></tr>
+<tr><td><strong>DOM-08</strong></td><td><span class="wiki-tag">🎫 T0-DOM-08</span></td><td>Wayside boundary shrines, ancestor cairns, solstitial feast vigils</td><td><code>Culture: Baseline-Communal-Vigil</code></td></tr>
+</tbody>
+</table></div>
+<h3>3. Pre-Industrial Carrying Capacity & The Agrarian Radius Law (Section 4)</h3>
+<ul class="wiki-list">
+<li><strong>5 Settlement Scale Tiers</strong>: <code>Thorp</code> (20–60 pop), <code>Hamlet</code> (60–250 pop, 3 sockets), <code>Village</code> (250–1,000 pop), <code>Market Town</code> (1,000–5,000 pop), and <code>Sovereign Hub</code> (5,000–25,000+ pop, 4 sockets).</li>
+<li><strong>The 3-Mile Ox-Cart Transport Boundary & Sovereign Hub Deficit Law</strong>: Any Sovereign Hub ($>5,000$ pop) runs a structural caloric and hydrological deficit (<code>-2,000 Cal</code> net balance) within its municipal walls and <strong>must</strong> maintain 2 to 4 unsevered <code>transit</code> edges connecting it to agricultural/hydrological Satellite Nodes (<code>+250 Cal Surplus</code>).</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>Data Flow & Execution Pipeline</h2>
+<ul class="wiki-list">
+<li><strong>Upstream Governance</strong>: Extends <a class="wiki-link" href="../../../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a> and <a class="wiki-link" href="../../../pages/docs/srd/adventure_framework_srd.md.html">📄 docs/srd/adventure_framework_srd.md</a> downward to <code>pipeline_tier: 0</code>.</li>
+<li><strong>Downstream Manifests</strong>: Implemented in <a class="wiki-link" href="../../../pages/tickets/tier_0/tier_0_manifest.json.html">📄 tickets/tier_0/tier_0_manifest.json</a> and compiled by <a class="wiki-link" href="../../../pages/tickets/build_unified_tracker.js.html">📄 tickets/build_unified_tracker.js</a> into <a class="wiki-link" href="../../../pages/tickets/master_ticket_manifest.json.html">📄 tickets/master_ticket_manifest.json</a> and <a class="wiki-link" href="../../../pages/tickets/unified_ticket_tracker.html.html">📄 tickets/unified_ticket_tracker.html</a>.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>AI Agent Maintenance Checklist</h2>
+<ul class="wiki-list">
+<li>*<em>When editing Tier 0 tickets (<code>tickets/tier_0/tickets/T0-DOM-</em>.md</code>) or <code>tier_0_manifest.json</code>**: Ensure <code>provides</code> tags match the exact 8 canonical strings (<code>Food: Baseline-Subsistence-Rations</code>, etc.) defined in Section 3 of <code>docs/srd/tier_0_substratum_srd.md</code>, then run <a class="wiki-link" href="../../../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>.</li>
+</ul>
+      <h2>Document Section Outline</h2><ul class="wiki-list"><li style="margin-left:0px;"><code>H1</code> Tier 0 Substratum SRD: Baseline Settlement Framework</li><li style="margin-left:18px;"><code>H2</code> 1. Scope &amp; Architectural Role</li><li style="margin-left:18px;"><code>H2</code> 2. The Dual-Mode UX Architecture</li><li style="margin-left:36px;"><code>H3</code> 2.1 Mode A: Smooth Generic (&quot;Checkbox Through&quot;)</li><li style="margin-left:36px;"><code>H3</code> 2.2 Mode B: Granular Modularity (Deep Authoring)</li><li style="margin-left:18px;"><code>H2</code> 3. The 8 Mundane Survival Domains</li><li style="margin-left:18px;"><code>H2</code> 4. Settlement Hierarchy &amp; Caloric Carrying Capacity</li><li style="margin-left:36px;"><code>H3</code> 4.1 Population Scales &amp; Carrying Capacities</li><li style="margin-left:36px;"><code>H3</code> 4.2 The Agrarian Radius &amp; Hub Deficit Law</li><li style="margin-left:18px;"><code>H2</code> 5. Universal Hazard Dials &amp; Threat Clocks</li><li style="margin-left:36px;"><code>H3</code> 5.1 The 4-Level Vulnerability &amp; Crisis Dial</li><li style="margin-left:36px;"><code>H3</code> 5.2 Standardized Tier 0 Threat Clocks</li><li style="margin-left:18px;"><code>H2</code> 6. Tabletop Runtime Procedures</li><li style="margin-left:18px;"><code>H2</code> Authoritative Specifications &amp; Cross-References</li></ul><h2>Mechanical Contracts, Dials &amp; Real-World Reference Data</h2><h3>Reference Foundations &amp; Design Provenance (For GM / Downstream Expansion)</h3><ul class="wiki-list"><li>Historical Metallurgy: Enkomi &amp; oxhide copper ingot smelting monopolies of Late Bronze Age Cyprus.</li><li>Indus Valley Civilization: Mohenjo-daro &amp; Dholavira standardized baked-brick municipal sewers and Ghaggar-Hakra monsoon river desiccation.</li></ul><h3>Systemic Escalation Dials (Levels 1–4)</h3><ul class="wiki-list"><li>Level 1 (Bountiful / Secure / Routine)**: Full root cellars, flowing artesian wells, alert town watch. Checks succeed automatically or require DC 10 Light tests.</li><li>Level 2 (Normal / Baseline Operation)**: Standard rations (2,000 kcal/day), mild seasonal mud, minor equipment wear. Checks require DC 13 Moderate tests (2d8 damage or minor resource loss).</li><li>Level 3 (Strained / Seasonal Hunger Gap)**: Spring hunger gap, dry spells, well silt buildup, rations halved to 1,000 kcal/day. Checks require DC 16 Severe tests (4d10 damage, fatigue, unrest checks).</li><li>Level 4 (Exhausted / Famine / Lockdown)**: Seed-grain eaten, draft animals slaughtered, wells tainted with brine, bread riots erupt. Triggers DC 20 Lethal Climax consequences.</li></ul><h3>Active Threat Clocks</h3><ul class="wiki-list"><li><code>Caloric Exhaustion Clock [4 Ticks]**: Advances each campaign week a settlement is isolated from agricultural satellites; full clock triggers Level 4 Famine riots.</code></li><li><code>Contamination Clock [4 Ticks]**: Advances on neglected maintenance or runoff floods; full clock triggers dysentery outbreaks.</code></li><li><code>Timber Rot Clock [6 Ticks]**: Advances in damp seasons without replacement timber; full clock collapses perimeter defense.</code></li></ul>
+      <h2 id="outbound-links">Outbound References (8)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+        <td><a href="../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
+        <td><span class="badge badge-Series">In Deep Series</span></td>
+        <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/adr/0002-dual-srd-and-tiered-module-architecture.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
+        <td>Explicit [[File:network/campaign_studio.html]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/authoring_engine_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/adventure_framework_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
+        <td>Explicit [[File:Build-Suite.ps1]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References CONTEXT.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/README.md.html"><strong>README.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References README.md</td>
+      </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (16)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+        <td><a href="../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
+        <td><span class="badge badge-Series">Series Component</span></td>
+        <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+      </tr><tr>
+        <td><a href="../../../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/tier_0_substratum_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/campaigns/Emerald%20Isle/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md.html"><strong>campaigns/Emerald Isle/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+        <td><span class="badge badge-Architectural Decision Record (ADR)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/tier_0_substratum_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/srd/scenario_primitives_srd.md.html"><strong>docs/srd/scenario_primitives_srd.md</strong></a></td>
+        <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/tier_0_substratum_srd.md]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
+        <td><span class="badge badge-Workstation Shell Template">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/start.html.html"><strong>start.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References docs/srd/tier_0_substratum_srd.md</td>
+      </tr><tr>
+        <td><a href="../../../pages/system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md.html"><strong>system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:docs/srd/tier_0_substratum_srd.md]] reference</td>
+      </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

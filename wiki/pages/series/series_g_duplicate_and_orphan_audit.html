@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation — Creator Studio Technical Manual</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-elevated: #111827;
+      --bg-infobox: #131c31;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --heading: #f8fafc;
+      --link: #38bdf8;
+      --link-hover: #7dd3fc;
+      --accent: #f59e0b;
+      --code-bg: #090d16;
+      --table-stripe: rgba(30, 41, 59, 0.35);
+      --badge-bg: #1e293b;
+    }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-infobox: #f1f5f9;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #1e293b;
+      --text-muted: #475569;
+      --heading: #0f172a;
+      --link: #0284c7;
+      --link-hover: #0369a1;
+      --accent: #d97706;
+      --code-bg: #f1f5f9;
+      --table-stripe: #f8fafc;
+      --badge-bg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    pre.code-block code { border: none; padding: 0; background: transparent; }
+
+    /* Top Header Bar */
+    .wiki-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--heading);
+    }
+    .wiki-brand span.sub {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 10px;
+    }
+    .wiki-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 560px;
+      justify-content: flex-end;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      display: none;
+      z-index: 200;
+    }
+    .search-item {
+      display: block;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .search-item:hover { background: var(--bg-infobox); }
+    .search-item .s-title { font-weight: 700; font-size: 13px; color: var(--link); }
+    .search-item .s-meta { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+    .btn-ctrl {
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ctrl:hover { border-color: var(--link); }
+
+    /* Layout Grid */
+    .wiki-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1520px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    .wiki-sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--bg-elevated);
+      padding: 16px 14px;
+      font-size: 13px;
+      overflow-y: auto;
+    }
+    .wiki-sidebar h4 {
+      margin: 14px 0 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .wiki-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    .wiki-sidebar li { margin: 3px 0; }
+    .wiki-sidebar a {
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .wiki-sidebar a:hover, .wiki-sidebar a.active {
+      background: var(--bg-infobox);
+      color: var(--link);
+    }
+
+    /* Main Content Area */
+    .wiki-main {
+      padding: 24px 32px 60px;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: ui-monospace, monospace;
+    }
+    .article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--heading);
+      margin: 0 0 6px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .article-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--badge-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .badge-ok { background: rgba(16, 185, 129, 0.15); border-color: #059669; color: #34d399; }
+    .badge-warn { background: rgba(245, 158, 11, 0.18); border-color: #d97706; color: #fbbf24; }
+    .badge-Series { background: rgba(56, 189, 248, 0.15); border-color: #0284c7; color: #38bdf8; }
+
+    /* Wikipedia-Style Right Infobox */
+    .infobox {
+      float: right;
+      width: 320px;
+      margin: 0 0 20px 24px;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 12.5px;
+      overflow: hidden;
+    }
+    .infobox-header {
+      background: var(--border);
+      color: var(--heading);
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .infobox-table th, .infobox-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    .infobox-table th {
+      width: 38%;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .infobox-table td { word-break: break-word; }
+
+    /* AI Fast-Digest Box */
+    .ai-digest {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .ai-digest-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 19px;
+      color: var(--heading);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      clear: left;
+    }
+    h3 {
+      font-size: 15.5px;
+      color: var(--heading);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; clear: both; }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+    .wiki-table th, .wiki-table td {
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .wiki-table th {
+      background: var(--bg-infobox);
+      color: var(--heading);
+      font-weight: 700;
+    }
+    .wiki-table tr:nth-child(even) td { background: var(--table-stripe); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 14px 0;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-infobox);
+      font-size: 13.5px;
+    }
+    .callout-warning { border-left: 4px solid #f59e0b; }
+    .callout-important { border-left: 4px solid #38bdf8; }
+
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      background: var(--bg-infobox);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 960px) {
+      .wiki-layout { grid-template-columns: 1fr; }
+      .wiki-sidebar {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .wiki-sidebar.open { display: block; }
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px 0;
+      }
+      .wiki-main { padding: 16px; }
+    }
+  </style>
+  <script src="../../search_index.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('cs_wiki_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.toggleWikiTheme = function() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cs_wiki_theme', next);
+      };
+      window.toggleMobileSidebar = function() {
+        const sb = document.getElementById('wiki-sidebar');
+        if (sb) sb.classList.toggle('open');
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('wiki-search-input');
+        const box = document.getElementById('wiki-search-results');
+        if (!input || !box) return;
+
+        input.addEventListener('input', function() {
+          const q = input.value.trim().toLowerCase();
+          if (!q || typeof WIKI_SEARCH_INDEX === 'undefined') {
+            box.style.display = 'none';
+            return;
+          }
+          const matches = WIKI_SEARCH_INDEX.filter(item => {
+            return item.title.toLowerCase().includes(q) ||
+                   item.path.toLowerCase().includes(q) ||
+                   (item.keywords && item.keywords.toLowerCase().includes(q));
+          }).slice(0, 18);
+
+          if (matches.length === 0) {
+            box.innerHTML = '<div class="search-item"><span class="s-meta">No matching files, series, or symbols found.</span></div>';
+            box.style.display = 'block';
+            return;
+          }
+
+          box.innerHTML = matches.map(m => {
+            return '<a class="search-item" href="' + '../../' + m.href + '">' +
+              '<div class="s-title">' + m.title + '</div>' +
+              '<div class="s-meta">' + m.kind + ' &bull; ' + m.path + '</div>' +
+            '</a>';
+          }).join('');
+          box.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !box.contains(e.target)) {
+            box.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== input) {
+            e.preventDefault();
+            input.focus();
+          } else if (e.key === 'Escape') {
+            box.style.display = 'none';
+          }
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  
+    <header class="wiki-topbar">
+      <div class="wiki-brand">
+        <button class="btn-ctrl" onclick="toggleMobileSidebar()" title="Toggle Table of Contents">☰ ToC</button>
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">📚 Creator Studio Wiki</a>
+        <span class="sub">Technical Manual &amp; Bidirectional Backlink Encyclopedia</span>
+      </div>
+      <div class="wiki-controls">
+        <div class="search-wrap">
+          <input id="wiki-search-input" class="search-input" type="search" placeholder="Search 350+ files, symbols, tags (Press /)..." autocomplete="off"/>
+          <div id="wiki-search-results" class="search-results"></div>
+        </div>
+        <button class="btn-ctrl" onclick="toggleWikiTheme()" title="Toggle Light / Dark Appearance">🌗 Theme</button>
+      </div>
+    </header>
+  
+  <div class="wiki-layout">
+    <aside id="wiki-sidebar" class="wiki-sidebar"><h4>Navigation</h4><ul><li><a href="../../index.html" class="">📚 Master Table of Contents</a></li><li><a href="../../../start.html">💻 Desktop Workstation (start.html)</a></li><li><a href="../../../index.html">⚡ Creator Studio Launcher</a></li><li><a href="../../../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li><li><a href="../../../tickets/unified_ticket_tracker.html">🎫 Unified Ticket Tracker</a></li></ul><h4>Cross-Cutting Series</h4><ul><li><a href="../../pages/series/series_a_balancing_and_smothering_math.html" class="" title="Pointcrawl Topological Mathematics &amp; Network Centrality">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a></li><li><a href="../../pages/series/series_b_scale_fluid_nested_cartography.html" class="" title="Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB">🧭 Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</a></li><li><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html" class="" title="The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants">🧭 Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</a></li><li><a href="../../pages/series/series_d_module_supply_chains_and_contracts.html" class="" title="The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks">🧭 Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</a></li><li><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html" class="" title="Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a></li><li><a href="../../pages/series/series_f_campaign_authoring_and_ip_conversion.html" class="" title="Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives">🧭 Series F: Authoring Custom Campaign Presets, IP Conversions &amp; Scenario Primitives</a></li><li><a href="../../pages/series/series_g_duplicate_and_orphan_audit.html" class="active" title="Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a></li></ul><h4>Technical Manual Volumes</h4><ul><li><a href="../../index.html#vol-1">🏛️ Volume I: System Architecture, Governance &amp; Ontology</a></li><li><a href="../../index.html#vol-2">📜 Volume II: System Reference Documents (The Dual SRD &amp; Substratum)</a></li><li><a href="../../index.html#vol-3">⚙️ Volume III: Build Pipeline &amp; Workstation Tooling</a></li><li><a href="../../index.html#vol-4">🎛️ Volume IV: Workstation Architecture &amp; Mod Engine (src/workstation/ &amp; mods/)</a></li><li><a href="../../index.html#vol-5">🕸️ Volume V: Network Surfaces, Topologies &amp; CLI Simulation (network/)</a></li><li><a href="../../index.html#vol-6">🏛️ Volume VI: Sociology &amp; Organizational Hermeneutics (sociology/)</a></li><li><a href="../../index.html#vol-7">🖼️ Volume VII: Regional Scenery &amp; Visual Asset Engine (regions/)</a></li><li><a href="../../index.html#vol-8">📦 Volume VIII: Campaign Packages, Modules &amp; Templates</a></li></ul></aside>
+    <main class="wiki-main">
+      <div class="breadcrumbs">
+        <a href="../../index.html">Wiki Manual</a> &rsaquo;
+        <a href="../../index.html#series-index">Cross-Cutting Series</a> &rsaquo;
+        <span>Series G</span>
+      </div>
+      <div class="article-header">
+        <h1 class="article-title">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</h1>
+        <div class="article-subtitle">
+          <span class="badge badge-Series">Cross-Cutting Subsystem Series</span>
+          <span class="badge">Volume I</span>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (16)</a>
+        </div>
+      </div>
+
+      <div class="ai-digest">
+        <div class="ai-digest-title">🤖 Analytical Knife Seam Summary</div>
+        <p style="margin:4px 0;">Comprehensive catalog and cleanup roadmap (SYS-AUDIT-01) for build-time file mirrors, overlapping sociology drafts, stale balance reports, and unreferenced diagrams.</p>
+      </div>
+
+      <div class="callout callout-warning"><strong>WARNING:</strong> <strong>Cross-Cutting Analytical Series</strong>: Comprehensive forensic catalog, provenance analysis, and remediation roadmap (<span class="wiki-tag">🎫 SYS-AUDIT-01</span>) for build-time file mirrors, overlapping specification drafts, stale simulation outputs, unreferenced diagrams, and <code>.scratch/</code> legacy tooling.</div>
+<hr class="wiki-hr"/>
+<h2>1. Architectural Context & Single Source of Truth Invariant</h2>
+<p>Ground Rule #2 of <a class="wiki-link" href="../../pages/AGENTS.md.html">📄 AGENTS.md</a> establishes the <strong>Single Source of Truth Invariant</strong>: every topological graph, Tarot deck, sociological matrix, and worldbuilding module must have a single canonical authority on disk, while downstream HTML distributions are compiled deterministically via <a class="wiki-link" href="../../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>.</p>
+<p>During the full repository inventory conducted for the <strong>Technical Manual & Bidirectional Codebase Wiki</strong>, <a class="wiki-link" href="../../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> scanned every file in the workspace and cross-referenced byte hashes, compiler write targets, and inbound link graphs. That audit (codified in <a class="wiki-link" href="../../pages/tickets/system/SYS-AUDIT-01_duplicate_mirror_and_orphan_file_remediation.md.html">📄 tickets/system/SYS-AUDIT-01_duplicate_mirror_and_orphan_file_remediation.md</a> and building upon the earlier <a class="wiki-link" href="../../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html">📄 docs/audit/2026-10-creator-studio-audit-dossier.md</a>) identified <strong>four distinct categories of duplicate mirrors, overlapping drafts, stale outputs, and legacy <code>.scratch/</code> scripts</strong>.</p>
+<p>To protect backwards compatibility prior to destructive file deletion, <a class="wiki-link" href="../../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> maintains an explicit <code>AUDIT_FLAGS</code> registry (lines 224–300) that automatically badges every affected file's wiki page and generates bidirectional links to its canonical counterpart and <span class="wiki-tag">🎫 SYS-AUDIT-01</span>.</p>
+<hr class="wiki-hr"/>
+<h2>2. Category A: Build-Time File Mirrors (Byte-Identical Redundant Copies)</h2>
+<p>Category A files are byte-for-byte identical copies generated by build scripts or legacy Minor Arcana generators writing the same payload to two paths simultaneously.</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Duplicate / Mirror (Remediated)</th><th>Canonical Authority File</th><th>Forensic Root Cause</th><th>Remediation Executed</th></tr>
+</thead>
+<tbody>
+<tr><td><code>tickets/creative/platform_audit_visualizer.html</code></td><td><a class="wiki-link" href="../../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a></td><td><code>build_suite.js</code> previously wrote an identical mirror copy of <code>platform_audit_dashboard.html</code> to <code>tickets/creative/</code>.</td><td>Removed mirror copy step from <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> and deleted the mirror file.</td></tr>
+<tr><td><code>tarot/decks/crowley_thoth_minor.json</code></td><td><a class="wiki-link" href="../../pages/tarot/decks/minor/crowley_thoth_minor.json.html">📄 tarot/decks/minor/crowley_thoth_minor.json</a></td><td>Legacy generator wrote copies to both <code>tarot/decks/</code> and <code>tarot/decks/minor/</code>.</td><td>Deleted duplicate in <code>tarot/decks/</code>; consolidated canonical source in <a class="wiki-link" href="../../pages/tarot/decks/minor/crowley_thoth_minor.json.html">📄 tarot/decks/minor/crowley_thoth_minor.json</a>.</td></tr>
+<tr><td><code>tarot/decks/qabalistic_wang_minor.json</code></td><td><a class="wiki-link" href="../../pages/tarot/decks/minor/qabalistic_wang_minor.json.html">📄 tarot/decks/minor/qabalistic_wang_minor.json</a></td><td>Legacy generator wrote identical payloads to both directories.</td><td>Deleted duplicate in <code>tarot/decks/</code>; consolidated canonical source in <a class="wiki-link" href="../../pages/tarot/decks/minor/qabalistic_wang_minor.json.html">📄 tarot/decks/minor/qabalistic_wang_minor.json</a>.</td></tr>
+<tr><td><code>tarot/decks/rider_waite_smith_minor.json</code></td><td><a class="wiki-link" href="../../pages/tarot/decks/minor/rider_waite_smith_minor.json.html">📄 tarot/decks/minor/rider_waite_smith_minor.json</a></td><td>Legacy generator wrote identical payloads to both directories.</td><td>Deleted duplicate in <code>tarot/decks/</code>; consolidated canonical source in <a class="wiki-link" href="../../pages/tarot/decks/minor/rider_waite_smith_minor.json.html">📄 tarot/decks/minor/rider_waite_smith_minor.json</a>.</td></tr>
+<tr><td><code>tarot/decks/salvador_dali_minor.json</code></td><td><a class="wiki-link" href="../../pages/tarot/decks/minor/salvador_dali_minor.json.html">📄 tarot/decks/minor/salvador_dali_minor.json</a></td><td>Legacy generator wrote identical payloads to both directories.</td><td>Deleted duplicate in <code>tarot/decks/</code>; consolidated canonical source in <a class="wiki-link" href="../../pages/tarot/decks/minor/salvador_dali_minor.json.html">📄 tarot/decks/minor/salvador_dali_minor.json</a>.</td></tr>
+<tr><td><code>tarot/decks/minor_deck_manifest.json</code></td><td><a class="wiki-link" href="../../pages/tarot/decks/minor/minor_deck_manifest.json.html">📄 tarot/decks/minor/minor_deck_manifest.json</a></td><td>Generator previously output manifest to both directories.</td><td>Standardized exclusively on <a class="wiki-link" href="../../pages/tarot/decks/minor/minor_deck_manifest.json.html">📄 tarot/decks/minor/minor_deck_manifest.json</a> and deleted root copy.</td></tr>
+<tr><td><code>tarot/decks/minor_decks_registry.js</code></td><td><a class="wiki-link" href="../../pages/tarot/decks/minor/minor_decks_registry.js.html">📄 tarot/decks/minor/minor_decks_registry.js</a></td><td>Generator previously output JS registry to both directories.</td><td>Standardized exclusively on <a class="wiki-link" href="../../pages/tarot/decks/minor/minor_decks_registry.js.html">📄 tarot/decks/minor/minor_decks_registry.js</a> and deleted root copy.</td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>3. Category B: Overlapping Specifications, Mirrored Primitives & Stale Simulation Outputs</h2>
+<p>Category B encompasses files that either shared a structural prefix with a newer decoupled specification or stored historical CLI simulation runs that have been superseded by live outputs.</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Legacy / Overlapping File (Remediated)</th><th>Canonical Authority File</th><th>Forensic Discrepancy & Relationship</th><th>Remediation Executed</th></tr>
+</thead>
+<tbody>
+<tr><td><code>sociology/05_Node_and_Faction_Mapping.md</code></td><td><a class="wiki-link" href="../../pages/sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md.html">📄 sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md</a></td><td>Both files occupied slot <code>05_</code> in <code>sociology/</code>. <code>05_Node_and_Faction_Mapping.md</code> was an earlier setting-bound draft containing specific Opal Island node mappings; <code>05_Pointcrawl_Graph_and_Faction_Alignment.md</code> is the decoupled universal <code>[SOC-05]</code> specification.</td><td>Deleted legacy draft <code>05_Node_and_Faction_Mapping.md</code>; consolidated on universal spec <a class="wiki-link" href="../../pages/sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md.html">📄 sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md</a>.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md.html">📄 system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md</a></td><td><a class="wiki-link" href="../../pages/docs/srd/scenario_primitives_srd.md.html">📄 docs/srd/scenario_primitives_srd.md</a></td><td>Both files document <code>CWT-051: Opal Island Module Deconstruction & Scenario Primitives Extraction</code>.</td><td>Treat <a class="wiki-link" href="../../pages/docs/srd/scenario_primitives_srd.md.html">📄 docs/srd/scenario_primitives_srd.md</a> as the primary SRD surface in Volume II while retaining <code>system/primitives/051_...</code> as local module reference.</td></tr>
+<tr><td><code>network/balance_matrix.csv</code></td><td><a class="wiki-link" href="../../pages/network/network_balance_matrix.csv.html">📄 network/network_balance_matrix.csv</a></td><td><a class="wiki-link" href="../../pages/network/Run-NetworkEngine.ps1.html">📄 network/Run-NetworkEngine.ps1</a> writes live simulation telemetry to <code>network_balance_matrix.csv</code>. <code>balance_matrix.csv</code> was an older static run artifact.</td><td>Deleted stale static matrix <code>balance_matrix.csv</code>; live output maintained at <a class="wiki-link" href="../../pages/network/network_balance_matrix.csv.html">📄 network/network_balance_matrix.csv</a>.</td></tr>
+<tr><td><code>network/balance_report.md</code></td><td><a class="wiki-link" href="../../pages/network/network_balance_report.md.html">📄 network/network_balance_report.md</a></td><td><a class="wiki-link" href="../../pages/network/Run-NetworkEngine.ps1.html">📄 network/Run-NetworkEngine.ps1</a> outputs its Markdown balance summary to <code>network_balance_report.md</code>. <code>balance_report.md</code> was an older static report.</td><td>Deleted stale static report <code>balance_report.md</code>; live output maintained at <a class="wiki-link" href="../../pages/network/network_balance_report.md.html">📄 network/network_balance_report.md</a>.</td></tr>
+<tr><td><code>network/sample_balance_run.md</code></td><td><a class="wiki-link" href="../../pages/network/network_balance_report.md.html">📄 network/network_balance_report.md</a></td><td>Historical baseline sample run superseded by live simulation engine.</td><td>Deleted stale sample run; live telemetry maintained at <a class="wiki-link" href="../../pages/network/network_balance_report.md.html">📄 network/network_balance_report.md</a>.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/docs/MODULES_CATALOG.md.html">📄 docs/MODULES_CATALOG.md</a></td><td><code>campaigns/opal_island/modules/</code> & <code>campaigns/generic_starter/modules/</code></td><td>Following the multi-campaign architecture migration, modules moved into <code>campaigns/<id>/modules/</code>. Root <code>modules/</code> was pruned and <code>modules/README.md</code> was relocated to <code>docs/MODULES_CATALOG.md</code> under <span class="wiki-tag">🎫 SYS-AUDIT-01</span>.</td><td>Relocated to <a class="wiki-link" href="../../pages/docs/MODULES_CATALOG.md.html">📄 docs/MODULES_CATALOG.md</a> as a cross-campaign router.</td></tr>
+</tbody>
+</table></div>
+<hr class="wiki-hr"/>
+<h2>4. Category C: Semantic Diagram Renaming & Historical Graph Iterations</h2>
+<h3>4.1 Renamed Sociology Reference Diagrams (Remediated)</h3>
+<p>The four web-extracted reference figures in <code>sociology/</code> that previously had raw numeric or URL-encoded filenames were renamed to clean, semantic filenames:</p>
+<ul class="wiki-list">
+<li><a class="wiki-link" href="../../pages/sociology/competing_values_extended_matrix.png.html">📄 sociology/competing_values_extended_matrix.png</a> (formerly <code>1-s2.png</code>) — Academic diagram illustrating Cameron & Quinn's Extended Competing Values Matrix with leader archetypes and value drivers (associated with <a class="wiki-link" href="../../pages/sociology/01_Core_Cultural_Quadrants.md.html">📄 sociology/01_Core_Cultural_Quadrants.md</a>).</li>
+<li><a class="wiki-link" href="../../pages/sociology/duncan_environmental_uncertainty_matrix.png.html">📄 sociology/duncan_environmental_uncertainty_matrix.png</a> (formerly <code>1520159723101.png</code>) — Robert Duncan's 1972 Environmental Uncertainty Grid mapping simple vs. complex and static vs. dynamic biomes (associated with <a class="wiki-link" href="../../pages/sociology/03_Environmental_Uncertainty_and_Crisis.md.html">📄 sociology/03_Environmental_Uncertainty_and_Crisis.md</a>).</li>
+<li><a class="wiki-link" href="../../pages/sociology/porter_groysberg_operational_profiles.png.html">📄 sociology/porter_groysberg_operational_profiles.png</a> (formerly <code>https3A2F2Fblogs-imag4es.png</code>) — Porter & Groysberg Strategic Operations Alignment mapping Design, Service, Produce, and Deliver profiles (associated with <a class="wiki-link" href="../../pages/sociology/02_Operational_Profiles_and_Power.md.html">📄 sociology/02_Operational_Profiles_and_Power.md</a>).</li>
+<li><a class="wiki-link" href="../../pages/sociology/groysberg_5d_culture_radar.png.html">📄 sociology/groysberg_5d_culture_radar.png</a> (formerly <code>https3A2F2Fblogs-images.png</code>) — Groysberg et al. (<em>HBR</em>) 5-Dimension Radar Pentagon powering procedural settlement generation (associated with <a class="wiki-link" href="../../pages/sociology/04_Sensory_Pentagon_Generator.md.html">📄 sociology/04_Sensory_Pentagon_Generator.md</a>).</li>
+</ul>
+<h3>4.2 Pointcrawl Graph Visual Evolution in <code>network/</code></h3>
+<p>Four image files in <code>network/</code> document the visual evolution of the 22-node pointcrawl topology prior to the interactive HTML5 canvas in <a class="wiki-link" href="../../pages/start.html.html">📄 start.html</a>:</p>
+<ul class="wiki-list">
+<li><a class="wiki-link" href="../../pages/network/network%20map.JPG.html">📄 network/network map.JPG</a> — Original hand-annotated pointcrawl network map showing the 22 canonical nodes and directional influence vectors.</li>
+<li><a class="wiki-link" href="../../pages/network/network.png.html">📄 network/network.png</a> — Iteration 1 rendered topological graph diagram of the 22-node network.</li>
+<li><a class="wiki-link" href="../../pages/network/network%20v2.png.html">📄 network/network v2.png</a> — Iteration 2 topological graph diagram introducing wave groupings and refined link routing.</li>
+<li><a class="wiki-link" href="../../pages/network/network%20v3.png.html">📄 network/network v3.png</a> — Iteration 3 canonical static topological graph diagram showing asymmetric hegemonic and transit edges.</li>
+</ul>
+<hr class="wiki-hr"/>
+<h2>5. Category D: Legacy <code>.scratch/</code> Python Generators & Completed Remediation Issues</h2>
+<p>The <code>.scratch/</code> directory preserves two sets of historical engineering artifacts from earlier build migrations. None of these files are invoked at runtime or during <code>Build-Suite.ps1</code> execution; their responsibilities have been superseded by <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a>, <a class="wiki-link" href="../../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a>, and <a class="wiki-link" href="../../pages/tarot/generate_minor_matrix.js.html">📄 tarot/generate_minor_matrix.js</a>.</p>
+<h3>5.1 The 11 Legacy Minor Arcana & SVG Python Scripts (<code>.scratch/*.py</code>)</h3>
+<p>During the initial construction of the 56-card Minor Arcana Edge Matrix (<code>sociology/09_Minor_Arcana_Edge_Matrix.md</code>), one-off Python scripts using <code>pypdf</code> (<code>PdfReader</code>) extracted page-indexed hermeneutic snippets from reference PDFs (Akron/Banzhaf's <em>The Crowley Tarot Handbook</em>, Johannes Fiebig's & Rachel Pollack's <em>Salvador Dalí Tarot</em> volumes, and Robert Wang's <em>The Qabalistic Tarot</em>) and synthesized the initial JSON databases:</p>
+<div class="table-wrap"><table class="wiki-table">
+<thead>
+<tr><th>Legacy Python Script</th><th>Lines</th><th>Historical Role & Superseding Node.js / JSON Artifact</th></tr>
+</thead>
+<tbody>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/build_all_minor_data.py.html">📄 .scratch/build_all_minor_data.py</a></td><td>180</td><td>Early <code>pypdf</code> page-mapping prototype extracting raw text from Crowley (pp. 126–196), Fiebig (pp. 66–176), Pollack (pp. 62–178), and Wang (pp. 67–131) PDFs across the 4 suits.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/build_minor_arcana_suite.py.html">📄 .scratch/build_minor_arcana_suite.py</a></td><td>177</td><td>Constructed the 56 base card keys (<code>wands_01</code>..<code>disks_14</code>) and mapped Golden Dawn titles, astrological decans, Sephiroth, and baseline transit friction ratings.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/compile_minor_arcana_suite.py.html">📄 .scratch/compile_minor_arcana_suite.py</a></td><td>107</td><td>Consolidated page-anchor lookup dictionaries (<code>crowley_page_map</code>, <code>fiebig_page_map</code>, <code>wang_sephirah_map</code>) for batch PDF extraction.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/generate_crowley_minor.py.html">📄 .scratch/generate_crowley_minor.py</a></td><td>206</td><td>Authored the initial bespoke Crowley Thoth Suit of Wands (<code>wands_01</code>..<code>wands_14</code>) corridor profiles; imported via <code>exec()</code> by <code>generate_crowley_minor_full.py</code>.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/generate_crowley_minor_full.py.html">📄 .scratch/generate_crowley_minor_full.py</a></td><td>610</td><td>Assembled all 56 cards of the Crowley Thoth Minor Arcana deck and wrote <a class="wiki-link" href="../../pages/tarot/decks/minor/crowley_thoth_minor.json.html">📄 tarot/decks/minor/crowley_thoth_minor.json</a> (plus the Category A duplicate in <code>tarot/decks/</code>).</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/generate_dali_minor_full.py.html">📄 .scratch/generate_dali_minor_full.py</a></td><td>877</td><td>Assembled all 56 cards of the Salvador Dalí Minor Arcana deck with Fiebig/Pollack page citations and wrote <a class="wiki-link" href="../../pages/tarot/decks/minor/salvador_dali_minor.json.html">📄 tarot/decks/minor/salvador_dali_minor.json</a>.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/generate_wang_minor_full.py.html">📄 .scratch/generate_wang_minor_full.py</a></td><td>871</td><td>Assembled all 56 cards of the Robert Wang Qabalistic Minor Arcana deck across the Four Worlds and 36 Decanates, writing <a class="wiki-link" href="../../pages/tarot/decks/minor/qabalistic_wang_minor.json.html">📄 tarot/decks/minor/qabalistic_wang_minor.json</a>.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/generate_complete_minor_suite.py.html">📄 .scratch/generate_complete_minor_suite.py</a></td><td>1044</td><td>Master Python batch compiler that generated the 4 Minor Arcana decks (adding <a class="wiki-link" href="../../pages/tarot/decks/minor/rider_waite_smith_minor.json.html">📄 tarot/decks/minor/rider_waite_smith_minor.json</a>), <a class="wiki-link" href="../../pages/tarot/decks/minor/minor_deck_manifest.json.html">📄 tarot/decks/minor/minor_deck_manifest.json</a>, and <a class="wiki-link" href="../../pages/tarot/tarot_minor_arcana_matrix.json.html">📄 tarot/tarot_minor_arcana_matrix.json</a>. Superseded by <a class="wiki-link" href="../../pages/tarot/generate_minor_matrix.js.html">📄 tarot/generate_minor_matrix.js</a>.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/check_all_dupes.py.html">📄 .scratch/check_all_dupes.py</a></td><td>37</td><td>Quality-assurance audit script using <code>collections.Counter</code> to verify zero duplicate strings across <code>atmosphere</code>, <code>patrol</code>, <code>hazardClock</code>, <code>lever</code>, <code>fatalError</code>, <code>smuggler</code>, and <code>prompt</code> fields in the Minor Arcana JSON decks.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/fix_svg_fonts.py.html">📄 .scratch/fix_svg_fonts.py</a></td><td>16</td><td>One-off string replacement script that fixed escaped single quotes around <code>JetBrains Mono</code> and <code>Plus Jakarta Sans</code> font-family declarations in <a class="wiki-link" href="../../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a>.</td></tr>
+<tr><td><a class="wiki-link" href="../../pages/.scratch/integrate_minor_into_matrix_browser.py.html">📄 .scratch/integrate_minor_into_matrix_browser.py</a></td><td>1550</td><td>Upgraded Section 8 of <a class="wiki-link" href="../../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a> (<code>generateBrowserHtml</code>) so <a class="wiki-link" href="../../pages/tarot/tarot_matrix_browser.html.html">📄 tarot/tarot_matrix_browser.html</a> renders both the 22 Major Arcana sociological profiles and the 56 Minor Arcana corridor profiles in a unified UI.</td></tr>
+</tbody>
+</table></div>
+<h3>5.2 The 12 Completed October 2026 Audit Remediation Issues (<code>.scratch/creator-remediation/issues/</code>)</h3>
+<p>Following the October 2026 System Audit Dossier (<a class="wiki-link" href="../../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html">📄 docs/audit/2026-10-creator-studio-audit-dossier.md</a>), the 12 tracer-bullet remediation tickets (<code>TICKET-01</code> through <code>TICKET-12</code>) were tracked to 100% completion inside <code>.scratch/creator-remediation/issues/</code>:</p>
+<ul class="wiki-list">
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/01-fix-stale-desktop-links.md.html">📄 .scratch/creator-remediation/issues/01-fix-stale-desktop-links.md</a> — Replaced hardcoded <code>file:///c:/Users/Milo/...</code> links in <a class="wiki-link" href="../../pages/README.md.html">📄 README.md</a> and <a class="wiki-link" href="../../pages/docs/MODULES_CATALOG.md.html">📄 docs/MODULES_CATALOG.md</a> with portable relative paths.</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/02-restore-canonical-links-parity.md.html">📄 .scratch/creator-remediation/issues/02-restore-canonical-links-parity.md</a> — Restored all 52 directed links in <code>CANONICAL_LINKS_DATA</code> to match canonical network topology so browser adjacency smothering matches PowerShell.</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/03-align-amalgamation-math-and-sorting.md.html">📄 .scratch/creator-remediation/issues/03-align-amalgamation-math-and-sorting.md</a> — Aligned 2-decimal-place amalgamation rounding (<code>Math.round(val * 100) / 100</code>) and deterministic ascending Node ID tie-breaking across <a class="wiki-link" href="../../pages/network/network_visualizer.html.html">📄 network/network_visualizer.html</a> and <a class="wiki-link" href="../../pages/network/Run-NetworkEngine.ps1.html">📄 network/Run-NetworkEngine.ps1</a>.</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/04-build-centralized-compiler.md.html">📄 .scratch/creator-remediation/issues/04-build-centralized-compiler.md</a> — Created <a class="wiki-link" href="../../pages/build_suite.js.html">📄 build_suite.js</a> and converted <a class="wiki-link" href="../../pages/network/modules_manifest.json.html">📄 network/modules_manifest.json</a> to pure JSON.</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/05-extract-preset-adapters.md.html">📄 .scratch/creator-remediation/issues/05-extract-preset-adapters.md</a> — Extracted dual-mode preset adapters per <a class="wiki-link" href="../../pages/docs/adr/0001-dual-mode-preset-architecture.md.html">📄 docs/adr/0001-dual-mode-preset-architecture.md</a>.</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/06-authoring-engine-srd.md.html">📄 .scratch/creator-remediation/issues/06-authoring-engine-srd.md</a> — Authored <a class="wiki-link" href="../../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a>.</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/07-universal-adventure-framework-srd.md.html">📄 .scratch/creator-remediation/issues/07-universal-adventure-framework-srd.md</a> — Authored <a class="wiki-link" href="../../pages/docs/srd/adventure_framework_srd.md.html">📄 docs/srd/adventure_framework_srd.md</a>.</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/08-standardize-modules-with-resource-tags.md.html">📄 .scratch/creator-remediation/issues/08-standardize-modules-with-resource-tags.md</a> — Standardized all 48 Opal Island modules into the 5-Tier schema with typed <code>provides</code> and <code>requires</code> tags per <a class="wiki-link" href="../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a>.</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/09-add-edge-module-slotting.md.html">📄 .scratch/creator-remediation/issues/09-add-edge-module-slotting.md</a> — Added corridor/edge module slotting (<code>edgeSlottedModules</code>) in <a class="wiki-link" href="../../pages/src/workstation/scripts/stage_5_slotting.js.html">📄 src/workstation/scripts/stage_5_slotting.js</a>.</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/10-add-supply-line-severance-checker.md.html">📄 .scratch/creator-remediation/issues/10-add-supply-line-severance-checker.md</a> — Implemented BFS supply-flow reachability and severance fallback detection in the authoring engine.</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/11-clean-raw-prompt-provenance-text.md.html">📄 .scratch/creator-remediation/issues/11-clean-raw-prompt-provenance-text.md</a> — Scrubbed raw <code><em>MyActivity.html</em></code> prompt provenance strings from module summaries (<code>ESOT-04</code>, <code>ESOT-05</code>, <code>ESOT-06</code>).</li>
+<li><a class="wiki-link" href="../../pages/.scratch/creator-remediation/issues/12-end-to-end-zero-cors-verification.md.html">📄 .scratch/creator-remediation/issues/12-end-to-end-zero-cors-verification.md</a> — Verified 100% offline <code>file:///</code> execution across all HTML tools.</li>
+</ul>
+      <h2 id="outbound-links">Subsystem Files Covered in This Series (32)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>File / Page</th><th>Role</th><th>Notes</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md.html"><strong>sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md</strong></a></td>
+          <td><span class="badge">Series Component</span></td>
+          <td>Core file analyzed in Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</td>
+        </tr><tr>
+          <td><a href="../../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:AGENTS.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:Build-Suite.ps1]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html"><strong>docs/audit/2026-10-creator-studio-audit-dossier.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/audit/2026-10-creator-studio-audit-dossier.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:build_suite.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md.html"><strong>system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/scenario_primitives_srd.md.html"><strong>docs/srd/scenario_primitives_srd.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/srd/scenario_primitives_srd.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/MODULES_CATALOG.md.html"><strong>docs/MODULES_CATALOG.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/MODULES_CATALOG.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/competing_values_extended_matrix.png.html"><strong>sociology/competing_values_extended_matrix.png</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/competing_values_extended_matrix.png]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/01_Core_Cultural_Quadrants.md.html"><strong>sociology/01_Core_Cultural_Quadrants.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/01_Core_Cultural_Quadrants.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/duncan_environmental_uncertainty_matrix.png.html"><strong>sociology/duncan_environmental_uncertainty_matrix.png</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/duncan_environmental_uncertainty_matrix.png]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/03_Environmental_Uncertainty_and_Crisis.md.html"><strong>sociology/03_Environmental_Uncertainty_and_Crisis.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/03_Environmental_Uncertainty_and_Crisis.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/porter_groysberg_operational_profiles.png.html"><strong>sociology/porter_groysberg_operational_profiles.png</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/porter_groysberg_operational_profiles.png]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/02_Operational_Profiles_and_Power.md.html"><strong>sociology/02_Operational_Profiles_and_Power.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/02_Operational_Profiles_and_Power.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/groysberg_5d_culture_radar.png.html"><strong>sociology/groysberg_5d_culture_radar.png</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/groysberg_5d_culture_radar.png]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/04_Sensory_Pentagon_Generator.md.html"><strong>sociology/04_Sensory_Pentagon_Generator.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:sociology/04_Sensory_Pentagon_Generator.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/start.html.html"><strong>start.html</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:start.html]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network%20map.JPG.html"><strong>network/network map.JPG</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/network map.JPG]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network.png.html"><strong>network/network.png</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/network.png]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network%20v2.png.html"><strong>network/network v2.png</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/network v2.png]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network%20v3.png.html"><strong>network/network v3.png</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/network v3.png]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/README.md.html"><strong>README.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:README.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/modules_manifest.json.html"><strong>network/modules_manifest.json</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:network/modules_manifest.json]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/adr/0001-dual-mode-preset-architecture.md.html"><strong>docs/adr/0001-dual-mode-preset-architecture.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/adr/0001-dual-mode-preset-architecture.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/srd/authoring_engine_srd.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/srd/adventure_framework_srd.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html"><strong>docs/adr/0002-dual-srd-and-tiered-module-architecture.md</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:docs/adr/0002-dual-srd-and-tiered-module-architecture.md]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/src/workstation/scripts/stage_5_slotting.js.html"><strong>src/workstation/scripts/stage_5_slotting.js</strong></a></td>
+          <td><span class="badge">Wiki Citation</span></td>
+          <td>Explicit [[File:src/workstation/scripts/stage_5_slotting.js]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-04_Aquabah_The_Hanging_Canyon_Cliff_City.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-04_Aquabah_The_Hanging_Canyon_Cliff_City.md</strong></a></td>
+          <td><span class="badge">Module Cross-Ref</span></td>
+          <td>Mentions module ESOT-04</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-05_Reformation_Penal_Slave_Exchanges.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-05_Reformation_Penal_Slave_Exchanges.md</strong></a></td>
+          <td><span class="badge">Module Cross-Ref</span></td>
+          <td>Mentions module ESOT-05</td>
+        </tr><tr>
+          <td><a href="../../pages/campaigns/Emerald%20Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md.html"><strong>campaigns/Emerald Isle/modules/Set_G_Esoterica_and_Information_Warfare/ESOT-06_The_Cosmic_Collider_and_Planar_Breach_Trigger.md</strong></a></td>
+          <td><span class="badge">Module Cross-Ref</span></td>
+          <td>Mentions module ESOT-06</td>
+        </tr></tbody></table></div>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (16)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page</th><th>Relationship</th><th>Context</th></tr></thead><tbody><tr>
+          <td><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html"><strong>Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md.html"><strong>sociology/05_Pointcrawl_Graph_and_Faction_Alignment.md</strong></a></td>
+          <td><span class="badge">In Deep Series</span></td>
+          <td>Part of cross-cutting subsystem Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</td>
+        </tr><tr>
+          <td><a href="../../pages/README.md.html"><strong>README.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html"><strong>docs/audit/2026-10-creator-studio-audit-dossier.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/docs/srd/scenario_primitives_srd.md.html"><strong>docs/srd/scenario_primitives_srd.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network%20map.JPG.html"><strong>network/network map.JPG</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network%20v2.png.html"><strong>network/network v2.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network%20v3.png.html"><strong>network/network v3.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/network/network.png.html"><strong>network/network.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/00%20sociology%20all.png.html"><strong>sociology/00 sociology all.png</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/sociology/README.md.html"><strong>sociology/README.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr><tr>
+          <td><a href="../../pages/system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md.html"><strong>system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md</strong></a></td>
+          <td><span class="badge">Series Citation</span></td>
+          <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
+        </tr></tbody></table></div>
+    </main>
+  </div>
+</body>
+</html>

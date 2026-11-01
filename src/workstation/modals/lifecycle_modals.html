@@ -1,0 +1,643 @@
+<!-- ========================================================================
+       MODAL 1: STARTUP WELCOME DIALOG ("WELCOME TO CREATOR STUDIO")
+       ======================================================================== -->
+  <div id="modal-welcome" class="modal-overlay">
+    <div class="win-dialog bevel-outset">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          <span>Welcome to Creator Studio</span>
+        </div>
+        <div class="title-bar-controls">
+          <button class="win-btn" onclick="requestEnterWorkstation()">X</button>
+        </div>
+      </div>
+      <div class="dialog-body">
+        <div class="dialog-banner">
+          <div class="banner-icon">CS</div>
+          <div class="banner-text">
+            <h2>Campaign Authoring Workstation</h2>
+            <p>Pointcrawl topology design, sociological alignment, and modular worldbuilding.</p>
+          </div>
+        </div>
+
+        <!-- Disk Workspace Sync Callout -->
+        <div id="welcome-disk-callout" class="bevel-inset" style="display:none; padding:8px; margin-bottom:10px; background:#fffbe8; border:1px solid #d4a373;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:220px;">
+              <strong id="welcome-disk-title" style="color:#000080; font-size:12px;">📁 Connect Local Workspace Folder</strong>
+              <div id="welcome-disk-desc" style="font-size:11px; color:#333;">Sync directly with campaigns, modules, and map assets on disk.</div>
+              <div id="welcome-detected-path" style="font-size:10px; font-family:monospace; color:#475569; margin-top:2px; display:none;"></div>
+            </div>
+            <div style="display:flex; gap:5px; align-items:center; flex-wrap:wrap;">
+              <button id="welcome-disk-btn" class="win-btn" style="font-weight:bold; padding:4px 10px; white-space:nowrap;" onclick="onWelcomeDiskCalloutClick()">Link Workspace Folder...</button>
+              <button id="welcome-disk-docs-btn" class="win-btn" style="padding:4px 8px; font-size:10px; white-space:nowrap; display:none;" onclick="connectCampaignsFolder({ startIn: 'documents' }).then(() => updateWelcomeDiskCallout())" title="Store campaigns in Documents/campaigns/<campaign_name>/">Use /Documents...</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-tiles-grid">
+          <!-- Button 1: Continue -->
+          <button class="win-btn action-tile-btn" onclick="actionContinueLast()">
+            <strong>Continue Active Session</strong>
+            <span id="welcome-last-summary">Resume active campaign session.</span>
+          </button>
+
+          <!-- Button 2: New Campaign -->
+          <button class="win-btn action-tile-btn" onclick="openNewCampaignWizard()">
+            <strong>New Campaign Wizard...</strong>
+            <span>Build a new campaign from presets in your campaigns folder.</span>
+          </button>
+
+          <!-- Button 3: Load Preset -->
+          <button class="win-btn action-tile-btn" onclick="openLoadPresetModal()">
+            <strong>Load Campaign / Package...</strong>
+            <span>Browse installed packages or import JSON from disk.</span>
+          </button>
+
+          <!-- Button 4: Settings -->
+          <button class="win-btn action-tile-btn" onclick="openSettingsModal()">
+            <strong>Workstation Preferences...</strong>
+            <span>Configure grid snap, auto-save, and display rules.</span>
+          </button>
+        </div>
+
+        <!-- Campaign Sourcebook Packages Section -->
+        <div style="border-top:1px solid var(--win-dark); padding-top:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+            <div style="font-weight:bold; font-size:11px; color:#000080;">Active Campaign Sourcebooks:</div>
+            <span style="font-size:10px; color:#0284c7; cursor:pointer; text-decoration:underline;" onclick="openLoadPresetModal(); closeWelcomeModal();">View All in Launcher...</span>
+          </div>
+          <div id="welcome-installed-campaigns-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <!-- Dynamically populated via renderWelcomeCampaignsList() -->
+          </div>
+        </div>
+
+        <!-- Direct Pipeline Tools (absorbed from index.html) -->
+        <div style="border-top:1px solid var(--win-dark); padding-top:8px;">
+          <div style="font-weight:bold; font-size:11px; color:#000080; margin-bottom:5px;">Integrated Pipeline Surfaces:</div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <!-- VESTIGIAL: Module Explorer button kept for reference. Uncomment to restore.
+            <button class="win-btn" onclick="openModuleExplorer(); closeWelcomeModal();" style="flex:1;">Module Explorer (Ctrl+M)</button>
+            -->
+            <button class="win-btn" onclick="openTicketCenter(); closeWelcomeModal();" style="flex:1;">Ticket Command (F9)</button>
+            <button class="win-btn" onclick="window.open('wiki/index.html');" style="flex:1;">Technical Wiki (8 Vols)</button>
+            <button class="win-btn" onclick="window.open('admin.html');" style="flex:1;">Admin Directory</button>
+          </div>
+        </div>
+
+        <div class="dialog-footer">
+          <label style="display:flex; align-items:center; gap:4px; font-size:11px; cursor:pointer;">
+            <input type="checkbox" id="chk-show-on-startup" checked>
+            <span>Show this dialog on startup</span>
+          </label>
+          <div style="display:flex; gap:6px;">
+            <button class="win-btn" style="min-width:70px;" onclick="requestEnterWorkstation()">Enter Workstation</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<!-- ========================================================================
+       MODAL 2: NEW CAMPAIGN WIZARD
+       ======================================================================== -->
+  <div id="modal-new" class="modal-overlay hidden">
+    <div class="win-dialog bevel-outset" style="width:440px; max-width:96vw;">
+      <div class="title-bar">
+        <div class="title-bar-text"><span>New Campaign Wizard</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-new')">X</button></div>
+      </div>
+      <div class="dialog-body" style="display:flex; flex-direction:column; gap:8px;">
+        <label style="display:flex; flex-direction:column; gap:4px;">
+          <strong>Campaign Title:</strong>
+          <input type="text" id="new-camp-name" class="win-select-input" value="Untitled Campaign" placeholder="Enter new campaign title...">
+        </label>
+        <div>
+          <strong style="display:block; margin-bottom:4px;">Preset to Build From:</strong>
+          <div id="new-campaign-presets-list" class="bevel-inset" style="padding:6px; display:flex; flex-direction:column; gap:6px; max-height:160px; overflow-y:auto; background:#ffffff;">
+            <!-- Dynamically populated via renderNewCampaignPresetsList() from campaigns folder -->
+          </div>
+        </div>
+        <div class="dialog-footer" style="justify-content:flex-end; gap:6px; margin-top:4px;">
+          <button id="btn-confirm-new-camp" class="win-btn" onclick="confirmNewCampaign()" style="min-width:70px; font-weight:bold;">Create</button>
+          <button class="win-btn" onclick="closeModal('modal-new')" style="min-width:70px;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<!-- ========================================================================
+       MODAL 3: CAMPAIGN LAUNCHER & PROJECT MANAGER
+       ======================================================================== -->
+  <div id="modal-load" class="modal-overlay hidden">
+    <div class="win-dialog bevel-outset" style="width:620px; max-width:96vw;">
+      <div class="title-bar">
+        <div class="title-bar-text"><span>Campaign Launcher & Project Manager</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-load')">X</button></div>
+      </div>
+      <div class="dialog-body" style="display:flex; flex-direction:column; gap:8px;">
+        
+        <!-- Campaigns Folder Connection & Live Sync Bar -->
+        <div class="bevel-inset" style="padding:6px 10px; background:#f8fafc; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+          <div style="display:flex; align-items:center; gap:6px; font-size:11px;">
+            <span id="campaigns-folder-status-dot" style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#94a3b8;"></span>
+            <span id="campaigns-folder-status-text" style="font-weight:bold; color:#1e293b;">Campaigns Folder: Unlinked</span>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="win-btn" style="padding:2px 8px; font-size:11px; display:flex; align-items:center; gap:4px;" onclick="refreshCampaignsManager(true);" title="Re-scan /campaigns directory and in-browser library">
+              <span>🔄</span>
+              <span>Refresh</span>
+            </button>
+            <button class="win-btn" style="padding:2px 8px; font-size:11px; display:flex; align-items:center; gap:4px;" onclick="connectCampaignsFolder();" title="Select /campaigns root folder for direct disk synchronization">
+              <span>📂</span>
+              <span id="btn-link-folder-text">Link /campaigns Folder...</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter / Tabs Bar -->
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+          <div style="display:flex; gap:4px;">
+            <button id="tab-camps-all" class="win-btn active" style="padding:2px 8px; font-size:11px; font-weight:bold;" onclick="setCampaignLauncherTab('all')">All (<span id="camps-count-all">0</span>)</button>
+            <button id="tab-camps-disk" class="win-btn" style="padding:2px 8px; font-size:11px;" onclick="setCampaignLauncherTab('disk')">Disk Folders (<span id="camps-count-disk">0</span>)</button>
+            <button id="tab-camps-library" class="win-btn" style="padding:2px 8px; font-size:11px;" onclick="setCampaignLauncherTab('library')">Saved Library (<span id="camps-count-library">0</span>)</button>
+            <button id="tab-camps-presets" class="win-btn" style="padding:2px 8px; font-size:11px;" onclick="setCampaignLauncherTab('presets')">Built-in Presets (<span id="camps-count-presets">0</span>)</button>
+          </div>
+          <input type="text" id="campaign-launcher-search" placeholder="Filter campaigns..." style="padding:2px 6px; font-size:11px; width:150px;" oninput="filterCampaignsModalList()">
+        </div>
+
+        <!-- Campaigns List Container -->
+        <div id="modal-installed-campaigns-list" class="bevel-inset" style="padding:6px; display:flex; flex-direction:column; gap:6px; max-height:280px; min-height:160px; overflow-y:auto; background:#fff;">
+          <!-- Dynamically populated via renderInstalledCampaignsModalList() -->
+        </div>
+
+        <!-- External Open & New Campaign Bar -->
+        <div style="border-top:1px solid var(--win-dark); padding-top:8px; display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="font-size:11px; color:#000080;">External & Quick Actions:</strong>
+            <span style="font-size:10px; color:#64748b;">Changes persist across launches automatically</span>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="win-btn" style="flex:1; padding:5px 8px; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:5px;" onclick="openNewCampaignWizard(); closeModal('modal-load');">
+              <span>➕</span>
+              <span>New Campaign...</span>
+            </button>
+            <button class="win-btn" style="flex:1; padding:5px 8px; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:5px;" onclick="if (typeof openCampaignFolder === 'function') openCampaignFolder(); else if (typeof triggerSelectiveImportFolder === 'function') triggerSelectiveImportFolder({ directOpen: true });">
+              <span>📁</span>
+              <span>Open Folder from Disk / USB...</span>
+            </button>
+            <button class="win-btn" style="flex:1; padding:5px 8px; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:5px;" onclick="document.getElementById('disk-json-input').click();">
+              <span>📦</span>
+              <span>Open Package (.zip, .json)...</span>
+            </button>
+          </div>
+          <input type="file" id="disk-json-input" accept=".json,.creator.json,.zip,.csz" onchange="importJsonFromDisk(event)" style="display:none;">
+        </div>
+
+        <div class="dialog-footer" style="justify-content:space-between; align-items:center; margin-top:4px;">
+          <button class="win-btn" onclick="openSaveAsNewCampaignModal()" style="font-size:11px;">💾 Save Active Session As New Campaign...</button>
+          <button class="win-btn" onclick="closeModal('modal-load')" style="min-width:70px;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 3B: SAVE AS NEW CAMPAIGN (DISK / LIBRARY / ZIP)
+       ======================================================================== -->
+  <div id="modal-save-as-new" class="modal-overlay hidden">
+    <div class="win-dialog bevel-outset" style="width:460px; max-width:95vw;">
+      <div class="title-bar">
+        <div class="title-bar-text"><span>Save As New Campaign</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-save-as-new')">X</button></div>
+      </div>
+      <div class="dialog-body" style="display:flex; flex-direction:column; gap:10px;">
+        <label style="display:flex; flex-direction:column; gap:3px;">
+          <strong>Campaign Name / Title:</strong>
+          <input type="text" id="save-as-camp-name" class="win-select-input" value="My New Campaign" oninput="autoUpdateSaveAsSlug()">
+        </label>
+
+        <label style="display:flex; flex-direction:column; gap:3px;">
+          <strong>Folder Name / Slug:</strong>
+          <input type="text" id="save-as-camp-slug" class="win-select-input" value="my_new_campaign" style="font-family:monospace;">
+          <span style="font-size:10px; color:#64748b;">Unique folder identifier for /campaigns/ directory storage.</span>
+        </label>
+
+        <label style="display:flex; flex-direction:column; gap:3px;">
+          <strong>Description / Summary (Optional):</strong>
+          <textarea id="save-as-camp-desc" class="win-select-input" style="height:50px; resize:vertical;" placeholder="Brief description of this campaign setting..."></textarea>
+        </label>
+
+        <div>
+          <strong style="display:block; margin-bottom:4px;">Save Destination:</strong>
+          <div class="bevel-inset" style="padding:8px; display:flex; flex-direction:column; gap:6px; background:#fff;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="radio" name="save-as-dest" value="disk" id="save-as-dest-disk" checked>
+              <div>
+                <strong id="save-as-disk-label" style="font-size:11px; color:#000080;">In /campaigns/ Folder (/campaigns/<span id="save-as-slug-preview">my_new_campaign</span>)</strong>
+                <div id="save-as-disk-status" style="font-size:10px; color:#475569;">Saves into /campaigns/ directory and binds live disk sync</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="radio" name="save-as-dest" value="custom_folder" id="save-as-dest-custom-folder">
+              <div>
+                <strong style="font-size:11px; color:#000080;">Select Any Other Folder on Disk / USB Drive...</strong>
+                <div style="font-size:10px; color:#475569;">Picks a folder on your USB or PC, writes all campaign package files, and binds live disk sync</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="radio" name="save-as-dest" value="library" id="save-as-dest-library">
+              <div>
+                <strong style="font-size:11px; color:#000080;">Workstation In-Browser Library (IndexedDB)</strong>
+                <div style="font-size:10px; color:#475569;">Saved locally in browser; opens anytime without disk folder setup</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="radio" name="save-as-dest" value="zip" id="save-as-dest-zip">
+              <div>
+                <strong style="font-size:11px; color:#000080;">Export Campaign Package (.zip archive)</strong>
+                <div style="font-size:10px; color:#475569;">Downloadable self-contained ZIP archive containing all maps & entities</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="dialog-footer" style="justify-content:flex-end; gap:6px; margin-top:4px;">
+          <button class="win-btn" onclick="confirmSaveAsNewCampaign()" style="min-width:90px; font-weight:bold;">Save Campaign</button>
+          <button class="win-btn" onclick="closeModal('modal-save-as-new')" style="min-width:70px;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<!-- ========================================================================
+       MODAL 4: WORKSTATION PREFERENCES
+       ======================================================================== -->
+  <div id="modal-settings" class="modal-overlay hidden">
+    <div class="win-dialog bevel-outset" style="width:380px;">
+      <div class="title-bar">
+        <div class="title-bar-text"><span>Workstation Preferences</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-settings')">X</button></div>
+      </div>
+      <div class="dialog-body">
+        <label style="display:flex; align-items:center; justify-content:space-between;">
+          <span>Grid Snap Interval:</span>
+          <select id="pref-grid-snap" class="win-select-input" style="width:120px;">
+            <option value="0">Off (Freeform)</option>
+            <option value="10">10 Pixels</option>
+            <option value="20" selected>20 Pixels</option>
+            <option value="50">50 Pixels</option>
+          </select>
+        </label>
+        <label style="display:flex; align-items:center; justify-content:space-between;">
+          <span>Default Link Creation:</span>
+          <select id="pref-link-mode" class="win-select-input" style="width:120px;">
+            <option value="transit">Transit Road (E_adj)</option>
+            <option value="hegemony">Hegemony (E_inf)</option>
+          </select>
+        </label>
+        <label style="display:flex; align-items:center; gap:6px;">
+          <input type="checkbox" id="pref-auto-save" checked>
+          <span>Auto-save changes to localStorage</span>
+        </label>
+        <div class="dialog-footer" style="justify-content:flex-end;">
+          <button class="win-btn" onclick="closeModal('modal-settings')" style="min-width:70px;">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<!-- ========================================================================
+       MODAL 10: MAP & LAYOUT PROPERTIES DIALOG (AutoCAD / Model-Paperspace)
+       ======================================================================== -->
+  <div id="modal-map-properties" class="modal-overlay hidden">
+    <div class="win-dialog bevel-outset" style="width:480px;">
+      <div class="title-bar">
+        <div class="title-bar-text"><span>Map &amp; Layout Properties</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-map-properties')">X</button></div>
+      </div>
+      <div class="dialog-body" style="display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; gap:8px;">
+          <label style="flex:1; display:flex; flex-direction:column; gap:2px;">
+            <strong style="font-size:11px;">Map Name:</strong>
+            <input type="text" id="map-prop-name" class="win-select-input" placeholder="e.g. Castle District, Dark Forest">
+          </label>
+          <label style="width:110px; display:flex; flex-direction:column; gap:2px;" title="Prefix code for nodes on this map (e.g. O- for Outpost yields O-1, O-2...)">
+            <strong style="font-size:11px;">Node Prefix:</strong>
+            <input type="text" id="map-prop-prefix" class="win-select-input" placeholder="e.g. O-, CD-" style="font-family:monospace; font-weight:bold;">
+          </label>
+          <label style="width:130px; display:flex; flex-direction:column; gap:2px;">
+            <strong style="font-size:11px;">Scale Tier:</strong>
+            <select id="map-prop-scale" class="win-select-input">
+              <option value="cosmic">Cosmic (Planar)</option>
+              <option value="continent">Continent (Realm)</option>
+              <option value="region" selected>Region (Wilderness)</option>
+              <option value="settlement">Settlement (City)</option>
+              <option value="district">District (City Ward)</option>
+              <option value="site">Site (Stronghold / Complex)</option>
+              <option value="building">Building (Dungeon)</option>
+              <option value="chamber">Chamber (Room Level)</option>
+              <option value="floorplan">Floorplan (Interior)</option>
+            </select>
+          </label>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <label style="flex:1; display:flex; flex-direction:column; gap:2px;">
+            <strong style="font-size:11px;">Parent Map:</strong>
+            <select id="map-prop-parent" class="win-select-input" onchange="updateMapPropParentNodeOptions()">
+              <option value="none">None (Root / Standalone Map)</option>
+            </select>
+          </label>
+          <label style="flex:1; display:flex; flex-direction:column; gap:2px;" title="Anchor this sub-map to a specific Point of Interest / Node on the parent map">
+            <strong style="font-size:11px;">Parent Node (POI Anchor):</strong>
+            <select id="map-prop-parent-node" class="win-select-input">
+              <option value="none">(No specific node anchor)</option>
+            </select>
+          </label>
+          <label style="width:120px; display:flex; flex-direction:column; gap:2px;">
+            <strong style="font-size:11px;">Internal ID:</strong>
+            <input type="text" id="map-prop-id" class="win-select-input" readonly style="background:#e0e0e0; font-family:monospace; font-size:10px;">
+          </label>
+        </div>
+
+        <!-- Overall Disposition Modifier Section -->
+        <div style="display:flex; gap:8px;">
+          <label style="flex:1; display:flex; flex-direction:column; gap:2px;" title="Cultural quadrant bias or disposition modifier inherited or applied across this map's nodes">
+            <strong style="font-size:11px; color:#000080;">Overall Disposition Modifier:</strong>
+            <select id="map-prop-disposition" class="win-select-input">
+              <option value="">None / Inherited (Neutral)</option>
+              <option value="Hierarchy">Hierarchy (Structure &amp; Control | +S, +C)</option>
+              <option value="Clan">Clan (Cohesion &amp; Kinship | -S, +C)</option>
+              <option value="Market">Market (Trade &amp; Extraction | +S, -C)</option>
+              <option value="Adhocracy">Adhocracy (Innovation &amp; Chaos | -S, -C)</option>
+              <option value="Fortified">Fortified Bastion (+2 Stability)</option>
+              <option value="Hazardous">Hazardous / Volatile (-2 Stability, High Friction)</option>
+              <option value="Sanctuary">Sacred Sanctuary (+2 Moral Cohesion)</option>
+              <option value="Subterranean">Subterranean Depth (Darkness &amp; Confinement)</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Map Background Image Section -->
+        <div class="bevel-inset" style="padding:8px; background:#f4f4f4; display:flex; flex-direction:column; gap:6px;">
+          <strong style="font-size:11px; color:#000080;">Custom Map Background Asset (Photoshop / Napkin):</strong>
+          <div id="map-prop-image-status" style="font-size:10px; color:#333;">No background image loaded (Tactical CAD Grid active).</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+            <div style="display:flex; gap:4px;">
+              <button class="win-btn" onclick="triggerMapImageUpload(document.getElementById('map-prop-id').value)">Insert / Replace Image...</button>
+              <button class="win-btn" onclick="clearMapImageFromProp()">Remove Image</button>
+            </div>
+            <label style="display:flex; align-items:center; gap:4px; font-size:10px;">
+              <span>Opacity:</span>
+              <input type="range" id="map-prop-opacity" min="0" max="100" value="85" style="width:80px;" oninput="document.getElementById('map-prop-opacity-val').textContent = this.value + '%'">
+              <span id="map-prop-opacity-val" style="font-family:monospace; font-size:10px; width:30px;">85%</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Dimensional Map Scale Section -->
+        <div class="bevel-inset" style="padding:8px; background:#f4f4f4; display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="font-size:11px; color:#000080;">Cartographic Scale &amp; Distance Units:</strong>
+            <button class="win-btn" type="button" onclick="openSetMapScaleDialog(document.getElementById('map-prop-id').value)" style="font-size:9px; padding:1px 5px;">Quick Presets...</button>
+          </div>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <span style="font-size:10px; color:#333;">1 Grid Square (</span>
+            <input type="number" id="map-prop-scale-pixels" class="win-select-input" value="20" min="5" max="200" style="width:45px; text-align:center;">
+            <span style="font-size:10px; color:#333;">px) =</span>
+            <input type="number" id="map-prop-scale-dist" class="win-select-input" value="5" min="0.1" step="any" style="width:55px; text-align:center;">
+            <select id="map-prop-scale-unit" class="win-select-input" style="flex:1;">
+              <option value="miles">miles (mi)</option>
+              <option value="km">kilometers (km)</option>
+              <option value="feet">feet (ft)</option>
+              <option value="meters">meters (m)</option>
+              <option value="leagues">leagues (lea)</option>
+              <option value="hexes">hexes</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Notes / Lore -->
+        <label style="display:flex; flex-direction:column; gap:2px;">
+          <strong style="font-size:11px;">Map Notes &amp; Environmental Lore:</strong>
+          <textarea id="map-prop-notes" class="win-select-input" rows="3" placeholder="GM environmental notes, weather, faction presence, sensory prompts..."></textarea>
+        </label>
+
+        <!-- Footer -->
+        <div class="dialog-footer" style="justify-content:space-between; margin-top:4px;">
+          <button id="btn-delete-map-prop" class="win-btn" onclick="deleteCurrentMapFromProp()" style="color:#b91c1c;">Delete Map</button>
+          <div style="display:flex; gap:6px;">
+            <button class="win-btn" onclick="saveMapProperties()" style="font-weight:bold; min-width:80px;">Save &amp; Apply</button>
+            <button class="win-btn" onclick="closeModal('modal-map-properties')" style="min-width:70px;">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<!-- ========================================================================
+       MODAL 11: CREATE NEW SUB-MAP / LAYOUT DIALOG
+       ======================================================================== -->
+  <div id="modal-new-map" class="modal-overlay hidden">
+    <div class="win-dialog bevel-outset" style="width:440px;">
+      <div class="title-bar">
+        <div class="title-bar-text"><span>Create New Campaign Map / Layout</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-new-map')">X</button></div>
+      </div>
+      <div class="dialog-body" style="display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; gap:8px;">
+          <label style="flex:1; display:flex; flex-direction:column; gap:2px;">
+            <strong style="font-size:11px;">Map Name / Title:</strong>
+            <input type="text" id="new-map-dialog-name" class="win-select-input" placeholder="e.g. Castle District, Lower Catacombs" value="New Campaign Map" oninput="if (typeof autoSuggestNodePrefix === 'function') autoSuggestNodePrefix(this.value)">
+          </label>
+          <label style="width:110px; display:flex; flex-direction:column; gap:2px;" title="Prefix code for nodes on this map (e.g. O- for Outpost yields O-1, O-2...)">
+            <strong style="font-size:11px;">Node Prefix:</strong>
+            <input type="text" id="new-map-dialog-prefix" class="win-select-input" placeholder="e.g. O-, CD-" style="font-family:monospace; font-weight:bold;">
+          </label>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <label style="flex:1; display:flex; flex-direction:column; gap:2px;">
+            <strong style="font-size:11px;">Scale Tier:</strong>
+            <select id="new-map-dialog-scale" class="win-select-input">
+              <option value="cosmic">Cosmic (Planar)</option>
+              <option value="continent">Continent (Realm)</option>
+              <option value="region">Region (Wilderness)</option>
+              <option value="settlement">Settlement (City)</option>
+              <option value="district" selected>District (City Ward)</option>
+              <option value="site">Site (Stronghold / Complex)</option>
+              <option value="building">Building (Dungeon)</option>
+              <option value="chamber">Chamber (Room Level)</option>
+              <option value="floorplan">Floorplan (Interior)</option>
+            </select>
+          </label>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <label style="flex:1; display:flex; flex-direction:column; gap:2px;">
+            <strong style="font-size:11px;">Parent Map:</strong>
+            <select id="new-map-dialog-parent" class="win-select-input" onchange="updateNewMapParentNodeOptions()">
+              <!-- Dynamically populated -->
+            </select>
+          </label>
+
+          <label style="flex:1; display:flex; flex-direction:column; gap:2px;" title="Anchor this sub-map to a specific Point of Interest / Node on the parent map">
+            <strong style="font-size:11px;">Parent Node (POI Anchor):</strong>
+            <select id="new-map-dialog-parent-node" class="win-select-input">
+              <option value="none">(No specific node anchor)</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Overall Disposition Modifier Section -->
+        <div style="display:flex; gap:8px;">
+          <label style="flex:1; display:flex; flex-direction:column; gap:2px;" title="Cultural quadrant bias or disposition modifier inherited or applied across this map's nodes">
+            <strong style="font-size:11px; color:#000080;">Overall Disposition Modifier:</strong>
+            <select id="new-map-dialog-disposition" class="win-select-input">
+              <option value="">None / Inherited (Neutral)</option>
+              <option value="Hierarchy">Hierarchy (Structure &amp; Control | +S, +C)</option>
+              <option value="Clan">Clan (Cohesion &amp; Kinship | -S, +C)</option>
+              <option value="Market">Market (Trade &amp; Extraction | +S, -C)</option>
+              <option value="Adhocracy">Adhocracy (Innovation &amp; Chaos | -S, -C)</option>
+              <option value="Fortified">Fortified Bastion (+2 Stability)</option>
+              <option value="Hazardous">Hazardous / Volatile (-2 Stability, High Friction)</option>
+              <option value="Sanctuary">Sacred Sanctuary (+2 Moral Cohesion)</option>
+              <option value="Subterranean">Subterranean Depth (Darkness &amp; Confinement)</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="bevel-inset" style="padding:8px; background:#f4f4f4; display:flex; flex-direction:column; gap:4px;">
+          <strong style="font-size:11px; color:#000080;">Optional Map Background Image:</strong>
+          <span style="font-size:10px; color:#555;">Bring in a Photoshop render or napkin sketch now, or insert later.</span>
+          <input type="file" id="new-map-dialog-image" accept="image/*" class="win-select-input">
+        </div>
+
+        <div class="dialog-footer" style="justify-content:flex-end; gap:6px; margin-top:4px;">
+          <button class="win-btn" onclick="submitNewMapDialog()" style="font-weight:bold; min-width:80px;">Create Map</button>
+          <button class="win-btn" onclick="closeModal('modal-new-map')" style="min-width:70px;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<!-- ========================================================================
+       MODAL 12: SET MAP SCALE & UNITS DIALOG
+       ======================================================================== -->
+  <div id="modal-map-scale" class="modal-overlay hidden">
+    <div class="win-dialog bevel-outset" style="width:420px;">
+      <div class="title-bar">
+        <div class="title-bar-text"><span>Set Map Scale &amp; Distance Units</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-map-scale')">X</button></div>
+      </div>
+      <div class="dialog-body" style="display:flex; flex-direction:column; gap:10px;">
+        <input type="hidden" id="scale-dialog-target-map" value="">
+        <div style="font-size:11px; color:#333; line-height:1.4;">
+          Configure physical cartographic measurements for corridors, transit distances, and grid dimensions on <strong id="scale-dialog-map-name">Active Map</strong>.
+        </div>
+
+        <!-- Quick Scale Presets -->
+        <fieldset class="bevel-inset" style="padding:8px; border:1px solid var(--win-dark); background:#f4f4f4;">
+          <legend style="font-size:10px; font-weight:bold; color:#000080; padding:0 4px;">Standard Scale Presets</legend>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <button type="button" class="win-btn" onclick="applyScalePreset(25, 'miles', 20)" style="font-size:10px; padding:4px; text-align:left;">
+              <strong>Overland (Continent)</strong><br><span style="color:#555;">1 sq = 25 miles</span>
+            </button>
+            <button type="button" class="win-btn" onclick="applyScalePreset(5, 'miles', 20)" style="font-size:10px; padding:4px; text-align:left;">
+              <strong>Wilderness (Region)</strong><br><span style="color:#555;">1 sq = 5 miles</span>
+            </button>
+            <button type="button" class="win-btn" onclick="applyScalePreset(500, 'feet', 20)" style="font-size:10px; padding:4px; text-align:left;">
+              <strong>Settlement (City)</strong><br><span style="color:#555;">1 sq = 500 feet</span>
+            </button>
+            <button type="button" class="win-btn" onclick="applyScalePreset(100, 'feet', 20)" style="font-size:10px; padding:4px; text-align:left;">
+              <strong>District (Site)</strong><br><span style="color:#555;">1 sq = 100 feet</span>
+            </button>
+            <button type="button" class="win-btn" onclick="applyScalePreset(10, 'feet', 20)" style="font-size:10px; padding:4px; text-align:left;">
+              <strong>Building (Dungeon)</strong><br><span style="color:#555;">1 sq = 10 feet</span>
+            </button>
+            <button type="button" class="win-btn" onclick="applyScalePreset(5, 'feet', 20)" style="font-size:10px; padding:4px; text-align:left;">
+              <strong>Tactical (Battlemap)</strong><br><span style="color:#555;">1 sq = 5 feet</span>
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- Custom Scale Values -->
+        <div class="bevel-inset" style="padding:8px; background:#fff; display:flex; flex-direction:column; gap:6px;">
+          <strong style="font-size:11px; color:#000080;">Custom Map Scale Ratio:</strong>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <span style="font-size:11px;">1 Grid Square (</span>
+            <input type="number" id="scale-dialog-pixels" class="win-select-input" value="20" min="5" max="200" style="width:50px; text-align:center;">
+            <span style="font-size:11px;">px) =</span>
+            <input type="number" id="scale-dialog-value" class="win-select-input" value="5" min="0.01" step="any" style="width:65px; text-align:center;">
+            <select id="scale-dialog-unit" class="win-select-input" style="flex:1;">
+              <option value="miles">miles (mi)</option>
+              <option value="km">kilometers (km)</option>
+              <option value="feet">feet (ft)</option>
+              <option value="meters">meters (m)</option>
+              <option value="leagues">leagues (lea)</option>
+              <option value="hexes">hexes</option>
+            </select>
+          </div>
+          <div id="scale-dialog-preview" style="font-size:10px; color:#555; margin-top:2px;">
+            Preview: A 100px corridor edge will measure 25.0 miles.
+          </div>
+        </div>
+
+        <div class="dialog-footer" style="justify-content:flex-end; gap:6px; margin-top:4px;">
+          <button class="win-btn" onclick="saveMapScaleDialog()" style="font-weight:bold; min-width:80px;">Apply Scale</button>
+          <button class="win-btn" onclick="closeModal('modal-map-scale')" style="min-width:70px;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: LIVE TABLETOP TRAVEL HAZARD & ENCOUNTER RESOLUTION (SYS-START-11)
+       ======================================================================== -->
+  <div id="modal-travel-resolution" class="modal-overlay hidden" style="display:none; z-index:9999;">
+    <div class="win-dialog bevel-outset" style="width:480px; max-width:92vw;">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          <span>🎲 Live Tabletop: Travel Hazard & Check Resolution</span>
+        </div>
+        <div class="title-bar-controls">
+          <button class="win-btn" onclick="closeTravelResolutionModal()">X</button>
+        </div>
+      </div>
+      <div class="dialog-body" style="padding:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1px solid #94a3b8; padding-bottom:6px;">
+          <div>
+            <h3 id="travel-res-header" style="margin:0; font-size:13px; color:#000080;">Corridor Transit</h3>
+            <span style="font-size:10px; color:#64748b;">Adventure Framework Tabletop Hazard Engine</span>
+          </div>
+          <span id="travel-res-badge" class="bevel-inset" style="padding:2px 8px; font-size:10px; font-weight:bold; border-radius:3px; background:#2563eb; color:#fff;">HAZARD</span>
+        </div>
+
+        <div id="travel-res-details" class="bevel-inset" style="background:#f8fafc; padding:8px; font-size:11px; margin-bottom:8px; line-height:1.4;">
+        </div>
+
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px; font-size:11px;">
+          <label for="travel-res-modifier"><strong>Party Check Modifier:</strong></label>
+          <input type="number" id="travel-res-modifier" class="win-select-input" value="0" style="width:50px; text-align:center;">
+          <button class="win-btn" onclick="executeTravelRoll()" style="font-weight:bold; flex:1; padding:4px 8px;">🎲 Roll D20 / 2d6 Check</button>
+        </div>
+
+        <div id="travel-res-roll-box" class="bevel-inset" style="background:#ffffff; padding:10px; min-height:60px; font-size:12px; margin-bottom:10px; border:1px solid #cbd5e1;">
+        </div>
+
+        <div style="font-size:10px; font-weight:bold; color:#475569; margin-bottom:4px;">1-CLICK GM COMPLICATION ACTIONS:</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button class="win-btn" onclick="triggerTravelThreatTick()" style="font-size:11px; padding:3px 8px; color:#b91c1c;">+1 Threat Clock Tick</button>
+          <button class="win-btn" onclick="severCorridorFromTravel()" style="font-size:11px; padding:3px 8px; color:#b45309;">Block Corridor</button>
+          <button class="win-btn" onclick="closeTravelResolutionModal()" style="font-size:11px; padding:3px 8px; font-weight:bold; margin-left:auto;">Dismiss / Pass</button>
+        </div>
+      </div>
+    </div>
+  </div>
