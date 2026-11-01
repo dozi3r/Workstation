@@ -3,11 +3,11 @@ file_path: "Test-Suite.ps1"
 title: "Test-Suite.ps1"
 volume: "vol-8"
 kind: "PowerShell Automation / Simulation Runner"
-current_hash: "42ff2141b5f72f9b"
-reviewed_hash: "42ff2141b5f72f9b"
+current_hash: "ff65fdd1d59283e3"
+reviewed_hash: "ff65fdd1d59283e3"
 stale: false
-size_bytes: 11337
-line_count: 233
+size_bytes: 11579
+line_count: 239
 ---
 
 # Test-Suite.ps1
@@ -29,6 +29,8 @@ line_count: 233
    - Audits all registered campaign preset sourcebooks and workstation projects (`generic_starter`, `opal_island`, `silica_island`, `Silician`, `sun_wukong`) for schema conformity, node/edge topological integrity, module availability, and icon metadata.
 5. **Phase 5: Knowledge Graph Drift & Stale Documentation Audit (`Find-CodebaseNode.ps1 -Stale`)**:
    - Inspects `wiki/wiki_graph.json` to verify 0 stale or unreviewed files, guaranteeing perpetual synchronization between implementation code and technical manual documentation.
+6. **Phase 6: Loopback Server Engines (`server.js` & `server.ps1`)**:
+   - Validates Node.js and PowerShell HttpListener loopback servers with full process-tree termination (`taskkill /PID $proc.Id /T /F`) to prevent child process leaks and port collisions (`EADDRINUSE`).
 
 ### CLI Usage & Parameters
 - Standard full verification:

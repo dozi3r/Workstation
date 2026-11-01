@@ -35,3 +35,7 @@ node_modules/
 *.zip
 *.tar.gz
 *.rar
+
+# Git worktrees (isolated agent sandboxes)
+.worktrees/
+worktrees/

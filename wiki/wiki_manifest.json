@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T00:47:13.624Z",
+  "generatedAt": "2026-11-01T01:09:55.567Z",
   "totalFiles": 297,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2566,
+  "totalBidirectionalEdges": 2572,
   "staleCount": 0,
   "duplicateAuditTargets": 9,
   "volumes": [
@@ -179,12 +179,12 @@
       "title": "AGENTS.md: Creator Studio Agent Operating Manual & Router",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "hash": "bc1f43970499e2de",
-      "reviewedHash": "bc1f43970499e2de",
+      "hash": "e69b62e1573f4f45",
+      "reviewedHash": "e69b62e1573f4f45",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 50,
-      "inboundBacklinkCount": 12
+      "outboundCount": 49,
+      "inboundBacklinkCount": 11
     },
     {
       "relPath": "Build-Suite.ps1",
@@ -198,7 +198,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 33
+      "inboundBacklinkCount": 34
     },
     {
       "relPath": "CONTEXT.md",
@@ -240,7 +240,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "Launch-AppMode.bat",
@@ -347,12 +347,12 @@
       "title": "Test-Suite.ps1",
       "volume": "vol-8",
       "kind": "PowerShell Automation / Simulation Runner",
-      "hash": "42ff2141b5f72f9b",
-      "reviewedHash": "42ff2141b5f72f9b",
+      "hash": "ff65fdd1d59283e3",
+      "reviewedHash": "ff65fdd1d59283e3",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 13,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "admin.html",
@@ -375,8 +375,8 @@
       "title": "build_suite.js",
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "17009e14f2d3489c",
-      "reviewedHash": "17009e14f2d3489c",
+      "hash": "7efb5484282363a5",
+      "reviewedHash": "7efb5484282363a5",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 60,
@@ -2363,11 +2363,11 @@
       "title": "AI Developer Guide: Creator Studio Architecture & Operations",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "hash": "663fce57e4320ac8",
-      "reviewedHash": "663fce57e4320ac8",
+      "hash": "5da8ac8a3cdead6f",
+      "reviewedHash": "5da8ac8a3cdead6f",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 21,
+      "outboundCount": 25,
       "inboundBacklinkCount": 9
     },
     {
@@ -2452,7 +2452,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 8
     },
     {
       "relPath": "docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md",
@@ -2668,14 +2668,14 @@
       "relPath": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
       "wikiHtml": "wiki/pages/docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md.html",
       "wikiSrc": "wiki/src/files/docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md.md",
-      "title": "ADR 0019: Git-Integrated Token Optimization and Diff-Driven Agent Workflows",
+      "title": "ADR 0019: Tooling-Integrated Token Optimization, Diff-Driven Agent Workflows, and Invariant Guardrails",
       "volume": "vol-1",
       "kind": "Architectural Decision Record (ADR)",
-      "hash": "654007bae7acfbfc",
-      "reviewedHash": "654007bae7acfbfc",
+      "hash": "7115b8eb68960b93",
+      "reviewedHash": "7115b8eb68960b93",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 4,
+      "outboundCount": 7,
       "inboundBacklinkCount": 4
     },
     {
@@ -3096,7 +3096,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 147,
-      "inboundBacklinkCount": 23
+      "inboundBacklinkCount": 25
     },
     {
       "relPath": "network/presets/blank_canvas.json",
@@ -4104,7 +4104,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 46,
-      "inboundBacklinkCount": 38
+      "inboundBacklinkCount": 39
     },
     {
       "relPath": "start.html",
@@ -4118,7 +4118,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 161,
-      "inboundBacklinkCount": 69
+      "inboundBacklinkCount": 70
     },
     {
       "relPath": "system/desktop.ini",
@@ -4272,7 +4272,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 22,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "test/verify_patrol_faction_gate.js",

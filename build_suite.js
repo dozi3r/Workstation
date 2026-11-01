@@ -74,9 +74,11 @@ Before editing any file, consult this router to identify authoritative specifica
 4. **Bidirectional Codebase Wiki & Backlinks (\`wiki/\`)**: All primary workstation HTML surfaces, architectural specifications, worldbuilding modules, and authoritative data models have a 1:1 Markdown source in \`wiki/src/files/<relPath>.md\` and compiled HTML page in \`wiki/pages/<relPath>.html\`. Whenever you create or modify a tracked file, update its \`<!-- BEGIN_CUSTOM_NOTES -->\` block and run \`Build-Suite.ps1 --stamp-reviewed\` (or update \`reviewed_hash\`).
 5. **Zero-Token Codebase Graph Inspection (\`Find-CodebaseNode.ps1\`)**: Before grepping across the repository or reading large files, query \`wiki/wiki_graph.json\` via \`Find-CodebaseNode.ps1\` to inspect a file's callers/backlinks (\`-File "<path>"\`), locate symbol definitions (\`-Symbol "<name>"\`), trace resource supply chains (\`-Resource "<tag>"\`), or check documentation drift (\`-Stale\`).
 6. **Diff-Driven Token Optimization & Atomic Commits**: Never re-read entire multi-hundred-line files solely to verify modifications. Use \`git diff\` (and \`git diff --stat\`) for granular token verification. Keep changes tracked under Conventional Atomic Commits, allowing any agent session to anchor state to commit hashes with zero token overhead.
+7. **Unbounded Read Ban & Source-Only Worktrees**: Never perform unbounded whole-file reads or broad greps on compiled monolithic distributions (\`start.html\`, \`network/platform_audit_dashboard.html\`, \`wiki/wiki_graph.json\`). Diagnostic line reads are permitted strictly within bounded windows ($\le 50$ lines) for build error triage. Subagents working in isolated branches or worktrees must follow the **Source-Only Invariant** (never run \`Build-Suite.ps1\` or commit compiled bundles in branch sandboxes).
 
 ## 2. Task-Branch Context Pointers
 - **Fast Graph / Symbol / Backlink Lookup**: Run \`powershell -ExecutionPolicy Bypass -File .\\Find-CodebaseNode.ps1 -File "<path>"\` or \`-Symbol "<name>"\`.
+- **Fast Scoped Search (Ripgrep)**: Run \`rg "<pattern>" .\` (automatically respects root \`.ignore\` and skips compiled distributions).
 - **Diff-Driven Context & Git State**: Run \`git status -s\` or \`git diff -U3 "<path>"\` for minimal-token change verification. Run \`git log -S "<symbol>" -p\` to trace historical changes without large file reads.
 - **Workstation UI / MDI / Canvas (\`start.html\`)**: Read \`docs/adr/0004-desktop-workstation-start-html.md\` and \`docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md\`. Edit \`src/workstation/scripts/*.js\` and \`src/workstation/template.html\`.
 - **Entities / Slotting / Module Explorer**: Read \`docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md\` and \`docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md\`. Edit \`src/workstation/scripts/entity_core.js\`, \`entity_manager_ui.js\`, \`entity_crud_dialogs.js\`, \`entity_cascade_delete.js\`, \`module_explorer.js\`, \`stage_5_slotting.js\`.
@@ -114,7 +116,7 @@ Before editing any file, consult this router to identify authoritative specifica
 | \`docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md\` | index.html, campaign_studio.html consolidation | atomic-prose |
 | \`docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md\` | server.js, server.ps1, loopback, zero-install | atomic-prose |
 | \`docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md\` | node explorer, dynamic svg stacking, desktop shell | atomic-prose |
-| \`docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md\` | git, diff, worktrees, token savings, atomic commits | atomic-prose |
+| \`docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md\` | git, diff, worktrees, token savings, atomic commits, node shim, ripgrep, unbounded read-ban, ast-inspection | atomic-prose |
 
 ## 5. Domain Terminology
 Always consult [\`CONTEXT.md\`](CONTEXT.md) for canonical terminology.

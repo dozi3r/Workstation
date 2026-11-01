@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ADR 0019: Git-Integrated Token Optimization and Diff-Driven Agent Workflows — Creator Studio Technical Manual &amp; Wiki</title>
+  <title>ADR 0019: Tooling-Integrated Token Optimization, Diff-Driven Agent Workflows, and Invariant Guardrails — Creator Studio Technical Manual &amp; Wiki</title>
   <style>
     :root {
       --bg: #0b0f19;
@@ -467,10 +467,10 @@
         <span>docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md</span>
       </div>
       <div class="article-header">
-        <h1 class="article-title">ADR 0019: Git-Integrated Token Optimization and Diff-Driven Agent Workflows</h1>
+        <h1 class="article-title">ADR 0019: Tooling-Integrated Token Optimization, Diff-Driven Agent Workflows, and Invariant Guardrails</h1>
         <div class="article-subtitle">
           <span class="badge">Architectural Decision Record (ADR)</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 654007ba)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 7115b8eb)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (4)</a>
         </div>
@@ -483,9 +483,9 @@
     <tr><th>File Path</th><td><code>docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../index.html#vol-1">Volume I</a></td></tr>
     <tr><th>Surface Kind</th><td>Architectural Decision Record (ADR)</td></tr>
-    <tr><th>File Metrics</th><td>54 lines &bull; 5.3 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 654007ba)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>4</strong> references</td></tr>
+    <tr><th>File Metrics</th><td>67 lines &bull; 7.3 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 7115b8eb)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>7</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>4</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
@@ -495,7 +495,7 @@
       
     <div class="ai-digest">
       <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
-      <p style="margin:4px 0;"><strong>Summary:</strong> 1. **Whole-File Re-Reading Overhead**: Agents inspecting the results of small, localized code modifications frequently re-read 500–1,500 line files, consuming 2,000 to 6,000 prompt tokens per verification cycle. 2. **Conversation History Bloat**: Without persistent version control anchors, multi-turn sessions accumulated extensive narrative descriptions of p</p>
+      <p style="margin:4px 0;"><strong>Summary:</strong> 1. **Whole-File Re-Reading Overhead**: Agents inspecting the results of small, localized code modifications frequently re-read 500–1,500 line files, consuming 2,000 to 6,000 prompt tokens per verification cycle. 2. **Monolithic Bundle Ingestion Trap**: Agents attempting to inspect or grep compiled single-file distributions (`start.html` at 5.9 MB, `platform_</p>
       
       
       
@@ -503,20 +503,32 @@
   
       
       <h3>Architectural Purpose & Role</h3>
-<p><code>docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md</code> serves as a <strong>Architectural Decision Record (ADR)</strong> within <strong>Volume I: System Architecture, Governance & Ontology</strong>.</p>
-      <h2>Document Section Outline</h2><ul class="wiki-list"><li style="margin-left:0px;"><code>H1</code> ADR 0019: Git-Integrated Token Optimization and Diff-Driven Agent Workflows</li><li style="margin-left:18px;"><code>H2</code> Status</li><li style="margin-left:18px;"><code>H2</code> Context</li><li style="margin-left:18px;"><code>H2</code> Decision</li><li style="margin-left:36px;"><code>H3</code> 1. Zero-Install Git Runtime &amp; Global Terminal Shim</li><li style="margin-left:36px;"><code>H3</code> 2. Diff-Driven Context Verification Protocol</li><li style="margin-left:36px;"><code>H3</code> 3. Conventional Atomic Commits &amp; Commit State Anchors</li><li style="margin-left:36px;"><code>H3</code> 4. Isolated Worktree Sandboxing for Multi-Agent Workflows</li><li style="margin-left:36px;"><code>H3</code> 5. Surface Routing &amp; Zero-Token Documentation Sync</li><li style="margin-left:36px;"><code>H3</code> 6. Non-Disruptive Fast Pre-Commit Validation</li><li style="margin-left:18px;"><code>H2</code> Consequences</li><li style="margin-left:36px;"><code>H3</code> Positive</li><li style="margin-left:36px;"><code>H3</code> Neutral / Trade-offs</li></ul><h2>Mechanical Contracts, Dials &amp; Real-World Reference Data</h2><h3>Reference Foundations &amp; Design Provenance (For GM / Downstream Expansion)</h3><ul class="wiki-list"><li>Indus Valley Civilization: Mohenjo-daro &amp; Dholavira standardized baked-brick municipal sewers and Ghaggar-Hakra monsoon river desiccation.</li></ul>
-      <h2 id="outbound-links">Outbound References (4)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
-        <td><a href="../../../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
-        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
-        <td>References AGENTS.md</td>
+<p><code>docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md</code> serves as a foundational <strong>Architectural Decision Record (ADR)</strong> within <strong>Volume I: System Architecture, Governance & Ontology</strong>. It establishes the developer tooling shims (Node.js Electron shim, Git MinGit, Ripgrep CLI with <code>.ignore</code>), the Unbounded Read Ban on compiled single-file distributions, the Source-Only Worktree Invariant for multi-agent workflows, process tree termination in test runners, and zero-token AST knowledge graph inspection via <a class="wiki-link" href="../../../pages/Find-CodebaseNode.ps1.html">📄 Find-CodebaseNode.ps1</a>.</p>
+      <h2>Document Section Outline</h2><ul class="wiki-list"><li style="margin-left:0px;"><code>H1</code> ADR 0019: Tooling-Integrated Token Optimization, Diff-Driven Agent Workflows, and Invariant Guardrails</li><li style="margin-left:18px;"><code>H2</code> Status</li><li style="margin-left:18px;"><code>H2</code> Context</li><li style="margin-left:18px;"><code>H2</code> Decision</li><li style="margin-left:36px;"><code>H3</code> 1. Dual-Runtime Node.js Shim Architecture</li><li style="margin-left:36px;"><code>H3</code> 2. Zero-Install Git Runtime &amp; Global Terminal Shim</li><li style="margin-left:36px;"><code>H3</code> 3. Ripgrep Scoped Search &amp; Declarative `.ignore` Engine</li><li style="margin-left:36px;"><code>H3</code> 4. The Unbounded Read Ban &amp; Diagnostic Window Protocol</li><li style="margin-left:36px;"><code>H3</code> 5. Diff-Driven Context Verification Protocol</li><li style="margin-left:36px;"><code>H3</code> 6. Conventional Atomic Commits &amp; Commit State Anchors</li><li style="margin-left:36px;"><code>H3</code> 7. The Source-Only Worktree Invariant for Multi-Agent Sandboxing</li><li style="margin-left:36px;"><code>H3</code> 8. Process Tree Termination Guardrail in Test Suites</li><li style="margin-left:36px;"><code>H3</code> 9. AST Graph Inspection First (`Find-CodebaseNode.ps1`)</li><li style="margin-left:18px;"><code>H2</code> Consequences</li><li style="margin-left:36px;"><code>H3</code> Positive</li><li style="margin-left:36px;"><code>H3</code> Neutral / Trade-offs</li></ul>
+      <h2 id="outbound-links">Outbound References (7)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+        <td><a href="../../../pages/Find-CodebaseNode.ps1.html"><strong>Find-CodebaseNode.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
+        <td>Explicit [[File:Find-CodebaseNode.ps1]] reference</td>
+      </tr><tr>
+        <td><a href="../../../pages/Build-Suite.ps1.html"><strong>Build-Suite.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
+        <td>References Build-Suite.ps1</td>
       </tr><tr>
         <td><a href="../../../pages/Test-Suite.ps1.html"><strong>Test-Suite.ps1</strong></a></td>
         <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
         <td>References Test-Suite.ps1</td>
       </tr><tr>
-        <td><a href="../../../pages/docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md.html"><strong>docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md</td>
+        <td><a href="../../../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References network/platform_audit_dashboard.html</td>
+      </tr><tr>
+        <td><a href="../../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
+        <td><span class="badge badge-Workstation Shell Template">Path Reference</span></td>
+        <td>References src/workstation/template.html</td>
+      </tr><tr>
+        <td><a href="../../../pages/start.html.html"><strong>start.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References start.html</td>
       </tr><tr>
         <td><a href="../../../pages/test/run_tests.js.html"><strong>test/run_tests.js</strong></a></td>
         <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>

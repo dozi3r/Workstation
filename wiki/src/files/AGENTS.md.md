@@ -3,11 +3,11 @@ file_path: "AGENTS.md"
 title: "AGENTS.md: Creator Studio Agent Operating Manual & Router"
 volume: "vol-1"
 kind: "Technical Documentation / Guide"
-current_hash: "bc1f43970499e2de"
-reviewed_hash: "bc1f43970499e2de"
+current_hash: "e69b62e1573f4f45"
+reviewed_hash: "e69b62e1573f4f45"
 stale: false
-size_bytes: 13607
-line_count: 69
+size_bytes: 14301
+line_count: 71
 ---
 
 # AGENTS.md: Creator Studio Agent Operating Manual & Router
@@ -24,12 +24,14 @@ This file is a core component of [[Series:series_e_zero_cors_compiler_and_agent_
 > [!WARNING]
 > **Auto-Generated Compilation Artifact**: `AGENTS.md` is dynamically overwritten during **Stage 2** of [[File:build_suite.js]] (lines 50–94) using the surface registry defined in [[File:docs/navigation_manifest.json]]. **Never edit `AGENTS.md` manually** without also updating [[File:docs/navigation_manifest.json]] or the template string in [[File:build_suite.js]], or your changes will be wiped on the next run of [[File:Build-Suite.ps1]].
 
-The router enforces five foundational workspace invariants across all engineering sessions:
-- **1. Zero-CORS Offline Execution (`file:///`)**: All HTML workstations (`start.html`, `network/*.html`, `tarot/*.html`, `regions/*.html`, `wiki/*.html`) must execute cleanly when opened directly from local disk without a web server.
-- **2. Modular Source of Truth**: Edit workstation UI and logic in `src/workstation/template.html` and `src/workstation/scripts/*.js` (compiled into `start.html`). Edit data in source `.md`/`.json` files rather than inlined HTML constants (`ALL_MODULES`, `CAMPAIGN_REGISTRY`, `TAROT_DECKS_DATA`, `MASTER_TICKETS_DATA`).
-- **3. Mandatory Suite Compilation**: Changes to modular workstation sources (`src/workstation/`), campaign packages (`campaigns/`), Tarot decks (`tarot/decks/`), or manifests must be compiled via [[File:Build-Suite.ps1]].
-- **4. Mathematical Parity**: Amalgamation scoring (`Round(BaseWeight + 0.5 * sum(InfBy), 2)`), deterministic ascending Node ID tie-breaking, and Adjacency Smothering must produce identical results across [[File:src/workstation/scripts/balancing_engine.js]] (`start.html`) and [[File:network/Run-NetworkEngine.ps1]] (see [[Series:series_a_balancing_and_smothering_math]] and [[File:docs/srd/authoring_engine_srd.md]]).
-- **5. Bidirectional Codebase Wiki Synchronization**: Every repository file has a 1:1 Markdown source in `wiki/src/files/<relPath>.md` compiled by [[File:wiki/build_wiki.js]] into `wiki/pages/<relPath>.html`.
+The router enforces seven foundational workspace invariants across all engineering sessions:
+- **1. Zero-CORS Offline Execution (`file:///`)**: All HTML workstations (`start.html`, `network/*.html`, `regions/*.html`, `wiki/*.html`) must execute cleanly when opened directly from local disk without a web server.
+- **2. Modular Source of Truth**: Edit workstation UI and logic in `src/workstation/template.html` and `src/workstation/scripts/*.js` (compiled into `start.html`). Edit data in source `.md`/`.json` files rather than inlined HTML constants (`ALL_MODULES`, `CAMPAIGN_REGISTRY`, `MASTER_TICKETS_DATA`).
+- **3. Mandatory Suite Compilation**: Changes to modular workstation sources (`src/workstation/`), campaign packages (`campaigns/`), or manifests must be compiled via [[File:Build-Suite.ps1]].
+- **4. Bidirectional Codebase Wiki Synchronization**: Every repository file has a 1:1 Markdown source in `wiki/src/files/<relPath>.md` compiled by [[File:wiki/build_wiki.js]] into `wiki/pages/<relPath>.html`.
+- **5. Zero-Token Codebase Graph Inspection (`Find-CodebaseNode.ps1`)**: Query symbol definitions and callers before reading multi-hundred line files.
+- **6. Diff-Driven Token Optimization & Atomic Commits**: Use `git diff -U3` and conventional commits to eliminate context bloat.
+- **7. Unbounded Read Ban & Source-Only Worktrees**: Strictly bans unbounded whole-file reads of monolithic distributions (`start.html`, `platform_audit_dashboard.html`, `wiki/wiki_graph.json`). Diagnostic reads permitted strictly within $\le 50$ line windows. Subagents in worktrees never compile or commit compiled bundles.
 
 ---
 

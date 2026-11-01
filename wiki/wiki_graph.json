@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T00:47:13.624Z",
+  "generatedAt": "2026-11-01T01:09:55.567Z",
   "totalFiles": 297,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2566,
+  "totalBidirectionalEdges": 2572,
   "staleCount": 0,
   "nodes": [
     {
@@ -11,10 +11,10 @@
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
       "stale": false,
-      "hash": "bc1f43970499e2de",
-      "reviewedHash": "bc1f43970499e2de",
-      "lineCount": 69,
-      "sizeBytes": 13607,
+      "hash": "e69b62e1573f4f45",
+      "reviewedHash": "e69b62e1573f4f45",
+      "lineCount": 71,
+      "sizeBytes": 14301,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -123,22 +123,16 @@
           "reason": "Explicit [[File:Build-Suite.ps1]] reference"
         },
         {
-          "target": "series_a_balancing_and_smothering_math",
-          "targetType": "series",
-          "type": "Series Citation",
-          "reason": "Explicit [[Series:series_a_balancing_and_smothering_math]] reference"
+          "target": "CONTEXT.md",
+          "targetType": "file",
+          "type": "Wiki Citation",
+          "reason": "Explicit [[File:CONTEXT.md]] reference"
         },
         {
           "target": "docs/srd/authoring_engine_srd.md",
           "targetType": "file",
           "type": "Wiki Citation",
           "reason": "Explicit [[File:docs/srd/authoring_engine_srd.md]] reference"
-        },
-        {
-          "target": "CONTEXT.md",
-          "targetType": "file",
-          "type": "Wiki Citation",
-          "reason": "Explicit [[File:CONTEXT.md]] reference"
         },
         {
           "target": "docs/srd/adventure_framework_srd.md",
@@ -365,12 +359,6 @@
           "reason": "References AGENTS.md"
         },
         {
-          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References AGENTS.md"
-        },
-        {
           "source": "docs/navigation_manifest.json",
           "sourceType": "file",
           "type": "Wiki Citation",
@@ -523,6 +511,12 @@
         },
         {
           "source": "docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        },
+        {
+          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References Build-Suite.ps1"
@@ -1049,6 +1043,18 @@
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References Find-CodebaseNode.ps1"
+        },
+        {
+          "source": "docs/AI_DEVELOPER_GUIDE.md",
+          "sourceType": "file",
+          "type": "Wiki Citation",
+          "reason": "Explicit [[File:Find-CodebaseNode.ps1]] reference"
+        },
+        {
+          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+          "sourceType": "file",
+          "type": "Wiki Citation",
+          "reason": "Explicit [[File:Find-CodebaseNode.ps1]] reference"
         }
       ]
     },
@@ -1694,10 +1700,10 @@
       "volume": "vol-8",
       "kind": "PowerShell Automation / Simulation Runner",
       "stale": false,
-      "hash": "42ff2141b5f72f9b",
-      "reviewedHash": "42ff2141b5f72f9b",
-      "lineCount": 233,
-      "sizeBytes": 11337,
+      "hash": "ff65fdd1d59283e3",
+      "reviewedHash": "ff65fdd1d59283e3",
+      "lineCount": 239,
+      "sizeBytes": 11579,
       "symbols": [
         "Record-TestPhase"
       ],
@@ -1799,6 +1805,12 @@
         },
         {
           "source": "README.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Test-Suite.ps1"
+        },
+        {
+          "source": "docs/AI_DEVELOPER_GUIDE.md",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References Test-Suite.ps1"
@@ -2046,10 +2058,10 @@
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "17009e14f2d3489c",
-      "reviewedHash": "17009e14f2d3489c",
-      "lineCount": 1214,
-      "sizeBytes": 58850,
+      "hash": "7efb5484282363a5",
+      "reviewedHash": "7efb5484282363a5",
+      "lineCount": 1216,
+      "sizeBytes": 59557,
       "symbols": [
         "toRootRelUrl(absPath)",
         "rebaseFileUrls(jsonStr, prefix)",
@@ -17271,10 +17283,10 @@
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
       "stale": false,
-      "hash": "663fce57e4320ac8",
-      "reviewedHash": "663fce57e4320ac8",
-      "lineCount": 226,
-      "sizeBytes": 13606,
+      "hash": "5da8ac8a3cdead6f",
+      "reviewedHash": "5da8ac8a3cdead6f",
+      "lineCount": 242,
+      "sizeBytes": 15169,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -17329,6 +17341,12 @@
           "reason": "Explicit [[File:src/workstation/scripts/map_store.js]] reference"
         },
         {
+          "target": "Find-CodebaseNode.ps1",
+          "targetType": "file",
+          "type": "Wiki Citation",
+          "reason": "Explicit [[File:Find-CodebaseNode.ps1]] reference"
+        },
+        {
           "target": "src/workstation/scripts/map_navigator.js",
           "targetType": "file",
           "type": "Wiki Citation",
@@ -17365,6 +17383,12 @@
           "reason": "References CONTEXT.md"
         },
         {
+          "target": "Test-Suite.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References Test-Suite.ps1"
+        },
+        {
           "target": "index.html",
           "targetType": "file",
           "type": "Path Reference",
@@ -17375,6 +17399,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References network/campaign_studio.html"
+        },
+        {
+          "target": "network/platform_audit_dashboard.html",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References network/platform_audit_dashboard.html"
         },
         {
           "target": "src/workstation/scripts/mdi_window_manager.js",
@@ -17405,6 +17435,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/ticket_center.js"
+        },
+        {
+          "target": "test/run_tests.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References test/run_tests.js"
         }
       ],
       "inbound": [
@@ -18591,12 +18627,6 @@
           "reason": "References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md"
         },
         {
-          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md"
-        },
-        {
           "source": "docs/navigation_manifest.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -19361,24 +19391,30 @@
     },
     {
       "relPath": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
-      "title": "ADR 0019: Git-Integrated Token Optimization and Diff-Driven Agent Workflows",
+      "title": "ADR 0019: Tooling-Integrated Token Optimization, Diff-Driven Agent Workflows, and Invariant Guardrails",
       "volume": "vol-1",
       "kind": "Architectural Decision Record (ADR)",
       "stale": false,
-      "hash": "654007bae7acfbfc",
-      "reviewedHash": "654007bae7acfbfc",
-      "lineCount": 54,
-      "sizeBytes": 5429,
+      "hash": "7115b8eb68960b93",
+      "reviewedHash": "7115b8eb68960b93",
+      "lineCount": 67,
+      "sizeBytes": 7446,
       "symbols": [],
       "globals": [],
       "provides": [],
       "requires": [],
       "outbound": [
         {
-          "target": "AGENTS.md",
+          "target": "Find-CodebaseNode.ps1",
+          "targetType": "file",
+          "type": "Wiki Citation",
+          "reason": "Explicit [[File:Find-CodebaseNode.ps1]] reference"
+        },
+        {
+          "target": "Build-Suite.ps1",
           "targetType": "file",
           "type": "Path Reference",
-          "reason": "References AGENTS.md"
+          "reason": "References Build-Suite.ps1"
         },
         {
           "target": "Test-Suite.ps1",
@@ -19387,10 +19423,22 @@
           "reason": "References Test-Suite.ps1"
         },
         {
-          "target": "docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md",
+          "target": "network/platform_audit_dashboard.html",
           "targetType": "file",
           "type": "Path Reference",
-          "reason": "References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md"
+          "reason": "References network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "src/workstation/template.html",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/template.html"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References start.html"
         },
         {
           "target": "test/run_tests.js",
@@ -25089,6 +25137,12 @@
           "reason": "Explicit [[File:network/platform_audit_dashboard.html]] reference"
         },
         {
+          "source": "docs/AI_DEVELOPER_GUIDE.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References network/platform_audit_dashboard.html"
+        },
+        {
           "source": "docs/MODULES_CATALOG.md",
           "sourceType": "file",
           "type": "Wiki Citation",
@@ -25102,6 +25156,12 @@
         },
         {
           "source": "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References network/platform_audit_dashboard.html"
+        },
+        {
+          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References network/platform_audit_dashboard.html"
@@ -33691,6 +33751,12 @@
           "reason": "References src/workstation/template.html"
         },
         {
+          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/template.html"
+        },
+        {
           "source": "docs/navigation_manifest.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -35063,6 +35129,12 @@
           "reason": "References start.html"
         },
         {
+          "source": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References start.html"
+        },
+        {
           "source": "docs/reviews/start_html_review_log.md",
           "sourceType": "file",
           "type": "Path Reference",
@@ -35945,6 +36017,12 @@
         },
         {
           "source": "AGENTS.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References test/run_tests.js"
+        },
+        {
+          "source": "docs/AI_DEVELOPER_GUIDE.md",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References test/run_tests.js"

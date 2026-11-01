@@ -168,7 +168,10 @@ Record-TestPhase -PhaseName "Phase 5: Loopback Servers" -Description "Zero-Insta
         Write-Host "  [OK] Node.js loopback engine validated (HTTP 200, MIME types, CORS, Shutdown)." -ForegroundColor Green
     } finally {
         Start-Sleep -Milliseconds 300
-        if (-not $procNode.HasExited) { Stop-Process -Id $procNode.Id -Force }
+        if (-not $procNode.HasExited) {
+            cmd.exe /c "taskkill /PID $($procNode.Id) /T /F >nul 2>nul"
+            Stop-Process -Id $procNode.Id -Force -ErrorAction SilentlyContinue
+        }
     }
 
     # Test 5B: PowerShell / .NET HttpListener Fallback Engine
@@ -188,7 +191,10 @@ Record-TestPhase -PhaseName "Phase 5: Loopback Servers" -Description "Zero-Insta
         Write-Host "  [OK] PowerShell/.NET HttpListener engine validated (HTTP 200, MIME types, CORS, Shutdown)." -ForegroundColor Green
     } finally {
         Start-Sleep -Milliseconds 300
-        if (-not $procPs.HasExited) { Stop-Process -Id $procPs.Id -Force }
+        if (-not $procPs.HasExited) {
+            cmd.exe /c "taskkill /PID $($procPs.Id) /T /F >nul 2>nul"
+            Stop-Process -Id $procPs.Id -Force -ErrorAction SilentlyContinue
+        }
     }
 }
 

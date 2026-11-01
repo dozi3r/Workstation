@@ -1,0 +1,8 @@
+# Ripgrep / Search Ignore - Prevents LLM context blowouts across compiled distributions
+start.html
+network/platform_audit_dashboard.html
+network/modules_manifest.json
+wiki/wiki_graph.json
+wiki/search_index.js
+wiki/pages/
+regions/regional_image_catalog.json

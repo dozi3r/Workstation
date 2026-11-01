@@ -27,6 +27,13 @@
 4. **Topological & Sociological Consistency**:
    - The 64-cell Granular Disposition `[S, E, C]` algebra (`src/workstation/scripts/sociology_data.js`), Competing Values Framework (CVF) quadrants, and supply-chain BFS reachability (`src/workstation/scripts/stage_5_slotting.js`) must remain consistent across workstation surfaces and specifications.
 
+5. **Token Economy, AST Graph Inspection & Unbounded Read Ban**:
+   - **Never ingest monolithic compiled distributions**: Reading or grepping `start.html` (5.9 MB), `network/platform_audit_dashboard.html` (4.5 MB), or `wiki/wiki_graph.json` (1.6 MB) wastes massive prompt context.
+   - Query symbols and dependencies via `powershell -ExecutionPolicy Bypass -File .\Find-CodebaseNode.ps1 -Symbol "<name>"`.
+   - Use `rg <pattern> .` (which automatically respects root `.ignore`) for sub-millisecond line lookups.
+   - If diagnosing build syntax errors reported by `test/run_tests.js`, read **only** bounded diagnostic windows ($\le 50$ lines with explicit `StartLine`/`EndLine`).
+   - Use `git diff -U3 <path>` for all change verifications. Subagents must follow the **Source-Only Worktree Invariant** (never run `Build-Suite.ps1` in worktree branches).
+
 ---
 
 ## 2. System Architecture: The Scale-Fluid Principle
@@ -199,9 +206,13 @@ The lexer and parser support both explicit structured tokens and natural shortha
 
 Before writing code:
 - [ ] Check `CONTEXT.md` for canonical terms (Pointcrawl, Sovereign Hub, Satellite Node, Granular Disposition `[S, E, C]`).
+- [ ] Query symbol definitions or callers with `powershell -ExecutionPolicy Bypass -File .\Find-CodebaseNode.ps1 -Symbol "<name>"`.
+- [ ] Use `rg <symbol> .` for fast line location (respects `.ignore`).
 - [ ] Are you making modifications in `src/workstation/`? (Never edit `start.html` or `network/campaign_studio.html` directly).
 
 During implementation:
+- [ ] Verify localized edits via `git diff -U3 <path>` rather than re-reading whole files.
+- [ ] If working in a subagent worktree or branch, adhere to the **Source-Only Invariant** (never run `Build-Suite.ps1` in the branch).
 - [ ] If you add a new node attribute, ensure it is preserved in:
   1. `state_adapter.js`: `initCanonicalState()` and `switchCampaign()`
   2. `state_adapter.js`: `syncActiveMapToRegistry()` and `switchActiveMap()`
@@ -210,16 +221,21 @@ During implementation:
 - [ ] If you modify canvas interactions, ensure middle-click drag, wheel zoom, node click, edge hitbox, and double-click portal navigation all stop propagation cleanly.
 
 After implementation:
-- [ ] Compile the suite:
+- [ ] Compile the suite on the integrated branch:
   ```powershell
   powershell -ExecutionPolicy Bypass -File .\Build-Suite.ps1
   ```
-- [ ] Verify JavaScript syntax on the compiled output using Node.js:
+- [ ] Verify JavaScript syntax on the compiled output using Node.js (Windows-safe quoting):
   ```powershell
   node -e "const fs=require('fs');const h=fs.readFileSync('start.html','utf8');const r=/<script\b[^>]*>([\s\S]*?)<\/script>/gi;let m;while((m=r.exec(h))!==null){new Function(m[1]);}"
   ```
-- [ ] Run mathematical simulation parity test:
+- [ ] Run the master test suite:
   ```powershell
-  powershell -ExecutionPolicy Bypass -File .\network\Run-NetworkEngine.ps1
+  powershell -ExecutionPolicy Bypass -File .\Test-Suite.ps1
+  ```
+- [ ] If any test flags a syntax error in a compiled surface, read only bounded line ranges ($\le 50$ lines).
+- [ ] Verify zero stale files in the knowledge graph:
+  ```powershell
+  powershell -ExecutionPolicy Bypass -File .\Find-CodebaseNode.ps1 -Stale
   ```
 - [ ] Verify the file opens cleanly in browser over `file:///`.

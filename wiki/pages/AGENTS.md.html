@@ -470,9 +470,9 @@
         <h1 class="article-title">AGENTS.md: Creator Studio Agent Operating Manual &amp; Router</h1>
         <div class="article-subtitle">
           <span class="badge">Technical Documentation / Guide</span>
-          <span class="badge badge-ok">✓ Synced (SHA: bc1f4397)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: e69b62e1)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (12)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (11)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>AGENTS.md</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../index.html#vol-1">Volume I</a></td></tr>
     <tr><th>Surface Kind</th><td>Technical Documentation / Guide</td></tr>
-    <tr><th>File Metrics</th><td>69 lines &bull; 13.3 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: bc1f4397)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>50</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>12</strong> backlinks</td></tr>
+    <tr><th>File Metrics</th><td>71 lines &bull; 14.0 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: e69b62e1)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>49</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>11</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../AGENTS.md" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -508,13 +508,15 @@
 <hr class="wiki-hr"/>
 <h2>Core Invariants & Contracts</h2>
 <div class="callout callout-warning"><strong>WARNING:</strong> <strong>Auto-Generated Compilation Artifact</strong>: <code>AGENTS.md</code> is dynamically overwritten during <strong>Stage 2</strong> of <a class="wiki-link" href="../pages/build_suite.js.html">📄 build_suite.js</a> (lines 50–94) using the surface registry defined in <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a>. <strong>Never edit <code>AGENTS.md</code> manually</strong> without also updating <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a> or the template string in <a class="wiki-link" href="../pages/build_suite.js.html">📄 build_suite.js</a>, or your changes will be wiped on the next run of <a class="wiki-link" href="../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>.</div>
-<p>The router enforces five foundational workspace invariants across all engineering sessions:</p>
+<p>The router enforces seven foundational workspace invariants across all engineering sessions:</p>
 <ul class="wiki-list">
-<li><strong>1. Zero-CORS Offline Execution (<code>file:///</code>)</strong>: All HTML workstations (<code>start.html</code>, <code>network/<em>.html</code>, <code>tarot/</em>.html</code>, <code>regions/<em>.html</code>, <code>wiki/</em>.html</code>) must execute cleanly when opened directly from local disk without a web server.</li>
-<li><strong>2. Modular Source of Truth</strong>: Edit workstation UI and logic in <code>src/workstation/template.html</code> and <code>src/workstation/scripts/*.js</code> (compiled into <code>start.html</code>). Edit data in source <code>.md</code>/<code>.json</code> files rather than inlined HTML constants (<code>ALL_MODULES</code>, <code>CAMPAIGN_REGISTRY</code>, <code>TAROT_DECKS_DATA</code>, <code>MASTER_TICKETS_DATA</code>).</li>
-<li><strong>3. Mandatory Suite Compilation</strong>: Changes to modular workstation sources (<code>src/workstation/</code>), campaign packages (<code>campaigns/</code>), Tarot decks (<code>tarot/decks/</code>), or manifests must be compiled via <a class="wiki-link" href="../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>.</li>
-<li><strong>4. Mathematical Parity</strong>: Amalgamation scoring (<code>Round(BaseWeight + 0.5 * sum(InfBy), 2)</code>), deterministic ascending Node ID tie-breaking, and Adjacency Smothering must produce identical results across <a class="wiki-link" href="../pages/src/workstation/scripts/balancing_engine.js.html">📄 src/workstation/scripts/balancing_engine.js</a> (<code>start.html</code>) and <a class="wiki-link" href="../pages/network/Run-NetworkEngine.ps1.html">📄 network/Run-NetworkEngine.ps1</a> (see <a class="wiki-link series-link" href="../pages/series/series_a_balancing_and_smothering_math.html">🧭 Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</a> and <a class="wiki-link" href="../pages/docs/srd/authoring_engine_srd.md.html">📄 docs/srd/authoring_engine_srd.md</a>).</li>
-<li><strong>5. Bidirectional Codebase Wiki Synchronization</strong>: Every repository file has a 1:1 Markdown source in <code>wiki/src/files/<relPath>.md</code> compiled by <a class="wiki-link" href="../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> into <code>wiki/pages/<relPath>.html</code>.</li>
+<li><strong>1. Zero-CORS Offline Execution (<code>file:///</code>)</strong>: All HTML workstations (<code>start.html</code>, <code>network/<em>.html</code>, <code>regions/</em>.html</code>, <code>wiki/*.html</code>) must execute cleanly when opened directly from local disk without a web server.</li>
+<li><strong>2. Modular Source of Truth</strong>: Edit workstation UI and logic in <code>src/workstation/template.html</code> and <code>src/workstation/scripts/*.js</code> (compiled into <code>start.html</code>). Edit data in source <code>.md</code>/<code>.json</code> files rather than inlined HTML constants (<code>ALL_MODULES</code>, <code>CAMPAIGN_REGISTRY</code>, <code>MASTER_TICKETS_DATA</code>).</li>
+<li><strong>3. Mandatory Suite Compilation</strong>: Changes to modular workstation sources (<code>src/workstation/</code>), campaign packages (<code>campaigns/</code>), or manifests must be compiled via <a class="wiki-link" href="../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>.</li>
+<li><strong>4. Bidirectional Codebase Wiki Synchronization</strong>: Every repository file has a 1:1 Markdown source in <code>wiki/src/files/<relPath>.md</code> compiled by <a class="wiki-link" href="../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a> into <code>wiki/pages/<relPath>.html</code>.</li>
+<li><strong>5. Zero-Token Codebase Graph Inspection (<code>Find-CodebaseNode.ps1</code>)</strong>: Query symbol definitions and callers before reading multi-hundred line files.</li>
+<li><strong>6. Diff-Driven Token Optimization & Atomic Commits</strong>: Use <code>git diff -U3</code> and conventional commits to eliminate context bloat.</li>
+<li><strong>7. Unbounded Read Ban & Source-Only Worktrees</strong>: Strictly bans unbounded whole-file reads of monolithic distributions (<code>start.html</code>, <code>platform_audit_dashboard.html</code>, <code>wiki/wiki_graph.json</code>). Diagnostic reads permitted strictly within $\le 50$ line windows. Subagents in worktrees never compile or commit compiled bundles.</li>
 </ul>
 <hr class="wiki-hr"/>
 <h2>Data Flow & Execution Pipeline</h2>
@@ -533,7 +535,7 @@
 <li><strong>When updating domain terminology</strong>: Update <a class="wiki-link" href="../pages/CONTEXT.md.html">📄 CONTEXT.md</a> and synchronize Section 4 of the <code>AGENTS.md</code> generator template in <a class="wiki-link" href="../pages/build_suite.js.html">📄 build_suite.js</a>.</li>
 </ul>
       <h2>Document Section Outline</h2><ul class="wiki-list"><li style="margin-left:0px;"><code>H1</code> AGENTS.md: Creator Studio Agent Operating Manual &amp; Router</li><li style="margin-left:18px;"><code>H2</code> 1. Ground Rules &amp; Invariants</li><li style="margin-left:18px;"><code>H2</code> 2. Task-Branch Context Pointers</li><li style="margin-left:18px;"><code>H2</code> 3. Surface-to-Authority Routing Matrix</li><li style="margin-left:18px;"><code>H2</code> 4. Documentation Surfaces</li><li style="margin-left:18px;"><code>H2</code> 5. Domain Terminology</li><li style="margin-left:36px;"><code>H3</code> Core Workstation Vocabulary</li></ul>
-      <h2 id="outbound-links">Outbound References (50)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2 id="outbound-links">Outbound References (49)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
@@ -602,17 +604,13 @@
         <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
         <td>Explicit [[File:Build-Suite.ps1]] reference</td>
       </tr><tr>
-        <td><a href="../pages/series/series_a_balancing_and_smothering_math.html"><strong>Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</strong></a></td>
-        <td><span class="badge badge-Series">Series Citation</span></td>
-        <td>Explicit [[Series:series_a_balancing_and_smothering_math]] reference</td>
+        <td><a href="../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
+        <td>Explicit [[File:CONTEXT.md]] reference</td>
       </tr><tr>
         <td><a href="../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
         <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
         <td>Explicit [[File:docs/srd/authoring_engine_srd.md]] reference</td>
-      </tr><tr>
-        <td><a href="../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
-        <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
-        <td>Explicit [[File:CONTEXT.md]] reference</td>
       </tr><tr>
         <td><a href="../pages/docs/srd/adventure_framework_srd.md.html"><strong>docs/srd/adventure_framework_srd.md</strong></a></td>
         <td><span class="badge badge-System Reference Document (SRD)">Wiki Citation</span></td>
@@ -734,7 +732,7 @@
         <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
         <td>References test/run_tests.js</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (12)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (11)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">Series Component</span></td>
         <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
@@ -760,10 +758,6 @@
         <td>Explicit [[File:AGENTS.md]] reference</td>
       </tr><tr>
         <td><a href="../pages/docs/adr/0009-tarot-and-wave-balancing-mod-extraction.md.html"><strong>docs/adr/0009-tarot-and-wave-balancing-mod-extraction.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References AGENTS.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md.html"><strong>docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md</strong></a></td>
         <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
         <td>References AGENTS.md</td>
       </tr><tr>

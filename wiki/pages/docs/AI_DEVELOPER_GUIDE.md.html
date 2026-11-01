@@ -470,7 +470,7 @@
         <h1 class="article-title">AI Developer Guide: Creator Studio Architecture &amp; Operations</h1>
         <div class="article-subtitle">
           <span class="badge">Technical Documentation / Guide</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 663fce57)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 5da8ac8a)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (9)</a>
         </div>
@@ -483,9 +483,9 @@
     <tr><th>File Path</th><td><code>docs/AI_DEVELOPER_GUIDE.md</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../index.html#vol-1">Volume I</a></td></tr>
     <tr><th>Surface Kind</th><td>Technical Documentation / Guide</td></tr>
-    <tr><th>File Metrics</th><td>226 lines &bull; 13.3 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 663fce57)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>21</strong> references</td></tr>
+    <tr><th>File Metrics</th><td>242 lines &bull; 14.8 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 5da8ac8a)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>25</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>9</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../docs/AI_DEVELOPER_GUIDE.md" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
@@ -515,6 +515,7 @@
 <li><code>switchActiveMap(targetMapId)</code> synchronizes the outgoing map, swaps <code>activeMapId</code>, unpacks <code>maps[targetMapId]</code> into the live globals, loads the map raster from IndexedDB via <a class="wiki-link" href="../../pages/src/workstation/scripts/map_store.js.html">📄 src/workstation/scripts/map_store.js</a>, and triggers <code>recalculateBalancing()</code>, <code>renderCanvasGraph()</code>, <code>updateBreadcrumbsHUD()</code>, and <code>buildWikiIndex()</code>.</li>
 <li><strong>3. 7-Tier Scale-Fluid Cartography</strong>: Any map can be a root map or attached as a child map (<code>node.childMapId = "map_id"</code>) across 7 descriptive tiers (<code>cosmic</code>, <code>continent</code>, <code>region</code>, <code>settlement</code>, <code>district</code>, <code>building</code>, <code>floorplan</code>), supporting top-down drill-down, bottom-up wrapping (<code>reparentMap()</code>), and lateral independence.</li>
 <li><strong>4. IndexedDB Schema v2 (<code>CreatorStudioMapDB</code>)</strong>: Managed by <a class="wiki-link" href="../../pages/src/workstation/scripts/map_store.js.html">📄 src/workstation/scripts/map_store.js</a>, storing binary/DataURL raster backgrounds in object store <code>active_map</code> keyed by <code>id: mapId</code> (with transparent fallback to legacy key <code>"active_map"</code> for <code>map_root</code>).</li>
+<li><strong>5. Token Economy, AST Graph Inspection & Unbounded Read Ban</strong>: Strictly prohibits unbounded whole-file reads on compiled distributions (<code>start.html</code>, <code>network/platform_audit_dashboard.html</code>, <code>wiki/wiki_graph.json</code>). Mandates symbol queries via <a class="wiki-link" href="../../pages/Find-CodebaseNode.ps1.html">📄 Find-CodebaseNode.ps1</a> and <code>rg</code>, bounded diagnostic reads ($\le 50$ lines) for build error triage, and diff-driven verification (<code>git diff -U3</code>). Subagents must follow the Source-Only Worktree Invariant.</li>
 </ul>
 <hr class="wiki-hr"/>
 <h2>Data Flow & Subsystem Integration Matrix</h2>
@@ -539,7 +540,7 @@
 <li><strong>Post-Build Verification</strong>: Always run <a class="wiki-link" href="../../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>, validate compiled JS syntax in <a class="wiki-link" href="../../pages/start.html.html">📄 start.html</a> using Node's <code>new Function(...)</code>, and verify mathematical parity via <a class="wiki-link" href="../../pages/mods/tarot_balancing/Run-NetworkEngine.ps1.html">📄 mods/tarot_balancing/Run-NetworkEngine.ps1</a>.</li>
 </ul>
       <h2>Document Section Outline</h2><ul class="wiki-list"><li style="margin-left:0px;"><code>H1</code> AI Developer Guide: Creator Studio Architecture &amp; Operations</li><li style="margin-left:18px;"><code>H2</code> 1. Prime Invariants &amp; Ground Rules</li><li style="margin-left:18px;"><code>H2</code> 2. System Architecture: The Scale-Fluid Principle</li><li style="margin-left:36px;"><code>H3</code> The Problem It Solves</li><li style="margin-left:36px;"><code>H3</code> Core Architectural Decisions</li><li style="margin-left:18px;"><code>H2</code> 3. The State Model: Global State Swap Adapter</li><li style="margin-left:36px;"><code>H3</code> Why Global State Swapping Was Chosen</li><li style="margin-left:36px;"><code>H3</code> Map Data Schema</li><li style="margin-left:18px;"><code>H2</code> 4. Bidirectional Wiki &amp; Citation Engine (`wiki_engine.js`)</li><li style="margin-left:36px;"><code>H3</code> Token Grammar &amp; Syntax</li><li style="margin-left:36px;"><code>H3</code> Inverted Index Architecture</li><li style="margin-left:36px;"><code>H3</code> Live Autocomplete Controller</li><li style="margin-left:18px;"><code>H2</code> 5. Offline Cartography &amp; IndexedDB (`map_store.js`)</li><li style="margin-left:36px;"><code>H3</code> Database Details</li><li style="margin-left:18px;"><code>H2</code> 6. UI Surface Integration &amp; Files Map</li><li style="margin-left:18px;"><code>H2</code> 7. Checklist for Future AI Agents Extending This Code</li></ul>
-      <h2 id="outbound-links">Outbound References (21)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2 id="outbound-links">Outbound References (25)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
@@ -572,6 +573,10 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Wiki Citation</span></td>
         <td>Explicit [[File:src/workstation/scripts/map_store.js]] reference</td>
       </tr><tr>
+        <td><a href="../../pages/Find-CodebaseNode.ps1.html"><strong>Find-CodebaseNode.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
+        <td>Explicit [[File:Find-CodebaseNode.ps1]] reference</td>
+      </tr><tr>
         <td><a href="../../pages/src/workstation/scripts/map_navigator.js.html"><strong>src/workstation/scripts/map_navigator.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Wiki Citation</span></td>
         <td>Explicit [[File:src/workstation/scripts/map_navigator.js]] reference</td>
@@ -596,6 +601,10 @@
         <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
         <td>References CONTEXT.md</td>
       </tr><tr>
+        <td><a href="../../pages/Test-Suite.ps1.html"><strong>Test-Suite.ps1</strong></a></td>
+        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
+        <td>References Test-Suite.ps1</td>
+      </tr><tr>
         <td><a href="../../pages/index.html.html"><strong>index.html</strong></a></td>
         <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
         <td>References index.html</td>
@@ -603,6 +612,10 @@
         <td><a href="../../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
         <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
         <td>References network/campaign_studio.html</td>
+      </tr><tr>
+        <td><a href="../../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References network/platform_audit_dashboard.html</td>
       </tr><tr>
         <td><a href="../../pages/src/workstation/scripts/mdi_window_manager.js.html"><strong>src/workstation/scripts/mdi_window_manager.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
@@ -623,6 +636,10 @@
         <td><a href="../../pages/src/workstation/scripts/ticket_center.js.html"><strong>src/workstation/scripts/ticket_center.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
         <td>References src/workstation/scripts/ticket_center.js</td>
+      </tr><tr>
+        <td><a href="../../pages/test/run_tests.js.html"><strong>test/run_tests.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
+        <td>References test/run_tests.js</td>
       </tr></tbody></table></div>
       <h2 id="backlinks">What Links Here — Inbound Backlinks (9)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>

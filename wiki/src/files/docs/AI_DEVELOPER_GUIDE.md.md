@@ -3,11 +3,11 @@ file_path: "docs/AI_DEVELOPER_GUIDE.md"
 title: "AI Developer Guide: Creator Studio Architecture & Operations"
 volume: "vol-1"
 kind: "Technical Documentation / Guide"
-current_hash: "663fce57e4320ac8"
-reviewed_hash: "663fce57e4320ac8"
+current_hash: "5da8ac8a3cdead6f"
+reviewed_hash: "5da8ac8a3cdead6f"
 stale: false
-size_bytes: 13606
-line_count: 226
+size_bytes: 15169
+line_count: 242
 ---
 
 # AI Developer Guide: Creator Studio Architecture & Operations
@@ -28,6 +28,7 @@ It is a core authority for [[Series:series_b_scale_fluid_nested_cartography]] an
   - `switchActiveMap(targetMapId)` synchronizes the outgoing map, swaps `activeMapId`, unpacks `maps[targetMapId]` into the live globals, loads the map raster from IndexedDB via [[File:src/workstation/scripts/map_store.js]], and triggers `recalculateBalancing()`, `renderCanvasGraph()`, `updateBreadcrumbsHUD()`, and `buildWikiIndex()`.
 - **3. 7-Tier Scale-Fluid Cartography**: Any map can be a root map or attached as a child map (`node.childMapId = "map_id"`) across 7 descriptive tiers (`cosmic`, `continent`, `region`, `settlement`, `district`, `building`, `floorplan`), supporting top-down drill-down, bottom-up wrapping (`reparentMap()`), and lateral independence.
 - **4. IndexedDB Schema v2 (`CreatorStudioMapDB`)**: Managed by [[File:src/workstation/scripts/map_store.js]], storing binary/DataURL raster backgrounds in object store `active_map` keyed by `id: mapId` (with transparent fallback to legacy key `"active_map"` for `map_root`).
+- **5. Token Economy, AST Graph Inspection & Unbounded Read Ban**: Strictly prohibits unbounded whole-file reads on compiled distributions (`start.html`, `network/platform_audit_dashboard.html`, `wiki/wiki_graph.json`). Mandates symbol queries via [[File:Find-CodebaseNode.ps1]] and `rg`, bounded diagnostic reads ($\le 50$ lines) for build error triage, and diff-driven verification (`git diff -U3`). Subagents must follow the Source-Only Worktree Invariant.
 
 ---
 
