@@ -3,11 +3,11 @@ file_path: "network/platform_audit_dashboard.html"
 title: "Creator Studio: Platform Explorer & Master Audit"
 volume: "vol-5"
 kind: "Standalone Zero-CORS HTML Workstation"
-current_hash: "39fb2eec0a31de2b"
+current_hash: "3c8f91a51d01c18d"
 reviewed_hash: "39fb2eec0a31de2b"
-stale: false
-size_bytes: 11815853
-line_count: 35912
+stale: true
+size_bytes: 10261365
+line_count: 34594
 ---
 
 # Creator Studio: Platform Explorer & Master Audit

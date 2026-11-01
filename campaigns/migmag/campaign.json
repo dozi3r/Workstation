@@ -8,8 +8,8 @@
   "enabled": true,
   "topologyFile": "topology.json",
   "manifestFile": "modules_manifest.json",
-  "updatedAt": "2026-11-01T05:24:29.237Z",
-  "exportedAt": "2026-11-01T05:24:29.237Z",
+  "updatedAt": "2026-11-01T23:32:19.515Z",
+  "exportedAt": "2026-11-01T23:32:19.515Z",
   "globalDials": {
     "dial8ClimaxTrigger": "crisis",
     "tier0Substratum": false
@@ -980,10 +980,71 @@
         "_packId": "mm7_emerald_isle"
       }
     ],
-    "tickets": [],
+    "tickets": [
+      {
+        "id": "DEV-01",
+        "title": "campaign selector shoudl list campaign node count, npc count, mods used, etc and be formatted better for long campaign names and such.",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "shipped",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "open campaign",
+        "prereqs": "",
+        "notes": "campaign selector shoudl list campaign node count, npc count, mods used, etc and be formatted better for long campaign names and such. \n\nfeature will be accepted when node count, quest count, item count, and other important information is displayed in the campaign selection screen",
+        "createdAt": "2026-11-01T23:26:41.498Z"
+      },
+      {
+        "id": "DEV-02",
+        "title": "the map tool bar does not work well when a campaign has multiple maps and becomes nearly unusable, we need to plan the tabs like how autocad does layout tabs and allow grouping and minimization and expanding of the groups",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "the map tool bar does not work well when a campaign has multiple maps and becomes nearly unusable, we need to plan the tabs like how autocad does layout tabs and allow grouping and minimization and expanding of the groups",
+        "createdAt": "2026-11-01T23:28:44.045Z"
+      },
+      {
+        "id": "DEV-03",
+        "title": "the background map needs the ability to be resized and retain that display throughout changes.",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "the background map needs the ability to be resized and retain that display throughout changes.",
+        "createdAt": "2026-11-01T23:29:52.616Z"
+      }
+    ],
     "custom_modules": [],
     "deletedModules": [],
     "deletedPrototypes": []
   },
-  "syncToken": "mvxdy185-i88hfl5v"
+  "syncToken": "mvygt03f-u8vacczk"
 }

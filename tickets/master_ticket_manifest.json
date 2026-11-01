@@ -3348,5 +3348,110 @@
     "ticket_file": "tickets/system/SYS-START-19_campaign_settings_dialog_and_metadata_renaming.md",
     "file_url": "tickets/system/SYS-START-19_campaign_settings_dialog_and_metadata_renaming.md",
     "module_path": ""
+  },
+  {
+    "id": "SYS-START-20",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Enhanced Campaign Selector UI & Rich Metadata Inspection",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Project Management & Campaign Launcher",
+    "status": "shipped",
+    "summary": "# SYS-START-20: Enhanced Campaign Selector UI & Rich Metadata Inspection (DEV-01)\n*Category: system_architecture | Priority: Medium | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: read...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: Rich-Campaign-Selector",
+      "Launcher: Census-Inspection"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "MDIWindowManager",
+      "scanCampaignsDirectory"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-20_campaign_selector_rich_metadata_and_layout.md",
+    "file_url": "tickets/system/SYS-START-20_campaign_selector_rich_metadata_and_layout.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-21",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "AutoCAD-Style Map Layout Tabs Strip with Hierarchical Grouping & Overflow",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Multi-Scale Cartography & Spatial CAD",
+    "status": "ready",
+    "summary": "# SYS-START-21: AutoCAD-Style Map Layout Tabs Strip with Hierarchical Grouping & Overflow (DEV-02)\n*Category: system_architecture | Priority: Medium | Target Surface: `start.html` (`src/workstation/`)...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: Map-Layout-Tabs",
+      "Cartography: Multi-Map-Switcher"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "creator_studio_maps_registry",
+      "switchActiveMap"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-21_autocad_layout_tabs_and_grouping.md",
+    "file_url": "tickets/system/SYS-START-21_autocad_layout_tabs_and_grouping.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-START-22",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Background Map Scaling, Resizing & Transform Persistence Engine",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Multi-Scale Cartography & Vector Precision",
+    "status": "ready",
+    "summary": "# SYS-START-22: Background Map Scaling, Resizing & Transform Persistence Engine (DEV-03)\n*Category: system_architecture | Priority: Medium | Target Surface: `start.html` (`src/workstation/`)*  \n*Statu...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: Background-Map-Scaling",
+      "Cartography: Raster-Transform-Engine"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "applyMapImageToCanvas",
+      "mapMetadata"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-START-22_background_map_resizing_and_transform_persistence.md",
+    "file_url": "tickets/system/SYS-START-22_background_map_resizing_and_transform_persistence.md",
+    "module_path": ""
   }
 ]

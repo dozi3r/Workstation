@@ -3,11 +3,11 @@ file_path: "campaigns/migmag/campaign.json"
 title: "campaign.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "36756cfb1f271cbd"
+current_hash: "2ac688d6b26d4517"
 reviewed_hash: "36756cfb1f271cbd"
-stale: false
-size_bytes: 38404
-line_count: 989
+stale: true
+size_bytes: 41078
+line_count: 1050
 ---
 
 # campaign.json

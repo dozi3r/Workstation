@@ -1893,6 +1893,11 @@ async function scanCampaignsDirectory(rootHandle) {
             const desc = (campMeta && campMeta.description)
               || (topoData && topoData.description)
               || "";
+            let mapsCount = 1;
+            if (topoData && topoData.maps && typeof topoData.maps === "object") {
+              const mKeys = Object.keys(topoData.maps);
+              if (mKeys.length > 0) mapsCount = mKeys.length;
+            }
             let nodeCount = 0;
             if (topoData) {
               if (topoData.maps && typeof topoData.maps === "object") {
@@ -1903,11 +1908,16 @@ async function scanCampaignsDirectory(rootHandle) {
                 nodeCount = Array.isArray(topoData.nodes) ? topoData.nodes.length : Object.keys(topoData.nodes).length;
               }
             }
-            let entityCount = 0;
-            const entities = (campMeta && campMeta.entities) || (topoData && topoData.entities);
-            if (entities) {
-              entityCount = (entities.npcs?.length || 0) + (entities.quests?.length || 0) + (entities.items?.length || 0);
-            }
+            const entities = (campMeta && campMeta.entities) || (topoData && topoData.entities) || {};
+            const npcs = entities.npcs || (topoData && topoData.npcs) || (campMeta && campMeta.npcs) || [];
+            const quests = entities.quests || (topoData && topoData.quests) || (campMeta && campMeta.quests) || [];
+            const itemsList = entities.items || (topoData && topoData.items) || (campMeta && campMeta.items) || [];
+            const npcCount = Array.isArray(npcs) ? npcs.length : Object.keys(npcs).length;
+            const questCount = Array.isArray(quests) ? quests.length : Object.keys(quests).length;
+            const itemCount = Array.isArray(itemsList) ? itemsList.length : Object.keys(itemsList).length;
+            const entityCount = npcCount + questCount + itemCount;
+            const modsList = (topoData && topoData.custom_modules) || (campMeta && (campMeta.mods || campMeta.enabled_mods || campMeta.custom_modules)) || [];
+            const modCount = Array.isArray(modsList) ? modsList.length : Object.keys(modsList).length;
 
             discovered[name] = {
               id: name,
@@ -1916,7 +1926,12 @@ async function scanCampaignsDirectory(rootHandle) {
               name: title,
               description: desc,
               nodeCount: nodeCount,
+              mapsCount: mapsCount,
+              npcCount: npcCount,
+              questCount: questCount,
+              itemCount: itemCount,
               entityCount: entityCount,
+              modCount: modCount,
               meta: campMeta,
               topo: topoData,
               handle: entry,

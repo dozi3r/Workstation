@@ -1265,7 +1265,13 @@
             id: d.id,
             folderName: d.folderName,
             title: d.title || d.folderName,
-            desc: d.description || `${d.nodeCount || 0} Nodes`,
+            desc: d.description || "",
+            nodeCount: d.nodeCount || 0,
+            mapsCount: d.mapsCount || 1,
+            npcCount: d.npcCount || 0,
+            questCount: d.questCount || 0,
+            itemCount: d.itemCount || 0,
+            modCount: d.modCount || 0,
             sourceType: "disk",
             sourceBadge: `📁 /campaigns/${d.folderName}/`,
             badgeColor: "#0284c7",
@@ -1283,12 +1289,23 @@
         window.savedLibraryCampaigns.forEach(lib => {
           const libTitle = lib.name || lib.campaignName || lib.id;
           if (hasDiskMatch(lib.id, lib.folderName, libTitle)) return;
-          const nodeCount = lib.maps ? Object.values(lib.maps).reduce((acc, m) => acc + (m.nodes ? (Array.isArray(m.nodes) ? m.nodes.length : Object.keys(m.nodes).length) : 0), 0) : 0;
+          const mapsCount = lib.maps ? Object.keys(lib.maps).length : 1;
+          const nodeCount = lib.maps ? Object.values(lib.maps).reduce((acc, m) => acc + (m.nodes ? (Array.isArray(m.nodes) ? m.nodes.length : Object.keys(m.nodes).length) : 0), 0) : (lib.nodes ? (Array.isArray(lib.nodes) ? lib.nodes.length : Object.keys(lib.nodes).length) : 0);
+          const npcs = (lib.npcs || lib.entities?.npcs || []);
+          const quests = (lib.quests || lib.entities?.quests || []);
+          const itemsList = (lib.items || lib.entities?.items || []);
+          const modsList = (lib.custom_modules || lib.mods || []);
           items.push({
             id: lib.id,
             folderName: null,
             title: libTitle,
-            desc: lib.description || `In-Browser Library (${nodeCount} Nodes)`,
+            desc: lib.description || "",
+            nodeCount: nodeCount,
+            mapsCount: mapsCount,
+            npcCount: Array.isArray(npcs) ? npcs.length : Object.keys(npcs).length,
+            questCount: Array.isArray(quests) ? quests.length : Object.keys(quests).length,
+            itemCount: Array.isArray(itemsList) ? itemsList.length : Object.keys(itemsList).length,
+            modCount: Array.isArray(modsList) ? modsList.length : Object.keys(modsList).length,
             sourceType: "library",
             sourceBadge: "💾 In-Browser Library",
             badgeColor: "#059669",
@@ -1310,18 +1327,31 @@
           const title = meta.name || item.preset?.name || cId;
           const regFolder = item.folder || cId;
           if (hasDiskMatch(cId, regFolder, title)) return;
-          const modCount = (item.modules || []).length;
-          let nodeCount = '';
-          if (item.preset?.nodes) {
-            const count = Array.isArray(item.preset.nodes) ? item.preset.nodes.length : Object.keys(item.preset.nodes).length;
-            nodeCount = `${count} Nodes • `;
+          const pMaps = item.preset?.maps || {};
+          const mapsCount = Object.keys(pMaps).length > 0 ? Object.keys(pMaps).length : 1;
+          let nodeCount = 0;
+          if (Object.keys(pMaps).length > 0) {
+            Object.values(pMaps).forEach(m => {
+              if (m && m.nodes) nodeCount += Array.isArray(m.nodes) ? m.nodes.length : Object.keys(m.nodes).length;
+            });
+          } else if (item.preset?.nodes) {
+            nodeCount = Array.isArray(item.preset.nodes) ? item.preset.nodes.length : Object.keys(item.preset.nodes).length;
           }
-          const desc = meta.description || `${nodeCount}${modCount} Modules`;
+          const pNpcs = item.preset?.npcs || meta.entities?.npcs || [];
+          const pQuests = item.preset?.quests || meta.entities?.quests || [];
+          const pItems = item.preset?.items || meta.entities?.items || [];
+          const modCount = (item.modules || item.preset?.custom_modules || []).length;
           items.push({
             id: cId,
             folderName: regFolder,
             title: title,
-            desc: desc,
+            desc: meta.description || "",
+            nodeCount: nodeCount,
+            mapsCount: mapsCount,
+            npcCount: Array.isArray(pNpcs) ? pNpcs.length : Object.keys(pNpcs).length,
+            questCount: Array.isArray(pQuests) ? pQuests.length : Object.keys(pQuests).length,
+            itemCount: Array.isArray(pItems) ? pItems.length : Object.keys(pItems).length,
+            modCount: modCount,
             sourceType: "preset",
             sourceBadge: "📦 Built-in Preset",
             badgeColor: "#64748b",
@@ -1371,31 +1401,52 @@
       filtered.forEach((it) => {
         const row = document.createElement('div');
         row.className = 'action-tile-btn win-btn';
-        row.style.cssText = 'padding:6px 10px; display:flex; justify-content:space-between; align-items:center; gap:8px; cursor:default;';
+        row.style.cssText = 'padding:8px 10px; display:flex; justify-content:space-between; align-items:center; gap:12px; cursor:default; min-height:56px; border:1px solid #999; margin-bottom:4px; text-align:left;';
+
+        const censusBadges = [];
+        if (it.mapsCount && it.mapsCount > 1) {
+          censusBadges.push(`<span class="census-badge" style="background:#f0fdf4; color:#166534; border:1px solid #bbf7d0; padding:1px 5px; font-size:10px; font-weight:bold; border-radius:2px; white-space:nowrap;">🗺️ ${it.mapsCount} Maps</span>`);
+        }
+        censusBadges.push(`<span class="census-badge" style="background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; padding:1px 5px; font-size:10px; font-weight:bold; border-radius:2px; white-space:nowrap;">📍 ${it.nodeCount || 0} Nodes</span>`);
+        if (it.npcCount !== undefined && it.npcCount > 0) {
+          censusBadges.push(`<span class="census-badge" style="background:#faf5ff; color:#6b21a8; border:1px solid #e9d5ff; padding:1px 5px; font-size:10px; font-weight:bold; border-radius:2px; white-space:nowrap;">👤 ${it.npcCount} NPCs</span>`);
+        }
+        if (it.questCount !== undefined && it.questCount > 0) {
+          censusBadges.push(`<span class="census-badge" style="background:#fffbeb; color:#92400e; border:1px solid #fde68a; padding:1px 5px; font-size:10px; font-weight:bold; border-radius:2px; white-space:nowrap;">📜 ${it.questCount} Quests</span>`);
+        }
+        if (it.itemCount !== undefined && it.itemCount > 0) {
+          censusBadges.push(`<span class="census-badge" style="background:#fef2f2; color:#991b1b; border:1px solid #fecaca; padding:1px 5px; font-size:10px; font-weight:bold; border-radius:2px; white-space:nowrap;">⚔️ ${it.itemCount} Items</span>`);
+        }
+        if (it.modCount !== undefined && it.modCount > 0) {
+          censusBadges.push(`<span class="census-badge" style="background:#f8fafc; color:#334155; border:1px solid #cbd5e1; padding:1px 5px; font-size:10px; font-weight:bold; border-radius:2px; white-space:nowrap;">🧩 ${it.modCount} Mods</span>`);
+        }
 
         const infoDiv = document.createElement('div');
-        infoDiv.style.cssText = 'display:flex; flex-direction:column; gap:2px; flex:1; min-width:0; text-align:left; cursor:pointer;';
+        infoDiv.style.cssText = 'display:flex; flex-direction:column; gap:3px; flex:1; min-width:0; text-align:left; cursor:pointer;';
         infoDiv.onclick = () => it.openFn();
         infoDiv.innerHTML = `
-          <div style="display:flex; align-items:center; gap:6px;">
-            <strong style="color:#000080; font-size:12px;">📁 ${escapeHtml(it.title)}</strong>
-            <span style="font-size:9px; font-family:monospace; background:#f1f5f9; color:${it.badgeColor}; padding:1px 5px; border-radius:3px; border:1px solid #cbd5e1;">${escapeHtml(it.sourceBadge)}</span>
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <strong style="color:#000080; font-size:12px; word-break:break-word;">📁 ${escapeHtml(it.title)}</strong>
+            <span style="font-size:9px; font-family:monospace; background:#f1f5f9; color:${it.badgeColor}; padding:1px 5px; border-radius:3px; border:1px solid #cbd5e1; white-space:nowrap;">${escapeHtml(it.sourceBadge)}</span>
           </div>
-          <span style="font-size:11px; color:#475569; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(it.desc)}</span>
+          <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap; margin:2px 0;">
+            ${censusBadges.join('')}
+          </div>
+          ${it.desc ? `<span style="font-size:11px; color:#475569; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeAttr(it.desc)}">${escapeHtml(it.desc)}</span>` : ''}
         `;
 
         const actionsDiv = document.createElement('div');
-        actionsDiv.style.cssText = 'display:flex; align-items:center; gap:6px;';
+        actionsDiv.style.cssText = 'display:flex; align-items:center; gap:6px; flex-shrink:0;';
 
         const openBtn = document.createElement('button');
         openBtn.className = 'win-btn';
-        openBtn.style.cssText = 'padding:3px 10px; font-weight:bold; font-size:11px;';
+        openBtn.style.cssText = 'padding:4px 12px; font-weight:bold; font-size:11px; min-width:54px;';
         openBtn.textContent = 'Open';
         openBtn.onclick = (e) => { e.stopPropagation(); it.openFn(); };
 
         const delBtn = document.createElement('button');
         delBtn.className = 'win-btn';
-        delBtn.style.cssText = 'padding:3px 6px; font-size:11px; color:#b91c1c;';
+        delBtn.style.cssText = 'padding:4px 7px; font-size:11px; color:#b91c1c;';
         delBtn.title = it.sourceType === 'disk' ? 'Delete folder from disk' : (it.sourceType === 'library' ? 'Delete from library' : 'Hide preset');
         delBtn.textContent = '🗑️';
         delBtn.onclick = (e) => {
@@ -1420,12 +1471,13 @@
       const items = [];
       if (window.discoveredDiskCampaigns) {
         Object.values(window.discoveredDiskCampaigns).forEach(d => {
-          items.push({ id: d.id, folderName: d.folderName, title: d.title || d.folderName, desc: d.description || `${d.nodeCount || 0} Nodes`, handle: d.handle });
+          items.push({ id: d.id, folderName: d.folderName, title: d.title || d.folderName, desc: d.description || "", nodeCount: d.nodeCount || 0, mapsCount: d.mapsCount || 1, handle: d.handle });
         });
       }
       if (items.length === 0 && Array.isArray(window.savedLibraryCampaigns)) {
         window.savedLibraryCampaigns.forEach(lib => {
-          items.push({ id: lib.id, title: lib.name || lib.id, desc: lib.description || "In-Browser Library", pkg: lib });
+          const nodeCount = lib.maps ? Object.values(lib.maps).reduce((acc, m) => acc + (m.nodes ? (Array.isArray(m.nodes) ? m.nodes.length : Object.keys(m.nodes).length) : 0), 0) : (lib.nodes ? (Array.isArray(lib.nodes) ? lib.nodes.length : Object.keys(lib.nodes).length) : 0);
+          items.push({ id: lib.id, title: lib.name || lib.id, desc: lib.description || "In-Browser Library", nodeCount: nodeCount, pkg: lib });
         });
       }
       if (typeof CAMPAIGN_REGISTRY !== 'undefined') {
@@ -1436,7 +1488,9 @@
           const meta = CAMPAIGN_REGISTRY[cId].metadata || {};
           const title = meta.name || cId;
           if (items.some(it => norm(it.id) === norm(cId) || norm(it.folderName) === norm(regFolder) || norm(it.title) === norm(title))) return;
-          items.push({ id: cId, folderName: regFolder, title: title, desc: meta.description || "Campaign Sourcebook", cId: cId });
+          const p = CAMPAIGN_REGISTRY[cId].preset;
+          const nodeCount = p?.nodes ? (Array.isArray(p.nodes) ? p.nodes.length : Object.keys(p.nodes).length) : 0;
+          items.push({ id: cId, folderName: regFolder, title: title, desc: meta.description || "Campaign Sourcebook", nodeCount: nodeCount, cId: cId });
         });
       }
 
@@ -1444,7 +1498,7 @@
       items.slice(0, 4).forEach(it => {
         const tile = document.createElement('div');
         tile.className = 'bevel-inset action-tile-btn win-btn';
-        tile.style.cssText = 'height:auto; padding:6px; cursor:pointer; text-align:left;';
+        tile.style.cssText = 'height:auto; min-height:56px; padding:6px 8px; cursor:pointer; text-align:left; display:flex; flex-direction:column; justify-content:space-between; gap:3px;';
         tile.onclick = async () => {
           if (it.handle) {
             await loadCampaignFromDirectoryHandle(it.handle);
@@ -1454,9 +1508,13 @@
           await openCampaignWithEnforcedDiskSync(it.cId || it.id, it.folderName || it.title, it.title, it.pkg || null);
           closeWelcomeModal();
         };
+        const censusLine = it.nodeCount ? `📍 ${it.nodeCount} Nodes` : '';
         tile.innerHTML = `
-          <strong>${escapeHtml(it.title)}</strong>
-          <span>${escapeHtml(it.desc)}</span>
+          <div>
+            <strong style="color:#000080; font-size:11px; display:block; word-break:break-word;">${escapeHtml(it.title)}</strong>
+            <span style="font-size:10px; color:#475569; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(it.desc)}</span>
+          </div>
+          ${censusLine ? `<div style="font-size:9px; color:#1e40af; font-weight:bold; margin-top:2px;">${censusLine}</div>` : ''}
         `;
         grid.appendChild(tile);
       });

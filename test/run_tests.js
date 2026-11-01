@@ -5683,6 +5683,161 @@ function testMdiWindowResizingAndDockSplitters() {
 }
 
 // ============================================================================
+// SUITE 32: CAMPAIGN SELECTOR RICH METADATA & CENSUS INSPECTION (SYS-START-20)
+// ============================================================================
+function testCampaignSelectorRichMetadataAndCensus() {
+  console.log('\n--> SUITE 32: Campaign Selector Rich Metadata & Census (SYS-START-20 / DEV-01)...');
+
+  const mdiCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/mdi_window_manager.js'), 'utf8');
+
+  function makeMockEl(tag = 'div', initialClass = '') {
+    const classSet = new Set(initialClass ? initialClass.split(/\s+/).filter(Boolean) : []);
+    const children = [];
+    const el = {
+      tagName: tag.toUpperCase(),
+      id: '',
+      className: initialClass,
+      classList: {
+        add: (...cls) => cls.forEach(c => classSet.add(c)),
+        remove: (...cls) => cls.forEach(c => classSet.delete(c)),
+        contains: (c) => classSet.has(c),
+        toggle: (c, force) => {
+          if (force !== undefined) {
+            force ? classSet.add(c) : classSet.delete(c);
+          } else {
+            classSet.has(c) ? classSet.delete(c) : classSet.add(c);
+          }
+        }
+      },
+      style: { cssText: '' },
+      children,
+      appendChild: (child) => { children.push(child); child.parentElement = el; return child; },
+      removeChild: (child) => {
+        const idx = children.indexOf(child);
+        if (idx !== -1) children.splice(idx, 1);
+        return child;
+      },
+      innerHTML: '',
+      textContent: '',
+      value: '',
+      onclick: null
+    };
+    return el;
+  }
+
+  const elementsById = {};
+  function getOrMakeEl(id, tag = 'div', className = '') {
+    if (!elementsById[id]) {
+      elementsById[id] = makeMockEl(tag, className);
+      elementsById[id].id = id;
+    }
+    return elementsById[id];
+  }
+
+  const listContainer = getOrMakeEl('modal-installed-campaigns-list', 'div');
+  const welcomeGrid = getOrMakeEl('welcome-installed-campaigns-grid', 'div');
+  getOrMakeEl('camps-count-all', 'span');
+  getOrMakeEl('camps-count-disk', 'span');
+  getOrMakeEl('camps-count-library', 'span');
+  getOrMakeEl('camps-count-presets', 'span');
+  getOrMakeEl('campaign-launcher-search', 'input');
+
+  const mockDoc = {
+    getElementById: (id) => getOrMakeEl(id),
+    createElement: (tag) => makeMockEl(tag)
+  };
+
+  const sandbox = {
+    document: mockDoc,
+    window: {
+      discoveredDiskCampaigns: {
+        baldurs_gate: {
+          id: 'baldurs_gate',
+          folderName: 'BaldursGate',
+          title: 'The Iron Crisis of Nashkel & The Deep Mines of the Sword Coast',
+          description: 'Investigate tainted iron and goblin mercenaries across the Sword Coast.',
+          nodeCount: 42,
+          mapsCount: 16,
+          npcCount: 18,
+          questCount: 7,
+          itemCount: 12,
+          modCount: 2,
+          sourceType: 'disk_folder',
+          handle: { name: 'BaldursGate' }
+        }
+      },
+      savedLibraryCampaigns: [
+        {
+          id: 'opal_shores',
+          name: 'Opal Shores Coastal Pointcrawl',
+          description: 'A coastal archipelago campaign.',
+          nodes: [{ id: 1 }, { id: 2 }, { id: 3 }],
+          npcs: [{ id: 'npc_1' }, { id: 'npc_2' }],
+          quests: [{ id: 'q_1' }],
+          items: [{ id: 'item_1' }]
+        }
+      ]
+    },
+    CAMPAIGN_REGISTRY: {
+      migmag: {
+        folder: 'migmag',
+        metadata: {
+          name: 'MigMag Tactical Campaign',
+          description: 'A tactical sandbox campaign setting.'
+        },
+        preset: {
+          nodes: [{ id: 1 }, { id: 2 }],
+          npcs: [{ id: 'n1' }],
+          quests: [],
+          items: []
+        },
+        modules: ['m1', 'm2']
+      }
+    },
+    localStorage: {
+      getItem: () => null,
+      setItem: () => {}
+    },
+    activeCampaignLauncherTab: 'all',
+    escapeHtml: (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'),
+    escapeAttr: (s) => String(s || '').replace(/"/g, '&quot;'),
+    closeModal: () => {},
+    updateCampaignsFolderStatusUI: () => {}
+  };
+
+  sandbox.window.document = mockDoc;
+  sandbox.window.localStorage = sandbox.localStorage;
+  sandbox.window.CAMPAIGN_REGISTRY = sandbox.CAMPAIGN_REGISTRY;
+
+  vm.createContext(sandbox);
+  vm.runInContext(mdiCode, sandbox);
+
+  sandbox.renderInstalledCampaignsModalList();
+
+  assert(listContainer.children.length === 3, `renderInstalledCampaignsModalList rendered 3 campaign cards (Got: ${listContainer.children.length})`);
+  const bgCard = listContainer.children[0];
+  const cardHtml = bgCard.children[0].innerHTML;
+
+  assert(cardHtml.includes('16 Maps'), 'Card displays multi-map census badge "16 Maps"');
+  assert(cardHtml.includes('42 Nodes'), 'Card displays node census badge "42 Nodes"');
+  assert(cardHtml.includes('18 NPCs'), 'Card displays NPC census badge "18 NPCs"');
+  assert(cardHtml.includes('7 Quests'), 'Card displays quest census badge "7 Quests"');
+  assert(cardHtml.includes('12 Items'), 'Card displays item census badge "12 Items"');
+  assert(cardHtml.includes('2 Mods'), 'Card displays mod census badge "2 Mods"');
+  assert(cardHtml.includes('word-break:break-word'), 'Long campaign title handles word breaking cleanly');
+
+  const actionsDiv = bgCard.children[1];
+  assert(actionsDiv.style.cssText.includes('flex-shrink:0'), 'Action buttons have flex-shrink:0 to protect against wrapping');
+  assert(actionsDiv.children[0].textContent === 'Open', 'Action buttons include Open button');
+
+  // Welcome modal list test
+  sandbox.renderWelcomeCampaignsList();
+  assert(welcomeGrid.children.length > 0, 'renderWelcomeCampaignsList populates welcome grid tiles');
+  const welcomeTile = welcomeGrid.children[0];
+  assert(welcomeTile.innerHTML.includes('42 Nodes'), 'Welcome tile displays node census count');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -5718,6 +5873,7 @@ function testMdiWindowResizingAndDockSplitters() {
     testLocationNamesInStationedNodeColumns();
     testTicketCenterEnhancements();
     testMdiWindowResizingAndDockSplitters();
+    testCampaignSelectorRichMetadataAndCensus();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');
