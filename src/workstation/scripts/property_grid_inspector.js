@@ -3157,7 +3157,14 @@
     }
     function togglePropertiesDock() {
       const dock = document.getElementById('properties-dock');
-      dock.style.display = dock.style.display === 'none' ? 'flex' : 'none';
+      const splitter = document.getElementById('dock-splitter');
+      if (!dock) return;
+      const willShow = (dock.style.display === 'none');
+      dock.style.display = willShow ? 'flex' : 'none';
+      if (splitter) {
+        splitter.style.display = willShow ? 'block' : 'none';
+      }
+      if (typeof renderCanvas === 'function') renderCanvas();
     }
 
     // ========================================================================

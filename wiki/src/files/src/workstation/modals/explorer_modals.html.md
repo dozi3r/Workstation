@@ -3,11 +3,11 @@ file_path: "src/workstation/modals/explorer_modals.html"
 title: "explorer_modals.html"
 volume: "vol-4"
 kind: "Workstation Shell Template"
-current_hash: "5e8fd6b99c9427e3"
-reviewed_hash: "5e8fd6b99c9427e3"
+current_hash: "d1fdda04814338ce"
+reviewed_hash: "d1fdda04814338ce"
 stale: false
-size_bytes: 24436
-line_count: 398
+size_bytes: 24627
+line_count: 401
 ---
 
 # explorer_modals.html

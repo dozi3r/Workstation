@@ -579,14 +579,50 @@
     transform: scale(1.2);
   }
 
+  /* Vertical Workspace & Pane Splitters (SYS-START-18) */
+  .workspace-splitter-vertical {
+    width: 5px;
+    background-color: var(--win-grey);
+    border-left: 1px solid var(--win-light);
+    border-right: 1px solid var(--win-darkest);
+    cursor: col-resize;
+    flex-shrink: 0;
+    z-index: 15;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background-color 0.1s ease;
+  }
+  .workspace-splitter-vertical:hover,
+  .workspace-splitter-vertical.active {
+    background-color: #000080;
+  }
+
+  .pane-splitter-vertical {
+    width: 5px;
+    background-color: var(--win-grey);
+    border-left: 1px solid var(--win-light);
+    border-right: 1px solid var(--win-darkest);
+    cursor: col-resize;
+    flex-shrink: 0;
+    z-index: 10;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background-color 0.1s ease;
+  }
+  .pane-splitter-vertical:hover,
+  .pane-splitter-vertical.active {
+    background-color: #000080;
+  }
+
   /* Right Properties Dock (Visual Basic 6 Grid) */
   #properties-dock {
     width: 310px;
     background-color: var(--win-grey);
-    border-left: 2px solid var(--win-light);
+    border-left: 1px solid var(--win-light);
     display: flex;
     flex-direction: column;
-    shrink: 0;
+    flex-shrink: 0;
     z-index: 10;
   }
 
@@ -840,10 +876,113 @@
     display: flex;
     flex-direction: column;
     z-index: 100;
-    min-width: 320px;
-    min-height: 200px;
-    resize: both;
+    min-width: 400px;
+    min-height: 250px;
+    resize: none;
     overflow: hidden;
+  }
+
+  /* 8-Way MDI Window Resize Handles (SYS-START-18) */
+  .mdi-resize-handles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  .mdi-resize-handle {
+    position: absolute;
+    pointer-events: auto;
+    background: transparent;
+  }
+
+  .handle-n {
+    top: 0;
+    left: 10px;
+    right: 10px;
+    height: 6px;
+    cursor: ns-resize;
+  }
+
+  .handle-s {
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    height: 6px;
+    cursor: ns-resize;
+  }
+
+  .handle-w {
+    top: 10px;
+    bottom: 10px;
+    left: 0;
+    width: 6px;
+    cursor: ew-resize;
+  }
+
+  .handle-e {
+    top: 10px;
+    bottom: 10px;
+    right: 0;
+    width: 6px;
+    cursor: ew-resize;
+  }
+
+  .handle-nw {
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    cursor: nwse-resize;
+    z-index: 1001;
+  }
+
+  .handle-ne {
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    cursor: nesw-resize;
+    z-index: 1001;
+  }
+
+  .handle-sw {
+    bottom: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    cursor: nesw-resize;
+    z-index: 1001;
+  }
+
+  .handle-se {
+    bottom: 0;
+    right: 0;
+    width: 14px;
+    height: 14px;
+    cursor: nwse-resize;
+    z-index: 1001;
+  }
+
+  /* When window is maximized, disable resize handles */
+  .mdi-window.maximized .mdi-resize-handles {
+    display: none !important;
+  }
+
+  /* Prevent drag/resize cursor detachment & iframe mouse event swallowing */
+  body.mdi-resizing,
+  body.mdi-dragging,
+  body.splitter-dragging {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+  body.mdi-resizing iframe,
+  body.mdi-dragging iframe,
+  body.splitter-dragging iframe {
+    pointer-events: none !important;
   }
 
   .mdi-window.hidden, .hidden {
@@ -893,10 +1032,13 @@
     white-space: nowrap;
   }
 
-  .mdi-title-controls {
+  .mdi-title-controls,
+  .title-bar-controls {
     display: flex;
     gap: 2px;
     flex-shrink: 0;
+    position: relative;
+    z-index: 1002;
   }
 
   .mdi-title-controls button {
@@ -1293,19 +1435,24 @@
 
   /* Ticket Command Center Win95 Workstation Styles */
   .ticket-center-grid {
-    display: grid;
-    grid-template-columns: 440px 1fr;
-    gap: 8px;
+    display: flex;
+    gap: 0;
     flex-grow: 1;
     overflow: hidden;
   }
   .ticket-list-pane {
+    width: 440px;
+    min-width: 260px;
+    max-width: 700px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     background-color: #ffffff;
   }
   .ticket-detail-pane {
+    flex: 1;
+    min-width: 280px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -1382,9 +1529,8 @@
   }
 
   .me-split-layout {
-    display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 6px;
+    display: flex;
+    gap: 0;
     flex-grow: 1;
     overflow: hidden;
     padding: 6px;
@@ -1392,6 +1538,10 @@
   }
 
   .me-catalog-pane {
+    width: 380px;
+    min-width: 240px;
+    max-width: 650px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 4px;

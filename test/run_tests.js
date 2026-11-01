@@ -5290,6 +5290,281 @@ function testTicketCenterEnhancements() {
 }
 
 // ============================================================================
+// SUITE 31: RESIZABLE MDI WINDOWS & DOCK SPLITTERS (SYS-START-18)
+// ============================================================================
+function testMdiWindowResizingAndDockSplitters() {
+  console.log('\n--> SUITE 31: Resizable MDI Windows & Flexible Workspace Splitters (SYS-START-18)...');
+
+  const mdiCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/mdi_window_manager.js'), 'utf8');
+  const propGridCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/property_grid_inspector.js'), 'utf8');
+
+  const mockStorage = {};
+  const docListeners = {};
+
+  function makeMockEl(tag = 'div', initialClass = '') {
+    const classSet = new Set(initialClass ? initialClass.split(/\s+/).filter(Boolean) : []);
+    const el = {
+      tagName: tag.toUpperCase(),
+      get className() { return Array.from(classSet).join(' '); },
+      set className(val) {
+        classSet.clear();
+        (val || '').split(/\s+/).filter(Boolean).forEach(c => classSet.add(c));
+      },
+      children: [],
+      classList: {
+        add: function(c) { classSet.add(c); },
+        remove: function(c) { classSet.delete(c); },
+        contains: function(c) { return classSet.has(c); }
+      },
+      dataset: {},
+      style: {},
+      listeners: {},
+      addEventListener: function(event, fn) {
+        if (!this.listeners[event]) this.listeners[event] = [];
+        this.listeners[event].push(fn);
+      },
+      removeEventListener: function(event, fn) {
+        if (!this.listeners[event]) return;
+        this.listeners[event] = this.listeners[event].filter(f => f !== fn);
+      },
+      dispatchEvent: function(event) {
+        const type = event.type || event;
+        const ev = typeof event === 'string' ? { type: event, clientX: 0, clientY: 0, preventDefault: () => {}, stopPropagation: () => {} } : event;
+        if (!ev.target) ev.target = el;
+        if (this.listeners[type]) {
+          this.listeners[type].forEach(fn => fn(ev));
+        }
+      },
+      appendChild: function(child) {
+        child.parentElement = this;
+        this.children.push(child);
+        return child;
+      },
+      querySelector: function(sel) {
+        if (sel.startsWith('.')) {
+          const cls = sel.substring(1);
+          return findChild(this, c => c.classList && c.classList.contains(cls));
+        }
+        if (sel.startsWith('#')) {
+          const id = sel.substring(1);
+          return findChild(this, c => c.id === id);
+        }
+        return null;
+      },
+      querySelectorAll: function(sel) {
+        const results = [];
+        if (sel.startsWith('.')) {
+          const cls = sel.substring(1);
+          findAllChildren(this, c => c.classList && c.classList.contains(cls), results);
+        }
+        return results;
+      },
+      closest: function(sel) {
+        if (sel.startsWith('.')) {
+          const cls = sel.substring(1);
+          let curr = this;
+          while (curr) {
+            if (curr.classList && curr.classList.contains(cls)) return curr;
+            curr = curr.parentElement;
+          }
+        }
+        return null;
+      },
+      offsetWidth: 800,
+      offsetHeight: 550,
+      offsetLeft: 100,
+      offsetTop: 60
+    };
+    return el;
+  }
+
+  function findChild(parent, predicate) {
+    for (const child of parent.children) {
+      if (predicate(child)) return child;
+      const found = findChild(child, predicate);
+      if (found) return found;
+    }
+    return null;
+  }
+
+  function findAllChildren(parent, predicate, acc) {
+    for (const child of parent.children) {
+      if (predicate(child)) acc.push(child);
+      findAllChildren(child, predicate, acc);
+    }
+  }
+
+  const elementsById = {};
+  function getOrMakeEl(id, tag = 'div', className = '') {
+    if (!elementsById[id]) {
+      elementsById[id] = makeMockEl(tag, className);
+      elementsById[id].id = id;
+    }
+    return elementsById[id];
+  }
+
+  const mockBody = makeMockEl('body');
+  const mockDoc = {
+    body: mockBody,
+    getElementById: (id) => elementsById[id] || null,
+    createElement: (tag) => makeMockEl(tag),
+    querySelector: (sel) => {
+      if (sel.startsWith('#')) return elementsById[sel.substring(1)] || null;
+      return null;
+    },
+    querySelectorAll: (sel) => [],
+    addEventListener: (event, fn) => {
+      if (!docListeners[event]) docListeners[event] = [];
+      docListeners[event].push(fn);
+    },
+    removeEventListener: (event, fn) => {
+      if (!docListeners[event]) return;
+      docListeners[event] = docListeners[event].filter(f => f !== fn);
+    }
+  };
+
+  const sandbox = {
+    document: mockDoc,
+    localStorage: {
+      getItem: (k) => mockStorage[k] || null,
+      setItem: (k, v) => { mockStorage[k] = String(v); },
+      removeItem: (k) => { delete mockStorage[k]; }
+    },
+    console: console,
+    escapeHtml: (s) => s,
+    setStatusBarMessage: () => {},
+    Workstation: { activeTopology: { nodes: {}, tickets: [] } },
+    getComputedStyle: (el) => ({
+      cursor: 'default',
+      minWidth: (el && el.style && el.style.minWidth) || '400px',
+      minHeight: (el && el.style && el.style.minHeight) || '250px'
+    }),
+    innerWidth: 1400,
+    innerHeight: 900
+  };
+  sandbox.window = sandbox;
+
+  vm.createContext(sandbox);
+  vm.runInContext(mdiCode, sandbox);
+  vm.runInContext(propGridCode, sandbox);
+
+  // 1. Verify MDI Window 8-way resize handle injection
+  const win1 = getOrMakeEl('modal-test-win', 'div', 'mdi-window');
+  win1.style.width = '800px';
+  win1.style.height = '500px';
+  win1.style.top = '60px';
+  win1.style.left = '100px';
+  const titleBar1 = makeMockEl('div', 'mdi-title-bar');
+  win1.appendChild(titleBar1);
+
+  sandbox.MDIWindowManager.registerWindow('modal-test-win', { title: 'Test Window' });
+
+  const handles = win1.querySelector('.mdi-resize-handles');
+  assert(Boolean(handles), 'registerWindow injects .mdi-resize-handles container');
+  assertEqual(handles.children.length, 8, '8 distinct resize handles injected into window');
+
+  const expectedDirs = ['n', 's', 'e', 'w', 'nw', 'ne', 'sw', 'se'];
+  const actualDirs = handles.children.map(h => h.dataset.direction);
+  expectedDirs.forEach(dir => {
+    assert(actualDirs.includes(dir), `Handle for direction '${dir}' exists`);
+  });
+
+  // 2. Verify window geometry persistence in localStorage
+  mockStorage['cs_mdi_geometry_modal-persisted-win'] = JSON.stringify({
+    top: '75px',
+    left: '125px',
+    width: '680px',
+    height: '420px'
+  });
+  const win2 = getOrMakeEl('modal-persisted-win', 'div', 'mdi-window');
+  const titleBar2 = makeMockEl('div', 'mdi-title-bar');
+  win2.appendChild(titleBar2);
+
+  sandbox.MDIWindowManager.registerWindow('modal-persisted-win', { title: 'Persisted Window' });
+  assertEqual(win2.style.width, '680px', 'registerWindow restores persisted width from localStorage');
+  assertEqual(win2.style.height, '420px', 'registerWindow restores persisted height from localStorage');
+  assertEqual(win2.style.top, '75px', 'registerWindow restores persisted top from localStorage');
+  assertEqual(win2.style.left, '125px', 'registerWindow restores persisted left from localStorage');
+
+  // 3. Test setupPaneSplitter & Right Dock Splitter
+  const dockSplitter = getOrMakeEl('dock-splitter', 'div', 'workspace-splitter-vertical');
+  const propDock = getOrMakeEl('properties-dock', 'div');
+  propDock.offsetWidth = 310;
+  propDock.style.width = '310px';
+
+  let canvasRenderCount = 0;
+  sandbox.renderCanvas = () => { canvasRenderCount++; };
+
+  sandbox.setupPaneSplitter(dockSplitter, propDock, {
+    mode: 'right',
+    minWidth: 240,
+    maxWidth: 600,
+    defaultWidth: 310,
+    storageKey: 'cs_properties_dock_width',
+    onResize: () => { sandbox.renderCanvas(); },
+    onResizeEnd: () => { sandbox.renderCanvas(); }
+  });
+
+  // Simulate mouse down at x=500
+  dockSplitter.dispatchEvent({
+    type: 'mousedown',
+    clientX: 500,
+    clientY: 200,
+    preventDefault: () => {}
+  });
+
+  // Move left by 80px (dx = -80 -> width = 310 - (-80) = 390px)
+  const moveFn = docListeners['mousemove'] ? docListeners['mousemove'][0] : null;
+  assert(Boolean(moveFn), 'mousedown on dock splitter attaches mousemove listener');
+  if (moveFn) {
+    moveFn({ clientX: 420, clientY: 200 });
+    assertEqual(propDock.style.width, '390px', 'Dragging splitter left widens properties dock smoothly');
+  }
+
+  // Mouse up persists to localStorage and triggers renderCanvas
+  const upFn = docListeners['mouseup'] ? docListeners['mouseup'][0] : null;
+  assert(Boolean(upFn), 'mousedown on dock splitter attaches mouseup listener');
+  if (upFn) {
+    upFn();
+    assertEqual(mockStorage['cs_properties_dock_width'], '390px', 'Splitter mouseup persists dock width to localStorage');
+    assert(canvasRenderCount > 0, 'Splitter adjustment triggers CAD canvas re-render');
+  }
+
+  // Constrain to maximum 600px
+  dockSplitter.dispatchEvent({ type: 'mousedown', clientX: 500, clientY: 200, preventDefault: () => {} });
+  if (docListeners['mousemove'][0]) {
+    docListeners['mousemove'][0]({ clientX: 100, clientY: 200 });
+    assertEqual(propDock.style.width, '600px', 'Dock width constrained to 600px maximum');
+    docListeners['mouseup'][0]();
+  }
+
+  // Constrain to minimum 240px
+  dockSplitter.dispatchEvent({ type: 'mousedown', clientX: 500, clientY: 200, preventDefault: () => {} });
+  if (docListeners['mousemove'][0]) {
+    docListeners['mousemove'][0]({ clientX: 900, clientY: 200 });
+    assertEqual(propDock.style.width, '240px', 'Dock width constrained to 240px minimum');
+    docListeners['mouseup'][0]();
+  }
+
+  // Double click resets dock to default 310px
+  dockSplitter.dispatchEvent({ type: 'dblclick' });
+  assertEqual(propDock.style.width, '310px', 'Double clicking dock splitter resets width to default 310px');
+  assertEqual(mockStorage['cs_properties_dock_width'], '310px', 'Double click resets localStorage to 310px');
+
+  // 4. Test togglePropertiesDock toggles dock and splitter together
+  propDock.style.display = 'flex';
+  dockSplitter.style.display = 'block';
+
+  sandbox.togglePropertiesDock();
+  assertEqual(propDock.style.display, 'none', 'togglePropertiesDock hides properties-dock');
+  assertEqual(dockSplitter.style.display, 'none', 'togglePropertiesDock also hides dock-splitter');
+
+  sandbox.togglePropertiesDock();
+  assertEqual(propDock.style.display, 'flex', 'togglePropertiesDock restores properties-dock');
+  assertEqual(dockSplitter.style.display, 'block', 'togglePropertiesDock restores dock-splitter');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -5324,6 +5599,7 @@ function testTicketCenterEnhancements() {
     testNpcSocialWebAndRelationalGraph();
     testLocationNamesInStationedNodeColumns();
     testTicketCenterEnhancements();
+    testMdiWindowResizingAndDockSplitters();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

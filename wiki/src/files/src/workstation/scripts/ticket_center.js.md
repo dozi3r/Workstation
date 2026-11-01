@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/ticket_center.js"
 title: "ticket_center.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "c1c6abe9792a7433"
-reviewed_hash: "c1c6abe9792a7433"
+current_hash: "0914e2bfc27ff098"
+reviewed_hash: "0914e2bfc27ff098"
 stale: false
-size_bytes: 28643
-line_count: 578
+size_bytes: 38218
+line_count: 793
 ---
 
 # ticket_center.js

@@ -3,7 +3,7 @@ id: SYS-START-18
 title: "Resizable MDI Windows & Flexible Workspace Dock Splitters"
 pipeline_tier: 0
 target_surface: "start.html"
-status: ready
+status: shipped
 category: "system_architecture"
 wave: "Workstation Architecture: Desktop MDI Shell & Layout Flexibility"
 grounded_prerequisites: ["docs/adr/0004-desktop-workstation-start-html.md", "src/workstation/scripts/mdi_window_manager.js", "src/workstation/styles/win95_workstation.css"]
@@ -14,7 +14,7 @@ standalone_fallback: "Fixed-dimension MDI windows with maximize/restore buttons.
 ---
 # SYS-START-18: Resizable MDI Windows & Flexible Workspace Dock Splitters
 *Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  
-*Status: ready*  
+*Status: shipped*  
 *Date: 2026-11-01*
 
 ## 1. Overview & Objective
@@ -44,6 +44,6 @@ Extend `MDIWindowManager` with pointer-drag listeners:
 ---
 
 ## 3. Acceptance Criteria
-- [ ] Users can drag the edges and corners of all MDI windows to resize them smoothly without cursor detachment.
-- [ ] Dragging the workspace splitter bar smoothly adjusts the right dock width and re-centers the CAD canvas.
-- [ ] Resized dimensions persist across page reloads in `localStorage`.
+- [x] Users can drag the edges and corners of all MDI windows to resize them smoothly without cursor detachment.
+- [x] Dragging the workspace splitter bar smoothly adjusts the right dock width and re-centers the CAD canvas.
+- [x] Resized dimensions persist across page reloads in `localStorage`.

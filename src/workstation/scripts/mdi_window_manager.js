@@ -10,6 +10,18 @@
         const el = document.getElementById(id);
         if (!el) return;
 
+        // Restore persisted window geometry from localStorage (SYS-START-18)
+        try {
+          const raw = localStorage.getItem(`cs_mdi_geometry_${id}`);
+          if (raw) {
+            const saved = JSON.parse(raw);
+            if (saved.width) el.style.width = saved.width;
+            if (saved.height) el.style.height = saved.height;
+            if (saved.top) el.style.top = saved.top;
+            if (saved.left) el.style.left = saved.left;
+          }
+        } catch (_) {}
+
         this.windows[id] = {
           id: id,
           title: config.title || id,
@@ -17,10 +29,16 @@
           el: el,
           minimized: false,
           maximized: false,
-          lastPos: { top: el.style.top || '60px', left: el.style.left || '100px', width: el.style.width || '800px', height: el.style.height || '550px' }
+          lastPos: {
+            top: el.style.top || '60px',
+            left: el.style.left || '100px',
+            width: el.style.width || '800px',
+            height: el.style.height || '550px'
+          }
         };
 
         this.setupDragging(id);
+        this.setupResizing(id);
         this.renderTaskbar();
       },
 
@@ -55,7 +73,7 @@
           const dx = e.clientX - startX;
           const dy = e.clientY - startY;
           win.el.style.left = `${Math.max(10, initialLeft + dx)}px`;
-          win.el.style.top = `${Math.max(30, initialTop + dy)}px`;
+          win.el.style.top = `${Math.max(28, initialTop + dy)}px`;
         };
 
         const onMouseUp = () => {
@@ -64,11 +82,131 @@
             document.body.classList.remove('mdi-dragging');
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
+
+            win.lastPos = {
+              top: win.el.style.top || `${win.el.offsetTop}px`,
+              left: win.el.style.left || `${win.el.offsetLeft}px`,
+              width: win.el.style.width || `${win.el.offsetWidth}px`,
+              height: win.el.style.height || `${win.el.offsetHeight}px`
+            };
+            try {
+              localStorage.setItem(`cs_mdi_geometry_${id}`, JSON.stringify(win.lastPos));
+            } catch (_) {}
           }
         };
 
         header.addEventListener('mousedown', onMouseDown);
         win.el.addEventListener('mousedown', () => this.bringToFront(id));
+      },
+
+      setupResizing(id) {
+        const win = this.windows[id];
+        if (!win) return;
+        const el = win.el;
+
+        let handleContainer = el.querySelector('.mdi-resize-handles');
+        if (!handleContainer) {
+          handleContainer = document.createElement('div');
+          handleContainer.className = 'mdi-resize-handles';
+          const dirs = ['n', 's', 'e', 'w', 'nw', 'ne', 'sw', 'se'];
+          dirs.forEach(dir => {
+            const h = document.createElement('div');
+            h.className = `mdi-resize-handle handle-${dir}`;
+            h.dataset.direction = dir;
+            handleContainer.appendChild(h);
+          });
+          el.appendChild(handleContainer);
+        }
+
+        handleContainer.addEventListener('mousedown', (e) => {
+          const handle = e.target.closest('.mdi-resize-handle');
+          if (!handle) return;
+          if (win.maximized) return;
+
+          e.preventDefault();
+          e.stopPropagation();
+          this.bringToFront(id);
+
+          const dir = handle.dataset.direction;
+          const startX = e.clientX;
+          const startY = e.clientY;
+          const startLeft = el.offsetLeft;
+          const startTop = el.offsetTop;
+          const startWidth = el.offsetWidth;
+          const startHeight = el.offsetHeight;
+
+          // Constrain resize operations to window minimums (min-width: 400px; min-height: 250px)
+          const computedStyle = (typeof window !== 'undefined' && window.getComputedStyle) ? window.getComputedStyle(el) : null;
+          const styleMinW = computedStyle ? parseInt(computedStyle.minWidth, 10) : 0;
+          const styleMinH = computedStyle ? parseInt(computedStyle.minHeight, 10) : 0;
+          const minW = Math.max(400, isNaN(styleMinW) ? 0 : styleMinW);
+          const minH = Math.max(250, isNaN(styleMinH) ? 0 : styleMinH);
+
+          const savedCursor = document.body.style.cursor;
+          const handleCursor = (computedStyle && window.getComputedStyle(handle)) ? window.getComputedStyle(handle).cursor : '';
+          document.body.style.cursor = handleCursor || 'nwse-resize';
+          document.body.classList.add('mdi-resizing');
+
+          let isResizing = true;
+
+          const onMouseMove = (ev) => {
+            if (!isResizing) return;
+            const dx = ev.clientX - startX;
+            const dy = ev.clientY - startY;
+
+            let newWidth = startWidth;
+            let newHeight = startHeight;
+            let newLeft = startLeft;
+            let newTop = startTop;
+
+            if (dir.includes('e')) {
+              newWidth = Math.max(minW, startWidth + dx);
+            }
+            if (dir.includes('s')) {
+              newHeight = Math.max(minH, startHeight + dy);
+            }
+            if (dir.includes('w')) {
+              const right = startLeft + startWidth;
+              const candLeft = startLeft + dx;
+              newLeft = Math.max(0, Math.min(right - minW, candLeft));
+              newWidth = right - newLeft;
+            }
+            if (dir.includes('n')) {
+              const bottom = startTop + startHeight;
+              const candTop = startTop + dy;
+              newTop = Math.max(28, Math.min(bottom - minH, candTop));
+              newHeight = bottom - newTop;
+            }
+
+            el.style.width = `${newWidth}px`;
+            el.style.height = `${newHeight}px`;
+            el.style.left = `${newLeft}px`;
+            el.style.top = `${newTop}px`;
+          };
+
+          const onMouseUp = () => {
+            if (!isResizing) return;
+            isResizing = false;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            document.body.classList.remove('mdi-resizing');
+            document.body.style.cursor = savedCursor;
+
+            win.lastPos = {
+              top: el.style.top || `${el.offsetTop}px`,
+              left: el.style.left || `${el.offsetLeft}px`,
+              width: el.style.width || `${el.offsetWidth}px`,
+              height: el.style.height || `${el.offsetHeight}px`
+            };
+
+            try {
+              localStorage.setItem(`cs_mdi_geometry_${id}`, JSON.stringify(win.lastPos));
+            } catch (_) {}
+          };
+
+          document.addEventListener('mousemove', onMouseMove);
+          document.addEventListener('mouseup', onMouseUp);
+        });
       },
 
       bringToFront(id) {
@@ -264,6 +402,8 @@
           w.el.style.left = `${60 + (idx * 30)}px`;
           w.el.style.width = '780px';
           w.el.style.height = '500px';
+          w.lastPos = { top: w.el.style.top, left: w.el.style.left, width: w.el.style.width, height: w.el.style.height };
+          try { localStorage.setItem(`cs_mdi_geometry_${w.id}`, JSON.stringify(w.lastPos)); } catch (_) {}
           this.bringToFront(w.id);
         });
         this.renderTaskbar();
@@ -273,15 +413,17 @@
       tileHorizontally() {
         const openWins = Object.keys(this.windows).map(id => this.windows[id]).filter(w => !w.el.classList.contains('hidden'));
         if (openWins.length === 0) return;
-        const totalHeight = window.innerHeight - 90;
+        const totalHeight = (typeof window !== 'undefined' ? window.innerHeight : 900) - 90;
         const h = Math.max(180, Math.floor(totalHeight / openWins.length));
         openWins.forEach((w, idx) => {
           if (w.minimized) { w.minimized = false; w.el.classList.remove('minimized'); }
           if (w.maximized) { w.maximized = false; w.el.classList.remove('maximized'); }
           w.el.style.top = `${32 + (idx * h)}px`;
           w.el.style.left = '140px';
-          w.el.style.width = `${Math.max(500, window.innerWidth - 460)}px`;
+          w.el.style.width = `${Math.max(500, (typeof window !== 'undefined' ? window.innerWidth : 1400) - 460)}px`;
           w.el.style.height = `${h - 4}px`;
+          w.lastPos = { top: w.el.style.top, left: w.el.style.left, width: w.el.style.width, height: w.el.style.height };
+          try { localStorage.setItem(`cs_mdi_geometry_${w.id}`, JSON.stringify(w.lastPos)); } catch (_) {}
           this.bringToFront(w.id);
         });
         this.renderTaskbar();
@@ -291,7 +433,7 @@
       tileVertically() {
         const openWins = Object.keys(this.windows).map(id => this.windows[id]).filter(w => !w.el.classList.contains('hidden'));
         if (openWins.length === 0) return;
-        const totalWidth = window.innerWidth - 460;
+        const totalWidth = (typeof window !== 'undefined' ? window.innerWidth : 1400) - 460;
         const wWidth = Math.max(300, Math.floor(totalWidth / openWins.length));
         openWins.forEach((w, idx) => {
           if (w.minimized) { w.minimized = false; w.el.classList.remove('minimized'); }
@@ -299,7 +441,9 @@
           w.el.style.top = '40px';
           w.el.style.left = `${140 + (idx * wWidth)}px`;
           w.el.style.width = `${wWidth - 4}px`;
-          w.el.style.height = `${Math.max(300, window.innerHeight - 100)}px`;
+          w.el.style.height = `${Math.max(300, (typeof window !== 'undefined' ? window.innerHeight : 900) - 100)}px`;
+          w.lastPos = { top: w.el.style.top, left: w.el.style.left, width: w.el.style.width, height: w.el.style.height };
+          try { localStorage.setItem(`cs_mdi_geometry_${w.id}`, JSON.stringify(w.lastPos)); } catch (_) {}
           this.bringToFront(w.id);
         });
         this.renderTaskbar();
@@ -2411,3 +2555,136 @@
     function toggleMaximize() {
       setStatusBarMessage("Maximize / restore toggled.");
     }
+
+    // ========================================================================
+    // REUSABLE SPLITTER CONTROLLER & WORKSPACE SPLITTERS (SYS-START-18)
+    // ========================================================================
+    function setupPaneSplitter(splitterEl, targetPaneEl, options = {}) {
+      if (typeof splitterEl === 'string') splitterEl = document.getElementById(splitterEl);
+      if (typeof targetPaneEl === 'string') targetPaneEl = document.querySelector(targetPaneEl);
+      if (!splitterEl || !targetPaneEl) return;
+      if (splitterEl.dataset.splitterBound) return;
+      splitterEl.dataset.splitterBound = "true";
+
+      const mode = options.mode || 'left';
+      const minW = options.minWidth || 200;
+      const maxW = options.maxWidth || 800;
+      const defaultW = options.defaultWidth || targetPaneEl.offsetWidth || 300;
+      const storageKey = options.storageKey;
+
+      if (storageKey) {
+        try {
+          const saved = localStorage.getItem(storageKey);
+          if (saved) {
+            const parsed = parseInt(saved, 10);
+            if (!isNaN(parsed) && parsed >= minW && parsed <= maxW) {
+              targetPaneEl.style.width = `${parsed}px`;
+            }
+          }
+        } catch (_) {}
+      }
+
+      let isDragging = false;
+      let startX = 0;
+      let startW = 0;
+
+      const onMouseDown = (e) => {
+        e.preventDefault();
+        isDragging = true;
+        startX = e.clientX;
+        startW = targetPaneEl.offsetWidth;
+        splitterEl.classList.add('active');
+        document.body.classList.add('splitter-dragging');
+        document.body.style.cursor = 'col-resize';
+
+        const onMouseMove = (ev) => {
+          if (!isDragging) return;
+          const dx = ev.clientX - startX;
+          const newW = (mode === 'right')
+            ? Math.min(maxW, Math.max(minW, startW - dx))
+            : Math.min(maxW, Math.max(minW, startW + dx));
+          targetPaneEl.style.width = `${newW}px`;
+          if (typeof options.onResize === 'function') options.onResize(newW);
+        };
+
+        const onMouseUp = () => {
+          if (!isDragging) return;
+          isDragging = false;
+          splitterEl.classList.remove('active');
+          document.body.classList.remove('splitter-dragging');
+          document.body.style.cursor = '';
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+
+          if (storageKey) {
+            try {
+              localStorage.setItem(storageKey, targetPaneEl.style.width);
+            } catch (_) {}
+          }
+          if (typeof options.onResizeEnd === 'function') options.onResizeEnd();
+        };
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      };
+
+      splitterEl.addEventListener('mousedown', onMouseDown);
+
+      splitterEl.addEventListener('dblclick', () => {
+        targetPaneEl.style.width = `${defaultW}px`;
+        if (storageKey) {
+          try {
+            localStorage.setItem(storageKey, `${defaultW}px`);
+          } catch (_) {}
+        }
+        if (typeof options.onResize === 'function') options.onResize(defaultW);
+        if (typeof options.onResizeEnd === 'function') options.onResizeEnd();
+      });
+    }
+
+    function initWorkspaceSplitters() {
+      // 1. Right Properties Dock Splitter (SYS-START-18)
+      const dockSplitter = document.getElementById('dock-splitter');
+      const propDock = document.getElementById('properties-dock');
+      if (dockSplitter && propDock) {
+        setupPaneSplitter(dockSplitter, propDock, {
+          mode: 'right',
+          minWidth: 240,
+          maxWidth: 600,
+          defaultWidth: 310,
+          storageKey: 'cs_properties_dock_width',
+          onResize: () => { if (typeof renderCanvas === 'function') renderCanvas(); },
+          onResizeEnd: () => { if (typeof renderCanvas === 'function') renderCanvas(); }
+        });
+      }
+
+      // 2. Ticket Command Center Splitter (SYS-START-18)
+      const tcSplitter = document.getElementById('tc-splitter');
+      const tcPane = document.querySelector('#modal-ticket-center .ticket-list-pane');
+      if (tcSplitter && tcPane) {
+        setupPaneSplitter(tcSplitter, tcPane, {
+          mode: 'left',
+          minWidth: 260,
+          maxWidth: 650,
+          defaultWidth: 440,
+          storageKey: 'cs_ticket_center_table_width'
+        });
+      }
+
+      // 3. Module Explorer Splitter (SYS-START-18)
+      const meSplitter = document.getElementById('me-splitter');
+      const mePane = document.querySelector('#modal-module-explorer .me-catalog-pane');
+      if (meSplitter && mePane) {
+        setupPaneSplitter(meSplitter, mePane, {
+          mode: 'left',
+          minWidth: 260,
+          maxWidth: 600,
+          defaultWidth: 380,
+          storageKey: 'cs_module_explorer_catalog_width'
+        });
+      }
+    }
+
+    window.MDIWindowManager = MDIWindowManager;
+    window.setupPaneSplitter = setupPaneSplitter;
+    window.initWorkspaceSplitters = initWorkspaceSplitters;

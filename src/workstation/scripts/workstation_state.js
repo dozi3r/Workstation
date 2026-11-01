@@ -272,6 +272,7 @@
       try { initMenuBar(); } catch (e) { console.error('[Workstation] initMenuBar error:', e); }
       try { initCanvasInteractions(); } catch (e) { console.error('[Workstation] initCanvasInteractions error:', e); }
       try { setupKeyboardShortcuts(); } catch (e) { console.error('[Workstation] setupKeyboardShortcuts error:', e); }
+      try { if (typeof initWorkspaceSplitters === 'function') initWorkspaceSplitters(); } catch (e) { console.error('[Workstation] initWorkspaceSplitters error:', e); }
 
       try { initTopology(); } catch (e) { console.error('[Workstation] initTopology error:', e); }
       try { if (typeof initWikiEngine === "function") initWikiEngine(); } catch (e) { console.error('[Workstation] initWikiEngine error:', e); }
