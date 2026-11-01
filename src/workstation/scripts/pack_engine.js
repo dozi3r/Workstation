@@ -43,6 +43,94 @@
   }
 
   /**
+   * Helper: Convert DataURL to raw Uint8Array safely in browser and Node.js
+   */
+  function dataUrlToUint8Array(dataUrl) {
+    if (!dataUrl || typeof dataUrl !== 'string') return null;
+    const commaIdx = dataUrl.indexOf(',');
+    if (commaIdx === -1) return null;
+    const base64 = dataUrl.slice(commaIdx + 1);
+
+    if (typeof Buffer !== 'undefined') {
+      return new Uint8Array(Buffer.from(base64, 'base64'));
+    }
+    if (typeof atob !== 'undefined') {
+      const binary = atob(base64);
+      const len = binary.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      return bytes;
+    }
+    return null;
+  }
+
+  /**
+   * Helper: Remap foreign key references across entities and submap nodes when cloned
+   */
+  function remapEntityCluster(entities, submaps, entityIdMap, mapIdMap) {
+    const hasEntityRemaps = entityIdMap && Object.keys(entityIdMap).length > 0;
+    const hasMapRemaps = mapIdMap && Object.keys(mapIdMap).length > 0;
+    if (!hasEntityRemaps && !hasMapRemaps) return;
+
+    const remapId = (id) => (hasEntityRemaps && entityIdMap[id]) ? entityIdMap[id] : id;
+    const remapArr = (arr) => Array.isArray(arr) ? arr.map(remapId) : arr;
+
+    // Remap NPCs
+    if (entities && Array.isArray(entities.npcs)) {
+      for (const npc of entities.npcs) {
+        if (!npc) continue;
+        if (npc.questIds) npc.questIds = remapArr(npc.questIds);
+        if (npc.itemIds) npc.itemIds = remapArr(npc.itemIds);
+        if (Array.isArray(npc.relationships)) {
+          for (const rel of npc.relationships) {
+            if (rel && rel.targetNpcId) rel.targetNpcId = remapId(rel.targetNpcId);
+          }
+        }
+      }
+    }
+
+    // Remap Quests
+    if (entities && Array.isArray(entities.quests)) {
+      for (const q of entities.quests) {
+        if (!q) continue;
+        if (q.npcIds) q.npcIds = remapArr(q.npcIds);
+        if (q.targetNpcId) q.targetNpcId = remapId(q.targetNpcId);
+        if (q.giverNpcId) q.giverNpcId = remapId(q.giverNpcId);
+        if (q.itemIds) q.itemIds = remapArr(q.itemIds);
+      }
+    }
+
+    // Remap Items
+    if (entities && Array.isArray(entities.items)) {
+      for (const it of entities.items) {
+        if (!it) continue;
+        if (it.ownerNpcId) it.ownerNpcId = remapId(it.ownerNpcId);
+      }
+    }
+
+    // Remap Submap Nodes
+    if (submaps && typeof submaps === 'object') {
+      for (const mId of Object.keys(submaps)) {
+        const mapObj = submaps[mId];
+        if (mapObj && Array.isArray(mapObj.nodes)) {
+          for (const node of mapObj.nodes) {
+            if (!node) continue;
+            if (node.stationedNpcIds) node.stationedNpcIds = remapArr(node.stationedNpcIds);
+            if (node.npcIds) node.npcIds = remapArr(node.npcIds);
+            if (node.questIds) node.questIds = remapArr(node.questIds);
+            if (node.itemIds) node.itemIds = remapArr(node.itemIds);
+            if (hasMapRemaps && node.childMapId && mapIdMap[node.childMapId]) {
+              node.childMapId = mapIdMap[node.childMapId];
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
    * Validate a pack.json manifest structure
    */
   function validatePackManifest(manifest) {
@@ -204,10 +292,14 @@
     const resolvedEntryMapId = mapIdMap[manifest.entryMapId] || manifest.entryMapId;
 
     // 2. Portal Anchor Linking
-    if (anchorNodeId !== null) {
+    let previousChildMapId = null;
+    if (anchorNodeId !== null && anchorNodeId !== undefined) {
       const activeNodes = (typeof nodes !== 'undefined' && Array.isArray(nodes)) ? nodes : (topo.nodes || []);
       const anchorNode = activeNodes.find((n) => n && n.id == anchorNodeId);
       if (anchorNode) {
+        if (anchorNode.childMapId && anchorNode.childMapId !== resolvedEntryMapId) {
+          previousChildMapId = anchorNode.childMapId;
+        }
         anchorNode.childMapId = resolvedEntryMapId;
       }
     }
@@ -255,6 +347,8 @@
 
     // 4. Ingest Entities & Disambiguate Collisions
     const ingestedEntityIds = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+    const entityIdMap = {};
+
     for (const cat of ['npcs', 'quests', 'items', 'trackers', 'tickets']) {
       const incomingList = parsedPack.entities[cat] || [];
       const currentList = topo[cat];
@@ -277,8 +371,11 @@
             continue;
           } else {
             // Default: 'clone'
-            entCopy.id = `${entCopy.id}_${manifest.packId}_${Date.now()}`;
+            const origId = entCopy.id;
+            const newId = `${entCopy.id}_${manifest.packId}_${Date.now()}`;
+            entCopy.id = newId;
             entCopy.name = `${entCopy.name} (${manifest.name})`;
+            entityIdMap[origId] = newId;
           }
         }
 
@@ -286,6 +383,9 @@
         ingestedEntityIds[cat].push(entCopy.id);
       }
     }
+
+    // Remap relational cluster references across newly ingested entities and submaps
+    remapEntityCluster(topo, topo.maps, entityIdMap, mapIdMap);
 
     // 5. Ingest Custom Modules
     const ingestedModuleIds = [];
@@ -318,6 +418,7 @@
       version: manifest.version || '1.0.0',
       installedAt: new Date().toISOString(),
       anchorNodeId: anchorNodeId,
+      previousChildMapId: previousChildMapId,
       submapIds: Object.values(mapIdMap),
       entityIds: ingestedEntityIds,
       moduleIds: ingestedModuleIds
@@ -353,12 +454,32 @@
     if (packIdx === -1) return false;
     const pack = topo.installedPacks[packIdx];
 
-    // 1. Clear Portal Anchor Node childMapId
+    // 0. Active Map Safety Guard: Switch away if currently viewing a pack submap
+    const curActive = (typeof activeMapId !== 'undefined' && activeMapId) ? activeMapId : (topo.activeMapId || 'map_root');
+    if (pack.submapIds && pack.submapIds.includes(curActive)) {
+      const fallbackMap = 'map_root';
+      if (typeof switchActiveMap === 'function') {
+        try {
+          await switchActiveMap(fallbackMap, true);
+        } catch (_) {
+          if (typeof activeMapId !== 'undefined') activeMapId = fallbackMap;
+        }
+      } else {
+        if (typeof activeMapId !== 'undefined') activeMapId = fallbackMap;
+        if (topo.activeMapId) topo.activeMapId = fallbackMap;
+      }
+    }
+
+    // 1. Restore or Clear Portal Anchor Node childMapId
     if (pack.anchorNodeId !== null && pack.anchorNodeId !== undefined) {
       const activeNodes = (typeof nodes !== 'undefined' && Array.isArray(nodes)) ? nodes : (topo.nodes || []);
       const anchorNode = activeNodes.find((n) => n && n.id == pack.anchorNodeId);
       if (anchorNode && pack.submapIds.includes(anchorNode.childMapId)) {
-        delete anchorNode.childMapId;
+        if (pack.previousChildMapId) {
+          anchorNode.childMapId = pack.previousChildMapId;
+        } else {
+          delete anchorNode.childMapId;
+        }
       }
     }
 
@@ -387,16 +508,61 @@
       });
     }
 
-    // 4. Purge Custom Modules
-    if (pack.moduleIds && Array.isArray(topo.custom_modules)) {
+    // 4. Purge Custom Modules and Slotted Bindings
+    if (pack.moduleIds && Array.isArray(pack.moduleIds) && pack.moduleIds.length > 0) {
       const modIdsToRemove = new Set(pack.moduleIds);
-      topo.custom_modules = topo.custom_modules.filter((m) => m && !modIdsToRemove.has(m.id) && m._packId !== packId);
+      if (Array.isArray(topo.custom_modules)) {
+        topo.custom_modules = topo.custom_modules.filter((m) => m && !modIdsToRemove.has(m.id) && m._packId !== packId);
+      }
       if (typeof ALL_MODULES !== 'undefined' && Array.isArray(ALL_MODULES)) {
         for (let i = ALL_MODULES.length - 1; i >= 0; i--) {
           if (modIdsToRemove.has(ALL_MODULES[i].id)) {
             ALL_MODULES.splice(i, 1);
           }
         }
+      }
+      if (typeof MODULES_MANIFEST !== 'undefined' && Array.isArray(MODULES_MANIFEST)) {
+        for (let i = MODULES_MANIFEST.length - 1; i >= 0; i--) {
+          if (modIdsToRemove.has(MODULES_MANIFEST[i].id)) {
+            MODULES_MANIFEST.splice(i, 1);
+          }
+        }
+      }
+      // Purge nodeSlottedModules
+      if (typeof nodeSlottedModules !== 'undefined' && nodeSlottedModules) {
+        Object.keys(nodeSlottedModules).forEach((nid) => {
+          if (Array.isArray(nodeSlottedModules[nid])) {
+            nodeSlottedModules[nid] = nodeSlottedModules[nid].filter((mId) => !modIdsToRemove.has(String(mId)));
+          }
+        });
+      }
+      // Purge edgeSlottedModules
+      if (typeof edgeSlottedModules !== 'undefined' && edgeSlottedModules) {
+        Object.keys(edgeSlottedModules).forEach((ek) => {
+          if (modIdsToRemove.has(String(edgeSlottedModules[ek]))) {
+            delete edgeSlottedModules[ek];
+          }
+        });
+      }
+      // Purge modules on nodes across maps
+      if (typeof maps !== 'undefined' && maps) {
+        Object.values(maps).forEach((m) => {
+          if (m && m.nodes) {
+            (Array.isArray(m.nodes) ? m.nodes : Object.values(m.nodes)).forEach((n) => {
+              if (n && n.modules) n.modules = n.modules.filter((mId) => !modIdsToRemove.has(String(mId)));
+            });
+          }
+          if (m && m.nodeSlottedModules) {
+            Object.keys(m.nodeSlottedModules).forEach((nid) => {
+              if (Array.isArray(m.nodeSlottedModules[nid])) {
+                m.nodeSlottedModules[nid] = m.nodeSlottedModules[nid].filter((mId) => !modIdsToRemove.has(String(mId)));
+              }
+            });
+          }
+        });
+      }
+      if (typeof syncCustomModulesToCatalog === 'function') {
+        try { syncCustomModulesToCatalog(topo); } catch (_) {}
       }
     }
 
@@ -470,10 +636,334 @@
     return zip.generateBlob();
   }
 
+  /**
+   * Win95 File Picker Trigger for Packs
+   */
+  function triggerInstallPackFile() {
+    if (typeof document === 'undefined') return;
+    const input = document.getElementById('pack-installer-file-input');
+    if (input) {
+      input.value = '';
+      input.click();
+    }
+  }
+
+  /**
+   * File selection handler for #pack-installer-file-input
+   */
+  async function onPackFileSelected(event) {
+    const file = event.target && event.target.files && event.target.files[0];
+    if (!file) return;
+    try {
+      await packEngine.openInstallerDialog(file);
+    } catch (err) {
+      console.error('[PackEngine] Error opening installer dialog:', err);
+      if (typeof alert === 'function') alert('Failed to load pack archive: ' + err.message);
+    } finally {
+      if (event.target) event.target.value = '';
+    }
+  }
+
+  /**
+   * Tab switcher for #modal-pack-installer dialog
+   */
+  function switchPackInstallerTab(tabName) {
+    if (typeof document === 'undefined') return;
+    const tabs = ['overview', 'anchor', 'conflicts'];
+    for (const t of tabs) {
+      const btn = document.getElementById(`btn-ptab-${t}`);
+      const content = document.getElementById(`ptab-content-${t}`);
+      if (btn) btn.classList.toggle('active', t === tabName);
+      if (content) content.classList.toggle('hidden', t !== tabName);
+    }
+  }
+
+  /**
+   * Populate #modal-pack-installer dialog with staged pack metadata & options
+   */
+  function populatePackInstallerModal(parsedPack) {
+    if (typeof document === 'undefined') return;
+    if (!parsedPack || !parsedPack.manifest) return;
+    const manifest = parsedPack.manifest;
+    const nameEl = document.getElementById('pack-preview-name');
+    const metaEl = document.getElementById('pack-preview-meta');
+    const descEl = document.getElementById('pack-preview-desc');
+    const countsEl = document.getElementById('pack-preview-counts');
+    const promptBox = document.getElementById('pack-preview-anchor-prompt');
+    const promptText = document.getElementById('pack-preview-anchor-prompt-text');
+    const statusEl = document.getElementById('pack-installer-status');
+
+    if (nameEl) nameEl.textContent = manifest.name || manifest.packId;
+    if (metaEl) metaEl.textContent = `Author: ${manifest.author || 'Unknown'} | Version: ${manifest.version || '1.0.0'} | Domain: ${manifest.ipDomain || 'Custom'}`;
+    if (descEl) descEl.textContent = manifest.description || 'No description provided.';
+    if (statusEl) statusEl.textContent = `Pack: ${manifest.packId} (${Object.keys(parsedPack.maps || {}).length} map(s))`;
+
+    if (promptBox && promptText) {
+      if (manifest.recommendedAnchor && manifest.recommendedAnchor.prompt) {
+        promptText.textContent = manifest.recommendedAnchor.prompt;
+        promptBox.style.display = 'block';
+      } else {
+        promptBox.style.display = 'none';
+      }
+    }
+
+    if (countsEl) {
+      const mapsCount = Object.keys(parsedPack.maps || {}).length;
+      const npcsCount = (parsedPack.entities && parsedPack.entities.npcs || []).length;
+      const questsCount = (parsedPack.entities && parsedPack.entities.quests || []).length;
+      const itemsCount = (parsedPack.entities && parsedPack.entities.items || []).length;
+
+      countsEl.innerHTML = `
+        <div class="bevel-thin-inset" style="padding:6px; background:#f9f9f9; text-align:center;">
+          <div style="font-size:16px; font-weight:bold; color:#000080;">${mapsCount}</div>
+          <div style="font-size:10px; color:#555;">Submaps</div>
+        </div>
+        <div class="bevel-thin-inset" style="padding:6px; background:#f9f9f9; text-align:center;">
+          <div style="font-size:16px; font-weight:bold; color:#000080;">${npcsCount}</div>
+          <div style="font-size:10px; color:#555;">NPCs</div>
+        </div>
+        <div class="bevel-thin-inset" style="padding:6px; background:#f9f9f9; text-align:center;">
+          <div style="font-size:16px; font-weight:bold; color:#000080;">${questsCount}</div>
+          <div style="font-size:10px; color:#555;">Quests</div>
+        </div>
+        <div class="bevel-thin-inset" style="padding:6px; background:#f9f9f9; text-align:center;">
+          <div style="font-size:16px; font-weight:bold; color:#000080;">${itemsCount}</div>
+          <div style="font-size:10px; color:#555;">Items/Relics</div>
+        </div>
+      `;
+    }
+
+    // Populate Anchor Dropdown
+    const selectEl = document.getElementById('pack-anchor-node-select');
+    const warningEl = document.getElementById('pack-anchor-collision-warning');
+    if (selectEl) {
+      selectEl.innerHTML = '<option value="">[Do not link - Keep as independent submap]</option>';
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      const activeNodes = (typeof nodes !== 'undefined' && Array.isArray(nodes)) ? nodes : (topo && topo.nodes || []);
+
+      for (const n of activeNodes) {
+        if (!n) continue;
+        const opt = document.createElement('option');
+        opt.value = n.id;
+        const portalText = n.childMapId ? ` (⚠️ Already linked: ${n.childMapId})` : '';
+        opt.textContent = `Node #${n.id}: ${n.name || 'Unnamed'}${portalText}`;
+        if (!opt.dataset) opt.dataset = {};
+        opt.dataset.hasPortal = n.childMapId ? 'true' : 'false';
+        selectEl.appendChild(opt);
+      }
+
+      selectEl.onchange = function() {
+        const selected = selectEl.options[selectEl.selectedIndex];
+        if (warningEl) {
+          warningEl.style.display = (selected && selected.dataset.hasPortal === 'true') ? 'block' : 'none';
+        }
+      };
+    }
+
+    // Populate Entity Conflicts
+    const conflictsList = document.getElementById('pack-conflicts-list');
+    if (conflictsList) {
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      let conflictsCount = 0;
+      let conflictsHtml = '';
+
+      if (topo && parsedPack.entities) {
+        for (const cat of ['npcs', 'quests', 'items']) {
+          const incomingList = parsedPack.entities[cat] || [];
+          const currentList = topo[cat] || [];
+          for (const ent of incomingList) {
+            const collision = currentList.find((e) => e && (e.id === ent.id || (e.name && e.name === ent.name)));
+            if (collision) {
+              conflictsCount++;
+              conflictsHtml += `
+                <div class="bevel-thin-inset" style="padding:6px; background:#fffbe8; display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <strong>${cat.toUpperCase().slice(0, -1)}:</strong> ${ent.name || ent.id}
+                    <div style="font-size:10px; color:#666;">Matches existing "${collision.name || collision.id}"</div>
+                  </div>
+                  <div style="display:flex; gap:8px; font-size:11px;">
+                    <label><input type="radio" name="conflict_${ent.id}" value="clone" checked> Clone (Recommended)</label>
+                    <label><input type="radio" name="conflict_${ent.id}" value="overwrite"> Overwrite</label>
+                    <label><input type="radio" name="conflict_${ent.id}" value="skip"> Skip</label>
+                  </div>
+                </div>
+              `;
+            }
+          }
+        }
+      }
+
+      if (conflictsCount === 0) {
+        conflictsList.innerHTML = '<div style="color:#666; font-style:italic; font-size:11px;">No naming collisions detected with active campaign roster.</div>';
+      } else {
+        conflictsList.innerHTML = conflictsHtml;
+      }
+    }
+
+    switchPackInstallerTab('overview');
+  }
+
+  /**
+   * Gather choices from dialog and execute pack installation
+   */
+  async function executePackInstallation() {
+    if (typeof document === 'undefined') return;
+    if (!packEngine.stagedPack) {
+      if (typeof alert === 'function') alert('No pack currently staged for installation.');
+      return;
+    }
+
+    const selectEl = document.getElementById('pack-anchor-node-select');
+    const rawAnchor = selectEl ? selectEl.value : '';
+    const anchorNodeId = rawAnchor !== '' ? (isNaN(Number(rawAnchor)) ? rawAnchor : Number(rawAnchor)) : null;
+
+    // Collect conflict resolutions
+    const conflictResolutions = {};
+    const conflictInputs = document.querySelectorAll('input[type="radio"][name^="conflict_"]:checked');
+    conflictInputs.forEach((input) => {
+      const entityId = input.name.replace(/^conflict_/, '');
+      conflictResolutions[entityId] = input.value;
+    });
+
+    try {
+      const ledger = await packEngine.executeInstallFromDialog({
+        anchorNodeId,
+        conflictResolutions
+      });
+
+      if (typeof MDIWindowManager !== 'undefined' && typeof MDIWindowManager.close === 'function') {
+        MDIWindowManager.close('modal-pack-installer');
+      }
+
+      if (typeof setStatusBarMessage === 'function') {
+        setStatusBarMessage(`Pack installed successfully: "${ledger.name}" (${ledger.submapIds.length} submap(s)).`);
+      }
+    } catch (err) {
+      console.error('[PackEngine] Installation failed:', err);
+      if (typeof alert === 'function') alert('Failed to install pack: ' + err.message);
+    }
+  }
+
+  /**
+   * Deep Module UI Controller: Pack Engine State & Dialog Lifecycle
+   */
+  const packEngine = {
+    stagedPack: null,
+    stagedFile: null,
+
+    async openInstallerDialog(arrayBufferOrFile) {
+      let arrayBuffer = null;
+      let fileName = 'pack.csmod';
+      const isArrayBuffer = (typeof ArrayBuffer !== 'undefined' && arrayBufferOrFile instanceof ArrayBuffer) ||
+                            (arrayBufferOrFile && typeof arrayBufferOrFile.byteLength === 'number' && typeof arrayBufferOrFile.slice === 'function');
+      if (isArrayBuffer) {
+        arrayBuffer = arrayBufferOrFile;
+      } else if (typeof File !== 'undefined' && arrayBufferOrFile instanceof File) {
+        fileName = arrayBufferOrFile.name;
+        arrayBuffer = await arrayBufferOrFile.arrayBuffer();
+      } else if (arrayBufferOrFile && typeof arrayBufferOrFile.arrayBuffer === 'function') {
+        fileName = arrayBufferOrFile.name || fileName;
+        arrayBuffer = await arrayBufferOrFile.arrayBuffer();
+      } else {
+        throw new Error('Invalid pack input: expected ArrayBuffer or File');
+      }
+
+      const parsed = await parsePackArchive(arrayBuffer);
+      packEngine.stagedPack = parsed;
+      packEngine.stagedFile = { name: fileName, size: arrayBuffer.byteLength };
+
+      if (typeof populatePackInstallerModal === 'function') {
+        populatePackInstallerModal(parsed);
+      }
+      if (typeof MDIWindowManager !== 'undefined' && typeof MDIWindowManager.open === 'function') {
+        MDIWindowManager.open('modal-pack-installer');
+      }
+      return parsed;
+    },
+
+    async executeInstallFromDialog(config = {}) {
+      if (!packEngine.stagedPack) {
+        throw new Error('No pack currently staged for installation');
+      }
+      const result = await installPackIntoCampaign(packEngine.stagedPack, config);
+      packEngine.stagedPack = null;
+      packEngine.stagedFile = null;
+      return result;
+    },
+
+    renderInstalledPacksView(containerEl) {
+      if (!containerEl) return;
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology)
+        ? Workstation.activeTopology
+        : (typeof activeTopology !== 'undefined' ? activeTopology : null);
+      const packs = (topo && Array.isArray(topo.installedPacks)) ? topo.installedPacks : [];
+
+      if (packs.length === 0) {
+        containerEl.innerHTML = '<div style="padding:12px; color:#666; font-style:italic; text-align:center;">No modular entity packs installed in this campaign.</div>';
+        return;
+      }
+
+      const escapeHtml = (str) => String(str || '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+
+      let html = '<table class="win95-table" style="width:100%; border-collapse:collapse; font-size:11px;">';
+      html += '<thead><tr style="background:#e0e0e0; text-align:left;">';
+      html += '<th style="border:1px solid #999; padding:4px;">Pack Name</th>';
+      html += '<th style="border:1px solid #999; padding:4px;">Version</th>';
+      html += '<th style="border:1px solid #999; padding:4px;">Installed</th>';
+      html += '<th style="border:1px solid #999; padding:4px;">Anchor Node</th>';
+      html += '<th style="border:1px solid #999; padding:4px;">Submaps</th>';
+      html += '<th style="border:1px solid #999; padding:4px; text-align:center;">Action</th>';
+      html += '</tr></thead><tbody>';
+
+      for (const p of packs) {
+        const pId = p.packId || 'unknown';
+        const pName = p.name || pId;
+        const pVer = p.version || '1.0.0';
+        const pDate = p.installedAt ? new Date(p.installedAt).toLocaleDateString() : 'N/A';
+        const pAnchor = p.anchorNodeId !== null && p.anchorNodeId !== undefined ? `Node #${p.anchorNodeId}` : 'Independent';
+        const pSubmaps = (p.submapIds || []).length;
+
+        html += '<tr>';
+        html += `<td style="border:1px solid #ccc; padding:4px; font-weight:bold;">${escapeHtml(pName)}</td>`;
+        html += `<td style="border:1px solid #ccc; padding:4px;">${escapeHtml(pVer)}</td>`;
+        html += `<td style="border:1px solid #ccc; padding:4px;">${escapeHtml(pDate)}</td>`;
+        html += `<td style="border:1px solid #ccc; padding:4px;">${escapeHtml(pAnchor)}</td>`;
+        html += `<td style="border:1px solid #ccc; padding:4px;">${pSubmaps}</td>`;
+        html += `<td style="border:1px solid #ccc; padding:4px; text-align:center;">`;
+        html += `<button class="win-btn" onclick="packEngine.requestPackUninstall('${escapeHtml(pId)}')">Uninstall...</button>`;
+        html += `</td></tr>`;
+      }
+      html += '</tbody></table>';
+      containerEl.innerHTML = html;
+    },
+
+    async requestPackUninstall(packId) {
+      if (!packId) return false;
+      if (typeof confirm === 'function') {
+        const ok = confirm('Uninstalling this pack will remove its submaps and unstationed characters. Proceed?');
+        if (!ok) return false;
+      }
+      const success = await uninstallPackFromCampaign(packId);
+      if (success) {
+        const container = document.getElementById('installed-packs-container');
+        if (container) packEngine.renderInstalledPacksView(container);
+      }
+      return success;
+    }
+  };
+
   // Export on window for modular script execution
   window.validatePackManifest = validatePackManifest;
   window.parsePackArchive = parsePackArchive;
   window.installPackIntoCampaign = installPackIntoCampaign;
   window.uninstallPackFromCampaign = uninstallPackFromCampaign;
   window.buildPackArchive = buildPackArchive;
+  window.dataUrlToUint8Array = dataUrlToUint8Array;
+  window.remapEntityCluster = remapEntityCluster;
+  window.packEngine = packEngine;
+  window.triggerInstallPackFile = triggerInstallPackFile;
+  window.onPackFileSelected = onPackFileSelected;
+  window.switchPackInstallerTab = switchPackInstallerTab;
+  window.populatePackInstallerModal = populatePackInstallerModal;
+  window.executePackInstallation = executePackInstallation;
 })();

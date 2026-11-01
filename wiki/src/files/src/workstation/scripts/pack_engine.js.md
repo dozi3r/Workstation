@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/pack_engine.js"
 title: "pack_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "4dd3d3ba91bb7061"
-reviewed_hash: "4dd3d3ba91bb7061"
+current_hash: "522068af272b54ce"
+reviewed_hash: "522068af272b54ce"
 stale: false
-size_bytes: 17146
-line_count: 480
+size_bytes: 38472
+line_count: 970
 ---
 
 # pack_engine.js
@@ -18,4 +18,8 @@ line_count: 480
 
 - **Workstation Modular Engine**: Inlined into `start.html` via `// @@INCLUDE: scripts/pack_engine.js @@` inside `src/workstation/template.html`.
 - **Single Source of Truth Rule**: Always edit `src/workstation/scripts/pack_engine.js` rather than the compiled bundle in `start.html`, then run `Build-Suite.ps1`.
+- **Entity Module Pack Engine (.csmod)**: Provides offline zero-CORS ingestion, archive parsing, manifest validation, scale-fluid portal anchoring, relational cluster remapping, provenance tracking, cascade uninstallation, and binary export.
+- **Deep Module Seam (`window.packEngine`)**: Exposes controller APIs `openInstallerDialog()`, `executeInstallFromDialog()`, `renderInstalledPacksView()`, and `requestPackUninstall()`.
+- **Relational Integrity (`remapEntityCluster`)**: Remaps all foreign keys (`quest.npcIds`, `quest.itemIds`, `item.ownerNpcId`, `npc.relationships`, and submap `node.stationedNpcIds` / `node.childMapId`) when cloned entities are disambiguated.
+- **Teardown Safeguards**: Enforces active map safety guard before deleting submaps, restores prior portal links on anchor nodes via `previousChildMapId`, and purges custom module slotting across maps and nodes.
 <!-- END_CUSTOM_NOTES -->

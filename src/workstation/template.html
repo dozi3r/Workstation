@@ -51,6 +51,7 @@ CRITICAL INSTRUCTION:
 
     <!-- Hidden Map Image File Ingestion Input -->
     <input type="file" id="cad-map-file-input" accept="image/png,image/jpeg,image/webp,image/svg+xml" style="display:none;" onchange="onMapFileSelected(event)">
+    <input type="file" id="pack-installer-file-input" accept=".csmod,.zip" style="display:none;" onchange="onPackFileSelected(event)">
 
     <!-- 2. TOP MENU BAR -->
     <div class="menu-bar">
@@ -61,6 +62,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openLoadPresetModal()">Open Preset / Campaign... <span class="hotkey">Ctrl+O</span></div>
           <div class="dropdown-row" onclick="openCampaignFolder()">Open Campaign Folder (Disk / USB)...</div>
           <div class="dropdown-row" onclick="triggerSelectiveImportPackage()">Import Maps from Package / Folder...</div>
+          <div class="dropdown-row" onclick="triggerInstallPackFile()"><strong>Install Pack (.csmod, .zip)...</strong></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="handleToolbarSave(); closeAllMenus();">Save Campaign <span class="hotkey">Ctrl+S</span></div>
           <div class="dropdown-row" onclick="openSaveAsNewCampaignModal()">Save As New Campaign... <span class="hotkey">Ctrl+Shift+S</span></div>
@@ -243,6 +245,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="window.open('docs/srd/adventure_framework_srd.md')">Adventure Framework SRD</div>
           <div class="dropdown-row" onclick="window.open('docs/srd/tier_0_substratum_srd.md')">Tier 0 Substratum SRD</div>
           <div class="dropdown-row" onclick="window.open('docs/adr/0001-dual-mode-preset-architecture.md')">Architectural Decision Records (ADRs)</div>
+          <div class="dropdown-row" onclick="triggerInstallPackFile()">📦 <strong>Install Pack / Add-on (.csmod)...</strong></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="openShortcutsHelp()">Keyboard Shortcuts <span class="hotkey">F1</span></div>
           <div class="dropdown-row" onclick="openAboutModal()">About Creator Studio...</div>
@@ -598,6 +601,9 @@ CRITICAL INSTRUCTION:
         <span><strong>Campaign &amp; Packages</strong></span>
         <span class="submenu-arrow">&#9658;</span>
         <div class="dropdown-submenu">
+          <div class="dropdown-row" onclick="triggerInstallPackFile(); toggleStartMenu();">
+            <strong>Install Pack (.csmod, .zip)...</strong>
+          </div>
           <div class="dropdown-row" onclick="openSourcebooksModal(); toggleStartMenu();">
             <strong>Campaign Packages &amp; Presets...</strong> <span class="hotkey">Ctrl+B</span>
           </div>

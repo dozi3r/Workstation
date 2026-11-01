@@ -470,7 +470,7 @@
         <h1 class="article-title">cad_interaction.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: e9a2d52d)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 44556948)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (12)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/cad_interaction.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1288 lines &bull; 49.3 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: e9a2d52d)</span></td></tr>
+    <tr><th>File Metrics</th><td>1313 lines &bull; 50.3 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 44556948)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>10</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>12</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/cad_interaction.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -510,6 +510,7 @@
 <li><strong>Pointer & Drag Gestures</strong>: Handles node drag-and-drop (<code>onNodeMouseDown</code>), threat clock callout displacement (<code>onClockCalloutMouseDown</code>), vector shape repositioning (<code>onShapeMouseDown</code>), canvas panning gestures, and edge connection dragging (<code>onCanvasMouseDown</code>, <code>onCanvasMouseMove</code>, <code>onCanvasMouseUp</code>).</li>
 <li><strong>Vector Drawing Tools & Rubber-Band Creation</strong>: Implements click-and-drag shape creation with live SVG rubber-band preview in <code>#interaction-layer</code> (<code>renderShapeDrawPreview</code>, <code>clearShapeDrawPreview</code>), locked layer guarding, and automatic return to Select tool.</li>
 <li><strong>Viewport Pan & Cursor-Centered Deep Zoom</strong>: Implements Photoshop-style cursor-centered zoom (<code>zoomIn</code>, <code>zoomOut</code>, <code>zoomAt</code>, <code>resetZoom</code>) with world coordinate invariance and zoom clamping (0.02x to 10.0x).</li>
+<li><strong>Drag-and-Drop File Import Shield</strong>: Intercepts canvas drag-and-drop events (<code>dragenter</code>, <code>dragover</code>, <code>drop</code>) to shield against accidental browser file navigation while routing <code>.csmod</code> entity packs and campaign packages into the workstation importer pipeline.</li>
 <li><strong>Graph Topology Mutation</strong>: Executes atomic node creation (<code>addNodeAt</code>), edge linking (<code>createEdge</code>), edge deletion (<code>deleteEdge</code>), node deletion with cascade modal integration (<code>deleteNode</code>), and manual coordinate precision input (<code>promptMoveNode</code>).</li>
 </ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (26)</h3><div class="pill-list"><span class="pill">setTool(toolName)</span><span class="pill">getToolKey(name)</span><span class="pill">onClockCalloutMouseDown(e, tracker, nodeId)</span><span class="pill">handleClockSegmentClick(e, trackerId, segmentIdx)</span><span class="pill">startGroupDrag(e)</span><span class="pill">onNodeMouseDown(e, nodeId)</span><span class="pill">onShapeMouseDown(e, shape)</span><span class="pill">clearShapeDrawPreview()</span><span class="pill">renderShapeDrawPreview(type, start, current)</span><span class="pill">clearMarqueePreview()</span><span class="pill">renderMarqueePreview(start, current)</span><span class="pill">onCanvasMouseDown(e)</span><span class="pill">onCanvasMouseMove(e)</span><span class="pill">onCanvasMouseUp(e)</span><span class="pill">applyCanvasTransform()</span><span class="pill">addNodeAt(x, y, tier)</span><span class="pill">deleteNodeDirect(nodeId)</span><span class="pill">deleteNode(nodeId)</span><span class="pill">createEdge(uId, vId, edgeType)</span><span class="pill">deleteEdge(uId, vId, edgeType)</span><span class="pill">promptMoveNode(nodeId)</span><span class="pill">zoomIn(centerPoint)</span><span class="pill">zoomOut(centerPoint)</span><span class="pill">zoomAt(targetZoom, centerPoint)</span><span class="pill">resetZoom()</span><span class="pill">initCanvasInteractions()</span></div>

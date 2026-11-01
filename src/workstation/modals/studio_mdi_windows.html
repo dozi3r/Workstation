@@ -34,7 +34,7 @@
   <!-- ========================================================================
        MODAL 8: CAMPAIGN SOURCEBOOKS & MODULAR PACKAGES (MDI WINDOW)
        ======================================================================== -->
-  <div id="modal-sourcebooks" class="mdi-window bevel-outset hidden" style="width:620px; height:450px; left:220px; top:120px;">
+  <div id="modal-sourcebooks" class="mdi-window bevel-outset hidden" style="width:680px; height:480px; left:220px; top:120px;">
     <div class="mdi-title-bar">
       <div class="mdi-title-text">
         <span class="mdi-icon">SB</span>
@@ -47,16 +47,36 @@
       </div>
     </div>
     <div class="mdi-body" style="display:flex; flex-direction:column; padding:6px; gap:6px; background:var(--win-base); height:calc(100% - 24px); box-sizing:border-box;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size:11px; font-weight:bold; color:#000080;">Installed Campaign Packages</span>
-        <div style="display:flex; gap:4px;">
-          <button class="win-btn" onclick="enableAllSourcebooks()" style="font-size:10px; padding:2px 6px;">Enable All</button>
-          <button class="win-btn" onclick="disableInactiveSourcebooks()" style="font-size:10px; padding:2px 6px;">Active Only</button>
+      <div class="dock-tab-bar">
+        <button class="dock-tab-btn active" id="btn-sbtab-presets" onclick="switchSourcebookTab('presets')">Campaign Presets &amp; Sourcebooks</button>
+        <button class="dock-tab-btn" id="btn-sbtab-installed" onclick="switchSourcebookTab('installed')">Installed Entity Packs (.csmod)</button>
+      </div>
+
+      <!-- Tab 1: Presets & Sourcebooks -->
+      <div id="sbtab-content-presets" style="flex:1; display:flex; flex-direction:column; gap:6px; min-height:0;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:11px; font-weight:bold; color:#000080;">Registered Campaign Presets</span>
+          <div style="display:flex; gap:4px;">
+            <button class="win-btn" onclick="enableAllSourcebooks()" style="font-size:10px; padding:2px 6px;">Enable All</button>
+            <button class="win-btn" onclick="disableInactiveSourcebooks()" style="font-size:10px; padding:2px 6px;">Active Only</button>
+          </div>
+        </div>
+        <div id="sourcebooks-table-container" class="bevel-inset" style="flex:1; overflow-y:auto; background:#ffffff; padding:6px;">
+          <!-- Injected dynamically by renderSourcebooksList() -->
         </div>
       </div>
-      <div id="sourcebooks-table-container" class="bevel-inset" style="flex:1; overflow-y:auto; background:#ffffff; padding:6px;">
-        <!-- Injected dynamically by renderSourcebooksList() -->
+
+      <!-- Tab 2: Installed Entity Packs -->
+      <div id="sbtab-content-installed" class="hidden" style="flex:1; display:flex; flex-direction:column; gap:6px; min-height:0;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:11px; font-weight:bold; color:#000080;">Packs Installed in Active Campaign</span>
+          <button class="win-btn" onclick="triggerInstallPackFile()" style="font-size:10px; padding:2px 8px; font-weight:bold;">+ Install Pack (.csmod)...</button>
+        </div>
+        <div id="installed-packs-container" class="bevel-inset" style="flex:1; overflow-y:auto; background:#ffffff; padding:6px;">
+          <!-- Injected dynamically by packEngine.renderInstalledPacksView() -->
+        </div>
       </div>
+
       <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px;">
         <span id="sourcebooks-count-status">3 Packages Installed</span>
         <button class="win-btn" onclick="MDIWindowManager.close('modal-sourcebooks')" style="min-width:60px;">Close</button>
@@ -85,11 +105,53 @@
         <button class="dock-tab-btn" id="btn-exp-md" onclick="switchExportTab('md')">GM Markdown Dossier</button>
         <button class="dock-tab-btn" id="btn-exp-vtt" onclick="switchExportTab('vtt')">Foundry VTT Export</button>
         <button class="dock-tab-btn" id="btn-exp-svg" onclick="switchExportTab('svg')">SVG Map Vector</button>
+        <button class="dock-tab-btn" id="btn-exp-pack" onclick="switchExportTab('pack')">Export as Pack (.csmod)</button>
       </div>
-      <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
+      <div id="export-text-container" style="flex:1; display:flex; flex-direction:column; gap:4px;">
         <textarea id="export-output-text" class="win-select-input bevel-inset" style="flex:1; width:100%; font-family:monospace; font-size:11px; background:#ffffff; resize:none;" readonly></textarea>
       </div>
-      <div style="display:flex; justify-content:space-between; align-items:center;">
+
+      <!-- Pack Exporter Form Panel -->
+      <div id="export-pack-form-container" class="bevel-inset hidden" style="flex:1; overflow-y:auto; background:#ffffff; padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:11px; color:#333; line-height:1.4;">
+          Package a submap branch, stationed characters, relics, and worldbuilding lore into a self-contained, portable <strong>Entity Module Pack (`.csmod`)</strong>.
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+            <span>Root Submap to Export:</span>
+            <select id="export-pack-submap-select" class="win-select-input" style="padding:3px; font-size:11px;">
+              <!-- Populated dynamically -->
+            </select>
+          </label>
+          <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+            <span>Pack Identifier (packId):</span>
+            <input type="text" id="export-pack-id" class="win-input" placeholder="e.g. sunken_temple_l1" style="padding:3px; font-size:11px;">
+          </label>
+        </div>
+        <div style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:8px;">
+          <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+            <span>Pack Title:</span>
+            <input type="text" id="export-pack-title" class="win-input" placeholder="e.g. Sunken Temple Level 1" style="padding:3px; font-size:11px;">
+          </label>
+          <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+            <span>Author:</span>
+            <input type="text" id="export-pack-author" class="win-input" placeholder="e.g. GM Milo" style="padding:3px; font-size:11px;">
+          </label>
+          <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+            <span>IP Domain:</span>
+            <input type="text" id="export-pack-domain" class="win-input" placeholder="e.g. Emerald Isle" style="padding:3px; font-size:11px;">
+          </label>
+        </div>
+        <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+          <span>Pack Description:</span>
+          <textarea id="export-pack-desc" class="win-input" rows="3" placeholder="Brief description of the dungeon, settlement, or encounter module..." style="resize:none; font-size:11px;"></textarea>
+        </label>
+        <div style="display:flex; justify-content:flex-end; pt:4px;">
+          <button class="win-btn" onclick="executeExportCsmodPack()" style="font-weight:bold; padding:4px 12px; color:#000080;">📦 Build &amp; Download .csmod</button>
+        </div>
+      </div>
+
+      <div id="export-text-footer" style="display:flex; justify-content:space-between; align-items:center;">
         <div style="display:flex; gap:6px; align-items:center;">
           <button class="win-btn" onclick="copyExportToClipboard()" style="font-weight:bold; padding:3px 8px;">Copy to Clipboard</button>
           <button class="win-btn" onclick="downloadExportFile()" style="font-weight:bold; padding:3px 8px;">Download File</button>
@@ -234,6 +296,84 @@
         <!-- Selected Cell Dossier / Detail Panel -->
         <div id="odv-mdi-dossier" class="bevel-inset" style="width:340px; background:#f8fafc; padding:10px; overflow-y:auto; font-size:11px; display:flex; flex-direction:column; gap:6px;">
           <div style="color:#64748b; font-style:italic;">Select any cell from the matrix to inspect hermeneutic boons, burdens, and active campaign occupants.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: ENTITY MODULE PACK INSTALLER (MDI WINDOW)
+       ======================================================================== -->
+  <div id="modal-pack-installer" class="mdi-window bevel-outset hidden" style="width:680px; height:500px; left:200px; top:100px;">
+    <div class="mdi-title-bar">
+      <div class="mdi-title-text">
+        <span class="mdi-icon">PI</span>
+        <span id="pack-installer-title">Install Entity Module Pack (.csmod)</span>
+      </div>
+      <div class="mdi-title-controls">
+        <button class="win-btn" onclick="MDIWindowManager.minimize('modal-pack-installer')" title="Minimize">_</button>
+        <button class="win-btn" onclick="MDIWindowManager.restoreOrMaximize('modal-pack-installer')" title="Maximize / Restore">&#9633;</button>
+        <button class="win-btn" onclick="MDIWindowManager.close('modal-pack-installer')" title="Close">X</button>
+      </div>
+    </div>
+    <div class="mdi-body" style="display:flex; flex-direction:column; padding:6px; gap:6px; background:var(--win-base); height:calc(100% - 24px); box-sizing:border-box;">
+      <div class="dock-tab-bar">
+        <button class="dock-tab-btn active" id="btn-ptab-overview" onclick="switchPackInstallerTab('overview')">1. Overview</button>
+        <button class="dock-tab-btn" id="btn-ptab-anchor" onclick="switchPackInstallerTab('anchor')">2. Portal Anchor Node</button>
+        <button class="dock-tab-btn" id="btn-ptab-conflicts" onclick="switchPackInstallerTab('conflicts')">3. Entity Conflicts</button>
+      </div>
+
+      <!-- Tab 1: Overview -->
+      <div id="ptab-content-overview" class="bevel-inset" style="flex:1; overflow-y:auto; background:#ffffff; padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #ddd; padding-bottom:6px;">
+          <div>
+            <h3 id="pack-preview-name" style="margin:0 0 4px 0; font-size:14px; color:#000080;">Pack Title</h3>
+            <div id="pack-preview-meta" style="font-size:11px; color:#555;">Author: Unknown | Version: 1.0.0 | Domain: Custom</div>
+          </div>
+          <span id="pack-preview-badge" style="background:#000080; color:#fff; font-size:10px; padding:2px 6px; font-weight:bold;">.CSMOD</span>
+        </div>
+        <div id="pack-preview-desc" style="font-size:11px; color:#333; line-height:1.4;">No description provided.</div>
+        <div style="font-weight:bold; font-size:11px; color:#000080; margin-top:4px;">Pack Contents Summary:</div>
+        <div id="pack-preview-counts" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px;">
+          <!-- Dynamically populated badges -->
+        </div>
+        <div id="pack-preview-anchor-prompt" class="bevel-thin-inset" style="padding:6px; background:#f4f4f4; font-size:11px; color:#333; display:none;">
+          <strong>Suggested Anchor:</strong> <span id="pack-preview-anchor-prompt-text"></span>
+        </div>
+      </div>
+
+      <!-- Tab 2: Portal Anchor Node -->
+      <div id="ptab-content-anchor" class="bevel-inset hidden" style="flex:1; overflow-y:auto; background:#ffffff; padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:11px; color:#333; line-height:1.4;">
+          Select an overworld or parent node on the current map to attach this pack's entry submap as a <strong>Scale-Fluid Portal Node</strong>. Clicking this node will open the submap.
+        </div>
+        <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:4px;">
+          <span>Target Host Node on Active Map:</span>
+          <select id="pack-anchor-node-select" class="win-select-input" style="width:100%; padding:3px; font-size:11px;">
+            <option value="">[Do not link - Keep as independent submap]</option>
+          </select>
+        </label>
+        <div id="pack-anchor-collision-warning" class="bevel-thin-inset" style="display:none; padding:6px; background:#fff3cd; border:1px solid #ffeeba; color:#856404; font-size:11px;">
+          ⚠️ <strong>Notice:</strong> This node already has an attached submap. The existing link will be preserved in the provenance ledger and restored if this pack is uninstalled.
+        </div>
+      </div>
+
+      <!-- Tab 3: Entity Conflicts -->
+      <div id="ptab-content-conflicts" class="bevel-inset hidden" style="flex:1; overflow-y:auto; background:#ffffff; padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:11px; color:#333; line-height:1.4;">
+          If entities in the pack share IDs or names with existing campaign entities, select how each should be handled.
+        </div>
+        <div id="pack-conflicts-list" style="display:flex; flex-direction:column; gap:6px;">
+          <div style="color:#666; font-style:italic; font-size:11px;">No naming collisions detected with active campaign roster.</div>
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span id="pack-installer-status" style="font-size:11px; color:#333;">Ready to install</span>
+        <div style="display:flex; gap:6px;">
+          <button class="win-btn" onclick="executePackInstallation()" style="font-weight:bold; min-width:80px; padding:3px 10px;">Install Pack</button>
+          <button class="win-btn" onclick="MDIWindowManager.close('modal-pack-installer')" style="min-width:60px; padding:3px 8px;">Cancel</button>
         </div>
       </div>
     </div>

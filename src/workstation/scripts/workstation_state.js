@@ -315,6 +315,10 @@
           title: 'Custom Module Studio',
           icon: 'CM'
         });
+        MDIWindowManager.registerWindow('modal-pack-installer', {
+          title: 'Entity Module Pack Installer',
+          icon: 'PI'
+        });
       } catch (e) {
         console.error('[Workstation] MDIWindowManager registration error:', e);
       }
@@ -1156,9 +1160,25 @@
       }).join('');
     }
 
+    function switchSourcebookTab(tabName) {
+      const tabs = ['presets', 'installed'];
+      for (const t of tabs) {
+        const btn = document.getElementById(`btn-sbtab-${t}`);
+        const content = document.getElementById(`sbtab-content-${t}`);
+        if (btn) btn.classList.toggle('active', t === tabName);
+        if (content) content.classList.toggle('hidden', t !== tabName);
+      }
+      if (tabName === 'installed' && typeof packEngine !== 'undefined' && typeof packEngine.renderInstalledPacksView === 'function') {
+        const container = document.getElementById('installed-packs-container');
+        if (container) packEngine.renderInstalledPacksView(container);
+      } else if (tabName === 'presets') {
+        renderSourcebooksList();
+      }
+    }
+
     function openSourcebooksModal() {
       MDIWindowManager.open('modal-sourcebooks');
-      renderSourcebooksList();
+      switchSourcebookTab('presets');
     }
 
     function renderSourcebooksList() {
@@ -1273,11 +1293,62 @@
     let activeExportTabKey = 'json';
     function switchExportTab(tabKey) {
       activeExportTabKey = tabKey;
-      ['json', 'md', 'vtt', 'svg'].forEach(k => {
+      ['json', 'md', 'vtt', 'svg', 'pack'].forEach(k => {
         const b = document.getElementById(`btn-exp-${k}`);
         if (b) b.classList.toggle('active', k === tabKey);
       });
-      updateExportOutput();
+
+      const textCont = document.getElementById('export-text-container');
+      const textFoot = document.getElementById('export-text-footer');
+      const packForm = document.getElementById('export-pack-form-container');
+
+      if (tabKey === 'pack') {
+        if (textCont) textCont.classList.add('hidden');
+        if (textFoot) textFoot.classList.add('hidden');
+        if (packForm) {
+          packForm.classList.remove('hidden');
+          populatePackExportForm();
+        }
+      } else {
+        if (textCont) textCont.classList.remove('hidden');
+        if (textFoot) textFoot.classList.remove('hidden');
+        if (packForm) packForm.classList.add('hidden');
+        updateExportOutput();
+      }
+    }
+
+    function populatePackExportForm() {
+      const selectEl = document.getElementById('export-pack-submap-select');
+      if (!selectEl) return;
+      selectEl.innerHTML = '';
+
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      const allMaps = (typeof maps !== 'undefined' && maps) ? maps : (topo && topo.maps ? topo.maps : {});
+
+      for (const mId of Object.keys(allMaps)) {
+        const mMap = allMaps[mId];
+        const opt = document.createElement('option');
+        opt.value = mId;
+        opt.textContent = `${mMap.name || mId} (${(mMap.nodes || []).length} nodes)`;
+        if (typeof activeMapId !== 'undefined' && mId === activeMapId) {
+          opt.selected = true;
+        }
+        selectEl.appendChild(opt);
+      }
+
+      if (selectEl.options.length === 0) {
+        selectEl.innerHTML = '<option value="map_root">Root Overworld Map (map_root)</option>';
+      }
+
+      const idInput = document.getElementById('export-pack-id');
+      const titleInput = document.getElementById('export-pack-title');
+      if (idInput && !idInput.value) {
+        idInput.value = `pack_${selectEl.value || 'submap'}`;
+      }
+      if (titleInput && !titleInput.value) {
+        const selectedMap = allMaps[selectEl.value];
+        titleInput.value = (selectedMap && selectedMap.name) || 'Campaign Submap Pack';
+      }
     }
 
     function updateExportOutput() {
@@ -1389,6 +1460,7 @@ window.resetBalancing = resetBalancing;
 window.openMapNavigatorModal = openMapNavigatorModal;
 window.renderMapNavigatorTree = renderMapNavigatorTree;
 window.openSourcebooksModal = openSourcebooksModal;
+window.switchSourcebookTab = switchSourcebookTab;
 window.renderSourcebooksList = renderSourcebooksList;
 window.enableAllSourcebooks = enableAllSourcebooks;
 window.disableInactiveSourcebooks = disableInactiveSourcebooks;

@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/cad_interaction.js"
 title: "cad_interaction.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "e9a2d52dc78a9acb"
-reviewed_hash: "e9a2d52dc78a9acb"
+current_hash: "44556948aede6691"
+reviewed_hash: "44556948aede6691"
 stale: false
-size_bytes: 50529
-line_count: 1288
+size_bytes: 51556
+line_count: 1313
 ---
 
 # cad_interaction.js
@@ -21,5 +21,6 @@ line_count: 1288
 - **Pointer & Drag Gestures**: Handles node drag-and-drop (`onNodeMouseDown`), threat clock callout displacement (`onClockCalloutMouseDown`), vector shape repositioning (`onShapeMouseDown`), canvas panning gestures, and edge connection dragging (`onCanvasMouseDown`, `onCanvasMouseMove`, `onCanvasMouseUp`).
 - **Vector Drawing Tools & Rubber-Band Creation**: Implements click-and-drag shape creation with live SVG rubber-band preview in `#interaction-layer` (`renderShapeDrawPreview`, `clearShapeDrawPreview`), locked layer guarding, and automatic return to Select tool.
 - **Viewport Pan & Cursor-Centered Deep Zoom**: Implements Photoshop-style cursor-centered zoom (`zoomIn`, `zoomOut`, `zoomAt`, `resetZoom`) with world coordinate invariance and zoom clamping (0.02x to 10.0x).
+- **Drag-and-Drop File Import Shield**: Intercepts canvas drag-and-drop events (`dragenter`, `dragover`, `drop`) to shield against accidental browser file navigation while routing `.csmod` entity packs and campaign packages into the workstation importer pipeline.
 - **Graph Topology Mutation**: Executes atomic node creation (`addNodeAt`), edge linking (`createEdge`), edge deletion (`deleteEdge`), node deletion with cascade modal integration (`deleteNode`), and manual coordinate precision input (`promptMoveNode`).
 <!-- END_CUSTOM_NOTES -->

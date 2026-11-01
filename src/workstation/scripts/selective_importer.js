@@ -165,7 +165,7 @@
       input = document.createElement("input");
       input.type = "file";
       input.id = "selective-import-file-input";
-      input.accept = ".zip,.csz,.creator.json,.json";
+      input.accept = ".zip,.csz,.csmod,.creator.json,.json";
       input.style.display = "none";
       document.body.appendChild(input);
       input.addEventListener("change", onSelectiveImportFileSelected);
@@ -180,7 +180,7 @@
     const options = window._selectiveImportOptions || {};
 
     try {
-      const isZip = file.name.endsWith(".zip") || file.name.endsWith(".csz");
+      const isZip = file.name.endsWith(".zip") || file.name.endsWith(".csz") || file.name.endsWith(".csmod");
       if (isZip) {
         if (!window.ZeroCorsZip) {
           alert("ZIP decompression engine not loaded.");
@@ -188,6 +188,13 @@
         }
         const buffer = await file.arrayBuffer();
         const zipFiles = await window.ZeroCorsZip.parse(buffer);
+
+        if (zipFiles["pack.json"] || file.name.endsWith(".csmod")) {
+          if (typeof packEngine !== 'undefined' && typeof packEngine.openInstallerDialog === 'function') {
+            await packEngine.openInstallerDialog(buffer);
+            return;
+          }
+        }
 
         let mainData = null;
         if (zipFiles["preset.json"]) mainData = JSON.parse(new TextDecoder().decode(zipFiles["preset.json"]));

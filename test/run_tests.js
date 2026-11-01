@@ -3642,9 +3642,11 @@ async function testEntityModulePackEngine() {
 
   const zipPath = path.join(ROOT_DIR, 'src/workstation/scripts/zip_engine.js');
   const packEnginePath = path.join(ROOT_DIR, 'src/workstation/scripts/pack_engine.js');
+  const exportPath = path.join(ROOT_DIR, 'src/workstation/scripts/stage_6_export.js');
 
   const zipCode = fs.readFileSync(zipPath, 'utf8');
   const packEngineCode = fs.readFileSync(packEnginePath, 'utf8');
+  const exportCode = fs.readFileSync(exportPath, 'utf8');
 
   const sandbox = {
     window: {},
@@ -3653,6 +3655,13 @@ async function testEntityModulePackEngine() {
     TextDecoder: global.TextDecoder,
     Buffer: global.Buffer,
     Blob: global.Blob,
+    Uint8Array: global.Uint8Array,
+    ArrayBuffer: global.ArrayBuffer,
+    document: {
+      getElementById: () => null,
+      createElement: () => ({ setAttribute: () => {}, style: {}, classList: { add: () => {}, remove: () => {} } }),
+      querySelectorAll: () => []
+    },
     setTimeout,
     clearTimeout
   };
@@ -3661,6 +3670,7 @@ async function testEntityModulePackEngine() {
   vm.createContext(sandbox);
   vm.runInContext(zipCode, sandbox);
   vm.runInContext(packEngineCode, sandbox);
+  vm.runInContext(exportCode, sandbox);
 
   // 1. Manifest Validation
   const validManifest = {
@@ -3782,6 +3792,230 @@ async function testEntityModulePackEngine() {
   assert(!sandbox.Workstation.activeTopology.npcs.some(n => n.id === 'npc_halaster'), 'Pack NPC purged from entities');
   assertEqual(sandbox.Workstation.activeTopology.installedPacks.length, 1, 'Installed packs count decreased');
   assertEqual(sandbox.Workstation.activeTopology.installedPacks[0].packId, 'alt_pack', 'Remaining pack intact');
+
+  // 6. Binary DataURL to Uint8Array Conversion (Offline Zero-CORS)
+  const sampleBytes = new Uint8Array([10, 20, 30, 40, 50]);
+  const sampleDataUrl = 'data:image/png;base64,' + Buffer.from(sampleBytes).toString('base64');
+  const convertedBytes = sandbox.dataUrlToUint8Array(sampleDataUrl);
+  assert(convertedBytes instanceof Uint8Array, 'dataUrlToUint8Array returns Uint8Array');
+  assertEqual(convertedBytes.length, 5, 'Length matches original binary payload');
+  assertEqual(convertedBytes[0], 10, 'Byte 0 preserved');
+  assertEqual(convertedBytes[4], 50, 'Byte 4 preserved');
+  assert(sandbox.dataUrlToUint8Array(null) === null, 'dataUrlToUint8Array returns null for null input');
+  assert(sandbox.dataUrlToUint8Array('not a data url') === null, 'dataUrlToUint8Array returns null for malformed string');
+
+  // 7. Relational Entity Cluster Remapping
+  const clusterEntities = {
+    npcs: [{ id: 'npc_smith', questIds: ['q_craft'], itemIds: ['it_hammer'], relationships: [{ targetNpcId: 'npc_apprentice', role: 'mentor' }] }],
+    quests: [{ id: 'q_craft', npcIds: ['npc_smith'], targetNpcId: 'npc_smith', giverNpcId: 'npc_mayor', itemIds: ['it_hammer'] }],
+    items: [{ id: 'it_hammer', ownerNpcId: 'npc_smith' }]
+  };
+  const clusterSubmaps = {
+    map_forge: {
+      id: 'map_forge',
+      nodes: [{ id: 1, stationedNpcIds: ['npc_smith'], childMapId: 'map_basement' }]
+    }
+  };
+  const idMap = {
+    npc_smith: 'npc_smith_cloned_99',
+    it_hammer: 'it_hammer_cloned_99'
+  };
+  const submapMap = {
+    map_basement: 'map_basement_cloned_99'
+  };
+  sandbox.remapEntityCluster(clusterEntities, clusterSubmaps, idMap, submapMap);
+  assertEqual(clusterEntities.quests[0].npcIds[0], 'npc_smith_cloned_99', 'Quest npcIds remapped to cloned NPC');
+  assertEqual(clusterEntities.quests[0].targetNpcId, 'npc_smith_cloned_99', 'Quest targetNpcId remapped to cloned NPC');
+  assertEqual(clusterEntities.quests[0].itemIds[0], 'it_hammer_cloned_99', 'Quest itemIds remapped to cloned Item');
+  assertEqual(clusterEntities.items[0].ownerNpcId, 'npc_smith_cloned_99', 'Item ownerNpcId remapped to cloned NPC');
+  assertEqual(clusterSubmaps.map_forge.nodes[0].stationedNpcIds[0], 'npc_smith_cloned_99', 'Submap node stationedNpcIds remapped');
+  assertEqual(clusterSubmaps.map_forge.nodes[0].childMapId, 'map_basement_cloned_99', 'Submap node childMapId remapped');
+
+  // 8. Portal Collision Preservation & Restoration
+  sandbox.nodes[0].childMapId = 'pre_existing_dungeon';
+  const portalTestPack = {
+    manifest: {
+      formatVersion: '1.0.0',
+      packId: 'portal_collision_pack',
+      name: 'Portal Test Pack',
+      entryMapId: 'map_portal_test'
+    },
+    maps: { map_portal_test: { id: 'map_portal_test', nodes: [] } },
+    entities: { npcs: [], quests: [], items: [] },
+    modules: {},
+    assets: {}
+  };
+  const portalLedger = await sandbox.installPackIntoCampaign(portalTestPack, { anchorNodeId: sandbox.nodes[0].id });
+  assertEqual(portalLedger.previousChildMapId, 'pre_existing_dungeon', 'previousChildMapId recorded in ledger');
+  assertEqual(sandbox.nodes[0].childMapId, 'map_portal_test', 'Anchor node childMapId updated to new pack');
+
+  await sandbox.uninstallPackFromCampaign('portal_collision_pack');
+  assertEqual(sandbox.nodes[0].childMapId, 'pre_existing_dungeon', 'previousChildMapId restored on uninstall');
+
+  // 9. Active Map Safety Guard on Uninstall
+  const activeGuardPack = {
+    manifest: {
+      formatVersion: '1.0.0',
+      packId: 'danger_pack',
+      name: 'Danger Pack',
+      entryMapId: 'map_sub_danger'
+    },
+    maps: { map_sub_danger: { id: 'map_sub_danger', nodes: [] } },
+    entities: { npcs: [] },
+    modules: {},
+    assets: {}
+  };
+  const dangerLedger = await sandbox.installPackIntoCampaign(activeGuardPack, { anchorNodeId: null });
+  const installedDangerSubmapId = dangerLedger.submapIds[0];
+  sandbox.activeMapId = installedDangerSubmapId;
+  let switchedMapTo = null;
+  sandbox.switchActiveMap = async function(fallbackId) {
+    switchedMapTo = fallbackId;
+    sandbox.activeMapId = fallbackId;
+  };
+
+  await sandbox.uninstallPackFromCampaign('danger_pack');
+  assertEqual(switchedMapTo, 'map_root', 'Active map switched to fallback map_root before deleting active pack submap');
+  assert(sandbox.maps[installedDangerSubmapId] === undefined, 'Pack submap deleted after safe map switch');
+
+  // 10. Deep Module Controller Seams (packEngine)
+  assert(sandbox.packEngine !== undefined, 'packEngine object exposed');
+  assert(typeof sandbox.packEngine.openInstallerDialog === 'function', 'openInstallerDialog seam exposed');
+  assert(typeof sandbox.packEngine.executeInstallFromDialog === 'function', 'executeInstallFromDialog seam exposed');
+  assert(typeof sandbox.packEngine.renderInstalledPacksView === 'function', 'renderInstalledPacksView seam exposed');
+  assert(typeof sandbox.packEngine.requestPackUninstall === 'function', 'requestPackUninstall seam exposed');
+
+  const stagedPackRes = await sandbox.packEngine.openInstallerDialog(arrayBuffer);
+  assertEqual(sandbox.packEngine.stagedPack.manifest.packId, 'undermountain_l1', 'openInstallerDialog stages pack');
+  assertEqual(stagedPackRes.manifest.name, 'Undermountain Level 1', 'Returns parsed pack');
+
+  const stagedInstallLedger = await sandbox.packEngine.executeInstallFromDialog({ anchorNodeId: null });
+  assertEqual(stagedInstallLedger.packId, 'undermountain_l1', 'executeInstallFromDialog installs staged pack');
+  assert(sandbox.packEngine.stagedPack === null, 'stagedPack cleared after installation');
+
+  // 11. Guided Pack Installer UI Integration (Ticket 1)
+  const mockDoms = {};
+  function makeMockEl(tag = 'div') {
+    return {
+      tagName: tag.toUpperCase(),
+      textContent: '',
+      innerHTML: '',
+      value: '',
+      style: {},
+      classList: {
+        classes: new Set(),
+        toggle(cls, force) {
+          if (force !== undefined) {
+            if (force) this.classes.add(cls); else this.classes.delete(cls);
+          } else {
+            if (this.classes.has(cls)) this.classes.delete(cls); else this.classes.add(cls);
+          }
+        },
+        contains(cls) { return this.classes.has(cls); }
+      },
+      options: [],
+      selectedIndex: 0,
+      dataset: {},
+      appendChild(child) { this.options.push(child); }
+    };
+  }
+
+  ['pack-installer-file-input', 'btn-ptab-overview', 'btn-ptab-anchor', 'btn-ptab-conflicts',
+   'ptab-content-overview', 'ptab-content-anchor', 'ptab-content-conflicts',
+   'pack-preview-name', 'pack-preview-meta', 'pack-preview-desc', 'pack-preview-counts',
+   'pack-preview-anchor-prompt', 'pack-preview-anchor-prompt-text', 'pack-installer-status',
+   'pack-anchor-node-select', 'pack-anchor-collision-warning', 'pack-conflicts-list'].forEach(id => {
+    mockDoms[id] = makeMockEl();
+  });
+
+  let fileInputClicked = false;
+  mockDoms['pack-installer-file-input'].click = () => { fileInputClicked = true; };
+
+  sandbox.document = {
+    getElementById(id) { return mockDoms[id] || null; },
+    querySelectorAll(selector) { return []; },
+    createElement(tag) { return makeMockEl(tag); }
+  };
+
+  sandbox.triggerInstallPackFile();
+  assert(fileInputClicked === true, 'triggerInstallPackFile clicks hidden file input');
+
+  sandbox.switchPackInstallerTab('anchor');
+  assert(mockDoms['btn-ptab-anchor'].classList.contains('active'), 'Anchor tab marked active');
+  assert(!mockDoms['ptab-content-anchor'].classList.contains('hidden'), 'Anchor tab content visible');
+  assert(mockDoms['ptab-content-overview'].classList.contains('hidden'), 'Overview tab content hidden');
+
+  sandbox.populatePackInstallerModal(parsedPack);
+  assertEqual(mockDoms['pack-preview-name'].textContent, 'Undermountain Level 1', 'populatePackInstallerModal sets title');
+  assert(mockDoms['pack-preview-counts'].innerHTML.includes('Submaps'), 'Badges rendered');
+  assert(mockDoms['pack-anchor-node-select'].options.length >= 1, 'Anchor dropdown populated with active map nodes');
+
+  let mdiClosedWindow = null;
+  sandbox.MDIWindowManager = {
+    close(id) { mdiClosedWindow = id; },
+    open(id) {}
+  };
+  sandbox.setStatusBarMessage = function(msg) {};
+
+  sandbox.packEngine.stagedPack = parsedPack;
+  await sandbox.executePackInstallation();
+  assertEqual(mdiClosedWindow, 'modal-pack-installer', 'executePackInstallation closes installer modal');
+  assert(sandbox.packEngine.stagedPack === null, 'stagedPack cleared after executePackInstallation');
+
+  // 12. Installed Packs Inspector Ledger (Ticket 2)
+  const installedContainer = makeMockEl();
+  sandbox.packEngine.renderInstalledPacksView(installedContainer);
+  assert(installedContainer.innerHTML.includes('Undermountain Level 1'), 'renderInstalledPacksView renders installed pack title');
+  assert(installedContainer.innerHTML.includes('Uninstall...'), 'renderInstalledPacksView renders Uninstall button');
+
+  // Empty state test
+  sandbox.Workstation.activeTopology.installedPacks = [];
+  sandbox.packEngine.renderInstalledPacksView(installedContainer);
+  assert(installedContainer.innerHTML.includes('No modular entity packs installed'), 'renderInstalledPacksView renders empty state message');
+
+  // 13. In-App Pack Exporter & Round-Trip Fidelity Invariant (Ticket 3)
+  sandbox.Workstation.activeTopology.maps = {
+    map_crystal_caverns: {
+      id: 'map_crystal_caverns',
+      name: 'Crystal Caverns',
+      nodes: [{ id: 201, name: 'Crystal Entrance' }, { id: 202, name: 'Grotto of Echoes' }],
+      links: [{ source: 201, target: 202 }],
+      mapMetadata: { name: 'caverns.png', assetPath: 'assets/caverns.png', width: 1024, height: 768 }
+    }
+  };
+  sandbox.maps = sandbox.Workstation.activeTopology.maps;
+  sandbox.Workstation.activeTopology.npcs = [
+    { id: 'npc_miner', name: 'Grumble Stone', nodeId: 201, role: 'Miner' }
+  ];
+  sandbox.Workstation.activeTopology.quests = [
+    { id: 'q_crystals', title: 'Gather Glowing Crystals', nodeId: 202 }
+  ];
+  sandbox.loadPersistedMapFromDB = async function(mapId) {
+    return { dataUrl: 'data:image/png;base64,' + Buffer.from([1, 2, 3, 4]).toString('base64') };
+  };
+
+  mockDoms['export-pack-submap-select'] = { value: 'map_crystal_caverns' };
+  mockDoms['export-pack-id'] = { value: 'crystal_caverns_pack' };
+  mockDoms['export-pack-title'] = { value: 'Crystal Caverns Expansion' };
+  mockDoms['export-pack-author'] = { value: 'Dungeon Master' };
+  mockDoms['export-pack-domain'] = { value: 'Silica Underdark' };
+  mockDoms['export-pack-desc'] = { value: 'Deep crystalline subterranean tunnels.' };
+
+  const exportedBlob = await sandbox.executeExportCsmodPack();
+  assert(exportedBlob instanceof sandbox.Blob, 'executeExportCsmodPack returns generated Blob');
+  assert(exportedBlob.size > 100, 'Exported blob has non-zero binary weight');
+
+  // Verify Round-Trip Invariant: Decompress & re-ingest exported blob
+  const exportedBuffer = await exportedBlob.arrayBuffer();
+  const reimportedPack = await sandbox.parsePackArchive(exportedBuffer);
+  assertEqual(reimportedPack.manifest.packId, 'crystal_caverns_pack', 'Round-trip: manifest packId preserved');
+  assertEqual(reimportedPack.manifest.entryMapId, 'map_crystal_caverns', 'Round-trip: entryMapId preserved');
+  assert(reimportedPack.maps.map_crystal_caverns !== undefined, 'Round-trip: submap preserved');
+  assertEqual(reimportedPack.maps.map_crystal_caverns.nodes.length, 2, 'Round-trip: nodes count preserved');
+  assertEqual(reimportedPack.entities.npcs.length, 1, 'Round-trip: stationed NPC preserved');
+  assertEqual(reimportedPack.entities.npcs[0].id, 'npc_miner', 'Round-trip: NPC ID preserved');
+  assert(reimportedPack.assets['caverns.png'] !== undefined, 'Round-trip: raster image asset preserved');
+  assertEqual(reimportedPack.assets['caverns.png'].length, 4, 'Round-trip: image bytes preserved byte-for-byte');
 }
 
 // ============================================================================

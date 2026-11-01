@@ -470,7 +470,7 @@
         <h1 class="article-title">Creator Studio - Campaign Authoring Workstation</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Shell Template</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 9280d864)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: ab52ce4d)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (39)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/template.html</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Shell Template</td></tr>
-    <tr><th>File Metrics</th><td>711 lines &bull; 45.8 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 9280d864)</span></td></tr>
+    <tr><th>File Metrics</th><td>717 lines &bull; 46.4 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: ab52ce4d)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>46</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>39</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../src/workstation/template.html" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -495,7 +495,7 @@
       
     <div class="ai-digest">
       <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
-      <p style="margin:4px 0;"><strong>Summary:</strong> Workstation Shell Template located at src/workstation/template.html (711 lines, 46949 bytes).</p>
+      <p style="margin:4px 0;"><strong>Summary:</strong> Workstation Shell Template located at src/workstation/template.html (717 lines, 47511 bytes).</p>
       
       
       
@@ -503,7 +503,12 @@
   
       
       <h3>Architectural Purpose & Role</h3>
-<p><code>src/workstation/template.html</code> serves as a <strong>Standalone Zero-CORS HTML Workstation</strong> within <strong>Volume VIII: Campaign Packages, Modules, Templates & Unified Ticket Backlog</strong>. It populates <code>BUNDLED_TOPOLOGIES</code> dynamically from <code>CAMPAIGN_REGISTRY</code> without hardcoding legacy presets.</p>
+<p><code>src/workstation/template.html</code> serves as the primary desktop workstation HTML scaffolding shell, compiled into <code>start.html</code> via <code>Build-Suite.ps1</code>. It defines the desktop icon grid, Win95 taskbar, Start Menu, top menu bar, CAD canvas viewport, HUD layers, and hidden file inputs. It populates <code>BUNDLED_TOPOLOGIES</code> dynamically from <code>CAMPAIGN_REGISTRY</code> without hardcoding legacy presets.</p>
+<h3>Subsystems & Integrations</h3>
+<ul class="wiki-list">
+<li><strong>Pack Ingestion Entry Points</strong>: Provides hidden file input <code>#pack-installer-file-input</code> triggering <code>packEngine.onPackFileSelected()</code>, with menu triggers integrated into the Start Menu ("Install Entity Pack (.csmod)..."), File Menu ("Install Entity Pack (.csmod)..."), and Help Menu documentation reference.</li>
+<li><strong>MDI Scaffolding & Viewport</strong>: Hosts the CAD SVG canvas, HUD overlays, toolbar palettes, and placeholder injection slots for modular modal files (<code>studio_mdi_windows.html</code>, <code>entity_modals.html</code>, <code>lifecycle_modals.html</code>, <code>explorer_modals.html</code>, <code>ticket_modals.html</code>).</li>
+</ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Template Includes (<code>@@INCLUDE@@</code>)</h3><div class="pill-list"><span class="pill">modals/lifecycle_modals.html</span><span class="pill">modals/entity_modals.html</span><span class="pill">modals/explorer_modals.html</span><span class="pill">modals/ticket_modals.html</span><span class="pill">modals/studio_mdi_windows.html</span><span class="pill">scripts/zip_engine.js</span><span class="pill">scripts/map_store.js</span><span class="pill">scripts/state_adapter.js</span><span class="pill">scripts/sociology_data.js</span><span class="pill">scripts/wiki_engine.js</span><span class="pill">scripts/canvas_hud.js</span><span class="pill">scripts/workstation_state.js</span><span class="pill">scripts/layer_manager.js</span><span class="pill">scripts/selection_engine.js</span><span class="pill">scripts/cad_canvas_renderer.js</span><span class="pill">scripts/cad_interaction.js</span><span class="pill">scripts/property_grid_inspector.js</span><span class="pill">scripts/mdi_window_manager.js</span><span class="pill">scripts/entity_core.js</span><span class="pill">scripts/entity_manager_ui.js</span><span class="pill">scripts/entity_crud_dialogs.js</span><span class="pill">scripts/entity_cascade_delete.js</span><span class="pill">scripts/module_explorer.js</span><span class="pill">scripts/stage_5_slotting.js</span><span class="pill">scripts/ticket_center.js</span><span class="pill">scripts/map_navigator.js</span><span class="pill">scripts/stage_6_export.js</span><span class="pill">scripts/selective_importer.js</span><span class="pill">scripts/pack_engine.js</span></div>
       <h2 id="outbound-links">Outbound References (46)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>

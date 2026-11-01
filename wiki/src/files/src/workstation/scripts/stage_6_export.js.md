@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/stage_6_export.js"
 title: "stage_6_export.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "c3acaff1f4318dcd"
-reviewed_hash: "c3acaff1f4318dcd"
+current_hash: "574d94dad09b67da"
+reviewed_hash: "574d94dad09b67da"
 stale: false
-size_bytes: 26511
-line_count: 593
+size_bytes: 32203
+line_count: 738
 ---
 
 # stage_6_export.js
@@ -18,4 +18,7 @@ line_count: 593
 
 ### Data Preservation (ADR-0015 v2)
 Ensures full lossless export and hydration for all node metadata properties, specifically: `demographics`, `factionPresence`, `partyRapport`, `provides`, `requires`, `exportDown`, and `importUp`.
+
+### Entity Module Pack Exporter (`executeExportCsmodPack`)
+Enables packaging of submap branches, stationed entities, and IndexedDB graphics into `.csmod` archives via `buildPackArchive()`. Implements zero-CORS browser downloads appending `<a>` to `document.body` with deferred `URL.revokeObjectURL()`.
 <!-- END_CUSTOM_NOTES -->

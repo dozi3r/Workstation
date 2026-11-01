@@ -1257,6 +1257,31 @@
           onCanvasMouseUp(e);
         }
       });
+
+      // External File Drag and Drop Support with Browser Navigation Hijack Shield
+      canvas.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+      canvas.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+      canvas.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          const file = e.dataTransfer.files[0];
+          const name = (file.name || '').toLowerCase();
+          if (name.endsWith('.csmod') || name.endsWith('.zip')) {
+            if (typeof packEngine !== 'undefined' && typeof packEngine.openInstallerDialog === 'function') {
+              packEngine.openInstallerDialog(file);
+            }
+          }
+        }
+      });
+      window.addEventListener('dragover', (e) => e.preventDefault());
+      window.addEventListener('drop', (e) => e.preventDefault());
     }
 
 // Exported globals

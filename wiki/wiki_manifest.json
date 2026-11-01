@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T01:09:55.567Z",
+  "generatedAt": "2026-11-01T01:46:35.527Z",
   "totalFiles": 297,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2572,
+  "totalBidirectionalEdges": 2576,
   "staleCount": 0,
   "duplicateAuditTargets": 9,
   "volumes": [
@@ -3693,11 +3693,11 @@
       "title": "studio_mdi_windows.html",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "hash": "21370c66d589d07e",
-      "reviewedHash": "21370c66d589d07e",
+      "hash": "29911440b0099d7a",
+      "reviewedHash": "29911440b0099d7a",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 1,
+      "outboundCount": 2,
       "inboundBacklinkCount": 1
     },
     {
@@ -3735,8 +3735,8 @@
       "title": "cad_interaction.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "e9a2d52dc78a9acb",
-      "reviewedHash": "e9a2d52dc78a9acb",
+      "hash": "44556948aede6691",
+      "reviewedHash": "44556948aede6691",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 10,
@@ -3865,7 +3865,7 @@
       "reviewedHash": "b535bc436abc9478",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 11,
+      "outboundCount": 12,
       "inboundBacklinkCount": 16
     },
     {
@@ -3903,12 +3903,12 @@
       "title": "pack_engine.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "4dd3d3ba91bb7061",
-      "reviewedHash": "4dd3d3ba91bb7061",
+      "hash": "522068af272b54ce",
+      "reviewedHash": "522068af272b54ce",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 9,
-      "inboundBacklinkCount": 2
+      "outboundCount": 10,
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "src/workstation/scripts/property_grid_inspector.js",
@@ -3945,8 +3945,8 @@
       "title": "selective_importer.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "dc74aed83108c51b",
-      "reviewedHash": "dc74aed83108c51b",
+      "hash": "ceb5359b887b5cb7",
+      "reviewedHash": "ceb5359b887b5cb7",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 13,
@@ -3987,11 +3987,11 @@
       "title": "stage_6_export.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "c3acaff1f4318dcd",
-      "reviewedHash": "c3acaff1f4318dcd",
+      "hash": "574d94dad09b67da",
+      "reviewedHash": "574d94dad09b67da",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 14,
+      "outboundCount": 15,
       "inboundBacklinkCount": 8
     },
     {
@@ -4006,7 +4006,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 13,
-      "inboundBacklinkCount": 24
+      "inboundBacklinkCount": 25
     },
     {
       "relPath": "src/workstation/scripts/ticket_center.js",
@@ -4043,8 +4043,8 @@
       "title": "workstation_state.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "976463f80b2d7c25",
-      "reviewedHash": "976463f80b2d7c25",
+      "hash": "37a02feda6146fa6",
+      "reviewedHash": "37a02feda6146fa6",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 32,
@@ -4099,8 +4099,8 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "hash": "9280d8643d059aa1",
-      "reviewedHash": "9280d8643d059aa1",
+      "hash": "ab52ce4d96b477ce",
+      "reviewedHash": "ab52ce4d96b477ce",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 46,
@@ -4113,12 +4113,12 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "f67cd6a10839a660",
-      "reviewedHash": "f67cd6a10839a660",
+      "hash": "dc4323177851f28f",
+      "reviewedHash": "dc4323177851f28f",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 161,
-      "inboundBacklinkCount": 70
+      "inboundBacklinkCount": 71
     },
     {
       "relPath": "system/desktop.ini",
@@ -4267,8 +4267,8 @@
       "title": "run_tests.js",
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "6b2e6b8d398d253c",
-      "reviewedHash": "6b2e6b8d398d253c",
+      "hash": "39f7577c402f54ca",
+      "reviewedHash": "39f7577c402f54ca",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 22,

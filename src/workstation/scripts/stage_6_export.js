@@ -590,3 +590,148 @@ function importCampaignData(data, sourceLabel = "") {
   }
 }
 
+/**
+ * In-App Entity Module Pack Exporter (Stage 6 / Ctrl+E)
+ * Bundles selected submap branch, stationed entities, and IndexedDB graphics into .csmod
+ */
+async function executeExportCsmodPack() {
+  if (typeof document === 'undefined') return;
+  const submapSelect = document.getElementById('export-pack-submap-select');
+  const packIdInput = document.getElementById('export-pack-id');
+  const titleInput = document.getElementById('export-pack-title');
+  const authorInput = document.getElementById('export-pack-author');
+  const domainInput = document.getElementById('export-pack-domain');
+  const descInput = document.getElementById('export-pack-desc');
+
+  const rootSubmapId = submapSelect ? submapSelect.value : '';
+  if (!rootSubmapId) {
+    if (typeof alert === 'function') alert('Please select a submap to export as pack.');
+    return;
+  }
+
+  const packId = (packIdInput && packIdInput.value.trim()) || `pack_${rootSubmapId}_${Date.now()}`;
+  const packName = (titleInput && titleInput.value.trim()) || rootSubmapId;
+  const author = (authorInput && authorInput.value.trim()) || 'Creator Studio User';
+  const ipDomain = (domainInput && domainInput.value.trim()) || 'Custom';
+  const description = (descInput && descInput.value.trim()) || 'Exported from Creator Studio';
+
+  const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+  const allMaps = (typeof maps !== 'undefined' && maps) ? maps : (topo && topo.maps ? topo.maps : {});
+  const targetMap = allMaps[rootSubmapId];
+  if (!targetMap) {
+    if (typeof alert === 'function') alert('Selected submap not found in maps registry.');
+    return;
+  }
+
+  // Collect target submaps (root submap plus any nested child submaps)
+  const mapsToExport = {};
+  mapsToExport[rootSubmapId] = targetMap;
+
+  // Collect nodes and entities
+  const mapNodes = Array.isArray(targetMap.nodes) ? targetMap.nodes : Object.values(targetMap.nodes || {});
+  const nodeIds = new Set(mapNodes.map(n => n.id));
+
+  // Check child submaps attached to portal nodes
+  for (const n of mapNodes) {
+    if (n.childMapId && allMaps[n.childMapId]) {
+      mapsToExport[n.childMapId] = allMaps[n.childMapId];
+    }
+  }
+
+  const entitiesToExport = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+  if (topo) {
+    if (Array.isArray(topo.npcs)) {
+      entitiesToExport.npcs = topo.npcs.filter(npc => npc && (nodeIds.has(npc.nodeId) || (npc.submapId && npc.submapId === rootSubmapId)));
+    }
+    if (Array.isArray(topo.quests)) {
+      entitiesToExport.quests = topo.quests.filter(q => q && (nodeIds.has(q.nodeId) || (q.submapId && q.submapId === rootSubmapId)));
+    }
+    if (Array.isArray(topo.items)) {
+      entitiesToExport.items = topo.items.filter(it => it && (nodeIds.has(it.nodeId) || (it.submapId && it.submapId === rootSubmapId)));
+    }
+    if (Array.isArray(topo.trackers)) {
+      entitiesToExport.trackers = topo.trackers.filter(tr => tr && (nodeIds.has(tr.nodeId) || (tr.submapId && tr.submapId === rootSubmapId)));
+    }
+  }
+
+  // Collect assets (IndexedDB raster map backgrounds)
+  const assetsToExport = {};
+  for (const mId of Object.keys(mapsToExport)) {
+    const mMap = mapsToExport[mId];
+    if (mMap.mapMetadata && mMap.mapMetadata.assetPath) {
+      const assetFileName = mMap.mapMetadata.assetPath.replace(/^assets\//, '');
+      let dataUrl = null;
+      if (typeof loadPersistedMapFromDB === 'function') {
+        try {
+          const loaded = await loadPersistedMapFromDB(mId);
+          if (loaded && loaded.dataUrl) dataUrl = loaded.dataUrl;
+        } catch (_) {}
+      }
+      if (!dataUrl && mMap.mapMetadata.dataUrl) {
+        dataUrl = mMap.mapMetadata.dataUrl;
+      }
+      if (dataUrl && typeof dataUrlToUint8Array === 'function') {
+        const bytes = dataUrlToUint8Array(dataUrl);
+        if (bytes) assetsToExport[assetFileName] = bytes;
+      }
+    }
+  }
+
+  // Build manifest
+  const manifest = {
+    formatVersion: '1.0.0',
+    packId,
+    name: packName,
+    author,
+    ipDomain,
+    version: '1.0.0',
+    description,
+    entryMapId: rootSubmapId,
+    contents: {
+      mapsCount: Object.keys(mapsToExport).length,
+      npcsCount: entitiesToExport.npcs.length,
+      questsCount: entitiesToExport.quests.length,
+      itemsCount: entitiesToExport.items.length,
+      modulesCount: 0
+    }
+  };
+
+  try {
+    const buildFn = (typeof buildPackArchive === 'function')
+      ? buildPackArchive
+      : (typeof packEngine !== 'undefined' && typeof packEngine.buildPackArchive === 'function' ? packEngine.buildPackArchive : null);
+    if (!buildFn) throw new Error('buildPackArchive not available');
+
+    const blob = await buildFn({
+      manifest,
+      maps: mapsToExport,
+      entities: entitiesToExport,
+      modules: {},
+      assets: assetsToExport
+    });
+
+    // Zero-CORS safe browser download (remediated per Red Team Finding 4)
+    if (typeof URL !== 'undefined' && typeof URL.createObjectURL === 'function') {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${packId}.csmod`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+    }
+
+    if (typeof setStatusBarMessage === 'function') {
+      setStatusBarMessage(`Exported pack "${packName}" successfully (${blob.size} bytes).`);
+    }
+    return blob;
+  } catch (err) {
+    console.error('[PackEngine] Error building pack export:', err);
+    if (typeof alert === 'function') alert('Failed to export pack: ' + err.message);
+    throw err;
+  }
+}
+
+window.executeExportCsmodPack = executeExportCsmodPack;
+

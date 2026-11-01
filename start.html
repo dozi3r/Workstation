@@ -1706,6 +1706,7 @@ CRITICAL INSTRUCTION:
 
     <!-- Hidden Map Image File Ingestion Input -->
     <input type="file" id="cad-map-file-input" accept="image/png,image/jpeg,image/webp,image/svg+xml" style="display:none;" onchange="onMapFileSelected(event)">
+    <input type="file" id="pack-installer-file-input" accept=".csmod,.zip" style="display:none;" onchange="onPackFileSelected(event)">
 
     <!-- 2. TOP MENU BAR -->
     <div class="menu-bar">
@@ -1716,6 +1717,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openLoadPresetModal()">Open Preset / Campaign... <span class="hotkey">Ctrl+O</span></div>
           <div class="dropdown-row" onclick="openCampaignFolder()">Open Campaign Folder (Disk / USB)...</div>
           <div class="dropdown-row" onclick="triggerSelectiveImportPackage()">Import Maps from Package / Folder...</div>
+          <div class="dropdown-row" onclick="triggerInstallPackFile()"><strong>Install Pack (.csmod, .zip)...</strong></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="handleToolbarSave(); closeAllMenus();">Save Campaign <span class="hotkey">Ctrl+S</span></div>
           <div class="dropdown-row" onclick="openSaveAsNewCampaignModal()">Save As New Campaign... <span class="hotkey">Ctrl+Shift+S</span></div>
@@ -1898,6 +1900,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="window.open('docs/srd/adventure_framework_srd.md')">Adventure Framework SRD</div>
           <div class="dropdown-row" onclick="window.open('docs/srd/tier_0_substratum_srd.md')">Tier 0 Substratum SRD</div>
           <div class="dropdown-row" onclick="window.open('docs/adr/0001-dual-mode-preset-architecture.md')">Architectural Decision Records (ADRs)</div>
+          <div class="dropdown-row" onclick="triggerInstallPackFile()">📦 <strong>Install Pack / Add-on (.csmod)...</strong></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="openShortcutsHelp()">Keyboard Shortcuts <span class="hotkey">F1</span></div>
           <div class="dropdown-row" onclick="openAboutModal()">About Creator Studio...</div>
@@ -2253,6 +2256,9 @@ CRITICAL INSTRUCTION:
         <span><strong>Campaign &amp; Packages</strong></span>
         <span class="submenu-arrow">&#9658;</span>
         <div class="dropdown-submenu">
+          <div class="dropdown-row" onclick="triggerInstallPackFile(); toggleStartMenu();">
+            <strong>Install Pack (.csmod, .zip)...</strong>
+          </div>
           <div class="dropdown-row" onclick="openSourcebooksModal(); toggleStartMenu();">
             <strong>Campaign Packages &amp; Presets...</strong> <span class="hotkey">Ctrl+B</span>
           </div>
@@ -3870,7 +3876,7 @@ CRITICAL INSTRUCTION:
   <!-- ========================================================================
        MODAL 8: CAMPAIGN SOURCEBOOKS & MODULAR PACKAGES (MDI WINDOW)
        ======================================================================== -->
-  <div id="modal-sourcebooks" class="mdi-window bevel-outset hidden" style="width:620px; height:450px; left:220px; top:120px;">
+  <div id="modal-sourcebooks" class="mdi-window bevel-outset hidden" style="width:680px; height:480px; left:220px; top:120px;">
     <div class="mdi-title-bar">
       <div class="mdi-title-text">
         <span class="mdi-icon">SB</span>
@@ -3883,16 +3889,36 @@ CRITICAL INSTRUCTION:
       </div>
     </div>
     <div class="mdi-body" style="display:flex; flex-direction:column; padding:6px; gap:6px; background:var(--win-base); height:calc(100% - 24px); box-sizing:border-box;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size:11px; font-weight:bold; color:#000080;">Installed Campaign Packages</span>
-        <div style="display:flex; gap:4px;">
-          <button class="win-btn" onclick="enableAllSourcebooks()" style="font-size:10px; padding:2px 6px;">Enable All</button>
-          <button class="win-btn" onclick="disableInactiveSourcebooks()" style="font-size:10px; padding:2px 6px;">Active Only</button>
+      <div class="dock-tab-bar">
+        <button class="dock-tab-btn active" id="btn-sbtab-presets" onclick="switchSourcebookTab('presets')">Campaign Presets &amp; Sourcebooks</button>
+        <button class="dock-tab-btn" id="btn-sbtab-installed" onclick="switchSourcebookTab('installed')">Installed Entity Packs (.csmod)</button>
+      </div>
+
+      <!-- Tab 1: Presets & Sourcebooks -->
+      <div id="sbtab-content-presets" style="flex:1; display:flex; flex-direction:column; gap:6px; min-height:0;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:11px; font-weight:bold; color:#000080;">Registered Campaign Presets</span>
+          <div style="display:flex; gap:4px;">
+            <button class="win-btn" onclick="enableAllSourcebooks()" style="font-size:10px; padding:2px 6px;">Enable All</button>
+            <button class="win-btn" onclick="disableInactiveSourcebooks()" style="font-size:10px; padding:2px 6px;">Active Only</button>
+          </div>
+        </div>
+        <div id="sourcebooks-table-container" class="bevel-inset" style="flex:1; overflow-y:auto; background:#ffffff; padding:6px;">
+          <!-- Injected dynamically by renderSourcebooksList() -->
         </div>
       </div>
-      <div id="sourcebooks-table-container" class="bevel-inset" style="flex:1; overflow-y:auto; background:#ffffff; padding:6px;">
-        <!-- Injected dynamically by renderSourcebooksList() -->
+
+      <!-- Tab 2: Installed Entity Packs -->
+      <div id="sbtab-content-installed" class="hidden" style="flex:1; display:flex; flex-direction:column; gap:6px; min-height:0;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:11px; font-weight:bold; color:#000080;">Packs Installed in Active Campaign</span>
+          <button class="win-btn" onclick="triggerInstallPackFile()" style="font-size:10px; padding:2px 8px; font-weight:bold;">+ Install Pack (.csmod)...</button>
+        </div>
+        <div id="installed-packs-container" class="bevel-inset" style="flex:1; overflow-y:auto; background:#ffffff; padding:6px;">
+          <!-- Injected dynamically by packEngine.renderInstalledPacksView() -->
+        </div>
       </div>
+
       <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px;">
         <span id="sourcebooks-count-status">3 Packages Installed</span>
         <button class="win-btn" onclick="MDIWindowManager.close('modal-sourcebooks')" style="min-width:60px;">Close</button>
@@ -3921,11 +3947,53 @@ CRITICAL INSTRUCTION:
         <button class="dock-tab-btn" id="btn-exp-md" onclick="switchExportTab('md')">GM Markdown Dossier</button>
         <button class="dock-tab-btn" id="btn-exp-vtt" onclick="switchExportTab('vtt')">Foundry VTT Export</button>
         <button class="dock-tab-btn" id="btn-exp-svg" onclick="switchExportTab('svg')">SVG Map Vector</button>
+        <button class="dock-tab-btn" id="btn-exp-pack" onclick="switchExportTab('pack')">Export as Pack (.csmod)</button>
       </div>
-      <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
+      <div id="export-text-container" style="flex:1; display:flex; flex-direction:column; gap:4px;">
         <textarea id="export-output-text" class="win-select-input bevel-inset" style="flex:1; width:100%; font-family:monospace; font-size:11px; background:#ffffff; resize:none;" readonly></textarea>
       </div>
-      <div style="display:flex; justify-content:space-between; align-items:center;">
+
+      <!-- Pack Exporter Form Panel -->
+      <div id="export-pack-form-container" class="bevel-inset hidden" style="flex:1; overflow-y:auto; background:#ffffff; padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:11px; color:#333; line-height:1.4;">
+          Package a submap branch, stationed characters, relics, and worldbuilding lore into a self-contained, portable <strong>Entity Module Pack (`.csmod`)</strong>.
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+            <span>Root Submap to Export:</span>
+            <select id="export-pack-submap-select" class="win-select-input" style="padding:3px; font-size:11px;">
+              <!-- Populated dynamically -->
+            </select>
+          </label>
+          <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+            <span>Pack Identifier (packId):</span>
+            <input type="text" id="export-pack-id" class="win-input" placeholder="e.g. sunken_temple_l1" style="padding:3px; font-size:11px;">
+          </label>
+        </div>
+        <div style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:8px;">
+          <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+            <span>Pack Title:</span>
+            <input type="text" id="export-pack-title" class="win-input" placeholder="e.g. Sunken Temple Level 1" style="padding:3px; font-size:11px;">
+          </label>
+          <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+            <span>Author:</span>
+            <input type="text" id="export-pack-author" class="win-input" placeholder="e.g. GM Milo" style="padding:3px; font-size:11px;">
+          </label>
+          <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+            <span>IP Domain:</span>
+            <input type="text" id="export-pack-domain" class="win-input" placeholder="e.g. Emerald Isle" style="padding:3px; font-size:11px;">
+          </label>
+        </div>
+        <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:2px;">
+          <span>Pack Description:</span>
+          <textarea id="export-pack-desc" class="win-input" rows="3" placeholder="Brief description of the dungeon, settlement, or encounter module..." style="resize:none; font-size:11px;"></textarea>
+        </label>
+        <div style="display:flex; justify-content:flex-end; pt:4px;">
+          <button class="win-btn" onclick="executeExportCsmodPack()" style="font-weight:bold; padding:4px 12px; color:#000080;">📦 Build &amp; Download .csmod</button>
+        </div>
+      </div>
+
+      <div id="export-text-footer" style="display:flex; justify-content:space-between; align-items:center;">
         <div style="display:flex; gap:6px; align-items:center;">
           <button class="win-btn" onclick="copyExportToClipboard()" style="font-weight:bold; padding:3px 8px;">Copy to Clipboard</button>
           <button class="win-btn" onclick="downloadExportFile()" style="font-weight:bold; padding:3px 8px;">Download File</button>
@@ -4070,6 +4138,84 @@ CRITICAL INSTRUCTION:
         <!-- Selected Cell Dossier / Detail Panel -->
         <div id="odv-mdi-dossier" class="bevel-inset" style="width:340px; background:#f8fafc; padding:10px; overflow-y:auto; font-size:11px; display:flex; flex-direction:column; gap:6px;">
           <div style="color:#64748b; font-style:italic;">Select any cell from the matrix to inspect hermeneutic boons, burdens, and active campaign occupants.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: ENTITY MODULE PACK INSTALLER (MDI WINDOW)
+       ======================================================================== -->
+  <div id="modal-pack-installer" class="mdi-window bevel-outset hidden" style="width:680px; height:500px; left:200px; top:100px;">
+    <div class="mdi-title-bar">
+      <div class="mdi-title-text">
+        <span class="mdi-icon">PI</span>
+        <span id="pack-installer-title">Install Entity Module Pack (.csmod)</span>
+      </div>
+      <div class="mdi-title-controls">
+        <button class="win-btn" onclick="MDIWindowManager.minimize('modal-pack-installer')" title="Minimize">_</button>
+        <button class="win-btn" onclick="MDIWindowManager.restoreOrMaximize('modal-pack-installer')" title="Maximize / Restore">&#9633;</button>
+        <button class="win-btn" onclick="MDIWindowManager.close('modal-pack-installer')" title="Close">X</button>
+      </div>
+    </div>
+    <div class="mdi-body" style="display:flex; flex-direction:column; padding:6px; gap:6px; background:var(--win-base); height:calc(100% - 24px); box-sizing:border-box;">
+      <div class="dock-tab-bar">
+        <button class="dock-tab-btn active" id="btn-ptab-overview" onclick="switchPackInstallerTab('overview')">1. Overview</button>
+        <button class="dock-tab-btn" id="btn-ptab-anchor" onclick="switchPackInstallerTab('anchor')">2. Portal Anchor Node</button>
+        <button class="dock-tab-btn" id="btn-ptab-conflicts" onclick="switchPackInstallerTab('conflicts')">3. Entity Conflicts</button>
+      </div>
+
+      <!-- Tab 1: Overview -->
+      <div id="ptab-content-overview" class="bevel-inset" style="flex:1; overflow-y:auto; background:#ffffff; padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #ddd; padding-bottom:6px;">
+          <div>
+            <h3 id="pack-preview-name" style="margin:0 0 4px 0; font-size:14px; color:#000080;">Pack Title</h3>
+            <div id="pack-preview-meta" style="font-size:11px; color:#555;">Author: Unknown | Version: 1.0.0 | Domain: Custom</div>
+          </div>
+          <span id="pack-preview-badge" style="background:#000080; color:#fff; font-size:10px; padding:2px 6px; font-weight:bold;">.CSMOD</span>
+        </div>
+        <div id="pack-preview-desc" style="font-size:11px; color:#333; line-height:1.4;">No description provided.</div>
+        <div style="font-weight:bold; font-size:11px; color:#000080; margin-top:4px;">Pack Contents Summary:</div>
+        <div id="pack-preview-counts" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px;">
+          <!-- Dynamically populated badges -->
+        </div>
+        <div id="pack-preview-anchor-prompt" class="bevel-thin-inset" style="padding:6px; background:#f4f4f4; font-size:11px; color:#333; display:none;">
+          <strong>Suggested Anchor:</strong> <span id="pack-preview-anchor-prompt-text"></span>
+        </div>
+      </div>
+
+      <!-- Tab 2: Portal Anchor Node -->
+      <div id="ptab-content-anchor" class="bevel-inset hidden" style="flex:1; overflow-y:auto; background:#ffffff; padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:11px; color:#333; line-height:1.4;">
+          Select an overworld or parent node on the current map to attach this pack's entry submap as a <strong>Scale-Fluid Portal Node</strong>. Clicking this node will open the submap.
+        </div>
+        <label style="font-size:11px; font-weight:bold; color:#000080; display:flex; flex-direction:column; gap:4px;">
+          <span>Target Host Node on Active Map:</span>
+          <select id="pack-anchor-node-select" class="win-select-input" style="width:100%; padding:3px; font-size:11px;">
+            <option value="">[Do not link - Keep as independent submap]</option>
+          </select>
+        </label>
+        <div id="pack-anchor-collision-warning" class="bevel-thin-inset" style="display:none; padding:6px; background:#fff3cd; border:1px solid #ffeeba; color:#856404; font-size:11px;">
+          ⚠️ <strong>Notice:</strong> This node already has an attached submap. The existing link will be preserved in the provenance ledger and restored if this pack is uninstalled.
+        </div>
+      </div>
+
+      <!-- Tab 3: Entity Conflicts -->
+      <div id="ptab-content-conflicts" class="bevel-inset hidden" style="flex:1; overflow-y:auto; background:#ffffff; padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:11px; color:#333; line-height:1.4;">
+          If entities in the pack share IDs or names with existing campaign entities, select how each should be handled.
+        </div>
+        <div id="pack-conflicts-list" style="display:flex; flex-direction:column; gap:6px;">
+          <div style="color:#666; font-style:italic; font-size:11px;">No naming collisions detected with active campaign roster.</div>
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span id="pack-installer-status" style="font-size:11px; color:#333;">Ready to install</span>
+        <div style="display:flex; gap:6px;">
+          <button class="win-btn" onclick="executePackInstallation()" style="font-weight:bold; min-width:80px; padding:3px 10px;">Install Pack</button>
+          <button class="win-btn" onclick="MDIWindowManager.close('modal-pack-installer')" style="min-width:60px; padding:3px 8px;">Cancel</button>
         </div>
       </div>
     </div>
@@ -23397,6 +23543,10 @@ function saveMapScaleDialog() {
           title: 'Custom Module Studio',
           icon: 'CM'
         });
+        MDIWindowManager.registerWindow('modal-pack-installer', {
+          title: 'Entity Module Pack Installer',
+          icon: 'PI'
+        });
       } catch (e) {
         console.error('[Workstation] MDIWindowManager registration error:', e);
       }
@@ -24238,9 +24388,25 @@ function saveMapScaleDialog() {
       }).join('');
     }
 
+    function switchSourcebookTab(tabName) {
+      const tabs = ['presets', 'installed'];
+      for (const t of tabs) {
+        const btn = document.getElementById(`btn-sbtab-${t}`);
+        const content = document.getElementById(`sbtab-content-${t}`);
+        if (btn) btn.classList.toggle('active', t === tabName);
+        if (content) content.classList.toggle('hidden', t !== tabName);
+      }
+      if (tabName === 'installed' && typeof packEngine !== 'undefined' && typeof packEngine.renderInstalledPacksView === 'function') {
+        const container = document.getElementById('installed-packs-container');
+        if (container) packEngine.renderInstalledPacksView(container);
+      } else if (tabName === 'presets') {
+        renderSourcebooksList();
+      }
+    }
+
     function openSourcebooksModal() {
       MDIWindowManager.open('modal-sourcebooks');
-      renderSourcebooksList();
+      switchSourcebookTab('presets');
     }
 
     function renderSourcebooksList() {
@@ -24355,11 +24521,62 @@ function saveMapScaleDialog() {
     let activeExportTabKey = 'json';
     function switchExportTab(tabKey) {
       activeExportTabKey = tabKey;
-      ['json', 'md', 'vtt', 'svg'].forEach(k => {
+      ['json', 'md', 'vtt', 'svg', 'pack'].forEach(k => {
         const b = document.getElementById(`btn-exp-${k}`);
         if (b) b.classList.toggle('active', k === tabKey);
       });
-      updateExportOutput();
+
+      const textCont = document.getElementById('export-text-container');
+      const textFoot = document.getElementById('export-text-footer');
+      const packForm = document.getElementById('export-pack-form-container');
+
+      if (tabKey === 'pack') {
+        if (textCont) textCont.classList.add('hidden');
+        if (textFoot) textFoot.classList.add('hidden');
+        if (packForm) {
+          packForm.classList.remove('hidden');
+          populatePackExportForm();
+        }
+      } else {
+        if (textCont) textCont.classList.remove('hidden');
+        if (textFoot) textFoot.classList.remove('hidden');
+        if (packForm) packForm.classList.add('hidden');
+        updateExportOutput();
+      }
+    }
+
+    function populatePackExportForm() {
+      const selectEl = document.getElementById('export-pack-submap-select');
+      if (!selectEl) return;
+      selectEl.innerHTML = '';
+
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      const allMaps = (typeof maps !== 'undefined' && maps) ? maps : (topo && topo.maps ? topo.maps : {});
+
+      for (const mId of Object.keys(allMaps)) {
+        const mMap = allMaps[mId];
+        const opt = document.createElement('option');
+        opt.value = mId;
+        opt.textContent = `${mMap.name || mId} (${(mMap.nodes || []).length} nodes)`;
+        if (typeof activeMapId !== 'undefined' && mId === activeMapId) {
+          opt.selected = true;
+        }
+        selectEl.appendChild(opt);
+      }
+
+      if (selectEl.options.length === 0) {
+        selectEl.innerHTML = '<option value="map_root">Root Overworld Map (map_root)</option>';
+      }
+
+      const idInput = document.getElementById('export-pack-id');
+      const titleInput = document.getElementById('export-pack-title');
+      if (idInput && !idInput.value) {
+        idInput.value = `pack_${selectEl.value || 'submap'}`;
+      }
+      if (titleInput && !titleInput.value) {
+        const selectedMap = allMaps[selectEl.value];
+        titleInput.value = (selectedMap && selectedMap.name) || 'Campaign Submap Pack';
+      }
     }
 
     function updateExportOutput() {
@@ -24471,6 +24688,7 @@ window.resetBalancing = resetBalancing;
 window.openMapNavigatorModal = openMapNavigatorModal;
 window.renderMapNavigatorTree = renderMapNavigatorTree;
 window.openSourcebooksModal = openSourcebooksModal;
+window.switchSourcebookTab = switchSourcebookTab;
 window.renderSourcebooksList = renderSourcebooksList;
 window.enableAllSourcebooks = enableAllSourcebooks;
 window.disableInactiveSourcebooks = disableInactiveSourcebooks;
@@ -27907,6 +28125,31 @@ window.toggleInfluenceVectors = toggleInfluenceVectors;// CAD Canvas Interaction
           onCanvasMouseUp(e);
         }
       });
+
+      // External File Drag and Drop Support with Browser Navigation Hijack Shield
+      canvas.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+      canvas.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+      canvas.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          const file = e.dataTransfer.files[0];
+          const name = (file.name || '').toLowerCase();
+          if (name.endsWith('.csmod') || name.endsWith('.zip')) {
+            if (typeof packEngine !== 'undefined' && typeof packEngine.openInstallerDialog === 'function') {
+              packEngine.openInstallerDialog(file);
+            }
+          }
+        }
+      });
+      window.addEventListener('dragover', (e) => e.preventDefault());
+      window.addEventListener('drop', (e) => e.preventDefault());
     }
 
 // Exported globals
@@ -41705,6 +41948,151 @@ function importCampaignData(data, sourceLabel = "") {
   }
 }
 
+/**
+ * In-App Entity Module Pack Exporter (Stage 6 / Ctrl+E)
+ * Bundles selected submap branch, stationed entities, and IndexedDB graphics into .csmod
+ */
+async function executeExportCsmodPack() {
+  if (typeof document === 'undefined') return;
+  const submapSelect = document.getElementById('export-pack-submap-select');
+  const packIdInput = document.getElementById('export-pack-id');
+  const titleInput = document.getElementById('export-pack-title');
+  const authorInput = document.getElementById('export-pack-author');
+  const domainInput = document.getElementById('export-pack-domain');
+  const descInput = document.getElementById('export-pack-desc');
+
+  const rootSubmapId = submapSelect ? submapSelect.value : '';
+  if (!rootSubmapId) {
+    if (typeof alert === 'function') alert('Please select a submap to export as pack.');
+    return;
+  }
+
+  const packId = (packIdInput && packIdInput.value.trim()) || `pack_${rootSubmapId}_${Date.now()}`;
+  const packName = (titleInput && titleInput.value.trim()) || rootSubmapId;
+  const author = (authorInput && authorInput.value.trim()) || 'Creator Studio User';
+  const ipDomain = (domainInput && domainInput.value.trim()) || 'Custom';
+  const description = (descInput && descInput.value.trim()) || 'Exported from Creator Studio';
+
+  const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+  const allMaps = (typeof maps !== 'undefined' && maps) ? maps : (topo && topo.maps ? topo.maps : {});
+  const targetMap = allMaps[rootSubmapId];
+  if (!targetMap) {
+    if (typeof alert === 'function') alert('Selected submap not found in maps registry.');
+    return;
+  }
+
+  // Collect target submaps (root submap plus any nested child submaps)
+  const mapsToExport = {};
+  mapsToExport[rootSubmapId] = targetMap;
+
+  // Collect nodes and entities
+  const mapNodes = Array.isArray(targetMap.nodes) ? targetMap.nodes : Object.values(targetMap.nodes || {});
+  const nodeIds = new Set(mapNodes.map(n => n.id));
+
+  // Check child submaps attached to portal nodes
+  for (const n of mapNodes) {
+    if (n.childMapId && allMaps[n.childMapId]) {
+      mapsToExport[n.childMapId] = allMaps[n.childMapId];
+    }
+  }
+
+  const entitiesToExport = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+  if (topo) {
+    if (Array.isArray(topo.npcs)) {
+      entitiesToExport.npcs = topo.npcs.filter(npc => npc && (nodeIds.has(npc.nodeId) || (npc.submapId && npc.submapId === rootSubmapId)));
+    }
+    if (Array.isArray(topo.quests)) {
+      entitiesToExport.quests = topo.quests.filter(q => q && (nodeIds.has(q.nodeId) || (q.submapId && q.submapId === rootSubmapId)));
+    }
+    if (Array.isArray(topo.items)) {
+      entitiesToExport.items = topo.items.filter(it => it && (nodeIds.has(it.nodeId) || (it.submapId && it.submapId === rootSubmapId)));
+    }
+    if (Array.isArray(topo.trackers)) {
+      entitiesToExport.trackers = topo.trackers.filter(tr => tr && (nodeIds.has(tr.nodeId) || (tr.submapId && tr.submapId === rootSubmapId)));
+    }
+  }
+
+  // Collect assets (IndexedDB raster map backgrounds)
+  const assetsToExport = {};
+  for (const mId of Object.keys(mapsToExport)) {
+    const mMap = mapsToExport[mId];
+    if (mMap.mapMetadata && mMap.mapMetadata.assetPath) {
+      const assetFileName = mMap.mapMetadata.assetPath.replace(/^assets\//, '');
+      let dataUrl = null;
+      if (typeof loadPersistedMapFromDB === 'function') {
+        try {
+          const loaded = await loadPersistedMapFromDB(mId);
+          if (loaded && loaded.dataUrl) dataUrl = loaded.dataUrl;
+        } catch (_) {}
+      }
+      if (!dataUrl && mMap.mapMetadata.dataUrl) {
+        dataUrl = mMap.mapMetadata.dataUrl;
+      }
+      if (dataUrl && typeof dataUrlToUint8Array === 'function') {
+        const bytes = dataUrlToUint8Array(dataUrl);
+        if (bytes) assetsToExport[assetFileName] = bytes;
+      }
+    }
+  }
+
+  // Build manifest
+  const manifest = {
+    formatVersion: '1.0.0',
+    packId,
+    name: packName,
+    author,
+    ipDomain,
+    version: '1.0.0',
+    description,
+    entryMapId: rootSubmapId,
+    contents: {
+      mapsCount: Object.keys(mapsToExport).length,
+      npcsCount: entitiesToExport.npcs.length,
+      questsCount: entitiesToExport.quests.length,
+      itemsCount: entitiesToExport.items.length,
+      modulesCount: 0
+    }
+  };
+
+  try {
+    const buildFn = (typeof buildPackArchive === 'function')
+      ? buildPackArchive
+      : (typeof packEngine !== 'undefined' && typeof packEngine.buildPackArchive === 'function' ? packEngine.buildPackArchive : null);
+    if (!buildFn) throw new Error('buildPackArchive not available');
+
+    const blob = await buildFn({
+      manifest,
+      maps: mapsToExport,
+      entities: entitiesToExport,
+      modules: {},
+      assets: assetsToExport
+    });
+
+    // Zero-CORS safe browser download (remediated per Red Team Finding 4)
+    if (typeof URL !== 'undefined' && typeof URL.createObjectURL === 'function') {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${packId}.csmod`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+    }
+
+    if (typeof setStatusBarMessage === 'function') {
+      setStatusBarMessage(`Exported pack "${packName}" successfully (${blob.size} bytes).`);
+    }
+    return blob;
+  } catch (err) {
+    console.error('[PackEngine] Error building pack export:', err);
+    if (typeof alert === 'function') alert('Failed to export pack: ' + err.message);
+    throw err;
+  }
+}
+
+window.executeExportCsmodPack = executeExportCsmodPack;
+
 // ============================================================================
 // CREATOR STUDIO: SELECTIVE SUB-MAP IMPORTER & ENTITY CONFLICT DETECTOR
 // ============================================================================
@@ -41872,7 +42260,7 @@ function importCampaignData(data, sourceLabel = "") {
       input = document.createElement("input");
       input.type = "file";
       input.id = "selective-import-file-input";
-      input.accept = ".zip,.csz,.creator.json,.json";
+      input.accept = ".zip,.csz,.csmod,.creator.json,.json";
       input.style.display = "none";
       document.body.appendChild(input);
       input.addEventListener("change", onSelectiveImportFileSelected);
@@ -41887,7 +42275,7 @@ function importCampaignData(data, sourceLabel = "") {
     const options = window._selectiveImportOptions || {};
 
     try {
-      const isZip = file.name.endsWith(".zip") || file.name.endsWith(".csz");
+      const isZip = file.name.endsWith(".zip") || file.name.endsWith(".csz") || file.name.endsWith(".csmod");
       if (isZip) {
         if (!window.ZeroCorsZip) {
           alert("ZIP decompression engine not loaded.");
@@ -41895,6 +42283,13 @@ function importCampaignData(data, sourceLabel = "") {
         }
         const buffer = await file.arrayBuffer();
         const zipFiles = await window.ZeroCorsZip.parse(buffer);
+
+        if (zipFiles["pack.json"] || file.name.endsWith(".csmod")) {
+          if (typeof packEngine !== 'undefined' && typeof packEngine.openInstallerDialog === 'function') {
+            await packEngine.openInstallerDialog(buffer);
+            return;
+          }
+        }
 
         let mainData = null;
         if (zipFiles["preset.json"]) mainData = JSON.parse(new TextDecoder().decode(zipFiles["preset.json"]));
@@ -42631,6 +43026,94 @@ function importCampaignData(data, sourceLabel = "") {
   }
 
   /**
+   * Helper: Convert DataURL to raw Uint8Array safely in browser and Node.js
+   */
+  function dataUrlToUint8Array(dataUrl) {
+    if (!dataUrl || typeof dataUrl !== 'string') return null;
+    const commaIdx = dataUrl.indexOf(',');
+    if (commaIdx === -1) return null;
+    const base64 = dataUrl.slice(commaIdx + 1);
+
+    if (typeof Buffer !== 'undefined') {
+      return new Uint8Array(Buffer.from(base64, 'base64'));
+    }
+    if (typeof atob !== 'undefined') {
+      const binary = atob(base64);
+      const len = binary.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      return bytes;
+    }
+    return null;
+  }
+
+  /**
+   * Helper: Remap foreign key references across entities and submap nodes when cloned
+   */
+  function remapEntityCluster(entities, submaps, entityIdMap, mapIdMap) {
+    const hasEntityRemaps = entityIdMap && Object.keys(entityIdMap).length > 0;
+    const hasMapRemaps = mapIdMap && Object.keys(mapIdMap).length > 0;
+    if (!hasEntityRemaps && !hasMapRemaps) return;
+
+    const remapId = (id) => (hasEntityRemaps && entityIdMap[id]) ? entityIdMap[id] : id;
+    const remapArr = (arr) => Array.isArray(arr) ? arr.map(remapId) : arr;
+
+    // Remap NPCs
+    if (entities && Array.isArray(entities.npcs)) {
+      for (const npc of entities.npcs) {
+        if (!npc) continue;
+        if (npc.questIds) npc.questIds = remapArr(npc.questIds);
+        if (npc.itemIds) npc.itemIds = remapArr(npc.itemIds);
+        if (Array.isArray(npc.relationships)) {
+          for (const rel of npc.relationships) {
+            if (rel && rel.targetNpcId) rel.targetNpcId = remapId(rel.targetNpcId);
+          }
+        }
+      }
+    }
+
+    // Remap Quests
+    if (entities && Array.isArray(entities.quests)) {
+      for (const q of entities.quests) {
+        if (!q) continue;
+        if (q.npcIds) q.npcIds = remapArr(q.npcIds);
+        if (q.targetNpcId) q.targetNpcId = remapId(q.targetNpcId);
+        if (q.giverNpcId) q.giverNpcId = remapId(q.giverNpcId);
+        if (q.itemIds) q.itemIds = remapArr(q.itemIds);
+      }
+    }
+
+    // Remap Items
+    if (entities && Array.isArray(entities.items)) {
+      for (const it of entities.items) {
+        if (!it) continue;
+        if (it.ownerNpcId) it.ownerNpcId = remapId(it.ownerNpcId);
+      }
+    }
+
+    // Remap Submap Nodes
+    if (submaps && typeof submaps === 'object') {
+      for (const mId of Object.keys(submaps)) {
+        const mapObj = submaps[mId];
+        if (mapObj && Array.isArray(mapObj.nodes)) {
+          for (const node of mapObj.nodes) {
+            if (!node) continue;
+            if (node.stationedNpcIds) node.stationedNpcIds = remapArr(node.stationedNpcIds);
+            if (node.npcIds) node.npcIds = remapArr(node.npcIds);
+            if (node.questIds) node.questIds = remapArr(node.questIds);
+            if (node.itemIds) node.itemIds = remapArr(node.itemIds);
+            if (hasMapRemaps && node.childMapId && mapIdMap[node.childMapId]) {
+              node.childMapId = mapIdMap[node.childMapId];
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
    * Validate a pack.json manifest structure
    */
   function validatePackManifest(manifest) {
@@ -42792,10 +43275,14 @@ function importCampaignData(data, sourceLabel = "") {
     const resolvedEntryMapId = mapIdMap[manifest.entryMapId] || manifest.entryMapId;
 
     // 2. Portal Anchor Linking
-    if (anchorNodeId !== null) {
+    let previousChildMapId = null;
+    if (anchorNodeId !== null && anchorNodeId !== undefined) {
       const activeNodes = (typeof nodes !== 'undefined' && Array.isArray(nodes)) ? nodes : (topo.nodes || []);
       const anchorNode = activeNodes.find((n) => n && n.id == anchorNodeId);
       if (anchorNode) {
+        if (anchorNode.childMapId && anchorNode.childMapId !== resolvedEntryMapId) {
+          previousChildMapId = anchorNode.childMapId;
+        }
         anchorNode.childMapId = resolvedEntryMapId;
       }
     }
@@ -42843,6 +43330,8 @@ function importCampaignData(data, sourceLabel = "") {
 
     // 4. Ingest Entities & Disambiguate Collisions
     const ingestedEntityIds = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+    const entityIdMap = {};
+
     for (const cat of ['npcs', 'quests', 'items', 'trackers', 'tickets']) {
       const incomingList = parsedPack.entities[cat] || [];
       const currentList = topo[cat];
@@ -42865,8 +43354,11 @@ function importCampaignData(data, sourceLabel = "") {
             continue;
           } else {
             // Default: 'clone'
-            entCopy.id = `${entCopy.id}_${manifest.packId}_${Date.now()}`;
+            const origId = entCopy.id;
+            const newId = `${entCopy.id}_${manifest.packId}_${Date.now()}`;
+            entCopy.id = newId;
             entCopy.name = `${entCopy.name} (${manifest.name})`;
+            entityIdMap[origId] = newId;
           }
         }
 
@@ -42874,6 +43366,9 @@ function importCampaignData(data, sourceLabel = "") {
         ingestedEntityIds[cat].push(entCopy.id);
       }
     }
+
+    // Remap relational cluster references across newly ingested entities and submaps
+    remapEntityCluster(topo, topo.maps, entityIdMap, mapIdMap);
 
     // 5. Ingest Custom Modules
     const ingestedModuleIds = [];
@@ -42906,6 +43401,7 @@ function importCampaignData(data, sourceLabel = "") {
       version: manifest.version || '1.0.0',
       installedAt: new Date().toISOString(),
       anchorNodeId: anchorNodeId,
+      previousChildMapId: previousChildMapId,
       submapIds: Object.values(mapIdMap),
       entityIds: ingestedEntityIds,
       moduleIds: ingestedModuleIds
@@ -42941,12 +43437,32 @@ function importCampaignData(data, sourceLabel = "") {
     if (packIdx === -1) return false;
     const pack = topo.installedPacks[packIdx];
 
-    // 1. Clear Portal Anchor Node childMapId
+    // 0. Active Map Safety Guard: Switch away if currently viewing a pack submap
+    const curActive = (typeof activeMapId !== 'undefined' && activeMapId) ? activeMapId : (topo.activeMapId || 'map_root');
+    if (pack.submapIds && pack.submapIds.includes(curActive)) {
+      const fallbackMap = 'map_root';
+      if (typeof switchActiveMap === 'function') {
+        try {
+          await switchActiveMap(fallbackMap, true);
+        } catch (_) {
+          if (typeof activeMapId !== 'undefined') activeMapId = fallbackMap;
+        }
+      } else {
+        if (typeof activeMapId !== 'undefined') activeMapId = fallbackMap;
+        if (topo.activeMapId) topo.activeMapId = fallbackMap;
+      }
+    }
+
+    // 1. Restore or Clear Portal Anchor Node childMapId
     if (pack.anchorNodeId !== null && pack.anchorNodeId !== undefined) {
       const activeNodes = (typeof nodes !== 'undefined' && Array.isArray(nodes)) ? nodes : (topo.nodes || []);
       const anchorNode = activeNodes.find((n) => n && n.id == pack.anchorNodeId);
       if (anchorNode && pack.submapIds.includes(anchorNode.childMapId)) {
-        delete anchorNode.childMapId;
+        if (pack.previousChildMapId) {
+          anchorNode.childMapId = pack.previousChildMapId;
+        } else {
+          delete anchorNode.childMapId;
+        }
       }
     }
 
@@ -42975,16 +43491,61 @@ function importCampaignData(data, sourceLabel = "") {
       });
     }
 
-    // 4. Purge Custom Modules
-    if (pack.moduleIds && Array.isArray(topo.custom_modules)) {
+    // 4. Purge Custom Modules and Slotted Bindings
+    if (pack.moduleIds && Array.isArray(pack.moduleIds) && pack.moduleIds.length > 0) {
       const modIdsToRemove = new Set(pack.moduleIds);
-      topo.custom_modules = topo.custom_modules.filter((m) => m && !modIdsToRemove.has(m.id) && m._packId !== packId);
+      if (Array.isArray(topo.custom_modules)) {
+        topo.custom_modules = topo.custom_modules.filter((m) => m && !modIdsToRemove.has(m.id) && m._packId !== packId);
+      }
       if (typeof ALL_MODULES !== 'undefined' && Array.isArray(ALL_MODULES)) {
         for (let i = ALL_MODULES.length - 1; i >= 0; i--) {
           if (modIdsToRemove.has(ALL_MODULES[i].id)) {
             ALL_MODULES.splice(i, 1);
           }
         }
+      }
+      if (typeof MODULES_MANIFEST !== 'undefined' && Array.isArray(MODULES_MANIFEST)) {
+        for (let i = MODULES_MANIFEST.length - 1; i >= 0; i--) {
+          if (modIdsToRemove.has(MODULES_MANIFEST[i].id)) {
+            MODULES_MANIFEST.splice(i, 1);
+          }
+        }
+      }
+      // Purge nodeSlottedModules
+      if (typeof nodeSlottedModules !== 'undefined' && nodeSlottedModules) {
+        Object.keys(nodeSlottedModules).forEach((nid) => {
+          if (Array.isArray(nodeSlottedModules[nid])) {
+            nodeSlottedModules[nid] = nodeSlottedModules[nid].filter((mId) => !modIdsToRemove.has(String(mId)));
+          }
+        });
+      }
+      // Purge edgeSlottedModules
+      if (typeof edgeSlottedModules !== 'undefined' && edgeSlottedModules) {
+        Object.keys(edgeSlottedModules).forEach((ek) => {
+          if (modIdsToRemove.has(String(edgeSlottedModules[ek]))) {
+            delete edgeSlottedModules[ek];
+          }
+        });
+      }
+      // Purge modules on nodes across maps
+      if (typeof maps !== 'undefined' && maps) {
+        Object.values(maps).forEach((m) => {
+          if (m && m.nodes) {
+            (Array.isArray(m.nodes) ? m.nodes : Object.values(m.nodes)).forEach((n) => {
+              if (n && n.modules) n.modules = n.modules.filter((mId) => !modIdsToRemove.has(String(mId)));
+            });
+          }
+          if (m && m.nodeSlottedModules) {
+            Object.keys(m.nodeSlottedModules).forEach((nid) => {
+              if (Array.isArray(m.nodeSlottedModules[nid])) {
+                m.nodeSlottedModules[nid] = m.nodeSlottedModules[nid].filter((mId) => !modIdsToRemove.has(String(mId)));
+              }
+            });
+          }
+        });
+      }
+      if (typeof syncCustomModulesToCatalog === 'function') {
+        try { syncCustomModulesToCatalog(topo); } catch (_) {}
       }
     }
 
@@ -43058,12 +43619,336 @@ function importCampaignData(data, sourceLabel = "") {
     return zip.generateBlob();
   }
 
+  /**
+   * Win95 File Picker Trigger for Packs
+   */
+  function triggerInstallPackFile() {
+    if (typeof document === 'undefined') return;
+    const input = document.getElementById('pack-installer-file-input');
+    if (input) {
+      input.value = '';
+      input.click();
+    }
+  }
+
+  /**
+   * File selection handler for #pack-installer-file-input
+   */
+  async function onPackFileSelected(event) {
+    const file = event.target && event.target.files && event.target.files[0];
+    if (!file) return;
+    try {
+      await packEngine.openInstallerDialog(file);
+    } catch (err) {
+      console.error('[PackEngine] Error opening installer dialog:', err);
+      if (typeof alert === 'function') alert('Failed to load pack archive: ' + err.message);
+    } finally {
+      if (event.target) event.target.value = '';
+    }
+  }
+
+  /**
+   * Tab switcher for #modal-pack-installer dialog
+   */
+  function switchPackInstallerTab(tabName) {
+    if (typeof document === 'undefined') return;
+    const tabs = ['overview', 'anchor', 'conflicts'];
+    for (const t of tabs) {
+      const btn = document.getElementById(`btn-ptab-${t}`);
+      const content = document.getElementById(`ptab-content-${t}`);
+      if (btn) btn.classList.toggle('active', t === tabName);
+      if (content) content.classList.toggle('hidden', t !== tabName);
+    }
+  }
+
+  /**
+   * Populate #modal-pack-installer dialog with staged pack metadata & options
+   */
+  function populatePackInstallerModal(parsedPack) {
+    if (typeof document === 'undefined') return;
+    if (!parsedPack || !parsedPack.manifest) return;
+    const manifest = parsedPack.manifest;
+    const nameEl = document.getElementById('pack-preview-name');
+    const metaEl = document.getElementById('pack-preview-meta');
+    const descEl = document.getElementById('pack-preview-desc');
+    const countsEl = document.getElementById('pack-preview-counts');
+    const promptBox = document.getElementById('pack-preview-anchor-prompt');
+    const promptText = document.getElementById('pack-preview-anchor-prompt-text');
+    const statusEl = document.getElementById('pack-installer-status');
+
+    if (nameEl) nameEl.textContent = manifest.name || manifest.packId;
+    if (metaEl) metaEl.textContent = `Author: ${manifest.author || 'Unknown'} | Version: ${manifest.version || '1.0.0'} | Domain: ${manifest.ipDomain || 'Custom'}`;
+    if (descEl) descEl.textContent = manifest.description || 'No description provided.';
+    if (statusEl) statusEl.textContent = `Pack: ${manifest.packId} (${Object.keys(parsedPack.maps || {}).length} map(s))`;
+
+    if (promptBox && promptText) {
+      if (manifest.recommendedAnchor && manifest.recommendedAnchor.prompt) {
+        promptText.textContent = manifest.recommendedAnchor.prompt;
+        promptBox.style.display = 'block';
+      } else {
+        promptBox.style.display = 'none';
+      }
+    }
+
+    if (countsEl) {
+      const mapsCount = Object.keys(parsedPack.maps || {}).length;
+      const npcsCount = (parsedPack.entities && parsedPack.entities.npcs || []).length;
+      const questsCount = (parsedPack.entities && parsedPack.entities.quests || []).length;
+      const itemsCount = (parsedPack.entities && parsedPack.entities.items || []).length;
+
+      countsEl.innerHTML = `
+        <div class="bevel-thin-inset" style="padding:6px; background:#f9f9f9; text-align:center;">
+          <div style="font-size:16px; font-weight:bold; color:#000080;">${mapsCount}</div>
+          <div style="font-size:10px; color:#555;">Submaps</div>
+        </div>
+        <div class="bevel-thin-inset" style="padding:6px; background:#f9f9f9; text-align:center;">
+          <div style="font-size:16px; font-weight:bold; color:#000080;">${npcsCount}</div>
+          <div style="font-size:10px; color:#555;">NPCs</div>
+        </div>
+        <div class="bevel-thin-inset" style="padding:6px; background:#f9f9f9; text-align:center;">
+          <div style="font-size:16px; font-weight:bold; color:#000080;">${questsCount}</div>
+          <div style="font-size:10px; color:#555;">Quests</div>
+        </div>
+        <div class="bevel-thin-inset" style="padding:6px; background:#f9f9f9; text-align:center;">
+          <div style="font-size:16px; font-weight:bold; color:#000080;">${itemsCount}</div>
+          <div style="font-size:10px; color:#555;">Items/Relics</div>
+        </div>
+      `;
+    }
+
+    // Populate Anchor Dropdown
+    const selectEl = document.getElementById('pack-anchor-node-select');
+    const warningEl = document.getElementById('pack-anchor-collision-warning');
+    if (selectEl) {
+      selectEl.innerHTML = '<option value="">[Do not link - Keep as independent submap]</option>';
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      const activeNodes = (typeof nodes !== 'undefined' && Array.isArray(nodes)) ? nodes : (topo && topo.nodes || []);
+
+      for (const n of activeNodes) {
+        if (!n) continue;
+        const opt = document.createElement('option');
+        opt.value = n.id;
+        const portalText = n.childMapId ? ` (⚠️ Already linked: ${n.childMapId})` : '';
+        opt.textContent = `Node #${n.id}: ${n.name || 'Unnamed'}${portalText}`;
+        if (!opt.dataset) opt.dataset = {};
+        opt.dataset.hasPortal = n.childMapId ? 'true' : 'false';
+        selectEl.appendChild(opt);
+      }
+
+      selectEl.onchange = function() {
+        const selected = selectEl.options[selectEl.selectedIndex];
+        if (warningEl) {
+          warningEl.style.display = (selected && selected.dataset.hasPortal === 'true') ? 'block' : 'none';
+        }
+      };
+    }
+
+    // Populate Entity Conflicts
+    const conflictsList = document.getElementById('pack-conflicts-list');
+    if (conflictsList) {
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      let conflictsCount = 0;
+      let conflictsHtml = '';
+
+      if (topo && parsedPack.entities) {
+        for (const cat of ['npcs', 'quests', 'items']) {
+          const incomingList = parsedPack.entities[cat] || [];
+          const currentList = topo[cat] || [];
+          for (const ent of incomingList) {
+            const collision = currentList.find((e) => e && (e.id === ent.id || (e.name && e.name === ent.name)));
+            if (collision) {
+              conflictsCount++;
+              conflictsHtml += `
+                <div class="bevel-thin-inset" style="padding:6px; background:#fffbe8; display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <strong>${cat.toUpperCase().slice(0, -1)}:</strong> ${ent.name || ent.id}
+                    <div style="font-size:10px; color:#666;">Matches existing "${collision.name || collision.id}"</div>
+                  </div>
+                  <div style="display:flex; gap:8px; font-size:11px;">
+                    <label><input type="radio" name="conflict_${ent.id}" value="clone" checked> Clone (Recommended)</label>
+                    <label><input type="radio" name="conflict_${ent.id}" value="overwrite"> Overwrite</label>
+                    <label><input type="radio" name="conflict_${ent.id}" value="skip"> Skip</label>
+                  </div>
+                </div>
+              `;
+            }
+          }
+        }
+      }
+
+      if (conflictsCount === 0) {
+        conflictsList.innerHTML = '<div style="color:#666; font-style:italic; font-size:11px;">No naming collisions detected with active campaign roster.</div>';
+      } else {
+        conflictsList.innerHTML = conflictsHtml;
+      }
+    }
+
+    switchPackInstallerTab('overview');
+  }
+
+  /**
+   * Gather choices from dialog and execute pack installation
+   */
+  async function executePackInstallation() {
+    if (typeof document === 'undefined') return;
+    if (!packEngine.stagedPack) {
+      if (typeof alert === 'function') alert('No pack currently staged for installation.');
+      return;
+    }
+
+    const selectEl = document.getElementById('pack-anchor-node-select');
+    const rawAnchor = selectEl ? selectEl.value : '';
+    const anchorNodeId = rawAnchor !== '' ? (isNaN(Number(rawAnchor)) ? rawAnchor : Number(rawAnchor)) : null;
+
+    // Collect conflict resolutions
+    const conflictResolutions = {};
+    const conflictInputs = document.querySelectorAll('input[type="radio"][name^="conflict_"]:checked');
+    conflictInputs.forEach((input) => {
+      const entityId = input.name.replace(/^conflict_/, '');
+      conflictResolutions[entityId] = input.value;
+    });
+
+    try {
+      const ledger = await packEngine.executeInstallFromDialog({
+        anchorNodeId,
+        conflictResolutions
+      });
+
+      if (typeof MDIWindowManager !== 'undefined' && typeof MDIWindowManager.close === 'function') {
+        MDIWindowManager.close('modal-pack-installer');
+      }
+
+      if (typeof setStatusBarMessage === 'function') {
+        setStatusBarMessage(`Pack installed successfully: "${ledger.name}" (${ledger.submapIds.length} submap(s)).`);
+      }
+    } catch (err) {
+      console.error('[PackEngine] Installation failed:', err);
+      if (typeof alert === 'function') alert('Failed to install pack: ' + err.message);
+    }
+  }
+
+  /**
+   * Deep Module UI Controller: Pack Engine State & Dialog Lifecycle
+   */
+  const packEngine = {
+    stagedPack: null,
+    stagedFile: null,
+
+    async openInstallerDialog(arrayBufferOrFile) {
+      let arrayBuffer = null;
+      let fileName = 'pack.csmod';
+      const isArrayBuffer = (typeof ArrayBuffer !== 'undefined' && arrayBufferOrFile instanceof ArrayBuffer) ||
+                            (arrayBufferOrFile && typeof arrayBufferOrFile.byteLength === 'number' && typeof arrayBufferOrFile.slice === 'function');
+      if (isArrayBuffer) {
+        arrayBuffer = arrayBufferOrFile;
+      } else if (typeof File !== 'undefined' && arrayBufferOrFile instanceof File) {
+        fileName = arrayBufferOrFile.name;
+        arrayBuffer = await arrayBufferOrFile.arrayBuffer();
+      } else if (arrayBufferOrFile && typeof arrayBufferOrFile.arrayBuffer === 'function') {
+        fileName = arrayBufferOrFile.name || fileName;
+        arrayBuffer = await arrayBufferOrFile.arrayBuffer();
+      } else {
+        throw new Error('Invalid pack input: expected ArrayBuffer or File');
+      }
+
+      const parsed = await parsePackArchive(arrayBuffer);
+      packEngine.stagedPack = parsed;
+      packEngine.stagedFile = { name: fileName, size: arrayBuffer.byteLength };
+
+      if (typeof populatePackInstallerModal === 'function') {
+        populatePackInstallerModal(parsed);
+      }
+      if (typeof MDIWindowManager !== 'undefined' && typeof MDIWindowManager.open === 'function') {
+        MDIWindowManager.open('modal-pack-installer');
+      }
+      return parsed;
+    },
+
+    async executeInstallFromDialog(config = {}) {
+      if (!packEngine.stagedPack) {
+        throw new Error('No pack currently staged for installation');
+      }
+      const result = await installPackIntoCampaign(packEngine.stagedPack, config);
+      packEngine.stagedPack = null;
+      packEngine.stagedFile = null;
+      return result;
+    },
+
+    renderInstalledPacksView(containerEl) {
+      if (!containerEl) return;
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology)
+        ? Workstation.activeTopology
+        : (typeof activeTopology !== 'undefined' ? activeTopology : null);
+      const packs = (topo && Array.isArray(topo.installedPacks)) ? topo.installedPacks : [];
+
+      if (packs.length === 0) {
+        containerEl.innerHTML = '<div style="padding:12px; color:#666; font-style:italic; text-align:center;">No modular entity packs installed in this campaign.</div>';
+        return;
+      }
+
+      const escapeHtml = (str) => String(str || '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+
+      let html = '<table class="win95-table" style="width:100%; border-collapse:collapse; font-size:11px;">';
+      html += '<thead><tr style="background:#e0e0e0; text-align:left;">';
+      html += '<th style="border:1px solid #999; padding:4px;">Pack Name</th>';
+      html += '<th style="border:1px solid #999; padding:4px;">Version</th>';
+      html += '<th style="border:1px solid #999; padding:4px;">Installed</th>';
+      html += '<th style="border:1px solid #999; padding:4px;">Anchor Node</th>';
+      html += '<th style="border:1px solid #999; padding:4px;">Submaps</th>';
+      html += '<th style="border:1px solid #999; padding:4px; text-align:center;">Action</th>';
+      html += '</tr></thead><tbody>';
+
+      for (const p of packs) {
+        const pId = p.packId || 'unknown';
+        const pName = p.name || pId;
+        const pVer = p.version || '1.0.0';
+        const pDate = p.installedAt ? new Date(p.installedAt).toLocaleDateString() : 'N/A';
+        const pAnchor = p.anchorNodeId !== null && p.anchorNodeId !== undefined ? `Node #${p.anchorNodeId}` : 'Independent';
+        const pSubmaps = (p.submapIds || []).length;
+
+        html += '<tr>';
+        html += `<td style="border:1px solid #ccc; padding:4px; font-weight:bold;">${escapeHtml(pName)}</td>`;
+        html += `<td style="border:1px solid #ccc; padding:4px;">${escapeHtml(pVer)}</td>`;
+        html += `<td style="border:1px solid #ccc; padding:4px;">${escapeHtml(pDate)}</td>`;
+        html += `<td style="border:1px solid #ccc; padding:4px;">${escapeHtml(pAnchor)}</td>`;
+        html += `<td style="border:1px solid #ccc; padding:4px;">${pSubmaps}</td>`;
+        html += `<td style="border:1px solid #ccc; padding:4px; text-align:center;">`;
+        html += `<button class="win-btn" onclick="packEngine.requestPackUninstall('${escapeHtml(pId)}')">Uninstall...</button>`;
+        html += `</td></tr>`;
+      }
+      html += '</tbody></table>';
+      containerEl.innerHTML = html;
+    },
+
+    async requestPackUninstall(packId) {
+      if (!packId) return false;
+      if (typeof confirm === 'function') {
+        const ok = confirm('Uninstalling this pack will remove its submaps and unstationed characters. Proceed?');
+        if (!ok) return false;
+      }
+      const success = await uninstallPackFromCampaign(packId);
+      if (success) {
+        const container = document.getElementById('installed-packs-container');
+        if (container) packEngine.renderInstalledPacksView(container);
+      }
+      return success;
+    }
+  };
+
   // Export on window for modular script execution
   window.validatePackManifest = validatePackManifest;
   window.parsePackArchive = parsePackArchive;
   window.installPackIntoCampaign = installPackIntoCampaign;
   window.uninstallPackFromCampaign = uninstallPackFromCampaign;
   window.buildPackArchive = buildPackArchive;
+  window.dataUrlToUint8Array = dataUrlToUint8Array;
+  window.remapEntityCluster = remapEntityCluster;
+  window.packEngine = packEngine;
+  window.triggerInstallPackFile = triggerInstallPackFile;
+  window.onPackFileSelected = onPackFileSelected;
+  window.switchPackInstallerTab = switchPackInstallerTab;
+  window.populatePackInstallerModal = populatePackInstallerModal;
+  window.executePackInstallation = executePackInstallation;
 })();
 // ============================================================================
 // [AUTO-GENERATED WORKSTATION MODS VIA build_suite.js - DO NOT EDIT DIRECTLY]

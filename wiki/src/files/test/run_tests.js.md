@@ -3,11 +3,11 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "6b2e6b8d398d253c"
-reviewed_hash: "6b2e6b8d398d253c"
+current_hash: "39f7577c402f54ca"
+reviewed_hash: "39f7577c402f54ca"
 stale: false
-size_bytes: 176408
-line_count: 3834
+size_bytes: 188635
+line_count: 4068
 ---
 
 # run_tests.js
@@ -40,4 +40,11 @@ line_count: 3834
    - Audits `property_grid_inspector.js` for strict setting-agnostic purity, forbidding hardcoded setting lore ('Imperial Frontier Guard', 'Civic Guilds', 'Ancient Dynasts', 'Corsair Anchorage').
    - Validates dynamic `appendComboboxPropRow` implementation and `getCampaignFactionSuggestions()` query.
    - Ensures custom and imported edge patrol factions are preserved losslessly without being clobbered or coerced to neutral.
+8. **Suite 24: Simple Entity Module Packs (`.csmod`) & Round-Trip Fidelity**:
+   - Validates `.csmod` archive construction and extraction via `window.packEngine`.
+   - Asserts foreign-key entity cluster remapping across quests, items, NPCs, relationships, and submap stationed NPCs during `clone` resolution.
+   - Tests portal anchor attachment, preservation of pre-existing `childMapId` pointers, and clean restoration upon pack uninstallation.
+   - Tests active map teardown safety guard (switching to `map_root` before submap deletion to avert renderer crashes).
+   - Validates custom module slotting purge across node/edge module maps.
+   - Asserts 100% round-trip fidelity: export `.csmod` package with submaps and graphics -> parse archive -> install -> verify state parity.
 <!-- END_CUSTOM_NOTES -->

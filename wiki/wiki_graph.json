@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T01:09:55.567Z",
+  "generatedAt": "2026-11-01T01:46:35.527Z",
   "totalFiles": 297,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2572,
+  "totalBidirectionalEdges": 2576,
   "staleCount": 0,
   "nodes": [
     {
@@ -28684,10 +28684,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "21370c66d589d07e",
-      "reviewedHash": "21370c66d589d07e",
-      "lineCount": 243,
-      "sizeBytes": 16950,
+      "hash": "29911440b0099d7a",
+      "reviewedHash": "29911440b0099d7a",
+      "lineCount": 383,
+      "sizeBytes": 27103,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -28698,6 +28698,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References admin.html"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References start.html"
         }
       ],
       "inbound": [
@@ -28978,10 +28984,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "e9a2d52dc78a9acb",
-      "reviewedHash": "e9a2d52dc78a9acb",
-      "lineCount": 1288,
-      "sizeBytes": 50529,
+      "hash": "44556948aede6691",
+      "reviewedHash": "44556948aede6691",
+      "lineCount": 1313,
+      "sizeBytes": 51556,
       "symbols": [
         "setTool(toolName)",
         "getToolKey(name)",
@@ -30467,6 +30473,12 @@
           "reason": "Invokes updateBreadcrumbsHUD() defined in canvas_hud.js"
         },
         {
+          "target": "src/workstation/scripts/pack_engine.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes dataUrlToUint8Array() defined in pack_engine.js"
+        },
+        {
           "target": "src/workstation/scripts/selective_importer.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -31060,18 +31072,25 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "4dd3d3ba91bb7061",
-      "reviewedHash": "4dd3d3ba91bb7061",
-      "lineCount": 480,
-      "sizeBytes": 17146,
+      "hash": "522068af272b54ce",
+      "reviewedHash": "522068af272b54ce",
+      "lineCount": 970,
+      "sizeBytes": 38472,
       "symbols": [
         "uint8ArrayToDataUrl(bytes, mimeType)",
         "inferMimeType(fileName)",
+        "dataUrlToUint8Array(dataUrl)",
+        "remapEntityCluster(entities, submaps, entityIdMap, mapIdMap)",
         "validatePackManifest(manifest)",
         "parsePackArchive(arrayBuffer)",
         "installPackIntoCampaign(parsedPack, options = {})",
         "uninstallPackFromCampaign(packId)",
-        "buildPackArchive(options = {})"
+        "buildPackArchive(options = {})",
+        "triggerInstallPackFile()",
+        "onPackFileSelected(event)",
+        "switchPackInstallerTab(tabName)",
+        "populatePackInstallerModal(parsedPack)",
+        "executePackInstallation()"
       ],
       "globals": [],
       "provides": [],
@@ -31102,6 +31121,12 @@
           "reason": "Invokes renderEntityManagerTree() defined in entity_manager_ui.js"
         },
         {
+          "target": "src/workstation/scripts/zip_engine.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes escapeHtml() defined in zip_engine.js"
+        },
+        {
           "target": "src/workstation/scripts/map_store.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -31114,16 +31139,16 @@
           "reason": "Invokes syncCustomModulesToCatalog() defined in module_explorer.js"
         },
         {
+          "target": "src/workstation/scripts/state_adapter.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes switchActiveMap() defined in state_adapter.js"
+        },
+        {
           "target": "src/workstation/scripts/workstation_state.js",
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes saveActiveCampaign() defined in workstation_state.js"
-        },
-        {
-          "target": "src/workstation/scripts/zip_engine.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes stripMapImageDataUrl() defined in zip_engine.js"
         },
         {
           "target": "Build-Suite.ps1",
@@ -31134,10 +31159,22 @@
       ],
       "inbound": [
         {
+          "source": "src/workstation/scripts/map_store.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes dataUrlToUint8Array() defined in pack_engine.js"
+        },
+        {
           "source": "build_suite.js",
           "sourceType": "file",
           "type": "Bundles Source",
           "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "source": "src/workstation/scripts/stage_6_export.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes dataUrlToUint8Array() defined in pack_engine.js"
         },
         {
           "source": "src/workstation/template.html",
@@ -31594,10 +31631,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "dc74aed83108c51b",
-      "reviewedHash": "dc74aed83108c51b",
-      "lineCount": 882,
-      "sizeBytes": 42064,
+      "hash": "ceb5359b887b5cb7",
+      "reviewedHash": "ceb5359b887b5cb7",
+      "lineCount": 889,
+      "sizeBytes": 42380,
       "symbols": [
         "triggerSelectiveImportPackage()",
         "triggerSelectiveImportFolder(options = {})",
@@ -32103,17 +32140,18 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "c3acaff1f4318dcd",
-      "reviewedHash": "c3acaff1f4318dcd",
-      "lineCount": 593,
-      "sizeBytes": 26511,
+      "hash": "574d94dad09b67da",
+      "reviewedHash": "574d94dad09b67da",
+      "lineCount": 738,
+      "sizeBytes": 32203,
       "symbols": [
         "generateCampaignJSON()",
         "generateCampaignMarkdown()",
         "generateHydratedCampaignJSON()",
         "renderStage6()",
         "handleCampaignFileIngestion(file)",
-        "importCampaignData(data, sourceLabel = \"\")"
+        "importCampaignData(data, sourceLabel = \"\")",
+        "executeExportCsmodPack()"
       ],
       "globals": [
         "activeExportTab",
@@ -32173,6 +32211,12 @@
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes saveMapImageToDB() defined in map_store.js"
+        },
+        {
+          "target": "src/workstation/scripts/pack_engine.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes dataUrlToUint8Array() defined in pack_engine.js"
         },
         {
           "target": "src/workstation/scripts/module_explorer.js",
@@ -32480,6 +32524,12 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes initMapsRegistry() defined in state_adapter.js"
+        },
+        {
+          "source": "src/workstation/scripts/pack_engine.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes switchActiveMap() defined in state_adapter.js"
         },
         {
           "source": "src/workstation/scripts/property_grid_inspector.js",
@@ -32845,10 +32895,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "976463f80b2d7c25",
-      "reviewedHash": "976463f80b2d7c25",
-      "lineCount": 1401,
-      "sizeBytes": 70210,
+      "hash": "37a02feda6146fa6",
+      "reviewedHash": "37a02feda6146fa6",
+      "lineCount": 1473,
+      "sizeBytes": 73287,
       "symbols": [
         "ensureBuiltinModulesBaseline()",
         "createSterileTopology(options = {})",
@@ -32870,12 +32920,14 @@
         "resetBalancing()",
         "openMapNavigatorModal()",
         "renderMapNavigatorTree()",
+        "switchSourcebookTab(tabName)",
         "openSourcebooksModal()",
         "renderSourcebooksList()",
         "enableAllSourcebooks()",
         "disableInactiveSourcebooks()",
         "openCampaignExportModal()",
         "switchExportTab(tabKey)",
+        "populatePackExportForm()",
         "updateExportOutput()",
         "copyExportToClipboard()",
         "downloadExportFile()"
@@ -33305,7 +33357,7 @@
           "source": "src/workstation/scripts/pack_engine.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes stripMapImageDataUrl() defined in zip_engine.js"
+          "reason": "Invokes escapeHtml() defined in zip_engine.js"
         },
         {
           "source": "src/workstation/scripts/property_grid_inspector.js",
@@ -33403,10 +33455,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "9280d8643d059aa1",
-      "reviewedHash": "9280d8643d059aa1",
-      "lineCount": 711,
-      "sizeBytes": 46949,
+      "hash": "ab52ce4d96b477ce",
+      "reviewedHash": "ab52ce4d96b477ce",
+      "lineCount": 717,
+      "sizeBytes": 47511,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -33932,10 +33984,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "f67cd6a10839a660",
-      "reviewedHash": "f67cd6a10839a660",
-      "lineCount": 43078,
-      "sizeBytes": 5900628,
+      "hash": "dc4323177851f28f",
+      "reviewedHash": "dc4323177851f28f",
+      "lineCount": 43963,
+      "sizeBytes": 5942781,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -35201,6 +35253,12 @@
           "reason": "References start.html"
         },
         {
+          "source": "src/workstation/modals/studio_mdi_windows.html",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References start.html"
+        },
+        {
           "source": "src/workstation/scripts/cad_canvas_renderer.js",
           "sourceType": "file",
           "type": "Compiles Into",
@@ -35823,10 +35881,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "6b2e6b8d398d253c",
-      "reviewedHash": "6b2e6b8d398d253c",
-      "lineCount": 3834,
-      "sizeBytes": 176408,
+      "hash": "39f7577c402f54ca",
+      "reviewedHash": "39f7577c402f54ca",
+      "lineCount": 4068,
+      "sizeBytes": 188635,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -35858,6 +35916,7 @@
         "testCampaignIsolationAndSterileSlateGate()",
         "testIndexedDbSeparationAndConcurrencyGate()",
         "testEntityModulePackEngine()",
+        "makeMockEl(tag = 'div')",
         "runAll()"
       ],
       "globals": [
@@ -38919,6 +38978,18 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "dataUrlToUint8Array",
+      "signature": "dataUrlToUint8Array(dataUrl)",
+      "file": "src/workstation/scripts/pack_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "remapEntityCluster",
+      "signature": "remapEntityCluster(entities, submaps, entityIdMap, mapIdMap)",
+      "file": "src/workstation/scripts/pack_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "validatePackManifest",
       "signature": "validatePackManifest(manifest)",
       "file": "src/workstation/scripts/pack_engine.js",
@@ -38945,6 +39016,36 @@
     {
       "name": "buildPackArchive",
       "signature": "buildPackArchive(options = {})",
+      "file": "src/workstation/scripts/pack_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "triggerInstallPackFile",
+      "signature": "triggerInstallPackFile()",
+      "file": "src/workstation/scripts/pack_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "onPackFileSelected",
+      "signature": "onPackFileSelected(event)",
+      "file": "src/workstation/scripts/pack_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "switchPackInstallerTab",
+      "signature": "switchPackInstallerTab(tabName)",
+      "file": "src/workstation/scripts/pack_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "populatePackInstallerModal",
+      "signature": "populatePackInstallerModal(parsedPack)",
+      "file": "src/workstation/scripts/pack_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "executePackInstallation",
+      "signature": "executePackInstallation()",
       "file": "src/workstation/scripts/pack_engine.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -39651,6 +39752,12 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "executeExportCsmodPack",
+      "signature": "executeExportCsmodPack()",
+      "file": "src/workstation/scripts/stage_6_export.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "initMapsRegistry",
       "signature": "initMapsRegistry(forceReset = false)",
       "file": "src/workstation/scripts/state_adapter.js",
@@ -40131,6 +40238,12 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "switchSourcebookTab",
+      "signature": "switchSourcebookTab(tabName)",
+      "file": "src/workstation/scripts/workstation_state.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "openSourcebooksModal",
       "signature": "openSourcebooksModal()",
       "file": "src/workstation/scripts/workstation_state.js",
@@ -40163,6 +40276,12 @@
     {
       "name": "switchExportTab",
       "signature": "switchExportTab(tabKey)",
+      "file": "src/workstation/scripts/workstation_state.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "populatePackExportForm",
+      "signature": "populatePackExportForm()",
       "file": "src/workstation/scripts/workstation_state.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -40691,6 +40810,12 @@
     {
       "name": "testEntityModulePackEngine",
       "signature": "testEntityModulePackEngine()",
+      "file": "test/run_tests.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "makeMockEl",
+      "signature": "makeMockEl(tag = 'div')",
       "file": "test/run_tests.js",
       "kind": "Node.js / Browser Engine Script"
     },
