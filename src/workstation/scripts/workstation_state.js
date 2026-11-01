@@ -564,6 +564,38 @@
         { id: 'PROTO-TRK-SPARK-04', name: 'Iron-Blight Oxidation Cascade', type: 'Infrastructural Dial', currentTicks: 0, maxTicks: 8, faction: 'Syndicate Arc Foundry', notes: 'Alchemical oxidation spores dissolve bridge rivets and railway spurs; requires calcium carbide synthesis.', moduleId: 'SPARK-04', suggestedNode: 14 },
         { id: 'PROTO-TRK-SPARK-01', name: 'Salt Warehouse Famine Riot Dial', type: 'Dynamic Dilemma', currentTicks: 0, maxTicks: 4, faction: 'Civic Guilds vs Outcasts', notes: 'Dockworkers breach salt silos as winter supplies rot; advance on bread price increases.', moduleId: 'SPARK-01', suggestedNode: 6 },
         { id: 'PROTO-TRK-SPARK-07', name: 'Garrison Mutiny Tension Track', type: 'Political Schism', currentTicks: 0, maxTicks: 4, faction: 'Imperial Frontier Guard', notes: 'Commander Hrolf plans mutiny to feed starving convicts unless players arbitrate supplies.', moduleId: 'SPARK-07', suggestedNode: 1 }
+      ],
+      factions: [
+        {
+          id: 'PROTO-FAC-COVENANT',
+          name: 'The Iron Covenant',
+          cvfQuadrant: 'Hierarchy',
+          colorIdentity: 'W',
+          leaderNpcId: 'PROTO-NPC-HROLF',
+          headquartersNodeId: 1,
+          controlledNodeIds: [1, 2, 7],
+          diplomaticStances: {
+            'PROTO-FAC-SYLVAN': 'Hostile'
+          },
+          disposition: [3, 2, 3],
+          description: 'A disciplined frontier military order defending border settlements and asserting imperial legal hegemony.',
+          moduleId: 'SPARK-07'
+        },
+        {
+          id: 'PROTO-FAC-SYLVAN',
+          name: 'The Sylvan Circle',
+          cvfQuadrant: 'Clan',
+          colorIdentity: 'G',
+          leaderNpcId: 'PROTO-NPC-ZIM-SHARR',
+          headquartersNodeId: 4,
+          controlledNodeIds: [4, 10],
+          diplomaticStances: {
+            'PROTO-FAC-COVENANT': 'Hostile'
+          },
+          disposition: [2, 3, 2],
+          description: 'An ancient druidic enclave maintaining the old rites, protecting sacred groves, and guarding memory tithes.',
+          moduleId: 'SPARK-03'
+        }
       ]
     };
 
@@ -650,6 +682,7 @@
               Workstation.activeTopology.items = campaignEntities.items || [];
               Workstation.activeTopology.trackers = campaignEntities.trackers || [];
               Workstation.activeTopology.tickets = campaignEntities.tickets || [];
+              Workstation.activeTopology.factions = campaignEntities.factions || [];
               if (Array.isArray(campaignEntities.custom_modules)) {
                 Workstation.activeTopology.custom_modules = campaignEntities.custom_modules;
               }
@@ -768,6 +801,7 @@
       if (!topo.items) topo.items = [];
       if (!topo.trackers) topo.trackers = [];
       if (!topo.tickets) topo.tickets = [];
+      if (!topo.factions) topo.factions = [];
       if (!topo.deletedPrototypes) topo.deletedPrototypes = [];
       if (!topo.deletedModules) topo.deletedModules = [];
       if (!Array.isArray(topo.custom_modules)) topo.custom_modules = [];
@@ -911,6 +945,7 @@
           items: Workstation.activeTopology.items || [],
           trackers: Workstation.activeTopology.trackers || [],
           tickets: Workstation.activeTopology.tickets || [],
+          factions: Workstation.activeTopology.factions || [],
           custom_modules: Workstation.activeTopology.custom_modules || []
         };
         localStorage.setItem("creator_studio_campaign_entities", JSON.stringify(entities));

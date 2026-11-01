@@ -426,8 +426,11 @@ function getBacklinksForEntity(type, id, mapId = null, options = {}) {
     if (n && n.name) entityName = n.name.toLowerCase();
   } else if (type === "map" && typeof maps !== "undefined" && maps[id]) {
     entityName = (maps[id].name || id).toLowerCase();
-  } else if (type === "faction" && typeof campaignFactions !== "undefined") {
-    const f = campaignFactions.find(fac => fac.id === id);
+  } else if (type === "faction") {
+    const factionsPool = (currentTopo.factions && Array.isArray(currentTopo.factions))
+      ? currentTopo.factions
+      : ((typeof campaignFactions !== "undefined" && Array.isArray(campaignFactions)) ? campaignFactions : []);
+    const f = factionsPool.find(fac => fac.id === id || fac.id === cleanId || (fac.name && fac.name.toLowerCase() === cleanId));
     if (f && f.name) entityName = f.name.toLowerCase();
   } else if (type === "npc" && currentTopo.npcs) {
     const npc = currentTopo.npcs.find(n => String(n.id) === cleanId || String(n.prototypeId) === cleanId || (n.name && n.name.toLowerCase() === cleanId));
@@ -590,8 +593,11 @@ function renderWikiDecoratedText(rawText, currentMapId = null) {
     } else if (type === "mod" && typeof MODULES_MANIFEST !== "undefined") {
       const m = MODULES_MANIFEST.find(mod => mod.id === entityId);
       if (m && m.title) displayTitle = `[${entityId}] ${m.title}`;
-    } else if (type === "faction" && typeof campaignFactions !== "undefined") {
-      const f = campaignFactions.find(fac => fac.id === entityId);
+    } else if (type === "faction") {
+      const factionsPool = (currentTopo.factions && Array.isArray(currentTopo.factions))
+        ? currentTopo.factions
+        : ((typeof campaignFactions !== "undefined" && Array.isArray(campaignFactions)) ? campaignFactions : []);
+      const f = factionsPool.find(fac => fac.id === entityId || (fac.name && fac.name.toLowerCase() === String(entityId).toLowerCase()));
       if (f && f.name) displayTitle = f.name;
     }
 

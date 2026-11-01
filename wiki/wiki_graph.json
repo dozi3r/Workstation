@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T02:53:01.860Z",
-  "totalFiles": 298,
+  "generatedAt": "2026-11-01T03:17:21.280Z",
+  "totalFiles": 299,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2576,
+  "totalBidirectionalEdges": 2580,
   "staleCount": 0,
   "nodes": [
     {
@@ -11,10 +11,10 @@
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
       "stale": false,
-      "hash": "a7c6bb73137b725a",
-      "reviewedHash": "a7c6bb73137b725a",
-      "lineCount": 72,
-      "sizeBytes": 14549,
+      "hash": "b91523ec8194739f",
+      "reviewedHash": "b91523ec8194739f",
+      "lineCount": 73,
+      "sizeBytes": 14819,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -229,6 +229,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
+        },
+        {
+          "target": "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md"
         },
         {
           "target": "docs/srd/campaign_preset_specification_srd.md",
@@ -2052,10 +2058,10 @@
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "4c8103d16f7a63c5",
-      "reviewedHash": "4c8103d16f7a63c5",
-      "lineCount": 1217,
-      "sizeBytes": 59739,
+      "hash": "3290b45612cac6c3",
+      "reviewedHash": "3290b45612cac6c3",
+      "lineCount": 1218,
+      "sizeBytes": 59926,
       "symbols": [
         "toRootRelUrl(absPath)",
         "rebaseFileUrls(jsonStr, prefix)",
@@ -2283,6 +2289,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
+        },
+        {
+          "target": "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md"
         },
         {
           "target": "docs/srd/campaign_preset_specification_srd.md",
@@ -19524,6 +19536,48 @@
       ]
     },
     {
+      "relPath": "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
+      "title": "0021: First-Class Factions and Inter-Entity Relational Social Graphs",
+      "volume": "vol-1",
+      "kind": "Architectural Decision Record (ADR)",
+      "stale": false,
+      "hash": "7a01bf524ab31de2",
+      "reviewedHash": "7a01bf524ab31de2",
+      "lineCount": 32,
+      "sizeBytes": 3173,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Governing Spec",
+          "reason": "Authoritative specification for start.html"
+        },
+        {
+          "source": "AGENTS.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md"
+        },
+        {
+          "source": "docs/navigation_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md"
+        }
+      ]
+    },
+    {
       "relPath": "docs/adr/desktop.ini",
       "title": "desktop.ini",
       "volume": "vol-1",
@@ -20061,10 +20115,10 @@
       "volume": "vol-3",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "728e8e00d46f24b6",
-      "reviewedHash": "728e8e00d46f24b6",
-      "lineCount": 243,
-      "sizeBytes": 10076,
+      "hash": "71bee8a27460996a",
+      "reviewedHash": "71bee8a27460996a",
+      "lineCount": 244,
+      "sizeBytes": 10167,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -20273,6 +20327,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
+        },
+        {
+          "target": "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md"
         },
         {
           "target": "docs/srd/campaign_preset_specification_srd.md",
@@ -28642,10 +28702,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "be8457d28ae9ecb0",
-      "reviewedHash": "be8457d28ae9ecb0",
-      "lineCount": 345,
-      "sizeBytes": 20996,
+      "hash": "57171a9acca5b4c3",
+      "reviewedHash": "57171a9acca5b4c3",
+      "lineCount": 420,
+      "sizeBytes": 25259,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -29223,10 +29283,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "bc5a566615443fa6",
-      "reviewedHash": "bc5a566615443fa6",
-      "lineCount": 763,
-      "sizeBytes": 32821,
+      "hash": "99bde0304b33007f",
+      "reviewedHash": "99bde0304b33007f",
+      "lineCount": 777,
+      "sizeBytes": 33706,
       "symbols": [
         "generateCampaignJSON()",
         "generateCampaignMarkdown()",
@@ -29665,10 +29725,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "f346ec793daf4286",
-      "reviewedHash": "f346ec793daf4286",
-      "lineCount": 1128,
-      "sizeBytes": 49822,
+      "hash": "728d9ae20ed039e1",
+      "reviewedHash": "728d9ae20ed039e1",
+      "lineCount": 1205,
+      "sizeBytes": 53480,
       "symbols": [
         "getEntityIcon(type)",
         "analyzeEntityDependencies(targetType, targetId)",
@@ -29839,10 +29899,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "df9eec52d9093a20",
-      "reviewedHash": "df9eec52d9093a20",
-      "lineCount": 738,
-      "sizeBytes": 30429,
+      "hash": "672f6101cd14672a",
+      "reviewedHash": "672f6101cd14672a",
+      "lineCount": 769,
+      "sizeBytes": 31584,
       "symbols": [
         "getItemEffectiveNodeId(item)",
         "computeNpcNodeDissonance(npc, node)",
@@ -30021,10 +30081,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "a1a80bfbccb5afd0",
-      "reviewedHash": "a1a80bfbccb5afd0",
-      "lineCount": 654,
-      "sizeBytes": 32113,
+      "hash": "00c4ca450e2a2a1c",
+      "reviewedHash": "00c4ca450e2a2a1c",
+      "lineCount": 742,
+      "sizeBytes": 38677,
       "symbols": [
         "getQuestSpanningNodes(quest)",
         "resolveNodeInfo(nodeId)",
@@ -30145,10 +30205,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "130414dd457b7ec7",
-      "reviewedHash": "130414dd457b7ec7",
-      "lineCount": 2217,
-      "sizeBytes": 130746,
+      "hash": "177e186e04808312",
+      "reviewedHash": "177e186e04808312",
+      "lineCount": 2459,
+      "sizeBytes": 145108,
       "symbols": [
         "escapeJsArg(str)",
         "getNodesForMapScope(scope = 'all')",
@@ -30167,7 +30227,8 @@
         "switchNodeDetailSubtab(subtab)",
         "switchEdgeDetailSubtab(subtab)",
         "selectEntityItem(id, isProto, optMapId = null)",
-        "navigateToEntity(type, id)"
+        "navigateToEntity(type, id)",
+        "updateFactionStance(sourceId, targetId, stance)"
       ],
       "globals": [],
       "provides": [],
@@ -31336,10 +31397,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "6dc37213c87b58c0",
-      "reviewedHash": "6dc37213c87b58c0",
-      "lineCount": 983,
-      "sizeBytes": 39059,
+      "hash": "175e2f3580558294",
+      "reviewedHash": "175e2f3580558294",
+      "lineCount": 999,
+      "sizeBytes": 39780,
       "symbols": [
         "uint8ArrayToDataUrl(bytes, mimeType)",
         "inferMimeType(fileName)",
@@ -31902,10 +31963,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "ceb5359b887b5cb7",
-      "reviewedHash": "ceb5359b887b5cb7",
-      "lineCount": 889,
-      "sizeBytes": 42380,
+      "hash": "609ec3f60b9d1460",
+      "reviewedHash": "609ec3f60b9d1460",
+      "lineCount": 899,
+      "sizeBytes": 43304,
       "symbols": [
         "triggerSelectiveImportPackage()",
         "triggerSelectiveImportFolder(options = {})",
@@ -32179,10 +32240,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "62f4947a979b3cb7",
-      "reviewedHash": "62f4947a979b3cb7",
-      "lineCount": 1164,
-      "sizeBytes": 54310,
+      "hash": "0fd22834de9ac905",
+      "reviewedHash": "0fd22834de9ac905",
+      "lineCount": 1176,
+      "sizeBytes": 55421,
       "symbols": [
         "initMapsRegistry(forceReset = false)",
         "syncActiveMapToRegistry()",
@@ -32751,10 +32812,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "3be8800322d8dcd9",
-      "reviewedHash": "3be8800322d8dcd9",
-      "lineCount": 1262,
-      "sizeBytes": 49169,
+      "hash": "2f2dc58f6804f014",
+      "reviewedHash": "2f2dc58f6804f014",
+      "lineCount": 1268,
+      "sizeBytes": 49686,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -32946,10 +33007,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "37a02feda6146fa6",
-      "reviewedHash": "37a02feda6146fa6",
-      "lineCount": 1473,
-      "sizeBytes": 73287,
+      "hash": "1a9f01320d62d9eb",
+      "reviewedHash": "1a9f01320d62d9eb",
+      "lineCount": 1508,
+      "sizeBytes": 74622,
       "symbols": [
         "ensureBuiltinModulesBaseline()",
         "createSterileTopology(options = {})",
@@ -34035,10 +34096,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "4dac0aba4e058a8a",
-      "reviewedHash": "4dac0aba4e058a8a",
-      "lineCount": 44879,
-      "sizeBytes": 5990618,
+      "hash": "740b4e6a38edf49b",
+      "reviewedHash": "740b4e6a38edf49b",
+      "lineCount": 45487,
+      "sizeBytes": 6026286,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -34139,6 +34200,12 @@
         },
         {
           "target": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
+          "targetType": "file",
+          "type": "Governing Spec",
+          "reason": "Authoritative specification for start.html"
+        },
+        {
+          "target": "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
           "targetType": "file",
           "type": "Governing Spec",
           "reason": "Authoritative specification for start.html"
@@ -35938,10 +36005,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "48669a67589e8d2d",
-      "reviewedHash": "48669a67589e8d2d",
-      "lineCount": 4462,
-      "sizeBytes": 209410,
+      "hash": "2060b22631dece99",
+      "reviewedHash": "2060b22631dece99",
+      "lineCount": 4642,
+      "sizeBytes": 218055,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -35977,6 +36044,7 @@
         "testEdgeExplorerAndConduitCatalog()",
         "mockEl(id)",
         "testSociologyReferenceHubAndHermeneutics()",
+        "testFirstClassFactionsEntityEngine()",
         "runAll()"
       ],
       "globals": [
@@ -38032,6 +38100,12 @@
     {
       "name": "navigateToEntity",
       "signature": "navigateToEntity(type, id)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "updateFactionStance",
+      "signature": "updateFactionStance(sourceId, targetId, stance)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -40942,6 +41016,12 @@
     {
       "name": "testSociologyReferenceHubAndHermeneutics",
       "signature": "testSociologyReferenceHubAndHermeneutics()",
+      "file": "test/run_tests.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "testFirstClassFactionsEntityEngine",
+      "signature": "testFirstClassFactionsEntityEngine()",
       "file": "test/run_tests.js",
       "kind": "Node.js / Browser Engine Script"
     },

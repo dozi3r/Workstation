@@ -118,6 +118,7 @@ Before editing any file, consult this router to identify authoritative specifica
 | \`docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md\` | node explorer, dynamic svg stacking, desktop shell | atomic-prose |
 | \`docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md\` | git, diff, worktrees, token savings, atomic commits, node shim, ripgrep, unbounded read-ban, ast-inspection | atomic-prose |
 | \`docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md\` | edge explorer, conduits, dedicated flows, property grid mounting, scale-fluid corridors | atomic-prose |
+| \`docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md\` | factions, cultural quadrants, diplomatic matrix, territorial control, leader npcs | atomic-prose |
 
 ## 5. Domain Terminology
 Always consult [\`CONTEXT.md\`](CONTEXT.md) for canonical terminology.

@@ -199,11 +199,13 @@
       const questExt = document.getElementById('ee-quest-extensions');
       const npcExt = document.getElementById('ee-npc-extensions');
       const itemExt = document.getElementById('ee-item-extensions');
+      const factionExt = document.getElementById('ee-faction-extensions');
       const nodeLabel = document.getElementById('ee-node-label');
 
       if (npcExt) npcExt.style.display = (type === 'npc') ? 'flex' : 'none';
       if (itemExt) itemExt.style.display = (type === 'item') ? 'flex' : 'none';
       if (questExt) questExt.style.display = (type === 'quest') ? 'flex' : 'none';
+      if (factionExt) factionExt.style.display = (type === 'faction') ? 'flex' : 'none';
 
       if (type === 'npc') {
         document.getElementById('ee-role-label').textContent = 'Role / Profession:';
@@ -268,6 +270,42 @@
         document.getElementById('ee-meta-label').textContent = 'Max Ticks / Steps (e.g. 4, 6, 8):';
         document.getElementById('ee-notes-label').textContent = 'Trigger Event, Stakes & Escalation Outcome:';
         if (nodeLabel) nodeLabel.textContent = 'Station to Node:';
+      } else if (type === 'faction') {
+        document.getElementById('ee-role-label').textContent = 'Faction Type (Order, Guild, Syndicate, Clan, Power Group):';
+        document.getElementById('ee-meta-label').textContent = 'Ideological Stance / Motto:';
+        document.getElementById('ee-notes-label').textContent = 'Ideological Agenda & Dossier Overview:';
+        if (nodeLabel) nodeLabel.textContent = 'Headquarters Node:';
+        if (document.getElementById('ee-faction-culture')) document.getElementById('ee-faction-culture').value = 'Clan';
+        if (document.getElementById('ee-faction-color')) document.getElementById('ee-faction-color').value = 'W';
+        if (document.getElementById('ee-faction-odv-s')) document.getElementById('ee-faction-odv-s').value = '2';
+        if (document.getElementById('ee-faction-odv-e')) document.getElementById('ee-faction-odv-e').value = '2';
+        if (document.getElementById('ee-faction-odv-c')) document.getElementById('ee-faction-odv-c').value = '2';
+
+        const leaderSel = document.getElementById('ee-faction-leader');
+        if (leaderSel) {
+          const allNpcs = (Workstation.activeTopology && Workstation.activeTopology.npcs) || [];
+          let opts = '<option value="">(None / Autonomous Council)</option>';
+          allNpcs.forEach(n => {
+            opts += `<option value="${n.id}">👤 ${n.name} (${n.role || 'Resident'})</option>`;
+          });
+          leaderSel.innerHTML = opts;
+          leaderSel.value = '';
+        }
+
+        const nodesContainer = document.getElementById('ee-faction-nodes-list');
+        if (nodesContainer) {
+          const topoNodes = Workstation.activeTopology && Workstation.activeTopology.nodes ? Object.values(Workstation.activeTopology.nodes) : [];
+          if (topoNodes.length === 0) {
+            nodesContainer.innerHTML = '<span style="color:#777; font-style:italic;">No nodes in active topology.</span>';
+          } else {
+            nodesContainer.innerHTML = topoNodes.map(n => `
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer; padding:2px 0;">
+                <input type="checkbox" class="ee-faction-node-cb" value="${n.id}">
+                <span><strong>Node ${n.id}:</strong> ${n.name} (${n.culture || 'Adhocracy'})</span>
+              </label>
+            `).join('');
+          }
+        }
       } else {
         document.getElementById('ee-role-label').textContent = 'Item Category (Weapon, Gear, Relic, Tech, Document, Key Item):';
         document.getElementById('ee-meta-label').textContent = 'Specifications / Output Dial / Trait:';
@@ -402,6 +440,19 @@
           cb.checked = itemIds.includes(cb.value);
         });
         updateQuestSpanningPreview();
+      } else if (CurrentEntityTab === 'faction') {
+        if (document.getElementById('ee-faction-culture')) document.getElementById('ee-faction-culture').value = entity.cvfQuadrant || 'Clan';
+        if (document.getElementById('ee-faction-color')) document.getElementById('ee-faction-color').value = entity.colorIdentity || 'W';
+        if (document.getElementById('ee-faction-leader')) document.getElementById('ee-faction-leader').value = entity.leaderNpcId || '';
+        if (Array.isArray(entity.disposition) && entity.disposition.length >= 3) {
+          if (document.getElementById('ee-faction-odv-s')) document.getElementById('ee-faction-odv-s').value = String(entity.disposition[0]);
+          if (document.getElementById('ee-faction-odv-e')) document.getElementById('ee-faction-odv-e').value = String(entity.disposition[1]);
+          if (document.getElementById('ee-faction-odv-c')) document.getElementById('ee-faction-odv-c').value = String(entity.disposition[2]);
+        }
+        const controlled = Array.isArray(entity.controlledNodeIds) ? entity.controlledNodeIds.map(String) : [];
+        document.querySelectorAll('.ee-faction-node-cb').forEach(cb => {
+          cb.checked = controlled.includes(String(cb.value));
+        });
       }
     }
 
@@ -471,6 +522,23 @@
             entity.type = role || 'Threat Clock';
             entity.maxTicks = parseInt(meta) || 6;
             entity.notes = notes;
+          } else if (type === 'faction') {
+            entity.name = name;
+            entity.type = role || 'Power Group';
+            entity.cvfQuadrant = document.getElementById('ee-faction-culture') ? document.getElementById('ee-faction-culture').value : 'Clan';
+            entity.colorIdentity = document.getElementById('ee-faction-color') ? document.getElementById('ee-faction-color').value : 'W';
+            entity.leaderNpcId = document.getElementById('ee-faction-leader') ? (document.getElementById('ee-faction-leader').value || null) : null;
+            entity.headquartersNodeId = nodeId;
+            const cNodes = Array.from(document.querySelectorAll('.ee-faction-node-cb:checked')).map(cb => isNaN(cb.value) ? cb.value : parseInt(cb.value, 10));
+            if (nodeId != null && !cNodes.includes(nodeId)) cNodes.push(nodeId);
+            entity.controlledNodeIds = cNodes;
+            entity.disposition = [
+              parseInt(document.getElementById('ee-faction-odv-s').value, 10) || 2,
+              parseInt(document.getElementById('ee-faction-odv-e').value, 10) || 2,
+              parseInt(document.getElementById('ee-faction-odv-c').value, 10) || 2
+            ];
+            entity.description = notes;
+            entity.notes = notes;
           } else {
             entity.name = name;
             entity.category = role;
@@ -534,6 +602,26 @@
           newEntity.currentTicks = 0;
           newEntity.faction = 'Custom';
           newEntity.notes = notes;
+        } else if (type === 'faction') {
+          const cNodes = Array.from(document.querySelectorAll('.ee-faction-node-cb:checked')).map(cb => isNaN(cb.value) ? cb.value : parseInt(cb.value, 10));
+          if (nodeId != null && !cNodes.includes(nodeId)) cNodes.push(nodeId);
+          newEntity.id = 'faction_' + name.toLowerCase().replace(/[^a-z0-9]+/g, '_') + '_' + Date.now().toString().slice(-4);
+          newEntity.name = name;
+          newEntity.type = role || 'Power Group';
+          newEntity.cvfQuadrant = document.getElementById('ee-faction-culture') ? document.getElementById('ee-faction-culture').value : 'Clan';
+          newEntity.colorIdentity = document.getElementById('ee-faction-color') ? document.getElementById('ee-faction-color').value : 'W';
+          newEntity.leaderNpcId = document.getElementById('ee-faction-leader') ? (document.getElementById('ee-faction-leader').value || null) : null;
+          newEntity.headquartersNodeId = nodeId;
+          newEntity.controlledNodeIds = cNodes;
+          newEntity.diplomaticStances = {};
+          newEntity.disposition = [
+            parseInt(document.getElementById('ee-faction-odv-s').value, 10) || 2,
+            parseInt(document.getElementById('ee-faction-odv-e').value, 10) || 2,
+            parseInt(document.getElementById('ee-faction-odv-c').value, 10) || 2
+          ];
+          newEntity.description = notes;
+          newEntity.notes = notes;
+          if (typeof registerCampaignFaction === 'function') registerCampaignFaction(name);
         } else {
           newEntity.name = name;
           newEntity.category = role;

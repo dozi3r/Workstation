@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/wiki_engine.js"
 title: "wiki_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "3be8800322d8dcd9"
-reviewed_hash: "3be8800322d8dcd9"
+current_hash: "2f2dc58f6804f014"
+reviewed_hash: "2f2dc58f6804f014"
 stale: false
-size_bytes: 49169
-line_count: 1262
+size_bytes: 49686
+line_count: 1268
 ---
 
 # wiki_engine.js

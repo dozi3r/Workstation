@@ -12,6 +12,7 @@ AUTHORITATIVE SPECIFICATIONS:
   - docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md
   - docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md
   - docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md
+  - docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md
   - docs/srd/authoring_engine_srd.md
   - CONTEXT.md
 DATA PROVENANCE & BUILD PIPELINE:
@@ -2963,6 +2964,7 @@ CRITICAL INSTRUCTION:
             <button id="em-tab-quest" class="win-btn" onclick="switchEntityManagerTab('quest')"><strong>Quests</strong></button>
             <button id="em-tab-item" class="win-btn" onclick="switchEntityManagerTab('item')"><strong>Items &amp; Relics</strong></button>
             <button id="em-tab-tracker" class="win-btn" onclick="switchEntityManagerTab('tracker')"><strong>Trackers &amp; Clocks</strong></button>
+            <button id="em-tab-faction" class="win-btn" onclick="switchEntityManagerTab('faction')"><strong>👑 Factions</strong></button>
             <button id="em-tab-node" class="win-btn" onclick="switchEntityManagerTab('node')"><strong>Nodes &amp; Hubs</strong></button>
             <button id="em-tab-edge" class="win-btn" onclick="switchEntityManagerTab('edge')"><strong>Edges &amp; Conduits</strong></button>
           </div>
@@ -3194,6 +3196,80 @@ CRITICAL INSTRUCTION:
           <div id="ee-quest-spanning-box" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:6px; border-radius:2px; font-size:10px;">
             <div style="font-weight:bold; color:#000080; margin-bottom:2px;">📍 Spanning Quest Nodes:</div>
             <div id="ee-quest-spanning-nodes-text" style="color:#334155;">(Select main node, NPCs, or items above)</div>
+          </div>
+        </div>
+
+        <!-- Faction Overhaul Extensions (CVF Culture, MTG Color Identity, Leader NPC, Controlled Nodes, [S,E,C] Vector) -->
+        <div id="ee-faction-extensions" style="display:none; flex-direction:column; gap:6px; border-top:1px solid #ccc; padding-top:6px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>CVF Cultural Quadrant:</strong>
+              <select id="ee-faction-culture" class="win-select-input">
+                <option value="Clan">Clan (Collaborative / Internal)</option>
+                <option value="Adhocracy">Adhocracy (Creative / Dynamic)</option>
+                <option value="Market">Market (Competitive / Extraction)</option>
+                <option value="Hierarchy" selected>Hierarchy (Controlling / Stability)</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Color Identity:</strong>
+              <select id="ee-faction-color" class="win-select-input">
+                <option value="W" selected>White (Order / Community)</option>
+                <option value="U">Blue (Knowledge / Technology)</option>
+                <option value="B">Black (Ambition / Ruthlessness)</option>
+                <option value="R">Red (Passion / Rebellion)</option>
+                <option value="G">Green (Tradition / Nature)</option>
+                <option value="C">Colorless (Artifact / Neutral)</option>
+              </select>
+            </label>
+          </div>
+
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Faction Leader (NPC):</strong>
+            <select id="ee-faction-leader" class="win-select-input">
+              <option value="">(None / Autonomous Council)</option>
+            </select>
+          </label>
+
+          <!-- Granular [S, E, C] Vector -->
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Granular Disposition Vector [S, E, C]:</strong>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px;">
+              <label style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>S:</span>
+                <select id="ee-faction-odv-s" class="win-select-input" style="flex:1;">
+                  <option value="1">1: Passive</option>
+                  <option value="2">2: Moderate</option>
+                  <option value="3" selected>3: Active</option>
+                  <option value="4">4: Extreme</option>
+                </select>
+              </label>
+              <label style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>E:</span>
+                <select id="ee-faction-odv-e" class="win-select-input" style="flex:1;">
+                  <option value="1">1: Rigid</option>
+                  <option value="2" selected>2: Guarded</option>
+                  <option value="3">3: Dynamic</option>
+                  <option value="4">4: Volatile</option>
+                </select>
+              </label>
+              <label style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>C:</span>
+                <select id="ee-faction-odv-c" class="win-select-input" style="flex:1;">
+                  <option value="1">1: Isolated</option>
+                  <option value="2">2: Local</option>
+                  <option value="3" selected>3: Regional</option>
+                  <option value="4">4: Universal</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Controlled Territory Nodes:</strong>
+            <div id="ee-faction-nodes-list" class="bevel-inset" style="max-height:85px; overflow-y:auto; background:#fff; padding:4px; font-size:11px; display:flex; flex-direction:column; gap:2px;">
+              <!-- Dynamic Node Checkboxes -->
+            </div>
           </div>
         </div>
 
@@ -15009,6 +15085,7 @@ const ALL_SURFACES_DATA = [
       "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
       "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
       "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
+      "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
       "docs/srd/authoring_engine_srd.md",
       "CONTEXT.md"
     ],
@@ -18382,6 +18459,11 @@ async function switchActiveMap(targetMapId, force = false, options = {}) {
       : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.tickets) && Workstation.activeTopology.tickets.length > 0)
           ? Workstation.activeTopology.tickets
           : (targetEntities && Array.isArray(targetEntities.tickets) ? targetEntities.tickets : [])),
+    factions: (isPackageLoad && targetEntities)
+      ? (targetEntities.factions || [])
+      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.factions) && Workstation.activeTopology.factions.length > 0)
+          ? Workstation.activeTopology.factions
+          : (targetEntities && Array.isArray(targetEntities.factions) ? targetEntities.factions : [])),
     deletedPrototypes: (isPackageLoad && targetEntities)
       ? (targetEntities.deletedPrototypes || [])
       : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.deletedPrototypes))
@@ -18519,6 +18601,7 @@ async function switchActiveMap(targetMapId, force = false, options = {}) {
   Workstation.activeTopology.items = cachedEntities.items;
   Workstation.activeTopology.trackers = cachedEntities.trackers;
   Workstation.activeTopology.tickets = cachedEntities.tickets;
+  Workstation.activeTopology.factions = cachedEntities.factions || [];
   Workstation.activeTopology.deletedPrototypes = cachedEntities.deletedPrototypes;
   Workstation.activeTopology.deletedModules = cachedEntities.deletedModules;
   Workstation.activeTopology.custom_modules = cachedEntities.custom_modules || [];
@@ -19100,7 +19183,8 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
         quests: pkg.activeTopology.quests || [],
         items: pkg.activeTopology.items || [],
         trackers: pkg.activeTopology.trackers || [],
-        tickets: pkg.activeTopology.tickets || []
+        tickets: pkg.activeTopology.tickets || [],
+        factions: pkg.activeTopology.factions || []
        } : null);
 
   const extractedEntities = {
@@ -19119,6 +19203,9 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     tickets: (candidateEntities && Array.isArray(candidateEntities.tickets) && candidateEntities.tickets.length > 0)
       ? JSON.parse(JSON.stringify(candidateEntities.tickets))
       : (Array.isArray(pkg.tickets) ? JSON.parse(JSON.stringify(pkg.tickets)) : (pkg.preset && Array.isArray(pkg.preset.tickets) ? JSON.parse(JSON.stringify(pkg.preset.tickets)) : [])),
+    factions: (candidateEntities && Array.isArray(candidateEntities.factions) && candidateEntities.factions.length > 0)
+      ? JSON.parse(JSON.stringify(candidateEntities.factions))
+      : (Array.isArray(pkg.factions) ? JSON.parse(JSON.stringify(pkg.factions)) : (pkg.preset && Array.isArray(pkg.preset.factions) ? JSON.parse(JSON.stringify(pkg.preset.factions)) : [])),
     custom_modules: (Array.isArray(pkg.custom_modules) && pkg.custom_modules.length > 0)
       ? JSON.parse(JSON.stringify(pkg.custom_modules))
       : (pkg.activeTopology && Array.isArray(pkg.activeTopology.custom_modules) ? JSON.parse(JSON.stringify(pkg.activeTopology.custom_modules)) : (pkg.preset && Array.isArray(pkg.preset.custom_modules) ? JSON.parse(JSON.stringify(pkg.preset.custom_modules)) : []))
@@ -19222,6 +19309,7 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     Workstation.activeTopology.items = extractedEntities.items;
     Workstation.activeTopology.trackers = extractedEntities.trackers;
     Workstation.activeTopology.tickets = extractedEntities.tickets;
+    Workstation.activeTopology.factions = extractedEntities.factions || [];
     Workstation.activeTopology.deletedPrototypes = Array.isArray(pkg.deletedPrototypes) ? pkg.deletedPrototypes : (pkg.preset && Array.isArray(pkg.preset.deletedPrototypes) ? pkg.preset.deletedPrototypes : (pkg.entities && Array.isArray(pkg.entities.deletedPrototypes) ? pkg.entities.deletedPrototypes : []));
     Workstation.activeTopology.deletedModules = Array.isArray(pkg.deletedModules) ? pkg.deletedModules : (pkg.preset && Array.isArray(pkg.preset.deletedModules) ? pkg.preset.deletedModules : (pkg.entities && Array.isArray(pkg.entities.deletedModules) ? pkg.entities.deletedModules : []));
     Workstation.activeTopology.custom_modules = extractedEntities.custom_modules || [];
@@ -19270,6 +19358,7 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     Workstation.activeTopology.items = extractedEntities.items;
     Workstation.activeTopology.trackers = extractedEntities.trackers;
     Workstation.activeTopology.tickets = extractedEntities.tickets;
+    Workstation.activeTopology.factions = extractedEntities.factions || [];
     Workstation.activeTopology.deletedPrototypes = Array.isArray(pkg.deletedPrototypes) ? pkg.deletedPrototypes : (pkg.preset && Array.isArray(pkg.preset.deletedPrototypes) ? pkg.preset.deletedPrototypes : (pkg.entities && Array.isArray(pkg.entities.deletedPrototypes) ? pkg.entities.deletedPrototypes : []));
     Workstation.activeTopology.deletedModules = Array.isArray(pkg.deletedModules) ? pkg.deletedModules : (pkg.preset && Array.isArray(pkg.preset.deletedModules) ? pkg.preset.deletedModules : (pkg.entities && Array.isArray(pkg.entities.deletedModules) ? pkg.entities.deletedModules : []));
     Workstation.activeTopology.custom_modules = extractedEntities.custom_modules || [];
@@ -19314,7 +19403,7 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     if (typeof updateStatusBar === "function") updateStatusBar();
     if (typeof closeModal === "function") closeModal("modal-load");
     if (typeof setStatusBarMessage === "function") {
-      setStatusBarMessage(`Loaded campaign package: "${campaignTitle}" [${Object.keys(maps).length} Maps, ${extractedEntities.npcs.length} NPCs, ${extractedEntities.quests.length} Quests, ${extractedEntities.items.length} Items].`);
+      setStatusBarMessage(`Loaded campaign package: "${campaignTitle}" [${Object.keys(maps).length} Maps, ${extractedEntities.npcs.length} NPCs, ${extractedEntities.quests.length} Quests, ${extractedEntities.items.length} Items, ${extractedEntities.factions ? extractedEntities.factions.length : 0} Factions].`);
     }
   } catch(refreshErr) {
     console.error("[loadCampaignProjectPackage] Refresh warning:", refreshErr);
@@ -21517,8 +21606,11 @@ function getBacklinksForEntity(type, id, mapId = null, options = {}) {
     if (n && n.name) entityName = n.name.toLowerCase();
   } else if (type === "map" && typeof maps !== "undefined" && maps[id]) {
     entityName = (maps[id].name || id).toLowerCase();
-  } else if (type === "faction" && typeof campaignFactions !== "undefined") {
-    const f = campaignFactions.find(fac => fac.id === id);
+  } else if (type === "faction") {
+    const factionsPool = (currentTopo.factions && Array.isArray(currentTopo.factions))
+      ? currentTopo.factions
+      : ((typeof campaignFactions !== "undefined" && Array.isArray(campaignFactions)) ? campaignFactions : []);
+    const f = factionsPool.find(fac => fac.id === id || fac.id === cleanId || (fac.name && fac.name.toLowerCase() === cleanId));
     if (f && f.name) entityName = f.name.toLowerCase();
   } else if (type === "npc" && currentTopo.npcs) {
     const npc = currentTopo.npcs.find(n => String(n.id) === cleanId || String(n.prototypeId) === cleanId || (n.name && n.name.toLowerCase() === cleanId));
@@ -21681,8 +21773,11 @@ function renderWikiDecoratedText(rawText, currentMapId = null) {
     } else if (type === "mod" && typeof MODULES_MANIFEST !== "undefined") {
       const m = MODULES_MANIFEST.find(mod => mod.id === entityId);
       if (m && m.title) displayTitle = `[${entityId}] ${m.title}`;
-    } else if (type === "faction" && typeof campaignFactions !== "undefined") {
-      const f = campaignFactions.find(fac => fac.id === entityId);
+    } else if (type === "faction") {
+      const factionsPool = (currentTopo.factions && Array.isArray(currentTopo.factions))
+        ? currentTopo.factions
+        : ((typeof campaignFactions !== "undefined" && Array.isArray(campaignFactions)) ? campaignFactions : []);
+      const f = factionsPool.find(fac => fac.id === entityId || (fac.name && fac.name.toLowerCase() === String(entityId).toLowerCase()));
       if (f && f.name) displayTitle = f.name;
     }
 
@@ -23832,6 +23927,38 @@ function saveMapScaleDialog() {
         { id: 'PROTO-TRK-SPARK-04', name: 'Iron-Blight Oxidation Cascade', type: 'Infrastructural Dial', currentTicks: 0, maxTicks: 8, faction: 'Syndicate Arc Foundry', notes: 'Alchemical oxidation spores dissolve bridge rivets and railway spurs; requires calcium carbide synthesis.', moduleId: 'SPARK-04', suggestedNode: 14 },
         { id: 'PROTO-TRK-SPARK-01', name: 'Salt Warehouse Famine Riot Dial', type: 'Dynamic Dilemma', currentTicks: 0, maxTicks: 4, faction: 'Civic Guilds vs Outcasts', notes: 'Dockworkers breach salt silos as winter supplies rot; advance on bread price increases.', moduleId: 'SPARK-01', suggestedNode: 6 },
         { id: 'PROTO-TRK-SPARK-07', name: 'Garrison Mutiny Tension Track', type: 'Political Schism', currentTicks: 0, maxTicks: 4, faction: 'Imperial Frontier Guard', notes: 'Commander Hrolf plans mutiny to feed starving convicts unless players arbitrate supplies.', moduleId: 'SPARK-07', suggestedNode: 1 }
+      ],
+      factions: [
+        {
+          id: 'PROTO-FAC-COVENANT',
+          name: 'The Iron Covenant',
+          cvfQuadrant: 'Hierarchy',
+          colorIdentity: 'W',
+          leaderNpcId: 'PROTO-NPC-HROLF',
+          headquartersNodeId: 1,
+          controlledNodeIds: [1, 2, 7],
+          diplomaticStances: {
+            'PROTO-FAC-SYLVAN': 'Hostile'
+          },
+          disposition: [3, 2, 3],
+          description: 'A disciplined frontier military order defending border settlements and asserting imperial legal hegemony.',
+          moduleId: 'SPARK-07'
+        },
+        {
+          id: 'PROTO-FAC-SYLVAN',
+          name: 'The Sylvan Circle',
+          cvfQuadrant: 'Clan',
+          colorIdentity: 'G',
+          leaderNpcId: 'PROTO-NPC-ZIM-SHARR',
+          headquartersNodeId: 4,
+          controlledNodeIds: [4, 10],
+          diplomaticStances: {
+            'PROTO-FAC-COVENANT': 'Hostile'
+          },
+          disposition: [2, 3, 2],
+          description: 'An ancient druidic enclave maintaining the old rites, protecting sacred groves, and guarding memory tithes.',
+          moduleId: 'SPARK-03'
+        }
       ]
     };
 
@@ -23918,6 +24045,7 @@ function saveMapScaleDialog() {
               Workstation.activeTopology.items = campaignEntities.items || [];
               Workstation.activeTopology.trackers = campaignEntities.trackers || [];
               Workstation.activeTopology.tickets = campaignEntities.tickets || [];
+              Workstation.activeTopology.factions = campaignEntities.factions || [];
               if (Array.isArray(campaignEntities.custom_modules)) {
                 Workstation.activeTopology.custom_modules = campaignEntities.custom_modules;
               }
@@ -24036,6 +24164,7 @@ function saveMapScaleDialog() {
       if (!topo.items) topo.items = [];
       if (!topo.trackers) topo.trackers = [];
       if (!topo.tickets) topo.tickets = [];
+      if (!topo.factions) topo.factions = [];
       if (!topo.deletedPrototypes) topo.deletedPrototypes = [];
       if (!topo.deletedModules) topo.deletedModules = [];
       if (!Array.isArray(topo.custom_modules)) topo.custom_modules = [];
@@ -24179,6 +24308,7 @@ function saveMapScaleDialog() {
           items: Workstation.activeTopology.items || [],
           trackers: Workstation.activeTopology.trackers || [],
           tickets: Workstation.activeTopology.tickets || [],
+          factions: Workstation.activeTopology.factions || [],
           custom_modules: Workstation.activeTopology.custom_modules || []
         };
         localStorage.setItem("creator_studio_campaign_entities", JSON.stringify(entities));
@@ -34293,7 +34423,7 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
     // --- Entity Collection & Prototype Seeding ---
     function getPrototypesForType(type) {
       let result = [];
-      const seeds = MODULE_ENTITY_PROTOTYPES[type === 'npc' ? 'npcs' : (type === 'quest' ? 'quests' : (type === 'item' ? 'items' : (type === 'tracker' ? 'trackers' : '')))] || [];
+      const seeds = MODULE_ENTITY_PROTOTYPES[type === 'npc' ? 'npcs' : (type === 'quest' ? 'quests' : (type === 'item' ? 'items' : (type === 'tracker' ? 'trackers' : (type === 'faction' ? 'factions' : ''))))] || [];
       result.push(...seeds);
 
       if (typeof ALL_MODULES !== 'undefined' && Array.isArray(ALL_MODULES)) {
@@ -34372,10 +34502,12 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
 
     function getActiveEntityList(type) {
       const topo = Workstation.activeTopology;
+      if (!topo) return [];
       if (type === 'npc') return topo.npcs || [];
       if (type === 'quest') return topo.quests || [];
       if (type === 'item') return topo.items || [];
       if (type === 'tracker') return topo.trackers || [];
+      if (type === 'faction') return topo.factions || [];
       if (type === 'node') {
         return Object.keys(topo.nodes || {}).map(k => {
           const n = topo.nodes[k];
@@ -34792,6 +34924,12 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         if (f && f.name) pool.push(f.name);
       });
 
+      if (currentTopo && Array.isArray(currentTopo.factions)) {
+        currentTopo.factions.forEach(f => {
+          if (f && f.name) pool.push(f.name);
+        });
+      }
+
       const filtered = pool.filter(f => f && typeof f === 'string' && f.trim().toLowerCase() !== 'neutral' && f.trim().toLowerCase() !== 'contested');
       return dedupeStringsCI(filtered);
     }
@@ -34814,12 +34952,35 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         ? campaignFactions
         : ((typeof window !== 'undefined' && Array.isArray(window.campaignFactions)) ? window.campaignFactions : []);
 
+      const factionId = 'fac_' + lower.replace(/[^a-z0-9]+/g, '_');
+
       if (!list.some(f => f && f.name && f.name.toLowerCase() === lower)) {
         list.push({
-          id: 'fac_' + lower.replace(/[^a-z0-9]+/g, '_'),
+          id: factionId,
           name: trimmed,
           type: 'Power Group'
         });
+      }
+
+      // Also ensure synchronized onto Workstation.activeTopology.factions
+      if (typeof Workstation !== 'undefined' && Workstation.activeTopology) {
+        if (!Array.isArray(Workstation.activeTopology.factions)) {
+          Workstation.activeTopology.factions = [];
+        }
+        if (!Workstation.activeTopology.factions.some(f => f && f.name && f.name.toLowerCase() === lower)) {
+          Workstation.activeTopology.factions.push({
+            id: factionId,
+            name: trimmed,
+            cvfQuadrant: 'Clan',
+            colorIdentity: 'C',
+            leaderNpcId: null,
+            headquartersNodeId: null,
+            controlledNodeIds: [],
+            diplomaticStances: {},
+            disposition: [2, 2, 2],
+            description: `${trimmed} power group.`
+          });
+        }
       }
     }
 
@@ -35256,7 +35417,7 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
     }
 
     function updateEntityTabButtons() {
-      ['npc', 'quest', 'item', 'tracker', 'node', 'edge'].forEach(t => {
+      ['npc', 'quest', 'item', 'tracker', 'faction', 'node', 'edge'].forEach(t => {
         const btn = document.getElementById(`em-tab-${t}`);
         if (btn) {
           if (t === CurrentEntityTab) {
@@ -35271,6 +35432,7 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         'quest': 'Quest Tracker - Dynamic Dilemmas & Stakes',
         'item': 'Item & Relic Catalog - Hardware & Artifacts',
         'tracker': 'Threat Clocks & Trackers - Escalation Dials',
+        'faction': 'Faction Dossier - Cultural Alignment & Diplomatic Matrix',
         'node': 'Node Explorer - Spatial Topology & Hub Roster',
         'edge': 'EM Edge Explorer - Spatial Corridors & Conduits'
       };
@@ -35289,6 +35451,8 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
           btnNew.textContent = '+ New Tracker...';
         } else if (CurrentEntityTab === 'edge') {
           btnNew.textContent = '+ New Edge...';
+        } else if (CurrentEntityTab === 'faction') {
+          btnNew.textContent = '+ New Faction...';
         } else {
           btnNew.textContent = `+ New ${CurrentEntityTab.toUpperCase()}...`;
         }
@@ -35479,6 +35643,55 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         const contestedCount = activeEdges.filter(e => (e.patrolFaction && e.patrolFaction.toLowerCase() === 'contested') || (Array.isArray(e.factionPresence) && e.factionPresence.length > 1)).length;
         if (contestedCount > 0) {
           addTreeItem(container, `Contested / Guarded Routes (${contestedCount})`, 'has:contested');
+        }
+        return;
+      }
+
+      if (CurrentEntityTab === 'faction') {
+        // FACTION DOSSIER TREE
+        const activeFactions = getActiveEntityList('faction');
+
+        const allHeader = document.createElement('div');
+        allHeader.style.padding = '4px 6px 2px 6px';
+        allHeader.style.fontSize = '10px';
+        allHeader.style.fontWeight = 'bold';
+        allHeader.style.color = '#555';
+        allHeader.textContent = 'FACTIONS SCOPE:';
+        container.appendChild(allHeader);
+
+        addTreeItem(container, `All Factions (${activeFactions.length})`, 'all');
+
+        // 1. By Cultural Quadrant
+        const cultHeader = document.createElement('div');
+        cultHeader.style.padding = '8px 6px 2px 6px';
+        cultHeader.style.fontSize = '10px';
+        cultHeader.style.fontWeight = 'bold';
+        cultHeader.style.color = '#555';
+        cultHeader.textContent = 'BY CULTURAL QUADRANT:';
+        container.appendChild(cultHeader);
+
+        ['Clan', 'Adhocracy', 'Market', 'Hierarchy'].forEach(c => {
+          const count = activeFactions.filter(f => f.cvfQuadrant === c).length;
+          addTreeItem(container, `${c} (${count})`, `culture:${c}`);
+        });
+
+        // 2. Territorial Influence
+        const terrHeader = document.createElement('div');
+        terrHeader.style.padding = '8px 6px 2px 6px';
+        terrHeader.style.fontSize = '10px';
+        terrHeader.style.fontWeight = 'bold';
+        terrHeader.style.color = '#555';
+        terrHeader.textContent = 'TERRITORIAL INFLUENCE:';
+        container.appendChild(terrHeader);
+
+        const hqCount = activeFactions.filter(f => f.headquartersNodeId != null).length;
+        const terrCount = activeFactions.filter(f => Array.isArray(f.controlledNodeIds) && f.controlledNodeIds.length > 0).length;
+        const unseatedCount = activeFactions.filter(f => !f.headquartersNodeId && (!Array.isArray(f.controlledNodeIds) || f.controlledNodeIds.length === 0)).length;
+
+        addTreeItem(container, `With Headquarters (${hqCount})`, 'has:hq');
+        addTreeItem(container, `Controlling Territory (${terrCount})`, 'has:territory');
+        if (unseatedCount > 0) {
+          addTreeItem(container, `Unseated / Nomadic (${unseatedCount})`, 'has:unseated');
         }
         return;
       }
@@ -35758,6 +35971,8 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         thead.innerHTML = '<th>Quest Title</th><th>Type / Stakes</th><th>Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
       } else if (CurrentEntityTab === 'tracker') {
         thead.innerHTML = '<th>Threat / Clock Title</th><th style="width:90px;">Type</th><th style="width:95px;">Ticks / Progress</th><th>Stationed Node</th><th>Source / Faction</th><th style="width:35px; text-align:center;">Action</th>';
+      } else if (CurrentEntityTab === 'faction') {
+        thead.innerHTML = '<th style="min-width:140px;">Faction Name</th><th style="min-width:110px;">CVF Culture</th><th style="width:75px;">Color</th><th>Leader NPC</th><th>Headquarters</th><th style="width:85px;">Territory</th><th style="width:35px; text-align:center;">Action</th>';
       } else {
         thead.innerHTML = '<th style="min-width:130px;">Item / Relic Name</th><th>Category</th><th>Owner &amp; Carrier</th><th>Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
       }
@@ -35784,6 +35999,20 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         });
       } else {
         displayList = activeList.filter(item => {
+          if (CurrentEntityTab === 'faction') {
+            if (SelectedEntityFilter.startsWith('culture:')) {
+              return item.cvfQuadrant === SelectedEntityFilter.replace('culture:', '');
+            }
+            if (SelectedEntityFilter === 'has:hq') {
+              return item.headquartersNodeId != null;
+            }
+            if (SelectedEntityFilter === 'has:territory') {
+              return Array.isArray(item.controlledNodeIds) && item.controlledNodeIds.length > 0;
+            }
+            if (SelectedEntityFilter === 'has:unseated') {
+              return !item.headquartersNodeId && (!Array.isArray(item.controlledNodeIds) || item.controlledNodeIds.length === 0);
+            }
+          }
           if (SelectedEntityFilter === 'unassigned') {
             if (CurrentEntityTab === 'item') {
               const effNode = getItemEffectiveNodeId(item);
@@ -35811,7 +36040,9 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
           const mod = (e.moduleId || '').toLowerCase();
           const notes = (e.notes || e.motivation || '').toLowerCase();
           const faction = (e.faction || '').toLowerCase();
-          return name.includes(searchTerm) || role.includes(searchTerm) || mod.includes(searchTerm) || notes.includes(searchTerm) || faction.includes(searchTerm);
+          const desc = (e.description || '').toLowerCase();
+          const cvf = (e.cvfQuadrant || '').toLowerCase();
+          return name.includes(searchTerm) || role.includes(searchTerm) || mod.includes(searchTerm) || notes.includes(searchTerm) || faction.includes(searchTerm) || desc.includes(searchTerm) || cvf.includes(searchTerm);
         });
       }
 
@@ -35899,6 +36130,25 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
             <td>${nodeVal}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
             <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('tracker', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Clock">Del</button></td>
+          `;
+        } else if (CurrentEntityTab === 'faction') {
+          const leaderNpc = (topo.npcs || []).find(n => String(n.id) === String(item.leaderNpcId));
+          const leaderBadge = leaderNpc
+            ? `<span class="entity-badge-tag" style="background:#0284c7; color:#fff; cursor:pointer;" onclick="event.stopPropagation(); switchEntityManagerTab('npc'); selectEntityItem('${leaderNpc.id}');">👤 ${leaderNpc.name}</span>`
+            : '<span class="entity-badge-tag" style="background:#f1f5f9; color:#64748b;">(Council)</span>';
+          const hqNode = item.headquartersNodeId ? `Node ${item.headquartersNodeId}` : '(Unseated)';
+          const terrCount = Array.isArray(item.controlledNodeIds) ? item.controlledNodeIds.length : 0;
+          const cult = item.cvfQuadrant || 'Clan';
+          const color = item.colorIdentity || 'C';
+
+          tr.innerHTML = `
+            <td><strong>👑 ${nameVal}</strong></td>
+            <td><span class="entity-badge-tag" style="background:#4338ca; color:#fff;">${cult}</span></td>
+            <td><span class="entity-badge-tag" style="background:#0f172a; color:#f8fafc; font-weight:bold;">${color}</span></td>
+            <td>${leaderBadge}</td>
+            <td>${hqNode}</td>
+            <td><span class="entity-badge-tag" style="background:#15803d; color:#fff;">${terrCount} Nodes</span></td>
+            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('faction', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Faction">Del</button></td>
           `;
         } else {
           tr.innerHTML = `
@@ -36748,6 +36998,144 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
             </div>
           </div>
         `;
+      } else if (CurrentEntityTab === 'faction') {
+        const facObj = activeInstance || entity;
+        const leaderNpc = (topo.npcs || []).find(n => String(n.id) === String(facObj.leaderNpcId));
+        const cult = facObj.cvfQuadrant || 'Clan';
+        const color = facObj.colorIdentity || 'C';
+        const disp = Array.isArray(facObj.disposition) ? facObj.disposition : [2, 2, 2];
+        const hqNodeId = facObj.headquartersNodeId;
+        const hqNode = hqNodeId ? (topo.nodes ? (topo.nodes[hqNodeId.toString()] || topo.nodes[hqNodeId]) : null) : null;
+        const terrList = Array.isArray(facObj.controlledNodeIds) ? facObj.controlledNodeIds : [];
+        const memberNpcs = (topo.npcs || []).filter(n => n.factionId === facObj.id || n.faction === facObj.name);
+
+        // Build Diplomatic Stance table
+        const otherFactions = (topo.factions || []).filter(f => f.id !== facObj.id);
+        let diploTableHtml = '';
+        if (otherFactions.length === 0) {
+          diploTableHtml = '<div style="font-size:10px; color:#64748b; font-style:italic;">No other factions registered in active campaign.</div>';
+        } else {
+          diploTableHtml = `
+            <table class="win-table" style="width:100%; font-size:10px; margin-top:3px;">
+              <thead>
+                <tr>
+                  <th>Target Faction</th>
+                  <th style="width:110px;">Stance</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${otherFactions.map(other => {
+                  const currentStance = (facObj.diplomaticStances && facObj.diplomaticStances[other.id]) || 'Neutral';
+                  return `
+                    <tr>
+                      <td><strong>👑 ${other.name}</strong></td>
+                      <td>
+                        <select class="win-select-input" style="font-size:9px; padding:1px 2px;" onchange="updateFactionStance('${facObj.id}', '${other.id}', this.value)">
+                          <option value="Allied" ${currentStance === 'Allied' ? 'selected' : ''}>Allied (+2)</option>
+                          <option value="Neutral" ${currentStance === 'Neutral' ? 'selected' : ''}>Neutral (0)</option>
+                          <option value="Hostile" ${currentStance === 'Hostile' ? 'selected' : ''}>Hostile (-2)</option>
+                          <option value="Vassal" ${currentStance === 'Vassal' ? 'selected' : ''}>Vassal</option>
+                          <option value="Rival" ${currentStance === 'Rival' ? 'selected' : ''}>Rival</option>
+                        </select>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+
+        pane.innerHTML = `
+          <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <h3 style="font-size:13px; color:#000080; margin-bottom:2px;">👑 ${facObj.name}</h3>
+              <div style="display:flex; gap:3px;">
+                <span class="entity-badge-tag" style="background:#4338ca; color:#fff;">${cult}</span>
+                <span class="entity-badge-tag" style="background:#0f172a; color:#f8fafc; font-weight:bold;">${color}</span>
+              </div>
+            </div>
+            <span class="entity-badge-tag">${facObj.type || 'Power Group'}</span>
+            <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">[S:${disp[0]} E:${disp[1]} C:${disp[2]}]</span>
+          </div>
+
+          <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 130px);">
+            <!-- Faction Leader Card -->
+            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+              <div style="font-size:10px; font-weight:bold; color:#475569; margin-bottom:2px;">FACTION LEADER / SPOKESPERSON:</div>
+              ${leaderNpc ? `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <strong style="color:#0284c7;">👤 ${leaderNpc.name}</strong> (${leaderNpc.role || 'Resident'})
+                  </div>
+                  <button class="win-btn" onclick="switchEntityManagerTab('npc'); selectEntityItem('${leaderNpc.id}');" style="font-size:9px; padding:1px 4px;">Inspect Leader</button>
+                </div>
+              ` : `
+                <div style="font-size:10px; color:#64748b;">(Autonomous Council / No Individual Leader Assigned)</div>
+              `}
+            </div>
+
+            <!-- Headquarters Node Card -->
+            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+              <div style="font-size:10px; font-weight:bold; color:#475569; margin-bottom:2px;">HEADQUARTERS LOCATION:</div>
+              ${hqNode ? `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <strong style="color:#000080;">🌐 Node ${hqNodeId}:</strong> ${hqNode.name} (${hqNode.culture || 'Adhocracy'})
+                  </div>
+                  <button class="win-btn" onclick="switchEntityManagerTab('node'); selectEntityItem('${hqNodeId}');" style="font-size:9px; padding:1px 4px;">Inspect Node</button>
+                </div>
+              ` : `
+                <div style="font-size:10px; color:#64748b;">(Unseated / Nomadic / Secret Enclave)</div>
+              `}
+            </div>
+
+            <!-- Controlled Territory Badges -->
+            <div>
+              <strong>Controlled Territory (${terrList.length} Nodes):</strong>
+              <div style="display:flex; flex-wrap:wrap; gap:3px; margin-top:2px;">
+                ${terrList.length > 0 ? terrList.map(nid => {
+                  const nodeObj = topo.nodes ? (topo.nodes[nid.toString()] || topo.nodes[nid]) : null;
+                  const nName = nodeObj ? nodeObj.name : `Node ${nid}`;
+                  return `<button class="win-btn" onclick="switchEntityManagerTab('node'); selectEntityItem('${nid}');" style="font-size:9px; padding:1px 4px;">📍 #${nid}: ${nName}</button>`;
+                }).join('') : '<span style="font-size:10px; color:#64748b; font-style:italic;">No territorial nodes claimed.</span>'}
+              </div>
+            </div>
+
+            <!-- Member NPCs -->
+            <div>
+              <strong>Associated Characters (${memberNpcs.length}):</strong>
+              <div style="display:flex; flex-wrap:wrap; gap:3px; margin-top:2px;">
+                ${memberNpcs.length > 0 ? memberNpcs.map(m => {
+                  return `<button class="win-btn" onclick="switchEntityManagerTab('npc'); selectEntityItem('${m.id}');" style="font-size:9px; padding:1px 4px;">👤 ${m.name}</button>`;
+                }).join('') : '<span style="font-size:10px; color:#64748b; font-style:italic;">No member characters assigned to this faction.</span>'}
+              </div>
+            </div>
+
+            <!-- Diplomatic Stances Matrix -->
+            <div>
+              <div style="font-weight:bold; color:#000080; margin-bottom:2px;">🤝 Diplomatic Stance Matrix:</div>
+              ${diploTableHtml}
+            </div>
+
+            <!-- Dossier & Lore -->
+            <div>
+              <strong>Ideological Agenda &amp; Dossier:</strong>
+              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${facObj.description || facObj.notes || 'No description provided.'}</p>
+            </div>
+          </div>
+
+          <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
+            ${hqNodeId ? `
+              <button class="win-btn" onclick="centerOnNode(${hqNodeId})"><strong>🎯 Center Headquarters on Canvas</strong></button>
+            ` : ''}
+
+            <div style="display:flex; gap:4px; margin-top:4px;">
+              <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${facObj.id}')">Edit Faction</button>
+              <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('faction', '${facObj.id}')">Delete Faction...</button>
+            </div>
+          </div>
+        `;
       } else {
         // DEDICATED NPC INSPECTOR
         const npcObj = activeInstance || entity;
@@ -37050,6 +37438,21 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       }
     }
     window.navigateToEntity = navigateToEntity;
+
+    function updateFactionStance(sourceId, targetId, stance) {
+      const topo = Workstation.activeTopology;
+      if (!topo || !Array.isArray(topo.factions)) return;
+      const fac = topo.factions.find(f => f.id === sourceId);
+      if (fac) {
+        if (!fac.diplomaticStances) fac.diplomaticStances = {};
+        fac.diplomaticStances[targetId] = stance;
+        if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        if (typeof setStatusBarMessage === 'function') {
+          setStatusBarMessage(`Updated diplomatic stance for ${fac.name} -> ${stance}.`);
+        }
+      }
+    }
+    window.updateFactionStance = updateFactionStance;
     // ========================================================================
     // UNIVERSAL CAMPAIGN ENTITY MANAGER - CRUD DIALOGS & QUEST SPANNING
     // ========================================================================
@@ -37251,11 +37654,13 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       const questExt = document.getElementById('ee-quest-extensions');
       const npcExt = document.getElementById('ee-npc-extensions');
       const itemExt = document.getElementById('ee-item-extensions');
+      const factionExt = document.getElementById('ee-faction-extensions');
       const nodeLabel = document.getElementById('ee-node-label');
 
       if (npcExt) npcExt.style.display = (type === 'npc') ? 'flex' : 'none';
       if (itemExt) itemExt.style.display = (type === 'item') ? 'flex' : 'none';
       if (questExt) questExt.style.display = (type === 'quest') ? 'flex' : 'none';
+      if (factionExt) factionExt.style.display = (type === 'faction') ? 'flex' : 'none';
 
       if (type === 'npc') {
         document.getElementById('ee-role-label').textContent = 'Role / Profession:';
@@ -37320,6 +37725,42 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         document.getElementById('ee-meta-label').textContent = 'Max Ticks / Steps (e.g. 4, 6, 8):';
         document.getElementById('ee-notes-label').textContent = 'Trigger Event, Stakes & Escalation Outcome:';
         if (nodeLabel) nodeLabel.textContent = 'Station to Node:';
+      } else if (type === 'faction') {
+        document.getElementById('ee-role-label').textContent = 'Faction Type (Order, Guild, Syndicate, Clan, Power Group):';
+        document.getElementById('ee-meta-label').textContent = 'Ideological Stance / Motto:';
+        document.getElementById('ee-notes-label').textContent = 'Ideological Agenda & Dossier Overview:';
+        if (nodeLabel) nodeLabel.textContent = 'Headquarters Node:';
+        if (document.getElementById('ee-faction-culture')) document.getElementById('ee-faction-culture').value = 'Clan';
+        if (document.getElementById('ee-faction-color')) document.getElementById('ee-faction-color').value = 'W';
+        if (document.getElementById('ee-faction-odv-s')) document.getElementById('ee-faction-odv-s').value = '2';
+        if (document.getElementById('ee-faction-odv-e')) document.getElementById('ee-faction-odv-e').value = '2';
+        if (document.getElementById('ee-faction-odv-c')) document.getElementById('ee-faction-odv-c').value = '2';
+
+        const leaderSel = document.getElementById('ee-faction-leader');
+        if (leaderSel) {
+          const allNpcs = (Workstation.activeTopology && Workstation.activeTopology.npcs) || [];
+          let opts = '<option value="">(None / Autonomous Council)</option>';
+          allNpcs.forEach(n => {
+            opts += `<option value="${n.id}">👤 ${n.name} (${n.role || 'Resident'})</option>`;
+          });
+          leaderSel.innerHTML = opts;
+          leaderSel.value = '';
+        }
+
+        const nodesContainer = document.getElementById('ee-faction-nodes-list');
+        if (nodesContainer) {
+          const topoNodes = Workstation.activeTopology && Workstation.activeTopology.nodes ? Object.values(Workstation.activeTopology.nodes) : [];
+          if (topoNodes.length === 0) {
+            nodesContainer.innerHTML = '<span style="color:#777; font-style:italic;">No nodes in active topology.</span>';
+          } else {
+            nodesContainer.innerHTML = topoNodes.map(n => `
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer; padding:2px 0;">
+                <input type="checkbox" class="ee-faction-node-cb" value="${n.id}">
+                <span><strong>Node ${n.id}:</strong> ${n.name} (${n.culture || 'Adhocracy'})</span>
+              </label>
+            `).join('');
+          }
+        }
       } else {
         document.getElementById('ee-role-label').textContent = 'Item Category (Weapon, Gear, Relic, Tech, Document, Key Item):';
         document.getElementById('ee-meta-label').textContent = 'Specifications / Output Dial / Trait:';
@@ -37454,6 +37895,19 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
           cb.checked = itemIds.includes(cb.value);
         });
         updateQuestSpanningPreview();
+      } else if (CurrentEntityTab === 'faction') {
+        if (document.getElementById('ee-faction-culture')) document.getElementById('ee-faction-culture').value = entity.cvfQuadrant || 'Clan';
+        if (document.getElementById('ee-faction-color')) document.getElementById('ee-faction-color').value = entity.colorIdentity || 'W';
+        if (document.getElementById('ee-faction-leader')) document.getElementById('ee-faction-leader').value = entity.leaderNpcId || '';
+        if (Array.isArray(entity.disposition) && entity.disposition.length >= 3) {
+          if (document.getElementById('ee-faction-odv-s')) document.getElementById('ee-faction-odv-s').value = String(entity.disposition[0]);
+          if (document.getElementById('ee-faction-odv-e')) document.getElementById('ee-faction-odv-e').value = String(entity.disposition[1]);
+          if (document.getElementById('ee-faction-odv-c')) document.getElementById('ee-faction-odv-c').value = String(entity.disposition[2]);
+        }
+        const controlled = Array.isArray(entity.controlledNodeIds) ? entity.controlledNodeIds.map(String) : [];
+        document.querySelectorAll('.ee-faction-node-cb').forEach(cb => {
+          cb.checked = controlled.includes(String(cb.value));
+        });
       }
     }
 
@@ -37523,6 +37977,23 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
             entity.type = role || 'Threat Clock';
             entity.maxTicks = parseInt(meta) || 6;
             entity.notes = notes;
+          } else if (type === 'faction') {
+            entity.name = name;
+            entity.type = role || 'Power Group';
+            entity.cvfQuadrant = document.getElementById('ee-faction-culture') ? document.getElementById('ee-faction-culture').value : 'Clan';
+            entity.colorIdentity = document.getElementById('ee-faction-color') ? document.getElementById('ee-faction-color').value : 'W';
+            entity.leaderNpcId = document.getElementById('ee-faction-leader') ? (document.getElementById('ee-faction-leader').value || null) : null;
+            entity.headquartersNodeId = nodeId;
+            const cNodes = Array.from(document.querySelectorAll('.ee-faction-node-cb:checked')).map(cb => isNaN(cb.value) ? cb.value : parseInt(cb.value, 10));
+            if (nodeId != null && !cNodes.includes(nodeId)) cNodes.push(nodeId);
+            entity.controlledNodeIds = cNodes;
+            entity.disposition = [
+              parseInt(document.getElementById('ee-faction-odv-s').value, 10) || 2,
+              parseInt(document.getElementById('ee-faction-odv-e').value, 10) || 2,
+              parseInt(document.getElementById('ee-faction-odv-c').value, 10) || 2
+            ];
+            entity.description = notes;
+            entity.notes = notes;
           } else {
             entity.name = name;
             entity.category = role;
@@ -37586,6 +38057,26 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
           newEntity.currentTicks = 0;
           newEntity.faction = 'Custom';
           newEntity.notes = notes;
+        } else if (type === 'faction') {
+          const cNodes = Array.from(document.querySelectorAll('.ee-faction-node-cb:checked')).map(cb => isNaN(cb.value) ? cb.value : parseInt(cb.value, 10));
+          if (nodeId != null && !cNodes.includes(nodeId)) cNodes.push(nodeId);
+          newEntity.id = 'faction_' + name.toLowerCase().replace(/[^a-z0-9]+/g, '_') + '_' + Date.now().toString().slice(-4);
+          newEntity.name = name;
+          newEntity.type = role || 'Power Group';
+          newEntity.cvfQuadrant = document.getElementById('ee-faction-culture') ? document.getElementById('ee-faction-culture').value : 'Clan';
+          newEntity.colorIdentity = document.getElementById('ee-faction-color') ? document.getElementById('ee-faction-color').value : 'W';
+          newEntity.leaderNpcId = document.getElementById('ee-faction-leader') ? (document.getElementById('ee-faction-leader').value || null) : null;
+          newEntity.headquartersNodeId = nodeId;
+          newEntity.controlledNodeIds = cNodes;
+          newEntity.diplomaticStances = {};
+          newEntity.disposition = [
+            parseInt(document.getElementById('ee-faction-odv-s').value, 10) || 2,
+            parseInt(document.getElementById('ee-faction-odv-e').value, 10) || 2,
+            parseInt(document.getElementById('ee-faction-odv-c').value, 10) || 2
+          ];
+          newEntity.description = notes;
+          newEntity.notes = notes;
+          if (typeof registerCampaignFaction === 'function') registerCampaignFaction(name);
         } else {
           newEntity.name = name;
           newEntity.category = role;
@@ -37711,6 +38202,7 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       if (type === 'quest') return '📜';
       if (type === 'item') return '💎';
       if (type === 'tracker') return '⏱️';
+      if (type === 'faction') return '👑';
       if (type === 'node') return '🌐';
       if (type === 'map') return '🌀';
       if (type === 'module') return '📦';
@@ -37775,6 +38267,10 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
           const curTicks = activeInstance ? (activeInstance.currentTicks || 0) : (targetObj.currentTicks || 0);
           const maxTicks = targetObj.maxTicks || (targetObj.type === 'Output Dial' ? 4 : 6);
           targetDetails = `${curTicks}/${maxTicks} Ticks Escalated ${targetNodeId ? `(Node #${targetNodeId})` : ''}`;
+        } else if (targetType === 'faction') {
+          targetNodeId = targetObj.headquartersNodeId || null;
+          const terrCount = Array.isArray(targetObj.controlledNodeIds) ? targetObj.controlledNodeIds.length : 0;
+          targetDetails = `CVF: ${targetObj.cvfQuadrant || 'Clan'} • HQ: Node #${targetNodeId || 'None'} • Territory: ${terrCount} Nodes`;
         } else {
           targetDetails = targetNodeId ? `Stationed at Node #${targetNodeId}` : (isTargetActive ? 'Active in Campaign Roster (Unassigned)' : 'Module Prototype Pool');
         }
@@ -37944,6 +38440,51 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
           addDep('tracker', trk, reason, isAct);
         }
       });
+
+      // 4c. FACTION RELATIONSHIPS
+      (topo.factions || []).forEach(fac => {
+        let reason = null;
+        if (targetType === 'npc') {
+          if (fac.leaderNpcId && String(fac.leaderNpcId) === String(targetId)) {
+            reason = `Faction Leader of ${fac.name}`;
+          } else if (targetObj && (targetObj.factionId === fac.id || targetObj.faction === fac.name)) {
+            reason = `Member of ${fac.name}`;
+          }
+        } else if (targetType === 'node') {
+          if (fac.headquartersNodeId && String(fac.headquartersNodeId) === String(targetId)) {
+            reason = `Headquarters Anchor of ${fac.name}`;
+          } else if (Array.isArray(fac.controlledNodeIds) && fac.controlledNodeIds.some(nid => String(nid) === String(targetId))) {
+            reason = `Controlled Territory of ${fac.name}`;
+          }
+        } else if (targetType === 'module') {
+          if (fac.moduleId === targetId) {
+            reason = `Originating Faction from Module [${targetId}]`;
+          }
+        } else if (targetType === 'faction') {
+          if (fac.diplomaticStances && fac.diplomaticStances[targetId]) {
+            reason = `Diplomatic Stance (${fac.diplomaticStances[targetId]})`;
+          }
+        }
+        if (reason) {
+          addDep('faction', fac, reason, true);
+        }
+      });
+
+      if (targetType === 'faction' && targetObj) {
+        if (targetObj.leaderNpcId) {
+          const leader = (topo.npcs || []).find(n => String(n.id) === String(targetObj.leaderNpcId));
+          if (leader) addDep('npc', leader, `Faction Leader of ${targetName}`, true);
+        }
+        if (targetObj.headquartersNodeId) {
+          const hqNode = topo.nodes ? (topo.nodes[targetObj.headquartersNodeId.toString()] || topo.nodes[targetObj.headquartersNodeId]) : null;
+          if (hqNode) addDep('node', { ...hqNode, id: targetObj.headquartersNodeId }, `Headquarters of ${targetName}`, true);
+        }
+        (topo.npcs || []).forEach(n => {
+          if (n.factionId === targetId || n.faction === targetName) {
+            addDep('npc', n, `Member of ${targetName}`, true);
+          }
+        });
+      }
 
       // 5. NODE RELATIONSHIP
       if (targetType !== 'node' && targetNodeId) {
@@ -38566,6 +39107,7 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         quest: new Set(),
         item: new Set(),
         tracker: new Set(),
+        faction: new Set(),
         node: new Set(),
         module: new Set(),
         map: new Set()
@@ -38600,6 +39142,11 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       // 4. Delete Trackers
       if (topo.trackers && deletedIdsByType.tracker.size > 0) {
         topo.trackers = topo.trackers.filter(t => !deletedIdsByType.tracker.has(String(t.id)));
+      }
+
+      // 4c. Delete Factions
+      if (topo.factions && deletedIdsByType.faction.size > 0) {
+        topo.factions = topo.factions.filter(f => !deletedIdsByType.faction.has(String(f.id)));
       }
 
       // 4b. Delete Attached Sub-Maps (if explicitly selected for cascade deletion)
@@ -38780,13 +39327,6 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
         });
       }
 
-      if (topo.npcs) {
-        topo.npcs.forEach(n => {
-          if (n.nodeId && deletedIdsByType.node.has(String(n.nodeId))) n.nodeId = null;
-          if (n.threat && Array.from(deletedIdsByType.tracker).some(tid => n.threat.includes(tid))) n.threat = '';
-        });
-      }
-
       if (topo.items) {
         topo.items.forEach(i => {
           if (i.nodeId && deletedIdsByType.node.has(String(i.nodeId))) i.nodeId = null;
@@ -38796,6 +39336,34 @@ window.severCorridorFromTravel = severCorridorFromTravel;    // ================
       if (topo.trackers) {
         topo.trackers.forEach(t => {
           if (t.nodeId && deletedIdsByType.node.has(String(t.nodeId))) t.nodeId = null;
+        });
+      }
+
+      // Faction references unlinking
+      if (topo.factions) {
+        topo.factions.forEach(f => {
+          if (f.leaderNpcId && deletedIdsByType.npc.has(String(f.leaderNpcId))) {
+            f.leaderNpcId = null;
+          }
+          if (f.headquartersNodeId && deletedIdsByType.node.has(String(f.headquartersNodeId))) {
+            f.headquartersNodeId = null;
+          }
+          if (Array.isArray(f.controlledNodeIds)) {
+            f.controlledNodeIds = f.controlledNodeIds.filter(nid => !deletedIdsByType.node.has(String(nid)));
+          }
+          if (f.diplomaticStances && deletedIdsByType.faction.size > 0) {
+            deletedIdsByType.faction.forEach(fid => {
+              delete f.diplomaticStances[fid];
+            });
+          }
+        });
+      }
+
+      if (topo.npcs) {
+        topo.npcs.forEach(n => {
+          if (n.nodeId && deletedIdsByType.node.has(String(n.nodeId))) n.nodeId = null;
+          if (n.threat && Array.from(deletedIdsByType.tracker).some(tid => n.threat.includes(tid))) n.threat = '';
+          if (n.factionId && deletedIdsByType.faction.has(String(n.factionId))) n.factionId = null;
         });
       }
 
@@ -42327,6 +42895,7 @@ function generateCampaignJSON() {
     quests: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.quests) || [],
     items: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.items) || [],
     trackers: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.trackers) || [],
+    factions: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.factions) || [],
     custom_modules: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.custom_modules) || [],
     edgeData: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.edgeData) || {},
     mapMetadata: (typeof activeMapMetadata !== "undefined" && activeMapMetadata) ? {
@@ -42553,7 +43122,8 @@ function importCampaignData(data, sourceLabel = "") {
         quests: [],
         items: [],
         trackers: [],
-        tickets: []
+        tickets: [],
+        factions: []
       };
     } else {
       Workstation.activeTopology.name = currentCampaignName;
@@ -42791,6 +43361,9 @@ function importCampaignData(data, sourceLabel = "") {
     if (Array.isArray(srcEntities.tickets)) targetTopo.tickets = JSON.parse(JSON.stringify(srcEntities.tickets));
     else if (Array.isArray(data.tickets)) targetTopo.tickets = JSON.parse(JSON.stringify(data.tickets));
 
+    if (Array.isArray(srcEntities.factions)) targetTopo.factions = JSON.parse(JSON.stringify(srcEntities.factions));
+    else if (Array.isArray(data.factions)) targetTopo.factions = JSON.parse(JSON.stringify(data.factions));
+
     if (Array.isArray(srcEntities.custom_modules)) targetTopo.custom_modules = JSON.parse(JSON.stringify(srcEntities.custom_modules));
     else if (Array.isArray(data.custom_modules)) targetTopo.custom_modules = JSON.parse(JSON.stringify(data.custom_modules));
 
@@ -42893,7 +43466,7 @@ async function executeExportCsmodPack() {
     }
   }
 
-  const entitiesToExport = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+  const entitiesToExport = { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
   if (topo) {
     const matchesMapScope = (e) => {
       if (!e) return false;
@@ -42912,6 +43485,14 @@ async function executeExportCsmodPack() {
     }
     if (Array.isArray(topo.trackers)) {
       entitiesToExport.trackers = topo.trackers.filter(matchesMapScope);
+    }
+    if (Array.isArray(topo.factions)) {
+      entitiesToExport.factions = topo.factions.filter(f => {
+        if (rootSubmapId === 'map_root' || rootSubmapId === 'root') return true;
+        if (f.headquartersNodeId && allExportedNodeIds.has(f.headquartersNodeId)) return true;
+        if (Array.isArray(f.controlledNodeIds) && f.controlledNodeIds.some(nid => allExportedNodeIds.has(nid))) return true;
+        return false;
+      });
     }
   }
 
@@ -42953,6 +43534,7 @@ async function executeExportCsmodPack() {
       npcsCount: entitiesToExport.npcs.length,
       questsCount: entitiesToExport.quests.length,
       itemsCount: entitiesToExport.items.length,
+      factionsCount: entitiesToExport.factions.length,
       modulesCount: 0
     }
   };
@@ -43040,7 +43622,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
         name: dirHandle.name,
         sourceType: "folder",
         maps: {},
-        entities: { npcs: [], quests: [], items: [], trackers: [], tickets: [] },
+        entities: { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] },
         globalDials: {},
         directoryHandle: dirHandle
       };
@@ -43058,7 +43640,8 @@ window.executeExportCsmodPack = executeExportCsmodPack;
             quests: parsed.entities.quests || [],
             items: parsed.entities.items || [],
             trackers: parsed.entities.trackers || [],
-            tickets: parsed.entities.tickets || []
+            tickets: parsed.entities.tickets || [],
+            factions: parsed.entities.factions || []
           };
         }
         if (Array.isArray(parsed.npcs)) pkg.entities.npcs = parsed.npcs;
@@ -43066,6 +43649,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
         if (Array.isArray(parsed.items)) pkg.entities.items = parsed.items;
         if (Array.isArray(parsed.trackers)) pkg.entities.trackers = parsed.trackers;
         if (Array.isArray(parsed.tickets)) pkg.entities.tickets = parsed.tickets;
+        if (Array.isArray(parsed.factions)) pkg.entities.factions = parsed.factions;
         if (parsed.globalDials) pkg.globalDials = parsed.globalDials;
       } catch(e) {}
 
@@ -43109,10 +43693,11 @@ window.executeExportCsmodPack = executeExportCsmodPack;
               quests: topoParsed.activeTopology.quests || [],
               items: topoParsed.activeTopology.items || [],
               trackers: topoParsed.activeTopology.trackers || [],
-              tickets: topoParsed.activeTopology.tickets || []
+              tickets: topoParsed.activeTopology.tickets || [],
+              factions: topoParsed.activeTopology.factions || []
              } : null);
 
-        ['npcs', 'quests', 'items', 'trackers', 'tickets'].forEach(cat => {
+        ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions'].forEach(cat => {
           if (!pkg.entities[cat] || pkg.entities[cat].length === 0) {
             if (candidateEntities && Array.isArray(candidateEntities[cat]) && candidateEntities[cat].length > 0) {
               pkg.entities[cat] = candidateEntities[cat];
@@ -43218,6 +43803,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
               items: mainData.activeTopology.items || [],
               trackers: mainData.activeTopology.trackers || [],
               tickets: mainData.activeTopology.tickets || [],
+              factions: mainData.activeTopology.factions || [],
               custom_modules: mainData.activeTopology.custom_modules || [],
               deletedModules: mainData.activeTopology.deletedModules || [],
               deletedPrototypes: mainData.activeTopology.deletedPrototypes || []
@@ -43229,6 +43815,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
           items: (candidateEntities && candidateEntities.items) || campMeta.items || (mainData && mainData.items) || [],
           trackers: (candidateEntities && candidateEntities.trackers) || campMeta.trackers || (mainData && mainData.trackers) || [],
           tickets: (candidateEntities && candidateEntities.tickets) || campMeta.tickets || (mainData && mainData.tickets) || [],
+          factions: (candidateEntities && candidateEntities.factions) || campMeta.factions || (mainData && mainData.factions) || [],
           custom_modules: (candidateEntities && candidateEntities.custom_modules) || campMeta.custom_modules || (mainData && mainData.custom_modules) || [],
           deletedModules: (candidateEntities && candidateEntities.deletedModules) || campMeta.deletedModules || (mainData && mainData.deletedModules) || [],
           deletedPrototypes: (candidateEntities && candidateEntities.deletedPrototypes) || campMeta.deletedPrototypes || (mainData && mainData.deletedPrototypes) || []
@@ -43308,7 +43895,8 @@ window.executeExportCsmodPack = executeExportCsmodPack;
               quests: parsed.activeTopology.quests || [],
               items: parsed.activeTopology.items || [],
               trackers: parsed.activeTopology.trackers || [],
-              tickets: parsed.activeTopology.tickets || []
+              tickets: parsed.activeTopology.tickets || [],
+              factions: parsed.activeTopology.factions || []
              } : null);
 
         const extractedEntities = {
@@ -43316,7 +43904,8 @@ window.executeExportCsmodPack = executeExportCsmodPack;
           quests: (candidateEntities && candidateEntities.quests) || parsed.quests || [],
           items: (candidateEntities && candidateEntities.items) || parsed.items || [],
           trackers: (candidateEntities && candidateEntities.trackers) || parsed.trackers || [],
-          tickets: (candidateEntities && candidateEntities.tickets) || parsed.tickets || []
+          tickets: (candidateEntities && candidateEntities.tickets) || parsed.tickets || [],
+          factions: (candidateEntities && candidateEntities.factions) || parsed.factions || []
         };
 
         const pkg = {
@@ -43379,7 +43968,8 @@ window.executeExportCsmodPack = executeExportCsmodPack;
       { key: "quests", label: "Quest", nameProp: "title", compareProps: ["type", "threat", "faction", "status", "notes"] },
       { key: "items", label: "Item", nameProp: "name", compareProps: ["category", "specs", "notes"] },
       { key: "trackers", label: "Threat Clock", nameProp: "name", compareProps: ["type", "maxTicks", "faction", "notes"] },
-      { key: "tickets", label: "Ticket", nameProp: "title", compareProps: ["status", "priority", "syllogism", "notes"] }
+      { key: "tickets", label: "Ticket", nameProp: "title", compareProps: ["status", "priority", "syllogism", "notes"] },
+      { key: "factions", label: "Faction", nameProp: "name", compareProps: ["cvfQuadrant", "colorIdentity", "leaderNpcId", "headquartersNodeId", "description"] }
     ];
 
     categories.forEach(cat => {
@@ -43434,6 +44024,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
     if (!curTopo.items) curTopo.items = [];
     if (!curTopo.trackers) curTopo.trackers = [];
     if (!curTopo.tickets) curTopo.tickets = [];
+    if (!curTopo.factions) curTopo.factions = [];
 
     const resolvedIncomingIds = new Set();
     const conflictList = conflicts || [];
@@ -43460,7 +44051,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
       // 'keep_existing': do nothing
     });
 
-    ["npcs", "quests", "items", "trackers", "tickets"].forEach(cat => {
+    ["npcs", "quests", "items", "trackers", "tickets", "factions"].forEach(cat => {
       const inList = incomingEntities[cat] || [];
       const curList = curTopo[cat] || [];
       inList.forEach(inEnt => {
@@ -43484,7 +44075,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
   function openSelectiveImportModal(pkg) {
     incomingPackage = pkg;
     conflictResolutions = {};
-    const curTopology = (window.Workstation && window.Workstation.activeTopology) || { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+    const curTopology = (window.Workstation && window.Workstation.activeTopology) || { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
 
     // Default to 'merge' if current canvas has nodes; otherwise 'new'
     const hasCurrentProject = (curTopology.nodes && (Array.isArray(curTopology.nodes) ? curTopology.nodes.length > 0 : Object.keys(curTopology.nodes).length > 0));
@@ -43724,6 +44315,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
         targetTopo.items = JSON.parse(JSON.stringify(incomingPackage.entities.items || []));
         targetTopo.trackers = JSON.parse(JSON.stringify(incomingPackage.entities.trackers || []));
         targetTopo.tickets = JSON.parse(JSON.stringify(incomingPackage.entities.tickets || []));
+        targetTopo.factions = JSON.parse(JSON.stringify(incomingPackage.entities.factions || []));
         if (Array.isArray(incomingPackage.entities.custom_modules)) {
           targetTopo.custom_modules = JSON.parse(JSON.stringify(incomingPackage.entities.custom_modules));
         }
@@ -43971,6 +44563,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
         if (npc.questIds) npc.questIds = remapArr(npc.questIds);
         if (npc.itemIds) npc.itemIds = remapArr(npc.itemIds);
         if (npc.submapId) npc.submapId = remapMapId(npc.submapId);
+        if (npc.factionId) npc.factionId = remapId(npc.factionId);
         if (Array.isArray(npc.relationships)) {
           for (const rel of npc.relationships) {
             if (rel && rel.targetNpcId) rel.targetNpcId = remapId(rel.targetNpcId);
@@ -44005,6 +44598,21 @@ window.executeExportCsmodPack = executeExportCsmodPack;
       for (const tr of entities.trackers) {
         if (!tr) continue;
         if (tr.submapId) tr.submapId = remapMapId(tr.submapId);
+      }
+    }
+
+    // Remap Factions
+    if (entities && Array.isArray(entities.factions)) {
+      for (const fac of entities.factions) {
+        if (!fac) continue;
+        if (fac.leaderNpcId) fac.leaderNpcId = remapId(fac.leaderNpcId);
+        if (fac.diplomaticStances && typeof fac.diplomaticStances === 'object') {
+          const newStances = {};
+          for (const [targetFacId, stance] of Object.entries(fac.diplomaticStances)) {
+            newStances[remapId(targetFacId)] = stance;
+          }
+          fac.diplomaticStances = newStances;
+        }
       }
     }
 
@@ -44098,11 +44706,11 @@ window.executeExportCsmodPack = executeExportCsmodPack;
     }
 
     // Extract Entities (entities.json)
-    let entities = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+    let entities = { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
     if (zipFiles['entities.json']) {
       try {
         const entData = JSON.parse(textDecoder.decode(zipFiles['entities.json']));
-        ['npcs', 'quests', 'items', 'trackers', 'tickets'].forEach((cat) => {
+        ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions'].forEach((cat) => {
           if (Array.isArray(entData[cat])) entities[cat] = entData[cat];
         });
       } catch (e) {
@@ -44245,10 +44853,10 @@ window.executeExportCsmodPack = executeExportCsmodPack;
     }
 
     // 4. Ingest Entities & Disambiguate Collisions
-    const ingestedEntityIds = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+    const ingestedEntityIds = { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
     const entityIdMap = {};
 
-    for (const cat of ['npcs', 'quests', 'items', 'trackers', 'tickets']) {
+    for (const cat of ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions']) {
       const incomingList = parsedPack.entities[cat] || [];
       const currentList = topo[cat];
 
@@ -44517,7 +45125,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
     }
 
     // Add Entities
-    const entities = options.entities || { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+    const entities = options.entities || { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
     zip.addFile('entities.json', JSON.stringify(entities, null, 2));
 
     // Add Modules
@@ -44667,7 +45275,7 @@ window.executeExportCsmodPack = executeExportCsmodPack;
       let conflictsHtml = '';
 
       if (topo && parsedPack.entities) {
-        for (const cat of ['npcs', 'quests', 'items']) {
+        for (const cat of ['npcs', 'quests', 'items', 'trackers', 'factions']) {
           const incomingList = parsedPack.entities[cat] || [];
           const currentList = topo[cat] || [];
           for (const ent of incomingList) {

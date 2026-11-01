@@ -218,6 +218,11 @@ async function switchActiveMap(targetMapId, force = false, options = {}) {
       : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.tickets) && Workstation.activeTopology.tickets.length > 0)
           ? Workstation.activeTopology.tickets
           : (targetEntities && Array.isArray(targetEntities.tickets) ? targetEntities.tickets : [])),
+    factions: (isPackageLoad && targetEntities)
+      ? (targetEntities.factions || [])
+      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.factions) && Workstation.activeTopology.factions.length > 0)
+          ? Workstation.activeTopology.factions
+          : (targetEntities && Array.isArray(targetEntities.factions) ? targetEntities.factions : [])),
     deletedPrototypes: (isPackageLoad && targetEntities)
       ? (targetEntities.deletedPrototypes || [])
       : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.deletedPrototypes))
@@ -355,6 +360,7 @@ async function switchActiveMap(targetMapId, force = false, options = {}) {
   Workstation.activeTopology.items = cachedEntities.items;
   Workstation.activeTopology.trackers = cachedEntities.trackers;
   Workstation.activeTopology.tickets = cachedEntities.tickets;
+  Workstation.activeTopology.factions = cachedEntities.factions || [];
   Workstation.activeTopology.deletedPrototypes = cachedEntities.deletedPrototypes;
   Workstation.activeTopology.deletedModules = cachedEntities.deletedModules;
   Workstation.activeTopology.custom_modules = cachedEntities.custom_modules || [];
@@ -936,7 +942,8 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
         quests: pkg.activeTopology.quests || [],
         items: pkg.activeTopology.items || [],
         trackers: pkg.activeTopology.trackers || [],
-        tickets: pkg.activeTopology.tickets || []
+        tickets: pkg.activeTopology.tickets || [],
+        factions: pkg.activeTopology.factions || []
        } : null);
 
   const extractedEntities = {
@@ -955,6 +962,9 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     tickets: (candidateEntities && Array.isArray(candidateEntities.tickets) && candidateEntities.tickets.length > 0)
       ? JSON.parse(JSON.stringify(candidateEntities.tickets))
       : (Array.isArray(pkg.tickets) ? JSON.parse(JSON.stringify(pkg.tickets)) : (pkg.preset && Array.isArray(pkg.preset.tickets) ? JSON.parse(JSON.stringify(pkg.preset.tickets)) : [])),
+    factions: (candidateEntities && Array.isArray(candidateEntities.factions) && candidateEntities.factions.length > 0)
+      ? JSON.parse(JSON.stringify(candidateEntities.factions))
+      : (Array.isArray(pkg.factions) ? JSON.parse(JSON.stringify(pkg.factions)) : (pkg.preset && Array.isArray(pkg.preset.factions) ? JSON.parse(JSON.stringify(pkg.preset.factions)) : [])),
     custom_modules: (Array.isArray(pkg.custom_modules) && pkg.custom_modules.length > 0)
       ? JSON.parse(JSON.stringify(pkg.custom_modules))
       : (pkg.activeTopology && Array.isArray(pkg.activeTopology.custom_modules) ? JSON.parse(JSON.stringify(pkg.activeTopology.custom_modules)) : (pkg.preset && Array.isArray(pkg.preset.custom_modules) ? JSON.parse(JSON.stringify(pkg.preset.custom_modules)) : []))
@@ -1058,6 +1068,7 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     Workstation.activeTopology.items = extractedEntities.items;
     Workstation.activeTopology.trackers = extractedEntities.trackers;
     Workstation.activeTopology.tickets = extractedEntities.tickets;
+    Workstation.activeTopology.factions = extractedEntities.factions || [];
     Workstation.activeTopology.deletedPrototypes = Array.isArray(pkg.deletedPrototypes) ? pkg.deletedPrototypes : (pkg.preset && Array.isArray(pkg.preset.deletedPrototypes) ? pkg.preset.deletedPrototypes : (pkg.entities && Array.isArray(pkg.entities.deletedPrototypes) ? pkg.entities.deletedPrototypes : []));
     Workstation.activeTopology.deletedModules = Array.isArray(pkg.deletedModules) ? pkg.deletedModules : (pkg.preset && Array.isArray(pkg.preset.deletedModules) ? pkg.preset.deletedModules : (pkg.entities && Array.isArray(pkg.entities.deletedModules) ? pkg.entities.deletedModules : []));
     Workstation.activeTopology.custom_modules = extractedEntities.custom_modules || [];
@@ -1106,6 +1117,7 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     Workstation.activeTopology.items = extractedEntities.items;
     Workstation.activeTopology.trackers = extractedEntities.trackers;
     Workstation.activeTopology.tickets = extractedEntities.tickets;
+    Workstation.activeTopology.factions = extractedEntities.factions || [];
     Workstation.activeTopology.deletedPrototypes = Array.isArray(pkg.deletedPrototypes) ? pkg.deletedPrototypes : (pkg.preset && Array.isArray(pkg.preset.deletedPrototypes) ? pkg.preset.deletedPrototypes : (pkg.entities && Array.isArray(pkg.entities.deletedPrototypes) ? pkg.entities.deletedPrototypes : []));
     Workstation.activeTopology.deletedModules = Array.isArray(pkg.deletedModules) ? pkg.deletedModules : (pkg.preset && Array.isArray(pkg.preset.deletedModules) ? pkg.preset.deletedModules : (pkg.entities && Array.isArray(pkg.entities.deletedModules) ? pkg.entities.deletedModules : []));
     Workstation.activeTopology.custom_modules = extractedEntities.custom_modules || [];
@@ -1150,7 +1162,7 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     if (typeof updateStatusBar === "function") updateStatusBar();
     if (typeof closeModal === "function") closeModal("modal-load");
     if (typeof setStatusBarMessage === "function") {
-      setStatusBarMessage(`Loaded campaign package: "${campaignTitle}" [${Object.keys(maps).length} Maps, ${extractedEntities.npcs.length} NPCs, ${extractedEntities.quests.length} Quests, ${extractedEntities.items.length} Items].`);
+      setStatusBarMessage(`Loaded campaign package: "${campaignTitle}" [${Object.keys(maps).length} Maps, ${extractedEntities.npcs.length} NPCs, ${extractedEntities.quests.length} Quests, ${extractedEntities.items.length} Items, ${extractedEntities.factions ? extractedEntities.factions.length : 0} Factions].`);
     }
   } catch(refreshErr) {
     console.error("[loadCampaignProjectPackage] Refresh warning:", refreshErr);

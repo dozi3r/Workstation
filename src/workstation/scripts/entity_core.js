@@ -194,7 +194,7 @@
     // --- Entity Collection & Prototype Seeding ---
     function getPrototypesForType(type) {
       let result = [];
-      const seeds = MODULE_ENTITY_PROTOTYPES[type === 'npc' ? 'npcs' : (type === 'quest' ? 'quests' : (type === 'item' ? 'items' : (type === 'tracker' ? 'trackers' : '')))] || [];
+      const seeds = MODULE_ENTITY_PROTOTYPES[type === 'npc' ? 'npcs' : (type === 'quest' ? 'quests' : (type === 'item' ? 'items' : (type === 'tracker' ? 'trackers' : (type === 'faction' ? 'factions' : ''))))] || [];
       result.push(...seeds);
 
       if (typeof ALL_MODULES !== 'undefined' && Array.isArray(ALL_MODULES)) {
@@ -273,10 +273,12 @@
 
     function getActiveEntityList(type) {
       const topo = Workstation.activeTopology;
+      if (!topo) return [];
       if (type === 'npc') return topo.npcs || [];
       if (type === 'quest') return topo.quests || [];
       if (type === 'item') return topo.items || [];
       if (type === 'tracker') return topo.trackers || [];
+      if (type === 'faction') return topo.factions || [];
       if (type === 'node') {
         return Object.keys(topo.nodes || {}).map(k => {
           const n = topo.nodes[k];
@@ -693,6 +695,12 @@
         if (f && f.name) pool.push(f.name);
       });
 
+      if (currentTopo && Array.isArray(currentTopo.factions)) {
+        currentTopo.factions.forEach(f => {
+          if (f && f.name) pool.push(f.name);
+        });
+      }
+
       const filtered = pool.filter(f => f && typeof f === 'string' && f.trim().toLowerCase() !== 'neutral' && f.trim().toLowerCase() !== 'contested');
       return dedupeStringsCI(filtered);
     }
@@ -715,12 +723,35 @@
         ? campaignFactions
         : ((typeof window !== 'undefined' && Array.isArray(window.campaignFactions)) ? window.campaignFactions : []);
 
+      const factionId = 'fac_' + lower.replace(/[^a-z0-9]+/g, '_');
+
       if (!list.some(f => f && f.name && f.name.toLowerCase() === lower)) {
         list.push({
-          id: 'fac_' + lower.replace(/[^a-z0-9]+/g, '_'),
+          id: factionId,
           name: trimmed,
           type: 'Power Group'
         });
+      }
+
+      // Also ensure synchronized onto Workstation.activeTopology.factions
+      if (typeof Workstation !== 'undefined' && Workstation.activeTopology) {
+        if (!Array.isArray(Workstation.activeTopology.factions)) {
+          Workstation.activeTopology.factions = [];
+        }
+        if (!Workstation.activeTopology.factions.some(f => f && f.name && f.name.toLowerCase() === lower)) {
+          Workstation.activeTopology.factions.push({
+            id: factionId,
+            name: trimmed,
+            cvfQuadrant: 'Clan',
+            colorIdentity: 'C',
+            leaderNpcId: null,
+            headquartersNodeId: null,
+            controlledNodeIds: [],
+            diplomaticStances: {},
+            disposition: [2, 2, 2],
+            description: `${trimmed} power group.`
+          });
+        }
       }
     }
 

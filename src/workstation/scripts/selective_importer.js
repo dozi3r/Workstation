@@ -42,7 +42,7 @@
         name: dirHandle.name,
         sourceType: "folder",
         maps: {},
-        entities: { npcs: [], quests: [], items: [], trackers: [], tickets: [] },
+        entities: { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] },
         globalDials: {},
         directoryHandle: dirHandle
       };
@@ -60,7 +60,8 @@
             quests: parsed.entities.quests || [],
             items: parsed.entities.items || [],
             trackers: parsed.entities.trackers || [],
-            tickets: parsed.entities.tickets || []
+            tickets: parsed.entities.tickets || [],
+            factions: parsed.entities.factions || []
           };
         }
         if (Array.isArray(parsed.npcs)) pkg.entities.npcs = parsed.npcs;
@@ -68,6 +69,7 @@
         if (Array.isArray(parsed.items)) pkg.entities.items = parsed.items;
         if (Array.isArray(parsed.trackers)) pkg.entities.trackers = parsed.trackers;
         if (Array.isArray(parsed.tickets)) pkg.entities.tickets = parsed.tickets;
+        if (Array.isArray(parsed.factions)) pkg.entities.factions = parsed.factions;
         if (parsed.globalDials) pkg.globalDials = parsed.globalDials;
       } catch(e) {}
 
@@ -111,10 +113,11 @@
               quests: topoParsed.activeTopology.quests || [],
               items: topoParsed.activeTopology.items || [],
               trackers: topoParsed.activeTopology.trackers || [],
-              tickets: topoParsed.activeTopology.tickets || []
+              tickets: topoParsed.activeTopology.tickets || [],
+              factions: topoParsed.activeTopology.factions || []
              } : null);
 
-        ['npcs', 'quests', 'items', 'trackers', 'tickets'].forEach(cat => {
+        ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions'].forEach(cat => {
           if (!pkg.entities[cat] || pkg.entities[cat].length === 0) {
             if (candidateEntities && Array.isArray(candidateEntities[cat]) && candidateEntities[cat].length > 0) {
               pkg.entities[cat] = candidateEntities[cat];
@@ -220,6 +223,7 @@
               items: mainData.activeTopology.items || [],
               trackers: mainData.activeTopology.trackers || [],
               tickets: mainData.activeTopology.tickets || [],
+              factions: mainData.activeTopology.factions || [],
               custom_modules: mainData.activeTopology.custom_modules || [],
               deletedModules: mainData.activeTopology.deletedModules || [],
               deletedPrototypes: mainData.activeTopology.deletedPrototypes || []
@@ -231,6 +235,7 @@
           items: (candidateEntities && candidateEntities.items) || campMeta.items || (mainData && mainData.items) || [],
           trackers: (candidateEntities && candidateEntities.trackers) || campMeta.trackers || (mainData && mainData.trackers) || [],
           tickets: (candidateEntities && candidateEntities.tickets) || campMeta.tickets || (mainData && mainData.tickets) || [],
+          factions: (candidateEntities && candidateEntities.factions) || campMeta.factions || (mainData && mainData.factions) || [],
           custom_modules: (candidateEntities && candidateEntities.custom_modules) || campMeta.custom_modules || (mainData && mainData.custom_modules) || [],
           deletedModules: (candidateEntities && candidateEntities.deletedModules) || campMeta.deletedModules || (mainData && mainData.deletedModules) || [],
           deletedPrototypes: (candidateEntities && candidateEntities.deletedPrototypes) || campMeta.deletedPrototypes || (mainData && mainData.deletedPrototypes) || []
@@ -310,7 +315,8 @@
               quests: parsed.activeTopology.quests || [],
               items: parsed.activeTopology.items || [],
               trackers: parsed.activeTopology.trackers || [],
-              tickets: parsed.activeTopology.tickets || []
+              tickets: parsed.activeTopology.tickets || [],
+              factions: parsed.activeTopology.factions || []
              } : null);
 
         const extractedEntities = {
@@ -318,7 +324,8 @@
           quests: (candidateEntities && candidateEntities.quests) || parsed.quests || [],
           items: (candidateEntities && candidateEntities.items) || parsed.items || [],
           trackers: (candidateEntities && candidateEntities.trackers) || parsed.trackers || [],
-          tickets: (candidateEntities && candidateEntities.tickets) || parsed.tickets || []
+          tickets: (candidateEntities && candidateEntities.tickets) || parsed.tickets || [],
+          factions: (candidateEntities && candidateEntities.factions) || parsed.factions || []
         };
 
         const pkg = {
@@ -381,7 +388,8 @@
       { key: "quests", label: "Quest", nameProp: "title", compareProps: ["type", "threat", "faction", "status", "notes"] },
       { key: "items", label: "Item", nameProp: "name", compareProps: ["category", "specs", "notes"] },
       { key: "trackers", label: "Threat Clock", nameProp: "name", compareProps: ["type", "maxTicks", "faction", "notes"] },
-      { key: "tickets", label: "Ticket", nameProp: "title", compareProps: ["status", "priority", "syllogism", "notes"] }
+      { key: "tickets", label: "Ticket", nameProp: "title", compareProps: ["status", "priority", "syllogism", "notes"] },
+      { key: "factions", label: "Faction", nameProp: "name", compareProps: ["cvfQuadrant", "colorIdentity", "leaderNpcId", "headquartersNodeId", "description"] }
     ];
 
     categories.forEach(cat => {
@@ -436,6 +444,7 @@
     if (!curTopo.items) curTopo.items = [];
     if (!curTopo.trackers) curTopo.trackers = [];
     if (!curTopo.tickets) curTopo.tickets = [];
+    if (!curTopo.factions) curTopo.factions = [];
 
     const resolvedIncomingIds = new Set();
     const conflictList = conflicts || [];
@@ -462,7 +471,7 @@
       // 'keep_existing': do nothing
     });
 
-    ["npcs", "quests", "items", "trackers", "tickets"].forEach(cat => {
+    ["npcs", "quests", "items", "trackers", "tickets", "factions"].forEach(cat => {
       const inList = incomingEntities[cat] || [];
       const curList = curTopo[cat] || [];
       inList.forEach(inEnt => {
@@ -486,7 +495,7 @@
   function openSelectiveImportModal(pkg) {
     incomingPackage = pkg;
     conflictResolutions = {};
-    const curTopology = (window.Workstation && window.Workstation.activeTopology) || { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+    const curTopology = (window.Workstation && window.Workstation.activeTopology) || { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
 
     // Default to 'merge' if current canvas has nodes; otherwise 'new'
     const hasCurrentProject = (curTopology.nodes && (Array.isArray(curTopology.nodes) ? curTopology.nodes.length > 0 : Object.keys(curTopology.nodes).length > 0));
@@ -726,6 +735,7 @@
         targetTopo.items = JSON.parse(JSON.stringify(incomingPackage.entities.items || []));
         targetTopo.trackers = JSON.parse(JSON.stringify(incomingPackage.entities.trackers || []));
         targetTopo.tickets = JSON.parse(JSON.stringify(incomingPackage.entities.tickets || []));
+        targetTopo.factions = JSON.parse(JSON.stringify(incomingPackage.entities.factions || []));
         if (Array.isArray(incomingPackage.entities.custom_modules)) {
           targetTopo.custom_modules = JSON.parse(JSON.stringify(incomingPackage.entities.custom_modules));
         }

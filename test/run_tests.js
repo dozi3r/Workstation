@@ -4411,6 +4411,185 @@ function testSociologyReferenceHubAndHermeneutics() {
 }
 
 // ============================================================================
+// SUITE 27: FIRST-CLASS FACTIONS ENTITY ENGINE & ENGINE UNIFICATION (ADR 0021)
+// ============================================================================
+function testFirstClassFactionsEntityEngine() {
+  console.log('\n--> SUITE 27: First-Class Factions Entity Engine & Engine Unification (ADR 0021)...');
+
+  const statePath = path.join(ROOT_DIR, 'src/workstation/scripts/workstation_state.js');
+  const entityCorePath = path.join(ROOT_DIR, 'src/workstation/scripts/entity_core.js');
+  const stateAdapterPath = path.join(ROOT_DIR, 'src/workstation/scripts/state_adapter.js');
+  const cascadePath = path.join(ROOT_DIR, 'src/workstation/scripts/entity_cascade_delete.js');
+  const selectiveImporterPath = path.join(ROOT_DIR, 'src/workstation/scripts/selective_importer.js');
+  const packEnginePath = path.join(ROOT_DIR, 'src/workstation/scripts/pack_engine.js');
+
+  const stateCode = fs.readFileSync(statePath, 'utf8');
+  const entityCoreCode = fs.readFileSync(entityCorePath, 'utf8');
+  const stateAdapterCode = fs.readFileSync(stateAdapterPath, 'utf8');
+  const cascadeCode = fs.readFileSync(cascadePath, 'utf8');
+  const selectiveImporterCode = fs.readFileSync(selectiveImporterPath, 'utf8');
+  const packEngineCode = fs.readFileSync(packEnginePath, 'utf8');
+
+  // 1. Prototype Seeding & Collection Lifecycle
+  const sandbox = {
+    window: {},
+    document: {
+      querySelectorAll: () => [],
+      getElementById: () => null,
+      addEventListener: () => {}
+    },
+    addEventListener: () => {},
+    console,
+    Math,
+    localStorage: {
+      _data: {},
+      getItem(k) { return this._data[k] || null; },
+      setItem(k, v) { this._data[k] = String(v); },
+      removeItem(k) { delete this._data[k]; }
+    }
+  };
+  sandbox.window = sandbox;
+  vm.createContext(sandbox);
+
+  vm.runInContext(stateCode, sandbox);
+  vm.runInContext(entityCoreCode, sandbox);
+  vm.runInContext(cascadeCode, sandbox);
+
+  sandbox.Workstation.activeTopology = {
+    id: 'map_root',
+    nodes: {
+      '1': { id: 1, name: 'Bastion of the Sun' },
+      '2': { id: 2, name: 'Sylvan Grove' }
+    },
+    npcs: [
+      { id: 'npc_commander', name: 'Commander Valen', factionId: 'fac_solar_covenant' }
+    ],
+    quests: [],
+    items: [],
+    trackers: [],
+    tickets: [],
+    factions: [
+      {
+        id: 'fac_solar_covenant',
+        name: 'The Solar Covenant',
+        cvfQuadrant: 'Hierarchy',
+        colorIdentity: 'W',
+        leaderNpcId: 'npc_commander',
+        headquartersNodeId: 1,
+        controlledNodeIds: [1, 2],
+        diplomaticStances: {
+          'fac_shadow_enclave': 'Hostile'
+        },
+        disposition: [3, 2, 3],
+        description: 'Order of sun-paladins defending civilization.'
+      },
+      {
+        id: 'fac_shadow_enclave',
+        name: 'The Shadow Enclave',
+        cvfQuadrant: 'Market',
+        colorIdentity: 'B',
+        leaderNpcId: null,
+        headquartersNodeId: 2,
+        controlledNodeIds: [2],
+        diplomaticStances: {
+          'fac_solar_covenant': 'Hostile'
+        },
+        disposition: [2, 3, 2],
+        description: 'Syndicate of subterranean relic merchants.'
+      }
+    ]
+  };
+
+  // Assert seed prototypes exist
+  const protos = sandbox.MODULE_ENTITY_PROTOTYPES || (sandbox.window && sandbox.window.MODULE_ENTITY_PROTOTYPES);
+  assert(protos && Array.isArray(protos.factions), 'MODULE_ENTITY_PROTOTYPES defines factions array');
+  assert(protos.factions.length >= 2, 'MODULE_ENTITY_PROTOTYPES has at least 2 seed factions');
+  const covProto = protos.factions.find(f => f.id === 'PROTO-FAC-COVENANT');
+  assert(covProto && covProto.cvfQuadrant === 'Hierarchy', 'Seed faction PROTO-FAC-COVENANT has Hierarchy quadrant');
+  assert(covProto && covProto.colorIdentity === 'W', 'Seed faction PROTO-FAC-COVENANT has Color Identity W');
+
+  // Assert getPrototypesForType & getActiveEntityList
+  const factionProtos = sandbox.getPrototypesForType('faction');
+  assert(Array.isArray(factionProtos) && factionProtos.length >= 2, 'getPrototypesForType(faction) returns prototypes');
+  const activeFactions = sandbox.getActiveEntityList('faction');
+  assert(Array.isArray(activeFactions) && activeFactions.length === 2, 'getActiveEntityList(faction) returns active factions');
+
+  // 2. Backward Compatibility with getCampaignFactionSuggestions & registerCampaignFaction
+  const suggestions = sandbox.getCampaignFactionSuggestions();
+  assert(suggestions.includes('The Solar Covenant'), 'getCampaignFactionSuggestions includes active topology faction');
+  assert(suggestions.includes('The Shadow Enclave'), 'getCampaignFactionSuggestions includes second active topology faction');
+
+  sandbox.registerCampaignFaction('Obsidian Vanguard');
+  const updatedSuggestions = sandbox.getCampaignFactionSuggestions();
+  assert(updatedSuggestions.includes('Obsidian Vanguard'), 'registerCampaignFaction registers new faction in suggestions pool');
+  const regFaction = sandbox.Workstation.activeTopology.factions.find(f => f.name === 'Obsidian Vanguard');
+  assert(regFaction !== undefined, 'registerCampaignFaction adds first-class faction to Workstation.activeTopology.factions');
+  assert(Array.isArray(sandbox.campaignFactions) && sandbox.campaignFactions.some(f => f.name === 'Obsidian Vanguard'), 'registerCampaignFaction maintains campaignFactions backward compatibility');
+
+  // 3. Relational Cascade Deletion
+  // Case A: Delete Leader NPC -> clears faction.leaderNpcId
+  const allToDeleteA = [{ type: 'npc', id: 'npc_commander' }];
+  sandbox.executeEntityDeletion(allToDeleteA);
+  const covenantAfterNpcDel = sandbox.Workstation.activeTopology.factions.find(f => f.id === 'fac_solar_covenant');
+  assertEqual(covenantAfterNpcDel.leaderNpcId, null, 'Deleting leader NPC sets faction.leaderNpcId to null');
+
+  // Case B: Delete HQ Node -> clears faction.headquartersNodeId and removes from controlledNodeIds
+  const allToDeleteB = [{ type: 'node', id: 1 }];
+  sandbox.executeEntityDeletion(allToDeleteB);
+  assertEqual(covenantAfterNpcDel.headquartersNodeId, null, 'Deleting HQ node sets faction.headquartersNodeId to null');
+  assert(!covenantAfterNpcDel.controlledNodeIds.includes(1), 'Deleting node removes it from faction.controlledNodeIds');
+
+  // Case C: Delete Faction -> cleans npc.factionId and survivor diplomatic stances
+  sandbox.Workstation.activeTopology.npcs.push({ id: 'npc_shadow_broker', name: 'Broker', factionId: 'fac_shadow_enclave' });
+  const allToDeleteC = [{ type: 'faction', id: 'fac_shadow_enclave' }];
+  sandbox.executeEntityDeletion(allToDeleteC);
+  const remainingFactions = sandbox.Workstation.activeTopology.factions;
+  assert(!remainingFactions.some(f => f.id === 'fac_shadow_enclave'), 'Faction fac_shadow_enclave purged from active factions');
+  const shadowBroker = sandbox.Workstation.activeTopology.npcs.find(n => n.id === 'npc_shadow_broker');
+  assertEqual(shadowBroker.factionId, null, 'Deleting faction sets npc.factionId to null');
+  assert(covenantAfterNpcDel.diplomaticStances['fac_shadow_enclave'] === undefined, 'Deleting faction purges diplomatic stance in surviving factions');
+
+  // 4. Map Switch Persistence via cachedEntities
+  assert(stateAdapterCode.includes('factions: (isPackageLoad && targetEntities)'), 'state_adapter.js caches factions during switchActiveMap()');
+  assert(stateAdapterCode.includes('Workstation.activeTopology.factions = cachedEntities.factions'), 'state_adapter.js restores factions onto activeTopology');
+
+  // 5. Pack Engine & remapEntityCluster
+  const remapEntities = {
+    npcs: [
+      { id: 'npc_scout', name: 'Scout', factionId: 'old_fac_1' }
+    ],
+    factions: [
+      {
+        id: 'old_fac_1',
+        name: 'The Rangers',
+        leaderNpcId: 'old_npc_leader',
+        diplomaticStances: {
+          'old_fac_2': 'Allied'
+        }
+      }
+    ]
+  };
+  const entityIdMap = {
+    'old_fac_1': 'new_fac_1',
+    'old_fac_2': 'new_fac_2',
+    'old_npc_leader': 'new_npc_leader'
+  };
+
+  const packSandbox = {
+    window: {},
+    console
+  };
+  packSandbox.window = packSandbox;
+  vm.createContext(packSandbox);
+  vm.runInContext(packEngineCode, packSandbox);
+
+  packSandbox.remapEntityCluster(remapEntities, {}, entityIdMap, {});
+  assertEqual(remapEntities.npcs[0].factionId, 'new_fac_1', 'remapEntityCluster remaps npc.factionId');
+  assertEqual(remapEntities.factions[0].leaderNpcId, 'new_npc_leader', 'remapEntityCluster remaps faction.leaderNpcId');
+  assertEqual(remapEntities.factions[0].diplomaticStances['new_fac_2'], 'Allied', 'remapEntityCluster remaps diplomatic stance keys');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -4441,6 +4620,7 @@ function testSociologyReferenceHubAndHermeneutics() {
     await testEntityModulePackEngine();
     await testEdgeExplorerAndConduitCatalog();
     testSociologyReferenceHubAndHermeneutics();
+    testFirstClassFactionsEntityEngine();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

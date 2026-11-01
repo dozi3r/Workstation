@@ -85,6 +85,7 @@
         if (npc.questIds) npc.questIds = remapArr(npc.questIds);
         if (npc.itemIds) npc.itemIds = remapArr(npc.itemIds);
         if (npc.submapId) npc.submapId = remapMapId(npc.submapId);
+        if (npc.factionId) npc.factionId = remapId(npc.factionId);
         if (Array.isArray(npc.relationships)) {
           for (const rel of npc.relationships) {
             if (rel && rel.targetNpcId) rel.targetNpcId = remapId(rel.targetNpcId);
@@ -119,6 +120,21 @@
       for (const tr of entities.trackers) {
         if (!tr) continue;
         if (tr.submapId) tr.submapId = remapMapId(tr.submapId);
+      }
+    }
+
+    // Remap Factions
+    if (entities && Array.isArray(entities.factions)) {
+      for (const fac of entities.factions) {
+        if (!fac) continue;
+        if (fac.leaderNpcId) fac.leaderNpcId = remapId(fac.leaderNpcId);
+        if (fac.diplomaticStances && typeof fac.diplomaticStances === 'object') {
+          const newStances = {};
+          for (const [targetFacId, stance] of Object.entries(fac.diplomaticStances)) {
+            newStances[remapId(targetFacId)] = stance;
+          }
+          fac.diplomaticStances = newStances;
+        }
       }
     }
 
@@ -212,11 +228,11 @@
     }
 
     // Extract Entities (entities.json)
-    let entities = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+    let entities = { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
     if (zipFiles['entities.json']) {
       try {
         const entData = JSON.parse(textDecoder.decode(zipFiles['entities.json']));
-        ['npcs', 'quests', 'items', 'trackers', 'tickets'].forEach((cat) => {
+        ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions'].forEach((cat) => {
           if (Array.isArray(entData[cat])) entities[cat] = entData[cat];
         });
       } catch (e) {
@@ -359,10 +375,10 @@
     }
 
     // 4. Ingest Entities & Disambiguate Collisions
-    const ingestedEntityIds = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+    const ingestedEntityIds = { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
     const entityIdMap = {};
 
-    for (const cat of ['npcs', 'quests', 'items', 'trackers', 'tickets']) {
+    for (const cat of ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions']) {
       const incomingList = parsedPack.entities[cat] || [];
       const currentList = topo[cat];
 
@@ -631,7 +647,7 @@
     }
 
     // Add Entities
-    const entities = options.entities || { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+    const entities = options.entities || { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
     zip.addFile('entities.json', JSON.stringify(entities, null, 2));
 
     // Add Modules
@@ -781,7 +797,7 @@
       let conflictsHtml = '';
 
       if (topo && parsedPack.entities) {
-        for (const cat of ['npcs', 'quests', 'items']) {
+        for (const cat of ['npcs', 'quests', 'items', 'trackers', 'factions']) {
           const incomingList = parsedPack.entities[cat] || [];
           const currentList = topo[cat] || [];
           for (const ent of incomingList) {

@@ -21,6 +21,7 @@
             <button id="em-tab-quest" class="win-btn" onclick="switchEntityManagerTab('quest')"><strong>Quests</strong></button>
             <button id="em-tab-item" class="win-btn" onclick="switchEntityManagerTab('item')"><strong>Items &amp; Relics</strong></button>
             <button id="em-tab-tracker" class="win-btn" onclick="switchEntityManagerTab('tracker')"><strong>Trackers &amp; Clocks</strong></button>
+            <button id="em-tab-faction" class="win-btn" onclick="switchEntityManagerTab('faction')"><strong>👑 Factions</strong></button>
             <button id="em-tab-node" class="win-btn" onclick="switchEntityManagerTab('node')"><strong>Nodes &amp; Hubs</strong></button>
             <button id="em-tab-edge" class="win-btn" onclick="switchEntityManagerTab('edge')"><strong>Edges &amp; Conduits</strong></button>
           </div>
@@ -252,6 +253,80 @@
           <div id="ee-quest-spanning-box" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:6px; border-radius:2px; font-size:10px;">
             <div style="font-weight:bold; color:#000080; margin-bottom:2px;">📍 Spanning Quest Nodes:</div>
             <div id="ee-quest-spanning-nodes-text" style="color:#334155;">(Select main node, NPCs, or items above)</div>
+          </div>
+        </div>
+
+        <!-- Faction Overhaul Extensions (CVF Culture, MTG Color Identity, Leader NPC, Controlled Nodes, [S,E,C] Vector) -->
+        <div id="ee-faction-extensions" style="display:none; flex-direction:column; gap:6px; border-top:1px solid #ccc; padding-top:6px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>CVF Cultural Quadrant:</strong>
+              <select id="ee-faction-culture" class="win-select-input">
+                <option value="Clan">Clan (Collaborative / Internal)</option>
+                <option value="Adhocracy">Adhocracy (Creative / Dynamic)</option>
+                <option value="Market">Market (Competitive / Extraction)</option>
+                <option value="Hierarchy" selected>Hierarchy (Controlling / Stability)</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Color Identity:</strong>
+              <select id="ee-faction-color" class="win-select-input">
+                <option value="W" selected>White (Order / Community)</option>
+                <option value="U">Blue (Knowledge / Technology)</option>
+                <option value="B">Black (Ambition / Ruthlessness)</option>
+                <option value="R">Red (Passion / Rebellion)</option>
+                <option value="G">Green (Tradition / Nature)</option>
+                <option value="C">Colorless (Artifact / Neutral)</option>
+              </select>
+            </label>
+          </div>
+
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Faction Leader (NPC):</strong>
+            <select id="ee-faction-leader" class="win-select-input">
+              <option value="">(None / Autonomous Council)</option>
+            </select>
+          </label>
+
+          <!-- Granular [S, E, C] Vector -->
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Granular Disposition Vector [S, E, C]:</strong>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px;">
+              <label style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>S:</span>
+                <select id="ee-faction-odv-s" class="win-select-input" style="flex:1;">
+                  <option value="1">1: Passive</option>
+                  <option value="2">2: Moderate</option>
+                  <option value="3" selected>3: Active</option>
+                  <option value="4">4: Extreme</option>
+                </select>
+              </label>
+              <label style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>E:</span>
+                <select id="ee-faction-odv-e" class="win-select-input" style="flex:1;">
+                  <option value="1">1: Rigid</option>
+                  <option value="2" selected>2: Guarded</option>
+                  <option value="3">3: Dynamic</option>
+                  <option value="4">4: Volatile</option>
+                </select>
+              </label>
+              <label style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>C:</span>
+                <select id="ee-faction-odv-c" class="win-select-input" style="flex:1;">
+                  <option value="1">1: Isolated</option>
+                  <option value="2">2: Local</option>
+                  <option value="3" selected>3: Regional</option>
+                  <option value="4">4: Universal</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Controlled Territory Nodes:</strong>
+            <div id="ee-faction-nodes-list" class="bevel-inset" style="max-height:85px; overflow-y:auto; background:#fff; padding:4px; font-size:11px; display:flex; flex-direction:column; gap:2px;">
+              <!-- Dynamic Node Checkboxes -->
+            </div>
           </div>
         </div>
 

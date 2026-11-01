@@ -91,6 +91,7 @@ function generateCampaignJSON() {
     quests: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.quests) || [],
     items: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.items) || [],
     trackers: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.trackers) || [],
+    factions: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.factions) || [],
     custom_modules: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.custom_modules) || [],
     edgeData: (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.edgeData) || {},
     mapMetadata: (typeof activeMapMetadata !== "undefined" && activeMapMetadata) ? {
@@ -317,7 +318,8 @@ function importCampaignData(data, sourceLabel = "") {
         quests: [],
         items: [],
         trackers: [],
-        tickets: []
+        tickets: [],
+        factions: []
       };
     } else {
       Workstation.activeTopology.name = currentCampaignName;
@@ -555,6 +557,9 @@ function importCampaignData(data, sourceLabel = "") {
     if (Array.isArray(srcEntities.tickets)) targetTopo.tickets = JSON.parse(JSON.stringify(srcEntities.tickets));
     else if (Array.isArray(data.tickets)) targetTopo.tickets = JSON.parse(JSON.stringify(data.tickets));
 
+    if (Array.isArray(srcEntities.factions)) targetTopo.factions = JSON.parse(JSON.stringify(srcEntities.factions));
+    else if (Array.isArray(data.factions)) targetTopo.factions = JSON.parse(JSON.stringify(data.factions));
+
     if (Array.isArray(srcEntities.custom_modules)) targetTopo.custom_modules = JSON.parse(JSON.stringify(srcEntities.custom_modules));
     else if (Array.isArray(data.custom_modules)) targetTopo.custom_modules = JSON.parse(JSON.stringify(data.custom_modules));
 
@@ -657,7 +662,7 @@ async function executeExportCsmodPack() {
     }
   }
 
-  const entitiesToExport = { npcs: [], quests: [], items: [], trackers: [], tickets: [] };
+  const entitiesToExport = { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
   if (topo) {
     const matchesMapScope = (e) => {
       if (!e) return false;
@@ -676,6 +681,14 @@ async function executeExportCsmodPack() {
     }
     if (Array.isArray(topo.trackers)) {
       entitiesToExport.trackers = topo.trackers.filter(matchesMapScope);
+    }
+    if (Array.isArray(topo.factions)) {
+      entitiesToExport.factions = topo.factions.filter(f => {
+        if (rootSubmapId === 'map_root' || rootSubmapId === 'root') return true;
+        if (f.headquartersNodeId && allExportedNodeIds.has(f.headquartersNodeId)) return true;
+        if (Array.isArray(f.controlledNodeIds) && f.controlledNodeIds.some(nid => allExportedNodeIds.has(nid))) return true;
+        return false;
+      });
     }
   }
 
@@ -717,6 +730,7 @@ async function executeExportCsmodPack() {
       npcsCount: entitiesToExport.npcs.length,
       questsCount: entitiesToExport.quests.length,
       itemsCount: entitiesToExport.items.length,
+      factionsCount: entitiesToExport.factions.length,
       modulesCount: 0
     }
   };

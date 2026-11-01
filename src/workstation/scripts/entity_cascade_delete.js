@@ -6,6 +6,7 @@
       if (type === 'quest') return '📜';
       if (type === 'item') return '💎';
       if (type === 'tracker') return '⏱️';
+      if (type === 'faction') return '👑';
       if (type === 'node') return '🌐';
       if (type === 'map') return '🌀';
       if (type === 'module') return '📦';
@@ -70,6 +71,10 @@
           const curTicks = activeInstance ? (activeInstance.currentTicks || 0) : (targetObj.currentTicks || 0);
           const maxTicks = targetObj.maxTicks || (targetObj.type === 'Output Dial' ? 4 : 6);
           targetDetails = `${curTicks}/${maxTicks} Ticks Escalated ${targetNodeId ? `(Node #${targetNodeId})` : ''}`;
+        } else if (targetType === 'faction') {
+          targetNodeId = targetObj.headquartersNodeId || null;
+          const terrCount = Array.isArray(targetObj.controlledNodeIds) ? targetObj.controlledNodeIds.length : 0;
+          targetDetails = `CVF: ${targetObj.cvfQuadrant || 'Clan'} • HQ: Node #${targetNodeId || 'None'} • Territory: ${terrCount} Nodes`;
         } else {
           targetDetails = targetNodeId ? `Stationed at Node #${targetNodeId}` : (isTargetActive ? 'Active in Campaign Roster (Unassigned)' : 'Module Prototype Pool');
         }
@@ -239,6 +244,51 @@
           addDep('tracker', trk, reason, isAct);
         }
       });
+
+      // 4c. FACTION RELATIONSHIPS
+      (topo.factions || []).forEach(fac => {
+        let reason = null;
+        if (targetType === 'npc') {
+          if (fac.leaderNpcId && String(fac.leaderNpcId) === String(targetId)) {
+            reason = `Faction Leader of ${fac.name}`;
+          } else if (targetObj && (targetObj.factionId === fac.id || targetObj.faction === fac.name)) {
+            reason = `Member of ${fac.name}`;
+          }
+        } else if (targetType === 'node') {
+          if (fac.headquartersNodeId && String(fac.headquartersNodeId) === String(targetId)) {
+            reason = `Headquarters Anchor of ${fac.name}`;
+          } else if (Array.isArray(fac.controlledNodeIds) && fac.controlledNodeIds.some(nid => String(nid) === String(targetId))) {
+            reason = `Controlled Territory of ${fac.name}`;
+          }
+        } else if (targetType === 'module') {
+          if (fac.moduleId === targetId) {
+            reason = `Originating Faction from Module [${targetId}]`;
+          }
+        } else if (targetType === 'faction') {
+          if (fac.diplomaticStances && fac.diplomaticStances[targetId]) {
+            reason = `Diplomatic Stance (${fac.diplomaticStances[targetId]})`;
+          }
+        }
+        if (reason) {
+          addDep('faction', fac, reason, true);
+        }
+      });
+
+      if (targetType === 'faction' && targetObj) {
+        if (targetObj.leaderNpcId) {
+          const leader = (topo.npcs || []).find(n => String(n.id) === String(targetObj.leaderNpcId));
+          if (leader) addDep('npc', leader, `Faction Leader of ${targetName}`, true);
+        }
+        if (targetObj.headquartersNodeId) {
+          const hqNode = topo.nodes ? (topo.nodes[targetObj.headquartersNodeId.toString()] || topo.nodes[targetObj.headquartersNodeId]) : null;
+          if (hqNode) addDep('node', { ...hqNode, id: targetObj.headquartersNodeId }, `Headquarters of ${targetName}`, true);
+        }
+        (topo.npcs || []).forEach(n => {
+          if (n.factionId === targetId || n.faction === targetName) {
+            addDep('npc', n, `Member of ${targetName}`, true);
+          }
+        });
+      }
 
       // 5. NODE RELATIONSHIP
       if (targetType !== 'node' && targetNodeId) {
@@ -861,6 +911,7 @@
         quest: new Set(),
         item: new Set(),
         tracker: new Set(),
+        faction: new Set(),
         node: new Set(),
         module: new Set(),
         map: new Set()
@@ -895,6 +946,11 @@
       // 4. Delete Trackers
       if (topo.trackers && deletedIdsByType.tracker.size > 0) {
         topo.trackers = topo.trackers.filter(t => !deletedIdsByType.tracker.has(String(t.id)));
+      }
+
+      // 4c. Delete Factions
+      if (topo.factions && deletedIdsByType.faction.size > 0) {
+        topo.factions = topo.factions.filter(f => !deletedIdsByType.faction.has(String(f.id)));
       }
 
       // 4b. Delete Attached Sub-Maps (if explicitly selected for cascade deletion)
@@ -1075,13 +1131,6 @@
         });
       }
 
-      if (topo.npcs) {
-        topo.npcs.forEach(n => {
-          if (n.nodeId && deletedIdsByType.node.has(String(n.nodeId))) n.nodeId = null;
-          if (n.threat && Array.from(deletedIdsByType.tracker).some(tid => n.threat.includes(tid))) n.threat = '';
-        });
-      }
-
       if (topo.items) {
         topo.items.forEach(i => {
           if (i.nodeId && deletedIdsByType.node.has(String(i.nodeId))) i.nodeId = null;
@@ -1091,6 +1140,34 @@
       if (topo.trackers) {
         topo.trackers.forEach(t => {
           if (t.nodeId && deletedIdsByType.node.has(String(t.nodeId))) t.nodeId = null;
+        });
+      }
+
+      // Faction references unlinking
+      if (topo.factions) {
+        topo.factions.forEach(f => {
+          if (f.leaderNpcId && deletedIdsByType.npc.has(String(f.leaderNpcId))) {
+            f.leaderNpcId = null;
+          }
+          if (f.headquartersNodeId && deletedIdsByType.node.has(String(f.headquartersNodeId))) {
+            f.headquartersNodeId = null;
+          }
+          if (Array.isArray(f.controlledNodeIds)) {
+            f.controlledNodeIds = f.controlledNodeIds.filter(nid => !deletedIdsByType.node.has(String(nid)));
+          }
+          if (f.diplomaticStances && deletedIdsByType.faction.size > 0) {
+            deletedIdsByType.faction.forEach(fid => {
+              delete f.diplomaticStances[fid];
+            });
+          }
+        });
+      }
+
+      if (topo.npcs) {
+        topo.npcs.forEach(n => {
+          if (n.nodeId && deletedIdsByType.node.has(String(n.nodeId))) n.nodeId = null;
+          if (n.threat && Array.from(deletedIdsByType.tracker).some(tid => n.threat.includes(tid))) n.threat = '';
+          if (n.factionId && deletedIdsByType.faction.has(String(n.factionId))) n.factionId = null;
         });
       }
 

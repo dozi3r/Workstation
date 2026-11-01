@@ -18,6 +18,7 @@
         "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
         "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
         "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
+        "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
         "docs/srd/authoring_engine_srd.md",
         "CONTEXT.md"
       ],

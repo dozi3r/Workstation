@@ -420,7 +420,7 @@
     }
 
     function updateEntityTabButtons() {
-      ['npc', 'quest', 'item', 'tracker', 'node', 'edge'].forEach(t => {
+      ['npc', 'quest', 'item', 'tracker', 'faction', 'node', 'edge'].forEach(t => {
         const btn = document.getElementById(`em-tab-${t}`);
         if (btn) {
           if (t === CurrentEntityTab) {
@@ -435,6 +435,7 @@
         'quest': 'Quest Tracker - Dynamic Dilemmas & Stakes',
         'item': 'Item & Relic Catalog - Hardware & Artifacts',
         'tracker': 'Threat Clocks & Trackers - Escalation Dials',
+        'faction': 'Faction Dossier - Cultural Alignment & Diplomatic Matrix',
         'node': 'Node Explorer - Spatial Topology & Hub Roster',
         'edge': 'EM Edge Explorer - Spatial Corridors & Conduits'
       };
@@ -453,6 +454,8 @@
           btnNew.textContent = '+ New Tracker...';
         } else if (CurrentEntityTab === 'edge') {
           btnNew.textContent = '+ New Edge...';
+        } else if (CurrentEntityTab === 'faction') {
+          btnNew.textContent = '+ New Faction...';
         } else {
           btnNew.textContent = `+ New ${CurrentEntityTab.toUpperCase()}...`;
         }
@@ -643,6 +646,55 @@
         const contestedCount = activeEdges.filter(e => (e.patrolFaction && e.patrolFaction.toLowerCase() === 'contested') || (Array.isArray(e.factionPresence) && e.factionPresence.length > 1)).length;
         if (contestedCount > 0) {
           addTreeItem(container, `Contested / Guarded Routes (${contestedCount})`, 'has:contested');
+        }
+        return;
+      }
+
+      if (CurrentEntityTab === 'faction') {
+        // FACTION DOSSIER TREE
+        const activeFactions = getActiveEntityList('faction');
+
+        const allHeader = document.createElement('div');
+        allHeader.style.padding = '4px 6px 2px 6px';
+        allHeader.style.fontSize = '10px';
+        allHeader.style.fontWeight = 'bold';
+        allHeader.style.color = '#555';
+        allHeader.textContent = 'FACTIONS SCOPE:';
+        container.appendChild(allHeader);
+
+        addTreeItem(container, `All Factions (${activeFactions.length})`, 'all');
+
+        // 1. By Cultural Quadrant
+        const cultHeader = document.createElement('div');
+        cultHeader.style.padding = '8px 6px 2px 6px';
+        cultHeader.style.fontSize = '10px';
+        cultHeader.style.fontWeight = 'bold';
+        cultHeader.style.color = '#555';
+        cultHeader.textContent = 'BY CULTURAL QUADRANT:';
+        container.appendChild(cultHeader);
+
+        ['Clan', 'Adhocracy', 'Market', 'Hierarchy'].forEach(c => {
+          const count = activeFactions.filter(f => f.cvfQuadrant === c).length;
+          addTreeItem(container, `${c} (${count})`, `culture:${c}`);
+        });
+
+        // 2. Territorial Influence
+        const terrHeader = document.createElement('div');
+        terrHeader.style.padding = '8px 6px 2px 6px';
+        terrHeader.style.fontSize = '10px';
+        terrHeader.style.fontWeight = 'bold';
+        terrHeader.style.color = '#555';
+        terrHeader.textContent = 'TERRITORIAL INFLUENCE:';
+        container.appendChild(terrHeader);
+
+        const hqCount = activeFactions.filter(f => f.headquartersNodeId != null).length;
+        const terrCount = activeFactions.filter(f => Array.isArray(f.controlledNodeIds) && f.controlledNodeIds.length > 0).length;
+        const unseatedCount = activeFactions.filter(f => !f.headquartersNodeId && (!Array.isArray(f.controlledNodeIds) || f.controlledNodeIds.length === 0)).length;
+
+        addTreeItem(container, `With Headquarters (${hqCount})`, 'has:hq');
+        addTreeItem(container, `Controlling Territory (${terrCount})`, 'has:territory');
+        if (unseatedCount > 0) {
+          addTreeItem(container, `Unseated / Nomadic (${unseatedCount})`, 'has:unseated');
         }
         return;
       }
@@ -922,6 +974,8 @@
         thead.innerHTML = '<th>Quest Title</th><th>Type / Stakes</th><th>Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
       } else if (CurrentEntityTab === 'tracker') {
         thead.innerHTML = '<th>Threat / Clock Title</th><th style="width:90px;">Type</th><th style="width:95px;">Ticks / Progress</th><th>Stationed Node</th><th>Source / Faction</th><th style="width:35px; text-align:center;">Action</th>';
+      } else if (CurrentEntityTab === 'faction') {
+        thead.innerHTML = '<th style="min-width:140px;">Faction Name</th><th style="min-width:110px;">CVF Culture</th><th style="width:75px;">Color</th><th>Leader NPC</th><th>Headquarters</th><th style="width:85px;">Territory</th><th style="width:35px; text-align:center;">Action</th>';
       } else {
         thead.innerHTML = '<th style="min-width:130px;">Item / Relic Name</th><th>Category</th><th>Owner &amp; Carrier</th><th>Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
       }
@@ -948,6 +1002,20 @@
         });
       } else {
         displayList = activeList.filter(item => {
+          if (CurrentEntityTab === 'faction') {
+            if (SelectedEntityFilter.startsWith('culture:')) {
+              return item.cvfQuadrant === SelectedEntityFilter.replace('culture:', '');
+            }
+            if (SelectedEntityFilter === 'has:hq') {
+              return item.headquartersNodeId != null;
+            }
+            if (SelectedEntityFilter === 'has:territory') {
+              return Array.isArray(item.controlledNodeIds) && item.controlledNodeIds.length > 0;
+            }
+            if (SelectedEntityFilter === 'has:unseated') {
+              return !item.headquartersNodeId && (!Array.isArray(item.controlledNodeIds) || item.controlledNodeIds.length === 0);
+            }
+          }
           if (SelectedEntityFilter === 'unassigned') {
             if (CurrentEntityTab === 'item') {
               const effNode = getItemEffectiveNodeId(item);
@@ -975,7 +1043,9 @@
           const mod = (e.moduleId || '').toLowerCase();
           const notes = (e.notes || e.motivation || '').toLowerCase();
           const faction = (e.faction || '').toLowerCase();
-          return name.includes(searchTerm) || role.includes(searchTerm) || mod.includes(searchTerm) || notes.includes(searchTerm) || faction.includes(searchTerm);
+          const desc = (e.description || '').toLowerCase();
+          const cvf = (e.cvfQuadrant || '').toLowerCase();
+          return name.includes(searchTerm) || role.includes(searchTerm) || mod.includes(searchTerm) || notes.includes(searchTerm) || faction.includes(searchTerm) || desc.includes(searchTerm) || cvf.includes(searchTerm);
         });
       }
 
@@ -1063,6 +1133,25 @@
             <td>${nodeVal}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
             <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('tracker', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Clock">Del</button></td>
+          `;
+        } else if (CurrentEntityTab === 'faction') {
+          const leaderNpc = (topo.npcs || []).find(n => String(n.id) === String(item.leaderNpcId));
+          const leaderBadge = leaderNpc
+            ? `<span class="entity-badge-tag" style="background:#0284c7; color:#fff; cursor:pointer;" onclick="event.stopPropagation(); switchEntityManagerTab('npc'); selectEntityItem('${leaderNpc.id}');">👤 ${leaderNpc.name}</span>`
+            : '<span class="entity-badge-tag" style="background:#f1f5f9; color:#64748b;">(Council)</span>';
+          const hqNode = item.headquartersNodeId ? `Node ${item.headquartersNodeId}` : '(Unseated)';
+          const terrCount = Array.isArray(item.controlledNodeIds) ? item.controlledNodeIds.length : 0;
+          const cult = item.cvfQuadrant || 'Clan';
+          const color = item.colorIdentity || 'C';
+
+          tr.innerHTML = `
+            <td><strong>👑 ${nameVal}</strong></td>
+            <td><span class="entity-badge-tag" style="background:#4338ca; color:#fff;">${cult}</span></td>
+            <td><span class="entity-badge-tag" style="background:#0f172a; color:#f8fafc; font-weight:bold;">${color}</span></td>
+            <td>${leaderBadge}</td>
+            <td>${hqNode}</td>
+            <td><span class="entity-badge-tag" style="background:#15803d; color:#fff;">${terrCount} Nodes</span></td>
+            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('faction', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Faction">Del</button></td>
           `;
         } else {
           tr.innerHTML = `
@@ -1912,6 +2001,144 @@
             </div>
           </div>
         `;
+      } else if (CurrentEntityTab === 'faction') {
+        const facObj = activeInstance || entity;
+        const leaderNpc = (topo.npcs || []).find(n => String(n.id) === String(facObj.leaderNpcId));
+        const cult = facObj.cvfQuadrant || 'Clan';
+        const color = facObj.colorIdentity || 'C';
+        const disp = Array.isArray(facObj.disposition) ? facObj.disposition : [2, 2, 2];
+        const hqNodeId = facObj.headquartersNodeId;
+        const hqNode = hqNodeId ? (topo.nodes ? (topo.nodes[hqNodeId.toString()] || topo.nodes[hqNodeId]) : null) : null;
+        const terrList = Array.isArray(facObj.controlledNodeIds) ? facObj.controlledNodeIds : [];
+        const memberNpcs = (topo.npcs || []).filter(n => n.factionId === facObj.id || n.faction === facObj.name);
+
+        // Build Diplomatic Stance table
+        const otherFactions = (topo.factions || []).filter(f => f.id !== facObj.id);
+        let diploTableHtml = '';
+        if (otherFactions.length === 0) {
+          diploTableHtml = '<div style="font-size:10px; color:#64748b; font-style:italic;">No other factions registered in active campaign.</div>';
+        } else {
+          diploTableHtml = `
+            <table class="win-table" style="width:100%; font-size:10px; margin-top:3px;">
+              <thead>
+                <tr>
+                  <th>Target Faction</th>
+                  <th style="width:110px;">Stance</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${otherFactions.map(other => {
+                  const currentStance = (facObj.diplomaticStances && facObj.diplomaticStances[other.id]) || 'Neutral';
+                  return `
+                    <tr>
+                      <td><strong>👑 ${other.name}</strong></td>
+                      <td>
+                        <select class="win-select-input" style="font-size:9px; padding:1px 2px;" onchange="updateFactionStance('${facObj.id}', '${other.id}', this.value)">
+                          <option value="Allied" ${currentStance === 'Allied' ? 'selected' : ''}>Allied (+2)</option>
+                          <option value="Neutral" ${currentStance === 'Neutral' ? 'selected' : ''}>Neutral (0)</option>
+                          <option value="Hostile" ${currentStance === 'Hostile' ? 'selected' : ''}>Hostile (-2)</option>
+                          <option value="Vassal" ${currentStance === 'Vassal' ? 'selected' : ''}>Vassal</option>
+                          <option value="Rival" ${currentStance === 'Rival' ? 'selected' : ''}>Rival</option>
+                        </select>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+
+        pane.innerHTML = `
+          <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <h3 style="font-size:13px; color:#000080; margin-bottom:2px;">👑 ${facObj.name}</h3>
+              <div style="display:flex; gap:3px;">
+                <span class="entity-badge-tag" style="background:#4338ca; color:#fff;">${cult}</span>
+                <span class="entity-badge-tag" style="background:#0f172a; color:#f8fafc; font-weight:bold;">${color}</span>
+              </div>
+            </div>
+            <span class="entity-badge-tag">${facObj.type || 'Power Group'}</span>
+            <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">[S:${disp[0]} E:${disp[1]} C:${disp[2]}]</span>
+          </div>
+
+          <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 130px);">
+            <!-- Faction Leader Card -->
+            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+              <div style="font-size:10px; font-weight:bold; color:#475569; margin-bottom:2px;">FACTION LEADER / SPOKESPERSON:</div>
+              ${leaderNpc ? `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <strong style="color:#0284c7;">👤 ${leaderNpc.name}</strong> (${leaderNpc.role || 'Resident'})
+                  </div>
+                  <button class="win-btn" onclick="switchEntityManagerTab('npc'); selectEntityItem('${leaderNpc.id}');" style="font-size:9px; padding:1px 4px;">Inspect Leader</button>
+                </div>
+              ` : `
+                <div style="font-size:10px; color:#64748b;">(Autonomous Council / No Individual Leader Assigned)</div>
+              `}
+            </div>
+
+            <!-- Headquarters Node Card -->
+            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+              <div style="font-size:10px; font-weight:bold; color:#475569; margin-bottom:2px;">HEADQUARTERS LOCATION:</div>
+              ${hqNode ? `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <strong style="color:#000080;">🌐 Node ${hqNodeId}:</strong> ${hqNode.name} (${hqNode.culture || 'Adhocracy'})
+                  </div>
+                  <button class="win-btn" onclick="switchEntityManagerTab('node'); selectEntityItem('${hqNodeId}');" style="font-size:9px; padding:1px 4px;">Inspect Node</button>
+                </div>
+              ` : `
+                <div style="font-size:10px; color:#64748b;">(Unseated / Nomadic / Secret Enclave)</div>
+              `}
+            </div>
+
+            <!-- Controlled Territory Badges -->
+            <div>
+              <strong>Controlled Territory (${terrList.length} Nodes):</strong>
+              <div style="display:flex; flex-wrap:wrap; gap:3px; margin-top:2px;">
+                ${terrList.length > 0 ? terrList.map(nid => {
+                  const nodeObj = topo.nodes ? (topo.nodes[nid.toString()] || topo.nodes[nid]) : null;
+                  const nName = nodeObj ? nodeObj.name : `Node ${nid}`;
+                  return `<button class="win-btn" onclick="switchEntityManagerTab('node'); selectEntityItem('${nid}');" style="font-size:9px; padding:1px 4px;">📍 #${nid}: ${nName}</button>`;
+                }).join('') : '<span style="font-size:10px; color:#64748b; font-style:italic;">No territorial nodes claimed.</span>'}
+              </div>
+            </div>
+
+            <!-- Member NPCs -->
+            <div>
+              <strong>Associated Characters (${memberNpcs.length}):</strong>
+              <div style="display:flex; flex-wrap:wrap; gap:3px; margin-top:2px;">
+                ${memberNpcs.length > 0 ? memberNpcs.map(m => {
+                  return `<button class="win-btn" onclick="switchEntityManagerTab('npc'); selectEntityItem('${m.id}');" style="font-size:9px; padding:1px 4px;">👤 ${m.name}</button>`;
+                }).join('') : '<span style="font-size:10px; color:#64748b; font-style:italic;">No member characters assigned to this faction.</span>'}
+              </div>
+            </div>
+
+            <!-- Diplomatic Stances Matrix -->
+            <div>
+              <div style="font-weight:bold; color:#000080; margin-bottom:2px;">🤝 Diplomatic Stance Matrix:</div>
+              ${diploTableHtml}
+            </div>
+
+            <!-- Dossier & Lore -->
+            <div>
+              <strong>Ideological Agenda &amp; Dossier:</strong>
+              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${facObj.description || facObj.notes || 'No description provided.'}</p>
+            </div>
+          </div>
+
+          <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
+            ${hqNodeId ? `
+              <button class="win-btn" onclick="centerOnNode(${hqNodeId})"><strong>🎯 Center Headquarters on Canvas</strong></button>
+            ` : ''}
+
+            <div style="display:flex; gap:4px; margin-top:4px;">
+              <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${facObj.id}')">Edit Faction</button>
+              <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('faction', '${facObj.id}')">Delete Faction...</button>
+            </div>
+          </div>
+        `;
       } else {
         // DEDICATED NPC INSPECTOR
         const npcObj = activeInstance || entity;
@@ -2214,3 +2441,18 @@
       }
     }
     window.navigateToEntity = navigateToEntity;
+
+    function updateFactionStance(sourceId, targetId, stance) {
+      const topo = Workstation.activeTopology;
+      if (!topo || !Array.isArray(topo.factions)) return;
+      const fac = topo.factions.find(f => f.id === sourceId);
+      if (fac) {
+        if (!fac.diplomaticStances) fac.diplomaticStances = {};
+        fac.diplomaticStances[targetId] = stance;
+        if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        if (typeof setStatusBarMessage === 'function') {
+          setStatusBarMessage(`Updated diplomatic stance for ${fac.name} -> ${stance}.`);
+        }
+      }
+    }
+    window.updateFactionStance = updateFactionStance;
