@@ -3,11 +3,11 @@ file_path: "start.html"
 title: "Creator Studio - Campaign Authoring Workstation"
 volume: "vol-1"
 kind: "Standalone Zero-CORS HTML Workstation"
-current_hash: "3686822400024657"
+current_hash: "c93de47b08b4c924"
 reviewed_hash: "95bc61b9a34630a4"
 stale: true
-size_bytes: 11955317
-line_count: 68536
+size_bytes: 11960193
+line_count: 68638
 ---
 
 # Creator Studio - Campaign Authoring Workstation

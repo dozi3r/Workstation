@@ -6478,7 +6478,7 @@
       "tier": 0,
       "pipeline_tier": 0,
       "priority": "Medium",
-      "status": "ready_for_authoring",
+      "status": "shipped",
       "nodeId": "",
       "syllogism": "",
       "fourCorners": "",

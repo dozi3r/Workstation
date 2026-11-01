@@ -255,7 +255,76 @@ function clearMapImageFromProp() {
 }
 
 /**
- * Renders horizontal AutoCAD-style tabs along the bottom of the CAD viewport
+ * Horizontal layout tab navigation & grouping controls (AutoCAD-style)
+ */
+function scrollLayoutTabs(dir) {
+  const container = document.getElementById('cad-layout-scroll-container');
+  if (!container) return;
+  if (dir === 'first') {
+    container.scrollTo({ left: 0, behavior: 'smooth' });
+  } else if (dir === 'left') {
+    container.scrollBy({ left: -220, behavior: 'smooth' });
+  } else if (dir === 'right') {
+    container.scrollBy({ left: 220, behavior: 'smooth' });
+  } else if (dir === 'last') {
+    container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
+  }
+}
+window.scrollLayoutTabs = scrollLayoutTabs;
+
+function toggleMapGroupFold(mapId) {
+  let collapsedGroups = {};
+  try { collapsedGroups = JSON.parse(localStorage.getItem('cs_map_tab_groups_state') || '{}'); } catch(e) {}
+  collapsedGroups[mapId] = !collapsedGroups[mapId];
+  try { localStorage.setItem('cs_map_tab_groups_state', JSON.stringify(collapsedGroups)); } catch(e) {}
+  renderLayoutTabs();
+}
+window.toggleMapGroupFold = toggleMapGroupFold;
+
+function toggleMapQuickListMenu() {
+  let menu = document.getElementById('cad-quick-map-menu');
+  if (!menu) {
+    menu = document.createElement('div');
+    menu.id = 'cad-quick-map-menu';
+    menu.className = 'win-dialog bevel-outset';
+    menu.style.cssText = 'position:fixed; bottom:28px; left:6px; z-index:9999; background:#ece9d8; border:2px outset #fff; box-shadow:2px 2px 8px rgba(0,0,0,0.4); max-height:320px; overflow-y:auto; padding:4px; min-width:240px; font-family:var(--font-stack); font-size:11px;';
+    document.body.appendChild(menu);
+  }
+  if (menu.style.display === 'block') {
+    menu.style.display = 'none';
+    return;
+  }
+  const curId = (typeof activeMapId !== 'undefined') ? activeMapId : 'map_root';
+  const mRegistry = (typeof maps !== 'undefined' && maps) ? maps : {};
+  const mapKeys = Object.keys(mRegistry);
+  menu.innerHTML = `
+    <div style="font-weight:bold; color:#000080; padding:2px 6px; border-bottom:1px solid #808080; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+      <span>All Maps (${mapKeys.length})</span>
+      <button class="win-btn" onclick="document.getElementById('cad-quick-map-menu').style.display='none'" style="font-size:9px; padding:0 3px;">X</button>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:2px;">
+      ${mapKeys.map(k => {
+        const m = mRegistry[k];
+        const isCur = (k === curId);
+        const tier = (typeof SCALE_TIERS !== 'undefined' && SCALE_TIERS[m.scaleTier]) ? SCALE_TIERS[m.scaleTier] : { icon: '🗺️', label: 'Map' };
+        const prefix = m.parentMapId ? '&nbsp;&nbsp;└─ ' : '';
+        return `
+          <div onclick="switchActiveMap('${k}'); document.getElementById('cad-quick-map-menu').style.display='none';" 
+               class="win-btn" 
+               style="display:flex; align-items:center; justify-content:space-between; padding:3px 6px; cursor:pointer; text-align:left; background:${isCur ? '#000080' : '#fff'}; color:${isCur ? '#fff' : '#000'}; font-weight:${isCur ? 'bold' : 'normal'}; border:1px solid #ccc;">
+            <span>${prefix}${tier.icon} ${escapeHtml(m.name)}</span>
+            ${isCur ? '<span>✓</span>' : ''}
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+  menu.style.display = 'block';
+}
+window.toggleMapQuickListMenu = toggleMapQuickListMenu;
+
+/**
+ * Renders horizontal AutoCAD-style tabs along the bottom of the CAD viewport with hierarchical grouping and overflow
  */
 function renderLayoutTabs() {
   const container = document.getElementById('layout-tabs-list');
@@ -267,96 +336,105 @@ function renderLayoutTabs() {
     : { "map_root": { id: "map_root", name: (Workstation.activeTopology && Workstation.activeTopology.name) || "Root Map", scaleTier: "region" } };
 
   const mapKeys = Object.keys(mRegistry);
-  const existingTabs = container.querySelectorAll('.layout-tab');
 
-  // Check if existing DOM tabs match mapKeys in length and order for in-place update (prevents DOM recreation breaking dblclick)
-  const canUpdateInPlace = (existingTabs.length === mapKeys.length) && Array.from(existingTabs).every((el, idx) => el.dataset.mapId === mapKeys[idx]);
+  let collapsedGroups = {};
+  try { collapsedGroups = JSON.parse(localStorage.getItem('cs_map_tab_groups_state') || '{}'); } catch(e) {}
 
-  if (canUpdateInPlace) {
-    existingTabs.forEach((el, idx) => {
-      const mId = mapKeys[idx];
-      const m = mRegistry[mId];
-      const isCur = (mId === curId);
-      const tier = (typeof SCALE_TIERS !== "undefined" && SCALE_TIERS[m.scaleTier])
-        ? SCALE_TIERS[m.scaleTier]
-        : { icon: "🗺️", label: "Region" };
-      const hasImage = !!(m.mapMetadata && (m.mapMetadata.dataUrl || m.mapMetadata.url || m.mapMetadata.assetPath));
-
-      el.className = `layout-tab ${isCur ? 'active' : ''}`;
-      el.title = `${m.name} [${tier.label}${m.dispositionModifier ? ' | Disp: ' + m.dispositionModifier : ''}] - Click to switch view, double-click for Map Properties`;
-
-      const iconEl = el.querySelector('.layout-tab-icon');
-      if (iconEl) iconEl.textContent = hasImage ? '🖼️' : tier.icon;
-
-      const titleEl = el.querySelector('.layout-tab-title');
-      if (titleEl) titleEl.textContent = m.name;
-
-      const tierEl = el.querySelector('.layout-tab-tier');
-      if (tierEl) tierEl.textContent = tier.label.split(' / ')[0];
-
-      let dispEl = el.querySelector('.layout-tab-disp');
-      if (m.dispositionModifier) {
-        if (!dispEl) {
-          dispEl = document.createElement('span');
-          dispEl.className = 'layout-tab-disp';
-          dispEl.style.cssText = 'background:#e0e7ff; color:#3730a3; padding:1px 3px; font-size:8px; border-radius:2px; font-weight:bold; margin-left:2px;';
-          el.appendChild(dispEl);
-        }
-        dispEl.textContent = `[${m.dispositionModifier.substring(0,4)}]`;
-        dispEl.title = `Overall Disposition Modifier: ${m.dispositionModifier}`;
-      } else if (dispEl) {
-        dispEl.remove();
-      }
-      let closeEl = el.querySelector('.layout-tab-close');
-      if (mapKeys.length > 1) {
-        if (!closeEl) {
-          closeEl = document.createElement('span');
-          closeEl.className = 'layout-tab-close';
-          closeEl.style.cssText = 'margin-left:5px; font-weight:bold; color:#777; font-size:11px; cursor:pointer; padding:0 2px;';
-          closeEl.title = `Delete Map "${m.name}"`;
-          closeEl.textContent = '×';
-          closeEl.onmouseover = () => { closeEl.style.color = '#b91c1c'; };
-          closeEl.onmouseout = () => { closeEl.style.color = '#777'; };
-          closeEl.onclick = (e) => { e.stopPropagation(); deleteMap(mId); };
-          el.appendChild(closeEl);
-        }
-      } else if (closeEl) {
-        closeEl.remove();
-      }
-    });
-  } else {
-    container.innerHTML = mapKeys.map(mId => {
-      const m = mRegistry[mId];
-      const isCur = (mId === curId);
-      const tier = (typeof SCALE_TIERS !== "undefined" && SCALE_TIERS[m.scaleTier])
-        ? SCALE_TIERS[m.scaleTier]
-        : { icon: "🗺️", label: "Region" };
-      const hasImage = !!(m.mapMetadata && (m.mapMetadata.dataUrl || m.mapMetadata.url || m.mapMetadata.assetPath));
-
-      const dispBadge = m.dispositionModifier 
-        ? `<span class="layout-tab-disp" style="background:#e0e7ff; color:#3730a3; padding:1px 3px; font-size:8px; border-radius:2px; font-weight:bold; margin-left:2px;" title="Overall Disposition Modifier: ${m.dispositionModifier}">[${m.dispositionModifier.substring(0,4)}]</span>`
-        : '';
-
-      const closeBtn = mapKeys.length > 1 
-        ? `<span class="layout-tab-close" onclick="event.stopPropagation(); deleteMap('${m.id}')" title="Delete Map '${escapeAttr(m.name)}'" style="margin-left:5px; font-weight:bold; color:#777; font-size:11px; cursor:pointer; padding:0 2px;" onmouseover="this.style.color='#b91c1c'" onmouseout="this.style.color='#777'">×</span>`
-        : '';
-
-      return `
-        <div class="layout-tab ${isCur ? 'active' : ''}" 
-             data-map-id="${m.id}"
-             onclick="switchActiveMap('${m.id}')" 
-             ondblclick="openMapPropertiesDialog('${m.id}')"
-             oncontextmenu="event.preventDefault(); openMapPropertiesDialog('${m.id}');"
-             title="${m.name} [${tier.label}${m.dispositionModifier ? ' | Disp: ' + m.dispositionModifier : ''}] - Click to switch view, double-click for Map Properties">
-          <span class="layout-tab-icon">${hasImage ? '🖼️' : tier.icon}</span>
-          <span class="layout-tab-title">${m.name}</span>
-          <span class="layout-tab-tier">${tier.label.split(' / ')[0]}</span>
-          ${dispBadge}
-          ${closeBtn}
-        </div>
-      `;
-    }).join('');
+  // Auto-expand group containing active map so it is never hidden from the author
+  let checkParent = mRegistry[curId] ? mRegistry[curId].parentMapId : null;
+  while (checkParent) {
+    if (collapsedGroups[checkParent]) {
+      collapsedGroups[checkParent] = false;
+      try { localStorage.setItem('cs_map_tab_groups_state', JSON.stringify(collapsedGroups)); } catch(e) {}
+    }
+    checkParent = mRegistry[checkParent] ? mRegistry[checkParent].parentMapId : null;
   }
+
+  // Group maps by parent
+  const childrenMap = {};
+  mapKeys.forEach(k => {
+    const p = mRegistry[k].parentMapId;
+    if (p && mRegistry[p]) {
+      if (!childrenMap[p]) childrenMap[p] = [];
+      childrenMap[p].push(k);
+    }
+  });
+
+  // Top level maps (roots or maps whose parent does not exist)
+  const rootMapKeys = mapKeys.filter(k => !mRegistry[k].parentMapId || !mRegistry[mRegistry[k].parentMapId]);
+
+  function renderSingleTabHtml(mId, isChild = false) {
+    const m = mRegistry[mId];
+    if (!m) return '';
+    const isCur = (mId === curId);
+    const tier = (typeof SCALE_TIERS !== "undefined" && SCALE_TIERS[m.scaleTier])
+      ? SCALE_TIERS[m.scaleTier]
+      : { icon: "🗺️", label: "Region" };
+    const hasImage = !!(m.mapMetadata && (m.mapMetadata.dataUrl || m.mapMetadata.url || m.mapMetadata.assetPath));
+    const hasChildren = !!(childrenMap[mId] && childrenMap[mId].length > 0);
+    const isCollapsed = !!collapsedGroups[mId];
+
+    const foldBtn = hasChildren
+      ? `<span class="layout-tab-fold-btn" onclick="event.stopPropagation(); toggleMapGroupFold('${mId}')" title="${isCollapsed ? 'Expand ' + childrenMap[mId].length + ' submaps' : 'Collapse submaps'}" style="margin-left:4px; font-weight:bold; cursor:pointer; color:#000080; padding:0 3px; font-size:10px; background:#e2e8f0; border-radius:2px;">${isCollapsed ? '▶ ' + childrenMap[mId].length : '▼'}</span>`
+      : '';
+
+    const dispBadge = m.dispositionModifier 
+      ? `<span class="layout-tab-disp" style="background:#e0e7ff; color:#3730a3; padding:1px 3px; font-size:8px; border-radius:2px; font-weight:bold; margin-left:2px;" title="Overall Disposition Modifier: ${m.dispositionModifier}">[${m.dispositionModifier.substring(0,4)}]</span>`
+      : '';
+
+    const closeBtn = mapKeys.length > 1 
+      ? `<span class="layout-tab-close" onclick="event.stopPropagation(); deleteMap('${m.id}')" title="Delete Map '${escapeAttr(m.name)}'" style="margin-left:5px; font-weight:bold; color:#777; font-size:11px; cursor:pointer; padding:0 2px;" onmouseover="this.style.color='#b91c1c'" onmouseout="this.style.color='#777'">×</span>`
+      : '';
+
+    const childPrefix = isChild ? '<span style="color:#64748b; font-size:10px; margin-right:1px;">└─</span>' : '';
+
+    return `
+      <div class="layout-tab ${isCur ? 'active' : ''} ${isChild ? 'layout-tab-child' : ''}" 
+           data-map-id="${m.id}"
+           onclick="switchActiveMap('${m.id}')" 
+           ondblclick="openMapPropertiesDialog('${m.id}')"
+           oncontextmenu="event.preventDefault(); openMapPropertiesDialog('${m.id}');"
+           title="${m.name} [${tier.label}${m.dispositionModifier ? ' | Disp: ' + m.dispositionModifier : ''}] - Click to switch view, double-click for Map Properties">
+        ${childPrefix}
+        <span class="layout-tab-icon">${hasImage ? '🖼️' : tier.icon}</span>
+        <span class="layout-tab-title">${escapeHtml(m.name)}</span>
+        <span class="layout-tab-tier">${tier.label.split(' / ')[0]}</span>
+        ${dispBadge}
+        ${foldBtn}
+        ${closeBtn}
+      </div>
+    `;
+  }
+
+  const htmlParts = [];
+  rootMapKeys.forEach(rId => {
+    htmlParts.push(renderSingleTabHtml(rId, false));
+    const children = childrenMap[rId] || [];
+    const isCollapsed = !!collapsedGroups[rId];
+    if (!isCollapsed && children.length > 0) {
+      children.forEach(cId => {
+        htmlParts.push(renderSingleTabHtml(cId, true));
+        // Nested children
+        const grandChildren = childrenMap[cId] || [];
+        const isChildCollapsed = !!collapsedGroups[cId];
+        if (!isChildCollapsed && grandChildren.length > 0) {
+          grandChildren.forEach(gcId => {
+            htmlParts.push(renderSingleTabHtml(gcId, true));
+          });
+        }
+      });
+    }
+  });
+
+  container.innerHTML = htmlParts.join('');
+
+  // Auto-scroll active tab into view
+  setTimeout(() => {
+    const activeTab = container.querySelector('.layout-tab.active');
+    if (activeTab && typeof activeTab.scrollIntoView === 'function') {
+      activeTab.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+    }
+  }, 10);
 
   // Update quick opacity slider and percentage readout
   const activeMeta = (typeof activeMapMetadata !== "undefined" && activeMapMetadata) 

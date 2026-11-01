@@ -5838,6 +5838,152 @@ function testCampaignSelectorRichMetadataAndCensus() {
 }
 
 // ============================================================================
+// SUITE 33: AUTOCAD-STYLE MAP LAYOUT TABS STRIP & GROUPING (SYS-START-21 / DEV-02)
+// ============================================================================
+function testAutoCadMapLayoutTabsAndGrouping() {
+  console.log('\n--> SUITE 33: AutoCAD-Style Map Layout Tabs Strip & Grouping (SYS-START-21 / DEV-02)...');
+
+  const hudCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/canvas_hud.js'), 'utf8');
+
+  function makeMockEl(tag = 'div', initialClass = '') {
+    const classSet = new Set(initialClass ? initialClass.split(/\s+/).filter(Boolean) : []);
+    const children = [];
+    let innerHtmlVal = '';
+    const el = {
+      tagName: tag.toUpperCase(),
+      id: '',
+      className: initialClass,
+      classList: {
+        add: (...cls) => cls.forEach(c => classSet.add(c)),
+        remove: (...cls) => cls.forEach(c => classSet.delete(c)),
+        contains: (c) => classSet.has(c)
+      },
+      style: { cssText: '', display: '' },
+      children,
+      appendChild: (child) => { children.push(child); child.parentElement = el; return child; },
+      querySelector: (sel) => {
+        if (sel === '.layout-tab.active') {
+          return children.find(c => c.classList && c.classList.contains('active')) || null;
+        }
+        return null;
+      },
+      querySelectorAll: (sel) => {
+        return children.filter(c => c.classList && c.classList.contains('layout-tab'));
+      },
+      get innerHTML() { return innerHtmlVal; },
+      set innerHTML(val) {
+        innerHtmlVal = val;
+        children.length = 0;
+        const matches = val.match(/<div class="layout-tab[^"]*"[\s\S]*?<\/div>/gi) || [];
+        matches.forEach(m => {
+          const isAct = m.includes('active');
+          const isChild = m.includes('layout-tab-child');
+          const childEl = {
+            tagName: 'DIV',
+            className: `layout-tab ${isAct ? 'active' : ''} ${isChild ? 'layout-tab-child' : ''}`,
+            classList: {
+              contains: (c) => (isAct && c === 'active') || (isChild && c === 'layout-tab-child') || c === 'layout-tab'
+            },
+            innerHTML: m,
+            scrollIntoView: () => {}
+          };
+          children.push(childEl);
+        });
+      },
+      scrollWidth: 1200,
+      scrollLeft: 0,
+      scrollTo: function(opts) { if (opts && opts.left !== undefined) this.scrollLeft = opts.left; },
+      scrollBy: function(opts) { if (opts && opts.left !== undefined) this.scrollLeft += opts.left; }
+    };
+    return el;
+  }
+
+  const tabsList = makeMockEl('div');
+  tabsList.id = 'layout-tabs-list';
+  const scrollContainer = makeMockEl('div');
+  scrollContainer.id = 'cad-layout-scroll-container';
+
+  const elementsById = {};
+  elementsById['layout-tabs-list'] = tabsList;
+  elementsById['cad-layout-scroll-container'] = scrollContainer;
+
+  const mockDoc = {
+    getElementById: (id) => elementsById[id] || null,
+    createElement: (tag) => {
+      const el = makeMockEl(tag);
+      return el;
+    },
+    body: makeMockEl('body')
+  };
+  mockDoc.body.appendChild = function(child) {
+    mockDoc.body.children.push(child);
+    if (child.id) elementsById[child.id] = child;
+    return child;
+  };
+
+  const mockStorage = {};
+  const sandbox = {
+    document: mockDoc,
+    window: {},
+    activeMapId: 'map_root',
+    maps: {
+      map_root: { id: 'map_root', name: 'Sword Coast (World Map)', scaleTier: 'region', parentMapId: null },
+      nashkel_town: { id: 'nashkel_town', name: 'Nashkel Town', scaleTier: 'settlement', parentMapId: 'map_root' },
+      mines_l1: { id: 'mines_l1', name: 'Nashkel Mines Level 1', scaleTier: 'dungeon', parentMapId: 'nashkel_town' },
+      mines_l2: { id: 'mines_l2', name: 'Nashkel Mines Level 2', scaleTier: 'dungeon', parentMapId: 'nashkel_town' }
+    },
+    SCALE_TIERS: {
+      region: { icon: '🌲', label: 'Region' },
+      settlement: { icon: '🏘️', label: 'Settlement' },
+      dungeon: { icon: '⛏️', label: 'Dungeon' }
+    },
+    localStorage: {
+      getItem: (k) => mockStorage[k] || null,
+      setItem: (k, v) => { mockStorage[k] = String(v); }
+    },
+    escapeHtml: (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'),
+    escapeAttr: (s) => String(s || '').replace(/"/g, '&quot;'),
+    setTimeout: (fn) => fn()
+  };
+
+  sandbox.window.document = mockDoc;
+  sandbox.window.localStorage = sandbox.localStorage;
+
+  vm.createContext(sandbox);
+  vm.runInContext(hudCode, sandbox);
+
+  // 1. Initial render with 4 maps in tree (Sword Coast -> Nashkel Town -> Mines L1, Mines L2)
+  sandbox.renderLayoutTabs();
+  assert(tabsList.children.length === 4, `renderLayoutTabs renders 4 total tabs across hierarchy (Got: ${tabsList.children.length})`);
+  assert(tabsList.innerHTML.includes('Sword Coast'), 'Contains root map tab "Sword Coast"');
+  assert(tabsList.innerHTML.includes('layout-tab-fold-btn'), 'Parent map contains group fold toggle button');
+  assert(tabsList.innerHTML.includes('layout-tab-child'), 'Child maps contain layout-tab-child styling class');
+  assert(tabsList.innerHTML.includes('└─'), 'Child maps display visual tree branch prefix └─');
+
+  // 2. Collapse Nashkel Town group
+  sandbox.toggleMapGroupFold('nashkel_town');
+  assert(tabsList.children.length === 2, `Collapsing Nashkel Town hides child mines tabs, leaving 2 tabs (Got: ${tabsList.children.length})`);
+  assert(tabsList.innerHTML.includes('▶ 2'), 'Collapsed parent tab displays badge count of hidden submaps (▶ 2)');
+
+  // 3. Auto-uncollapse when switching to a nested child map
+  sandbox.activeMapId = 'mines_l1';
+  sandbox.renderLayoutTabs();
+  assert(tabsList.children.length === 4, 'Activating child map auto-uncollapses parent group so active tab is visible');
+
+  // 4. Test horizontal scrolling controls
+  sandbox.scrollLayoutTabs('right');
+  assert(scrollContainer.scrollLeft === 220, `scrollLayoutTabs('right') increments scrollLeft by 220px (Got: ${scrollContainer.scrollLeft})`);
+  sandbox.scrollLayoutTabs('first');
+  assert(scrollContainer.scrollLeft === 0, `scrollLayoutTabs('first') scrolls back to 0 (Got: ${scrollContainer.scrollLeft})`);
+
+  // 5. Test Quick Map List Dropdown
+  sandbox.toggleMapQuickListMenu();
+  const quickMenu = mockDoc.body.children.find(c => c.id === 'cad-quick-map-menu');
+  assert(quickMenu && quickMenu.style.display === 'block', 'toggleMapQuickListMenu displays dropdown picker on body');
+  assert(quickMenu.innerHTML.includes('All Maps (4)'), 'Quick Map picker displays correct total map count (4)');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -5874,6 +6020,7 @@ function testCampaignSelectorRichMetadataAndCensus() {
     testTicketCenterEnhancements();
     testMdiWindowResizingAndDockSplitters();
     testCampaignSelectorRichMetadataAndCensus();
+    testAutoCadMapLayoutTabsAndGrouping();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

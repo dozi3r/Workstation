@@ -443,6 +443,23 @@
     margin-top: -2px;
   }
 
+  .layout-tab-child {
+    background-color: #d0d0d0;
+    border-left: 1px dashed #888;
+    margin-left: 1px;
+    padding-left: 5px;
+  }
+
+  .layout-tab-fold-btn:hover {
+    background-color: #000080 !important;
+    color: #ffffff !important;
+  }
+
+  .cad-tab-scroll-btn {
+    line-height: 14px;
+    user-select: none;
+  }
+
   .layout-tab-icon {
     font-size: 11px;
   }

@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/canvas_hud.js"
 title: "canvas_hud.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "a259799418c0260c"
+current_hash: "4bcc5bacef3601d6"
 reviewed_hash: "a259799418c0260c"
-stale: false
-size_bytes: 38936
-line_count: 917
+stale: true
+size_bytes: 42367
+line_count: 995
 ---
 
 # canvas_hud.js

@@ -3393,7 +3393,7 @@
     "tier_label": "Platform Architecture",
     "category": "system_architecture",
     "wave": "Workstation Architecture: Multi-Scale Cartography & Spatial CAD",
-    "status": "ready",
+    "status": "shipped",
     "summary": "# SYS-START-21: AutoCAD-Style Map Layout Tabs Strip with Hierarchical Grouping & Overflow (DEV-02)\n*Category: system_architecture | Priority: Medium | Target Surface: `start.html` (`src/workstation/`)...",
     "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
     "four_corners": null,

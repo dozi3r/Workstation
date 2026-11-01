@@ -3,11 +3,11 @@ file_path: "src/workstation/styles/win95_workstation.css"
 title: "win95_workstation.css"
 volume: "vol-4"
 kind: "Workstation Shell Template"
-current_hash: "ba83d35af6666654"
+current_hash: "38b654f0238e7063"
 reviewed_hash: "ba83d35af6666654"
-stale: false
-size_bytes: 39028
-line_count: 1833
+stale: true
+size_bytes: 39349
+line_count: 1850
 ---
 
 # win95_workstation.css

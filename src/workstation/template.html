@@ -436,7 +436,14 @@ CRITICAL INSTRUCTION:
 
       <!-- AUTOCAD-STYLE MODEL & LAYOUT TABS BAR -->
       <div id="cad-layout-tabs-bar" class="cad-layout-tabs-bar">
-        <div class="layout-tabs-scroll-container">
+        <div class="cad-tabs-nav-controls" style="display:flex; align-items:center; gap:1px; margin-right:4px;">
+          <button class="win-btn cad-tab-scroll-btn" onclick="scrollLayoutTabs('first')" title="First Map (|◀)" style="padding:1px 4px; font-size:10px; height:20px; min-width:18px;">|◀</button>
+          <button class="win-btn cad-tab-scroll-btn" onclick="scrollLayoutTabs('left')" title="Scroll Left (◀)" style="padding:1px 4px; font-size:10px; height:20px; min-width:18px;">◀</button>
+          <button class="win-btn cad-tab-scroll-btn" onclick="scrollLayoutTabs('right')" title="Scroll Right (▶)" style="padding:1px 4px; font-size:10px; height:20px; min-width:18px;">▶</button>
+          <button class="win-btn cad-tab-scroll-btn" onclick="scrollLayoutTabs('last')" title="Last Map (▶|)" style="padding:1px 4px; font-size:10px; height:20px; min-width:18px;">▶|</button>
+          <button class="win-btn cad-tab-scroll-btn" onclick="toggleMapQuickListMenu()" title="Quick Map Picker (All Maps)" style="padding:1px 5px; font-size:10px; height:20px;">📑▾</button>
+        </div>
+        <div class="layout-tabs-scroll-container" id="cad-layout-scroll-container">
           <div id="layout-tabs-list" style="display:flex; align-items:flex-end; gap:2px;">
             <!-- Injected dynamically by renderLayoutTabs() -->
           </div>
