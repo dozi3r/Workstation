@@ -3428,7 +3428,7 @@
     "tier_label": "Platform Architecture",
     "category": "system_architecture",
     "wave": "Workstation Architecture: Multi-Scale Cartography & Vector Precision",
-    "status": "ready",
+    "status": "shipped",
     "summary": "# SYS-START-22: Background Map Scaling, Resizing & Transform Persistence Engine (DEV-03)\n*Category: system_architecture | Priority: Medium | Target Surface: `start.html` (`src/workstation/`)*  \n*Statu...",
     "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
     "four_corners": null,

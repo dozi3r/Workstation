@@ -37,15 +37,23 @@ function openMapDatabase() {
 /**
  * Persist map background image to IndexedDB keyed by mapId
  */
-async function saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null) {
+async function saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null, extra = {}) {
   const targetId = mapId || (typeof activeMapId !== "undefined" ? activeMapId : "map_root");
   const db = await openMapDatabase();
+  const curW = width || 1920;
+  const curH = height || 1080;
   const record = {
     id: targetId,
     name: name || "Custom Campaign Map",
     dataUrl: dataUrl,
-    width: width || 1920,
-    height: height || 1080,
+    width: curW,
+    height: curH,
+    naturalWidth: extra.naturalWidth || curW,
+    naturalHeight: extra.naturalHeight || curH,
+    scale: (extra.scale !== undefined) ? extra.scale : 1.0,
+    x: extra.x || 0,
+    y: extra.y || 0,
+    lockAspect: extra.lockAspect !== false,
     opacity: opacity,
     timestamp: Date.now()
   };
@@ -75,6 +83,12 @@ async function saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, ma
       name: record.name,
       width: record.width,
       height: record.height,
+      naturalWidth: record.naturalWidth,
+      naturalHeight: record.naturalHeight,
+      scale: record.scale,
+      x: record.x,
+      y: record.y,
+      lockAspect: record.lockAspect,
       opacity: record.opacity,
       timestamp: record.timestamp
     };
@@ -258,16 +272,29 @@ function handleMapFileIngestion(file, targetMapId = null) {
   reader.readAsDataURL(file);
 }
 
-function applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit = false) {
+function applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit = false, transform = null) {
   const bgImg = document.getElementById("canvas-bg-image");
   if (!bgImg) return;
 
   if (dataUrl) {
+    const curMapId = (typeof activeMapId !== "undefined" && activeMapId) ? activeMapId : "map_root";
+    const activeMeta = (typeof activeMapMetadata !== "undefined" && activeMapMetadata)
+      ? activeMapMetadata
+      : (typeof maps !== "undefined" && maps && maps[curMapId] && maps[curMapId].mapMetadata);
+
+    const effX = (transform && transform.x !== undefined) ? transform.x : ((activeMeta && activeMeta.x !== undefined) ? activeMeta.x : 0);
+    const effY = (transform && transform.y !== undefined) ? transform.y : ((activeMeta && activeMeta.y !== undefined) ? activeMeta.y : 0);
+    const effW = (transform && transform.width !== undefined) ? transform.width : (width || (activeMeta && activeMeta.width) || 1920);
+    const effH = (transform && transform.height !== undefined) ? transform.height : (height || (activeMeta && activeMeta.height) || 1080);
+    const effOp = (transform && transform.opacity !== undefined) ? transform.opacity : (opacity ?? (activeMeta && activeMeta.opacity) ?? 0.85);
+
     bgImg.setAttribute("href", dataUrl);
     bgImg.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", dataUrl);
-    bgImg.setAttribute("width", width);
-    bgImg.setAttribute("height", height);
-    bgImg.setAttribute("opacity", opacity);
+    bgImg.setAttribute("x", effX);
+    bgImg.setAttribute("y", effY);
+    bgImg.setAttribute("width", effW);
+    bgImg.setAttribute("height", effH);
+    bgImg.setAttribute("opacity", effOp);
     bgImg.style.display = "block";
     bgImg.style.pointerEvents = "none";
   } else {
@@ -278,6 +305,8 @@ function applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit =
       bgImg.removeAttributeNS("http://www.w3.org/1999/xlink", "href");
       bgImg.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
     }
+    bgImg.removeAttribute("x");
+    bgImg.removeAttribute("y");
     bgImg.style.display = "none";
   }
 }

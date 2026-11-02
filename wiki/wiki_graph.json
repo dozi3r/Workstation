@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-01T23:59:26.997Z",
+  "generatedAt": "2026-11-02T00:04:56.820Z",
   "totalFiles": 352,
   "totalSeries": 7,
   "totalBidirectionalEdges": 2720,
-  "staleCount": 14,
+  "staleCount": 15,
   "nodes": [
     {
       "relPath": "AGENTS.md",
@@ -30940,11 +30940,11 @@
       "title": "lifecycle_modals.html",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "stale": false,
-      "hash": "cf914bdffbdb8189",
+      "stale": true,
+      "hash": "51a11f54a1a737b0",
       "reviewedHash": "cf914bdffbdb8189",
-      "lineCount": 644,
-      "sizeBytes": 41740,
+      "lineCount": 677,
+      "sizeBytes": 44414,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -31658,10 +31658,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": true,
-      "hash": "4bcc5bacef3601d6",
+      "hash": "d44a90dac6e9ad8c",
       "reviewedHash": "a259799418c0260c",
-      "lineCount": 995,
-      "sizeBytes": 42367,
+      "lineCount": 1239,
+      "sizeBytes": 52826,
       "symbols": [
         "updateBreadcrumbsHUD()",
         "ascendToParentMap()",
@@ -31681,6 +31681,11 @@
         "renderLayoutTabs()",
         "renderSingleTabHtml(mId, isChild = false)",
         "openMapPropertiesDialog(mapId)",
+        "onMapPropBgDimensionInput(changedProp)",
+        "onMapPropBgScaleSlider(val)",
+        "previewMapBackgroundTransform()",
+        "resetMapBackgroundNaturalSize()",
+        "fitMapBackgroundToNodes()",
         "updateMapPropParentNodeOptions(selectedNodeId)",
         "saveMapProperties()",
         "deleteCurrentMapFromProp()",
@@ -31751,7 +31756,7 @@
           "target": "src/workstation/scripts/map_store.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes deletePersistedMapFromDB() defined in map_store.js"
+          "reason": "Invokes saveMapImageToDB() defined in map_store.js"
         },
         {
           "target": "src/workstation/scripts/mdi_window_manager.js",
@@ -32965,19 +32970,19 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": true,
-      "hash": "f6770bd3472f3d7a",
+      "hash": "8d20987487c4821e",
       "reviewedHash": "e063d6409cd26612",
-      "lineCount": 2658,
-      "sizeBytes": 109191,
+      "lineCount": 2687,
+      "sizeBytes": 110825,
       "symbols": [
         "openMapDatabase()",
-        "saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null)",
+        "saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null, extra = {})",
         "loadPersistedMapFromDB(mapId = null)",
         "deletePersistedMapFromDB(mapId = null)",
         "clearActiveMapImageStore()",
         "listPersistedMapsFromDB()",
         "handleMapFileIngestion(file, targetMapId = null)",
-        "applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit = false)",
+        "applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit = false, transform = null)",
         "updateMapOpacity(val)",
         "clearLoadedMap()",
         "dataUrlToUint8Array(dataUrl)",
@@ -33159,7 +33164,7 @@
           "source": "src/workstation/scripts/canvas_hud.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes deletePersistedMapFromDB() defined in map_store.js"
+          "reason": "Invokes saveMapImageToDB() defined in map_store.js"
         },
         {
           "source": "src/workstation/scripts/entity_cascade_delete.js",
@@ -36516,10 +36521,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": true,
-      "hash": "c93de47b08b4c924",
+      "hash": "b73e95a55a1a4e84",
       "reviewedHash": "95bc61b9a34630a4",
-      "lineCount": 68638,
-      "sizeBytes": 11960193,
+      "lineCount": 68944,
+      "sizeBytes": 11974962,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -36527,13 +36532,13 @@
         "crc32(buf)",
         "dosDateTime(date)",
         "openMapDatabase()",
-        "saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null)",
+        "saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null, extra = {})",
         "loadPersistedMapFromDB(mapId = null)",
         "deletePersistedMapFromDB(mapId = null)",
         "clearActiveMapImageStore()",
         "listPersistedMapsFromDB()",
         "handleMapFileIngestion(file, targetMapId = null)",
-        "applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit = false)",
+        "applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit = false, transform = null)",
         "updateMapOpacity(val)",
         "clearLoadedMap()",
         "dataUrlToUint8Array(dataUrl)",
@@ -38725,10 +38730,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": true,
-      "hash": "bdfc9fb7d581ada0",
+      "hash": "5e342f709bf21fc2",
       "reviewedHash": "df64b7cd0391fcfe",
-      "lineCount": 6042,
-      "sizeBytes": 282278,
+      "lineCount": 6218,
+      "sizeBytes": 289304,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -38781,6 +38786,9 @@
         "getOrMakeEl(id, tag = 'div', className = '')",
         "testAutoCadMapLayoutTabsAndGrouping()",
         "makeMockEl(tag = 'div', initialClass = '')",
+        "testBackgroundMapResizingAndTransformPersistence()",
+        "makeMockEl(tag = 'div')",
+        "getOrMakeEl(id, tag = 'div')",
         "runAll()"
       ],
       "globals": [
@@ -40372,6 +40380,36 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "onMapPropBgDimensionInput",
+      "signature": "onMapPropBgDimensionInput(changedProp)",
+      "file": "src/workstation/scripts/canvas_hud.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "onMapPropBgScaleSlider",
+      "signature": "onMapPropBgScaleSlider(val)",
+      "file": "src/workstation/scripts/canvas_hud.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "previewMapBackgroundTransform",
+      "signature": "previewMapBackgroundTransform()",
+      "file": "src/workstation/scripts/canvas_hud.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "resetMapBackgroundNaturalSize",
+      "signature": "resetMapBackgroundNaturalSize()",
+      "file": "src/workstation/scripts/canvas_hud.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "fitMapBackgroundToNodes",
+      "signature": "fitMapBackgroundToNodes()",
+      "file": "src/workstation/scripts/canvas_hud.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "updateMapPropParentNodeOptions",
       "signature": "updateMapPropParentNodeOptions(selectedNodeId)",
       "file": "src/workstation/scripts/canvas_hud.js",
@@ -41135,7 +41173,7 @@
     },
     {
       "name": "saveMapImageToDB",
-      "signature": "saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null)",
+      "signature": "saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null, extra = {})",
       "file": "src/workstation/scripts/map_store.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -41171,7 +41209,7 @@
     },
     {
       "name": "applyMapImageToCanvas",
-      "signature": "applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit = false)",
+      "signature": "applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit = false, transform = null)",
       "file": "src/workstation/scripts/map_store.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -43577,7 +43615,7 @@
     },
     {
       "name": "saveMapImageToDB",
-      "signature": "saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null)",
+      "signature": "saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null, extra = {})",
       "file": "start.html",
       "kind": "Standalone Zero-CORS HTML Workstation"
     },
@@ -43613,7 +43651,7 @@
     },
     {
       "name": "applyMapImageToCanvas",
-      "signature": "applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit = false)",
+      "signature": "applyMapImageToCanvas(dataUrl, width, height, opacity = 0.85, autoFit = false, transform = null)",
       "file": "start.html",
       "kind": "Standalone Zero-CORS HTML Workstation"
     },
@@ -44142,6 +44180,24 @@
     {
       "name": "makeMockEl",
       "signature": "makeMockEl(tag = 'div', initialClass = '')",
+      "file": "test/run_tests.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "testBackgroundMapResizingAndTransformPersistence",
+      "signature": "testBackgroundMapResizingAndTransformPersistence()",
+      "file": "test/run_tests.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "makeMockEl",
+      "signature": "makeMockEl(tag = 'div')",
+      "file": "test/run_tests.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "getOrMakeEl",
+      "signature": "getOrMakeEl(id, tag = 'div')",
       "file": "test/run_tests.js",
       "kind": "Node.js / Browser Engine Script"
     },

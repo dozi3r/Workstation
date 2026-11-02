@@ -5984,6 +5984,181 @@ function testAutoCadMapLayoutTabsAndGrouping() {
 }
 
 // ============================================================================
+// SUITE 34: BACKGROUND MAP RESIZING & TRANSFORM PERSISTENCE (SYS-START-22)
+// ============================================================================
+async function testBackgroundMapResizingAndTransformPersistence() {
+  console.log('\n--> SUITE 34: Background Map Resizing & Transform Persistence (SYS-START-22 / DEV-03)...');
+
+  const storeCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/map_store.js'), 'utf8');
+  const hudCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/canvas_hud.js'), 'utf8');
+
+  function makeMockEl(tag = 'div') {
+    const attrs = {};
+    const styles = {};
+    const el = {
+      tagName: tag.toUpperCase(),
+      id: '',
+      style: styles,
+      value: '',
+      checked: true,
+      textContent: '',
+      innerHTML: '',
+      setAttribute: (k, v) => { attrs[k] = String(v); },
+      getAttribute: (k) => attrs[k] || null,
+      removeAttribute: (k) => { delete attrs[k]; },
+      setAttributeNS: (ns, k, v) => { attrs[k] = String(v); },
+      removeAttributeNS: (ns, k) => { delete attrs[k]; },
+      classList: {
+        add: () => {},
+        remove: () => {},
+        contains: () => false
+      }
+    };
+    return el;
+  }
+
+  const elementsById = {};
+  function getOrMakeEl(id, tag = 'div') {
+    if (!elementsById[id]) {
+      elementsById[id] = makeMockEl(tag);
+      elementsById[id].id = id;
+    }
+    return elementsById[id];
+  }
+
+  const bgImg = getOrMakeEl('canvas-bg-image', 'image');
+  const widthInput = getOrMakeEl('map-prop-bg-width', 'input');
+  const heightInput = getOrMakeEl('map-prop-bg-height', 'input');
+  const scaleSlider = getOrMakeEl('map-prop-bg-scale', 'input');
+  const scaleVal = getOrMakeEl('map-prop-bg-scale-val', 'span');
+  const lockAspectEl = getOrMakeEl('map-prop-bg-lock-aspect', 'input');
+  const xInput = getOrMakeEl('map-prop-bg-x', 'input');
+  const yInput = getOrMakeEl('map-prop-bg-y', 'input');
+  const opSlider = getOrMakeEl('map-prop-opacity', 'input');
+  const propIdInput = getOrMakeEl('map-prop-id', 'input');
+  const modalMapProp = getOrMakeEl('modal-map-properties', 'div');
+
+  const mockDoc = {
+    getElementById: (id) => getOrMakeEl(id),
+    createElement: (tag) => makeMockEl(tag),
+    body: makeMockEl('body')
+  };
+
+  const mockStorage = {};
+  const mockDbStore = {};
+  const mockDb = {
+    transaction: () => ({
+      objectStore: () => ({
+        put: (record) => { mockDbStore[record.id] = record; },
+        get: (id) => ({
+          onsuccess: null,
+          get result() { return mockDbStore[id] || null; }
+        })
+      })
+    })
+  };
+
+  const sandbox = {
+    document: mockDoc,
+    window: {},
+    activeMapId: 'map_root',
+    activeMapMetadata: null,
+    maps: {
+      map_root: {
+        id: 'map_root',
+        name: 'Sword Coast',
+        scaleTier: 'region',
+        mapMetadata: {
+          name: 'sword_coast_bg',
+          dataUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+          width: 2400,
+          height: 1600,
+          naturalWidth: 2400,
+          naturalHeight: 1600,
+          scale: 1.0,
+          x: 0,
+          y: 0,
+          lockAspect: true,
+          opacity: 0.85
+        }
+      }
+    },
+    Workstation: {
+      activeTopology: {
+        name: 'Sword Coast',
+        nodes: {
+          '1': { id: '1', x: 200, y: 150 },
+          '2': { id: '2', x: 1200, y: 950 }
+        }
+      }
+    },
+    localStorage: {
+      getItem: (k) => mockStorage[k] || null,
+      setItem: (k, v) => { mockStorage[k] = String(v); }
+    },
+    openMapDatabase: async () => mockDb,
+    MAP_STORE_NAME: 'active_map',
+    escapeHtml: (s) => String(s || ''),
+    escapeAttr: (s) => String(s || ''),
+    setStatusBarMessage: () => {},
+    closeModal: () => {},
+    renderLayoutTabs: () => {}
+  };
+
+  sandbox.window.document = mockDoc;
+  sandbox.window.localStorage = sandbox.localStorage;
+
+  vm.createContext(sandbox);
+  vm.runInContext(storeCode, sandbox);
+  vm.runInContext(hudCode, sandbox);
+
+  // 1. Test applyMapImageToCanvas sets x, y, width, height on SVG image
+  sandbox.applyMapImageToCanvas('data:image/png;base64,test', 3200, 2000, 0.9, false, { x: 50, y: 75, width: 3200, height: 2000 });
+  assert(bgImg.getAttribute('width') === '3200', 'applyMapImageToCanvas sets SVG width attribute to 3200');
+  assert(bgImg.getAttribute('height') === '2000', 'applyMapImageToCanvas sets SVG height attribute to 2000');
+  assert(bgImg.getAttribute('x') === '50', 'applyMapImageToCanvas sets SVG x attribute to 50');
+  assert(bgImg.getAttribute('y') === '75', 'applyMapImageToCanvas sets SVG y attribute to 75');
+
+  // 2. Test saveMapImageToDB persists extra transform metadata
+  const rec = await sandbox.saveMapImageToDB('test_bg', 'data:image/png;base64,test', 3000, 2000, 0.85, 'map_root', {
+    naturalWidth: 2400,
+    naturalHeight: 1600,
+    scale: 1.25,
+    x: 40,
+    y: 60,
+    lockAspect: true
+  });
+  assert(rec.scale === 1.25, 'saveMapImageToDB stores scale transform in DB record');
+  assert(rec.x === 40 && rec.y === 60, 'saveMapImageToDB stores coordinate offsets in DB record');
+  const metaCat = JSON.parse(mockStorage['cs_maps_meta_catalog'] || '{}');
+  assert(metaCat['map_root'] && metaCat['map_root'].scale === 1.25, 'cs_maps_meta_catalog persists transform scale');
+
+  // 3. Test openMapPropertiesDialog populates transform inputs
+  propIdInput.value = 'map_root';
+  sandbox.openMapPropertiesDialog('map_root');
+  assert(widthInput.value === 2400, 'openMapPropertiesDialog populates width input (2400)');
+  assert(heightInput.value === 1600, 'openMapPropertiesDialog populates height input (1600)');
+  assert(lockAspectEl.checked === true, 'openMapPropertiesDialog defaults lockAspect to true');
+
+  // 4. Test proportional lock aspect input
+  widthInput.value = '1200';
+  sandbox.onMapPropBgDimensionInput('width');
+  assert(heightInput.value === 800, `onMapPropBgDimensionInput calculates proportional height (800) when aspect is locked (Got: ${heightInput.value})`);
+  assert(bgImg.getAttribute('width') === '1200', 'previewMapBackgroundTransform live-previews width attribute on canvas SVG');
+
+  // 5. Test fitMapBackgroundToNodes
+  sandbox.fitMapBackgroundToNodes();
+  assert(parseFloat(widthInput.value) >= 1100, `fitMapBackgroundToNodes computes bounding width from pointcrawl nodes (Got: ${widthInput.value})`);
+  assert(parseFloat(xInput.value) <= 100, `fitMapBackgroundToNodes computes bounding x offset (Got: ${xInput.value})`);
+
+  // 6. Test resetMapBackgroundNaturalSize
+  sandbox.resetMapBackgroundNaturalSize();
+  assert(widthInput.value === 2400, 'resetMapBackgroundNaturalSize restores naturalWidth 2400');
+  assert(heightInput.value === 1600, 'resetMapBackgroundNaturalSize restores naturalHeight 1600');
+  assert(xInput.value === 0 && yInput.value === 0, 'resetMapBackgroundNaturalSize restores 0 offsets');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -6021,6 +6196,7 @@ function testAutoCadMapLayoutTabsAndGrouping() {
     testMdiWindowResizingAndDockSplitters();
     testCampaignSelectorRichMetadataAndCensus();
     testAutoCadMapLayoutTabsAndGrouping();
+    await testBackgroundMapResizingAndTransformPersistence();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

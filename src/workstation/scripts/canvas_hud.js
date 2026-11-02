@@ -529,6 +529,40 @@ function openMapPropertiesDialog(mapId) {
     if (opVal) opVal.textContent = `85%`;
   }
 
+  // Map Background Image Transforms
+  const widthInput = document.getElementById('map-prop-bg-width');
+  const heightInput = document.getElementById('map-prop-bg-height');
+  const scaleSlider = document.getElementById('map-prop-bg-scale');
+  const scaleVal = document.getElementById('map-prop-bg-scale-val');
+  const lockAspectEl = document.getElementById('map-prop-bg-lock-aspect');
+  const xInput = document.getElementById('map-prop-bg-x');
+  const yInput = document.getElementById('map-prop-bg-y');
+
+  if (meta) {
+    const curW = meta.width || 1920;
+    const curH = meta.height || 1080;
+    const natW = meta.naturalWidth || curW;
+    const natH = meta.naturalHeight || curH;
+    const curScale = meta.scale !== undefined ? meta.scale : (curW / natW);
+    const scalePct = Math.round(curScale * 100);
+
+    if (widthInput) widthInput.value = curW;
+    if (heightInput) heightInput.value = curH;
+    if (scaleSlider) scaleSlider.value = Math.max(20, Math.min(500, scalePct));
+    if (scaleVal) scaleVal.textContent = `${scalePct}%`;
+    if (lockAspectEl) lockAspectEl.checked = meta.lockAspect !== false;
+    if (xInput) xInput.value = meta.x || 0;
+    if (yInput) yInput.value = meta.y || 0;
+  } else {
+    if (widthInput) widthInput.value = 1920;
+    if (heightInput) heightInput.value = 1080;
+    if (scaleSlider) scaleSlider.value = 100;
+    if (scaleVal) scaleVal.textContent = '100%';
+    if (lockAspectEl) lockAspectEl.checked = true;
+    if (xInput) xInput.value = 0;
+    if (yInput) yInput.value = 0;
+  }
+
   // Delete button logic (cannot delete root map)
   const delBtn = document.getElementById('btn-delete-map-prop');
   if (delBtn) {
@@ -537,6 +571,162 @@ function openMapPropertiesDialog(mapId) {
 
   modal.classList.remove('hidden');
 }
+
+/**
+ * Handle background transform adjustments in Map Properties dialog
+ */
+function onMapPropBgDimensionInput(changedProp) {
+  const mapId = document.getElementById('map-prop-id')?.value;
+  const m = (typeof maps !== "undefined" && maps[mapId]) ? maps[mapId] : null;
+  const meta = m ? m.mapMetadata : null;
+  const natW = (meta && meta.naturalWidth) || 1920;
+  const natH = (meta && meta.naturalHeight) || 1080;
+
+  const widthInput = document.getElementById('map-prop-bg-width');
+  const heightInput = document.getElementById('map-prop-bg-height');
+  const scaleSlider = document.getElementById('map-prop-bg-scale');
+  const scaleVal = document.getElementById('map-prop-bg-scale-val');
+  const lockAspect = document.getElementById('map-prop-bg-lock-aspect')?.checked;
+
+  let w = parseFloat(widthInput?.value) || natW;
+  let h = parseFloat(heightInput?.value) || natH;
+
+  if (lockAspect && natW > 0 && natH > 0) {
+    if (changedProp === 'width') {
+      h = Math.round(w * (natH / natW));
+      if (heightInput) heightInput.value = h;
+    } else if (changedProp === 'height') {
+      w = Math.round(h * (natW / natH));
+      if (widthInput) widthInput.value = w;
+    }
+  }
+
+  const pct = Math.round((w / natW) * 100);
+  if (scaleSlider) scaleSlider.value = Math.max(20, Math.min(500, pct));
+  if (scaleVal) scaleVal.textContent = `${pct}%`;
+
+  previewMapBackgroundTransform();
+}
+window.onMapPropBgDimensionInput = onMapPropBgDimensionInput;
+
+function onMapPropBgScaleSlider(val) {
+  const mapId = document.getElementById('map-prop-id')?.value;
+  const m = (typeof maps !== "undefined" && maps[mapId]) ? maps[mapId] : null;
+  const meta = m ? m.mapMetadata : null;
+  const natW = (meta && meta.naturalWidth) || 1920;
+  const natH = (meta && meta.naturalHeight) || 1080;
+
+  const pct = parseFloat(val) || 100;
+  const scaleVal = document.getElementById('map-prop-bg-scale-val');
+  if (scaleVal) scaleVal.textContent = `${pct}%`;
+
+  const widthInput = document.getElementById('map-prop-bg-width');
+  const heightInput = document.getElementById('map-prop-bg-height');
+  if (widthInput) widthInput.value = Math.round(natW * (pct / 100));
+  if (heightInput) heightInput.value = Math.round(natH * (pct / 100));
+
+  previewMapBackgroundTransform();
+}
+window.onMapPropBgScaleSlider = onMapPropBgScaleSlider;
+
+function previewMapBackgroundTransform() {
+  const bgImg = document.getElementById('canvas-bg-image');
+  if (!bgImg) return;
+
+  const w = parseFloat(document.getElementById('map-prop-bg-width')?.value) || 1920;
+  const h = parseFloat(document.getElementById('map-prop-bg-height')?.value) || 1080;
+  const x = parseFloat(document.getElementById('map-prop-bg-x')?.value) || 0;
+  const y = parseFloat(document.getElementById('map-prop-bg-y')?.value) || 0;
+  const opVal = parseInt(document.getElementById('map-prop-opacity')?.value) || 85;
+
+  bgImg.setAttribute('width', w);
+  bgImg.setAttribute('height', h);
+  bgImg.setAttribute('x', x);
+  bgImg.setAttribute('y', y);
+  bgImg.setAttribute('opacity', opVal / 100);
+}
+window.previewMapBackgroundTransform = previewMapBackgroundTransform;
+
+function resetMapBackgroundNaturalSize() {
+  const mapId = document.getElementById('map-prop-id')?.value;
+  const m = (typeof maps !== "undefined" && maps[mapId]) ? maps[mapId] : null;
+  const meta = m ? m.mapMetadata : null;
+  const natW = (meta && meta.naturalWidth) || (meta && meta.width) || 1920;
+  const natH = (meta && meta.naturalHeight) || (meta && meta.height) || 1080;
+
+  const widthInput = document.getElementById('map-prop-bg-width');
+  const heightInput = document.getElementById('map-prop-bg-height');
+  const scaleSlider = document.getElementById('map-prop-bg-scale');
+  const scaleVal = document.getElementById('map-prop-bg-scale-val');
+  const xInput = document.getElementById('map-prop-bg-x');
+  const yInput = document.getElementById('map-prop-bg-y');
+
+  if (widthInput) widthInput.value = natW;
+  if (heightInput) heightInput.value = natH;
+  if (scaleSlider) scaleSlider.value = 100;
+  if (scaleVal) scaleVal.textContent = '100%';
+  if (xInput) xInput.value = 0;
+  if (yInput) yInput.value = 0;
+
+  previewMapBackgroundTransform();
+  setStatusBarMessage(`Reset map background to 100% natural dimensions (${natW}x${natH}).`);
+}
+window.resetMapBackgroundNaturalSize = resetMapBackgroundNaturalSize;
+
+function fitMapBackgroundToNodes() {
+  const mapId = document.getElementById('map-prop-id')?.value;
+  const curId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
+  let nodesList = [];
+
+  if (mapId === curId && Workstation.activeTopology && Workstation.activeTopology.nodes) {
+    nodesList = Object.values(Workstation.activeTopology.nodes);
+  } else if (typeof maps !== "undefined" && maps[mapId] && Array.isArray(maps[mapId].nodes)) {
+    nodesList = maps[mapId].nodes;
+  }
+
+  if (!nodesList || nodesList.length === 0) {
+    alert("No pointcrawl nodes stationed on this map to fit dimensions against.");
+    return;
+  }
+
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  nodesList.forEach(n => {
+    const x = parseFloat(n.x) || 0;
+    const y = parseFloat(n.y) || 0;
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+    if (y < minY) minY = y;
+    if (y > maxY) maxY = y;
+  });
+
+  const padding = 100;
+  const fitW = Math.max(400, Math.round((maxX - minX) + padding * 2));
+  const fitH = Math.max(300, Math.round((maxY - minY) + padding * 2));
+  const fitX = Math.round(minX - padding);
+  const fitY = Math.round(minY - padding);
+
+  const widthInput = document.getElementById('map-prop-bg-width');
+  const heightInput = document.getElementById('map-prop-bg-height');
+  const xInput = document.getElementById('map-prop-bg-x');
+  const yInput = document.getElementById('map-prop-bg-y');
+
+  if (widthInput) widthInput.value = fitW;
+  if (heightInput) heightInput.value = fitH;
+  if (xInput) xInput.value = fitX;
+  if (yInput) yInput.value = fitY;
+
+  const map = typeof maps !== "undefined" ? maps[mapId] : null;
+  const natW = (map && map.mapMetadata && map.mapMetadata.naturalWidth) || fitW;
+  const scaleSlider = document.getElementById('map-prop-bg-scale');
+  const scaleVal = document.getElementById('map-prop-bg-scale-val');
+  const pct = Math.round((fitW / natW) * 100);
+  if (scaleSlider) scaleSlider.value = Math.max(20, Math.min(500, pct));
+  if (scaleVal) scaleVal.textContent = `${pct}%`;
+
+  previewMapBackgroundTransform();
+  setStatusBarMessage(`Fitted map background to node cluster: ${fitW}x${fitH} at (${fitX}, ${fitY}).`);
+}
+window.fitMapBackgroundToNodes = fitMapBackgroundToNodes;
 
 /**
  * Dynamically populate Parent Node options in Map Properties dialog
@@ -630,17 +820,71 @@ function saveMapProperties() {
     };
   }
 
-  const opVal = parseInt(document.getElementById('map-prop-opacity').value) || 85;
+  const opVal = parseInt(document.getElementById('map-prop-opacity')?.value) || 85;
+
+  // Background transform inputs
+  const widthInput = document.getElementById('map-prop-bg-width');
+  const heightInput = document.getElementById('map-prop-bg-height');
+  const xInput = document.getElementById('map-prop-bg-x');
+  const yInput = document.getElementById('map-prop-bg-y');
+  const scaleSlider = document.getElementById('map-prop-bg-scale');
+  const lockAspectEl = document.getElementById('map-prop-bg-lock-aspect');
+
+  const bgW = widthInput ? (parseFloat(widthInput.value) || 1920) : (m.mapMetadata?.width || 1920);
+  const bgH = heightInput ? (parseFloat(heightInput.value) || 1080) : (m.mapMetadata?.height || 1080);
+  const bgX = xInput ? (parseFloat(xInput.value) || 0) : (m.mapMetadata?.x || 0);
+  const bgY = yInput ? (parseFloat(yInput.value) || 0) : (m.mapMetadata?.y || 0);
+  const bgScale = scaleSlider ? ((parseFloat(scaleSlider.value) || 100) / 100) : (m.mapMetadata?.scale || 1.0);
+  const bgLock = lockAspectEl ? lockAspectEl.checked : true;
+
   if (m.mapMetadata) {
     m.mapMetadata.opacity = opVal / 100;
+    m.mapMetadata.width = bgW;
+    m.mapMetadata.height = bgH;
+    m.mapMetadata.x = bgX;
+    m.mapMetadata.y = bgY;
+    m.mapMetadata.scale = bgScale;
+    m.mapMetadata.lockAspect = bgLock;
+    if (!m.mapMetadata.naturalWidth) m.mapMetadata.naturalWidth = bgW;
+    if (!m.mapMetadata.naturalHeight) m.mapMetadata.naturalHeight = bgH;
+
+    if (typeof saveMapImageToDB === "function" && m.mapMetadata.dataUrl) {
+      saveMapImageToDB(m.mapMetadata.name, m.mapMetadata.dataUrl, bgW, bgH, opVal / 100, mapId, {
+        naturalWidth: m.mapMetadata.naturalWidth,
+        naturalHeight: m.mapMetadata.naturalHeight,
+        x: bgX,
+        y: bgY,
+        scale: bgScale,
+        lockAspect: bgLock
+      });
+    }
   }
+
   if (mapId === (typeof activeMapId !== "undefined" ? activeMapId : "map_root")) {
     if (typeof Workstation !== "undefined" && Workstation.activeTopology) {
       if (m.name) Workstation.activeTopology.name = m.name;
       if (m.scaleTier) Workstation.activeTopology.scaleTier = m.scaleTier;
       if (m.customNotes !== undefined) Workstation.activeTopology.customNotes = m.customNotes;
+      if (m.mapMetadata) Workstation.activeTopology.mapMetadata = m.mapMetadata;
+    }
+    if (activeMapMetadata && m.mapMetadata) {
+      activeMapMetadata.width = bgW;
+      activeMapMetadata.height = bgH;
+      activeMapMetadata.x = bgX;
+      activeMapMetadata.y = bgY;
+      activeMapMetadata.scale = bgScale;
+      activeMapMetadata.lockAspect = bgLock;
     }
     updateMapOpacity(opVal);
+    if (m.mapMetadata && (m.mapMetadata.dataUrl || m.mapMetadata.url) && typeof applyMapImageToCanvas === "function") {
+      applyMapImageToCanvas(m.mapMetadata.dataUrl || m.mapMetadata.url, bgW, bgH, opVal / 100, false, {
+        x: bgX,
+        y: bgY,
+        width: bgW,
+        height: bgH,
+        scale: bgScale
+      });
+    }
   }
 
   if (typeof syncActiveMapToRegistry === "function") syncActiveMapToRegistry();

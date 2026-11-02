@@ -3,11 +3,11 @@ file_path: "src/workstation/modals/lifecycle_modals.html"
 title: "lifecycle_modals.html"
 volume: "vol-4"
 kind: "Workstation Shell Template"
-current_hash: "cf914bdffbdb8189"
+current_hash: "51a11f54a1a737b0"
 reviewed_hash: "cf914bdffbdb8189"
-stale: false
-size_bytes: 41740
-line_count: 644
+stale: true
+size_bytes: 44414
+line_count: 677
 ---
 
 # lifecycle_modals.html
