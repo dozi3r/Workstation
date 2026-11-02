@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_new_reno",
+  "name": "Metropolis of New Reno",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-09",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_new_reno",
+    "name": "newrenovirginstreet.jpg",
+    "assetPath": "assets/newrenovirginstreet.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-RNO-01",
+      "name": "Virgin Street & Desperado Casino",
+      "label": "Virgin Street & Desperado Casino",
+      "coordinates": {
+        "x": 200,
+        "y": 280
+      },
+      "x": 200,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-RNO-02",
+      "name": "2nd Street & Shark Club (Bishop)",
+      "label": "2nd Street & Shark Club (Bishop)",
+      "coordinates": {
+        "x": 360,
+        "y": 240
+      },
+      "x": 360,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-RNO-03",
+      "name": "Commercial Row & Arms Basement",
+      "label": "Commercial Row & Arms Basement",
+      "coordinates": {
+        "x": 520,
+        "y": 280
+      },
+      "x": 520,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-RNO-04",
+      "name": "Chop Shop & Stables Highway",
+      "label": "Chop Shop & Stables Highway",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-RNO-01",
+      "target": "FO2-RNO-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-RNO-02",
+      "target": "FO2-RNO-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-RNO-03",
+      "target": "FO2-RNO-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

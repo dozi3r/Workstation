@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_navarro",
+  "name": "Navarro Enclave Forward Base",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-16",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_navarro",
+    "name": "navarrogasstation.jpg",
+    "assetPath": "assets/navarrogasstation.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-NAV-01",
+      "name": "Old Gas Station & Sneak Entrance",
+      "label": "Old Gas Station & Sneak Entrance",
+      "coordinates": {
+        "x": 220,
+        "y": 280
+      },
+      "x": 220,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-NAV-02",
+      "name": "Vertibird Hangar & Guard Base",
+      "label": "Vertibird Hangar & Guard Base",
+      "coordinates": {
+        "x": 380,
+        "y": 240
+      },
+      "x": 380,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-NAV-03",
+      "name": "Underground Armory & APA Lockers",
+      "label": "Underground Armory & APA Lockers",
+      "coordinates": {
+        "x": 540,
+        "y": 280
+      },
+      "x": 540,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-NAV-04",
+      "name": "Command Center & FOB Passkey Vault",
+      "label": "Command Center & FOB Passkey Vault",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-NAV-01",
+      "target": "FO2-NAV-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-NAV-02",
+      "target": "FO2-NAV-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-NAV-03",
+      "target": "FO2-NAV-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

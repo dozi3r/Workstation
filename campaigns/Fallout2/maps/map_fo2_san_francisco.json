@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_san_francisco",
+  "name": "San Francisco Metropolis",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-15",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_san_francisco",
+    "name": "sfochinatown.jpg",
+    "assetPath": "assets/sfochinatown.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-SFO-01",
+      "name": "Chinatown Main Street & Red 888",
+      "label": "Chinatown Main Street & Red 888",
+      "coordinates": {
+        "x": 200,
+        "y": 280
+      },
+      "x": 200,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-SFO-02",
+      "name": "Shi Steel Palace & Emperor Computer",
+      "label": "Shi Steel Palace & Emperor Computer",
+      "coordinates": {
+        "x": 360,
+        "y": 240
+      },
+      "x": 360,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-SFO-03",
+      "name": "Hubologist Celestial Palace",
+      "label": "Hubologist Celestial Palace",
+      "coordinates": {
+        "x": 520,
+        "y": 280
+      },
+      "x": 520,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-SFO-04",
+      "name": "Docks & PMV Valdez Oil Tanker",
+      "label": "Docks & PMV Valdez Oil Tanker",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-SFO-01",
+      "target": "FO2-SFO-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-SFO-02",
+      "target": "FO2-SFO-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-SFO-03",
+      "target": "FO2-SFO-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

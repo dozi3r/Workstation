@@ -1,0 +1,434 @@
+{
+  "id": "fallout_2__the_northern_california_wasteland",
+  "name": "Fallout 2: The Northern California Wasteland",
+  "campaignName": "Fallout 2: The Northern California Wasteland",
+  "description": "The complete Fallout 2 campaign ported to Creator Studio. Features a 17-node Northern California wasteland overmap and 17 scale-fluid submaps covering Arroyo, Den, Modoc, Vault City, Gecko, Broken Hills, New Reno, Sierra Army Depot, NCR, Vaults 13 & 15, Military Base, San Francisco, Navarro, and the Enclave Oil Rig.",
+  "author": "Creator Studio World Architect",
+  "packageType": "workstation_project",
+  "enabled": true,
+  "topologyFile": "topology.json",
+  "manifestFile": "modules_manifest.json",
+  "updatedAt": "2026-11-02T01:47:34.076Z",
+  "exportedAt": "2026-11-02T01:47:34.076Z",
+  "globalDials": {
+    "dial8ClimaxTrigger": "crisis",
+    "tier0Substratum": false
+  },
+  "entities": {
+    "npcs": [
+      {
+        "id": "npc_sulik",
+        "name": "Sulik",
+        "nodeId": "FO2-KLM-01",
+        "submapId": "map_fo2_klamath",
+        "role": "Tribal Warrior & Shamanic Bone Reader",
+        "faction": "Arroyo Tribals",
+        "factionId": "faction_tribals",
+        "culture": "Clan",
+        "motivation": "Find his kidnapped sister and repay his debt to Maida Buckner.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_vic",
+        "name": "Vic the Trader",
+        "nodeId": "FO2-DEN-03",
+        "submapId": "map_fo2_den",
+        "role": "Tinkerer & Merchant",
+        "faction": "Independent Settlers",
+        "factionId": "faction_settlers",
+        "culture": "Market",
+        "motivation": "Escape Metzger's slaver lockup and assist the Chosen One with repair expertise.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 1
+        }
+      },
+      {
+        "id": "npc_cassidy",
+        "name": "John Cassidy",
+        "nodeId": "FO2-VC-01",
+        "submapId": "map_fo2_vault_city",
+        "role": "Grizzled Barkeep & Shotgunner",
+        "faction": "Independent Settlers",
+        "factionId": "faction_settlers",
+        "culture": "Market",
+        "motivation": "Leave his failing bar in the Vault City courtyard and see the wasteland one last time.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 2
+        }
+      },
+      {
+        "id": "npc_myron",
+        "name": "Myron",
+        "nodeId": "FO2-RNO-04",
+        "submapId": "map_fo2_new_reno",
+        "role": "Petulant Chemist & Jet Creator",
+        "faction": "Mordino Crime Family",
+        "factionId": "faction_reno_crime",
+        "culture": "Market",
+        "motivation": "Enjoy luxury, chems, and safety under armed protection.",
+        "dispositionToParty": -1,
+        "odv": {
+          "s": -2,
+          "e": 2,
+          "c": -2
+        }
+      },
+      {
+        "id": "npc_marcus",
+        "name": "Sheriff Marcus",
+        "nodeId": "FO2-BKH-01",
+        "submapId": "map_fo2_broken_hills",
+        "role": "Super Mutant Peacekeeper",
+        "faction": "Broken Hills Alliance",
+        "factionId": "faction_broken_hills",
+        "culture": "Clan",
+        "motivation": "Maintain peace between humans, ghouls, and super mutants in Broken Hills.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_goris",
+        "name": "Goris",
+        "nodeId": "FO2-V13-02",
+        "submapId": "map_fo2_vault_13",
+        "role": "Intelligent Deathclaw Scholar",
+        "faction": "Pack of Vault 13",
+        "factionId": "faction_deathclaws",
+        "culture": "Clan",
+        "motivation": "Study human philosophy and protect the intelligent pack from eradication.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_lynette",
+        "name": "First Citizen Lynette",
+        "nodeId": "FO2-VC-03",
+        "submapId": "map_fo2_vault_city",
+        "role": "Authoritarian Governor",
+        "faction": "Vault City",
+        "factionId": "faction_vault_city",
+        "culture": "Hierarchy",
+        "motivation": "Preserve genetic and cultural purity of Vault City; subjugate wasteland out-dwellers.",
+        "dispositionToParty": -2,
+        "odv": {
+          "s": -2,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_harold",
+        "name": "Harold the Ghoul",
+        "nodeId": "FO2-GCK-02",
+        "submapId": "map_fo2_gecko",
+        "role": "Ghoul Settlement Elder",
+        "faction": "Gecko Ghouls",
+        "factionId": "faction_gecko",
+        "culture": "Clan",
+        "motivation": "Procure a hydroelectric replacement part from Vault City so the reactor doesn't melt down.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 2
+        }
+      },
+      {
+        "id": "npc_tandi",
+        "name": "President Tandi",
+        "nodeId": "FO2-NCR-03",
+        "submapId": "map_fo2_ncr",
+        "role": "President of the New California Republic",
+        "faction": "New California Republic",
+        "factionId": "faction_ncr",
+        "culture": "Hierarchy",
+        "motivation": "Federate California's northern frontier under the rule of law and secure Vault 15 parts.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_bishop",
+        "name": "John Bishop",
+        "nodeId": "FO2-RNO-02",
+        "submapId": "map_fo2_new_reno",
+        "role": "Casino Patriarch & Political Schemer",
+        "faction": "Bishop Crime Family",
+        "factionId": "faction_reno_crime",
+        "culture": "Market",
+        "motivation": "Conspire with NCR and hire raiders to force Vault City into annexation.",
+        "dispositionToParty": -1,
+        "odv": {
+          "s": -2,
+          "e": 2,
+          "c": 2
+        }
+      },
+      {
+        "id": "npc_richardson",
+        "name": "President Dick Richardson",
+        "nodeId": "FO2-ENC-03",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "role": "President of the Enclave",
+        "faction": "The Enclave",
+        "factionId": "faction_enclave",
+        "culture": "Hierarchy",
+        "motivation": "Release modified FEV Curling-13 toxins into the global jet stream to purge impure mutant humanity.",
+        "dispositionToParty": -3,
+        "odv": {
+          "s": -3,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_horrigan",
+        "name": "Secret Service Agent Frank Horrigan",
+        "nodeId": "FO2-ENC-04",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "role": "Cybernetic Enclave Enforcer",
+        "faction": "The Enclave",
+        "factionId": "faction_enclave",
+        "culture": "Hierarchy",
+        "motivation": "Annihilate all enemies of the United States government and execute the Chosen One.",
+        "dispositionToParty": -3,
+        "odv": {
+          "s": -3,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_metzger",
+        "name": "Metzger",
+        "nodeId": "FO2-DEN-03",
+        "submapId": "map_fo2_den",
+        "role": "Slavers' Guildmaster",
+        "faction": "Slavers Guild",
+        "factionId": "faction_slavers",
+        "culture": "Market",
+        "motivation": "Extract maximum caps from human trafficking across the northern wastes.",
+        "dispositionToParty": -3,
+        "odv": {
+          "s": -3,
+          "e": 1,
+          "c": -2
+        }
+      },
+      {
+        "id": "npc_elder",
+        "name": "The Village Elder",
+        "nodeId": "FO2-ARY-01",
+        "submapId": "map_fo2_arroyo",
+        "role": "Mother & Spiritual Guide",
+        "faction": "Arroyo Tribals",
+        "factionId": "faction_tribals",
+        "culture": "Clan",
+        "motivation": "Save her starving people by dispatching the Chosen One to find the holy G.E.C.K.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_gruthar",
+        "name": "Gruthar",
+        "nodeId": "FO2-V13-01",
+        "submapId": "map_fo2_vault_13",
+        "role": "Deathclaw Clan Patriarch",
+        "faction": "Pack of Vault 13",
+        "factionId": "faction_deathclaws",
+        "culture": "Clan",
+        "motivation": "Protect his sentient pack from human fear and secure the Voice Recognition module.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 2
+        }
+      }
+    ],
+    "quests": [
+      {
+        "id": "qst_geck",
+        "title": "Retrieve the Holy G.E.C.K. for Starving Arroyo",
+        "nodeId": "FO2-OW-01",
+        "submapId": "map_fo2_arroyo",
+        "status": "Active",
+        "type": "Story",
+        "reward": "Salvation of Arroyo & 4000 XP"
+      },
+      {
+        "id": "qst_rescue_vic",
+        "title": "Rescue Vic the Trader from Metzger's Slaver Den",
+        "nodeId": "FO2-OW-03",
+        "submapId": "map_fo2_den",
+        "status": "Available",
+        "type": "Recruitment",
+        "reward": "Radio Repair & Vic Recruitable"
+      },
+      {
+        "id": "qst_gecko_reactor",
+        "title": "Optimize the Poseidon Gecko Nuclear Power Plant",
+        "nodeId": "FO2-OW-05",
+        "submapId": "map_fo2_gecko",
+        "status": "Available",
+        "type": "Regional",
+        "reward": "Peace with Vault City & 4500 XP"
+      },
+      {
+        "id": "qst_vault15_computer",
+        "title": "Retrieve Computer Parts from Vault 15 for NCR",
+        "nodeId": "FO2-OW-11",
+        "submapId": "map_fo2_ncr",
+        "status": "Available",
+        "type": "Faction",
+        "reward": "President Tandi's Alliance & Vault 13 Location"
+      },
+      {
+        "id": "qst_wright_murder",
+        "title": "Investigate the Murder of Richard Wright in New Reno",
+        "nodeId": "FO2-OW-09",
+        "submapId": "map_fo2_new_reno",
+        "status": "Available",
+        "type": "Mystery",
+        "reward": "Sierra Army Depot Coordinates & 2000 XP"
+      },
+      {
+        "id": "qst_valdez_fuel",
+        "title": "Fuel and Navigate the PMV Valdez to the Enclave Rig",
+        "nodeId": "FO2-OW-15",
+        "submapId": "map_fo2_san_francisco",
+        "status": "Available",
+        "type": "Climax",
+        "reward": "Access to Enclave Oil Rig & 5000 XP"
+      },
+      {
+        "id": "qst_destroy_oil_rig",
+        "title": "Infiltrate the Oil Rig and Terminate Frank Horrigan",
+        "nodeId": "FO2-OW-17",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "status": "Available",
+        "type": "Endgame",
+        "reward": "Completion of Campaign"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_geck",
+        "name": "Garden of Eden Creation Kit (G.E.C.K.)",
+        "nodeId": "FO2-V13-04",
+        "submapId": "map_fo2_vault_13",
+        "type": "Artifact",
+        "value": 50000,
+        "description": "Terraforming marvel containing cold fusion generators and recombinant seed banks."
+      },
+      {
+        "id": "item_apa",
+        "name": "Advanced Power Armor Mk II",
+        "nodeId": "FO2-NAV-03",
+        "submapId": "map_fo2_navarro",
+        "type": "Armor",
+        "value": 20000,
+        "description": "Enclave matte-black composite powered exoskeleton granting immense physical and radiation shielding."
+      },
+      {
+        "id": "item_bozar",
+        "name": "Bozar .223 Machine Gun",
+        "nodeId": "FO2-NCR-01",
+        "submapId": "map_fo2_ncr",
+        "type": "Weapon",
+        "value": 5250,
+        "description": "Devastating sniper-support heavy machine gun firing high-velocity 15-round bursts."
+      },
+      {
+        "id": "item_turbo_plasma",
+        "name": "Turbo Plasma Rifle",
+        "nodeId": "FO2-SFO-01",
+        "submapId": "map_fo2_san_francisco",
+        "type": "Weapon",
+        "value": 10000,
+        "description": "Supercharged plasma cannon firing accelerated superheated matter bolts."
+      },
+      {
+        "id": "item_highwayman",
+        "name": "Chryslus Motors Highwayman",
+        "nodeId": "FO2-DEN-04",
+        "submapId": "map_fo2_den",
+        "type": "Vehicle",
+        "value": 2000,
+        "description": "Fusion-powered pre-war sedan allowing rapid, fatigue-free wasteland overmap traversal."
+      },
+      {
+        "id": "item_pipboy_2000",
+        "name": "Pip-Boy 2000 Personal Terminal",
+        "nodeId": "FO2-ARY-01",
+        "submapId": "map_fo2_arroyo",
+        "type": "Tool",
+        "value": 1500,
+        "description": "Arm-mounted RobCo terminal with local maps, Geiger counter, and quest log."
+      },
+      {
+        "id": "item_vertibird_plans",
+        "name": "Vertibird Technical Flight Blueprints",
+        "nodeId": "FO2-NAV-04",
+        "submapId": "map_fo2_navarro",
+        "type": "Intel",
+        "value": 6000,
+        "description": "Classified schematics required by the Shi and Brotherhood of Steel."
+      },
+      {
+        "id": "item_presidential_fob",
+        "name": "Presidential Key FOB Access Card",
+        "nodeId": "FO2-ENC-03",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "type": "Key",
+        "value": 10000,
+        "description": "Biometric electronic keycard required to trigger emergency containment scuttling."
+      }
+    ],
+    "trackers": [
+      {
+        "id": "trk_enclave_clock",
+        "label": "Enclave FEV Toxin Release Clock",
+        "value": 3,
+        "max": 8
+      },
+      {
+        "id": "trk_arroyo_starvation",
+        "label": "Arroyo Starvation Drought Meter",
+        "value": 5,
+        "max": 10
+      }
+    ],
+    "tickets": [],
+    "custom_modules": [],
+    "deletedModules": [],
+    "deletedPrototypes": []
+  },
+  "syncToken": "mvylmxbv-z0f6siyq"
+}

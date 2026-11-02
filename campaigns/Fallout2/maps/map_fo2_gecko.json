@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_gecko",
+  "name": "Gecko Power Station & Slums",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-05",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_gecko",
+    "name": "geckosettlement.jpg",
+    "assetPath": "assets/geckosettlement.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-GCK-01",
+      "name": "Gecko Settlement & Harp Bar",
+      "label": "Gecko Settlement & Harp Bar",
+      "coordinates": {
+        "x": 220,
+        "y": 280
+      },
+      "x": 220,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-GCK-02",
+      "name": "Harold's Managerial Office",
+      "label": "Harold's Managerial Office",
+      "coordinates": {
+        "x": 380,
+        "y": 240
+      },
+      "x": 380,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-GCK-03",
+      "name": "Poseidon Nuclear Reactor #5",
+      "label": "Poseidon Nuclear Reactor #5",
+      "coordinates": {
+        "x": 540,
+        "y": 280
+      },
+      "x": 540,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-GCK-04",
+      "name": "Coolant Control & Optimization Core",
+      "label": "Coolant Control & Optimization Core",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-GCK-01",
+      "target": "FO2-GCK-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-GCK-02",
+      "target": "FO2-GCK-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-GCK-03",
+      "target": "FO2-GCK-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

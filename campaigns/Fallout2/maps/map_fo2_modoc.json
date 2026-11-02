@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_modoc",
+  "name": "Modoc Township",
+  "scaleTier": "settlement",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-04",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_modoc",
+    "name": "modocmainstreet.jpg",
+    "assetPath": "assets/modocmainstreet.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-MDC-01",
+      "name": "Rose's Bed and Breakfast",
+      "label": "Rose's Bed and Breakfast",
+      "coordinates": {
+        "x": 240,
+        "y": 280
+      },
+      "x": 240,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-MDC-02",
+      "name": "General Store & Farrel's Garden",
+      "label": "General Store & Farrel's Garden",
+      "coordinates": {
+        "x": 400,
+        "y": 240
+      },
+      "x": 400,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-MDC-03",
+      "name": "Main Street & Modoc Town Well",
+      "label": "Main Street & Modoc Town Well",
+      "coordinates": {
+        "x": 540,
+        "y": 300
+      },
+      "x": 540,
+      "y": 300,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-MDC-04",
+      "name": "Slag Ghost Farm Foothills",
+      "label": "Slag Ghost Farm Foothills",
+      "coordinates": {
+        "x": 680,
+        "y": 340
+      },
+      "x": 680,
+      "y": 340,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-MDC-01",
+      "target": "FO2-MDC-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-MDC-02",
+      "target": "FO2-MDC-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-MDC-03",
+      "target": "FO2-MDC-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

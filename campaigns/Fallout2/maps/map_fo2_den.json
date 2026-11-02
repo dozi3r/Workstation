@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_den",
+  "name": "The Den Commercial Sector",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-03",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_den",
+    "name": "denwestside.jpg",
+    "assetPath": "assets/denwestside.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-DEN-01",
+      "name": "Becky's Casino & Dining Bar",
+      "label": "Becky's Casino & Dining Bar",
+      "coordinates": {
+        "x": 240,
+        "y": 260
+      },
+      "x": 240,
+      "y": 260,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-DEN-02",
+      "name": "Tubby's & Flick's Pawn Stash",
+      "label": "Tubby's & Flick's Pawn Stash",
+      "coordinates": {
+        "x": 380,
+        "y": 220
+      },
+      "x": 380,
+      "y": 220,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-DEN-03",
+      "name": "Metzger's Slaver Guild Compound",
+      "label": "Metzger's Slaver Guild Compound",
+      "coordinates": {
+        "x": 520,
+        "y": 280
+      },
+      "x": 520,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-DEN-04",
+      "name": "Smitty's Junkyard & Highwayman",
+      "label": "Smitty's Junkyard & Highwayman",
+      "coordinates": {
+        "x": 660,
+        "y": 340
+      },
+      "x": 660,
+      "y": 340,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-DEN-01",
+      "target": "FO2-DEN-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-DEN-02",
+      "target": "FO2-DEN-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-DEN-03",
+      "target": "FO2-DEN-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

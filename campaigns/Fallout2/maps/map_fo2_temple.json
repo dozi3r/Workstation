@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_temple",
+  "name": "Temple of Trials",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_arroyo",
+  "parentNodeId": "FO2-ARY-04",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_temple",
+    "name": "arroyotemplefoyer.jpg",
+    "assetPath": "assets/arroyotemplefoyer.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-TMP-01",
+      "name": "Temple Foyer & Trap Corridor",
+      "label": "Temple Foyer & Trap Corridor",
+      "coordinates": {
+        "x": 200,
+        "y": 300
+      },
+      "x": 200,
+      "y": 300,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-TMP-02",
+      "name": "Ant & Scorpion Nesting Vault",
+      "label": "Ant & Scorpion Nesting Vault",
+      "coordinates": {
+        "x": 380,
+        "y": 260
+      },
+      "x": 380,
+      "y": 260,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-TMP-03",
+      "name": "Locked Inner Sanctum Gate",
+      "label": "Locked Inner Sanctum Gate",
+      "coordinates": {
+        "x": 520,
+        "y": 300
+      },
+      "x": 520,
+      "y": 300,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-TMP-04",
+      "name": "Combat Arena of Cameron",
+      "label": "Combat Arena of Cameron",
+      "coordinates": {
+        "x": 660,
+        "y": 320
+      },
+      "x": 660,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-TMP-01",
+      "target": "FO2-TMP-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-TMP-02",
+      "target": "FO2-TMP-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-TMP-03",
+      "target": "FO2-TMP-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_vault_13",
+  "name": "Vault 13 Sanctum",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-13",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_vault_13",
+    "name": "vault13level1.jpg",
+    "assetPath": "assets/vault13level1.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-V13-01",
+      "name": "Cave Antechamber & 13 Blast Door",
+      "label": "Cave Antechamber & 13 Blast Door",
+      "coordinates": {
+        "x": 220,
+        "y": 280
+      },
+      "x": 220,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-V13-02",
+      "name": "Level 1 Clinic & Gruthar the Pack",
+      "label": "Level 1 Clinic & Gruthar the Pack",
+      "coordinates": {
+        "x": 380,
+        "y": 240
+      },
+      "x": 380,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-V13-03",
+      "name": "Level 2 Living Quarters",
+      "label": "Level 2 Living Quarters",
+      "coordinates": {
+        "x": 540,
+        "y": 280
+      },
+      "x": 540,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-V13-04",
+      "name": "Level 3 Mainframe & G.E.C.K. Vault",
+      "label": "Level 3 Mainframe & G.E.C.K. Vault",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-V13-01",
+      "target": "FO2-V13-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-V13-02",
+      "target": "FO2-V13-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-V13-03",
+      "target": "FO2-V13-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

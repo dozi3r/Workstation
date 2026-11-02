@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_broken_hills",
+  "name": "Broken Hills Uranium Mine",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-08",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_broken_hills",
+    "name": "brokenhillsdowntown.jpg",
+    "assetPath": "assets/brokenhillsdowntown.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-BKH-01",
+      "name": "Marcus's Sheriff Office & Jail",
+      "label": "Marcus's Sheriff Office & Jail",
+      "coordinates": {
+        "x": 220,
+        "y": 280
+      },
+      "x": 220,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-BKH-02",
+      "name": "Downtown Bank & Uranium Refinery",
+      "label": "Downtown Bank & Uranium Refinery",
+      "coordinates": {
+        "x": 380,
+        "y": 240
+      },
+      "x": 380,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-BKH-03",
+      "name": "Purifier Air Mine Shaft",
+      "label": "Purifier Air Mine Shaft",
+      "coordinates": {
+        "x": 540,
+        "y": 300
+      },
+      "x": 540,
+      "y": 300,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-BKH-04",
+      "name": "Residential & Mutant Conspirators",
+      "label": "Residential & Mutant Conspirators",
+      "coordinates": {
+        "x": 680,
+        "y": 340
+      },
+      "x": 680,
+      "y": 340,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-BKH-01",
+      "target": "FO2-BKH-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-BKH-02",
+      "target": "FO2-BKH-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-BKH-03",
+      "target": "FO2-BKH-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

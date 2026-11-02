@@ -4,8 +4,8 @@ title: "Creator Studio - Campaign Authoring Workstation"
 volume: "vol-4"
 kind: "Workstation Shell Template"
 current_hash: "c13eadd48ebcee3e"
-reviewed_hash: "08e585076e03056e"
-stale: true
+reviewed_hash: "c13eadd48ebcee3e"
+stale: false
 size_bytes: 49622
 line_count: 735
 ---

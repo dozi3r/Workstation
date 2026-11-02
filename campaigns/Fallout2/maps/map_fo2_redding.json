@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_redding",
+  "name": "Redding Mining District",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-07",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_redding",
+    "name": "reddingdowntown.jpg",
+    "assetPath": "assets/reddingdowntown.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-RDG-01",
+      "name": "Downtown & Malamute Saloon",
+      "label": "Downtown & Malamute Saloon",
+      "coordinates": {
+        "x": 220,
+        "y": 280
+      },
+      "x": 220,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-RDG-02",
+      "name": "Sheriff Marion's Precinct",
+      "label": "Sheriff Marion's Precinct",
+      "coordinates": {
+        "x": 380,
+        "y": 240
+      },
+      "x": 380,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-RDG-03",
+      "name": "Morningstar Mine Headquarters",
+      "label": "Morningstar Mine Headquarters",
+      "coordinates": {
+        "x": 540,
+        "y": 280
+      },
+      "x": 540,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-RDG-04",
+      "name": "Wanamingo Mine Deep Pit",
+      "label": "Wanamingo Mine Deep Pit",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-RDG-01",
+      "target": "FO2-RDG-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-RDG-02",
+      "target": "FO2-RDG-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-RDG-03",
+      "target": "FO2-RDG-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

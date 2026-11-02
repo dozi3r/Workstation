@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-02T00:04:56.820Z",
-  "totalFiles": 352,
+  "generatedAt": "2026-11-02T01:46:58.308Z",
+  "totalFiles": 427,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 2720,
-  "staleCount": 15,
+  "totalBidirectionalEdges": 2940,
+  "staleCount": 0,
   "nodes": [
     {
       "relPath": "AGENTS.md",
@@ -4699,11 +4699,11 @@
       "title": "campaign.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "stale": true,
-      "hash": "f2ba23e8d75c39f1",
-      "reviewedHash": "f0461e90b7cb852c",
-      "lineCount": 1849,
-      "sizeBytes": 64212,
+      "stale": false,
+      "hash": "02b9dcc41c095c7e",
+      "reviewedHash": "02b9dcc41c095c7e",
+      "lineCount": 2016,
+      "sizeBytes": 70357,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -5664,9 +5664,9 @@
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "stale": true,
+      "stale": false,
       "hash": "d7f29fcf2add9e41",
-      "reviewedHash": "dcdd9f848da10bc2",
+      "reviewedHash": "d7f29fcf2add9e41",
       "lineCount": 11027,
       "sizeBytes": 343544,
       "symbols": [],
@@ -5701,9 +5701,9 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "stale": true,
+      "stale": false,
       "hash": "d7f29fcf2add9e41",
-      "reviewedHash": "dcdd9f848da10bc2",
+      "reviewedHash": "d7f29fcf2add9e41",
       "lineCount": 11027,
       "sizeBytes": 343544,
       "symbols": [],
@@ -5716,6 +5716,2659 @@
           "targetType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/arroyotemplefoyer.jpg",
+      "title": "arroyotemplefoyer.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "4d53bacb6290007f",
+      "reviewedHash": "4d53bacb6290007f",
+      "lineCount": 0,
+      "sizeBytes": 57188,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/arroyovillage.jpg",
+      "title": "arroyovillage.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "87789f22f0c861bb",
+      "reviewedHash": "87789f22f0c861bb",
+      "lineCount": 0,
+      "sizeBytes": 67006,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/brokenhillsdowntown.jpg",
+      "title": "brokenhillsdowntown.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "d5b7865a823850a4",
+      "reviewedHash": "d5b7865a823850a4",
+      "lineCount": 0,
+      "sizeBytes": 236539,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/denwestside.jpg",
+      "title": "denwestside.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "03fc1b14036a89d3",
+      "reviewedHash": "03fc1b14036a89d3",
+      "lineCount": 0,
+      "sizeBytes": 128389,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/enclavedock.jpg",
+      "title": "enclavedock.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "2253d5995052ccb5",
+      "reviewedHash": "2253d5995052ccb5",
+      "lineCount": 0,
+      "sizeBytes": 28530,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/f2-worldmap.png",
+      "title": "f2-worldmap.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "7ad7a3c86dcf0d1e",
+      "reviewedHash": "7ad7a3c86dcf0d1e",
+      "lineCount": 0,
+      "sizeBytes": 1336663,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/geckosettlement.jpg",
+      "title": "geckosettlement.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "18e3ea979231e591",
+      "reviewedHash": "18e3ea979231e591",
+      "lineCount": 0,
+      "sizeBytes": 120786,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/ghostfarmfarm.jpg",
+      "title": "ghostfarmfarm.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "82968b29ce4e0e3e",
+      "reviewedHash": "82968b29ce4e0e3e",
+      "lineCount": 0,
+      "sizeBytes": 51248,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/klamathdowntown.jpg",
+      "title": "klamathdowntown.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "d154d2974e6aef16",
+      "reviewedHash": "d154d2974e6aef16",
+      "lineCount": 0,
+      "sizeBytes": 128105,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_arroyo_bg.jpg",
+      "title": "map_fo2_arroyo_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "87789f22f0c861bb",
+      "reviewedHash": "87789f22f0c861bb",
+      "lineCount": 0,
+      "sizeBytes": 67006,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_broken_hills_bg.jpg",
+      "title": "map_fo2_broken_hills_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "d5b7865a823850a4",
+      "reviewedHash": "d5b7865a823850a4",
+      "lineCount": 0,
+      "sizeBytes": 236539,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_den_bg.jpg",
+      "title": "map_fo2_den_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "03fc1b14036a89d3",
+      "reviewedHash": "03fc1b14036a89d3",
+      "lineCount": 0,
+      "sizeBytes": 128389,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_enclave_oil_rig_bg.jpg",
+      "title": "map_fo2_enclave_oil_rig_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "2253d5995052ccb5",
+      "reviewedHash": "2253d5995052ccb5",
+      "lineCount": 0,
+      "sizeBytes": 28530,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_gecko_bg.jpg",
+      "title": "map_fo2_gecko_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "18e3ea979231e591",
+      "reviewedHash": "18e3ea979231e591",
+      "lineCount": 0,
+      "sizeBytes": 120786,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_klamath_bg.jpg",
+      "title": "map_fo2_klamath_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "d154d2974e6aef16",
+      "reviewedHash": "d154d2974e6aef16",
+      "lineCount": 0,
+      "sizeBytes": 128105,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_military_base_bg.jpg",
+      "title": "map_fo2_military_base_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "befe575b7fb102a3",
+      "reviewedHash": "befe575b7fb102a3",
+      "lineCount": 0,
+      "sizeBytes": 121199,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_modoc_bg.jpg",
+      "title": "map_fo2_modoc_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "eab220ae4c1ed4a8",
+      "reviewedHash": "eab220ae4c1ed4a8",
+      "lineCount": 0,
+      "sizeBytes": 89639,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_navarro_bg.jpg",
+      "title": "map_fo2_navarro_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "2826b5fb0561a385",
+      "reviewedHash": "2826b5fb0561a385",
+      "lineCount": 0,
+      "sizeBytes": 70071,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_ncr_bg.jpg",
+      "title": "map_fo2_ncr_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "eaa9819b17b99e6c",
+      "reviewedHash": "eaa9819b17b99e6c",
+      "lineCount": 0,
+      "sizeBytes": 72774,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_new_reno_bg.jpg",
+      "title": "map_fo2_new_reno_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "a94e1504581e9bbc",
+      "reviewedHash": "a94e1504581e9bbc",
+      "lineCount": 0,
+      "sizeBytes": 221019,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_redding_bg.jpg",
+      "title": "map_fo2_redding_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "8fe47265cf3d6ab8",
+      "reviewedHash": "8fe47265cf3d6ab8",
+      "lineCount": 0,
+      "sizeBytes": 177249,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_san_francisco_bg.jpg",
+      "title": "map_fo2_san_francisco_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "344f072674d91ffe",
+      "reviewedHash": "344f072674d91ffe",
+      "lineCount": 0,
+      "sizeBytes": 190704,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_sierra_bg.jpg",
+      "title": "map_fo2_sierra_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "97697fde5b8def90",
+      "reviewedHash": "97697fde5b8def90",
+      "lineCount": 0,
+      "sizeBytes": 91417,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_temple_bg.jpg",
+      "title": "map_fo2_temple_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "4d53bacb6290007f",
+      "reviewedHash": "4d53bacb6290007f",
+      "lineCount": 0,
+      "sizeBytes": 57188,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_vault_13_bg.jpg",
+      "title": "map_fo2_vault_13_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "71b5d3830d6b5de8",
+      "reviewedHash": "71b5d3830d6b5de8",
+      "lineCount": 0,
+      "sizeBytes": 61367,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_vault_15_bg.jpg",
+      "title": "map_fo2_vault_15_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "b830657af9d6506b",
+      "reviewedHash": "b830657af9d6506b",
+      "lineCount": 0,
+      "sizeBytes": 84581,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_vault_city_bg.jpg",
+      "title": "map_fo2_vault_city_bg.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "16a508b4b4c6edcc",
+      "reviewedHash": "16a508b4b4c6edcc",
+      "lineCount": 0,
+      "sizeBytes": 177565,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/map_fo2_worldmap_bg.png",
+      "title": "map_fo2_worldmap_bg.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "7ad7a3c86dcf0d1e",
+      "reviewedHash": "7ad7a3c86dcf0d1e",
+      "lineCount": 0,
+      "sizeBytes": 1336663,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/militarybaselevel1.jpg",
+      "title": "militarybaselevel1.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "befe575b7fb102a3",
+      "reviewedHash": "befe575b7fb102a3",
+      "lineCount": 0,
+      "sizeBytes": 121199,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/modocmainstreet.jpg",
+      "title": "modocmainstreet.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "eab220ae4c1ed4a8",
+      "reviewedHash": "eab220ae4c1ed4a8",
+      "lineCount": 0,
+      "sizeBytes": 89639,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/navarrogasstation.jpg",
+      "title": "navarrogasstation.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "2826b5fb0561a385",
+      "reviewedHash": "2826b5fb0561a385",
+      "lineCount": 0,
+      "sizeBytes": 70071,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/ncrdowntown.jpg",
+      "title": "ncrdowntown.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "eaa9819b17b99e6c",
+      "reviewedHash": "eaa9819b17b99e6c",
+      "lineCount": 0,
+      "sizeBytes": 72774,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/newrenovirginstreet.jpg",
+      "title": "newrenovirginstreet.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "a94e1504581e9bbc",
+      "reviewedHash": "a94e1504581e9bbc",
+      "lineCount": 0,
+      "sizeBytes": 221019,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/reddingdowntown.jpg",
+      "title": "reddingdowntown.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "8fe47265cf3d6ab8",
+      "reviewedHash": "8fe47265cf3d6ab8",
+      "lineCount": 0,
+      "sizeBytes": 177249,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/sfochinatown.jpg",
+      "title": "sfochinatown.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "344f072674d91ffe",
+      "reviewedHash": "344f072674d91ffe",
+      "lineCount": 0,
+      "sizeBytes": 190704,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/sierraarmydepotbattlefield.jpg",
+      "title": "sierraarmydepotbattlefield.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "97697fde5b8def90",
+      "reviewedHash": "97697fde5b8def90",
+      "lineCount": 0,
+      "sizeBytes": 91417,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/vault13level1.jpg",
+      "title": "vault13level1.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "71b5d3830d6b5de8",
+      "reviewedHash": "71b5d3830d6b5de8",
+      "lineCount": 0,
+      "sizeBytes": 61367,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/vault15squatters.jpg",
+      "title": "vault15squatters.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "b830657af9d6506b",
+      "reviewedHash": "b830657af9d6506b",
+      "lineCount": 0,
+      "sizeBytes": 84581,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/assets/vaultcitydowntown.jpg",
+      "title": "vaultcitydowntown.jpg (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "16a508b4b4c6edcc",
+      "reviewedHash": "16a508b4b4c6edcc",
+      "lineCount": 0,
+      "sizeBytes": 177565,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/campaign.json",
+      "title": "campaign.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "9d4073ff037a7bed",
+      "reviewedHash": "9d4073ff037a7bed",
+      "lineCount": 434,
+      "sizeBytes": 14011,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/arroyotemplefoyer.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/arroyovillage.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/brokenhillsdowntown.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/denwestside.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/enclavedock.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/f2-worldmap.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/geckosettlement.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/ghostfarmfarm.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/klamathdowntown.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_arroyo_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_broken_hills_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_den_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_enclave_oil_rig_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_gecko_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_klamath_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_military_base_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_modoc_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_navarro_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_ncr_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_new_reno_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_redding_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_san_francisco_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_sierra_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_temple_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_vault_13_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_vault_15_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_vault_city_bg.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/map_fo2_worldmap_bg.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/militarybaselevel1.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/modocmainstreet.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/navarrogasstation.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/ncrdowntown.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/newrenovirginstreet.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/reddingdowntown.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/sfochinatown.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/sierraarmydepotbattlefield.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/vault13level1.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/vault15squatters.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/assets/vaultcitydowntown.jpg",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_arroyo.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_broken_hills.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_den.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_enclave_oil_rig.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_gecko.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_klamath.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_military_base.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_modoc.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_navarro.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_ncr.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_new_reno.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_redding.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_san_francisco.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_sierra.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_temple.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_vault_13.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_vault_15.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_vault_city.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/maps/map_fo2_worldmap.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/preset.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Fallout2/topology.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_arroyo.json",
+      "title": "map_fo2_arroyo.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "c91939c3c85eb397",
+      "reviewedHash": "c91939c3c85eb397",
+      "lineCount": 120,
+      "sizeBytes": 2628,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_broken_hills.json",
+      "title": "map_fo2_broken_hills.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "27d5b276a34e9c7b",
+      "reviewedHash": "27d5b276a34e9c7b",
+      "lineCount": 100,
+      "sizeBytes": 2231,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_den.json",
+      "title": "map_fo2_den.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "921bd3d83f238660",
+      "reviewedHash": "921bd3d83f238660",
+      "lineCount": 100,
+      "sizeBytes": 2193,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_enclave_oil_rig.json",
+      "title": "map_fo2_enclave_oil_rig.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "63d0b17e7d54c7e7",
+      "reviewedHash": "63d0b17e7d54c7e7",
+      "lineCount": 100,
+      "sizeBytes": 2241,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_gecko.json",
+      "title": "map_fo2_gecko.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "f1bd3a62d81d578d",
+      "reviewedHash": "f1bd3a62d81d578d",
+      "lineCount": 100,
+      "sizeBytes": 2205,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_klamath.json",
+      "title": "map_fo2_klamath.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "d65e2facf282f0b9",
+      "reviewedHash": "d65e2facf282f0b9",
+      "lineCount": 100,
+      "sizeBytes": 2192,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_military_base.json",
+      "title": "map_fo2_military_base.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "e309e3510115bec7",
+      "reviewedHash": "e309e3510115bec7",
+      "lineCount": 100,
+      "sizeBytes": 2184,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_modoc.json",
+      "title": "map_fo2_modoc.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "ad201ba4753da391",
+      "reviewedHash": "ad201ba4753da391",
+      "lineCount": 100,
+      "sizeBytes": 2186,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_navarro.json",
+      "title": "map_fo2_navarro.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "3ed9d664ec6b6026",
+      "reviewedHash": "3ed9d664ec6b6026",
+      "lineCount": 100,
+      "sizeBytes": 2238,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_ncr.json",
+      "title": "map_fo2_ncr.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "9a8fbc528975ef19",
+      "reviewedHash": "9a8fbc528975ef19",
+      "lineCount": 100,
+      "sizeBytes": 2195,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_new_reno.json",
+      "title": "map_fo2_new_reno.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "d653d0c25b195d3c",
+      "reviewedHash": "d653d0c25b195d3c",
+      "lineCount": 100,
+      "sizeBytes": 2226,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_redding.json",
+      "title": "map_fo2_redding.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "b09687eedfc9f02e",
+      "reviewedHash": "b09687eedfc9f02e",
+      "lineCount": 100,
+      "sizeBytes": 2181,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_san_francisco.json",
+      "title": "map_fo2_san_francisco.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "75ab1456a5817c34",
+      "reviewedHash": "75ab1456a5817c34",
+      "lineCount": 100,
+      "sizeBytes": 2226,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_sierra.json",
+      "title": "map_fo2_sierra.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "d92d80662bdf60b2",
+      "reviewedHash": "d92d80662bdf60b2",
+      "lineCount": 100,
+      "sizeBytes": 2216,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_temple.json",
+      "title": "map_fo2_temple.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "8ebabd7dbfc4a3d8",
+      "reviewedHash": "8ebabd7dbfc4a3d8",
+      "lineCount": 100,
+      "sizeBytes": 2177,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_vault_13.json",
+      "title": "map_fo2_vault_13.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "abeb52354a977a33",
+      "reviewedHash": "abeb52354a977a33",
+      "lineCount": 100,
+      "sizeBytes": 2210,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_vault_15.json",
+      "title": "map_fo2_vault_15.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "21c6d6d514314fa7",
+      "reviewedHash": "21c6d6d514314fa7",
+      "lineCount": 100,
+      "sizeBytes": 2235,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_vault_city.json",
+      "title": "map_fo2_vault_city.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "97e473a6f4a772e3",
+      "reviewedHash": "97e473a6f4a772e3",
+      "lineCount": 100,
+      "sizeBytes": 2211,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/maps/map_fo2_worldmap.json",
+      "title": "map_fo2_worldmap.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "8b438d13d9619422",
+      "reviewedHash": "8b438d13d9619422",
+      "lineCount": 475,
+      "sizeBytes": 9938,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/modules_manifest.json",
+      "title": "modules_manifest.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "37517e5f3dc66819",
+      "reviewedHash": "37517e5f3dc66819",
+      "lineCount": 2,
+      "sizeBytes": 3,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/preset.json",
+      "title": "preset.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "90ea13ff66e7ed72",
+      "reviewedHash": "90ea13ff66e7ed72",
+      "lineCount": 5290,
+      "sizeBytes": 141199,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/Fallout2/topology.json",
+      "title": "topology.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "90ea13ff66e7ed72",
+      "reviewedHash": "90ea13ff66e7ed72",
+      "lineCount": 5290,
+      "sizeBytes": 141199,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Fallout2 campaign sourcebook"
         }
       ],
       "inbound": [
@@ -18894,6 +21547,466 @@
       ]
     },
     {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.png",
+      "title": "nashkel.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "4a301fa610dda94e",
+      "reviewedHash": "4a301fa610dda94e",
+      "lineCount": 0,
+      "sizeBytes": 214829,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.png",
+      "title": "nashkelmines.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "99fc8dde628c80b8",
+      "reviewedHash": "99fc8dde628c80b8",
+      "lineCount": 0,
+      "sizeBytes": 212758,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.png",
+      "title": "nkmines1.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "b11aa1ad5a96a41b",
+      "reviewedHash": "b11aa1ad5a96a41b",
+      "lineCount": 0,
+      "sizeBytes": 26661,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.png",
+      "title": "nkmines2.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "e6edb66009bb029b",
+      "reviewedHash": "e6edb66009bb029b",
+      "lineCount": 0,
+      "sizeBytes": 59098,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.png",
+      "title": "nkmines3.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "58c049d62138fe42",
+      "reviewedHash": "58c049d62138fe42",
+      "lineCount": 0,
+      "sizeBytes": 71789,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.png",
+      "title": "nkmines4.png (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "24ec4177d093d5c6",
+      "reviewedHash": "24ec4177d093d5c6",
+      "lineCount": 0,
+      "sizeBytes": 34319,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/swordcoast.gif",
+      "title": "swordcoast.gif (Visual Diagram / Cartographic Asset)",
+      "volume": "vol-8",
+      "kind": "Visual Diagram / Cartographic Asset",
+      "stale": false,
+      "hash": "45a96bda7e35aa44",
+      "reviewedHash": "45a96bda7e35aa44",
+      "lineCount": 0,
+      "sizeBytes": 483906,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+      "title": "campaign.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "cadab7a186898c5b",
+      "reviewedHash": "cadab7a186898c5b",
+      "lineCount": 643,
+      "sizeBytes": 28590,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.png",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/swordcoast.gif",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/preset.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        },
+        {
+          "source": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/topology.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/modules_manifest.json",
+      "title": "modules_manifest.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "37517e5f3dc66819",
+      "reviewedHash": "37517e5f3dc66819",
+      "lineCount": 2,
+      "sizeBytes": 3,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/preset.json",
+      "title": "preset.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "642396838554160f",
+      "reviewedHash": "642396838554160f",
+      "lineCount": 5011,
+      "sizeBytes": 184373,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/topology.json",
+      "title": "topology.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "642396838554160f",
+      "reviewedHash": "642396838554160f",
+      "lineCount": 5011,
+      "sizeBytes": 184373,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to The Iron Crisis of Nashkel & The Deep Mines campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
       "relPath": "campaigns/baldurs_gate_sword_coast.creator.json",
       "title": "baldurs_gate_sword_coast.creator.json",
       "volume": "vol-8",
@@ -18961,6 +22074,43 @@
       ]
     },
     {
+      "relPath": "campaigns/fallout_2_wasteland.creator.json",
+      "title": "fallout_2_wasteland.creator.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "d17c17bd08bef770",
+      "reviewedHash": "d17c17bd08bef770",
+      "lineCount": 7043,
+      "sizeBytes": 4809203,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "fallout_2_wasteland.creator.json",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References fallout_2_wasteland.creator.json"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
       "relPath": "campaigns/migmag/assets/map_mm7_emerald_isle_bg.png",
       "title": "map_mm7_emerald_isle_bg.png (Visual Diagram / Cartographic Asset)",
       "volume": "vol-8",
@@ -19002,9 +22152,9 @@
       "title": "campaign.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "stale": true,
+      "stale": false,
       "hash": "f196703777e26769",
-      "reviewedHash": "36756cfb1f271cbd",
+      "reviewedHash": "f196703777e26769",
       "lineCount": 1050,
       "sizeBytes": 41066,
       "symbols": [],
@@ -19106,9 +22256,9 @@
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "stale": true,
+      "stale": false,
       "hash": "4a42c6feacf3c5ed",
-      "reviewedHash": "97107dc237af59ef",
+      "reviewedHash": "4a42c6feacf3c5ed",
       "lineCount": 6516,
       "sizeBytes": 209471,
       "symbols": [],
@@ -19143,9 +22293,9 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "stale": true,
+      "stale": false,
       "hash": "4a42c6feacf3c5ed",
-      "reviewedHash": "97107dc237af59ef",
+      "reviewedHash": "4a42c6feacf3c5ed",
       "lineCount": 6516,
       "sizeBytes": 209471,
       "symbols": [],
@@ -24694,6 +27844,30 @@
       ]
     },
     {
+      "relPath": "fallout_2_wasteland.creator.json",
+      "title": "fallout_2_wasteland.creator.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "d17c17bd08bef770",
+      "reviewedHash": "d17c17bd08bef770",
+      "lineCount": 7043,
+      "sizeBytes": 4809203,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [],
+      "inbound": [
+        {
+          "source": "campaigns/fallout_2_wasteland.creator.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References fallout_2_wasteland.creator.json"
+        }
+      ]
+    },
+    {
       "relPath": "index.html",
       "title": "Creator Studio - Redirecting to Workstation...",
       "volume": "vol-1",
@@ -26156,11 +29330,11 @@
       "title": "Creator Studio: Platform Explorer & Master Audit",
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "stale": true,
-      "hash": "672de274c65bebc6",
-      "reviewedHash": "39fb2eec0a31de2b",
-      "lineCount": 34594,
-      "sizeBytes": 10261341,
+      "stale": false,
+      "hash": "3fc34c35aa673bd1",
+      "reviewedHash": "3fc34c35aa673bd1",
+      "lineCount": 46276,
+      "sizeBytes": 16764769,
       "symbols": [
         "moduleMatchesTrack(m, track)",
         "getModuleTrackBadges(m)",
@@ -26519,6 +29693,378 @@
         },
         {
           "target": "campaigns/BaldursGate/topology.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/arroyotemplefoyer.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/arroyovillage.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/brokenhillsdowntown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/denwestside.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/enclavedock.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/f2-worldmap.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/geckosettlement.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/ghostfarmfarm.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/klamathdowntown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_arroyo_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_broken_hills_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_den_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_enclave_oil_rig_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_gecko_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_klamath_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_military_base_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_modoc_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_navarro_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_ncr_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_new_reno_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_redding_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_san_francisco_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_sierra_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_temple_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_vault_13_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_vault_15_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_vault_city_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_worldmap_bg.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/militarybaselevel1.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/modocmainstreet.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/navarrogasstation.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/ncrdowntown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/newrenovirginstreet.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/reddingdowntown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/sfochinatown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/sierraarmydepotbattlefield.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/vault13level1.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/vault15squatters.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/vaultcitydowntown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_arroyo.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_broken_hills.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_den.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_enclave_oil_rig.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_gecko.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_klamath.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_military_base.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_modoc.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_navarro.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_ncr.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_new_reno.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_redding.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_san_francisco.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_sierra.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_temple.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_vault_13.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_vault_15.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_vault_city.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_worldmap.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/preset.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Fallout2/topology.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
@@ -27298,6 +30844,72 @@
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/swordcoast.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/preset.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/topology.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
           "target": "campaigns/baldurs_gate_sword_coast.creator.json",
           "targetType": "file",
           "type": "Data Source",
@@ -27305,6 +30917,12 @@
         },
         {
           "target": "campaigns/desktop.ini",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/fallout_2_wasteland.creator.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
@@ -30940,9 +34558,9 @@
       "title": "lifecycle_modals.html",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "stale": true,
+      "stale": false,
       "hash": "51a11f54a1a737b0",
-      "reviewedHash": "cf914bdffbdb8189",
+      "reviewedHash": "51a11f54a1a737b0",
       "lineCount": 677,
       "sizeBytes": 44414,
       "symbols": [],
@@ -31657,9 +35275,9 @@
       "title": "canvas_hud.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "stale": true,
+      "stale": false,
       "hash": "d44a90dac6e9ad8c",
-      "reviewedHash": "a259799418c0260c",
+      "reviewedHash": "d44a90dac6e9ad8c",
       "lineCount": 1239,
       "sizeBytes": 52826,
       "symbols": [
@@ -32969,9 +36587,9 @@
       "title": "map_store.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "stale": true,
+      "stale": false,
       "hash": "8d20987487c4821e",
-      "reviewedHash": "e063d6409cd26612",
+      "reviewedHash": "8d20987487c4821e",
       "lineCount": 2687,
       "sizeBytes": 110825,
       "symbols": [
@@ -33227,9 +36845,9 @@
       "title": "mdi_window_manager.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "stale": true,
+      "stale": false,
       "hash": "fb6b3d16a720880b",
-      "reviewedHash": "a9a3f64cbd5bfc2b",
+      "reviewedHash": "fb6b3d16a720880b",
       "lineCount": 2795,
       "sizeBytes": 127515,
       "symbols": [
@@ -35962,9 +39580,9 @@
       "title": "win95_workstation.css",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "stale": true,
+      "stale": false,
       "hash": "38b654f0238e7063",
-      "reviewedHash": "ba83d35af6666654",
+      "reviewedHash": "38b654f0238e7063",
       "lineCount": 1850,
       "sizeBytes": 39349,
       "symbols": [],
@@ -35979,9 +39597,9 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "stale": true,
+      "stale": false,
       "hash": "c13eadd48ebcee3e",
-      "reviewedHash": "08e585076e03056e",
+      "reviewedHash": "c13eadd48ebcee3e",
       "lineCount": 735,
       "sizeBytes": 49622,
       "symbols": [],
@@ -36520,11 +40138,11 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "stale": true,
-      "hash": "b73e95a55a1a4e84",
-      "reviewedHash": "95bc61b9a34630a4",
-      "lineCount": 68944,
-      "sizeBytes": 11974962,
+      "stale": false,
+      "hash": "3d30e5849d894d5d",
+      "reviewedHash": "3d30e5849d894d5d",
+      "lineCount": 80626,
+      "sizeBytes": 18478390,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -36967,6 +40585,378 @@
         },
         {
           "target": "campaigns/BaldursGate/topology.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/arroyotemplefoyer.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/arroyovillage.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/brokenhillsdowntown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/denwestside.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/enclavedock.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/f2-worldmap.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/geckosettlement.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/ghostfarmfarm.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/klamathdowntown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_arroyo_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_broken_hills_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_den_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_enclave_oil_rig_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_gecko_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_klamath_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_military_base_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_modoc_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_navarro_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_ncr_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_new_reno_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_redding_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_san_francisco_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_sierra_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_temple_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_vault_13_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_vault_15_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_vault_city_bg.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/map_fo2_worldmap_bg.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/militarybaselevel1.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/modocmainstreet.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/navarrogasstation.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/ncrdowntown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/newrenovirginstreet.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/reddingdowntown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/sfochinatown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/sierraarmydepotbattlefield.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/vault13level1.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/vault15squatters.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/assets/vaultcitydowntown.jpg",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/campaign.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_arroyo.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_broken_hills.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_den.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_enclave_oil_rig.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_gecko.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_klamath.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_military_base.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_modoc.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_navarro.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_ncr.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_new_reno.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_redding.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_san_francisco.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_sierra.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_temple.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_vault_13.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_vault_15.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_vault_city.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/maps/map_fo2_worldmap.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/preset.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Fallout2/topology.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
@@ -37746,6 +41736,72 @@
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
         },
         {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkel.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nashkelmines.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines1.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines2.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines3.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/nkmines4.png",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/assets/swordcoast.gif",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/campaign.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/preset.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/The Iron Crisis of Nashkel & The Deep Mines/topology.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
           "target": "campaigns/baldurs_gate_sword_coast.creator.json",
           "targetType": "file",
           "type": "Data Source",
@@ -37753,6 +41809,12 @@
         },
         {
           "target": "campaigns/desktop.ini",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/fallout_2_wasteland.creator.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
@@ -38729,9 +42791,9 @@
       "title": "run_tests.js",
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
-      "stale": true,
+      "stale": false,
       "hash": "5e342f709bf21fc2",
-      "reviewedHash": "df64b7cd0391fcfe",
+      "reviewedHash": "5e342f709bf21fc2",
       "lineCount": 6218,
       "sizeBytes": 289304,
       "symbols": [

@@ -4,8 +4,8 @@ title: "preset.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
 current_hash: "4a42c6feacf3c5ed"
-reviewed_hash: "97107dc237af59ef"
-stale: true
+reviewed_hash: "4a42c6feacf3c5ed"
+stale: false
 size_bytes: 209471
 line_count: 6516
 ---

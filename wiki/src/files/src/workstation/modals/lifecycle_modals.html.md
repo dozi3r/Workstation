@@ -4,8 +4,8 @@ title: "lifecycle_modals.html"
 volume: "vol-4"
 kind: "Workstation Shell Template"
 current_hash: "51a11f54a1a737b0"
-reviewed_hash: "cf914bdffbdb8189"
-stale: true
+reviewed_hash: "51a11f54a1a737b0"
+stale: false
 size_bytes: 44414
 line_count: 677
 ---

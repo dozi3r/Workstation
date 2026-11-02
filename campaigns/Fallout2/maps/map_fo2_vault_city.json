@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_vault_city",
+  "name": "Vault City Interior & Vault 8",
+  "scaleTier": "settlement",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-06",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_vault_city",
+    "name": "vaultcitydowntown.jpg",
+    "assetPath": "assets/vaultcitydowntown.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-VC-01",
+      "name": "Courtyard & Customs Station",
+      "label": "Courtyard & Customs Station",
+      "coordinates": {
+        "x": 200,
+        "y": 300
+      },
+      "x": 200,
+      "y": 300,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-VC-02",
+      "name": "Main Street Downtown Commercial",
+      "label": "Main Street Downtown Commercial",
+      "coordinates": {
+        "x": 360,
+        "y": 260
+      },
+      "x": 360,
+      "y": 260,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-VC-03",
+      "name": "Council Hall of First Citizen",
+      "label": "Council Hall of First Citizen",
+      "coordinates": {
+        "x": 520,
+        "y": 240
+      },
+      "x": 520,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-VC-04",
+      "name": "Vault 8 Sealed Blast Door",
+      "label": "Vault 8 Sealed Blast Door",
+      "coordinates": {
+        "x": 680,
+        "y": 300
+      },
+      "x": 680,
+      "y": 300,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-VC-01",
+      "target": "FO2-VC-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-VC-02",
+      "target": "FO2-VC-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-VC-03",
+      "target": "FO2-VC-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

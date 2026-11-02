@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_sierra",
+  "name": "Sierra Army Depot Sub-Levels",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-10",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_sierra",
+    "name": "sierraarmydepotbattlefield.jpg",
+    "assetPath": "assets/sierraarmydepotbattlefield.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-SAD-01",
+      "name": "Minefield & Automated Turrets",
+      "label": "Minefield & Automated Turrets",
+      "coordinates": {
+        "x": 200,
+        "y": 320
+      },
+      "x": 200,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-SAD-02",
+      "name": "Depot Exterior Blast Hatch",
+      "label": "Depot Exterior Blast Hatch",
+      "coordinates": {
+        "x": 360,
+        "y": 260
+      },
+      "x": 360,
+      "y": 260,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-SAD-03",
+      "name": "Level 1 Personnel Quarters",
+      "label": "Level 1 Personnel Quarters",
+      "coordinates": {
+        "x": 520,
+        "y": 260
+      },
+      "x": 520,
+      "y": 260,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-SAD-04",
+      "name": "Level 3 Robotics Laboratory",
+      "label": "Level 3 Robotics Laboratory",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-SAD-01",
+      "target": "FO2-SAD-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-SAD-02",
+      "target": "FO2-SAD-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-SAD-03",
+      "target": "FO2-SAD-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

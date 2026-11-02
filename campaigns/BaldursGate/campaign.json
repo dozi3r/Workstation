@@ -1,24 +1,15 @@
 {
-  "id": "bg1_sword_coast",
+  "id": "baldur_s_gate__the_sword_coast_campaign",
   "name": "Baldur's Gate: The Sword Coast Campaign",
   "campaignName": "Baldur's Gate: The Sword Coast Campaign",
   "description": "The complete Baldur's Gate 1 campaign ported to Creator Studio. Features an 18-node regional Sword Coast pointcrawl and 9 scale-fluid submaps spanning Candlekeep, Friendly Arm, Beregost, Tazok's Bandit Camp, Cloakwood Mines, Baldur's Gate City, the Undercity, and Durlag's Tower.",
-  "author": "Creator Studio Campaign Architect",
-  "version": "1.0.0",
-  "ipDomain": "Baldur's Gate / Forgotten Realms",
+  "author": "Creator Studio World Architect",
   "packageType": "workstation_project",
   "enabled": true,
   "topologyFile": "topology.json",
-  "presetFile": "preset.json",
   "manifestFile": "modules_manifest.json",
-  "entryMapId": "map_bg1_sword_coast",
-  "rootMapId": "map_bg1_sword_coast",
-  "activeMapId": "map_bg1_sword_coast",
-  "updatedAt": "2026-11-01T19:00:00.000Z",
-  "exportedAt": "2026-11-01T19:00:00.000Z",
-  "recommendedAnchor": {
-    "prompt": "A rutted trade road leading south from the Chionthar or an ancient monastic keep overlooking the Sea of Swords."
-  },
+  "updatedAt": "2026-11-01T22:01:19.953Z",
+  "exportedAt": "2026-11-01T22:01:19.953Z",
   "globalDials": {
     "dial8ClimaxTrigger": "crisis",
     "tier0Substratum": false
@@ -2015,6 +2006,11 @@
         "faction": "The Cult of Bhaal",
         "notes": "Advances across major story milestones or dark violent choices. Unlocks divine innate powers (Cure Light Wounds, Slow Poison, Horror, Vampiric Touch)."
       }
-    ]
-  }
+    ],
+    "tickets": [],
+    "custom_modules": [],
+    "deletedModules": [],
+    "deletedPrototypes": []
+  },
+  "syncToken": "mvydjzgw-yefhd3ib"
 }

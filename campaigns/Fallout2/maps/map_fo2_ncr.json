@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_ncr",
+  "name": "New California Republic Capital",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-11",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_ncr",
+    "name": "ncrdowntown.jpg",
+    "assetPath": "assets/ncrdowntown.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-NCR-01",
+      "name": "Outer Bazaar & Busty's Bar",
+      "label": "Outer Bazaar & Busty's Bar",
+      "coordinates": {
+        "x": 220,
+        "y": 280
+      },
+      "x": 220,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-NCR-02",
+      "name": "Downtown Police Station & Jail",
+      "label": "Downtown Police Station & Jail",
+      "coordinates": {
+        "x": 380,
+        "y": 240
+      },
+      "x": 380,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-NCR-03",
+      "name": "Hall of Congress & President Tandi",
+      "label": "Hall of Congress & President Tandi",
+      "coordinates": {
+        "x": 540,
+        "y": 280
+      },
+      "x": 540,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-NCR-04",
+      "name": "Westin & Carlson Ranches",
+      "label": "Westin & Carlson Ranches",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-NCR-01",
+      "target": "FO2-NCR-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-NCR-02",
+      "target": "FO2-NCR-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-NCR-03",
+      "target": "FO2-NCR-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

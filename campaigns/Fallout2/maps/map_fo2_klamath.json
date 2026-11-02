@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_klamath",
+  "name": "Klamath Trapper District",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-02",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_klamath",
+    "name": "klamathdowntown.jpg",
+    "assetPath": "assets/klamathdowntown.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-KLM-01",
+      "name": "Buckner House & Golden Gecko",
+      "label": "Buckner House & Golden Gecko",
+      "coordinates": {
+        "x": 220,
+        "y": 260
+      },
+      "x": 220,
+      "y": 260,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-KLM-02",
+      "name": "Vic's Abandoned Workshop",
+      "label": "Vic's Abandoned Workshop",
+      "coordinates": {
+        "x": 380,
+        "y": 220
+      },
+      "x": 380,
+      "y": 220,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-KLM-03",
+      "name": "Trappers' Mall & Dunton Ranch",
+      "label": "Trappers' Mall & Dunton Ranch",
+      "coordinates": {
+        "x": 520,
+        "y": 280
+      },
+      "x": 520,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-KLM-04",
+      "name": "Rat Caves Subterranean Exit",
+      "label": "Rat Caves Subterranean Exit",
+      "coordinates": {
+        "x": 640,
+        "y": 340
+      },
+      "x": 640,
+      "y": 340,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-KLM-01",
+      "target": "FO2-KLM-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-KLM-02",
+      "target": "FO2-KLM-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-KLM-03",
+      "target": "FO2-KLM-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

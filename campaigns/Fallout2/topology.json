@@ -1,0 +1,5365 @@
+{
+  "id": "fallout_2__the_northern_california_wasteland",
+  "name": "Fallout 2: The Northern California Wasteland",
+  "campaignName": "Fallout 2: The Northern California Wasteland",
+  "rootMapId": "map_root",
+  "activeMapId": "map_fo2_enclave_oil_rig",
+  "maps": {
+    "map_fo2_worldmap": {
+      "id": "map_fo2_worldmap",
+      "name": "The Northern California Wasteland (World Pointcrawl)",
+      "scaleTier": "region",
+      "parentMapId": null,
+      "parentNodeId": null,
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_worldmap",
+        "name": "f2-worldmap.png",
+        "width": 1200,
+        "height": 1000,
+        "naturalWidth": 1200,
+        "naturalHeight": 1000,
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "lockAspect": true,
+        "opacity": 0.85,
+        "timestamp": 1793583937366,
+        "assetPath": "assets/map_fo2_worldmap_bg.png"
+      },
+      "nodes": [
+        {
+          "id": "FO2-OW-01",
+          "name": "Arroyo",
+          "displayName": "Arroyo",
+          "x": 137,
+          "y": 102,
+          "coordinates": {
+            "x": 137,
+            "y": 102
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_arroyo",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-02",
+          "name": "Klamath",
+          "displayName": "Klamath",
+          "x": 260,
+          "y": 140,
+          "coordinates": {
+            "x": 260,
+            "y": 140
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_klamath",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-03",
+          "name": "The Den",
+          "displayName": "The Den",
+          "x": 310,
+          "y": 250,
+          "coordinates": {
+            "x": 310,
+            "y": 250
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_den",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-04",
+          "name": "Modoc",
+          "displayName": "Modoc",
+          "x": 470,
+          "y": 230,
+          "coordinates": {
+            "x": 470,
+            "y": 230
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_modoc",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-05",
+          "name": "Gecko",
+          "displayName": "Gecko",
+          "x": 620,
+          "y": 190,
+          "coordinates": {
+            "x": 620,
+            "y": 190
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_gecko",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-06",
+          "name": "Vault City",
+          "displayName": "Vault City",
+          "x": 620,
+          "y": 290,
+          "coordinates": {
+            "x": 620,
+            "y": 290
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_vault_city",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-07",
+          "name": "Redding",
+          "displayName": "Redding",
+          "x": 350,
+          "y": 380,
+          "coordinates": {
+            "x": 350,
+            "y": 380
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_redding",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-08",
+          "name": "Broken Hills",
+          "displayName": "Broken Hills",
+          "x": 580,
+          "y": 420,
+          "coordinates": {
+            "x": 580,
+            "y": 420
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_broken_hills",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-09",
+          "name": "New Reno",
+          "displayName": "New Reno",
+          "x": 460,
+          "y": 500,
+          "coordinates": {
+            "x": 460,
+            "y": 500
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_new_reno",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-10",
+          "name": "Sierra Army Depot",
+          "displayName": "Sierra Army Depot",
+          "x": 540,
+          "y": 480,
+          "coordinates": {
+            "x": 540,
+            "y": 480
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_sierra",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-11",
+          "name": "NCR Capital",
+          "displayName": "NCR Capital",
+          "x": 550,
+          "y": 660,
+          "coordinates": {
+            "x": 550,
+            "y": 660
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_ncr",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-12",
+          "name": "Vault 15",
+          "displayName": "Vault 15",
+          "x": 670,
+          "y": 640,
+          "coordinates": {
+            "x": 670,
+            "y": 640
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_vault_15",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-13",
+          "name": "Vault 13",
+          "displayName": "Vault 13",
+          "x": 430,
+          "y": 680,
+          "coordinates": {
+            "x": 430,
+            "y": 680
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_vault_13",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-14",
+          "name": "Military Base",
+          "displayName": "Military Base",
+          "x": 350,
+          "y": 760,
+          "coordinates": {
+            "x": 350,
+            "y": 760
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_military_base",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-15",
+          "name": "San Francisco",
+          "displayName": "San Francisco",
+          "x": 230,
+          "y": 730,
+          "coordinates": {
+            "x": 230,
+            "y": 730
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_san_francisco",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-16",
+          "name": "Navarro",
+          "displayName": "Navarro",
+          "x": 130,
+          "y": 450,
+          "coordinates": {
+            "x": 130,
+            "y": 450
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_navarro",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-OW-17",
+          "name": "Enclave Oil Rig",
+          "displayName": "Enclave Oil Rig",
+          "x": 90,
+          "y": 820,
+          "coordinates": {
+            "x": 90,
+            "y": 820
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_enclave_oil_rig",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "FO2-OW-01": [],
+        "FO2-OW-02": [],
+        "FO2-OW-03": [],
+        "FO2-OW-04": [],
+        "FO2-OW-05": [],
+        "FO2-OW-06": [],
+        "FO2-OW-07": [],
+        "FO2-OW-08": [],
+        "FO2-OW-09": [],
+        "FO2-OW-10": [],
+        "FO2-OW-11": [],
+        "FO2-OW-12": [],
+        "FO2-OW-13": [],
+        "FO2-OW-14": [],
+        "FO2-OW-15": [],
+        "FO2-OW-16": [],
+        "FO2-OW-17": []
+      },
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Wasteland Nodes",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
+    },
+    "map_fo2_arroyo": {
+      "id": "map_fo2_arroyo",
+      "name": "Arroyo Tribal Settlement",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-01",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_arroyo",
+        "name": "arroyovillage.jpg",
+        "assetPath": "assets/map_fo2_arroyo_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-ARY-01",
+          "name": "Elder's Tent & Arroyo Well",
+          "displayName": "Elder's Tent & Arroyo Well",
+          "x": 220,
+          "y": 260,
+          "coordinates": {
+            "x": 220,
+            "y": 260
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-ARY-02",
+          "name": "Hakunin's Herbal Garden",
+          "displayName": "Hakunin's Herbal Garden",
+          "x": 360,
+          "y": 240,
+          "coordinates": {
+            "x": 360,
+            "y": 240
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-ARY-03",
+          "name": "Arroyo Bridge & Great Cliff",
+          "displayName": "Arroyo Bridge & Great Cliff",
+          "x": 480,
+          "y": 320,
+          "coordinates": {
+            "x": 480,
+            "y": 320
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-ARY-04",
+          "name": "Temple of Trials Entrance",
+          "displayName": "Temple of Trials Entrance",
+          "x": 620,
+          "y": 200,
+          "coordinates": {
+            "x": 620,
+            "y": 200
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": "map_fo2_temple",
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-ARY-05",
+          "name": "Nagor's Hunting Grounds",
+          "displayName": "Nagor's Hunting Grounds",
+          "x": 260,
+          "y": 420,
+          "coordinates": {
+            "x": 260,
+            "y": 420
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "FO2-ARY-01": [],
+        "FO2-ARY-02": [],
+        "FO2-ARY-03": [],
+        "FO2-ARY-04": [],
+        "FO2-ARY-05": []
+      },
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
+    },
+    "map_fo2_temple": {
+      "id": "map_fo2_temple",
+      "name": "Temple of Trials",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_arroyo",
+      "parentNodeId": "FO2-ARY-04",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_temple",
+        "name": "arroyotemplefoyer.jpg",
+        "assetPath": "assets/map_fo2_temple_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-TMP-01",
+          "name": "Temple Foyer & Trap Corridor",
+          "displayName": "Temple Foyer & Trap Corridor",
+          "x": 200,
+          "y": 300,
+          "coordinates": {
+            "x": 200,
+            "y": 300
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-TMP-02",
+          "name": "Ant & Scorpion Nesting Vault",
+          "displayName": "Ant & Scorpion Nesting Vault",
+          "x": 380,
+          "y": 260,
+          "coordinates": {
+            "x": 380,
+            "y": 260
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-TMP-03",
+          "name": "Locked Inner Sanctum Gate",
+          "displayName": "Locked Inner Sanctum Gate",
+          "x": 520,
+          "y": 300,
+          "coordinates": {
+            "x": 520,
+            "y": 300
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-TMP-04",
+          "name": "Combat Arena of Cameron",
+          "displayName": "Combat Arena of Cameron",
+          "x": 660,
+          "y": 320,
+          "coordinates": {
+            "x": 660,
+            "y": 320
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "FO2-TMP-01": [],
+        "FO2-TMP-02": [],
+        "FO2-TMP-03": [],
+        "FO2-TMP-04": []
+      },
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
+    },
+    "map_fo2_klamath": {
+      "id": "map_fo2_klamath",
+      "name": "Klamath Trapper District",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-02",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_klamath",
+        "name": "klamathdowntown.jpg",
+        "assetPath": "assets/map_fo2_klamath_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-KLM-01",
+          "name": "Buckner House & Golden Gecko",
+          "displayName": "Buckner House & Golden Gecko",
+          "x": 220,
+          "y": 260,
+          "coordinates": {
+            "x": 220,
+            "y": 260
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-KLM-02",
+          "name": "Vic's Abandoned Workshop",
+          "displayName": "Vic's Abandoned Workshop",
+          "x": 380,
+          "y": 220,
+          "coordinates": {
+            "x": 380,
+            "y": 220
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-KLM-03",
+          "name": "Trappers' Mall & Dunton Ranch",
+          "displayName": "Trappers' Mall & Dunton Ranch",
+          "x": 520,
+          "y": 280,
+          "coordinates": {
+            "x": 520,
+            "y": 280
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-KLM-04",
+          "name": "Rat Caves Subterranean Exit",
+          "displayName": "Rat Caves Subterranean Exit",
+          "x": 640,
+          "y": 340,
+          "coordinates": {
+            "x": 640,
+            "y": 340
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "FO2-KLM-01": [],
+        "FO2-KLM-02": [],
+        "FO2-KLM-03": [],
+        "FO2-KLM-04": []
+      },
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
+    },
+    "map_fo2_den": {
+      "id": "map_fo2_den",
+      "name": "The Den Commercial Sector",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-03",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_den",
+        "name": "denwestside.jpg",
+        "assetPath": "assets/map_fo2_den_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-DEN-01",
+          "name": "Becky's Casino & Dining Bar",
+          "label": "Becky's Casino & Dining Bar",
+          "coordinates": {
+            "x": 240,
+            "y": 260
+          },
+          "x": 240,
+          "y": 260,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-DEN-02",
+          "name": "Tubby's & Flick's Pawn Stash",
+          "label": "Tubby's & Flick's Pawn Stash",
+          "coordinates": {
+            "x": 380,
+            "y": 220
+          },
+          "x": 380,
+          "y": 220,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-DEN-03",
+          "name": "Metzger's Slaver Guild Compound",
+          "label": "Metzger's Slaver Guild Compound",
+          "coordinates": {
+            "x": 520,
+            "y": 280
+          },
+          "x": 520,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-DEN-04",
+          "name": "Smitty's Junkyard & Highwayman",
+          "label": "Smitty's Junkyard & Highwayman",
+          "coordinates": {
+            "x": 660,
+            "y": 340
+          },
+          "x": 660,
+          "y": 340,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-DEN-01",
+          "target": "FO2-DEN-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-DEN-02",
+          "target": "FO2-DEN-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-DEN-03",
+          "target": "FO2-DEN-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_modoc": {
+      "id": "map_fo2_modoc",
+      "name": "Modoc Township",
+      "scaleTier": "settlement",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-04",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_modoc",
+        "name": "modocmainstreet.jpg",
+        "assetPath": "assets/map_fo2_modoc_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-MDC-01",
+          "name": "Rose's Bed and Breakfast",
+          "label": "Rose's Bed and Breakfast",
+          "coordinates": {
+            "x": 240,
+            "y": 280
+          },
+          "x": 240,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-MDC-02",
+          "name": "General Store & Farrel's Garden",
+          "label": "General Store & Farrel's Garden",
+          "coordinates": {
+            "x": 400,
+            "y": 240
+          },
+          "x": 400,
+          "y": 240,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-MDC-03",
+          "name": "Main Street & Modoc Town Well",
+          "label": "Main Street & Modoc Town Well",
+          "coordinates": {
+            "x": 540,
+            "y": 300
+          },
+          "x": 540,
+          "y": 300,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-MDC-04",
+          "name": "Slag Ghost Farm Foothills",
+          "label": "Slag Ghost Farm Foothills",
+          "coordinates": {
+            "x": 680,
+            "y": 340
+          },
+          "x": 680,
+          "y": 340,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-MDC-01",
+          "target": "FO2-MDC-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-MDC-02",
+          "target": "FO2-MDC-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-MDC-03",
+          "target": "FO2-MDC-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_vault_city": {
+      "id": "map_fo2_vault_city",
+      "name": "Vault City Interior & Vault 8",
+      "scaleTier": "settlement",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-06",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_vault_city",
+        "name": "vaultcitydowntown.jpg",
+        "assetPath": "assets/map_fo2_vault_city_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-VC-01",
+          "name": "Courtyard & Customs Station",
+          "label": "Courtyard & Customs Station",
+          "coordinates": {
+            "x": 200,
+            "y": 300
+          },
+          "x": 200,
+          "y": 300,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-VC-02",
+          "name": "Main Street Downtown Commercial",
+          "label": "Main Street Downtown Commercial",
+          "coordinates": {
+            "x": 360,
+            "y": 260
+          },
+          "x": 360,
+          "y": 260,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-VC-03",
+          "name": "Council Hall of First Citizen",
+          "label": "Council Hall of First Citizen",
+          "coordinates": {
+            "x": 520,
+            "y": 240
+          },
+          "x": 520,
+          "y": 240,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-VC-04",
+          "name": "Vault 8 Sealed Blast Door",
+          "label": "Vault 8 Sealed Blast Door",
+          "coordinates": {
+            "x": 680,
+            "y": 300
+          },
+          "x": 680,
+          "y": 300,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-VC-01",
+          "target": "FO2-VC-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-VC-02",
+          "target": "FO2-VC-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-VC-03",
+          "target": "FO2-VC-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_gecko": {
+      "id": "map_fo2_gecko",
+      "name": "Gecko Power Station & Slums",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-05",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_gecko",
+        "name": "geckosettlement.jpg",
+        "assetPath": "assets/map_fo2_gecko_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-GCK-01",
+          "name": "Gecko Settlement & Harp Bar",
+          "label": "Gecko Settlement & Harp Bar",
+          "coordinates": {
+            "x": 220,
+            "y": 280
+          },
+          "x": 220,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-GCK-02",
+          "name": "Harold's Managerial Office",
+          "label": "Harold's Managerial Office",
+          "coordinates": {
+            "x": 380,
+            "y": 240
+          },
+          "x": 380,
+          "y": 240,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-GCK-03",
+          "name": "Poseidon Nuclear Reactor #5",
+          "label": "Poseidon Nuclear Reactor #5",
+          "coordinates": {
+            "x": 540,
+            "y": 280
+          },
+          "x": 540,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-GCK-04",
+          "name": "Coolant Control & Optimization Core",
+          "label": "Coolant Control & Optimization Core",
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "x": 680,
+          "y": 320,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-GCK-01",
+          "target": "FO2-GCK-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-GCK-02",
+          "target": "FO2-GCK-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-GCK-03",
+          "target": "FO2-GCK-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_broken_hills": {
+      "id": "map_fo2_broken_hills",
+      "name": "Broken Hills Uranium Mine",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-08",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_broken_hills",
+        "name": "brokenhillsdowntown.jpg",
+        "assetPath": "assets/map_fo2_broken_hills_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-BKH-01",
+          "name": "Marcus's Sheriff Office & Jail",
+          "label": "Marcus's Sheriff Office & Jail",
+          "coordinates": {
+            "x": 220,
+            "y": 280
+          },
+          "x": 220,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-BKH-02",
+          "name": "Downtown Bank & Uranium Refinery",
+          "label": "Downtown Bank & Uranium Refinery",
+          "coordinates": {
+            "x": 380,
+            "y": 240
+          },
+          "x": 380,
+          "y": 240,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-BKH-03",
+          "name": "Purifier Air Mine Shaft",
+          "label": "Purifier Air Mine Shaft",
+          "coordinates": {
+            "x": 540,
+            "y": 300
+          },
+          "x": 540,
+          "y": 300,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-BKH-04",
+          "name": "Residential & Mutant Conspirators",
+          "label": "Residential & Mutant Conspirators",
+          "coordinates": {
+            "x": 680,
+            "y": 340
+          },
+          "x": 680,
+          "y": 340,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-BKH-01",
+          "target": "FO2-BKH-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-BKH-02",
+          "target": "FO2-BKH-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-BKH-03",
+          "target": "FO2-BKH-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_new_reno": {
+      "id": "map_fo2_new_reno",
+      "name": "Metropolis of New Reno",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-09",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_new_reno",
+        "name": "newrenovirginstreet.jpg",
+        "assetPath": "assets/map_fo2_new_reno_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-RNO-01",
+          "name": "Virgin Street & Desperado Casino",
+          "label": "Virgin Street & Desperado Casino",
+          "coordinates": {
+            "x": 200,
+            "y": 280
+          },
+          "x": 200,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-RNO-02",
+          "name": "2nd Street & Shark Club (Bishop)",
+          "label": "2nd Street & Shark Club (Bishop)",
+          "coordinates": {
+            "x": 360,
+            "y": 240
+          },
+          "x": 360,
+          "y": 240,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-RNO-03",
+          "name": "Commercial Row & Arms Basement",
+          "label": "Commercial Row & Arms Basement",
+          "coordinates": {
+            "x": 520,
+            "y": 280
+          },
+          "x": 520,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-RNO-04",
+          "name": "Chop Shop & Stables Highway",
+          "label": "Chop Shop & Stables Highway",
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "x": 680,
+          "y": 320,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-RNO-01",
+          "target": "FO2-RNO-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-RNO-02",
+          "target": "FO2-RNO-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-RNO-03",
+          "target": "FO2-RNO-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_sierra": {
+      "id": "map_fo2_sierra",
+      "name": "Sierra Army Depot Sub-Levels",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-10",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_sierra",
+        "name": "sierraarmydepotbattlefield.jpg",
+        "assetPath": "assets/map_fo2_sierra_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-SAD-01",
+          "name": "Minefield & Automated Turrets",
+          "label": "Minefield & Automated Turrets",
+          "coordinates": {
+            "x": 200,
+            "y": 320
+          },
+          "x": 200,
+          "y": 320,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-SAD-02",
+          "name": "Depot Exterior Blast Hatch",
+          "label": "Depot Exterior Blast Hatch",
+          "coordinates": {
+            "x": 360,
+            "y": 260
+          },
+          "x": 360,
+          "y": 260,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-SAD-03",
+          "name": "Level 1 Personnel Quarters",
+          "label": "Level 1 Personnel Quarters",
+          "coordinates": {
+            "x": 520,
+            "y": 260
+          },
+          "x": 520,
+          "y": 260,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-SAD-04",
+          "name": "Level 3 Robotics Laboratory",
+          "label": "Level 3 Robotics Laboratory",
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "x": 680,
+          "y": 320,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-SAD-01",
+          "target": "FO2-SAD-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-SAD-02",
+          "target": "FO2-SAD-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-SAD-03",
+          "target": "FO2-SAD-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_ncr": {
+      "id": "map_fo2_ncr",
+      "name": "New California Republic Capital",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-11",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_ncr",
+        "name": "ncrdowntown.jpg",
+        "assetPath": "assets/map_fo2_ncr_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-NCR-01",
+          "name": "Outer Bazaar & Busty's Bar",
+          "label": "Outer Bazaar & Busty's Bar",
+          "coordinates": {
+            "x": 220,
+            "y": 280
+          },
+          "x": 220,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-NCR-02",
+          "name": "Downtown Police Station & Jail",
+          "label": "Downtown Police Station & Jail",
+          "coordinates": {
+            "x": 380,
+            "y": 240
+          },
+          "x": 380,
+          "y": 240,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-NCR-03",
+          "name": "Hall of Congress & President Tandi",
+          "label": "Hall of Congress & President Tandi",
+          "coordinates": {
+            "x": 540,
+            "y": 280
+          },
+          "x": 540,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-NCR-04",
+          "name": "Westin & Carlson Ranches",
+          "label": "Westin & Carlson Ranches",
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "x": 680,
+          "y": 320,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-NCR-01",
+          "target": "FO2-NCR-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-NCR-02",
+          "target": "FO2-NCR-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-NCR-03",
+          "target": "FO2-NCR-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_vault_15": {
+      "id": "map_fo2_vault_15",
+      "name": "Vault 15 Subterranean Complex",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-12",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_vault_15",
+        "name": "vault15squatters.jpg",
+        "assetPath": "assets/map_fo2_vault_15_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-V15-01",
+          "name": "Squatter Camp & Rebecca's Tent",
+          "label": "Squatter Camp & Rebecca's Tent",
+          "coordinates": {
+            "x": 220,
+            "y": 280
+          },
+          "x": 220,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-V15-02",
+          "name": "Collapsed Vault Cave Entrance",
+          "label": "Collapsed Vault Cave Entrance",
+          "coordinates": {
+            "x": 380,
+            "y": 240
+          },
+          "x": 380,
+          "y": 240,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-V15-03",
+          "name": "Level 2 Generator & Darion's Base",
+          "label": "Level 2 Generator & Darion's Base",
+          "coordinates": {
+            "x": 540,
+            "y": 280
+          },
+          "x": 540,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-V15-04",
+          "name": "Level 3 Computer & Computer Parts",
+          "label": "Level 3 Computer & Computer Parts",
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "x": 680,
+          "y": 320,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-V15-01",
+          "target": "FO2-V15-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-V15-02",
+          "target": "FO2-V15-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-V15-03",
+          "target": "FO2-V15-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_vault_13": {
+      "id": "map_fo2_vault_13",
+      "name": "Vault 13 Sanctum",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-13",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_vault_13",
+        "name": "vault13level1.jpg",
+        "assetPath": "assets/map_fo2_vault_13_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-V13-01",
+          "name": "Cave Antechamber & 13 Blast Door",
+          "label": "Cave Antechamber & 13 Blast Door",
+          "coordinates": {
+            "x": 220,
+            "y": 280
+          },
+          "x": 220,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-V13-02",
+          "name": "Level 1 Clinic & Gruthar the Pack",
+          "label": "Level 1 Clinic & Gruthar the Pack",
+          "coordinates": {
+            "x": 380,
+            "y": 240
+          },
+          "x": 380,
+          "y": 240,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-V13-03",
+          "name": "Level 2 Living Quarters",
+          "label": "Level 2 Living Quarters",
+          "coordinates": {
+            "x": 540,
+            "y": 280
+          },
+          "x": 540,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-V13-04",
+          "name": "Level 3 Mainframe & G.E.C.K. Vault",
+          "label": "Level 3 Mainframe & G.E.C.K. Vault",
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "x": 680,
+          "y": 320,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-V13-01",
+          "target": "FO2-V13-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-V13-02",
+          "target": "FO2-V13-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-V13-03",
+          "target": "FO2-V13-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_military_base": {
+      "id": "map_fo2_military_base",
+      "name": "Mariposa Military Base",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-14",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_military_base",
+        "name": "militarybaselevel1.jpg",
+        "assetPath": "assets/map_fo2_military_base_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-MB-01",
+          "name": "Excavated Blast Gate & Mutants",
+          "label": "Excavated Blast Gate & Mutants",
+          "coordinates": {
+            "x": 220,
+            "y": 280
+          },
+          "x": 220,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-MB-02",
+          "name": "Level 1 Power Generators",
+          "label": "Level 1 Power Generators",
+          "coordinates": {
+            "x": 380,
+            "y": 240
+          },
+          "x": 380,
+          "y": 240,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-MB-03",
+          "name": "Level 2 Research Labs",
+          "label": "Level 2 Research Labs",
+          "coordinates": {
+            "x": 540,
+            "y": 280
+          },
+          "x": 540,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-MB-04",
+          "name": "Level 3 & 4 Melchior's Pit",
+          "label": "Level 3 & 4 Melchior's Pit",
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "x": 680,
+          "y": 320,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-MB-01",
+          "target": "FO2-MB-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-MB-02",
+          "target": "FO2-MB-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-MB-03",
+          "target": "FO2-MB-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_redding": {
+      "id": "map_fo2_redding",
+      "name": "Redding Mining District",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-07",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_redding",
+        "name": "reddingdowntown.jpg",
+        "assetPath": "assets/map_fo2_redding_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-RDG-01",
+          "name": "Downtown & Malamute Saloon",
+          "displayName": "Downtown & Malamute Saloon",
+          "x": 220,
+          "y": 280,
+          "coordinates": {
+            "x": 220,
+            "y": 280
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-RDG-02",
+          "name": "Sheriff Marion's Precinct",
+          "displayName": "Sheriff Marion's Precinct",
+          "x": 380,
+          "y": 240,
+          "coordinates": {
+            "x": 380,
+            "y": 240
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-RDG-03",
+          "name": "Morningstar Mine Headquarters",
+          "displayName": "Morningstar Mine Headquarters",
+          "x": 540,
+          "y": 280,
+          "coordinates": {
+            "x": 540,
+            "y": 280
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-RDG-04",
+          "name": "Wanamingo Mine Deep Pit",
+          "displayName": "Wanamingo Mine Deep Pit",
+          "x": 680,
+          "y": 320,
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "FO2-RDG-01": [],
+        "FO2-RDG-02": [],
+        "FO2-RDG-03": [],
+        "FO2-RDG-04": []
+      },
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
+    },
+    "map_fo2_san_francisco": {
+      "id": "map_fo2_san_francisco",
+      "name": "San Francisco Metropolis",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-15",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_san_francisco",
+        "name": "sfochinatown.jpg",
+        "assetPath": "assets/map_fo2_san_francisco_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-SFO-01",
+          "name": "Chinatown Main Street & Red 888",
+          "displayName": "Chinatown Main Street & Red 888",
+          "x": 206,
+          "y": 268,
+          "coordinates": {
+            "x": 206,
+            "y": 268
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-SFO-02",
+          "name": "Shi Steel Palace & Emperor Computer",
+          "displayName": "Shi Steel Palace & Emperor Computer",
+          "x": 360,
+          "y": 240,
+          "coordinates": {
+            "x": 360,
+            "y": 240
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-SFO-03",
+          "name": "Hubologist Celestial Palace",
+          "displayName": "Hubologist Celestial Palace",
+          "x": 520,
+          "y": 280,
+          "coordinates": {
+            "x": 520,
+            "y": 280
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-SFO-04",
+          "name": "Docks & PMV Valdez Oil Tanker",
+          "displayName": "Docks & PMV Valdez Oil Tanker",
+          "x": 680,
+          "y": 320,
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "FO2-SFO-01": [],
+        "FO2-SFO-02": [],
+        "FO2-SFO-03": [],
+        "FO2-SFO-04": []
+      },
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
+    },
+    "map_fo2_navarro": {
+      "id": "map_fo2_navarro",
+      "name": "Navarro Enclave Forward Base",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-16",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_navarro",
+        "name": "navarrogasstation.jpg",
+        "assetPath": "assets/map_fo2_navarro_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-NAV-01",
+          "name": "Old Gas Station & Sneak Entrance",
+          "label": "Old Gas Station & Sneak Entrance",
+          "coordinates": {
+            "x": 220,
+            "y": 280
+          },
+          "x": 220,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-NAV-02",
+          "name": "Vertibird Hangar & Guard Base",
+          "label": "Vertibird Hangar & Guard Base",
+          "coordinates": {
+            "x": 380,
+            "y": 240
+          },
+          "x": 380,
+          "y": 240,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-NAV-03",
+          "name": "Underground Armory & APA Lockers",
+          "label": "Underground Armory & APA Lockers",
+          "coordinates": {
+            "x": 540,
+            "y": 280
+          },
+          "x": 540,
+          "y": 280,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        },
+        {
+          "id": "FO2-NAV-04",
+          "name": "Command Center & FOB Passkey Vault",
+          "label": "Command Center & FOB Passkey Vault",
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "x": 680,
+          "y": 320,
+          "layerId": "layer-nodes",
+          "scaleTier": "district"
+        }
+      ],
+      "links": [
+        {
+          "source": "FO2-NAV-01",
+          "target": "FO2-NAV-02",
+          "weight": 1
+        },
+        {
+          "source": "FO2-NAV-02",
+          "target": "FO2-NAV-03",
+          "weight": 1
+        },
+        {
+          "source": "FO2-NAV-03",
+          "target": "FO2-NAV-04",
+          "weight": 1
+        }
+      ],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {},
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": []
+    },
+    "map_fo2_enclave_oil_rig": {
+      "id": "map_fo2_enclave_oil_rig",
+      "name": "Control Station Enclave (Oil Rig)",
+      "scaleTier": "site",
+      "parentMapId": "map_fo2_worldmap",
+      "parentNodeId": "FO2-OW-17",
+      "dispositionModifier": "",
+      "mapMetadata": {
+        "id": "map_fo2_enclave_oil_rig",
+        "name": "enclavedock.jpg",
+        "assetPath": "assets/map_fo2_enclave_oil_rig_bg.jpg",
+        "width": 800,
+        "height": 600,
+        "opacity": 0.85
+      },
+      "nodes": [
+        {
+          "id": "FO2-ENC-01",
+          "name": "Rig Docking Bay & Security Turrets",
+          "displayName": "Rig Docking Bay & Security Turrets",
+          "x": 200,
+          "y": 280,
+          "coordinates": {
+            "x": 200,
+            "y": 280
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-ENC-02",
+          "name": "Barracks & Trap Floor Maze",
+          "displayName": "Barracks & Trap Floor Maze",
+          "x": 360,
+          "y": 240,
+          "coordinates": {
+            "x": 360,
+            "y": 240
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-ENC-03",
+          "name": "President Richardson's Office",
+          "displayName": "President Richardson's Office",
+          "x": 520,
+          "y": 280,
+          "coordinates": {
+            "x": 520,
+            "y": 280
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        },
+        {
+          "id": "FO2-ENC-04",
+          "name": "Reactor Core & Frank Horrigan Arena",
+          "displayName": "Reactor Core & Frank Horrigan Arena",
+          "x": 680,
+          "y": 320,
+          "coordinates": {
+            "x": 680,
+            "y": 320
+          },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
+        }
+      ],
+      "links": [],
+      "waves": [],
+      "drawnCards": {},
+      "nodeSlottedModules": {
+        "FO2-ENC-01": [],
+        "FO2-ENC-02": [],
+        "FO2-ENC-03": [],
+        "FO2-ENC-04": []
+      },
+      "edgeSlottedModules": {},
+      "layers": [
+        {
+          "id": "layer-nodes",
+          "name": "Tactical Points",
+          "visible": true,
+          "locked": false,
+          "zIndex": 0,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-bg",
+          "name": "Background & Grid",
+          "zIndex": 0,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-drawings",
+          "name": "Drawing Shapes",
+          "zIndex": 1,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-roads",
+          "name": "Transit Roads",
+          "zIndex": 2,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-hegemony",
+          "name": "Hegemony Conduits",
+          "zIndex": 3,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        },
+        {
+          "id": "layer-annotations",
+          "name": "Annotations & Clocks",
+          "zIndex": 5,
+          "visible": true,
+          "locked": false,
+          "opacity": 1,
+          "isCore": true
+        }
+      ],
+      "shapes": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
+    }
+  },
+  "activeTopology": {
+    "id": "map_fo2_enclave_oil_rig",
+    "name": "Control Station Enclave (Oil Rig)",
+    "campaignName": "Fallout 2: The Northern California Wasteland",
+    "rootMapId": "map_root",
+    "activeMapId": "map_root",
+    "nodes": {
+      "FO2-ENC-01": {
+        "id": "FO2-ENC-01",
+        "name": "Rig Docking Bay & Security Turrets",
+        "x": 200,
+        "y": 280,
+        "coordinates": {
+          "x": 200,
+          "y": 280
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Hierarchy",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "FO2-ENC-02": {
+        "id": "FO2-ENC-02",
+        "name": "Barracks & Trap Floor Maze",
+        "x": 360,
+        "y": 240,
+        "coordinates": {
+          "x": 360,
+          "y": 240
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Hierarchy",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "FO2-ENC-03": {
+        "id": "FO2-ENC-03",
+        "name": "President Richardson's Office",
+        "x": 520,
+        "y": 280,
+        "coordinates": {
+          "x": 520,
+          "y": 280
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Hierarchy",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "FO2-ENC-04": {
+        "id": "FO2-ENC-04",
+        "name": "Reactor Core & Frank Horrigan Arena",
+        "x": 680,
+        "y": 320,
+        "coordinates": {
+          "x": 680,
+          "y": 320
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Hierarchy",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      }
+    },
+    "links": [],
+    "waves": [],
+    "layers": [
+      {
+        "id": "layer-nodes",
+        "name": "Tactical Points",
+        "visible": true,
+        "locked": false,
+        "zIndex": 0,
+        "opacity": 1,
+        "isCore": true
+      },
+      {
+        "id": "layer-bg",
+        "name": "Background & Grid",
+        "zIndex": 0,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      },
+      {
+        "id": "layer-drawings",
+        "name": "Drawing Shapes",
+        "zIndex": 1,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      },
+      {
+        "id": "layer-roads",
+        "name": "Transit Roads",
+        "zIndex": 2,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      },
+      {
+        "id": "layer-hegemony",
+        "name": "Hegemony Conduits",
+        "zIndex": 3,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      },
+      {
+        "id": "layer-annotations",
+        "name": "Annotations & Clocks",
+        "zIndex": 5,
+        "visible": true,
+        "locked": false,
+        "opacity": 1,
+        "isCore": true
+      }
+    ],
+    "shapes": [],
+    "npcs": [
+      {
+        "id": "npc_sulik",
+        "name": "Sulik",
+        "nodeId": "FO2-KLM-01",
+        "submapId": "map_fo2_klamath",
+        "role": "Tribal Warrior & Shamanic Bone Reader",
+        "faction": "Arroyo Tribals",
+        "factionId": "faction_tribals",
+        "culture": "Clan",
+        "motivation": "Find his kidnapped sister and repay his debt to Maida Buckner.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_vic",
+        "name": "Vic the Trader",
+        "nodeId": "FO2-DEN-03",
+        "submapId": "map_fo2_den",
+        "role": "Tinkerer & Merchant",
+        "faction": "Independent Settlers",
+        "factionId": "faction_settlers",
+        "culture": "Market",
+        "motivation": "Escape Metzger's slaver lockup and assist the Chosen One with repair expertise.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 1
+        }
+      },
+      {
+        "id": "npc_cassidy",
+        "name": "John Cassidy",
+        "nodeId": "FO2-VC-01",
+        "submapId": "map_fo2_vault_city",
+        "role": "Grizzled Barkeep & Shotgunner",
+        "faction": "Independent Settlers",
+        "factionId": "faction_settlers",
+        "culture": "Market",
+        "motivation": "Leave his failing bar in the Vault City courtyard and see the wasteland one last time.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 2
+        }
+      },
+      {
+        "id": "npc_myron",
+        "name": "Myron",
+        "nodeId": "FO2-RNO-04",
+        "submapId": "map_fo2_new_reno",
+        "role": "Petulant Chemist & Jet Creator",
+        "faction": "Mordino Crime Family",
+        "factionId": "faction_reno_crime",
+        "culture": "Market",
+        "motivation": "Enjoy luxury, chems, and safety under armed protection.",
+        "dispositionToParty": -1,
+        "odv": {
+          "s": -2,
+          "e": 2,
+          "c": -2
+        }
+      },
+      {
+        "id": "npc_marcus",
+        "name": "Sheriff Marcus",
+        "nodeId": "FO2-BKH-01",
+        "submapId": "map_fo2_broken_hills",
+        "role": "Super Mutant Peacekeeper",
+        "faction": "Broken Hills Alliance",
+        "factionId": "faction_broken_hills",
+        "culture": "Clan",
+        "motivation": "Maintain peace between humans, ghouls, and super mutants in Broken Hills.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_goris",
+        "name": "Goris",
+        "nodeId": "FO2-V13-02",
+        "submapId": "map_fo2_vault_13",
+        "role": "Intelligent Deathclaw Scholar",
+        "faction": "Pack of Vault 13",
+        "factionId": "faction_deathclaws",
+        "culture": "Clan",
+        "motivation": "Study human philosophy and protect the intelligent pack from eradication.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_lynette",
+        "name": "First Citizen Lynette",
+        "nodeId": "FO2-VC-03",
+        "submapId": "map_fo2_vault_city",
+        "role": "Authoritarian Governor",
+        "faction": "Vault City",
+        "factionId": "faction_vault_city",
+        "culture": "Hierarchy",
+        "motivation": "Preserve genetic and cultural purity of Vault City; subjugate wasteland out-dwellers.",
+        "dispositionToParty": -2,
+        "odv": {
+          "s": -2,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_harold",
+        "name": "Harold the Ghoul",
+        "nodeId": "FO2-GCK-02",
+        "submapId": "map_fo2_gecko",
+        "role": "Ghoul Settlement Elder",
+        "faction": "Gecko Ghouls",
+        "factionId": "faction_gecko",
+        "culture": "Clan",
+        "motivation": "Procure a hydroelectric replacement part from Vault City so the reactor doesn't melt down.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 2
+        }
+      },
+      {
+        "id": "npc_tandi",
+        "name": "President Tandi",
+        "nodeId": "FO2-NCR-03",
+        "submapId": "map_fo2_ncr",
+        "role": "President of the New California Republic",
+        "faction": "New California Republic",
+        "factionId": "faction_ncr",
+        "culture": "Hierarchy",
+        "motivation": "Federate California's northern frontier under the rule of law and secure Vault 15 parts.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_bishop",
+        "name": "John Bishop",
+        "nodeId": "FO2-RNO-02",
+        "submapId": "map_fo2_new_reno",
+        "role": "Casino Patriarch & Political Schemer",
+        "faction": "Bishop Crime Family",
+        "factionId": "faction_reno_crime",
+        "culture": "Market",
+        "motivation": "Conspire with NCR and hire raiders to force Vault City into annexation.",
+        "dispositionToParty": -1,
+        "odv": {
+          "s": -2,
+          "e": 2,
+          "c": 2
+        }
+      },
+      {
+        "id": "npc_richardson",
+        "name": "President Dick Richardson",
+        "nodeId": "FO2-ENC-03",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "role": "President of the Enclave",
+        "faction": "The Enclave",
+        "factionId": "faction_enclave",
+        "culture": "Hierarchy",
+        "motivation": "Release modified FEV Curling-13 toxins into the global jet stream to purge impure mutant humanity.",
+        "dispositionToParty": -3,
+        "odv": {
+          "s": -3,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_horrigan",
+        "name": "Secret Service Agent Frank Horrigan",
+        "nodeId": "FO2-ENC-04",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "role": "Cybernetic Enclave Enforcer",
+        "faction": "The Enclave",
+        "factionId": "faction_enclave",
+        "culture": "Hierarchy",
+        "motivation": "Annihilate all enemies of the United States government and execute the Chosen One.",
+        "dispositionToParty": -3,
+        "odv": {
+          "s": -3,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_metzger",
+        "name": "Metzger",
+        "nodeId": "FO2-DEN-03",
+        "submapId": "map_fo2_den",
+        "role": "Slavers' Guildmaster",
+        "faction": "Slavers Guild",
+        "factionId": "faction_slavers",
+        "culture": "Market",
+        "motivation": "Extract maximum caps from human trafficking across the northern wastes.",
+        "dispositionToParty": -3,
+        "odv": {
+          "s": -3,
+          "e": 1,
+          "c": -2
+        }
+      },
+      {
+        "id": "npc_elder",
+        "name": "The Village Elder",
+        "nodeId": "FO2-ARY-01",
+        "submapId": "map_fo2_arroyo",
+        "role": "Mother & Spiritual Guide",
+        "faction": "Arroyo Tribals",
+        "factionId": "faction_tribals",
+        "culture": "Clan",
+        "motivation": "Save her starving people by dispatching the Chosen One to find the holy G.E.C.K.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_gruthar",
+        "name": "Gruthar",
+        "nodeId": "FO2-V13-01",
+        "submapId": "map_fo2_vault_13",
+        "role": "Deathclaw Clan Patriarch",
+        "faction": "Pack of Vault 13",
+        "factionId": "faction_deathclaws",
+        "culture": "Clan",
+        "motivation": "Protect his sentient pack from human fear and secure the Voice Recognition module.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 2
+        }
+      }
+    ],
+    "quests": [
+      {
+        "id": "qst_geck",
+        "title": "Retrieve the Holy G.E.C.K. for Starving Arroyo",
+        "nodeId": "FO2-OW-01",
+        "submapId": "map_fo2_arroyo",
+        "status": "Active",
+        "type": "Story",
+        "reward": "Salvation of Arroyo & 4000 XP"
+      },
+      {
+        "id": "qst_rescue_vic",
+        "title": "Rescue Vic the Trader from Metzger's Slaver Den",
+        "nodeId": "FO2-OW-03",
+        "submapId": "map_fo2_den",
+        "status": "Available",
+        "type": "Recruitment",
+        "reward": "Radio Repair & Vic Recruitable"
+      },
+      {
+        "id": "qst_gecko_reactor",
+        "title": "Optimize the Poseidon Gecko Nuclear Power Plant",
+        "nodeId": "FO2-OW-05",
+        "submapId": "map_fo2_gecko",
+        "status": "Available",
+        "type": "Regional",
+        "reward": "Peace with Vault City & 4500 XP"
+      },
+      {
+        "id": "qst_vault15_computer",
+        "title": "Retrieve Computer Parts from Vault 15 for NCR",
+        "nodeId": "FO2-OW-11",
+        "submapId": "map_fo2_ncr",
+        "status": "Available",
+        "type": "Faction",
+        "reward": "President Tandi's Alliance & Vault 13 Location"
+      },
+      {
+        "id": "qst_wright_murder",
+        "title": "Investigate the Murder of Richard Wright in New Reno",
+        "nodeId": "FO2-OW-09",
+        "submapId": "map_fo2_new_reno",
+        "status": "Available",
+        "type": "Mystery",
+        "reward": "Sierra Army Depot Coordinates & 2000 XP"
+      },
+      {
+        "id": "qst_valdez_fuel",
+        "title": "Fuel and Navigate the PMV Valdez to the Enclave Rig",
+        "nodeId": "FO2-OW-15",
+        "submapId": "map_fo2_san_francisco",
+        "status": "Available",
+        "type": "Climax",
+        "reward": "Access to Enclave Oil Rig & 5000 XP"
+      },
+      {
+        "id": "qst_destroy_oil_rig",
+        "title": "Infiltrate the Oil Rig and Terminate Frank Horrigan",
+        "nodeId": "FO2-OW-17",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "status": "Available",
+        "type": "Endgame",
+        "reward": "Completion of Campaign"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_geck",
+        "name": "Garden of Eden Creation Kit (G.E.C.K.)",
+        "nodeId": "FO2-V13-04",
+        "submapId": "map_fo2_vault_13",
+        "type": "Artifact",
+        "value": 50000,
+        "description": "Terraforming marvel containing cold fusion generators and recombinant seed banks."
+      },
+      {
+        "id": "item_apa",
+        "name": "Advanced Power Armor Mk II",
+        "nodeId": "FO2-NAV-03",
+        "submapId": "map_fo2_navarro",
+        "type": "Armor",
+        "value": 20000,
+        "description": "Enclave matte-black composite powered exoskeleton granting immense physical and radiation shielding."
+      },
+      {
+        "id": "item_bozar",
+        "name": "Bozar .223 Machine Gun",
+        "nodeId": "FO2-NCR-01",
+        "submapId": "map_fo2_ncr",
+        "type": "Weapon",
+        "value": 5250,
+        "description": "Devastating sniper-support heavy machine gun firing high-velocity 15-round bursts."
+      },
+      {
+        "id": "item_turbo_plasma",
+        "name": "Turbo Plasma Rifle",
+        "nodeId": "FO2-SFO-01",
+        "submapId": "map_fo2_san_francisco",
+        "type": "Weapon",
+        "value": 10000,
+        "description": "Supercharged plasma cannon firing accelerated superheated matter bolts."
+      },
+      {
+        "id": "item_highwayman",
+        "name": "Chryslus Motors Highwayman",
+        "nodeId": "FO2-DEN-04",
+        "submapId": "map_fo2_den",
+        "type": "Vehicle",
+        "value": 2000,
+        "description": "Fusion-powered pre-war sedan allowing rapid, fatigue-free wasteland overmap traversal."
+      },
+      {
+        "id": "item_pipboy_2000",
+        "name": "Pip-Boy 2000 Personal Terminal",
+        "nodeId": "FO2-ARY-01",
+        "submapId": "map_fo2_arroyo",
+        "type": "Tool",
+        "value": 1500,
+        "description": "Arm-mounted RobCo terminal with local maps, Geiger counter, and quest log."
+      },
+      {
+        "id": "item_vertibird_plans",
+        "name": "Vertibird Technical Flight Blueprints",
+        "nodeId": "FO2-NAV-04",
+        "submapId": "map_fo2_navarro",
+        "type": "Intel",
+        "value": 6000,
+        "description": "Classified schematics required by the Shi and Brotherhood of Steel."
+      },
+      {
+        "id": "item_presidential_fob",
+        "name": "Presidential Key FOB Access Card",
+        "nodeId": "FO2-ENC-03",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "type": "Key",
+        "value": 10000,
+        "description": "Biometric electronic keycard required to trigger emergency containment scuttling."
+      }
+    ],
+    "trackers": [
+      {
+        "id": "trk_enclave_clock",
+        "label": "Enclave FEV Toxin Release Clock",
+        "value": 3,
+        "max": 8
+      },
+      {
+        "id": "trk_arroyo_starvation",
+        "label": "Arroyo Starvation Drought Meter",
+        "value": 5,
+        "max": 10
+      }
+    ],
+    "tickets": [],
+    "edgeData": {},
+    "edgeNotes": {},
+    "custom_modules": [],
+    "deletedModules": [],
+    "deletedPrototypes": [],
+    "factions": [],
+    "scaleTier": "site",
+    "modData": {},
+    "description": "The complete Fallout 2 campaign ported to Creator Studio. Features a 17-node Northern California wasteland overmap and 17 scale-fluid submaps covering Arroyo, Den, Modoc, Vault City, Gecko, Broken Hills, New Reno, Sierra Army Depot, NCR, Vaults 13 & 15, Military Base, San Francisco, Navarro, and the Enclave Oil Rig.",
+    "campaign_modules": []
+  },
+  "edgeData": {},
+  "edgeNotes": {},
+  "nodes": {
+    "FO2-ENC-01": {
+      "id": "FO2-ENC-01",
+      "name": "Rig Docking Bay & Security Turrets",
+      "x": 200,
+      "y": 280,
+      "coordinates": {
+        "x": 200,
+        "y": 280
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "FO2-ENC-02": {
+      "id": "FO2-ENC-02",
+      "name": "Barracks & Trap Floor Maze",
+      "x": 360,
+      "y": 240,
+      "coordinates": {
+        "x": 360,
+        "y": 240
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "FO2-ENC-03": {
+      "id": "FO2-ENC-03",
+      "name": "President Richardson's Office",
+      "x": 520,
+      "y": 280,
+      "coordinates": {
+        "x": 520,
+        "y": 280
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "FO2-ENC-04": {
+      "id": "FO2-ENC-04",
+      "name": "Reactor Core & Frank Horrigan Arena",
+      "x": 680,
+      "y": 320,
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    }
+  },
+  "links": [],
+  "waves": [],
+  "entities": {
+    "npcs": [
+      {
+        "id": "npc_sulik",
+        "name": "Sulik",
+        "nodeId": "FO2-KLM-01",
+        "submapId": "map_fo2_klamath",
+        "role": "Tribal Warrior & Shamanic Bone Reader",
+        "faction": "Arroyo Tribals",
+        "factionId": "faction_tribals",
+        "culture": "Clan",
+        "motivation": "Find his kidnapped sister and repay his debt to Maida Buckner.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_vic",
+        "name": "Vic the Trader",
+        "nodeId": "FO2-DEN-03",
+        "submapId": "map_fo2_den",
+        "role": "Tinkerer & Merchant",
+        "faction": "Independent Settlers",
+        "factionId": "faction_settlers",
+        "culture": "Market",
+        "motivation": "Escape Metzger's slaver lockup and assist the Chosen One with repair expertise.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 1,
+          "e": 2,
+          "c": 1
+        }
+      },
+      {
+        "id": "npc_cassidy",
+        "name": "John Cassidy",
+        "nodeId": "FO2-VC-01",
+        "submapId": "map_fo2_vault_city",
+        "role": "Grizzled Barkeep & Shotgunner",
+        "faction": "Independent Settlers",
+        "factionId": "faction_settlers",
+        "culture": "Market",
+        "motivation": "Leave his failing bar in the Vault City courtyard and see the wasteland one last time.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 2
+        }
+      },
+      {
+        "id": "npc_myron",
+        "name": "Myron",
+        "nodeId": "FO2-RNO-04",
+        "submapId": "map_fo2_new_reno",
+        "role": "Petulant Chemist & Jet Creator",
+        "faction": "Mordino Crime Family",
+        "factionId": "faction_reno_crime",
+        "culture": "Market",
+        "motivation": "Enjoy luxury, chems, and safety under armed protection.",
+        "dispositionToParty": -1,
+        "odv": {
+          "s": -2,
+          "e": 2,
+          "c": -2
+        }
+      },
+      {
+        "id": "npc_marcus",
+        "name": "Sheriff Marcus",
+        "nodeId": "FO2-BKH-01",
+        "submapId": "map_fo2_broken_hills",
+        "role": "Super Mutant Peacekeeper",
+        "faction": "Broken Hills Alliance",
+        "factionId": "faction_broken_hills",
+        "culture": "Clan",
+        "motivation": "Maintain peace between humans, ghouls, and super mutants in Broken Hills.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_goris",
+        "name": "Goris",
+        "nodeId": "FO2-V13-02",
+        "submapId": "map_fo2_vault_13",
+        "role": "Intelligent Deathclaw Scholar",
+        "faction": "Pack of Vault 13",
+        "factionId": "faction_deathclaws",
+        "culture": "Clan",
+        "motivation": "Study human philosophy and protect the intelligent pack from eradication.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_lynette",
+        "name": "First Citizen Lynette",
+        "nodeId": "FO2-VC-03",
+        "submapId": "map_fo2_vault_city",
+        "role": "Authoritarian Governor",
+        "faction": "Vault City",
+        "factionId": "faction_vault_city",
+        "culture": "Hierarchy",
+        "motivation": "Preserve genetic and cultural purity of Vault City; subjugate wasteland out-dwellers.",
+        "dispositionToParty": -2,
+        "odv": {
+          "s": -2,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_harold",
+        "name": "Harold the Ghoul",
+        "nodeId": "FO2-GCK-02",
+        "submapId": "map_fo2_gecko",
+        "role": "Ghoul Settlement Elder",
+        "faction": "Gecko Ghouls",
+        "factionId": "faction_gecko",
+        "culture": "Clan",
+        "motivation": "Procure a hydroelectric replacement part from Vault City so the reactor doesn't melt down.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 2
+        }
+      },
+      {
+        "id": "npc_tandi",
+        "name": "President Tandi",
+        "nodeId": "FO2-NCR-03",
+        "submapId": "map_fo2_ncr",
+        "role": "President of the New California Republic",
+        "faction": "New California Republic",
+        "factionId": "faction_ncr",
+        "culture": "Hierarchy",
+        "motivation": "Federate California's northern frontier under the rule of law and secure Vault 15 parts.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 2,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_bishop",
+        "name": "John Bishop",
+        "nodeId": "FO2-RNO-02",
+        "submapId": "map_fo2_new_reno",
+        "role": "Casino Patriarch & Political Schemer",
+        "faction": "Bishop Crime Family",
+        "factionId": "faction_reno_crime",
+        "culture": "Market",
+        "motivation": "Conspire with NCR and hire raiders to force Vault City into annexation.",
+        "dispositionToParty": -1,
+        "odv": {
+          "s": -2,
+          "e": 2,
+          "c": 2
+        }
+      },
+      {
+        "id": "npc_richardson",
+        "name": "President Dick Richardson",
+        "nodeId": "FO2-ENC-03",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "role": "President of the Enclave",
+        "faction": "The Enclave",
+        "factionId": "faction_enclave",
+        "culture": "Hierarchy",
+        "motivation": "Release modified FEV Curling-13 toxins into the global jet stream to purge impure mutant humanity.",
+        "dispositionToParty": -3,
+        "odv": {
+          "s": -3,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_horrigan",
+        "name": "Secret Service Agent Frank Horrigan",
+        "nodeId": "FO2-ENC-04",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "role": "Cybernetic Enclave Enforcer",
+        "faction": "The Enclave",
+        "factionId": "faction_enclave",
+        "culture": "Hierarchy",
+        "motivation": "Annihilate all enemies of the United States government and execute the Chosen One.",
+        "dispositionToParty": -3,
+        "odv": {
+          "s": -3,
+          "e": 3,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_metzger",
+        "name": "Metzger",
+        "nodeId": "FO2-DEN-03",
+        "submapId": "map_fo2_den",
+        "role": "Slavers' Guildmaster",
+        "faction": "Slavers Guild",
+        "factionId": "faction_slavers",
+        "culture": "Market",
+        "motivation": "Extract maximum caps from human trafficking across the northern wastes.",
+        "dispositionToParty": -3,
+        "odv": {
+          "s": -3,
+          "e": 1,
+          "c": -2
+        }
+      },
+      {
+        "id": "npc_elder",
+        "name": "The Village Elder",
+        "nodeId": "FO2-ARY-01",
+        "submapId": "map_fo2_arroyo",
+        "role": "Mother & Spiritual Guide",
+        "faction": "Arroyo Tribals",
+        "factionId": "faction_tribals",
+        "culture": "Clan",
+        "motivation": "Save her starving people by dispatching the Chosen One to find the holy G.E.C.K.",
+        "dispositionToParty": 3,
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        }
+      },
+      {
+        "id": "npc_gruthar",
+        "name": "Gruthar",
+        "nodeId": "FO2-V13-01",
+        "submapId": "map_fo2_vault_13",
+        "role": "Deathclaw Clan Patriarch",
+        "faction": "Pack of Vault 13",
+        "factionId": "faction_deathclaws",
+        "culture": "Clan",
+        "motivation": "Protect his sentient pack from human fear and secure the Voice Recognition module.",
+        "dispositionToParty": 2,
+        "odv": {
+          "s": 3,
+          "e": 2,
+          "c": 2
+        }
+      }
+    ],
+    "quests": [
+      {
+        "id": "qst_geck",
+        "title": "Retrieve the Holy G.E.C.K. for Starving Arroyo",
+        "nodeId": "FO2-OW-01",
+        "submapId": "map_fo2_arroyo",
+        "status": "Active",
+        "type": "Story",
+        "reward": "Salvation of Arroyo & 4000 XP"
+      },
+      {
+        "id": "qst_rescue_vic",
+        "title": "Rescue Vic the Trader from Metzger's Slaver Den",
+        "nodeId": "FO2-OW-03",
+        "submapId": "map_fo2_den",
+        "status": "Available",
+        "type": "Recruitment",
+        "reward": "Radio Repair & Vic Recruitable"
+      },
+      {
+        "id": "qst_gecko_reactor",
+        "title": "Optimize the Poseidon Gecko Nuclear Power Plant",
+        "nodeId": "FO2-OW-05",
+        "submapId": "map_fo2_gecko",
+        "status": "Available",
+        "type": "Regional",
+        "reward": "Peace with Vault City & 4500 XP"
+      },
+      {
+        "id": "qst_vault15_computer",
+        "title": "Retrieve Computer Parts from Vault 15 for NCR",
+        "nodeId": "FO2-OW-11",
+        "submapId": "map_fo2_ncr",
+        "status": "Available",
+        "type": "Faction",
+        "reward": "President Tandi's Alliance & Vault 13 Location"
+      },
+      {
+        "id": "qst_wright_murder",
+        "title": "Investigate the Murder of Richard Wright in New Reno",
+        "nodeId": "FO2-OW-09",
+        "submapId": "map_fo2_new_reno",
+        "status": "Available",
+        "type": "Mystery",
+        "reward": "Sierra Army Depot Coordinates & 2000 XP"
+      },
+      {
+        "id": "qst_valdez_fuel",
+        "title": "Fuel and Navigate the PMV Valdez to the Enclave Rig",
+        "nodeId": "FO2-OW-15",
+        "submapId": "map_fo2_san_francisco",
+        "status": "Available",
+        "type": "Climax",
+        "reward": "Access to Enclave Oil Rig & 5000 XP"
+      },
+      {
+        "id": "qst_destroy_oil_rig",
+        "title": "Infiltrate the Oil Rig and Terminate Frank Horrigan",
+        "nodeId": "FO2-OW-17",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "status": "Available",
+        "type": "Endgame",
+        "reward": "Completion of Campaign"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_geck",
+        "name": "Garden of Eden Creation Kit (G.E.C.K.)",
+        "nodeId": "FO2-V13-04",
+        "submapId": "map_fo2_vault_13",
+        "type": "Artifact",
+        "value": 50000,
+        "description": "Terraforming marvel containing cold fusion generators and recombinant seed banks."
+      },
+      {
+        "id": "item_apa",
+        "name": "Advanced Power Armor Mk II",
+        "nodeId": "FO2-NAV-03",
+        "submapId": "map_fo2_navarro",
+        "type": "Armor",
+        "value": 20000,
+        "description": "Enclave matte-black composite powered exoskeleton granting immense physical and radiation shielding."
+      },
+      {
+        "id": "item_bozar",
+        "name": "Bozar .223 Machine Gun",
+        "nodeId": "FO2-NCR-01",
+        "submapId": "map_fo2_ncr",
+        "type": "Weapon",
+        "value": 5250,
+        "description": "Devastating sniper-support heavy machine gun firing high-velocity 15-round bursts."
+      },
+      {
+        "id": "item_turbo_plasma",
+        "name": "Turbo Plasma Rifle",
+        "nodeId": "FO2-SFO-01",
+        "submapId": "map_fo2_san_francisco",
+        "type": "Weapon",
+        "value": 10000,
+        "description": "Supercharged plasma cannon firing accelerated superheated matter bolts."
+      },
+      {
+        "id": "item_highwayman",
+        "name": "Chryslus Motors Highwayman",
+        "nodeId": "FO2-DEN-04",
+        "submapId": "map_fo2_den",
+        "type": "Vehicle",
+        "value": 2000,
+        "description": "Fusion-powered pre-war sedan allowing rapid, fatigue-free wasteland overmap traversal."
+      },
+      {
+        "id": "item_pipboy_2000",
+        "name": "Pip-Boy 2000 Personal Terminal",
+        "nodeId": "FO2-ARY-01",
+        "submapId": "map_fo2_arroyo",
+        "type": "Tool",
+        "value": 1500,
+        "description": "Arm-mounted RobCo terminal with local maps, Geiger counter, and quest log."
+      },
+      {
+        "id": "item_vertibird_plans",
+        "name": "Vertibird Technical Flight Blueprints",
+        "nodeId": "FO2-NAV-04",
+        "submapId": "map_fo2_navarro",
+        "type": "Intel",
+        "value": 6000,
+        "description": "Classified schematics required by the Shi and Brotherhood of Steel."
+      },
+      {
+        "id": "item_presidential_fob",
+        "name": "Presidential Key FOB Access Card",
+        "nodeId": "FO2-ENC-03",
+        "submapId": "map_fo2_enclave_oil_rig",
+        "type": "Key",
+        "value": 10000,
+        "description": "Biometric electronic keycard required to trigger emergency containment scuttling."
+      }
+    ],
+    "trackers": [
+      {
+        "id": "trk_enclave_clock",
+        "label": "Enclave FEV Toxin Release Clock",
+        "value": 3,
+        "max": 8
+      },
+      {
+        "id": "trk_arroyo_starvation",
+        "label": "Arroyo Starvation Drought Meter",
+        "value": 5,
+        "max": 10
+      }
+    ],
+    "tickets": [],
+    "custom_modules": [],
+    "deletedModules": [],
+    "deletedPrototypes": []
+  },
+  "npcs": [
+    {
+      "id": "npc_sulik",
+      "name": "Sulik",
+      "nodeId": "FO2-KLM-01",
+      "submapId": "map_fo2_klamath",
+      "role": "Tribal Warrior & Shamanic Bone Reader",
+      "faction": "Arroyo Tribals",
+      "factionId": "faction_tribals",
+      "culture": "Clan",
+      "motivation": "Find his kidnapped sister and repay his debt to Maida Buckner.",
+      "dispositionToParty": 3,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 3
+      }
+    },
+    {
+      "id": "npc_vic",
+      "name": "Vic the Trader",
+      "nodeId": "FO2-DEN-03",
+      "submapId": "map_fo2_den",
+      "role": "Tinkerer & Merchant",
+      "faction": "Independent Settlers",
+      "factionId": "faction_settlers",
+      "culture": "Market",
+      "motivation": "Escape Metzger's slaver lockup and assist the Chosen One with repair expertise.",
+      "dispositionToParty": 2,
+      "odv": {
+        "s": 1,
+        "e": 2,
+        "c": 1
+      }
+    },
+    {
+      "id": "npc_cassidy",
+      "name": "John Cassidy",
+      "nodeId": "FO2-VC-01",
+      "submapId": "map_fo2_vault_city",
+      "role": "Grizzled Barkeep & Shotgunner",
+      "faction": "Independent Settlers",
+      "factionId": "faction_settlers",
+      "culture": "Market",
+      "motivation": "Leave his failing bar in the Vault City courtyard and see the wasteland one last time.",
+      "dispositionToParty": 2,
+      "odv": {
+        "s": 2,
+        "e": 1,
+        "c": 2
+      }
+    },
+    {
+      "id": "npc_myron",
+      "name": "Myron",
+      "nodeId": "FO2-RNO-04",
+      "submapId": "map_fo2_new_reno",
+      "role": "Petulant Chemist & Jet Creator",
+      "faction": "Mordino Crime Family",
+      "factionId": "faction_reno_crime",
+      "culture": "Market",
+      "motivation": "Enjoy luxury, chems, and safety under armed protection.",
+      "dispositionToParty": -1,
+      "odv": {
+        "s": -2,
+        "e": 2,
+        "c": -2
+      }
+    },
+    {
+      "id": "npc_marcus",
+      "name": "Sheriff Marcus",
+      "nodeId": "FO2-BKH-01",
+      "submapId": "map_fo2_broken_hills",
+      "role": "Super Mutant Peacekeeper",
+      "faction": "Broken Hills Alliance",
+      "factionId": "faction_broken_hills",
+      "culture": "Clan",
+      "motivation": "Maintain peace between humans, ghouls, and super mutants in Broken Hills.",
+      "dispositionToParty": 2,
+      "odv": {
+        "s": 3,
+        "e": 2,
+        "c": 3
+      }
+    },
+    {
+      "id": "npc_goris",
+      "name": "Goris",
+      "nodeId": "FO2-V13-02",
+      "submapId": "map_fo2_vault_13",
+      "role": "Intelligent Deathclaw Scholar",
+      "faction": "Pack of Vault 13",
+      "factionId": "faction_deathclaws",
+      "culture": "Clan",
+      "motivation": "Study human philosophy and protect the intelligent pack from eradication.",
+      "dispositionToParty": 3,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 3
+      }
+    },
+    {
+      "id": "npc_lynette",
+      "name": "First Citizen Lynette",
+      "nodeId": "FO2-VC-03",
+      "submapId": "map_fo2_vault_city",
+      "role": "Authoritarian Governor",
+      "faction": "Vault City",
+      "factionId": "faction_vault_city",
+      "culture": "Hierarchy",
+      "motivation": "Preserve genetic and cultural purity of Vault City; subjugate wasteland out-dwellers.",
+      "dispositionToParty": -2,
+      "odv": {
+        "s": -2,
+        "e": 3,
+        "c": 3
+      }
+    },
+    {
+      "id": "npc_harold",
+      "name": "Harold the Ghoul",
+      "nodeId": "FO2-GCK-02",
+      "submapId": "map_fo2_gecko",
+      "role": "Ghoul Settlement Elder",
+      "faction": "Gecko Ghouls",
+      "factionId": "faction_gecko",
+      "culture": "Clan",
+      "motivation": "Procure a hydroelectric replacement part from Vault City so the reactor doesn't melt down.",
+      "dispositionToParty": 3,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 2
+      }
+    },
+    {
+      "id": "npc_tandi",
+      "name": "President Tandi",
+      "nodeId": "FO2-NCR-03",
+      "submapId": "map_fo2_ncr",
+      "role": "President of the New California Republic",
+      "faction": "New California Republic",
+      "factionId": "faction_ncr",
+      "culture": "Hierarchy",
+      "motivation": "Federate California's northern frontier under the rule of law and secure Vault 15 parts.",
+      "dispositionToParty": 2,
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 3
+      }
+    },
+    {
+      "id": "npc_bishop",
+      "name": "John Bishop",
+      "nodeId": "FO2-RNO-02",
+      "submapId": "map_fo2_new_reno",
+      "role": "Casino Patriarch & Political Schemer",
+      "faction": "Bishop Crime Family",
+      "factionId": "faction_reno_crime",
+      "culture": "Market",
+      "motivation": "Conspire with NCR and hire raiders to force Vault City into annexation.",
+      "dispositionToParty": -1,
+      "odv": {
+        "s": -2,
+        "e": 2,
+        "c": 2
+      }
+    },
+    {
+      "id": "npc_richardson",
+      "name": "President Dick Richardson",
+      "nodeId": "FO2-ENC-03",
+      "submapId": "map_fo2_enclave_oil_rig",
+      "role": "President of the Enclave",
+      "faction": "The Enclave",
+      "factionId": "faction_enclave",
+      "culture": "Hierarchy",
+      "motivation": "Release modified FEV Curling-13 toxins into the global jet stream to purge impure mutant humanity.",
+      "dispositionToParty": -3,
+      "odv": {
+        "s": -3,
+        "e": 3,
+        "c": 3
+      }
+    },
+    {
+      "id": "npc_horrigan",
+      "name": "Secret Service Agent Frank Horrigan",
+      "nodeId": "FO2-ENC-04",
+      "submapId": "map_fo2_enclave_oil_rig",
+      "role": "Cybernetic Enclave Enforcer",
+      "faction": "The Enclave",
+      "factionId": "faction_enclave",
+      "culture": "Hierarchy",
+      "motivation": "Annihilate all enemies of the United States government and execute the Chosen One.",
+      "dispositionToParty": -3,
+      "odv": {
+        "s": -3,
+        "e": 3,
+        "c": 3
+      }
+    },
+    {
+      "id": "npc_metzger",
+      "name": "Metzger",
+      "nodeId": "FO2-DEN-03",
+      "submapId": "map_fo2_den",
+      "role": "Slavers' Guildmaster",
+      "faction": "Slavers Guild",
+      "factionId": "faction_slavers",
+      "culture": "Market",
+      "motivation": "Extract maximum caps from human trafficking across the northern wastes.",
+      "dispositionToParty": -3,
+      "odv": {
+        "s": -3,
+        "e": 1,
+        "c": -2
+      }
+    },
+    {
+      "id": "npc_elder",
+      "name": "The Village Elder",
+      "nodeId": "FO2-ARY-01",
+      "submapId": "map_fo2_arroyo",
+      "role": "Mother & Spiritual Guide",
+      "faction": "Arroyo Tribals",
+      "factionId": "faction_tribals",
+      "culture": "Clan",
+      "motivation": "Save her starving people by dispatching the Chosen One to find the holy G.E.C.K.",
+      "dispositionToParty": 3,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 3
+      }
+    },
+    {
+      "id": "npc_gruthar",
+      "name": "Gruthar",
+      "nodeId": "FO2-V13-01",
+      "submapId": "map_fo2_vault_13",
+      "role": "Deathclaw Clan Patriarch",
+      "faction": "Pack of Vault 13",
+      "factionId": "faction_deathclaws",
+      "culture": "Clan",
+      "motivation": "Protect his sentient pack from human fear and secure the Voice Recognition module.",
+      "dispositionToParty": 2,
+      "odv": {
+        "s": 3,
+        "e": 2,
+        "c": 2
+      }
+    }
+  ],
+  "quests": [
+    {
+      "id": "qst_geck",
+      "title": "Retrieve the Holy G.E.C.K. for Starving Arroyo",
+      "nodeId": "FO2-OW-01",
+      "submapId": "map_fo2_arroyo",
+      "status": "Active",
+      "type": "Story",
+      "reward": "Salvation of Arroyo & 4000 XP"
+    },
+    {
+      "id": "qst_rescue_vic",
+      "title": "Rescue Vic the Trader from Metzger's Slaver Den",
+      "nodeId": "FO2-OW-03",
+      "submapId": "map_fo2_den",
+      "status": "Available",
+      "type": "Recruitment",
+      "reward": "Radio Repair & Vic Recruitable"
+    },
+    {
+      "id": "qst_gecko_reactor",
+      "title": "Optimize the Poseidon Gecko Nuclear Power Plant",
+      "nodeId": "FO2-OW-05",
+      "submapId": "map_fo2_gecko",
+      "status": "Available",
+      "type": "Regional",
+      "reward": "Peace with Vault City & 4500 XP"
+    },
+    {
+      "id": "qst_vault15_computer",
+      "title": "Retrieve Computer Parts from Vault 15 for NCR",
+      "nodeId": "FO2-OW-11",
+      "submapId": "map_fo2_ncr",
+      "status": "Available",
+      "type": "Faction",
+      "reward": "President Tandi's Alliance & Vault 13 Location"
+    },
+    {
+      "id": "qst_wright_murder",
+      "title": "Investigate the Murder of Richard Wright in New Reno",
+      "nodeId": "FO2-OW-09",
+      "submapId": "map_fo2_new_reno",
+      "status": "Available",
+      "type": "Mystery",
+      "reward": "Sierra Army Depot Coordinates & 2000 XP"
+    },
+    {
+      "id": "qst_valdez_fuel",
+      "title": "Fuel and Navigate the PMV Valdez to the Enclave Rig",
+      "nodeId": "FO2-OW-15",
+      "submapId": "map_fo2_san_francisco",
+      "status": "Available",
+      "type": "Climax",
+      "reward": "Access to Enclave Oil Rig & 5000 XP"
+    },
+    {
+      "id": "qst_destroy_oil_rig",
+      "title": "Infiltrate the Oil Rig and Terminate Frank Horrigan",
+      "nodeId": "FO2-OW-17",
+      "submapId": "map_fo2_enclave_oil_rig",
+      "status": "Available",
+      "type": "Endgame",
+      "reward": "Completion of Campaign"
+    }
+  ],
+  "items": [
+    {
+      "id": "item_geck",
+      "name": "Garden of Eden Creation Kit (G.E.C.K.)",
+      "nodeId": "FO2-V13-04",
+      "submapId": "map_fo2_vault_13",
+      "type": "Artifact",
+      "value": 50000,
+      "description": "Terraforming marvel containing cold fusion generators and recombinant seed banks."
+    },
+    {
+      "id": "item_apa",
+      "name": "Advanced Power Armor Mk II",
+      "nodeId": "FO2-NAV-03",
+      "submapId": "map_fo2_navarro",
+      "type": "Armor",
+      "value": 20000,
+      "description": "Enclave matte-black composite powered exoskeleton granting immense physical and radiation shielding."
+    },
+    {
+      "id": "item_bozar",
+      "name": "Bozar .223 Machine Gun",
+      "nodeId": "FO2-NCR-01",
+      "submapId": "map_fo2_ncr",
+      "type": "Weapon",
+      "value": 5250,
+      "description": "Devastating sniper-support heavy machine gun firing high-velocity 15-round bursts."
+    },
+    {
+      "id": "item_turbo_plasma",
+      "name": "Turbo Plasma Rifle",
+      "nodeId": "FO2-SFO-01",
+      "submapId": "map_fo2_san_francisco",
+      "type": "Weapon",
+      "value": 10000,
+      "description": "Supercharged plasma cannon firing accelerated superheated matter bolts."
+    },
+    {
+      "id": "item_highwayman",
+      "name": "Chryslus Motors Highwayman",
+      "nodeId": "FO2-DEN-04",
+      "submapId": "map_fo2_den",
+      "type": "Vehicle",
+      "value": 2000,
+      "description": "Fusion-powered pre-war sedan allowing rapid, fatigue-free wasteland overmap traversal."
+    },
+    {
+      "id": "item_pipboy_2000",
+      "name": "Pip-Boy 2000 Personal Terminal",
+      "nodeId": "FO2-ARY-01",
+      "submapId": "map_fo2_arroyo",
+      "type": "Tool",
+      "value": 1500,
+      "description": "Arm-mounted RobCo terminal with local maps, Geiger counter, and quest log."
+    },
+    {
+      "id": "item_vertibird_plans",
+      "name": "Vertibird Technical Flight Blueprints",
+      "nodeId": "FO2-NAV-04",
+      "submapId": "map_fo2_navarro",
+      "type": "Intel",
+      "value": 6000,
+      "description": "Classified schematics required by the Shi and Brotherhood of Steel."
+    },
+    {
+      "id": "item_presidential_fob",
+      "name": "Presidential Key FOB Access Card",
+      "nodeId": "FO2-ENC-03",
+      "submapId": "map_fo2_enclave_oil_rig",
+      "type": "Key",
+      "value": 10000,
+      "description": "Biometric electronic keycard required to trigger emergency containment scuttling."
+    }
+  ],
+  "trackers": [
+    {
+      "id": "trk_enclave_clock",
+      "label": "Enclave FEV Toxin Release Clock",
+      "value": 3,
+      "max": 8
+    },
+    {
+      "id": "trk_arroyo_starvation",
+      "label": "Arroyo Starvation Drought Meter",
+      "value": 5,
+      "max": 10
+    }
+  ],
+  "tickets": [],
+  "custom_modules": [],
+  "deletedModules": [],
+  "deletedPrototypes": []
+}

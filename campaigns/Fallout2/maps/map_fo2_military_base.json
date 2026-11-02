@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_military_base",
+  "name": "Mariposa Military Base",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-14",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_military_base",
+    "name": "militarybaselevel1.jpg",
+    "assetPath": "assets/militarybaselevel1.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-MB-01",
+      "name": "Excavated Blast Gate & Mutants",
+      "label": "Excavated Blast Gate & Mutants",
+      "coordinates": {
+        "x": 220,
+        "y": 280
+      },
+      "x": 220,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-MB-02",
+      "name": "Level 1 Power Generators",
+      "label": "Level 1 Power Generators",
+      "coordinates": {
+        "x": 380,
+        "y": 240
+      },
+      "x": 380,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-MB-03",
+      "name": "Level 2 Research Labs",
+      "label": "Level 2 Research Labs",
+      "coordinates": {
+        "x": 540,
+        "y": 280
+      },
+      "x": 540,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-MB-04",
+      "name": "Level 3 & 4 Melchior's Pit",
+      "label": "Level 3 & 4 Melchior's Pit",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-MB-01",
+      "target": "FO2-MB-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-MB-02",
+      "target": "FO2-MB-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-MB-03",
+      "target": "FO2-MB-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

@@ -46,12 +46,13 @@ function ensureDir(dirPath) {
 }
 
 function safeWriteFileSync(filePath, data, encoding = 'utf8') {
-  for (let attempt = 1; attempt <= 4; attempt++) {
+  ensureDir(path.dirname(filePath));
+  for (let attempt = 1; attempt <= 6; attempt++) {
     try {
       return fs.writeFileSync(filePath, data, encoding);
     } catch (err) {
-      if ((err.code === 'EBUSY' || err.code === 'UNKNOWN' || err.errno === -4094) && attempt < 4) {
-        const waitMs = attempt * 60;
+      if ((err.code === 'EBUSY' || err.code === 'UNKNOWN' || err.code === 'EPERM' || err.errno === -4094) && attempt < 6) {
+        const waitMs = attempt * 120;
         const end = Date.now() + waitMs;
         while (Date.now() < end) {}
         continue;

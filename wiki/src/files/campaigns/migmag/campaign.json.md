@@ -4,8 +4,8 @@ title: "campaign.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
 current_hash: "f196703777e26769"
-reviewed_hash: "36756cfb1f271cbd"
-stale: true
+reviewed_hash: "f196703777e26769"
+stale: false
 size_bytes: 41066
 line_count: 1050
 ---

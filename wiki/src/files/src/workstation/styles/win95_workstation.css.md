@@ -4,8 +4,8 @@ title: "win95_workstation.css"
 volume: "vol-4"
 kind: "Workstation Shell Template"
 current_hash: "38b654f0238e7063"
-reviewed_hash: "ba83d35af6666654"
-stale: true
+reviewed_hash: "38b654f0238e7063"
+stale: false
 size_bytes: 39349
 line_count: 1850
 ---

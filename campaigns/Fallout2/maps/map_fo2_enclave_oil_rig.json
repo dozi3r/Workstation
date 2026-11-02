@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_enclave_oil_rig",
+  "name": "Control Station Enclave (Oil Rig)",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-17",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_enclave_oil_rig",
+    "name": "enclavedock.jpg",
+    "assetPath": "assets/enclavedock.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-ENC-01",
+      "name": "Rig Docking Bay & Security Turrets",
+      "label": "Rig Docking Bay & Security Turrets",
+      "coordinates": {
+        "x": 200,
+        "y": 280
+      },
+      "x": 200,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-ENC-02",
+      "name": "Barracks & Trap Floor Maze",
+      "label": "Barracks & Trap Floor Maze",
+      "coordinates": {
+        "x": 360,
+        "y": 240
+      },
+      "x": 360,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-ENC-03",
+      "name": "President Richardson's Office",
+      "label": "President Richardson's Office",
+      "coordinates": {
+        "x": 520,
+        "y": 280
+      },
+      "x": 520,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-ENC-04",
+      "name": "Reactor Core & Frank Horrigan Arena",
+      "label": "Reactor Core & Frank Horrigan Arena",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-ENC-01",
+      "target": "FO2-ENC-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-ENC-02",
+      "target": "FO2-ENC-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-ENC-03",
+      "target": "FO2-ENC-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

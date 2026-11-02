@@ -1,0 +1,100 @@
+{
+  "id": "map_fo2_vault_15",
+  "name": "Vault 15 Subterranean Complex",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-12",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_vault_15",
+    "name": "vault15squatters.jpg",
+    "assetPath": "assets/vault15squatters.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-V15-01",
+      "name": "Squatter Camp & Rebecca's Tent",
+      "label": "Squatter Camp & Rebecca's Tent",
+      "coordinates": {
+        "x": 220,
+        "y": 280
+      },
+      "x": 220,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-V15-02",
+      "name": "Collapsed Vault Cave Entrance",
+      "label": "Collapsed Vault Cave Entrance",
+      "coordinates": {
+        "x": 380,
+        "y": 240
+      },
+      "x": 380,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-V15-03",
+      "name": "Level 2 Generator & Darion's Base",
+      "label": "Level 2 Generator & Darion's Base",
+      "coordinates": {
+        "x": 540,
+        "y": 280
+      },
+      "x": 540,
+      "y": 280,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-V15-04",
+      "name": "Level 3 Computer & Computer Parts",
+      "label": "Level 3 Computer & Computer Parts",
+      "coordinates": {
+        "x": 680,
+        "y": 320
+      },
+      "x": 680,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-V15-01",
+      "target": "FO2-V15-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-V15-02",
+      "target": "FO2-V15-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-V15-03",
+      "target": "FO2-V15-04",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}

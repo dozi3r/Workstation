@@ -4,8 +4,8 @@ title: "canvas_hud.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
 current_hash: "d44a90dac6e9ad8c"
-reviewed_hash: "a259799418c0260c"
-stale: true
+reviewed_hash: "d44a90dac6e9ad8c"
+stale: false
 size_bytes: 52826
 line_count: 1239
 ---

@@ -4,8 +4,8 @@ title: "map_store.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
 current_hash: "8d20987487c4821e"
-reviewed_hash: "e063d6409cd26612"
-stale: true
+reviewed_hash: "8d20987487c4821e"
+stale: false
 size_bytes: 110825
 line_count: 2687
 ---

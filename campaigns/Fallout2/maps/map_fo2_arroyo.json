@@ -1,0 +1,120 @@
+{
+  "id": "map_fo2_arroyo",
+  "name": "Arroyo Tribal Settlement",
+  "scaleTier": "site",
+  "parentMapId": "map_fo2_worldmap",
+  "parentNodeId": "FO2-OW-01",
+  "dispositionModifier": "",
+  "mapMetadata": {
+    "id": "map_fo2_arroyo",
+    "name": "arroyovillage.jpg",
+    "assetPath": "assets/arroyovillage.jpg",
+    "width": 800,
+    "height": 600,
+    "opacity": 0.85
+  },
+  "nodes": [
+    {
+      "id": "FO2-ARY-01",
+      "name": "Elder's Tent & Arroyo Well",
+      "label": "Elder's Tent & Arroyo Well",
+      "coordinates": {
+        "x": 220,
+        "y": 260
+      },
+      "x": 220,
+      "y": 260,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-ARY-02",
+      "name": "Hakunin's Herbal Garden",
+      "label": "Hakunin's Herbal Garden",
+      "coordinates": {
+        "x": 360,
+        "y": 240
+      },
+      "x": 360,
+      "y": 240,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-ARY-03",
+      "name": "Arroyo Bridge & Great Cliff",
+      "label": "Arroyo Bridge & Great Cliff",
+      "coordinates": {
+        "x": 480,
+        "y": 320
+      },
+      "x": 480,
+      "y": 320,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    },
+    {
+      "id": "FO2-ARY-04",
+      "name": "Temple of Trials Entrance",
+      "label": "Temple of Trials Entrance",
+      "coordinates": {
+        "x": 620,
+        "y": 200
+      },
+      "x": 620,
+      "y": 200,
+      "layerId": "layer-nodes",
+      "scaleTier": "district",
+      "type": "portal",
+      "childMapId": "map_fo2_temple"
+    },
+    {
+      "id": "FO2-ARY-05",
+      "name": "Nagor's Hunting Grounds",
+      "label": "Nagor's Hunting Grounds",
+      "coordinates": {
+        "x": 260,
+        "y": 420
+      },
+      "x": 260,
+      "y": 420,
+      "layerId": "layer-nodes",
+      "scaleTier": "district"
+    }
+  ],
+  "links": [
+    {
+      "source": "FO2-ARY-01",
+      "target": "FO2-ARY-02",
+      "weight": 1
+    },
+    {
+      "source": "FO2-ARY-02",
+      "target": "FO2-ARY-03",
+      "weight": 1
+    },
+    {
+      "source": "FO2-ARY-03",
+      "target": "FO2-ARY-04",
+      "weight": 1
+    },
+    {
+      "source": "FO2-ARY-04",
+      "target": "FO2-ARY-05",
+      "weight": 1
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-nodes",
+      "name": "Tactical Points",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "shapes": []
+}
