@@ -3,11 +3,11 @@ file_path: "campaigns/BaldursGate/preset.json"
 title: "preset.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "d7f29fcf2add9e41"
-reviewed_hash: "d7f29fcf2add9e41"
+current_hash: "9c73e434458fa48f"
+reviewed_hash: "9c73e434458fa48f"
 stale: false
-size_bytes: 343544
-line_count: 11027
+size_bytes: 361487
+line_count: 11287
 ---
 
 # preset.json

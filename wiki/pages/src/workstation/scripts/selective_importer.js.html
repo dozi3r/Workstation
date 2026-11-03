@@ -470,7 +470,7 @@
         <h1 class="article-title">selective_importer.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 609ec3f6)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 1b47b2f9)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (5)</a>
         </div>
@@ -483,9 +483,9 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/selective_importer.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>899 lines &bull; 42.3 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 609ec3f6)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>13</strong> references</td></tr>
+    <tr><th>File Metrics</th><td>1087 lines &bull; 51.1 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 1b47b2f9)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>15</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>5</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/selective_importer.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
@@ -504,8 +504,8 @@
       
       <h3>Architectural Purpose & Role</h3>
 <p><code>src/workstation/scripts/selective_importer.js</code> ingests external campaign folders, <code>.zip</code> archives, <code>.creator.json</code> packages, and <code>.csmod</code> entity module packs (<code>triggerSelectiveImportFolder</code>, <code>triggerSelectiveImportFile</code>, <code>onSelectiveImportFileSelected</code>, <code>executeSelectiveImport</code>), routing <code>.csmod</code> archives directly to <code>window.packEngine.openInstallerDialog(file)</code> while extracting multi-scale maps, <code>assets/<mapId>_bg.*</code> background images, entities, <code>custom_modules</code>, <code>deletedModules</code>, and <code>edgeData</code> with interactive entity conflict detection and resolution (<code>detectEntityConflicts</code>, <code>mergeEntitiesWithResolutions</code>).</p>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (9)</h3><div class="pill-list"><span class="pill">triggerSelectiveImportPackage()</span><span class="pill">triggerSelectiveImportFolder(options = {})</span><span class="pill">triggerSelectiveImportFile(options = {})</span><span class="pill">onSelectiveImportFileSelected(e)</span><span class="pill">blobToDataUrl(blob)</span><span class="pill">detectEntityConflicts(incomingEntities, currentTopology)</span><span class="pill">mergeEntitiesWithResolutions(curTopo, incomingEntities, conflicts, resolutions)</span><span class="pill">openSelectiveImportModal(pkg)</span><span class="pill">renderSelectiveImportModal()</span></div>
-      <h2 id="outbound-links">Outbound References (13)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (10)</h3><div class="pill-list"><span class="pill">triggerSelectiveImportPackage()</span><span class="pill">triggerSelectiveImportFolder(options = {})</span><span class="pill">triggerSelectiveImportFile(options = {})</span><span class="pill">onSelectiveImportFileSelected(e)</span><span class="pill">blobToDataUrl(blob)</span><span class="pill">normalizeImportedEntities(entitiesObj)</span><span class="pill">detectEntityConflicts(incomingEntities, currentTopology)</span><span class="pill">mergeEntitiesWithResolutions(curTopo, incomingEntities, conflicts, resolutions)</span><span class="pill">openSelectiveImportModal(pkg)</span><span class="pill">renderSelectiveImportModal()</span></div>
+      <h2 id="outbound-links">Outbound References (15)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
         <td><span class="badge badge-Workstation Shell Template">Included By Template</span></td>
         <td>Assembled into master Workstation template</td>
@@ -517,6 +517,14 @@
         <td><a href="../../../../pages/src/workstation/scripts/cad_canvas_renderer.js.html"><strong>src/workstation/scripts/cad_canvas_renderer.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes renderCanvas() defined in cad_canvas_renderer.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes normalizeEntities() defined in campaign_mutation_engine.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/pack_engine.js.html"><strong>src/workstation/scripts/pack_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes remapEntityCluster() defined in pack_engine.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

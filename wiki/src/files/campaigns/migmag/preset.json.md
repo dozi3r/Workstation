@@ -3,11 +3,11 @@ file_path: "campaigns/migmag/preset.json"
 title: "preset.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "4a42c6feacf3c5ed"
-reviewed_hash: "4a42c6feacf3c5ed"
+current_hash: "0d4dbcc0646ffdc6"
+reviewed_hash: "0d4dbcc0646ffdc6"
 stale: false
-size_bytes: 209471
-line_count: 6516
+size_bytes: 209431
+line_count: 6520
 ---
 
 # preset.json

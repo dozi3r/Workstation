@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/supply_chain_simulator.js"
 title: "supply_chain_simulator.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "1d47a45eeaf1c426"
-reviewed_hash: "1d47a45eeaf1c426"
+current_hash: "2374c18c12405835"
+reviewed_hash: "2374c18c12405835"
 stale: false
-size_bytes: 62056
-line_count: 1403
+size_bytes: 66670
+line_count: 1494
 ---
 
 # supply_chain_simulator.js

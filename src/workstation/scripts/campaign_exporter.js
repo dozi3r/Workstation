@@ -8,6 +8,26 @@ if (typeof window.getNodeDisplayName !== "function") {
   };
 }
 
+function resolveMapNodes(mapOrTopo) {
+  if (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine && typeof CampaignMutationEngine.getNodesList === "function") {
+    return CampaignMutationEngine.getNodesList(mapOrTopo);
+  }
+  if (!mapOrTopo) return [];
+  const col = Array.isArray(mapOrTopo) ? mapOrTopo : (mapOrTopo.nodes || (mapOrTopo.activeTopology && mapOrTopo.activeTopology.nodes));
+  if (Array.isArray(col)) return col.filter(Boolean);
+  if (col && typeof col === "object") return Object.values(col).filter(Boolean);
+  return [];
+}
+
+function findNodeObj(mapOrTopo, nodeId) {
+  if (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine && typeof CampaignMutationEngine.getNodeById === "function") {
+    return CampaignMutationEngine.getNodeById(mapOrTopo, nodeId);
+  }
+  if (nodeId === null || nodeId === undefined) return null;
+  const list = resolveMapNodes(mapOrTopo);
+  return list.find(n => n && String(n.id) === String(nodeId)) || null;
+}
+
 function generateCampaignJSON() {
   if (typeof syncActiveMapToRegistry === "function") syncActiveMapToRegistry();
 
@@ -38,7 +58,7 @@ function generateCampaignJSON() {
       }
     },
     factions: typeof campaignFactions !== "undefined" ? campaignFactions : [],
-    nodes: nodes.map(n => {
+    nodes: resolveMapNodes(typeof nodes !== "undefined" && Array.isArray(nodes) && nodes.length > 0 ? nodes : (typeof Workstation !== "undefined" ? Workstation.activeTopology : null)).map(n => {
       return {
         id: n.id,
         name: n.name || getNodeDisplayName(n),
@@ -142,9 +162,15 @@ function generateCampaignMarkdown() {
     md += `*No transit modules currently slotted on physical edge corridors.*\n\n`;
   } else {
     slottedEdgeKeys.forEach(k => {
-      const [uStr, vStr] = k.split("->");
-      const uNode = getNode(parseInt(uStr));
-      const vNode = getNode(parseInt(vStr));
+      const parsed = (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine.parseCorridorKey)
+        ? CampaignMutationEngine.parseCorridorKey(k)
+        : null;
+      const uId = parsed ? parsed.u : k.split("->")[0];
+      const vId = parsed ? parsed.v : k.split("->")[1];
+      const uStr = parsed ? parsed.uStr : String(uId || "");
+      const vStr = parsed ? parsed.vStr : String(vId || "");
+      const uNode = getNode(uId);
+      const vNode = getNode(vId);
       md += `* **Edge #${uStr} (${uNode ? getNodeDisplayName(uNode) : uStr}) ➔ #${vStr} (${vNode ? getNodeDisplayName(vNode) : vStr})**:\n`;
       edgeSlottedModules[k].forEach(mid => {
         const mod = MODULES_MANIFEST.find(m => m.id === mid);
@@ -640,7 +666,7 @@ async function executeExportCsmodPack() {
     const curMid = queue.shift();
     const curMap = mapsToExport[curMid];
     if (!curMap) continue;
-    const curNodes = Array.isArray(curMap.nodes) ? curMap.nodes : Object.values(curMap.nodes || {});
+    const curNodes = resolveMapNodes(curMap);
     for (const n of curNodes) {
       if (n && n.childMapId && allMaps[n.childMapId] && !allExportedMapIds.has(n.childMapId)) {
         allExportedMapIds.add(n.childMapId);
@@ -655,7 +681,7 @@ async function executeExportCsmodPack() {
   for (const mId of allExportedMapIds) {
     const mMap = mapsToExport[mId];
     if (mMap) {
-      const mNodes = Array.isArray(mMap.nodes) ? mMap.nodes : Object.values(mMap.nodes || {});
+      const mNodes = resolveMapNodes(mMap);
       mNodes.forEach(n => {
         if (n && n.id !== undefined) allExportedNodeIds.add(n.id);
       });
@@ -866,8 +892,7 @@ function buildObsidianVaultFiles(topo) {
   // Prepare lookups and unique sanitized stems
   const nodeLookup = {};
   const seenNodeStems = {};
-  const rawNodes = topo.nodes || {};
-  const nodeList = Array.isArray(rawNodes) ? rawNodes : Object.values(rawNodes);
+  const nodeList = resolveMapNodes(topo);
 
   nodeList.forEach(n => {
     if (!n) return;
@@ -1434,5 +1459,348 @@ async function exportObsidianVaultZip(topo = null) {
   return { blob, files, zip };
 }
 window.exportObsidianVaultZip = exportObsidianVaultZip;
+
+// ============================================================================
+// FOUNDRY VTT, UNIVERSAL VTT (.dd2vtt) / ROLL20 & PRINTABLE HTML DOSSIER EXPORTERS
+// ============================================================================
+
+function generateFoundryVTTJSON(topo = null) {
+  const activeTopo = topo || (typeof Workstation !== 'undefined' && Workstation.activeTopology) || {};
+  const nodesList = resolveMapNodes(activeTopo);
+  const npcs = Array.isArray(activeTopo.npcs) ? activeTopo.npcs : [];
+  const quests = Array.isArray(activeTopo.quests) ? activeTopo.quests : [];
+  const items = Array.isArray(activeTopo.items) ? activeTopo.items : [];
+  const trackers = Array.isArray(activeTopo.trackers) ? activeTopo.trackers : [];
+  const factions = Array.isArray(activeTopo.factions) ? activeTopo.factions : [];
+  const edgeData = activeTopo.edgeData || {};
+
+  // Build Scene Notes (Pins) & Journal Entries for every Node
+  const sceneNotes = [];
+  const journalEntries = [];
+  const drawings = [];
+
+  nodesList.forEach((n, idx) => {
+    if (!n) return;
+    const jId = `fvtt_journal_node_${n.id}`;
+    const odvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(n, activeTopo) : { s: 2, e: 2, c: 2 };
+    const odvVec = [odvObj.s || 2, odvObj.e || 2, odvObj.c || 2];
+    const quad = n.culture || (typeof deriveCvfQuadrant === 'function' ? deriveCvfQuadrant(odvVec[0], odvVec[1]) : 'Hierarchy');
+    const htmlContent = [
+      `<h2>${n.name || 'Node ' + n.id}</h2>`,
+      `<p><strong>Tier:</strong> ${n.tier !== undefined ? n.tier : 2} | <strong>CVF Quadrant:</strong> ${quad} | <strong>ODV:</strong> [${odvVec.join(', ')}]</p>`,
+      n.faction ? `<p><strong>Controlling Faction:</strong> ${n.faction}</p>` : '',
+      (n.customNotes || n.notes) ? `<div>${String(n.customNotes || n.notes).replace(/\n/g, '<br/>')}</div>` : ''
+    ].filter(Boolean).join('\n');
+
+    journalEntries.push({
+      _id: jId,
+      name: `${n.name || 'Node ' + n.id} [Node #${n.id}]`,
+      pages: [
+        {
+          name: 'Overview & Lore',
+          type: 'text',
+          text: { content: htmlContent, format: 1 }
+        }
+      ],
+      flags: { creatorStudio: { nodeId: n.id, tier: n.tier, odv: odvVec, childMapId: n.childMapId || null } }
+    });
+
+    sceneNotes.push({
+      _id: `fvtt_note_${idx + 1}`,
+      entryId: jId,
+      x: Number(n.x) || 400,
+      y: Number(n.y) || 300,
+      icon: n.childMapId ? 'icons/svg/portal.svg' : 'icons/svg/village.svg',
+      iconSize: 36,
+      text: n.name || `Node ${n.id}`,
+      fontFamily: 'Signika',
+      fontSize: 20,
+      textAnchor: 1,
+      textColor: '#ffffff'
+    });
+  });
+
+  // Build Polylines for Transit Roads & Hegemony Corridors
+  const seenPairs = new Set();
+  nodesList.forEach(u => {
+    if (!u || u.id === undefined) return;
+    (u.adj || []).forEach(vId => {
+      const pairKey = (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine.formatCorridorKey)
+        ? CampaignMutationEngine.formatCorridorKey(u.id, vId, 'adj')
+        : [String(u.id), String(vId)].sort().join('-');
+      if (seenPairs.has(pairKey)) return;
+      seenPairs.add(pairKey);
+      const v = findNodeObj(activeTopo, vId);
+      if (!v) return;
+      const rec = edgeData[pairKey] || {};
+      drawings.push({
+        _id: `fvtt_road_${pairKey}`,
+        author: 'CreatorStudio',
+        shape: {
+          type: 'p',
+          points: [0, 0, (Number(v.x) || 0) - (Number(u.x) || 0), (Number(v.y) || 0) - (Number(u.y) || 0)]
+        },
+        x: Number(u.x) || 0,
+        y: Number(u.y) || 0,
+        strokeWidth: 4,
+        strokeColor: '#3b82f6',
+        strokeOpacity: 0.9,
+        text: rec.name || '',
+        flags: { creatorStudio: { edgeType: 'road', pairKey, conduitType: rec.conduitType || 'standard', hazardLevel: rec.hazardLevel || 1 } }
+      });
+    });
+  });
+
+  // Build Foundry Actors from NPCs
+  const actors = npcs.map(npc => ({
+    _id: `fvtt_actor_${npc.id}`,
+    name: npc.name || String(npc.id),
+    type: 'npc',
+    img: 'icons/svg/mystery-man.svg',
+    system: {
+      details: {
+        role: npc.role || 'NPC',
+        faction: npc.faction || '',
+        biography: { value: `<p><strong>Motivation:</strong> ${npc.motivation || ''}</p><p><strong>Secret:</strong> ${npc.secret || ''}</p><p>${npc.notes || ''}</p>` }
+      }
+    },
+    flags: { creatorStudio: { id: npc.id, nodeId: npc.nodeId, odv: npc.odv || null, disposition: npc.disposition || 0 } }
+  }));
+
+  // Build Foundry Items from Items
+  const fvttItems = items.map(itm => ({
+    _id: `fvtt_item_${itm.id}`,
+    name: itm.name || String(itm.id),
+    type: 'loot',
+    img: 'icons/svg/item-bag.svg',
+    system: {
+      description: { value: `<p><strong>Category:</strong> ${itm.category || 'Relic'}</p><p><strong>Specs:</strong> ${itm.specs || ''}</p><p>${itm.notes || itm.description || ''}</p>` }
+    },
+    flags: { creatorStudio: { id: itm.id, nodeId: itm.nodeId, ownerNpcId: itm.ownerNpcId || null, possessionMode: itm.possessionMode || 'stored' } }
+  }));
+
+  return {
+    format: 'FoundryVTT-CreatorStudio-Bundle',
+    foundryVersion: '12',
+    name: activeTopo.name || 'Campaign Pointcrawl Scene',
+    navigation: true,
+    width: (activeTopo.mapMetadata && activeTopo.mapMetadata.width) || 2000,
+    height: (activeTopo.mapMetadata && activeTopo.mapMetadata.height) || 1400,
+    background: {
+      src: (activeTopo.mapMetadata && activeTopo.mapMetadata.assetPath) || null
+    },
+    grid: {
+      type: 1,
+      size: 50,
+      distance: 5,
+      units: 'mi'
+    },
+    notes: sceneNotes,
+    drawings: drawings,
+    journal: journalEntries,
+    actors: actors,
+    items: fvttItems,
+    flags: {
+      creatorStudio: {
+        factions: factions,
+        quests: quests,
+        trackers: trackers
+      }
+    }
+  };
+}
+window.generateFoundryVTTJSON = generateFoundryVTTJSON;
+
+function generateUniversalVTTJSON(topo = null) {
+  const activeTopo = topo || (typeof Workstation !== 'undefined' && Workstation.activeTopology) || {};
+  const nodesList = resolveMapNodes(activeTopo);
+  const ppGrid = 20;
+  const widthPx = (activeTopo.mapMetadata && activeTopo.mapMetadata.width) || 1600;
+  const heightPx = (activeTopo.mapMetadata && activeTopo.mapMetadata.height) || 1000;
+
+  const portals = nodesList
+    .filter(n => n && n.childMapId)
+    .map(n => ({
+      position: { x: Number((Number(n.x || 0) / ppGrid).toFixed(2)), y: Number((Number(n.y || 0) / ppGrid).toFixed(2)) },
+      bounds: [
+        { x: Number(((Number(n.x || 0) - 10) / ppGrid).toFixed(2)), y: Number((Number(n.y || 0) / ppGrid).toFixed(2)) },
+        { x: Number(((Number(n.x || 0) + 10) / ppGrid).toFixed(2)), y: Number((Number(n.y || 0) / ppGrid).toFixed(2)) }
+      ],
+      rotation: 0,
+      closed: false,
+      freestanding: true,
+      targetSubmapId: n.childMapId,
+      nodeId: n.id,
+      name: n.name || String(n.id)
+    }));
+
+  const lights = nodesList.map(n => ({
+    position: { x: Number((Number(n.x || 0) / ppGrid).toFixed(2)), y: Number((Number(n.y || 0) / ppGrid).toFixed(2)) },
+    range: n.tier === 3 ? 8 : 5,
+    intensity: 1.0,
+    color: 'ffeedd',
+    shadows: false
+  }));
+
+  return {
+    format: 0.2,
+    resolution: {
+      map_origin: { x: 0, y: 0 },
+      map_size: { x: Math.round(widthPx / ppGrid), y: Math.round(heightPx / ppGrid) },
+      pixels_per_grid: ppGrid
+    },
+    line_of_sight: [],
+    objects_line_of_sight: [],
+    portals: portals,
+    environment: {
+      baked_lighting: false,
+      ambient_light: 'ffffffff'
+    },
+    lights: lights,
+    roll20: {
+      campaignName: activeTopo.name || 'Creator Studio Campaign',
+      pageSize: { width: widthPx, height: heightPx },
+      markers: nodesList.map(n => ({
+        id: n.id,
+        name: n.name || `Node ${n.id}`,
+        left: Number(n.x) || 0,
+        top: Number(n.y) || 0,
+        layer: (n.visible === false) ? 'gmlayer' : 'objects',
+        childMapId: n.childMapId || null
+      }))
+    },
+    creatorStudio: {
+      nodesCount: nodesList.length,
+      factionsCount: (activeTopo.factions || []).length,
+      npcsCount: (activeTopo.npcs || []).length,
+      questsCount: (activeTopo.quests || []).length
+    }
+  };
+}
+window.generateUniversalVTTJSON = generateUniversalVTTJSON;
+
+function generateCampaignHTMLDossier(topo = null) {
+  const activeTopo = topo || (typeof Workstation !== 'undefined' && Workstation.activeTopology) || {};
+  const cName = activeTopo.name || (typeof currentCampaignName !== 'undefined' ? currentCampaignName : 'Campaign Sourcebook Dossier');
+  const nodesList = resolveMapNodes(activeTopo);
+  const npcs = Array.isArray(activeTopo.npcs) ? activeTopo.npcs : [];
+  const quests = Array.isArray(activeTopo.quests) ? activeTopo.quests : [];
+  const items = Array.isArray(activeTopo.items) ? activeTopo.items : [];
+  const trackers = Array.isArray(activeTopo.trackers) ? activeTopo.trackers : [];
+  const factions = Array.isArray(activeTopo.factions) ? activeTopo.factions : [];
+
+  const esc = (str) => String(str === undefined || str === null ? '' : str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+  const nodeRows = nodesList.map(n => {
+    const odvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(n, activeTopo) : { s: 2, e: 2, c: 2 };
+    const odvVec = [odvObj.s || 2, odvObj.e || 2, odvObj.c || 2];
+    const quad = n.culture || (typeof deriveCvfQuadrant === 'function' ? deriveCvfQuadrant(odvVec[0], odvVec[1]) : 'Hierarchy');
+    return `<tr>
+      <td><strong>#${esc(n.id)}</strong></td>
+      <td><strong>${esc(n.name || 'Node ' + n.id)}</strong>${n.childMapId ? ` <span class="badge">Portal &rarr; ${esc(n.childMapId)}</span>` : ''}</td>
+      <td>Tier ${esc(n.tier !== undefined ? n.tier : 2)}</td>
+      <td>[${odvVec.join(', ')}] (${esc(quad)})</td>
+      <td>${esc(n.faction || 'neutral')}</td>
+      <td>${esc(n.customNotes || n.notes || '').replace(/\n/g, '<br/>')}</td>
+    </tr>`;
+  }).join('\n');
+
+  const factionRows = factions.map(f => {
+    const stances = Object.entries(f.diplomaticStances || {}).map(([k, v]) => `${esc(k)}: <strong>${esc(v)}</strong>`).join(', ');
+    return `<tr>
+      <td><strong>${esc(f.name || f.id)}</strong></td>
+      <td>${esc(f.cvfQuadrant || 'Hierarchy')}</td>
+      <td>${esc(f.headquartersNodeId || 'None')}</td>
+      <td>${esc(f.leaderNpcId || 'None')}</td>
+      <td>${stances || '<em>None recorded</em>'}</td>
+    </tr>`;
+  }).join('\n');
+
+  const npcRows = npcs.map(npc => `<tr>
+    <td><strong>${esc(npc.name || npc.id)}</strong></td>
+    <td>${esc(npc.role || 'NPC')}</td>
+    <td>${esc(npc.faction || 'Unaligned')}</td>
+    <td>${esc(npc.nodeId || 'Unstationed')}</td>
+    <td>${esc(npc.motivation || npc.notes || '')}</td>
+  </tr>`).join('\n');
+
+  const questRows = quests.map(q => {
+    const stepsHtml = (q.steps || []).map(st => `<li>[${st.completed ? 'x' : ' '}] ${esc(st.title || st.text || '')}${st.triggerTrackerId ? ` <em>(&rarr; ${esc(st.triggerTrackerId)} +${st.tickDelta || 1})</em>` : ''}</li>`).join('');
+    return `<tr>
+      <td><strong>${esc(q.title || q.name || q.id)}</strong></td>
+      <td>${esc(q.status || 'active')}</td>
+      <td>${esc(q.nodeId || 'Global')}</td>
+      <td><ul>${stepsHtml}</ul><div>${esc(q.notes || q.synopsis || '')}</div></td>
+    </tr>`;
+  }).join('\n');
+
+  const clockRows = trackers.map(t => `<tr>
+    <td><strong>${esc(t.name || t.id)}</strong></td>
+    <td>${esc(t.scopeTier || 'quest')}</td>
+    <td><strong>${Number(t.currentTicks) || 0} / ${Number(t.maxTicks) || 4}</strong></td>
+    <td>${esc(t.nodeId || 'Global')}</td>
+    <td>${esc(t.notes || '')}</td>
+  </tr>`).join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${esc(cName)} — Printable GM Sourcebook Dossier</title>
+  <style>
+    body { font-family: Georgia, "Times New Roman", serif; color: #1e293b; max-width: 980px; margin: 24px auto; padding: 0 20px; line-height: 1.5; background: #ffffff; }
+    h1 { color: #000080; border-bottom: 3px solid #000080; padding-bottom: 6px; margin-bottom: 4px; }
+    h2 { color: #0f172a; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; margin-top: 24px; }
+    .meta { font-size: 12px; color: #475569; margin-bottom: 18px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+    th, td { border: 1px solid #cbd5e1; padding: 6px 8px; text-align: left; vertical-align: top; }
+    th { background: #f1f5f9; color: #0f172a; font-family: Tahoma, sans-serif; font-size: 12px; }
+    .badge { background: #e0f2fe; color: #0369a1; padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: monospace; }
+    ul { margin: 0 0 4px 16px; padding: 0; }
+    @media print { body { margin: 0; max-width: 100%; } h2 { page-break-after: avoid; } }
+  </style>
+</head>
+<body>
+  <h1>${esc(cName)}</h1>
+  <div class="meta">Generated by Creator Studio 2.5 &bull; Nodes: ${nodesList.length} &bull; Factions: ${factions.length} &bull; NPCs: ${npcs.length} &bull; Quests: ${quests.length} &bull; Clocks: ${trackers.length}</div>
+
+  <h2>1. Pointcrawl Nodes &amp; Sociological Dispositions</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Name</th><th>Tier</th><th>[S, E, C] &amp; Quadrant</th><th>Faction</th><th>Notes &amp; 5D Sensory Profile</th></tr></thead>
+    <tbody>${nodeRows || '<tr><td colspan="6"><em>No nodes recorded.</em></td></tr>'}</tbody>
+  </table>
+
+  <h2>2. First-Class Factions &amp; Diplomatic Matrix</h2>
+  <table>
+    <thead><tr><th>Faction</th><th>CVF Quadrant</th><th>HQ Node</th><th>Leader NPC</th><th>Diplomatic Stances</th></tr></thead>
+    <tbody>${factionRows || '<tr><td colspan="5"><em>No factions recorded.</em></td></tr>'}</tbody>
+  </table>
+
+  <h2>3. Active Campaign NPCs</h2>
+  <table>
+    <thead><tr><th>Name</th><th>Role</th><th>Faction</th><th>Stationed Node</th><th>Motivation &amp; Notes</th></tr></thead>
+    <tbody>${npcRows || '<tr><td colspan="5"><em>No NPCs recorded.</em></td></tr>'}</tbody>
+  </table>
+
+  <h2>4. Quests &amp; Step Triggers</h2>
+  <table>
+    <thead><tr><th>Quest Title</th><th>Status</th><th>Anchor Node</th><th>Steps &amp; Notes</th></tr></thead>
+    <tbody>${questRows || '<tr><td colspan="4"><em>No quests recorded.</em></td></tr>'}</tbody>
+  </table>
+
+  <h2>5. Threat Clocks &amp; Escalation Dials</h2>
+  <table>
+    <thead><tr><th>Clock Name</th><th>Scope Tier</th><th>Ticks</th><th>Node</th><th>Consequences &amp; Notes</th></tr></thead>
+    <tbody>${clockRows || '<tr><td colspan="5"><em>No threat clocks recorded.</em></td></tr>'}</tbody>
+  </table>
+</body>
+</html>`;
+}
+window.generateCampaignHTMLDossier = generateCampaignHTMLDossier;
+
 
 

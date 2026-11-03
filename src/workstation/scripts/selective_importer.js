@@ -377,6 +377,132 @@
   }
 
   /**
+   * Normalize AI-generated or external entity schemas to canonical runtime fields.
+   * Supports both canonical entity_core.js fields and Chapter 5 shorthand aliases.
+   */
+  function normalizeImportedEntities(entitiesObj) {
+    if (!entitiesObj || typeof entitiesObj !== "object") return entitiesObj;
+    if (!Array.isArray(entitiesObj.npcs)) entitiesObj.npcs = [];
+    if (!Array.isArray(entitiesObj.quests)) entitiesObj.quests = [];
+    if (!Array.isArray(entitiesObj.items)) entitiesObj.items = [];
+    if (!Array.isArray(entitiesObj.trackers)) entitiesObj.trackers = [];
+    if (!Array.isArray(entitiesObj.tickets)) entitiesObj.tickets = [];
+    if (!Array.isArray(entitiesObj.factions)) entitiesObj.factions = [];
+
+    // 1. Normalize NPCs & carriedItemIds -> item.ownerNpcId
+    entitiesObj.npcs.forEach(npc => {
+      if (!npc || typeof npc !== "object") return;
+      if (Array.isArray(npc.odv)) {
+        npc.odv = {
+          s: Number(npc.odv[0]) || 2,
+          e: Number(npc.odv[1]) || 2,
+          c: Number(npc.odv[2]) || 2
+        };
+      }
+      if (!npc.faction && npc.factionId) npc.faction = npc.factionId;
+      if (npc.disposition === undefined && npc.dispositionToParty !== undefined) {
+        npc.disposition = Number(npc.dispositionToParty) || 0;
+      }
+      if (Array.isArray(npc.carriedItemIds) && npc.id) {
+        npc.carriedItemIds.forEach(itemId => {
+          const matchItem = entitiesObj.items.find(it => it && String(it.id) === String(itemId));
+          if (matchItem) {
+            matchItem.ownerNpcId = npc.id;
+            matchItem.possessionMode = "carried";
+            if (!matchItem.nodeId && npc.nodeId !== undefined) matchItem.nodeId = npc.nodeId;
+          }
+        });
+      }
+    });
+
+    // 2. Normalize Quests (anchorNodeId -> nodeId, giverNpcId -> npcIds, rewardItemIds -> itemIds, steps)
+    entitiesObj.quests.forEach(q => {
+      if (!q || typeof q !== "object") return;
+      if (!q.title && q.name) q.title = q.name;
+      if (!q.name && q.title) q.name = q.title;
+      if (q.nodeId === undefined && q.anchorNodeId !== undefined) q.nodeId = q.anchorNodeId;
+      if (!Array.isArray(q.npcIds)) q.npcIds = [];
+      if (q.giverNpcId && !q.npcIds.includes(q.giverNpcId)) q.npcIds.push(q.giverNpcId);
+      if (!Array.isArray(q.itemIds)) q.itemIds = [];
+      if (Array.isArray(q.rewardItemIds)) {
+        q.rewardItemIds.forEach(id => {
+          if (id && !q.itemIds.includes(id)) q.itemIds.push(id);
+        });
+      }
+      if (!Array.isArray(q.trackerIds)) q.trackerIds = [];
+      if (Array.isArray(q.steps)) {
+        q.steps = q.steps.map((st, idx) => {
+          const stepTitle = st.title || st.text || `Step ${idx + 1}`;
+          const done = !!(st.isCompleted || st.completed);
+          if (st.triggerTrackerId && !q.trackerIds.includes(st.triggerTrackerId)) {
+            q.trackerIds.push(st.triggerTrackerId);
+          }
+          return {
+            ...st,
+            id: st.id || `step_${idx + 1}`,
+            title: stepTitle,
+            text: st.text || stepTitle,
+            isCompleted: done,
+            completed: done,
+            triggerTrackerId: st.triggerTrackerId || null,
+            tickDelta: st.tickDelta !== undefined ? Number(st.tickDelta) : 1
+          };
+        });
+      }
+    });
+
+    // 3. Normalize Trackers / Threat Clocks (current -> currentTicks, max -> maxTicks, scope -> scopeTier)
+    entitiesObj.trackers.forEach(trk => {
+      if (!trk || typeof trk !== "object") return;
+      if (trk.currentTicks === undefined && trk.current !== undefined) {
+        trk.currentTicks = Number(trk.current) || 0;
+      }
+      if (trk.currentTicks === undefined && trk.value !== undefined) {
+        trk.currentTicks = Number(trk.value) || 0;
+      }
+      if (trk.currentTicks === undefined) trk.currentTicks = 0;
+      if (trk.maxTicks === undefined && trk.max !== undefined) {
+        trk.maxTicks = Number(trk.max) || 6;
+      }
+      if (trk.maxTicks === undefined) trk.maxTicks = 6;
+      if (!trk.scopeTier && trk.scope) {
+        trk.scopeTier = trk.scope === "city" ? "settlement" : trk.scope;
+      }
+      if (!trk.scopeTier) trk.scopeTier = "settlement";
+      if (!trk.notes && trk.consequence) trk.notes = trk.consequence;
+      if (!Array.isArray(trk.triggerRefs)) trk.triggerRefs = [];
+      if (!Array.isArray(trk.consequences)) trk.consequences = [];
+    });
+
+    // 4. Normalize Factions (disposition array -> odv object)
+    entitiesObj.factions.forEach(fac => {
+      if (!fac || typeof fac !== "object") return;
+      if (Array.isArray(fac.disposition) && (!fac.odv || Array.isArray(fac.odv))) {
+        fac.odv = {
+          s: Number(fac.disposition[0]) || 2,
+          e: Number(fac.disposition[1]) || 2,
+          c: Number(fac.disposition[2]) || 2
+        };
+      } else if (Array.isArray(fac.odv)) {
+        fac.odv = {
+          s: Number(fac.odv[0]) || 2,
+          e: Number(fac.odv[1]) || 2,
+          c: Number(fac.odv[2]) || 2
+        };
+      }
+    });
+
+    const cme = (typeof window !== "undefined" && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== "undefined" ? CampaignMutationEngine : null);
+    if (cme && typeof cme.normalizeEntities === "function") {
+      cme.normalizeEntities(entitiesObj);
+    }
+
+    return entitiesObj;
+  }
+  window.normalizeImportedEntities = normalizeImportedEntities;
+  window.normalizeCampaignEntities = normalizeImportedEntities;
+
+  /**
    * Entity Conflict Detection Engine
    */
   function detectEntityConflicts(incomingEntities, currentTopology) {
@@ -439,6 +565,7 @@
    */
   function mergeEntitiesWithResolutions(curTopo, incomingEntities, conflicts, resolutions) {
     if (!curTopo || !incomingEntities) return curTopo;
+    normalizeImportedEntities(incomingEntities);
     if (!curTopo.npcs) curTopo.npcs = [];
     if (!curTopo.quests) curTopo.quests = [];
     if (!curTopo.items) curTopo.items = [];
@@ -449,6 +576,8 @@
     const resolvedIncomingIds = new Set();
     const conflictList = conflicts || [];
     const resMap = resolutions || {};
+    const cloneIdMap = {};
+    const importedBatchCluster = { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
 
     conflictList.forEach((c, idx) => {
       const action = resMap[idx] || "keep_existing";
@@ -459,14 +588,22 @@
       if (action === "overwrite") {
         const curIdx = targetList.findIndex(e => String(e.id).toLowerCase() === String(c.currentEntity.id).toLowerCase());
         if (curIdx >= 0) {
-          targetList[curIdx] = { ...c.incomingEntity, id: c.currentEntity.id };
+          const overwritten = JSON.parse(JSON.stringify(c.incomingEntity));
+          overwritten.id = c.currentEntity.id;
+          targetList[curIdx] = overwritten;
+          if (importedBatchCluster[cat]) importedBatchCluster[cat].push(overwritten);
         }
       } else if (action === "clone") {
-        const cloneId = `${c.incomingEntity.id}_${Date.now().toString(36).slice(-3)}`;
+        const origId = String(c.incomingEntity.id);
+        const cloneId = `${origId}_${Date.now().toString(36).slice(-3)}`;
         const cloneName = `${c.displayName} (Imported)`;
         const nameProp = (cat === "quests" || cat === "tickets") ? "title" : "name";
-        const cloned = { ...c.incomingEntity, id: cloneId, [nameProp]: cloneName };
+        const cloned = JSON.parse(JSON.stringify(c.incomingEntity));
+        cloned.id = cloneId;
+        cloned[nameProp] = cloneName;
+        cloneIdMap[origId] = cloneId;
         targetList.push(cloned);
+        if (importedBatchCluster[cat]) importedBatchCluster[cat].push(cloned);
       }
       // 'keep_existing': do nothing
     });
@@ -480,11 +617,61 @@
           // Ensure no ID clash
           const exists = curList.some(e => String(e.id).toLowerCase() === idKey);
           if (!exists) {
-            curList.push(JSON.parse(JSON.stringify(inEnt)));
+            const added = JSON.parse(JSON.stringify(inEnt));
+            curList.push(added);
+            if (importedBatchCluster[cat]) importedBatchCluster[cat].push(added);
           }
         }
       });
     });
+
+    if (Object.keys(cloneIdMap).length > 0) {
+      const cme = (typeof window !== "undefined" && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== "undefined" ? CampaignMutationEngine : null);
+      if (cme && typeof cme.remapEntityCluster === "function") {
+        cme.remapEntityCluster(importedBatchCluster, {
+          mutateInPlace: true,
+          autoGenerateIds: false,
+          idMap: cloneIdMap
+        });
+      } else {
+        const remapVal = (id) => (id && cloneIdMap[String(id)]) ? cloneIdMap[String(id)] : id;
+        const remapArr = (arr) => Array.isArray(arr) ? arr.map(remapVal) : arr;
+        importedBatchCluster.factions.forEach(f => {
+          if (f.leaderNpcId) f.leaderNpcId = remapVal(f.leaderNpcId);
+          if (Array.isArray(f.memberNpcIds)) f.memberNpcIds = remapArr(f.memberNpcIds);
+          if (f.diplomaticStances && typeof f.diplomaticStances === "object") {
+            const next = {};
+            Object.entries(f.diplomaticStances).forEach(([k, v]) => { next[remapVal(k)] = v; });
+            f.diplomaticStances = next;
+          }
+        });
+        importedBatchCluster.npcs.forEach(n => {
+          if (n.factionId) n.factionId = remapVal(n.factionId);
+          if (n.faction) n.faction = remapVal(n.faction);
+          if (Array.isArray(n.questIds)) n.questIds = remapArr(n.questIds);
+          if (Array.isArray(n.itemIds)) n.itemIds = remapArr(n.itemIds);
+          if (Array.isArray(n.relationships)) n.relationships.forEach(r => { if (r && r.targetNpcId) r.targetNpcId = remapVal(r.targetNpcId); });
+        });
+        importedBatchCluster.quests.forEach(q => {
+          if (Array.isArray(q.npcIds)) q.npcIds = remapArr(q.npcIds);
+          if (q.giverNpcId) q.giverNpcId = remapVal(q.giverNpcId);
+          if (q.targetNpcId) q.targetNpcId = remapVal(q.targetNpcId);
+          if (q.factionId) q.factionId = remapVal(q.factionId);
+          if (Array.isArray(q.itemIds)) q.itemIds = remapArr(q.itemIds);
+          if (Array.isArray(q.trackerIds)) q.trackerIds = remapArr(q.trackerIds);
+          if (Array.isArray(q.steps)) q.steps.forEach(st => { if (st && st.triggerTrackerId) st.triggerTrackerId = remapVal(st.triggerTrackerId); });
+        });
+        importedBatchCluster.items.forEach(it => {
+          if (it.ownerNpcId) it.ownerNpcId = remapVal(it.ownerNpcId);
+          if (it.linkedQuestId) it.linkedQuestId = remapVal(it.linkedQuestId);
+          if (it.factionId) it.factionId = remapVal(it.factionId);
+        });
+        importedBatchCluster.trackers.forEach(tr => {
+          if (tr.factionId) tr.factionId = remapVal(tr.factionId);
+          if (Array.isArray(tr.triggerRefs)) tr.triggerRefs.forEach(r => { if (r && r.entityId) r.entityId = remapVal(r.entityId); });
+        });
+      }
+    }
 
     return curTopo;
   }
@@ -493,6 +680,7 @@
    * Open the Selective Map Import Modal
    */
   function openSelectiveImportModal(pkg) {
+    if (pkg && pkg.entities) normalizeImportedEntities(pkg.entities);
     incomingPackage = pkg;
     conflictResolutions = {};
     const curTopology = (window.Workstation && window.Workstation.activeTopology) || { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };

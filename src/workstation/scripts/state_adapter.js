@@ -142,6 +142,9 @@ function syncActiveMapToRegistry() {
     if (Workstation.activeTopology.shapes) {
       maps[activeMapId].shapes = JSON.parse(JSON.stringify(Workstation.activeTopology.shapes));
     }
+    if (Workstation.activeTopology.spatialPins) {
+      maps[activeMapId].spatialPins = JSON.parse(JSON.stringify(Workstation.activeTopology.spatialPins));
+    }
     if (Workstation.activeTopology.edgeData) {
       maps[activeMapId].edgeData = JSON.parse(JSON.stringify(Workstation.activeTopology.edgeData));
     }
@@ -202,32 +205,32 @@ async function switchActiveMap(targetMapId, force = false, options = {}) {
   const cachedEntities = {
     npcs: (isPackageLoad && targetEntities)
       ? (targetEntities.npcs || [])
-      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.npcs) && Workstation.activeTopology.npcs.length > 0)
+      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.npcs))
           ? Workstation.activeTopology.npcs
           : (targetEntities && Array.isArray(targetEntities.npcs) ? targetEntities.npcs : [])),
     quests: (isPackageLoad && targetEntities)
       ? (targetEntities.quests || [])
-      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.quests) && Workstation.activeTopology.quests.length > 0)
+      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.quests))
           ? Workstation.activeTopology.quests
           : (targetEntities && Array.isArray(targetEntities.quests) ? targetEntities.quests : [])),
     items: (isPackageLoad && targetEntities)
       ? (targetEntities.items || [])
-      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.items) && Workstation.activeTopology.items.length > 0)
+      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.items))
           ? Workstation.activeTopology.items
           : (targetEntities && Array.isArray(targetEntities.items) ? targetEntities.items : [])),
     trackers: (isPackageLoad && targetEntities)
       ? (targetEntities.trackers || [])
-      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.trackers) && Workstation.activeTopology.trackers.length > 0)
+      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.trackers))
           ? Workstation.activeTopology.trackers
           : (targetEntities && Array.isArray(targetEntities.trackers) ? targetEntities.trackers : [])),
     tickets: (isPackageLoad && targetEntities)
       ? (targetEntities.tickets || [])
-      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.tickets) && Workstation.activeTopology.tickets.length > 0)
+      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.tickets))
           ? Workstation.activeTopology.tickets
           : (targetEntities && Array.isArray(targetEntities.tickets) ? targetEntities.tickets : [])),
     factions: (isPackageLoad && targetEntities)
       ? (targetEntities.factions || [])
-      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.factions) && Workstation.activeTopology.factions.length > 0)
+      : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.factions))
           ? Workstation.activeTopology.factions
           : (targetEntities && Array.isArray(targetEntities.factions) ? targetEntities.factions : [])),
     deletedPrototypes: (isPackageLoad && targetEntities)
@@ -350,12 +353,15 @@ async function switchActiveMap(targetMapId, force = false, options = {}) {
   Workstation.activeTopology.edgeNotes = target.edgeNotes ? JSON.parse(JSON.stringify(target.edgeNotes)) : {};
   Workstation.activeTopology.modData = target.modData ? JSON.parse(JSON.stringify(target.modData)) : {};
 
-  // Restore layers and shapes for target map
+  // Restore layers, shapes, and spatialPins for target map
   Workstation.activeTopology.layers = (Array.isArray(target.layers) && target.layers.length > 0)
     ? JSON.parse(JSON.stringify(target.layers))
     : (typeof getDefaultLayers === "function" ? getDefaultLayers() : []);
   Workstation.activeTopology.shapes = Array.isArray(target.shapes)
     ? JSON.parse(JSON.stringify(target.shapes))
+    : [];
+  Workstation.activeTopology.spatialPins = Array.isArray(target.spatialPins)
+    ? JSON.parse(JSON.stringify(target.spatialPins))
     : [];
   if (typeof ensureTopologyLayers === "function") {
     ensureTopologyLayers(Workstation.activeTopology);
@@ -377,7 +383,13 @@ async function switchActiveMap(targetMapId, force = false, options = {}) {
   // Automatically save to local storage so activeMapId and packed maps are persisted
   try {
     if (typeof saveActiveCampaign === "function") {
-      saveActiveCampaign();
+      const prevSuppress = window.__csSuppressDiskSync;
+      window.__csSuppressDiskSync = true;
+      try {
+        saveActiveCampaign();
+      } finally {
+        window.__csSuppressDiskSync = prevSuppress;
+      }
     }
   } catch(saveErr) {
     console.warn("[MapsRegistry] Save active campaign warning:", saveErr);
@@ -673,10 +685,15 @@ function normalizeOdvVector(odv, fallback) {
 function syncAdapterFromWorkstationTopology() {
   if (!Workstation.activeTopology || !Workstation.activeTopology.nodes) return;
   const topo = Workstation.activeTopology;
+  if (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine && typeof CampaignMutationEngine.ensureQueryableNodesCollection === "function") {
+    CampaignMutationEngine.ensureQueryableNodesCollection(topo.nodes);
+  }
   nodeSlottedModules = normalizeNodeSlottedModules(nodeSlottedModules);
 
   // Convert dictionary or array to normalized nodes array
-  const rawTopoNodes = Array.isArray(topo.nodes) ? topo.nodes : Object.values(topo.nodes);
+  const rawTopoNodes = (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine && typeof CampaignMutationEngine.getNodesList === "function")
+    ? CampaignMutationEngine.getNodesList(topo)
+    : (Array.isArray(topo.nodes) ? topo.nodes : Object.values(topo.nodes));
   const nodeKeys = Object.keys(topo.nodes).sort((a, b) => {
     const na = parseInt(a);
     const nb = parseInt(b);
@@ -861,6 +878,10 @@ function syncAdapterToWorkstationTopology() {
     };
   });
 
+  if (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine && typeof CampaignMutationEngine.ensureQueryableNodesCollection === "function") {
+    CampaignMutationEngine.ensureQueryableNodesCollection(topo.nodes);
+  }
+
   topo.links = JSON.parse(JSON.stringify(links));
   if (!topo.layers || !Array.isArray(topo.layers) || topo.layers.length === 0) {
     topo.layers = (maps[activeMapId] && Array.isArray(maps[activeMapId].layers) && maps[activeMapId].layers.length > 0)
@@ -870,6 +891,11 @@ function syncAdapterToWorkstationTopology() {
   if (!topo.shapes || !Array.isArray(topo.shapes)) {
     topo.shapes = (maps[activeMapId] && Array.isArray(maps[activeMapId].shapes))
       ? JSON.parse(JSON.stringify(maps[activeMapId].shapes))
+      : [];
+  }
+  if (!topo.spatialPins || !Array.isArray(topo.spatialPins)) {
+    topo.spatialPins = (maps[activeMapId] && Array.isArray(maps[activeMapId].spatialPins))
+      ? JSON.parse(JSON.stringify(maps[activeMapId].spatialPins))
       : [];
   }
   if (typeof ensureTopologyLayers === "function") ensureTopologyLayers(topo);
@@ -1037,6 +1063,7 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
       mMap.layers = typeof getDefaultLayers === "function" ? getDefaultLayers() : [];
     }
     if (!Array.isArray(mMap.shapes)) mMap.shapes = [];
+    if (!Array.isArray(mMap.spatialPins)) mMap.spatialPins = [];
     if (typeof ensureTopologyLayers === "function") ensureTopologyLayers(mMap);
   });
 
@@ -1046,7 +1073,12 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
   localStorage.setItem("cs_active_campaign", activeCampaignId);
 
   maps = compiledMaps;
-  const rootMapId = pkg.activeMapId || pkg.rootMapId || (maps["map_root"] ? "map_root" : Object.keys(maps)[0]);
+  const resolvedRootId = (pkg.rootMapId && maps[pkg.rootMapId])
+    ? pkg.rootMapId
+    : (maps["map_root"] ? "map_root" : (Object.keys(maps).find(k => maps[k] && !maps[k].parentMapId) || Object.keys(maps)[0]));
+  const rootMapId = (pkg.activeMapId && maps[pkg.activeMapId] && !maps[pkg.activeMapId].parentMapId)
+    ? pkg.activeMapId
+    : resolvedRootId;
 
   // Bind disk directory handle if available for direct filesystem operations
   if (pkg.directoryHandle) {
@@ -1156,9 +1188,30 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     }
   }
 
+  // 8b. Linage, Changelog & Sync Token
+  if (Workstation.activeTopology) {
+    if (pkg.appliedBatchIds) {
+      Workstation.activeTopology.appliedBatchIds = pkg.appliedBatchIds;
+      window.__csAppliedBatchIds = pkg.appliedBatchIds;
+    }
+    if (pkg.changelog) {
+      Workstation.activeTopology.changelog = pkg.changelog;
+      window.__csChangelog = pkg.changelog;
+    }
+    if (pkg.syncToken) {
+      Workstation.activeTopology.syncToken = pkg.syncToken;
+    }
+  }
+
   // 9. Save and Refresh Complete Workstation Shell
   try {
-    if (typeof saveActiveCampaign === "function") saveActiveCampaign();
+    const prevSuppress = window.__csSuppressDiskSync;
+    window.__csSuppressDiskSync = true;
+    try {
+      if (typeof saveActiveCampaign === "function") saveActiveCampaign();
+    } finally {
+      window.__csSuppressDiskSync = prevSuppress;
+    }
     if (typeof renderCanvas === "function") renderCanvas();
     if (typeof renderLayoutTabs === "function") renderLayoutTabs();
     if (typeof updateBreadcrumbsHUD === "function") updateBreadcrumbsHUD();
@@ -1179,4 +1232,35 @@ window.loadCampaignProjectPackage = loadCampaignProjectPackage;
 window.loadInstalledCampaign = loadCampaignProjectPackage;
 window.getMapsRegistry = function() { return maps; };
 window.createMap = createMap;
+
+// Canonical Pointcrawl Graph & Corridor Seam Aliases (delegating to CampaignMutationEngine)
+if (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine) {
+  window.formatCorridorKey = CampaignMutationEngine.formatCorridorKey;
+  window.parseCorridorKey = CampaignMutationEngine.parseCorridorKey;
+  window.corridorMatchesNode = CampaignMutationEngine.corridorMatchesNode;
+  window.addCorridor = CampaignMutationEngine.addCorridor;
+  window.removeCorridor = CampaignMutationEngine.removeCorridor;
+  window.removeCorridorsForNode = CampaignMutationEngine.removeCorridorsForNode;
+  window.ensureQueryableNodesCollection = CampaignMutationEngine.ensureQueryableNodesCollection;
+  window.getNodesList = CampaignMutationEngine.getNodesList;
+  window.getNodesMap = CampaignMutationEngine.getNodesMap;
+  window.getNodeById = CampaignMutationEngine.getNodeById;
+  window.upsertNode = CampaignMutationEngine.upsertNode;
+  window.removeNode = CampaignMutationEngine.removeNode;
+  window.CampaignStateAdapter = Object.assign(window.CampaignStateAdapter || {}, {
+    formatCorridorKey: CampaignMutationEngine.formatCorridorKey,
+    parseCorridorKey: CampaignMutationEngine.parseCorridorKey,
+    corridorMatchesNode: CampaignMutationEngine.corridorMatchesNode,
+    addCorridor: CampaignMutationEngine.addCorridor,
+    removeCorridor: CampaignMutationEngine.removeCorridor,
+    removeCorridorsForNode: CampaignMutationEngine.removeCorridorsForNode,
+    ensureQueryableNodesCollection: CampaignMutationEngine.ensureQueryableNodesCollection,
+    getNodesList: CampaignMutationEngine.getNodesList,
+    getNodesMap: CampaignMutationEngine.getNodesMap,
+    getNodeById: CampaignMutationEngine.getNodeById,
+    upsertNode: CampaignMutationEngine.upsertNode,
+    removeNode: CampaignMutationEngine.removeNode
+  });
+}
+
 

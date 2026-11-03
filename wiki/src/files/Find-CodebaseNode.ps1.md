@@ -1,16 +1,16 @@
 ---
 file_path: "Find-CodebaseNode.ps1"
-title: "Find-CodebaseNode.ps1 — Zero-Token Codebase Graph & Dependency Inspector for Creator Studio"
+title: "Find-CodebaseNode.ps1 — Zero-Token Codebase Graph & Dependency Inspector for Creator Studio (Thin Node.js Launcher)"
 volume: "vol-3"
 kind: "PowerShell Automation / Simulation Runner"
-current_hash: "ca3f2660ca2fc522"
-reviewed_hash: "ca3f2660ca2fc522"
+current_hash: "3ce7095079575903"
+reviewed_hash: "3ce7095079575903"
 stale: false
-size_bytes: 12001
-line_count: 264
+size_bytes: 2125
+line_count: 55
 ---
 
-# Find-CodebaseNode.ps1 — Zero-Token Codebase Graph & Dependency Inspector for Creator Studio
+# Find-CodebaseNode.ps1 — Zero-Token Codebase Graph & Dependency Inspector for Creator Studio (Thin Node.js Launcher)
 
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role

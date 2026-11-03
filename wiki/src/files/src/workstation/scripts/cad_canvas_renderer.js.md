@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/cad_canvas_renderer.js"
 title: "cad_canvas_renderer.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "e25d4c217c43b2a9"
-reviewed_hash: "e25d4c217c43b2a9"
+current_hash: "bd40c3167c4545fb"
+reviewed_hash: "bd40c3167c4545fb"
 stale: false
-size_bytes: 66265
-line_count: 1335
+size_bytes: 81397
+line_count: 1630
 ---
 
 # cad_canvas_renderer.js

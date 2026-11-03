@@ -82,7 +82,7 @@
       const activeList = getActiveEntityList('npc');
       let npc = activeList.find(n => n.id === npcId || n.prototypeId === npcId);
       if (!npc) {
-        promotePrototypeToCampaign(npcId);
+        promotePrototypeToCampaign(npcId, 'npc');
         npc = activeList[activeList.length - 1];
       }
       if (!npc) return;
@@ -103,7 +103,7 @@
       const activeList = getActiveEntityList('npc');
       let npc = activeList.find(n => n.id === npcId || n.prototypeId === npcId);
       if (!npc) {
-        promotePrototypeToCampaign(npcId);
+        promotePrototypeToCampaign(npcId, 'npc');
         npc = activeList[activeList.length - 1];
       }
       if (!npc || !npc.secretsKnown || !npc.secretsKnown[secretIndex]) return;
@@ -121,7 +121,7 @@
       const activeList = getActiveEntityList('item');
       let item = activeList.find(i => i.id === itemId || i.prototypeId === itemId);
       if (!item && isProto) {
-        promotePrototypeToCampaign(itemId);
+        promotePrototypeToCampaign(itemId, 'item');
         item = activeList[activeList.length - 1];
       }
       if (!item) return;
@@ -163,7 +163,7 @@
 
       let sourceNpc = topo.npcs.find(n => String(n.id) === sId);
       if (!sourceNpc && typeof promotePrototypeToCampaign === 'function') {
-        promotePrototypeToCampaign(sId);
+        promotePrototypeToCampaign(sId, 'npc');
         sourceNpc = topo.npcs.find(n => String(n.id) === sId || String(n.prototypeId) === sId);
       }
       if (!sourceNpc) return false;
@@ -171,7 +171,7 @@
       // Verify target NPC exists in roster or prototypes
       let targetNpc = topo.npcs.find(n => String(n.id) === tId);
       if (!targetNpc && typeof promotePrototypeToCampaign === 'function') {
-        promotePrototypeToCampaign(tId);
+        promotePrototypeToCampaign(tId, 'npc');
         targetNpc = topo.npcs.find(n => String(n.id) === tId || String(n.prototypeId) === tId);
       }
 
@@ -258,7 +258,7 @@
       const activeList = getActiveEntityList('npc');
       let sourceNpc = activeList.find(n => n.id === sourceNpcId || n.prototypeId === sourceNpcId);
       if (!sourceNpc) {
-        promotePrototypeToCampaign(sourceNpcId);
+        promotePrototypeToCampaign(sourceNpcId, 'npc');
         sourceNpc = activeList[activeList.length - 1];
       }
       if (!sourceNpc) return;
@@ -387,44 +387,206 @@
       return [];
     }
 
+    function getTicketsForEntity(targetType, targetId) {
+      const topo = Workstation.activeTopology;
+      if (!topo || !Array.isArray(topo.tickets)) return [];
+      if (!targetType && !targetId) return [];
+      const idStr = String(targetId);
+      return topo.tickets.filter(tk => {
+        if (targetType && tk.targetType && tk.targetType !== targetType) return false;
+        if (tk.targetId != null && String(tk.targetId) === idStr) return true;
+        // Node fallback: if ticket has nodeId matching targetId and targetType is 'node'
+        if ((!tk.targetType || tk.targetType === 'node') && targetType === 'node' && String(tk.nodeId) === idStr) return true;
+        return false;
+      });
+    }
+    window.getTicketsForEntity = getTicketsForEntity;
 
-    // --- Tracker Clocks & Stationing Helpers ---
-    function advanceTrackerTick(trackerId, delta) {
+    function getTrackersForEntity(targetType, targetId) {
+      const topo = Workstation.activeTopology;
+      if (!topo || !Array.isArray(topo.trackers)) return [];
+      if (!targetType && !targetId) return [];
+      const idStr = String(targetId);
+
+      // If targetType is quest, also collect tracker IDs referenced directly on the quest object or its steps
+      const questLinkedTrackerIds = new Set();
+      if (targetType === 'quest' && Array.isArray(topo.quests)) {
+        const q = topo.quests.find(qItem => String(qItem.id) === idStr);
+        if (q) {
+          (q.trackerIds || []).forEach(tid => { if (tid) questLinkedTrackerIds.add(String(tid)); });
+          (q.steps || []).forEach(s => { if (s && s.triggerTrackerId) questLinkedTrackerIds.add(String(s.triggerTrackerId)); });
+        }
+      }
+
+      return topo.trackers.filter(trk => {
+        if (!trk) return false;
+        // Direct stationing check if node
+        if (targetType === 'node' && String(trk.nodeId) === idStr) return true;
+        // Quest reverse-link check
+        if (targetType === 'quest' && questLinkedTrackerIds.has(String(trk.id))) return true;
+        // Trigger refs check
+        if (Array.isArray(trk.triggerRefs)) {
+          return trk.triggerRefs.some(ref => {
+            if (!ref) return false;
+            if (targetType && ref.entityType && ref.entityType !== targetType) return false;
+            return String(ref.entityId) === idStr;
+          });
+        }
+        return false;
+      });
+    }
+    window.getTrackersForEntity = getTrackersForEntity;
+
+
+    // --- Tracker Clocks, Consequences & Stationing Helpers ---
+    function evaluateTrackerConsequences(trk, prevTicks, newTicks, options = {}) {
+      if (!trk || !Array.isArray(trk.consequences)) return [];
+      const results = [];
+
+      if (newTicks > prevTicks) {
+        // Ascending tick order
+        const crossed = trk.consequences
+          .filter(c => c && typeof c.tick === 'number' && prevTicks < c.tick && newTicks >= c.tick && !c.triggered)
+          .sort((a, b) => a.tick - b.tick);
+
+        for (const c of crossed) {
+          let apply = true;
+          if (!options.silent && typeof window !== 'undefined' && typeof window.confirm === 'function') {
+            apply = window.confirm(
+              `⏱️ THREAT CLOCK CONVERSION MILESTONE REACHED!\n\n` +
+              `Clock: "${trk.name || trk.title}" reached ${newTicks}/${trk.maxTicks || 6} ticks (Threshold: Tick ${c.tick}).\n\n` +
+              `Consequence: ${c.description}\n\n` +
+              `Apply this consequence to the campaign world now?`
+            );
+          }
+          if (apply) {
+            c.triggered = true;
+            c.triggeredAt = new Date().toISOString();
+            if (options.batchId) c.triggeredByBatchId = options.batchId;
+
+            const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof window !== 'undefined' && window.CreatorStudio && window.CreatorStudio.ai) || null;
+            if (cme && typeof cme.executeBrowserConsequence === 'function' && typeof Workstation !== 'undefined' && Workstation.activeTopology) {
+              try {
+                cme.executeBrowserConsequence(Workstation.activeTopology, trk, c, options);
+              } catch (err) {
+                console.warn('[ClockConsequence] Error executing browser consequence:', err);
+              }
+            }
+
+            if (Array.isArray(c.operations) && c.operations.length > 0) {
+              const cascadeDepth = (options.cascadeDepth || 0) + 1;
+              if (cascadeDepth <= 3) {
+                if (cme && typeof cme.applyBatch === 'function') {
+                  try {
+                    cme.applyBatch(Workstation.activeTopology, {
+                      actor: 'Clock Consequence',
+                      summary: `Consequence of ${trk.name || trk.title} reaching tick ${c.tick}: ${c.description}`,
+                      operations: c.operations
+                    }, { cascadeDepth });
+                  } catch (err) {
+                    console.warn('[ClockConsequence] Error executing consequence operations:', err);
+                  }
+                }
+              } else {
+                console.warn('[ClockConsequence] Reached MAX_CONSEQUENCE_CASCADE_DEPTH (3), stopping consequence recursion.');
+              }
+            }
+            results.push({ action: 'applied', consequence: c });
+            if (typeof setStatusBarMessage === 'function') {
+              setStatusBarMessage(`Triggered Consequence for "${trk.name || trk.title}" (Tick ${c.tick}): ${c.description}`);
+            }
+          } else {
+            results.push({ action: 'skipped', consequence: c });
+          }
+        }
+      } else if (newTicks < prevTicks) {
+        // Rolled back below a triggered threshold
+        const rolledBack = trk.consequences
+          .filter(c => c && typeof c.tick === 'number' && newTicks < c.tick && prevTicks >= c.tick && c.triggered)
+          .sort((a, b) => b.tick - a.tick);
+
+        for (const c of rolledBack) {
+          let rearm = true;
+          if (!options.silent && typeof window !== 'undefined' && typeof window.confirm === 'function') {
+            rearm = window.confirm(
+              `⏱️ THREAT CLOCK ROLLED BACK BELOW THRESHOLD!\n\n` +
+              `Clock: "${trk.name || trk.title}" rolled back from ${prevTicks} to ${newTicks} ticks (Below Tick ${c.tick}).\n\n` +
+              `Consequence: ${c.description}\n\n` +
+              `Click OK to RE-ARM this consequence so it can trigger again.\n` +
+              `Click Cancel to keep it marked as already triggered.`
+            );
+          }
+          if (rearm) {
+            c.triggered = false;
+            delete c.triggeredAt;
+            delete c.triggeredByBatchId;
+            results.push({ action: 'rearmed', consequence: c });
+          } else {
+            results.push({ action: 'kept', consequence: c });
+          }
+        }
+      }
+      try {
+        Object.defineProperty(trk, '_lastTriggeredConsequences', {
+          value: results.filter(r => r.action === 'applied').map(r => r.consequence),
+          writable: true,
+          enumerable: false,
+          configurable: true
+        });
+      } catch (_) {}
+      return results;
+    }
+    window.evaluateTrackerConsequences = evaluateTrackerConsequences;
+
+    function advanceTrackerTick(trackerId, delta, options = {}) {
       const activeList = getActiveEntityList('tracker');
-      let trk = activeList.find(t => t.id === trackerId || t.prototypeId === trackerId);
+      let trk = activeList.find(t => String(t.id) === String(trackerId) || String(t.prototypeId) === String(trackerId));
 
       if (!trk) {
-        // Auto-promote if prototype
-        promotePrototypeToCampaign(trackerId);
-        trk = activeList[activeList.length - 1];
+        // Auto-promote if prototype with explicit type 'tracker'
+        if (typeof promotePrototypeToCampaign === 'function') {
+          trk = promotePrototypeToCampaign(trackerId, 'tracker');
+        }
+        if (!trk) trk = activeList[activeList.length - 1];
       }
 
       if (trk) {
+        const prevTicks = trk.currentTicks !== undefined ? trk.currentTicks : (trk.value || 0);
         const maxTicks = trk.maxTicks || 6;
+        let newTicks = prevTicks;
         if (delta === -999) {
-          trk.currentTicks = 0;
+          newTicks = 0;
         } else {
-          trk.currentTicks = Math.max(0, Math.min(maxTicks, (trk.currentTicks || 0) + delta));
+          newTicks = Math.max(0, Math.min(maxTicks, prevTicks + delta));
         }
+        trk.currentTicks = newTicks;
 
-        saveActiveCampaign();
-        renderCanvas();
-        updatePropertiesGrid();
-        renderEntityManagerList();
-        selectEntityItem(trk.id, false);
-        setStatusBarMessage(`Threat Clock "${trk.name}" set to ${trk.currentTicks}/${maxTicks} ticks.`);
+        evaluateTrackerConsequences(trk, prevTicks, newTicks, options);
+
+        if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        if (typeof renderCanvas === 'function') renderCanvas();
+        if (typeof updatePropertiesGrid === 'function') updatePropertiesGrid();
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+        if (typeof selectEntityItem === 'function') selectEntityItem(trk.id, false);
+        if (typeof setStatusBarMessage === 'function') {
+          setStatusBarMessage(`Threat Clock "${trk.name || trk.title}" set to ${trk.currentTicks}/${maxTicks} ticks.`);
+        }
+        return trk;
       }
+      return null;
     }
+    window.advanceTrackerTick = advanceTrackerTick;
 
-    function resetTrackerTicks(trackerId) {
-      advanceTrackerTick(trackerId, -999);
+    function resetTrackerTicks(trackerId, options = {}) {
+      return advanceTrackerTick(trackerId, -999, options);
     }
+    window.resetTrackerTicks = resetTrackerTicks;
 
     function toggleTrackerCanvasVisibility(trackerId, isVisible, isPrototype) {
       const activeList = getActiveEntityList('tracker');
       let trk = activeList.find(t => t.id === trackerId || t.prototypeId === trackerId);
       if (!trk && isPrototype) {
-        promotePrototypeToCampaign(trackerId);
+        promotePrototypeToCampaign(trackerId, 'tracker');
         trk = activeList[activeList.length - 1];
       }
       if (trk) {
@@ -439,7 +601,7 @@
       const activeList = getActiveEntityList('tracker');
       let trk = activeList.find(t => t.id === trackerId || t.prototypeId === trackerId);
       if (!trk && isPrototype) {
-        promotePrototypeToCampaign(trackerId);
+        promotePrototypeToCampaign(trackerId, 'tracker');
         trk = activeList[activeList.length - 1];
       }
       if (trk) {
@@ -495,68 +657,227 @@
       setStatusBarMessage(`Updated Node ${nodeId} ${prop} = ${value}`);
     }
 
-    function centerOnNode(nodeId) {
+    async function centerOnNode(nodeId, optMapId = null) {
+      if (nodeId == null || nodeId === '') return;
+
+      const curMapId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
+      if (optMapId && optMapId !== curMapId && typeof switchActiveMap === 'function') {
+        await switchActiveMap(optMapId);
+        await new Promise(r => setTimeout(r, 40));
+      }
+
       const topo = Workstation.activeTopology;
-      let node = topo && topo.nodes ? topo.nodes[nodeId.toString()] : null;
+      let node = topo && topo.nodes
+        ? (Array.isArray(topo.nodes)
+            ? topo.nodes.find(n => String(n.id) === String(nodeId))
+            : (topo.nodes[nodeId.toString()] || Object.values(topo.nodes).find(n => String(n.id) === String(nodeId))))
+        : null;
 
       // If node is not on active map, find which map owns it and switch to it!
-      if (!node && typeof maps !== "undefined") {
-        for (const mId of Object.keys(maps)) {
-          const m = maps[mId];
+      const mapRegistry = (typeof maps !== "undefined" && maps) ? maps : (window.maps || {});
+      if (!node && mapRegistry && Object.keys(mapRegistry).length > 0) {
+        for (const mId of Object.keys(mapRegistry)) {
+          const m = mapRegistry[mId];
+          if (!m) continue;
           const found = Array.isArray(m.nodes)
             ? (m.nodes || []).find(n => String(n.id) === String(nodeId))
-            : (m.nodes && m.nodes[nodeId.toString()]);
+            : (m.nodes && (m.nodes[nodeId.toString()] || Object.values(m.nodes).find(n => String(n.id) === String(nodeId))));
           if (found) {
-            switchActiveMap(mId);
-            setTimeout(() => {
-              centerOnNode(nodeId);
-            }, 60);
-            return;
+            if (typeof switchActiveMap === 'function') {
+              await switchActiveMap(mId);
+              await new Promise(r => setTimeout(r, 60));
+              return centerOnNode(nodeId);
+            }
           }
         }
       }
 
       if (!node) return;
 
-      selectNode(nodeId);
+      if (typeof selectNode === 'function') selectNode(nodeId);
       const container = document.getElementById('canvas-container');
       if (container) {
         const cw = container.clientWidth;
         const ch = container.clientHeight;
-        Workstation.pan.x = (cw / 2) - (node.x * Workstation.zoom);
-        Workstation.pan.y = (ch / 2) - (node.y * Workstation.zoom);
-        applyCanvasTransform();
+        const zoom = Workstation.zoom || 1.0;
+        if (!Workstation.pan) Workstation.pan = { x: 0, y: 0 };
+        Workstation.pan.x = (cw / 2) - (node.x * zoom);
+        Workstation.pan.y = (ch / 2) - (node.y * zoom);
+        if (typeof applyCanvasTransform === 'function') applyCanvasTransform();
       }
-      setStatusBarMessage(`Centered viewport on Node ${nodeId}: "${node.name}".`);
+
+      // Visual ping highlight on node element
+      const nodeEl = document.getElementById(`cad-node-${nodeId}`) || document.querySelector(`[data-node-id="${nodeId}"]`);
+      if (nodeEl) {
+        nodeEl.classList.remove('node-ping-highlight');
+        void nodeEl.offsetWidth;
+        nodeEl.classList.add('node-ping-highlight');
+      }
+
+      if (typeof setStatusBarMessage === 'function') {
+        setStatusBarMessage(`Centered viewport on Node ${nodeId}: "${node.name || 'Station'}".`);
+      }
     }
 
-    function promotePrototypeToCampaign(protoId) {
-      const protoList = getPrototypesForType(CurrentEntityTab);
-      const proto = protoList.find(p => p.id === protoId);
-      if (!proto) return;
+    let _promoSequence = 0;
+    function promotePrototypeToCampaign(protoId, explicitType = null) {
+      const type = explicitType || (typeof CurrentEntityTab !== 'undefined' ? CurrentEntityTab : 'npc');
+      const protoList = getPrototypesForType(type);
+      const proto = protoList.find(p => String(p.id) === String(protoId));
+      if (!proto) return null;
 
-      const activeList = getActiveEntityList(CurrentEntityTab);
+      const activeList = getActiveEntityList(type);
+      _promoSequence++;
+      const uniqueSuffix = `${Date.now().toString(36)}-${_promoSequence.toString(36)}`;
+      const newId = `${type}-${uniqueSuffix}`;
+
       const newEntity = {
         ...proto,
-        id: `${CurrentEntityTab}-${Date.now().toString().slice(-6)}`,
+        id: newId,
         prototypeId: proto.id,
         nodeId: proto.suggestedNode || null,
         status: 'Active',
         isCustom: false
       };
-      if (CurrentEntityTab === 'tracker') {
-        newEntity.currentTicks = proto.currentTicks || 0;
-        newEntity.maxTicks = proto.maxTicks || 6;
+      if (type === 'tracker') {
+        newEntity.currentTicks = proto.currentTicks !== undefined ? proto.currentTicks : (proto.value || 0);
+        newEntity.maxTicks = proto.maxTicks !== undefined ? proto.maxTicks : (proto.max || 6);
+        if (proto.consequences && Array.isArray(proto.consequences)) {
+          newEntity.consequences = JSON.parse(JSON.stringify(proto.consequences));
+        }
+      } else if (type === 'quest') {
+        newEntity.status = proto.status || 'Active';
       }
 
       activeList.push(newEntity);
-      saveActiveCampaign();
-      renderCanvas();
-      updatePropertiesGrid();
-      renderEntityManagerTree();
-      selectEntityItem(newEntity.id, false);
-      setStatusBarMessage(`Added ${newEntity.name || newEntity.title} to active campaign.`);
+
+      // Relational foreign key rewriting: update references across active topology pointing to protoId
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      if (topo) {
+        const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+        if (cme && typeof cme.remapEntityCluster === 'function') {
+          cme.remapEntityCluster(topo, {
+            mutateInPlace: true,
+            autoGenerateIds: false,
+            idMap: { [String(protoId)]: newId },
+            submaps: (typeof maps !== 'undefined' && maps) ? maps : topo.maps
+          });
+        }
+        if (type === 'npc') {
+          (topo.quests || []).forEach(q => {
+            if (Array.isArray(q.npcIds)) {
+              q.npcIds = q.npcIds.map(id => String(id) === String(protoId) ? newId : id);
+            }
+          });
+          (topo.factions || []).forEach(f => {
+            if (String(f.leaderNpcId) === String(protoId)) f.leaderNpcId = newId;
+          });
+        } else if (type === 'tracker') {
+          (topo.quests || []).forEach(q => {
+            if (Array.isArray(q.trackerIds)) {
+              q.trackerIds = q.trackerIds.map(id => String(id) === String(protoId) ? newId : id);
+            }
+            if (Array.isArray(q.steps)) {
+              q.steps.forEach(st => {
+                if (st && String(st.triggerTrackerId) === String(protoId)) st.triggerTrackerId = newId;
+              });
+            }
+          });
+        }
+        // Spatial Pins targetId and links remapping
+        const updatePins = (pins) => {
+          if (!Array.isArray(pins)) return;
+          pins.forEach(pin => {
+            if (pin && String(pin.targetId) === String(protoId) && pin.targetType === type) {
+              pin.targetId = newId;
+            }
+            if (pin && Array.isArray(pin.links)) {
+              pin.links.forEach(lnk => {
+                if (lnk && String(lnk.id) === String(protoId) && lnk.type === type) {
+                  lnk.id = newId;
+                }
+              });
+            }
+          });
+        };
+        updatePins(topo.spatialPins);
+        if (typeof maps !== 'undefined' && maps) {
+          Object.values(maps).forEach(m => {
+            if (m && Array.isArray(m.spatialPins)) updatePins(m.spatialPins);
+          });
+        }
+      }
+
+      if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+      if (typeof renderCanvas === 'function') renderCanvas();
+      if (typeof updatePropertiesGrid === 'function') updatePropertiesGrid();
+      if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+      if (typeof selectEntityItem === 'function') selectEntityItem(newEntity.id, false);
+      if (typeof setStatusBarMessage === 'function') {
+        setStatusBarMessage(`Added ${newEntity.name || newEntity.title} to active campaign.`);
+      }
+      return newEntity;
     }
+    window.promotePrototypeToCampaign = promotePrototypeToCampaign;
+
+    function syncQuestAndTrackerLinks(quest, previousTrackerIds = []) {
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      if (!topo || !Array.isArray(topo.trackers)) return;
+      const currentTrackerIds = new Set(quest.trackerIds ? quest.trackerIds.map(String) : []);
+
+      if (Array.isArray(quest.steps)) {
+        quest.steps.forEach(st => {
+          if (st && st.triggerTrackerId) currentTrackerIds.add(String(st.triggerTrackerId));
+        });
+      }
+      quest.trackerIds = Array.from(currentTrackerIds);
+
+      topo.trackers.forEach(trk => {
+        if (!trk) return;
+        const trkId = String(trk.id);
+        if (!Array.isArray(trk.triggerRefs)) trk.triggerRefs = [];
+        const hasRef = trk.triggerRefs.some(r => r && r.entityType === 'quest' && String(r.entityId) === String(quest.id));
+
+        if (currentTrackerIds.has(trkId)) {
+          if (!hasRef) {
+            trk.triggerRefs.push({ entityType: 'quest', entityId: quest.id });
+          }
+        } else if (previousTrackerIds.map(String).includes(trkId)) {
+          trk.triggerRefs = trk.triggerRefs.filter(r => !(r && r.entityType === 'quest' && String(r.entityId) === String(quest.id)));
+        }
+      });
+    }
+    window.syncQuestAndTrackerLinks = syncQuestAndTrackerLinks;
+
+    function syncTrackerToQuests(tracker, previousTriggerQuestIds = []) {
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      if (!topo || !Array.isArray(topo.quests)) return;
+      const trkId = String(tracker.id);
+      const currentQuestIds = new Set(
+        (tracker.triggerRefs || [])
+          .filter(r => r && r.entityType === 'quest')
+          .map(r => String(r.entityId))
+      );
+
+      topo.quests.forEach(q => {
+        if (!q) return;
+        const qId = String(q.id);
+        if (!Array.isArray(q.trackerIds)) q.trackerIds = [];
+        if (currentQuestIds.has(qId)) {
+          if (!q.trackerIds.map(String).includes(trkId)) {
+            q.trackerIds.push(tracker.id);
+          }
+        } else if (previousTriggerQuestIds.map(String).includes(qId)) {
+          q.trackerIds = q.trackerIds.filter(id => String(id) !== trkId);
+          if (Array.isArray(q.steps)) {
+            q.steps.forEach(st => {
+              if (st && String(st.triggerTrackerId) === trkId) st.triggerTrackerId = null;
+            });
+          }
+        }
+      });
+    }
+    window.syncTrackerToQuests = syncTrackerToQuests;
 
     function assignEntityToNode(entityId, nodeIdVal, isProto) {
       const activeList = getActiveEntityList(CurrentEntityTab);
@@ -564,7 +885,7 @@
 
       if (!entity && isProto) {
         // Auto-promote when assigning a prototype
-        promotePrototypeToCampaign(entityId);
+        promotePrototypeToCampaign(entityId, CurrentEntityTab);
         entity = activeList[activeList.length - 1];
       }
 

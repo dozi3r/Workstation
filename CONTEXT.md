@@ -23,17 +23,25 @@ _Avoid_: Road, path, line, street
 A directional, asymmetric edge carrying mathematical or geopolitical pressure between two nodes.
 _Avoid_: Connection, road, path
 
+**Corridor Key (`u-v` / `u->v`)**:
+The canonical composite identifier indexing corridor metadata and slotted modules between two nodes: a single hyphen (`u-v`) with endpoints in natural numeric order for undirected Transit Road Edges (`E_adj`), and a directed arrow (`u->v`) from source to target for asymmetric Influence Links (`E_inf`).
+_Avoid_: Double-dash key (`u--v`), unordered edge key
+
 #### Core Sociology & Hermeneutics
 **Granular Disposition `[S, E, C]`**:
-A 3-dimensional coordinate vector measuring Structure (1-4), Energy (1-4), and Cohesion (1-4), yielding 64 discrete sociological archetypes.
-_Avoid_: Alignment, personality score, stats
+A 3-dimensional integer coordinate vector yielding 64 discrete sociological archetypes across three 1-to-4 axes:
+- **`S` (Social / Structural Fluidity)**: `1` = Immutable Stasis (Totalitarian Purge) to `4` = Radical Autonomy (Total Indifference).
+- **`E` (Economic / External Openness)**: `1` = Hermetic Autarky (Closed Gates) to `4` = Boundary Dissolution (Open Frontier).
+- **`C` (Coercive / Command Decentralization)**: `1` = Monolithic Autocracy (Single Leader) to `4` = Decapitation-Proof Mosaic (Autonomous Cells).
+Where `[1, 1, 1]` is *The Sealed Monolith*, `[2, 2, 2]` is *The Deliberative Concord* (neutral baseline), and `[4, 4, 4]` is *The Entropic Vortex*.
+_Avoid_: Alignment, personality score, stats, inverted scale (do not treat 4 as rigid hierarchy)
 
 **Cultural Quadrant (CVF)**:
-A macro-organizational classification based on the Competing Values Framework (Clan, Adhocracy, Market, Hierarchy) derived from Structure and Energy coordinates.
+A macro-organizational classification based on the Competing Values Framework derived from `[S, E]` coordinates: **Hierarchy** (`S <= 2, E <= 2`), **Market** (`S <= 2, E >= 3`), **Clan** (`S >= 3, E <= 2`), and **Adhocracy** (`S >= 3, E >= 3`).
 _Avoid_: Faction type, culture class
 
 **Operational Profile**:
-The primary mode of organizational power and production (Design, Service, Produce, Deliver) derived from Structure and Cohesion.
+The primary mode of organizational power and production derived from `[S, C]` coordinates: **Produce** (`S <= 2, C <= 2`), **Deliver** (`S <= 2, C >= 3`), **Design** (`S >= 3, C <= 2`), and **Service** (`S >= 3, C >= 3`).
 _Avoid_: Work style, guild role
 
 **Corridor Disposition (Edge ODV)**:
@@ -164,7 +172,7 @@ _Avoid_: Karma, player alignment, approval points, partyReputation, Revered / We
 ### Workstation Interface & Extensibility
 
 **Workstation Shell (`start.html`)**:
-The single-document desktop application entrypoint styled with classic Windows 95 / Visual Basic 6 3D bevel chrome, consolidating all campaign launching, multi-scale CAD pointcrawl authoring, procedural balancing, entity stationing, module supply-chain slotting, and VTT/dossier export into one unified interface with dual-runtime support (zero-install loopback server or zero-CORS offline file).
+The single-document desktop application entrypoint styled with classic Windows 95 / Visual Basic 6 3D bevel chrome, consolidating all campaign launching, multi-scale CAD pointcrawl authoring, procedural balancing, entity stationing, module supply-chain slotting, and Obsidian Vault/dossier export into one unified interface with dual-runtime support (zero-install loopback server or zero-CORS offline file).
 _Avoid_: Dashboard, web page, portal, multi-page app
 
 **Dual-Runtime Execution (Zero-Install Loopback & Offline file:///)**:
@@ -176,7 +184,7 @@ The directory of isolated HTML templates and JavaScript subsystem scripts assemb
 _Avoid_: External script bundle, runtime module loader
 
 **MDI Window Manager (`MDIWindowManager`)**:
-The internal Multiple Document Interface windowing controller inside `start.html` managing draggable, resizable, minimizable, and tileable Windows 95 dialog windows (`Module Explorer`, `Entity Manager`, `Ticket Command Center`, `Cartographic Map Navigator`, `Tarot Traditions & Hermeneutics`, `Sourcebook Package Manager`, and `Campaign Dossier & VTT Exporter`) synchronized with the bottom taskbar.
+The internal Multiple Document Interface windowing controller inside `start.html` managing draggable, resizable, minimizable, and tileable Windows 95 dialog windows (`Module Explorer`, `Entity Manager`, `Ticket Command Center`, `Cartographic Map Navigator`, `64-Cell ODV Archetype Matrix`, `Sourcebook Package Manager`, and `Campaign Dossier & Obsidian Exporter`) synchronized with the bottom taskbar.
 _Avoid_: Popup modal, browser tab, overlay
 
 **Tabbed Right Dock (`#properties-dock`)**:
@@ -208,6 +216,22 @@ _Avoid_: Template, sample NPC, flavor text
 **Node Stationing / Assignment**:
 The structural binding of an active NPC, quest thread, item, threat clock, or ticket to a discrete pointcrawl node ID (and optional `mapId`), rendering spatial telemetry badges (`M:# N:# Q:# I:# T:#`) and draggable clock callouts on the CAD canvas.
 _Avoid_: Location tag, placement string, pin
+
+**Threat Clock / Escalation Dial (`tracker`)**:
+A first-class campaign roster entity representing a multi-tick countdown, tactical hazard, or political crisis, possessing a current tick count, maximum ticks, an operational scope tier (`quest`, `settlement`, `faction`, `world`), and relational trigger references linking it to quests, NPCs, items, and other dials.
+_Avoid_: Timer, counter, progress bar
+
+**Tracker Scope Tier**:
+The operational domain and narrative magnitude of an escalation dial: `quest` (tactical/encounter), `settlement` (urban/civil), `faction` (geopolitical/readiness), or `world` (cosmic/apocalyptic).
+_Avoid_: Clock level, dial difficulty
+
+**Quest Step**:
+An ordered milestone within a campaign quest tracking narrative progression that can declare an escalation trigger (`triggerTrackerId`, `tickDelta`) to automatically advance a linked threat clock upon completion.
+_Avoid_: Sub-quest, quest objective, task
+
+**Ticket Target Binding (`targetRef`)**:
+The relational association linking an authoring ticket to a specific campaign entity (Node, NPC, Quest, Item, Tracker, Faction, or Transit Corridor), surfacing bidirectional badge counts and inspection telemetry across the workstation.
+_Avoid_: Ticket tag, task link, assigned note
 
 ### Module Exploration & Worldbuilding Mechanics
 

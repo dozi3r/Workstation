@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/property_grid_inspector.js"
 title: "property_grid_inspector.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "ceef699f301530c2"
-reviewed_hash: "ceef699f301530c2"
+current_hash: "7bd8be0e6dcd7038"
+reviewed_hash: "7bd8be0e6dcd7038"
 stale: false
-size_bytes: 154499
-line_count: 3416
+size_bytes: 209024
+line_count: 4441
 ---
 
 # property_grid_inspector.js

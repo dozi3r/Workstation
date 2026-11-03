@@ -1,4 +1,34 @@
 // Visual Basic 6 Property Grid & Entity Inspector
+    const CORE_BIOME_PRESETS = [
+      { val: 'Settlements & Bastions / Walled Towns & Citadels', label: 'Settlements & Bastions / Walled Towns & Citadels' },
+      { val: 'Settlements & Bastions / Castles & Fortresses', label: 'Settlements & Bastions / Castles & Fortresses' },
+      { val: 'Settlements & Bastions / Harbors & Lighthouses', label: 'Settlements & Bastions / Harbors & Lighthouses' },
+      { val: 'Settlements & Bastions / Temples, Monasteries & Shrines', label: 'Settlements & Bastions / Temples, Monasteries & Shrines' },
+      { val: 'Forests & Woodlands / Temperate Forests', label: 'Forests & Woodlands / Temperate Forests' },
+      { val: 'Forests & Woodlands / Ancient Fey Woods', label: 'Forests & Woodlands / Ancient Fey Woods' },
+      { val: 'Forests & Woodlands / Redwoods & Tall Canopy', label: 'Forests & Woodlands / Redwoods & Tall Canopy' },
+      { val: 'Mountains & Highlands / Alpine Foothills & Scree', label: 'Mountains & Highlands / Alpine Foothills & Scree' },
+      { val: 'Mountains & Highlands / Glaciated Peaks', label: 'Mountains & Highlands / Glaciated Peaks' },
+      { val: 'Mountains & Highlands / Granite Domes', label: 'Mountains & Highlands / Granite Domes' },
+      { val: 'Plains & Grasslands / Meadows & Valleys', label: 'Plains & Grasslands / Meadows & Valleys' },
+      { val: 'Plains & Grasslands / Savanna & Plains', label: 'Plains & Grasslands / Savanna & Plains' },
+      { val: 'Coasts & Islands / Beaches & Bluffs', label: 'Coasts & Islands / Beaches & Bluffs' },
+      { val: 'Coasts & Islands / Islands & Lagoons', label: 'Coasts & Islands / Islands & Lagoons' },
+      { val: 'Coasts & Islands / Rocky Surf & Headlands', label: 'Coasts & Islands / Rocky Surf & Headlands' },
+      { val: 'Coasts & Islands / Sea Caves & Coves', label: 'Coasts & Islands / Sea Caves & Coves' },
+      { val: 'Valleys & Canyons / Valley Roads & Bridges', label: 'Valleys & Canyons / Valley Roads & Bridges' },
+      { val: 'Valleys & Canyons / River Gorges & Canyons', label: 'Valleys & Canyons / River Gorges & Canyons' },
+      { val: 'Valleys & Canyons / Cliffs & Escarpments', label: 'Valleys & Canyons / Cliffs & Escarpments' },
+      { val: 'Waters & Wetlands / Rivers & Rapids', label: 'Waters & Wetlands / Rivers & Rapids' },
+      { val: 'Waters & Wetlands / Swamps & Mangroves', label: 'Waters & Wetlands / Swamps & Mangroves' },
+      { val: 'Waters & Wetlands / Lakes & Tarns', label: 'Waters & Wetlands / Lakes & Tarns' },
+      { val: 'Ancient Ruins & Vaults / Subterranean Vaults & Caves', label: 'Ancient Ruins & Vaults / Subterranean Vaults & Caves' },
+      { val: 'Ancient Ruins & Vaults / Overgrown Ruins & Pyramids', label: 'Ancient Ruins & Vaults / Overgrown Ruins & Pyramids' }
+    ];
+    if (typeof window !== 'undefined') {
+      window.CORE_BIOME_PRESETS = CORE_BIOME_PRESETS;
+    }
+
     // Selection Handlers
     function selectNode(nodeId, e = null) {
       const topo = Workstation.activeTopology;
@@ -189,7 +219,9 @@
           const uId = u.id !== undefined ? u.id : uKey;
           // Roads
           (u.adj || []).forEach(vId => {
-            const pairKey = [String(uId), String(vId)].sort().join('-');
+            const pairKey = (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine.formatCorridorKey)
+              ? CampaignMutationEngine.formatCorridorKey(uId, vId, 'adj')
+              : [String(uId), String(vId)].sort().join('-');
             if (!seenPairs.has(pairKey)) {
               seenPairs.add(pairKey);
               const opt = document.createElement('option');
@@ -235,6 +267,29 @@
           });
           sel.appendChild(optGrpShapes);
         }
+
+        if (Array.isArray(topo.spatialPins) && topo.spatialPins.length > 0) {
+          const optGrpPins = document.createElement('optgroup');
+          optGrpPins.label = '── Canvas Spatial Pins & Linked Entities ──';
+          topo.spatialPins.forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = `pin-${p.id}`;
+            opt.textContent = `📌 Pin: ${p.label || p.targetId || p.id} [${(p.targetType || 'pin').toUpperCase()}]`;
+            optGrpPins.appendChild(opt);
+
+            const links = Array.isArray(p.links) && p.links.length > 0
+              ? p.links
+              : (p.targetType && p.targetId ? [{ type: p.targetType, id: p.targetId }] : []);
+            links.forEach(l => {
+              const lTitle = (typeof resolvePinLinkTitle === 'function') ? resolvePinLinkTitle(l.type, l.id) : `${l.type}:${l.id}`;
+              const optL = document.createElement('option');
+              optL.value = `pin-entity:${p.id}:${l.type}:${l.id}`;
+              optL.textContent = `   ↳ Linked [${(l.type || '').toUpperCase()}]: ${lTitle}`;
+              optGrpPins.appendChild(optL);
+            });
+          });
+          sel.appendChild(optGrpPins);
+        }
       }
 
       if (Array.isArray(Workstation.selectedEntities) && Workstation.selectedEntities.length > 1) {
@@ -251,6 +306,24 @@
           }
         } else if (Workstation.selectedEntity.type === 'shape') {
           sel.value = `shape-${Workstation.selectedEntity.id}`;
+        } else if (Workstation.selectedEntity.type === 'spatialPin') {
+          const curPin = (topo && Array.isArray(topo.spatialPins)) ? topo.spatialPins.find(p => String(p.id) === String(Workstation.selectedEntity.id)) : null;
+          if (curPin && curPin.targetType && curPin.targetId) {
+            const entVal = `pin-entity:${curPin.id}:${curPin.targetType}:${curPin.targetId}`;
+            const hasEntOpt = Array.from(sel.options || sel.children || []).some(o => o.value === entVal);
+            sel.value = hasEntOpt ? entVal : `pin-${Workstation.selectedEntity.id}`;
+          } else {
+            sel.value = `pin-${Workstation.selectedEntity.id}`;
+          }
+        } else if (['npc', 'item', 'quest', 'tracker', 'faction'].includes(Workstation.selectedEntity.type)) {
+          const eType = Workstation.selectedEntity.type;
+          const eId = String(Workstation.selectedEntity.id);
+          const linkedPin = (topo && Array.isArray(topo.spatialPins)) ? topo.spatialPins.find(p => (p.links || []).some(l => l.type === eType && String(l.id) === eId) || (p.targetType === eType && String(p.targetId) === eId)) : null;
+          if (linkedPin) {
+            sel.value = `pin-entity:${linkedPin.id}:${eType}:${eId}`;
+          } else {
+            sel.value = 'global';
+          }
         } else {
           sel.value = 'global';
         }
@@ -298,6 +371,37 @@
           updatePropertiesGrid();
           renderCanvas();
         }
+      } else if (val.startsWith('pin-entity:')) {
+        const parts = val.split(':');
+        const pId = parts[1];
+        const eType = parts[2];
+        const eId = parts.slice(3).join(':');
+        const topo = Workstation.activeTopology;
+        const pin = topo && Array.isArray(topo.spatialPins) ? topo.spatialPins.find(p => String(p.id) === String(pId)) : null;
+        if (pin) {
+          delete pin._pendingTargetType;
+          delete pin._inspectedLink;
+          if (typeof normalizeSpatialPin === 'function') normalizeSpatialPin(pin);
+          if (Array.isArray(pin.links)) {
+            const existingIdx = pin.links.findIndex(l => l.type === eType && String(l.id) === String(eId));
+            if (existingIdx > 0) {
+              const picked = pin.links.splice(existingIdx, 1)[0];
+              pin.links.unshift(picked);
+            } else if (existingIdx === -1 && eType && eId) {
+              pin.links.unshift({ type: eType, id: String(eId) });
+            }
+          }
+          pin.targetType = eType;
+          pin.targetId = eId;
+          if (typeof selectSpatialPin === 'function') {
+            selectSpatialPin(pin.id);
+          }
+        }
+      } else if (val.startsWith('pin-')) {
+        const pId = val.replace('pin-', '');
+        if (typeof selectSpatialPin === 'function') {
+          selectSpatialPin(pId);
+        }
       } else if (val.startsWith('map-')) {
         const mId = val.replace('map-', '');
         if (typeof switchActiveMap === 'function') {
@@ -341,9 +445,11 @@
         } else if (item.type === 'edge') {
           const uId = item.uId !== undefined ? item.uId : item.id;
           const vId = item.vId;
-          const edgeKey = `${uId}->${vId}`;
-          const pairKey = `${Math.min(uId, vId)}--${Math.max(uId, vId)}`;
-          const edgeRecord = (topo.edgeData && (topo.edgeData[edgeKey] || topo.edgeData[pairKey])) || {};
+          const isRoad = item.edgeType !== 'hegemony' && item.edgeType !== 'inf';
+          const canonicalKey = CampaignMutationEngine.formatCorridorKey(uId, vId, isRoad ? 'adj' : 'inf');
+          const pairKey = CampaignMutationEngine.formatCorridorKey(uId, vId, 'adj');
+          const legacyKey = `${uId}--${vId}`;
+          const edgeRecord = (topo.edgeData && (topo.edgeData[canonicalKey] || topo.edgeData[pairKey] || topo.edgeData[`${uId}->${vId}`] || topo.edgeData[legacyKey])) || {};
           layerIds.add(edgeRecord.layerId || (item.edgeType === 'hegemony' ? 'layer-hegemony' : 'layer-roads'));
         }
       });
@@ -366,11 +472,17 @@
           } else if (item.type === 'edge') {
             const uId = item.uId !== undefined ? item.uId : item.id;
             const vId = item.vId;
-            const edgeKey = `${uId}->${vId}`;
-            const pairKey = `${Math.min(uId, vId)}--${Math.max(uId, vId)}`;
+            const isRoad = item.edgeType !== 'hegemony' && item.edgeType !== 'inf';
+            const canonicalKey = CampaignMutationEngine.formatCorridorKey(uId, vId, isRoad ? 'adj' : 'inf');
+            const pairKey = CampaignMutationEngine.formatCorridorKey(uId, vId, 'adj');
+            const legacyKey = `${uId}--${vId}`;
             if (!topo.edgeData) topo.edgeData = {};
-            if (!topo.edgeData[edgeKey] && !topo.edgeData[pairKey]) topo.edgeData[edgeKey] = {};
-            const rec = topo.edgeData[edgeKey] || topo.edgeData[pairKey];
+            if (!topo.edgeData[canonicalKey]) {
+              const existingLegacy = topo.edgeData[pairKey] || topo.edgeData[`${uId}->${vId}`] || topo.edgeData[legacyKey];
+              topo.edgeData[canonicalKey] = existingLegacy ? Object.assign({}, existingLegacy) : {};
+              if (topo.edgeData[legacyKey] && legacyKey !== canonicalKey) delete topo.edgeData[legacyKey];
+            }
+            const rec = topo.edgeData[canonicalKey];
             rec.layerId = val;
           }
         });
@@ -426,9 +538,11 @@
         edgeItems.forEach(item => {
           const uId = item.uId !== undefined ? item.uId : item.id;
           const vId = item.vId;
-          const edgeKey = `${uId}->${vId}`;
-          const pairKey = `${Math.min(uId, vId)}--${Math.max(uId, vId)}`;
-          const rec = (topo.edgeData && (topo.edgeData[edgeKey] || topo.edgeData[pairKey])) || {};
+          const isRoad = item.edgeType !== 'hegemony' && item.edgeType !== 'inf';
+          const canonicalKey = CampaignMutationEngine.formatCorridorKey(uId, vId, isRoad ? 'adj' : 'inf');
+          const pairKey = CampaignMutationEngine.formatCorridorKey(uId, vId, 'adj');
+          const legacyKey = `${uId}--${vId}`;
+          const rec = (topo.edgeData && (topo.edgeData[canonicalKey] || topo.edgeData[pairKey] || topo.edgeData[`${uId}->${vId}`] || topo.edgeData[legacyKey])) || {};
           visStates.add(rec.visible !== false ? 'true' : 'false');
         });
         shapeItems.forEach(item => {
@@ -451,11 +565,17 @@
           edgeItems.forEach(item => {
             const uId = item.uId !== undefined ? item.uId : item.id;
             const vId = item.vId;
-            const edgeKey = `${uId}->${vId}`;
-            const pairKey = `${Math.min(uId, vId)}--${Math.max(uId, vId)}`;
+            const isRoad = item.edgeType !== 'hegemony' && item.edgeType !== 'inf';
+            const canonicalKey = CampaignMutationEngine.formatCorridorKey(uId, vId, isRoad ? 'adj' : 'inf');
+            const pairKey = CampaignMutationEngine.formatCorridorKey(uId, vId, 'adj');
+            const legacyKey = `${uId}--${vId}`;
             if (!topo.edgeData) topo.edgeData = {};
-            if (!topo.edgeData[edgeKey] && !topo.edgeData[pairKey]) topo.edgeData[edgeKey] = {};
-            const rec = topo.edgeData[edgeKey] || topo.edgeData[pairKey];
+            if (!topo.edgeData[canonicalKey]) {
+              const existingLegacy = topo.edgeData[pairKey] || topo.edgeData[`${uId}->${vId}`] || topo.edgeData[legacyKey];
+              topo.edgeData[canonicalKey] = existingLegacy ? Object.assign({}, existingLegacy) : {};
+              if (topo.edgeData[legacyKey] && legacyKey !== canonicalKey) delete topo.edgeData[legacyKey];
+            }
+            const rec = topo.edgeData[canonicalKey];
             rec.visible = isVis;
           });
           shapeItems.forEach(item => {
@@ -745,9 +865,11 @@
         edgeItems.forEach(item => {
           const uId = item.uId !== undefined ? item.uId : item.id;
           const vId = item.vId;
-          const edgeKey = `${uId}->${vId}`;
-          const pairKey = `${Math.min(uId, vId)}--${Math.max(uId, vId)}`;
-          const rec = (topo.edgeData && (topo.edgeData[edgeKey] || topo.edgeData[pairKey])) || {};
+          const isRoad = item.edgeType !== 'hegemony' && item.edgeType !== 'inf';
+          const canonicalKey = CampaignMutationEngine.formatCorridorKey(uId, vId, isRoad ? 'adj' : 'inf');
+          const pairKey = CampaignMutationEngine.formatCorridorKey(uId, vId, 'adj');
+          const legacyKey = `${uId}--${vId}`;
+          const rec = (topo.edgeData && (topo.edgeData[canonicalKey] || topo.edgeData[pairKey] || topo.edgeData[`${uId}->${vId}`] || topo.edgeData[legacyKey])) || {};
           conditions.add(rec.condition || 'Passable');
           hazards.add(rec.hazardLevel || 0);
         });
@@ -768,11 +890,17 @@
           edgeItems.forEach(item => {
             const uId = item.uId !== undefined ? item.uId : item.id;
             const vId = item.vId;
-            const edgeKey = `${uId}->${vId}`;
-            const pairKey = `${Math.min(uId, vId)}--${Math.max(uId, vId)}`;
+            const isRoad = item.edgeType !== 'hegemony' && item.edgeType !== 'inf';
+            const canonicalKey = CampaignMutationEngine.formatCorridorKey(uId, vId, isRoad ? 'adj' : 'inf');
+            const pairKey = CampaignMutationEngine.formatCorridorKey(uId, vId, 'adj');
+            const legacyKey = `${uId}--${vId}`;
             if (!topo.edgeData) topo.edgeData = {};
-            if (!topo.edgeData[edgeKey] && !topo.edgeData[pairKey]) topo.edgeData[edgeKey] = {};
-            const rec = topo.edgeData[edgeKey] || topo.edgeData[pairKey];
+            if (!topo.edgeData[canonicalKey]) {
+              const existingLegacy = topo.edgeData[pairKey] || topo.edgeData[`${uId}->${vId}`] || topo.edgeData[legacyKey];
+              topo.edgeData[canonicalKey] = existingLegacy ? Object.assign({}, existingLegacy) : {};
+              if (topo.edgeData[legacyKey] && legacyKey !== canonicalKey) delete topo.edgeData[legacyKey];
+            }
+            const rec = topo.edgeData[canonicalKey];
             rec.condition = val;
           });
           renderCanvas();
@@ -796,11 +924,17 @@
           edgeItems.forEach(item => {
             const uId = item.uId !== undefined ? item.uId : item.id;
             const vId = item.vId;
-            const edgeKey = `${uId}->${vId}`;
-            const pairKey = `${Math.min(uId, vId)}--${Math.max(uId, vId)}`;
+            const isRoad = item.edgeType !== 'hegemony' && item.edgeType !== 'inf';
+            const canonicalKey = CampaignMutationEngine.formatCorridorKey(uId, vId, isRoad ? 'adj' : 'inf');
+            const pairKey = CampaignMutationEngine.formatCorridorKey(uId, vId, 'adj');
+            const legacyKey = `${uId}--${vId}`;
             if (!topo.edgeData) topo.edgeData = {};
-            if (!topo.edgeData[edgeKey] && !topo.edgeData[pairKey]) topo.edgeData[edgeKey] = {};
-            const rec = topo.edgeData[edgeKey] || topo.edgeData[pairKey];
+            if (!topo.edgeData[canonicalKey]) {
+              const existingLegacy = topo.edgeData[pairKey] || topo.edgeData[`${uId}->${vId}`] || topo.edgeData[legacyKey];
+              topo.edgeData[canonicalKey] = existingLegacy ? Object.assign({}, existingLegacy) : {};
+              if (topo.edgeData[legacyKey] && legacyKey !== canonicalKey) delete topo.edgeData[legacyKey];
+            }
+            const rec = topo.edgeData[canonicalKey];
             rec.hazardLevel = h;
           });
           renderCanvas();
@@ -995,6 +1129,23 @@
           { val: 'Deliver', label: 'Deliver (Logistics / Distribution)' }
         ], val => { node.opProfile = val; renderCanvas(); saveActiveCampaign(); });
         appendPropRow(tbody, 'Category', node.cat || 'Standard Location', true, val => { node.cat = val; saveActiveCampaign(); });
+        const curNodeBiome = node.biome || (node.modData && node.modData.regional_biomes && node.modData.regional_biomes.biome) || '';
+        appendComboboxPropRow(
+          tbody,
+          'Biome / Terrain',
+          curNodeBiome,
+          `dl-node-biome-${node.id}`,
+          () => CORE_BIOME_PRESETS,
+          val => {
+            node.biome = (val || '').trim();
+            if (node.modData && node.modData.regional_biomes) {
+              node.modData.regional_biomes.biome = node.biome;
+            }
+            renderCanvas();
+            saveActiveCampaign();
+            setStatusBarMessage(`Node ${node.id} biome set to "${node.biome || 'Unassigned'}".`);
+          }
+        );
 
         // [S,E,C] Tri-State Vector & Archetype (Editable Core Sociology)
         const cardFallback = (typeof drawnCards !== "undefined") ? drawnCards[node.id] : null;
@@ -1009,23 +1160,35 @@
           ? ODV_MATRIX_64[odvTag]
           : { archetypeName: 'Standard Archetype', coreBoon: 'N/A', coreBurden: 'N/A' };
 
-        const secOptions = [
-          { val: 1, label: '1 (Low / Insular / Rigid)' },
-          { val: 2, label: '2 (Moderate / Balanced)' },
-          { val: 3, label: '3 (High / Dynamic)' },
-          { val: 4, label: '4 (Extreme / Unbounded)' }
+        const sOptions = [
+          { val: 1, label: '1 (Immutable Stasis / Purge)' },
+          { val: 2, label: '2 (Codified SOPs / Courts)' },
+          { val: 3, label: '3 (Flexible Adaptation)' },
+          { val: 4, label: '4 (Radical Autonomy)' }
         ];
-        appendSelectPropRow(tbody, 'S (Spiritual / Flex)', curS, secOptions, val => {
+        const eOptions = [
+          { val: 1, label: '1 (Hermetic Autarky / Closed)' },
+          { val: 2, label: '2 (Regulated Checkpoints)' },
+          { val: 3, label: '3 (Commercial Open Port)' },
+          { val: 4, label: '4 (Boundary Dissolution)' }
+        ];
+        const cOptions = [
+          { val: 1, label: '1 (Monolithic Autocracy)' },
+          { val: 2, label: '2 (Oligarchic Directorate)' },
+          { val: 3, label: '3 (Federal Polyarchy)' },
+          { val: 4, label: '4 (Decapitation-Proof Mosaic)' }
+        ];
+        appendSelectPropRow(tbody, 'S (Structural Fluidity)', curS, sOptions, val => {
           node.odv.s = parseInt(val) || 2;
           saveActiveCampaign();
           updatePropertiesGrid();
         });
-        appendSelectPropRow(tbody, 'E (Economic / Ext)', curE, secOptions, val => {
+        appendSelectPropRow(tbody, 'E (External Openness)', curE, eOptions, val => {
           node.odv.e = parseInt(val) || 2;
           saveActiveCampaign();
           updatePropertiesGrid();
         });
-        appendSelectPropRow(tbody, 'C (Coercive / Scale)', curC, secOptions, val => {
+        appendSelectPropRow(tbody, 'C (Command Decentral)', curC, cOptions, val => {
           node.odv.c = parseInt(val) || 2;
           saveActiveCampaign();
           updatePropertiesGrid();
@@ -1037,10 +1200,25 @@
         appendActionPropRow(tbody, '[Sync Quadrant]', '🔄 Derive Quadrant from [S, E]', () => {
           if (typeof deriveCvfQuadrant === 'function') {
             node.culture = deriveCvfQuadrant(node.odv.s, node.odv.e);
+            if (typeof deriveOperationalMode === 'function') {
+              node.opProfile = deriveOperationalMode(node.odv.s, node.odv.c);
+            }
             renderCanvas();
             updatePropertiesGrid();
             saveActiveCampaign();
             setStatusBarMessage(`Node ${node.id} Culture Quadrant synced to ${node.culture} from [${node.odv.s}, ${node.odv.e}, ${node.odv.c}].`);
+          }
+        });
+        appendActionPropRow(tbody, '[SOC-06 Wizard]', '🧭 3-Question Calibration Wizard...', () => {
+          if (typeof openOdvWizardForNode === 'function') {
+            openOdvWizardForNode(node.id);
+          } else if (typeof openOdvMatrixModal === 'function') {
+            openOdvMatrixModal();
+          }
+        });
+        appendActionPropRow(tbody, '[Sensory Skin]', '🎲 Roll & Append 5D Sensory Skin', () => {
+          if (typeof applySensoryRollToSelectedNode === 'function') {
+            applySensoryRollToSelectedNode(node.id, null, node.odv.s, node.odv.e, node.odv.c);
           }
         });
 
@@ -1390,8 +1568,8 @@
         const isRoad = entity.edgeType === 'road';
         const uId = entity.uId;
         const vId = entity.vId;
-        const pairKey = [String(uId), String(vId)].sort().join('-');
-        const edgeKey = isRoad ? pairKey : `${uId}->${vId}`;
+        const pairKey = CampaignMutationEngine.formatCorridorKey(uId, vId, 'adj');
+        const edgeKey = CampaignMutationEngine.formatCorridorKey(uId, vId, isRoad ? 'adj' : 'inf');
 
         // Safely look up nodes without assuming uName/vName exist in scope
         const resolveNode = (id) => {
@@ -1450,15 +1628,16 @@
           { val: 'hegemony', label: 'Hegemony Vector (Directional E_inf)' }
         ], val => {
           if (val !== entity.edgeType) {
+            const corridorOpts = {
+              nodesArray: typeof nodes !== 'undefined' ? nodes : null,
+              linksArray: typeof links !== 'undefined' ? links : null,
+              edgeSlottedModules: typeof edgeSlottedModules !== 'undefined' ? edgeSlottedModules : null
+            };
             if (entity.edgeType === 'road') {
-              const u = topo.nodes[String(uId)];
-              const v = topo.nodes[String(vId)];
-              if (u && u.adj) u.adj = u.adj.filter(id => String(id) !== String(vId));
-              if (v && v.adj) v.adj = v.adj.filter(id => String(id) !== String(uId));
+              CampaignMutationEngine.removeCorridor(Workstation.activeTopology, uId, vId, 'adj', corridorOpts);
               createEdge(uId, vId, 'hegemony');
             } else {
-              const v = topo.nodes[String(vId)];
-              if (v && v.infBy) v.infBy = v.infBy.filter(id => String(id) !== String(uId));
+              CampaignMutationEngine.removeCorridor(Workstation.activeTopology, uId, vId, 'inf', corridorOpts);
               createEdge(uId, vId, 'road');
             }
             selectEdge(val, uId, vId);
@@ -1502,6 +1681,37 @@
           edgeRecord.tollCost = val;
           saveActiveCampaign();
         });
+
+        const curEdgeBiome = edgeRecord.biome || (edgeRecord.modData && edgeRecord.modData.regional_biomes && edgeRecord.modData.regional_biomes.biome) || '';
+        appendComboboxPropRow(
+          tbody,
+          'Corridor Biome',
+          curEdgeBiome,
+          `dl-edge-biome-${edgeKey}`,
+          () => {
+            const endpointBiomes = [];
+            if (uNode) {
+              const ub = uNode.biome || (uNode.modData && uNode.modData.regional_biomes && uNode.modData.regional_biomes.biome);
+              if (ub) endpointBiomes.push({ val: ub, label: `${ub} (From ${uNode.name || uId})` });
+            }
+            if (vNode) {
+              const vb = vNode.biome || (vNode.modData && vNode.modData.regional_biomes && vNode.modData.regional_biomes.biome);
+              if (vb && !endpointBiomes.some(e => e.val === vb)) {
+                endpointBiomes.push({ val: vb, label: `${vb} (From ${vNode.name || vId})` });
+              }
+            }
+            return [...endpointBiomes, ...CORE_BIOME_PRESETS];
+          },
+          val => {
+            edgeRecord.biome = (val || '').trim();
+            if (edgeRecord.modData && edgeRecord.modData.regional_biomes) {
+              edgeRecord.modData.regional_biomes.biome = edgeRecord.biome;
+            }
+            renderCanvas();
+            saveActiveCampaign();
+            setStatusBarMessage(`Corridor ${edgeKey} biome set to "${edgeRecord.biome || 'Unassigned'}".`);
+          }
+        );
 
         appendComboboxPropRow(
           tbody,
@@ -1749,15 +1959,18 @@
         appendCategoryRow(tbody, 'Corridor Actions');
         appendActionPropRow(tbody, '[Sever Connection]', `Delete this ${entity.edgeType.toUpperCase()} Corridor`, () => {
           if (confirm(`Sever this ${entity.edgeType} connection between Node ${uId} and Node ${vId}?`)) {
-            if (entity.edgeType === 'road') {
-              const u = topo.nodes[String(uId)];
-              const v = topo.nodes[String(vId)];
-              if (u && u.adj) u.adj = u.adj.filter(id => String(id) !== String(vId));
-              if (v && v.adj) v.adj = v.adj.filter(id => String(id) !== String(uId));
-            } else {
-              const v = topo.nodes[String(vId)];
-              if (v && v.infBy) v.infBy = v.infBy.filter(id => String(id) !== String(uId));
-            }
+            const corridorOpts = {
+              nodesArray: typeof nodes !== 'undefined' ? nodes : null,
+              linksArray: typeof links !== 'undefined' ? links : null,
+              edgeSlottedModules: typeof edgeSlottedModules !== 'undefined' ? edgeSlottedModules : null
+            };
+            CampaignMutationEngine.removeCorridor(
+              Workstation.activeTopology,
+              uId,
+              vId,
+              entity.edgeType === 'road' ? 'adj' : 'inf',
+              corridorOpts
+            );
             selectGlobal();
             renderCanvas();
             saveActiveCampaign();
@@ -1906,6 +2119,189 @@
           deleteShape(shape.id);
         });
 
+      } else if (entity.type === 'spatialPin') {
+        const pin = (topo.spatialPins || []).find(p => String(p.id) === String(entity.id));
+        if (!pin) return;
+        if (typeof normalizeSpatialPin === 'function') normalizeSpatialPin(pin);
+
+        appendCategoryRow(tbody, 'Spatial Pin / Canvas Marker');
+        appendPropRow(tbody, 'Pin ID', pin.id, false);
+        appendButtonPropRow(tbody, 'Multi-Link Editor', '📌 Configure Linked Entities (' + ((pin.links || []).length) + ')...', () => {
+          if (typeof openSpatialPinModal === 'function') openSpatialPinModal(pin.x, pin.y, pin.id);
+        });
+        appendPropRow(tbody, 'Label Override', pin.label || '', true, val => {
+          pin.label = val;
+          renderCanvas();
+          updateObjectSelector();
+          saveActiveCampaign();
+        });
+        appendPropRow(tbody, 'X Coordinate', Math.round(pin.x || 0), !pin.locked, val => {
+          if (!pin.locked) {
+            pin.x = parseFloat(val) || 0;
+            renderCanvas();
+            saveActiveCampaign();
+          }
+        });
+        appendPropRow(tbody, 'Y Coordinate', Math.round(pin.y || 0), !pin.locked, val => {
+          if (!pin.locked) {
+            pin.y = parseFloat(val) || 0;
+            renderCanvas();
+            saveActiveCampaign();
+          }
+        });
+        appendSelectPropRow(tbody, 'Position Locked', pin.locked ? 'true' : 'false', [
+          { val: 'false', label: 'False (Movable)' },
+          { val: 'true', label: 'True 🔒 (Locked)' }
+        ], val => {
+          pin.locked = (val === 'true');
+          renderCanvas();
+          updatePropertiesGrid();
+          saveActiveCampaign();
+          setStatusBarMessage(`Spatial Pin "${pin.label || pin.id}" position ${pin.locked ? 'locked 🔒' : 'unlocked'}.`);
+        });
+        appendButtonPropRow(tbody, 'Reposition', '✥ Move Pin (Enter X, Y)...', () => {
+          if (typeof promptMovePin === 'function') promptMovePin(pin.id);
+        });
+        appendSelectPropRow(tbody, 'Visible on Canvas', pin.visible !== false ? 'true' : 'false', [
+          { val: 'true', label: 'True 👁️ (Visible)' },
+          { val: 'false', label: 'False 👁️‍🗨️ (Hidden / Fog of War)' }
+        ], val => {
+          pin.visible = (val === 'true');
+          renderCanvas();
+          saveActiveCampaign();
+          setStatusBarMessage(`Spatial Pin "${pin.label || pin.id}" is now ${pin.visible ? 'visible' : 'hidden'}.`);
+        });
+        appendTextareaPropRow(tbody, 'Pin Notes / Description', pin.notes || '', 2, val => {
+          pin.notes = val;
+          saveActiveCampaign();
+        });
+
+        const links = Array.isArray(pin.links) && pin.links.length > 0
+          ? pin.links
+          : (pin.targetType && pin.targetId ? [{ type: pin.targetType, id: pin.targetId }] : []);
+
+        const activeInspected = pin._inspectedLink || {
+          type: pin._pendingTargetType || pin.targetType || (links[0] && links[0].type) || 'submap',
+          id: pin._pendingTargetType ? '' : String(pin.targetId || (links[0] && links[0].id) || '')
+        };
+
+        if (links.length > 0) {
+          appendCategoryRow(tbody, `Linked Entities (${links.length})`);
+          links.forEach((lnk, idx) => {
+            const title = (typeof resolvePinLinkTitle === 'function') ? resolvePinLinkTitle(lnk.type, lnk.id) : `${lnk.type}:${lnk.id}`;
+            const isInspected = !pin._pendingTargetType && String(activeInspected.type) === String(lnk.type) && String(activeInspected.id) === String(lnk.id);
+            const btnLabel = idx === 0
+              ? (isInspected ? '✅ Inspected (Shift: Unlink)' : '🔍 Select & Inspect')
+              : (isInspected ? '✅ Inspected (Shift: Unlink)' : '🔍 Inspect / ★ Make Primary (Shift: Unlink)');
+            appendButtonPropRow(tbody, `${isInspected ? '▶ ' : ''}${idx === 0 ? '★ ' : ''}[${(lnk.type || '').toUpperCase()}] ${title}`, btnLabel, (ev) => {
+              delete pin._pendingTargetType;
+              delete pin._inspectedLink;
+              if (ev && ev.shiftKey) {
+                pin.links.splice(idx, 1);
+              } else if (idx > 0) {
+                const picked = pin.links.splice(idx, 1)[0];
+                pin.links.unshift(picked);
+              }
+              if (typeof normalizeSpatialPin === 'function') normalizeSpatialPin(pin);
+              renderCanvas();
+              updatePropertiesGrid();
+              if (typeof updateObjectSelector === 'function') updateObjectSelector();
+              saveActiveCampaign();
+            });
+          });
+        }
+
+        const tType = activeInspected.type || 'submap';
+        const tId = String(activeInspected.id || '');
+
+        appendSelectPropRow(tbody, 'Target Type', tType, [
+          { val: 'submap', label: '🌀 Sub-Map (Drill-Down Link)' },
+          { val: 'npc', label: '👤 NPC (Personage)' },
+          { val: 'quest', label: '📜 Quest (Hook / Arc)' },
+          { val: 'item', label: '💎 Item (Artifact / Trade)' },
+          { val: 'tracker', label: '⏱️ Clock / Tracker' },
+          { val: 'faction', label: '👑 Faction (Power Bloc)' },
+          { val: 'ticket', label: '🎫 Authoring Ticket' },
+          { val: 'node', label: '📍 Graph Node' }
+        ], val => {
+          delete pin._inspectedLink;
+          pin._pendingTargetType = val;
+          pin.targetType = val;
+          pin.targetId = '';
+          renderCanvas();
+          updateObjectSelector();
+          updatePropertiesGrid();
+          saveActiveCampaign();
+        });
+
+        // Build target options based on tType
+        const targetOpts = [{ val: '', label: '-- Select Target --' }];
+        if (tType === 'submap' && typeof maps !== 'undefined' && maps) {
+          Object.values(maps).forEach(m => {
+            if (!m || !m.id) return;
+            targetOpts.push({ val: String(m.id), label: `${m.name || m.id} [${m.scaleTier || 'region'}]` });
+          });
+        } else if (tType === 'npc') {
+          (topo.npcs || []).forEach(n => targetOpts.push({ val: String(n.id), label: `${n.name} (${n.role || 'NPC'})` }));
+        } else if (tType === 'quest') {
+          (topo.quests || []).forEach(q => targetOpts.push({ val: String(q.id), label: `${q.title || q.name} (${q.category || 'Quest'})` }));
+        } else if (tType === 'item') {
+          (topo.items || []).forEach(i => targetOpts.push({ val: String(i.id), label: `${i.name} (${i.category || 'Item'})` }));
+        } else if (tType === 'tracker') {
+          (topo.trackers || []).forEach(tr => targetOpts.push({ val: String(tr.id), label: `${tr.name} (${tr.currentTicks || tr.value || 0}/${tr.maxTicks || tr.max || 4})` }));
+        } else if (tType === 'faction') {
+          (topo.factions || []).forEach(f => targetOpts.push({ val: String(f.id), label: `${f.name} [${f.cvfQuadrant || f.culture || f.quadrant || 'Clan'}]` }));
+        } else if (tType === 'ticket') {
+          (topo.tickets || topo.customTickets || []).forEach(tk => targetOpts.push({ val: String(tk.id), label: `[${tk.id}] ${tk.title || tk.name}` }));
+        } else if (tType === 'node') {
+          Object.values(topo.nodes || {}).forEach(nd => targetOpts.push({ val: String(nd.id), label: `#${nd.id}: ${nd.name}` }));
+        }
+
+        appendSelectPropRow(tbody, 'Linked Target', tId, targetOpts, val => {
+          delete pin._pendingTargetType;
+          delete pin._inspectedLink;
+          pin.targetType = tType;
+          pin.targetId = val;
+          if (!Array.isArray(pin.links)) pin.links = [];
+          if (val) {
+            const existingIdx = pin.links.findIndex(l => l.type === tType && String(l.id) === String(val));
+            if (existingIdx > 0) {
+              const item = pin.links.splice(existingIdx, 1)[0];
+              pin.links.unshift(item);
+            } else if (existingIdx === -1) {
+              pin.links.unshift({ type: tType, id: String(val) });
+            }
+          }
+          // Auto-populate label if empty or default
+          if (!pin.label || pin.label === 'New Spatial Pin' || /^Pin \d+$/.test(pin.label)) {
+            const matchedOpt = targetOpts.find(o => String(o.val) === String(val));
+            if (matchedOpt && matchedOpt.val) {
+              pin.label = matchedOpt.label.replace(/\s*[\(\[].*?[\)\]]\s*$/, '').replace(/^#\d+:\s*/, '');
+            }
+          }
+          if (typeof normalizeSpatialPin === 'function') normalizeSpatialPin(pin);
+          renderCanvas();
+          updateObjectSelector();
+          updatePropertiesGrid();
+          saveActiveCampaign();
+        });
+
+        // Render full rich entity information from the Explorer pane
+        if (!tId) {
+          appendCategoryRow(tbody, 'Linked Target Inspector');
+          appendPropRow(tbody, 'Status', 'Select a Linked Target above to inspect & edit its properties.', false);
+        } else {
+          renderEntityExplorerProperties(tbody, tType, tId, topo, pin);
+        }
+
+        appendCategoryRow(tbody, 'Pin Actions');
+        appendActionPropRow(tbody, '[Delete Spatial Pin]', 'Remove this pin from the active map', () => {
+          if (typeof deleteSpatialPin === 'function') deleteSpatialPin(pin.id);
+        });
+
+      } else if (['npc', 'item', 'quest', 'tracker', 'faction', 'ticket'].includes(entity.type)) {
+        renderEntityExplorerProperties(tbody, entity.type, entity.id, topo, null);
+
       } else {
         // Global Campaign & Active Map Overview
         appendCategoryRow(tbody, 'Campaign Attributes');
@@ -1982,6 +2378,9 @@
             saveActiveCampaign();
           });
           appendButtonPropRow(tbody, 'Map Properties', '⚙️ Edit Full Map Properties...', () => openMapPropertiesDialog(curMapId));
+          appendButtonPropRow(tbody, 'Spatial Pins', '📌 + Place Spatial Pin on Map...', () => {
+            if (typeof addSpatialPinAt === 'function') addSpatialPinAt(400, 300);
+          });
         }
 
         appendCategoryRow(tbody, 'Topological Balance Summary');
@@ -1997,6 +2396,16 @@
         appendPropRow(tbody, 'Transit Roads', Math.round(roadCount / 2), false);
         appendPropRow(tbody, 'Hegemony Vectors', infCount, false);
         appendPropRow(tbody, 'Equilibrium Status', (typeof globalInversion !== "undefined" && globalInversion) ? 'Panopticon Lockdown' : 'Harmonic Equilibrium', false);
+        appendActionPropRow(tbody, '[Supply Simulation]', '⏭️ Advance Supply Turn & Audit Severance', () => {
+          if (typeof advanceSeveranceTurn === 'function') {
+            advanceSeveranceTurn();
+          }
+        });
+        appendActionPropRow(tbody, '[Live Modules]', '🔄 Reload Disk .md Modules (Loopback)', () => {
+          if (typeof reloadLiveModulesFromLoopback === 'function') {
+            reloadLiveModulesFromLoopback();
+          }
+        });
 
         // Global GM Campaign Notes & Wiki Citations
         appendCategoryRow(tbody, 'Global Notes & Citations');
@@ -2017,6 +2426,617 @@
       td.textContent = name;
       tr.appendChild(td);
       tbody.appendChild(tr);
+    }
+
+    function appendBoolPropRow(tbody, propName, boolVal, onCommit) {
+      appendSelectPropRow(tbody, propName, boolVal ? 'true' : 'false', [
+        { val: 'true', label: 'True 👁️' },
+        { val: 'false', label: 'False 👁️‍🗨️' }
+      ], val => {
+        if (onCommit) onCommit(val === 'true');
+      });
+    }
+
+    function getNodeSelectOptions(topo) {
+      const options = [{ val: '', label: '(Unassigned / In Pool)' }];
+      if (!topo) return options;
+      const allMaps = (typeof maps !== 'undefined' && maps) ? maps : (topo.maps || {});
+      if (Object.keys(allMaps).length > 1) {
+        Object.keys(allMaps).forEach(mId => {
+          const m = allMaps[mId];
+          const isCur = (mId === (typeof activeMapId !== 'undefined' ? activeMapId : 'map_root'));
+          const mapNodes = isCur ? (topo.nodes ? Object.values(topo.nodes) : (m.nodes || [])) : (m.nodes || []);
+          (Array.isArray(mapNodes) ? mapNodes : Object.values(mapNodes)).forEach(n => {
+            options.push({ val: String(n.id), label: `[${m.name || mId}] #${n.id}: ${n.name || 'Node ' + n.id}` });
+          });
+        });
+      } else if (topo.nodes) {
+        const nList = Array.isArray(topo.nodes) ? topo.nodes : Object.values(topo.nodes);
+        nList.forEach(n => {
+          options.push({ val: String(n.id), label: `#${n.id}: ${n.name || 'Node ' + n.id}` });
+        });
+      }
+      return options;
+    }
+
+    function getNpcSelectOptions(topo) {
+      const options = [{ val: '', label: '(None / Unowned)' }];
+      if (topo && Array.isArray(topo.npcs)) {
+        topo.npcs.forEach(n => {
+          options.push({ val: String(n.id), label: `${n.name || n.id} [${n.role || 'NPC'}]` });
+        });
+      }
+      return options;
+    }
+
+    function renderEntityExplorerProperties(tbody, entityType, entityId, topo, pin = null) {
+      if (!tbody || !entityType || !entityId) return;
+      topo = topo || (typeof Workstation !== 'undefined' ? Workstation.activeTopology : null);
+      if (!topo) return;
+
+      const nodeOptions = getNodeSelectOptions(topo);
+      const npcOptions = getNpcSelectOptions(topo);
+
+      if (entityType === 'item') {
+        let item = (topo.items || []).find(i => String(i.id) === String(entityId));
+        let isProto = false;
+        if (!item && typeof getPrototypesForType === 'function') {
+          const protos = getPrototypesForType('item');
+          item = protos.find(p => String(p.id) === String(entityId));
+          isProto = true;
+        }
+        if (!item) {
+          appendCategoryRow(tbody, `Item: ${entityId} (Not Found)`);
+          appendPropRow(tbody, 'Status', 'Entity record missing from campaign', false);
+          return;
+        }
+
+        appendCategoryRow(tbody, `Item: ${item.name || item.id}`);
+        appendPropRow(tbody, 'Item Name', item.name || '', true, val => {
+          item.name = val;
+          if (pin && !pin.label) pin.label = val;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          if (typeof updateObjectSelector === 'function') updateObjectSelector();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendPropRow(tbody, 'Category', item.category || 'Gear / Relic', true, val => {
+          item.category = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendPropRow(tbody, 'Source Module', item.moduleId ? `Module [${item.moduleId}]` : (isProto ? 'Prototype' : 'Custom Authored'), false);
+
+        // Ownership & Possession Mode
+        appendCategoryRow(tbody, 'Ownership & Possession');
+        const curMode = item.possessionMode || 'stored';
+        appendSelectPropRow(tbody, 'Possession Mode', curMode, [
+          { val: 'stored', label: '📦 Stored at Node Location' },
+          { val: 'carried', label: '🎒 Equipped / Carried by Character' }
+        ], val => {
+          item.possessionMode = val;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          updatePropertiesGrid();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        appendSelectPropRow(tbody, 'Owner Character', String(item.ownerNpcId || ''), npcOptions, val => {
+          item.ownerNpcId = val || null;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          updatePropertiesGrid();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        appendSelectPropRow(tbody, 'Stationed Node', String(item.nodeId || ''), nodeOptions, val => {
+          item.nodeId = val ? (isNaN(val) ? val : parseInt(val)) : null;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          updatePropertiesGrid();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        const ownerNpc = (topo.npcs || []).find(n => String(n.id) === String(item.ownerNpcId));
+        const effectiveLoc = (item.possessionMode === 'carried' && ownerNpc)
+          ? `Carried by ${ownerNpc.name || ownerNpc.id} (Node #${ownerNpc.nodeId ?? 'Pool'})`
+          : (item.nodeId ? `Stationed at Node #${item.nodeId}` : 'Unassigned / In Inventory Pool');
+        appendPropRow(tbody, 'Physical Location', effectiveLoc, false);
+
+        // Mechanical Specs & Lore
+        appendCategoryRow(tbody, 'Specifications & Lore');
+        appendTextareaPropRow(tbody, 'Mechanical Specs', item.specs || item.properties || '', 2, val => {
+          item.specs = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendTextareaPropRow(tbody, 'Lore & Description', item.notes || item.description || '', 2, val => {
+          item.notes = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        // Referencing Quests
+        const refQuests = (topo.quests || []).filter(q => (q.itemIds || []).some(id => String(id) === String(item.id)));
+        if (refQuests.length > 0) {
+          appendCategoryRow(tbody, `Referencing Quests (${refQuests.length})`);
+          refQuests.forEach(q => {
+            appendButtonPropRow(tbody, `[QUEST] ${q.title || q.name || q.id}`, '🔍 Inspect Quest', () => {
+              if (pin) {
+                pin._inspectedLink = { type: 'quest', id: q.id };
+                updatePropertiesGrid();
+                if (typeof updateObjectSelector === 'function') updateObjectSelector();
+              } else {
+                renderEntityExplorerProperties(tbody, 'quest', q.id, topo, null);
+              }
+            });
+          });
+        }
+
+        // Explorer & CRUD Actions
+        appendCategoryRow(tbody, 'Entity Roster Actions');
+        appendButtonPropRow(tbody, 'Explorer Roster', '📂 Open Item Catalog in Explorer...', () => {
+          if (typeof openEntityManager === 'function') openEntityManager('item');
+          if (typeof selectEntityItem === 'function') selectEntityItem(item.id, isProto);
+        });
+        appendButtonPropRow(tbody, 'Full Edit', '⚙️ Edit Item Modal...', () => {
+          if (typeof openEditEntityModal === 'function') openEditEntityModal(item.id);
+        });
+
+      } else if (entityType === 'npc') {
+        let npc = (topo.npcs || []).find(n => String(n.id) === String(entityId));
+        let isProto = false;
+        if (!npc && typeof getPrototypesForType === 'function') {
+          const protos = getPrototypesForType('npc');
+          npc = protos.find(p => String(p.id) === String(entityId));
+          isProto = true;
+        }
+        if (!npc) {
+          appendCategoryRow(tbody, `NPC: ${entityId} (Not Found)`);
+          appendPropRow(tbody, 'Status', 'Entity record missing from campaign', false);
+          return;
+        }
+
+        appendCategoryRow(tbody, `NPC: ${npc.name || npc.id}`);
+        appendPropRow(tbody, 'Character Name', npc.name || '', true, val => {
+          npc.name = val;
+          if (pin && !pin.label) pin.label = val;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          if (typeof updateObjectSelector === 'function') updateObjectSelector();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendPropRow(tbody, 'Role / Title', npc.role || '', true, val => {
+          npc.role = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendSelectPropRow(tbody, 'Status', npc.status || 'Active', [
+          { val: 'Active', label: '🟢 Active' },
+          { val: 'Captured', label: '🟠 Captured' },
+          { val: 'In Hiding', label: '🟣 In Hiding' },
+          { val: 'Exiled', label: '🟤 Exiled' },
+          { val: 'Deceased', label: '🔴 Deceased' },
+          { val: 'Missing', label: '⚪ Missing' }
+        ], val => {
+          npc.status = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        const standingVal = String(npc.dispositionToParty !== undefined ? npc.dispositionToParty : 0);
+        appendSelectPropRow(tbody, 'Party Standing', standingVal, [
+          { val: '2', label: '🤝 Allied (+2)' },
+          { val: '1', label: '👍 Friendly (+1)' },
+          { val: '0', label: '⚖️ Neutral (0)' },
+          { val: '-1', label: '👎 Unfriendly (-1)' },
+          { val: '-2', label: '⚔️ Hostile (-2)' }
+        ], val => {
+          npc.dispositionToParty = parseInt(val);
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        appendSelectPropRow(tbody, 'Stationed Node', String(npc.nodeId || ''), nodeOptions, val => {
+          npc.nodeId = val ? (isNaN(val) ? val : parseInt(val)) : null;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          updatePropertiesGrid();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        appendCategoryRow(tbody, 'Sociology & Archetype');
+        appendSelectPropRow(tbody, 'Culture Quadrant', npc.culture || npc.cvfQuadrant || 'Clan', [
+          { val: 'Clan', label: 'Clan (Cohesion / Internal)' },
+          { val: 'Adhocracy', label: 'Adhocracy (Energy / Innovation)' },
+          { val: 'Market', label: 'Market (Structure / Extraction)' },
+          { val: 'Hierarchy', label: 'Hierarchy (Stability / Control)' }
+        ], val => {
+          npc.culture = val;
+          npc.cvfQuadrant = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        const disp = Array.isArray(npc.disposition) ? npc.disposition : [2, 2, 2];
+        const odvTag = `S${disp[0] || 2}E${disp[1] || 2}C${disp[2] || 2}`;
+        const odvObj = (typeof ODV_MATRIX_64 !== 'undefined' && ODV_MATRIX_64[odvTag]) ? ODV_MATRIX_64[odvTag] : null;
+        const archName = odvObj ? odvObj.archetypeName : 'Standard Archetype';
+        appendPropRow(tbody, 'ODV Archetype', `[${odvTag}] ${archName}`, false);
+
+        appendSelectPropRow(tbody, 'Four-Corners Role', npc.fourCornersRole || 'Active', [
+          { val: 'Active', label: '🔥 Catalyst (Active)' },
+          { val: 'Adversary', label: '⚔️ Adversary' },
+          { val: 'Shadow', label: '👥 Shadow Mirror' },
+          { val: 'Target', label: '🎯 Prize / Target' }
+        ], val => {
+          npc.fourCornersRole = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        // Faction
+        const facOptions = [{ val: '', label: '(Independent / None)' }];
+        (topo.factions || []).forEach(f => {
+          facOptions.push({ val: f.id || f.name, label: `${f.name || f.id} [${f.cvfQuadrant || 'Clan'}]` });
+        });
+        appendSelectPropRow(tbody, 'Faction Alignment', npc.factionId || npc.faction || '', facOptions, val => {
+          npc.factionId = val || null;
+          npc.faction = val || null;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        // Motivation & Secrets
+        appendCategoryRow(tbody, 'Motivation & Secrets');
+        appendTextareaPropRow(tbody, 'Core Motivation', npc.motivation || '', 2, val => {
+          npc.motivation = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendTextareaPropRow(tbody, 'Lore & Secrets', npc.notes || '', 2, val => {
+          npc.notes = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        // Social Relationships
+        const rels = Array.isArray(npc.relationships) ? npc.relationships : [];
+        appendCategoryRow(tbody, `Social Relationships (${rels.length})`);
+        rels.forEach((r, idx) => {
+          const tgt = (topo.npcs || []).find(n => String(n.id) === String(r.targetNpcId));
+          const tgtName = tgt ? (tgt.name || tgt.id) : (r.targetNpcId || 'Unknown');
+          const sentStr = r.sentiment > 0 ? `+${r.sentiment}` : String(r.sentiment || 0);
+          appendPropRow(tbody, `↳ ${r.relationshipType || 'Linked'}: ${tgtName}`, `Sentiment: ${sentStr}${r.notes ? ' (' + r.notes + ')' : ''}`, false);
+        });
+
+        // Carried Gear
+        const carriedItems = (topo.items || []).filter(i => String(i.ownerNpcId) === String(npc.id) && i.possessionMode === 'carried');
+        if (carriedItems.length > 0) {
+          appendCategoryRow(tbody, `Carried Relics & Gear (${carriedItems.length})`);
+          carriedItems.forEach(i => {
+            appendButtonPropRow(tbody, `[ITEM] ${i.name || i.id}`, '🔍 Inspect Item', () => {
+              if (pin) {
+                pin._inspectedLink = { type: 'item', id: i.id };
+                updatePropertiesGrid();
+                if (typeof updateObjectSelector === 'function') updateObjectSelector();
+              } else {
+                renderEntityExplorerProperties(tbody, 'item', i.id, topo, null);
+              }
+            });
+          });
+        }
+
+        // Referencing Quests
+        const refQuests = (topo.quests || []).filter(q => (q.npcIds || []).some(id => String(id) === String(npc.id)));
+        if (refQuests.length > 0) {
+          appendCategoryRow(tbody, `Referencing Quests (${refQuests.length})`);
+          refQuests.forEach(q => {
+            appendButtonPropRow(tbody, `[QUEST] ${q.title || q.name || q.id}`, '🔍 Inspect Quest', () => {
+              if (pin) {
+                pin._inspectedLink = { type: 'quest', id: q.id };
+                updatePropertiesGrid();
+                if (typeof updateObjectSelector === 'function') updateObjectSelector();
+              } else {
+                renderEntityExplorerProperties(tbody, 'quest', q.id, topo, null);
+              }
+            });
+          });
+        }
+
+        // Explorer & CRUD Actions
+        appendCategoryRow(tbody, 'Entity Roster Actions');
+        appendButtonPropRow(tbody, 'Character Roster', '📂 Open Character Roster in Explorer...', () => {
+          if (typeof openEntityManager === 'function') openEntityManager('npc');
+          if (typeof selectEntityItem === 'function') selectEntityItem(npc.id, isProto);
+        });
+        appendButtonPropRow(tbody, 'Full Edit', '⚙️ Edit Character Modal...', () => {
+          if (typeof openEditEntityModal === 'function') openEditEntityModal(npc.id);
+        });
+
+      } else if (entityType === 'quest') {
+        let quest = (topo.quests || []).find(q => String(q.id) === String(entityId));
+        let isProto = false;
+        if (!quest && typeof getPrototypesForType === 'function') {
+          const protos = getPrototypesForType('quest');
+          quest = protos.find(p => String(p.id) === String(entityId));
+          isProto = true;
+        }
+        if (!quest) {
+          appendCategoryRow(tbody, `Quest: ${entityId} (Not Found)`);
+          appendPropRow(tbody, 'Status', 'Entity record missing from campaign', false);
+          return;
+        }
+
+        appendCategoryRow(tbody, `Quest: ${quest.title || quest.name || quest.id}`);
+        appendPropRow(tbody, 'Quest Title', quest.title || quest.name || '', true, val => {
+          quest.title = val;
+          quest.name = val;
+          if (pin && !pin.label) pin.label = val;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          if (typeof updateObjectSelector === 'function') updateObjectSelector();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendPropRow(tbody, 'Category / Arc', quest.category || 'Main Arc', true, val => {
+          quest.category = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendPropRow(tbody, 'Threat / Stakes', quest.threat || quest.stakes || 'Standard Encounter', true, val => {
+          quest.threat = val;
+          quest.stakes = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        appendSelectPropRow(tbody, 'Anchor / Station Node', String(quest.nodeId || ''), nodeOptions, val => {
+          quest.nodeId = val ? (isNaN(val) ? val : parseInt(val)) : null;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          updatePropertiesGrid();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        appendCategoryRow(tbody, 'Narrative Objective');
+        appendTextareaPropRow(tbody, 'Objective & Synopsis', quest.motivation || quest.description || quest.notes || '', 3, val => {
+          quest.motivation = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        // Quest Steps
+        const steps = Array.isArray(quest.steps) ? quest.steps : [];
+        appendCategoryRow(tbody, `Quest Steps (${steps.length})`);
+        if (steps.length === 0) {
+          appendPropRow(tbody, 'Steps', 'No structured steps mapped yet', false);
+        } else {
+          steps.forEach((step, idx) => {
+            const isDone = !!(step.isCompleted || step.completed);
+            const title = step.title || step.desc || `Step ${idx + 1}`;
+            appendButtonPropRow(tbody, `${isDone ? '☑' : '☐'} Step ${idx + 1}: ${title}`, isDone ? '✅ Completed' : '⏳ Mark Done', () => {
+              step.isCompleted = !isDone;
+              step.completed = !isDone;
+              updatePropertiesGrid();
+              if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+            });
+          });
+        }
+
+        // Spanning Nodes
+        const spanningNodes = (typeof getQuestSpanningNodes === 'function') ? getQuestSpanningNodes(quest) : [];
+        if (spanningNodes.length > 0) {
+          appendCategoryRow(tbody, `Spanning Nodes (${spanningNodes.length})`);
+          spanningNodes.forEach(sn => {
+            appendButtonPropRow(tbody, `#${sn.nodeId}: ${sn.nodeName}`, '🎯 Center on Canvas', () => {
+              if (typeof centerOnNode === 'function') centerOnNode(sn.nodeId);
+            });
+          });
+        }
+
+        // Linked NPCs
+        const linkedNpcIds = quest.npcIds || [];
+        if (linkedNpcIds.length > 0) {
+          appendCategoryRow(tbody, `Linked Characters (${linkedNpcIds.length})`);
+          linkedNpcIds.forEach(nId => {
+            const nObj = (topo.npcs || []).find(n => String(n.id) === String(nId));
+            const nName = nObj ? (nObj.name || nObj.id) : nId;
+            appendButtonPropRow(tbody, `[NPC] ${nName}`, '🔍 Inspect Character', () => {
+              if (pin) {
+                pin._inspectedLink = { type: 'npc', id: nId };
+                updatePropertiesGrid();
+                if (typeof updateObjectSelector === 'function') updateObjectSelector();
+              } else {
+                renderEntityExplorerProperties(tbody, 'npc', nId, topo, null);
+              }
+            });
+          });
+        }
+
+        // Linked Items
+        const linkedItemIds = quest.itemIds || [];
+        if (linkedItemIds.length > 0) {
+          appendCategoryRow(tbody, `Linked Relics & Items (${linkedItemIds.length})`);
+          linkedItemIds.forEach(iId => {
+            const iObj = (topo.items || []).find(i => String(i.id) === String(iId));
+            const iName = iObj ? (iObj.name || iObj.id) : iId;
+            appendButtonPropRow(tbody, `[ITEM] ${iName}`, '🔍 Inspect Item', () => {
+              if (pin) {
+                pin._inspectedLink = { type: 'item', id: iId };
+                updatePropertiesGrid();
+                if (typeof updateObjectSelector === 'function') updateObjectSelector();
+              } else {
+                renderEntityExplorerProperties(tbody, 'item', iId, topo, null);
+              }
+            });
+          });
+        }
+
+        // Explorer & CRUD Actions
+        appendCategoryRow(tbody, 'Entity Roster Actions');
+        appendButtonPropRow(tbody, 'Quest Tracker', '📂 Open Quest Tracker in Explorer...', () => {
+          if (typeof openEntityManager === 'function') openEntityManager('quest');
+          if (typeof selectEntityItem === 'function') selectEntityItem(quest.id, isProto);
+        });
+        appendButtonPropRow(tbody, 'Full Edit', '⚙️ Edit Quest Modal...', () => {
+          if (typeof openEditEntityModal === 'function') openEditEntityModal(quest.id);
+        });
+
+      } else if (entityType === 'tracker') {
+        let trk = (topo.trackers || []).find(t => String(t.id) === String(entityId));
+        let isProto = false;
+        if (!trk && typeof getPrototypesForType === 'function') {
+          const protos = getPrototypesForType('tracker');
+          trk = protos.find(p => String(p.id) === String(entityId));
+          isProto = true;
+        }
+        if (!trk) {
+          appendCategoryRow(tbody, `Threat Clock: ${entityId} (Not Found)`);
+          appendPropRow(tbody, 'Status', 'Entity record missing from campaign', false);
+          return;
+        }
+
+        appendCategoryRow(tbody, `Threat Clock: ${trk.name || trk.title || trk.id}`);
+        appendPropRow(tbody, 'Clock Title', trk.name || trk.title || '', true, val => {
+          trk.name = val;
+          trk.title = val;
+          if (pin && !pin.label) pin.label = val;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          if (typeof updateObjectSelector === 'function') updateObjectSelector();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendSelectPropRow(tbody, 'Escalation Scope Tier', trk.scopeTier || 'quest', [
+          { val: 'quest', label: 'Quest Scope' },
+          { val: 'settlement', label: 'Settlement Scope' },
+          { val: 'faction', label: 'Faction Scope' },
+          { val: 'world', label: 'World Scope' }
+        ], val => {
+          trk.scopeTier = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        const curTicks = trk.currentTicks !== undefined ? trk.currentTicks : (trk.ticks || 0);
+        const maxTicks = trk.maxTicks || 4;
+        appendPropRow(tbody, 'Escalation Progress', `${curTicks} / ${maxTicks} Ticks (${Math.round((curTicks / maxTicks) * 100)}%)`, false);
+
+        appendButtonPropRow(tbody, '+ Advance Clock', '⚡ +1 Tick', () => {
+          if (typeof advanceTrackerTick === 'function') advanceTrackerTick(trk.id, 1);
+          updatePropertiesGrid();
+        });
+        appendButtonPropRow(tbody, '- Step Clock', '⏪ -1 Tick', () => {
+          if (typeof advanceTrackerTick === 'function') advanceTrackerTick(trk.id, -1);
+          updatePropertiesGrid();
+        });
+        appendButtonPropRow(tbody, 'Reset Clock', '🔄 Reset to 0', () => {
+          if (typeof resetTrackerTicks === 'function') resetTrackerTicks(trk.id);
+          updatePropertiesGrid();
+        });
+
+        appendCategoryRow(tbody, 'Trigger & Consequences');
+        appendTextareaPropRow(tbody, 'Consequences', trk.notes || trk.consequences || trk.motivation || '', 3, val => {
+          trk.notes = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        appendSelectPropRow(tbody, 'Stationed Node', String(trk.nodeId || ''), nodeOptions, val => {
+          trk.nodeId = val ? (isNaN(val) ? val : parseInt(val)) : null;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          updatePropertiesGrid();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        appendCategoryRow(tbody, 'Entity Roster Actions');
+        appendButtonPropRow(tbody, 'Clock Tracker', '📂 Open Threat Trackers in Explorer...', () => {
+          if (typeof openEntityManager === 'function') openEntityManager('tracker');
+          if (typeof selectEntityItem === 'function') selectEntityItem(trk.id, isProto);
+        });
+
+      } else if (entityType === 'faction') {
+        let fac = (topo.factions || []).find(f => String(f.id) === String(entityId));
+        let isProto = false;
+        if (!fac && typeof getPrototypesForType === 'function') {
+          const protos = getPrototypesForType('faction');
+          fac = protos.find(p => String(p.id) === String(entityId));
+          isProto = true;
+        }
+        if (!fac) {
+          appendCategoryRow(tbody, `Faction: ${entityId} (Not Found)`);
+          appendPropRow(tbody, 'Status', 'Entity record missing from campaign', false);
+          return;
+        }
+
+        appendCategoryRow(tbody, `Faction: ${fac.name || fac.id}`);
+        appendPropRow(tbody, 'Faction Name', fac.name || '', true, val => {
+          fac.name = val;
+          if (pin && !pin.label) pin.label = val;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          if (typeof updateObjectSelector === 'function') updateObjectSelector();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendSelectPropRow(tbody, 'Culture Quadrant', fac.cvfQuadrant || 'Clan', [
+          { val: 'Clan', label: 'Clan (Cohesion / Internal)' },
+          { val: 'Adhocracy', label: 'Adhocracy (Energy / Innovation)' },
+          { val: 'Market', label: 'Market (Structure / Extraction)' },
+          { val: 'Hierarchy', label: 'Hierarchy (Stability / Control)' }
+        ], val => {
+          fac.cvfQuadrant = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendSelectPropRow(tbody, 'Leader NPC', String(fac.leaderNpcId || ''), npcOptions, val => {
+          fac.leaderNpcId = val || null;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendSelectPropRow(tbody, 'Headquarters Node', String(fac.headquartersNodeId || ''), nodeOptions, val => {
+          fac.headquartersNodeId = val ? (isNaN(val) ? val : parseInt(val)) : null;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        appendCategoryRow(tbody, 'Entity Roster Actions');
+        appendButtonPropRow(tbody, 'Faction Registry', '📂 Open Faction Registry in Explorer...', () => {
+          if (typeof openEntityManager === 'function') openEntityManager('faction');
+          if (typeof selectEntityItem === 'function') selectEntityItem(fac.id, isProto);
+        });
+
+      } else if (entityType === 'ticket') {
+        const tk = (topo.tickets || topo.customTickets || []).find(t => String(t.id) === String(entityId));
+        appendCategoryRow(tbody, `Authoring Ticket: ${tk ? (tk.title || tk.name || tk.id) : entityId}`);
+        if (tk) {
+          appendPropRow(tbody, 'Ticket ID', tk.id, false);
+          appendPropRow(tbody, 'Title', tk.title || tk.name || '', true, val => {
+            tk.title = val;
+            tk.name = val;
+            if (typeof renderCanvas === 'function') renderCanvas();
+            if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+          });
+          appendPropRow(tbody, 'Status', tk.status || 'ready_for_authoring', false);
+          appendTextareaPropRow(tbody, 'Ticket Notes', tk.notes || '', 3, val => {
+            tk.notes = val;
+            if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+          });
+          appendButtonPropRow(tbody, 'Full Inspector', '🎫 Open in Ticket Center', () => {
+            if (typeof openTicketCenter === 'function') openTicketCenter('campaign', tk.id);
+          });
+        } else {
+          appendPropRow(tbody, 'Status', 'Ticket record not found in active campaign', false);
+        }
+      } else if (entityType === 'node') {
+        const targetNode = (topo.nodes) ? (Array.isArray(topo.nodes) ? topo.nodes.find(n => String(n.id) === String(entityId)) : topo.nodes[String(entityId)]) : null;
+        if (targetNode) {
+          appendCategoryRow(tbody, `Pointcrawl Node #${targetNode.id}: ${targetNode.name || 'Node'}`);
+          appendPropRow(tbody, 'Node Name', targetNode.name || '', true, val => {
+            targetNode.name = val;
+            if (typeof renderCanvas === 'function') renderCanvas();
+            if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+          });
+          appendPropRow(tbody, 'Coordinates', `(${targetNode.x}, ${targetNode.y})`, false);
+          appendPropRow(tbody, 'Culture', targetNode.culture || 'Clan', false);
+          appendButtonPropRow(tbody, 'Canvas Navigation', '🎯 Center & Select Node on Canvas', () => {
+            if (typeof selectNode === 'function') selectNode(targetNode.id);
+            if (typeof centerOnNode === 'function') centerOnNode(targetNode.id);
+          });
+        }
+      } else if (entityType === 'submap') {
+        const allMaps = (typeof maps !== 'undefined' && maps) ? maps : (topo.maps || {});
+        const targetMap = allMaps[entityId];
+        appendCategoryRow(tbody, `Portal Map: ${targetMap ? targetMap.name : entityId}`);
+        if (targetMap) {
+          appendPropRow(tbody, 'Sub-Map Name', targetMap.name || entityId, true, val => {
+            targetMap.name = val;
+            if (typeof renderCanvas === 'function') renderCanvas();
+            updatePropertiesGrid();
+            if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+          });
+          appendPropRow(tbody, 'Scale Tier', (targetMap.scaleTier || 'region').toUpperCase(), false);
+          appendTextareaPropRow(tbody, 'Sub-Map Lore', targetMap.customNotes || '', 3, val => {
+            targetMap.customNotes = val;
+            if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+          });
+          appendButtonPropRow(tbody, 'Map Navigation', '🌀 Enter Sub-Map (' + (targetMap.name || entityId) + ')', () => {
+            if (typeof switchActiveMap === 'function') switchActiveMap(entityId);
+          });
+        } else {
+          appendPropRow(tbody, 'Target Missing', `Sub-Map "${entityId}" not found`, false);
+        }
+      }
     }
 
     function appendPropRow(tbody, propName, value, isEditable, onCommit) {
@@ -3378,8 +4398,8 @@ window.renderNodeProperties = renderNodeProperties;
 function renderEdgeProperties(targetTbody, edgeItem, topo = null) {
   if (!targetTbody || !edgeItem) return;
   const isHegem = edgeItem.edgeType === 'hegemony';
-  const pairKey = edgeItem.pairKey || [String(edgeItem.uId), String(edgeItem.vId)].sort().join('-');
-  const edgeKey = edgeItem.edgeKey || (isHegem ? `${edgeItem.uId}->${edgeItem.vId}` : pairKey);
+  const pairKey = edgeItem.pairKey || CampaignMutationEngine.formatCorridorKey(edgeItem.uId, edgeItem.vId, 'adj');
+  const edgeKey = edgeItem.edgeKey || CampaignMutationEngine.formatCorridorKey(edgeItem.uId, edgeItem.vId, isHegem ? 'inf' : 'adj');
   const normalizedItem = {
     type: 'edge',
     edgeType: edgeItem.edgeType || 'road',
@@ -3414,3 +4434,7 @@ window.closeTravelResolutionModal = closeTravelResolutionModal;
 window.executeTravelRoll = executeTravelRoll;
 window.triggerTravelThreatTick = triggerTravelThreatTick;
 window.severCorridorFromTravel = severCorridorFromTravel;
+window.appendBoolPropRow = appendBoolPropRow;
+window.getNodeSelectOptions = getNodeSelectOptions;
+window.getNpcSelectOptions = getNpcSelectOptions;
+window.renderEntityExplorerProperties = renderEntityExplorerProperties;

@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/map_navigator.js"
 title: "map_navigator.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "6cda7e32ec493122"
-reviewed_hash: "6cda7e32ec493122"
+current_hash: "6a9d65c1b82744ea"
+reviewed_hash: "6a9d65c1b82744ea"
 stale: false
-size_bytes: 12339
+size_bytes: 12629
 line_count: 288
 ---
 

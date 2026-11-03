@@ -1,16 +1,16 @@
 ---
 file_path: "campaigns/Test-CampaignPackage.ps1"
-title: "Test-CampaignPackage.ps1"
+title: "Test-CampaignPackage.ps1 — Campaign Package Structural Validator (Thin Node.js Launcher)"
 volume: "vol-8"
 kind: "PowerShell Automation / Simulation Runner"
-current_hash: "236c50a79792d488"
-reviewed_hash: "236c50a79792d488"
+current_hash: "240936265ce70550"
+reviewed_hash: "240936265ce70550"
 stale: false
-size_bytes: 1097
-line_count: 41
+size_bytes: 977
+line_count: 30
 ---
 
-# Test-CampaignPackage.ps1
+# Test-CampaignPackage.ps1 — Campaign Package Structural Validator (Thin Node.js Launcher)
 
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role

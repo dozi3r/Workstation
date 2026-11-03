@@ -3,11 +3,11 @@ file_path: "campaigns/Fallout2/campaign.json"
 title: "campaign.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "9d4073ff037a7bed"
-reviewed_hash: "9d4073ff037a7bed"
+current_hash: "655129f17e5d551b"
+reviewed_hash: "655129f17e5d551b"
 stale: false
-size_bytes: 14011
-line_count: 434
+size_bytes: 14031
+line_count: 435
 ---
 
 # campaign.json

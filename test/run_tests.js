@@ -14,6 +14,7 @@ const path = require('path');
 const vm = require('vm');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
+const ROOT = ROOT_DIR;
 
 let totalAssertions = 0;
 let passedAssertions = 0;
@@ -58,7 +59,6 @@ const HTML_SURFACES = [
   'network/network_builder.html',
   'network/platform_audit_dashboard.html',
   'network/odv_archetype_matrix.html',
-  'regions/regional_image_browser.html',
   'tickets/unified_ticket_tracker.html',
   'tickets/tier_0/tier_0_project_visualizer.html'
 ];
@@ -4285,7 +4285,7 @@ async function testEdgeExplorerAndConduitCatalog() {
   assert(cadInteractionCode.includes('function createEdge'), 'cad_interaction.js exports createEdge');
   assert(cadInteractionCode.includes('function deleteEdge'), 'cad_interaction.js exports deleteEdge');
   assert(cadInteractionCode.includes('pushHistoryState') && cadInteractionCode.includes('Hegemony Vector'), 'cad_interaction.js createEdge calls pushHistoryState before mutation');
-  assert(cadInteractionCode.includes('delete topo.edgeNotes[edgeKey]') && cadInteractionCode.includes('delete topo.edgeNotes[pairKey]'), 'cad_interaction.js deleteEdge cleans up edgeNotes for both edgeKey and pairKey');
+  assert((cadInteractionCode.includes('CampaignMutationEngine.removeCorridor') || (cadInteractionCode.includes('delete topo.edgeNotes[edgeKey]') && cadInteractionCode.includes('delete topo.edgeNotes[pairKey]'))), 'cad_interaction.js deleteEdge cleans up edgeNotes for both edgeKey and pairKey');
   assert(mdiCode.includes("e.key === 'F11'") && mdiCode.includes("openEntityManager('edge')"), 'mdi_window_manager.js handles Ctrl+F11 to open Edge Explorer');
   assert(templateHtml.includes("openEntityManager('edge')") && templateHtml.includes('<strong>Edges</strong>'), 'template.html contains menu entries and toolbar button [Edges] (Ctrl+F11)');
   assert(modalsHtml.includes('id="em-tab-edge"') && modalsHtml.includes('id="modal-edge-create"'), 'entity_modals.html contains #em-tab-edge button and #modal-edge-create dialog');
@@ -4375,7 +4375,8 @@ async function testEdgeExplorerAndConduitCatalog() {
     Workstation: {
       activeTopology: null,
       state: {}
-    }
+    },
+    CampaignMutationEngine: require(path.join(ROOT_DIR, 'src/workstation/scripts/campaign_mutation_engine.js'))
   };
   sandbox.window = sandbox;
 
@@ -5637,10 +5638,32 @@ function testMdiWindowResizingAndDockSplitters() {
   emDetailPane.offsetWidth = 280;
   emDetailPane.style.width = '280px';
 
+  const cadTabsSplitter = getOrMakeEl('cad-tabs-splitter', 'div', 'workspace-splitter-horizontal');
+  const cadTabsBar = getOrMakeEl('cad-layout-tabs-bar', 'div', 'cad-layout-tabs-bar');
+  cadTabsBar.offsetHeight = 38;
+  cadTabsBar.style.height = '38px';
+
   sandbox.initWorkspaceSplitters();
 
   assert(Boolean(emSplitterLeft.dataset.splitterBound), 'initWorkspaceSplitters binds #em-splitter-left');
   assert(Boolean(emSplitterRight.dataset.splitterBound), 'initWorkspaceSplitters binds #em-splitter-right');
+  assert(Boolean(cadTabsSplitter.dataset.splitterBound), 'initWorkspaceSplitters binds #cad-tabs-splitter for vertical map tab browser resizing');
+
+  // Drag horizontal splitter upward to make tab browser taller and trigger multi-row mode
+  cadTabsSplitter.dispatchEvent({ type: 'mousedown', clientX: 400, clientY: 700, preventDefault: () => {} });
+  const tabsMove = docListeners['mousemove'] ? docListeners['mousemove'][0] : null;
+  if (tabsMove) {
+    tabsMove({ clientX: 400, clientY: 640 }); // dy = -60 -> height = 38 + 60 = 98px
+    assertEqual(cadTabsBar.style.height, '98px', 'Dragging cad-tabs-splitter upward increases map tab browser height');
+    assert(cadTabsBar.classList.contains('multi-row'), 'Map tab browser switches to multi-row mode when height >= 56px');
+    docListeners['mouseup'][0]();
+    assertEqual(mockStorage['cs_layout_tabs_bar_height'], '98px', 'cad-tabs-splitter persists height in localStorage');
+  }
+
+  // Double click resets cad-layout-tabs-bar to default 38px and removes multi-row
+  cadTabsSplitter.dispatchEvent({ type: 'dblclick' });
+  assertEqual(cadTabsBar.style.height, '38px', 'Double clicking cad-tabs-splitter resets height to 38px');
+  assert(!cadTabsBar.classList.contains('multi-row'), 'Resetting height to 38px exits multi-row mode');
 
   // Drag left splitter to widen tree pane
   emSplitterLeft.dispatchEvent({ type: 'mousedown', clientX: 200, clientY: 100, preventDefault: () => {} });
@@ -6159,6 +6182,1635 @@ async function testBackgroundMapResizingAndTransformPersistence() {
 }
 
 // ============================================================================
+// SUITE 35: RELATIONAL TRACKERS, TICKET WORKFLOWS, SUBMAP NAVIGATION & SPATIAL PINS (DEV-01 - DEV-04)
+// ============================================================================
+function testRelationalTrackersTicketWorkflowsAndSpatialPins() {
+  console.log('\n--> SUITE 35: Relational Trackers, Ticket Workflows, Submap Navigation & Spatial Pins (DEV-01 - DEV-04)...');
+
+  const scriptsDir = path.join(ROOT_DIR, 'src/workstation/scripts');
+  const entityCoreCode = fs.readFileSync(path.join(scriptsDir, 'entity_core.js'), 'utf8');
+  const emUiCode = fs.readFileSync(path.join(scriptsDir, 'entity_manager_ui.js'), 'utf8');
+  const ticketCenterCode = fs.readFileSync(path.join(scriptsDir, 'ticket_center.js'), 'utf8');
+  const cascadeDeleteCode = fs.readFileSync(path.join(scriptsDir, 'entity_cascade_delete.js'), 'utf8');
+  const mdiCode = fs.readFileSync(path.join(scriptsDir, 'mdi_window_manager.js'), 'utf8');
+
+  // 1. Dynamic Modal Z-Index Elevation
+  const mockElements = {};
+  const mockDocument = {
+    getElementById: (id) => {
+      if (!mockElements[id]) {
+        mockElements[id] = {
+          id: id,
+          style: {},
+          classList: {
+            classes: new Set(['hidden']),
+            remove: function(c) { this.classes.delete(c); },
+            add: function(c) { this.classes.add(c); },
+            contains: function(c) { return this.classes.has(c); }
+          },
+          appendChild: () => {},
+          addEventListener: () => {}
+        };
+      }
+      return mockElements[id];
+    },
+    createElement: () => ({
+      style: {},
+      classList: {
+        classes: new Set(),
+        add: function(c) { this.classes.add(c); },
+        remove: function(c) { this.classes.delete(c); }
+      },
+      appendChild: () => {},
+      addEventListener: () => {}
+    }),
+    querySelectorAll: () => []
+  };
+
+  const sandbox = {
+    document: mockDocument,
+    window: {},
+    MODULE_ENTITY_PROTOTYPES: { npcs: [], quests: [], items: [], trackers: [], factions: [] },
+    MDIWindowManager: { highestZIndex: 50 },
+    Workstation: {
+      activeTopology: {
+        nodes: { '1': { id: 1, name: 'High Altar' } },
+        npcs: [{ id: 'npc_1', name: 'Goran', nodeId: 1 }],
+        quests: [{ id: 'quest_1', title: 'Find the Relic', nodeId: 1, steps: [{ id: 's1', title: 'Enter crypt', triggerTrackerId: 'trk_1', tickDelta: 1, isCompleted: false }] }],
+        items: [{ id: 'item_1', name: 'Golden Chalice', nodeId: 1 }],
+        trackers: [{ id: 'trk_1', name: 'Crypt Collapse', scopeTier: 'quest', currentTicks: 0, maxTicks: 4, triggerRefs: [{ entityType: 'quest', entityId: 'quest_1' }] }],
+        tickets: [
+          { id: 'DEV-01', title: 'Relatable Trackers', status: 'ready_for_authoring', targetType: 'tracker', targetId: 'trk_1', nodeId: 1, notes: 'Original note' },
+          { id: 'CAMP-01', title: 'Goran Lore', status: 'in_progress', targetType: 'npc', targetId: 'npc_1', nodeId: 1, notes: 'Goran backstory' }
+        ]
+      }
+    },
+    saveActiveCampaign: () => {},
+    setStatusBarMessage: () => {},
+    closeModal: () => {},
+    renderTicketList: () => {},
+    selectTicket: () => {},
+    renderEntityManagerList: () => {},
+    selectEntityItem: () => {},
+    updatePropertiesGrid: () => {},
+    alert: () => {},
+    console: console,
+    Date: Date,
+    Array: Array,
+    Object: Object,
+    String: String,
+    Number: Number,
+    parseInt: parseInt,
+    Set: Set
+  };
+  sandbox.window = sandbox;
+
+  vm.createContext(sandbox);
+  vm.runInContext(mdiCode, sandbox);
+  vm.runInContext(entityCoreCode, sandbox);
+  vm.runInContext(cascadeDeleteCode, sandbox);
+  vm.runInContext(emUiCode, sandbox);
+  vm.runInContext(ticketCenterCode, sandbox);
+
+  // Test 1: openModal elevates zIndex dynamically
+  sandbox.openModal('modal-ticket-author-new');
+  const modalEl = mockElements['modal-ticket-author-new'];
+  assert(modalEl.style.zIndex === 110, `openModal elevates style.zIndex to 110 (Got: ${modalEl.style.zIndex})`);
+  assert(!modalEl.classList.contains('hidden'), 'openModal removes hidden class');
+
+  // Test 2: getTicketsForEntity and getTrackersForEntity lookups
+  const goranTickets = sandbox.getTicketsForEntity('npc', 'npc_1');
+  assertEqual(goranTickets.length, 1, 'getTicketsForEntity finds ticket attached to NPC Goran');
+  assertEqual(goranTickets[0].id, 'CAMP-01', 'Found ticket has correct ID CAMP-01');
+
+  const cryptTrackers = sandbox.getTrackersForEntity('quest', 'quest_1');
+  assertEqual(cryptTrackers.length, 1, 'getTrackersForEntity finds tracker triggered by quest_1');
+  assertEqual(cryptTrackers[0].id, 'trk_1', 'Found tracker is trk_1');
+
+  // Test 3: Cascade Deletion Orphan Protection for Tickets
+  // Delete NPC Goran (npc_1)
+  sandbox.executeEntityDeletion([{ type: 'npc', id: 'npc_1' }]);
+  const orphanTicket = sandbox.Workstation.activeTopology.tickets.find(t => t.id === 'CAMP-01');
+  assertEqual(orphanTicket.targetType, 'campaign', 'Deleted NPC ticket targetType reparented to campaign');
+  assertEqual(orphanTicket.targetId, '', 'Deleted NPC ticket targetId cleared');
+  assert(orphanTicket.notes.includes('Target npc (npc_1) was deleted'), 'Ticket notes contain orphan audit trail');
+
+  // Test 4: Quest Step Advancement, Clock Trigger & Reset Rollback
+  const quest = sandbox.Workstation.activeTopology.quests[0];
+  const trk = sandbox.Workstation.activeTopology.trackers[0];
+  assertEqual(trk.currentTicks, 0, 'Tracker starts at 0 ticks');
+  sandbox.advanceQuestStep('quest_1', 0);
+  assert(quest.steps[0].isCompleted, 'advanceQuestStep marks step as completed');
+  assertEqual(trk.currentTicks, 1, 'advanceQuestStep ticks up linked tracker from 0 to 1');
+
+  sandbox.resetQuestStep('quest_1', 0);
+  assert(!quest.steps[0].isCompleted, 'resetQuestStep marks step as incomplete');
+  assertEqual(trk.currentTicks, 0, 'resetQuestStep rolls back linked tracker from 1 to 0');
+
+  // Test 5: Quest Step CRUD & Reordering
+  sandbox.updateQuestStepTrigger('quest_1', 0, 'trk_1', 2);
+  assertEqual(quest.steps[0].tickDelta, 2, 'updateQuestStepTrigger updates step tickDelta to 2');
+
+  // Test 6: Tracker Scope Tier & Universal Entity Attribution
+  sandbox.updateTrackerScopeTier('trk_1', 'faction');
+  assertEqual(trk.scopeTier, 'faction', 'updateTrackerScopeTier updates tracker scopeTier to faction');
+
+  // Test 7: Verify CAD Renderer & Spatial Pin Property Grid Wiring
+  const cadRendererCode = fs.readFileSync(path.join(scriptsDir, 'cad_canvas_renderer.js'), 'utf8');
+  const cadInteractionCode = fs.readFileSync(path.join(scriptsDir, 'cad_interaction.js'), 'utf8');
+  const propGridCode = fs.readFileSync(path.join(scriptsDir, 'property_grid_inspector.js'), 'utf8');
+  const crudDialogsCode = fs.readFileSync(path.join(scriptsDir, 'entity_crud_dialogs.js'), 'utf8');
+
+  assert(cadRendererCode.includes('cad-node-'), 'cad_canvas_renderer.js assigns cad-node-<id> DOM ID for node ping highlight');
+  assert(cadInteractionCode.includes("'spatial-pins-layer'"), 'cad_interaction.js includes spatial-pins-layer in applyCanvasTransform');
+  assert(cadInteractionCode.includes('function addSpatialPinAt'), 'cad_interaction.js defines addSpatialPinAt for Spatial Pin tool');
+  assert(propGridCode.includes("entity.type === 'spatialPin'"), 'property_grid_inspector.js renders Spatial Pin & Linked Target Inspector in Property Grid');
+  assert(crudDialogsCode.includes("openModal('modal-entity-edit')"), 'entity_crud_dialogs.js openNewEntityModal uses openModal for dynamic z-index elevation');
+  assert(!emUiCode.includes('openTicketCenterModal'), 'entity_manager_ui.js uses openTicketCenter instead of nonexistent openTicketCenterModal');
+}
+
+function testAuthoritativeReferenceClaimsAndGapsRemediation() {
+  console.log('\n--- Suite 36: Authoritative Reference Audit & 8-Gap Remediation Gate ---');
+
+  const scriptsDir = path.join(ROOT_DIR, 'src', 'workstation', 'scripts');
+  const socCode = fs.readFileSync(path.join(scriptsDir, 'sociology_data.js'), 'utf8');
+  const selImpCode = fs.readFileSync(path.join(scriptsDir, 'selective_importer.js'), 'utf8');
+  const expCode = fs.readFileSync(path.join(scriptsDir, 'campaign_exporter.js'), 'utf8');
+  const simCode = fs.readFileSync(path.join(scriptsDir, 'supply_chain_simulator.js'), 'utf8');
+
+  const sandbox = {
+    window: {},
+    document: {
+      getElementById: () => null,
+      querySelectorAll: () => [],
+      querySelector: () => null,
+      addEventListener: () => {},
+      createElement: () => ({ style: {}, classList: { add: () => {}, remove: () => {}, toggle: () => {} }, appendChild: () => {}, addEventListener: () => {} })
+    },
+    console,
+    Math,
+    Date,
+    Set,
+    Map,
+    JSON,
+    Object,
+    Array,
+    String,
+    Number,
+    Boolean,
+    RegExp,
+    parseInt,
+    parseFloat,
+    isNaN,
+    Workstation: {
+      activeTopology: {
+        name: 'Audit Test Campaign',
+        nodes: {
+          '1': { id: 1, name: 'Sealed Citadel', x: 100, y: 100, tier: 2, odv: { s: 1, e: 1, c: 1 }, adj: [2], requires: ['smelted_iron'], customNotes: '' },
+          '2': { id: 2, name: 'Entropic Outpost', x: 300, y: 200, tier: 2, odv: { s: 4, e: 4, c: 4 }, adj: [1], childMapId: 'map_outpost', customNotes: '' }
+        },
+        npcs: [{ id: 'npc_1', name: 'Captain Varek', role: 'Warden', faction: 'iron_guard', nodeId: 1 }],
+        quests: [{ id: 'q_1', title: 'Defend the Gate', status: 'active', nodeId: 1, steps: [{ id: 's1', title: 'Bar the sluice', completed: false, triggerTrackerId: 'trk_1', tickDelta: 1 }] }],
+        items: [{ id: 'itm_1', name: 'Iron Key', category: 'Relic', nodeId: 1 }],
+        trackers: [{ id: 'trk_1', name: 'Siege Clock', currentTicks: 1, maxTicks: 4, scopeTier: 'settlement', nodeId: 1 }],
+        factions: [{ id: 'iron_guard', name: 'Iron Guard', cvfQuadrant: 'Hierarchy', diplomaticStances: { raiders: 'Hostile' } }]
+      },
+      selectedEntity: { type: 'node', id: 1 },
+      showContradictionOverlay: true
+    },
+    nodes: [
+      { id: 1, name: 'Sealed Citadel', x: 100, y: 100, tier: 2, odv: { s: 1, e: 1, c: 1 }, adj: [2], requires: ['smelted_iron'], customNotes: '' },
+      { id: 2, name: 'Entropic Outpost', x: 300, y: 200, tier: 2, odv: { s: 4, e: 4, c: 4 }, adj: [1], childMapId: 'map_outpost', customNotes: '' }
+    ],
+    nodeSlottedModules: { 1: [] },
+    edgeSlottedModules: {},
+    MODULES_MANIFEST: [],
+    alert: () => {},
+    confirm: () => true,
+    updatePropertiesGrid: () => {},
+    saveActiveCampaign: () => {},
+    renderCanvas: () => {},
+    setStatusBarMessage: () => {}
+  };
+  sandbox.window = sandbox;
+  vm.createContext(sandbox);
+  vm.runInContext(socCode, sandbox);
+  vm.runInContext(selImpCode, sandbox);
+  vm.runInContext(simCode, sandbox);
+  vm.runInContext(expCode, sandbox);
+
+  // Gap 1 & 3: Verify [S, E, C] 1..4 polarity, 1-click Sensory Pentagon insertion, and ODV Node application
+  assertEqual(sandbox.ODV_MATRIX_64['[1, 1, 1]'].archetypeName, 'The Sealed Monolith', '[1, 1, 1] is The Sealed Monolith');
+  assertEqual(sandbox.ODV_MATRIX_64['[4, 4, 4]'].archetypeName, 'The Entropic Vortex', '[4, 4, 4] is The Entropic Vortex');
+  const appliedSensory = sandbox.applySensoryRollToSelectedNode(1, null, 1, 1, 1);
+  assert(appliedSensory === true, 'applySensoryRollToSelectedNode returns true for valid node');
+  assert(sandbox.Workstation.activeTopology.nodes['1'].customNotes.includes('5D Sensory Pentagon [1, 1, 1]'), '5D Sensory Pentagon markdown appended to node notes');
+
+  const appliedOdv = sandbox.applyMdiOdvToSelectedNode(3, 2, 4, 1);
+  assert(appliedOdv === true, 'applyMdiOdvToSelectedNode applies [3, 2, 4] to Node 1');
+  assertEqual(sandbox.Workstation.activeTopology.nodes['1'].culture, 'Clan', 'Node 1 culture derived as Clan from [3, 2]');
+  assertEqual(sandbox.Workstation.activeTopology.nodes['1'].opProfile, 'Service', 'Node 1 opProfile derived as Service from [3, 4]');
+
+  // Gap 2: Verify normalizeImportedEntities converts shorthand AI schema fields to canonical runtime fields
+  const rawAiEntities = {
+    npcs: [{ id: 'npc_ai', name: 'Sorcha', factionId: 'union', dispositionToParty: 2, odv: [3, 2, 4], carriedItemIds: ['itm_ring'] }],
+    items: [{ id: 'itm_ring', name: 'Union Ring' }],
+    quests: [{ id: 'q_ai', title: 'Flume Sabotage', anchorNodeId: 'node_1', giverNpcId: 'npc_ai', rewardItemIds: ['itm_ring'], steps: [{ text: 'Check lock', completed: false, triggerTrackerId: 'trk_ai', tickDelta: 2 }] }],
+    trackers: [{ id: 'trk_ai', name: 'Arson Clock', current: 2, max: 6, scope: 'city', consequence: 'Stockpile burns' }],
+    factions: [{ id: 'union', name: 'Dockworkers', disposition: [3, 2, 4] }]
+  };
+  sandbox.normalizeImportedEntities(rawAiEntities);
+  assertEqual(rawAiEntities.npcs[0].odv.s, 3, 'NPC array odv normalized to object {s, e, c}');
+  assertEqual(rawAiEntities.npcs[0].faction, 'union', 'NPC factionId normalized to faction');
+  assertEqual(rawAiEntities.items[0].ownerNpcId, 'npc_ai', 'NPC carriedItemIds bound to item.ownerNpcId');
+  assertEqual(rawAiEntities.items[0].possessionMode, 'carried', 'NPC carriedItemIds sets item.possessionMode = carried');
+  assertEqual(rawAiEntities.quests[0].nodeId, 'node_1', 'Quest anchorNodeId normalized to nodeId');
+  assert(rawAiEntities.quests[0].npcIds.includes('npc_ai'), 'Quest giverNpcId normalized into npcIds');
+  assertEqual(rawAiEntities.quests[0].steps[0].title, 'Check lock', 'Quest step text normalized to title');
+  assertEqual(rawAiEntities.trackers[0].currentTicks, 2, 'Tracker current normalized to currentTicks');
+  assertEqual(rawAiEntities.trackers[0].maxTicks, 6, 'Tracker max normalized to maxTicks');
+  assertEqual(rawAiEntities.trackers[0].scopeTier, 'settlement', 'Tracker city scope normalized to settlement scopeTier');
+  assertEqual(rawAiEntities.factions[0].odv.c, 4, 'Faction disposition array normalized to odv object');
+
+  // Gap 5: Verify advanceSeveranceTurn ticks severed clocks, spawns settlement unrest clock, and triggers riot at 4/4
+  const turn1 = sandbox.advanceSeveranceTurn({ silent: true });
+  assert(turn1.advancedModules >= 1, 'advanceSeveranceTurn advances severed node requirement clock');
+  assertEqual(turn1.spawnedClocks, 1, 'advanceSeveranceTurn spawns a Settlement Unrest Threat Clock on severed Node 1');
+  sandbox.advanceSeveranceTurn({ silent: true });
+  sandbox.advanceSeveranceTurn({ silent: true });
+  const turn4 = sandbox.advanceSeveranceTurn({ silent: true });
+  assertEqual(turn4.riotsTriggered, 1, 'advanceSeveranceTurn triggers Supply Riot & Crisis Metamorphism when severance clock hits 4/4');
+  const sevClock = sandbox.Workstation.activeTopology.trackers.find(t => t.id === 'trk_severance_1');
+  assert(sevClock && sevClock.notes.includes('[SUPPLY RIOT ACTIVE:'), 'Severance clock records SUPPLY RIOT ACTIVE and Crisis Shift');
+
+  // Gap 6: Verify FoundryVTT, Universal VTT (.dd2vtt), and Printable HTML Dossier exporters
+  const fvtt = sandbox.generateFoundryVTTJSON(sandbox.Workstation.activeTopology);
+  assertEqual(fvtt.format, 'FoundryVTT-CreatorStudio-Bundle', 'generateFoundryVTTJSON produces valid FoundryVTT bundle');
+  assertEqual(fvtt.notes.length, 2, 'FoundryVTT bundle includes map pins for all 2 nodes');
+  assertEqual(fvtt.actors.length, 1, 'FoundryVTT bundle includes Actor for stationed NPC');
+
+  const uvtt = sandbox.generateUniversalVTTJSON(sandbox.Workstation.activeTopology);
+  assertEqual(uvtt.format, 0.2, 'generateUniversalVTTJSON produces format 0.2 .dd2vtt');
+  assertEqual(uvtt.portals.length, 1, 'Universal VTT export maps Portal Node childMapId to portals array');
+
+  const htmlDossier = sandbox.generateCampaignHTMLDossier(sandbox.Workstation.activeTopology);
+  assert(htmlDossier.includes('<!DOCTYPE html>') && htmlDossier.includes('Sealed Citadel'), 'generateCampaignHTMLDossier outputs complete printable HTML5 sourcebook');
+
+  // Gap 7: Verify Import-CampaignSlice.ps1 exists
+  assert(fs.existsSync(path.join(ROOT_DIR, 'Import-CampaignSlice.ps1')), 'Import-CampaignSlice.ps1 headless CLI merge script exists');
+
+  // Verify double-clicking a node on the canvas navigates to its submap
+  sandbox.window.addEventListener = () => {};
+  sandbox.window.removeEventListener = () => {};
+  const canvasHudCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/canvas_hud.js'), 'utf8');
+  const cadInteractionCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/cad_interaction.js'), 'utf8');
+  vm.runInContext(canvasHudCode, sandbox);
+  vm.runInContext(cadInteractionCode, sandbox);
+
+  let switchedToMapId = null;
+  sandbox.switchActiveMap = (mId) => { switchedToMapId = mId; };
+  sandbox.selectNode = () => {}; // Simulate selectNode re-rendering on first click
+  sandbox.maps = {
+    map_root: { id: 'map_root', name: 'Root' },
+    map_outpost: { id: 'map_outpost', name: 'Outpost Sub-Map', parentMapId: 'map_root', parentNodeId: 2 }
+  };
+
+  // First click (mousedown #1) selects node 2
+  sandbox.onNodeMouseDown({ button: 0, detail: 1, clientX: 300, clientY: 200, stopPropagation: () => {}, preventDefault: () => {} }, 2);
+  assertEqual(switchedToMapId, null, 'Single click on node does not switch map');
+
+  // Rapid second click (mousedown #2 within 420ms) navigates to node 2 childMapId ('map_outpost')
+  sandbox.onNodeMouseDown({ button: 0, detail: 1, clientX: 300, clientY: 200, stopPropagation: () => {}, preventDefault: () => {} }, 2);
+  assertEqual(switchedToMapId, 'map_outpost', 'Double-clicking node on canvas navigates directly to its sub-map');
+}
+
+function testMultiLinkSpatialPinsShapeGripsContextMenuAndGlobalSearch() {
+  console.log('\n--- Suite 37: Multi-Link Spatial Pins, Shape Resize Grips, Context Menu, Hover Cards & Global Search ---');
+
+  const scriptsDir = path.join(ROOT_DIR, 'src', 'workstation', 'scripts');
+  const cadInteractionCode = fs.readFileSync(path.join(scriptsDir, 'cad_interaction.js'), 'utf8');
+  const cadRendererCode = fs.readFileSync(path.join(scriptsDir, 'cad_canvas_renderer.js'), 'utf8');
+  const mdiCode = fs.readFileSync(path.join(scriptsDir, 'mdi_window_manager.js'), 'utf8');
+  const modalsHtml = fs.readFileSync(path.join(ROOT_DIR, 'src', 'workstation', 'modals', 'entity_modals.html'), 'utf8');
+
+  assert(modalsHtml.includes('id="modal-spatial-pin-picker"'), 'entity_modals.html defines #modal-spatial-pin-picker multi-link POI modal');
+  assert(modalsHtml.includes('id="modal-global-search"'), 'entity_modals.html defines #modal-global-search Jump to Anything modal');
+  assert(cadRendererCode.includes('onShapeGripMouseDown(ev, shape, handleKey'), 'cad_canvas_renderer.js binds interactive resize grips on selected shapes');
+  assert(cadRendererCode.includes("openCanvasContextMenu(e, 'spatialPin', pin)"), 'cad_canvas_renderer.js binds right-click context menu on spatial pins');
+  assert(cadRendererCode.includes("scheduleCanvasHoverCard(e, 'spatialPin', pin)"), 'cad_canvas_renderer.js binds hover preview cards on spatial pins');
+  assert(mdiCode.includes('openGlobalSearchModal()'), 'mdi_window_manager.js wires Ctrl+F / Ctrl+P to openGlobalSearchModal');
+  assert(mdiCode.includes('zoomToFitCanvas()'), 'mdi_window_manager.js wires F hotkey to zoomToFitCanvas');
+
+  const sandbox = {
+    window: { addEventListener: () => {}, removeEventListener: () => {}, innerWidth: 1280, innerHeight: 800 },
+    document: {
+      body: { classList: { contains: () => false } },
+      getElementById: (id) => {
+        if (id === 'canvas-container') {
+          return {
+            style: {},
+            dataset: {},
+            getBoundingClientRect: () => ({ left: 0, top: 0, width: 1000, height: 700 }),
+            addEventListener: () => {}
+          };
+        }
+        return null;
+      },
+      querySelectorAll: () => [],
+      querySelector: () => null,
+      addEventListener: () => {},
+      createElementNS: () => ({ setAttribute: () => {}, style: {}, appendChild: () => {}, addEventListener: () => {} })
+    },
+    console,
+    Math,
+    Date,
+    Set,
+    Map,
+    JSON,
+    Object,
+    Array,
+    String,
+    Number,
+    Boolean,
+    RegExp,
+    parseInt,
+    parseFloat,
+    isNaN,
+    setTimeout: () => 1,
+    clearTimeout: () => {},
+    escapeHtml: (s) => String(s || ''),
+    Workstation: {
+      zoom: 1.0,
+      pan: { x: 0, y: 0 },
+      snapToGrid: false,
+      gridSnapSize: 20,
+      activeTool: 'select',
+      selectedEntity: { type: 'global' },
+      selectedEntities: [],
+      activeTopology: {
+        name: 'POI Test Campaign',
+        nodes: {
+          '1': { id: 1, name: 'Harbor Gate', x: 200, y: 180, tier: 2, culture: 'Market' }
+        },
+        npcs: [{ id: 'npc_harbormaster', name: 'Harbormaster Vance', role: 'Official' }],
+        items: [{ id: 'itm_ledger', name: 'Smuggler Ledger', type: 'Document' }],
+        quests: [{ id: 'q_contraband', title: 'Seize the Contraband', status: 'Active' }],
+        trackers: [{ id: 'trk_patrol', name: 'Harbor Alert', value: 2, max: 6 }],
+        factions: [{ id: 'fac_guild', name: 'Merchant Guild', quadrant: 'Market' }],
+        shapes: [
+          { id: 'shp_1', type: 'rect', x: 100, y: 100, width: 120, height: 80, visible: true }
+        ],
+        spatialPins: []
+      }
+    },
+    activeMapId: 'map_root',
+    maps: {
+      map_root: { id: 'map_root', name: 'Root Harbor Map', nodes: {} },
+      map_warehouse: { id: 'map_warehouse', name: 'Vault Warehouse Interior', parentMapId: 'map_root', nodes: {} }
+    },
+    renderCanvas: () => {},
+    updateObjectSelector: () => {},
+    updatePropertiesGrid: () => {},
+    saveActiveCampaign: () => {},
+    setStatusBarMessage: () => {}
+  };
+  sandbox.window = Object.assign(sandbox, sandbox.window);
+  vm.createContext(sandbox);
+  vm.runInContext(cadInteractionCode, sandbox);
+
+  // 1. Multi-link Spatial Pin creation & normalization
+  const multiPin = sandbox.addSpatialPinAt(250, 210, 'npc', 'npc_harbormaster', 'Harbor Checkpoint', [
+    { type: 'npc', id: 'npc_harbormaster' },
+    { type: 'item', id: 'itm_ledger' },
+    { type: 'submap', id: 'map_warehouse' },
+    { type: 'tracker', id: 'trk_patrol' }
+  ]);
+  assert(multiPin !== null, 'addSpatialPinAt creates a multi-link Spatial Pin');
+  assertEqual(multiPin.links.length, 4, 'Multi-link Spatial Pin stores all 4 linked entities (NPC, Item, Submap, Tracker)');
+  assertEqual(multiPin.targetType, 'npc', 'Primary link targetType synced to legacy pin.targetType');
+  assertEqual(multiPin.targetId, 'npc_harbormaster', 'Primary link targetId synced to legacy pin.targetId');
+  assertEqual(sandbox.resolvePinLinkTitle('submap', 'map_warehouse'), 'Vault Warehouse Interior', 'resolvePinLinkTitle resolves submap name');
+
+  // 2. Snap-to-grid toggle & coordinate snapping
+  assertEqual(sandbox.snapCoord(113), 113, 'snapCoord returns exact coordinate when snapToGrid is disabled');
+  sandbox.toggleSnapToGrid();
+  assertEqual(sandbox.Workstation.snapToGrid, true, 'toggleSnapToGrid enables 20px grid snapping');
+  assertEqual(sandbox.snapCoord(113), 120, 'snapCoord snaps 113 to nearest 20px increment (120)');
+  assertEqual(sandbox.snapCoord(113, { altKey: true }), 113, 'Holding Alt bypasses grid snapping');
+
+  // 3. Zoom-to-Fit calculation
+  sandbox.zoomToFitCanvas(false);
+  assert(sandbox.Workstation.zoom > 0.1 && sandbox.Workstation.zoom <= 2.2, 'zoomToFitCanvas frames visible nodes, pins, and shapes');
+
+  // 4. Red-Team Gate Checks (RT-01, RT-02, RT-04, RT-08)
+  assert(cadInteractionCode.includes("getElementById('spp-label')") && modalsHtml.includes('id="spp-label"'), 'RT-01: Spatial Pin modal #spp-* DOM IDs match between entity_modals.html and cad_interaction.js');
+  assert(cadInteractionCode.includes("getElementById('gs-results-container')") && modalsHtml.includes('id="gs-results-container"'), 'RT-01: Global Search modal #gs-* DOM IDs match between entity_modals.html and cad_interaction.js');
+
+  const legacyPin = { id: 'pin_legacy', x: 100, y: 100, targetType: 'quest', targetId: 'q_contraband' };
+  const normLinks = sandbox.getPinLinks(legacyPin);
+  assertEqual(normLinks.length, 1, 'RT-02: getPinLinks promotes legacy single-link pin to pin.links array');
+  assertEqual(normLinks[0].type, 'quest', 'RT-02: getPinLinks preserves legacy targetType');
+  assertEqual(normLinks[0].id, 'q_contraband', 'RT-02: getPinLinks preserves legacy targetId');
+
+  const searchEntries = sandbox.collectGlobalSearchEntries();
+  assert(searchEntries.some(e => e.cat === 'spatialPin' && e.entityId === multiPin.id), 'RT-08: collectGlobalSearchEntries indexes multi-link spatialPins alongside nodes and entities');
+
+  const cascadeCode = fs.readFileSync(path.join(scriptsDir, 'entity_cascade_delete.js'), 'utf8');
+  assert(cascadeCode.includes('sanitizePinArray(topo.spatialPins)'), 'RT-04: executeEntityDeletion scrubs deleted entity links from spatialPins');
+
+  const propGridCode = fs.readFileSync(path.join(scriptsDir, 'property_grid_inspector.js'), 'utf8');
+  assert(cadInteractionCode.includes('function onPinMouseDown'), 'cad_interaction.js defines onPinMouseDown for dragging spatial pins');
+  assert(cadInteractionCode.includes('function promptMovePin'), 'cad_interaction.js defines promptMovePin for repositioning spatial pins');
+  assert(propGridCode.includes('function renderEntityExplorerProperties'), 'property_grid_inspector.js defines renderEntityExplorerProperties');
+  assert(propGridCode.includes('pin-entity:'), 'property_grid_inspector.js indexes linked entities in object selector');
+}
+
+function testTicket01QuestClockSchemaAndConsequences() {
+  console.log('\n--- Suite 38: Quest-Clock Schema Alignment, Clock Threshold Consequences & Cascade Cleanup (Ticket 01) ---');
+
+  const scriptsDir = path.join(ROOT_DIR, 'src', 'workstation', 'scripts');
+  const entityCoreCode = fs.readFileSync(path.join(scriptsDir, 'entity_core.js'), 'utf8');
+  const crudCode = fs.readFileSync(path.join(scriptsDir, 'entity_crud_dialogs.js'), 'utf8');
+  const cascadeCode = fs.readFileSync(path.join(scriptsDir, 'entity_cascade_delete.js'), 'utf8');
+  const wikiCode = fs.readFileSync(path.join(scriptsDir, 'wiki_engine.js'), 'utf8');
+  const stateAdapterCode = fs.readFileSync(path.join(scriptsDir, 'state_adapter.js'), 'utf8');
+  const modalsHtml = fs.readFileSync(path.join(ROOT_DIR, 'src', 'workstation', 'modals', 'entity_modals.html'), 'utf8');
+
+  // 1. Static code assertions
+  assert(modalsHtml.includes('id="ee-quest-status"'), 'entity_modals.html defines #ee-quest-status for quest status selection');
+  assert(modalsHtml.includes('id="ee-tracker-consequences"'), 'entity_modals.html defines #ee-tracker-consequences for tick threshold consequence authoring');
+  assert(entityCoreCode.includes('function evaluateTrackerConsequences'), 'entity_core.js exports evaluateTrackerConsequences');
+  assert(entityCoreCode.includes('function syncQuestAndTrackerLinks'), 'entity_core.js exports syncQuestAndTrackerLinks');
+  assert(entityCoreCode.includes('function syncTrackerToQuests'), 'entity_core.js exports syncTrackerToQuests');
+  assert(cascadeCode.includes('q.trackerIds.filter'), 'entity_cascade_delete.js scrubs deleted tracker IDs from quest.trackerIds');
+  assert(cascadeCode.includes('st.triggerTrackerId && deletedIdsByType.tracker.has'), 'entity_cascade_delete.js scrubs deleted tracker IDs from quest.steps');
+  assert(wikiCode.includes('clock: { label: "Threat Clock"'), 'wiki_engine.js registers clock in WIKI_TOKEN_TYPES');
+
+  // 2. Behavioral testing in VM sandbox
+  const sandbox = {
+    window: {},
+    console: console,
+    Date: Date,
+    JSON: JSON,
+    Math: Math,
+    Array: Array,
+    Object: Object,
+    String: String,
+    Number: Number,
+    parseInt: parseInt,
+    Set: Set,
+    Map: Map,
+    RegExp: RegExp,
+    document: {
+      querySelectorAll: () => [],
+      getElementById: () => null
+    }
+  };
+  sandbox.window = sandbox;
+
+  vm.createContext(sandbox);
+  // Execute entity_core in sandbox
+  vm.runInContext(entityCoreCode, sandbox);
+  vm.runInContext(wikiCode, sandbox);
+
+  // Test A: evaluateTrackerConsequences forward tick & range checks
+  const testTrk = {
+    id: 'trk_test_1',
+    name: 'Contamination',
+    currentTicks: 0,
+    maxTicks: 8,
+    consequences: [
+      { tick: 2, description: 'Minor leak detected' },
+      { tick: 4, description: 'Quarantine gates closed' },
+      { tick: 8, description: 'Total breach' }
+    ]
+  };
+
+  // Jump from 0 to 5 (should cross tick 2 and 4, but not 8)
+  const resultsForward = sandbox.evaluateTrackerConsequences(testTrk, 0, 5, { silent: true });
+  assertEqual(resultsForward.length, 2, 'evaluateTrackerConsequences triggers 2 consequences on jump from 0 to 5');
+  assert(testTrk.consequences[0].triggered, 'Tick 2 consequence marked as triggered');
+  assert(testTrk.consequences[1].triggered, 'Tick 4 consequence marked as triggered');
+  assert(!testTrk.consequences[2].triggered, 'Tick 8 consequence remains untriggered');
+
+  // Step backward from 5 to 3 (should prompt to rearm tick 4)
+  const resultsBackward = sandbox.evaluateTrackerConsequences(testTrk, 5, 3, { silent: true });
+  assertEqual(resultsBackward.length, 1, 'evaluateTrackerConsequences re-arms tick 4 on rollback from 5 to 3');
+  assert(!testTrk.consequences[1].triggered, 'Tick 4 consequence is re-armed (untriggered)');
+  assert(testTrk.consequences[0].triggered, 'Tick 2 consequence remains triggered (since 3 >= 2)');
+
+  // Test B: Bidirectional Quest ↔ Tracker Sync
+  sandbox.Workstation = {
+    activeTopology: {
+      quests: [
+        { id: 'q_mine', title: 'The Mine Crisis', trackerIds: [], steps: [{ id: 's1', title: 'Check shaft', triggerTrackerId: 'trk_mine' }] }
+      ],
+      trackers: [
+        { id: 'trk_mine', name: 'Mine Collapse', currentTicks: 1, maxTicks: 6, triggerRefs: [] }
+      ]
+    }
+  };
+
+  sandbox.syncQuestAndTrackerLinks(sandbox.Workstation.activeTopology.quests[0], []);
+  assert(sandbox.Workstation.activeTopology.quests[0].trackerIds.includes('trk_mine'), 'syncQuestAndTrackerLinks gathers step triggerTrackerId into quest.trackerIds');
+  assert(sandbox.Workstation.activeTopology.trackers[0].triggerRefs.some(r => r.entityType === 'quest' && r.entityId === 'q_mine'), 'syncQuestAndTrackerLinks synchronizes quest into tracker.triggerRefs');
+
+  // Test C: Wiki [[Clock:...]] token extraction and hovercard display
+  const tokens = sandbox.extractTokensFromText('Investigate the rumors [[Clock:Mine Collapse]] in town.');
+  assertEqual(tokens.length, 1, 'extractTokensFromText extracts [[Clock:...]] token');
+  assertEqual(tokens[0].type, 'tracker', 'Clock token is normalized to tracker type');
+  assertEqual(tokens[0].value, 'Mine Collapse', 'Clock token value matches');
+
+  // Test D: Cascade deletion cleans quest.trackerIds and step triggers
+  vm.runInContext(cascadeCode, sandbox);
+  const testTopoCascade = {
+    quests: [
+      { id: 'q_1', title: 'Quest 1', trackerIds: ['trk_del', 'trk_keep'], steps: [{ id: 's1', triggerTrackerId: 'trk_del' }, { id: 's2', triggerTrackerId: 'trk_keep' }] }
+    ],
+    items: [
+      { id: 'it_1', name: 'Sword', ownerNpcId: 'npc_del', possessionMode: 'carried' }
+    ],
+    trackers: [
+      { id: 'trk_del', name: 'Deleted Tracker', triggerRefs: [] },
+      { id: 'trk_keep', name: 'Kept Tracker', triggerRefs: [] }
+    ],
+    npcs: [
+      { id: 'npc_del', name: 'Deleted NPC', questIds: ['q_del'] }
+    ]
+  };
+
+  sandbox.executeEntityDeletion([
+    { type: 'tracker', id: 'trk_del', name: 'Deleted Tracker' },
+    { type: 'npc', id: 'npc_del', name: 'Deleted NPC' }
+  ], testTopoCascade, { skipBackup: true, skipConfirm: true });
+
+  assertEqual(testTopoCascade.quests[0].trackerIds.length, 1, 'Cascade delete removes deleted tracker from quest.trackerIds');
+  assertEqual(testTopoCascade.quests[0].trackerIds[0], 'trk_keep', 'Remaining trackerId is preserved');
+  assertEqual(testTopoCascade.quests[0].steps[0].triggerTrackerId, null, 'Deleted tracker ID is nulled out on quest step 1');
+  assertEqual(testTopoCascade.quests[0].steps[1].triggerTrackerId, 'trk_keep', 'Preserved tracker ID is kept on quest step 2');
+  assertEqual(testTopoCascade.items[0].ownerNpcId, null, 'Deleted owner NPC is nulled out on carried item');
+  assertEqual(testTopoCascade.items[0].possessionMode, 'stored', 'Carried item reverts to stored when owner NPC is deleted');
+}
+
+function testTicket02CampaignMutationEngine() {
+  console.log('\n--- Suite 39: Shared Campaign Mutation Engine (Ticket 02) ---');
+
+  const enginePath = path.join(ROOT_DIR, 'src', 'workstation', 'scripts', 'campaign_mutation_engine.js');
+  assert(fs.existsSync(enginePath), 'src/workstation/scripts/campaign_mutation_engine.js exists');
+
+  const engine = require(enginePath);
+  assert(typeof engine.applyBatch === 'function', 'engine exports applyBatch');
+  assert(typeof engine.revertBatch === 'function', 'engine exports revertBatch');
+  assert(typeof engine.applySlice === 'function', 'engine exports applySlice');
+  assert(typeof engine.getSummary === 'function', 'engine exports getSummary');
+  assert(typeof engine.findNode === 'function', 'engine exports findNode');
+
+  // Test state initialization
+  const state = {
+    name: 'Sword Coast Testing',
+    entities: {
+      npcs: [{ id: 'npc_kylee', name: 'Miner Kylee', status: 'Active', nodeId: 1 }],
+      quests: [],
+      items: [],
+      trackers: [],
+      factions: [],
+      tickets: []
+    },
+    activeTopology: {
+      nodes: {
+        "1": { id: 1, name: "Township of Beregost", x: 100, y: 200 }
+      }
+    },
+    appliedBatchIds: []
+  };
+
+  // Test 1: Two-Pass Symbol Resolution & Intra-Batch References
+  const batch1 = {
+    batchId: 'batch_test_01',
+    actor: 'Antigravity AI',
+    summary: 'Add poisoned shipment quest and contamination clock with Kylee captured',
+    operations: [
+      {
+        op: 'set_npc_status',
+        npc: 'Miner Kylee',
+        status: 'Captured',
+        node: 'Township of Beregost'
+      },
+      {
+        op: 'create_clock',
+        tempId: '$contamination_clock',
+        name: 'Contamination Spreads',
+        scopeTier: 'settlement',
+        currentTicks: 1,
+        maxTicks: 8,
+        consequences: [
+          { tick: 4, description: 'Smithy quarantine' },
+          { tick: 8, description: 'Economic collapse' }
+        ]
+      },
+      {
+        op: 'create_quest',
+        tempId: '$poisoned_shipment',
+        title: 'The Poisoned Shipment',
+        status: 'Active',
+        npcIds: ['Miner Kylee'],
+        trackerIds: ['$contamination_clock'],
+        steps: [
+          { title: 'Inspect ingots', isCompleted: false, triggerTrackerId: '$contamination_clock', tickDelta: 1 }
+        ]
+      }
+    ]
+  };
+
+  const res1 = engine.applyBatch(state, batch1);
+  assertEqual(res1.status, 'success', 'Batch 1 applied successfully');
+  assertEqual(state.appliedBatchIds.length, 1, 'Batch ID recorded in state.appliedBatchIds');
+
+  // Verify NPC status changed
+  const kylee = state.entities.npcs.find(n => n.id === 'npc_kylee');
+  assertEqual(kylee.status, 'Captured', 'Miner Kylee status updated to Captured');
+
+  // Verify Threat Clock created
+  assertEqual(state.entities.trackers.length, 1, 'Contamination Threat Clock created');
+  const clock = state.entities.trackers[0];
+  assertEqual(clock.name, 'Contamination Spreads', 'Clock name set');
+  assertEqual(clock.maxTicks, 8, 'Clock maxTicks set to 8');
+
+  // Verify Quest created and resolved intra-batch $contamination_clock symbol
+  assertEqual(state.entities.quests.length, 1, 'Poisoned Shipment quest created');
+  const quest = state.entities.quests[0];
+  assertEqual(quest.title, 'The Poisoned Shipment', 'Quest title set');
+  assert(quest.npcIds.includes('npc_kylee'), 'Quest resolved Miner Kylee reference to npc_kylee ID');
+  assert(quest.trackerIds.includes(clock.id), 'Quest resolved $contamination_clock to generated clock ID');
+  assertEqual(quest.steps[0].triggerTrackerId, clock.id, 'Quest step resolved $contamination_clock to generated clock ID');
+
+  // Test 2: Idempotency
+  const dupRes = engine.applyBatch(state, batch1);
+  assertEqual(dupRes.status, 'already_applied', 'Re-applying batch 1 returns already_applied');
+  assertEqual(state.entities.quests.length, 1, 'Quest count not duplicated on re-apply');
+
+  // Test 3: Zero-token read queries
+  const summary = engine.getSummary(state);
+  assertEqual(summary.census.npcs, 1, 'Summary reports 1 NPC');
+  assertEqual(summary.census.quests, 1, 'Summary reports 1 quest');
+  assertEqual(summary.census.trackers, 1, 'Summary reports 1 tracker');
+  assertEqual(summary.activeQuests[0].title, 'The Poisoned Shipment', 'Summary active quests list matches');
+
+  const foundNodes = engine.findNode(state, 'Beregost');
+  assertEqual(foundNodes.length, 1, 'findNode finds Beregost node');
+  assertEqual(foundNodes[0].name, 'Township of Beregost', 'Found node name matches');
+
+  // Test 4: Revert Batch with field diffs
+  const revRes = engine.revertBatch(state, 'batch_test_01', [batch1]);
+  assertEqual(revRes.status, 'reverted', 'Batch 1 reverted successfully');
+  assertEqual(kylee.status, 'Active', 'Miner Kylee status reverted to Active');
+  assertEqual(state.entities.quests.length, 0, 'Created quest removed on revert');
+  assertEqual(state.entities.trackers.length, 0, 'Created clock removed on revert');
+
+  // Test 5: applySlice with shorthand normalization
+  const slice = {
+    actor: 'Test Importer',
+    entities: {
+      npcs: [{ id: 'npc_slice', name: 'Alora', odv: [1, 3, 2], carriedItemIds: ['it_dagger'] }],
+      items: [{ id: 'it_dagger', name: 'Rabbit Foot Dagger' }],
+      trackers: [{ id: 'trk_slice', name: 'Guard Alarm', current: 2, max: 4, scope: 'city' }]
+    }
+  };
+  const sliceRes = engine.applySlice(state, slice, 'overwrite');
+  assertEqual(sliceRes.status, 'success', 'Slice applied via shared engine');
+  const alora = state.entities.npcs.find(n => n.id === 'npc_slice');
+  assert(alora, 'Alora imported');
+  assertEqual(alora.odv.s, 1, 'Alora odv array normalized to object s=1');
+  const dagger = state.entities.items.find(i => i.id === 'it_dagger');
+  assertEqual(dagger.ownerNpcId, 'npc_slice', 'carriedItemIds bound dagger to ownerNpcId');
+  assertEqual(dagger.possessionMode, 'carried', 'Dagger possessionMode set to carried');
+  const alarm = state.entities.trackers.find(t => t.id === 'trk_slice');
+  assertEqual(alarm.currentTicks, 2, 'Tracker current normalized to currentTicks 2');
+  assertEqual(alarm.maxTicks, 4, 'Tracker max normalized to maxTicks 4');
+  assertEqual(alarm.scopeTier, 'settlement', 'Tracker city scope normalized to settlement scopeTier');
+}
+
+function testTicket03CampaignCliAndLoopback() {
+  console.log('\n--- Suite 40: Campaign CLI, Import Delegation & Loopback API Parity (Ticket 03) ---');
+
+  const cliScriptPath = path.join(ROOT_DIR, 'scripts', 'campaign_cli.js');
+  const aiPs1Path = path.join(ROOT_DIR, 'Campaign-AI.ps1');
+  const importPs1Path = path.join(ROOT_DIR, 'Import-CampaignSlice.ps1');
+  const serverJsPath = path.join(ROOT_DIR, 'server.js');
+  const serverPs1Path = path.join(ROOT_DIR, 'server.ps1');
+
+  assert(fs.existsSync(cliScriptPath), 'scripts/campaign_cli.js exists');
+  assert(fs.existsSync(aiPs1Path), 'Campaign-AI.ps1 exists');
+  assert(fs.existsSync(importPs1Path), 'Import-CampaignSlice.ps1 exists');
+  assert(fs.existsSync(serverJsPath), 'server.js exists');
+  assert(fs.existsSync(serverPs1Path), 'server.ps1 exists');
+
+  const cli = require(cliScriptPath);
+  const campaignsDir = path.join(ROOT_DIR, 'campaigns');
+
+  // Test 1: Robust Slug & Folder Resolution
+  assertEqual(cli.resolveCampaignFolder(campaignsDir, 'BaldursGate'), 'BaldursGate', 'Resolves exact folder name BaldursGate');
+  assertEqual(cli.resolveCampaignFolder(campaignsDir, 'baldursgate'), 'BaldursGate', 'Resolves lower-case folder name baldursgate');
+  assertEqual(cli.resolveCampaignFolder(campaignsDir, 'baldur_s_gate__the_sword_coast_campaign'), 'BaldursGate', 'Resolves campaign.json ID for BaldursGate');
+  assertEqual(cli.resolveCampaignFolder(campaignsDir, 'Fallout2'), 'Fallout2', 'Resolves exact folder name Fallout2');
+  assertEqual(cli.resolveCampaignFolder(campaignsDir, 'fallout2'), 'Fallout2', 'Resolves lower-case folder name fallout2');
+  assertEqual(cli.resolveCampaignFolder(campaignsDir, 'fallout_2__the_northern_california_wasteland'), 'Fallout2', 'Resolves campaign.json ID for Fallout2');
+
+  // Test 2: Read Commands
+  const listRes = cli.runCliCommand('list-campaigns');
+  assert(Array.isArray(listRes.campaigns), 'list-campaigns returns array');
+  assert(listRes.campaigns.some(c => c.folder === 'BaldursGate'), 'list-campaigns includes BaldursGate');
+
+  const summary = cli.runCliCommand('summary', { campaign: 'baldursgate' });
+  assert(summary.census && summary.census.npcs > 0, 'summary returns census for BaldursGate');
+  assert(Array.isArray(summary.activeQuests) && summary.activeQuests.length > 0, 'summary returns active quests for BaldursGate');
+
+  const foundNodes = cli.runCliCommand('find-node', { campaign: 'baldursgate', query: 'Beregost' });
+  assert(foundNodes.length > 0, 'find-node finds Beregost node');
+
+  const inspectedNpc = cli.runCliCommand('inspect-entity', { campaign: 'baldursgate', type: 'npc', id: 'Jaheira' });
+  assert(inspectedNpc && inspectedNpc.name === 'Jaheira', 'inspect-entity resolves Jaheira by name');
+
+  // Test 3: Multi-File Atomic Disk Sync & Revert in Sandbox Campaign
+  const sandboxFolder = '_test_sandbox_campaign_ticket03';
+  const sandboxDir = path.join(campaignsDir, sandboxFolder);
+  const mapsDir = path.join(sandboxDir, 'maps');
+
+  try {
+    if (fs.existsSync(sandboxDir)) fs.rmSync(sandboxDir, { recursive: true, force: true });
+    fs.mkdirSync(mapsDir, { recursive: true });
+
+    const initEntities = {
+      npcs: [{ id: 'npc_sb_1', name: 'Sandbox Guardian', status: 'Active' }],
+      quests: [],
+      items: [],
+      trackers: [],
+      factions: [],
+      tickets: []
+    };
+
+    fs.writeFileSync(path.join(sandboxDir, 'campaign.json'), JSON.stringify({ id: sandboxFolder, name: 'Sandbox Campaign', syncToken: 'sync_init', entities: initEntities }, null, 2), 'utf8');
+    fs.writeFileSync(path.join(sandboxDir, 'topology.json'), JSON.stringify({ id: sandboxFolder, syncToken: 'sync_init', entities: initEntities, nodes: { '1': { id: 1, name: 'Root Node' } }, maps: { 'map_sub': { id: 'map_sub', name: 'Sub Map', nodes: [{ id: 10, name: 'Sub Node' }] } } }, null, 2), 'utf8');
+    fs.writeFileSync(path.join(sandboxDir, 'preset.json'), JSON.stringify({ id: sandboxFolder, syncToken: 'sync_init', entities: initEntities, nodes: { '1': { id: 1, name: 'Root Node' } } }, null, 2), 'utf8');
+    fs.writeFileSync(path.join(mapsDir, 'map_sub.json'), JSON.stringify({ id: 'map_sub', name: 'Sub Map', nodes: [{ id: 10, name: 'Sub Node' }] }, null, 2), 'utf8');
+
+    // Apply batch
+    const batch = {
+      batchId: 'batch_sandbox_01',
+      actor: 'Test Agent',
+      summary: 'Add test quest and clock',
+      operations: [
+        { op: 'create_clock', tempId: '$sb_clock', name: 'Sandbox Threat', maxTicks: 6 },
+        { op: 'create_quest', tempId: '$sb_quest', title: 'Sandbox Investigation', trackerIds: ['$sb_clock'] }
+      ]
+    };
+
+    const applyRes = cli.runCliCommand('apply-batch', { campaign: sandboxFolder, json: batch });
+    assertEqual(applyRes.status, 'success', 'apply-batch returns success');
+    assert(applyRes.syncToken && applyRes.syncToken.startsWith('sync_'), 'apply-batch stamps fresh syncToken');
+
+    // Verify campaign.json, topology.json, preset.json, maps/map_sub.json updated
+    const updatedCamp = JSON.parse(fs.readFileSync(path.join(sandboxDir, 'campaign.json'), 'utf8'));
+    const updatedTopo = JSON.parse(fs.readFileSync(path.join(sandboxDir, 'topology.json'), 'utf8'));
+    const updatedPreset = JSON.parse(fs.readFileSync(path.join(sandboxDir, 'preset.json'), 'utf8'));
+    const updatedMap = JSON.parse(fs.readFileSync(path.join(mapsDir, 'map_sub.json'), 'utf8'));
+    const changelog = JSON.parse(fs.readFileSync(path.join(sandboxDir, 'changelog.json'), 'utf8'));
+    const syncJs = fs.readFileSync(path.join(sandboxDir, 'campaign_sync.js'), 'utf8');
+
+    assertEqual(updatedCamp.entities.quests.length, 1, 'campaign.json updated with new quest');
+    assertEqual(updatedCamp.entities.trackers.length, 1, 'campaign.json updated with new clock');
+    assertEqual(updatedCamp.syncToken, applyRes.syncToken, 'campaign.json stamped with fresh syncToken');
+    assertEqual(updatedTopo.syncToken, applyRes.syncToken, 'topology.json stamped with matching syncToken');
+    assertEqual(updatedPreset.syncToken, applyRes.syncToken, 'preset.json stamped with matching syncToken');
+    assert(updatedMap && updatedMap.id === 'map_sub', 'maps/map_sub.json preserved/synced');
+    assertEqual(changelog.length, 1, 'changelog.json appended with batch');
+    assertEqual(changelog[0].batchId, 'batch_sandbox_01', 'changelog.json records batch ID');
+    assert(syncJs.includes('window.__CS_LIVE_CAMPAIGNS__'), 'campaign_sync.js writes window.__CS_LIVE_CAMPAIGNS__');
+    assert(syncJs.includes(applyRes.syncToken), 'campaign_sync.js contains fresh syncToken');
+
+    // Revert batch
+    const revertRes = cli.runCliCommand('revert-batch', { campaign: sandboxFolder, batchId: 'batch_sandbox_01' });
+    assertEqual(revertRes.status, 'reverted', 'revert-batch returns reverted');
+
+    const revertedCamp = JSON.parse(fs.readFileSync(path.join(sandboxDir, 'campaign.json'), 'utf8'));
+    const revertedChangelog = JSON.parse(fs.readFileSync(path.join(sandboxDir, 'changelog.json'), 'utf8'));
+    assertEqual(revertedCamp.entities.quests.length, 0, 'Revert removed created quest');
+    assertEqual(revertedCamp.entities.trackers.length, 0, 'Revert removed created clock');
+    assertEqual(revertedChangelog.length, 2, 'changelog.json appended with revert batch record');
+  } finally {
+    if (fs.existsSync(sandboxDir)) {
+      try { fs.rmSync(sandboxDir, { recursive: true, force: true }); } catch (e) {}
+    }
+  }
+
+  // Test 4: Loopback Parity in server.js and server.ps1
+  const serverJsContent = fs.readFileSync(serverJsPath, 'utf8');
+  const serverPs1Content = fs.readFileSync(serverPs1Path, 'utf8');
+
+  assert(serverJsContent.includes('/api/campaign/sync-status'), 'server.js implements /api/campaign/sync-status');
+  assert(serverJsContent.includes('/api/campaign/changelog'), 'server.js implements /api/campaign/changelog');
+  assert(serverJsContent.includes('/api/campaign/load'), 'server.js implements /api/campaign/load');
+  assert(serverJsContent.includes('/api/campaign/save'), 'server.js implements /api/campaign/save');
+  assert(serverJsContent.includes('no-store, no-cache, must-revalidate'), 'server.js sends Cache-Control: no-store, no-cache, must-revalidate');
+
+  assert(serverPs1Content.includes('/api/campaign/sync-status'), 'server.ps1 implements /api/campaign/sync-status');
+  assert(serverPs1Content.includes('/api/campaign/changelog'), 'server.ps1 implements /api/campaign/changelog');
+  assert(serverPs1Content.includes('/api/campaign/load'), 'server.ps1 implements /api/campaign/load');
+  assert(serverPs1Content.includes('/api/campaign/save'), 'server.ps1 implements /api/campaign/save');
+  assert(serverPs1Content.includes('no-store, no-cache, must-revalidate'), 'server.ps1 sends Cache-Control: no-store, no-cache, must-revalidate');
+}
+
+async function testTicket04TokenGuardAndBatchReplayMerge() {
+  console.log('\n--- Suite 41: Pre-Write Token Guard, False-Dirty Suppression & Batch Replay Merge (Ticket 04) ---');
+
+  const mapStorePath = path.join(ROOT_DIR, 'src', 'workstation', 'scripts', 'map_store.js');
+  const mutEnginePath = path.join(ROOT_DIR, 'src', 'workstation', 'scripts', 'campaign_mutation_engine.js');
+  const storeCode = fs.readFileSync(mapStorePath, 'utf8');
+  const engineCode = fs.readFileSync(mutEnginePath, 'utf8');
+
+  const storageMap = {};
+  const mockElements = {
+    'sb-disk': { textContent: '', title: '', style: {} }
+  };
+
+  const sandbox = {
+    window: {},
+    self: {},
+    console: console,
+    document: {
+      getElementById: (id) => mockElements[id] || null,
+      querySelectorAll: () => []
+    },
+    localStorage: {
+      getItem: (k) => storageMap[k] || null,
+      setItem: (k, v) => { storageMap[k] = String(v); },
+      removeItem: (k) => { delete storageMap[k]; }
+    },
+    setTimeout: (fn, ms) => setTimeout(fn, ms),
+    clearTimeout: (id) => clearTimeout(id),
+    Workstation: {
+      activeTopology: {
+        name: 'Test Replay Campaign',
+        nodes: {},
+        links: [],
+        npcs: [{ id: 'npc_1', name: 'Commander Vane', status: 'Active', role: 'Watch Commander' }],
+        quests: [],
+        items: [],
+        trackers: [],
+        factions: [],
+        tickets: [],
+        spatialPins: [{ id: 'pin_1', label: 'Old Watchtower', links: [{ type: 'npc', id: 'npc_1' }] }],
+        appliedBatchIds: ['batch_base_00'],
+        changelog: [{ batchId: 'batch_base_00', summary: 'Base initialization' }]
+      }
+    },
+    maps: {
+      'map_root': { id: 'map_root', name: 'Root Map', nodes: [], links: [] }
+    },
+    activeMapId: 'map_root',
+    currentCampaignName: 'Test Replay Campaign',
+    slugifyCampaignName: (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '_'),
+    setStatusBarMessage: () => {}
+  };
+  sandbox.window = sandbox;
+  sandbox.self = sandbox;
+
+  // Run engine then map_store in sandbox
+  vm.runInNewContext(engineCode, sandbox);
+  vm.runInNewContext(storeCode, sandbox);
+
+  // Test 1: False-Dirty Suppression
+  sandbox.setProjectDirectoryDirty(false);
+  assertEqual(sandbox.isProjectDirectoryDirty(), false, 'Dirty state initialized to false');
+
+  sandbox.window.__csSuppressDiskSync = true;
+  sandbox.setProjectDirectoryDirty(true);
+  assertEqual(sandbox.isProjectDirectoryDirty(), false, 'setProjectDirectoryDirty(true) suppressed when __csSuppressDiskSync is active');
+
+  sandbox.scheduleProjectDirectorySync();
+  assertEqual(sandbox.isProjectDirectoryDirty(), false, 'scheduleProjectDirectorySync suppressed when __csSuppressDiskSync is active');
+
+  sandbox.window.__csSuppressDiskSync = false;
+  sandbox.setProjectDirectoryDirty(true);
+  assertEqual(sandbox.isProjectDirectoryDirty(), true, 'setProjectDirectoryDirty(true) succeeds when not suppressed');
+  sandbox.setProjectDirectoryDirty(false);
+
+  // Test 2: buildCampaignPackageFiles includes spatialPins, appliedBatchIds, and campaign_sync.js
+  const pkg = await sandbox.buildCampaignPackageFiles({ syncToken: 'sync_test_tk4' });
+  assert(pkg.campaignMeta.appliedBatchIds.includes('batch_base_00'), 'campaignMeta includes appliedBatchIds');
+  assert(pkg.campaignMeta.entities.spatialPins.length === 1, 'campaignMeta includes spatialPins');
+  const syncJsFile = pkg.files.find(f => f.path === 'campaign_sync.js');
+  assert(syncJsFile, 'buildCampaignPackageFiles produces campaign_sync.js');
+  assert(syncJsFile.data.includes('window.__CS_LIVE_CAMPAIGNS__'), 'campaign_sync.js populates window.__CS_LIVE_CAMPAIGNS__');
+  assert(syncJsFile.data.includes('sync_test_tk4'), 'campaign_sync.js has syncToken');
+
+  // Test 3: Batch Replay Merge with Non-Conflicting Updates
+  const diskChangelog = [
+    { batchId: 'batch_base_00', summary: 'Base initialization' }, // already applied
+    {
+      batchId: 'batch_ai_01',
+      actor: 'AI Partner',
+      summary: 'Add threat clock and quest',
+      operations: [
+        { op: 'create_clock', tempId: '$threat_clock', name: 'Goblin Horde Advances', maxTicks: 6 },
+        { op: 'create_quest', tempId: '$scout_quest', title: 'Scout the Perimeter', trackerIds: ['$threat_clock'] }
+      ],
+      changes: [
+        { category: 'trackers', entityId: 'tra_new', field: '_entity', before: undefined, after: { id: 'tra_new', name: 'Goblin Horde Advances' } },
+        { category: 'quests', entityId: 'que_new', field: '_entity', before: undefined, after: { id: 'que_new', title: 'Scout the Perimeter' } }
+      ]
+    }
+  ];
+
+  const mergeRes1 = await sandbox.replayDiskChangelogOntoBrowserState(diskChangelog, 'test_camp');
+  assertEqual(mergeRes1.merged, 1, 'Replays exactly 1 unapplied batch (skips batch_base_00)');
+  assertEqual(mergeRes1.conflicts.length, 0, 'No conflicts in non-conflicting batch');
+  assert(sandbox.Workstation.activeTopology.appliedBatchIds.includes('batch_ai_01'), 'batch_ai_01 added to appliedBatchIds');
+  assert(sandbox.Workstation.activeTopology.trackers.length === 1, 'Goblin Horde clock merged into activeTopology');
+  assert(sandbox.Workstation.activeTopology.quests.length === 1, 'Scout quest merged into activeTopology');
+  assert(sandbox.window.__csNewUnseenBatches.some(b => b.batchId === 'batch_ai_01'), 'batch_ai_01 staged in __csNewUnseenBatches for digest');
+
+  // Test 4: Idempotency (Re-running does nothing)
+  const mergeResDup = await sandbox.replayDiskChangelogOntoBrowserState(diskChangelog, 'test_camp');
+  assertEqual(mergeResDup.merged, 0, 'Re-running replay with no new batches merges 0 batches');
+
+  // Test 5: Conflict Detection on Same-Field Concurrent Edit
+  // Browser modifies Commander Vane role locally to 'Paladin Knight'
+  sandbox.Workstation.activeTopology.npcs[0].role = 'Paladin Knight';
+
+  // Remote AI batch modifies Commander Vane role from 'Watch Commander' to 'High Marshal'
+  const conflictingChangelog = [
+    ...diskChangelog,
+    {
+      batchId: 'batch_ai_02',
+      actor: 'AI Partner',
+      summary: 'Promote Commander Vane',
+      operations: [
+        { op: 'upsert_entity', category: 'npcs', data: { id: 'npc_1', role: 'High Marshal' } }
+      ],
+      changes: [
+        { category: 'npcs', entityId: 'npc_1', entityName: 'Commander Vane', field: 'role', before: 'Watch Commander', after: 'High Marshal' }
+      ]
+    }
+  ];
+
+  const mergeResConflict = await sandbox.replayDiskChangelogOntoBrowserState(conflictingChangelog, 'test_camp');
+  assertEqual(mergeResConflict.merged, 1, 'Merged batch_ai_02');
+  assertEqual(mergeResConflict.conflicts.length, 1, 'Flagged 1 same-field concurrent modification conflict');
+  const conf = mergeResConflict.conflicts[0];
+  assertEqual(conf.entityId, 'npc_1', 'Conflict on npc_1');
+  assertEqual(conf.field, 'role', 'Conflict on field role');
+  assertEqual(conf.localValue, 'Paladin Knight', 'Local value captured in conflict record');
+  assertEqual(conf.remoteValue, 'High Marshal', 'Remote value captured in conflict record');
+  assertEqual(conf.baseValue, 'Watch Commander', 'Base value captured in conflict record');
+
+  // Test 6: Semantic User Milestone Recording
+  assertEqual(typeof sandbox.recordUserMilestoneInChangelog, 'function', 'recordUserMilestoneInChangelog is exported');
+  sandbox.recordUserMilestoneInChangelog('GM triggered gate collapse', [{ op: 'tick_clock', clock: 'tra_new', delta: 2 }]);
+  assert(sandbox.Workstation.activeTopology.changelog.some(b => b.actor === 'User GM' && b.summary === 'GM triggered gate collapse'), 'Milestone recorded in changelog');
+}
+
+function testTicket05SyncSummaryDigestAndChangelogUi() {
+  console.log('\n--- Suite 42: Sync Summary Digest & Campaign Changelog UI (Ticket 05) ---');
+
+  // Test 1: Verify Modal Templates Exist in Source Files
+  const lifecycleModalsPath = path.join(ROOT_DIR, 'src', 'workstation', 'modals', 'lifecycle_modals.html');
+  const studioMdiWindowsPath = path.join(ROOT_DIR, 'src', 'workstation', 'modals', 'studio_mdi_windows.html');
+  const templatePath = path.join(ROOT_DIR, 'src', 'workstation', 'template.html');
+  const workstationStatePath = path.join(ROOT_DIR, 'src', 'workstation', 'scripts', 'workstation_state.js');
+  const changelogUiPath = path.join(ROOT_DIR, 'src', 'workstation', 'scripts', 'campaign_changelog_ui.js');
+
+  const lifecycleHtml = fs.readFileSync(lifecycleModalsPath, 'utf8');
+  const mdiHtml = fs.readFileSync(studioMdiWindowsPath, 'utf8');
+  const templateHtml = fs.readFileSync(templatePath, 'utf8');
+  const stateCode = fs.readFileSync(workstationStatePath, 'utf8');
+  const changelogUiCode = fs.readFileSync(changelogUiPath, 'utf8');
+
+  // HTML structural checks
+  assert(lifecycleHtml.includes('id="modal-sync-digest"'), 'modal-sync-digest defined in lifecycle_modals.html');
+  assert(lifecycleHtml.includes('id="sync-digest-content"'), 'sync-digest-content container defined');
+  assert(lifecycleHtml.includes('id="sync-digest-conflicts"'), 'sync-digest-conflicts container defined');
+  assert(lifecycleHtml.includes('dismissSyncSummaryDigest()'), 'dismissSyncSummaryDigest bound to close button');
+
+  assert(mdiHtml.includes('id="modal-campaign-changelog"'), 'modal-campaign-changelog defined in studio_mdi_windows.html');
+  assert(mdiHtml.includes('id="campaign-changelog-list"'), 'campaign-changelog-list container defined');
+  assert(mdiHtml.includes('id="changelog-filter-select"'), 'changelog-filter-select dropdown defined');
+  assert(mdiHtml.includes('id="changelog-search-input"'), 'changelog-search-input search box defined');
+  assert(mdiHtml.includes('id="changelog-stats-label"'), 'changelog-stats-label stats display defined');
+
+  // Menu, Toolbar & MDI Registration
+  assert(templateHtml.includes('scripts/campaign_changelog_ui.js'), 'campaign_changelog_ui.js included in template.html');
+  assert(templateHtml.includes('openCampaignChangelogModal()'), 'openCampaignChangelogModal bound in template menus');
+  assert(templateHtml.includes('openSyncSummaryDigestModal(true)'), 'openSyncSummaryDigestModal bound in template tools menu');
+  assert(stateCode.includes("'modal-campaign-changelog'"), 'modal-campaign-changelog registered in workstation_state.js');
+
+  // Test 2: Execution in vm sandbox
+  const domElements = {};
+  function getMockElement(id, tag = 'div') {
+    if (!domElements[id]) {
+      domElements[id] = {
+        id,
+        tagName: tag.toUpperCase(),
+        classList: {
+          _classes: new Set(),
+          add(c) { this._classes.add(c); },
+          remove(c) { this._classes.delete(c); },
+          contains(c) { return this._classes.has(c); }
+        },
+        style: {},
+        value: '',
+        textContent: '',
+        innerHTML: ''
+      };
+    }
+    return domElements[id];
+  }
+
+  // Pre-seed required mock elements
+  getMockElement('modal-sync-digest');
+  getMockElement('sync-digest-campaign-name');
+  getMockElement('sync-digest-batch-count-badge');
+  getMockElement('sync-digest-content');
+  getMockElement('sync-digest-conflicts');
+  getMockElement('sync-digest-conflicts-list');
+  getMockElement('modal-campaign-changelog');
+  getMockElement('campaign-changelog-list');
+  getMockElement('changelog-stats-label');
+  getMockElement('changelog-filter-select', 'select');
+  getMockElement('changelog-search-input', 'input');
+
+  const storageStore = {};
+  const mockLocalStorage = {
+    getItem(k) { return storageStore[k] || null; },
+    setItem(k, v) { storageStore[k] = String(v); },
+    removeItem(k) { delete storageStore[k]; }
+  };
+
+  const CampaignMutationEngine = require(path.join(ROOT_DIR, 'src', 'workstation', 'scripts', 'campaign_mutation_engine.js'));
+
+  const sandbox = {
+    console,
+    Date,
+    JSON,
+    Array,
+    String,
+    Math,
+    setTimeout: (fn) => fn(),
+    localStorage: mockLocalStorage,
+    document: {
+      getElementById: (id) => getMockElement(id)
+    },
+    MDIWindowManager: {
+      open(id) { getMockElement(id).classList.remove('hidden'); },
+      close(id) { getMockElement(id).classList.add('hidden'); }
+    },
+    closeModal(id) { getMockElement(id).classList.add('hidden'); },
+    confirm: () => true,
+    alert: () => {},
+    prompt: () => 'Test GM Note',
+    CampaignMutationEngine,
+    CreatorStudio: { ai: CampaignMutationEngine },
+    Workstation: {
+      activeTopology: {
+        name: 'Test_Campaign',
+        appliedBatchIds: ['batch_01', 'batch_02'],
+        npcs: [
+          { id: 'npc_1', name: 'Kylee', role: 'Miner' }
+        ],
+        quests: [],
+        items: [],
+        trackers: [],
+        changelog: [
+          {
+            batchId: 'batch_01',
+            actor: 'AI Partner',
+            summary: 'Initial Scout Spawn',
+            appliedAt: 1700000000000,
+            operations: [{ op: 'upsert_entity', category: 'npcs', data: { id: 'npc_1', name: 'Kylee', role: 'Miner' } }],
+            changes: [{ category: 'npcs', entityId: 'npc_1', entityName: 'Kylee', field: '_entity', before: undefined, after: { id: 'npc_1', name: 'Kylee' } }]
+          },
+          {
+            batchId: 'batch_02',
+            actor: 'AI Partner',
+            summary: 'Advance Clock',
+            appliedAt: 1700000010000,
+            operations: [{ op: 'tick_clock', clock: 'Goblin Raid', delta: 1 }],
+            changes: [{ category: 'trackers', entityId: 'clk_1', entityName: 'Goblin Raid', field: 'progress', before: 0, after: 1 }]
+          }
+        ]
+      }
+    },
+    window: {}
+  };
+  sandbox.window = sandbox;
+
+  vm.createContext(sandbox);
+  vm.runInContext(changelogUiCode, sandbox);
+
+  assert(typeof sandbox.openSyncSummaryDigestModal === 'function', 'openSyncSummaryDigestModal is defined');
+  assert(typeof sandbox.renderCampaignChangelog === 'function', 'renderCampaignChangelog is defined');
+  assert(typeof sandbox.revertChangelogBatch === 'function', 'revertChangelogBatch is defined');
+  assert(typeof sandbox.resolveSyncConflict === 'function', 'resolveSyncConflict is defined');
+  assert(typeof sandbox.logManualGMSessionNote === 'function', 'logManualGMSessionNote is defined');
+
+  // Test 3: Render Changelog and Stats
+  sandbox.renderCampaignChangelog();
+  const changelogListHtml = getMockElement('campaign-changelog-list').innerHTML;
+  assert(changelogListHtml.includes('Initial Scout Spawn'), 'Changelog renders batch_01 summary');
+  assert(changelogListHtml.includes('Advance Clock'), 'Changelog renders batch_02 summary');
+  assert(changelogListHtml.includes('revertChangelogBatch'), 'Changelog includes Revert buttons');
+
+  // Test 4: Filter changelog by keyword search
+  getMockElement('changelog-search-input').value = 'Scout';
+  sandbox.renderCampaignChangelog();
+  const filteredSearchHtml = getMockElement('campaign-changelog-list').innerHTML;
+  assert(filteredSearchHtml.includes('Initial Scout Spawn'), 'Search filter includes matching batch');
+  assert(!filteredSearchHtml.includes('Advance Clock'), 'Search filter excludes non-matching batch');
+
+  // Test 5: Filter changelog by category
+  getMockElement('changelog-search-input').value = '';
+  getMockElement('changelog-filter-select').value = 'clock';
+  sandbox.renderCampaignChangelog();
+  const filteredCategoryHtml = getMockElement('campaign-changelog-list').innerHTML;
+  assert(filteredCategoryHtml.includes('Advance Clock'), 'Clock filter includes clock batch');
+  assert(!filteredCategoryHtml.includes('Initial Scout Spawn'), 'Clock filter excludes non-clock batch');
+
+  // Test 6: Sync Summary Digest Rendering & Dismissal
+  getMockElement('changelog-filter-select').value = 'all';
+  sandbox.window.__csNewUnseenBatches = [
+    sandbox.Workstation.activeTopology.changelog[1]
+  ];
+  sandbox.openSyncSummaryDigestModal(true);
+  assert(getMockElement('sync-digest-content').innerHTML.includes('Advance Clock'), 'Digest renders unseen batch');
+  assertEqual(getMockElement('sync-digest-batch-count-badge').textContent, '1 new batch(es)', 'Badge displays count');
+
+  sandbox.dismissSyncSummaryDigest();
+  assertEqual(mockLocalStorage.getItem('cs_last_seen_batch_id_test_campaign'), 'batch_02', 'dismissSyncSummaryDigest records last seen batchId');
+  assertEqual(sandbox.window.__csNewUnseenBatches.length, 0, '__csNewUnseenBatches cleared on dismiss');
+
+  // Test 7: Conflict Resolution in Sync Digest
+  sandbox.window.__csActiveConflicts = [
+    {
+      category: 'npcs',
+      entityId: 'npc_1',
+      field: 'role',
+      baseValue: 'Miner',
+      localValue: 'Laborer',
+      remoteValue: 'Foreman'
+    }
+  ];
+  sandbox.renderSyncSummaryDigest([]);
+  assert(getMockElement('sync-digest-conflicts-list').innerHTML.includes('Miner'), 'Conflict list renders base value');
+  assert(getMockElement('sync-digest-conflicts-list').innerHTML.includes('Laborer'), 'Conflict list renders local value');
+  assert(getMockElement('sync-digest-conflicts-list').innerHTML.includes('Foreman'), 'Conflict list renders remote value');
+
+  // Resolving keeping remote
+  sandbox.resolveSyncConflict(0, 'remote');
+  assertEqual(sandbox.Workstation.activeTopology.npcs[0].role, 'Foreman', 'resolveSyncConflict(remote) updates topology entity');
+  assertEqual(sandbox.window.__csActiveConflicts.length, 0, 'Conflict removed after resolution');
+
+  // Test 8: Revert Changelog Batch
+  let invalidatedWiki = false;
+  let savedActive = false;
+  sandbox.buildWikiIndex = () => { invalidatedWiki = true; };
+  sandbox.saveActiveCampaign = () => { savedActive = true; };
+  sandbox.revertChangelogBatch('batch_01');
+  assertEqual(sandbox.Workstation.activeTopology.npcs.length, 0, 'Reverting batch_01 deleted npc_1');
+  assert(invalidatedWiki, 'revertChangelogBatch triggers wiki invalidation');
+  assert(savedActive, 'revertChangelogBatch triggers saveActiveCampaign');
+  assert(sandbox.Workstation.activeTopology.changelog.some(b => b.batchId && b.batchId.startsWith('revert-batch_01')), 'Compensation batch added to changelog');
+}
+
+// ============================================================================
+// SUITE 43: NODE CLI CONSOLIDATION, NATIVE BIOME & ARCHITECTURAL GUARDRAILS
+// ============================================================================
+function testSuite43NodeCliNativeBiomeAndGuardrails() {
+  console.log('\n--> SUITE 43: Node CLI Consolidation, Native Biome & Architectural Guardrails...');
+
+  // 43.1: Native Biome Property & Eviction of regions/
+  const inspectorCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/property_grid_inspector.js'), 'utf8');
+  assert(inspectorCode.includes('CORE_BIOME_PRESETS'), 'property_grid_inspector.js defines CORE_BIOME_PRESETS');
+  assert(inspectorCode.includes("node.biome = (val || '').trim()"), 'property_grid_inspector.js assigns native node.biome');
+  assert(inspectorCode.includes("edgeRecord.biome = (val || '').trim()"), 'property_grid_inspector.js assigns native edgeRecord.biome');
+  assert(!fs.existsSync(path.join(ROOT_DIR, 'regions/regional_image_browser.html')), 'regions/regional_image_browser.html evicted from active workspace');
+
+  const manifestRaw = fs.readFileSync(path.join(ROOT_DIR, 'docs/navigation_manifest.json'), 'utf8');
+  assert(!manifestRaw.includes('regions/regional_image_browser.html'), 'navigation_manifest.json does not reference regions/regional_image_browser.html');
+  assert(manifestRaw.includes('docs/adr/0022-coauthoring-architecture-and-rejected-patterns.md'), 'navigation_manifest.json references ADR-0022');
+
+  // 43.2: Node CLI Modules (scripts/find_codebase_node.js & scripts/test_suite.js)
+  const findNodeCli = require(path.join(ROOT_DIR, 'scripts/find_codebase_node.js'));
+  assert(typeof findNodeCli.findFileNode === 'function', 'find_codebase_node.js exports findFileNode');
+  assert(typeof findNodeCli.searchSymbols === 'function', 'find_codebase_node.js exports searchSymbols');
+  assert(typeof findNodeCli.getStaleFiles === 'function', 'find_codebase_node.js exports getStaleFiles');
+
+  const testSuiteCli = require(path.join(ROOT_DIR, 'scripts/test_suite.js'));
+  assert(typeof testSuiteCli.validateCampaignPackage === 'function', 'test_suite.js exports validateCampaignPackage');
+  const peridotValidation = testSuiteCli.validateCampaignPackage('Peridot');
+  assert(peridotValidation === true, 'validateCampaignPackage(Peridot) returns true');
+
+  // 43.3: Backburner & Rejected Architecture Guardrail Tickets + ADR-0022
+  const expectedFiles = [
+    'tickets/system/SYS-BACKBURNER-01_byok_in_app_chatbot_deferred.md',
+    'tickets/system/SYS-BACKBURNER-02_google_drive_virtual_directory_sync_deferred.md',
+    'tickets/system/SYS-BACKBURNER-03_regional_image_explorer_external_mod.md',
+    'tickets/system/SYS-REJECTED-01_parallel_app_html_and_css_presenter_mode.md',
+    'tickets/system/SYS-REJECTED-02_background_sse_fs_watch_auto_replay.md',
+    'docs/adr/0022-coauthoring-architecture-and-rejected-patterns.md'
+  ];
+  for (const rel of expectedFiles) {
+    assert(fs.existsSync(path.join(ROOT_DIR, rel)), `Guardrail/Backburner artifact exists: ${rel}`);
+  }
+}
+
+// ============================================================================
+// SUITE 44: ACTIVE CAMPAIGN ROSTER & THREAT CLOCK MUTATION SEAM (M1)
+// ============================================================================
+function testSuite44RosterAndThreatClockMutationSeam() {
+  console.log('\n--> SUITE 44: Active Campaign Roster & Threat Clock Mutation Seam (M1)...');
+
+  const cme = require(path.join(ROOT_DIR, 'src/workstation/scripts/campaign_mutation_engine.js'));
+  assert(typeof cme.remapEntityCluster === 'function', 'CampaignMutationEngine exports remapEntityCluster');
+  assert(typeof cme.executeBrowserConsequence === 'function', 'CampaignMutationEngine exports executeBrowserConsequence');
+
+  // 44.1: deleteEntity 11-table foreign-key scrub across factions, npcs.relationships, items.ownerNpcId, trackers.consequences
+  const scrubState = {
+    factions: [
+      { id: 'fac_alpha', name: 'Alpha Order', leaderNpcId: 'npc_boss', memberNpcIds: ['npc_boss', 'npc_guard'], controlledNodeIds: ['node_1'], homeNodeId: 'node_1', alliedFactionIds: ['fac_beta'], rivalFactionIds: ['fac_beta'], diplomaticStances: { fac_beta: 'Allied' } },
+      { id: 'fac_beta', name: 'Beta Guild', diplomaticStances: { fac_alpha: 'Allied' } }
+    ],
+    npcs: [
+      { id: 'npc_boss', name: 'Boss Vane', factionId: 'fac_beta', faction: 'fac_beta', relationships: [{ targetNpcId: 'npc_guard', type: 'Ally' }] },
+      { id: 'npc_guard', name: 'Guard Lin', factionId: 'fac_beta', faction: 'fac_beta', currentNodeId: 'node_1', relationships: [{ targetNpcId: 'npc_boss', type: 'Liege' }], questIds: ['q_main'], inventoryItemIds: ['itm_key'] }
+    ],
+    quests: [
+      { id: 'q_main', title: 'Vault Breach', giverNpcId: 'npc_boss', npcIds: ['npc_boss', 'npc_guard'], factionId: 'fac_beta', targetNodeId: 'node_1', rewardItemId: 'itm_key', itemIds: ['itm_key'], steps: [{ id: 's1', title: 'Meet Boss', targetNpcId: 'npc_boss', targetNodeId: 'node_1', requiredItemId: 'itm_key' }] }
+    ],
+    items: [
+      { id: 'itm_key', name: 'Vault Key', ownerNpcId: 'npc_boss', possessionMode: 'carried', locationNodeId: 'node_1', linkedQuestId: 'q_main', factionId: 'fac_beta' }
+    ],
+    trackers: [
+      { id: 'trk_alarm', name: 'Vault Alarm', nodeId: 'node_1', factionId: 'fac_beta', triggerRefs: [{ entityType: 'npc', entityId: 'npc_boss' }], consequences: [{ tick: 3, description: 'Boss alerts guards', targetType: 'npc', targetId: 'npc_boss', npcId: 'npc_boss', questId: 'q_main', nodeId: 'node_1' }] }
+    ],
+    tickets: [
+      { id: 'tkt_1', title: 'Check Boss', linkedNpcId: 'npc_boss', linkedFactionId: 'fac_beta', linkedNodeId: 'node_1', linkedQuestId: 'q_main' }
+    ],
+    spatialPins: [
+      { id: 'pin_1', label: 'Boss Pin', targetType: 'npc', targetId: 'npc_boss', linkedEntityId: 'npc_boss', links: [{ type: 'npc', id: 'npc_boss' }] }
+    ]
+  };
+
+  cme.deleteEntity(scrubState, 'npc', 'npc_boss');
+  assertEqual(scrubState.factions[0].leaderNpcId, null, 'deleteEntity(npc) scrubs faction.leaderNpcId');
+  assertEqual(scrubState.factions[0].memberNpcIds, ['npc_guard'], 'deleteEntity(npc) filters faction.memberNpcIds');
+  assertEqual(scrubState.npcs[0].relationships.length, 0, 'deleteEntity(npc) scrubs remaining npc.relationships');
+  assertEqual(scrubState.items[0].ownerNpcId, null, 'deleteEntity(npc) clears item.ownerNpcId');
+  assertEqual(scrubState.items[0].possessionMode, 'stored', 'deleteEntity(npc) reverts item.possessionMode to stored');
+  assertEqual(scrubState.trackers[0].consequences[0].npcId, null, 'deleteEntity(npc) scrubs tracker.consequences[].npcId');
+  assertEqual(scrubState.trackers[0].consequences[0].targetId, null, 'deleteEntity(npc) scrubs tracker.consequences[].targetId');
+  assertEqual(scrubState.quests[0].giverNpcId, null, 'deleteEntity(npc) scrubs quest.giverNpcId');
+  assertEqual(scrubState.quests[0].steps[0].targetNpcId, null, 'deleteEntity(npc) scrubs quest.steps[].targetNpcId');
+  assertEqual(scrubState.tickets[0].linkedNpcId, null, 'deleteEntity(npc) scrubs ticket.linkedNpcId');
+  assertEqual(scrubState.spatialPins[0].links.length, 0, 'deleteEntity(npc) scrubs spatialPin.links');
+
+  cme.deleteEntity(scrubState, 'faction', 'fac_beta');
+  assertEqual(scrubState.factions[0].diplomaticStances.fac_beta, undefined, 'deleteEntity(faction) scrubs faction.diplomaticStances key');
+  assertEqual(scrubState.factions[0].alliedFactionIds.length, 0, 'deleteEntity(faction) scrubs faction.alliedFactionIds');
+  assertEqual(scrubState.npcs[0].factionId, null, 'deleteEntity(faction) scrubs npc.factionId');
+
+  // 44.2: remapEntityCluster remapping internal foreign keys across a cloned cluster
+  const rawCluster = {
+    factions: [{ id: 'fac_old', name: 'Old Order', leaderNpcId: 'npc_old', diplomaticStances: { fac_old: 'Neutral' } }],
+    npcs: [{ id: 'npc_old', name: 'Captain Old', factionId: 'fac_old', questIds: ['q_old'], itemIds: ['itm_old'], relationships: [{ targetNpcId: 'npc_old', type: 'Self' }] }],
+    quests: [{ id: 'q_old', title: 'Old Quest', giverNpcId: 'npc_old', npcIds: ['npc_old'], itemIds: ['itm_old'], trackerIds: ['trk_old'], steps: [{ id: 'st_1', title: 'Step 1', triggerTrackerId: 'trk_old', targetNpcId: 'npc_old', requiredItemId: 'itm_old' }] }],
+    items: [{ id: 'itm_old', name: 'Old Blade', ownerNpcId: 'npc_old', linkedQuestId: 'q_old', factionId: 'fac_old' }],
+    trackers: [{ id: 'trk_old', name: 'Old Clock', factionId: 'fac_old', triggerRefs: [{ entityType: 'quest', entityId: 'q_old' }], consequences: [{ tick: 2, questId: 'q_old', npcId: 'npc_old', targetId: 'q_old' }] }]
+  };
+  const customMap = new Map();
+  let seq = 0;
+  const remapped = cme.remapEntityCluster(rawCluster, {
+    idMap: customMap,
+    idGenerator: (type) => `${type}_new_${++seq}`
+  });
+  assert(remapped !== rawCluster && rawCluster.npcs[0].id === 'npc_old', 'remapEntityCluster deep-clones by default without mutating source');
+  assertEqual(customMap.get('npc_old'), 'npc_new_2', 'remapEntityCluster populates passed Map instance');
+  assertEqual(remapped.factions[0].leaderNpcId, 'npc_new_2', 'remapEntityCluster remaps faction.leaderNpcId');
+  assertEqual(remapped.npcs[0].factionId, 'faction_new_1', 'remapEntityCluster remaps npc.factionId');
+  assertEqual(remapped.npcs[0].prototypeId, 'npc_old', 'remapEntityCluster preserves prototypeId');
+  assertEqual(remapped.quests[0].giverNpcId, 'npc_new_2', 'remapEntityCluster remaps quest.giverNpcId');
+  assertEqual(remapped.quests[0].steps[0].triggerTrackerId, 'tracker_new_5', 'remapEntityCluster remaps quest.steps[].triggerTrackerId');
+  assertEqual(remapped.items[0].ownerNpcId, 'npc_new_2', 'remapEntityCluster remaps item.ownerNpcId');
+  assertEqual(remapped.trackers[0].triggerRefs[0].entityId, 'quest_new_3', 'remapEntityCluster remaps tracker.triggerRefs[].entityId');
+  assertEqual(remapped.trackers[0].consequences[0].questId, 'quest_new_3', 'remapEntityCluster remaps tracker.consequences[].questId');
+
+  // 44.3: CAD canvas Threat Clock tick (handleClockSegmentClick & tickClock) firing threshold consequences
+  const ciCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/cad_interaction.js'), 'utf8');
+  const cadSandbox = {
+    window: {},
+    CampaignMutationEngine: cme,
+    CreatorStudio: { ai: cme },
+    Workstation: {
+      activeTopology: {
+        nodes: { '1': { id: 1, name: 'Hidden Sanctum', hidden: true, odv: { s: 2, e: 2, c: 2 }, disposition: [2, 2, 2] } },
+        quests: [{ id: 'q_locked', title: 'Sanctum Siege', status: 'Inactive', unlocked: false }],
+        npcs: [{ id: 'npc_sleeper', name: 'Sleeper Agent', status: 'Inactive' }],
+        trackers: [{
+          id: 'trk_canvas',
+          name: 'Doomsday Clock',
+          currentTicks: 1,
+          maxTicks: 4,
+          consequences: [
+            { tick: 2, description: 'Unlock Siege Quest', type: 'unlock_quest', targetId: 'q_locked' },
+            { tick: 3, description: 'Reveal Sanctum & Wake Agent', type: 'reveal_node', nodeId: '1', operations: [{ op: 'set_npc_status', npc: 'npc_sleeper', status: 'Active' }] }
+          ]
+        }]
+      }
+    },
+    document: { addEventListener: () => {}, getElementById: () => null },
+    console
+  };
+  cadSandbox.window = cadSandbox;
+  vm.createContext(cadSandbox);
+  vm.runInContext(ciCode, cadSandbox);
+
+  cadSandbox.handleClockSegmentClick(null, 'trk_canvas', 2); // Advances from 1 to 3 (segmentIdx 2 -> 3 ticks)
+  const tickedTrk = cadSandbox.Workstation.activeTopology.trackers[0];
+  assertEqual(tickedTrk.currentTicks, 3, 'handleClockSegmentClick advances clock to 3 ticks');
+  assertEqual(tickedTrk._lastTriggeredConsequences.length, 2, 'tickClock attaches _lastTriggeredConsequences for crossed thresholds 2 and 3');
+  assertEqual(cadSandbox.Workstation.activeTopology.quests[0].status, 'Active', 'Browser consequence unlock_quest activates quest');
+  assertEqual(cadSandbox.Workstation.activeTopology.nodes['1'].hidden, false, 'Browser consequence reveal_node unhides node');
+  assertEqual(cadSandbox.Workstation.activeTopology.npcs[0].status, 'Active', 'Operation consequence activates sleeper NPC');
+
+  // 44.4: selective_importer.js clone resolution remapping cross-entity foreign keys
+  const importerCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/selective_importer.js'), 'utf8');
+  const impSandbox = {
+    window: {},
+    CampaignMutationEngine: cme,
+    addEventListener: () => {},
+    document: { getElementById: () => null },
+    console
+  };
+  impSandbox.window = impSandbox;
+  vm.createContext(impSandbox);
+  vm.runInContext(importerCode, impSandbox);
+
+  const curTopo = {
+    npcs: [{ id: 'npc_shared', name: 'Marshal Kael', role: 'Loyalist', faction: 'Crown' }],
+    quests: [{ id: 'q_shared', title: 'Border Patrol', status: 'Active', notes: 'Original patrol', npcIds: ['npc_shared'], giverNpcId: 'npc_shared' }],
+    items: [],
+    trackers: [],
+    tickets: [],
+    factions: []
+  };
+  const incomingPkgEntities = {
+    npcs: [{ id: 'npc_shared', name: 'Marshal Kael', role: 'Defector', faction: 'Rebels' }],
+    quests: [{ id: 'q_shared', title: 'Border Patrol', status: 'Pending', notes: 'Variant patrol', npcIds: ['npc_shared'], giverNpcId: 'npc_shared' }],
+    items: [],
+    trackers: [],
+    tickets: [],
+    factions: []
+  };
+  const impConflicts = impSandbox.detectEntityConflicts(incomingPkgEntities, curTopo);
+  impSandbox.mergeEntitiesWithResolutions(curTopo, incomingPkgEntities, impConflicts, { 0: 'clone', 1: 'clone' });
+
+  const clonedNpc = curTopo.npcs.find(n => n.id !== 'npc_shared');
+  const clonedQuest = curTopo.quests.find(q => q.id !== 'q_shared');
+  assert(!!clonedNpc && !!clonedQuest, 'Both colliding NPC and Quest were cloned');
+  assertEqual(clonedQuest.giverNpcId, clonedNpc.id, 'Cloned quest giverNpcId remapped to cloned NPC ID');
+  assert(clonedQuest.npcIds.includes(clonedNpc.id) && !clonedQuest.npcIds.includes('npc_shared'), 'Cloned quest npcIds remapped to cloned NPC ID');
+  assertEqual(curTopo.quests.find(q => q.id === 'q_shared').giverNpcId, 'npc_shared', 'Original quest still points to original NPC ID');
+}
+
+function testSuite45CorridorSeamAndKeyCanonicalization() {
+  console.log('\n--- Suite 45: Transit Road Edge (E_adj) & Influence Link (E_inf) Corridor Seam (M2) ---');
+  const cme = require(path.join(ROOT, 'src', 'workstation', 'scripts', 'campaign_mutation_engine.js'));
+
+  // 1. formatCorridorKey & parseCorridorKey
+  assertEqual(cme.formatCorridorKey(10, 2, 'adj'), '2-10', 'Numeric road key sorts numerically (2-10, not 10-2)');
+  assertEqual(cme.formatCorridorKey('10', '2', 'adj'), '2-10', 'Numeric string road key sorts numerically');
+  assertEqual(cme.formatCorridorKey('SLV10', 'SLV2', 'adj'), 'SLV2-SLV10', 'Alphanumeric submap road key uses natural numeric ordering');
+  assertEqual(cme.formatCorridorKey('SLV1', 'SLV2', 'inf'), 'SLV1->SLV2', 'Directed influence link preserves u->v direction');
+  assertEqual(cme.formatCorridorKey(5, 2, 'influence'), '5->2', 'Directed influence link preserves numeric direction 5->2');
+
+  const pAdj = cme.parseCorridorKey('10-2');
+  assert(pAdj && pAdj.u === 10 && pAdj.v === 2 && pAdj.type === 'adj' && pAdj.canonicalKey === '2-10', 'parseCorridorKey parses numeric road and normalizes canonicalKey');
+
+  const pLegacy = cme.parseCorridorKey('1--2');
+  assert(pLegacy && pLegacy.u === 1 && pLegacy.v === 2 && pLegacy.type === 'adj' && pLegacy.canonicalKey === '1-2', 'parseCorridorKey migrates legacy double-hyphen 1--2 to 1-2');
+
+  const pAlphaAdj = cme.parseCorridorKey('SLV10-SLV2');
+  assert(pAlphaAdj && pAlphaAdj.u === 'SLV10' && pAlphaAdj.v === 'SLV2' && pAlphaAdj.type === 'adj' && pAlphaAdj.canonicalKey === 'SLV2-SLV10', 'parseCorridorKey parses alphanumeric road key');
+
+  const pAlphaInf = cme.parseCorridorKey('SLV1->SLV2');
+  assert(pAlphaInf && pAlphaInf.u === 'SLV1' && pAlphaInf.v === 'SLV2' && pAlphaInf.type === 'inf' && pAlphaInf.canonicalKey === 'SLV1->SLV2', 'parseCorridorKey parses alphanumeric influence link');
+
+  assertEqual(cme.parseCorridorKey('invalid_key'), null, 'parseCorridorKey returns null on invalid key');
+
+  // 2. corridorMatchesNode
+  assert(cme.corridorMatchesNode('1-2', 1) === true, 'corridorMatchesNode matches numeric road endpoint 1');
+  assert(cme.corridorMatchesNode('1->2', 1) === true, 'corridorMatchesNode matches directed influence source 1');
+  assert(cme.corridorMatchesNode('1->2', 2) === true, 'corridorMatchesNode matches directed influence target 2');
+  assert(cme.corridorMatchesNode('SLV1->SLV2', 'SLV2') === true, 'corridorMatchesNode matches alphanumeric submap node SLV2');
+  assert(cme.corridorMatchesNode('10-2', 1) === false, 'corridorMatchesNode avoids false positive matching 1 against 10-2');
+  assert(cme.corridorMatchesNode('SLV10->SLV2', 'SLV1') === false, 'corridorMatchesNode avoids false positive matching SLV1 against SLV10->SLV2');
+
+  // 3. addCorridor, removeCorridor & removeCorridorsForNode
+  const topo = {
+    nodes: {
+      '1': { id: 1, name: 'Node 1', adj: [], infBy: [] },
+      '2': { id: 2, name: 'Node 2', adj: [], infBy: [] },
+      '3': { id: 3, name: 'Node 3', adj: [], infBy: [] }
+    },
+    links: [
+      { source: 1, target: 2, type: 'road' },
+      { source: 1, target: 3, type: 'hegemony' },
+      { source: 2, target: 3, type: 'road' }
+    ],
+    edgeData: {
+      '1--2': { condition: 'Legacy Road' }
+    },
+    edgeNotes: {
+      '1-2': 'Road note 1-2',
+      '1->3': 'Influence note 1->3',
+      '2-3': 'Road note 2-3'
+    },
+    edgeSlottedModules: {
+      '1-2': ['MOD-ROAD-12'],
+      '1->3': ['MOD-INF-13'],
+      '2-3': ['MOD-ROAD-23']
+    }
+  };
+  const externalEdgeSlotted = {
+    '1-2': ['MOD-ROAD-12'],
+    '1->3': ['MOD-INF-13'],
+    '2-3': ['MOD-ROAD-23']
+  };
+
+  const addedRoad = cme.addCorridor(topo, 2, 1, 'adj', { condition: 'Paved Highway' });
+  assertEqual(addedRoad.key, '1-2', 'addCorridor returns canonical road key 1-2');
+  assert(topo.nodes['1'].adj.includes(2) && topo.nodes['2'].adj.includes(1), 'addCorridor populates symmetric adj arrays');
+  assertEqual(topo.edgeData['1-2'].condition, 'Paved Highway', 'addCorridor writes metadata to canonical key');
+
+  const addedInf = cme.addCorridor(topo, 1, 3, 'inf', { condition: 'Tribute' });
+  assertEqual(addedInf.key, '1->3', 'addCorridor returns canonical influence key 1->3');
+  assert(topo.nodes['3'].infBy.includes(1), 'addCorridor populates target infBy array');
+  assertEqual(topo.edgeData['1->3'].condition, 'Tribute', 'addCorridor writes influence metadata');
+
+  cme.addCorridor(topo, 2, 3, 'adj', { condition: 'Rough Terrain' });
+
+  // Remove road 1-2 (and legacy 1--2)
+  cme.removeCorridor(topo, 1, 2, 'adj', { edgeSlottedModules: externalEdgeSlotted });
+  assert(!topo.nodes['1'].adj.includes(2) && !topo.nodes['2'].adj.includes(1), 'removeCorridor removes 1-2 from both adj arrays');
+  assert(!topo.edgeData['1-2'] && !topo.edgeData['1--2'], 'removeCorridor scrubs canonical 1-2 and legacy 1--2 from edgeData');
+  assert(!topo.edgeNotes['1-2'], 'removeCorridor scrubs 1-2 from edgeNotes');
+  assert(!topo.edgeSlottedModules['1-2'] && !externalEdgeSlotted['1-2'], 'removeCorridor scrubs 1-2 from edgeSlottedModules');
+  assertEqual(topo.links.length, 2, 'removeCorridor removes matching road link from links');
+
+  // Remove all corridors for node 3 (scrubs both 1->3 and 2-3)
+  cme.removeCorridorsForNode(topo, 3, { edgeSlottedModules: externalEdgeSlotted });
+  assert(!topo.nodes['2'].adj.includes(3), 'removeCorridorsForNode scrubs node 3 from node 2 adj');
+  assert(!topo.nodes['3'].infBy.includes(1), 'removeCorridorsForNode scrubs node 3 infBy');
+  assert(!topo.edgeData['1->3'] && !topo.edgeData['2-3'], 'removeCorridorsForNode scrubs both 1->3 and 2-3 from edgeData');
+  assert(!topo.edgeNotes['1->3'] && !topo.edgeNotes['2-3'], 'removeCorridorsForNode scrubs both 1->3 and 2-3 from edgeNotes');
+  assert(!topo.edgeSlottedModules['1->3'] && !externalEdgeSlotted['1->3'], 'removeCorridorsForNode scrubs 1->3 from edgeSlottedModules');
+  assertEqual(topo.links.length, 0, 'removeCorridorsForNode removes all links incident to node 3');
+
+  // 4. Verify browser callers use the canonical corridor seam
+  const propGridSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'property_grid_inspector.js'), 'utf8');
+  assert(!propGridSrc.includes('Math.min(uId, vId)}--${Math.max(uId, vId)'), 'property_grid_inspector.js has zero legacy Math.min--Math.max key constructions');
+  assert(propGridSrc.includes('CampaignMutationEngine.formatCorridorKey'), 'property_grid_inspector.js uses CampaignMutationEngine.formatCorridorKey');
+  assert(propGridSrc.includes('CampaignMutationEngine.removeCorridor'), 'property_grid_inspector.js uses CampaignMutationEngine.removeCorridor');
+
+  const cadSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'cad_interaction.js'), 'utf8');
+  assert(cadSrc.includes('CampaignMutationEngine.removeCorridorsForNode'), 'cad_interaction.js uses CampaignMutationEngine.removeCorridorsForNode');
+  assert(cadSrc.includes('CampaignMutationEngine.removeCorridor'), 'cad_interaction.js uses CampaignMutationEngine.removeCorridor');
+
+  const exporterSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'campaign_exporter.js'), 'utf8');
+  assert(exporterSrc.includes('CampaignMutationEngine.parseCorridorKey'), 'campaign_exporter.js uses CampaignMutationEngine.parseCorridorKey');
+
+  const cascadeSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'entity_cascade_delete.js'), 'utf8');
+  assert(cascadeSrc.includes('CampaignMutationEngine.removeCorridorsForNode'), 'entity_cascade_delete.js uses CampaignMutationEngine.removeCorridorsForNode');
+}
+
+function testSuite46PointcrawlGraphNodeSeam() {
+  console.log('\n--- Suite 46: Hierarchical Cartography Pointcrawl Graph Node Seam (M3) ---');
+  const cme = require(path.join(ROOT, 'src', 'workstation', 'scripts', 'campaign_mutation_engine.js'));
+
+  // 1. ensureQueryableNodesCollection on Dictionary
+  const dict = {
+    '1': { id: 1, name: 'Candlekeep', adj: [2], infBy: [] },
+    'SLV1': { id: 'SLV1', name: 'Beregost', adj: [], infBy: [1] }
+  };
+  cme.ensureQueryableNodesCollection(dict);
+
+  // Non-enumerable methods check
+  assertEqual(typeof dict.find, 'function', 'dict.find is attached');
+  assertEqual(typeof dict.filter, 'function', 'dict.filter is attached');
+  assertEqual(typeof dict.map, 'function', 'dict.map is attached');
+  assertEqual(typeof dict.forEach, 'function', 'dict.forEach is attached');
+  assertEqual(typeof dict.some, 'function', 'dict.some is attached');
+  assertEqual(typeof dict.every, 'function', 'dict.every is attached');
+  assertEqual(typeof dict.toArray, 'function', 'dict.toArray is attached');
+
+  // Pure dictionary keys & serialization invariant
+  const keys = Object.keys(dict).sort();
+  assertEqual(keys.length, 2, 'Object.keys(dict) length is exactly 2');
+  assertEqual(keys[0], '1', 'Key 0 is "1"');
+  assertEqual(keys[1], 'SLV1', 'Key 1 is "SLV1"');
+  const values = Object.values(dict);
+  assertEqual(values.length, 2, 'Object.values(dict) length is exactly 2');
+  const jsonParsed = JSON.parse(JSON.stringify(dict));
+  assertEqual(Object.keys(jsonParsed).length, 2, 'JSON.stringify preserves pure dictionary keys');
+
+  // Method behavior
+  const found1 = dict.find(n => n.id === 1);
+  assert(found1 && found1.name === 'Candlekeep', 'dict.find locates numeric node 1');
+  const foundSlv = dict.find(n => n.id === 'SLV1');
+  assert(foundSlv && foundSlv.name === 'Beregost', 'dict.find locates alphanumeric node SLV1');
+  assertEqual(dict.filter(n => n.name.includes('e')).length, 2, 'dict.filter works correctly');
+  assertEqual(dict.map(n => n.name).join(','), 'Candlekeep,Beregost', 'dict.map works correctly');
+  assert(dict.some(n => n.id === 1), 'dict.some works correctly');
+  assert(dict.every(n => Boolean(n.id)), 'dict.every works correctly');
+  assertEqual(dict.toArray().length, 2, 'dict.toArray returns an array of length 2');
+
+  // 2. getNodesList, getNodesMap, getNodeById, upsertNode, removeNode on Array vs Dictionary
+  const arrayTopo = {
+    nodes: [
+      { id: 1, name: 'Candlekeep', adj: [2], infBy: [] },
+      { id: 'SLV1', name: 'Beregost', adj: [], infBy: [1] }
+    ]
+  };
+  const dictTopo = {
+    nodes: {
+      '1': { id: 1, name: 'Candlekeep', adj: [2], infBy: [] },
+      'SLV1': { id: 'SLV1', name: 'Beregost', adj: [], infBy: [1] }
+    }
+  };
+
+  // getNodesList
+  const arrList = cme.getNodesList(arrayTopo);
+  const dictList = cme.getNodesList(dictTopo);
+  assertEqual(arrList.length, 2, 'getNodesList on Array topo returns 2 nodes');
+  assertEqual(dictList.length, 2, 'getNodesList on Dict topo returns 2 nodes');
+  assertEqual(cme.getNodesList(dict).length, 2, 'getNodesList on direct Dict returns 2 nodes');
+  assertEqual(cme.getNodesList(null).length, 0, 'getNodesList on null returns empty array');
+
+  // getNodesMap
+  const arrMap = cme.getNodesMap(arrayTopo);
+  const dictMap = cme.getNodesMap(dictTopo);
+  assertEqual(Object.keys(arrMap).length, 2, 'getNodesMap on Array topo returns dict with 2 keys');
+  assertEqual(Object.keys(dictMap).length, 2, 'getNodesMap on Dict topo returns dict with 2 keys');
+  assert(arrMap['1'] && arrMap['SLV1'], 'getNodesMap has keys "1" and "SLV1"');
+  assert(typeof arrMap.find === 'function', 'getNodesMap returns queryable collection');
+
+  // getNodeById
+  assertEqual(cme.getNodeById(arrayTopo, 1).name, 'Candlekeep', 'getNodeById(1) on Array topo');
+  assertEqual(cme.getNodeById(dictTopo, 1).name, 'Candlekeep', 'getNodeById(1) on Dict topo');
+  assertEqual(cme.getNodeById(arrayTopo, 'SLV1').name, 'Beregost', 'getNodeById(SLV1) on Array topo');
+  assertEqual(cme.getNodeById(dictTopo, 'SLV1').name, 'Beregost', 'getNodeById(SLV1) on Dict topo');
+  assertEqual(cme.getNodeById(dictTopo, null), null, 'getNodeById(null) returns null');
+  assertEqual(cme.getNodeById(dictTopo, 'nonexistent'), null, 'getNodeById for nonexistent node returns null');
+
+  // upsertNode
+  cme.upsertNode(arrayTopo, { id: 3, name: 'Nashkel' });
+  cme.upsertNode(dictTopo, { id: 3, name: 'Nashkel' });
+  assertEqual(cme.getNodeById(arrayTopo, 3).name, 'Nashkel', 'upsertNode adds to Array topo');
+  assertEqual(cme.getNodeById(dictTopo, 3).name, 'Nashkel', 'upsertNode adds to Dict topo');
+  assert(typeof dictTopo.nodes.find === 'function', 'Dict topo nodes remains queryable after upsertNode');
+  assertEqual(dictTopo.nodes.find(n => n.id === 3).name, 'Nashkel', 'Dict topo nodes.find finds upserted node');
+
+  // removeNode & cascade scrub
+  cme.removeNode(arrayTopo, 3);
+  cme.removeNode(dictTopo, 3);
+  assertEqual(cme.getNodeById(arrayTopo, 3), null, 'removeNode removes from Array topo');
+  assertEqual(cme.getNodeById(dictTopo, 3), null, 'removeNode removes from Dict topo');
+
+  // 3. pack_engine.js portal/node resolution when topo.nodes is a Dictionary and global nodes is empty
+  const packEngineSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'pack_engine.js'), 'utf8');
+  assert(!packEngineSrc.includes("(topo.nodes || [])"), 'pack_engine.js no longer uses unsafe (topo.nodes || [])');
+  assert(packEngineSrc.includes('CampaignMutationEngine.getNodesList'), 'pack_engine.js uses CampaignMutationEngine.getNodesList');
+
+  // Test simulation: Anchor resolution on Dictionary topo without global nodes array
+  const mockTopo = {
+    nodes: {
+      '10': { id: 10, name: 'Portal Gate', childMapId: null }
+    }
+  };
+  const resolvedList = cme.getNodesList(mockTopo);
+  const foundAnchor = resolvedList.find(n => n && n.id == 10);
+  assert(foundAnchor && foundAnchor.name === 'Portal Gate', 'Portal anchor node found in Dictionary topo without TypeError');
+
+  // 4. Exporter and State Adapter integration check
+  const stateAdapterSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'state_adapter.js'), 'utf8');
+  assert(stateAdapterSrc.includes('ensureQueryableNodesCollection: CampaignMutationEngine.ensureQueryableNodesCollection'), 'state_adapter.js exposes ensureQueryableNodesCollection on CampaignStateAdapter');
+  assert(stateAdapterSrc.includes('getNodesList: CampaignMutationEngine.getNodesList'), 'state_adapter.js exposes getNodesList on CampaignStateAdapter');
+
+  const exporterSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'campaign_exporter.js'), 'utf8');
+  assert(exporterSrc.includes('CampaignMutationEngine.getNodesList'), 'campaign_exporter.js uses CampaignMutationEngine.getNodesList in resolveMapNodes');
+  assert(exporterSrc.includes('CampaignMutationEngine.getNodeById'), 'campaign_exporter.js uses CampaignMutationEngine.getNodeById in findNodeObj');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -6197,6 +7849,18 @@ async function testBackgroundMapResizingAndTransformPersistence() {
     testCampaignSelectorRichMetadataAndCensus();
     testAutoCadMapLayoutTabsAndGrouping();
     await testBackgroundMapResizingAndTransformPersistence();
+    testRelationalTrackersTicketWorkflowsAndSpatialPins();
+    testAuthoritativeReferenceClaimsAndGapsRemediation();
+    testMultiLinkSpatialPinsShapeGripsContextMenuAndGlobalSearch();
+    testTicket01QuestClockSchemaAndConsequences();
+    testTicket02CampaignMutationEngine();
+    testTicket03CampaignCliAndLoopback();
+    await testTicket04TokenGuardAndBatchReplayMerge();
+    testTicket05SyncSummaryDigestAndChangelogUi();
+    testSuite43NodeCliNativeBiomeAndGuardrails();
+    testSuite44RosterAndThreatClockMutationSeam();
+    testSuite45CorridorSeamAndKeyCanonicalization();
+    testSuite46PointcrawlGraphNodeSeam();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

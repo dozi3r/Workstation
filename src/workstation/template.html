@@ -108,11 +108,15 @@ CRITICAL INSTRUCTION:
       <!-- View Menu -->
       <div class="menu-item" data-menu="menu-view">View
         <div id="menu-view" class="menu-dropdown bevel-outset">
+          <div class="dropdown-row" onclick="openGlobalSearchModal()"><strong>🔍 Global Search / Jump to Anything...</strong> <span class="hotkey">Ctrl+F</span></div>
+          <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="zoomIn()">Zoom In <span class="hotkey">+</span></div>
           <div class="dropdown-row" onclick="zoomOut()">Zoom Out <span class="hotkey">-</span></div>
           <div class="dropdown-row" onclick="resetZoom()">Fit 1:1 Scale <span class="hotkey">0</span></div>
+          <div class="dropdown-row" onclick="zoomToFitCanvas()">Zoom to Fit All / Selection <span class="hotkey">F</span></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="toggleGrid()">Toggle Grid <span class="hotkey">G</span></div>
+          <div class="dropdown-row" onclick="toggleSnapToGrid()">Toggle Snap to Grid (20px)</div>
           <div class="dropdown-row" onclick="toggleInfluenceVectors()">Toggle Hegemony Vectors</div>
           <div class="dropdown-row" onclick="toggleGmVision()">Toggle GM Vision (Fog of War)</div>
           <div class="dropdown-row" onclick="togglePropertiesDock()">Properties Inspector <span class="hotkey">F4</span></div>
@@ -142,6 +146,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="setTool('node-t2')">Standard Node (Tier 2) <span class="hotkey">N</span></div>
           <div class="dropdown-row" onclick="setTool('node-t3')">Apex / Hazard Node (Tier 3) <span class="hotkey">A</span></div>
+          <div class="dropdown-row" onclick="setTool('pin')">Canvas Spatial Pin (Marker) <span class="hotkey">P</span></div>
           <div class="dropdown-row" onclick="setTool('move')">Move / Reposition Node Tool <span class="hotkey">M</span></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="setTool('road')">Transit Road Edge (E_adj) <span class="hotkey">L</span></div>
@@ -178,8 +183,6 @@ CRITICAL INSTRUCTION:
               <div class="dropdown-row" onclick="window.open('tickets/tier_0/tier_0_project_visualizer.html', '_blank')">Tier 0 Substratum Visualizer &rarr;</div>
               <div class="dropdown-row" onclick="window.open('tickets/unified_ticket_tracker.html', '_blank')">Master Unified Backlog Tracker &rarr;</div>
               <div class="dropdown-separator"></div>
-              <div class="dropdown-row" onclick="window.open('regions/regional_image_browser.html', '_blank')">Regional Image Browser &rarr;</div>
-              <div class="dropdown-separator"></div>
               <div class="dropdown-row" onclick="window.open('admin.html', '_blank')">Administrative Hub (admin.html) &rarr;</div>
             </div>
           </div>
@@ -198,6 +201,11 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openEntityManager('edge')">Edge Explorer <span class="hotkey">Ctrl+F11</span></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="openSocialGraphModal()"><strong>NPC Social Relational Graph...</strong> <span class="hotkey">Ctrl+Shift+S</span></div>
+          <div class="dropdown-row" onclick="if(typeof advanceSeveranceTurn==='function')advanceSeveranceTurn()"><strong>⏭️ Advance Supply-Chain Turn...</strong></div>
+          <div class="dropdown-row" onclick="if(typeof reloadLiveModulesFromLoopback==='function')reloadLiveModulesFromLoopback()"><strong>🔄 Reload Disk .md Modules (Loopback)</strong></div>
+          <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openCampaignChangelogModal()"><strong>📜 Campaign Changelog...</strong> <span class="hotkey">Ctrl+Shift+L</span></div>
+          <div class="dropdown-row" onclick="openSyncSummaryDigestModal(true)"><strong>🔄 Sync Summary Digest...</strong></div>
         </div>
       </div>
 
@@ -280,11 +288,15 @@ CRITICAL INSTRUCTION:
       <button class="win-btn" onclick="openSourcebooksModal()" title="Campaign Sourcebooks (Ctrl+B)"><strong>Sourcebooks</strong></button>
       <button class="win-btn" onclick="openCampaignExportModal()" title="Export Campaign Dossier, JSON &amp; VTT (Ctrl+E)"><strong>Export</strong></button>
       <button class="win-btn" onclick="openSurfaceCatalogModal()" title="System Directory &amp; Surface Catalog (Ctrl+Shift+A)"><strong>Catalog</strong></button>
+      <button class="win-btn" onclick="openGlobalSearchModal()" title="Global Search / Jump to Anything across Maps, Nodes, Pins &amp; Entities (Ctrl+F / Ctrl+P)"><strong>🔍 Search</strong></button>
+      <button class="win-btn" onclick="openCampaignChangelogModal()" title="Campaign Changelog &amp; Batch History (Ctrl+Shift+L)"><strong>📜 Changelog</strong></button>
       <div class="toolbar-sep"></div>
       <button class="win-btn" onclick="zoomIn()" title="Zoom In (+)">Zoom +</button>
       <button class="win-btn" onclick="zoomOut()" title="Zoom Out (-)">Zoom -</button>
       <button class="win-btn" onclick="resetZoom()" title="Reset Zoom (0)">100%</button>
+      <button class="win-btn" onclick="zoomToFitCanvas()" title="Zoom to Fit All / Frame Selection (F)">Fit [F]</button>
       <button class="win-btn" onclick="toggleGrid()" title="Toggle Grid (G)">Grid</button>
+      <button id="btn-toolbar-snap" class="win-btn" onclick="toggleSnapToGrid()" title="Toggle Snap to Grid (20px)">Snap</button>
     </div>
 
     <!-- 4. MAIN WORKSPACE (PALETTE + CANVAS + PROPERTIES) -->
@@ -326,6 +338,10 @@ CRITICAL INSTRUCTION:
             <span class="tool-left"><span class="tool-icon">╱</span><span class="tool-label">Line</span></span>
             <span class="tool-tag">[W]</span>
           </button>
+          <button id="tool-pin" class="win-btn palette-tool-btn" onclick="setTool('pin')" title="Place Canvas Spatial Pin (Submap, NPC, Quest, Item, Clock, Ticket) (P)">
+            <span class="tool-left"><span class="tool-icon">📌</span><span class="tool-label">Pin</span></span>
+            <span class="tool-tag">[P]</span>
+          </button>
           <button id="tool-erase" class="win-btn palette-tool-btn" onclick="setTool('erase')" title="Erase Selected Node, Corridor, or Shape (E)">
             <span class="tool-left"><span class="tool-icon">✕</span><span class="tool-label">Erase</span></span>
             <span class="tool-tag">[E]</span>
@@ -358,6 +374,7 @@ CRITICAL INSTRUCTION:
           <button class="win-btn hud-btn active" id="btn-focus-roads" onclick="toggleLayerVisibility('roads')">Roads</button>
           <button class="win-btn hud-btn active" id="btn-focus-hegemony" onclick="toggleLayerVisibility('hegemony')">Hegemony</button>
           <button class="win-btn hud-btn active" id="btn-focus-clocks" onclick="toggleLayerVisibility('clocks')">Clocks</button>
+          <button class="win-btn hud-btn active" id="btn-focus-friction" onclick="if(typeof toggleContradictionOverlay==='function')toggleContradictionOverlay()" title="Toggle High-Friction Cultural Contradiction Overlay (Δ ≥ 5)">Friction</button>
           <button class="win-btn hud-btn" id="btn-focus-bg" onclick="toggleLayerVisibility('bg')" title="Toggle Map Background Image">Map BG</button>
           <button class="win-btn hud-btn active" id="btn-focus-gm-vision" onclick="toggleGmVision()" title="Toggle GM Vision (Show Hidden Fog Nodes &amp; Edges with Ghost Outline)">GM Vision</button>
           <button class="win-btn hud-btn" id="btn-focus-layers" onclick="toggleLayersPane()" title="Open Canvas Layers Manager (Ctrl+L)">Layers</button>
@@ -434,6 +451,9 @@ CRITICAL INSTRUCTION:
         </svg>
       </div>
 
+      <!-- HORIZONTAL SPLITTER FOR MAP LAYOUT TABS BROWSER -->
+      <div id="cad-tabs-splitter" class="workspace-splitter-horizontal" title="Drag up/down to adjust Map Tab Browser height (double-click to toggle multi-row / reset)"></div>
+
       <!-- AUTOCAD-STYLE MODEL & LAYOUT TABS BAR -->
       <div id="cad-layout-tabs-bar" class="cad-layout-tabs-bar">
         <div class="cad-tabs-nav-controls" style="display:flex; align-items:center; gap:1px; margin-right:4px;">
@@ -444,7 +464,7 @@ CRITICAL INSTRUCTION:
           <button class="win-btn cad-tab-scroll-btn" onclick="toggleMapQuickListMenu()" title="Quick Map Picker (All Maps)" style="padding:1px 5px; font-size:10px; height:20px;">📑▾</button>
         </div>
         <div class="layout-tabs-scroll-container" id="cad-layout-scroll-container">
-          <div id="layout-tabs-list" style="display:flex; align-items:flex-end; gap:2px;">
+          <div id="layout-tabs-list">
             <!-- Injected dynamically by renderLayoutTabs() -->
           </div>
           <button class="win-btn layout-tab-add" onclick="openNewMapModal()" title="Create New Sub-Map / Layout Tab">+</button>
@@ -580,6 +600,9 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openCampaignExportModal(); toggleStartMenu();">
             <strong>Campaign Exporter...</strong> <span class="hotkey">Ctrl+E</span>
           </div>
+          <div class="dropdown-row" onclick="openCampaignChangelogModal(); toggleStartMenu();">
+            <strong>Campaign Changelog...</strong> <span class="hotkey">Ctrl+Shift+L</span>
+          </div>
         </div>
       </div>
 
@@ -599,9 +622,6 @@ CRITICAL INSTRUCTION:
           </div>
           <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('tier-0-visualizer', 'Tier 0 Substratum Project Visualizer', 'tickets/tier_0/tier_0_project_visualizer.html', 'T0'); toggleStartMenu();">
             <strong>Tier 0 Project Visualizer...</strong>
-          </div>
-          <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('image-browser', 'Regional Visual Asset Browser', 'regions/regional_image_browser.html', 'IMG'); toggleStartMenu();">
-            <strong>Regional Image Browser...</strong>
           </div>
           <div class="dropdown-row" onclick="openEmbeddedSurfaceWindow('codebase-wiki', 'Technical Manual &amp; Bidirectional Wiki', 'wiki/index.html', 'WIK'); toggleStartMenu();">
             <strong>Codebase Wiki (8 Vols)...</strong>
@@ -650,6 +670,12 @@ CRITICAL INSTRUCTION:
 
   </div>
 
+  <!-- RIGHT-CLICK CAD CANVAS CONTEXT MENU -->
+  <div id="cad-context-menu" class="hidden" oncontextmenu="event.preventDefault();"></div>
+
+  <!-- FLOATING CANVAS RICH HOVER PREVIEW CARD -->
+  <div id="cad-hover-preview-card" class="hidden"></div>
+
   <!-- @@INCLUDE: modals/lifecycle_modals.html @@ -->
   <!-- @@INCLUDE: modals/entity_modals.html @@ -->
   <!-- @@INCLUDE: modals/explorer_modals.html @@ -->
@@ -684,6 +710,8 @@ CRITICAL INSTRUCTION:
 // @@INCLUDE: scripts/map_store.js @@
 
 // @@INCLUDE: scripts/state_adapter.js @@
+
+// @@INCLUDE: scripts/campaign_mutation_engine.js @@
 
 // @@INCLUDE: scripts/sociology_data.js @@
 
@@ -728,7 +756,9 @@ CRITICAL INSTRUCTION:
 // @@INCLUDE: scripts/selective_importer.js @@
  
 // @@INCLUDE: scripts/pack_engine.js @@
- 
+
+// @@INCLUDE: scripts/campaign_changelog_ui.js @@
+
 // @@INJECT_WORKSTATION_MODS@@
   </script>
 </body>

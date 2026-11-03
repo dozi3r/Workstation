@@ -1,16 +1,16 @@
 ---
 file_path: "Test-Suite.ps1"
-title: "Test-Suite.ps1"
+title: "Test-Suite.ps1 — Master Automated Test Harness & Quality Assurance Gate (Thin Node.js Launcher)"
 volume: "vol-8"
 kind: "PowerShell Automation / Simulation Runner"
-current_hash: "246aacd1a4763b67"
-reviewed_hash: "246aacd1a4763b67"
+current_hash: "39318fafe6d6b21b"
+reviewed_hash: "39318fafe6d6b21b"
 stale: false
-size_bytes: 11580
-line_count: 239
+size_bytes: 1887
+line_count: 50
 ---
 
-# Test-Suite.ps1
+# Test-Suite.ps1 — Master Automated Test Harness & Quality Assurance Gate (Thin Node.js Launcher)
 
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role

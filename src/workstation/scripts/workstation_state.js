@@ -25,7 +25,9 @@
         campaignName: options.campaignName || 'Untitled Campaign',
         rootMapId: 'map_root',
         activeMapId: 'map_root',
-        nodes: {},
+        nodes: (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine && typeof CampaignMutationEngine.ensureQueryableNodesCollection === 'function')
+          ? CampaignMutationEngine.ensureQueryableNodesCollection({})
+          : {},
         links: [],
         waves: [],
         layers: JSON.parse(JSON.stringify(defaultLayers)),
@@ -53,8 +55,10 @@
       zoom: 1.0,
       pan: { x: 0, y: 0 },
       isDraggingNode: false,
+      isDraggingPin: false,
       isPanning: false,
       draggedNodeId: null,
+      draggedPinId: null,
       dragStart: { x: 0, y: 0 },
       linkingSourceNodeId: null,
       showGrid: true,
@@ -63,6 +67,7 @@
       showClocks: true,
       showBgMap: true,
       showCorridorLabels: true,
+      showContradictionOverlay: true,
       showGmVision: true,
       activeLayerFocus: 'all',
       registeredMods: {},
@@ -113,8 +118,10 @@
       Workstation.zoom = 1.0;
       Workstation.pan = { x: 0, y: 0 };
       Workstation.isDraggingNode = false;
+      Workstation.isDraggingPin = false;
       Workstation.isPanning = false;
       Workstation.draggedNodeId = null;
+      Workstation.draggedPinId = null;
       Workstation.linkingSourceNodeId = null;
       if (Workstation.history) {
         Workstation.history.undoStack = [];
@@ -323,6 +330,10 @@
         MDIWindowManager.registerWindow('modal-social-graph', {
           title: 'NPC Social Relational Graph',
           icon: '🕸️'
+        });
+        MDIWindowManager.registerWindow('modal-campaign-changelog', {
+          title: 'Campaign Changelog',
+          icon: '📜'
         });
       } catch (e) {
         console.error('[Workstation] MDIWindowManager registration error:', e);
@@ -637,7 +648,9 @@
 
             const curMap = maps[activeMapId] || maps[rootMapKey];
             if (!maps[activeMapId]) activeMapId = rootMapKey;
-            nodes = Array.isArray(curMap.nodes) ? JSON.parse(JSON.stringify(curMap.nodes)) : [];
+            nodes = Array.isArray(curMap.nodes)
+              ? JSON.parse(JSON.stringify(curMap.nodes))
+              : (curMap.nodes && typeof curMap.nodes === "object" ? JSON.parse(JSON.stringify(Object.values(curMap.nodes))) : []);
             links = Array.isArray(curMap.links) ? JSON.parse(JSON.stringify(curMap.links)) : [];
             nodeSlottedModules = (typeof normalizeNodeSlottedModules === "function")
               ? normalizeNodeSlottedModules(curMap.nodeSlottedModules)
@@ -735,23 +748,27 @@
       let base = null;
       if (activeCamp && typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY[activeCamp] && CAMPAIGN_REGISTRY[activeCamp].preset) {
         const p = CAMPAIGN_REGISTRY[activeCamp].preset;
-        const rootId = p.rootMapId || p.activeMapId || "map_root";
+        const pMaps = p.maps || {};
+        const rootId = (p.rootMapId && pMaps[p.rootMapId])
+          ? p.rootMapId
+          : (pMaps["map_root"] ? "map_root" : (Object.keys(pMaps).find(k => pMaps[k] && !pMaps[k].parentMapId) || Object.keys(pMaps)[0] || p.rootMapId || "map_root"));
         base = {
           id: p.id || activeCamp,
           name: p.name || CAMPAIGN_REGISTRY[activeCamp].metadata?.name || activeCamp,
           campaignName: p.campaignName || CAMPAIGN_REGISTRY[activeCamp].metadata?.name || activeCamp,
           rootMapId: rootId,
-          activeMapId: p.activeMapId || rootId,
+          activeMapId: rootId,
           maps: p.maps || null,
-          nodes: p.nodes || (p.maps && p.maps[rootId]?.nodes) || [],
-          links: p.links || (p.maps && p.maps[rootId]?.links) || [],
-          waves: p.waves || (p.maps && p.maps[rootId]?.waves) || [],
+          nodes: (p.maps && p.maps[rootId]?.nodes) || p.nodes || {},
+          links: (p.maps && p.maps[rootId]?.links) || p.links || [],
+          waves: (p.maps && p.maps[rootId]?.waves) || p.waves || [],
           entities: p.entities || CAMPAIGN_REGISTRY[activeCamp].metadata?.entities || null,
           npcs: (p.entities && p.entities.npcs) || p.npcs || [],
           quests: (p.entities && p.entities.quests) || p.quests || [],
           items: (p.entities && p.entities.items) || p.items || [],
           trackers: (p.entities && p.entities.trackers) || p.trackers || [],
-          tickets: (p.entities && p.entities.tickets) || p.tickets || []
+          tickets: (p.entities && p.entities.tickets) || p.tickets || [],
+          factions: (p.entities && p.entities.factions) || p.factions || []
         };
       } else if (activeCamp && typeof BUNDLED_TOPOLOGIES !== "undefined" && BUNDLED_TOPOLOGIES[activeCamp]) {
         base = BUNDLED_TOPOLOGIES[activeCamp];
@@ -766,12 +783,34 @@
       }
 
       Workstation.activeTopology = JSON.parse(JSON.stringify(base));
+      // Normalize Workstation.activeTopology.nodes to a dictionary keyed by node.id (never a 0-indexed array)
+      if (Array.isArray(Workstation.activeTopology.nodes)) {
+        const nodeDict = {};
+        Workstation.activeTopology.nodes.forEach((n, idx) => {
+          if (!n) return;
+          const nid = (n.id !== undefined && n.id !== null) ? n.id : (idx + 1);
+          nodeDict[String(nid)] = { ...n, id: nid };
+        });
+        Workstation.activeTopology.nodes = nodeDict;
+      }
+      if (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine && typeof CampaignMutationEngine.ensureQueryableNodesCollection === "function") {
+        CampaignMutationEngine.ensureQueryableNodesCollection(Workstation.activeTopology.nodes);
+      }
       ensureEntityCollections(Workstation.activeTopology);
       if (typeof syncCustomModulesToCatalog === "function") syncCustomModulesToCatalog(Workstation.activeTopology);
       purgeDeletedModulesFromRuntimeCatalog(Workstation.activeTopology);
 
       if (typeof initMapsRegistry === "function") initMapsRegistry();
-      if (typeof syncAdapterFromWorkstationTopology === "function") syncAdapterFromWorkstationTopology();
+      if (typeof maps !== "undefined" && typeof activeMapId !== "undefined" && maps[activeMapId] && typeof syncAdapterToWorkstationTopology === "function") {
+        const initCurMap = maps[activeMapId];
+        nodes = Array.isArray(initCurMap.nodes)
+          ? JSON.parse(JSON.stringify(initCurMap.nodes))
+          : (initCurMap.nodes && typeof initCurMap.nodes === "object" ? JSON.parse(JSON.stringify(Object.values(initCurMap.nodes))) : []);
+        links = Array.isArray(initCurMap.links) ? JSON.parse(JSON.stringify(initCurMap.links)) : [];
+        syncAdapterToWorkstationTopology();
+      } else if (typeof syncAdapterFromWorkstationTopology === "function") {
+        syncAdapterFromWorkstationTopology();
+      }
 
       // Pre-persist all available map background images to IndexedDB so submaps render immediately offline
       if (typeof maps !== "undefined" && maps && typeof saveMapImageToDB === "function") {
@@ -808,6 +847,9 @@
     function ensureEntityCollections(topo) {
       if (!topo) return;
       if (!topo.nodes || typeof topo.nodes !== 'object') topo.nodes = {};
+      if (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine && typeof CampaignMutationEngine.ensureQueryableNodesCollection === "function") {
+        CampaignMutationEngine.ensureQueryableNodesCollection(topo.nodes);
+      }
       if (!Array.isArray(topo.links)) topo.links = [];
       if (!Array.isArray(topo.waves)) topo.waves = [];
       if (!topo.edgeData || typeof topo.edgeData !== 'object') topo.edgeData = {};
@@ -1344,7 +1386,7 @@
     let activeExportTabKey = 'json';
     function switchExportTab(tabKey) {
       activeExportTabKey = tabKey;
-      ['json', 'md', 'obsidian', 'vtt', 'svg', 'pack'].forEach(k => {
+      ['json', 'md', 'html', 'obsidian', 'vtt', 'uvtt', 'svg', 'pack'].forEach(k => {
         const b = document.getElementById(`btn-exp-${k}`);
         if (b) b.classList.toggle('active', k === tabKey);
       });
@@ -1437,6 +1479,10 @@
             console.error("[ExportModal] Error generating markdown dossier, falling back:", mdErr);
             outputEl.value = `# ${(Workstation.activeTopology && Workstation.activeTopology.name) || 'CAMPAIGN DOSSIER'}\n\n*Notice: Markdown dossier rendered in fallback mode (${mdErr.message}).*\n\nTotal Nodes: ${Object.keys((Workstation.activeTopology && Workstation.activeTopology.nodes) || {}).length}`;
           }
+        } else if (activeExportTabKey === 'html') {
+          outputEl.value = (typeof generateCampaignHTMLDossier === 'function')
+            ? generateCampaignHTMLDossier(Workstation.activeTopology)
+            : `<!DOCTYPE html><html><body><h1>${(Workstation.activeTopology && Workstation.activeTopology.name) || 'Campaign Dossier'}</h1></body></html>`;
         } else if (activeExportTabKey === 'obsidian') {
           try {
             const files = (typeof buildObsidianVaultFiles === 'function')
@@ -1451,8 +1497,12 @@
           }
         } else if (activeExportTabKey === 'vtt') {
           outputEl.value = (typeof generateFoundryVTTJSON === 'function')
-            ? JSON.stringify(generateFoundryVTTJSON(), null, 2)
+            ? JSON.stringify(generateFoundryVTTJSON(Workstation.activeTopology), null, 2)
             : JSON.stringify({ name: Workstation.activeTopology.name, scene: "Pointcrawl Map", nodes: Workstation.activeTopology.nodes }, null, 2);
+        } else if (activeExportTabKey === 'uvtt') {
+          outputEl.value = (typeof generateUniversalVTTJSON === 'function')
+            ? JSON.stringify(generateUniversalVTTJSON(Workstation.activeTopology), null, 2)
+            : JSON.stringify({ format: 0.2, resolution: { map_origin: { x: 0, y: 0 }, map_size: { x: 50, y: 35 }, pixels_per_grid: 20 } }, null, 2);
         } else if (activeExportTabKey === 'svg') {
           const svgEl = document.getElementById('cad-svg');
           outputEl.value = svgEl ? svgEl.outerHTML : '<svg></svg>';
@@ -1494,10 +1544,19 @@
         alert("Export payload is empty. Please select an export tab or verify campaign data.");
         return;
       }
-      const ext = activeExportTabKey === 'json' ? 'creator.json' : (activeExportTabKey === 'md' ? 'md' : (activeExportTabKey === 'svg' ? 'svg' : 'json'));
+      const extMap = {
+        json: 'creator.json',
+        md: 'md',
+        html: 'html',
+        svg: 'svg',
+        vtt: 'foundry.json',
+        uvtt: 'dd2vtt'
+      };
+      const ext = extMap[activeExportTabKey] || 'json';
       const filename = `${(Workstation.activeTopology.name || 'campaign').toLowerCase().replace(/\s+/g, '_')}_export.${ext}`;
 
-      const blob = new Blob([content], { type: 'text/plain' });
+      const mimeType = activeExportTabKey === 'html' ? 'text/html' : 'text/plain';
+      const blob = new Blob([content], { type: mimeType });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = filename;
@@ -1510,6 +1569,63 @@
         setStatusBarMessage(`Export downloaded: "${filename}" (${(blob.size / 1024).toFixed(1)} KB).`);
       }
     }
+
+    function toggleContradictionOverlay() {
+      Workstation.showContradictionOverlay = (Workstation.showContradictionOverlay === false);
+      const btn = document.getElementById('btn-focus-friction');
+      if (btn) btn.classList.toggle('active', Workstation.showContradictionOverlay !== false);
+      if (typeof renderCanvas === 'function') renderCanvas();
+      if (typeof setStatusBarMessage === 'function') {
+        setStatusBarMessage(`High-Friction Contradiction Overlay (Δ ≥ 5): ${Workstation.showContradictionOverlay !== false ? 'ENABLED' : 'HIDDEN'}.`);
+      }
+    }
+    window.toggleContradictionOverlay = toggleContradictionOverlay;
+
+    async function reloadLiveModulesFromLoopback(options = {}) {
+      try {
+        const res = await fetch('/api/modules');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const payload = await res.json();
+        if (!payload || !Array.isArray(payload.modules)) {
+          throw new Error('Invalid /api/modules payload');
+        }
+        let added = 0;
+        let updated = 0;
+        payload.modules.forEach(mod => {
+          if (!mod || !mod.id) return;
+          if (typeof ALL_MODULES !== 'undefined' && Array.isArray(ALL_MODULES)) {
+            const idx = ALL_MODULES.findIndex(m => m && m.id === mod.id);
+            if (idx >= 0) {
+              ALL_MODULES[idx] = { ...ALL_MODULES[idx], ...mod };
+              updated++;
+            } else {
+              ALL_MODULES.push(mod);
+              added++;
+            }
+          }
+          if (typeof MODULES_MANIFEST !== 'undefined' && Array.isArray(MODULES_MANIFEST)) {
+            const mIdx = MODULES_MANIFEST.findIndex(m => m && m.id === mod.id);
+            if (mIdx >= 0) {
+              MODULES_MANIFEST[mIdx] = { ...MODULES_MANIFEST[mIdx], ...mod };
+            } else {
+              MODULES_MANIFEST.push(mod);
+            }
+          }
+        });
+        if (typeof renderModuleExplorerList === 'function') renderModuleExplorerList();
+        if (typeof renderCatalogModules === 'function') renderCatalogModules();
+        const msg = `Live Loopback Reload: ${payload.modules.length} disk module(s) synced (${added} new, ${updated} updated).`;
+        if (typeof setStatusBarMessage === 'function') setStatusBarMessage(msg);
+        if (!options.silent && typeof alert === 'function') alert(msg);
+        return { ok: true, total: payload.modules.length, added, updated };
+      } catch (err) {
+        const warnMsg = `Loopback module reload requires running Launch-Workstation.bat / server.js (${err.message}).`;
+        if (typeof setStatusBarMessage === 'function') setStatusBarMessage(warnMsg);
+        if (!options.silent && typeof alert === 'function') alert(warnMsg);
+        return { ok: false, error: err.message };
+      }
+    }
+    window.reloadLiveModulesFromLoopback = reloadLiveModulesFromLoopback;
 
 // Exported globals
 window.Workstation = Workstation;

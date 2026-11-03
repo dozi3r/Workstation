@@ -70,6 +70,14 @@
    * Helper: Remap foreign key references across entities and submap nodes when cloned
    */
   function remapEntityCluster(entities, submaps, entityIdMap, mapIdMap) {
+    const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+    if (cme && typeof cme.remapEntityCluster === 'function') {
+      if (arguments.length <= 2) {
+        return cme.remapEntityCluster(entities, submaps);
+      }
+      return cme.remapEntityCluster(entities, submaps, entityIdMap, mapIdMap);
+    }
+
     const hasEntityRemaps = entityIdMap && Object.keys(entityIdMap).length > 0;
     const hasMapRemaps = mapIdMap && Object.keys(mapIdMap).length > 0;
     if (!hasEntityRemaps && !hasMapRemaps) return;
@@ -102,7 +110,13 @@
         if (q.targetNpcId) q.targetNpcId = remapId(q.targetNpcId);
         if (q.giverNpcId) q.giverNpcId = remapId(q.giverNpcId);
         if (q.itemIds) q.itemIds = remapArr(q.itemIds);
+        if (q.trackerIds) q.trackerIds = remapArr(q.trackerIds);
         if (q.submapId) q.submapId = remapMapId(q.submapId);
+        if (Array.isArray(q.steps)) {
+          for (const st of q.steps) {
+            if (st && st.triggerTrackerId) st.triggerTrackerId = remapId(st.triggerTrackerId);
+          }
+        }
       }
     }
 
@@ -120,6 +134,11 @@
       for (const tr of entities.trackers) {
         if (!tr) continue;
         if (tr.submapId) tr.submapId = remapMapId(tr.submapId);
+        if (Array.isArray(tr.triggerRefs)) {
+          for (const ref of tr.triggerRefs) {
+            if (ref && ref.entityId) ref.entityId = remapId(ref.entityId);
+          }
+        }
       }
     }
 
@@ -143,7 +162,9 @@
       for (const mId of Object.keys(submaps)) {
         const mapObj = submaps[mId];
         if (mapObj && mapObj.nodes) {
-          const nodesList = Array.isArray(mapObj.nodes) ? mapObj.nodes : Object.values(mapObj.nodes);
+          const nodesList = (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine && typeof CampaignMutationEngine.getNodesList === 'function')
+            ? CampaignMutationEngine.getNodesList(mapObj)
+            : (Array.isArray(mapObj.nodes) ? mapObj.nodes : Object.values(mapObj.nodes));
           for (const node of nodesList) {
             if (!node) continue;
             if (node.stationedNpcIds) node.stationedNpcIds = remapArr(node.stationedNpcIds);
@@ -323,7 +344,9 @@
     // 2. Portal Anchor Linking
     let previousChildMapId = null;
     if (anchorNodeId !== null && anchorNodeId !== undefined) {
-      const activeNodes = (typeof nodes !== 'undefined' && Array.isArray(nodes)) ? nodes : (topo.nodes || []);
+      const activeNodes = (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine && typeof CampaignMutationEngine.getNodesList === 'function')
+        ? CampaignMutationEngine.getNodesList(typeof nodes !== 'undefined' && Array.isArray(nodes) && nodes.length > 0 ? nodes : topo)
+        : ((typeof nodes !== 'undefined' && Array.isArray(nodes) && nodes.length > 0) ? nodes : (topo && topo.nodes ? (Array.isArray(topo.nodes) ? topo.nodes : Object.values(topo.nodes)) : []));
       const anchorNode = activeNodes.find((n) => n && n.id == anchorNodeId);
       if (anchorNode) {
         if (anchorNode.childMapId && anchorNode.childMapId !== resolvedEntryMapId) {
@@ -501,7 +524,9 @@
 
     // 1. Restore or Clear Portal Anchor Node childMapId
     if (pack.anchorNodeId !== null && pack.anchorNodeId !== undefined) {
-      const activeNodes = (typeof nodes !== 'undefined' && Array.isArray(nodes)) ? nodes : (topo.nodes || []);
+      const activeNodes = (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine && typeof CampaignMutationEngine.getNodesList === 'function')
+        ? CampaignMutationEngine.getNodesList(typeof nodes !== 'undefined' && Array.isArray(nodes) && nodes.length > 0 ? nodes : topo)
+        : ((typeof nodes !== 'undefined' && Array.isArray(nodes) && nodes.length > 0) ? nodes : (topo && topo.nodes ? (Array.isArray(topo.nodes) ? topo.nodes : Object.values(topo.nodes)) : []));
       const anchorNode = activeNodes.find((n) => n && n.id == pack.anchorNodeId);
       if (anchorNode && pack.submapIds.includes(anchorNode.childMapId)) {
         if (pack.previousChildMapId) {
@@ -577,7 +602,10 @@
       if (typeof maps !== 'undefined' && maps) {
         Object.values(maps).forEach((m) => {
           if (m && m.nodes) {
-            (Array.isArray(m.nodes) ? m.nodes : Object.values(m.nodes)).forEach((n) => {
+            const mNodes = (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine && typeof CampaignMutationEngine.getNodesList === 'function')
+              ? CampaignMutationEngine.getNodesList(m)
+              : (Array.isArray(m.nodes) ? m.nodes : Object.values(m.nodes));
+            mNodes.forEach((n) => {
               if (n && n.modules) n.modules = n.modules.filter((mId) => !modIdsToRemove.has(String(mId)));
             });
           }
@@ -768,7 +796,9 @@
     if (selectEl) {
       selectEl.innerHTML = '<option value="">[Do not link - Keep as independent submap]</option>';
       const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
-      const activeNodes = (typeof nodes !== 'undefined' && Array.isArray(nodes)) ? nodes : (topo && topo.nodes || []);
+      const activeNodes = (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine && typeof CampaignMutationEngine.getNodesList === 'function')
+        ? CampaignMutationEngine.getNodesList(typeof nodes !== 'undefined' && Array.isArray(nodes) && nodes.length > 0 ? nodes : topo)
+        : ((typeof nodes !== 'undefined' && Array.isArray(nodes) && nodes.length > 0) ? nodes : (topo && topo.nodes ? (Array.isArray(topo.nodes) ? topo.nodes : Object.values(topo.nodes)) : []));
 
       for (const n of activeNodes) {
         if (!n) continue;

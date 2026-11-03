@@ -470,9 +470,9 @@
         <h1 class="article-title">entity_cascade_delete.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: e895e931)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 93d59601)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (8)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (9)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/entity_cascade_delete.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1214 lines &bull; 53.2 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: e895e931)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>15</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>8</strong> backlinks</td></tr>
+    <tr><th>File Metrics</th><td>1348 lines &bull; 59.5 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 93d59601)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>16</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>9</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/entity_cascade_delete.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -511,8 +511,8 @@
 <li><strong>Zero-CORS Backup Archiving</strong>: Bundles a standalone zip backup (<code>saveDeletedBackupZip</code>) of the pre-deletion campaign state using <code>ZeroCorsZip</code>, safely prefixing all exported archive artifacts with <code>_deleted_</code> before destructive operations.</li>
 <li><strong>Cascaded Clean Deletion Engine & Disk File Removal</strong>: Executes the atomic removal of chosen entities from the active topology (<code>executeEntityDeletion</code>), unlinking or cascade-deleting portal sub-maps, persisting deleted module IDs to <code>cs_deleted_modules</code> (<code>localStorage</code>), recursively removing nested module <code>.md</code> files and updating <code>modules_manifest.json</code> on disk (<code>deleteModuleFilesFromBoundProjectDirectory</code>), purging deleted modules from <code>ALL_MODULES</code>, <code>MODULES_MANIFEST</code>, and <code>custom_modules</code>, sanitizing relationship tables, updating properties grids, and refreshing active views.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (16)</h3><div class="pill-list"><span class="pill">getEntityIcon(type)</span><span class="pill">analyzeEntityDependencies(targetType, targetId)</span><span class="pill">addDep(type, ent, reason, isActive)</span><span class="pill">promptEntityDelete(targetType, targetId)</span><span class="pill">setAllDeletionCheckboxes(checked)</span><span class="pill">setActiveOnlyDeletionCheckboxes()</span><span class="pill">updateDeletionSelectionSummary()</span><span class="pill">removeFileAtRelativePath(rootHandle, relPath)</span><span class="pill">matchesModuleFileName(entryName, idStr)</span><span class="pill">removeModuleFileFromDirRecursive(dirHandle, idStr, maxDepth = 4)</span><span class="pill">purgeModulesManifestInDir(dirHandle, idSet)</span><span class="pill">resolveActiveDirectoryHandlesForModuleDeletion()</span><span class="pill">deleteModuleFilesFromBoundProjectDirectory(modIds)</span><span class="pill">confirmExecuteDeletion(doBackup)</span><span class="pill">saveDeletedBackupZip(target, checkedDeps, preservedDeps)</span><span class="pill">executeEntityDeletion(allToDelete)</span></div>
-      <h2 id="outbound-links">Outbound References (15)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (16)</h3><div class="pill-list"><span class="pill">getEntityIcon(type)</span><span class="pill">analyzeEntityDependencies(targetType, targetId)</span><span class="pill">addDep(type, ent, reason, isActive)</span><span class="pill">promptEntityDelete(targetType, targetId)</span><span class="pill">setAllDeletionCheckboxes(checked)</span><span class="pill">setActiveOnlyDeletionCheckboxes()</span><span class="pill">updateDeletionSelectionSummary()</span><span class="pill">removeFileAtRelativePath(rootHandle, relPath)</span><span class="pill">matchesModuleFileName(entryName, idStr)</span><span class="pill">removeModuleFileFromDirRecursive(dirHandle, idStr, maxDepth = 4)</span><span class="pill">purgeModulesManifestInDir(dirHandle, idSet)</span><span class="pill">resolveActiveDirectoryHandlesForModuleDeletion()</span><span class="pill">deleteModuleFilesFromBoundProjectDirectory(modIds)</span><span class="pill">confirmExecuteDeletion(doBackup)</span><span class="pill">saveDeletedBackupZip(target, checkedDeps, preservedDeps)</span><span class="pill">executeEntityDeletion(allToDelete, targetTopo = null)</span></div>
+      <h2 id="outbound-links">Outbound References (16)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
@@ -529,6 +529,14 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes renderCanvas() defined in cad_canvas_renderer.js</td>
       </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/zip_engine.js.html"><strong>src/workstation/scripts/zip_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes escapeHtml() defined in zip_engine.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes deleteEntity() defined in campaign_mutation_engine.js</td>
+      </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes updateBreadcrumbsHUD() defined in canvas_hud.js</td>
@@ -536,10 +544,6 @@
         <td><a href="../../../../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes getPrototypesForType() defined in entity_core.js</td>
-      </tr><tr>
-        <td><a href="../../../../pages/src/workstation/scripts/zip_engine.js.html"><strong>src/workstation/scripts/zip_engine.js</strong></a></td>
-        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes escapeHtml() defined in zip_engine.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/entity_manager_ui.js.html"><strong>src/workstation/scripts/entity_manager_ui.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
@@ -573,10 +577,14 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes ensureEntityCollections() defined in workstation_state.js</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (8)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (9)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
         <td><span class="badge badge-Series">Series Component</span></td>
         <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+      </tr><tr>
+        <td><a href="../../../../pages/docs/specs/CANVAS_POI_AND_CAD_AUTHORING_REDTEAM_PLAN.md.html"><strong>docs/specs/CANVAS_POI_AND_CAD_AUTHORING_REDTEAM_PLAN.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References src/workstation/scripts/entity_cascade_delete.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/cad_interaction.js.html"><strong>src/workstation/scripts/cad_interaction.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

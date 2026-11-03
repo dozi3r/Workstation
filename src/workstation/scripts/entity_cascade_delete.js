@@ -126,7 +126,10 @@
             reason = `Anchored at Same Node #${targetNodeId}`;
           }
         } else if (targetType === 'tracker') {
-          if ((q.threat && (q.threat.includes(targetName) || targetName.includes(q.threat))) || q.trackerId === targetId) {
+          if ((q.threat && (q.threat.includes(targetName) || targetName.includes(q.threat))) ||
+              q.trackerId === targetId ||
+              (Array.isArray(q.trackerIds) && q.trackerIds.map(String).includes(String(targetId))) ||
+              (Array.isArray(q.steps) && q.steps.some(st => String(st.triggerTrackerId) === String(targetId)))) {
             reason = `Quest Stakes Threat Clock`;
           } else if (targetNodeId && q.nodeId && String(q.nodeId) === String(targetNodeId)) {
             reason = `Anchored at Same Node #${targetNodeId}`;
@@ -905,8 +908,8 @@
     }
     window.saveDeletedBackupZip = saveDeletedBackupZip;
 
-    function executeEntityDeletion(allToDelete) {
-      const topo = Workstation.activeTopology || {};
+    function executeEntityDeletion(allToDelete, targetTopo = null) {
+      const topo = targetTopo || ((typeof Workstation !== 'undefined') ? Workstation.activeTopology : null) || {};
       if (typeof ensureEntityCollections === 'function') ensureEntityCollections(topo);
 
       if (!Array.isArray(topo.deletedPrototypes)) topo.deletedPrototypes = [];
@@ -934,6 +937,24 @@
         }
       });
 
+      const nodeChildMapSnapshot = {};
+      if (topo.nodes && deletedIdsByType.node.size > 0) {
+        deletedIdsByType.node.forEach(nodeIdStr => {
+          const n = topo.nodes[nodeIdStr];
+          if (n && n.childMapId) nodeChildMapSnapshot[nodeIdStr] = n.childMapId;
+        });
+      }
+
+      // Delegate canonical 11-table entity & foreign-key scrub to CampaignMutationEngine
+      const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+      if (cme && typeof cme.deleteEntity === 'function') {
+        allToDelete.forEach(ent => {
+          if (ent && ent.type && ent.type !== 'module' && ent.type !== 'map') {
+            cme.deleteEntity(topo, ent.type, ent.id, { allowMissingEntity: true });
+          }
+        });
+      }
+
       // 1. Delete NPCs
       if (topo.npcs && deletedIdsByType.npc.size > 0) {
         topo.npcs = topo.npcs.filter(n => !deletedIdsByType.npc.has(String(n.id)));
@@ -957,6 +978,62 @@
       // 4c. Delete Factions
       if (topo.factions && deletedIdsByType.faction.size > 0) {
         topo.factions = topo.factions.filter(f => !deletedIdsByType.faction.has(String(f.id)));
+      }
+
+      // 4d. Sanitize Tickets targeting deleted entities (Orphan Protection)
+      if (topo.tickets && Array.isArray(topo.tickets)) {
+        topo.tickets.forEach(tk => {
+          const tType = tk.targetType;
+          const tId = String(tk.targetId || '');
+          if (tType && deletedIdsByType[tType] && deletedIdsByType[tType].has(tId)) {
+            tk.targetType = 'campaign';
+            tk.targetId = '';
+            const auditNote = `\n[Audit: Target ${tType} (${tId}) was deleted on ${new Date().toISOString()}]`;
+            tk.notes = (tk.notes || '') + auditNote;
+          }
+        });
+      }
+
+      // 4e. Sanitize Trackers triggerRefs pointing to deleted entities
+      if (topo.trackers && Array.isArray(topo.trackers)) {
+        topo.trackers.forEach(trk => {
+          if (Array.isArray(trk.triggerRefs)) {
+            trk.triggerRefs = trk.triggerRefs.filter(ref => {
+              const rType = ref.entityType;
+              const rId = String(ref.entityId || '');
+              return !(rType && deletedIdsByType[rType] && deletedIdsByType[rType].has(rId));
+            });
+          }
+        });
+      }
+
+      // 4f. Sanitize Spatial Pins (pin.links & pin.targetId) across active topology and all maps (Orphan Protection)
+      const sanitizePinArray = (pinsArr) => {
+        if (!Array.isArray(pinsArr)) return;
+        pinsArr.forEach(pin => {
+          if (!pin) return;
+          const isDeletedTarget = (tType, tId) => {
+            const normType = (tType === 'submap') ? 'map' : tType;
+            return !!(normType && deletedIdsByType[normType] && deletedIdsByType[normType].has(String(tId || '')));
+          };
+          if (Array.isArray(pin.links)) {
+            pin.links = pin.links.filter(lnk => !isDeletedTarget(lnk.type, lnk.id));
+          }
+          if (isDeletedTarget(pin.targetType, pin.targetId)) {
+            if (Array.isArray(pin.links) && pin.links.length > 0) {
+              pin.targetType = pin.links[0].type;
+              pin.targetId = String(pin.links[0].id);
+            } else {
+              pin.targetId = '';
+            }
+          }
+        });
+      };
+      sanitizePinArray(topo.spatialPins);
+      if (typeof maps !== 'undefined' && maps) {
+        Object.values(maps).forEach(m => {
+          if (m && Array.isArray(m.spatialPins)) sanitizePinArray(m.spatialPins);
+        });
       }
 
       // 4b. Delete Attached Sub-Maps (if explicitly selected for cascade deletion)
@@ -1018,7 +1095,7 @@
       if (topo.nodes && deletedIdsByType.node.size > 0) {
         deletedIdsByType.node.forEach(nodeIdStr => {
           const n = topo.nodes[nodeIdStr];
-          const childId = n ? n.childMapId : null;
+          const childId = n ? n.childMapId : (nodeChildMapSnapshot[nodeIdStr] || null);
 
           if (childId && allMaps[childId]) {
             if (!deletedIdsByType.map.has(String(childId))) {
@@ -1036,6 +1113,14 @@
           });
 
           delete topo.nodes[nodeIdStr];
+
+          if (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine.removeCorridorsForNode) {
+            CampaignMutationEngine.removeCorridorsForNode(topo, nodeIdStr, {
+              nodesArray: typeof nodes !== 'undefined' ? nodes : null,
+              linksArray: typeof links !== 'undefined' ? links : null,
+              edgeSlottedModules: typeof edgeSlottedModules !== 'undefined' ? edgeSlottedModules : null
+            });
+          }
         });
 
         Object.keys(topo.nodes).forEach(k => {
@@ -1046,6 +1131,20 @@
 
         if (topo.links) {
           topo.links = topo.links.filter(l => !deletedIdsByType.node.has(String(l.source)) && !deletedIdsByType.node.has(String(l.target)));
+        }
+
+        if (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine.corridorMatchesNode) {
+          [topo.edgeData, topo.edgeNotes, topo.edgeSlottedModules, typeof edgeSlottedModules !== 'undefined' ? edgeSlottedModules : null].forEach(dict => {
+            if (!dict || typeof dict !== 'object') return;
+            Object.keys(dict).forEach(ek => {
+              for (const delNid of deletedIdsByType.node) {
+                if (CampaignMutationEngine.corridorMatchesNode(ek, delNid)) {
+                  delete dict[ek];
+                  break;
+                }
+              }
+            });
+          });
         }
       }
 
@@ -1097,7 +1196,10 @@
         // Purge edgeSlottedModules
         if (typeof edgeSlottedModules !== 'undefined' && edgeSlottedModules) {
           Object.keys(edgeSlottedModules).forEach(ek => {
-            if (deletedIdsByType.module.has(String(edgeSlottedModules[ek]))) {
+            if (Array.isArray(edgeSlottedModules[ek])) {
+              edgeSlottedModules[ek] = edgeSlottedModules[ek].filter(mId => !deletedIdsByType.module.has(String(mId)));
+              if (edgeSlottedModules[ek].length === 0) delete edgeSlottedModules[ek];
+            } else if (deletedIdsByType.module.has(String(edgeSlottedModules[ek]))) {
               delete edgeSlottedModules[ek];
             }
           });
@@ -1133,6 +1235,14 @@
         topo.quests.forEach(q => {
           if (q.npcIds) q.npcIds = q.npcIds.filter(id => !deletedIdsByType.npc.has(String(id)));
           if (q.itemIds) q.itemIds = q.itemIds.filter(id => !deletedIdsByType.item.has(String(id)));
+          if (q.trackerIds) q.trackerIds = q.trackerIds.filter(id => !deletedIdsByType.tracker.has(String(id)));
+          if (Array.isArray(q.steps)) {
+            q.steps.forEach(st => {
+              if (st && st.triggerTrackerId && deletedIdsByType.tracker.has(String(st.triggerTrackerId))) {
+                st.triggerTrackerId = null;
+              }
+            });
+          }
           if (q.nodeId && deletedIdsByType.node.has(String(q.nodeId))) q.nodeId = null;
         });
       }
@@ -1140,12 +1250,32 @@
       if (topo.items) {
         topo.items.forEach(i => {
           if (i.nodeId && deletedIdsByType.node.has(String(i.nodeId))) i.nodeId = null;
+          if (i.ownerNpcId && deletedIdsByType.npc.has(String(i.ownerNpcId))) {
+            i.ownerNpcId = null;
+            i.possessionMode = 'stored';
+          }
         });
       }
 
       if (topo.trackers) {
         topo.trackers.forEach(t => {
           if (t.nodeId && deletedIdsByType.node.has(String(t.nodeId))) t.nodeId = null;
+          if (Array.isArray(t.consequences)) {
+            t.consequences.forEach(c => {
+              if (Array.isArray(c.operations)) {
+                c.operations = c.operations.filter(op => {
+                  const target = op.npc || op.quest || op.clock || op.item || op.node || op.entityId;
+                  if (!target) return true;
+                  const str = String(target);
+                  return !deletedIdsByType.npc.has(str) &&
+                         !deletedIdsByType.quest.has(str) &&
+                         !deletedIdsByType.tracker.has(str) &&
+                         !deletedIdsByType.item.has(str) &&
+                         !deletedIdsByType.node.has(str);
+                });
+              }
+            });
+          }
         });
       }
 
@@ -1176,6 +1306,9 @@
           if (n.factionId && deletedIdsByType.faction.has(String(n.factionId))) n.factionId = null;
           if (Array.isArray(n.relationships) && deletedIdsByType.npc.size > 0) {
             n.relationships = n.relationships.filter(r => !deletedIdsByType.npc.has(String(r.targetNpcId)));
+          }
+          if (Array.isArray(n.questIds) && deletedIdsByType.quest.size > 0) {
+            n.questIds = n.questIds.filter(qid => !deletedIdsByType.quest.has(String(qid)));
           }
         });
       }
@@ -1211,3 +1344,4 @@
       }
     }
     window.executeEntityDeletion = executeEntityDeletion;
+    window.executeCascadeDelete = executeEntityDeletion;

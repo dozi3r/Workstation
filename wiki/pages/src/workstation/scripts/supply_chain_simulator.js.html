@@ -470,9 +470,9 @@
         <h1 class="article-title">supply_chain_simulator.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 1d47a45e)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 2374c18c)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (11)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (12)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/supply_chain_simulator.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1403 lines &bull; 60.6 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 1d47a45e)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>8</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>11</strong> backlinks</td></tr>
+    <tr><th>File Metrics</th><td>1494 lines &bull; 65.1 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 2374c18c)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>9</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>12</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/supply_chain_simulator.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -509,8 +509,8 @@
 <li><strong>BFS Supply Chain & Ad-Hoc Logistics (<code>SYS-START-08</code>)</strong>: Evaluates module and settlement resource dependencies via <code>checkModuleSupplyLine(nodeId, mod)</code> and <code>checkNodeAdHocSupplyLine(nodeId)</code>, merging slotted module yields, local and reachable <code>node.provides</code> endowments, Tier 0 substratum baselines, and corridor <code>edgeRecord.dedicatedFlows</code> conduits.</li>
 <li><strong>Network Supply Line Auditing</strong>: <code>auditAllSupplyLines()</code> audits both slotted modules and ad-hoc node demands (<code>node.requires</code>), updating <code>#supply-integrity-badge</code> and rendering local logistics cards inside <code>updateTargetNodeSidebar()</code>.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">slottingMode</span><span class="pill">targetSlottingEdgeId</span><span class="pill">blockedEdges</span><span class="pill">selectedCatalogSourcebook</span><span class="pill">selectedCatalogAncestry</span><span class="pill">selectedCatalogSource</span><span class="pill">selectedCatalogOptionGroup</span><span class="pill">moduleSeveranceClocks</span><span class="pill">slotNodeSelector</span><span class="pill">tierSelectEl</span><span class="pill">tagSelectEl</span><span class="pill">searchInputEl</span><span class="pill">recOnlyEl</span><span class="pill">btnSmartSlot</span><span class="pill">btnAutoSlot</span></div><h3>Declared Functions / Subroutines (34)</h3><div class="pill-list"><span class="pill">revealNode(nodeId)</span><span class="pill">shroudNode(nodeId)</span><span class="pill">toggleTier0Substratum(enabled)</span><span class="pill">initOptionGroupFilter()</span><span class="pill">initAncestryFilter()</span><span class="pill">initSourceFilter()</span><span class="pill">getSeveranceTick(nodeId, modId)</span><span class="pill">stepSeveranceTick(nodeId, modId, delta)</span><span class="pill">advanceSeveranceTurn()</span><span class="pill">isEdgeBlocked(u, v)</span><span class="pill">toggleEdgeBlocked(edgeKey)</span><span class="pill">isMaterialRequirement(req)</span><span class="pill">collectMapNetworkProvides(mapObj, startNodeId, context)</span><span class="pill">collectSubmapAllProvides(childMap, context)</span><span class="pill">checkModuleSupplyLine(nodeId, mod, context)</span><span class="pill">calculateRecommendationScore(nodeId, mod)</span><span class="pill">getBestModule(nid, filterFn)</span><span class="pill">getBestModuleForSet(nid, setPrefix)</span><span class="pill">checkNodeAdHocSupplyLine(nodeId, context)</span><span class="pill">parseResourceTag(str)</span><span class="pill">auditQuantitativeResourceBalances(nodesList)</span><span class="pill">checkCorridorBandwidth(edgeRecord, transmittedFlow)</span><span class="pill">auditAllSupplyLines()</span><span class="pill">setSlottingMode(mode)</span><span class="pill">renderStage5()</span><span class="pill">updateTargetNodeSidebar()</span><span class="pill">renderCatalogModules()</span><span class="pill">slotModule(nid, modId)</span><span class="pill">unslotModule(nid, modId)</span><span class="pill">slotEdgeModule(edgeKey, modId)</span><span class="pill">unslotEdgeModule(edgeKey, modId)</span><span class="pill">initResourceTagFilter()</span><span class="pill">initSourcebookFilter()</span><span class="pill">smartSlotAllNodes()</span></div>
-      <h2 id="outbound-links">Outbound References (8)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">slottingMode</span><span class="pill">targetSlottingEdgeId</span><span class="pill">blockedEdges</span><span class="pill">selectedCatalogSourcebook</span><span class="pill">selectedCatalogAncestry</span><span class="pill">selectedCatalogSource</span><span class="pill">selectedCatalogOptionGroup</span><span class="pill">moduleSeveranceClocks</span><span class="pill">slotNodeSelector</span><span class="pill">tierSelectEl</span><span class="pill">tagSelectEl</span><span class="pill">searchInputEl</span><span class="pill">recOnlyEl</span><span class="pill">btnSmartSlot</span><span class="pill">btnAutoSlot</span></div><h3>Declared Functions / Subroutines (34)</h3><div class="pill-list"><span class="pill">revealNode(nodeId)</span><span class="pill">shroudNode(nodeId)</span><span class="pill">toggleTier0Substratum(enabled)</span><span class="pill">initOptionGroupFilter()</span><span class="pill">initAncestryFilter()</span><span class="pill">initSourceFilter()</span><span class="pill">getSeveranceTick(nodeId, modId)</span><span class="pill">stepSeveranceTick(nodeId, modId, delta)</span><span class="pill">advanceSeveranceTurn(options = {})</span><span class="pill">isEdgeBlocked(u, v)</span><span class="pill">toggleEdgeBlocked(edgeKey)</span><span class="pill">isMaterialRequirement(req)</span><span class="pill">collectMapNetworkProvides(mapObj, startNodeId, context)</span><span class="pill">collectSubmapAllProvides(childMap, context)</span><span class="pill">checkModuleSupplyLine(nodeId, mod, context)</span><span class="pill">calculateRecommendationScore(nodeId, mod)</span><span class="pill">getBestModule(nid, filterFn)</span><span class="pill">getBestModuleForSet(nid, setPrefix)</span><span class="pill">checkNodeAdHocSupplyLine(nodeId, context)</span><span class="pill">parseResourceTag(str)</span><span class="pill">auditQuantitativeResourceBalances(nodesList)</span><span class="pill">checkCorridorBandwidth(edgeRecord, transmittedFlow)</span><span class="pill">auditAllSupplyLines()</span><span class="pill">setSlottingMode(mode)</span><span class="pill">renderStage5()</span><span class="pill">updateTargetNodeSidebar()</span><span class="pill">renderCatalogModules()</span><span class="pill">slotModule(nid, modId)</span><span class="pill">unslotModule(nid, modId)</span><span class="pill">slotEdgeModule(edgeKey, modId)</span><span class="pill">unslotEdgeModule(edgeKey, modId)</span><span class="pill">initResourceTagFilter()</span><span class="pill">initSourcebookFilter()</span><span class="pill">smartSlotAllNodes()</span></div>
+      <h2 id="outbound-links">Outbound References (9)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_a_balancing_and_smothering_math.html"><strong>Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</td>
@@ -535,6 +535,10 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes updatePropertiesGrid() defined in property_grid_inspector.js</td>
       </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/sociology_data.js.html"><strong>src/workstation/scripts/sociology_data.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes deriveCvfQuadrant() defined in sociology_data.js</td>
+      </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes getNode() defined in state_adapter.js</td>
@@ -543,7 +547,7 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes pushHistoryState() defined in workstation_state.js</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (11)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (12)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_a_balancing_and_smothering_math.html"><strong>Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</strong></a></td>
         <td><span class="badge badge-Series">Series Component</span></td>
         <td>Core file analyzed in Series A: Pointcrawl Topological Mathematics &amp; Network Centrality</td>
@@ -574,13 +578,17 @@
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/property_grid_inspector.js.html"><strong>src/workstation/scripts/property_grid_inspector.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes isMaterialRequirement() defined in supply_chain_simulator.js</td>
+        <td>Invokes advanceSeveranceTurn() defined in supply_chain_simulator.js</td>
       </tr><tr>
         <td><a href="../../../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
         <td><span class="badge badge-Node.js / Browser Engine Script">Bundles Source</span></td>
         <td>Inlines modular source during suite compilation</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/wiki_engine.js.html"><strong>src/workstation/scripts/wiki_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes renderCatalogModules() defined in supply_chain_simulator.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/workstation_state.js.html"><strong>src/workstation/scripts/workstation_state.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes renderCatalogModules() defined in supply_chain_simulator.js</td>
       </tr><tr>

@@ -294,13 +294,19 @@ const AUDIT_FLAGS = {
 // ----------------------------------------------------------------------------
 function shouldTrackFile(relPath) {
   const norm = relPath.replace(/\\/g, '/');
-  // Exclude .zip, .pdf, regions/images/
-  if (norm.endsWith('.zip') || norm.endsWith('.pdf')) return false;
-  if (norm.startsWith('regions/images/')) return false;
-  // Exclude all wiki internals, backlog tickets, scratch tooling, and duplicate mirrors
+  const lower = norm.toLowerCase();
+  const base = path.basename(lower);
+  // Exclude archives, export bundles, OS files, and binary images
+  if (lower.endsWith('.zip') || lower.endsWith('.pdf') || lower.endsWith('.creator.json') || lower.endsWith('.csmod')) return false;
+  if (/\.(png|jpg|jpeg|gif|webp|ico|bmp)$/i.test(lower)) return false;
+  if (base === 'desktop.ini' || base === 'thumbs.db' || base === '.ds_store') return false;
+  if (base === 'campaign_sync.js' || base === 'changelog.json' || base === 'chat_history.json') return false;
+  if (/^campaigns\/[^/]+\/maps\/.*\.json$/i.test(norm)) return false;
+  if (norm.startsWith('regions/')) return false;
+  // Exclude all wiki internals, backlog tickets, scratch tooling, archives, and duplicate mirrors
   if (norm.startsWith('wiki/')) return false;
   if (norm.startsWith('tickets/')) return false;
-  if (norm.startsWith('.scratch/')) return false;
+  if (norm.startsWith('.scratch/') || norm.startsWith('.archive/')) return false;
   if (norm.startsWith('.tmp') || norm.includes('/.tmp')) return false;
   if (norm.startsWith('Creator_Studio_Standalone/')) return false;
   return true;
@@ -794,7 +800,15 @@ function syncMarkdownSourceForFile(meta) {
       customNotes = customMatch[1].trim();
     }
     const revMatch = existing.match(/^reviewed_hash:\s*["']?([a-f0-9]+)["']?/m);
-    if (process.argv.includes('--stamp-reviewed')) {
+    const isAutoSyncedDataOrDist = (
+      (meta.relPath.startsWith('campaigns/') && meta.relPath.endsWith('.json')) ||
+      meta.relPath === 'start.html' ||
+      meta.relPath === 'index.html' ||
+      meta.relPath === 'admin.html' ||
+      meta.relPath === 'AGENTS.md' ||
+      meta.relPath.startsWith('network/')
+    );
+    if (process.argv.includes('--stamp-reviewed') || isAutoSyncedDataOrDist) {
       reviewedHash = meta.hash;
       isStale = false;
     } else if (revMatch) {

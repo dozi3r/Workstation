@@ -470,9 +470,9 @@
         <h1 class="article-title">workstation_state.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 058d77fd)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: ec199aba)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (24)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (25)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/workstation_state.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1542 lines &bull; 74.8 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 058d77fd)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>32</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>24</strong> backlinks</td></tr>
+    <tr><th>File Metrics</th><td>1658 lines &bull; 81.0 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: ec199aba)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>33</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>25</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/workstation_state.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -511,8 +511,8 @@
 <li><strong>Campaign Persistence & Auto-Sync</strong>: Handles <code>initTopologyState()</code>, local storage fallback caching, <code>ensureEntityCollections()</code> (including <code>custom_modules</code>, <code>deletedModules</code>, and <code>deletedPrototypes</code>), <code>syncCustomModulesToCatalog()</code>, <code>purgeDeletedModulesFromRuntimeCatalog()</code> (splicing deleted modules out of <code>ALL_MODULES</code> and <code>MODULES_MANIFEST</code> across reboots), and asynchronous project directory flushing (<code>flushProjectDirectorySync</code>, <code>saveActiveCampaign</code>).</li>
 <li><strong>Workbench UI Chrome, Deep-Linking & Modals</strong>: Implements menu bar interaction (<code>initMenuBar</code>, <code>toggleMenu</code>, <code>closeAllMenus</code>), URL query parameter deep-linking (<code>?selectNode=<id></code> and <code>?selectEdge=<u-v></code> from <code>network/odv_archetype_matrix.html</code>), status bar telemetry (<code>setStatusBarMessage</code>, <code>updateStatusBar</code>), MDI registration (including <code>modal-custom-module-editor</code> and <code>modal-pack-installer</code>), sourcebook package manager (<code>openSourcebooksModal</code>, <code>renderSourcebooksList</code>, <code>switchSourcebookTab</code> delegating to <code>packEngine.renderInstalledPacksView</code>), and universal multi-format campaign export modal (<code>openCampaignExportModal</code>, <code>switchExportTab</code>, <code>populatePackExportForm</code>, <code>downloadExportFile</code>).</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (31)</h3><div class="pill-list"><span class="pill">ensureBuiltinModulesBaseline()</span><span class="pill">createSterileTopology(options = {})</span><span class="pill">resetWorkstationSlate(options = {})</span><span class="pill">pushHistoryState(description)</span><span class="pill">initTopology()</span><span class="pill">ensureEntityCollections(topo)</span><span class="pill">purgeDeletedModulesFromRuntimeCatalog(topo)</span><span class="pill">flushProjectDirectorySync()</span><span class="pill">saveActiveCampaign()</span><span class="pill">setStatusBarMessage(msg)</span><span class="pill">updateStatusBar()</span><span class="pill">showOriginDiagnostics()</span><span class="pill">exitWorkstationServer()</span><span class="pill">initMenuBar()</span><span class="pill">toggleMenu(menuId)</span><span class="pill">closeAllMenus()</span><span class="pill">toggleToolPalette()</span><span class="pill">resetBalancing()</span><span class="pill">openMapNavigatorModal()</span><span class="pill">renderMapNavigatorTree()</span><span class="pill">switchSourcebookTab(tabName)</span><span class="pill">openSourcebooksModal()</span><span class="pill">renderSourcebooksList()</span><span class="pill">enableAllSourcebooks()</span><span class="pill">disableInactiveSourcebooks()</span><span class="pill">openCampaignExportModal()</span><span class="pill">switchExportTab(tabKey)</span><span class="pill">populatePackExportForm()</span><span class="pill">updateExportOutput()</span><span class="pill">copyExportToClipboard()</span><span class="pill">downloadExportFile()</span></div>
-      <h2 id="outbound-links">Outbound References (32)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (33)</h3><div class="pill-list"><span class="pill">ensureBuiltinModulesBaseline()</span><span class="pill">createSterileTopology(options = {})</span><span class="pill">resetWorkstationSlate(options = {})</span><span class="pill">pushHistoryState(description)</span><span class="pill">initTopology()</span><span class="pill">ensureEntityCollections(topo)</span><span class="pill">purgeDeletedModulesFromRuntimeCatalog(topo)</span><span class="pill">flushProjectDirectorySync()</span><span class="pill">saveActiveCampaign()</span><span class="pill">setStatusBarMessage(msg)</span><span class="pill">updateStatusBar()</span><span class="pill">showOriginDiagnostics()</span><span class="pill">exitWorkstationServer()</span><span class="pill">initMenuBar()</span><span class="pill">toggleMenu(menuId)</span><span class="pill">closeAllMenus()</span><span class="pill">toggleToolPalette()</span><span class="pill">resetBalancing()</span><span class="pill">openMapNavigatorModal()</span><span class="pill">renderMapNavigatorTree()</span><span class="pill">switchSourcebookTab(tabName)</span><span class="pill">openSourcebooksModal()</span><span class="pill">renderSourcebooksList()</span><span class="pill">enableAllSourcebooks()</span><span class="pill">disableInactiveSourcebooks()</span><span class="pill">openCampaignExportModal()</span><span class="pill">switchExportTab(tabKey)</span><span class="pill">populatePackExportForm()</span><span class="pill">updateExportOutput()</span><span class="pill">copyExportToClipboard()</span><span class="pill">downloadExportFile()</span><span class="pill">toggleContradictionOverlay()</span><span class="pill">reloadLiveModulesFromLoopback(options = {})</span></div>
+      <h2 id="outbound-links">Outbound References (33)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
@@ -529,13 +529,13 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes renderGrid() defined in cad_canvas_renderer.js</td>
       </tr><tr>
-        <td><a href="../../../../pages/src/workstation/scripts/cad_interaction.js.html"><strong>src/workstation/scripts/cad_interaction.js</strong></a></td>
-        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes initCanvasInteractions() defined in cad_interaction.js</td>
-      </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/campaign_exporter.js.html"><strong>src/workstation/scripts/campaign_exporter.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes generateCampaignJSON() defined in campaign_exporter.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes ensureQueryableNodesCollection() defined in campaign_mutation_engine.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
@@ -564,6 +564,10 @@
         <td><a href="../../../../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes initMapsRegistry() defined in state_adapter.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/supply_chain_simulator.js.html"><strong>src/workstation/scripts/supply_chain_simulator.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes renderCatalogModules() defined in supply_chain_simulator.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/wiki_engine.js.html"><strong>src/workstation/scripts/wiki_engine.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
@@ -641,7 +645,7 @@
         <td><span class="badge badge-Campaign Worldbuilding Module">Module Cross-Ref</span></td>
         <td>Mentions module FACT-01</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (24)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (25)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">Series Component</span></td>
         <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
@@ -653,6 +657,10 @@
         <td><a href="../../../../pages/src/workstation/scripts/cad_interaction.js.html"><strong>src/workstation/scripts/cad_interaction.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes pushHistoryState() defined in workstation_state.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/campaign_changelog_ui.js.html"><strong>src/workstation/scripts/campaign_changelog_ui.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes saveActiveCampaign() defined in workstation_state.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/campaign_exporter.js.html"><strong>src/workstation/scripts/campaign_exporter.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
@@ -714,6 +722,10 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes resetWorkstationSlate() defined in workstation_state.js</td>
       </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/sociology_data.js.html"><strong>src/workstation/scripts/sociology_data.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes saveActiveCampaign() defined in workstation_state.js</td>
+      </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes resetWorkstationSlate() defined in workstation_state.js</td>
@@ -733,10 +745,6 @@
         <td><a href="../../../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
         <td><span class="badge badge-Workstation Shell Template">Template Include</span></td>
         <td>Inlined via @@INCLUDE: scripts/workstation_state.js @@</td>
-      </tr><tr>
-        <td><a href="../../../../pages/test/verify_wave_5c.js.html"><strong>test/verify_wave_5c.js</strong></a></td>
-        <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
-        <td>References src/workstation/scripts/workstation_state.js</td>
       </tr></tbody></table></div>
     </main>
   </div>
