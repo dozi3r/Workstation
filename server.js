@@ -17,6 +17,18 @@ const ROOT_DIR = path.resolve(__dirname);
 const DEFAULT_PORT = parseInt(process.env.PORT || '8080', 10);
 const MAX_PORT_ATTEMPTS = 20;
 
+// Import campaign CLI & mutation engine for loopback endpoints
+let campaignCli = null;
+try {
+    campaignCli = require(path.join(ROOT_DIR, 'scripts', 'campaign_cli.js'));
+} catch (e) {
+    console.warn('[SERVER] Could not load scripts/campaign_cli.js:', e.message);
+}
+let CampaignMutationEngine = null;
+try {
+    CampaignMutationEngine = require(path.join(ROOT_DIR, 'src', 'workstation', 'scripts', 'campaign_mutation_engine.js'));
+} catch (e) {}
+
 // CLI argument parsing
 const args = process.argv.slice(2);
 let requestedPort = DEFAULT_PORT;
@@ -70,6 +82,17 @@ function sendCorsHeaders(res) {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Range, Authorization');
 }
 
+function sendJsonResponse(res, statusCode, data) {
+    sendCorsHeaders(res);
+    res.writeHead(statusCode, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+    });
+    res.end(JSON.stringify(data, null, 2));
+}
+
 function openBrowser(targetUrl) {
     const startCmd = process.platform === 'win32'
         ? `start "" "${targetUrl}"`
@@ -91,25 +114,188 @@ function createServer(port, callback) {
             return;
         }
 
-        const parsedUrl = url.parse(req.url);
+        const parsedUrl = url.parse(req.url, true);
         let pathname = decodeURIComponent(parsedUrl.pathname);
+        const query = parsedUrl.query || {};
 
         // API endpoints
         if (pathname === '/api/status') {
-            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({
+            sendJsonResponse(res, 200, {
                 status: 'running',
                 version: '2.5.0',
                 engine: 'node',
                 port: port,
                 rootDir: ROOT_DIR
-            }, null, 2));
+            });
+            return;
+        }
+
+        // Campaign loopback endpoints
+        if (pathname === '/api/campaign/sync-status' && req.method === 'GET') {
+            const campQuery = query.campaign || query.slug || query.id;
+            if (!campaignCli) {
+                sendJsonResponse(res, 500, { status: 'error', message: 'Campaign CLI module unavailable' });
+                return;
+            }
+            const folder = campaignCli.resolveCampaignFolder(path.join(ROOT_DIR, 'campaigns'), campQuery);
+            if (!folder) {
+                sendJsonResponse(res, 404, { status: 'error', message: `Campaign "${campQuery}" not found` });
+                return;
+            }
+            try {
+                const state = campaignCli.loadCampaignState(path.join(ROOT_DIR, 'campaigns', folder), folder);
+                const summary = CampaignMutationEngine ? CampaignMutationEngine.getSummary(state) : { census: {} };
+                sendJsonResponse(res, 200, {
+                    status: 'ok',
+                    campaign: folder,
+                    id: state.id,
+                    name: state.name,
+                    syncToken: state.syncToken,
+                    lastBatchId: state.appliedBatchIds && state.appliedBatchIds.length > 0 ? state.appliedBatchIds[state.appliedBatchIds.length - 1] : null,
+                    census: summary.census
+                });
+            } catch (err) {
+                sendJsonResponse(res, 500, { status: 'error', message: err.message });
+            }
+            return;
+        }
+
+        if (pathname === '/api/campaign/changelog' && req.method === 'GET') {
+            const campQuery = query.campaign || query.slug || query.id;
+            if (!campaignCli) {
+                sendJsonResponse(res, 500, { status: 'error', message: 'Campaign CLI module unavailable' });
+                return;
+            }
+            const folder = campaignCli.resolveCampaignFolder(path.join(ROOT_DIR, 'campaigns'), campQuery);
+            if (!folder) {
+                sendJsonResponse(res, 404, { status: 'error', message: `Campaign "${campQuery}" not found` });
+                return;
+            }
+            const changelogPath = path.join(ROOT_DIR, 'campaigns', folder, 'changelog.json');
+            let changelog = [];
+            if (fs.existsSync(changelogPath)) {
+                try { changelog = JSON.parse(fs.readFileSync(changelogPath, 'utf8')); } catch (e) { changelog = []; }
+            }
+            sendJsonResponse(res, 200, changelog);
+            return;
+        }
+
+        if (pathname === '/api/campaign/load' && req.method === 'GET') {
+            const campQuery = query.campaign || query.slug || query.id;
+            if (!campaignCli) {
+                sendJsonResponse(res, 500, { status: 'error', message: 'Campaign CLI module unavailable' });
+                return;
+            }
+            const folder = campaignCli.resolveCampaignFolder(path.join(ROOT_DIR, 'campaigns'), campQuery);
+            if (!folder) {
+                sendJsonResponse(res, 404, { status: 'error', message: `Campaign "${campQuery}" not found` });
+                return;
+            }
+            try {
+                const state = campaignCli.loadCampaignState(path.join(ROOT_DIR, 'campaigns', folder), folder);
+                sendJsonResponse(res, 200, {
+                    status: 'ok',
+                    campaign: folder,
+                    id: state.id,
+                    name: state.name,
+                    syncToken: state.syncToken,
+                    appliedBatchIds: state.appliedBatchIds,
+                    entities: state.entities,
+                    activeTopology: state.activeTopology,
+                    maps: state.maps,
+                    changelog: state.changelog
+                });
+            } catch (err) {
+                sendJsonResponse(res, 500, { status: 'error', message: err.message });
+            }
+            return;
+        }
+
+        if (pathname === '/api/campaign/save' && req.method === 'POST') {
+            const campQuery = query.campaign || query.slug || query.id;
+            if (!campaignCli) {
+                sendJsonResponse(res, 500, { status: 'error', message: 'Campaign CLI module unavailable' });
+                return;
+            }
+            const folder = campaignCli.resolveCampaignFolder(path.join(ROOT_DIR, 'campaigns'), campQuery);
+            if (!folder) {
+                sendJsonResponse(res, 404, { status: 'error', message: `Campaign "${campQuery}" not found` });
+                return;
+            }
+            let body = '';
+            req.on('data', chunk => { body += chunk; });
+            req.on('end', () => {
+                try {
+                    const payload = JSON.parse(body || '{}');
+                    const campDir = path.join(ROOT_DIR, 'campaigns', folder);
+                    const state = campaignCli.loadCampaignState(campDir, folder);
+                    if (payload.entities) state.entities = payload.entities;
+                    if (payload.activeTopology) state.activeTopology = payload.activeTopology;
+                    if (payload.maps) state.maps = payload.maps;
+                    if (Array.isArray(payload.appliedBatchIds)) state.appliedBatchIds = payload.appliedBatchIds;
+                    const diskRes = campaignCli.saveCampaignStateToDisk(state, campDir, payload.batchRecord || null);
+                    sendJsonResponse(res, 200, {
+                        status: 'ok',
+                        campaign: folder,
+                        syncToken: diskRes.syncToken,
+                        savedAt: diskRes.updatedAt
+                    });
+                } catch (err) {
+                    sendJsonResponse(res, 500, { status: 'error', message: err.message });
+                }
+            });
+            return;
+        }
+
+        if (pathname === '/api/modules' && req.method === 'GET') {
+            try {
+                const campaignsDir = path.join(ROOT_DIR, 'campaigns');
+                const liveModules = [];
+                if (fs.existsSync(campaignsDir)) {
+                    const campFolders = fs.readdirSync(campaignsDir, { withFileTypes: true }).filter(d => d.isDirectory());
+                    campFolders.forEach(camp => {
+                        const modDir = path.join(campaignsDir, camp.name, 'modules');
+                        if (!fs.existsSync(modDir)) return;
+                        const walkDir = (dir) => {
+                            fs.readdirSync(dir, { withFileTypes: true }).forEach(ent => {
+                                const fullP = path.join(dir, ent.name);
+                                if (ent.isDirectory()) walkDir(fullP);
+                                else if (ent.name.endsWith('.md')) {
+                                    const raw = fs.readFileSync(fullP, 'utf8');
+                                    const fmMatch = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+                                    const body = fmMatch ? fmMatch[2].trim() : raw.trim();
+                                    const fm = fmMatch ? fmMatch[1] : '';
+                                    const getScalar = (k) => {
+                                        const m = fm.match(new RegExp('^' + k + ':\\s*["\']?([^"\'\\r\\n]+)["\']?', 'm'));
+                                        return m ? m[1].trim() : null;
+                                    };
+                                    const modId = getScalar('id') || path.basename(ent.name, '.md');
+                                    const title = getScalar('title') || modId;
+                                    const tier = parseInt(getScalar('pipeline_tier') || '2', 10) || 2;
+                                    liveModules.push({
+                                        id: modId,
+                                        title: title,
+                                        campaignId: camp.name,
+                                        pipeline_tier: tier,
+                                        culture_quadrant: getScalar('culture_quadrant') || 'Hierarchy',
+                                        fallback: getScalar('standalone_fallback') || '',
+                                        content: body
+                                    });
+                                }
+                            });
+                        };
+                        walkDir(modDir);
+                    });
+                }
+                sendJsonResponse(res, 200, { status: 'ok', count: liveModules.length, modules: liveModules });
+            } catch (err) {
+                sendJsonResponse(res, 500, { status: 'error', message: err.message });
+            }
             return;
         }
 
         if (pathname === '/api/shutdown' && (req.method === 'POST' || req.method === 'GET')) {
-            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ message: 'Server shutting down' }));
+            sendJsonResponse(res, 200, { message: 'Server shutting down' });
             console.log('\n[SERVER] Shutdown signal received via /api/shutdown.');
             setTimeout(() => {
                 server.close(() => process.exit(0));

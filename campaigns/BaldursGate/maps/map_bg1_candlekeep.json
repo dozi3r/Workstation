@@ -8,106 +8,308 @@
     {
       "id": "BG-CK-01",
       "name": "Candlekeep Outer Courtyard",
-      "displayName": "Outer Courtyard",
-      "x": 280,
-      "y": 400,
-      "cat": "Gateway",
+      "displayName": "Candlekeep Outer Courtyard",
+      "x": 106,
+      "y": 248,
+      "coordinates": {
+        "x": 106,
+        "y": 248
+      },
+      "cat": "Standard POI",
       "culture": "Hierarchy",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Cobblestone square flanked by bunkhouses and granaries. Monks verify credentials under the vigilant gaze of Keeper Ulraunt's guards.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-CK-02",
       "name": "Candlekeep Great Library Scriptorium",
-      "displayName": "Great Library",
-      "x": 480,
-      "y": 280,
-      "cat": "Vault",
+      "displayName": "Candlekeep Great Library Scriptorium",
+      "x": 214,
+      "y": 107,
+      "coordinates": {
+        "x": 214,
+        "y": 107
+      },
+      "cat": "Standard POI",
       "culture": "Hierarchy",
       "shape": "diamond",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A six-story circular stone sanctum of parchment and ink. Chanted prophecies of Alaundo echo along towering oak bookshelves.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-CK-03",
       "name": "Winthrop's Candlekeep Inn",
-      "displayName": "Winthrop's Inn",
-      "x": 260,
-      "y": 260,
-      "cat": "Bastion",
+      "displayName": "Winthrop's Candlekeep Inn",
+      "x": 101,
+      "y": 37,
+      "coordinates": {
+        "x": 101,
+        "y": 37
+      },
+      "cat": "Standard POI",
       "culture": "Clan",
       "shape": "pentagon",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Warm hearth and polished timber tavern run by jolly Winthrop, where scholars relax over mulled cider.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-CK-04",
       "name": "Chantry of Oghma & Infirmary",
-      "displayName": "Chantry",
-      "x": 440,
-      "y": 480,
+      "displayName": "Chantry of Oghma & Infirmary",
+      "x": 389,
+      "y": 44,
+      "coordinates": {
+        "x": 389,
+        "y": 44
+      },
       "cat": "Standard POI",
       "culture": "Clan",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A serene chapel offering curative herbal tonics and blessings of Oghma to visiting pilgrims.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-CK-05",
       "name": "Gorion's Study & Garden Terrace",
-      "displayName": "Gorion's Study",
-      "x": 620,
-      "y": 320,
-      "cat": "Bastion",
+      "displayName": "Gorion's Study & Garden Terrace",
+      "x": 276,
+      "y": 179,
+      "coordinates": {
+        "x": 276,
+        "y": 179
+      },
+      "cat": "Standard POI",
       "culture": "Hierarchy",
       "shape": "pentagon",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A cozy stone chamber crowded with scrolls, star charts, and Gorion's travel trunk packed in haste.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-CK-06",
       "name": "Sealed Crypt Gate to the Catacombs",
-      "displayName": "Crypt Gate",
-      "x": 700,
-      "y": 460,
-      "cat": "Hazard",
+      "displayName": "Sealed Crypt Gate to the Catacombs",
+      "x": 554,
+      "y": 233,
+      "coordinates": {
+        "x": 554,
+        "y": 233
+      },
+      "cat": "Standard POI",
       "culture": "Hierarchy",
       "shape": "triangle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_bg1_catacombs",
       "customNotes": "Heavy iron-bound oak doorway leading down into the subterranean burial vaults of ancient High Scholars.",
-      "childMapId": "map_bg1_catacombs"
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
+  "links": [],
+  "mapMetadata": {
+    "id": "map_bg1_candlekeep",
+    "name": "candlekeep.gif",
+    "width": 480,
+    "height": 360,
+    "opacity": 0.85,
+    "timestamp": 1793570333321,
+    "assetPath": "assets/map_bg1_candlekeep_bg.png"
+  },
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {
+    "BG-CK-01": [],
+    "BG-CK-02": [],
+    "BG-CK-03": [],
+    "BG-CK-04": [],
+    "BG-CK-05": [],
+    "BG-CK-06": []
+  },
+  "edgeSlottedModules": {},
+  "layers": [
     {
-      "from": "BG-CK-01",
-      "to": "BG-CK-02",
-      "type": "twoway"
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-CK-01",
-      "to": "BG-CK-03",
-      "type": "twoway"
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-CK-01",
-      "to": "BG-CK-04",
-      "type": "twoway"
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-CK-02",
-      "to": "BG-CK-05",
-      "type": "twoway"
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-CK-05",
-      "to": "BG-CK-06",
-      "type": "twoway"
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-CK-04",
-      "to": "BG-CK-06",
-      "type": "twoway"
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
-  ]
+  ],
+  "shapes": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": [],
+  "spatialPins": []
 }

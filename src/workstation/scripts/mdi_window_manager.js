@@ -543,6 +543,22 @@
         else if (e.key === 'r' || e.key === 'R') { if (!e.ctrlKey) setTool('rect'); }
         else if (e.key === 'c' || e.key === 'C') { if (!e.ctrlKey) setTool('circle'); }
         else if (e.key === 'w' || e.key === 'W') { if (!e.ctrlKey) setTool('line'); }
+        else if (e.key === 'p' || e.key === 'P') {
+          if (e.ctrlKey) {
+            e.preventDefault();
+            if (typeof openGlobalSearchModal === 'function') openGlobalSearchModal();
+          } else {
+            setTool('pin');
+          }
+        }
+        else if (e.key === 'f' || e.key === 'F') {
+          if (e.ctrlKey) {
+            e.preventDefault();
+            if (typeof openGlobalSearchModal === 'function') openGlobalSearchModal();
+          } else {
+            if (typeof zoomToFitCanvas === 'function') zoomToFitCanvas();
+          }
+        }
         else if (e.key === 'e' || e.key === 'E') { if (!e.ctrlKey) setTool('erase'); }
         else if (e.key === 'g' || e.key === 'G') toggleGrid();
         else if (e.key === 'Delete' || e.key === 'Backspace') deleteSelected();
@@ -560,6 +576,7 @@
         }
         else if (e.key === 'F4') { e.preventDefault(); togglePropertiesDock(); }
         else if (e.key === 'F9') { e.preventDefault(); openTicketCenter(); }
+        else if (e.ctrlKey && e.shiftKey && (e.key === 'l' || e.key === 'L')) { e.preventDefault(); if (typeof openCampaignChangelogModal === 'function') openCampaignChangelogModal(); }
         else if (e.ctrlKey && (e.key === 'l' || e.key === 'L')) { e.preventDefault(); if (typeof toggleLayersPane === 'function') toggleLayersPane(); }
         else if (e.ctrlKey && e.shiftKey && (e.key === 'm' || e.key === 'M')) { e.preventDefault(); openMapNavigatorModal(); }
         else if (e.ctrlKey && e.shiftKey && (e.key === 'a' || e.key === 'A')) { e.preventDefault(); openSurfaceCatalogModal(); }
@@ -573,6 +590,7 @@
         else if (e.ctrlKey && e.key === 'F9') { e.preventDefault(); openEntityManager('tracker'); }
         else if (e.ctrlKey && e.key === 'F10') { e.preventDefault(); openEntityManager('node'); }
         else if (e.ctrlKey && e.key === 'F11') { e.preventDefault(); openEntityManager('edge'); }
+        else if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I')) { e.preventDefault(); if (typeof openIndustryChainImporterModal === 'function') openIndustryChainImporterModal(); }
         else if ((e.ctrlKey && (e.key === 'm' || e.key === 'M')) || e.key === 'F8') { e.preventDefault(); openModuleExplorer(); }
         else if (e.ctrlKey && e.shiftKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); if (typeof openSaveAsNewCampaignModal === 'function') openSaveAsNewCampaignModal(); }
         else if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); if (typeof handleToolbarSave === 'function') { handleToolbarSave(); } else { saveActiveCampaign(); if (typeof flushProjectDirectoryNow === 'function') flushProjectDirectoryNow({ interactive: true }); } }
@@ -617,6 +635,10 @@
             if (Array.isArray(topo.shapes)) {
               topo.shapes = topo.shapes.filter(s => s.id !== ent.id);
             }
+          } else if (ent.type === 'spatialPin') {
+            if (Array.isArray(topo.spatialPins)) {
+              topo.spatialPins = topo.spatialPins.filter(p => String(p.id) !== String(ent.id));
+            }
           } else if (ent.type === 'edge') {
             if (typeof deleteEdge === 'function') {
               deleteEdge(ent.uId, ent.vId, ent.edgeType);
@@ -649,6 +671,10 @@
       } else if (Workstation.selectedEntity.type === 'shape') {
         if (typeof deleteShape === 'function') {
           deleteShape(Workstation.selectedEntity.id, true);
+        }
+      } else if (Workstation.selectedEntity.type === 'spatialPin') {
+        if (typeof deleteSpatialPin === 'function') {
+          deleteSpatialPin(Workstation.selectedEntity.id);
         }
       }
     }
@@ -1400,8 +1426,10 @@
       container.innerHTML = '';
       filtered.forEach((it) => {
         const row = document.createElement('div');
-        row.className = 'action-tile-btn win-btn';
-        row.style.cssText = 'padding:8px 10px; display:flex; justify-content:space-between; align-items:center; gap:12px; cursor:default; min-height:56px; border:1px solid #999; margin-bottom:4px; text-align:left;';
+        row.className = 'win-item-card';
+        row.style.cssText = 'padding:6px 10px; display:flex; flex-direction:row; justify-content:space-between; align-items:center; gap:12px; cursor:default; min-height:52px; height:auto; border:1px solid #cbd5e1; background:#ffffff; border-radius:2px; box-sizing:border-box; margin-bottom:4px; text-align:left; transition:background 0.1s, border-color 0.1s;';
+        row.onmouseenter = () => { row.style.background = '#f8fafc'; row.style.borderColor = '#94a3b8'; };
+        row.onmouseleave = () => { row.style.background = '#ffffff'; row.style.borderColor = '#cbd5e1'; };
 
         const censusBadges = [];
         if (it.mapsCount && it.mapsCount > 1) {
@@ -1422,7 +1450,7 @@
         }
 
         const infoDiv = document.createElement('div');
-        infoDiv.style.cssText = 'display:flex; flex-direction:column; gap:3px; flex:1; min-width:0; text-align:left; cursor:pointer;';
+        infoDiv.style.cssText = 'display:flex; flex-direction:column; gap:2px; flex:1; min-width:0; text-align:left; cursor:pointer;';
         infoDiv.onclick = () => it.openFn();
         infoDiv.innerHTML = `
           <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
@@ -1432,7 +1460,7 @@
           <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap; margin:2px 0;">
             ${censusBadges.join('')}
           </div>
-          ${it.desc ? `<span style="font-size:11px; color:#475569; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeAttr(it.desc)}">${escapeHtml(it.desc)}</span>` : ''}
+          ${it.desc ? `<div style="font-size:10px; color:#475569; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%;" title="${escapeAttr(it.desc)}">${escapeHtml(it.desc)}</div>` : ''}
         `;
 
         const actionsDiv = document.createElement('div');
@@ -1497,8 +1525,10 @@
       grid.innerHTML = '';
       items.slice(0, 4).forEach(it => {
         const tile = document.createElement('div');
-        tile.className = 'bevel-inset action-tile-btn win-btn';
-        tile.style.cssText = 'height:auto; min-height:56px; padding:6px 8px; cursor:pointer; text-align:left; display:flex; flex-direction:column; justify-content:space-between; gap:3px;';
+        tile.className = 'bevel-inset';
+        tile.style.cssText = 'height:auto; min-height:52px; padding:6px 8px; cursor:pointer; text-align:left; display:flex; flex-direction:column; justify-content:space-between; gap:3px; min-width:0; max-width:100%; box-sizing:border-box; overflow:hidden; background:#ffffff; transition:background 0.1s;';
+        tile.onmouseenter = () => { tile.style.background = '#f0f9ff'; };
+        tile.onmouseleave = () => { tile.style.background = '#ffffff'; };
         tile.onclick = async () => {
           if (it.handle) {
             await loadCampaignFromDirectoryHandle(it.handle);
@@ -1510,11 +1540,11 @@
         };
         const censusLine = it.nodeCount ? `📍 ${it.nodeCount} Nodes` : '';
         tile.innerHTML = `
-          <div>
-            <strong style="color:#000080; font-size:11px; display:block; word-break:break-word;">${escapeHtml(it.title)}</strong>
-            <span style="font-size:10px; color:#475569; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(it.desc)}</span>
+          <div style="min-width:0; max-width:100%; overflow:hidden;">
+            <strong style="color:#000080; font-size:11px; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeAttr(it.title)}">${escapeHtml(it.title)}</strong>
+            <span style="font-size:10px; color:#475569; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%;" title="${escapeAttr(it.desc)}">${escapeHtml(it.desc)}</span>
           </div>
-          ${censusLine ? `<div style="font-size:9px; color:#1e40af; font-weight:bold; margin-top:2px;">${censusLine}</div>` : ''}
+          ${censusLine ? `<div style="font-size:9px; color:#1e40af; font-weight:bold; margin-top:2px; white-space:nowrap;">${censusLine}</div>` : ''}
         `;
         grid.appendChild(tile);
       });
@@ -1942,12 +1972,20 @@
 
     function openSettingsModal() {
       closeAllMenus();
-      document.getElementById('modal-settings').classList.remove('hidden');
+      openModal('modal-settings');
     }
 
     function openModal(modalId) {
       const el = document.getElementById(modalId);
-      if (el) el.classList.remove('hidden');
+      if (el) {
+        if (typeof MDIWindowManager !== 'undefined' && MDIWindowManager.highestZIndex != null) {
+          MDIWindowManager.highestZIndex += 10;
+          el.style.zIndex = MDIWindowManager.highestZIndex;
+        } else {
+          el.style.zIndex = '9999';
+        }
+        el.classList.remove('hidden');
+      }
     }
 
     function closeModal(modalId) {
@@ -2542,6 +2580,7 @@
         menuMods.appendChild(emptyRow);
       } else {
         modKeys.forEach(modId => {
+          if (Workstation.disabledMods && Workstation.disabledMods[modId]) return;
           const mod = Workstation.registeredMods[modId];
 
           // Add to Mod Menu as a sub-menu named after the mod
@@ -2590,7 +2629,8 @@
                     document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
                     document.querySelectorAll('.dropdown-row.has-submenu').forEach(r => r.classList.remove('open'));
                   }
-                  if (typeof item.action === 'function') item.action();
+                  const handler = item.action || item.onClick;
+                  if (typeof handler === 'function') handler();
                 };
                 subMenu.appendChild(row);
               }
@@ -2604,6 +2644,18 @@
             const row = document.createElement('div');
             row.className = 'dropdown-row';
             row.textContent = `${mod.name || modId} (Active)`;
+            row.onclick = function(e) {
+              e.stopPropagation();
+              if (typeof closeAllMenus === 'function') closeAllMenus();
+              if (typeof openModuleExplorer === 'function') {
+                openModuleExplorer();
+                const campSel = document.getElementById('me-filter-campaign');
+                if (campSel) {
+                  campSel.value = `mod_${modId}`;
+                  if (typeof filterModules === 'function') filterModules();
+                }
+              }
+            };
             menuMods.appendChild(row);
           }
 
@@ -2623,6 +2675,27 @@
       const sep = document.createElement('div');
       sep.className = 'dropdown-separator';
       menuMods.appendChild(sep);
+
+      const loadModRow = document.createElement('div');
+      loadModRow.className = 'dropdown-row';
+      loadModRow.innerHTML = '<strong>+ Load Runtime Mod (.js)...</strong>';
+      loadModRow.onclick = function(e) {
+        e.stopPropagation();
+        if (typeof closeAllMenus === 'function') closeAllMenus();
+        if (typeof promptLoadRuntimeModFile === 'function') promptLoadRuntimeModFile();
+      };
+      menuMods.appendChild(loadModRow);
+
+      const manageModsRow = document.createElement('div');
+      manageModsRow.className = 'dropdown-row';
+      manageModsRow.textContent = 'Manage Installed Mods...';
+      manageModsRow.onclick = function(e) {
+        e.stopPropagation();
+        if (typeof closeAllMenus === 'function') closeAllMenus();
+        if (typeof openSourcebooksModal === 'function') openSourcebooksModal();
+        else if (typeof MDIWindowManager !== 'undefined') MDIWindowManager.open('modal-sourcebooks');
+      };
+      menuMods.appendChild(manageModsRow);
 
       const sdkInfoRow = document.createElement('div');
       sdkInfoRow.className = 'dropdown-row';
@@ -2646,9 +2719,13 @@
       splitterEl.dataset.splitterBound = "true";
 
       const mode = options.mode || 'left';
-      const minW = options.minWidth || 200;
-      const maxW = options.maxWidth || 800;
-      const defaultW = options.defaultWidth || targetPaneEl.offsetWidth || 300;
+      const isVertical = (mode === 'bottom' || mode === 'top' || options.axis === 'vertical');
+      const minSize = isVertical ? (options.minHeight || 34) : (options.minWidth || 200);
+      const maxSize = isVertical ? (options.maxHeight || 260) : (options.maxWidth || 800);
+      const defaultSize = isVertical
+        ? (options.defaultHeight || targetPaneEl.offsetHeight || 38)
+        : (options.defaultWidth || targetPaneEl.offsetWidth || 300);
+      const altSize = isVertical ? (options.altHeight || null) : (options.altWidth || null);
       const storageKey = options.storageKey;
 
       if (storageKey) {
@@ -2656,34 +2733,45 @@
           const saved = localStorage.getItem(storageKey);
           if (saved) {
             const parsed = parseInt(saved, 10);
-            if (!isNaN(parsed) && parsed >= minW && parsed <= maxW) {
-              targetPaneEl.style.width = `${parsed}px`;
+            if (!isNaN(parsed) && parsed >= minSize && parsed <= maxSize) {
+              if (isVertical) {
+                targetPaneEl.style.height = `${parsed}px`;
+              } else {
+                targetPaneEl.style.width = `${parsed}px`;
+              }
+              if (typeof options.onResize === 'function') options.onResize(parsed);
             }
           }
         } catch (_) {}
       }
 
       let isDragging = false;
-      let startX = 0;
-      let startW = 0;
+      let startPos = 0;
+      let startSize = 0;
 
       const onMouseDown = (e) => {
-        e.preventDefault();
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
         isDragging = true;
-        startX = e.clientX;
-        startW = targetPaneEl.offsetWidth;
+        startPos = isVertical ? e.clientY : e.clientX;
+        startSize = isVertical
+          ? (targetPaneEl.offsetHeight || parseInt(targetPaneEl.style.height, 10) || defaultSize)
+          : (targetPaneEl.offsetWidth || parseInt(targetPaneEl.style.width, 10) || defaultSize);
         splitterEl.classList.add('active');
         document.body.classList.add('splitter-dragging');
-        document.body.style.cursor = 'col-resize';
+        document.body.style.cursor = isVertical ? 'row-resize' : 'col-resize';
 
         const onMouseMove = (ev) => {
           if (!isDragging) return;
-          const dx = ev.clientX - startX;
-          const newW = (mode === 'right')
-            ? Math.min(maxW, Math.max(minW, startW - dx))
-            : Math.min(maxW, Math.max(minW, startW + dx));
-          targetPaneEl.style.width = `${newW}px`;
-          if (typeof options.onResize === 'function') options.onResize(newW);
+          const delta = (isVertical ? ev.clientY : ev.clientX) - startPos;
+          const newSize = (mode === 'right' || mode === 'bottom')
+            ? Math.min(maxSize, Math.max(minSize, startSize - delta))
+            : Math.min(maxSize, Math.max(minSize, startSize + delta));
+          if (isVertical) {
+            targetPaneEl.style.height = `${newSize}px`;
+          } else {
+            targetPaneEl.style.width = `${newSize}px`;
+          }
+          if (typeof options.onResize === 'function') options.onResize(newSize);
         };
 
         const onMouseUp = () => {
@@ -2697,7 +2785,7 @@
 
           if (storageKey) {
             try {
-              localStorage.setItem(storageKey, targetPaneEl.style.width);
+              localStorage.setItem(storageKey, isVertical ? targetPaneEl.style.height : targetPaneEl.style.width);
             } catch (_) {}
           }
           if (typeof options.onResizeEnd === 'function') options.onResizeEnd();
@@ -2710,13 +2798,21 @@
       splitterEl.addEventListener('mousedown', onMouseDown);
 
       splitterEl.addEventListener('dblclick', () => {
-        targetPaneEl.style.width = `${defaultW}px`;
+        const curSize = isVertical
+          ? (parseInt(targetPaneEl.style.height, 10) || targetPaneEl.offsetHeight || defaultSize)
+          : (parseInt(targetPaneEl.style.width, 10) || targetPaneEl.offsetWidth || defaultSize);
+        const nextSize = (altSize && Math.abs(curSize - defaultSize) <= 4) ? altSize : defaultSize;
+        if (isVertical) {
+          targetPaneEl.style.height = `${nextSize}px`;
+        } else {
+          targetPaneEl.style.width = `${nextSize}px`;
+        }
         if (storageKey) {
           try {
-            localStorage.setItem(storageKey, `${defaultW}px`);
+            localStorage.setItem(storageKey, `${nextSize}px`);
           } catch (_) {}
         }
-        if (typeof options.onResize === 'function') options.onResize(defaultW);
+        if (typeof options.onResize === 'function') options.onResize(nextSize);
         if (typeof options.onResizeEnd === 'function') options.onResizeEnd();
       });
     }
@@ -2787,6 +2883,39 @@
           defaultWidth: 280,
           storageKey: 'cs_em_detail_width'
         });
+      }
+
+      // 6. Map Layout Tabs Bar Horizontal Splitter (Vertical Height Resize & Multi-Row Flow)
+      const tabsSplitter = document.getElementById('cad-tabs-splitter');
+      const tabsBar = document.getElementById('cad-layout-tabs-bar');
+      if (tabsSplitter && tabsBar) {
+        const syncTabsBarMultiRow = (h) => {
+          const heightVal = typeof h === 'number' ? h : (parseInt(tabsBar.style.height, 10) || tabsBar.offsetHeight || 38);
+          if (tabsBar.classList) {
+            if (heightVal >= 56) {
+              tabsBar.classList.add('multi-row');
+            } else {
+              tabsBar.classList.remove('multi-row');
+            }
+          }
+        };
+        setupPaneSplitter(tabsSplitter, tabsBar, {
+          mode: 'bottom',
+          minHeight: 34,
+          maxHeight: 260,
+          defaultHeight: 38,
+          altHeight: 92,
+          storageKey: 'cs_layout_tabs_bar_height',
+          onResize: (newH) => {
+            syncTabsBarMultiRow(newH);
+            if (typeof renderCanvas === 'function') renderCanvas();
+          },
+          onResizeEnd: () => {
+            syncTabsBarMultiRow();
+            if (typeof renderCanvas === 'function') renderCanvas();
+          }
+        });
+        syncTabsBarMultiRow();
       }
     }
 

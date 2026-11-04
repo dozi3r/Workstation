@@ -47,12 +47,12 @@ function ensureDir(dirPath) {
 
 function safeWriteFileSync(filePath, data, encoding = 'utf8') {
   ensureDir(path.dirname(filePath));
-  for (let attempt = 1; attempt <= 6; attempt++) {
+  for (let attempt = 1; attempt <= 12; attempt++) {
     try {
       return fs.writeFileSync(filePath, data, encoding);
     } catch (err) {
-      if ((err.code === 'EBUSY' || err.code === 'UNKNOWN' || err.code === 'EPERM' || err.errno === -4094) && attempt < 6) {
-        const waitMs = attempt * 120;
+      if ((err.code === 'EBUSY' || err.code === 'UNKNOWN' || err.code === 'EPERM' || err.errno === -4094) && attempt < 12) {
+        const waitMs = attempt * 150;
         const end = Date.now() + waitMs;
         while (Date.now() < end) {}
         continue;
@@ -299,7 +299,7 @@ function shouldTrackFile(relPath) {
   // Exclude archives, export bundles, OS files, and binary images
   if (lower.endsWith('.zip') || lower.endsWith('.pdf') || lower.endsWith('.creator.json') || lower.endsWith('.csmod')) return false;
   if (/\.(png|jpg|jpeg|gif|webp|ico|bmp)$/i.test(lower)) return false;
-  if (base === 'desktop.ini' || base === 'thumbs.db' || base === '.ds_store') return false;
+  if (base === 'desktop.ini' || base === 'thumbs.db' || base === '.ds_store' || base === 'quarantine-duplicates.bat') return false;
   if (base === 'campaign_sync.js' || base === 'changelog.json' || base === 'chat_history.json') return false;
   if (/^campaigns\/[^/]+\/maps\/.*\.json$/i.test(norm)) return false;
   if (norm.startsWith('regions/')) return false;
@@ -387,6 +387,7 @@ function classifyFileKind(relPath) {
   if (relPath.startsWith('.scratch/creator-remediation/')) return 'Legacy Remediation Issue';
   if (relPath.startsWith('.scratch/')) return 'Legacy Scratch Python Script';
   if (relPath.startsWith('campaigns/') && relPath.includes('/modules/') && ext === '.md') return 'Campaign Worldbuilding Module';
+  if (relPath.startsWith('mods/') && relPath.includes('/modules/') && ext === '.md') return 'Workstation Mod Resource Module';
   if (relPath.startsWith('tickets/creative/backlog/')) return 'Creative Backlog Ticket (CWT)';
   if (relPath.startsWith('tickets/tier_0/tickets/')) return 'Tier 0 Substratum Ticket (T0-DOM)';
   if (relPath.startsWith('tickets/system/')) return 'Platform Architecture Ticket (SYS)';
@@ -518,6 +519,9 @@ function extractFileMetadata(relPath) {
     // Provides / Requires
     if (Array.isArray(frontmatter.provides)) meta.provides = frontmatter.provides.filter(Boolean);
     if (Array.isArray(frontmatter.requires)) meta.requires = frontmatter.requires.filter(Boolean);
+    if (frontmatter.chain_id || frontmatter.industry_chain) meta.chain_id = frontmatter.chain_id || frontmatter.industry_chain;
+    if (frontmatter.chain_stage || frontmatter.stage) meta.chain_stage = parseInt(frontmatter.chain_stage || frontmatter.stage, 10);
+    if (frontmatter.chain_role) meta.chain_role = frontmatter.chain_role;
 
     // Extract summary paragraph
     const cleanParagraphs = body

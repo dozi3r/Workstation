@@ -52,6 +52,48 @@ function Get-MimeType([string]$filePath) {
     return "application/octet-stream"
 }
 
+function Resolve-CampaignFolder([string]$query) {
+    if (-not $query) { return $null }
+    $campDir = Join-Path $RootDir "campaigns"
+    if (-not (Test-Path $campDir)) { return $null }
+    $qLower = $query.ToLower().Trim()
+    $qSlug = ($query -replace '[^a-zA-Z0-9]', '').ToLower()
+    $folders = Get-ChildItem -Path $campDir -Directory | Select-Object -ExpandProperty Name
+    foreach ($f in $folders) {
+        if ($f -eq $query -or $f.ToLower() -eq $qLower) { return $f }
+        $cJson = Join-Path $campDir (Join-Path $f "campaign.json")
+        if (Test-Path $cJson) {
+            try {
+                $cData = Get-Content -Path $cJson -Raw -Encoding UTF8 | ConvertFrom-Json
+                if ($cData.id -and ($cData.id.ToLower() -eq $qLower -or ($cData.id -replace '[^a-zA-Z0-9]','').ToLower() -eq $qSlug)) { return $f }
+                if ($cData.name -and ($cData.name.ToLower() -eq $qLower -or ($cData.name -replace '[^a-zA-Z0-9]','').ToLower() -eq $qSlug)) { return $f }
+            } catch {}
+        }
+        $pJson = Join-Path $campDir (Join-Path $f "preset.json")
+        if (Test-Path $pJson) {
+            try {
+                $pData = Get-Content -Path $pJson -Raw -Encoding UTF8 | ConvertFrom-Json
+                if ($pData.id -and ($pData.id.ToLower() -eq $qLower -or ($pData.id -replace '[^a-zA-Z0-9]','').ToLower() -eq $qSlug)) { return $f }
+                if ($pData.name -and ($pData.name.ToLower() -eq $qLower -or ($pData.name -replace '[^a-zA-Z0-9]','').ToLower() -eq $qSlug)) { return $f }
+            } catch {}
+        }
+        if (($f -replace '[^a-zA-Z0-9]','').ToLower() -eq $qSlug) { return $f }
+    }
+    return $null
+}
+
+function Send-JsonResponse($response, [int]$statusCode, $data) {
+    $json = if ($data -is [string]) { $data } else { $data | ConvertTo-Json -Depth 10 }
+    $jsonBytes = [System.Text.Encoding]::UTF8.GetBytes($json)
+    $response.Headers.Add("Cache-Control", "no-store, no-cache, must-revalidate")
+    $response.Headers.Add("Pragma", "no-cache")
+    $response.ContentType = "application/json; charset=utf-8"
+    $response.StatusCode = $statusCode
+    $response.ContentLength64 = $jsonBytes.Length
+    $response.OutputStream.Write($jsonBytes, 0, $jsonBytes.Length)
+    $response.Close()
+}
+
 # Find available port
 $listener = $null
 $boundPort = $Port
@@ -136,23 +178,166 @@ try {
                 port = $boundPort
                 rootDir = $RootDir
             }
-            $jsonBytes = [System.Text.Encoding]::UTF8.GetBytes(($statusObj | ConvertTo-Json))
-            $response.ContentType = "application/json; charset=utf-8"
-            $response.StatusCode = 200
-            $response.ContentLength64 = $jsonBytes.Length
-            $response.OutputStream.Write($jsonBytes, 0, $jsonBytes.Length)
-            $response.Close()
+            Send-JsonResponse $response 200 $statusObj
+            continue
+        }
+
+        # Campaign loopback query extraction
+        $campQuery = $request.QueryString["campaign"]
+        if (-not $campQuery) { $campQuery = $request.QueryString["slug"] }
+        if (-not $campQuery) { $campQuery = $request.QueryString["id"] }
+
+        # GET /api/campaign/sync-status
+        if ($rawPath -eq "/api/campaign/sync-status" -and $request.HttpMethod -eq "GET") {
+            $folder = Resolve-CampaignFolder $campQuery
+            if (-not $folder) {
+                Send-JsonResponse $response 404 @{ status = "error"; message = "Campaign '$campQuery' not found" }
+                continue
+            }
+            $campDir = Join-Path $RootDir (Join-Path "campaigns" $folder)
+            $cJson = Join-Path $campDir "campaign.json"
+            $cData = if (Test-Path $cJson) { Get-Content -Path $cJson -Raw -Encoding UTF8 | ConvertFrom-Json } else { @{} }
+            $syncToken = if ($cData.syncToken) { $cData.syncToken } else { "sync_initial" }
+            $lastBatchId = if ($cData.appliedBatchIds -and $cData.appliedBatchIds.Count -gt 0) { $cData.appliedBatchIds[-1] } else { $null }
+            $resPayload = @{
+                status = "ok"
+                campaign = $folder
+                id = if ($cData.id) { $cData.id } else { $folder }
+                name = if ($cData.name) { $cData.name } else { $folder }
+                syncToken = $syncToken
+                lastBatchId = $lastBatchId
+                census = @{
+                    npcs = if ($cData.entities.npcs) { $cData.entities.npcs.Count } else { 0 }
+                    quests = if ($cData.entities.quests) { $cData.entities.quests.Count } else { 0 }
+                    items = if ($cData.entities.items) { $cData.entities.items.Count } else { 0 }
+                    trackers = if ($cData.entities.trackers) { $cData.entities.trackers.Count } else { 0 }
+                    factions = if ($cData.entities.factions) { $cData.entities.factions.Count } else { 0 }
+                }
+            }
+            Send-JsonResponse $response 200 $resPayload
+            continue
+        }
+
+        # GET /api/campaign/changelog
+        if ($rawPath -eq "/api/campaign/changelog" -and $request.HttpMethod -eq "GET") {
+            $folder = Resolve-CampaignFolder $campQuery
+            if (-not $folder) {
+                Send-JsonResponse $response 404 @{ status = "error"; message = "Campaign '$campQuery' not found" }
+                continue
+            }
+            $chJson = Join-Path $RootDir (Join-Path "campaigns" (Join-Path $folder "changelog.json"))
+            $chRaw = if (Test-Path $chJson) { Get-Content -Path $chJson -Raw -Encoding UTF8 } else { "[]" }
+            Send-JsonResponse $response 200 $chRaw
+            continue
+        }
+
+        # GET /api/campaign/load
+        if ($rawPath -eq "/api/campaign/load" -and $request.HttpMethod -eq "GET") {
+            $folder = Resolve-CampaignFolder $campQuery
+            if (-not $folder) {
+                Send-JsonResponse $response 404 @{ status = "error"; message = "Campaign '$campQuery' not found" }
+                continue
+            }
+            $cliScript = Join-Path $RootDir "scripts\campaign_cli.js"
+            $nodeExe = if (Test-Path "$RootDir\tools\node\node.exe") { "$RootDir\tools\node\node.exe" } else { "node" }
+            $loadScript = @"
+const { loadCampaignState } = require('$($cliScript.Replace('\', '/'))');
+const state = loadCampaignState('$((Join-Path $RootDir "campaigns\$folder").Replace('\', '/'))', '$folder');
+console.log(JSON.stringify({
+    status: 'ok',
+    campaign: '$folder',
+    id: state.id,
+    name: state.name,
+    syncToken: state.syncToken,
+    appliedBatchIds: state.appliedBatchIds,
+    entities: state.entities,
+    activeTopology: state.activeTopology,
+    maps: state.maps,
+    changelog: state.changelog
+}));
+"@
+            $tempJs = Join-Path ([System.IO.Path]::GetTempPath()) "load_camp_$([guid]::NewGuid().ToString('N')).js"
+            try {
+                Set-Content -Path $tempJs -Value $loadScript -Encoding UTF8
+                $outJson = & $nodeExe $tempJs
+                Send-JsonResponse $response 200 $outJson
+            } catch {
+                Send-JsonResponse $response 500 @{ status = "error"; message = $_.Exception.Message }
+            } finally {
+                if (Test-Path $tempJs) { Remove-Item $tempJs -Force -ErrorAction SilentlyContinue }
+            }
+            continue
+        }
+
+        # POST /api/campaign/save
+        if ($rawPath -eq "/api/campaign/save" -and $request.HttpMethod -eq "POST") {
+            $folder = Resolve-CampaignFolder $campQuery
+            if (-not $folder) {
+                Send-JsonResponse $response 404 @{ status = "error"; message = "Campaign '$campQuery' not found" }
+                continue
+            }
+            $reader = New-Object System.IO.StreamReader($request.InputStream, $request.ContentEncoding)
+            $bodyText = $reader.ReadToEnd()
+            $reader.Close()
+
+            $cliScript = Join-Path $RootDir "scripts\campaign_cli.js"
+            $nodeExe = if (Test-Path "$RootDir\tools\node\node.exe") { "$RootDir\tools\node\node.exe" } else { "node" }
+            $tempPayload = Join-Path ([System.IO.Path]::GetTempPath()) "save_payload_$([guid]::NewGuid().ToString('N')).json"
+            $tempJs = Join-Path ([System.IO.Path]::GetTempPath()) "save_camp_$([guid]::NewGuid().ToString('N')).js"
+            try {
+                Set-Content -Path $tempPayload -Value $bodyText -Encoding UTF8
+                $saveScript = @"
+const fs = require('fs');
+const { loadCampaignState, saveCampaignStateToDisk } = require('$($cliScript.Replace('\', '/'))');
+const campDir = '$((Join-Path $RootDir "campaigns\$folder").Replace('\', '/'))';
+const payload = JSON.parse(fs.readFileSync('$($tempPayload.Replace('\', '/'))', 'utf8'));
+const state = loadCampaignState(campDir, '$folder');
+if (payload.entities) state.entities = payload.entities;
+if (payload.activeTopology) state.activeTopology = payload.activeTopology;
+if (payload.maps) state.maps = payload.maps;
+if (Array.isArray(payload.appliedBatchIds)) state.appliedBatchIds = payload.appliedBatchIds;
+const diskRes = saveCampaignStateToDisk(state, campDir, payload.batchRecord || null);
+console.log(JSON.stringify({ status: 'ok', campaign: '$folder', syncToken: diskRes.syncToken, savedAt: diskRes.updatedAt }));
+"@
+                Set-Content -Path $tempJs -Value $saveScript -Encoding UTF8
+                $outJson = & $nodeExe $tempJs
+                Send-JsonResponse $response 200 $outJson
+            } catch {
+                Send-JsonResponse $response 500 @{ status = "error"; message = $_.Exception.Message }
+            } finally {
+                if (Test-Path $tempPayload) { Remove-Item $tempPayload -Force -ErrorAction SilentlyContinue }
+                if (Test-Path $tempJs) { Remove-Item $tempJs -Force -ErrorAction SilentlyContinue }
+            }
+            continue
+        }
+
+        # API live modules
+        if ($rawPath -eq "/api/modules") {
+            $modsList = @()
+            $campDir = Join-Path $RootDir "campaigns"
+            if (Test-Path $campDir) {
+                $mdFiles = Get-ChildItem -Path $campDir -Recurse -Filter "*.md" -ErrorAction SilentlyContinue | Where-Object { $_.FullName -match "[\\/]modules[\\/]" }
+                foreach ($mf in $mdFiles) {
+                    $rawText = Get-Content -Path $mf.FullName -Raw -Encoding UTF8
+                    $modId = [System.IO.Path]::GetFileNameWithoutExtension($mf.Name)
+                    $modTitle = $modId
+                    if ($rawText -match '(?m)^id:\s*["'']?([^"''\r\n]+)["'']?') { $modId = $Matches[1].Trim() }
+                    if ($rawText -match '(?m)^title:\s*["'']?([^"''\r\n]+)["'']?') { $modTitle = $Matches[1].Trim() }
+                    $modsList += @{
+                        id = $modId
+                        title = $modTitle
+                        content = $rawText
+                    }
+                }
+            }
+            $modPayload = @{ status = "ok"; count = $modsList.Count; modules = $modsList }
+            Send-JsonResponse $response 200 $modPayload
             continue
         }
 
         # API shutdown
         if ($rawPath -eq "/api/shutdown") {
-            $shutdownMsg = [System.Text.Encoding]::UTF8.GetBytes('{"message":"Server shutting down"}')
-            $response.ContentType = "application/json; charset=utf-8"
-            $response.StatusCode = 200
-            $response.ContentLength64 = $shutdownMsg.Length
-            $response.OutputStream.Write($shutdownMsg, 0, $shutdownMsg.Length)
-            $response.Close()
+            Send-JsonResponse $response 200 @{ message = "Server shutting down" }
             Write-Host "`n[SERVER] Shutdown signal received via /api/shutdown." -ForegroundColor Yellow
             break
         }

@@ -219,8 +219,21 @@ if (fs.existsSync(SYSTEM_TICKETS_DIR)) {
   console.log(`[OK] Ingested ${sysFiles.length} System Architecture Tickets (SYS)`);
 }
 
+function safeWriteFileSync(filePath, content, encoding = 'utf8') {
+  for (let attempt = 1; attempt <= 5; attempt++) {
+    try {
+      fs.writeFileSync(filePath, content, encoding);
+      return;
+    } catch (err) {
+      if (attempt === 5) throw err;
+      const waitUntil = Date.now() + 80 * attempt;
+      while (Date.now() < waitUntil) { /* spin wait */ }
+    }
+  }
+}
+
 // Save master manifest JSON
-fs.writeFileSync(MASTER_MANIFEST_PATH, JSON.stringify(masterTickets, null, 2), 'utf8');
+safeWriteFileSync(MASTER_MANIFEST_PATH, JSON.stringify(masterTickets, null, 2), 'utf8');
 console.log(`[OK] Master Ticket Manifest generated: ${masterTickets.length} total tickets registered at tickets/master_ticket_manifest.json`);
 
 // 4. Generate Interactive Standalone Unified Tracker HTML
@@ -830,7 +843,7 @@ function generateUnifiedTrackerHtml(tickets) {
 }
 
 const trackerHtmlContent = generateUnifiedTrackerHtml(masterTickets);
-fs.writeFileSync(UNIFIED_TRACKER_HTML, trackerHtmlContent, 'utf8');
+safeWriteFileSync(UNIFIED_TRACKER_HTML, trackerHtmlContent, 'utf8');
 console.log(`[OK] Generated Standalone Zero-CORS Dashboard at tickets/unified_ticket_tracker.html`);
 
 console.log('\n========================================================');

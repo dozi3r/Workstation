@@ -41,6 +41,7 @@ CRITICAL INSTRUCTION:
       <div class="title-bar-text">
         <span style="display:inline-block; width:12px; height:12px; background:#fff; border:1px solid #000; text-align:center; line-height:10px; font-size:8px; color:#000;">CS</span>
         <span>Creator Studio - Pointcrawl Authoring Workstation</span>
+        <span id="ws-build-stamp-badge" data-build-time="__CS_BUILD_TIMESTAMP__" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: __CS_BUILD_TIMESTAMP__]</span>
       </div>
       <div class="title-bar-controls">
         <button class="win-btn" onclick="alert('Creator Studio Desktop Workstation v1.2')">_</button>
@@ -126,6 +127,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="openOdvMatrixModal()">64-Cell ODV Archetype Matrix... <span class="hotkey">Ctrl+Shift+O</span></div>
           <div class="dropdown-row" onclick="openSourcebooksModal()">Campaign Sourcebooks... <span class="hotkey">Ctrl+B</span></div>
           <div class="dropdown-row" onclick="openCampaignExportModal()">Campaign Exporter... <span class="hotkey">Ctrl+E</span></div>
+          <div class="dropdown-row" onclick="openIndustryChainImporterModal()"><strong>Industry Chain Importer...</strong> <span class="hotkey">Ctrl+Shift+I</span></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="openModuleExplorer()">Module Explorer... <span class="hotkey">Ctrl+M</span></div>
           <div class="dropdown-row" onclick="openEntityManager('npc')">NPC Manager... <span class="hotkey">Ctrl+F5</span></div>
@@ -157,6 +159,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-row" onclick="setTool('line')">CAD Drawing: Vector Line <span class="hotkey">W</span></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="openModuleExplorer()">Slot Module onto Node... <span class="hotkey">Ctrl+M</span></div>
+          <div class="dropdown-row" onclick="openIndustryChainImporterModal()"><strong>Import Industry Supply Chain...</strong> <span class="hotkey">Ctrl+Shift+I</span></div>
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="openNewEntityModal('npc')">Create New NPC...</div>
           <div class="dropdown-row" onclick="openNewEntityModal('quest')">Create New Quest...</div>
@@ -746,6 +749,8 @@ CRITICAL INSTRUCTION:
 // @@INCLUDE: scripts/module_explorer.js @@
 
 // @@INCLUDE: scripts/supply_chain_simulator.js @@
+
+// @@INCLUDE: scripts/industry_chain_importer.js @@
 
 // @@INCLUDE: scripts/ticket_center.js @@
 

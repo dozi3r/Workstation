@@ -360,13 +360,13 @@ CRITICAL INSTRUCTION:
   <div class="kpi-grid">
     <div class="kpi-card total">
       <div class="kpi-label">Total Backlog Tickets</div>
-      <div class="kpi-value">77</div>
+      <div class="kpi-value">82</div>
       <div class="kpi-sub">Across 3 Specialized Tracks</div>
     </div>
     <div class="kpi-card shipped">
       <div class="kpi-label">Shipped & Integrated</div>
       <div class="kpi-value">74</div>
-      <div class="kpi-sub">96% of Total Backlog</div>
+      <div class="kpi-sub">90% of Total Backlog</div>
     </div>
     <div class="kpi-card progress">
       <div class="kpi-label">In Editorial / Drafting</div>
@@ -380,7 +380,7 @@ CRITICAL INSTRUCTION:
     </div>
     <div class="kpi-card backlog">
       <div class="kpi-label">Discovery Backlog</div>
-      <div class="kpi-value">0</div>
+      <div class="kpi-value">3</div>
       <div class="kpi-sub">Framing & Concept Phase</div>
     </div>
   </div>
@@ -3073,6 +3073,103 @@ CRITICAL INSTRUCTION:
     "module_path": ""
   },
   {
+    "id": "SYS-BACKBURNER-01",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "In-App BYOK LLM Co-Authoring Chatbot & Tool-Calling Loop (Deferred to Phase 2)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Backburner / Phase 2 Deferred",
+    "status": "discovery",
+    "summary": " During the evaluation of the partner's **Workstation 2.6 AI Co-Authoring Engine** specification (`Tickets 06–09`: `ai_provider.js`, `ai_context.js`, `ai_tools.js`, `ai_coauthor_ui.js`), we separated the **Phase 1 Data & Audit Foundation** ...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Backburner: In-App-BYOK-CoAuthor"
+    ],
+    "requires": [
+      "Engine: CampaignMutationEngine",
+      "Audit: Append-Only-Changelog"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-BACKBURNER-01_byok_in_app_chatbot_deferred.md",
+    "file_url": "../tickets/system/SYS-BACKBURNER-01_byok_in_app_chatbot_deferred.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-BACKBURNER-02",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Google Drive Desktop & Virtual Directory File-Lock Hardening (Deferred)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Backburner / Phase 2 Deferred",
+    "status": "discovery",
+    "summary": " When a workspace directory is mounted inside a virtual cloud-sync drive (such as Google Drive for Desktop `G:\\` or OneDrive), background cloud indexers briefly acquire read locks on newly written `.tmp` files, which can occasionally cause ...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Backburner: Cloud-Sync-Lock-Resilience"
+    ],
+    "requires": [
+      "Server: Loopback-Atomic-Write"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-BACKBURNER-02_google_drive_virtual_directory_sync_deferred.md",
+    "file_url": "../tickets/system/SYS-BACKBURNER-02_google_drive_virtual_directory_sync_deferred.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-BACKBURNER-03",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Regional Scenery Image Recommendation Engine (Parked in External Mod)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Backburner / Parked External Mod",
+    "status": "discovery",
+    "summary": " The **Regional Scenery Image Browser** (`regions/regional_image_browser.html`, `regions/Find-RegionalImage.ps1`, `regions/regional_image_catalog.json`) and its associated ~1 GB image library are not needed during core workstation developme...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Backburner: External-Regional-Image-Mod"
+    ],
+    "requires": [
+      "Workstation: Mod-API"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-BACKBURNER-03_regional_image_explorer_external_mod.md",
+    "file_url": "../tickets/system/SYS-BACKBURNER-03_regional_image_explorer_external_mod.md",
+    "module_path": ""
+  },
+  {
     "id": "SYS-RACE-01",
     "track": "Platform Architecture (SYS)",
     "track_code": "SYS",
@@ -3138,6 +3235,70 @@ CRITICAL INSTRUCTION:
     "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
     "ticket_file": "tickets/system/SYS-RACE-02_node_demographic_census_topology_schema.md",
     "file_url": "../tickets/system/SYS-RACE-02_node_demographic_census_topology_schema.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-REJECTED-01",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "REJECTED: Parallel app.html Entry Point & CSS .presenter-mode Shell Fork",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Architecture Guardrails (Do Not Implement)",
+    "status": "rejected",
+    "summary": "\n# SYS-REJECTED-01: Parallel `app.html` Entry Point & CSS `.presenter-mode` Shell Fork (DO NOT IMPLEMENT)\n*Category: system_architecture | Target Surface: `start.html` (Architecture Guardrail)*\n*Statu...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Guardrail: Single-Entry-Start-HTML"
+    ],
+    "requires": [
+      "ADR: 0022-Rejected-Patterns"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-REJECTED-01_parallel_app_html_and_css_presenter_mode.md",
+    "file_url": "../tickets/system/SYS-REJECTED-01_parallel_app_html_and_css_presenter_mode.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-REJECTED-02",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "REJECTED: Background SSE fs.watch Auto-Replay & Silent State Overwrite",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Architecture Guardrails (Do Not Implement)",
+    "status": "rejected",
+    "summary": "\n# SYS-REJECTED-02: Background SSE `fs.watch` Auto-Replay & Silent State Overwrite (DO NOT IMPLEMENT)\n*Category: system_architecture | Target Surface: `server.js`, `workstation_persistence.js` (Archit...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Guardrail: Explicit-Sync-Digest-Only"
+    ],
+    "requires": [
+      "ADR: 0022-Rejected-Patterns"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-REJECTED-02_background_sse_fs_watch_auto_replay.md",
+    "file_url": "../tickets/system/SYS-REJECTED-02_background_sse_fs_watch_auto_replay.md",
     "module_path": ""
   },
   {

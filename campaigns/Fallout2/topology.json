@@ -2,8 +2,8 @@
   "id": "fallout_2__the_northern_california_wasteland",
   "name": "Fallout 2: The Northern California Wasteland",
   "campaignName": "Fallout 2: The Northern California Wasteland",
-  "rootMapId": "map_root",
-  "activeMapId": "map_fo2_enclave_oil_rig",
+  "rootMapId": "map_fo2_worldmap",
+  "activeMapId": "map_fo2_arroyo",
   "maps": {
     "map_fo2_worldmap": {
       "id": "map_fo2_worldmap",
@@ -24,7 +24,7 @@
         "y": 0,
         "lockAspect": true,
         "opacity": 0.85,
-        "timestamp": 1793583937366,
+        "timestamp": 1793678616352,
         "assetPath": "assets/map_fo2_worldmap_bg.png"
       },
       "nodes": [
@@ -32,11 +32,11 @@
           "id": "FO2-OW-01",
           "name": "Arroyo",
           "displayName": "Arroyo",
-          "x": 137,
-          "y": 102,
+          "x": 253,
+          "y": 103,
           "coordinates": {
-            "x": 137,
-            "y": 102
+            "x": 253,
+            "y": 103
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -49,7 +49,7 @@
           "tier": 2,
           "childMapId": "map_fo2_arroyo",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -69,11 +69,11 @@
           "id": "FO2-OW-02",
           "name": "Klamath",
           "displayName": "Klamath",
-          "x": 260,
-          "y": 140,
+          "x": 390,
+          "y": 97,
           "coordinates": {
-            "x": 260,
-            "y": 140
+            "x": 390,
+            "y": 97
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -86,13 +86,18 @@
           "tier": 2,
           "childMapId": "map_fo2_klamath",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -101,11 +106,11 @@
           "id": "FO2-OW-03",
           "name": "The Den",
           "displayName": "The Den",
-          "x": 310,
-          "y": 250,
+          "x": 457,
+          "y": 189,
           "coordinates": {
-            "x": 310,
-            "y": 250
+            "x": 457,
+            "y": 189
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -118,13 +123,18 @@
           "tier": 2,
           "childMapId": "map_fo2_den",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -133,11 +143,11 @@
           "id": "FO2-OW-04",
           "name": "Modoc",
           "displayName": "Modoc",
-          "x": 470,
-          "y": 230,
+          "x": 746,
+          "y": 198,
           "coordinates": {
-            "x": 470,
-            "y": 230
+            "x": 746,
+            "y": 198
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -150,13 +160,18 @@
           "tier": 2,
           "childMapId": "map_fo2_modoc",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -165,11 +180,11 @@
           "id": "FO2-OW-05",
           "name": "Gecko",
           "displayName": "Gecko",
-          "x": 620,
-          "y": 190,
+          "x": 978,
+          "y": 155,
           "coordinates": {
-            "x": 620,
-            "y": 190
+            "x": 978,
+            "y": 155
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -182,13 +197,18 @@
           "tier": 2,
           "childMapId": "map_fo2_gecko",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -197,11 +217,11 @@
           "id": "FO2-OW-06",
           "name": "Vault City",
           "displayName": "Vault City",
-          "x": 620,
-          "y": 290,
+          "x": 937,
+          "y": 236,
           "coordinates": {
-            "x": 620,
-            "y": 290
+            "x": 937,
+            "y": 236
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -214,13 +234,18 @@
           "tier": 2,
           "childMapId": "map_fo2_vault_city",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -229,11 +254,11 @@
           "id": "FO2-OW-07",
           "name": "Redding",
           "displayName": "Redding",
-          "x": 350,
-          "y": 380,
+          "x": 583,
+          "y": 358,
           "coordinates": {
-            "x": 350,
-            "y": 380
+            "x": 583,
+            "y": 358
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -246,13 +271,18 @@
           "tier": 2,
           "childMapId": "map_fo2_redding",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -261,11 +291,11 @@
           "id": "FO2-OW-08",
           "name": "Broken Hills",
           "displayName": "Broken Hills",
-          "x": 580,
-          "y": 420,
+          "x": 907,
+          "y": 588,
           "coordinates": {
-            "x": 580,
-            "y": 420
+            "x": 907,
+            "y": 588
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -278,13 +308,18 @@
           "tier": 2,
           "childMapId": "map_fo2_broken_hills",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -293,11 +328,11 @@
           "id": "FO2-OW-09",
           "name": "New Reno",
           "displayName": "New Reno",
-          "x": 460,
-          "y": 500,
+          "x": 745,
+          "y": 620,
           "coordinates": {
-            "x": 460,
-            "y": 500
+            "x": 745,
+            "y": 620
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -310,13 +345,18 @@
           "tier": 2,
           "childMapId": "map_fo2_new_reno",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -342,7 +382,7 @@
           "tier": 2,
           "childMapId": "map_fo2_sierra",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -357,11 +397,11 @@
           "id": "FO2-OW-11",
           "name": "NCR Capital",
           "displayName": "NCR Capital",
-          "x": 550,
-          "y": 660,
+          "x": 882,
+          "y": 946,
           "coordinates": {
-            "x": 550,
-            "y": 660
+            "x": 882,
+            "y": 946
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -374,13 +414,18 @@
           "tier": 2,
           "childMapId": "map_fo2_ncr",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -389,11 +434,11 @@
           "id": "FO2-OW-12",
           "name": "Vault 15",
           "displayName": "Vault 15",
-          "x": 670,
-          "y": 640,
+          "x": 989,
+          "y": 938,
           "coordinates": {
-            "x": 670,
-            "y": 640
+            "x": 989,
+            "y": 938
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -406,13 +451,18 @@
           "tier": 2,
           "childMapId": "map_fo2_vault_15",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -421,11 +471,11 @@
           "id": "FO2-OW-13",
           "name": "Vault 13",
           "displayName": "Vault 13",
-          "x": 430,
-          "y": 680,
+          "x": 825,
+          "y": 818,
           "coordinates": {
-            "x": 430,
-            "y": 680
+            "x": 825,
+            "y": 818
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -438,13 +488,18 @@
           "tier": 2,
           "childMapId": "map_fo2_vault_13",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -453,11 +508,11 @@
           "id": "FO2-OW-14",
           "name": "Military Base",
           "displayName": "Military Base",
-          "x": 350,
-          "y": 760,
+          "x": 584,
+          "y": 948,
           "coordinates": {
-            "x": 350,
-            "y": 760
+            "x": 584,
+            "y": 948
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -470,13 +525,18 @@
           "tier": 2,
           "childMapId": "map_fo2_military_base",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -485,11 +545,11 @@
           "id": "FO2-OW-15",
           "name": "San Francisco",
           "displayName": "San Francisco",
-          "x": 230,
-          "y": 730,
+          "x": 454,
+          "y": 881,
           "coordinates": {
-            "x": 230,
-            "y": 730
+            "x": 454,
+            "y": 881
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -502,7 +562,7 @@
           "tier": 2,
           "childMapId": "map_fo2_san_francisco",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -522,11 +582,11 @@
           "id": "FO2-OW-16",
           "name": "Navarro",
           "displayName": "Navarro",
-          "x": 130,
-          "y": 450,
+          "x": 263,
+          "y": 595,
           "coordinates": {
-            "x": 130,
-            "y": 450
+            "x": 263,
+            "y": 595
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -539,13 +599,18 @@
           "tier": 2,
           "childMapId": "map_fo2_navarro",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -554,11 +619,11 @@
           "id": "FO2-OW-17",
           "name": "Enclave Oil Rig",
           "displayName": "Enclave Oil Rig",
-          "x": 90,
-          "y": 820,
+          "x": 342,
+          "y": 913,
           "coordinates": {
-            "x": 90,
-            "y": 820
+            "x": 342,
+            "y": 913
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -571,13 +636,18 @@
           "tier": 2,
           "childMapId": "map_fo2_enclave_oil_rig",
           "customNotes": "",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -667,7 +737,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_fo2_arroyo": {
       "id": "map_fo2_arroyo",
@@ -689,11 +760,11 @@
           "id": "FO2-ARY-01",
           "name": "Elder's Tent & Arroyo Well",
           "displayName": "Elder's Tent & Arroyo Well",
-          "x": 220,
-          "y": 260,
+          "x": 314,
+          "y": 253,
           "coordinates": {
-            "x": 220,
-            "y": 260
+            "x": 314,
+            "y": 253
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -713,6 +784,11 @@
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -721,11 +797,11 @@
           "id": "FO2-ARY-02",
           "name": "Hakunin's Herbal Garden",
           "displayName": "Hakunin's Herbal Garden",
-          "x": 360,
-          "y": 240,
+          "x": 331,
+          "y": 171,
           "coordinates": {
-            "x": 360,
-            "y": 240
+            "x": 331,
+            "y": 171
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -745,6 +821,11 @@
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -753,11 +834,11 @@
           "id": "FO2-ARY-03",
           "name": "Arroyo Bridge & Great Cliff",
           "displayName": "Arroyo Bridge & Great Cliff",
-          "x": 480,
-          "y": 320,
+          "x": 335,
+          "y": 465,
           "coordinates": {
-            "x": 480,
-            "y": 320
+            "x": 335,
+            "y": 465
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -777,6 +858,11 @@
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -785,11 +871,11 @@
           "id": "FO2-ARY-04",
           "name": "Temple of Trials Entrance",
           "displayName": "Temple of Trials Entrance",
-          "x": 620,
-          "y": 200,
+          "x": 544,
+          "y": 100,
           "coordinates": {
-            "x": 620,
-            "y": 200
+            "x": 544,
+            "y": 100
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -809,6 +895,11 @@
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -817,11 +908,11 @@
           "id": "FO2-ARY-05",
           "name": "Nagor's Hunting Grounds",
           "displayName": "Nagor's Hunting Grounds",
-          "x": 260,
-          "y": 420,
+          "x": 437,
+          "y": 172,
           "coordinates": {
-            "x": 260,
-            "y": 420
+            "x": 437,
+            "y": 172
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -841,6 +932,11 @@
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -918,7 +1014,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_fo2_temple": {
       "id": "map_fo2_temple",
@@ -1136,7 +1233,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_fo2_klamath": {
       "id": "map_fo2_klamath",
@@ -1182,6 +1280,11 @@
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -1354,7 +1457,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_fo2_den": {
       "id": "map_fo2_den",
@@ -1502,7 +1606,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_fo2_modoc": {
       "id": "map_fo2_modoc",
@@ -1523,76 +1628,161 @@
         {
           "id": "FO2-MDC-01",
           "name": "Rose's Bed and Breakfast",
-          "label": "Rose's Bed and Breakfast",
+          "displayName": "Rose's Bed and Breakfast",
+          "x": 511,
+          "y": 39,
           "coordinates": {
-            "x": 240,
-            "y": 280
+            "x": 511,
+            "y": 39
           },
-          "x": 240,
-          "y": 280,
-          "layerId": "layer-nodes",
-          "scaleTier": "district"
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
         },
         {
           "id": "FO2-MDC-02",
           "name": "General Store & Farrel's Garden",
-          "label": "General Store & Farrel's Garden",
+          "displayName": "General Store & Farrel's Garden",
+          "x": 509,
+          "y": 239,
           "coordinates": {
-            "x": 400,
-            "y": 240
+            "x": 509,
+            "y": 239
           },
-          "x": 400,
-          "y": 240,
-          "layerId": "layer-nodes",
-          "scaleTier": "district"
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
         },
         {
           "id": "FO2-MDC-03",
           "name": "Main Street & Modoc Town Well",
-          "label": "Main Street & Modoc Town Well",
+          "displayName": "Main Street & Modoc Town Well",
+          "x": 358,
+          "y": 187,
           "coordinates": {
-            "x": 540,
-            "y": 300
+            "x": 358,
+            "y": 187
           },
-          "x": 540,
-          "y": 300,
-          "layerId": "layer-nodes",
-          "scaleTier": "district"
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
         },
         {
           "id": "FO2-MDC-04",
           "name": "Slag Ghost Farm Foothills",
-          "label": "Slag Ghost Farm Foothills",
+          "displayName": "Slag Ghost Farm Foothills",
+          "x": 396,
+          "y": 418,
           "coordinates": {
-            "x": 680,
-            "y": 340
+            "x": 396,
+            "y": 418
           },
-          "x": 680,
-          "y": 340,
-          "layerId": "layer-nodes",
-          "scaleTier": "district"
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
         }
       ],
-      "links": [
-        {
-          "source": "FO2-MDC-01",
-          "target": "FO2-MDC-02",
-          "weight": 1
-        },
-        {
-          "source": "FO2-MDC-02",
-          "target": "FO2-MDC-03",
-          "weight": 1
-        },
-        {
-          "source": "FO2-MDC-03",
-          "target": "FO2-MDC-04",
-          "weight": 1
-        }
-      ],
+      "links": [],
       "waves": [],
       "drawnCards": {},
-      "nodeSlottedModules": {},
+      "nodeSlottedModules": {
+        "FO2-MDC-01": [],
+        "FO2-MDC-02": [],
+        "FO2-MDC-03": [],
+        "FO2-MDC-04": []
+      },
       "edgeSlottedModules": {},
       "layers": [
         {
@@ -1650,7 +1840,13 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
     },
     "map_fo2_vault_city": {
       "id": "map_fo2_vault_city",
@@ -1798,7 +1994,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_fo2_gecko": {
       "id": "map_fo2_gecko",
@@ -1946,7 +2143,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_fo2_broken_hills": {
       "id": "map_fo2_broken_hills",
@@ -1967,76 +2165,161 @@
         {
           "id": "FO2-BKH-01",
           "name": "Marcus's Sheriff Office & Jail",
-          "label": "Marcus's Sheriff Office & Jail",
+          "displayName": "Marcus's Sheriff Office & Jail",
+          "x": 226,
+          "y": 359,
           "coordinates": {
-            "x": 220,
-            "y": 280
+            "x": 226,
+            "y": 359
           },
-          "x": 220,
-          "y": 280,
-          "layerId": "layer-nodes",
-          "scaleTier": "district"
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
         },
         {
           "id": "FO2-BKH-02",
           "name": "Downtown Bank & Uranium Refinery",
-          "label": "Downtown Bank & Uranium Refinery",
+          "displayName": "Downtown Bank & Uranium Refinery",
+          "x": 344,
+          "y": 54,
           "coordinates": {
-            "x": 380,
-            "y": 240
+            "x": 344,
+            "y": 54
           },
-          "x": 380,
-          "y": 240,
-          "layerId": "layer-nodes",
-          "scaleTier": "district"
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
         },
         {
           "id": "FO2-BKH-03",
           "name": "Purifier Air Mine Shaft",
-          "label": "Purifier Air Mine Shaft",
+          "displayName": "Purifier Air Mine Shaft",
+          "x": 557,
+          "y": 358,
           "coordinates": {
-            "x": 540,
-            "y": 300
+            "x": 557,
+            "y": 358
           },
-          "x": 540,
-          "y": 300,
-          "layerId": "layer-nodes",
-          "scaleTier": "district"
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
         },
         {
           "id": "FO2-BKH-04",
           "name": "Residential & Mutant Conspirators",
-          "label": "Residential & Mutant Conspirators",
+          "displayName": "Residential & Mutant Conspirators",
+          "x": 606,
+          "y": 260,
           "coordinates": {
-            "x": 680,
-            "y": 340
+            "x": 606,
+            "y": 260
           },
-          "x": 680,
-          "y": 340,
-          "layerId": "layer-nodes",
-          "scaleTier": "district"
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
+          "layerId": "layer-nodes"
         }
       ],
-      "links": [
-        {
-          "source": "FO2-BKH-01",
-          "target": "FO2-BKH-02",
-          "weight": 1
-        },
-        {
-          "source": "FO2-BKH-02",
-          "target": "FO2-BKH-03",
-          "weight": 1
-        },
-        {
-          "source": "FO2-BKH-03",
-          "target": "FO2-BKH-04",
-          "weight": 1
-        }
-      ],
+      "links": [],
       "waves": [],
       "drawnCards": {},
-      "nodeSlottedModules": {},
+      "nodeSlottedModules": {
+        "FO2-BKH-01": [],
+        "FO2-BKH-02": [],
+        "FO2-BKH-03": [],
+        "FO2-BKH-04": []
+      },
       "edgeSlottedModules": {},
       "layers": [
         {
@@ -2094,7 +2377,13 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
     },
     "map_fo2_new_reno": {
       "id": "map_fo2_new_reno",
@@ -2242,7 +2531,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_fo2_sierra": {
       "id": "map_fo2_sierra",
@@ -2390,7 +2680,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_fo2_ncr": {
       "id": "map_fo2_ncr",
@@ -2538,7 +2829,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_fo2_vault_15": {
       "id": "map_fo2_vault_15",
@@ -2686,7 +2978,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_fo2_vault_13": {
       "id": "map_fo2_vault_13",
@@ -2834,7 +3127,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_fo2_military_base": {
       "id": "map_fo2_military_base",
@@ -2982,7 +3276,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_fo2_redding": {
       "id": "map_fo2_redding",
@@ -3205,7 +3500,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_fo2_san_francisco": {
       "id": "map_fo2_san_francisco",
@@ -3428,7 +3724,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_fo2_navarro": {
       "id": "map_fo2_navarro",
@@ -3576,7 +3873,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_fo2_enclave_oil_rig": {
       "id": "map_fo2_enclave_oil_rig",
@@ -3794,24 +4092,25 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     }
   },
   "activeTopology": {
-    "id": "map_fo2_enclave_oil_rig",
-    "name": "Control Station Enclave (Oil Rig)",
+    "id": "map_fo2_arroyo",
+    "name": "Arroyo Tribal Settlement",
     "campaignName": "Fallout 2: The Northern California Wasteland",
     "rootMapId": "map_root",
     "activeMapId": "map_root",
     "nodes": {
-      "FO2-ENC-01": {
-        "id": "FO2-ENC-01",
-        "name": "Rig Docking Bay & Security Turrets",
-        "x": 200,
-        "y": 280,
+      "FO2-ARY-01": {
+        "id": "FO2-ARY-01",
+        "name": "Elder's Tent & Arroyo Well",
+        "x": 314,
+        "y": 253,
         "coordinates": {
-          "x": 200,
-          "y": 280
+          "x": 314,
+          "y": 253
         },
         "wave": 1,
         "tier": 2,
@@ -3830,18 +4129,23 @@
         "provides": [],
         "requires": [],
         "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "FO2-ENC-02": {
-        "id": "FO2-ENC-02",
-        "name": "Barracks & Trap Floor Maze",
-        "x": 360,
-        "y": 240,
+      "FO2-ARY-02": {
+        "id": "FO2-ARY-02",
+        "name": "Hakunin's Herbal Garden",
+        "x": 331,
+        "y": 171,
         "coordinates": {
-          "x": 360,
-          "y": 240
+          "x": 331,
+          "y": 171
         },
         "wave": 1,
         "tier": 2,
@@ -3860,18 +4164,23 @@
         "provides": [],
         "requires": [],
         "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "FO2-ENC-03": {
-        "id": "FO2-ENC-03",
-        "name": "President Richardson's Office",
-        "x": 520,
-        "y": 280,
+      "FO2-ARY-03": {
+        "id": "FO2-ARY-03",
+        "name": "Arroyo Bridge & Great Cliff",
+        "x": 335,
+        "y": 465,
         "coordinates": {
-          "x": 520,
-          "y": 280
+          "x": 335,
+          "y": 465
         },
         "wave": 1,
         "tier": 2,
@@ -3890,18 +4199,58 @@
         "provides": [],
         "requires": [],
         "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "FO2-ENC-04": {
-        "id": "FO2-ENC-04",
-        "name": "Reactor Core & Frank Horrigan Arena",
-        "x": 680,
-        "y": 320,
+      "FO2-ARY-04": {
+        "id": "FO2-ARY-04",
+        "name": "Temple of Trials Entrance",
+        "x": 544,
+        "y": 100,
         "coordinates": {
-          "x": 680,
-          "y": 320
+          "x": 544,
+          "y": 100
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Hierarchy",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": "map_fo2_temple",
+        "customNotes": "",
+        "locked": false,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "FO2-ARY-05": {
+        "id": "FO2-ARY-05",
+        "name": "Nagor's Hunting Grounds",
+        "x": 437,
+        "y": 172,
+        "coordinates": {
+          "x": 437,
+          "y": 172
         },
         "wave": 1,
         "tier": 2,
@@ -3920,6 +4269,11 @@
         "provides": [],
         "requires": [],
         "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
@@ -4402,6 +4756,7 @@
     "deletedPrototypes": [],
     "factions": [],
     "scaleTier": "site",
+    "spatialPins": [],
     "modData": {},
     "description": "The complete Fallout 2 campaign ported to Creator Studio. Features a 17-node Northern California wasteland overmap and 17 scale-fluid submaps covering Arroyo, Den, Modoc, Vault City, Gecko, Broken Hills, New Reno, Sierra Army Depot, NCR, Vaults 13 & 15, Military Base, San Francisco, Navarro, and the Enclave Oil Rig.",
     "campaign_modules": []
@@ -4409,14 +4764,14 @@
   "edgeData": {},
   "edgeNotes": {},
   "nodes": {
-    "FO2-ENC-01": {
-      "id": "FO2-ENC-01",
-      "name": "Rig Docking Bay & Security Turrets",
-      "x": 200,
-      "y": 280,
+    "FO2-ARY-01": {
+      "id": "FO2-ARY-01",
+      "name": "Elder's Tent & Arroyo Well",
+      "x": 314,
+      "y": 253,
       "coordinates": {
-        "x": 200,
-        "y": 280
+        "x": 314,
+        "y": 253
       },
       "wave": 1,
       "tier": 2,
@@ -4435,18 +4790,23 @@
       "provides": [],
       "requires": [],
       "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "FO2-ENC-02": {
-      "id": "FO2-ENC-02",
-      "name": "Barracks & Trap Floor Maze",
-      "x": 360,
-      "y": 240,
+    "FO2-ARY-02": {
+      "id": "FO2-ARY-02",
+      "name": "Hakunin's Herbal Garden",
+      "x": 331,
+      "y": 171,
       "coordinates": {
-        "x": 360,
-        "y": 240
+        "x": 331,
+        "y": 171
       },
       "wave": 1,
       "tier": 2,
@@ -4465,18 +4825,23 @@
       "provides": [],
       "requires": [],
       "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "FO2-ENC-03": {
-      "id": "FO2-ENC-03",
-      "name": "President Richardson's Office",
-      "x": 520,
-      "y": 280,
+    "FO2-ARY-03": {
+      "id": "FO2-ARY-03",
+      "name": "Arroyo Bridge & Great Cliff",
+      "x": 335,
+      "y": 465,
       "coordinates": {
-        "x": 520,
-        "y": 280
+        "x": 335,
+        "y": 465
       },
       "wave": 1,
       "tier": 2,
@@ -4495,18 +4860,58 @@
       "provides": [],
       "requires": [],
       "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "FO2-ENC-04": {
-      "id": "FO2-ENC-04",
-      "name": "Reactor Core & Frank Horrigan Arena",
-      "x": 680,
-      "y": 320,
+    "FO2-ARY-04": {
+      "id": "FO2-ARY-04",
+      "name": "Temple of Trials Entrance",
+      "x": 544,
+      "y": 100,
       "coordinates": {
-        "x": 680,
-        "y": 320
+        "x": 544,
+        "y": 100
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": "map_fo2_temple",
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "FO2-ARY-05": {
+      "id": "FO2-ARY-05",
+      "name": "Nagor's Hunting Grounds",
+      "x": 437,
+      "y": 172,
+      "coordinates": {
+        "x": 437,
+        "y": 172
       },
       "wave": 1,
       "tier": 2,
@@ -4525,6 +4930,11 @@
       "provides": [],
       "requires": [],
       "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
@@ -4944,6 +5354,7 @@
       }
     ],
     "tickets": [],
+    "factions": [],
     "custom_modules": [],
     "deletedModules": [],
     "deletedPrototypes": []
@@ -5359,6 +5770,7 @@
     }
   ],
   "tickets": [],
+  "factions": [],
   "custom_modules": [],
   "deletedModules": [],
   "deletedPrototypes": []

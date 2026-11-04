@@ -1,0 +1,8 @@
+{
+  "id": "tier_0_settlement_substratum",
+  "name": "Tier 0 Agrarian Settlement Substratum Pack",
+  "version": "1.0.0",
+  "enabled": true,
+  "entry": "mod.js",
+  "description": "Campaign-independent library of baseline agrarian village and settlement infrastructure modules (T0-DOM-01 through T0-DOM-08)."
+}

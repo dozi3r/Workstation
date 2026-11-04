@@ -8,8 +8,8 @@
   "enabled": true,
   "topologyFile": "topology.json",
   "manifestFile": "modules_manifest.json",
-  "updatedAt": "2026-11-02T01:47:34.076Z",
-  "exportedAt": "2026-11-02T01:47:34.076Z",
+  "updatedAt": "2026-11-03T04:05:48.840Z",
+  "exportedAt": "2026-11-03T04:05:48.840Z",
   "globalDials": {
     "dial8ClimaxTrigger": "crisis",
     "tier0Substratum": false
@@ -426,9 +426,10 @@
       }
     ],
     "tickets": [],
+    "factions": [],
     "custom_modules": [],
     "deletedModules": [],
     "deletedPrototypes": []
   },
-  "syncToken": "mvylmxbv-z0f6siyq"
+  "syncToken": "mw060ka0-qvz7bb2w"
 }

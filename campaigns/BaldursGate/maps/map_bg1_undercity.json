@@ -15,7 +15,12 @@
       "culture": "Adhocracy",
       "shape": "circle",
       "customNotes": "Entrance to the deadly brick labyrinth beneath the Guildhall where dying Voleta Stiletto warns of Sarevok's assassins.",
-      "childMapId": null
+      "childMapId": null,
+      "coordinates": {
+        "x": 240,
+        "y": 380
+      },
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-UND-02",
@@ -27,7 +32,12 @@
       "culture": "Hierarchy",
       "shape": "triangle",
       "customNotes": "Twisting sewer corridors filled with green slime, doom guards, and skeletal warriors armed with flaming arrows.",
-      "childMapId": null
+      "childMapId": null,
+      "coordinates": {
+        "x": 420,
+        "y": 260
+      },
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-UND-03",
@@ -39,7 +49,12 @@
       "culture": "Market",
       "shape": "diamond",
       "customNotes": "Sunken stone plaza of an ancient ruined civilization buried beneath modern Baldur's Gate, guarded by Tamoko.",
-      "childMapId": null
+      "childMapId": null,
+      "coordinates": {
+        "x": 600,
+        "y": 320
+      },
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-UND-04",
@@ -51,7 +66,12 @@
       "culture": "Hierarchy",
       "shape": "star",
       "customNotes": "The blood-soaked grand sanctuary of the Lord of Murder. Sarevok Anchev, Angelo, Tazok, and Semaj await atop the Skull of Bhaal.",
-      "childMapId": null
+      "childMapId": null,
+      "coordinates": {
+        "x": 780,
+        "y": 420
+      },
+      "layerId": "layer-nodes"
     }
   ],
   "links": [
@@ -70,5 +90,75 @@
       "to": "BG-UND-04",
       "type": "twoway"
     }
-  ]
+  ],
+  "mapMetadata": {
+    "id": "map_bg1_undercity",
+    "name": "undercity.gif",
+    "assetPath": "assets/map_bg1_undercity_bg.png",
+    "width": 480,
+    "height": 360,
+    "opacity": 0.85
+  },
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    }
+  ],
+  "shapes": [],
+  "spatialPins": []
 }

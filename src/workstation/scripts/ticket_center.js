@@ -15,6 +15,11 @@
         .replace(/'/g, '&#039;');
     }
 
+    function escapeJsArg(str) {
+      if (str === null || str === undefined) return '';
+      return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    }
+
     function openTicketCenter() {
       MDIWindowManager.open('modal-ticket-center');
       renderTicketList();
@@ -49,6 +54,38 @@
       });
       const campTickets = (Workstation.activeTopology && Workstation.activeTopology.tickets) ? Workstation.activeTopology.tickets : [];
       return { repoTickets, campTickets };
+    }
+
+    function formatTicketTargetBadge(t) {
+      const topo = Workstation.activeTopology || {};
+      const type = t.targetType || (t.nodeId ? 'node' : 'campaign');
+      const id = t.targetId || t.nodeId;
+      if (!id || type === 'campaign') return '<span style="color:#64748b;">[Campaign]</span>';
+      if (type === 'node') return `<span style="color:#0284c7; cursor:pointer;" onclick="event.stopPropagation(); centerOnNode('${escapeJsArg(id)}')" title="Center Node on Canvas">[Node ${escapeHtml(id)}]</span>`;
+      if (type === 'npc') {
+        const npc = (topo.npcs || []).find(n => String(n.id) === String(id));
+        return `<span style="color:#7c3aed; cursor:pointer;" onclick="event.stopPropagation(); if(typeof openEntityManager==='function') openEntityManager('npc', '${escapeJsArg(id)}')" title="Inspect NPC">[NPC] ${escapeHtml((npc && npc.name) || id)}</span>`;
+      }
+      if (type === 'quest') {
+        const q = (topo.quests || []).find(x => String(x.id) === String(id));
+        return `<span style="color:#ea580c; cursor:pointer;" onclick="event.stopPropagation(); if(typeof openEntityManager==='function') openEntityManager('quest', '${escapeJsArg(id)}')" title="Inspect Quest">[Quest] ${escapeHtml((q && (q.title || q.name)) || id)}</span>`;
+      }
+      if (type === 'item') {
+        const it = (topo.items || []).find(x => String(x.id) === String(id));
+        return `<span style="color:#16a34a; cursor:pointer;" onclick="event.stopPropagation(); if(typeof openEntityManager==='function') openEntityManager('item', '${escapeJsArg(id)}')" title="Inspect Item">[Item] ${escapeHtml((it && it.name) || id)}</span>`;
+      }
+      if (type === 'tracker') {
+        const trk = (topo.trackers || []).find(x => String(x.id) === String(id));
+        return `<span style="color:#dc2626; cursor:pointer;" onclick="event.stopPropagation(); if(typeof openEntityManager==='function') openEntityManager('tracker', '${escapeJsArg(id)}')" title="Inspect Threat Clock">[Clock] ${escapeHtml((trk && trk.name) || id)}</span>`;
+      }
+      if (type === 'faction') {
+        const f = (topo.factions || []).find(x => String(x.id) === String(id));
+        return `<span style="color:#d97706; cursor:pointer;" onclick="event.stopPropagation(); if(typeof openEntityManager==='function') openEntityManager('faction', '${escapeJsArg(id)}')" title="Inspect Faction">[Faction] ${escapeHtml((f && f.name) || id)}</span>`;
+      }
+      if (type === 'edge') {
+        return `<span style="color:#0891b2; cursor:pointer;" onclick="event.stopPropagation(); if(typeof openEntityManager==='function') openEntityManager('edge', '${escapeJsArg(id)}')" title="Inspect Transit Corridor">[Corridor ${escapeHtml(id)}]</span>`;
+      }
+      return `<span style="color:#64748b;">[${type}]</span>`;
     }
 
     function renderTicketList() {
@@ -92,7 +129,7 @@
 
       if (filtered.length === 0) {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td colspan="4" style="text-align:center; color:#777; padding:18px;">No tickets match current filters.</td>`;
+        tr.innerHTML = `<td colspan="6" style="text-align:center; color:#777; padding:18px;">No tickets match current filters.</td>`;
         tbody.appendChild(tr);
         clearTicketInspector();
       } else {
@@ -106,13 +143,21 @@
           const tierDisplay = isDev ? 'DEV' : (tierNum !== '-' ? `T${tierNum}` : '-');
           const statusSlug = (t.status || 'draft').toLowerCase().replace(/\s+/g, '_');
           const statusLabel = (t.status || 'Draft').replace(/_/g, ' ').toUpperCase();
+          const targetBadge = formatTicketTargetBadge(t);
 
           tr.innerHTML = `
             <td><strong>${t.id || 'TK'}</strong></td>
             <td>${tierDisplay}</td>
-            <td style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:260px;" title="${escapeHtml(t.title || '')}">${escapeHtml(t.title || '(Untitled)')}</td>
+            <td style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:210px;" title="${escapeHtml(t.title || '')}">${escapeHtml(t.title || '(Untitled)')}</td>
+            <td style="font-size:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:125px;">${targetBadge}</td>
             <td><span class="ticket-badge-status status-${statusSlug}">${statusLabel}</span></td>
+            <td style="text-align:center;">
+              <button class="win-btn" onclick="event.stopPropagation(); openEditTicketModal('${escapeJsArg(t.id)}')" style="font-size:9px; padding:1px 4px; color:#000080;" title="Edit Ticket">Edit</button>
+            </td>
           `;
+          tr.ondblclick = () => {
+            openEditTicketModal(t.id);
+          };
           tr.onclick = () => selectTicket(t.id, activeTicketTab);
           tbody.appendChild(tr);
         });
@@ -220,9 +265,10 @@
               <span style="font-size:10px; background:#fef3c7; color:#92400e; padding:1px 5px; border-radius:2px; font-weight:bold;">${escapeHtml(priority)}</span>
             </div>
             <div style="font-size:12px; font-weight:bold; color:#111; margin-top:3px;">${escapeHtml(t.title || '(Untitled)')}</div>
-            <div style="font-size:10px; color:#555; margin-top:2px;">Track: ${escapeHtml(t.track || t.category || 'General')} | Category: ${escapeHtml(t.category || '-')}</div>
+            <div style="font-size:10px; color:#555; margin-top:2px;">Track: ${escapeHtml(t.track || t.category || 'General')} | Category: ${escapeHtml(t.category || '-')} | Target: ${formatTicketTargetBadge(t)}</div>
           </div>
           <div style="display:flex; gap:4px; align-items:center;">
+            <button class="win-btn" onclick="openEditTicketModal('${escapeJsArg(t.id)}')" style="font-size:10px; font-weight:bold; color:#000080;" title="Edit Ticket in Dialog">✏️ Edit</button>
             ${(t.status || '').toLowerCase() === 'done'
               ? `<button class="win-btn" onclick="markTicketUndone('${t.id}', '${source}')" style="font-size:10px; color:#555;" title="Reopen / Mark as Incomplete">Reopen</button>`
               : `<button class="win-btn" onclick="markTicketDone('${t.id}', '${source}')" style="font-size:10px; font-weight:bold; color:#15803d;" title="Mark this ticket as Done">✓ Mark Done</button>`}
@@ -269,7 +315,7 @@
               }).join('')}
             </select>
           </label>
-          ${t.nodeId ? `<button class="win-btn" style="font-size:10px;" onclick="if(typeof centerCanvasOnNode==='function') centerCanvasOnNode('${t.nodeId}')">Center on Node</button>` : ''}
+          ${t.nodeId ? `<button class="win-btn" style="font-size:10px;" onclick="if(typeof centerOnNode==='function') centerOnNode('${escapeJsArg(t.nodeId)}')">Center on Node</button>` : ''}
         </div>
         ` : ''}
 
@@ -445,30 +491,132 @@
     }
     window.onTicketTypeChanged = onTicketTypeChanged;
 
-    function openNewCampaignTicketModal() {
-      const nodeSelect = document.getElementById('ntc-node');
-      if (nodeSelect) {
-        nodeSelect.innerHTML = '';
-        const defaultOpt = document.createElement('option');
-        defaultOpt.value = '';
-        defaultOpt.textContent = '(None / Unassigned)';
-        nodeSelect.appendChild(defaultOpt);
+    function onEditTicketTypeChanged(type) {
+      const gmFields = document.getElementById('etc-gm-fields');
+      const devFields = document.getElementById('etc-dev-fields');
+      if (type === 'dev') {
+        if (gmFields) gmFields.classList.add('hidden');
+        if (devFields) devFields.classList.remove('hidden');
+      } else {
+        if (gmFields) gmFields.classList.remove('hidden');
+        if (devFields) devFields.classList.add('hidden');
+      }
+    }
+    window.onEditTicketTypeChanged = onEditTicketTypeChanged;
 
-        if (Workstation.activeTopology && Workstation.activeTopology.nodes) {
-          Object.keys(Workstation.activeTopology.nodes).sort((a,b) => {
-            const na = Number(a), nb = Number(b);
-            if (!isNaN(na) && !isNaN(nb)) return na - nb;
-            return String(a).localeCompare(String(b));
-          }).forEach(nid => {
-            const opt = document.createElement('option');
-            opt.value = nid;
-            opt.textContent = (typeof formatNodeRef === 'function')
-              ? formatNodeRef(nid, Workstation.activeTopology)
-              : `${nid}: ${(Workstation.activeTopology.nodes[nid] && (Workstation.activeTopology.nodes[nid].name || Workstation.activeTopology.nodes[nid].displayName || Workstation.activeTopology.nodes[nid].label)) || ''}`;
-            nodeSelect.appendChild(opt);
+    function populateTicketNodeSelect(nodeSelect) {
+      if (!nodeSelect) return;
+      nodeSelect.innerHTML = '';
+      const defaultOpt = document.createElement('option');
+      defaultOpt.value = '';
+      defaultOpt.textContent = '(None / Unassigned)';
+      nodeSelect.appendChild(defaultOpt);
+      const topo = Workstation.activeTopology || {};
+      const allMaps = (typeof maps !== 'undefined' && maps) ? maps : {};
+      if (Object.keys(allMaps).length > 1) {
+        Object.keys(allMaps).forEach(mId => {
+          const m = allMaps[mId];
+          const isCur = (mId === (typeof activeMapId !== 'undefined' ? activeMapId : 'map_root'));
+          const mapNodes = isCur ? (topo.nodes ? Object.values(topo.nodes) : (m.nodes || [])) : (Array.isArray(m.nodes) ? m.nodes : Object.values(m.nodes || {}));
+          if (mapNodes.length > 0) {
+            const grp = document.createElement('optgroup');
+            grp.label = `${m.name || mId} [${(m.scaleTier || 'region').toUpperCase()}]`;
+            mapNodes.forEach(n => {
+              const opt = document.createElement('option');
+              opt.value = String(n.id);
+              opt.textContent = `Node ${n.id}: ${n.name || n.label || ''}`;
+              grp.appendChild(opt);
+            });
+            nodeSelect.appendChild(grp);
+          }
+        });
+      } else if (topo.nodes) {
+        Object.keys(topo.nodes).sort((a, b) => {
+          const na = Number(a), nb = Number(b);
+          if (!isNaN(na) && !isNaN(nb)) return na - nb;
+          return String(a).localeCompare(String(b));
+        }).forEach(nid => {
+          const opt = document.createElement('option');
+          opt.value = nid;
+          opt.textContent = (typeof formatNodeRef === 'function')
+            ? formatNodeRef(nid, topo)
+            : `${nid}: ${(topo.nodes[nid] && (topo.nodes[nid].name || topo.nodes[nid].label)) || ''}`;
+          nodeSelect.appendChild(opt);
+        });
+      }
+    }
+
+    function onTicketTargetTypeChanged(targetType, prefix = 'new') {
+      const idSelect = document.getElementById(prefix === 'edit' ? 'etc-target-id' : 'ntc-target-id');
+      if (!idSelect) return;
+      idSelect.innerHTML = '<option value="">(None / General)</option>';
+
+      const topo = Workstation.activeTopology || {};
+      let list = [];
+      if (targetType === 'npc') {
+        list = (topo.npcs || []).map(n => ({ id: n.id, label: `${n.name} [${n.role || 'NPC'}]`, nodeId: n.nodeId }));
+      } else if (targetType === 'quest') {
+        list = (topo.quests || []).map(q => ({ id: q.id, label: `${q.title || q.name} [Quest]`, nodeId: q.nodeId }));
+      } else if (targetType === 'item') {
+        list = (topo.items || []).map(i => ({ id: i.id, label: `${i.name} [${i.category || 'Item'}]`, nodeId: i.nodeId }));
+      } else if (targetType === 'tracker') {
+        list = (topo.trackers || []).map(t => ({ id: t.id, label: `${t.name || t.title} [Clock]`, nodeId: t.nodeId }));
+      } else if (targetType === 'faction') {
+        list = (topo.factions || []).map(f => ({ id: f.id, label: `${f.name} [Faction]`, nodeId: f.headquartersNodeId }));
+      } else if (targetType === 'node') {
+        if (typeof getNodesForMapScope === 'function') {
+          const allNodes = getNodesForMapScope('map:all');
+          list = allNodes.map(n => ({ id: String(n.id), label: `Node ${n.id}: ${n.name || 'Node'}${n._mapName ? ' (' + n._mapName + ')' : ''}`, nodeId: n.id }));
+        } else {
+          const nodes = topo.nodes || {};
+          list = Object.keys(nodes).map(k => ({ id: k, label: `${k}: ${nodes[k].name || 'Node'}`, nodeId: k }));
+        }
+      } else if (targetType === 'edge') {
+        if (typeof getEdgesForMapScope === 'function') {
+          const allEdges = getEdgesForMapScope('map:all');
+          list = allEdges.map(e => ({
+            id: e.edgeKey || e.id,
+            label: `${e.edgeKey}: ${e.name || 'Corridor'} (#${e.uId} -> #${e.vId})`,
+            nodeId: e.uId
+          }));
+        } else {
+          const edges = topo.links || topo.edges || [];
+          list = edges.map(e => {
+            const u = e.from != null ? e.from : e.source;
+            const v = e.to != null ? e.to : e.target;
+            const key = e.id || `${u}-${v}`;
+            return { id: key, label: `Corridor ${u} -> ${v}`, nodeId: u };
           });
         }
       }
+
+      list.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item.id;
+        opt.textContent = item.label;
+        if (item.nodeId != null) opt.setAttribute('data-node-id', String(item.nodeId));
+        idSelect.appendChild(opt);
+      });
+    }
+    window.onTicketTargetTypeChanged = onTicketTargetTypeChanged;
+
+    function onTicketTargetEntityChanged(targetId, prefix = 'new') {
+      if (!targetId) return;
+      const idSelect = document.getElementById(prefix === 'edit' ? 'etc-target-id' : 'ntc-target-id');
+      const nodeSelect = document.getElementById(prefix === 'edit' ? 'etc-node' : 'ntc-node');
+      if (idSelect && nodeSelect) {
+        const selectedOpt = idSelect.options[idSelect.selectedIndex];
+        if (selectedOpt && selectedOpt.hasAttribute('data-node-id')) {
+          const nId = selectedOpt.getAttribute('data-node-id');
+          if (nId) nodeSelect.value = nId;
+        }
+      }
+    }
+    window.onTicketTargetEntityChanged = onTicketTargetEntityChanged;
+
+    function openNewCampaignTicketModal(initialTargetType = 'campaign', initialTargetId = '', initialNodeId = null) {
+      const nodeSelect = document.getElementById('ntc-node');
+      populateTicketNodeSelect(nodeSelect);
 
       populateTicketCategoryDatalist();
 
@@ -488,6 +636,20 @@
       if (document.getElementById('ntc-target-surface')) document.getElementById('ntc-target-surface').value = 'start.html';
       if (document.getElementById('ntc-prereqs')) document.getElementById('ntc-prereqs').value = '';
       if (document.getElementById('ntc-notes')) document.getElementById('ntc-notes').value = '';
+
+      // Set target entity binding
+      const targetTypeSelect = document.getElementById('ntc-target-type');
+      if (targetTypeSelect) {
+        targetTypeSelect.value = initialTargetType || 'campaign';
+        onTicketTargetTypeChanged(targetTypeSelect.value, 'new');
+      }
+      const targetIdSelect = document.getElementById('ntc-target-id');
+      if (targetIdSelect && initialTargetId) {
+        targetIdSelect.value = String(initialTargetId);
+      }
+      if (initialNodeId != null && nodeSelect) {
+        nodeSelect.value = String(initialNodeId);
+      }
 
       openModal('modal-ticket-author-new');
     }
@@ -519,6 +681,8 @@
       const targetSurface = document.getElementById('ntc-target-surface') ? document.getElementById('ntc-target-surface').value.trim() : 'start.html';
       const prereqs = document.getElementById('ntc-prereqs') ? document.getElementById('ntc-prereqs').value.trim() : '';
       const notes = document.getElementById('ntc-notes') ? document.getElementById('ntc-notes').value.trim() : '';
+      const targetType = document.getElementById('ntc-target-type') ? document.getElementById('ntc-target-type').value : '';
+      const targetId = document.getElementById('ntc-target-id') ? document.getElementById('ntc-target-id').value : '';
 
       if (!Workstation.activeTopology.tickets) {
         Workstation.activeTopology.tickets = [];
@@ -546,6 +710,8 @@
         targetSurface: targetSurface,
         prereqs: prereqs,
         notes: notes,
+        targetType: targetType,
+        targetId: targetId,
         createdAt: new Date().toISOString()
       };
 
@@ -559,6 +725,124 @@
       renderTicketList();
       selectTicket(newTicket.id, 'campaign');
     }
+
+    function openEditTicketModal(ticketId) {
+      if (!Workstation.activeTopology) return;
+      const { repoTickets, campTickets } = getCombinedTickets();
+      let t = campTickets.find(item => item.id === ticketId) || repoTickets.find(item => item.id === ticketId);
+      if (!t) return;
+
+      populateTicketCategoryDatalist();
+
+      // Populate nodes select
+      const nodeSelect = document.getElementById('etc-node');
+      populateTicketNodeSelect(nodeSelect);
+      if (nodeSelect) {
+        nodeSelect.value = t.nodeId != null ? String(t.nodeId) : '';
+      }
+
+      const isDev = (t.type === 'dev' || (t.id && t.id.startsWith('DEV-')) || t.track === 'Platform Development');
+      const ticketType = isDev ? 'dev' : 'gm';
+
+      document.getElementById('etc-id').value = t.id;
+      document.getElementById('etc-title').value = t.title || '';
+      if (document.getElementById('etc-type')) {
+        document.getElementById('etc-type').value = ticketType;
+        onEditTicketTypeChanged(ticketType);
+      }
+      document.getElementById('etc-status').value = t.status || 'ready_for_authoring';
+      document.getElementById('etc-priority').value = t.priority || 'Medium';
+      document.getElementById('etc-category').value = t.category || t.track || '';
+      document.getElementById('etc-notes').value = t.notes || t.agent_brief || t.summary || '';
+
+      if (document.getElementById('etc-syllogism')) document.getElementById('etc-syllogism').value = t.syllogism || '';
+      if (document.getElementById('etc-four-corners')) {
+        if (typeof t.four_corners === 'object' && t.four_corners !== null) {
+          document.getElementById('etc-four-corners').value = `Establishment: ${t.four_corners.establishment || ''}\nOpponent: ${t.four_corners.opponent || ''}\nShadow: ${t.four_corners.shadow || ''}\nOutcast: ${t.four_corners.outcast || ''}`;
+        } else {
+          document.getElementById('etc-four-corners').value = t.fourCorners || '';
+        }
+      }
+      if (document.getElementById('etc-mechanics')) document.getElementById('etc-mechanics').value = t.mechanics || '';
+      if (document.getElementById('etc-resources')) document.getElementById('etc-resources').value = t.resources || '';
+      if (document.getElementById('etc-target-surface')) document.getElementById('etc-target-surface').value = t.targetSurface || t.target_surface || 'start.html';
+      if (document.getElementById('etc-prereqs')) document.getElementById('etc-prereqs').value = t.prereqs || '';
+
+      const targetTypeSelect = document.getElementById('etc-target-type');
+      if (targetTypeSelect) {
+        targetTypeSelect.value = t.targetType || (t.nodeId ? 'node' : 'campaign');
+        onTicketTargetTypeChanged(targetTypeSelect.value, 'edit');
+        const targetIdSelect = document.getElementById('etc-target-id');
+        if (targetIdSelect && (t.targetId || t.nodeId)) {
+          targetIdSelect.value = String(t.targetId || t.nodeId);
+        }
+      }
+
+      openModal('modal-ticket-edit');
+    }
+    window.openEditTicketModal = openEditTicketModal;
+
+    function saveEditedCampaignTicket() {
+      const id = document.getElementById('etc-id').value;
+      if (!Workstation.activeTopology) return;
+      if (!Workstation.activeTopology.tickets) Workstation.activeTopology.tickets = [];
+
+      const title = document.getElementById('etc-title').value.trim();
+      if (!title) {
+        alert('Please enter a ticket title.');
+        return;
+      }
+
+      const updatedFields = {
+        title: title,
+        type: document.getElementById('etc-type') ? document.getElementById('etc-type').value : 'gm',
+        status: document.getElementById('etc-status').value,
+        priority: document.getElementById('etc-priority').value,
+        category: document.getElementById('etc-category').value.trim(),
+        nodeId: document.getElementById('etc-node').value,
+        targetType: document.getElementById('etc-target-type').value,
+        targetId: document.getElementById('etc-target-id').value,
+        syllogism: document.getElementById('etc-syllogism') ? document.getElementById('etc-syllogism').value.trim() : '',
+        fourCorners: document.getElementById('etc-four-corners') ? document.getElementById('etc-four-corners').value.trim() : '',
+        mechanics: document.getElementById('etc-mechanics') ? document.getElementById('etc-mechanics').value.trim() : '',
+        resources: document.getElementById('etc-resources') ? document.getElementById('etc-resources').value.trim() : '',
+        targetSurface: document.getElementById('etc-target-surface') ? document.getElementById('etc-target-surface').value.trim() : 'start.html',
+        prereqs: document.getElementById('etc-prereqs') ? document.getElementById('etc-prereqs').value.trim() : '',
+        notes: document.getElementById('etc-notes').value,
+        updatedAt: new Date().toISOString()
+      };
+
+      const campTicket = Workstation.activeTopology.tickets.find(item => item.id === id);
+      let sourceTab = 'campaign';
+      if (campTicket) {
+        Object.assign(campTicket, updatedFields);
+      } else {
+        // Repo Master Backlog ticket override
+        sourceTab = 'repo';
+        if (!Workstation.activeTopology.ticketOverrides) Workstation.activeTopology.ticketOverrides = {};
+        Workstation.activeTopology.ticketOverrides[id] = Object.assign({}, Workstation.activeTopology.ticketOverrides[id] || {}, updatedFields);
+      }
+
+      saveActiveCampaign();
+      closeModal('modal-ticket-edit');
+      setStatusBarMessage(`Updated ticket ${id}: "${title}".`);
+      renderTicketList();
+      selectTicket(id, sourceTab);
+      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+      if (typeof SelectedEntityId !== 'undefined' && SelectedEntityId && typeof selectEntityItem === 'function') {
+        selectEntityItem(SelectedEntityId, false);
+      }
+    }
+    window.saveEditedCampaignTicket = saveEditedCampaignTicket;
+
+    function promptDeleteCampaignTicket(ticketId) {
+      if (!ticketId) return;
+      if (confirm(`Are you sure you want to delete campaign ticket ${ticketId}?`)) {
+        deleteCampaignTicket(ticketId);
+        closeModal('modal-ticket-edit');
+      }
+    }
+    window.promptDeleteCampaignTicket = promptDeleteCampaignTicket;
 
     function updateCampaignTicketProp(ticketId, prop, value) {
       if (!Workstation.activeTopology || !Workstation.activeTopology.tickets) return;

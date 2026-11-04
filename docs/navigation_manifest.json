@@ -19,6 +19,7 @@
         "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
         "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
         "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
+        "docs/adr/0022-coauthoring-architecture-and-rejected-patterns.md",
         "docs/srd/authoring_engine_srd.md",
         "CONTEXT.md"
       ],
@@ -100,32 +101,6 @@
         "src/workstation/scripts/sociology_data.js"
       ],
       "immutable_rule": "Dynamic zero-CORS visualizer referencing sociology_data.js to explore the 64-cell [S, E, C] matrix, CVF quadrants, and operational modes."
-    },
-    {
-      "file": "regions/regional_image_browser.html",
-      "type": "html",
-      "title": "Universal Regional Visual Asset Recommendation Browser",
-      "authoritative_specs": [
-        "regions/IMAGE_ENGINE_SPEC.md",
-        "regions/HOW_TO_USE.md"
-      ],
-      "data_sources": [
-        "regions/regional_image_catalog.json"
-      ],
-      "immutable_rule": "Catalog is maintained via Update-RegionalImageCatalog.ps1."
-    },
-    {
-      "file": "regions/Find-RegionalImage.ps1",
-      "type": "powershell",
-      "title": "CLI Scenery Recommendation Tool",
-      "authoritative_specs": [
-        "regions/IMAGE_ENGINE_SPEC.md"
-      ],
-      "data_sources": [
-        "regions/regional_image_catalog.json"
-      ],
-      "build_cmd": "powershell -File .\\regions\\Find-RegionalImage.ps1",
-      "immutable_rule": "CLI tool to recommend images by environment tags and building categories directly from the terminal."
     },
     {
       "file": "docs/MODULES_CATALOG.md",

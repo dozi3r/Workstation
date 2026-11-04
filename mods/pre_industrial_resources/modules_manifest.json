@@ -1,0 +1,2226 @@
+[
+  {
+    "id": "AGRI-SUGAR-01",
+    "title": "Sugarcane Plantation and Harvest Fields",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Clan / Hierarchy",
+    "color": "Green / White",
+    "provides": [
+      "Crop: Raw-Sugarcane"
+    ],
+    "requires": [
+      "Water: Baseline-Potable-Flow"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/AGRI-SUGAR-01_Sugarcane_Plantation_and_Harvest_Fields.md",
+    "standalone_fallback": "If municipal irrigation is severed, harvesters can tap brackish tidal ditches, reducing cane sugar density by 40% and multiplying fungal rot clocks.",
+    "chain_id": "CHAIN-SUGAR",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "AGRI-SUGAR-02",
+    "title": "Cane Crushing Mill and Boiling House",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Market / Hierarchy",
+    "color": "Red / Green",
+    "provides": [
+      "Commodity: Cane-Molasses",
+      "Food: Refined-Sugar"
+    ],
+    "requires": [
+      "Crop: Raw-Sugarcane",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/AGRI-SUGAR-02_Cane_Crushing_Mill_and_Boiling_House.md",
+    "standalone_fallback": "If thermal fuel runs out, unboiled cane juice can be fermented directly into sour farm mash, producing zero refined loaves and cutting alcohol yield by 70%.",
+    "chain_id": "CHAIN-SUGAR",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "AGRI-SUGAR-03",
+    "title": "Rum Distillery and Excise Harbor",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Market / Adhocracy",
+    "color": "Blue / Black",
+    "provides": [
+      "Commodity: High-Proof-Rum"
+    ],
+    "requires": [
+      "Commodity: Cane-Molasses",
+      "Timber: Cooperage-Casks"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/AGRI-SUGAR-03_Rum_Distillery_and_Excise_Harbor.md",
+    "standalone_fallback": "If oak casks are unavailable, raw rum distillate is stored in clay jugs or skin bladders, spoiling flavor profile and halving export value.",
+    "chain_id": "CHAIN-SUGAR",
+    "chain_stage": 3,
+    "chain_role": "commercial"
+  },
+  {
+    "id": "EXT-ALUM-01",
+    "title": "Alunite Quarry & Leaching Vats",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Chem: Mordant-Alum"
+    ],
+    "requires": [
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-ALUM-01_Alunite_Quarry_and_Leaching_Vats.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-ALUM",
+    "chain_stage": 1,
+    "chain_role": "refining"
+  },
+  {
+    "id": "EXT-CLAY-01",
+    "title": "Riverbank Clay Pit",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Mineral: Raw-Clay"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-CLAY-01_Riverbank_Clay_Pit.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-CLAY",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-FISH-01",
+    "title": "Pelagic Fishing Fleet Wharf",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Fresh-Catch"
+    ],
+    "requires": [
+      "Naval: Hemp-Cordage",
+      "Timber: Sawn-Lumber"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-FISH-01_Pelagic_Fishing_Fleet_Wharf.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-FISH",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-FURS-01",
+    "title": "Boreal Trapline Outpost",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Animal: Raw-Pelts"
+    ],
+    "requires": [
+      "Metal: Forged-Iron"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-FURS-01_Boreal_Trapline_Outpost.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-FURS",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-GLASS-01",
+    "title": "Silica Sand Dredging Pit",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Mineral: Silica-Sand"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-GLASS-01_Silica_Sand_Dredging_Pit.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-GLASS",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-LIME-01",
+    "title": "Limestone Quarry",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Stone: Cut-Limestone"
+    ],
+    "requires": [
+      "Metal: Forged-Iron"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-LIME-01_Limestone_Quarry.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-LIME",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-PINE-01",
+    "title": "Boreal Conifer Logging & Turpentine Camp",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Timber: Mast-Spars",
+      "Resin: Raw-Pine-Resin"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-PINE-01_Boreal_Conifer_Logging_and_Turpentine_Camp.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-PINE",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-PORC-01",
+    "title": "Kaolin & Petuntse Quarry",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Mineral: Kaolin-Clay"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-PORC-01_Kaolin_and_Petuntse_Quarry.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-PORCELAIN",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-SALT-01",
+    "title": "Tidal Salt Evaporation Pans",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Commodity: Brine-Slurry"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-SALT-01_Tidal_Salt_Evaporation_Pans.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SALT",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-SALTPETER-01",
+    "title": "Nitrary Compost Beds & Leaching House",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Chem: Refined-Saltpeter"
+    ],
+    "requires": [
+      "Chem: Potash",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-SALTPETER-01_Nitrary_Compost_Beds_and_Leaching_House.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-POWDER",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-TANNIN-01",
+    "title": "Bark Peeling Camp",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Commodity: Tree-Bark"
+    ],
+    "requires": [
+      "Timber: Hardwood-Logs"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-TANNIN-01_Bark_Peeling_Camp.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-TANNIN",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-TIMBER-01",
+    "title": "Hardwood Logging Camp",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Timber: Hardwood-Logs",
+      "Fuel: Wood-Fuel"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-TIMBER-01_Hardwood_Logging_Camp.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-TIMBER",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "EXT-WHALE-01",
+    "title": "Offshore Whaling Flensing Slip",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Animal: Whale-Blubber",
+      "Material: Baleen"
+    ],
+    "requires": [
+      "Naval: Hemp-Cordage",
+      "Metal: Forged-Iron"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/EXT-WHALE-01_Offshore_Whaling_Flensing_Slip.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-WHALE",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-CATTLE-01",
+    "title": "Pasture Ranch",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Livestock: Cattle",
+      "Livestock: Draft-Animals"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-CATTLE-01_Pasture_Ranch.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-CATTLE",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-CORN-01",
+    "title": "Three-Sisters Maize Plantation",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Crop: Raw-Maize"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-CORN-01_Three_Sisters_Maize_Plantation.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-CORN",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-COTTON-01",
+    "title": "Cotton Plantation",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Crop: Raw-Cotton-Boll"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-COTTON-01_Cotton_Plantation.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-COTTON",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-FLAX-01",
+    "title": "Flax Farm",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Crop: Raw-Flax"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-FLAX-01_Flax_Farm.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-FLAX",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-HEMP-01",
+    "title": "Coastal Hemp Plantation",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Crop: Raw-Hemp-Stalks"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-HEMP-01_Coastal_Hemp_Plantation.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-HEMP",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-INDIGO-01",
+    "title": "Indigofera Plantation",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Crop: Indigo-Leaves"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-INDIGO-01_Indigofera_Plantation.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-INDIGO",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-OLIVE-01",
+    "title": "Terraced Olive Grove",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Crop: Olives"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-OLIVE-01_Terraced_Olive_Grove.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-OLIVE",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-RICE-01",
+    "title": "Irrigated Rice Paddy",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Crop: Paddy-Rice",
+      "Material: Rice-Straw"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-RICE-01_Irrigated_Rice_Paddy.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-RICE",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-SHEEP-01",
+    "title": "Highland Sheep Station",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Animal: Raw-Fleece",
+      "Food: Mutton"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-SHEEP-01_Highland_Sheep_Station.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SHEEP",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-SILK-01",
+    "title": "Mulberry Orchard & Silkworm Nursery",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Animal: Silk-Cocoons"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-SILK-01_Mulberry_Orchard_and_Silkworm_Nursery.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SILK",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-SPICE-01",
+    "title": "Shade-Grown Spice & Tea Gardens",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Crop: Raw-Spices-and-Tea"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-SPICE-01_Shade_Grown_Spice_and_Tea_Gardens.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SPICE",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-VINE-01",
+    "title": "Hillside Vineyard",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Crop: Wine-Grapes"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-VINE-01_Hillside_Vineyard.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-VINE",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "FARM-WHEAT-01",
+    "title": "Open-Field Wheat Farm",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Crop: Raw-Wheat"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/FARM-WHEAT-01_Open_Field_Wheat_Farm.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-WHEAT",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "IND-APOTH-01",
+    "title": "Spagyric Apothecary & Quarantine Lazaretto",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Medicine: Apothecary-Tinctures"
+    ],
+    "requires": [
+      "Chem: Distilled-Spirits",
+      "Luxury: Cured-Spices-and-Tea",
+      "Commodity: Glassware",
+      "Chem: Wine-Vinegar"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-APOTH-01_Spagyric_Apothecary_and_Quarantine_Lazaretto.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-APOTHECARY",
+    "chain_stage": 1,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-BARGE-01",
+    "title": "River Barge Slipway & Canal Lock",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Transport: River-Barge"
+    ],
+    "requires": [
+      "Timber: Sawn-Lumber",
+      "Metal: Forged-Iron",
+      "Chem: Pine-Pitch"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-BARGE-01_River_Barge_Slipway_and_Canal_Lock.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-BARGE",
+    "chain_stage": 1,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-BREW-01",
+    "title": "Floor Malting Kiln",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Malted-Grain"
+    ],
+    "requires": [
+      "Crop: Raw-Wheat",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-BREW-01_Floor_Malting_Kiln.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-BREW",
+    "chain_stage": 1,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-BREW-02",
+    "title": "Copper Mash-Tun & Civic Brewery",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Barrelled-Ale"
+    ],
+    "requires": [
+      "Food: Malted-Grain",
+      "Metal: Forged-Copper",
+      "Timber: Cooperage-Casks",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-BREW-02_Copper_Mash_Tun_and_Civic_Brewery.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-BREW",
+    "chain_stage": 2,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-BRONZE-01",
+    "title": "Bell & Artillery Bronze Foundry",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Alloy: Cast-Bronze"
+    ],
+    "requires": [
+      "Metal: Copper-Ingot",
+      "Metal: Tin-Ingot",
+      "Fuel: Charcoal-or-Coal",
+      "Commodity: Fired-Bricks"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-BRONZE-01_Bell_and_Artillery_Bronze_Foundry.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-BRONZE",
+    "chain_stage": 1,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-CANDLE-01",
+    "title": "Tallow Chandlery",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Light: Tallow-Candles"
+    ],
+    "requires": [
+      "Animal: Tallow",
+      "Textile: Flax-Fiber"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-CANDLE-01_Tallow_Chandlery.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-CANDLE",
+    "chain_stage": 1,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-CATTLE-02",
+    "title": "Civic Abattoir",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Raw-Beef",
+      "Animal: Raw-Hides",
+      "Animal: Tallow"
+    ],
+    "requires": [
+      "Livestock: Cattle"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-CATTLE-02_Civic_Abattoir.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-CATTLE",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-CATTLE-03",
+    "title": "Tanning Yards",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Material: Cured-Leather"
+    ],
+    "requires": [
+      "Animal: Raw-Hides",
+      "Chem: Tannin",
+      "Chem: Slaked-Lime"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-CATTLE-03_Tanning_Yards.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-CATTLE",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-CHARCOAL-01",
+    "title": "Charcoal Burner's Mound",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Fuel: Charcoal-or-Coal",
+      "Chem: Potash"
+    ],
+    "requires": [
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-CHARCOAL-01_Charcoal_Burners_Mound.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-CHARCOAL",
+    "chain_stage": 1,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-CLAY-02",
+    "title": "Brickworks & Pottery Kiln",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Commodity: Fired-Bricks",
+      "Commodity: Ceramic-Vessels"
+    ],
+    "requires": [
+      "Mineral: Raw-Clay",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-CLAY-02_Brickworks_and_Pottery_Kiln.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-CLAY",
+    "chain_stage": 2,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-COPPER-02",
+    "title": "Copper Smelting Furnace",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Metal: Copper-Ingot"
+    ],
+    "requires": [
+      "Ore: Copper-Ore",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-COPPER-02_Copper_Smelting_Furnace.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-COPPER",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-COPPER-03",
+    "title": "Coppersmith & Brazier Shop",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Metal: Forged-Copper"
+    ],
+    "requires": [
+      "Metal: Copper-Ingot",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-COPPER-03_Coppersmith_and_Brazier_Shop.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-COPPER",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-CORN-02",
+    "title": "Nixtamalization Vats & Stone Metate Mill",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Masa-Flour",
+      "Food: Cornmeal-Rations"
+    ],
+    "requires": [
+      "Crop: Raw-Maize",
+      "Chem: Slaked-Lime"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-CORN-02_Nixtamalization_Vats_and_Stone_Metate_Mill.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-CORN",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-CORN-03",
+    "title": "Sour-Mash Stillhouse",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Corn-Whiskey"
+    ],
+    "requires": [
+      "Food: Cornmeal-Rations",
+      "Timber: Cooperage-Casks",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-CORN-03_Sour_Mash_Stillhouse.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-CORN",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-COTTON-02",
+    "title": "Roller Gin & Spinning House",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Textile: Spun-Cotton-Yarn"
+    ],
+    "requires": [
+      "Crop: Raw-Cotton-Boll"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-COTTON-02_Roller_Gin_and_Spinning_House.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-COTTON",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-COTTON-03",
+    "title": "Calico Weaving & Print Works",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Textile: Dyed-Calico"
+    ],
+    "requires": [
+      "Textile: Spun-Cotton-Yarn",
+      "Dye: Indigo-Paste",
+      "Chem: Mordant-Alum"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-COTTON-03_Calico_Weaving_and_Print_Works.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-COTTON",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-FISH-02",
+    "title": "Salting Stages & Smokehouse",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Salted-Fish"
+    ],
+    "requires": [
+      "Food: Fresh-Catch",
+      "Commodity: Coarse-Salt",
+      "Timber: Cooperage-Casks",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-FISH-02_Salting_Stages_and_Smokehouse.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-FISH",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-FLAX-02",
+    "title": "Retting & Scutching Basin",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Textile: Flax-Fiber"
+    ],
+    "requires": [
+      "Crop: Raw-Flax"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-FLAX-02_Retting_and_Scutching_Basin.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-FLAX",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-FLAX-03",
+    "title": "Handloom Linen Weaver",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Textile: Linen-Cloth"
+    ],
+    "requires": [
+      "Textile: Flax-Fiber"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-FLAX-03_Handloom_Linen_Weaver.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-FLAX",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-FURS-02",
+    "title": "Pelt Scraping & Furrier's Guild",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Luxury: Dressed-Furs"
+    ],
+    "requires": [
+      "Animal: Raw-Pelts",
+      "Chem: Tannin"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-FURS-02_Pelt_Scraping_and_Furriers_Guild.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-FURS",
+    "chain_stage": 2,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-GLASS-02",
+    "title": "Glassblower's Furnace",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Commodity: Glassware"
+    ],
+    "requires": [
+      "Mineral: Silica-Sand",
+      "Chem: Potash",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-GLASS-02_Glassblowers_Furnace.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-GLASS",
+    "chain_stage": 2,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-GOLD-02",
+    "title": "Assay Furnace & Goldsmith Bourse",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Metal: Gold-Bullion"
+    ],
+    "requires": [
+      "Ore: Gold-Dust",
+      "Fuel: Charcoal-or-Coal",
+      "Chem: Nitric-Parting-Acid"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-GOLD-02_Assay_Furnace_and_Goldsmith_Bourse.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-GOLD",
+    "chain_stage": 2,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-HEMP-02",
+    "title": "Hemp Braking & Hackling Shed",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Textile: Oakum-and-Tow"
+    ],
+    "requires": [
+      "Crop: Raw-Hemp-Stalks"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-HEMP-02_Hemp_Braking_and_Hackling_Shed.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-HEMP",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-HEMP-03",
+    "title": "Ropewalk & Sail Loft",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Naval: Hemp-Cordage",
+      "Naval: Canvas-Sails"
+    ],
+    "requires": [
+      "Textile: Oakum-and-Tow",
+      "Chem: Pine-Pitch",
+      "Textile: Linen-Cloth"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-HEMP-03_Ropewalk_and_Sail_Loft.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-HEMP",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-INDIGO-02",
+    "title": "Steeping Vat & Oxidation Beating Ponds",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Dye: Indigo-Paste"
+    ],
+    "requires": [
+      "Crop: Indigo-Leaves",
+      "Chem: Slaked-Lime"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-INDIGO-02_Steeping_Vat_and_Oxidation_Beating_Ponds.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-INDIGO",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-IRON-03",
+    "title": "Blacksmith Forge",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Metal: Forged-Iron"
+    ],
+    "requires": [
+      "Metal: Pig-Iron",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-IRON-03_Blacksmith_Forge.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-IRON",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-LEAD-01",
+    "title": "Lead Smelting Bole & Plumbery",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Metal: Smelted-Lead"
+    ],
+    "requires": [
+      "Ore: Lead-Slag",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-LEAD-01_Lead_Smelting_Bole_and_Plumbery.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-LEAD",
+    "chain_stage": 1,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-LIME-02",
+    "title": "Calcining Lime Kiln",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Chem: Slaked-Lime"
+    ],
+    "requires": [
+      "Stone: Cut-Limestone",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-LIME-02_Calcining_Lime_Kiln.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-LIME",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-LIME-03",
+    "title": "Mortar & Plaster Works",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Commodity: Masonry-Mortar"
+    ],
+    "requires": [
+      "Chem: Slaked-Lime",
+      "Mineral: Silica-Sand"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-LIME-03_Mortar_and_Plaster_Works.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-LIME",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-OLIVE-02",
+    "title": "Stone Olive Press",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Oil: Olive-Oil"
+    ],
+    "requires": [
+      "Crop: Olives",
+      "Commodity: Ceramic-Vessels"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-OLIVE-02_Stone_Olive_Press.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-OLIVE",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-OPTIC-01",
+    "title": "Crown & Flint Lens-Grinding Lathe",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Component: Ground-Lenses"
+    ],
+    "requires": [
+      "Commodity: Glassware",
+      "Mineral: Silica-Sand"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-OPTIC-01_Crown_and_Flint_Lens_Grinding_Lathe.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-OPTICS",
+    "chain_stage": 1,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-OPTIC-02",
+    "title": "Clockwork & Navigational Instrument Guild",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Luxury: Precision-Instruments"
+    ],
+    "requires": [
+      "Component: Ground-Lenses",
+      "Alloy: Cast-Bronze",
+      "Alloy: Crucible-Steel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-OPTIC-02_Clockwork_and_Navigational_Instrument_Guild.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-OPTICS",
+    "chain_stage": 2,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-PAPER-01",
+    "title": "Retting Trough & Stamping Mill",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Material: Rag-Pulp"
+    ],
+    "requires": [
+      "Textile: Linen-Cloth",
+      "Material: Rice-Straw",
+      "Chem: Slaked-Lime"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-PAPER-01_Retting_Trough_and_Stamping_Mill.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-PAPER",
+    "chain_stage": 1,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-PAPER-02",
+    "title": "Paper Vat & Screw-Press Loft",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Commodity: Laid-Paper"
+    ],
+    "requires": [
+      "Material: Rag-Pulp",
+      "Chem: Mordant-Alum"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-PAPER-02_Paper_Vat_and_Screw_Press_Loft.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-PAPER",
+    "chain_stage": 2,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-PAPER-03",
+    "title": "Movable-Type Printshop & Bindery",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Luxury: Printed-Codices"
+    ],
+    "requires": [
+      "Commodity: Laid-Paper",
+      "Material: Cured-Leather",
+      "Metal: Smelted-Lead"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-PAPER-03_Movable_Type_Printshop_and_Bindery.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-PAPER",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-PINE-02",
+    "title": "Tar Kiln & Pitch Boilery",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Chem: Pine-Pitch"
+    ],
+    "requires": [
+      "Resin: Raw-Pine-Resin",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-PINE-02_Tar_Kiln_and_Pitch_Boilery.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-PINE",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-PORC-02",
+    "title": "Climbing Dragon Kiln",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Luxury: Fine-Porcelain"
+    ],
+    "requires": [
+      "Mineral: Kaolin-Clay",
+      "Fuel: Charcoal-or-Coal",
+      "Chem: Potash"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-PORC-02_Climbing_Dragon_Kiln.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-PORCELAIN",
+    "chain_stage": 2,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-POWDER-03",
+    "title": "Water-Powered Corning & Powder Mill",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Ordnance: Corned-Gunpowder"
+    ],
+    "requires": [
+      "Chem: Refined-Saltpeter",
+      "Chem: Brimstone-Sulfur",
+      "Fuel: Charcoal-or-Coal",
+      "Timber: Cooperage-Casks"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-POWDER-03_Water_Powered_Corning_and_Powder_Mill.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-POWDER",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-RICE-02",
+    "title": "Water-Driven Hull Mill",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Hulled-Rice"
+    ],
+    "requires": [
+      "Crop: Paddy-Rice"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-RICE-02_Water_Driven_Hull_Mill.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-RICE",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-SALT-02",
+    "title": "Salt Boiling House & Granary",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Commodity: Coarse-Salt"
+    ],
+    "requires": [
+      "Commodity: Brine-Slurry",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SALT-02_Salt_Boiling_House_and_Granary.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SALT",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-SHEEP-02",
+    "title": "Fulling Mill & Scouring Vat",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Textile: Carded-Wool"
+    ],
+    "requires": [
+      "Animal: Raw-Fleece",
+      "Commodity: Soap"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SHEEP-02_Fulling_Mill_and_Scouring_Vat.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SHEEP",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-SHEEP-03",
+    "title": "Master Draper's Guildhall",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Textile: Broadcloth"
+    ],
+    "requires": [
+      "Textile: Carded-Wool",
+      "Chem: Mordant-Alum"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SHEEP-03_Master_Drapers_Guildhall.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SHEEP",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-SHIP-01",
+    "title": "Seasoning Timber Pond & Sawpit",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Naval: Seasoned-Ship-Timber"
+    ],
+    "requires": [
+      "Timber: Hardwood-Logs",
+      "Timber: Mast-Spars"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SHIP-01_Seasoning_Timber_Pond_and_Sawpit.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SHIP",
+    "chain_stage": 1,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-SHIP-02",
+    "title": "Drydock Slipway & Caulking Yard",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Naval: Careened-Hull"
+    ],
+    "requires": [
+      "Naval: Seasoned-Ship-Timber",
+      "Textile: Oakum-and-Tow",
+      "Chem: Pine-Pitch",
+      "Metal: Forged-Iron"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SHIP-02_Drydock_Slipway_and_Caulking_Yard.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SHIP",
+    "chain_stage": 2,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-SHIP-03",
+    "title": "Admiralty Fitting-Out Basin",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Transport: Ocean-Caravel"
+    ],
+    "requires": [
+      "Naval: Careened-Hull",
+      "Naval: Hemp-Cordage",
+      "Naval: Canvas-Sails",
+      "Alloy: Cast-Bronze"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SHIP-03_Admiralty_Fitting_Out_Basin.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SHIP",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-SILK-02",
+    "title": "Filature Reeling Basin",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Textile: Reeled-Silk-Thread"
+    ],
+    "requires": [
+      "Animal: Silk-Cocoons",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SILK-02_Filature_Reeling_Basin.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SILK",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-SILK-03",
+    "title": "Drawloom Brocade Atelier",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Luxury: Silk-Brocade"
+    ],
+    "requires": [
+      "Textile: Reeled-Silk-Thread",
+      "Dye: Indigo-Paste",
+      "Metal: Gold-Bullion"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SILK-03_Drawloom_Brocade_Atelier.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SILK",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-SILVER-02",
+    "title": "Stamping Mill & Patio Amalgamation Floor",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Metal: Crude-Bullion",
+      "Ore: Lead-Slag"
+    ],
+    "requires": [
+      "Ore: Argentiferous-Galena",
+      "Commodity: Coarse-Salt"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SILVER-02_Stamping_Mill_and_Patio_Amalgamation_Floor.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SILVER",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-SILVER-03",
+    "title": "Cupellation Hearth & Sovereign Mint",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Currency: Silver-Coinage"
+    ],
+    "requires": [
+      "Metal: Crude-Bullion",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SILVER-03_Cupellation_Hearth_and_Sovereign_Mint.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SILVER",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-SOAP-01",
+    "title": "Caustic Soapboiler Vat",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Commodity: Soap"
+    ],
+    "requires": [
+      "Oil: Olive-Oil",
+      "Chem: Potash",
+      "Chem: Slaked-Lime"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SOAP-01_Caustic_Soapboiler_Vat.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SOAP",
+    "chain_stage": 1,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-SPICE-02",
+    "title": "Firing Woks & Curing Sheds",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Luxury: Cured-Spices-and-Tea"
+    ],
+    "requires": [
+      "Crop: Raw-Spices-and-Tea",
+      "Fuel: Charcoal-or-Coal",
+      "Commodity: Ceramic-Vessels"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-SPICE-02_Firing_Woks_and_Curing_Sheds.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SPICE",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-STEEL-01",
+    "title": "Crucible Steelworks and Foundry",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Market",
+    "color": "Red / White",
+    "provides": [
+      "Alloy: Crucible-Steel",
+      "Commodity: Heavy-Ordnance"
+    ],
+    "requires": [
+      "Metal: Pig-Iron",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-STEEL-01_Crucible_Steelworks_and_Foundry.md",
+    "standalone_fallback": "If high-carbon coke fuel is severed, steelworks falls back to surface case-hardening of wrought iron; blades have soft cores and brittle edges.",
+    "chain_id": "CHAIN-STEEL",
+    "chain_stage": 3,
+    "chain_role": "commercial"
+  },
+  {
+    "id": "IND-TANNIN-02",
+    "title": "Bark Crushing Mill",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Chem: Tannin"
+    ],
+    "requires": [
+      "Commodity: Tree-Bark"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-TANNIN-02_Bark_Crushing_Mill.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-TANNIN",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-TIMBER-02",
+    "title": "Water-Powered Sawmill",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Timber: Sawn-Lumber",
+      "Timber: Mine-Props"
+    ],
+    "requires": [
+      "Timber: Hardwood-Logs"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-TIMBER-02_Water_Powered_Sawmill.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-TIMBER",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-TIMBER-03",
+    "title": "Master Cooperage",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Timber: Cooperage-Casks"
+    ],
+    "requires": [
+      "Timber: Sawn-Lumber",
+      "Metal: Forged-Iron"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-TIMBER-03_Master_Cooperage.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-TIMBER",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-TIN-02",
+    "title": "Tin Blowing House",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Metal: Tin-Ingot"
+    ],
+    "requires": [
+      "Ore: Tin-Ore",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-TIN-02_Tin_Blowing_House.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-TIN",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-VINE-02",
+    "title": "Wine Press & Fermenting Cellar",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Vintage-Wine",
+      "Chem: Wine-Vinegar"
+    ],
+    "requires": [
+      "Crop: Wine-Grapes",
+      "Timber: Cooperage-Casks"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-VINE-02_Wine_Press_and_Fermenting_Cellar.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-VINE",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-VINE-03",
+    "title": "Copper Alembic Distillery",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Chem: Distilled-Spirits"
+    ],
+    "requires": [
+      "Food: Vintage-Wine",
+      "Metal: Forged-Copper",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-VINE-03_Copper_Alembic_Distillery.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-VINE",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "IND-WHALE-02",
+    "title": "Tryworks Rendering Furnace",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Light: Whale-Oil"
+    ],
+    "requires": [
+      "Animal: Whale-Blubber",
+      "Fuel: Wood-Fuel",
+      "Timber: Cooperage-Casks"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-WHALE-02_Tryworks_Rendering_Furnace.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-WHALE",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-WHEAT-02",
+    "title": "Water-Powered Gristmill",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Wheat-Flour"
+    ],
+    "requires": [
+      "Crop: Raw-Wheat"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-WHEAT-02_Water_Powered_Gristmill.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-WHEAT",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "IND-WHEAT-03",
+    "title": "Civic Bakehouse",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Food: Baked-Bread"
+    ],
+    "requires": [
+      "Food: Wheat-Flour",
+      "Fuel: Wood-Fuel"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/IND-WHEAT-03_Civic_Bakehouse.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-WHEAT",
+    "chain_stage": 3,
+    "chain_role": "manufacturing"
+  },
+  {
+    "id": "MINE-COAL-01",
+    "title": "Deep Colliery and Coking Ovens",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Market / Hierarchy",
+    "color": "Black / Red",
+    "provides": [
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "requires": [
+      "Timber: Mine-Props"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MINE-COAL-01_Deep_Colliery_and_Coking_Ovens.md",
+    "standalone_fallback": "If coking ovens are destroyed, raw bituminous coal can be burned directly, producing heavy choking sulfur smoke and degrading smelting metal quality.",
+    "chain_id": "CHAIN-COAL",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "MINE-COPPER-01",
+    "title": "Malachite Drift Mine",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Ore: Copper-Ore"
+    ],
+    "requires": [
+      "Timber: Mine-Props"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MINE-COPPER-01_Malachite_Drift_Mine.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-COPPER",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "MINE-GOLD-01",
+    "title": "Placer Sluice & Quartz Crush Mill",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Ore: Gold-Dust"
+    ],
+    "requires": [
+      "Timber: Mine-Props"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MINE-GOLD-01_Placer_Sluice_and_Quartz_Crush_Mill.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-GOLD",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "MINE-IRON-01",
+    "title": "Open-Cast Iron Ore Pit",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Clan",
+    "color": "Red / Green",
+    "provides": [
+      "Ore: Raw-Iron-Ore"
+    ],
+    "requires": [
+      "Timber: Mine-Props"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MINE-IRON-01_Open_Cast_Iron_Ore_Pit.md",
+    "standalone_fallback": "If heavy timber props are unavailable, mining retreats to shallow surface scratch trenches, cutting extraction volume by 60%.",
+    "chain_id": "CHAIN-IRON",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "MINE-IRON-02",
+    "title": "Charcoal Bloomery and Blast Furnace",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 3 (Infrastructural Supply Chain Anchor)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy / Market",
+    "color": "Red / Black",
+    "provides": [
+      "Metal: Pig-Iron"
+    ],
+    "requires": [
+      "Ore: Raw-Iron-Ore",
+      "Fuel: Charcoal-or-Coal"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MINE-IRON-02_Charcoal_Bloomery_and_Blast_Furnace.md",
+    "standalone_fallback": "If mechanical air blast is lost, operations drop to low-temperature clay bloomeries; produces spongy bloomery iron instead of liquid pig-iron, unusable for crucible steel casting.",
+    "chain_id": "CHAIN-IRON",
+    "chain_stage": 2,
+    "chain_role": "refining"
+  },
+  {
+    "id": "MINE-SILVER-01",
+    "title": "Galena Deep-Vein Mine",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Ore: Argentiferous-Galena"
+    ],
+    "requires": [
+      "Timber: Mine-Props",
+      "Light: Tallow-Candles"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MINE-SILVER-01_Galena_Deep_Vein_Mine.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-SILVER",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "MINE-SULFUR-02",
+    "title": "Volcanic Fumarole Sulfur Pit",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Chem: Brimstone-Sulfur",
+      "Chem: Nitric-Parting-Acid"
+    ],
+    "requires": [
+      "Commodity: Ceramic-Vessels"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MINE-SULFUR-02_Volcanic_Fumarole_Sulfur_Pit.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-POWDER",
+    "chain_stage": 2,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "MINE-TIN-01",
+    "title": "Alluvial Cassiterite Streamworks",
+    "set": "Set_A_Infrastructure_and_Engineering",
+    "tier": "1",
+    "pipeline_tier": 2,
+    "culture": "Universal",
+    "color": "Colorless",
+    "provides": [
+      "Ore: Tin-Ore"
+    ],
+    "requires": [
+      "Timber: Mine-Props"
+    ],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MINE-TIN-01_Alluvial_Cassiterite_Streamworks.md",
+    "standalone_fallback": "",
+    "chain_id": "CHAIN-TIN",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  }
+]

@@ -135,7 +135,7 @@ function renderMapNavigatorList() {
 
     return `
       <div style="margin-left:${depth * 20}px; margin-bottom:6px;">
-        <div class="bevel-outset" style="padding:6px 8px; background:${isCur ? '#e0f2fe' : '#f8fafc'}; border:1px solid ${isCur ? '#000080' : '#cbd5e1'}; display:flex; align-items:center; justify-content:space-between; gap:8px;">
+        <div class="bevel-outset" draggable="true" title="Drag onto the CAD Canvas to place a Sub-Map Portal Pin" ondragstart="if(typeof onEntityListDragStart==='function') onEntityListDragStart(event, 'submap', '${String(m.id).replace(/'/g, "\\'")}', '${String(m.name || m.id).replace(/'/g, "\\'")}', false);" style="padding:6px 8px; background:${isCur ? '#e0f2fe' : '#f8fafc'}; border:1px solid ${isCur ? '#000080' : '#cbd5e1'}; display:flex; align-items:center; justify-content:space-between; gap:8px; cursor:grab;">
           <div style="display:flex; align-items:center; gap:8px;">
             <span style="font-size:18px;">${hasImg ? '🖼️' : tier.icon}</span>
             <div>

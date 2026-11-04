@@ -26,6 +26,13 @@
             <button id="em-tab-edge" class="win-btn" onclick="switchEntityManagerTab('edge')"><strong>Edges &amp; Conduits</strong></button>
           </div>
           <div style="display:flex; align-items:center; gap:6px;">
+            <select id="em-sort-select" class="win-select-input" style="width:125px; font-size:11px;" onchange="if(typeof setEntityManagerSort==='function') setEntityManagerSort(this.value);" title="Sort Entities">
+              <option value="default">Sort: Default</option>
+              <option value="name">Sort: Name (A-Z)</option>
+              <option value="scope">Sort: Scope / Role</option>
+              <option value="progress">Sort: Clock / Status</option>
+              <option value="node">Sort: Station Node</option>
+            </select>
             <input type="text" id="em-search-input" placeholder="Filter entities..." class="win-select-input" style="width:160px;" oninput="renderEntityManagerList()">
             <button id="em-btn-new-entity" class="win-btn" onclick="openNewEntityModal(CurrentEntityTab)">+ New Entity...</button>
           </div>
@@ -242,6 +249,15 @@
 
         <!-- Quest Overhaul Extensions (Associated NPCs, Items & Spanning Nodes) -->
         <div id="ee-quest-extensions" style="display:none; flex-direction:column; gap:6px; border-top:1px solid #ccc; padding-top:6px;">
+          <label style="display:flex; align-items:center; justify-content:space-between;">
+            <strong>Quest Status:</strong>
+            <select id="ee-quest-status" class="win-select-input" style="width:230px;">
+              <option value="Active" selected>Active</option>
+              <option value="Completed">Completed</option>
+              <option value="Failed">Failed</option>
+              <option value="Dormant">Dormant</option>
+            </select>
+          </label>
           <div style="display:flex; flex-direction:column; gap:2px;">
             <strong>Associated NPCs (Involved in Quest):</strong>
             <div id="ee-quest-npcs-list" class="bevel-inset" style="max-height:85px; overflow-y:auto; background:#fff; padding:4px; font-size:11px; display:flex; flex-direction:column; gap:2px;">
@@ -256,9 +272,39 @@
             </div>
           </div>
 
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Associated Threat Clocks &amp; Trackers:</strong>
+            <div id="ee-quest-trackers-list" class="bevel-inset" style="max-height:85px; overflow-y:auto; background:#fff; padding:4px; font-size:11px; display:flex; flex-direction:column; gap:2px;">
+              <!-- Dynamic Tracker Checkboxes -->
+            </div>
+          </div>
+
           <div id="ee-quest-spanning-box" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:6px; border-radius:2px; font-size:10px;">
             <div style="font-weight:bold; color:#000080; margin-bottom:2px;">📍 Spanning Quest Nodes:</div>
-            <div id="ee-quest-spanning-nodes-text" style="color:#334155;">(Select main node, NPCs, or items above)</div>
+            <div id="ee-quest-spanning-nodes-text" style="color:#334155;">(Select main node, NPCs, items, or clocks above)</div>
+          </div>
+        </div>
+
+        <!-- Tracker Overhaul Extensions (Scope Tier & Attributed Trigger Entities) -->
+        <div id="ee-tracker-extensions" style="display:none; flex-direction:column; gap:6px; border-top:1px solid #ccc; padding-top:6px;">
+          <label style="display:flex; align-items:center; justify-content:space-between;">
+            <strong>Scope Tier (Escalation Scale):</strong>
+            <select id="ee-tracker-scope" class="win-select-input" style="width:230px;">
+              <option value="quest">Quest / Tactical</option>
+              <option value="settlement" selected>City / Settlement</option>
+              <option value="faction">Faction / Geopolitical</option>
+              <option value="world">World / Cosmic</option>
+            </select>
+          </label>
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Attributed Trigger Entities (Quests, NPCs, Items, Factions, Clocks):</strong>
+            <div id="ee-tracker-triggers-list" class="bevel-inset" style="max-height:110px; overflow-y:auto; background:#fff; padding:4px; font-size:11px; display:flex; flex-direction:column; gap:2px;">
+              <!-- Dynamic Trigger Entity Checkboxes -->
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Threshold Consequences (One per line: &lt;tick&gt;: &lt;description&gt;):</strong>
+            <textarea id="ee-tracker-consequences" class="win-input" style="height:60px; font-size:10px; font-family:monospace; resize:vertical;" placeholder="e.g.&#10;4: Smithy quarantine doubles weapon prices&#10;8: Full economic collapse; quest fails"></textarea>
           </div>
         </div>
 
@@ -479,6 +525,137 @@
         <div class="dialog-footer" style="justify-content:flex-end; gap:6px; margin-top:6px;">
           <button class="win-btn" type="button" onclick="closeModal('modal-npc-relationship-crud')">Cancel</button>
           <button class="win-btn" type="button" onclick="submitNpcRelationshipModal()" style="font-weight:bold; background:#000080; color:#fff; min-width:80px;">Save Tie</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: MULTI-LINK CANVAS POI / SPATIAL PIN PLACEMENT & EDITOR
+       ======================================================================== -->
+  <div id="modal-spatial-pin-picker" class="modal-overlay hidden" style="z-index:10060;">
+    <div class="win-dialog bevel-outset" style="width:620px; max-width:94vw; max-height:88vh; display:flex; flex-direction:column;">
+      <div class="title-bar" style="background:linear-gradient(90deg, #000080, #0284c7);">
+        <div class="title-bar-text"><span id="spp-modal-title">📌 Place / Configure Canvas Entity Pin (POI Container)</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-spatial-pin-picker')">X</button></div>
+      </div>
+      <div class="dialog-body" style="padding:10px; display:flex; flex-direction:column; gap:8px; overflow:hidden; flex:1;">
+        <input type="hidden" id="spp-pin-id" value="">
+        <input type="hidden" id="spp-x" value="400">
+        <input type="hidden" id="spp-y" value="300">
+
+        <div style="display:grid; grid-template-columns:1fr 150px 130px; gap:8px; align-items:end;">
+          <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+            <strong>Pin / POI Label (optional — auto-fills from primary link):</strong>
+            <input type="text" id="spp-label" class="win-select-input" placeholder="e.g. Vault Chest, Ambush Point, Stairs Down...">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+            <strong>Badge Icon:</strong>
+            <select id="spp-icon" class="win-select-input">
+              <option value="">Auto (From Primary Link)</option>
+              <option value="📌">📌 Standard Pin</option>
+              <option value="🌀">🌀 Portal / Sub-Map</option>
+              <option value="👤">👤 NPC / Encounter</option>
+              <option value="🎒">🎒 Item / Loot Chest</option>
+              <option value="📜">📜 Quest Hook</option>
+              <option value="⏱️">⏱️ Threat Clock</option>
+              <option value="🗝️">🗝️ Locked Door / Secret</option>
+              <option value="⚠️">⚠️ Trap / Hazard</option>
+              <option value="⛺">⛺ Camp / Haven</option>
+            </select>
+          </label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:11px; padding-bottom:3px; cursor:pointer;" title="Uncheck to hide this pin on the canvas">
+            <input type="checkbox" id="spp-visible" checked>
+            <span><strong>👁️ Visible on Canvas</strong></span>
+          </label>
+        </div>
+
+        <!-- Filter & Quick-Create Toolbar -->
+        <div style="display:flex; flex-direction:column; gap:4px; border-top:1px solid #cbd5e1; padding-top:6px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap;">
+            <div style="display:flex; gap:3px; flex-wrap:wrap;" id="spp-filter-tabs">
+              <button type="button" class="win-btn active" data-spp-tab="all" onclick="setSpatialPinModalTab('all')" style="font-size:10px; padding:2px 6px;">All</button>
+              <button type="button" class="win-btn" data-spp-tab="submap" onclick="setSpatialPinModalTab('submap')" style="font-size:10px; padding:2px 6px;">🌀 Portals</button>
+              <button type="button" class="win-btn" data-spp-tab="npc" onclick="setSpatialPinModalTab('npc')" style="font-size:10px; padding:2px 6px;">👤 NPCs</button>
+              <button type="button" class="win-btn" data-spp-tab="item" onclick="setSpatialPinModalTab('item')" style="font-size:10px; padding:2px 6px;">🎒 Items</button>
+              <button type="button" class="win-btn" data-spp-tab="quest" onclick="setSpatialPinModalTab('quest')" style="font-size:10px; padding:2px 6px;">📜 Quests</button>
+              <button type="button" class="win-btn" data-spp-tab="tracker" onclick="setSpatialPinModalTab('tracker')" style="font-size:10px; padding:2px 6px;">⏱️ Clocks</button>
+              <button type="button" class="win-btn" data-spp-tab="faction" onclick="setSpatialPinModalTab('faction')" style="font-size:10px; padding:2px 6px;">🛡️ Factions</button>
+              <button type="button" class="win-btn" data-spp-tab="ticket" onclick="setSpatialPinModalTab('ticket')" style="font-size:10px; padding:2px 6px;">🎫 Tickets</button>
+            </div>
+            <input type="text" id="spp-search" class="win-select-input" style="width:165px; font-size:11px;" placeholder="Filter targets..." oninput="renderSpatialPinModalChecklist()">
+          </div>
+
+          <div style="display:flex; align-items:center; justify-content:space-between; background:#f1f5f9; border:1px solid #cbd5e1; padding:3px 6px; font-size:10px;">
+            <span style="color:#334155; font-weight:bold;">Quick-Create &amp; Link New:</span>
+            <div style="display:flex; gap:4px; flex-wrap:wrap;">
+              <button type="button" class="win-btn" onclick="quickCreateForSpatialPin('submap')" style="font-size:9px; padding:1px 5px;">+ 🌀 Sub-Map</button>
+              <button type="button" class="win-btn" onclick="quickCreateForSpatialPin('npc')" style="font-size:9px; padding:1px 5px;">+ 👤 NPC</button>
+              <button type="button" class="win-btn" onclick="quickCreateForSpatialPin('item')" style="font-size:9px; padding:1px 5px;">+ 🎒 Item</button>
+              <button type="button" class="win-btn" onclick="quickCreateForSpatialPin('quest')" style="font-size:9px; padding:1px 5px;">+ 📜 Quest</button>
+              <button type="button" class="win-btn" onclick="quickCreateForSpatialPin('tracker')" style="font-size:9px; padding:1px 5px;">+ ⏱️ Clock</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi-Select Checklist -->
+        <div id="spp-entities-checklist" class="bevel-inset" style="background:#ffffff; overflow-y:auto; flex:1; min-height:170px; max-height:240px; padding:4px; display:flex; flex-direction:column; gap:2px;">
+          <!-- Populated dynamically by renderSpatialPinModalChecklist() -->
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:10px; color:#0f172a; background:#e0f2fe; border:1px solid #7dd3fc; padding:4px 8px;">
+          <span id="spp-selected-summary" style="font-weight:bold;">0 linked entities selected.</span>
+          <span style="color:#0369a1;">Check any combination of Items, NPCs, Portals, Trackers &amp; Quests</span>
+        </div>
+
+        <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+          <strong>POI Description / GM Notes (Supports [[Wiki]] links):</strong>
+          <textarea id="spp-notes" class="win-select-input" rows="2" placeholder="Room details, trap DC, loot contents, portal key requirements..."></textarea>
+        </label>
+
+        <div class="dialog-footer" style="justify-content:space-between; gap:6px; margin-top:4px; flex-shrink:0;">
+          <button class="win-btn" type="button" onclick="closeModal('modal-spatial-pin-picker')" style="min-width:75px;">Cancel</button>
+          <button class="win-btn" type="button" onclick="submitSpatialPinModal()" style="font-weight:bold; background:#000080; color:#fff; min-width:140px;">📌 Save &amp; Place on Canvas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: GLOBAL SEARCH & "JUMP TO ANYTHING" PALETTE (CTRL+F / CTRL+P)
+       ======================================================================== -->
+  <div id="modal-global-search" class="modal-overlay hidden" style="z-index:10080;">
+    <div class="win-dialog bevel-outset" style="width:660px; max-width:94vw; max-height:84vh; display:flex; flex-direction:column;">
+      <div class="title-bar" style="background:linear-gradient(90deg, #0f172a, #1e40af);">
+        <div class="title-bar-text"><span>🔍 Global Campaign Search &amp; Jump to Anything (Ctrl+F / Ctrl+P)</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-global-search')">X</button></div>
+      </div>
+      <div class="dialog-body" style="padding:10px; display:flex; flex-direction:column; gap:8px; overflow:hidden; flex:1;">
+        <div style="display:flex; gap:6px; align-items:center;">
+          <input type="text" id="gs-search-input" class="win-select-input" style="flex:1; font-size:12px; padding:5px 8px; font-weight:bold;" placeholder="Search any Node, Pin, Sub-Map, NPC, Item, Quest, Clock, Faction, or Module..." oninput="renderGlobalSearchResults()" onkeydown="onGlobalSearchKeyDown(event)">
+          <button type="button" class="win-btn" onclick="document.getElementById('gs-search-input').value=''; renderGlobalSearchResults(); document.getElementById('gs-search-input').focus();" style="padding:4px 8px;">Clear</button>
+        </div>
+
+        <div style="display:flex; gap:3px; flex-wrap:wrap;" id="gs-category-tabs">
+          <button type="button" class="win-btn active" data-gs-cat="all" onclick="setGlobalSearchCategory('all')" style="font-size:10px; padding:2px 6px;">All</button>
+          <button type="button" class="win-btn" data-gs-cat="node" onclick="setGlobalSearchCategory('node')" style="font-size:10px; padding:2px 6px;">📍 Nodes</button>
+          <button type="button" class="win-btn" data-gs-cat="pin" onclick="setGlobalSearchCategory('pin')" style="font-size:10px; padding:2px 6px;">📌 Pins</button>
+          <button type="button" class="win-btn" data-gs-cat="map" onclick="setGlobalSearchCategory('map')" style="font-size:10px; padding:2px 6px;">🗺️ Maps</button>
+          <button type="button" class="win-btn" data-gs-cat="npc" onclick="setGlobalSearchCategory('npc')" style="font-size:10px; padding:2px 6px;">👤 NPCs</button>
+          <button type="button" class="win-btn" data-gs-cat="item" onclick="setGlobalSearchCategory('item')" style="font-size:10px; padding:2px 6px;">🎒 Items</button>
+          <button type="button" class="win-btn" data-gs-cat="quest" onclick="setGlobalSearchCategory('quest')" style="font-size:10px; padding:2px 6px;">📜 Quests</button>
+          <button type="button" class="win-btn" data-gs-cat="tracker" onclick="setGlobalSearchCategory('tracker')" style="font-size:10px; padding:2px 6px;">⏱️ Clocks</button>
+          <button type="button" class="win-btn" data-gs-cat="faction" onclick="setGlobalSearchCategory('faction')" style="font-size:10px; padding:2px 6px;">🛡️ Factions</button>
+          <button type="button" class="win-btn" data-gs-cat="module" onclick="setGlobalSearchCategory('module')" style="font-size:10px; padding:2px 6px;">🧩 Modules</button>
+        </div>
+
+        <div id="gs-results-container" class="bevel-inset" style="background:#ffffff; overflow-y:auto; flex:1; min-height:260px; max-height:380px; display:flex; flex-direction:column;">
+          <!-- Populated dynamically by renderGlobalSearchResults() -->
+        </div>
+
+        <div class="dialog-footer" style="justify-content:space-between; align-items:center; font-size:10px; color:#475569; margin-top:2px;">
+          <span id="gs-results-count">Showing 0 results. Use ↑/↓ arrows and Enter to jump.</span>
+          <button class="win-btn" type="button" onclick="closeModal('modal-global-search')" style="min-width:70px;">Close [Esc]</button>
         </div>
       </div>
     </div>

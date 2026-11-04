@@ -149,7 +149,7 @@ Always consult [\`CONTEXT.md\`](CONTEXT.md) for canonical terminology.
 - **Workstation Mod**: Self-contained client-side extension encapsulated in \`mods/<id>/mod.js\` registering hooks via \`window.CreatorStudio.registerMod()\` (avoid: *plugin*, *addon*).
 `;
 
-  fs.writeFileSync(agentsMdPath, agentsMd, 'utf8');
+  safeWriteFileSync(agentsMdPath, agentsMd, 'utf8');
   console.log(`[OK] Generated AGENTS.md at workspace root.`);
 }
 
@@ -185,7 +185,7 @@ function scanModulesDirRecursive(modulesRootDir, campaignRootDir, deletedIdsSet 
         walk(fullPath);
       } else if (ent.isFile() && ent.name.toLowerCase().endsWith('.md') && !ent.name.toLowerCase().startsWith('readme')) {
         try {
-          const rawText = fs.readFileSync(fullPath, 'utf8');
+          const rawText = fs.readFileSync(fullPath, 'utf8').replace(/^\uFEFF/, '');
           let fm = {};
           const fmMatch = rawText.match(/^---\r?\n([\s\S]*?)\r?\n---/);
           if (fmMatch) {
@@ -220,7 +220,7 @@ function scanModulesDirRecursive(modulesRootDir, campaignRootDir, deletedIdsSet 
           let modId = fm.id || fm.module_id;
           if (!modId) {
             const baseNoExt = path.basename(ent.name, '.md');
-            const prefixMatch = baseNoExt.match(/^([A-Z0-9]+-[0-9]+|[A-Z0-9]+)/i);
+            const prefixMatch = baseNoExt.match(/^([A-Z0-9]+(?:-[A-Z0-9]+)+|[A-Z0-9]+)/i);
             modId = prefixMatch ? prefixMatch[1] : baseNoExt;
           }
 
@@ -261,7 +261,10 @@ function scanModulesDirRecursive(modulesRootDir, campaignRootDir, deletedIdsSet 
             summary: fm.summary || fm.yields || fm.description || "",
             yields: fm.yields_resource || fm.yields || "",
             path: relPath,
-            standalone_fallback: fm.standalone_fallback || ""
+            standalone_fallback: fm.standalone_fallback || "",
+            chain_id: fm.chain_id || fm.industry_chain || null,
+            chain_stage: fm.chain_stage ? parseInt(fm.chain_stage, 10) : (fm.stage ? parseInt(fm.stage, 10) : null),
+            chain_role: fm.chain_role || null
           });
         } catch(readErr) {
           console.warn(`[WARN] Could not parse module at ${fullPath}:`, readErr.message);
@@ -656,31 +659,51 @@ function enrichModuleEntities(m, rawMarkdown) {
 
   // 2. Factional Schism / Named Characters from frontmatter & text
   const lines = md.split('\n');
+  let inCharacterSection = false;
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
+    if (/^\s*(?:#+\s*.*(?:character|personnel|npc|dramatis)|npcs?:|characters?:)/i.test(line)) {
+      inCharacterSection = true;
+    } else if (/^\s*#+\s*.*(?:item|machinery|hazard|relic|threat|quest|dial)/i.test(line)) {
+      inCharacterSection = false;
+    }
+
     const nameMatch = line.match(/^\s*name:\s*["']?([^"'\r\n]+)["']?/i);
     if (nameMatch) {
-      let role = 'Local Specialist / Agent';
-      let motivation = 'Pursue personal and factional objectives.';
+      let role = null;
+      let motivation = null;
+      let hasCharacterIndicators = inCharacterSection;
+
       if (i + 1 < lines.length) {
         const roleMatch = lines[i + 1].match(/^\s*role:\s*["']?([^"'\r\n]+)["']?/i);
-        if (roleMatch) role = roleMatch[1].trim();
+        if (roleMatch) { role = roleMatch[1].trim(); hasCharacterIndicators = true; }
+        const motMatch1 = lines[i + 1].match(/^\s*motivation:\s*["']?([^"'\r\n]+)["']?/i);
+        if (motMatch1) { motivation = motMatch1[1].trim(); hasCharacterIndicators = true; }
       }
       if (i + 2 < lines.length) {
+        const roleMatch2 = lines[i + 2].match(/^\s*role:\s*["']?([^"'\r\n]+)["']?/i);
+        if (roleMatch2 && !role) { role = roleMatch2[1].trim(); hasCharacterIndicators = true; }
         const motMatch = lines[i + 2].match(/^\s*motivation:\s*["']?([^"'\r\n]+)["']?/i);
-        if (motMatch) motivation = motMatch[1].trim();
+        if (motMatch && !motivation) { motivation = motMatch[1].trim(); hasCharacterIndicators = true; }
       }
-      const n = nameMatch[1].trim();
-      if (n && !npcs.some(existing => existing.name === n)) {
-        npcs.unshift({
-          id: `${m.id}-npc-${npcs.length + 1}`,
-          name: n,
-          role: role,
-          faction: m.culture || "Independent",
-          motivation: motivation,
-          moduleId: m.id,
-          moduleTitle: m.title
-        });
+      if (i + 3 < lines.length) {
+        const motMatch3 = lines[i + 3].match(/^\s*motivation:\s*["']?([^"'\r\n]+)["']?/i);
+        if (motMatch3 && !motivation) { motivation = motMatch3[1].trim(); hasCharacterIndicators = true; }
+      }
+
+      if (hasCharacterIndicators) {
+        const n = nameMatch[1].trim();
+        if (n && !npcs.some(existing => existing.name === n)) {
+          npcs.unshift({
+            id: `${m.id}-npc-${npcs.length + 1}`,
+            name: n,
+            role: role || 'Local Specialist / Agent',
+            faction: m.culture || "Independent",
+            motivation: motivation || 'Pursue personal and factional objectives.',
+            moduleId: m.id,
+            moduleTitle: m.title
+          });
+        }
       }
     }
   }
@@ -777,6 +800,56 @@ Object.keys(campaignRegistry).forEach(cId => {
   });
 });
 
+// ------------------------------------------------------------------------------
+// 6b-2. DISCOVER & ENRICH CAMPAIGN-INDEPENDENT WORKSTATION MOD MODULES (mods/*/modules/)
+// ------------------------------------------------------------------------------
+const MODS_DIR = path.join(ROOT_DIR, 'mods');
+if (fs.existsSync(MODS_DIR)) {
+  const modFoldersForModules = fs.readdirSync(MODS_DIR, { withFileTypes: true }).filter(d => d.isDirectory());
+  for (const folder of modFoldersForModules) {
+    const modFolderPath = path.join(MODS_DIR, folder.name);
+    const modJsonPath = path.join(modFolderPath, 'mod.json');
+    let modMeta = { id: folder.name, name: folder.name, enabled: true };
+    if (fs.existsSync(modJsonPath)) {
+      try { modMeta = JSON.parse(fs.readFileSync(modJsonPath, 'utf8')); } catch (e) {}
+    }
+    if (modMeta.enabled === false) continue;
+
+    const modModulesDir = path.join(modFolderPath, 'modules');
+    if (fs.existsSync(modModulesDir)) {
+      const modDiskModules = scanModulesDirRecursive(modModulesDir, modFolderPath, new Set());
+      const modManifestPath = path.join(modFolderPath, 'modules_manifest.json');
+      try {
+        safeWriteFileSync(modManifestPath, JSON.stringify(modDiskModules, null, 2) + '\n', 'utf8');
+      } catch (e) {}
+
+      modDiskModules.forEach(m => {
+        const resolvedPath = path.resolve(modFolderPath, m.path || '');
+        let rawMarkdown = '';
+        if (fs.existsSync(resolvedPath)) {
+          rawMarkdown = fs.readFileSync(resolvedPath, 'utf8');
+        }
+        const fileUrl = toRootRelUrl(resolvedPath);
+        const entities = enrichModuleEntities(m, rawMarkdown);
+
+        allEnrichedModules.push({
+          ...m,
+          campaign: `mod_${modMeta.id || folder.name}`,
+          campaign_name: `Mod: ${modMeta.name || folder.name}`,
+          isUniversalMod: true,
+          mod_id: modMeta.id || folder.name,
+          raw_markdown: rawMarkdown,
+          file_url: fileUrl,
+          extracted_npcs: entities.npcs,
+          extracted_quests: entities.quests,
+          extracted_items: entities.items
+        });
+      });
+      console.log(`[OK] Loaded ${modDiskModules.length} campaign-independent modules from Workstation Mod '${modMeta.name || folder.name}' (mods/${folder.name}/modules).`);
+    }
+  }
+}
+
 console.log(`[OK] Enriched ${allEnrichedModules.length} total modules across ${Object.keys(campaignRegistry).length} campaigns for audit dashboard & workstation.`);
 
 const auditDatasetsBlock = `// ============================================================================
@@ -806,7 +879,7 @@ if (fs.existsSync(auditDashboardPath)) {
     console.warn(`[WARN] Could not find audit dataset replacement target in platform_audit_dashboard.html`);
   }
 
-  fs.writeFileSync(auditDashboardPath, auditContent, 'utf8');
+  safeWriteFileSync(auditDashboardPath, auditContent, 'utf8');
 }
 
 // ------------------------------------------------------------------------------
@@ -838,7 +911,6 @@ if (fs.existsSync(masterTicketsManifestPath)) {
 // ------------------------------------------------------------------------------
 // 6c. COMPILE CLIENT-SIDE WORKSTATION MODS (mods/)
 // ------------------------------------------------------------------------------
-const MODS_DIR = path.join(ROOT_DIR, 'mods');
 const activeMods = [];
 let modsScriptBundle = '';
 
@@ -963,13 +1035,15 @@ if (fs.existsSync(workstationTemplatePath)) {
   } while (template !== prevTemplate);
 
   // Inject Datasets
+  const buildTimestampStr = new Date().toISOString().replace('T', ' ').substring(0, 16) + ' UTC';
+  template = template.replace(/__CS_BUILD_TIMESTAMP__/g, buildTimestampStr);
   template = template.replace('// @@INJECT_CAMPAIGN_REGISTRY@@', registryFenced);
   template = template.replace('// @@INJECT_ALL_MODULES@@', startModulesBlock);
   template = template.replace('// @@INJECT_MASTER_TICKETS_DATA@@', startTicketsBlock);
   template = template.replace('// @@INJECT_ALL_SURFACES@@', startSurfacesBlock);
   template = template.replace('// @@INJECT_WORKSTATION_MODS@@', startModsBlock);
 
-  fs.writeFileSync(startHtmlPath, template, 'utf8');
+  safeWriteFileSync(startHtmlPath, template, 'utf8');
   console.log(`[OK] Compiled modular start.html from src/workstation/ (${allEnrichedModules.length} modules, ${masterTickets.length} tickets, ${activeMods.length} mods).`);
   
   if (process.argv.includes('--mods-only')) {

@@ -1093,7 +1093,7 @@ function getSuggestedCultureForNode(node) {
   }
 
   // 3. Category / Biome Heuristic
-  const cat = (node.cat || "").toLowerCase();
+  const cat = ((node.cat || "") + " " + (node.biome || "")).toLowerCase();
   let biomeCulture = "Hierarchy";
   if (cat.includes("gate") || cat.includes("bastion") || cat.includes("redoubt") || cat.includes("sanctum") || cat.includes("spire") || cat.includes("temple") || cat.includes("monastery") || cat.includes("alpine") || cat.includes("shelf") || cat.includes("transit") || cat.includes("stasis")) {
     biomeCulture = "Hierarchy";
@@ -1646,7 +1646,10 @@ function renderMdiOdvDossier(tag, arch, occupants) {
 
   dossierEl.innerHTML = `
     <div style="border-bottom:2px solid #000080; padding-bottom:4px; margin-bottom:6px;">
-      <div style="font-size:14px; font-weight:bold; color:#000080;">${tag} ${arch.archetypeName}</div>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:4px;">
+        <div style="font-size:14px; font-weight:bold; color:#000080;">${tag} ${arch.archetypeName}</div>
+        <button class="win-btn" style="padding:1px 6px; font-size:9.5px; font-weight:bold; color:#000080;" onclick="if(typeof applyMdiOdvToSelectedNode==='function')applyMdiOdvToSelectedNode(${arch.s}, ${arch.e}, ${arch.c});" title="Apply [${arch.s}, ${arch.e}, ${arch.c}] and derived quadrant to the currently selected canvas node">📌 Apply to Node</button>
+      </div>
       <div style="font-size:10px; color:#475569; display:flex; gap:8px; margin-top:2px;">
         <span><strong>Quadrant:</strong> ${quad}</span>
         <span><strong>Op Mode:</strong> ${mode}</span>
@@ -1683,9 +1686,12 @@ function renderMdiOdvDossier(tag, arch, occupants) {
       <div style="font-size:10.5px; color:#1e293b; margin-top:1px; background:#fff; padding:4px; border:1px solid #cbd5e1;">${arch.exemplarNpc.replace(/\*\*/g, '')}</div>
     </div>
     <div style="margin-bottom:8px; border:1px solid #e2e8f0; padding:4px; border-radius:2px; background:#faf5ff;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:4px;">
         <strong style="color:#6b21a8; font-size:10px;">5D Sensory Skin (SOC-04):</strong>
-        <button class="win-btn" style="padding:1px 5px; font-size:9px;" onclick="if(typeof triggerMdiSensoryRoll==='function')triggerMdiSensoryRoll(${arch.s}, ${arch.e}, ${arch.c});">🎲 Roll Skin</button>
+        <div style="display:flex; gap:4px;">
+          <button class="win-btn" style="padding:1px 5px; font-size:9px;" onclick="if(typeof triggerMdiSensoryRoll==='function')triggerMdiSensoryRoll(${arch.s}, ${arch.e}, ${arch.c});">🎲 Roll Skin</button>
+          <button class="win-btn" style="padding:1px 5px; font-size:9px; color:#047857; font-weight:bold;" onclick="if(typeof applySensoryRollToSelectedNode==='function')applySensoryRollToSelectedNode(null, null, ${arch.s}, ${arch.e}, ${arch.c});" title="Roll (if needed) and append 5D Sensory Pentagon into the selected node's notes">📋 Insert in Node</button>
+        </div>
       </div>
       <div id="mdi-odv-sensory-skin" style="font-size:9.5px; color:#475569; margin-top:2px;">(Click Roll Skin for procedural room decor &amp; behavior)</div>
     </div>
@@ -1700,9 +1706,26 @@ function renderMdiOdvDossier(tag, arch, occupants) {
   `;
 }
 
+function formatSensoryProfileMarkdown(roll, s, e, c) {
+  if (!roll) return '';
+  const tag = (s && e && c) ? `[${s}, ${e}, ${c}]` : '';
+  return [
+    `### 5D Sensory Pentagon ${tag}`.trim(),
+    `- **1. Behavior (${roll.behavior.title}):** ${roll.behavior.sound} — *Rule:* ${roll.behavior.effect}`,
+    `- **2. Relationship (${roll.relationship.title}):** ${roll.relationship.protocol} — *Rule:* ${roll.relationship.effect}`,
+    `- **3. Attitude (${roll.attitude.title}):** ${roll.attitude.reception} — *Rule:* ${roll.attitude.effect}`,
+    `- **4. Values (${roll.value.title}):** *Sacred:* ${roll.value.sacred} | *Expendable:* ${roll.value.expendable}`,
+    `- **5. Environment (${roll.environment.title}):** ${roll.environment.decor} — *Rule:* ${roll.environment.effect}`
+  ].join('\n');
+}
+
 function triggerMdiSensoryRoll(s, e, c) {
-  if (typeof rollSensoryProfile !== 'function') return;
+  if (typeof rollSensoryProfile !== 'function') return null;
   const roll = rollSensoryProfile(s, e, c);
+  const formattedText = formatSensoryProfileMarkdown(roll, s, e, c);
+  if (typeof window !== 'undefined') {
+    window._lastRolledSensoryProfile = { s, e, c, roll, formattedText };
+  }
   const out = document.getElementById('mdi-odv-sensory-skin');
   if (out) {
     out.innerHTML = `
@@ -1715,6 +1738,173 @@ function triggerMdiSensoryRoll(s, e, c) {
       </div>
     `;
   }
+  return roll;
+}
+
+function applySensoryRollToSelectedNode(optNodeId = null, optRoll = null, s = 2, e = 2, c = 2) {
+  const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+  if (!topo || !topo.nodes) return false;
+  let targetId = optNodeId;
+  if (targetId === null || targetId === undefined) {
+    if (typeof Workstation !== 'undefined' && Workstation.selectedEntity && Workstation.selectedEntity.type === 'node') {
+      targetId = Workstation.selectedEntity.id;
+    }
+  }
+  const node = (targetId !== null && targetId !== undefined) ? (topo.nodes[String(targetId)] || topo.nodes[targetId]) : null;
+  if (!node) {
+    if (typeof alert === 'function') alert('Select a pointcrawl Node on the canvas first to insert the 5D Sensory Pentagon into its notes.');
+    return false;
+  }
+  const nodeOdv = resolveNodeOdv(node, topo) || { s: 2, e: 2, c: 2 };
+  const useS = s || nodeOdv.s || 2;
+  const useE = e || nodeOdv.e || 2;
+  const useC = c || nodeOdv.c || 2;
+  const roll = optRoll
+    || (typeof window !== 'undefined' && window._lastRolledSensoryProfile && window._lastRolledSensoryProfile.s === useS && window._lastRolledSensoryProfile.e === useE && window._lastRolledSensoryProfile.c === useC ? window._lastRolledSensoryProfile.roll : null)
+    || rollSensoryProfile(useS, useE, useC);
+  const mdBlock = formatSensoryProfileMarkdown(roll, useS, useE, useC);
+  const existing = (node.customNotes || node.notes || '').trim();
+  const combined = existing ? `${existing}\n\n${mdBlock}` : mdBlock;
+  node.customNotes = combined;
+  node.notes = combined;
+  if (typeof updatePropertiesGrid === 'function') updatePropertiesGrid();
+  if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+  if (typeof setStatusBarMessage === 'function') {
+    setStatusBarMessage(`Appended 5D Sensory Pentagon [${useS}, ${useE}, ${useC}] into Node "${node.name || node.id}" notes.`);
+  }
+  return true;
+}
+
+function applyMdiOdvToSelectedNode(s, e, c, optNodeId = null) {
+  const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+  if (!topo || !topo.nodes) return false;
+  const targetId = (optNodeId !== null && optNodeId !== undefined)
+    ? optNodeId
+    : (typeof Workstation !== 'undefined' && Workstation.selectedEntity && Workstation.selectedEntity.type === 'node' ? Workstation.selectedEntity.id : null);
+  const node = (targetId !== null && targetId !== undefined) ? (topo.nodes[String(targetId)] || topo.nodes[targetId]) : null;
+  if (!node) {
+    if (typeof alert === 'function') alert('Select a pointcrawl Node on the canvas first to apply this [S, E, C] archetype.');
+    return false;
+  }
+  const ns = Number(s) || 2;
+  const ne = Number(e) || 2;
+  const nc = Number(c) || 2;
+  node.odv = { s: ns, e: ne, c: nc };
+  node.odvOverridden = true;
+  node.culture = deriveCvfQuadrant(ns, ne);
+  node.opProfile = deriveOperationalMode(ns, nc);
+  activeSelectedOdvTag = `[${ns}, ${ne}, ${nc}]`;
+  renderMdiOdvMatrix();
+  if (typeof renderCanvas === 'function') renderCanvas();
+  if (typeof updatePropertiesGrid === 'function') updatePropertiesGrid();
+  if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+  if (typeof setStatusBarMessage === 'function') {
+    setStatusBarMessage(`Applied [${ns}, ${ne}, ${nc}] (${node.culture} / ${node.opProfile}) to Node "${node.name || node.id}".`);
+  }
+  return true;
+}
+
+function renderMdiOdvWizard(initialS = 2, initialE = 2, initialC = 2) {
+  const panel = document.getElementById('odv-mdi-wizard-panel');
+  if (!panel) return;
+  const qS = SOC_DIAGNOSTIC_QUESTIONS[0];
+  const qE = SOC_DIAGNOSTIC_QUESTIONS[1];
+  const qC = SOC_DIAGNOSTIC_QUESTIONS[2];
+  const tag = `[${initialS}, ${initialE}, ${initialC}]`;
+  const arch = getArchetypeDetails(initialS, initialE, initialC);
+  const quad = deriveCvfQuadrant(initialS, initialE);
+  const mode = deriveOperationalMode(initialS, initialC);
+
+  panel.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; border-bottom:1px solid #bfdbfe; padding-bottom:4px;">
+      <strong style="color:#000080; font-size:11.5px;">🧭 SOC-06: 3-Question Inter-Rater Sociological Calibration Wizard</strong>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span id="odv-wiz-result-badge" style="font-weight:bold; background:#000080; color:#fff; padding:2px 6px; border-radius:2px; font-size:10.5px;">
+          ${tag} ${arch.archetypeName} (${quad} / ${mode})
+        </span>
+        <button class="win-btn" style="padding:2px 8px; font-size:10px; font-weight:bold; color:#000080;" onclick="onMdiOdvWizardApplyToNode()">📌 Apply to Selected Node</button>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+      <div>
+        <div style="font-weight:bold; color:#1e293b; font-size:10.5px;">${qS.title}</div>
+        <div style="color:#475569; font-size:9.5px; margin-bottom:3px;">${qS.subtitle}</div>
+        <select id="odv-wiz-q-s" class="win-select-input" style="width:100%; font-size:10.5px;" onchange="onMdiOdvWizardChange()">
+          ${qS.options.map(o => `<option value="${o.val}" ${Number(o.val) === Number(initialS) ? 'selected' : ''}>${o.val} — ${o.label}: ${o.desc}</option>`).join('')}
+        </select>
+      </div>
+      <div>
+        <div style="font-weight:bold; color:#1e293b; font-size:10.5px;">${qE.title}</div>
+        <div style="color:#475569; font-size:9.5px; margin-bottom:3px;">${qE.subtitle}</div>
+        <select id="odv-wiz-q-e" class="win-select-input" style="width:100%; font-size:10.5px;" onchange="onMdiOdvWizardChange()">
+          ${qE.options.map(o => `<option value="${o.val}" ${Number(o.val) === Number(initialE) ? 'selected' : ''}>${o.val} — ${o.label}: ${o.desc}</option>`).join('')}
+        </select>
+      </div>
+      <div>
+        <div style="font-weight:bold; color:#1e293b; font-size:10.5px;">${qC.title}</div>
+        <div style="color:#475569; font-size:9.5px; margin-bottom:3px;">${qC.subtitle}</div>
+        <select id="odv-wiz-q-c" class="win-select-input" style="width:100%; font-size:10.5px;" onchange="onMdiOdvWizardChange()">
+          ${qC.options.map(o => `<option value="${o.val}" ${Number(o.val) === Number(initialC) ? 'selected' : ''}>${o.val} — ${o.label}: ${o.desc}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+  `;
+}
+
+function toggleMdiOdvWizard(forceShow = null) {
+  const panel = document.getElementById('odv-mdi-wizard-panel');
+  if (!panel) return;
+  const shouldShow = (forceShow !== null) ? !!forceShow : panel.classList.contains('hidden');
+  if (shouldShow) {
+    panel.classList.remove('hidden');
+    const parts = (activeSelectedOdvTag || '[2, 2, 2]').replace(/[\[\]\s]/g, '').split(',').map(Number);
+    renderMdiOdvWizard(parts[0] || 2, parts[1] || 2, parts[2] || 2);
+  } else {
+    panel.classList.add('hidden');
+  }
+}
+
+function onMdiOdvWizardChange() {
+  const sEl = document.getElementById('odv-wiz-q-s');
+  const eEl = document.getElementById('odv-wiz-q-e');
+  const cEl = document.getElementById('odv-wiz-q-c');
+  const s = sEl ? (parseInt(sEl.value, 10) || 2) : 2;
+  const e = eEl ? (parseInt(eEl.value, 10) || 2) : 2;
+  const c = cEl ? (parseInt(cEl.value, 10) || 2) : 2;
+  activeSelectedOdvTag = `[${s}, ${e}, ${c}]`;
+  const arch = getArchetypeDetails(s, e, c);
+  const quad = deriveCvfQuadrant(s, e);
+  const mode = deriveOperationalMode(s, c);
+  const badge = document.getElementById('odv-wiz-result-badge');
+  if (badge) {
+    badge.textContent = `${activeSelectedOdvTag} ${arch.archetypeName} (${quad} / ${mode})`;
+  }
+  renderMdiOdvMatrix();
+}
+
+function onMdiOdvWizardApplyToNode() {
+  const sEl = document.getElementById('odv-wiz-q-s');
+  const eEl = document.getElementById('odv-wiz-q-e');
+  const cEl = document.getElementById('odv-wiz-q-c');
+  const s = sEl ? (parseInt(sEl.value, 10) || 2) : 2;
+  const e = eEl ? (parseInt(eEl.value, 10) || 2) : 2;
+  const c = cEl ? (parseInt(cEl.value, 10) || 2) : 2;
+  applyMdiOdvToSelectedNode(s, e, c);
+}
+
+function openOdvWizardForNode(nodeId) {
+  const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+  const node = (topo && topo.nodes && nodeId !== undefined) ? (topo.nodes[String(nodeId)] || topo.nodes[nodeId]) : null;
+  const odv = node ? (resolveNodeOdv(node, topo) || { s: 2, e: 2, c: 2 }) : { s: 2, e: 2, c: 2 };
+  activeSelectedOdvTag = `[${odv.s}, ${odv.e}, ${odv.c}]`;
+  if (typeof openOdvMatrixModal === 'function') {
+    openOdvMatrixModal();
+  } else if (typeof MDIWindowManager !== 'undefined') {
+    MDIWindowManager.open('modal-odv-matrix');
+  }
+  renderMdiOdvMatrix();
+  toggleMdiOdvWizard(true);
+  renderMdiOdvWizard(odv.s, odv.e, odv.c);
 }
 
 // Global exports for zero-CORS HTML visualizers and dynamic modding
@@ -1735,6 +1925,14 @@ if (typeof window !== "undefined") {
   window.SOC_FACTION_COLORS = SOC_FACTION_COLORS;
   window.SOC_DIAGNOSTIC_QUESTIONS = SOC_DIAGNOSTIC_QUESTIONS;
   window.triggerMdiSensoryRoll = triggerMdiSensoryRoll;
+  window.formatSensoryProfileMarkdown = formatSensoryProfileMarkdown;
+  window.applySensoryRollToSelectedNode = applySensoryRollToSelectedNode;
+  window.applyMdiOdvToSelectedNode = applyMdiOdvToSelectedNode;
+  window.toggleMdiOdvWizard = toggleMdiOdvWizard;
+  window.renderMdiOdvWizard = renderMdiOdvWizard;
+  window.onMdiOdvWizardChange = onMdiOdvWizardChange;
+  window.onMdiOdvWizardApplyToNode = onMdiOdvWizardApplyToNode;
+  window.openOdvWizardForNode = openOdvWizardForNode;
 
   if (!window.CreatorStudio) window.CreatorStudio = {};
   window.CreatorStudio.registerOdvFallbackResolver = function(fn) {
@@ -1759,6 +1957,14 @@ if (typeof module !== "undefined" && module.exports) {
     rollSensoryProfile,
     SOC_FACTION_COLORS,
     SOC_DIAGNOSTIC_QUESTIONS,
-    triggerMdiSensoryRoll
+    triggerMdiSensoryRoll,
+    formatSensoryProfileMarkdown,
+    applySensoryRollToSelectedNode,
+    applyMdiOdvToSelectedNode,
+    toggleMdiOdvWizard,
+    renderMdiOdvWizard,
+    onMdiOdvWizardChange,
+    onMdiOdvWizardApplyToNode,
+    openOdvWizardForNode
   };
 }

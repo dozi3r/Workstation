@@ -11,6 +11,7 @@
       const allMaps = (typeof maps !== "undefined" && maps) ? maps : {};
       const campaignNpcs = topo.npcs || [];
       const campaignItems = topo.items || [];
+      const campaignTrackers = topo.trackers || [];
 
       const nodeMap = new Map();
 
@@ -22,7 +23,10 @@
 
         if (!nObj) {
           for (const mId of Object.keys(allMaps)) {
-            const found = (allMaps[mId].nodes || []).find(n => String(n.id) === nStr);
+            const mNodes = allMaps[mId].nodes || [];
+            const found = Array.isArray(mNodes)
+              ? mNodes.find(n => String(n.id) === nStr)
+              : (mNodes[nStr] || mNodes[nodeId]);
             if (found) {
               nObj = found;
               mapId = mId;
@@ -86,6 +90,31 @@
         }
       });
 
+      // 4. Linked Threat Clocks & Trackers (explicit quest.trackerIds, step triggerTrackerId, or tracker.triggerRefs)
+      const linkedTrackerSet = new Set(quest.trackerIds || []);
+      (quest.steps || []).forEach(s => { if (s && s.triggerTrackerId) linkedTrackerSet.add(s.triggerTrackerId); });
+      campaignTrackers.forEach(t => {
+        if (Array.isArray(t.triggerRefs) && t.triggerRefs.some(r => r.entityType === 'quest' && String(r.entityId) === String(quest.id))) {
+          linkedTrackerSet.add(t.id);
+        }
+      });
+      linkedTrackerSet.forEach(tId => {
+        const trk = campaignTrackers.find(t => t.id === tId);
+        if (trk && trk.nodeId != null && trk.nodeId !== '') {
+          const key = String(trk.nodeId);
+          if (nodeMap.has(key)) {
+            nodeMap.get(key).reasons.push(`Clock: ${trk.name} (${trk.currentTicks || 0}/${trk.maxTicks || 6})`);
+          } else {
+            const info = resolveNodeInfo(trk.nodeId);
+            nodeMap.set(key, {
+              ...info,
+              role: 'Threat Clock Location',
+              reasons: [`Clock: ${trk.name} (${trk.currentTicks || 0}/${trk.maxTicks || 6})`]
+            });
+          }
+        }
+      });
+
       return Array.from(nodeMap.values());
     }
     window.getQuestSpanningNodes = getQuestSpanningNodes;
@@ -97,9 +126,11 @@
       const topo = Workstation.activeTopology || {};
       const allNpcs = topo.npcs || [];
       const allItems = topo.items || [];
+      const allTrackers = topo.trackers || [];
 
       const checkedNpcIds = Array.from(document.querySelectorAll('.ee-quest-npc-cb:checked')).map(cb => cb.value);
       const checkedItemIds = Array.from(document.querySelectorAll('.ee-quest-item-cb:checked')).map(cb => cb.value);
+      const checkedTrackerIds = Array.from(document.querySelectorAll('.ee-quest-tracker-cb:checked')).map(cb => cb.value);
 
       const previewBox = document.getElementById('ee-quest-spanning-nodes-text');
       if (!previewBox) return;
@@ -124,8 +155,15 @@
         }
       });
 
+      checkedTrackerIds.forEach(tId => {
+        const trk = allTrackers.find(t => t.id === tId);
+        if (trk) {
+          entries.push(`<strong>Clock:</strong> ${trk.name} @ Node ${trk.nodeId != null ? trk.nodeId : 'Unassigned'}`);
+        }
+      });
+
       if (entries.length === 0) {
-        previewBox.innerHTML = '<span style="color:#777; font-style:italic;">(Select an anchor node, NPCs, or items to calculate quest footprint)</span>';
+        previewBox.innerHTML = '<span style="color:#777; font-style:italic;">(Select an anchor node, NPCs, items, or clocks to calculate quest footprint)</span>';
       } else {
         const uniqueNodes = new Set();
         if (mainNodeId) uniqueNodes.add(String(mainNodeId));
@@ -136,6 +174,10 @@
         checkedItemIds.forEach(iId => {
           const item = allItems.find(i => i.id === iId);
           if (item && item.nodeId != null) uniqueNodes.add(String(item.nodeId));
+        });
+        checkedTrackerIds.forEach(tId => {
+          const trk = allTrackers.find(t => t.id === tId);
+          if (trk && trk.nodeId != null) uniqueNodes.add(String(trk.nodeId));
         });
 
         previewBox.innerHTML = `
@@ -199,12 +241,14 @@
       const questExt = document.getElementById('ee-quest-extensions');
       const npcExt = document.getElementById('ee-npc-extensions');
       const itemExt = document.getElementById('ee-item-extensions');
+      const trackerExt = document.getElementById('ee-tracker-extensions');
       const factionExt = document.getElementById('ee-faction-extensions');
       const nodeLabel = document.getElementById('ee-node-label');
 
       if (npcExt) npcExt.style.display = (type === 'npc') ? 'flex' : 'none';
       if (itemExt) itemExt.style.display = (type === 'item') ? 'flex' : 'none';
       if (questExt) questExt.style.display = (type === 'quest') ? 'flex' : 'none';
+      if (trackerExt) trackerExt.style.display = (type === 'tracker') ? 'flex' : 'none';
       if (factionExt) factionExt.style.display = (type === 'faction') ? 'flex' : 'none';
 
       if (type === 'npc') {
@@ -263,6 +307,22 @@
             }
           }
 
+          // Populate Trackers list
+          const trackersContainer = document.getElementById('ee-quest-trackers-list');
+          if (trackersContainer) {
+            const allTrackers = (Workstation.activeTopology && Workstation.activeTopology.trackers) || [];
+            if (allTrackers.length === 0) {
+              trackersContainer.innerHTML = '<span style="color:#777; font-style:italic;">No threat clocks currently in active campaign roster.</span>';
+            } else {
+              trackersContainer.innerHTML = allTrackers.map(t => `
+                <label style="display:flex; align-items:center; gap:6px; cursor:pointer; padding:2px 0;">
+                  <input type="checkbox" class="ee-quest-tracker-cb" value="${t.id}" onchange="updateQuestSpanningPreview()">
+                  <span><strong>⏱️ ${t.name}</strong> (${t.currentTicks || 0}/${t.maxTicks || 6}) &bull; Node ${t.nodeId != null ? t.nodeId : 'Unassigned'}</span>
+                </label>
+              `).join('');
+            }
+          }
+
           updateQuestSpanningPreview();
         }
       } else if (type === 'tracker') {
@@ -270,6 +330,28 @@
         document.getElementById('ee-meta-label').textContent = 'Max Ticks / Steps (e.g. 4, 6, 8):';
         document.getElementById('ee-notes-label').textContent = 'Trigger Event, Stakes & Escalation Outcome:';
         if (nodeLabel) nodeLabel.textContent = 'Station to Node:';
+        const scopeSel = document.getElementById('ee-tracker-scope');
+        if (scopeSel) scopeSel.value = 'settlement';
+        const triggersContainer = document.getElementById('ee-tracker-triggers-list');
+        if (triggersContainer) {
+          const topo = Workstation.activeTopology || {};
+          const candidates = [];
+          (topo.quests || []).forEach(q => candidates.push({ type: 'quest', id: q.id, label: `📜 Quest: ${q.title || q.name}` }));
+          (topo.npcs || []).forEach(n => candidates.push({ type: 'npc', id: n.id, label: `👤 NPC: ${n.name} (${n.role || 'Resident'})` }));
+          (topo.items || []).forEach(i => candidates.push({ type: 'item', id: i.id, label: `📦 Item: ${i.name}` }));
+          (topo.factions || []).forEach(f => candidates.push({ type: 'faction', id: f.id, label: `👑 Faction: ${f.name}` }));
+          (topo.trackers || []).forEach(t => candidates.push({ type: 'tracker', id: t.id, label: `⏱️ Clock: ${t.name}` }));
+          if (candidates.length === 0) {
+            triggersContainer.innerHTML = '<span style="color:#777; font-style:italic;">No quests, NPCs, items, factions, or clocks in campaign roster yet.</span>';
+          } else {
+            triggersContainer.innerHTML = candidates.map(c => `
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer; padding:2px 0;">
+                <input type="checkbox" class="ee-tracker-trigger-cb" data-entity-type="${c.type}" value="${c.id}">
+                <span>${c.label}</span>
+              </label>
+            `).join('');
+          }
+        }
       } else if (type === 'faction') {
         document.getElementById('ee-role-label').textContent = 'Faction Type (Order, Guild, Syndicate, Clan, Power Group):';
         document.getElementById('ee-meta-label').textContent = 'Ideological Stance / Motto:';
@@ -373,7 +455,11 @@
         }
       };
 
-      modal.classList.remove('hidden');
+      if (typeof openModal === 'function') {
+        openModal('modal-entity-edit');
+      } else {
+        modal.classList.remove('hidden');
+      }
     }
     window.openNewEntityModal = openNewEntityModal;
 
@@ -431,15 +517,42 @@
         const posSel = document.getElementById('ee-item-possession-mode');
         if (posSel) posSel.value = entity.possessionMode || 'stored';
       } else if (CurrentEntityTab === 'quest') {
+        if (document.getElementById('ee-quest-status')) {
+          document.getElementById('ee-quest-status').value = entity.status || 'Active';
+        }
         const npcIds = Array.isArray(entity.npcIds) ? entity.npcIds : [];
         const itemIds = Array.isArray(entity.itemIds) ? entity.itemIds : [];
+        const trackerIds = Array.isArray(entity.trackerIds) ? entity.trackerIds : [];
         document.querySelectorAll('.ee-quest-npc-cb').forEach(cb => {
           cb.checked = npcIds.includes(cb.value);
         });
         document.querySelectorAll('.ee-quest-item-cb').forEach(cb => {
           cb.checked = itemIds.includes(cb.value);
         });
+        document.querySelectorAll('.ee-quest-tracker-cb').forEach(cb => {
+          cb.checked = trackerIds.includes(cb.value);
+        });
         updateQuestSpanningPreview();
+      } else if (CurrentEntityTab === 'tracker') {
+        const scopeSel = document.getElementById('ee-tracker-scope');
+        if (scopeSel) {
+          const normScope = (entity.scopeTier === 'city') ? 'settlement' : (entity.scopeTier || 'settlement');
+          scopeSel.value = normScope;
+        }
+        const refs = Array.isArray(entity.triggerRefs) ? entity.triggerRefs : [];
+        document.querySelectorAll('.ee-tracker-trigger-cb').forEach(cb => {
+          const eType = cb.getAttribute('data-entity-type');
+          cb.checked = refs.some(r => (!r.entityType || r.entityType === eType) && String(r.entityId) === String(cb.value));
+        });
+        if (document.getElementById('ee-tracker-consequences')) {
+          if (Array.isArray(entity.consequences) && entity.consequences.length > 0) {
+            document.getElementById('ee-tracker-consequences').value = entity.consequences
+              .map(c => `${c.tick}: ${c.description || ''}`)
+              .join('\n');
+          } else {
+            document.getElementById('ee-tracker-consequences').value = '';
+          }
+        }
       } else if (CurrentEntityTab === 'faction') {
         if (document.getElementById('ee-faction-culture')) document.getElementById('ee-faction-culture').value = entity.cvfQuadrant || 'Clan';
         if (document.getElementById('ee-faction-color')) document.getElementById('ee-faction-color').value = entity.colorIdentity || 'W';
@@ -511,17 +624,66 @@
               entity.dialogueHooks = document.getElementById('ee-npc-dialogue').value.split('\n').map(d => d.trim()).filter(Boolean);
             }
           } else if (type === 'quest') {
+            const prevTrackerIds = Array.isArray(entity.trackerIds) ? [...entity.trackerIds] : [];
             entity.title = name;
             entity.type = role;
             entity.threat = meta;
             entity.notes = notes;
+            if (document.getElementById('ee-quest-status')) {
+              entity.status = document.getElementById('ee-quest-status').value || 'Active';
+            } else if (!entity.status) {
+              entity.status = 'Active';
+            }
             entity.npcIds = Array.from(document.querySelectorAll('.ee-quest-npc-cb:checked')).map(cb => cb.value);
             entity.itemIds = Array.from(document.querySelectorAll('.ee-quest-item-cb:checked')).map(cb => cb.value);
+            entity.trackerIds = Array.from(document.querySelectorAll('.ee-quest-tracker-cb:checked')).map(cb => cb.value);
+            if (typeof syncQuestAndTrackerLinks === 'function') {
+              syncQuestAndTrackerLinks(entity, prevTrackerIds);
+            }
           } else if (type === 'tracker') {
+            const prevQuestRefs = (entity.triggerRefs || [])
+              .filter(r => r && r.entityType === 'quest')
+              .map(r => String(r.entityId));
             entity.name = name;
             entity.type = role || 'Threat Clock';
             entity.maxTicks = parseInt(meta) || 6;
             entity.notes = notes;
+            if (document.getElementById('ee-tracker-scope')) {
+              entity.scopeTier = document.getElementById('ee-tracker-scope').value || 'settlement';
+            }
+            entity.triggerRefs = Array.from(document.querySelectorAll('.ee-tracker-trigger-cb:checked')).map(cb => ({
+              entityType: cb.getAttribute('data-entity-type') || 'quest',
+              entityId: cb.value
+            }));
+            if (document.getElementById('ee-tracker-consequences')) {
+              const parseConsequences = (text, existing = []) => {
+                if (!text) return [];
+                const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+                const existingMap = new Map();
+                if (Array.isArray(existing)) {
+                  existing.forEach(c => { if (c && typeof c.tick === 'number') existingMap.set(c.tick, c); });
+                }
+                return lines.map(line => {
+                  const m = line.match(/^(\d+)[\s:|]+(.+)$/);
+                  if (!m) return null;
+                  const tick = parseInt(m[1], 10);
+                  const desc = m[2].trim();
+                  const ex = existingMap.get(tick);
+                  return {
+                    tick,
+                    description: desc,
+                    triggered: ex ? !!ex.triggered : false,
+                    triggeredAt: ex ? ex.triggeredAt : undefined,
+                    triggeredByBatchId: ex ? ex.triggeredByBatchId : undefined,
+                    operations: (ex && ex.operations) ? ex.operations : []
+                  };
+                }).filter(Boolean).sort((a, b) => a.tick - b.tick);
+              };
+              entity.consequences = parseConsequences(document.getElementById('ee-tracker-consequences').value, entity.consequences);
+            }
+            if (typeof syncTrackerToQuests === 'function') {
+              syncTrackerToQuests(entity, prevQuestRefs);
+            }
           } else if (type === 'faction') {
             entity.name = name;
             entity.type = role || 'Power Group';
@@ -593,8 +755,14 @@
           newEntity.type = role;
           newEntity.threat = meta;
           newEntity.notes = notes;
+          newEntity.status = document.getElementById('ee-quest-status') ? (document.getElementById('ee-quest-status').value || 'Active') : 'Active';
           newEntity.npcIds = Array.from(document.querySelectorAll('.ee-quest-npc-cb:checked')).map(cb => cb.value);
           newEntity.itemIds = Array.from(document.querySelectorAll('.ee-quest-item-cb:checked')).map(cb => cb.value);
+          newEntity.trackerIds = Array.from(document.querySelectorAll('.ee-quest-tracker-cb:checked')).map(cb => cb.value);
+          newEntity.steps = [];
+          if (typeof syncQuestAndTrackerLinks === 'function') {
+            syncQuestAndTrackerLinks(newEntity, []);
+          }
         } else if (type === 'tracker') {
           newEntity.name = name;
           newEntity.type = role || 'Threat Clock';
@@ -602,6 +770,29 @@
           newEntity.currentTicks = 0;
           newEntity.faction = 'Custom';
           newEntity.notes = notes;
+          newEntity.scopeTier = document.getElementById('ee-tracker-scope') ? (document.getElementById('ee-tracker-scope').value || 'settlement') : 'settlement';
+          newEntity.triggerRefs = Array.from(document.querySelectorAll('.ee-tracker-trigger-cb:checked')).map(cb => ({
+            entityType: cb.getAttribute('data-entity-type') || 'quest',
+            entityId: cb.value
+          }));
+          if (document.getElementById('ee-tracker-consequences')) {
+            const lines = document.getElementById('ee-tracker-consequences').value.split('\n').map(l => l.trim()).filter(Boolean);
+            newEntity.consequences = lines.map(line => {
+              const m = line.match(/^(\d+)[\s:|]+(.+)$/);
+              if (!m) return null;
+              return {
+                tick: parseInt(m[1], 10),
+                description: m[2].trim(),
+                triggered: false,
+                operations: []
+              };
+            }).filter(Boolean).sort((a, b) => a.tick - b.tick);
+          } else {
+            newEntity.consequences = [];
+          }
+          if (typeof syncTrackerToQuests === 'function') {
+            syncTrackerToQuests(newEntity, []);
+          }
         } else if (type === 'faction') {
           const cNodes = Array.from(document.querySelectorAll('.ee-faction-node-cb:checked')).map(cb => isNaN(cb.value) ? cb.value : parseInt(cb.value, 10));
           if (nodeId != null && !cNodes.includes(nodeId)) cNodes.push(nodeId);

@@ -8,128 +8,346 @@
     {
       "id": "BG-BER-01",
       "name": "Feldepost's Inn & Town Square",
-      "displayName": "Feldepost's Inn",
-      "x": 280,
-      "y": 320,
-      "cat": "Gateway",
+      "displayName": "Feldepost's Inn & Town Square",
+      "x": 113,
+      "y": 240,
+      "coordinates": {
+        "x": 113,
+        "y": 240
+      },
+      "cat": "Standard POI",
       "culture": "Market",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A rowdy coaching inn facing the town obelisk. Mercenary Karlat hunts bounties here while Tranzig waits upstairs for letters from Tazok.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-BER-02",
       "name": "Thunderhammer Smithy",
-      "displayName": "Thunderhammer",
-      "x": 520,
-      "y": 240,
-      "cat": "Bastion",
+      "displayName": "Thunderhammer Smithy",
+      "x": 425,
+      "y": 245,
+      "coordinates": {
+        "x": 425,
+        "y": 245
+      },
+      "cat": "Standard POI",
       "culture": "Market",
       "shape": "pentagon",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "The master forge of Taerom Fuiruim. An enormous bellows roars day and night as Taerom inspects brittle iron weapons and forges Ankheg plate.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-BER-03",
       "name": "The Jovial Juggler Tavern",
-      "displayName": "Jovial Juggler",
-      "x": 680,
-      "y": 360,
-      "cat": "Bastion",
+      "displayName": "The Jovial Juggler Tavern",
+      "x": 351,
+      "y": 318,
+      "coordinates": {
+        "x": 351,
+        "y": 318
+      },
+      "cat": "Standard POI",
       "culture": "Clan",
       "shape": "pentagon",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A lively commoners' inn where Officer Vai commands her Flaming Fist bounty headquarters, paying gold for bandit scalps.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-BER-04",
       "name": "The Red Sheaf Inn",
-      "displayName": "Red Sheaf",
-      "x": 440,
-      "y": 460,
+      "displayName": "The Red Sheaf Inn",
+      "x": 321,
+      "y": 184,
+      "coordinates": {
+        "x": 321,
+        "y": 184
+      },
       "cat": "Standard POI",
       "culture": "Market",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A bustling inn where dwarf mercenary Kagain recruits adventurers for his missing merchant caravan.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-BER-05",
       "name": "Burning Wizard Inn & Market Square",
-      "displayName": "Burning Wizard",
-      "x": 260,
-      "y": 520,
+      "displayName": "Burning Wizard Inn & Market Square",
+      "x": 141,
+      "y": 89,
+      "coordinates": {
+        "x": 141,
+        "y": 89
+      },
       "cat": "Standard POI",
       "culture": "Market",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A crowded two-story hostelry where Zhurlong laments stolen boots of stealth and bard Garrick warns travelers of Silke's schemes.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-BER-06",
       "name": "Mirianne's Estate & North Road",
-      "displayName": "Mirianne's Estate",
-      "x": 480,
-      "y": 620,
+      "displayName": "Mirianne's Estate & North Road",
+      "x": 431,
+      "y": 178,
+      "coordinates": {
+        "x": 431,
+        "y": 178
+      },
       "cat": "Standard POI",
       "culture": "Clan",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A handsome stone manor where Mirianne paces anxiously awaiting word of her husband's courier caravan from the south.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-BER-07",
       "name": "Firebead Elvenhair's House",
-      "displayName": "Firebead's Home",
-      "x": 680,
-      "y": 520,
-      "cat": "Vault",
+      "displayName": "Firebead Elvenhair's House",
+      "x": 358,
+      "y": 71,
+      "coordinates": {
+        "x": 358,
+        "y": 71
+      },
+      "cat": "Standard POI",
       "culture": "Adhocracy",
       "shape": "diamond",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A quiet library residence filled with rare poetry and illuminated scriptures maintained by the kindly elven sage.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
+  "links": [],
+  "mapMetadata": {
+    "id": "map_bg1_beregost",
+    "name": "beregost.gif",
+    "width": 480,
+    "height": 360,
+    "opacity": 0.85,
+    "timestamp": 1793570279376,
+    "assetPath": "assets/map_bg1_beregost_bg.png"
+  },
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {
+    "BG-BER-01": [],
+    "BG-BER-02": [],
+    "BG-BER-03": [],
+    "BG-BER-04": [],
+    "BG-BER-05": [],
+    "BG-BER-06": [],
+    "BG-BER-07": []
+  },
+  "edgeSlottedModules": {},
+  "layers": [
     {
-      "from": "BG-BER-01",
-      "to": "BG-BER-02",
-      "type": "twoway"
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-BER-01",
-      "to": "BG-BER-04",
-      "type": "twoway"
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-BER-01",
-      "to": "BG-BER-05",
-      "type": "twoway"
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-BER-02",
-      "to": "BG-BER-03",
-      "type": "twoway"
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-BER-04",
-      "to": "BG-BER-03",
-      "type": "twoway"
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-BER-04",
-      "to": "BG-BER-06",
-      "type": "twoway"
-    },
-    {
-      "from": "BG-BER-05",
-      "to": "BG-BER-06",
-      "type": "twoway"
-    },
-    {
-      "from": "BG-BER-06",
-      "to": "BG-BER-07",
-      "type": "twoway"
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
-  ]
+  ],
+  "shapes": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": [],
+  "spatialPins": []
 }

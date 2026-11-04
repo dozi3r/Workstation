@@ -1204,6 +1204,26 @@
             }
           });
         }
+        // Purge edgeData dedicatedFlows originating from deleted modules (Orphan Protection)
+        const purgeEdgeFlows = (edgeDataDict) => {
+          if (!edgeDataDict || typeof edgeDataDict !== 'object') return;
+          Object.keys(edgeDataDict).forEach(ek => {
+            const rec = edgeDataDict[ek];
+            if (rec && Array.isArray(rec.dedicatedFlows)) {
+              rec.dedicatedFlows = rec.dedicatedFlows.filter(flow => {
+                const srcId = (flow && typeof flow === 'object' && flow.sourceModuleId) ? String(flow.sourceModuleId) : null;
+                const flowTag = (typeof flow === 'string') ? flow : (flow && flow.tag);
+                return !(srcId && deletedIdsByType.module.has(srcId)) && !deletedIdsByType.module.has(String(flowTag));
+              });
+            }
+          });
+        };
+        purgeEdgeFlows(topo.edgeData);
+        if (typeof maps !== 'undefined' && maps) {
+          Object.values(maps).forEach(m => {
+            if (m && m.edgeData) purgeEdgeFlows(m.edgeData);
+          });
+        }
         // Purge all maps in registry
         if (typeof maps !== 'undefined' && maps) {
           Object.values(maps).forEach(m => {

@@ -1525,6 +1525,7 @@
         appendCategoryRow(tbody, 'Mod Extensions');
         let hasMods = false;
         Object.keys(Workstation.registeredMods || {}).forEach(modId => {
+          if (Workstation.disabledMods && Workstation.disabledMods[modId]) return;
           const mod = Workstation.registeredMods[modId];
           if (typeof mod.renderNodeProperties === 'function') {
             hasMods = true;
@@ -1912,6 +1913,7 @@
         appendCategoryRow(tbody, 'Mod Extensions');
         let hasEdgeMods = false;
         Object.keys(Workstation.registeredMods || {}).forEach(modId => {
+          if (Workstation.disabledMods && Workstation.disabledMods[modId]) return;
           const mod = Workstation.registeredMods[modId];
           if (typeof mod.renderEdgeProperties === 'function') {
             hasEdgeMods = true;

@@ -7810,6 +7810,184 @@ function testSuite46PointcrawlGraphNodeSeam() {
   assert(exporterSrc.includes('CampaignMutationEngine.getNodeById'), 'campaign_exporter.js uses CampaignMutationEngine.getNodeById in findNodeObj');
 }
 
+function testSuite47IndustryChainImporterAndDeduplication() {
+  console.log('--> SUITE 47: Industry Chain Importer & Deduplication Engine (SYS-RES-01..04)...');
+
+  const IndustryChainImporter = require(path.join(ROOT, 'src', 'workstation', 'scripts', 'industry_chain_importer.js'));
+  assert(IndustryChainImporter && typeof IndustryChainImporter.getAvailableIndustryChains === 'function', 'IndustryChainImporter exports getAvailableIndustryChains');
+  assert(typeof IndustryChainImporter.auditChainDeduplication === 'function', 'IndustryChainImporter exports auditChainDeduplication');
+  assert(typeof IndustryChainImporter.openIndustryChainImporterModal === 'function', 'IndustryChainImporter exports openIndustryChainImporterModal');
+
+  // Test benchmark industry chains detection (from Universal Pre-Industrial Resource Mod & Peridot)
+  const manifestPath = path.join(ROOT, 'campaigns', 'Peridot', 'modules_manifest.json');
+  const modManifestPath = path.join(ROOT, 'mods', 'pre_industrial_resources', 'modules_manifest.json');
+  let testModules = [];
+  if (fs.existsSync(manifestPath)) {
+    testModules = testModules.concat(JSON.parse(fs.readFileSync(manifestPath, 'utf8')));
+  }
+  if (fs.existsSync(modManifestPath)) {
+    const rawModManifest = JSON.parse(fs.readFileSync(modManifestPath, 'utf8'));
+    testModules = testModules.concat(rawModManifest.map(m => ({ ...m, mod_id: 'pre_industrial_resources' })));
+  }
+  global.ALL_MODULES = testModules;
+
+  const chains = IndustryChainImporter.getAvailableIndustryChains();
+  assert(chains['CHAIN-SUGAR'], 'Detected CHAIN-SUGAR in catalog');
+  if (chains['CHAIN-SUGAR']) {
+    assertEqual(chains['CHAIN-SUGAR'].stages.length, 3, 'CHAIN-SUGAR contains 3 stages');
+    assertEqual(chains['CHAIN-SUGAR'].stages[0].module.id, 'AGRI-SUGAR-01', 'CHAIN-SUGAR Stage 1 is AGRI-SUGAR-01');
+    assertEqual(chains['CHAIN-SUGAR'].stages[1].module.id, 'AGRI-SUGAR-02', 'CHAIN-SUGAR Stage 2 is AGRI-SUGAR-02');
+    assertEqual(chains['CHAIN-SUGAR'].stages[2].module.id, 'AGRI-SUGAR-03', 'CHAIN-SUGAR Stage 3 is AGRI-SUGAR-03');
+  }
+
+  assert(chains['CHAIN-STEEL'], 'Detected CHAIN-STEEL in catalog');
+  assert(chains['CHAIN-IRON'], 'Detected CHAIN-IRON in catalog');
+  assert(chains['CHAIN-COAL'], 'Detected CHAIN-COAL in catalog');
+
+  // Test Deduplication Auditing:
+  // Setup mock topology with existing Iron Mining facility (Node 1 has MINE-IRON-01, Node 2 has MINE-IRON-02)
+  const mockTopo = {
+    nodes: {
+      '1': { id: 1, name: 'Red Bluffs Quarry', modules: ['MINE-IRON-01'] },
+      '2': { id: 2, name: 'Great Smelter Basin', modules: ['MINE-IRON-02'] }
+    },
+    edgeData: {}
+  };
+  global.nodeSlottedModules = {
+    '1': ['MINE-IRON-01'],
+    '2': ['MINE-IRON-02']
+  };
+
+  const ironAudit = IndustryChainImporter.auditChainDeduplication('CHAIN-IRON', mockTopo);
+  assert(ironAudit && ironAudit.stages.length === 3, 'auditChainDeduplication returns 3 stages for CHAIN-IRON');
+  assertEqual(ironAudit.stages[0].status, 'already_slotted', 'Stage 1 (MINE-IRON-01) detected as already_slotted');
+  assertEqual(ironAudit.stages[0].matchedNodeId, '1', 'Stage 1 matched to Node 1');
+  assertEqual(ironAudit.stages[1].status, 'already_slotted', 'Stage 2 (MINE-IRON-02) detected as already_slotted');
+  assertEqual(ironAudit.stages[1].matchedNodeId, '2', 'Stage 2 matched to Node 2');
+  assertEqual(ironAudit.stages[2].status, 'unmet', 'Stage 3 (IND-IRON-03) detected as unmet');
+
+  // When auditing Steel (which requires Iron & Coal), Stage 3 is unmet while stages 1 & 2 are already satisfied!
+  const steelAudit = IndustryChainImporter.auditChainDeduplication('CHAIN-STEEL', mockTopo);
+  assert(steelAudit && steelAudit.stages.length >= 1, 'auditChainDeduplication returns stages for CHAIN-STEEL');
+  const steelStage = steelAudit.stages.find(s => s.moduleId === 'IND-STEEL-01');
+  assert(steelStage && steelStage.status === 'unmet', 'Crucible Steelworks correctly identified as unmet and requiring placement');
+
+  // Test Idempotent Prototype Promotion
+  const entityCoreSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'entity_core.js'), 'utf8');
+  assert(entityCoreSrc.includes('const existing = activeList.find(e => String(e.prototypeId) === String(proto.id) || String(e.id) === String(proto.id));'), 'entity_core.js enforces prototype promotion idempotency');
+
+  // Test Cascade Deletion Conduit Cleanup
+  const cascadeDeleteSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'entity_cascade_delete.js'), 'utf8');
+  assert(cascadeDeleteSrc.includes('flow.sourceModuleId'), 'entity_cascade_delete.js purges dedicatedFlows by sourceModuleId on module delete');
+
+  // Test Runtime Mod Toggle & DF Stockpile Simulator
+  const workstationStateSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'workstation_state.js'), 'utf8');
+  assert(workstationStateSrc.includes('disabledMods:'), 'workstation_state.js declares disabledMods');
+  assert(workstationStateSrc.includes('promptLoadRuntimeModFile'), 'workstation_state.js defines promptLoadRuntimeModFile');
+  assert(workstationStateSrc.includes('toggleWorkstationMod'), 'workstation_state.js defines toggleWorkstationMod');
+
+  const supplySimSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'supply_chain_simulator.js'), 'utf8');
+  assert(supplySimSrc.includes('onAdvanceSupplyTurn'), 'supply_chain_simulator.js invokes onAdvanceSupplyTurn mod lifecycle hook');
+
+  const preIndustrialMod = require(path.join(ROOT, 'mods', 'pre_industrial_resources', 'mod.js'));
+  assert(preIndustrialMod && typeof preIndustrialMod.onAdvanceSupplyTurn === 'function', 'pre_industrial_resources mod exports onAdvanceSupplyTurn');
+  assert(typeof preIndustrialMod._advanceDfSupplySimulation === 'function', 'pre_industrial_resources exports _advanceDfSupplySimulation');
+
+  // Test DF Turn Simulation in action
+  global.nodeSlottedModules = {
+    '1': ['MINE-IRON-01'],
+    '2': ['MINE-IRON-02']
+  };
+  const simTopo = {
+    nodes: [
+      { id: 1, name: 'Mining Pit', modules: ['MINE-IRON-01'], provides: ['Ore: Raw-Iron-Ore [10]'], adj: [2] },
+      { id: 2, name: 'Blast Furnace', modules: ['MINE-IRON-02'], requires: ['Ore: Raw-Iron-Ore [5]', 'Fuel: Charcoal-or-Coal [5]'], provides: ['Metal: Pig-Iron [5]'], adj: [1] }
+    ],
+    edgeData: {
+      '1-2': { condition: 'Passable', capacity: 25, modData: { pre_industrial_resources: { inTransit: [] } } }
+    },
+    modData: {
+      pre_industrial_resources: { dfSimEnabled: true }
+    }
+  };
+
+  // Seed node 1 with some output
+  const n1Store = preIndustrialMod._ensureNodeStorage(simTopo.nodes[0]);
+  n1Store.outputBin['Ore: Raw-Iron-Ore'] = { qty: 10, cap: 20 };
+
+  // Run turn 1: Auto-dispatches 5 ore into edge '1-2'
+  const turn1Res = preIndustrialMod._advanceDfSupplySimulation({ topo: simTopo, nodes: simTopo.nodes });
+  assert(turn1Res.active === true, 'DF Simulation is active');
+  assertEqual(n1Store.outputBin['Ore: Raw-Iron-Ore'].qty, 6, '1 unit produced via baseline extraction and 5 units dispatched from outputBin');
+  const edgeStore = simTopo.edgeData['1-2'].modData.pre_industrial_resources;
+  assertEqual(edgeStore.inTransit.length, 1, 'Caravan in transit on edge 1-2');
+  assertEqual(edgeStore.inTransit[0].qty, 5, 'Caravan has 5 units of Ore: Raw-Iron-Ore');
+
+  // Seed fuel for MINE-IRON-02 so all inputs are met
+  const n2Store = preIndustrialMod._ensureNodeStorage(simTopo.nodes[1]);
+  n2Store.stockpile['Fuel: Charcoal-or-Coal'] = { qty: 10, cap: 50 };
+
+  // Run turn 2: Caravan delivered to Node 2 inputHopper, and Furnace processes inputs -> outputs
+  const turn2Res = preIndustrialMod._advanceDfSupplySimulation({ topo: simTopo, nodes: simTopo.nodes });
+  if (!n2Store.outputBin['Metal: Pig-Iron']) {
+    console.log('DEBUG n2Store on fail:', JSON.stringify(n2Store));
+    console.log('DEBUG turn2Res:', turn2Res);
+    console.log('DEBUG modules for node 2:', global.ALL_MODULES.find(m => m.id === 'MINE-IRON-02'));
+  }
+  assertEqual(turn2Res.deliveredShipments, 1, 'Caravan delivered in turn 2');
+  assert(n2Store.outputBin['Metal: Pig-Iron'] && n2Store.outputBin['Metal: Pig-Iron'].qty > 0, 'Furnace produced Pig-Iron into outputBin');
+
+  // 1. Stage 1 extraction module (MINE-IRON-01) baseline extraction without Timber: Mine-Props
+  global.nodeSlottedModules = {
+    '101': ['MINE-IRON-01']
+  };
+  const extractionTopo = {
+    nodes: [
+      { id: 101, name: 'Open Cast Quarry', modules: ['MINE-IRON-01'], provides: ['Ore: Raw-Iron-Ore'], adj: [] }
+    ],
+    edgeData: {},
+    modData: { pre_industrial_resources: { dfSimEnabled: true } }
+  };
+  const extStore = preIndustrialMod._ensureNodeStorage(extractionTopo.nodes[0]);
+  assertEqual(extStore.inputHopper['Timber: Mine-Props']?.qty || 0, 0, 'No timber props pre-seeded in hopper');
+  const extTurnRes = preIndustrialMod._advanceDfSupplySimulation({ topo: extractionTopo, nodes: extractionTopo.nodes });
+  assertEqual(extTurnRes.unitsProduced, 1, 'Baseline extraction produced 1 unit on Turn 1');
+  assert(extStore.outputBin['Ore: Raw-Iron-Ore'] && extStore.outputBin['Ore: Raw-Iron-Ore'].qty >= 1, 'Stage 1 extraction module produced Ore: Raw-Iron-Ore');
+
+  // 2. Multi-hop dispatch across a 3-node chain (Node 1 [Mine] -> Node 2 [Waystation] -> Node 3 [Furnace]) where topo.edgeData starts empty {}
+  global.nodeSlottedModules = {
+    '1': ['MINE-IRON-01'],
+    '2': [],
+    '3': ['MINE-IRON-02']
+  };
+  const multiHopTopo = {
+    nodes: [
+      { id: 1, name: 'Iron Mine', modules: ['MINE-IRON-01'], provides: ['Ore: Raw-Iron-Ore'], adj: [2] },
+      { id: 2, name: 'Waystation', modules: [], adj: [1, 3] },
+      { id: 3, name: 'Blast Furnace', modules: ['MINE-IRON-02'], requires: ['Ore: Raw-Iron-Ore [5]', 'Fuel: Charcoal-or-Coal [5]'], provides: ['Metal: Pig-Iron [5]'], adj: [2] }
+    ],
+    edgeData: {},
+    modData: { pre_industrial_resources: { dfSimEnabled: true } }
+  };
+  const mh1Store = preIndustrialMod._ensureNodeStorage(multiHopTopo.nodes[0]);
+  mh1Store.outputBin['Ore: Raw-Iron-Ore'] = { qty: 5, cap: 20 };
+  const mhTurnRes = preIndustrialMod._advanceDfSupplySimulation({ topo: multiHopTopo, nodes: multiHopTopo.nodes });
+  assert(multiHopTopo.edgeData['1-2'], 'EdgeData 1-2 was auto-created from empty edgeData');
+  const mhEdgeStore = multiHopTopo.edgeData['1-2'].modData.pre_industrial_resources;
+  assertEqual(mhEdgeStore.inTransit.length, 1, 'Caravan dispatched multi-hop towards waystation');
+  assertEqual(mhEdgeStore.inTransit[0].resource, 'Ore: Raw-Iron-Ore', 'Caravan resource is Ore: Raw-Iron-Ore');
+  assertEqual(mhEdgeStore.inTransit[0].to, 2, 'Caravan destination is intermediate waystation Node 2');
+
+  // 3. Setting Workstation.disabledMods filters out mod modules and re-enabling restores them
+  global.Workstation = global.Workstation || {};
+  Workstation.disabledMods = { pre_industrial_resources: true };
+  const disabledChains = IndustryChainImporter.getAvailableIndustryChains();
+  assert(!disabledChains['CHAIN-SUGAR'], 'Disabled mod causes pre_industrial_resources modules to be excluded');
+  Workstation.disabledMods = {};
+  const restoredChains = IndustryChainImporter.getAvailableIndustryChains();
+  assert(restoredChains['CHAIN-SUGAR'], 'Resetting disabledMods restores pre_industrial_resources modules');
+}
+
 // ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
@@ -7861,6 +8039,7 @@ function testSuite46PointcrawlGraphNodeSeam() {
     testSuite44RosterAndThreatClockMutationSeam();
     testSuite45CorridorSeamAndKeyCanonicalization();
     testSuite46PointcrawlGraphNodeSeam();
+    testSuite47IndustryChainImporterAndDeduplication();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

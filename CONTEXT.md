@@ -336,8 +336,24 @@ The dedicated in-workstation MDI modal dialog allowing authors to inspect and mu
 _Avoid_: Preferences window, project config, options modal
 
 **Peridot Isle (`peridot`)**:
-The canonical industrial-alchemical campaign setting featuring a 59-node pointcrawl network, 97 modular authoring sourcebooks, and high-head hydraulic/carbochemical infrastructure; formerly referenced during early prototyping as Opal Island or Silica Isle, and temporarily conflated with Emerald Isle.
-_Avoid_: Opal Island (deprecated historical prototype), Silica Isle (deprecated), Emerald Isle (deprecated conflation with MM7)
+The canonical industrial-alchemical campaign setting featuring a 59-node pointcrawl network, 51 setting-specific modular authoring sourcebooks (`Set_A` through `Set_H` and `HOOK-01`), and high-head hydraulic/carbochemical infrastructure; formerly referenced during early prototyping as Opal Island or Silica Isle, and temporarily conflated with Emerald Isle.
+_Avoid_: Opal Island (deprecated historical prototype), Silica Isle (deprecated), Emerald Isle (deprecated conflation with MM7), dumping universal CWT or generic resource modules into Peridot
+
+**Universal Resource & Industry Mod (`mods/pre_industrial_resources`)**:
+A campaign-independent workstation mod packaging 98 atomic-stage commodity extraction, refining, and manufacturing modules (`chain_id`, `chain_stage`, `chain_role`) available across all active campaigns via the Module Explorer and Industry Chain Importer.
+_Avoid_: Campaign-locked resource files, monolithic multi-stage resource modules
+
+**Tier 0 Agrarian Settlement Substratum Mod (`mods/tier_0_settlement_substratum`)**:
+A campaign-independent workstation mod packaging 8 baseline agrarian village and settlement infrastructure modules (`T0-DOM-01..08` under `CHAIN-SUBSISTENCE`), matching the Tier 0 Substratum SRD.
+_Avoid_: Intertwining village domestic baselines with commodity extraction chains
+
+**Scale-Fluid Transit Corridors Mod (`mods/scale_fluid_transit_corridors`)**:
+A campaign-independent workstation mod packaging 6 scale-fluid edge corridor modules (`CWT-020..025`) slottable onto pointcrawl road edges (`topo.edgeData[key].modules`).
+_Avoid_: Slotted edge corridors carrying fake node chain_ids
+
+**Universal Worldbuilding Library Mod (`mods/universal_worldbuilding_library`)**:
+A campaign-independent workstation mod housing 41 setting-agnostic Creative Writing Ticket (`CWT-*`) climax engines, historical civilization collapse archetypes, survival sites, ideological sanctuaries, and generic starter adventure sites (`STARTER-*`) wired to canonical supply-chain resource tags.
+_Avoid_: Peridot-coupled CWT backlog modules
 
 **Emerald Island (`map_mm7_emerald_isle`)**:
 The canonical starter island survey map and regional setting within the `migmag` Might & Magic VII campaign package, preserved strictly for MM7 conversion fidelity.

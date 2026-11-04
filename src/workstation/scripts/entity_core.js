@@ -727,6 +727,12 @@
       if (!proto) return null;
 
       const activeList = getActiveEntityList(type);
+      const existing = activeList.find(e => String(e.prototypeId) === String(proto.id) || String(e.id) === String(proto.id));
+      if (existing) {
+        if (proto.suggestedNode && !existing.nodeId) existing.nodeId = proto.suggestedNode;
+        return existing;
+      }
+
       _promoSequence++;
       const uniqueSuffix = `${Date.now().toString(36)}-${_promoSequence.toString(36)}`;
       const newId = `${type}-${uniqueSuffix}`;

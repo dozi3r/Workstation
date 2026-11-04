@@ -100,11 +100,13 @@
       </div>
     </div>
     <div class="mdi-body" style="display:flex; flex-direction:column; padding:6px; gap:6px; background:var(--win-base); height:calc(100% - 24px); box-sizing:border-box;">
-      <div class="dock-tab-bar">
-        <button class="dock-tab-btn active" id="btn-exp-json" onclick="switchExportTab('json')">Campaign JSON (v2.0-nested)</button>
+      <div class="dock-tab-bar" style="flex-wrap:wrap;">
+        <button class="dock-tab-btn active" id="btn-exp-json" onclick="switchExportTab('json')">Campaign JSON</button>
         <button class="dock-tab-btn" id="btn-exp-md" onclick="switchExportTab('md')">GM Markdown Dossier</button>
+        <button class="dock-tab-btn" id="btn-exp-html" onclick="switchExportTab('html')">Printable HTML Dossier</button>
         <button class="dock-tab-btn" id="btn-exp-obsidian" onclick="switchExportTab('obsidian')">Obsidian Vault (.zip)</button>
-        <button class="dock-tab-btn" id="btn-exp-vtt" onclick="switchExportTab('vtt')">Foundry VTT Export</button>
+        <button class="dock-tab-btn" id="btn-exp-vtt" onclick="switchExportTab('vtt')">Foundry VTT</button>
+        <button class="dock-tab-btn" id="btn-exp-uvtt" onclick="switchExportTab('uvtt')">Universal VTT / Roll20</button>
         <button class="dock-tab-btn" id="btn-exp-svg" onclick="switchExportTab('svg')">SVG Map Vector</button>
         <button class="dock-tab-btn" id="btn-exp-pack" onclick="switchExportTab('pack')">Export as Pack (.csmod)</button>
       </div>
@@ -278,15 +280,21 @@
       <div class="bevel-inset" style="background:#d4d0c8; padding:6px 10px; margin-bottom:6px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
         <div style="display:flex; align-items:center; gap:8px;">
           <label style="font-weight:bold; font-size:11px;">Filter Search:</label>
-          <input type="text" id="odv-mdi-search" class="win-select-input" placeholder="Search archetype, boon, or NPC..." style="width:220px;" oninput="renderMdiOdvMatrix()">
-          <label style="font-size:11px; display:flex; align-items:center; gap:4px; margin-left:8px;">
-            <input type="checkbox" id="odv-mdi-occupied-only" onchange="renderMdiOdvMatrix()"> <strong>Occupied Cells Only</strong>
+          <input type="text" id="odv-mdi-search" class="win-select-input" placeholder="Search archetype, boon, or NPC..." style="width:200px;" oninput="renderMdiOdvMatrix()">
+          <label style="font-size:11px; display:flex; align-items:center; gap:4px; margin-left:4px;">
+            <input type="checkbox" id="odv-mdi-occupied-only" onchange="renderMdiOdvMatrix()"> <strong>Occupied Only</strong>
           </label>
+          <button class="win-btn" id="btn-toggle-odv-wizard" onclick="if(typeof toggleMdiOdvWizard==='function')toggleMdiOdvWizard()" style="padding:2px 8px; font-size:11px; font-weight:bold; color:#000080;">🧭 3-Question Wizard (SOC-06)</button>
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
           <span id="odv-mdi-stats" style="font-size:11px; color:#1e293b; font-weight:bold;">Active Campaign Occupancy: 0 Nodes, 0 Corridors</span>
           <button class="win-btn" onclick="renderMdiOdvMatrix()" style="padding:2px 8px; font-size:11px;">Refresh State</button>
         </div>
+      </div>
+
+      <!-- Collapsible SOC-06 3-Question Diagnostic Calibration Wizard -->
+      <div id="odv-mdi-wizard-panel" class="bevel-inset hidden" style="background:#f0f9ff; border:1px solid #93c5fd; padding:8px 10px; margin-bottom:6px; font-size:11px;">
+        <!-- Dynamically rendered by renderMdiOdvWizard() in sociology_data.js -->
       </div>
 
       <!-- Main Body: Split between 64-Cell Grid and Archetype Dossier -->
@@ -454,6 +462,57 @@
               <div><span style="color:#2563eb; font-weight:bold;">●</span> Handler</div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 16: CAMPAIGN CHANGELOG & BATCH REPLAY AUDIT (MDI WINDOW)
+       ======================================================================== -->
+  <div id="modal-campaign-changelog" class="mdi-window bevel-outset hidden" style="width:780px; height:540px; min-width:620px; min-height:380px; left:160px; top:80px;">
+    <div class="mdi-title-bar">
+      <div class="mdi-title-text">
+        <span class="mdi-icon">CL</span>
+        <span>Campaign Changelog &amp; Batch Replay History</span>
+      </div>
+      <div class="mdi-title-controls">
+        <button class="win-btn" onclick="MDIWindowManager.minimize('modal-campaign-changelog')" title="Minimize">_</button>
+        <button class="win-btn" onclick="MDIWindowManager.restoreOrMaximize('modal-campaign-changelog')" title="Maximize / Restore">&#9633;</button>
+        <button class="win-btn" onclick="MDIWindowManager.close('modal-campaign-changelog')" title="Close">X</button>
+      </div>
+    </div>
+    <div class="mdi-body" style="display:flex; flex-direction:column; padding:6px; gap:6px; background:var(--win-base); height:calc(100% - 24px); box-sizing:border-box;">
+      <!-- Toolbar: Filter, Search, Action Buttons -->
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:11px; font-weight:bold; color:#000080;">Filter:</span>
+          <select id="changelog-filter-select" class="win-input" onchange="renderCampaignChangelog()" style="font-size:11px; padding:2px 4px;">
+            <option value="all">All Batches &amp; Events</option>
+            <option value="ai">AI Co-Authoring Batches</option>
+            <option value="slice">Modular Slice Imports</option>
+            <option value="user">GM Milestones &amp; Notes</option>
+            <option value="clock">Clock Advances</option>
+          </select>
+          <input type="text" id="changelog-search-input" class="win-input" placeholder="Search changelog..." oninput="renderCampaignChangelog()" style="font-size:11px; padding:2px 6px; width:160px;" />
+        </div>
+        <div style="display:flex; gap:4px;">
+          <button class="win-btn" onclick="logManualGMSessionNote()" style="font-size:11px; padding:2px 8px; font-weight:bold;">+ Log GM Session Note...</button>
+          <button class="win-btn" onclick="renderCampaignChangelog()" style="font-size:11px; padding:2px 6px;" title="Refresh Changelog">&#x21bb; Refresh</button>
+        </div>
+      </div>
+
+      <!-- Main Changelog Entries List -->
+      <div id="campaign-changelog-list" class="bevel-inset" style="flex:1; overflow-y:auto; background:#ffffff; padding:6px; display:flex; flex-direction:column; gap:6px;">
+        <!-- Injected dynamically by renderCampaignChangelog() -->
+      </div>
+
+      <!-- Footer: Stats and Close -->
+      <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; padding-top:2px;">
+        <span id="changelog-stats-label" style="color:#555;">0 entries</span>
+        <div style="display:flex; gap:6px;">
+          <button class="win-btn" onclick="openSyncSummaryDigestModal(true)" style="font-size:11px; padding:2px 8px;">Sync Digest...</button>
+          <button class="win-btn" onclick="MDIWindowManager.close('modal-campaign-changelog')" style="min-width:60px;">Close</button>
         </div>
       </div>
     </div>

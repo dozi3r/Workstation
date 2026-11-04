@@ -62,10 +62,12 @@
           <table class="entity-win-table">
             <thead>
               <tr>
-                <th style="width:75px;">ID</th>
-                <th style="width:50px;">Tier</th>
+                <th style="width:70px;">ID</th>
+                <th style="width:45px;">Tier</th>
                 <th>Title / Scope</th>
-                <th style="width:90px;">Status</th>
+                <th style="width:115px;">Target Entity</th>
+                <th style="width:85px;">Status</th>
+                <th style="width:35px; text-align:center;">Act</th>
               </tr>
             </thead>
             <tbody id="tc-table-body">
@@ -138,6 +140,29 @@
           </label>
         </div>
 
+        <!-- Universal Target Entity Binding -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Target Entity Type:</strong>
+            <select id="ntc-target-type" class="win-select-input" onchange="onTicketTargetTypeChanged(this.value, 'new')">
+              <option value="campaign" selected>Campaign-Wide</option>
+              <option value="node">Pointcrawl Node</option>
+              <option value="npc">Non-Player Character (NPC)</option>
+              <option value="quest">Quest Vector</option>
+              <option value="item">Item / Relic</option>
+              <option value="tracker">Threat Clock / Dial</option>
+              <option value="faction">Faction</option>
+              <option value="edge">Transit Corridor</option>
+            </select>
+          </label>
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Target Entity:</strong>
+            <select id="ntc-target-id" class="win-select-input" onchange="onTicketTargetEntityChanged(this.value, 'new')">
+              <option value="">(None / General)</option>
+            </select>
+          </label>
+        </div>
+
         <!-- Narrative Fields for Campaign / GM Tickets -->
         <div id="ntc-gm-fields" style="display:flex; flex-direction:column; gap:6px;">
           <label style="display:flex; flex-direction:column; gap:2px;">
@@ -180,6 +205,131 @@
       <div class="dialog-footer" style="padding:6px 10px; justify-content:flex-end; gap:6px;">
         <button class="win-btn" onclick="closeModal('modal-ticket-author-new')">Cancel</button>
         <button class="win-btn" onclick="saveNewCampaignTicket()" style="font-weight:bold; color:#000080;">Create Ticket</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT EXISTING TICKET (DEV-04 & RELATIONAL BINDING) -->
+  <div id="modal-ticket-edit" class="modal-overlay hidden">
+    <div class="win-dialog bevel-outset" style="width:540px; max-height:90vh; display:flex; flex-direction:column;">
+      <div class="title-bar">
+        <div class="title-bar-text"><span id="etc-modal-title">Edit Ticket</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeModal('modal-ticket-edit')">X</button></div>
+      </div>
+      <div class="dialog-body" style="gap:6px; overflow-y:auto; padding:10px;">
+        <input type="hidden" id="etc-id">
+        <label style="display:flex; flex-direction:column; gap:2px;">
+          <strong>Ticket Title:</strong>
+          <input type="text" id="etc-title" class="win-select-input">
+        </label>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Status:</strong>
+            <select id="etc-status" class="win-select-input">
+              <option value="ready_for_authoring">Ready for Authoring</option>
+              <option value="in_progress">In Progress</option>
+              <option value="review">Review</option>
+              <option value="completed">Completed</option>
+              <option value="blocked">Blocked</option>
+            </select>
+          </label>
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Priority:</strong>
+            <select id="etc-priority" class="win-select-input">
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+            </select>
+          </label>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Ticket Type:</strong>
+            <select id="etc-type" class="win-select-input" onchange="if(typeof onEditTicketTypeChanged==='function') onEditTicketTypeChanged(this.value)">
+              <option value="gm">Campaign Author (GM)</option>
+              <option value="dev">Platform Development (AI / Code)</option>
+            </select>
+          </label>
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Category:</strong>
+            <input type="text" id="etc-category" list="tc-category-datalist" class="win-select-input">
+          </label>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Assign to Spatial Node:</strong>
+            <select id="etc-node" class="win-select-input">
+            </select>
+          </label>
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Target Entity Type:</strong>
+            <select id="etc-target-type" class="win-select-input" onchange="onTicketTargetTypeChanged(this.value, 'edit')">
+              <option value="campaign">Campaign-Wide</option>
+              <option value="node">Pointcrawl Node</option>
+              <option value="npc">Non-Player Character (NPC)</option>
+              <option value="quest">Quest Vector</option>
+              <option value="item">Item / Relic</option>
+              <option value="tracker">Threat Clock / Dial</option>
+              <option value="faction">Faction</option>
+              <option value="edge">Transit Corridor</option>
+            </select>
+          </label>
+        </div>
+        <label style="display:flex; flex-direction:column; gap:2px;">
+          <strong>Target Entity:</strong>
+          <select id="etc-target-id" class="win-select-input" onchange="onTicketTargetEntityChanged(this.value, 'edit')">
+            <option value="">(None / General)</option>
+          </select>
+        </label>
+
+        <!-- Narrative Fields for Campaign / GM Tickets -->
+        <div id="etc-gm-fields" style="display:flex; flex-direction:column; gap:6px;">
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Egri Central Dramatic Syllogism:</strong>
+            <input type="text" id="etc-syllogism" class="win-select-input" placeholder="[Fatal Flaw] + [Crucible Pressure] = [Crisis / Climax]">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Truby 4-Corner Opposition:</strong>
+            <textarea id="etc-four-corners" class="win-select-input" rows="2" placeholder="Establishment: ...&#10;Opponent: ...&#10;Shadow: ...&#10;Outcast: ..."></textarea>
+          </label>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Injected Mechanics (Clocks / Dials):</strong>
+              <input type="text" id="etc-mechanics" class="win-select-input" placeholder="Threat Clocks / Severity Dials...">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Resource Flow Contract:</strong>
+              <input type="text" id="etc-resources" class="win-select-input" placeholder="Provides: ... | Requires: ...">
+            </label>
+          </div>
+        </div>
+
+        <!-- Technical Fields for Platform Development Tickets -->
+        <div id="etc-dev-fields" class="hidden" style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Target Surface / File:</strong>
+              <input type="text" id="etc-target-surface" class="win-select-input" placeholder="e.g. start.html">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Prerequisites / Seam:</strong>
+              <input type="text" id="etc-prereqs" class="win-select-input" placeholder="e.g. scripts/ticket_center.js">
+            </label>
+          </div>
+        </div>
+
+        <label style="display:flex; flex-direction:column; gap:2px;">
+          <strong>Authoring Notes / Specifications / Changelog:</strong>
+          <textarea id="etc-notes" class="win-select-input" rows="4" style="resize:vertical;"></textarea>
+        </label>
+      </div>
+      <div class="dialog-footer" style="padding:6px 10px; justify-content:space-between; gap:6px;">
+        <button class="win-btn" onclick="promptDeleteCampaignTicket(document.getElementById('etc-id').value)" style="color:#b91c1c;">Delete Ticket</button>
+        <div style="display:flex; gap:6px;">
+          <button class="win-btn" onclick="closeModal('modal-ticket-edit')">Cancel</button>
+          <button class="win-btn" onclick="saveEditedCampaignTicket()" style="font-weight:bold; color:#000080;">Save Changes</button>
+        </div>
       </div>
     </div>
   </div>

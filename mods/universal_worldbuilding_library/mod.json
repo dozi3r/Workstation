@@ -1,0 +1,8 @@
+{
+  "id": "universal_worldbuilding_library",
+  "name": "Universal Worldbuilding & CWT Archetype Library",
+  "version": "2.0.0",
+  "enabled": true,
+  "entry": "mod.js",
+  "description": "Campaign-independent library of 41 universal Climax Engines, Ideological Sanctuaries, Historical Civilizations, and Starter Adventure Sites wired to canonical supply-chain resource tags."
+}

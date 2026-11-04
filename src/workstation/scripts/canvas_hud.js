@@ -55,6 +55,75 @@ function ascendToParentMap() {
 }
 
 /**
+ * Resolve the child sub-map ID anchored to a node (checking both node.childMapId and map.parentNodeId)
+ */
+function resolveNodeChildMapId(node, nodeId, curMapId = null) {
+  const allMaps = (typeof maps !== "undefined" && maps) ? maps : ((typeof Workstation !== "undefined" && Workstation.maps) ? Workstation.maps : {});
+  const activeId = curMapId || ((typeof activeMapId !== "undefined" && activeMapId) ? activeMapId : ((typeof Workstation !== "undefined" && Workstation.activeMapId) ? Workstation.activeMapId : "map_root"));
+  const targetNode = node || ((typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.nodes)
+    ? (Workstation.activeTopology.nodes[nodeId] || Workstation.activeTopology.nodes[String(nodeId)])
+    : null);
+
+  if (targetNode && targetNode.childMapId && allMaps[targetNode.childMapId]) {
+    return targetNode.childMapId;
+  }
+
+  // Check maps anchored to (activeId, nodeId)
+  const anchoredKey = Object.keys(allMaps).find(mId => {
+    const m = allMaps[mId];
+    return m && m.parentMapId === activeId && m.parentNodeId !== null && m.parentNodeId !== undefined && String(m.parentNodeId) === String(nodeId);
+  }) || Object.keys(allMaps).find(mId => {
+    const m = allMaps[mId];
+    return m && m.parentNodeId !== null && m.parentNodeId !== undefined && String(m.parentNodeId) === String(nodeId);
+  });
+
+  if (anchoredKey) {
+    if (targetNode && !targetNode.childMapId) {
+      targetNode.childMapId = anchoredKey;
+    }
+    return anchoredKey;
+  }
+
+  return (targetNode && targetNode.childMapId) ? targetNode.childMapId : null;
+}
+
+/**
+ * Navigate directly to a node's associated sub-map on double-click (or prompt to attach/create if none exists)
+ */
+function navigateToNodeSubmap(nodeId) {
+  const now = Date.now();
+  if (typeof Workstation !== "undefined") {
+    if (Workstation._lastSubmapNavTime && String(Workstation._lastSubmapNavNodeId) === String(nodeId) && (now - Workstation._lastSubmapNavTime) < 350) {
+      return true;
+    }
+    Workstation._lastSubmapNavTime = now;
+    Workstation._lastSubmapNavNodeId = String(nodeId);
+  }
+
+  const topoNodes = (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.nodes) ? Workstation.activeTopology.nodes : {};
+  const node = topoNodes[nodeId] || topoNodes[String(nodeId)] || ((typeof getNode === "function") ? getNode(nodeId) : null);
+  const childMapId = resolveNodeChildMapId(node, nodeId);
+
+  if (childMapId && typeof switchActiveMap === "function") {
+    switchActiveMap(childMapId);
+    const allMaps = (typeof maps !== "undefined" && maps) ? maps : ((typeof Workstation !== "undefined" && Workstation.maps) ? Workstation.maps : {});
+    const mapName = (allMaps[childMapId] && allMaps[childMapId].name) ? allMaps[childMapId].name : childMapId;
+    if (typeof setStatusBarMessage === "function") {
+      setStatusBarMessage(`Navigated to sub-map: "${mapName}".`);
+    }
+    return true;
+  }
+
+  if (typeof openNewSubMapPrompt === "function") {
+    openNewSubMapPrompt();
+  }
+  return false;
+}
+
+window.resolveNodeChildMapId = resolveNodeChildMapId;
+window.navigateToNodeSubmap = navigateToNodeSubmap;
+
+/**
  * Prompt user to create a new sub-map attached to active or selected node
  */
 function openNewSubMapPrompt() {
@@ -171,6 +240,9 @@ function switchLegendTab(tabId) {
  */
 function onCanvasDrop(e) {
   e.preventDefault();
+  if (typeof handleCanvasEntityDrop === 'function' && handleCanvasEntityDrop(e)) {
+    return;
+  }
   const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (file && typeof handleMapFileIngestion === "function") {
     handleMapFileIngestion(file, (typeof activeMapId !== "undefined") ? activeMapId : "map_root");

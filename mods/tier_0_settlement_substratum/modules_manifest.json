@@ -1,0 +1,163 @@
+[
+  {
+    "id": "T0-DOM-01",
+    "title": "The Subsistence Agrarian Perimeter and Root Cellars",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Agrarian Subsistence",
+    "color": "Green",
+    "provides": [
+      "Food: Baseline-Subsistence-Rations"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md",
+    "standalone_fallback": "If arable soils freeze, flood, or suffer blighted rot, the settlement opens sealed winter root cellars and transitions to parched grain rationing, wild hedgerow foraged turnip soups, and slaughtering non-essential dairy sheep, maintaining subsistence for 30 days before starvation checks begin.",
+    "chain_id": "CHAIN-SUBSISTENCE",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "T0-DOM-02",
+    "title": "The Communal Artesian Well and Village Cistern",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Hydrological Commons",
+    "color": "Blue / Green",
+    "provides": [
+      "Water: Baseline-Potable-Well-Head",
+      "Water: Baseline-Potable-Flow"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md",
+    "standalone_fallback": "If the artesian springhead runs dry or suffers surface contamination, the settlement reverts to hand-hauled snowmelt runoff, roof rainwater cisterns, and strict boiling of muddy ditch water, sustaining up to 300 residents at 4 liters/day under mild dysentery risk before migration becomes unavoidable.",
+    "chain_id": "CHAIN-SUBSISTENCE",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "T0-DOM-03",
+    "title": "Vernacular Timber, Wattle & Stone Masonry",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Vernacular Construction",
+    "color": "Green / White",
+    "provides": [
+      "Shelter: Weatherproof-Civic-Fabric"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md",
+    "standalone_fallback": "If timber rot, roof fires, or clay shortages compromise municipal masonry, the community crowds into smoke-choked central longhouses, turf dugouts, and sheep byres; hypothermia and respiratory coughing inflict Light checks during rain, but community cohesion keeps the node habitable without collapse.",
+    "chain_id": "CHAIN-SUBSISTENCE",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "T0-DOM-04",
+    "title": "The Ditch-and-Palisade with Town Watch Bailiff",
+    "set": "Set C (Governance & Hierarchy)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Hierarchy / Parish Defense",
+    "color": "White",
+    "provides": [
+      "Defense: Local-Palisade-and-Watch"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md",
+    "standalone_fallback": "If timber palisades rot or the bailiff's watch dissolves, the hamlet retreats into a central fortified stone church tower or communal barn, barricading doorways with oak tables and sounding brass alarm horns; petty marauders loot outer gardens, but residents survive sieges up to 7 days before surrender.",
+    "chain_id": "CHAIN-FRONTIER",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "T0-DOM-05",
+    "title": "The Weekly Barter Square and Village Blacksmith",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Market / Village Barter",
+    "color": "Red",
+    "provides": [
+      "Economy: Baseline-Mundane-Smithy-and-Trade"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md",
+    "standalone_fallback": "If iron scrap or charcoal supplies fail, the forge goes cold; the village reverts to wood-pegged plows, stone-sharpened scythes, and pure commodity barter (bushels of oats for wool fleeces); agricultural efficiency drops 30%, but mundane village exchanges continue without monetary currency.",
+    "chain_id": "CHAIN-FRONTIER",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "T0-DOM-06",
+    "title": "The Village Herbalist, Midwife & Leechcraft Hearth",
+    "set": "Set E (Factions & Societal Tensions)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Folk Healing",
+    "color": "Green",
+    "provides": [
+      "Health: Folk-Leechcraft-and-Midwifery"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md",
+    "standalone_fallback": "If medicinal herbs run out or the midwife dies, the community relies on boiled onion poultices, pine-needle tea, and elder hearth vigils; non-magical disease recovery slows by 50% and infant mortality climbs, but basic domestic care prevents immediate depopulation.",
+    "chain_id": "CHAIN-FRONTIER",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "T0-DOM-07",
+    "title": "The Midden Trenches, Swine Scavengers & Night-Soil Pit",
+    "set": "Set A (Infrastructure & Engineering)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Sanitation Commons",
+    "color": "Black / Green",
+    "provides": [
+      "Sanitation: Vernacular-Midden-Management"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md",
+    "standalone_fallback": "If swine die or lime dust runs out, the village digs emergency muck pits 200 yards downwind and covers waste with river gravel and pine ash; foul odors inflict Light morale penalties, but basic separation of waste from wellhead drainage prevents cholera outbreaks.",
+    "chain_id": "CHAIN-FRONTIER",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  },
+  {
+    "id": "T0-DOM-08",
+    "title": "The Wayside Boundary Shrine & Hearth Vigil",
+    "set": "Set G (Esoterica & Climax Engines)",
+    "tier": "Tier 0 (Baseline Settlement Substratum)",
+    "pipeline_tier": 0,
+    "culture": "Clan / Ancestral Folk Vigil",
+    "color": "White / Green",
+    "provides": [
+      "Social: Communal-Folklore-Solidarity"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md",
+    "standalone_fallback": "If the boundary shrine is desecrated or sacred icons are smashed, the community fractures into suspicious family enclaves; solstice feasts cease, paranoia against outsiders spikes, and characters suffer disadvantage on morale checks, but private hearth candle vigils sustain baseline social survival.",
+    "chain_id": "CHAIN-FRONTIER",
+    "chain_stage": 1,
+    "chain_role": "extraction"
+  }
+]

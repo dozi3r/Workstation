@@ -826,6 +826,28 @@
       addTreeItem(container, `All Active (${activeList.length})`, 'all');
       addTreeItem(container, `Unassigned (${activeList.filter(e => !e.nodeId).length})`, 'unassigned');
 
+      // Tracker Scope Tiers (DEV-03)
+      if (CurrentEntityTab === 'tracker') {
+        const tierHeader = document.createElement('div');
+        tierHeader.style.padding = '8px 6px 2px 6px';
+        tierHeader.style.fontSize = '10px';
+        tierHeader.style.fontWeight = 'bold';
+        tierHeader.style.color = '#555';
+        tierHeader.textContent = 'BY SCOPE TIER:';
+        container.appendChild(tierHeader);
+
+        const normTrackerScope = (t) => {
+          const raw = (t && t.scopeTier ? t.scopeTier : 'settlement').toLowerCase();
+          return raw === 'city' ? 'settlement' : raw;
+        };
+
+        ['quest', 'settlement', 'faction', 'world'].forEach(sc => {
+          const count = activeList.filter(t => normTrackerScope(t) === sc).length;
+          const label = sc === 'settlement' ? 'CITY / SETTLEMENT' : sc.toUpperCase();
+          addTreeItem(container, `${label} Scope (${count})`, `scope:${sc}`);
+        });
+      }
+
       // 2. By Node Section
       const nodeHeader = document.createElement('div');
       nodeHeader.style.padding = '4px 6px 2px 6px';
@@ -876,6 +898,13 @@
       container.appendChild(div);
     }
 
+
+    let CurrentEntitySort = 'default';
+    function setEntityManagerSort(sortMode) {
+      CurrentEntitySort = sortMode || 'default';
+      renderEntityManagerList();
+    }
+    window.setEntityManagerSort = setEntityManagerSort;
 
     // --- Entity Catalog List Table ---
     function renderEntityManagerList() {
@@ -962,11 +991,13 @@
           const jumpBtn = (nodeMapId !== curMapId)
             ? `<button class="win-btn" onclick="event.stopPropagation(); jumpToNodeMap('${escapedMapId}', '${escapedId}')" style="font-size:9px; padding:1px 3px; margin-right:2px; font-weight:bold; color:#0f766e;" title="Jump to Sub-Map">Go</button>`
             : '';
+          const nodeTickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('node', node.id) : [];
+          const nodeTkBadge = nodeTickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${nodeTickets.length}</span>` : '';
 
           tr.innerHTML = `
             <td><strong>${colorDot}#${node.id}${hiddenBadge}${lockBadge}</strong></td>
             ${isMultiMapScope ? `<td><span class="entity-badge-tag" style="font-size:9px;" title="${node._mapName}">${node._mapName || nodeMapId}</span></td>` : ''}
-            <td><strong>${node.name}</strong>${submapBadge}</td>
+            <td><strong>${node.name}</strong>${submapBadge}${nodeTkBadge}</td>
             <td>${roleStr}</td>
             <td><span class="entity-badge-tag">${node.culture || 'Universal'}</span></td>
             <td>${(node.adj || []).length} corridors</td>
@@ -1052,16 +1083,18 @@
 
           const escapedKey = escapeJsArg(edge.edgeKey);
           const escapedMapId = escapeJsArg(edge._mapId);
+          const edgeTickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('edge', edge.edgeKey || edge.id) : [];
+          const edgeTkBadge = edgeTickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${edgeTickets.length}</span>` : '';
 
           const displayInfo = getEdgeDisplayInfo(edge);
           const nameCellHtml = displayInfo.endpointsSubtitle
             ? `
-              <div style="font-weight:bold; color:#0f172a; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeHtml(displayInfo.primaryTitle)}">${escapeHtml(displayInfo.primaryTitle)}</div>
+              <div style="font-weight:bold; color:#0f172a; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeHtml(displayInfo.primaryTitle)}">${escapeHtml(displayInfo.primaryTitle)}${edgeTkBadge}</div>
               <div style="font-size:10px; color:#334155; font-weight:500; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeHtml(displayInfo.endpointsSubtitle)}">${escapeHtml(displayInfo.endpointsSubtitle)}</div>
               <div style="font-size:9px; color:#64748b;">${escapeHtml(displayInfo.metaSubtitle)}</div>
             `
             : `
-              <div style="font-weight:bold; color:#0f172a; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeHtml(displayInfo.primaryTitle)}">${escapeHtml(displayInfo.primaryTitle)}</div>
+              <div style="font-weight:bold; color:#0f172a; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeHtml(displayInfo.primaryTitle)}">${escapeHtml(displayInfo.primaryTitle)}${edgeTkBadge}</div>
               <div style="font-size:9px; color:#64748b;">${escapeHtml(displayInfo.metaSubtitle)}</div>
             `;
 
@@ -1103,7 +1136,7 @@
       } else if (CurrentEntityTab === 'quest') {
         thead.innerHTML = '<th>Quest Title</th><th>Type / Stakes</th><th style="min-width:150px;">Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
       } else if (CurrentEntityTab === 'tracker') {
-        thead.innerHTML = '<th>Threat / Clock Title</th><th style="width:90px;">Type</th><th style="width:95px;">Ticks / Progress</th><th style="min-width:150px;">Stationed Node</th><th>Source / Faction</th><th style="width:35px; text-align:center;">Action</th>';
+        thead.innerHTML = '<th>Threat / Clock Title</th><th style="width:75px;">Scope Tier</th><th style="width:85px;">Type</th><th style="width:95px;">Ticks / Progress</th><th style="min-width:140px;">Stationed Node</th><th>Source / Faction</th><th style="width:35px; text-align:center;">Action</th>';
       } else if (CurrentEntityTab === 'faction') {
         thead.innerHTML = '<th style="min-width:140px;">Faction Name</th><th style="min-width:110px;">CVF Culture</th><th style="width:75px;">Color</th><th>Leader NPC</th><th style="min-width:150px;">Headquarters</th><th style="width:85px;">Territory</th><th style="width:35px; text-align:center;">Action</th>';
       } else {
@@ -1146,6 +1179,12 @@
               return !item.headquartersNodeId && (!Array.isArray(item.controlledNodeIds) || item.controlledNodeIds.length === 0);
             }
           }
+          if (CurrentEntityTab === 'tracker' && SelectedEntityFilter.startsWith('scope:')) {
+            const sc = SelectedEntityFilter.replace('scope:', '').toLowerCase();
+            const rawTier = (item.scopeTier || 'settlement').toLowerCase();
+            const normTier = (rawTier === 'city') ? 'settlement' : rawTier;
+            return normTier === (sc === 'city' ? 'settlement' : sc);
+          }
           if (SelectedEntityFilter === 'unassigned') {
             if (CurrentEntityTab === 'item') {
               const effNode = getItemEffectiveNodeId(item);
@@ -1163,6 +1202,28 @@
           }
           return true;
         });
+
+        if (CurrentEntitySort === 'name') {
+          displayList.sort((a, b) => String(a.name || a.title || '').localeCompare(String(b.name || b.title || '')));
+        } else if (CurrentEntitySort === 'scope') {
+          const scopeRank = { world: 4, faction: 3, settlement: 2, city: 2, quest: 1 };
+          displayList.sort((a, b) => {
+            if (CurrentEntityTab === 'tracker') {
+              const rA = scopeRank[(a.scopeTier || 'settlement').toLowerCase()] || 0;
+              const rB = scopeRank[(b.scopeTier || 'settlement').toLowerCase()] || 0;
+              if (rB !== rA) return rB - rA;
+            }
+            return String(a.role || a.category || a.type || a.scopeTier || '').localeCompare(String(b.role || b.category || b.type || b.scopeTier || ''));
+          });
+        } else if (CurrentEntitySort === 'progress' || (CurrentEntitySort === 'default' && CurrentEntityTab === 'tracker')) {
+          displayList.sort((a, b) => {
+            const pA = (a.currentTicks || 0) / (a.maxTicks || 6);
+            const pB = (b.currentTicks || 0) / (b.maxTicks || 6);
+            return pB - pA;
+          });
+        } else if (CurrentEntitySort === 'node') {
+          displayList.sort((a, b) => String(a.nodeId || a.headquartersNodeId || 'zzz').localeCompare(String(b.nodeId || b.headquartersNodeId || 'zzz')));
+        }
       }
 
       // Filter by search keyword
@@ -1215,9 +1276,11 @@
           const odvStr = item.odv ? `[${item.odv.s},${item.odv.e},${item.odv.c}]` : '';
           const cultureStr = item.culture || (odvStr ? 'Custom' : 'Universal');
           const cultBadge = `<span class="entity-badge-tag" style="font-size:9px;">${cultureStr} ${odvStr}</span>`;
+          const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('npc', item.id) : [];
+          const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
           tr.innerHTML = `
-            <td><strong>👤 ${nameVal}</strong></td>
+            <td><strong>👤 ${nameVal}</strong>${tkBadge}</td>
             <td><div>${roleVal || '-'}</div><div style="margin-top:2px;">${statusBadge}</div></td>
             <td>${standingBadge}</td>
             <td>${nodeVal}</td>
@@ -1237,9 +1300,11 @@
           const nodeDisplay = effNodeId
             ? (isCarried ? `${formattedNode} <span style="font-size:9px; color:#0f766e; font-weight:bold;">(Carried)</span>` : formattedNode)
             : '(Unassigned)';
+          const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('item', item.id) : [];
+          const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
           tr.innerHTML = `
-            <td><strong>💎 ${nameVal}</strong></td>
+            <td><strong>💎 ${nameVal}</strong>${tkBadge}</td>
             <td>${roleVal || '-'}</td>
             <td>${ownerBadge}</td>
             <td>${nodeDisplay}</td>
@@ -1251,9 +1316,14 @@
           const maxTicks = item.maxTicks || 6;
           const gaugeHtml = renderMiniClockGauge(curTicks, maxTicks);
           const isTriggered = curTicks >= maxTicks;
+          const scopeTier = item.scopeTier || 'settlement';
+          const scopeBadgeColor = scopeTier === 'world' ? '#dc2626' : (scopeTier === 'faction' ? '#d97706' : (scopeTier === 'settlement' ? '#2563eb' : '#16a34a'));
+          const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('tracker', item.id) : [];
+          const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
           tr.innerHTML = `
-            <td><strong>${nameVal}</strong></td>
+            <td><strong>⏱️ ${nameVal}</strong>${tkBadge}</td>
+            <td><span class="entity-badge-tag" style="background:${scopeBadgeColor}; color:#fff; text-transform:uppercase; font-size:8px;">${scopeTier}</span></td>
             <td><span class="me-badge ${isTriggered ? 'me-badge-crisis' : ''}">${roleVal || 'Threat Clock'}</span></td>
             <td>
               <span class="clock-mini-gauge">${gaugeHtml}</span>
@@ -1272,9 +1342,11 @@
           const terrCount = Array.isArray(item.controlledNodeIds) ? item.controlledNodeIds.length : 0;
           const cult = item.cvfQuadrant || 'Clan';
           const color = item.colorIdentity || 'C';
+          const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('faction', item.id) : [];
+          const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
           tr.innerHTML = `
-            <td><strong>👑 ${nameVal}</strong></td>
+            <td><strong>👑 ${nameVal}</strong>${tkBadge}</td>
             <td><span class="entity-badge-tag" style="background:#4338ca; color:#fff;">${cult}</span></td>
             <td><span class="entity-badge-tag" style="background:#0f172a; color:#f8fafc; font-weight:bold;">${color}</span></td>
             <td>${leaderBadge}</td>
@@ -1283,15 +1355,24 @@
             <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('faction', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Faction">Del</button></td>
           `;
         } else {
+          const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('quest', item.id) : [];
+          const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
           tr.innerHTML = `
-            <td><strong>${nameVal}</strong></td>
+            <td><strong>📜 ${nameVal}</strong>${tkBadge}</td>
             <td>${roleVal || '-'}</td>
             <td>${nodeVal}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
-            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('${CurrentEntityTab}', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete ${CurrentEntityTab.toUpperCase()}">Del</button></td>
+            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('quest', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Quest">Del</button></td>
           `;
         }
 
+        tr.setAttribute('draggable', 'true');
+        tr.title = 'Click to inspect • Drag onto the CAD Canvas to place or link into a Spatial Pin';
+        tr.ondragstart = (ev) => {
+          if (typeof onEntityListDragStart === 'function') {
+            onEntityListDragStart(ev, CurrentEntityTab, item.id, nameVal, !!item.isPrototype);
+          }
+        };
         tr.onclick = () => selectEntityItem(item.id, item.isPrototype);
         tbody.appendChild(tr);
       });
@@ -1346,6 +1427,236 @@
       }
     }
     window.switchEdgeDetailSubtab = switchEdgeDetailSubtab;
+
+    function renderAssignedTicketsSection(targetType, targetId, defaultNodeId = null) {
+      const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity(targetType, targetId) : [];
+      let html = `
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; margin-top:6px; border-radius:2px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <div style="font-size:10px; font-weight:bold; color:#000080;">AUTHORING TICKETS (${tickets.length}):</div>
+            <button class="win-btn" onclick="if(typeof openNewCampaignTicketModal==='function') openNewCampaignTicketModal('${escapeJsArg(targetType)}', '${escapeJsArg(targetId)}', ${defaultNodeId != null ? `'${escapeJsArg(defaultNodeId)}'` : 'null'})" style="font-size:9px; padding:1px 5px; color:#000080;">+ New Ticket</button>
+          </div>
+      `;
+      if (tickets.length === 0) {
+        html += `<div style="font-size:9px; color:#64748b; font-style:italic;">No tickets assigned to this entity.</div>`;
+      } else {
+        html += `<div style="display:flex; flex-direction:column; gap:3px;">`;
+        tickets.forEach(tk => {
+          const statusSlug = (tk.status || 'draft').toLowerCase().replace(/\s+/g, '_');
+          html += `
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; border:1px solid #e2e8f0; padding:2px 5px; border-radius:2px; font-size:10px;">
+              <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
+                <strong style="color:#000080; cursor:pointer;" onclick="if(typeof openTicketCenter==='function') { openTicketCenter(); if(typeof switchTicketCenterTab==='function') switchTicketCenterTab('campaign'); selectTicket('${escapeJsArg(tk.id)}', 'campaign'); }">${tk.id}</strong>: ${escapeHtml(tk.title)}
+              </div>
+              <div style="display:flex; gap:3px; align-items:center;">
+                <span class="ticket-badge-status status-${statusSlug}" style="font-size:8px; padding:0 3px;">${escapeHtml(tk.status || 'ready')}</span>
+                <button class="win-btn" onclick="if(typeof openEditTicketModal==='function') openEditTicketModal('${escapeJsArg(tk.id)}')" style="font-size:8px; padding:0 3px;">✏️</button>
+              </div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+      html += `</div>`;
+      return html;
+    }
+    window.renderAssignedTicketsSection = renderAssignedTicketsSection;
+
+    function renderLinkedTrackersSection(targetType, targetId, defaultNodeId = null) {
+      const trackers = (typeof getTrackersForEntity === 'function') ? getTrackersForEntity(targetType, targetId) : [];
+      let html = `
+        <div style="background:#fef2f2; border:1px solid #fecaca; padding:6px; margin-top:6px; border-radius:2px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <div style="font-size:10px; font-weight:bold; color:#991b1b;">⏱️ LINKED THREAT CLOCKS (${trackers.length}):</div>
+            <button class="win-btn" onclick="openNewEntityModal('tracker', ${defaultNodeId != null ? `'${escapeJsArg(defaultNodeId)}'` : 'null'})" style="font-size:9px; padding:1px 5px; color:#991b1b;">+ New Clock</button>
+          </div>
+      `;
+      if (trackers.length === 0) {
+        html += `<div style="font-size:9px; color:#64748b; font-style:italic;">No threat clocks linked to this ${escapeHtml(targetType)}.</div>`;
+      } else {
+        html += `<div style="display:flex; flex-direction:column; gap:3px;">`;
+        trackers.forEach(trk => {
+          const cur = trk.currentTicks || 0;
+          const max = trk.maxTicks || 6;
+          const gauge = renderMiniClockGauge(cur, max);
+          const scope = (trk.scopeTier === 'city' ? 'settlement' : (trk.scopeTier || 'settlement')).toUpperCase();
+          html += `
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; border:1px solid #fecaca; padding:3px 5px; border-radius:2px; font-size:10px;">
+              <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
+                <strong style="color:#991b1b; cursor:pointer;" onclick="navigateToEntity('tracker', '${escapeJsArg(trk.id)}')">⏱️ ${escapeHtml(trk.name || trk.title)}</strong>
+                <span class="entity-badge-tag" style="font-size:8px; background:#fee2e2; color:#991b1b;">${scope}</span>
+                <span class="clock-mini-gauge" style="margin-left:3px;">${gauge}</span>
+                <strong style="font-size:9px; color:#333;">${cur}/${max}</strong>
+              </div>
+              <div style="display:flex; gap:2px; align-items:center;">
+                <button class="win-btn" onclick="advanceTrackerTick('${escapeJsArg(trk.id)}', -1); selectEntityItem('${escapeJsArg(targetId)}', false);" style="font-size:8px; padding:0 4px;" title="Decrement Tick">-1</button>
+                <button class="win-btn" onclick="advanceTrackerTick('${escapeJsArg(trk.id)}', 1); selectEntityItem('${escapeJsArg(targetId)}', false);" style="font-size:8px; padding:0 4px; color:#991b1b; font-weight:bold;" title="Advance Tick">+1</button>
+                <button class="win-btn" onclick="navigateToEntity('tracker', '${escapeJsArg(trk.id)}')" style="font-size:8px; padding:0 4px;">Inspect</button>
+              </div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+      html += `</div>`;
+      return html;
+    }
+    window.renderLinkedTrackersSection = renderLinkedTrackersSection;
+
+    function updateTrackerScopeTier(trackerId, newScope) {
+      const activeList = getActiveEntityList('tracker');
+      const trk = activeList.find(t => String(t.id) === String(trackerId) || String(t.prototypeId) === String(trackerId));
+      if (!trk) return;
+      trk.scopeTier = newScope || 'settlement';
+      saveActiveCampaign();
+      renderEntityManagerTree();
+      renderEntityManagerList();
+      selectEntityItem(trk.id, false);
+      if (typeof setStatusBarMessage === 'function') {
+        setStatusBarMessage(`Updated Clock "${trk.name}" Scope Tier to ${trk.scopeTier.toUpperCase()}.`);
+      }
+    }
+    window.updateTrackerScopeTier = updateTrackerScopeTier;
+
+    function advanceQuestStep(questId, stepIndex) {
+      const topo = Workstation.activeTopology || {};
+      const quest = (topo.quests || []).find(q => q.id === questId);
+      if (!quest || !Array.isArray(quest.steps) || !quest.steps[stepIndex]) return;
+      const step = quest.steps[stepIndex];
+      step.isCompleted = true;
+
+      if (step.triggerTrackerId) {
+        const delta = step.tickDelta || 1;
+        if (typeof advanceTrackerTick === 'function') {
+          const trk = advanceTrackerTick(step.triggerTrackerId, delta);
+          if (trk) {
+            const maxTicks = trk.maxTicks || 6;
+            if (typeof setStatusBarMessage === 'function') {
+              setStatusBarMessage(`Advanced Quest Step: "${step.title}". Triggered +${delta} on Clock "${trk.name || trk.title}" (${trk.currentTicks}/${maxTicks}).`);
+            }
+          }
+        }
+      } else {
+        if (typeof setStatusBarMessage === 'function') setStatusBarMessage(`Advanced Quest Step: "${step.title}".`);
+      }
+
+      saveActiveCampaign();
+      renderEntityManagerList();
+      selectEntityItem(questId, false);
+      if (typeof updatePropertiesGrid === 'function') updatePropertiesGrid();
+    }
+    window.advanceQuestStep = advanceQuestStep;
+
+    function resetQuestStep(questId, stepIndex) {
+      const topo = Workstation.activeTopology || {};
+      const quest = (topo.quests || []).find(q => q.id === questId);
+      if (!quest || !Array.isArray(quest.steps) || !quest.steps[stepIndex]) return;
+      const step = quest.steps[stepIndex];
+      const wasCompleted = !!step.isCompleted;
+      step.isCompleted = false;
+
+      if (wasCompleted && step.triggerTrackerId) {
+        const delta = step.tickDelta || 1;
+        if (typeof advanceTrackerTick === 'function') {
+          const trk = advanceTrackerTick(step.triggerTrackerId, -delta);
+          if (trk) {
+            if (typeof setStatusBarMessage === 'function') {
+              setStatusBarMessage(`Reset Quest Step: "${step.title}". Rolled back -${delta} on Clock "${trk.name || trk.title}" (${trk.currentTicks}/${trk.maxTicks || 6}).`);
+            }
+          }
+        }
+      }
+
+      saveActiveCampaign();
+      if (typeof renderCanvas === 'function') renderCanvas();
+      renderEntityManagerList();
+      selectEntityItem(questId, false);
+      if (typeof updatePropertiesGrid === 'function') updatePropertiesGrid();
+    }
+    window.resetQuestStep = resetQuestStep;
+
+    function updateQuestStepTrigger(questId, stepIndex, trackerId, tickDelta) {
+      const topo = Workstation.activeTopology || {};
+      const quest = (topo.quests || []).find(q => q.id === questId);
+      if (!quest || !Array.isArray(quest.steps) || !quest.steps[stepIndex]) return;
+      quest.steps[stepIndex].triggerTrackerId = trackerId || null;
+      if (tickDelta !== undefined) quest.steps[stepIndex].tickDelta = parseInt(tickDelta, 10) || 1;
+      saveActiveCampaign();
+      selectEntityItem(questId, false);
+    }
+    window.updateQuestStepTrigger = updateQuestStepTrigger;
+
+    function editQuestStep(questId, stepIndex) {
+      const topo = Workstation.activeTopology || {};
+      const quest = (topo.quests || []).find(q => q.id === questId);
+      if (!quest || !Array.isArray(quest.steps) || !quest.steps[stepIndex]) return;
+      const step = quest.steps[stepIndex];
+      const newTitle = prompt('Edit Quest Step Title / Objective:', step.title || '');
+      if (newTitle === null) return;
+      if (newTitle.trim()) step.title = newTitle.trim();
+      saveActiveCampaign();
+      selectEntityItem(questId, false);
+    }
+    window.editQuestStep = editQuestStep;
+
+    function deleteQuestStep(questId, stepIndex) {
+      const topo = Workstation.activeTopology || {};
+      const quest = (topo.quests || []).find(q => q.id === questId);
+      if (!quest || !Array.isArray(quest.steps) || !quest.steps[stepIndex]) return;
+      quest.steps.splice(stepIndex, 1);
+      quest.steps.forEach((s, idx) => { s.order = idx + 1; });
+      saveActiveCampaign();
+      selectEntityItem(questId, false);
+    }
+    window.deleteQuestStep = deleteQuestStep;
+
+    function moveQuestStep(questId, stepIndex, dir) {
+      const topo = Workstation.activeTopology || {};
+      const quest = (topo.quests || []).find(q => q.id === questId);
+      if (!quest || !Array.isArray(quest.steps)) return;
+      const newIdx = stepIndex + dir;
+      if (newIdx < 0 || newIdx >= quest.steps.length) return;
+      const temp = quest.steps[stepIndex];
+      quest.steps[stepIndex] = quest.steps[newIdx];
+      quest.steps[newIdx] = temp;
+      quest.steps.forEach((s, idx) => { s.order = idx + 1; });
+      saveActiveCampaign();
+      selectEntityItem(questId, false);
+    }
+    window.moveQuestStep = moveQuestStep;
+
+    function addQuestStep(questId) {
+      const topo = Workstation.activeTopology || {};
+      const quest = (topo.quests || []).find(q => q.id === questId);
+      if (!quest) return;
+      if (!Array.isArray(quest.steps)) quest.steps = [];
+
+      const title = prompt('Enter Quest Step Title / Objective:');
+      if (!title) return;
+
+      const trackers = topo.trackers || [];
+      let trackerPrompt = '';
+      if (trackers.length > 0) {
+        trackerPrompt = 'Optionally enter linked Threat Clock ID to advance on trigger:\n' +
+          trackers.map(t => `${t.id}: ${t.name || t.title}`).join('\n') + '\n(Leave blank for no clock trigger)';
+      }
+      const linkedTrkId = trackerPrompt ? prompt(trackerPrompt) : '';
+
+      quest.steps.push({
+        id: `step_${Date.now().toString().slice(-4)}`,
+        order: quest.steps.length + 1,
+        title: title,
+        isCompleted: false,
+        triggerTrackerId: linkedTrkId ? linkedTrkId.trim() : null,
+        tickDelta: 1
+      });
+
+      saveActiveCampaign();
+      renderEntityManagerList();
+      selectEntityItem(questId, false);
+      if (typeof setStatusBarMessage === 'function') setStatusBarMessage(`Added step "${title}" to quest.`);
+    }
+    window.addQuestStep = addQuestStep;
 
     // --- Entity Detail & Property Inspector ---
     function selectEntityItem(id, isProto, optMapId = null) {
@@ -1585,6 +1896,12 @@
                 </div>
               ` : ''}
             </div>
+
+            <!-- Linked Threat Clocks (DEV-01) -->
+            ${renderLinkedTrackersSection('node', node.id, node.id)}
+
+            <!-- Assigned Authoring Tickets (DEV-01 & DEV-04) -->
+            ${renderAssignedTicketsSection('node', node.id, node.id)}
           </div>
 
           <!-- SUBTAB 2: Properties Grid (VB6 Property Table) -->
@@ -1734,6 +2051,12 @@
                 <div style="margin-top:2px; color:#333; white-space:pre-wrap;">${edge.notes}</div>
               </div>
             ` : ''}
+
+            <!-- Linked Threat Clocks (DEV-01) -->
+            ${renderLinkedTrackersSection('edge', edge.edgeKey || edge.id, edge.uId)}
+
+            <!-- Assigned Authoring Tickets (DEV-01 & DEV-04) -->
+            ${renderAssignedTicketsSection('edge', edge.edgeKey || edge.id, edge.uId)}
           </div>
 
           <!-- SUBTAB 2: Properties Grid (VB6 Property Table) -->
@@ -1803,6 +2126,58 @@
         const maxTicks = entity.maxTicks || (entity.type === 'Output Dial' ? 4 : 6);
         const isTriggered = curTicks >= maxTicks;
         const isDial = entity.type === 'Output Dial';
+        const rawScope = entity.scopeTier || (activeInstance && activeInstance.scopeTier) || 'settlement';
+        const scopeTier = (rawScope === 'city') ? 'settlement' : rawScope;
+
+        // Collect all attributed triggers: quests (via steps or trackerIds) + explicit entity.triggerRefs (NPCs, Items, Quests, Factions, Trackers)
+        const triggerRows = [];
+        const seenKeys = new Set();
+        const addTriggerRow = (eType, eId, label) => {
+          const k = `${eType}:${eId}`;
+          if (seenKeys.has(k)) return;
+          seenKeys.add(k);
+          triggerRows.push(`
+            <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:2px 5px; border-radius:2px; font-size:10px; margin-bottom:2px;">
+              <span>${label}</span>
+              <button class="win-btn" onclick="switchEntityManagerTab('${escapeJsArg(eType)}'); selectEntityItem('${escapeJsArg(eId)}', false);" style="font-size:8px; padding:1px 3px;">Inspect</button>
+            </div>
+          `);
+        };
+
+        (topo.quests || []).forEach(q => {
+          const viaSteps = Array.isArray(q.steps) && q.steps.some(st => String(st.triggerTrackerId) === String(entity.id));
+          const viaIds = Array.isArray(q.trackerIds) && q.trackerIds.some(tid => String(tid) === String(entity.id));
+          if (viaSteps || viaIds) {
+            addTriggerRow('quest', q.id, `📜 Quest: <strong>${escapeHtml(q.title || q.name)}</strong>${viaSteps ? ' <span style="color:#b91c1c; font-size:9px;">(Step Trigger)</span>' : ''}`);
+          }
+        });
+
+        const refs = Array.isArray(entity.triggerRefs) ? entity.triggerRefs : (activeInstance && Array.isArray(activeInstance.triggerRefs) ? activeInstance.triggerRefs : []);
+        refs.forEach(ref => {
+          if (!ref || !ref.entityId) return;
+          const rType = ref.entityType || 'quest';
+          const rId = ref.entityId;
+          if (rType === 'quest') {
+            const q = (topo.quests || []).find(x => String(x.id) === String(rId));
+            addTriggerRow('quest', rId, `📜 Quest: <strong>${escapeHtml(q ? (q.title || q.name) : rId)}</strong>`);
+          } else if (rType === 'npc') {
+            const n = (topo.npcs || []).find(x => String(x.id) === String(rId));
+            addTriggerRow('npc', rId, `👤 NPC: <strong>${escapeHtml(n ? n.name : rId)}</strong>`);
+          } else if (rType === 'item') {
+            const i = (topo.items || []).find(x => String(x.id) === String(rId));
+            addTriggerRow('item', rId, `💎 Item: <strong>${escapeHtml(i ? i.name : rId)}</strong>`);
+          } else if (rType === 'faction') {
+            const f = (topo.factions || []).find(x => String(x.id) === String(rId));
+            addTriggerRow('faction', rId, `👑 Faction: <strong>${escapeHtml(f ? f.name : rId)}</strong>`);
+          } else if (rType === 'tracker') {
+            const t = (topo.trackers || []).find(x => String(x.id) === String(rId));
+            addTriggerRow('tracker', rId, `⏱️ Clock: <strong>${escapeHtml(t ? t.name : rId)}</strong>`);
+          }
+        });
+
+        const triggersHtml = triggerRows.length > 0
+          ? triggerRows.join('')
+          : '<div style="font-size:9px; color:#64748b; font-style:italic;">No active entities or quests currently trigger this clock. Click "Edit Clock" to attribute triggers.</div>';
 
         let tickTrackHtml = '';
         for (let i = 1; i <= maxTicks; i++) {
@@ -1812,9 +2187,19 @@
 
         pane.innerHTML = `
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
-            <h3 style="font-size:13px; color:#b91c1c; margin-bottom:2px;">${entity.name || entity.title}</h3>
-            <span class="entity-badge-tag">${entity.moduleId ? `Module: ${entity.moduleId}` : 'Custom Authored'}</span>
-            <span class="entity-badge-tag" style="background:${isTriggered ? '#fee2e2; color:#b91c1c; border-color:#ef4444;' : '#dbeafe; color:#1e40af;'}">${isTriggered ? '⚠️ CRISIS TRIGGERED' : (isPrototype ? 'Available Prototype' : 'Active in Campaign')}</span>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 style="font-size:13px; color:#b91c1c; margin:0;">${entity.name || entity.title}</h3>
+              <select class="win-select-input" style="font-size:9px; font-weight:bold; padding:1px 4px; width:130px;" onchange="updateTrackerScopeTier('${escapeJsArg(entity.id)}', this.value)" title="Change Clock Escalation Scope Tier">
+                <option value="quest" ${scopeTier === 'quest' ? 'selected' : ''}>Scope: QUEST</option>
+                <option value="settlement" ${scopeTier === 'settlement' ? 'selected' : ''}>Scope: SETTLEMENT</option>
+                <option value="faction" ${scopeTier === 'faction' ? 'selected' : ''}>Scope: FACTION</option>
+                <option value="world" ${scopeTier === 'world' ? 'selected' : ''}>Scope: WORLD</option>
+              </select>
+            </div>
+            <div style="margin-top:3px;">
+              <span class="entity-badge-tag">${entity.moduleId ? `Module: ${entity.moduleId}` : 'Custom Authored'}</span>
+              <span class="entity-badge-tag" style="background:${isTriggered ? '#fee2e2; color:#b91c1c; border-color:#ef4444;' : '#dbeafe; color:#1e40af;'}">${isTriggered ? '⚠️ CRISIS TRIGGERED' : (isPrototype ? 'Available Prototype' : 'Active in Campaign')}</span>
+            </div>
           </div>
 
           <div style="font-size:11px; display:flex; flex-direction:column; gap:6px;">
@@ -1873,6 +2258,18 @@
               <strong>Trigger Event &amp; Consequences:</strong>
               <p style="color:#444; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${entity.notes || entity.motivation || 'No description provided.'}</p>
             </div>
+
+            <!-- Trigger Attribution (DEV-01 & DEV-03) -->
+            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+                <strong style="font-size:10px; color:#0f172a;">⚡ Attributed Triggers &amp; Linked Entities:</strong>
+                ${!isPrototype ? `<button class="win-btn" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')" style="font-size:8px; padding:1px 4px;">+ Link Triggers</button>` : ''}
+              </div>
+              ${triggersHtml}
+            </div>
+
+            <!-- Assigned Authoring Tickets (DEV-01 & DEV-04) -->
+            ${renderAssignedTicketsSection('tracker', entity.id, activeInstance ? activeInstance.nodeId : entity.suggestedNode)}
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
@@ -1884,7 +2281,7 @@
             </label>
 
             ${(activeInstance && activeInstance.nodeId) ? `
-              <button class="win-btn" onclick="centerOnNode(${activeInstance.nodeId})"><strong>🎯 Center Stationed Node on Canvas</strong></button>
+              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(activeInstance.nodeId)}')"><strong>🎯 Center Stationed Node on Canvas</strong></button>
             ` : ''}
 
             <div style="display:flex; gap:4px; margin-top:2px;">
@@ -1915,7 +2312,7 @@
                 <span style="font-weight:bold; color:#0f172a; font-size:11px;">#${sn.nodeId}: ${sn.nodeName}</span>
                 <div style="font-size:9px; color:#475569;">${sn.reasons.join(', ')} (${sn.mapName})</div>
               </div>
-              <button class="win-btn" onclick="centerOnNode(${sn.nodeId})" style="font-size:9px; padding:1px 5px; white-space:nowrap;">🎯 Center</button>
+              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(sn.nodeId)}', '${escapeJsArg(sn.mapId || '')}')" style="font-size:9px; padding:1px 5px; white-space:nowrap;">🎯 Center</button>
             </div>
           `).join('');
         }
@@ -1930,7 +2327,7 @@
               </div>
               <div style="display:flex; gap:2px;">
                 <button class="win-btn" onclick="window.navigateToEntity('npc', '${npc.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
-                ${npc.nodeId ? `<button class="win-btn" onclick="centerOnNode(${npc.nodeId})" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
+                ${npc.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(npc.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
               </div>
             </div>
           `).join('');
@@ -1946,10 +2343,45 @@
               </div>
               <div style="display:flex; gap:2px;">
                 <button class="win-btn" onclick="window.navigateToEntity('item', '${item.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
-                ${item.nodeId ? `<button class="win-btn" onclick="centerOnNode(${item.nodeId})" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
+                ${item.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(item.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
               </div>
             </div>
           `).join('');
+        }
+
+        const steps = Array.isArray(questObj.steps) ? questObj.steps : [];
+        let stepsHtml = '';
+        if (steps.length === 0) {
+          stepsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No progress steps configured. Click "+ Add Step" to define milestones and clock triggers.</div>';
+        } else {
+          stepsHtml = steps.map((st, sIdx) => {
+            const allTrks = topo.trackers || [];
+            const trkOptions = `<option value="">(No Clock Trigger)</option>` + allTrks.map(t => `<option value="${escapeHtml(t.id)}" ${String(st.triggerTrackerId) === String(t.id) ? 'selected' : ''}>⚡ ${escapeHtml(t.name || t.title)} (${t.currentTicks || 0}/${t.maxTicks || 6})</option>`).join('');
+            return `
+              <div style="display:flex; flex-direction:column; gap:3px; background:${st.isCompleted ? '#f0fdf4' : '#fff'}; border:1px solid ${st.isCompleted ? '#86efac' : '#cbd5e1'}; padding:4px 6px; border-radius:2px; margin-bottom:3px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:4px;">
+                  <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1;">
+                    <span style="font-weight:bold; font-size:11px; ${st.isCompleted ? 'text-decoration:line-through; color:#15803d;' : 'color:#0f172a;'}">${sIdx + 1}. ${escapeHtml(st.title)}</span>
+                  </div>
+                  <div style="display:flex; gap:2px; align-items:center;">
+                    ${!st.isCompleted
+                      ? `<button class="win-btn" onclick="advanceQuestStep('${escapeJsArg(questObj.id)}', ${sIdx})" style="font-size:9px; font-weight:bold; color:#15803d; padding:1px 5px;" title="Complete step and advance linked clock">▶ Advance</button>`
+                      : `<button class="win-btn" onclick="resetQuestStep('${escapeJsArg(questObj.id)}', ${sIdx})" style="font-size:9px; color:#64748b; padding:1px 4px;" title="Reset step and roll back linked clock">↺ Reset</button>`}
+                    <button class="win-btn" onclick="moveQuestStep('${escapeJsArg(questObj.id)}', ${sIdx}, -1)" style="font-size:8px; padding:1px 3px;" title="Move Step Up">↑</button>
+                    <button class="win-btn" onclick="moveQuestStep('${escapeJsArg(questObj.id)}', ${sIdx}, 1)" style="font-size:8px; padding:1px 3px;" title="Move Step Down">↓</button>
+                    <button class="win-btn" onclick="editQuestStep('${escapeJsArg(questObj.id)}', ${sIdx})" style="font-size:8px; padding:1px 3px;" title="Edit Step Title">✏️</button>
+                    <button class="win-btn" onclick="deleteQuestStep('${escapeJsArg(questObj.id)}', ${sIdx})" style="font-size:8px; padding:1px 3px; color:#b91c1c;" title="Delete Step">🗑️</button>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:4px; font-size:9px;">
+                  <span style="color:#64748b;">Trigger on Advance:</span>
+                  <select class="win-select-input" style="font-size:9px; padding:0 2px; flex:1; max-width:210px;" onchange="updateQuestStepTrigger('${escapeJsArg(questObj.id)}', ${sIdx}, this.value)">
+                    ${trkOptions}
+                  </select>
+                </div>
+              </div>
+            `;
+          }).join('');
         }
 
         pane.innerHTML = `
@@ -1985,6 +2417,15 @@
               ${itemsHtml}
             </div>
 
+            <!-- Quest Milestones & Escalation Triggers (DEV-02) -->
+            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+                <strong style="color:#0f172a;">🎯 Quest Steps &amp; Clock Triggers:</strong>
+                ${!isPrototype ? `<button class="win-btn" onclick="addQuestStep('${escapeJsArg(questObj.id)}')" style="font-size:9px; padding:1px 4px; color:#000080;">+ Add Step</button>` : ''}
+              </div>
+              ${stepsHtml}
+            </div>
+
             <!-- Spanning Quest Network -->
             <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
@@ -1994,6 +2435,12 @@
               <div style="font-size:9px; color:#64748b; margin-bottom:4px;">Nodes dynamically spanned by this quest anchor and its stationed NPCs/items:</div>
               ${spanningHtml}
             </div>
+
+            <!-- Linked Threat Clocks (DEV-01) -->
+            ${renderLinkedTrackersSection('quest', questObj.id, currentStationId)}
+
+            <!-- Assigned Authoring Tickets (DEV-01 & DEV-04) -->
+            ${renderAssignedTicketsSection('quest', questObj.id, currentStationId)}
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
@@ -2005,7 +2452,7 @@
             </label>
 
             ${(currentStationId) ? `
-              <button class="win-btn" onclick="centerOnNode(${currentStationId})"><strong>🎯 Center Anchor Node on Canvas</strong></button>
+              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(currentStationId)}')"><strong>🎯 Center Anchor Node on Canvas</strong></button>
             ` : ''}
 
             <div style="display:flex; gap:4px; margin-top:4px;">
@@ -2042,7 +2489,7 @@
               </div>
               <div style="display:flex; gap:2px;">
                 <button class="win-btn" onclick="window.navigateToEntity('quest', '${q.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
-                ${q.nodeId ? `<button class="win-btn" onclick="centerOnNode(${q.nodeId})" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
+                ${q.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(q.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
               </div>
             </div>
           `).join('');
@@ -2109,6 +2556,12 @@
               </div>
               ${questsHtml}
             </div>
+
+            <!-- Linked Threat Clocks (DEV-01) -->
+            ${renderLinkedTrackersSection('item', itemObj.id, effNodeId)}
+
+            <!-- Assigned Authoring Tickets (DEV-01 & DEV-04) -->
+            ${renderAssignedTicketsSection('item', itemObj.id, effNodeId)}
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
@@ -2126,7 +2579,7 @@
             `}
 
             ${(effNodeId) ? `
-              <button class="win-btn" onclick="centerOnNode(${effNodeId})"><strong>🎯 Center Stationed Node on Canvas</strong></button>
+              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(effNodeId)}')"><strong>🎯 Center Stationed Node on Canvas</strong></button>
             ` : ''}
 
             <div style="display:flex; gap:4px; margin-top:4px;">
@@ -2265,11 +2718,17 @@
               <strong>Ideological Agenda &amp; Dossier:</strong>
               <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${facObj.description || facObj.notes || 'No description provided.'}</p>
             </div>
+
+            <!-- Linked Threat Clocks (DEV-01) -->
+            ${renderLinkedTrackersSection('faction', facObj.id, hqNodeId)}
+
+            <!-- Assigned Authoring Tickets (DEV-01 & DEV-04) -->
+            ${renderAssignedTicketsSection('faction', facObj.id, hqNodeId)}
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
             ${hqNodeId ? `
-              <button class="win-btn" onclick="centerOnNode(${hqNodeId})"><strong>🎯 Center Headquarters on Canvas</strong></button>
+              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(hqNodeId)}')"><strong>🎯 Center Headquarters on Canvas</strong></button>
             ` : ''}
 
             <div style="display:flex; gap:4px; margin-top:4px;">
@@ -2445,7 +2904,7 @@
               </div>
               <div style="display:flex; gap:2px;">
                 <button class="win-btn" onclick="window.navigateToEntity('quest', '${q.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
-                ${q.nodeId ? `<button class="win-btn" onclick="centerOnNode(${q.nodeId})" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
+                ${q.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(q.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
               </div>
             </div>
           `).join('');
@@ -2566,6 +3025,12 @@
               </div>
               ${questsHtml}
             </div>
+
+            <!-- Linked Threat Clocks (DEV-01) -->
+            ${renderLinkedTrackersSection('npc', npcObj.id, npcObj.nodeId)}
+
+            <!-- Assigned Authoring Tickets (DEV-01 & DEV-04) -->
+            ${renderAssignedTicketsSection('npc', npcObj.id, npcObj.nodeId)}
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
@@ -2577,7 +3042,7 @@
             </label>
 
             ${(currentStationId) ? `
-              <button class="win-btn" onclick="centerOnNode(${currentStationId})"><strong>🎯 Center Stationed Node on Canvas</strong></button>
+              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(currentStationId)}')"><strong>🎯 Center Stationed Node on Canvas</strong></button>
             ` : ''}
 
             <div style="display:flex; gap:4px; margin-top:4px;">

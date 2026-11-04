@@ -8,89 +8,269 @@
     {
       "id": "BG-BND-01",
       "name": "Bandit Perimeter & Sentry Palisade",
-      "displayName": "Perimeter Gate",
-      "x": 260,
-      "y": 420,
-      "cat": "Gateway",
+      "displayName": "Bandit Perimeter & Sentry Palisade",
+      "x": 371,
+      "y": 161,
+      "coordinates": {
+        "x": 371,
+        "y": 161
+      },
+      "cat": "Standard POI",
       "culture": "Market",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Sharpened wooden stakes and guard platforms where sentries demand the secret recognition password.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-BND-02",
       "name": "Black Talon Archer Encampment",
-      "displayName": "Archer Camp",
-      "x": 420,
-      "y": 280,
-      "cat": "Hazard",
+      "displayName": "Black Talon Archer Encampment",
+      "x": 151,
+      "y": 63,
+      "coordinates": {
+        "x": 151,
+        "y": 63
+      },
+      "cat": "Standard POI",
       "culture": "Hierarchy",
       "shape": "triangle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Elite human longbowmen in leather armors drill with poisoned iron broadheads over open cook fires.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-BND-03",
       "name": "Chill Hobgoblin Barracks & War Pits",
-      "displayName": "Chill Barracks",
-      "x": 440,
-      "y": 540,
-      "cat": "Hazard",
+      "displayName": "Chill Hobgoblin Barracks & War Pits",
+      "x": 373,
+      "y": 280,
+      "coordinates": {
+        "x": 373,
+        "y": 280
+      },
+      "cat": "Standard POI",
       "culture": "Clan",
       "shape": "triangle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Vicious hobgoblin raiders under chieftain Ardenor Crush drink crude ale and sharpen scimitars.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-BND-04",
       "name": "Prisoner Stockade & Smuggler Cages",
-      "displayName": "Stockade",
-      "x": 620,
-      "y": 460,
+      "displayName": "Prisoner Stockade & Smuggler Cages",
+      "x": 207,
+      "y": 231,
+      "coordinates": {
+        "x": 207,
+        "y": 231
+      },
       "cat": "Standard POI",
       "culture": "Market",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Timber cages holding captured caravan teamsters and merchant factor Ender Sai, who holds critical intel.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-BND-05",
       "name": "Tazok's Great War Tent & Strongbox",
-      "displayName": "Tazok's Tent",
-      "x": 680,
-      "y": 280,
-      "cat": "Bastion",
+      "displayName": "Tazok's Great War Tent & Strongbox",
+      "x": 323,
+      "y": 57,
+      "coordinates": {
+        "x": 323,
+        "y": 57
+      },
+      "cat": "Standard POI",
       "culture": "Market",
       "shape": "pentagon",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A massive furs-and-leather command pavilion guarded by Raemon, Venkt, and Britik, concealing letters detailing Cloakwood.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
+  "links": [],
+  "mapMetadata": {
+    "id": "map_bg1_bandit_camp",
+    "name": "banditcamp.gif",
+    "assetPath": "assets/map_bg1_bandit_camp_bg.png",
+    "width": 480,
+    "height": 360,
+    "opacity": 0.85
+  },
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {
+    "BG-BND-01": [],
+    "BG-BND-02": [],
+    "BG-BND-03": [],
+    "BG-BND-04": [],
+    "BG-BND-05": []
+  },
+  "edgeSlottedModules": {},
+  "layers": [
     {
-      "from": "BG-BND-01",
-      "to": "BG-BND-02",
-      "type": "twoway"
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-BND-01",
-      "to": "BG-BND-03",
-      "type": "twoway"
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-BND-02",
-      "to": "BG-BND-05",
-      "type": "twoway"
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-BND-03",
-      "to": "BG-BND-04",
-      "type": "twoway"
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-BND-04",
-      "to": "BG-BND-05",
-      "type": "twoway"
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
-  ]
+  ],
+  "shapes": [],
+  "spatialPins": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": []
 }

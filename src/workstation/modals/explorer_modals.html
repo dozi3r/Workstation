@@ -20,7 +20,7 @@
         <label>
           <span>Scope:</span>
           <select id="me-filter-scope" class="win-select-input" onchange="filterModules()" style="width:145px;">
-            <option value="all">All Project Modules (118)</option>
+            <option value="all" id="me-filter-scope-all-opt">All Project Modules</option>
             <option value="in_campaign">In Current Campaign</option>
             <option value="outside_campaign">Outside Campaign (Available)</option>
           </select>
@@ -36,7 +36,8 @@
         <label>
           <span>Tier:</span>
           <select id="me-filter-tier" class="win-select-input" onchange="filterModules()" style="width:110px;">
-            <option value="all">All Tiers (1-5)</option>
+            <option value="all">All Tiers (0-5)</option>
+            <option value="0">Tier 0: Substratum</option>
             <option value="1">Tier 1: Macro</option>
             <option value="2">Tier 2: Biomes</option>
             <option value="3">Tier 3: Infra</option>
@@ -394,6 +395,53 @@
         <div style="display:flex; gap:6px;">
           <button class="win-btn bold" onclick="saveCustomModuleFromStudio()" style="min-width:120px; background:#d1fae5; color:#065f46;">💾 Save Custom Module</button>
           <button class="win-btn" onclick="MDIWindowManager.close('modal-custom-module-editor')" style="min-width:70px;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MDI WINDOW 3: INDUSTRY CHAIN IMPORTER & DEDUPLICATION WIZARD (SYS-RES-03)
+       ======================================================================== -->
+  <div id="modal-industry-chain-importer" class="mdi-window hidden" style="width:860px; height:580px; top:55px; left:90px;">
+    <div class="mdi-title-bar">
+      <div class="mdi-title-text">
+        <span class="win95-start-logo" style="width:12px; height:12px; font-size:8px;">🔗</span>
+        <span>Industry Chain Importer &amp; Deduplication Wizard</span>
+      </div>
+      <div class="mdi-title-controls">
+        <button class="win-btn" onclick="MDIWindowManager.minimize('modal-industry-chain-importer')" title="Minimize">_</button>
+        <button class="win-btn" onclick="MDIWindowManager.restoreOrMaximize('modal-industry-chain-importer')" title="Maximize / Restore">&#9633;</button>
+        <button class="win-btn" onclick="MDIWindowManager.close('modal-industry-chain-importer')" title="Close">X</button>
+      </div>
+    </div>
+    <div class="mdi-body" style="display:flex; flex-direction:column; background:var(--win-base); padding:8px; gap:8px;">
+      <!-- Header Toolbar -->
+      <div class="bevel-inset" style="padding:8px; background:#f0f0f0; display:flex; align-items:center; gap:10px;">
+        <label style="font-size:11px; font-weight:bold; display:flex; align-items:center; gap:6px;">
+          Select Industry Chain:
+          <select id="ici-chain-select" class="win-select-input" style="width:380px; font-size:11px;" onchange="IndustryChainImporter.renderChainStageGrid(this.value)">
+          </select>
+        </label>
+        <button class="win-btn" onclick="IndustryChainImporter.renderChainStageGrid(document.getElementById('ici-chain-select').value)" style="font-size:11px;">🔄 Re-Audit Campaign</button>
+      </div>
+
+      <!-- Stage Grid Container -->
+      <div id="ici-stages-container" class="bevel-inset" style="flex:1; overflow-y:auto; background:#fff; padding:6px;">
+      </div>
+
+      <!-- Footer Action Bar -->
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-top:4px;">
+        <div style="font-size:10px; color:#555;">
+          Zero-Duplication: Satisfied stages reuse existing nodes and draw dedicated conduit flows automatically.
+        </div>
+        <div style="display:flex; gap:6px;">
+          <button class="win-btn bold" onclick="IndustryChainImporter.executeChainImport()" style="background:#dcfce7; color:#166534; padding:4px 14px; font-size:11px;">
+            ⚡ Import Industry Chain
+          </button>
+          <button class="win-btn" onclick="MDIWindowManager.close('modal-industry-chain-importer')" style="padding:4px 12px; font-size:11px;">
+            Cancel
+          </button>
         </div>
       </div>
     </div>

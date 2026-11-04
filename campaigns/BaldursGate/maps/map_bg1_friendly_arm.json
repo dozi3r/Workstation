@@ -8,89 +8,276 @@
     {
       "id": "BG-FAI-01",
       "name": "Fortress Gatehouse & Drawbridge",
-      "displayName": "Gatehouse",
-      "x": 260,
-      "y": 400,
-      "cat": "Gateway",
+      "displayName": "Fortress Gatehouse & Drawbridge",
+      "x": 141,
+      "y": 278,
+      "coordinates": {
+        "x": 141,
+        "y": 278
+      },
+      "cat": "Standard POI",
       "culture": "Hierarchy",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Massive granite gatehouse flanked by stout bastions. The assassin Tarnesh waits upon the stone steps.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-FAI-02",
       "name": "The Great Keep Tavern & Common Room",
-      "displayName": "Keep Tavern",
-      "x": 480,
-      "y": 300,
-      "cat": "Bastion",
+      "displayName": "The Great Keep Tavern & Common Room",
+      "x": 239,
+      "y": 229,
+      "coordinates": {
+        "x": 239,
+        "y": 229
+      },
+      "cat": "Standard POI",
       "culture": "Clan",
       "shape": "pentagon",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Sprawling three-story taproom warming hundreds of travelers. Bentley Mirrorshade tends bar while Khalid and Jaheira watch the door.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-FAI-03",
       "name": "Temple of the Wisdom of Garl",
-      "displayName": "Temple of Garl",
-      "x": 640,
-      "y": 240,
+      "displayName": "Temple of the Wisdom of Garl",
+      "x": 386,
+      "y": 210,
+      "coordinates": {
+        "x": 386,
+        "y": 210
+      },
       "cat": "Standard POI",
       "culture": "Clan",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A cheerful stone sanctuary honoring the Glittering Gold gnome deity, offering divine healing.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-FAI-04",
       "name": "Joia's Cottage & Stables",
-      "displayName": "Joia's Cottage",
-      "x": 380,
-      "y": 500,
+      "displayName": "Joia's Cottage & Stables",
+      "x": 140,
+      "y": 186,
+      "coordinates": {
+        "x": 140,
+        "y": 186
+      },
       "cat": "Standard POI",
       "culture": "Clan",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A quaint thatched cottage near the outer ramparts where Joia weeps over her stolen Flamedance ring.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-FAI-05",
       "name": "Upper Keep Guest Suites (Room 204)",
-      "displayName": "Upper Suites",
-      "x": 640,
-      "y": 440,
-      "cat": "Vault",
+      "displayName": "Upper Keep Guest Suites (Room 204)",
+      "x": 266,
+      "y": 132,
+      "coordinates": {
+        "x": 266,
+        "y": 132
+      },
+      "cat": "Standard POI",
       "culture": "Market",
       "shape": "diamond",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Luxurious private bedchambers where wealthy merchants sleep, containing a chest holding the Golden Pantaloons.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
+  "links": [],
+  "mapMetadata": {
+    "id": "map_bg1_friendly_arm",
+    "name": "friendlyarminn.gif",
+    "width": 480,
+    "height": 360,
+    "naturalWidth": 480,
+    "naturalHeight": 360,
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "lockAspect": true,
+    "opacity": 0.85,
+    "timestamp": 1793677105753,
+    "assetPath": "assets/map_bg1_friendly_arm_bg.png"
+  },
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {
+    "BG-FAI-01": [],
+    "BG-FAI-02": [],
+    "BG-FAI-03": [],
+    "BG-FAI-04": [],
+    "BG-FAI-05": []
+  },
+  "edgeSlottedModules": {},
+  "layers": [
     {
-      "from": "BG-FAI-01",
-      "to": "BG-FAI-02",
-      "type": "twoway"
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-FAI-01",
-      "to": "BG-FAI-04",
-      "type": "twoway"
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-FAI-02",
-      "to": "BG-FAI-03",
-      "type": "twoway"
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-FAI-02",
-      "to": "BG-FAI-05",
-      "type": "twoway"
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-FAI-04",
-      "to": "BG-FAI-02",
-      "type": "twoway"
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
-  ]
+  ],
+  "shapes": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": [],
+  "spatialPins": []
 }

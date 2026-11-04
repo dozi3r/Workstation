@@ -5,4 +5,7 @@ network/modules_manifest.json
 wiki/wiki_graph.json
 wiki/search_index.js
 wiki/pages/
-regions/regional_image_catalog.json
+.archive/
+*.creator.json
+*.csmod
+campaigns/**/campaign_sync.js

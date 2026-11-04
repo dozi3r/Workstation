@@ -71,6 +71,7 @@
       showGmVision: true,
       activeLayerFocus: 'all',
       registeredMods: {},
+      disabledMods: (function() { try { return (typeof localStorage !== 'undefined' && JSON.parse(localStorage.getItem('cs_disabled_mods') || '{}')) || {}; } catch (e) { return {}; } })(),
       history: {
         undoStack: [],
         redoStack: [],
@@ -259,6 +260,24 @@
         if (typeof refreshModUI === 'function') refreshModUI();
         console.log(`[Creator Studio Mod API] Registered mod: ${modDef.name || modDef.id} (v${modDef.version || '1.0.0'})`);
       },
+      isModEnabled: function(modId) {
+        return !(Workstation.disabledMods && Workstation.disabledMods[modId]);
+      },
+      toggleMod: function(modId, enabled) {
+        if (!Workstation.disabledMods) Workstation.disabledMods = {};
+        if (enabled) {
+          delete Workstation.disabledMods[modId];
+        } else {
+          Workstation.disabledMods[modId] = true;
+        }
+        if (typeof localStorage !== 'undefined') {
+          try { localStorage.setItem('cs_disabled_mods', JSON.stringify(Workstation.disabledMods)); } catch (e) {}
+        }
+        if (typeof refreshModUI === 'function') refreshModUI();
+        if (typeof renderSourcebooksList === 'function') renderSourcebooksList();
+        if (typeof renderCanvas === 'function') renderCanvas();
+        if (typeof updatePropertiesGrid === 'function') updatePropertiesGrid();
+      },
       resetWorkstationSlate: resetWorkstationSlate,
       getActiveTopology: function() { return Workstation.activeTopology; },
       selectNode: function(nodeId) { selectNode(nodeId); },
@@ -272,6 +291,72 @@
         }
       }
     };
+    window.toggleWorkstationMod = window.CreatorStudio.toggleMod;
+
+    function promptLoadRuntimeModFile() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.js,.json';
+      input.style.display = 'none';
+      input.onchange = function(e) {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const code = evt.target.result;
+          try {
+            const runner = new Function(code);
+            runner();
+            let stored = [];
+            try { stored = JSON.parse(localStorage.getItem('cs_runtime_user_mods') || '[]'); } catch (err) {}
+            if (!Array.isArray(stored)) stored = [];
+            stored = stored.filter(x => x && x.name !== file.name);
+            stored.push({ name: file.name, code: code, date: new Date().toISOString() });
+            try { localStorage.setItem('cs_runtime_user_mods', JSON.stringify(stored)); } catch (err) {}
+            if (typeof refreshModUI === 'function') refreshModUI();
+            if (typeof renderSourcebooksList === 'function') renderSourcebooksList();
+            if (typeof setStatusBarMessage === 'function') setStatusBarMessage(`Successfully evaluated runtime mod: ${file.name}`);
+          } catch (execErr) {
+            console.error('[promptLoadRuntimeModFile] Failed to evaluate mod:', execErr);
+            alert(`Error loading mod ${file.name}:\n${execErr.message}`);
+          }
+        };
+        reader.readAsText(file);
+      };
+      document.body.appendChild(input);
+      input.click();
+      setTimeout(() => input.remove(), 1000);
+    }
+    window.promptLoadRuntimeModFile = promptLoadRuntimeModFile;
+    window.clearRuntimeUserMods = function() {
+      if (typeof localStorage !== 'undefined') localStorage.removeItem('cs_runtime_user_mods');
+      alert('Cleared runtime user mods. Reloading...');
+      if (typeof location !== 'undefined') location.reload();
+    };
+
+    // Load persisted runtime user mods
+    function loadPersistedRuntimeUserMods() {
+      if (typeof localStorage === 'undefined') return;
+      try {
+        const raw = localStorage.getItem('cs_runtime_user_mods');
+        if (!raw) return;
+        const stored = JSON.parse(raw);
+        if (Array.isArray(stored)) {
+          stored.forEach(entry => {
+            if (entry && entry.code) {
+              try {
+                const runner = new Function(entry.code);
+                runner();
+              } catch (e) {
+                console.warn('[loadPersistedRuntimeUserMods] Failed running stored mod:', entry.name, e);
+              }
+            }
+          });
+        }
+      } catch (err) {
+        console.warn('[loadPersistedRuntimeUserMods] Parse error:', err);
+      }
+    }
 
     // Initialize on Page Load
     window.addEventListener('DOMContentLoaded', () => {
@@ -291,6 +376,7 @@
 
       // Register MDI Windows
       try {
+        loadPersistedRuntimeUserMods();
         MDIWindowManager.registerWindow('modal-module-explorer', {
           title: 'Module Explorer',
           icon: 'MD'
@@ -1066,6 +1152,25 @@
           originEl.style.fontWeight = 'normal';
         }
       }
+
+      const buildBadgeEl = document.getElementById('ws-build-stamp-badge');
+      if (buildBadgeEl && typeof window !== "undefined" && window.location) {
+        const buildTime = buildBadgeEl.getAttribute('data-build-time') || 'dev';
+        const decodedPath = decodeURIComponent(window.location.pathname || '').replace(/\\/g, '/');
+        const parts = decodedPath.split('/').filter(Boolean);
+        const parentDir = parts.length >= 2 ? parts[parts.length - 2] : (window.location.protocol.startsWith('http') ? `localhost:${window.location.port || '80'}` : 'root');
+        const isStaleCopy = /2\.5\.5|backup|download|standalone|archive|cold_storage/i.test(decodedPath);
+        if (isStaleCopy) {
+          buildBadgeEl.textContent = `⚠️ STALE COPY (${parentDir}) | Built: ${buildTime}`;
+          buildBadgeEl.style.background = '#b91c1c';
+          buildBadgeEl.style.color = '#ffffff';
+          buildBadgeEl.style.fontWeight = 'bold';
+          buildBadgeEl.title = `WARNING: Opened from non-canonical folder (${decodedPath}). Canonical workstation is Workstation 2.5/start.html`;
+        } else {
+          buildBadgeEl.textContent = `📂 ${parentDir} | Built: ${buildTime}`;
+          buildBadgeEl.title = `Active Path: ${decodedPath || window.location.href} | Compiled: ${buildTime}`;
+        }
+      }
     }
 
     function showOriginDiagnostics() {
@@ -1339,8 +1444,12 @@
       // SECTION 3: WORKSTATION CODE MODS & EXTENSIONS
       html += `
         <div>
-          <div style="font-size:11px; font-weight:bold; color:#78350f; border-bottom:1px solid #94a3b8; padding-bottom:2px; margin-bottom:6px;">
-            WORKSTATION EXTENSION MODS (${modKeys.length} Active)
+          <div style="font-size:11px; font-weight:bold; color:#78350f; border-bottom:1px solid #94a3b8; padding-bottom:2px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+            <span>WORKSTATION EXTENSION MODS (${modKeys.length} Registered)</span>
+            <div style="display:flex; gap:4px;">
+              <button class="win-btn" onclick="clearRuntimeUserMods()" style="font-size:9px; padding:1px 6px;">Clear Runtime Mods</button>
+              <button class="win-btn" onclick="promptLoadRuntimeModFile()" style="font-size:9px; padding:1px 6px;">+ Load Mod (.js)...</button>
+            </div>
           </div>
       `;
 
@@ -1348,7 +1457,8 @@
         html += `
           <div style="padding:10px; border:1px dashed #94a3b8; background:#f8fafc; border-radius:2px; font-size:10px; color:#64748b; text-align:center;">
             <div><em>No third-party workstation mods currently loaded in <code>mods/</code>. Creator Studio is running in pure offline zero-CORS mode.</em></div>
-            <div style="margin-top:6px;">
+            <div style="margin-top:6px; display:flex; justify-content:center; gap:6px;">
+              <button class="win-btn" onclick="promptLoadRuntimeModFile()" style="font-size:9px; padding:2px 6px;">+ Load Runtime Mod (.js)...</button>
               <button class="win-btn" onclick="showModSdkInfo()" style="font-size:9px; padding:2px 6px;">View Mod SDK Documentation...</button>
             </div>
           </div>
@@ -1356,9 +1466,21 @@
       } else {
         html += modKeys.map(mId => {
           const mod = registeredMods[mId];
+          const isEnabled = !(Workstation.disabledMods && Workstation.disabledMods[mId]);
+          const modModules = allMods.filter(m => m.mod_id === mId || m.campaign === `mod_${mId}`);
+          const modCountBadge = modModules.length > 0 ? `<span style="display:inline-block; margin-left:6px; padding:1px 5px; background:#e0f2fe; color:#0369a1; border-radius:3px; font-weight:bold; font-size:9px;">${modModules.length} Modules</span>` : '';
           return `
-            <div style="padding:6px 8px; margin-bottom:4px; border:1px solid #cbd5e1; background:#fff; font-size:10px;">
-              <strong>${mod.name || mId}</strong> (v${mod.version || '1.0.0'}) &bull; <span style="color:#64748b;">${mod.description || 'Active extension mod'}</span>
+            <div style="padding:6px 8px; margin-bottom:4px; border:1px solid ${isEnabled ? '#cbd5e1' : '#fca5a5'}; background:${isEnabled ? '#fff' : '#fef2f2'}; font-size:10px; display:flex; justify-content:space-between; align-items:center;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <input type="checkbox" id="chk-mod-${escapeHtml(mId)}" ${isEnabled ? 'checked' : ''} onchange="toggleWorkstationMod('${escapeHtml(mId)}', this.checked)" title="Enable or disable this mod" style="cursor:pointer;" />
+                <div>
+                  <strong>${escapeHtml(mod.name || mId)}</strong> (v${escapeHtml(mod.version || '1.0.0')})${modCountBadge} &bull; <span style="color:#64748b;">${escapeHtml(mod.description || 'Active extension mod')}</span>
+                  ${!isEnabled ? '<span style="color:#dc2626; font-weight:bold; margin-left:6px;">[DISABLED]</span>' : ''}
+                </div>
+              </div>
+              <div style="margin-left:8px; flex-shrink:0;">
+                <button class="win-btn" onclick="openModuleExplorer(); const cs = document.getElementById('me-filter-campaign'); if (cs) { cs.value = 'mod_${mId}'; if (typeof filterModules === 'function') filterModules(); } if (typeof MDIWindowManager !== 'undefined') MDIWindowManager.close('modal-sourcebooks');" style="font-size:9px; padding:2px 6px;">Browse...</button>
+              </div>
             </div>
           `;
         }).join('');

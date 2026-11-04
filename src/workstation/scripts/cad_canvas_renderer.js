@@ -207,19 +207,29 @@
         g.appendChild(text);
       }
 
-      // AutoCAD-style Grip Handles when selected
+      // AutoCAD-style Interactive Grip Handles when selected
       if (isSelected) {
-        const createGrip = (gx, gy) => {
+        const createGrip = (gx, gy, handleKey, cursorStyle) => {
           const grip = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-          grip.setAttribute('x', gx - 3);
-          grip.setAttribute('y', gy - 3);
-          grip.setAttribute('width', 6);
-          grip.setAttribute('height', 6);
+          grip.setAttribute('x', gx - 4);
+          grip.setAttribute('y', gy - 4);
+          grip.setAttribute('width', 8);
+          grip.setAttribute('height', 8);
           grip.setAttribute('fill', '#2563eb');
           grip.setAttribute('stroke', '#ffffff');
           grip.setAttribute('stroke-width', '1.5');
           grip.setAttribute('class', 'cad-grip-handle');
-          grip.setAttribute('pointer-events', 'none');
+          grip.setAttribute('data-grip-handle', handleKey || 'se');
+          grip.setAttribute('pointer-events', 'all');
+          grip.style.cursor = isLocked ? 'not-allowed' : (cursorStyle || 'nwse-resize');
+          grip.addEventListener('mousedown', (ev) => {
+            if (ev.button !== 0) return;
+            ev.stopPropagation();
+            ev.preventDefault();
+            if (typeof onShapeGripMouseDown === 'function') {
+              onShapeGripMouseDown(ev, shape, handleKey || 'se');
+            }
+          });
           return grip;
         };
 
@@ -228,27 +238,27 @@
           const sy = shape.y || 0;
           const sw = Math.max(1, shape.width || 100);
           const sh = Math.max(1, shape.height || 60);
-          g.appendChild(createGrip(sx, sy));
-          g.appendChild(createGrip(sx + sw, sy));
-          g.appendChild(createGrip(sx, sy + sh));
-          g.appendChild(createGrip(sx + sw, sy + sh));
+          g.appendChild(createGrip(sx, sy, 'nw', 'nwse-resize'));
+          g.appendChild(createGrip(sx + sw, sy, 'ne', 'nesw-resize'));
+          g.appendChild(createGrip(sx, sy + sh, 'sw', 'nesw-resize'));
+          g.appendChild(createGrip(sx + sw, sy + sh, 'se', 'nwse-resize'));
         } else if (shape.type === 'circle') {
           const cx = shape.x || 0;
           const cy = shape.y || 0;
           const cr = shape.radius || 40;
           const crx = shape.rx || cr;
           const cry = shape.ry || cr;
-          g.appendChild(createGrip(cx - crx, cy));
-          g.appendChild(createGrip(cx + crx, cy));
-          g.appendChild(createGrip(cx, cy - cry));
-          g.appendChild(createGrip(cx, cy + cry));
+          g.appendChild(createGrip(cx - crx, cy, 'w', 'ew-resize'));
+          g.appendChild(createGrip(cx + crx, cy, 'e', 'ew-resize'));
+          g.appendChild(createGrip(cx, cy - cry, 'n', 'ns-resize'));
+          g.appendChild(createGrip(cx, cy + cry, 's', 'ns-resize'));
         } else if (shape.type === 'line') {
           const lx1 = shape.x || 0;
           const ly1 = shape.y || 0;
           const lx2 = shape.x2 !== undefined ? shape.x2 : (lx1 + 100);
           const ly2 = shape.y2 !== undefined ? shape.y2 : ly1;
-          g.appendChild(createGrip(lx1, ly1));
-          g.appendChild(createGrip(lx2, ly2));
+          g.appendChild(createGrip(lx1, ly1, 'start', 'crosshair'));
+          g.appendChild(createGrip(lx2, ly2, 'end', 'crosshair'));
         }
       }
 
@@ -270,6 +280,13 @@
       };
 
       g.addEventListener('mousedown', handleShapeMouseDown);
+      g.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof openCanvasContextMenu === 'function') {
+          openCanvasContextMenu(e, 'shape', shape);
+        }
+      });
 
       return g;
     }
@@ -519,6 +536,16 @@
         : [...(topo.layers || [])].sort((a, b) => (a.zIndex ?? 0) - (b.zIndex ?? 0));
 
       if (cadSvg) {
+        // Purge orphaned layer groups from previous maps to prevent ghost nodes
+        const activeLayerIds = new Set(topoLayers.map(l => l.id));
+        const existingLayerGroups = cadSvg.querySelectorAll('.canvas-layer-group');
+        existingLayerGroups.forEach(grp => {
+          const lid = grp.getAttribute('data-layer-id');
+          if (lid && !activeLayerIds.has(lid) && lid !== 'layer-bg') {
+            grp.remove();
+          }
+        });
+
         topoLayers.forEach(l => {
           let group = document.getElementById(`layer-group-${l.id}`);
           if (!group) {
@@ -609,6 +636,197 @@
         });
       }
 
+      // Render Spatial Pins Layer (Milestone 4 - Canvas Spatial Pins)
+      let pinsLayer = document.getElementById('spatial-pins-layer');
+      if (!pinsLayer && cadSvg) {
+        pinsLayer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        pinsLayer.id = 'spatial-pins-layer';
+        if (interactionLayer) {
+          cadSvg.insertBefore(pinsLayer, interactionLayer);
+        } else {
+          cadSvg.appendChild(pinsLayer);
+        }
+      }
+      if (pinsLayer) pinsLayer.innerHTML = '';
+
+      const pinsList = Array.isArray(topo.spatialPins) ? topo.spatialPins : [];
+      if (pinsLayer && pinsList.length > 0) {
+        pinsList.forEach(pin => {
+          if (!pin) return;
+          if (typeof normalizeSpatialPin === 'function') normalizeSpatialPin(pin);
+
+          // Fog-of-War Visibility Check
+          const isPinHidden = (pin.visible === false);
+          if (isPinHidden && !Workstation.showGmVision) return;
+
+          const pinG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          pinG.id = `cad-pin-${pin.id}`;
+          pinG.setAttribute('class', 'spatial-pin-marker');
+          pinG.setAttribute('transform', `translate(${pin.x || 0}, ${pin.y || 0})`);
+          pinG.setAttribute('opacity', isPinHidden ? '0.5' : '1.0');
+          pinG.style.cursor = pin.locked ? 'default' : 'move';
+
+          const isPinSelected = (Workstation.selectedEntity && Workstation.selectedEntity.type === 'spatialPin' && String(Workstation.selectedEntity.id) === String(pin.id)) ||
+            (Array.isArray(Workstation.selectedEntities) && Workstation.selectedEntities.some(e => e.type === 'spatialPin' && String(e.id) === String(pin.id)));
+
+          const iconMap = {
+            npc: '👤',
+            quest: '📜',
+            item: '🎒',
+            tracker: '⏱️',
+            faction: '🛡️',
+            submap: '🌀',
+            ticket: '🎫',
+            node: '📍'
+          };
+
+          const links = Array.isArray(pin.links) && pin.links.length > 0
+            ? pin.links
+            : (pin.targetType && pin.targetId ? [{ type: pin.targetType, id: pin.targetId }] : []);
+          const primaryLink = links[0] || { type: pin.targetType || 'npc', id: pin.targetId || '' };
+          const icon = pin.icon || iconMap[primaryLink.type] || '📌';
+          const hasSubmapLink = links.some(l => l.type === 'submap' && l.id);
+
+          // Resolve friendly display label if pin.label is empty
+          let displayLabel = pin.label || '';
+          if (!displayLabel && primaryLink.id) {
+            if (primaryLink.type === 'submap' && typeof maps !== 'undefined' && maps && maps[primaryLink.id]) {
+              displayLabel = maps[primaryLink.id].name || primaryLink.id;
+            } else if (primaryLink.type === 'npc') {
+              const n = (topo.npcs || []).find(x => String(x.id) === String(primaryLink.id));
+              if (n) displayLabel = n.name;
+            } else if (primaryLink.type === 'quest') {
+              const q = (topo.quests || []).find(x => String(x.id) === String(primaryLink.id));
+              if (q) displayLabel = q.title || q.name;
+            } else if (primaryLink.type === 'item') {
+              const i = (topo.items || []).find(x => String(x.id) === String(primaryLink.id));
+              if (i) displayLabel = i.name;
+            } else if (primaryLink.type === 'tracker') {
+              const t = (topo.trackers || []).find(x => String(x.id) === String(primaryLink.id));
+              if (t) displayLabel = t.name || t.title;
+            } else if (primaryLink.type === 'faction') {
+              const f = (topo.factions || []).find(x => String(x.id) === String(primaryLink.id));
+              if (f) displayLabel = f.name;
+            }
+            if (!displayLabel) displayLabel = primaryLink.id;
+          }
+          if (links.length > 1 && displayLabel && !pin.label) {
+            displayLabel = `${displayLabel} (+${links.length - 1})`;
+          }
+
+          const strokeCol = isPinSelected ? '#2563eb' : (hasSubmapLink ? '#0891b2' : '#1e293b');
+          const strokeW = isPinSelected ? '3' : '2';
+          const fillCol = isPinSelected ? '#dbeafe' : (pin.color || '#ffffff');
+
+          // Build multi-entity summary pill if 2+ entities are linked
+          let multiBadgeSvg = '';
+          if (links.length > 1) {
+            const counts = {};
+            links.forEach(l => { counts[l.type] = (counts[l.type] || 0) + 1; });
+            const summaryStr = Object.keys(counts).map(k => `${iconMap[k] || '📌'}${counts[k]}`).join(' ');
+            const pillW = Math.max(36, summaryStr.length * 5.8 + 8);
+            multiBadgeSvg = `
+              <rect x="${-pillW / 2}" y="-28" width="${pillW}" height="11" rx="2" fill="#000080" stroke="#ffffff" stroke-width="1"/>
+              <text x="0" y="-20" text-anchor="middle" font-size="8" font-weight="bold" fill="#ffffff" pointer-events="none">${summaryStr}</text>
+            `;
+          }
+
+          // Check if any linked tracker is present to show a mini tick indicator below the label
+          let clockBarSvg = '';
+          const linkedTrackerEntry = links.find(l => l.type === 'tracker' && l.id);
+          if (linkedTrackerEntry) {
+            const trkObj = (topo.trackers || []).find(t => String(t.id) === String(linkedTrackerEntry.id));
+            if (trkObj) {
+              const curT = trkObj.currentTicks || 0;
+              const maxT = trkObj.maxTicks || 6;
+              const isTrig = curT >= maxT;
+              clockBarSvg = `
+                <rect x="-20" y="29" width="40" height="9" rx="2" fill="${isTrig ? '#991b1b' : '#1e293b'}" stroke="#ffffff" stroke-width="0.8"/>
+                <text x="0" y="36" text-anchor="middle" font-size="7" font-weight="bold" fill="#ffffff" pointer-events="none">⏱️ ${curT}/${maxT}</text>
+              `;
+            }
+          }
+
+          const portalRingSvg = hasSubmapLink
+            ? `<circle cx="0" cy="0" r="18" fill="none" stroke="#06b6d4" stroke-width="2" stroke-dasharray="4,2" class="node-portal-ring"/>`
+            : '';
+          const hiddenGlyphSvg = isPinHidden
+            ? `<text x="14" y="-10" font-size="9" pointer-events="none">👁️‍🗨️</text>`
+            : '';
+          const lockGlyphSvg = pin.locked
+            ? `<text x="-18" y="14" font-size="9" pointer-events="none">🔒</text>`
+            : '';
+
+          pinG.innerHTML = `
+            ${portalRingSvg}
+            ${multiBadgeSvg}
+            <circle cx="0" cy="0" r="14" fill="${fillCol}" stroke="${strokeCol}" stroke-width="${strokeW}" ${isPinHidden ? 'stroke-dasharray="3,2"' : ''} filter="drop-shadow(0 2px 4px rgba(0,0,0,0.35))"/>
+            <text x="0" y="4" text-anchor="middle" font-size="12" font-family="sans-serif" pointer-events="none">${icon}</text>
+            <text x="0" y="25" text-anchor="middle" font-size="9" font-weight="bold" fill="${isPinSelected ? '#1e40af' : '#0f172a'}" stroke="#ffffff" stroke-width="2" paint-order="stroke fill" pointer-events="none">${escapeHtml(displayLabel)}</text>
+            ${clockBarSvg}
+            ${hiddenGlyphSvg}
+            ${lockGlyphSvg}
+          `;
+
+          pinG.onmousedown = (e) => {
+            e.stopPropagation();
+            if (typeof hideCanvasHoverCard === 'function') hideCanvasHoverCard();
+            if (typeof onPinMouseDown === 'function') {
+              onPinMouseDown(e, pin.id);
+            } else if (typeof selectSpatialPin === 'function') {
+              selectSpatialPin(pin.id);
+            }
+          };
+
+          pinG.onclick = (e) => {
+            e.stopPropagation();
+            if (!e.shiftKey && typeof selectSpatialPin === 'function') {
+              selectSpatialPin(pin.id);
+            }
+          };
+
+          pinG.ondblclick = (e) => {
+            e.stopPropagation();
+            const subLink = links.find(l => l.type === 'submap' && l.id);
+            const target = subLink || primaryLink;
+            if (target.type === 'submap' && target.id && typeof switchActiveMap === 'function') {
+              switchActiveMap(target.id);
+            } else if (target.type === 'node' && target.id && typeof centerOnNode === 'function') {
+              centerOnNode(target.id);
+            } else if (target.type === 'ticket' && target.id && typeof openTicketCenter === 'function') {
+              openTicketCenter();
+              if (typeof switchTicketCenterTab === 'function') switchTicketCenterTab('campaign');
+              if (typeof selectTicket === 'function') selectTicket(target.id, 'campaign');
+            } else if (target.type && target.id && typeof openEntityManager === 'function') {
+              openEntityManager(target.type, target.id);
+            } else if (typeof openSpatialPinModal === 'function') {
+              openSpatialPinModal(pin.x, pin.y, pin.id);
+            }
+          };
+
+          pinG.oncontextmenu = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof openCanvasContextMenu === 'function') {
+              openCanvasContextMenu(e, 'spatialPin', pin);
+            }
+          };
+
+          pinG.onmouseenter = (e) => {
+            if (typeof scheduleCanvasHoverCard === 'function') {
+              scheduleCanvasHoverCard(e, 'spatialPin', pin);
+            }
+          };
+          pinG.onmouseleave = () => {
+            if (typeof hideCanvasHoverCard === 'function') {
+              hideCanvasHoverCard();
+            }
+          };
+
+          pinsLayer.appendChild(pinG);
+        });
+      }
+
       // 1. Render Edges (Transit Corridors & Hegemony Conduits)
       const renderedRoads = new Set();
       Object.keys(topo.nodes).forEach(uKey => {
@@ -670,14 +888,19 @@
                   selectEdge('road', uId, vId, e);
                 };
 
+                const uOdvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(u, topo) : { s: 2, e: 2, c: 2 };
+                const vOdvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(v, topo) : { s: 2, e: 2, c: 2 };
+                const corridorDelta = Math.abs((uOdvObj.s || 2) - (vOdvObj.s || 2)) + Math.abs((uOdvObj.e || 2) - (vOdvObj.e || 2)) + Math.abs((uOdvObj.c || 2) - (vOdvObj.c || 2));
+                const isHighFriction = (corridorDelta >= 5) && (Workstation.showContradictionOverlay !== false);
+
                 const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 line.setAttribute('x1', u.x);
                 line.setAttribute('y1', u.y);
                 line.setAttribute('x2', v.x);
                 line.setAttribute('y2', v.y);
-                line.setAttribute('class', 'canvas-edge canvas-edge-road');
-                line.setAttribute('stroke', isSelected ? '#f43f5e' : (isRoadHidden ? '#94a3b8' : (isDimmed ? '#334155' : '#3b82f6')));
-                line.setAttribute('stroke-width', isSelected ? '4' : '2.5');
+                line.setAttribute('class', 'canvas-edge canvas-edge-road' + (isHighFriction ? ' canvas-edge-high-friction' : ''));
+                line.setAttribute('stroke', isSelected ? '#f43f5e' : (isRoadHidden ? '#94a3b8' : (isDimmed ? '#334155' : (isHighFriction ? '#f59e0b' : '#3b82f6'))));
+                line.setAttribute('stroke-width', isSelected ? '4' : (isHighFriction ? '3' : '2.5'));
                 line.style.cursor = 'pointer';
                 if (isRoadHidden) {
                   line.setAttribute('stroke-dasharray', '5,5');
@@ -707,14 +930,29 @@
                 hitbox.style.cursor = 'pointer';
                 hitbox.addEventListener('mousedown', handleRoadSelect);
                 hitbox.addEventListener('click', handleRoadSelect);
+                hitbox.addEventListener('contextmenu', (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (typeof openCanvasContextMenu === 'function') {
+                    openCanvasContextMenu(e, 'edge', { edgeType: 'road', uId, vId, pairKey, edgeKey: pairKey });
+                  }
+                });
+                hitbox.addEventListener('mouseenter', (e) => {
+                  if (typeof scheduleCanvasHoverCard === 'function') {
+                    scheduleCanvasHoverCard(e, 'edge', { edgeType: 'road', uId, vId, pairKey, edgeKey: pairKey, corridorDelta });
+                  }
+                });
+                hitbox.addEventListener('mouseleave', () => {
+                  if (typeof hideCanvasHoverCard === 'function') hideCanvasHoverCard();
+                });
                 roadTargetContainer.appendChild(hitbox);
 
-                // Corridor module telemetry badge, dedicated flows, or custom name
+                // Corridor module telemetry badge, dedicated flows, high cultural friction, or custom name
                 if (Workstation.showCorridorLabels !== false && isAnnotLayerVisible) {
                   const edgeMods = (typeof edgeSlottedModules !== "undefined" && edgeSlottedModules[pairKey]) || (topo.edgeData && topo.edgeData[pairKey] && topo.edgeData[pairKey].modules) || [];
                   const edgeFlows = (topo.edgeData && topo.edgeData[pairKey] && Array.isArray(topo.edgeData[pairKey].dedicatedFlows)) ? topo.edgeData[pairKey].dedicatedFlows : [];
                   const edgeName = (topo.edgeData && topo.edgeData[pairKey] && topo.edgeData[pairKey].name) || '';
-                  if (edgeMods.length > 0 || edgeFlows.length > 0 || edgeName) {
+                  if (edgeMods.length > 0 || edgeFlows.length > 0 || edgeName || isHighFriction) {
                     const midX = Math.round((u.x + v.x) / 2);
                     const midY = Math.round((u.y + v.y) / 2);
                     const badgeG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
@@ -725,6 +963,7 @@
                     badgeG.addEventListener('click', handleRoadSelect);
 
                     const metaTags = [];
+                    if (isHighFriction) metaTags.push(`⚠️Δ:${corridorDelta}`);
                     if (edgeMods.length > 0) metaTags.push(`M:${edgeMods.length}`);
                     if (edgeFlows.length > 0) metaTags.push(`F:${edgeFlows.length}`);
                     const metaSuffix = metaTags.length > 0 ? (edgeName ? ` (${metaTags.join(' ')})` : metaTags.join(' ')) : '';
@@ -736,8 +975,8 @@
                     bgRect.setAttribute('width', bgWidth);
                     bgRect.setAttribute('height', 14);
                     bgRect.setAttribute('rx', 3);
-                    bgRect.setAttribute('fill', isSelected ? '#be123c' : '#1e3a8a');
-                    bgRect.setAttribute('stroke', isSelected ? '#ffe4e6' : '#93c5fd');
+                    bgRect.setAttribute('fill', isSelected ? '#be123c' : (isHighFriction ? '#991b1b' : '#1e3a8a'));
+                    bgRect.setAttribute('stroke', isSelected ? '#ffe4e6' : (isHighFriction ? '#fca5a5' : '#93c5fd'));
                     bgRect.setAttribute('stroke-width', '1');
                     badgeG.appendChild(bgRect);
 
@@ -849,6 +1088,21 @@
               hitbox.style.cursor = 'pointer';
               hitbox.addEventListener('mousedown', handleHegemonySelect);
               hitbox.addEventListener('click', handleHegemonySelect);
+              hitbox.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (typeof openCanvasContextMenu === 'function') {
+                  openCanvasContextMenu(e, 'edge', { edgeType: 'hegemony', uId: vId, vId: uId, pairKey, edgeKey });
+                }
+              });
+              hitbox.addEventListener('mouseenter', (e) => {
+                if (typeof scheduleCanvasHoverCard === 'function') {
+                  scheduleCanvasHoverCard(e, 'edge', { edgeType: 'hegemony', uId: vId, vId: uId, pairKey, edgeKey });
+                }
+              });
+              hitbox.addEventListener('mouseleave', () => {
+                if (typeof hideCanvasHoverCard === 'function') hideCanvasHoverCard();
+              });
               hegemTargetContainer.appendChild(hitbox);
 
               // Hegemony vector label / module / dedicated flow badge
@@ -923,6 +1177,8 @@
         }
 
         const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.id = `cad-node-${nodeId}`;
+        g.setAttribute('data-node-id', String(nodeId));
         g.setAttribute('class', 'node-group');
         g.setAttribute('transform', `translate(${node.x}, ${node.y})`);
         const isNodeSelected = (typeof isEntitySelected === 'function')
@@ -1028,8 +1284,14 @@
           g.appendChild(hiddenBadge);
         }
 
-        // Portals: If node has childMapId, render concentric cyan portal ring and portal badge
-        if (node.childMapId) {
+        // Portals: If node has childMapId (or an anchored submap), render concentric cyan portal ring and portal badge
+        const curMapId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
+        const rec = getRecursiveNodeEntities(nodeId, curMapId);
+        const resolvedChildMapId = (typeof resolveNodeChildMapId === 'function')
+          ? resolveNodeChildMapId(node, nodeId, curMapId)
+          : (node.childMapId || (rec.direct && rec.direct.submaps && rec.direct.submaps[0] ? rec.direct.submaps[0].id : null));
+
+        if (resolvedChildMapId) {
           const portalHalo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
           portalHalo.setAttribute('r', r + 6);
           portalHalo.setAttribute('fill', 'none');
@@ -1046,10 +1308,17 @@
           portalBadge.setAttribute('class', 'portal-badge');
           portalBadge.setAttribute('cursor', 'pointer');
           portalBadge.textContent = '🌀';
-          portalBadge.setAttribute('title', 'Double-click or click to descend into child sub-map');
+          portalBadge.setAttribute('title', 'Double-click node or click badge to descend into child sub-map');
+          portalBadge.addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+          });
           portalBadge.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (typeof switchActiveMap === 'function') switchActiveMap(node.childMapId);
+            if (typeof navigateToNodeSubmap === 'function') {
+              navigateToNodeSubmap(nodeId);
+            } else if (typeof switchActiveMap === 'function') {
+              switchActiveMap(resolvedChildMapId);
+            }
           });
           g.appendChild(portalBadge);
         }
@@ -1088,6 +1357,7 @@
 
         // Dynamic Mod Canvas Node Overlay Hook
         Object.keys(Workstation.registeredMods || {}).forEach(modId => {
+          if (Workstation.disabledMods && Workstation.disabledMods[modId]) return;
           const mod = Workstation.registeredMods[modId];
           if (typeof mod.renderCanvasNode === 'function') {
             try {
@@ -1105,8 +1375,6 @@
         });
 
         // Node Narrative Entity Telemetry Badge (NPCs, Quests, Items, Trackers - Direct + Recursive Sub-Maps)
-        const curMapId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
-        const rec = getRecursiveNodeEntities(nodeId, curMapId);
         const directNpc = rec.direct.npcs.length;
         const totalNpc = rec.totals.npcs;
         const directQuest = rec.direct.quests.length;
@@ -1286,14 +1554,37 @@
         // Interaction Binding
         g.addEventListener('mousedown', (e) => {
           e.stopPropagation();
+          if (typeof hideCanvasHoverCard === 'function') hideCanvasHoverCard();
           onNodeMouseDown(e, nodeId);
+        });
+
+        g.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof openCanvasContextMenu === 'function') {
+            openCanvasContextMenu(e, 'node', { nodeId, node, resolvedChildMapId });
+          }
+        });
+
+        g.addEventListener('mouseenter', (e) => {
+          if (typeof scheduleCanvasHoverCard === 'function') {
+            scheduleCanvasHoverCard(e, 'node', { nodeId, node, rec, resolvedChildMapId });
+          }
+        });
+
+        g.addEventListener('mouseleave', () => {
+          if (typeof hideCanvasHoverCard === 'function') {
+            hideCanvasHoverCard();
+          }
         });
 
         // Double click on node to navigate into child sub-map if attached
         g.addEventListener('dblclick', (e) => {
           e.stopPropagation();
-          if (node.childMapId && typeof switchActiveMap === 'function') {
-            switchActiveMap(node.childMapId);
+          if (typeof navigateToNodeSubmap === 'function') {
+            navigateToNodeSubmap(nodeId);
+          } else if (resolvedChildMapId && typeof switchActiveMap === 'function') {
+            switchActiveMap(resolvedChildMapId);
           } else {
             openNewSubMapPrompt();
           }
@@ -1302,6 +1593,11 @@
         const nodeTargetContainer = getLayerContainer(nodeLayerId, 'layer-nodes', topo);
         nodeTargetContainer.appendChild(g);
       });
+
+      // Apply current viewport pan/zoom transform to all layers (including spatial-pins-layer)
+      if (typeof applyCanvasTransform === 'function') {
+        applyCanvasTransform();
+      }
 
       // Update Breadcrumbs HUD
       if (typeof updateBreadcrumbsHUD === 'function') {

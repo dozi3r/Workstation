@@ -470,7 +470,7 @@
         <h1 class="article-title">mdi_window_manager.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 993d9bfe)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 141a2701)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (19)</a>
         </div>
@@ -483,9 +483,9 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/mdi_window_manager.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>2888 lines &bull; 129.4 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 993d9bfe)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>17</strong> references</td></tr>
+    <tr><th>File Metrics</th><td>2924 lines &bull; 131.3 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 141a2701)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>18</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>19</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/mdi_window_manager.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
@@ -506,7 +506,7 @@
 <p><code>src/workstation/scripts/mdi_window_manager.js</code> manages MDI window state, titlebar dragging, maximize/minimize/restore behavior, taskbar integration, and dynamic mod UI registration. It provides <code>refreshModUI()</code> to dynamically populate the workstation <code>Mods</code> menubar with interactive entries, supporting both hover- and click-activated flyout submenus (<code>menuItems</code> / <code>menuOptions</code>), CAD palette buttons (<code>paletteTools</code>), and dock tab transitions (<code>switchDockTab</code>). It also powers the New Campaign Wizard via <code>getCampaignFolderPresets()</code> and <code>renderNewCampaignPresetsList()</code>, offering only campaigns from the <code>/campaigns/</code> folder as presets to build from without any hardcoded templates.</p>
 <p>Lifecycle management functions include <code>connectCampaignsFolder({ autoLoad })</code> with non-destructive option flags to prevent auto-loading collisions during save workflows, <code>openSaveAsNewCampaignModal()</code> and <code>autoUpdateSaveAsSlug()</code> displaying live disk sync status, <code>confirmSaveAsNewCampaign()</code> binding live disk sync directly to <code>/campaigns/<slug></code> on disk without passing deprecated project handles, and <code>renderInstalledCampaignsModalList()</code> cleanly loading disk campaigns and dismissing modal dialogues (<code>modal-load</code>).</p>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (60)</h3><div class="pill-list"><span class="pill">toggleStartMenu()</span><span class="pill">updateClock()</span><span class="pill">setupKeyboardShortcuts()</span><span class="pill">deleteSelected()</span><span class="pill">selectAllNodes()</span><span class="pill">restoreSnapshot(snap)</span><span class="pill">undoAction()</span><span class="pill">redoAction()</span><span class="pill">openWelcomeModal()</span><span class="pill">closeWelcomeModal()</span><span class="pill">getCampaignFolderPresets()</span><span class="pill">renderNewCampaignPresetsList()</span><span class="pill">openNewCampaignWizard()</span><span class="pill">confirmNewCampaign()</span><span class="pill">setCampaignLauncherTab(tab)</span><span class="pill">filterCampaignsModalList()</span><span class="pill">updateCampaignsFolderStatusUI()</span><span class="pill">refreshCampaignsManager(interactive = false)</span><span class="pill">connectCampaignsFolder(opts = { autoLoad: true })</span><span class="pill">confirmRemoveCampaignItem(cId, sourceType, folderName, title)</span><span class="pill">renderInstalledCampaignsModalList()</span><span class="pill">renderWelcomeCampaignsList()</span><span class="pill">openSaveAsNewCampaignModal()</span><span class="pill">autoUpdateSaveAsSlug()</span><span class="pill">confirmSaveAsNewCampaign()</span><span class="pill">tryOpenCampaignFromDiskRoot(campId, fallbackFolder = &quot;&quot;)</span><span class="pill">openCampaignWithEnforcedDiskSync(campId, folderName, title, fallbackPkg = null)</span><span class="pill">openLoadPresetModal()</span><span class="pill">loadInstalledCampaign(campId)</span><span class="pill">importJsonFromDisk(e)</span><span class="pill">openSettingsModal()</span><span class="pill">openModal(modalId)</span><span class="pill">closeModal(modalId)</span><span class="pill">requestEnterWorkstation()</span><span class="pill">actionContinueLast()</span><span class="pill">updateWelcomeSummary()</span><span class="pill">updateWelcomeDiskCallout()</span><span class="pill">onWelcomeDiskCalloutClick()</span><span class="pill">exportTopologyJson()</span><span class="pill">exportSvgMap()</span><span class="pill">switchDockTab(tabId)</span><span class="pill">openAuditDashboard()</span><span class="pill">escapeSurfaceHtml(str)</span><span class="pill">openSurfaceCatalogModal()</span><span class="pill">openOdvMatrixModal()</span><span class="pill">setSurfaceCatalogCategory(cat)</span><span class="pill">clearSurfaceCatalogSearch()</span><span class="pill">filterSurfaceCatalog()</span><span class="pill">renderSurfaceCatalog()</span><span class="pill">copyCliCommand(filePath)</span><span class="pill">copyMasterBuildCommand()</span><span class="pill">copyModUpdateCommand()</span><span class="pill">openEmbeddedSurfaceWindow(surfaceId, title, url, iconText = 'SF')</span><span class="pill">openShortcutsHelp()</span><span class="pill">openAboutModal()</span><span class="pill">showModSdkInfo()</span><span class="pill">refreshModUI()</span><span class="pill">toggleMaximize()</span><span class="pill">setupPaneSplitter(splitterEl, targetPaneEl, options = {})</span><span class="pill">initWorkspaceSplitters()</span></div>
-      <h2 id="outbound-links">Outbound References (17)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2 id="outbound-links">Outbound References (18)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
         <td><span class="badge badge-Workstation Shell Template">Included By Template</span></td>
         <td>Assembled into master Workstation template</td>
@@ -538,6 +538,10 @@
         <td><a href="../../../../pages/src/workstation/scripts/entity_manager_ui.js.html"><strong>src/workstation/scripts/entity_manager_ui.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes openEntityManager() defined in entity_manager_ui.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/industry_chain_importer.js.html"><strong>src/workstation/scripts/industry_chain_importer.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes openIndustryChainImporterModal() defined in industry_chain_importer.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/layer_manager.js.html"><strong>src/workstation/scripts/layer_manager.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

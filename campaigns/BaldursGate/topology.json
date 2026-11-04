@@ -2,8 +2,8 @@
   "id": "baldur_s_gate__the_sword_coast_campaign",
   "name": "Baldur's Gate: The Sword Coast Campaign",
   "campaignName": "Baldur's Gate: The Sword Coast Campaign",
-  "rootMapId": "map_root",
-  "activeMapId": "map_bg1_sword_coast",
+  "rootMapId": "map_bg1_sword_coast",
+  "activeMapId": "map_bg1_nashkel_mines_l4",
   "maps": {
     "map_bg1_sword_coast": {
       "id": "map_bg1_sword_coast",
@@ -33,7 +33,7 @@
           "tier": 2,
           "childMapId": "map_bg1_candlekeep",
           "customNotes": "A colossal sea-cliff citadel housing the greatest repository of philosophical, historical, and prophetic tomes in Faerun. Monks chant the prophecies of Alaundo within walled courtyards under the austere rule of the Keeper of Tomes.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -70,7 +70,7 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "Rutted coastal highway winding through coastal scrubland and low limestone crags. Gorion fell here to armored ambushers in the night. The scent of spilled blood and ozone still clings to the road verge.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -90,11 +90,11 @@
           "id": "BG-SC-03",
           "name": "The Friendly Arm Inn",
           "displayName": "The Friendly Arm Inn",
-          "x": 316,
-          "y": 345,
+          "x": 315,
+          "y": 348,
           "coordinates": {
-            "x": 316,
-            "y": 345
+            "x": 315,
+            "y": 348
           },
           "cat": "Standard POI",
           "culture": "Clan",
@@ -107,7 +107,7 @@
           "tier": 2,
           "childMapId": "map_bg1_friendly_arm",
           "customNotes": "A fortified walled citadel built around an ancient stone keep by the gnome illusionist Bentley Mirrorshade. Banners of Garl Glittergold flutter above stone ramparts that offer sanctuary to beleaguered trade caravans.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -127,11 +127,11 @@
           "id": "BG-SC-04",
           "name": "Township of Beregost",
           "displayName": "Township of Beregost",
-          "x": 326,
-          "y": 552,
+          "x": 318,
+          "y": 553,
           "coordinates": {
-            "x": 326,
-            "y": 552
+            "x": 318,
+            "y": 553
           },
           "cat": "Standard POI",
           "culture": "Market",
@@ -144,13 +144,18 @@
           "tier": 2,
           "childMapId": "map_bg1_beregost",
           "customNotes": "A bustling crossroads market town smelling of coal smoke, roasted mutton, and damp horsehair. Four sprawling coaching taverns surround the high chimney of Taerom Fuiruim's Thunderhammer Smithy.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -176,7 +181,7 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "A towering manse shielded by enchanted bramble mazes and patrolling flesh golems. Within, the reclusive conjure-master Thalantyr tests the limits of planar binding and antique artifact transmutation.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -213,7 +218,7 @@
           "tier": 2,
           "childMapId": "map_bg1_nashkel_town",
           "customNotes": "Northern Amnian frontier outpost at the foot of the Cloud Peaks. Armed town guards in scarlet tunics eye refugees suspiciously while miners pack tavern porches demanding answers to the iron rot.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -250,7 +255,7 @@
           "tier": 2,
           "childMapId": "map_bg1_nashkel_mines_surface",
           "customNotes": "Open-pit iron excavation choked with wooden derricks, gravel heaps, and soldier pickets. Contaminated ore sits piled in wooden sluices while terrified miners refuse to descend into the lower galleries.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -287,7 +292,7 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "Craggy, windswept mountain passes crowned by a barbaric timber-and-boulder fortress overlooking deep river gorges. Howls of gnoll war-packs echo across natural rope bridges.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -324,7 +329,7 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "A peaceful halfling burrowing hamlet perched atop the sunken catacombs of the ancient elven city of Firewine. Wine cellars conceal hidden masonry tunnels into kobold-infested crypts.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -361,7 +366,7 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "The charred stone carcass of a grand conjuration academy razed three centuries ago by Calishite mages. The spectral shade of Ulcaster still glides across scorched stone arches reciting lost arcana.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -381,11 +386,11 @@
           "id": "BG-SC-11",
           "name": "Larswood & Peldvale Frontier",
           "displayName": "Larswood & Peldvale Frontier",
-          "x": 460,
-          "y": 371,
+          "x": 497,
+          "y": 328,
           "coordinates": {
-            "x": 460,
-            "y": 371
+            "x": 497,
+            "y": 328
           },
           "cat": "Standard POI",
           "culture": "Market",
@@ -398,7 +403,7 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "Dense deciduous woodland traversed by hidden bandit trails. Raiken and Teven's raiding outposts ambush merchant supply lines heading north toward the Chionthar.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -435,7 +440,7 @@
           "tier": 2,
           "childMapId": "map_bg1_bandit_camp",
           "customNotes": "A massive military encampment concealed within a pine hollow, occupied by Chill hobgoblins, Black Talon human archers, and iron-hoard tents orchestrated by the half-ogre Tazok.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -472,7 +477,7 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "Dense, sun-choked canopy choked with hanging moss, territorial Shadow Druids, giant phase spiders, and nesting forest wyverns along the river gorge.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -509,7 +514,7 @@
           "tier": 2,
           "childMapId": "map_bg1_cloakwood_mines",
           "customNotes": "A fortified quarry and subterranean smelter operated by Iron Throne slave drivers and guarded by black-glass wards, overseen by the ruthless battle-mage Davaeorn.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -546,7 +551,7 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "A colossal double-span stone arched viaduct crossing the wide Chionthar River, guarded by a fortified Flaming Fist gatehouse screening travelers for iron contraband and fugitives.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -583,7 +588,7 @@
           "tier": 2,
           "childMapId": "map_bg1_city",
           "customNotes": "The sovereign trade capital of the Sword Coast. Sprawling multi-tiered granite bastions, crowded merchant docks, labyrinthine sewers, and the towering black-iron monolith of the Iron Throne HQ.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -603,11 +608,11 @@
           "id": "BG-SC-17",
           "name": "Ulgoth's Beard Seaport",
           "displayName": "Ulgoth's Beard Seaport",
-          "x": 536,
-          "y": 162,
+          "x": 469,
+          "y": 53,
           "coordinates": {
-            "x": 536,
-            "y": 162
+            "x": 469,
+            "y": 53
           },
           "cat": "Standard POI",
           "culture": "Adhocracy",
@@ -620,13 +625,18 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "A foggy northern fishing hamlet where arcane eccentric Shandalar resides, serving as the staging ground for maritime expeditions to the Isle of Balduran and Durlag's Tower.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -652,7 +662,7 @@
           "tier": 2,
           "childMapId": "map_bg1_durlags_tower",
           "customNotes": "A tragic dwarven fortress built by hero Durlag Trollkiller, now a nightmare dungeon of four deadly subterranean levels choked with lethal wards, doppelgangers, and the Demon Knight.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -675,8 +685,14 @@
         "name": "swordcoast.gif",
         "width": 639,
         "height": 933,
+        "naturalWidth": 639,
+        "naturalHeight": 933,
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "lockAspect": true,
         "opacity": 0.85,
-        "timestamp": 1793570421626,
+        "timestamp": 1793735554066,
         "assetPath": "assets/map_bg1_sword_coast_bg.png"
       },
       "waves": [],
@@ -699,7 +715,8 @@
         "BG-SC-15": [],
         "BG-SC-16": [],
         "BG-SC-17": [],
-        "BG-SC-18": []
+        "BG-SC-18": [],
+        "TS-1": []
       },
       "edgeSlottedModules": {},
       "layers": [
@@ -763,7 +780,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_bg1_candlekeep": {
       "id": "map_bg1_candlekeep",
@@ -1077,7 +1095,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_bg1_friendly_arm": {
       "id": "map_bg1_friendly_arm",
@@ -1278,8 +1297,14 @@
         "name": "friendlyarminn.gif",
         "width": 480,
         "height": 360,
+        "naturalWidth": 480,
+        "naturalHeight": 360,
+        "scale": 1,
+        "x": 0,
+        "y": 0,
+        "lockAspect": true,
         "opacity": 0.85,
-        "timestamp": 1793570281794,
+        "timestamp": 1793677105753,
         "assetPath": "assets/map_bg1_friendly_arm_bg.png"
       },
       "waves": [],
@@ -1353,7 +1378,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_bg1_beregost": {
       "id": "map_bg1_beregost",
@@ -1427,6 +1453,11 @@
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -1700,7 +1731,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_bg1_bandit_camp": {
       "id": "map_bg1_bandit_camp",
@@ -1712,116 +1744,190 @@
         {
           "id": "BG-BND-01",
           "name": "Bandit Perimeter & Sentry Palisade",
-          "displayName": "Perimeter Gate",
-          "x": 260,
-          "y": 420,
-          "cat": "Gateway",
+          "displayName": "Bandit Perimeter & Sentry Palisade",
+          "x": 371,
+          "y": 161,
+          "coordinates": {
+            "x": 371,
+            "y": 161
+          },
+          "cat": "Standard POI",
           "culture": "Market",
           "shape": "circle",
-          "customNotes": "Sharpened wooden stakes and guard platforms where sentries demand the secret recognition password.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
-          "coordinates": {
-            "x": 260,
-            "y": 420
-          },
+          "customNotes": "Sharpened wooden stakes and guard platforms where sentries demand the secret recognition password.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-BND-02",
           "name": "Black Talon Archer Encampment",
-          "displayName": "Archer Camp",
-          "x": 420,
-          "y": 280,
-          "cat": "Hazard",
+          "displayName": "Black Talon Archer Encampment",
+          "x": 151,
+          "y": 63,
+          "coordinates": {
+            "x": 151,
+            "y": 63
+          },
+          "cat": "Standard POI",
           "culture": "Hierarchy",
           "shape": "triangle",
-          "customNotes": "Elite human longbowmen in leather armors drill with poisoned iron broadheads over open cook fires.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
-          "coordinates": {
-            "x": 420,
-            "y": 280
-          },
+          "customNotes": "Elite human longbowmen in leather armors drill with poisoned iron broadheads over open cook fires.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-BND-03",
           "name": "Chill Hobgoblin Barracks & War Pits",
-          "displayName": "Chill Barracks",
-          "x": 440,
-          "y": 540,
-          "cat": "Hazard",
+          "displayName": "Chill Hobgoblin Barracks & War Pits",
+          "x": 373,
+          "y": 280,
+          "coordinates": {
+            "x": 373,
+            "y": 280
+          },
+          "cat": "Standard POI",
           "culture": "Clan",
           "shape": "triangle",
-          "customNotes": "Vicious hobgoblin raiders under chieftain Ardenor Crush drink crude ale and sharpen scimitars.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
-          "coordinates": {
-            "x": 440,
-            "y": 540
-          },
+          "customNotes": "Vicious hobgoblin raiders under chieftain Ardenor Crush drink crude ale and sharpen scimitars.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-BND-04",
           "name": "Prisoner Stockade & Smuggler Cages",
-          "displayName": "Stockade",
-          "x": 620,
-          "y": 460,
+          "displayName": "Prisoner Stockade & Smuggler Cages",
+          "x": 207,
+          "y": 231,
+          "coordinates": {
+            "x": 207,
+            "y": 231
+          },
           "cat": "Standard POI",
           "culture": "Market",
           "shape": "circle",
-          "customNotes": "Timber cages holding captured caravan teamsters and merchant factor Ender Sai, who holds critical intel.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
-          "coordinates": {
-            "x": 620,
-            "y": 460
-          },
+          "customNotes": "Timber cages holding captured caravan teamsters and merchant factor Ender Sai, who holds critical intel.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-BND-05",
           "name": "Tazok's Great War Tent & Strongbox",
-          "displayName": "Tazok's Tent",
-          "x": 680,
-          "y": 280,
-          "cat": "Bastion",
+          "displayName": "Tazok's Great War Tent & Strongbox",
+          "x": 323,
+          "y": 57,
+          "coordinates": {
+            "x": 323,
+            "y": 57
+          },
+          "cat": "Standard POI",
           "culture": "Market",
           "shape": "pentagon",
-          "customNotes": "A massive furs-and-leather command pavilion guarded by Raemon, Venkt, and Britik, concealing letters detailing Cloakwood.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
-          "coordinates": {
-            "x": 680,
-            "y": 280
-          },
+          "customNotes": "A massive furs-and-leather command pavilion guarded by Raemon, Venkt, and Britik, concealing letters detailing Cloakwood.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         }
       ],
-      "links": [
-        {
-          "from": "BG-BND-01",
-          "to": "BG-BND-02",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-BND-01",
-          "to": "BG-BND-03",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-BND-02",
-          "to": "BG-BND-05",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-BND-03",
-          "to": "BG-BND-04",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-BND-04",
-          "to": "BG-BND-05",
-          "type": "twoway"
-        }
-      ],
+      "links": [],
       "mapMetadata": {
         "id": "map_bg1_bandit_camp",
         "name": "banditcamp.gif",
@@ -1832,7 +1938,13 @@
       },
       "waves": [],
       "drawnCards": {},
-      "nodeSlottedModules": {},
+      "nodeSlottedModules": {
+        "BG-BND-01": [],
+        "BG-BND-02": [],
+        "BG-BND-03": [],
+        "BG-BND-04": [],
+        "BG-BND-05": []
+      },
       "edgeSlottedModules": {},
       "layers": [
         {
@@ -1890,7 +2002,13 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
     },
     "map_bg1_cloakwood_mines": {
       "id": "map_bg1_cloakwood_mines",
@@ -1902,116 +2020,190 @@
         {
           "id": "BG-CLK-01",
           "name": "Surface Stockade & Guard Tower",
-          "displayName": "Surface Stockade",
-          "x": 260,
-          "y": 380,
-          "cat": "Gateway",
+          "displayName": "Surface Stockade & Guard Tower",
+          "x": 400,
+          "y": 141,
+          "coordinates": {
+            "x": 400,
+            "y": 141
+          },
+          "cat": "Standard POI",
           "culture": "Hierarchy",
           "shape": "circle",
-          "customNotes": "Fortified timber stockade guarding the elevator headframe leading into the subterranean iron complex.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
-          "coordinates": {
-            "x": 260,
-            "y": 380
-          },
+          "customNotes": "Fortified timber stockade guarding the elevator headframe leading into the subterranean iron complex.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-CLK-02",
           "name": "Mine Level 1: Slave Barracks & Sorting",
-          "displayName": "Mine Level 1",
-          "x": 440,
-          "y": 280,
+          "displayName": "Mine Level 1: Slave Barracks & Sorting",
+          "x": 272,
+          "y": 15,
+          "coordinates": {
+            "x": 272,
+            "y": 15
+          },
           "cat": "Standard POI",
           "culture": "Market",
           "shape": "circle",
-          "customNotes": "Choking dust and clanking chains where hundreds of enslaved miners toil under brutal guard whips.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
-          "coordinates": {
-            "x": 440,
-            "y": 280
-          },
+          "customNotes": "Choking dust and clanking chains where hundreds of enslaved miners toil under brutal guard whips.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-CLK-03",
           "name": "Mine Level 2: Subterranean Canal & Sluice",
-          "displayName": "Mine Level 2",
-          "x": 620,
-          "y": 240,
-          "cat": "Vault",
+          "displayName": "Mine Level 2: Subterranean Canal & Sluice",
+          "x": 613,
+          "y": 68,
+          "coordinates": {
+            "x": 613,
+            "y": 68
+          },
+          "cat": "Standard POI",
           "culture": "Adhocracy",
           "shape": "diamond",
-          "customNotes": "An underground river channeling water to hydraulic lift wheels, containing the master flood sluice plug.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
-          "coordinates": {
-            "x": 620,
-            "y": 240
-          },
+          "customNotes": "An underground river channeling water to hydraulic lift wheels, containing the master flood sluice plug.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-CLK-04",
           "name": "Mine Level 3: Yeslick's Dungeon & Armoury",
-          "displayName": "Dungeon Cell",
-          "x": 520,
-          "y": 480,
-          "cat": "Bastion",
+          "displayName": "Mine Level 3: Yeslick's Dungeon & Armoury",
+          "x": 768,
+          "y": 62,
+          "coordinates": {
+            "x": 768,
+            "y": 62
+          },
+          "cat": "Standard POI",
           "culture": "Clan",
           "shape": "pentagon",
-          "customNotes": "Dark, flooded holding cells where the dwarven clan cleric Yeslick Orothiar is kept in chains.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
-          "coordinates": {
-            "x": 520,
-            "y": 480
-          },
+          "customNotes": "Dark, flooded holding cells where the dwarven clan cleric Yeslick Orothiar is kept in chains.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-CLK-05",
           "name": "Mine Level 4: Davaeorn's Arcane Lair",
-          "displayName": "Davaeorn's Lair",
-          "x": 720,
-          "y": 420,
-          "cat": "Bastion",
+          "displayName": "Mine Level 4: Davaeorn's Arcane Lair",
+          "x": 929,
+          "y": 67,
+          "coordinates": {
+            "x": 929,
+            "y": 67
+          },
+          "cat": "Standard POI",
           "culture": "Market",
           "shape": "pentagon",
-          "customNotes": "A lavish subterranean suite protected by battle horrors, guard slime, and Davaeorn's dimension-door teleport traps.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
-          "coordinates": {
-            "x": 720,
-            "y": 420
-          },
+          "customNotes": "A lavish subterranean suite protected by battle horrors, guard slime, and Davaeorn's dimension-door teleport traps.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         }
       ],
-      "links": [
-        {
-          "from": "BG-CLK-01",
-          "to": "BG-CLK-02",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-CLK-02",
-          "to": "BG-CLK-03",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-CLK-02",
-          "to": "BG-CLK-04",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-CLK-03",
-          "to": "BG-CLK-05",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-CLK-04",
-          "to": "BG-CLK-05",
-          "type": "twoway"
-        }
-      ],
+      "links": [],
       "mapMetadata": {
         "id": "map_bg1_cloakwood_mines",
         "name": "cloakwoodminesarea.gif",
@@ -2022,7 +2214,13 @@
       },
       "waves": [],
       "drawnCards": {},
-      "nodeSlottedModules": {},
+      "nodeSlottedModules": {
+        "BG-CLK-01": [],
+        "BG-CLK-02": [],
+        "BG-CLK-03": [],
+        "BG-CLK-04": [],
+        "BG-CLK-05": []
+      },
       "edgeSlottedModules": {},
       "layers": [
         {
@@ -2080,7 +2278,13 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
     },
     "map_bg1_city": {
       "id": "map_bg1_city",
@@ -2092,143 +2296,202 @@
         {
           "id": "BG-CTY-01",
           "name": "East District & Elfsong Tavern",
-          "displayName": "East District",
+          "displayName": "East District & Elfsong Tavern",
           "x": 300,
           "y": 380,
-          "cat": "Gateway",
-          "culture": "Market",
-          "shape": "circle",
-          "customNotes": "Lively commercial district surrounding the Elfsong Tavern, where a haunting ghostly voice sings of lost love on the sea.",
-          "childMapId": null,
           "coordinates": {
             "x": 300,
             "y": 380
           },
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "circle",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "Lively commercial district surrounding the Elfsong Tavern, where a haunting ghostly voice sings of lost love on the sea.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-CTY-02",
           "name": "Central District & Hall of Wonders",
-          "displayName": "Central District",
+          "displayName": "Central District & Hall of Wonders",
           "x": 480,
           "y": 260,
-          "cat": "Vault",
-          "culture": "Adhocracy",
-          "shape": "diamond",
-          "customNotes": "Grand avenues crowned by the High House of Wonders honoring Gond, housing dazzling technological clockworks.",
-          "childMapId": null,
           "coordinates": {
             "x": 480,
             "y": 260
           },
+          "cat": "Standard POI",
+          "culture": "Adhocracy",
+          "shape": "diamond",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "Grand avenues crowned by the High House of Wonders honoring Gond, housing dazzling technological clockworks.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-CTY-03",
           "name": "Southwest District & Flaming Fist Citadel",
-          "displayName": "Flaming Fist HQ",
+          "displayName": "Southwest District & Flaming Fist Citadel",
           "x": 320,
           "y": 560,
-          "cat": "Bastion",
-          "culture": "Hierarchy",
-          "shape": "pentagon",
-          "customNotes": "A massive stone fortress housing Duke Eltan's military command, the central armoury, and detention cells.",
-          "childMapId": null,
           "coordinates": {
             "x": 320,
             "y": 560
           },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "pentagon",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "A massive stone fortress housing Duke Eltan's military command, the central armoury, and detention cells.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-CTY-04",
           "name": "South District & Iron Throne Headquarters",
-          "displayName": "Iron Throne HQ",
+          "displayName": "South District & Iron Throne Headquarters",
           "x": 520,
           "y": 520,
-          "cat": "Bastion",
-          "culture": "Market",
-          "shape": "pentagon",
-          "customNotes": "A monolithic dark-stone skyscraper overlooking the harbor docks. Iron Throne mercenaries bar entry to upper floors.",
-          "childMapId": null,
           "coordinates": {
             "x": 520,
             "y": 520
           },
+          "cat": "Standard POI",
+          "culture": "Market",
+          "shape": "pentagon",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "A monolithic dark-stone skyscraper overlooking the harbor docks. Iron Throne mercenaries bar entry to upper floors.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-CTY-05",
           "name": "North District & The Ducal Palace",
-          "displayName": "Ducal Palace",
+          "displayName": "North District & The Ducal Palace",
           "x": 680,
           "y": 200,
-          "cat": "Bastion",
-          "culture": "Hierarchy",
-          "shape": "star",
-          "customNotes": "The white marble seat of the Four Grand Dukes of Baldur's Gate, venue of the coronation ball.",
-          "childMapId": null,
           "coordinates": {
             "x": 680,
             "y": 200
           },
+          "cat": "Standard POI",
+          "culture": "Hierarchy",
+          "shape": "star",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
+          "childMapId": null,
+          "customNotes": "The white marble seat of the Four Grand Dukes of Baldur's Gate, venue of the coronation ball.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": "BG-CTY-06",
           "name": "The Undercellars & Thieves' Conduits",
-          "displayName": "Undercellars",
-          "x": 720,
-          "y": 440,
-          "cat": "Hazard",
+          "displayName": "The Undercellars & Thieves' Conduits",
+          "x": 710,
+          "y": 418,
+          "coordinates": {
+            "x": 710,
+            "y": 418
+          },
+          "cat": "Standard POI",
           "culture": "Adhocracy",
           "shape": "triangle",
-          "customNotes": "A subterranean network of gambling dens and brothels connecting the city's underbelly to the Thieves' Maze.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": "map_bg1_undercity",
-          "coordinates": {
-            "x": 720,
-            "y": 440
-          },
+          "customNotes": "A subterranean network of gambling dens and brothels connecting the city's underbelly to the Thieves' Maze.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         }
       ],
-      "links": [
-        {
-          "from": "BG-CTY-01",
-          "to": "BG-CTY-02",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-CTY-01",
-          "to": "BG-CTY-03",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-CTY-02",
-          "to": "BG-CTY-05",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-CTY-02",
-          "to": "BG-CTY-04",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-CTY-03",
-          "to": "BG-CTY-04",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-CTY-04",
-          "to": "BG-CTY-06",
-          "type": "twoway"
-        },
-        {
-          "from": "BG-CTY-05",
-          "to": "BG-CTY-06",
-          "type": "twoway"
-        }
-      ],
+      "links": [],
       "mapMetadata": {
         "id": "map_bg1_city",
         "name": "baldursgate.jpg",
@@ -2239,7 +2502,14 @@
       },
       "waves": [],
       "drawnCards": {},
-      "nodeSlottedModules": {},
+      "nodeSlottedModules": {
+        "BG-CTY-01": [],
+        "BG-CTY-02": [],
+        "BG-CTY-03": [],
+        "BG-CTY-04": [],
+        "BG-CTY-05": [],
+        "BG-CTY-06": []
+      },
       "edgeSlottedModules": {},
       "layers": [
         {
@@ -2297,7 +2567,13 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
     },
     "map_bg1_undercity": {
       "id": "map_bg1_undercity",
@@ -2460,7 +2736,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_bg1_catacombs": {
       "id": "map_bg1_catacombs",
@@ -2601,7 +2878,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_bg1_durlags_tower": {
       "id": "map_bg1_durlags_tower",
@@ -2764,7 +3042,8 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": []
     },
     "map_bg1_nashkel_town": {
       "id": "map_bg1_nashkel_town",
@@ -2785,11 +3064,11 @@
           "id": 101,
           "name": "The Nashkel Inn",
           "displayName": "The Nashkel Inn",
-          "x": 340,
-          "y": 280,
+          "x": 329,
+          "y": 75,
           "coordinates": {
-            "x": 340,
-            "y": 280
+            "x": 329,
+            "y": 75
           },
           "cat": "Standard POI",
           "culture": "Market",
@@ -2802,13 +3081,18 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "A sturdy timber-and-plaster roadside hostelry. Smells of roasted leek potage and stale ale. The assassin Neira waits inside with drawn daggers and hold person scrolls to ambush inquisitive parties.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -2834,7 +3118,7 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "A raised wooden platform near the northern bridge where Mayor Berrun Ghastkill and Bounty Officer Oublek inspect incoming travelers and recruit armed investigations into the iron crisis.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -2849,11 +3133,11 @@
           "id": 103,
           "name": "Amnian Military Garrison",
           "displayName": "Amnian Military Garrison",
-          "x": 780,
-          "y": 320,
+          "x": 832,
+          "y": 343,
           "coordinates": {
-            "x": 780,
-            "y": 320
+            "x": 832,
+            "y": 343
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -2866,13 +3150,18 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "Fortified stone barracks housing Captain Bardolan's border detachment. The barbarian Minsc paces the courtyard, pleading for stout swords to mount a rescue of Dynaheir from the Gnoll Stronghold.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -2881,11 +3170,11 @@
           "id": 104,
           "name": "Belching Dragon Tavern & Stone Bridge",
           "displayName": "Belching Dragon Tavern & Stone Bridge",
-          "x": 620,
-          "y": 520,
+          "x": 693,
+          "y": 540,
           "coordinates": {
-            "x": 620,
-            "y": 520
+            "x": 693,
+            "y": 540
           },
           "cat": "Standard POI",
           "culture": "Market",
@@ -2898,13 +3187,18 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "A low-ceilinged dive frequented by off-duty miners. Outside on the footbridge, the Thayvian wizard Edwin Odesseiron scans the crowd, offering coin for the death of Dynaheir.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -2913,11 +3207,11 @@
           "id": 105,
           "name": "Temple of Helm & Hallowed Grounds",
           "displayName": "Temple of Helm & Hallowed Grounds",
-          "x": 860,
-          "y": 660,
+          "x": 980,
+          "y": 675,
           "coordinates": {
-            "x": 860,
-            "y": 660
+            "x": 980,
+            "y": 675
           },
           "cat": "Standard POI",
           "culture": "Hierarchy",
@@ -2930,13 +3224,18 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "A stone sanctuary dedicated to the Vigilant One. Watcher Nalin offers healing, identifies enchanted weapons, and ministers to miners maddened by the contaminated iron ore.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -2945,11 +3244,11 @@
           "id": 106,
           "name": "Nashkel General Store & Silo",
           "displayName": "Nashkel General Store & Silo",
-          "x": 420,
-          "y": 620,
+          "x": 417,
+          "y": 698,
           "coordinates": {
-            "x": 420,
-            "y": 620
+            "x": 417,
+            "y": 698
           },
           "cat": "Standard POI",
           "culture": "Market",
@@ -2962,13 +3261,18 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "The town's supply depot selling grain, missile ammunition, and general dungeoneering gear. The shopkeeper warns that iron blades snap under pressure due to the widespread rot.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -2994,7 +3298,7 @@
           "tier": 2,
           "childMapId": null,
           "customNotes": "Freshly turned crop fields. A sunken hollow along the tree line conceals a hidden cache containing a set of masterwork Ankheg Plate Mail.",
-          "locked": false,
+          "locked": true,
           "visible": true,
           "color": null,
           "modules": [],
@@ -3080,7 +3384,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_bg1_nashkel_mines_surface": {
       "id": "map_bg1_nashkel_mines_surface",
@@ -3254,6 +3559,11 @@
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -3331,7 +3641,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_bg1_nashkel_mines_l1": {
       "id": "map_bg1_nashkel_mines_l1",
@@ -3504,6 +3815,11 @@
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -3581,7 +3897,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_bg1_nashkel_mines_l2": {
       "id": "map_bg1_nashkel_mines_l2",
@@ -3754,6 +4071,11 @@
           "provides": [],
           "requires": [],
           "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
           "odvOverridden": false,
           "faction": "neutral",
           "layerId": "layer-nodes"
@@ -3831,7 +4153,8 @@
       "edgeData": {},
       "edgeNotes": {},
       "modData": {},
-      "custom_modules": []
+      "custom_modules": [],
+      "spatialPins": []
     },
     "map_bg1_nashkel_mines_l3": {
       "id": "map_bg1_nashkel_mines_l3",
@@ -3851,24 +4174,39 @@
         {
           "id": 221,
           "name": "Upper Incline from Level 2",
-          "displayName": "Incline from L2",
+          "displayName": "Upper Incline from Level 2",
           "x": 450,
           "y": 60,
           "coordinates": {
             "x": 450,
             "y": 60
           },
-          "cat": "Gateway",
+          "cat": "Standard POI",
           "culture": "Hierarchy",
           "shape": "square",
-          "customNotes": "The bottom of the rocky passage descending from Level 2. The air here is dry and acrid with chimney smoke from crude kobold firepits.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
+          "customNotes": "The bottom of the rocky passage descending from Level 2. The air here is dry and acrid with chimney smoke from crude kobold firepits.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": 222,
           "name": "Joseph's Remains & Lost Ring Alcove",
-          "displayName": "Joseph's Alcove",
+          "displayName": "Joseph's Remains & Lost Ring Alcove",
           "x": 450,
           "y": 150,
           "coordinates": {
@@ -3878,92 +4216,137 @@
           "cat": "Standard POI",
           "culture": "Clan",
           "shape": "diamond",
-          "customNotes": "A shadowed hollow just below the upper entry where the unfortunate miner Joseph fell during the initial invasion. His skeletal hand still wears a greenstone signet ring bearing his family crest.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
+          "customNotes": "A shadowed hollow just below the upper entry where the unfortunate miner Joseph fell during the initial invasion. His skeletal hand still wears a greenstone signet ring bearing his family crest.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": 223,
           "name": "Chasm Suspension Bridge & Kobold Traps",
-          "displayName": "Chasm Bridge",
+          "displayName": "Chasm Suspension Bridge & Kobold Traps",
           "x": 630,
           "y": 390,
           "coordinates": {
             "x": 630,
             "y": 390
           },
-          "cat": "Hazard",
+          "cat": "Standard POI",
           "culture": "Adhocracy",
           "shape": "triangle",
-          "customNotes": "A creaking hemp rope bridge spanning a yawning subterranean fissure. Kobold Commandos have notched the timber supports and rigged wire-drawn spring traps loaded with fire darts.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
+          "customNotes": "A creaking hemp rope bridge spanning a yawning subterranean fissure. Kobold Commandos have notched the timber supports and rigged wire-drawn spring traps loaded with fire darts.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": 224,
           "name": "Lower Kobold Encampment",
-          "displayName": "Kobold Warrens",
+          "displayName": "Lower Kobold Encampment",
           "x": 400,
           "y": 600,
           "coordinates": {
             "x": 400,
             "y": 600
           },
-          "cat": "Hazard",
+          "cat": "Standard POI",
           "culture": "Adhocracy",
           "shape": "hexagon",
-          "customNotes": "A sprawling warren reeking of kerosene, wet scales, and charred cave mushrooms. Swarms of kobold skirmishers and giant cave spiders guard the central tunnels.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
+          "customNotes": "A sprawling warren reeking of kerosene, wet scales, and charred cave mushrooms. Swarms of kobold skirmishers and giant cave spiders guard the central tunnels.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": 225,
           "name": "Descent to Lair (Level 4)",
-          "displayName": "Descent to L4",
-          "x": 930,
-          "y": 660,
+          "displayName": "Descent to Lair (Level 4)",
+          "x": 924,
+          "y": 677,
           "coordinates": {
-            "x": 930,
-            "y": 660
+            "x": 924,
+            "y": 677
           },
-          "cat": "Gateway",
+          "cat": "Standard POI",
           "culture": "Hierarchy",
           "shape": "pentagon",
-          "customNotes": "A grand subterranean archway reinforced with ancient stonework leading down into the sacred subterranean cavern of Cyric.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": "map_bg1_nashkel_mines_l4",
+          "customNotes": "A grand subterranean archway reinforced with ancient stonework leading down into the sacred subterranean cavern of Cyric.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odv": [
+            2,
+            2,
+            2
+          ],
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         }
       ],
-      "links": [
-        {
-          "from": 221,
-          "to": 222,
-          "type": "twoway"
-        },
-        {
-          "from": 222,
-          "to": 223,
-          "type": "twoway"
-        },
-        {
-          "from": 223,
-          "to": 224,
-          "type": "twoway"
-        },
-        {
-          "from": 223,
-          "to": 225,
-          "type": "twoway"
-        },
-        {
-          "from": 224,
-          "to": 225,
-          "type": "twoway"
-        }
-      ],
+      "links": [],
       "waves": [],
       "drawnCards": {},
-      "nodeSlottedModules": {},
+      "nodeSlottedModules": {
+        "221": [],
+        "222": [],
+        "223": [],
+        "224": [],
+        "225": []
+      },
       "edgeSlottedModules": {},
       "layers": [
         {
@@ -4021,7 +4404,13 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
     },
     "map_bg1_nashkel_mines_l4": {
       "id": "map_bg1_nashkel_mines_l4",
@@ -4041,119 +4430,175 @@
         {
           "id": 231,
           "name": "Subterranean Incline from Level 3",
-          "displayName": "Incline from L3",
+          "displayName": "Subterranean Incline from Level 3",
           "x": 80,
           "y": 660,
           "coordinates": {
             "x": 80,
             "y": 660
           },
-          "cat": "Gateway",
+          "cat": "Standard POI",
           "culture": "Adhocracy",
           "shape": "square",
-          "customNotes": "The wet subterranean approach carved through black schist. Water sloshes along the narrow stone ledges flanked by glowing phosphor fungus.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
+          "customNotes": "The wet subterranean approach carved through black schist. Water sloshes along the narrow stone ledges flanked by glowing phosphor fungus.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": 232,
           "name": "Sanctum Approach & Xan's Prison Cell",
-          "displayName": "Xan's Cell",
+          "displayName": "Sanctum Approach & Xan's Prison Cell",
           "x": 380,
           "y": 440,
           "coordinates": {
             "x": 380,
             "y": 440
           },
-          "cat": "Vault",
+          "cat": "Standard POI",
           "culture": "Hierarchy",
           "shape": "square",
-          "customNotes": "A barred alcove overlooking the central cavern where the melancholic elven sorcerer Xan is bound in iron shackles. He warns of certain doom and laments the theft of his Moonblade.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
+          "customNotes": "A barred alcove overlooking the central cavern where the melancholic elven sorcerer Xan is bound in iron shackles. He warns of certain doom and laments the theft of his Moonblade.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": 233,
           "name": "Mulahey's Desecrated Shrine & Sanctum",
-          "displayName": "Mulahey's Sanctum",
+          "displayName": "Mulahey's Desecrated Shrine & Sanctum",
           "x": 590,
           "y": 380,
           "coordinates": {
             "x": 590,
             "y": 380
           },
-          "cat": "Bastion",
+          "cat": "Standard POI",
           "culture": "Hierarchy",
           "shape": "star",
-          "customNotes": "A natural island cavern surrounded by subterranean waters, converted into a shrine to Cyric. The priest Mulahey directs the poison operations here with a chest full of Iron Throne correspondence.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
+          "customNotes": "A natural island cavern surrounded by subterranean waters, converted into a shrine to Cyric. The priest Mulahey directs the poison operations here with a chest full of Iron Throne correspondence.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": 234,
           "name": "Underground Lake Shore",
-          "displayName": "Lake Shore",
+          "displayName": "Underground Lake Shore",
           "x": 740,
           "y": 220,
           "coordinates": {
             "x": 740,
             "y": 220
           },
-          "cat": "Hazard",
+          "cat": "Standard POI",
           "culture": "Clan",
           "shape": "hexagon",
-          "customNotes": "A slippery calcite terrace bordering the underground lake. Subterranean oozes and cave lizards nest among discarded mining helmets and half-eaten rations.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
+          "customNotes": "A slippery calcite terrace bordering the underground lake. Subterranean oozes and cave lizards nest among discarded mining helmets and half-eaten rations.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         },
         {
           "id": 235,
           "name": "Valley Chute / Cloud Peak Surface Exit",
-          "displayName": "Surface Chute Exit",
+          "displayName": "Valley Chute / Cloud Peak Surface Exit",
           "x": 970,
           "y": 380,
           "coordinates": {
             "x": 970,
             "y": 380
           },
-          "cat": "Gateway",
+          "cat": "Standard POI",
           "culture": "Market",
           "shape": "circle",
-          "customNotes": "A natural drainage cleft through the eastern rock wall bathed in crisp outside sunlight. The tunnel empties onto the steep scree slopes of the eastern Cloud Peaks.",
+          "adj": [],
+          "infBy": [],
+          "hubEligibility": "candidate",
+          "eligible": true,
+          "wave": 1,
+          "tier": 2,
           "childMapId": null,
+          "customNotes": "A natural drainage cleft through the eastern rock wall bathed in crisp outside sunlight. The tunnel empties onto the steep scree slopes of the eastern Cloud Peaks.",
+          "locked": false,
+          "visible": true,
+          "color": null,
+          "modules": [],
+          "provides": [],
+          "requires": [],
+          "modData": {},
+          "odvOverridden": false,
+          "faction": "neutral",
           "layerId": "layer-nodes"
         }
       ],
-      "links": [
-        {
-          "from": 231,
-          "to": 232,
-          "type": "twoway"
-        },
-        {
-          "from": 232,
-          "to": 233,
-          "type": "twoway"
-        },
-        {
-          "from": 233,
-          "to": 234,
-          "type": "twoway"
-        },
-        {
-          "from": 233,
-          "to": 235,
-          "type": "twoway"
-        },
-        {
-          "from": 234,
-          "to": 235,
-          "type": "twoway"
-        }
-      ],
+      "links": [],
       "waves": [],
       "drawnCards": {},
-      "nodeSlottedModules": {},
+      "nodeSlottedModules": {
+        "231": [],
+        "232": [],
+        "233": [],
+        "234": [],
+        "235": [],
+        "NM-1": []
+      },
       "edgeSlottedModules": {},
       "layers": [
         {
@@ -4211,170 +4656,41 @@
           "isCore": true
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "spatialPins": [],
+      "revealedNodes": {},
+      "edgeData": {},
+      "edgeNotes": {},
+      "modData": {},
+      "custom_modules": []
     }
   },
   "activeTopology": {
-    "id": "map_bg1_sword_coast",
-    "name": "The Sword Coast (Regional Pointcrawl)",
+    "id": "map_bg1_nashkel_mines_l4",
+    "name": "Nashkel Mines: Level 4 (AR5404)",
     "campaignName": "Baldur's Gate: The Sword Coast Campaign",
     "rootMapId": "map_root",
     "activeMapId": "map_root",
     "nodes": {
-      "BG-SC-01": {
-        "id": "BG-SC-01",
-        "name": "Candlekeep Fortress & Great Library",
-        "x": 91,
-        "y": 468,
+      "231": {
+        "id": 231,
+        "name": "Subterranean Incline from Level 3",
+        "x": 80,
+        "y": 660,
         "coordinates": {
-          "x": 91,
-          "y": 468
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Hierarchy",
-        "shape": "pentagon",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": "map_bg1_candlekeep",
-        "customNotes": "A colossal sea-cliff citadel housing the greatest repository of philosophical, historical, and prophetic tomes in Faerun. Monks chant the prophecies of Alaundo within walled courtyards under the austere rule of the Keeper of Tomes.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": {
-          "s": 2,
-          "e": 2,
-          "c": 2
-        },
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-02": {
-        "id": "BG-SC-02",
-        "name": "The Coast Way & Lion's Way",
-        "x": 119,
-        "y": 620,
-        "coordinates": {
-          "x": 119,
-          "y": 620
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Clan",
-        "shape": "circle",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": null,
-        "customNotes": "Rutted coastal highway winding through coastal scrubland and low limestone crags. Gorion fell here to armored ambushers in the night. The scent of spilled blood and ozone still clings to the road verge.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": {
-          "s": 2,
-          "e": 2,
-          "c": 2
-        },
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-03": {
-        "id": "BG-SC-03",
-        "name": "The Friendly Arm Inn",
-        "x": 316,
-        "y": 345,
-        "coordinates": {
-          "x": 316,
-          "y": 345
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Clan",
-        "shape": "pentagon",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": "map_bg1_friendly_arm",
-        "customNotes": "A fortified walled citadel built around an ancient stone keep by the gnome illusionist Bentley Mirrorshade. Banners of Garl Glittergold flutter above stone ramparts that offer sanctuary to beleaguered trade caravans.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-04": {
-        "id": "BG-SC-04",
-        "name": "Township of Beregost",
-        "x": 326,
-        "y": 552,
-        "coordinates": {
-          "x": 326,
-          "y": 552
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Market",
-        "shape": "pentagon",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": "map_bg1_beregost",
-        "customNotes": "A bustling crossroads market town smelling of coal smoke, roasted mutton, and damp horsehair. Four sprawling coaching taverns surround the high chimney of Taerom Fuiruim's Thunderhammer Smithy.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-05": {
-        "id": "BG-SC-05",
-        "name": "High Hedge Estate",
-        "x": 215,
-        "y": 571,
-        "coordinates": {
-          "x": 215,
-          "y": 571
+          "x": 80,
+          "y": 660
         },
         "wave": 1,
         "tier": 2,
         "culture": "Adhocracy",
-        "shape": "diamond",
+        "shape": "square",
         "eligible": true,
         "hubEligibility": "candidate",
         "adj": [],
         "infBy": [],
         "childMapId": null,
-        "customNotes": "A towering manse shielded by enchanted bramble mazes and patrolling flesh golems. Within, the reclusive conjure-master Thalantyr tests the limits of planar binding and antique artifact transmutation.",
+        "customNotes": "The wet subterranean approach carved through black schist. Water sloshes along the narrow stone ledges flanked by glowing phosphor fungus.",
         "locked": false,
         "visible": true,
         "color": null,
@@ -4382,34 +4698,29 @@
         "provides": [],
         "requires": [],
         "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "BG-SC-06": {
-        "id": "BG-SC-06",
-        "name": "Township of Nashkel",
-        "x": 313,
-        "y": 784,
+      "232": {
+        "id": 232,
+        "name": "Sanctum Approach & Xan's Prison Cell",
+        "x": 380,
+        "y": 440,
         "coordinates": {
-          "x": 313,
-          "y": 784
+          "x": 380,
+          "y": 440
         },
         "wave": 1,
         "tier": 2,
         "culture": "Hierarchy",
-        "shape": "pentagon",
+        "shape": "square",
         "eligible": true,
         "hubEligibility": "candidate",
         "adj": [],
         "infBy": [],
-        "childMapId": "map_bg1_nashkel_town",
-        "customNotes": "Northern Amnian frontier outpost at the foot of the Cloud Peaks. Armed town guards in scarlet tunics eye refugees suspiciously while miners pack tavern porches demanding answers to the iron rot.",
+        "childMapId": null,
+        "customNotes": "A barred alcove overlooking the central cavern where the melancholic elven sorcerer Xan is bound in iron shackles. He warns of certain doom and laments the theft of his Moonblade.",
         "locked": false,
         "visible": true,
         "color": null,
@@ -4417,34 +4728,29 @@
         "provides": [],
         "requires": [],
         "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "BG-SC-07": {
-        "id": "BG-SC-07",
-        "name": "Nashkel Mines Surface Quarry",
-        "x": 424,
-        "y": 863,
+      "233": {
+        "id": 233,
+        "name": "Mulahey's Desecrated Shrine & Sanctum",
+        "x": 590,
+        "y": 380,
         "coordinates": {
-          "x": 424,
-          "y": 863
+          "x": 590,
+          "y": 380
         },
         "wave": 1,
         "tier": 2,
-        "culture": "Market",
-        "shape": "triangle",
+        "culture": "Hierarchy",
+        "shape": "star",
         "eligible": true,
         "hubEligibility": "candidate",
         "adj": [],
         "infBy": [],
-        "childMapId": "map_bg1_nashkel_mines_surface",
-        "customNotes": "Open-pit iron excavation choked with wooden derricks, gravel heaps, and soldier pickets. Contaminated ore sits piled in wooden sluices while terrified miners refuse to descend into the lower galleries.",
+        "childMapId": null,
+        "customNotes": "A natural island cavern surrounded by subterranean waters, converted into a shrine to Cyric. The priest Mulahey directs the poison operations here with a chest full of Iron Throne correspondence.",
         "locked": false,
         "visible": true,
         "color": null,
@@ -4452,23 +4758,18 @@
         "provides": [],
         "requires": [],
         "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "BG-SC-08": {
-        "id": "BG-SC-08",
-        "name": "Cloud Peaks & Gnoll Stronghold",
-        "x": 67,
-        "y": 882,
+      "234": {
+        "id": 234,
+        "name": "Underground Lake Shore",
+        "x": 740,
+        "y": 220,
         "coordinates": {
-          "x": 67,
-          "y": 882
+          "x": 740,
+          "y": 220
         },
         "wave": 1,
         "tier": 2,
@@ -4479,7 +4780,7 @@
         "adj": [],
         "infBy": [],
         "childMapId": null,
-        "customNotes": "Craggy, windswept mountain passes crowned by a barbaric timber-and-boulder fortress overlooking deep river gorges. Howls of gnoll war-packs echo across natural rope bridges.",
+        "customNotes": "A slippery calcite terrace bordering the underground lake. Subterranean oozes and cave lizards nest among discarded mining helmets and half-eaten rations.",
         "locked": false,
         "visible": true,
         "color": null,
@@ -4487,93 +4788,18 @@
         "provides": [],
         "requires": [],
         "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "BG-SC-09": {
-        "id": "BG-SC-09",
-        "name": "Gullykin & Firewine Ruins",
-        "x": 571,
-        "y": 648,
+      "235": {
+        "id": 235,
+        "name": "Valley Chute / Cloud Peak Surface Exit",
+        "x": 970,
+        "y": 380,
         "coordinates": {
-          "x": 571,
-          "y": 648
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Clan",
-        "shape": "circle",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": null,
-        "customNotes": "A peaceful halfling burrowing hamlet perched atop the sunken catacombs of the ancient elven city of Firewine. Wine cellars conceal hidden masonry tunnels into kobold-infested crypts.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-10": {
-        "id": "BG-SC-10",
-        "name": "Ulcaster School of Sorcery Ruins",
-        "x": 446,
-        "y": 616,
-        "coordinates": {
-          "x": 446,
-          "y": 616
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Adhocracy",
-        "shape": "diamond",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": null,
-        "customNotes": "The charred stone carcass of a grand conjuration academy razed three centuries ago by Calishite mages. The spectral shade of Ulcaster still glides across scorched stone arches reciting lost arcana.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-11": {
-        "id": "BG-SC-11",
-        "name": "Larswood & Peldvale Frontier",
-        "x": 460,
-        "y": 371,
-        "coordinates": {
-          "x": 460,
-          "y": 371
+          "x": 970,
+          "y": 380
         },
         "wave": 1,
         "tier": 2,
@@ -4584,7 +4810,7 @@
         "adj": [],
         "infBy": [],
         "childMapId": null,
-        "customNotes": "Dense deciduous woodland traversed by hidden bandit trails. Raiken and Teven's raiding outposts ambush merchant supply lines heading north toward the Chionthar.",
+        "customNotes": "A natural drainage cleft through the eastern rock wall bathed in crisp outside sunlight. The tunnel empties onto the steep scree slopes of the eastern Cloud Peaks.",
         "locked": false,
         "visible": true,
         "color": null,
@@ -4592,251 +4818,6 @@
         "provides": [],
         "requires": [],
         "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-12": {
-        "id": "BG-SC-12",
-        "name": "Tazok's Hidden Bandit Camp",
-        "x": 457,
-        "y": 252,
-        "coordinates": {
-          "x": 457,
-          "y": 252
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Market",
-        "shape": "pentagon",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": "map_bg1_bandit_camp",
-        "customNotes": "A massive military encampment concealed within a pine hollow, occupied by Chill hobgoblins, Black Talon human archers, and iron-hoard tents orchestrated by the half-ogre Tazok.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-13": {
-        "id": "BG-SC-13",
-        "name": "Cloakwood Primeval Forest",
-        "x": 149,
-        "y": 365,
-        "coordinates": {
-          "x": 149,
-          "y": 365
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Clan",
-        "shape": "circle",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": null,
-        "customNotes": "Dense, sun-choked canopy choked with hanging moss, territorial Shadow Druids, giant phase spiders, and nesting forest wyverns along the river gorge.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-14": {
-        "id": "BG-SC-14",
-        "name": "Cloakwood Secret Iron Mines",
-        "x": 62,
-        "y": 321,
-        "coordinates": {
-          "x": 62,
-          "y": 321
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Market",
-        "shape": "triangle",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": "map_bg1_cloakwood_mines",
-        "customNotes": "A fortified quarry and subterranean smelter operated by Iron Throne slave drivers and guarded by black-glass wards, overseen by the ruthless battle-mage Davaeorn.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-15": {
-        "id": "BG-SC-15",
-        "name": "Wyrm's Crossing Bridge",
-        "x": 344,
-        "y": 189,
-        "coordinates": {
-          "x": 344,
-          "y": 189
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Hierarchy",
-        "shape": "diamond",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": null,
-        "customNotes": "A colossal double-span stone arched viaduct crossing the wide Chionthar River, guarded by a fortified Flaming Fist gatehouse screening travelers for iron contraband and fugitives.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-16": {
-        "id": "BG-SC-16",
-        "name": "Metropolis of Baldur's Gate",
-        "x": 156,
-        "y": 102,
-        "coordinates": {
-          "x": 156,
-          "y": 102
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Hierarchy",
-        "shape": "star",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": "map_bg1_city",
-        "customNotes": "The sovereign trade capital of the Sword Coast. Sprawling multi-tiered granite bastions, crowded merchant docks, labyrinthine sewers, and the towering black-iron monolith of the Iron Throne HQ.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-17": {
-        "id": "BG-SC-17",
-        "name": "Ulgoth's Beard Seaport",
-        "x": 536,
-        "y": 162,
-        "coordinates": {
-          "x": 536,
-          "y": 162
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Adhocracy",
-        "shape": "circle",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": null,
-        "customNotes": "A foggy northern fishing hamlet where arcane eccentric Shandalar resides, serving as the staging ground for maritime expeditions to the Isle of Balduran and Durlag's Tower.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odvOverridden": false,
-        "faction": "neutral",
-        "layerId": "layer-nodes"
-      },
-      "BG-SC-18": {
-        "id": "BG-SC-18",
-        "name": "Durlag's Tower Citadel",
-        "x": 510,
-        "y": 768,
-        "coordinates": {
-          "x": 510,
-          "y": 768
-        },
-        "wave": 1,
-        "tier": 2,
-        "culture": "Adhocracy",
-        "shape": "star",
-        "eligible": true,
-        "hubEligibility": "candidate",
-        "adj": [],
-        "infBy": [],
-        "childMapId": "map_bg1_durlags_tower",
-        "customNotes": "A tragic dwarven fortress built by hero Durlag Trollkiller, now a nightmare dungeon of four deadly subterranean levels choked with lethal wards, doppelgangers, and the Demon Knight.",
-        "locked": false,
-        "visible": true,
-        "color": null,
-        "modules": [],
-        "provides": [],
-        "requires": [],
-        "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
@@ -6726,175 +6707,290 @@
         "notes": "Advances across major story milestones or dark violent choices. Unlocks divine innate powers (Cure Light Wounds, Slow Poison, Horror, Vampiric Touch)."
       }
     ],
-    "tickets": [],
+    "tickets": [
+      {
+        "id": "DEV-01",
+        "title": "trackers need updated into relatable and tracked entites like the others, and \"center station node on canvas\"",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "trackers should have their triggers attributable to NPCs, Items, Quests, and other tracekrs. They should be displayed like the others in property inspectors and treated just like we treat the other entities. it should be linkable in quests and you should be able to see the links in the trackers panel, but i just looked and its not there. \n\nalso the \"center stationed node on canvas\" isnt swapping between submaps either. \n\nalso, when you open a new dialog, it should be on top. when i opened the ticket tracker and hit \"new ticket\"m the new ticket window opened to the back.",
+        "createdAt": "2026-11-02T03:12:02.361Z"
+      },
+      {
+        "id": "DEV-02",
+        "title": "jonk comments about quests needing trackers",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "I think the hardest part is that keeping all the randomly dynamic elements might make it hard to cram into the UI, but have you thought about having the \"clocks\" be a subset of the quests?\n\nLike each quest is broken into some number of subelements, and you're hitting \"advance\" on the quest and it separately ticks up the clock based on which things should trigger it? I'm wondering if that would make it easier on the person trying to keep track of all the quests you're doing and the associated clocks\nSo the quest might be \"Track this monster and kill it\" and when you go to track it you find out that there's some clues or whatever you need to get and those tell you how to kill it and when you find its lair you have to hit some switches. but on the quest side it would be \n\n1) Start tracking monster\n2) talk to old lady OR farmer to get pointed in the right direction\n3) enter old forest <---- TRIGGER\n4)  enter old house\n5) find secret door\n6) clue 1\n7) clue 2\n8) Switch Puzzle <---- TRIGGER\n8) enter monsters chamber <---- TRIGGER\n9) deal 50% of his hp <---- TRIGGER\n\nSo as the DM they might fuck around a bunch of different ways but you can always anchor on \"ADVANCE\" for the major points, even if they fuck it up and you have to change the old lady or farmer to a guard that they won't stop trying to talk to",
+        "createdAt": "2026-11-02T03:12:30.116Z"
+      },
+      {
+        "id": "DEV-03",
+        "title": "trackers",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "tracker explorer needs ways to filter and sort, and trackers need \"tiers\" (quest, city, faction, world)",
+        "createdAt": "2026-11-02T03:14:58.941Z"
+      },
+      {
+        "id": "DEV-04",
+        "title": "need ability to edit tickets",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "we should be able to edit the ticket notes rather than making new tickets every little update",
+        "createdAt": "2026-11-02T03:16:01.142Z"
+      }
+    ],
     "edgeData": {},
     "edgeNotes": {},
     "custom_modules": [],
     "deletedModules": [],
     "deletedPrototypes": [],
-    "factions": [],
-    "scaleTier": "region",
+    "factions": [
+      {
+        "id": "faction_flaming_fist",
+        "name": "The Flaming Fist",
+        "type": "Mercenary Army & City Watch",
+        "cvfQuadrant": "Hierarchy",
+        "colorIdentity": "W",
+        "leaderNpcId": "npc_duke_eltan",
+        "headquartersNodeId": "BG-CTY-03",
+        "controlledNodeIds": [
+          "BG-CTY-03",
+          "BG-SC-15",
+          "BG-BER-03"
+        ],
+        "diplomaticStances": {
+          "faction_iron_throne": "Hostile",
+          "faction_shadow_thieves": "Rival",
+          "faction_harpers": "Neutral",
+          "faction_cult_bhaal": "Hostile",
+          "faction_zhentarim": "Hostile"
+        },
+        "disposition": [
+          3,
+          1,
+          3
+        ],
+        "description": "The elite mercenary legion and sovereign constabulary of Baldur's Gate, commanded by Grand Duke Eltan. They enforce ruthless discipline along the trade ways and actively hunt the syndicate orchestrating the iron famine.",
+        "notes": "Strained to the breaking point by trade riots and border skirmishes with Amn."
+      },
+      {
+        "id": "faction_iron_throne",
+        "name": "The Iron Throne",
+        "type": "Mercenary Trading Syndicate",
+        "cvfQuadrant": "Market",
+        "colorIdentity": "B",
+        "leaderNpcId": "npc_sarevok_anchev",
+        "headquartersNodeId": "BG-CTY-04",
+        "controlledNodeIds": [
+          "BG-CTY-04",
+          "BG-SC-12",
+          "BG-SC-14",
+          "BG-BND-05",
+          "BG-CLK-05"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Hostile",
+          "faction_harpers": "Hostile",
+          "faction_shadow_thieves": "Rival",
+          "faction_cult_bhaal": "Allied",
+          "faction_zhentarim": "Rival"
+        },
+        "disposition": [
+          3,
+          3,
+          3
+        ],
+        "description": "An aggressive merchant cartel operating from an iron monolith in Baldur's Gate. Sarevok and his lieutenants poison the Sword Coast iron mines to bankrupt rivals and engineer a continental war.",
+        "notes": "Secretly subservient to Sarevok's ascension as the new Lord of Murder."
+      },
+      {
+        "id": "faction_harpers",
+        "name": "The Harpers",
+        "type": "Covert Preservation Fellowship",
+        "cvfQuadrant": "Clan",
+        "colorIdentity": "G",
+        "leaderNpcId": "npc_jaheira",
+        "headquartersNodeId": "BG-FAI-02",
+        "controlledNodeIds": [
+          "BG-FAI-02",
+          "BG-SC-02"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Neutral",
+          "faction_iron_throne": "Hostile",
+          "faction_cult_bhaal": "Hostile",
+          "faction_shadow_thieves": "Neutral",
+          "faction_zhentarim": "Hostile"
+        },
+        "disposition": [
+          2,
+          1,
+          2
+        ],
+        "description": "A clandestine fellowship of rangers, druids, and bards dedicated to preserving historical balance, individual liberties, and natural sanctuaries against imperial monopolies and divine tyrants.",
+        "notes": "Gorion, Khalid, and Jaheira swore oaths to guard the children of Bhaal from discovering their bloodline prematurely."
+      },
+      {
+        "id": "faction_shadow_thieves",
+        "name": "The Shadow Thieves of Amn",
+        "type": "Underground Thieves' Guild",
+        "cvfQuadrant": "Adhocracy",
+        "colorIdentity": "U",
+        "leaderNpcId": "npc_alatos_thuibuld",
+        "headquartersNodeId": "BG-CTY-06",
+        "controlledNodeIds": [
+          "BG-CTY-06",
+          "BG-UND-01"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Rival",
+          "faction_iron_throne": "Rival",
+          "faction_harpers": "Neutral",
+          "faction_cult_bhaal": "Hostile",
+          "faction_zhentarim": "Hostile"
+        },
+        "disposition": [
+          2,
+          3,
+          2
+        ],
+        "description": "The most ruthless and pervasive criminal syndicate in Faerun, maintaining an entrenched network of fences, cutpurses, and assassins in the Baldur's Gate Undercellars.",
+        "notes": "Clashing with Iron Throne cutthroats over contraband monopolies."
+      },
+      {
+        "id": "faction_zhentarim",
+        "name": "The Black Network (Zhentarim)",
+        "type": "Clandestine Imperial Cartel",
+        "cvfQuadrant": "Market",
+        "colorIdentity": "B",
+        "leaderNpcId": "npc_xzar",
+        "headquartersNodeId": "BG-SC-02",
+        "controlledNodeIds": [
+          "BG-SC-02"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Hostile",
+          "faction_iron_throne": "Rival",
+          "faction_harpers": "Hostile",
+          "faction_shadow_thieves": "Hostile",
+          "faction_cult_bhaal": "Neutral"
+        },
+        "disposition": [
+          2,
+          3,
+          3
+        ],
+        "description": "Imperial shadow merchants and mages sent from the Moonsea to investigate the iron shortage and exploit the chaos for their own trade hegemony.",
+        "notes": "Xzar and Montaron have infiltrated the Coast Way posing as traveling mercenaries."
+      },
+      {
+        "id": "faction_cult_bhaal",
+        "name": "The Cult of Bhaal",
+        "type": "Apocalyptic Death Cabal",
+        "cvfQuadrant": "Adhocracy",
+        "colorIdentity": "R",
+        "leaderNpcId": "npc_sarevok_anchev",
+        "headquartersNodeId": "BG-UND-04",
+        "controlledNodeIds": [
+          "BG-UND-04",
+          "BG-UND-03"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Hostile",
+          "faction_iron_throne": "Allied",
+          "faction_harpers": "Hostile",
+          "faction_shadow_thieves": "Hostile",
+          "faction_zhentarim": "Neutral"
+        },
+        "disposition": [
+          1,
+          3,
+          3
+        ],
+        "description": "Blood-cultists, death assassins, and corrupt clerics dedicated to harvesting souls across the Western Heartlands to resurrect Bhaal, the Lord of Murder.",
+        "notes": "Operating out of the ancient subterranean Temple of Bhaal in the Undercity."
+      }
+    ],
+    "scaleTier": "dungeon",
+    "spatialPins": [],
     "modData": {},
+    "appliedBatchIds": [],
+    "changelog": [],
     "description": "The complete Baldur's Gate 1 campaign ported to Creator Studio. Features an 18-node regional Sword Coast pointcrawl and 9 scale-fluid submaps spanning Candlekeep, Friendly Arm, Beregost, Tazok's Bandit Camp, Cloakwood Mines, Baldur's Gate City, the Undercity, and Durlag's Tower.",
     "campaign_modules": []
   },
   "edgeData": {},
   "edgeNotes": {},
   "nodes": {
-    "BG-SC-01": {
-      "id": "BG-SC-01",
-      "name": "Candlekeep Fortress & Great Library",
-      "x": 91,
-      "y": 468,
+    "231": {
+      "id": 231,
+      "name": "Subterranean Incline from Level 3",
+      "x": 80,
+      "y": 660,
       "coordinates": {
-        "x": 91,
-        "y": 468
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Hierarchy",
-      "shape": "pentagon",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": "map_bg1_candlekeep",
-      "customNotes": "A colossal sea-cliff citadel housing the greatest repository of philosophical, historical, and prophetic tomes in Faerun. Monks chant the prophecies of Alaundo within walled courtyards under the austere rule of the Keeper of Tomes.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": {
-        "s": 2,
-        "e": 2,
-        "c": 2
-      },
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-02": {
-      "id": "BG-SC-02",
-      "name": "The Coast Way & Lion's Way",
-      "x": 119,
-      "y": 620,
-      "coordinates": {
-        "x": 119,
-        "y": 620
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Clan",
-      "shape": "circle",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": null,
-      "customNotes": "Rutted coastal highway winding through coastal scrubland and low limestone crags. Gorion fell here to armored ambushers in the night. The scent of spilled blood and ozone still clings to the road verge.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": {
-        "s": 2,
-        "e": 2,
-        "c": 2
-      },
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-03": {
-      "id": "BG-SC-03",
-      "name": "The Friendly Arm Inn",
-      "x": 316,
-      "y": 345,
-      "coordinates": {
-        "x": 316,
-        "y": 345
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Clan",
-      "shape": "pentagon",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": "map_bg1_friendly_arm",
-      "customNotes": "A fortified walled citadel built around an ancient stone keep by the gnome illusionist Bentley Mirrorshade. Banners of Garl Glittergold flutter above stone ramparts that offer sanctuary to beleaguered trade caravans.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-04": {
-      "id": "BG-SC-04",
-      "name": "Township of Beregost",
-      "x": 326,
-      "y": 552,
-      "coordinates": {
-        "x": 326,
-        "y": 552
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Market",
-      "shape": "pentagon",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": "map_bg1_beregost",
-      "customNotes": "A bustling crossroads market town smelling of coal smoke, roasted mutton, and damp horsehair. Four sprawling coaching taverns surround the high chimney of Taerom Fuiruim's Thunderhammer Smithy.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-05": {
-      "id": "BG-SC-05",
-      "name": "High Hedge Estate",
-      "x": 215,
-      "y": 571,
-      "coordinates": {
-        "x": 215,
-        "y": 571
+        "x": 80,
+        "y": 660
       },
       "wave": 1,
       "tier": 2,
       "culture": "Adhocracy",
-      "shape": "diamond",
+      "shape": "square",
       "eligible": true,
       "hubEligibility": "candidate",
       "adj": [],
       "infBy": [],
       "childMapId": null,
-      "customNotes": "A towering manse shielded by enchanted bramble mazes and patrolling flesh golems. Within, the reclusive conjure-master Thalantyr tests the limits of planar binding and antique artifact transmutation.",
+      "customNotes": "The wet subterranean approach carved through black schist. Water sloshes along the narrow stone ledges flanked by glowing phosphor fungus.",
       "locked": false,
       "visible": true,
       "color": null,
@@ -6902,34 +6998,29 @@
       "provides": [],
       "requires": [],
       "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "BG-SC-06": {
-      "id": "BG-SC-06",
-      "name": "Township of Nashkel",
-      "x": 313,
-      "y": 784,
+    "232": {
+      "id": 232,
+      "name": "Sanctum Approach & Xan's Prison Cell",
+      "x": 380,
+      "y": 440,
       "coordinates": {
-        "x": 313,
-        "y": 784
+        "x": 380,
+        "y": 440
       },
       "wave": 1,
       "tier": 2,
       "culture": "Hierarchy",
-      "shape": "pentagon",
+      "shape": "square",
       "eligible": true,
       "hubEligibility": "candidate",
       "adj": [],
       "infBy": [],
-      "childMapId": "map_bg1_nashkel_town",
-      "customNotes": "Northern Amnian frontier outpost at the foot of the Cloud Peaks. Armed town guards in scarlet tunics eye refugees suspiciously while miners pack tavern porches demanding answers to the iron rot.",
+      "childMapId": null,
+      "customNotes": "A barred alcove overlooking the central cavern where the melancholic elven sorcerer Xan is bound in iron shackles. He warns of certain doom and laments the theft of his Moonblade.",
       "locked": false,
       "visible": true,
       "color": null,
@@ -6937,34 +7028,29 @@
       "provides": [],
       "requires": [],
       "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "BG-SC-07": {
-      "id": "BG-SC-07",
-      "name": "Nashkel Mines Surface Quarry",
-      "x": 424,
-      "y": 863,
+    "233": {
+      "id": 233,
+      "name": "Mulahey's Desecrated Shrine & Sanctum",
+      "x": 590,
+      "y": 380,
       "coordinates": {
-        "x": 424,
-        "y": 863
+        "x": 590,
+        "y": 380
       },
       "wave": 1,
       "tier": 2,
-      "culture": "Market",
-      "shape": "triangle",
+      "culture": "Hierarchy",
+      "shape": "star",
       "eligible": true,
       "hubEligibility": "candidate",
       "adj": [],
       "infBy": [],
-      "childMapId": "map_bg1_nashkel_mines_surface",
-      "customNotes": "Open-pit iron excavation choked with wooden derricks, gravel heaps, and soldier pickets. Contaminated ore sits piled in wooden sluices while terrified miners refuse to descend into the lower galleries.",
+      "childMapId": null,
+      "customNotes": "A natural island cavern surrounded by subterranean waters, converted into a shrine to Cyric. The priest Mulahey directs the poison operations here with a chest full of Iron Throne correspondence.",
       "locked": false,
       "visible": true,
       "color": null,
@@ -6972,23 +7058,18 @@
       "provides": [],
       "requires": [],
       "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "BG-SC-08": {
-      "id": "BG-SC-08",
-      "name": "Cloud Peaks & Gnoll Stronghold",
-      "x": 67,
-      "y": 882,
+    "234": {
+      "id": 234,
+      "name": "Underground Lake Shore",
+      "x": 740,
+      "y": 220,
       "coordinates": {
-        "x": 67,
-        "y": 882
+        "x": 740,
+        "y": 220
       },
       "wave": 1,
       "tier": 2,
@@ -6999,7 +7080,7 @@
       "adj": [],
       "infBy": [],
       "childMapId": null,
-      "customNotes": "Craggy, windswept mountain passes crowned by a barbaric timber-and-boulder fortress overlooking deep river gorges. Howls of gnoll war-packs echo across natural rope bridges.",
+      "customNotes": "A slippery calcite terrace bordering the underground lake. Subterranean oozes and cave lizards nest among discarded mining helmets and half-eaten rations.",
       "locked": false,
       "visible": true,
       "color": null,
@@ -7007,93 +7088,18 @@
       "provides": [],
       "requires": [],
       "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "BG-SC-09": {
-      "id": "BG-SC-09",
-      "name": "Gullykin & Firewine Ruins",
-      "x": 571,
-      "y": 648,
+    "235": {
+      "id": 235,
+      "name": "Valley Chute / Cloud Peak Surface Exit",
+      "x": 970,
+      "y": 380,
       "coordinates": {
-        "x": 571,
-        "y": 648
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Clan",
-      "shape": "circle",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": null,
-      "customNotes": "A peaceful halfling burrowing hamlet perched atop the sunken catacombs of the ancient elven city of Firewine. Wine cellars conceal hidden masonry tunnels into kobold-infested crypts.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-10": {
-      "id": "BG-SC-10",
-      "name": "Ulcaster School of Sorcery Ruins",
-      "x": 446,
-      "y": 616,
-      "coordinates": {
-        "x": 446,
-        "y": 616
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Adhocracy",
-      "shape": "diamond",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": null,
-      "customNotes": "The charred stone carcass of a grand conjuration academy razed three centuries ago by Calishite mages. The spectral shade of Ulcaster still glides across scorched stone arches reciting lost arcana.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-11": {
-      "id": "BG-SC-11",
-      "name": "Larswood & Peldvale Frontier",
-      "x": 460,
-      "y": 371,
-      "coordinates": {
-        "x": 460,
-        "y": 371
+        "x": 970,
+        "y": 380
       },
       "wave": 1,
       "tier": 2,
@@ -7104,7 +7110,7 @@
       "adj": [],
       "infBy": [],
       "childMapId": null,
-      "customNotes": "Dense deciduous woodland traversed by hidden bandit trails. Raiken and Teven's raiding outposts ambush merchant supply lines heading north toward the Chionthar.",
+      "customNotes": "A natural drainage cleft through the eastern rock wall bathed in crisp outside sunlight. The tunnel empties onto the steep scree slopes of the eastern Cloud Peaks.",
       "locked": false,
       "visible": true,
       "color": null,
@@ -7112,251 +7118,6 @@
       "provides": [],
       "requires": [],
       "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-12": {
-      "id": "BG-SC-12",
-      "name": "Tazok's Hidden Bandit Camp",
-      "x": 457,
-      "y": 252,
-      "coordinates": {
-        "x": 457,
-        "y": 252
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Market",
-      "shape": "pentagon",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": "map_bg1_bandit_camp",
-      "customNotes": "A massive military encampment concealed within a pine hollow, occupied by Chill hobgoblins, Black Talon human archers, and iron-hoard tents orchestrated by the half-ogre Tazok.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-13": {
-      "id": "BG-SC-13",
-      "name": "Cloakwood Primeval Forest",
-      "x": 149,
-      "y": 365,
-      "coordinates": {
-        "x": 149,
-        "y": 365
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Clan",
-      "shape": "circle",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": null,
-      "customNotes": "Dense, sun-choked canopy choked with hanging moss, territorial Shadow Druids, giant phase spiders, and nesting forest wyverns along the river gorge.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-14": {
-      "id": "BG-SC-14",
-      "name": "Cloakwood Secret Iron Mines",
-      "x": 62,
-      "y": 321,
-      "coordinates": {
-        "x": 62,
-        "y": 321
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Market",
-      "shape": "triangle",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": "map_bg1_cloakwood_mines",
-      "customNotes": "A fortified quarry and subterranean smelter operated by Iron Throne slave drivers and guarded by black-glass wards, overseen by the ruthless battle-mage Davaeorn.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-15": {
-      "id": "BG-SC-15",
-      "name": "Wyrm's Crossing Bridge",
-      "x": 344,
-      "y": 189,
-      "coordinates": {
-        "x": 344,
-        "y": 189
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Hierarchy",
-      "shape": "diamond",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": null,
-      "customNotes": "A colossal double-span stone arched viaduct crossing the wide Chionthar River, guarded by a fortified Flaming Fist gatehouse screening travelers for iron contraband and fugitives.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-16": {
-      "id": "BG-SC-16",
-      "name": "Metropolis of Baldur's Gate",
-      "x": 156,
-      "y": 102,
-      "coordinates": {
-        "x": 156,
-        "y": 102
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Hierarchy",
-      "shape": "star",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": "map_bg1_city",
-      "customNotes": "The sovereign trade capital of the Sword Coast. Sprawling multi-tiered granite bastions, crowded merchant docks, labyrinthine sewers, and the towering black-iron monolith of the Iron Throne HQ.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-17": {
-      "id": "BG-SC-17",
-      "name": "Ulgoth's Beard Seaport",
-      "x": 536,
-      "y": 162,
-      "coordinates": {
-        "x": 536,
-        "y": 162
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Adhocracy",
-      "shape": "circle",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": null,
-      "customNotes": "A foggy northern fishing hamlet where arcane eccentric Shandalar resides, serving as the staging ground for maritime expeditions to the Isle of Balduran and Durlag's Tower.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odvOverridden": false,
-      "faction": "neutral",
-      "layerId": "layer-nodes"
-    },
-    "BG-SC-18": {
-      "id": "BG-SC-18",
-      "name": "Durlag's Tower Citadel",
-      "x": 510,
-      "y": 768,
-      "coordinates": {
-        "x": 510,
-        "y": 768
-      },
-      "wave": 1,
-      "tier": 2,
-      "culture": "Adhocracy",
-      "shape": "star",
-      "eligible": true,
-      "hubEligibility": "candidate",
-      "adj": [],
-      "infBy": [],
-      "childMapId": "map_bg1_durlags_tower",
-      "customNotes": "A tragic dwarven fortress built by hero Durlag Trollkiller, now a nightmare dungeon of four deadly subterranean levels choked with lethal wards, doppelgangers, and the Demon Knight.",
-      "locked": false,
-      "visible": true,
-      "color": null,
-      "modules": [],
-      "provides": [],
-      "requires": [],
-      "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
@@ -9190,7 +8951,256 @@
         "notes": "Advances across major story milestones or dark violent choices. Unlocks divine innate powers (Cure Light Wounds, Slow Poison, Horror, Vampiric Touch)."
       }
     ],
-    "tickets": [],
+    "tickets": [
+      {
+        "id": "DEV-01",
+        "title": "trackers need updated into relatable and tracked entites like the others, and \"center station node on canvas\"",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "trackers should have their triggers attributable to NPCs, Items, Quests, and other tracekrs. They should be displayed like the others in property inspectors and treated just like we treat the other entities. it should be linkable in quests and you should be able to see the links in the trackers panel, but i just looked and its not there. \n\nalso the \"center stationed node on canvas\" isnt swapping between submaps either. \n\nalso, when you open a new dialog, it should be on top. when i opened the ticket tracker and hit \"new ticket\"m the new ticket window opened to the back.",
+        "createdAt": "2026-11-02T03:12:02.361Z"
+      },
+      {
+        "id": "DEV-02",
+        "title": "jonk comments about quests needing trackers",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "I think the hardest part is that keeping all the randomly dynamic elements might make it hard to cram into the UI, but have you thought about having the \"clocks\" be a subset of the quests?\n\nLike each quest is broken into some number of subelements, and you're hitting \"advance\" on the quest and it separately ticks up the clock based on which things should trigger it? I'm wondering if that would make it easier on the person trying to keep track of all the quests you're doing and the associated clocks\nSo the quest might be \"Track this monster and kill it\" and when you go to track it you find out that there's some clues or whatever you need to get and those tell you how to kill it and when you find its lair you have to hit some switches. but on the quest side it would be \n\n1) Start tracking monster\n2) talk to old lady OR farmer to get pointed in the right direction\n3) enter old forest <---- TRIGGER\n4)  enter old house\n5) find secret door\n6) clue 1\n7) clue 2\n8) Switch Puzzle <---- TRIGGER\n8) enter monsters chamber <---- TRIGGER\n9) deal 50% of his hp <---- TRIGGER\n\nSo as the DM they might fuck around a bunch of different ways but you can always anchor on \"ADVANCE\" for the major points, even if they fuck it up and you have to change the old lady or farmer to a guard that they won't stop trying to talk to",
+        "createdAt": "2026-11-02T03:12:30.116Z"
+      },
+      {
+        "id": "DEV-03",
+        "title": "trackers",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "tracker explorer needs ways to filter and sort, and trackers need \"tiers\" (quest, city, faction, world)",
+        "createdAt": "2026-11-02T03:14:58.941Z"
+      },
+      {
+        "id": "DEV-04",
+        "title": "need ability to edit tickets",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "we should be able to edit the ticket notes rather than making new tickets every little update",
+        "createdAt": "2026-11-02T03:16:01.142Z"
+      }
+    ],
+    "factions": [
+      {
+        "id": "faction_flaming_fist",
+        "name": "The Flaming Fist",
+        "type": "Mercenary Army & City Watch",
+        "cvfQuadrant": "Hierarchy",
+        "colorIdentity": "W",
+        "leaderNpcId": "npc_duke_eltan",
+        "headquartersNodeId": "BG-CTY-03",
+        "controlledNodeIds": [
+          "BG-CTY-03",
+          "BG-SC-15",
+          "BG-BER-03"
+        ],
+        "diplomaticStances": {
+          "faction_iron_throne": "Hostile",
+          "faction_shadow_thieves": "Rival",
+          "faction_harpers": "Neutral",
+          "faction_cult_bhaal": "Hostile",
+          "faction_zhentarim": "Hostile"
+        },
+        "disposition": [
+          3,
+          1,
+          3
+        ],
+        "description": "The elite mercenary legion and sovereign constabulary of Baldur's Gate, commanded by Grand Duke Eltan. They enforce ruthless discipline along the trade ways and actively hunt the syndicate orchestrating the iron famine.",
+        "notes": "Strained to the breaking point by trade riots and border skirmishes with Amn."
+      },
+      {
+        "id": "faction_iron_throne",
+        "name": "The Iron Throne",
+        "type": "Mercenary Trading Syndicate",
+        "cvfQuadrant": "Market",
+        "colorIdentity": "B",
+        "leaderNpcId": "npc_sarevok_anchev",
+        "headquartersNodeId": "BG-CTY-04",
+        "controlledNodeIds": [
+          "BG-CTY-04",
+          "BG-SC-12",
+          "BG-SC-14",
+          "BG-BND-05",
+          "BG-CLK-05"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Hostile",
+          "faction_harpers": "Hostile",
+          "faction_shadow_thieves": "Rival",
+          "faction_cult_bhaal": "Allied",
+          "faction_zhentarim": "Rival"
+        },
+        "disposition": [
+          3,
+          3,
+          3
+        ],
+        "description": "An aggressive merchant cartel operating from an iron monolith in Baldur's Gate. Sarevok and his lieutenants poison the Sword Coast iron mines to bankrupt rivals and engineer a continental war.",
+        "notes": "Secretly subservient to Sarevok's ascension as the new Lord of Murder."
+      },
+      {
+        "id": "faction_harpers",
+        "name": "The Harpers",
+        "type": "Covert Preservation Fellowship",
+        "cvfQuadrant": "Clan",
+        "colorIdentity": "G",
+        "leaderNpcId": "npc_jaheira",
+        "headquartersNodeId": "BG-FAI-02",
+        "controlledNodeIds": [
+          "BG-FAI-02",
+          "BG-SC-02"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Neutral",
+          "faction_iron_throne": "Hostile",
+          "faction_cult_bhaal": "Hostile",
+          "faction_shadow_thieves": "Neutral",
+          "faction_zhentarim": "Hostile"
+        },
+        "disposition": [
+          2,
+          1,
+          2
+        ],
+        "description": "A clandestine fellowship of rangers, druids, and bards dedicated to preserving historical balance, individual liberties, and natural sanctuaries against imperial monopolies and divine tyrants.",
+        "notes": "Gorion, Khalid, and Jaheira swore oaths to guard the children of Bhaal from discovering their bloodline prematurely."
+      },
+      {
+        "id": "faction_shadow_thieves",
+        "name": "The Shadow Thieves of Amn",
+        "type": "Underground Thieves' Guild",
+        "cvfQuadrant": "Adhocracy",
+        "colorIdentity": "U",
+        "leaderNpcId": "npc_alatos_thuibuld",
+        "headquartersNodeId": "BG-CTY-06",
+        "controlledNodeIds": [
+          "BG-CTY-06",
+          "BG-UND-01"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Rival",
+          "faction_iron_throne": "Rival",
+          "faction_harpers": "Neutral",
+          "faction_cult_bhaal": "Hostile",
+          "faction_zhentarim": "Hostile"
+        },
+        "disposition": [
+          2,
+          3,
+          2
+        ],
+        "description": "The most ruthless and pervasive criminal syndicate in Faerun, maintaining an entrenched network of fences, cutpurses, and assassins in the Baldur's Gate Undercellars.",
+        "notes": "Clashing with Iron Throne cutthroats over contraband monopolies."
+      },
+      {
+        "id": "faction_zhentarim",
+        "name": "The Black Network (Zhentarim)",
+        "type": "Clandestine Imperial Cartel",
+        "cvfQuadrant": "Market",
+        "colorIdentity": "B",
+        "leaderNpcId": "npc_xzar",
+        "headquartersNodeId": "BG-SC-02",
+        "controlledNodeIds": [
+          "BG-SC-02"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Hostile",
+          "faction_iron_throne": "Rival",
+          "faction_harpers": "Hostile",
+          "faction_shadow_thieves": "Hostile",
+          "faction_cult_bhaal": "Neutral"
+        },
+        "disposition": [
+          2,
+          3,
+          3
+        ],
+        "description": "Imperial shadow merchants and mages sent from the Moonsea to investigate the iron shortage and exploit the chaos for their own trade hegemony.",
+        "notes": "Xzar and Montaron have infiltrated the Coast Way posing as traveling mercenaries."
+      },
+      {
+        "id": "faction_cult_bhaal",
+        "name": "The Cult of Bhaal",
+        "type": "Apocalyptic Death Cabal",
+        "cvfQuadrant": "Adhocracy",
+        "colorIdentity": "R",
+        "leaderNpcId": "npc_sarevok_anchev",
+        "headquartersNodeId": "BG-UND-04",
+        "controlledNodeIds": [
+          "BG-UND-04",
+          "BG-UND-03"
+        ],
+        "diplomaticStances": {
+          "faction_flaming_fist": "Hostile",
+          "faction_iron_throne": "Allied",
+          "faction_harpers": "Hostile",
+          "faction_shadow_thieves": "Hostile",
+          "faction_zhentarim": "Neutral"
+        },
+        "disposition": [
+          1,
+          3,
+          3
+        ],
+        "description": "Blood-cultists, death assassins, and corrupt clerics dedicated to harvesting souls across the Western Heartlands to resurrect Bhaal, the Lord of Murder.",
+        "notes": "Operating out of the ancient subterranean Temple of Bhaal in the Undercity."
+      }
+    ],
+    "spatialPins": [],
     "custom_modules": [],
     "deletedModules": [],
     "deletedPrototypes": []
@@ -11020,7 +11030,257 @@
       "notes": "Advances across major story milestones or dark violent choices. Unlocks divine innate powers (Cure Light Wounds, Slow Poison, Horror, Vampiric Touch)."
     }
   ],
-  "tickets": [],
+  "tickets": [
+    {
+      "id": "DEV-01",
+      "title": "trackers need updated into relatable and tracked entites like the others, and \"center station node on canvas\"",
+      "type": "dev",
+      "category": "Platform Architecture",
+      "track": "Platform Development",
+      "tier": 0,
+      "pipeline_tier": 0,
+      "priority": "Medium",
+      "status": "ready_for_authoring",
+      "nodeId": "",
+      "syllogism": "",
+      "fourCorners": "",
+      "mechanics": "",
+      "resources": "",
+      "targetSurface": "start.html",
+      "prereqs": "",
+      "notes": "trackers should have their triggers attributable to NPCs, Items, Quests, and other tracekrs. They should be displayed like the others in property inspectors and treated just like we treat the other entities. it should be linkable in quests and you should be able to see the links in the trackers panel, but i just looked and its not there. \n\nalso the \"center stationed node on canvas\" isnt swapping between submaps either. \n\nalso, when you open a new dialog, it should be on top. when i opened the ticket tracker and hit \"new ticket\"m the new ticket window opened to the back.",
+      "createdAt": "2026-11-02T03:12:02.361Z"
+    },
+    {
+      "id": "DEV-02",
+      "title": "jonk comments about quests needing trackers",
+      "type": "dev",
+      "category": "Platform Architecture",
+      "track": "Platform Development",
+      "tier": 0,
+      "pipeline_tier": 0,
+      "priority": "Medium",
+      "status": "ready_for_authoring",
+      "nodeId": "",
+      "syllogism": "",
+      "fourCorners": "",
+      "mechanics": "",
+      "resources": "",
+      "targetSurface": "start.html",
+      "prereqs": "",
+      "notes": "I think the hardest part is that keeping all the randomly dynamic elements might make it hard to cram into the UI, but have you thought about having the \"clocks\" be a subset of the quests?\n\nLike each quest is broken into some number of subelements, and you're hitting \"advance\" on the quest and it separately ticks up the clock based on which things should trigger it? I'm wondering if that would make it easier on the person trying to keep track of all the quests you're doing and the associated clocks\nSo the quest might be \"Track this monster and kill it\" and when you go to track it you find out that there's some clues or whatever you need to get and those tell you how to kill it and when you find its lair you have to hit some switches. but on the quest side it would be \n\n1) Start tracking monster\n2) talk to old lady OR farmer to get pointed in the right direction\n3) enter old forest <---- TRIGGER\n4)  enter old house\n5) find secret door\n6) clue 1\n7) clue 2\n8) Switch Puzzle <---- TRIGGER\n8) enter monsters chamber <---- TRIGGER\n9) deal 50% of his hp <---- TRIGGER\n\nSo as the DM they might fuck around a bunch of different ways but you can always anchor on \"ADVANCE\" for the major points, even if they fuck it up and you have to change the old lady or farmer to a guard that they won't stop trying to talk to",
+      "createdAt": "2026-11-02T03:12:30.116Z"
+    },
+    {
+      "id": "DEV-03",
+      "title": "trackers",
+      "type": "dev",
+      "category": "Platform Architecture",
+      "track": "Platform Development",
+      "tier": 0,
+      "pipeline_tier": 0,
+      "priority": "Medium",
+      "status": "ready_for_authoring",
+      "nodeId": "",
+      "syllogism": "",
+      "fourCorners": "",
+      "mechanics": "",
+      "resources": "",
+      "targetSurface": "start.html",
+      "prereqs": "",
+      "notes": "tracker explorer needs ways to filter and sort, and trackers need \"tiers\" (quest, city, faction, world)",
+      "createdAt": "2026-11-02T03:14:58.941Z"
+    },
+    {
+      "id": "DEV-04",
+      "title": "need ability to edit tickets",
+      "type": "dev",
+      "category": "Platform Architecture",
+      "track": "Platform Development",
+      "tier": 0,
+      "pipeline_tier": 0,
+      "priority": "Medium",
+      "status": "ready_for_authoring",
+      "nodeId": "",
+      "syllogism": "",
+      "fourCorners": "",
+      "mechanics": "",
+      "resources": "",
+      "targetSurface": "start.html",
+      "prereqs": "",
+      "notes": "we should be able to edit the ticket notes rather than making new tickets every little update",
+      "createdAt": "2026-11-02T03:16:01.142Z"
+    }
+  ],
+  "factions": [
+    {
+      "id": "faction_flaming_fist",
+      "name": "The Flaming Fist",
+      "type": "Mercenary Army & City Watch",
+      "cvfQuadrant": "Hierarchy",
+      "colorIdentity": "W",
+      "leaderNpcId": "npc_duke_eltan",
+      "headquartersNodeId": "BG-CTY-03",
+      "controlledNodeIds": [
+        "BG-CTY-03",
+        "BG-SC-15",
+        "BG-BER-03"
+      ],
+      "diplomaticStances": {
+        "faction_iron_throne": "Hostile",
+        "faction_shadow_thieves": "Rival",
+        "faction_harpers": "Neutral",
+        "faction_cult_bhaal": "Hostile",
+        "faction_zhentarim": "Hostile"
+      },
+      "disposition": [
+        3,
+        1,
+        3
+      ],
+      "description": "The elite mercenary legion and sovereign constabulary of Baldur's Gate, commanded by Grand Duke Eltan. They enforce ruthless discipline along the trade ways and actively hunt the syndicate orchestrating the iron famine.",
+      "notes": "Strained to the breaking point by trade riots and border skirmishes with Amn."
+    },
+    {
+      "id": "faction_iron_throne",
+      "name": "The Iron Throne",
+      "type": "Mercenary Trading Syndicate",
+      "cvfQuadrant": "Market",
+      "colorIdentity": "B",
+      "leaderNpcId": "npc_sarevok_anchev",
+      "headquartersNodeId": "BG-CTY-04",
+      "controlledNodeIds": [
+        "BG-CTY-04",
+        "BG-SC-12",
+        "BG-SC-14",
+        "BG-BND-05",
+        "BG-CLK-05"
+      ],
+      "diplomaticStances": {
+        "faction_flaming_fist": "Hostile",
+        "faction_harpers": "Hostile",
+        "faction_shadow_thieves": "Rival",
+        "faction_cult_bhaal": "Allied",
+        "faction_zhentarim": "Rival"
+      },
+      "disposition": [
+        3,
+        3,
+        3
+      ],
+      "description": "An aggressive merchant cartel operating from an iron monolith in Baldur's Gate. Sarevok and his lieutenants poison the Sword Coast iron mines to bankrupt rivals and engineer a continental war.",
+      "notes": "Secretly subservient to Sarevok's ascension as the new Lord of Murder."
+    },
+    {
+      "id": "faction_harpers",
+      "name": "The Harpers",
+      "type": "Covert Preservation Fellowship",
+      "cvfQuadrant": "Clan",
+      "colorIdentity": "G",
+      "leaderNpcId": "npc_jaheira",
+      "headquartersNodeId": "BG-FAI-02",
+      "controlledNodeIds": [
+        "BG-FAI-02",
+        "BG-SC-02"
+      ],
+      "diplomaticStances": {
+        "faction_flaming_fist": "Neutral",
+        "faction_iron_throne": "Hostile",
+        "faction_cult_bhaal": "Hostile",
+        "faction_shadow_thieves": "Neutral",
+        "faction_zhentarim": "Hostile"
+      },
+      "disposition": [
+        2,
+        1,
+        2
+      ],
+      "description": "A clandestine fellowship of rangers, druids, and bards dedicated to preserving historical balance, individual liberties, and natural sanctuaries against imperial monopolies and divine tyrants.",
+      "notes": "Gorion, Khalid, and Jaheira swore oaths to guard the children of Bhaal from discovering their bloodline prematurely."
+    },
+    {
+      "id": "faction_shadow_thieves",
+      "name": "The Shadow Thieves of Amn",
+      "type": "Underground Thieves' Guild",
+      "cvfQuadrant": "Adhocracy",
+      "colorIdentity": "U",
+      "leaderNpcId": "npc_alatos_thuibuld",
+      "headquartersNodeId": "BG-CTY-06",
+      "controlledNodeIds": [
+        "BG-CTY-06",
+        "BG-UND-01"
+      ],
+      "diplomaticStances": {
+        "faction_flaming_fist": "Rival",
+        "faction_iron_throne": "Rival",
+        "faction_harpers": "Neutral",
+        "faction_cult_bhaal": "Hostile",
+        "faction_zhentarim": "Hostile"
+      },
+      "disposition": [
+        2,
+        3,
+        2
+      ],
+      "description": "The most ruthless and pervasive criminal syndicate in Faerun, maintaining an entrenched network of fences, cutpurses, and assassins in the Baldur's Gate Undercellars.",
+      "notes": "Clashing with Iron Throne cutthroats over contraband monopolies."
+    },
+    {
+      "id": "faction_zhentarim",
+      "name": "The Black Network (Zhentarim)",
+      "type": "Clandestine Imperial Cartel",
+      "cvfQuadrant": "Market",
+      "colorIdentity": "B",
+      "leaderNpcId": "npc_xzar",
+      "headquartersNodeId": "BG-SC-02",
+      "controlledNodeIds": [
+        "BG-SC-02"
+      ],
+      "diplomaticStances": {
+        "faction_flaming_fist": "Hostile",
+        "faction_iron_throne": "Rival",
+        "faction_harpers": "Hostile",
+        "faction_shadow_thieves": "Hostile",
+        "faction_cult_bhaal": "Neutral"
+      },
+      "disposition": [
+        2,
+        3,
+        3
+      ],
+      "description": "Imperial shadow merchants and mages sent from the Moonsea to investigate the iron shortage and exploit the chaos for their own trade hegemony.",
+      "notes": "Xzar and Montaron have infiltrated the Coast Way posing as traveling mercenaries."
+    },
+    {
+      "id": "faction_cult_bhaal",
+      "name": "The Cult of Bhaal",
+      "type": "Apocalyptic Death Cabal",
+      "cvfQuadrant": "Adhocracy",
+      "colorIdentity": "R",
+      "leaderNpcId": "npc_sarevok_anchev",
+      "headquartersNodeId": "BG-UND-04",
+      "controlledNodeIds": [
+        "BG-UND-04",
+        "BG-UND-03"
+      ],
+      "diplomaticStances": {
+        "faction_flaming_fist": "Hostile",
+        "faction_iron_throne": "Allied",
+        "faction_harpers": "Hostile",
+        "faction_shadow_thieves": "Hostile",
+        "faction_zhentarim": "Neutral"
+      },
+      "disposition": [
+        1,
+        3,
+        3
+      ],
+      "description": "Blood-cultists, death assassins, and corrupt clerics dedicated to harvesting souls across the Western Heartlands to resurrect Bhaal, the Lord of Murder.",
+      "notes": "Operating out of the ancient subterranean Temple of Bhaal in the Undercity."
+    }
+  ],
+  "spatialPins": [],
+  "appliedBatchIds": [],
   "custom_modules": [],
   "deletedModules": [],
   "deletedPrototypes": []

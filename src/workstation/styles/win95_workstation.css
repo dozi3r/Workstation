@@ -383,9 +383,12 @@
 
   /* AutoCAD-Style Model / Paperspace Layout Tabs */
   .cad-layout-tabs-bar {
-    height: 25px;
+    height: 38px;
+    min-height: 34px;
+    max-height: 260px;
+    flex-shrink: 0;
     background-color: var(--win-grey);
-    border-top: 2px solid var(--win-light);
+    border-top: 1px solid var(--win-light);
     border-bottom: 1px solid var(--win-dark);
     display: flex;
     align-items: stretch;
@@ -398,16 +401,55 @@
 
   .layout-tabs-scroll-container {
     display: flex;
-    align-items: flex-end;
-    gap: 2px;
+    align-items: center;
+    gap: 3px;
     overflow-x: auto;
+    overflow-y: hidden;
     scrollbar-width: thin;
-    padding-bottom: 1px;
+    padding: 2px 2px;
     flex: 1;
+    min-width: 0;
+  }
+
+  .layout-tabs-scroll-container::-webkit-scrollbar {
+    height: 7px;
+    width: 7px;
+  }
+
+  .layout-tabs-scroll-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 2px;
+  }
+
+  #layout-tabs-list {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex-wrap: nowrap;
+  }
+
+  .cad-layout-tabs-bar.multi-row .layout-tabs-scroll-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    align-items: flex-start;
+    align-content: flex-start;
+    padding: 4px 2px;
+  }
+
+  .cad-layout-tabs-bar.multi-row #layout-tabs-list {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .cad-layout-tabs-bar.multi-row .cad-tabs-nav-controls,
+  .cad-layout-tabs-bar.multi-row .cad-tabs-quick-tools {
+    align-self: flex-start;
+    padding-top: 5px;
   }
 
   .layout-tab {
-    height: 21px;
+    height: 22px;
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -418,12 +460,14 @@
     border-top: 2px solid var(--win-light);
     border-left: 2px solid var(--win-light);
     border-right: 2px solid var(--win-darkest);
-    border-bottom: none;
+    border-bottom: 1px solid var(--win-dark);
     cursor: pointer;
     color: #333;
     white-space: nowrap;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
+    box-sizing: border-box;
+    flex-shrink: 0;
   }
 
   .layout-tab:hover {
@@ -432,15 +476,15 @@
   }
 
   .layout-tab.active {
-    height: 23px;
+    height: 24px;
     background-color: #ffffff;
     color: #000080;
     font-weight: bold;
     border-top: 2px solid #000080;
     border-left: 2px solid var(--win-light);
     border-right: 2px solid var(--win-darkest);
+    border-bottom: 1px solid #ffffff;
     box-shadow: 0 -1px 3px rgba(0,0,0,0.15);
-    margin-top: -2px;
   }
 
   .layout-tab-child {
@@ -596,7 +640,25 @@
     transform: scale(1.2);
   }
 
-  /* Vertical Workspace & Pane Splitters (SYS-START-18) */
+  /* Vertical & Horizontal Workspace & Pane Splitters (SYS-START-18) */
+  .workspace-splitter-horizontal {
+    height: 5px;
+    background-color: var(--win-grey);
+    border-top: 1px solid var(--win-light);
+    border-bottom: 1px solid var(--win-darkest);
+    cursor: row-resize;
+    flex-shrink: 0;
+    z-index: 16;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background-color 0.1s ease;
+  }
+  .workspace-splitter-horizontal:hover,
+  .workspace-splitter-horizontal.active {
+    background-color: #000080;
+  }
+
   .workspace-splitter-vertical {
     width: 5px;
     background-color: var(--win-grey);
@@ -1449,6 +1511,14 @@
   }
 
   /* Threat Clocks Canvas Callout & Pulsing Hazard */
+  @keyframes nodePingAnimation {
+    0% { filter: drop-shadow(0 0 0px #06b6d4); }
+    50% { filter: drop-shadow(0 0 16px #06b6d4); }
+    100% { filter: drop-shadow(0 0 0px #06b6d4); }
+  }
+  .node-ping-highlight {
+    animation: nodePingAnimation 0.8s ease-out 2;
+  }
   @keyframes pulseHazardStroke {
     0% { stroke: #dc2626; stroke-width: 2.5px; filter: drop-shadow(0 0 2px #dc2626); }
     50% { stroke: #ff0000; stroke-width: 5px; filter: drop-shadow(0 0 8px #ff0000); }
@@ -1846,5 +1916,145 @@
   .wiki-pill:hover {
     background: #bae6fd;
     color: #0c4a6e;
+  }
+
+  /* ==========================================================================
+     CAD INTERACTIVE GRIP HANDLES, CONTEXT MENU, HOVER PREVIEW & GLOBAL SEARCH
+     ========================================================================== */
+  .cad-grip-handle {
+    pointer-events: all !important;
+    transition: fill 0.1s ease, transform 0.1s ease;
+  }
+  .cad-grip-handle:hover {
+    fill: #f43f5e !important;
+    stroke: #ffffff !important;
+  }
+
+  #cad-context-menu {
+    position: fixed;
+    z-index: 12000;
+    min-width: 220px;
+    background-color: var(--win-grey);
+    border-top: 2px solid var(--win-light);
+    border-left: 2px solid var(--win-light);
+    border-right: 2px solid var(--win-darkest);
+    border-bottom: 2px solid var(--win-darkest);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.45);
+    padding: 2px;
+    font-family: var(--font-stack);
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+  }
+  #cad-context-menu.hidden {
+    display: none !important;
+  }
+  .cad-ctx-header {
+    background: linear-gradient(90deg, var(--win-title-blue), var(--win-title-grad));
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 3px 6px;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .cad-ctx-item {
+    padding: 4px 10px 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+    color: var(--win-darkest);
+    white-space: nowrap;
+  }
+  .cad-ctx-item:hover {
+    background-color: var(--win-select);
+    color: var(--win-select-text);
+  }
+  .cad-ctx-item.danger {
+    color: #991b1b;
+  }
+  .cad-ctx-item.danger:hover {
+    background-color: #991b1b;
+    color: #ffffff;
+  }
+
+  #cad-hover-preview-card {
+    position: fixed;
+    z-index: 11500;
+    width: 290px;
+    max-width: 320px;
+    background: #ffffe1;
+    border: 2px solid #000080;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.45);
+    padding: 0;
+    font-family: var(--font-stack);
+    font-size: 11px;
+    color: #0f172a;
+    pointer-events: none;
+  }
+  #cad-hover-preview-card.hidden {
+    display: none !important;
+  }
+  .hover-card-header {
+    background: linear-gradient(90deg, #000080, #1d4ed8);
+    color: #ffffff;
+    padding: 4px 7px;
+    font-weight: bold;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .hover-card-body {
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hover-card-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-size: 9px;
+    font-weight: bold;
+    background: #e2e8f0;
+    color: #1e293b;
+    border: 1px solid #cbd5e1;
+  }
+
+  .search-result-row {
+    padding: 5px 8px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    cursor: pointer;
+    background: #ffffff;
+  }
+  .search-result-row:hover, .search-result-row.active {
+    background: #dbeafe;
+    border-left: 3px solid #000080;
+  }
+
+  @keyframes cadPulseHighlight {
+    0% { stroke-width: 2px; stroke-opacity: 1; r: 18px; }
+    50% { stroke-width: 6px; stroke-opacity: 0.85; r: 34px; }
+    100% { stroke-width: 1px; stroke-opacity: 0; r: 46px; }
+  }
+  .cad-ping-ring {
+    fill: none;
+    stroke: #f59e0b;
+    stroke-width: 4px;
+    pointer-events: none;
+    animation: cadPulseHighlight 1.1s ease-out 2;
   }
 </style>

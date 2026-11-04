@@ -96,12 +96,27 @@ function stepSeveranceTick(nodeId, modId, delta) {
   auditAllSupplyLines();
 }
 
-function advanceSeveranceTurn() {
-  let count = 0;
-  nodes.forEach(n => {
-    const slotted = nodeSlottedModules[n.id] || [];
+function advanceSeveranceTurn(options = {}) {
+  let advancedModules = 0;
+  let spawnedClocks = 0;
+  let tickedClocks = 0;
+  let riotsTriggered = 0;
+
+  const topo = (typeof Workstation !== "undefined" && Workstation.activeTopology) ? Workstation.activeTopology : null;
+  const activeNodesList = (topo && topo.nodes)
+    ? (Array.isArray(topo.nodes) ? topo.nodes : Object.values(topo.nodes))
+    : (typeof nodes !== "undefined" && Array.isArray(nodes) ? nodes : []);
+
+  activeNodesList.forEach(n => {
+    if (!n || n.id === undefined) return;
+    const slotted = (typeof nodeSlottedModules !== "undefined" && nodeSlottedModules[n.id])
+      || (Array.isArray(n.modules) ? n.modules : (Array.isArray(n.slottedModules) ? n.slottedModules.map(m => typeof m === "object" ? m.id : m) : []));
+    const missingNodeReqs = [];
+
     slotted.forEach(mid => {
-      const mod = MODULES_MANIFEST.find(m => m.id === mid);
+      const mod = (typeof MODULES_MANIFEST !== "undefined" && Array.isArray(MODULES_MANIFEST))
+        ? MODULES_MANIFEST.find(m => m.id === mid)
+        : null;
       if (mod) {
         const check = checkModuleSupplyLine(n.id, mod);
         if (!check.ok) {
@@ -109,16 +124,101 @@ function advanceSeveranceTurn() {
           const curr = moduleSeveranceClocks[key] || 0;
           if (curr < 4) {
             moduleSeveranceClocks[key] = curr + 1;
-            count++;
+            advancedModules++;
           }
+          (check.missing || []).forEach(req => {
+            if (!missingNodeReqs.includes(req)) missingNodeReqs.push(req);
+          });
         }
       }
     });
+
+    // Also check direct node-level resource requirements
+    if (Array.isArray(n.requires) && n.requires.length > 0) {
+      const nodeCheck = checkModuleSupplyLine(n.id, { requires: n.requires, fallback: "Settlement ad-hoc resource deficit" });
+      if (!nodeCheck.ok) {
+        const key = `${n.id}:__node_requires__`;
+        const curr = moduleSeveranceClocks[key] || 0;
+        if (curr < 4) {
+          moduleSeveranceClocks[key] = curr + 1;
+          advancedModules++;
+        }
+        (nodeCheck.missing || []).forEach(req => {
+          if (!missingNodeReqs.includes(req)) missingNodeReqs.push(req);
+        });
+      }
+    }
+
+    // Automatically spawn or advance a Settlement Unrest / Supply Riot Threat Clock on severed nodes
+    if (missingNodeReqs.length > 0 && topo) {
+      if (!Array.isArray(topo.trackers)) topo.trackers = [];
+      const trkId = `trk_severance_${n.id}`;
+      let trk = topo.trackers.find(t => t && (String(t.id) === trkId || (String(t.nodeId) === String(n.id) && t.isSeveranceClock)));
+      if (!trk) {
+        trk = {
+          id: trkId,
+          name: `${n.name || "Node " + n.id} Supply Severance Unrest`,
+          type: "threat",
+          scopeTier: "settlement",
+          currentTicks: 1,
+          maxTicks: 4,
+          nodeId: n.id,
+          isSeveranceClock: true,
+          triggerRefs: [{ entityType: "node", entityId: String(n.id) }],
+          notes: `Auto-spawned by severed supply lines (missing: ${missingNodeReqs.join(", ")}). At 4/4 ticks: Supply Riot & Crisis Metamorphism.`
+        };
+        topo.trackers.push(trk);
+        spawnedClocks++;
+      } else {
+        const maxT = Number(trk.maxTicks) || 4;
+        const curT = Number(trk.currentTicks) || 0;
+        if (curT < maxT) {
+          trk.currentTicks = curT + 1;
+          tickedClocks++;
+        }
+      }
+
+      if ((Number(trk.currentTicks) || 0) >= (Number(trk.maxTicks) || 4)) {
+        trk.status = "triggered";
+        if (!String(trk.notes || "").includes("[SUPPLY RIOT ACTIVE]")) {
+          const quad = n.culture || (typeof deriveCvfQuadrant === "function" && n.odv ? deriveCvfQuadrant(n.odv.s || 2, n.odv.e || 2) : "Hierarchy");
+          const cri = (typeof SOC_CRISIS_METAMORPHISM !== "undefined" && SOC_CRISIS_METAMORPHISM[quad]) ? SOC_CRISIS_METAMORPHISM[quad] : null;
+          const criNote = cri ? ` Crisis Shift: ${cri.shiftTitle} (-> ${cri.targetQuadrant}).` : "";
+          trk.notes = `${trk.notes || ""} [SUPPLY RIOT ACTIVE:${criNote}]`.trim();
+          riotsTriggered++;
+        }
+      }
+    }
   });
-  updateTargetNodeSidebar();
-  auditAllSupplyLines();
-  alert(`Turn Advanced: ${count} severed module(s) advanced +1 tick on their threat clocks.`);
+
+  // Mod Lifecycle Hook: Advance Supply Turn across active registered mods
+  if (typeof Workstation !== 'undefined' && Workstation.registeredMods) {
+    Object.keys(Workstation.registeredMods).forEach(modId => {
+      if (Workstation.disabledMods && Workstation.disabledMods[modId]) return;
+      const mod = Workstation.registeredMods[modId];
+      if (mod && typeof mod.onAdvanceSupplyTurn === 'function') {
+        try {
+          mod.onAdvanceSupplyTurn({ topo, nodes: activeNodesList, options });
+        } catch (e) {
+          console.error(`[Mod ${modId}] onAdvanceSupplyTurn error:`, e);
+        }
+      }
+    });
+  }
+
+  if (typeof updateTargetNodeSidebar === "function") updateTargetNodeSidebar();
+  if (typeof auditAllSupplyLines === "function") auditAllSupplyLines();
+  if (typeof renderCanvas === "function") renderCanvas();
+  if (typeof updatePropertiesGrid === "function") updatePropertiesGrid();
+  if (typeof saveActiveCampaign === "function") saveActiveCampaign();
+  const msg = `Supply Turn Advanced: ${advancedModules} severed clock(s) ticked, ${spawnedClocks} new unrest clock(s) spawned, ${riotsTriggered} supply riot(s) triggered.`;
+  if (typeof setStatusBarMessage === "function") setStatusBarMessage(msg);
+  if (!options.silent && typeof alert === "function") {
+    alert(msg);
+  }
+  return { advancedModules, spawnedClocks, tickedClocks, riotsTriggered };
 }
+window.advanceSeveranceTurn = advanceSeveranceTurn;
 
 function isEdgeBlocked(u, v) {
   if (typeof blockedEdges !== "undefined" && blockedEdges && (blockedEdges[`${u}->${v}`] || blockedEdges[`${v}->${u}`])) {
@@ -302,7 +402,8 @@ function checkModuleSupplyLine(nodeId, mod, context) {
       m.provides.forEach(p => localProvides.add(p));
     }
   });
-  const localNodeObj = (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.nodes && Workstation.activeTopology.nodes[String(nodeId)]) || getNode(nodeId);
+  const localNodeObj = (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.nodes && Workstation.activeTopology.nodes[String(nodeId)])
+    || (typeof getNode === "function" ? getNode(nodeId) : null);
   if (localNodeObj && Array.isArray(localNodeObj.provides)) {
     localNodeObj.provides.forEach(p => { if (p) localProvides.add(p); });
   }
@@ -327,7 +428,11 @@ function checkModuleSupplyLine(nodeId, mod, context) {
   const queue = [nodeId];
   while (queue.length > 0) {
     const curr = queue.shift();
-    const adj = getNodeAdjacents(curr);
+    const currNodeObj = (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.nodes && Workstation.activeTopology.nodes[String(curr)])
+      || (typeof getNode === "function" ? getNode(curr) : null);
+    const adj = (typeof getNodeAdjacents === "function")
+      ? getNodeAdjacents(curr)
+      : ((currNodeObj && Array.isArray(currNodeObj.adj)) ? currNodeObj.adj : []);
     for (const neighbor of adj) {
       if (isEdgeBlocked(curr, neighbor)) continue; // Severed edge halts supply flow
       if (!reachableNodes.has(neighbor)) {
@@ -347,7 +452,8 @@ function checkModuleSupplyLine(nodeId, mod, context) {
         m.provides.forEach(p => networkProvides.add(p));
       }
     });
-    const otherNodeObj = (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.nodes && Workstation.activeTopology.nodes[String(otherId)]) || getNode(otherId);
+    const otherNodeObj = (typeof Workstation !== "undefined" && Workstation.activeTopology && Workstation.activeTopology.nodes && Workstation.activeTopology.nodes[String(otherId)])
+      || (typeof getNode === "function" ? getNode(otherId) : null);
     if (otherNodeObj && Array.isArray(otherNodeObj.provides)) {
       otherNodeObj.provides.forEach(p => { if (p) networkProvides.add(p); });
     }
@@ -1104,7 +1210,11 @@ function renderCatalogModules() {
   const slotted = isEdge ? (edgeSlottedModules[targetSlottingEdgeId] || []) : (nodeSlottedModules[nid] || []);
 
   let filtered = MODULES_MANIFEST.filter(m => {
-    if (selectedCatalogSourcebook !== "all" && m.sourcebookId && m.sourcebookId !== selectedCatalogSourcebook) return false;
+    if (m.mod_id && typeof Workstation !== 'undefined' && Workstation.disabledMods && Workstation.disabledMods[m.mod_id]) return false;
+    if (selectedCatalogSourcebook !== "all") {
+      const mSource = m.sourcebookId || m.campaign || (m.mod_id ? `mod_${m.mod_id}` : null);
+      if (mSource && mSource !== selectedCatalogSourcebook) return false;
+    }
     if (selectedCatalogSet !== "all" && !m.set.startsWith(selectedCatalogSet)) return false;
     if (selectedCatalogTier !== "all" && String(m.pipeline_tier) !== String(selectedCatalogTier)) return false;
     if (selectedCatalogTag !== "all") {
@@ -1320,6 +1430,22 @@ function initSourcebookFilter() {
       opt.textContent = (camp.metadata && camp.metadata.name) || cId;
       sel.appendChild(opt);
     });
+  }
+  if (typeof Workstation !== 'undefined' && Workstation.registeredMods) {
+    const modKeys = Object.keys(Workstation.registeredMods);
+    if (modKeys.length > 0) {
+      const optGroup = document.createElement("optgroup");
+      optGroup.label = "Workstation Extension Mods";
+      modKeys.forEach(mId => {
+        if (Workstation.disabledMods && Workstation.disabledMods[mId]) return;
+        const mod = Workstation.registeredMods[mId];
+        const opt = document.createElement("option");
+        opt.value = `mod_${mId}`;
+        opt.textContent = `Mod: ${mod.name || mId}`;
+        optGroup.appendChild(opt);
+      });
+      sel.appendChild(optGroup);
+    }
   }
   sel.value = currentVal;
   sel.onchange = (e) => {

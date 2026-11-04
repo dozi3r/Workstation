@@ -8,89 +8,269 @@
     {
       "id": "BG-CLK-01",
       "name": "Surface Stockade & Guard Tower",
-      "displayName": "Surface Stockade",
-      "x": 260,
-      "y": 380,
-      "cat": "Gateway",
+      "displayName": "Surface Stockade & Guard Tower",
+      "x": 400,
+      "y": 141,
+      "coordinates": {
+        "x": 400,
+        "y": 141
+      },
+      "cat": "Standard POI",
       "culture": "Hierarchy",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Fortified timber stockade guarding the elevator headframe leading into the subterranean iron complex.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-CLK-02",
       "name": "Mine Level 1: Slave Barracks & Sorting",
-      "displayName": "Mine Level 1",
-      "x": 440,
-      "y": 280,
+      "displayName": "Mine Level 1: Slave Barracks & Sorting",
+      "x": 272,
+      "y": 15,
+      "coordinates": {
+        "x": 272,
+        "y": 15
+      },
       "cat": "Standard POI",
       "culture": "Market",
       "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Choking dust and clanking chains where hundreds of enslaved miners toil under brutal guard whips.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-CLK-03",
       "name": "Mine Level 2: Subterranean Canal & Sluice",
-      "displayName": "Mine Level 2",
-      "x": 620,
-      "y": 240,
-      "cat": "Vault",
+      "displayName": "Mine Level 2: Subterranean Canal & Sluice",
+      "x": 613,
+      "y": 68,
+      "coordinates": {
+        "x": 613,
+        "y": 68
+      },
+      "cat": "Standard POI",
       "culture": "Adhocracy",
       "shape": "diamond",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "An underground river channeling water to hydraulic lift wheels, containing the master flood sluice plug.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-CLK-04",
       "name": "Mine Level 3: Yeslick's Dungeon & Armoury",
-      "displayName": "Dungeon Cell",
-      "x": 520,
-      "y": 480,
-      "cat": "Bastion",
+      "displayName": "Mine Level 3: Yeslick's Dungeon & Armoury",
+      "x": 768,
+      "y": 62,
+      "coordinates": {
+        "x": 768,
+        "y": 62
+      },
+      "cat": "Standard POI",
       "culture": "Clan",
       "shape": "pentagon",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "Dark, flooded holding cells where the dwarven clan cleric Yeslick Orothiar is kept in chains.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "BG-CLK-05",
       "name": "Mine Level 4: Davaeorn's Arcane Lair",
-      "displayName": "Davaeorn's Lair",
-      "x": 720,
-      "y": 420,
-      "cat": "Bastion",
+      "displayName": "Mine Level 4: Davaeorn's Arcane Lair",
+      "x": 929,
+      "y": 67,
+      "coordinates": {
+        "x": 929,
+        "y": 67
+      },
+      "cat": "Standard POI",
       "culture": "Market",
       "shape": "pentagon",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
       "customNotes": "A lavish subterranean suite protected by battle horrors, guard slime, and Davaeorn's dimension-door teleport traps.",
-      "childMapId": null
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
+  "links": [],
+  "mapMetadata": {
+    "id": "map_bg1_cloakwood_mines",
+    "name": "cloakwoodminesarea.gif",
+    "assetPath": "assets/map_bg1_cloakwood_mines_bg.png",
+    "width": 480,
+    "height": 360,
+    "opacity": 0.85
+  },
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {
+    "BG-CLK-01": [],
+    "BG-CLK-02": [],
+    "BG-CLK-03": [],
+    "BG-CLK-04": [],
+    "BG-CLK-05": []
+  },
+  "edgeSlottedModules": {},
+  "layers": [
     {
-      "from": "BG-CLK-01",
-      "to": "BG-CLK-02",
-      "type": "twoway"
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-CLK-02",
-      "to": "BG-CLK-03",
-      "type": "twoway"
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-CLK-02",
-      "to": "BG-CLK-04",
-      "type": "twoway"
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-CLK-03",
-      "to": "BG-CLK-05",
-      "type": "twoway"
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     },
     {
-      "from": "BG-CLK-04",
-      "to": "BG-CLK-05",
-      "type": "twoway"
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
-  ]
+  ],
+  "shapes": [],
+  "spatialPins": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": []
 }

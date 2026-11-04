@@ -33,7 +33,8 @@ const WIKI_TOKEN_TYPES = {
   npc: { label: "NPC", icon: "👤" },
   item: { label: "Item", icon: "🗡️" },
   quest: { label: "Quest", icon: "📜" },
-  tracker: { label: "Tracker", icon: "⏱️" }
+  tracker: { label: "Tracker", icon: "⏱️" },
+  clock: { label: "Threat Clock", icon: "⏱️" }
 };
 
 // Entity scale icons
@@ -47,7 +48,8 @@ const WIKI_ICONS = {
   npc: "👤",
   item: "🗡️",
   quest: "📜",
-  tracker: "⏱️"
+  tracker: "⏱️",
+  clock: "⏱️"
 };
 
 function buildWikiBracketRegex() {
@@ -306,7 +308,7 @@ function buildWikiIndex() {
   });
 
   (currentTopo.quests || []).forEach(quest => {
-    const questNotes = [quest.customNotes, quest.description, quest.stakes, quest.summary].filter(Boolean).join(" ");
+    const questNotes = [quest.customNotes, quest.description, quest.stakes, quest.summary, quest.notes, quest.threat, quest.motivation].filter(Boolean).join(" ");
     if (questNotes) {
       extractTokensFromText(questNotes).forEach(t => {
         addLink(t.key, {
@@ -322,7 +324,8 @@ function buildWikiIndex() {
   });
 
   (currentTopo.trackers || []).forEach(tr => {
-    const trNotes = [tr.customNotes, tr.description].filter(Boolean).join(" ");
+    const conseqNotes = Array.isArray(tr.consequences) ? tr.consequences.map(c => c.description).filter(Boolean).join(" ") : "";
+    const trNotes = [tr.customNotes, tr.description, tr.notes, conseqNotes].filter(Boolean).join(" ");
     if (trNotes) {
       extractTokensFromText(trNotes).forEach(t => {
         addLink(t.key, {
@@ -332,6 +335,22 @@ function buildWikiIndex() {
           mapId: rootMapId,
           field: "notes",
           snippet: createSnippet(trNotes, t.raw)
+        });
+      });
+    }
+  });
+
+  (currentTopo.factions || []).forEach(fac => {
+    const facNotes = [fac.description, fac.notes, fac.goals].filter(Boolean).join(" ");
+    if (facNotes) {
+      extractTokensFromText(facNotes).forEach(t => {
+        addLink(t.key, {
+          sourceType: "faction",
+          sourceId: fac.id,
+          sourceName: fac.name || `Faction #${fac.id}`,
+          mapId: rootMapId,
+          field: "notes",
+          snippet: createSnippet(facNotes, t.raw)
         });
       });
     }
@@ -359,7 +378,7 @@ function extractTokensFromText(text) {
   let match;
   while ((match = bracketRegex.exec(text)) !== null) {
     const rawType = match[1].toLowerCase();
-    const type = (rawType === "module") ? "mod" : rawType;
+    const type = (rawType === "module") ? "mod" : ((rawType === "clock") ? "tracker" : rawType);
     const val = match[2].trim();
     tokens.push({
       type: type,
@@ -561,6 +580,7 @@ function renderWikiDecoratedText(rawText, currentMapId = null) {
   if (!rawText || typeof rawText !== "string") return "";
 
   const mapScope = currentMapId || (typeof activeMapId !== "undefined" ? activeMapId : "map_root");
+  const currentTopo = (typeof Workstation !== "undefined" && Workstation.activeTopology) || {};
   let html = rawText;
 
   // 1. Replace [[Type:Value]] tokens based on registered types (ADR-0015 v2)
@@ -599,6 +619,18 @@ function renderWikiDecoratedText(rawText, currentMapId = null) {
         : ((typeof campaignFactions !== "undefined" && Array.isArray(campaignFactions)) ? campaignFactions : []);
       const f = factionsPool.find(fac => fac.id === entityId || (fac.name && fac.name.toLowerCase() === String(entityId).toLowerCase()));
       if (f && f.name) displayTitle = f.name;
+    } else if (type === "quest") {
+      const q = (currentTopo.quests || []).find(x => String(x.id) === String(entityId) || (x.title && x.title.toLowerCase() === String(entityId).toLowerCase()));
+      if (q && (q.title || q.name)) displayTitle = q.title || q.name;
+    } else if (type === "npc") {
+      const n = (currentTopo.npcs || []).find(x => String(x.id) === String(entityId) || (x.name && x.name.toLowerCase() === String(entityId).toLowerCase()));
+      if (n && n.name) displayTitle = n.name;
+    } else if (type === "item") {
+      const it = (currentTopo.items || []).find(x => String(x.id) === String(entityId) || (x.name && x.name.toLowerCase() === String(entityId).toLowerCase()));
+      if (it && it.name) displayTitle = it.name;
+    } else if (type === "tracker" || type === "clock") {
+      const tr = (currentTopo.trackers || []).find(x => String(x.id) === String(entityId) || (x.name && x.name.toLowerCase() === String(entityId).toLowerCase()));
+      if (tr && (tr.name || tr.title)) displayTitle = tr.name || tr.title;
     }
 
     const icon = (regType && regType.icon) || WIKI_ICONS[type] || "🔗";
@@ -740,16 +772,20 @@ function showWikiHovercard(event, type, id, mapId = null) {
         </div>
       `;
     }
-  } else if (type === "tracker") {
+  } else if (type === "tracker" || type === "clock") {
     const currentTopo = (typeof Workstation !== "undefined" && Workstation.activeTopology) || {};
     const tr = (currentTopo.trackers || []).find(x => String(x.id) === String(id) || (x.name && x.name.toLowerCase() === String(id).toLowerCase()));
     if (tr) {
-      title = tr.name || tr.title || `Tracker #${tr.id}`;
-      badge = `Tracker &bull; ${escapeHtml(tr.type || 'Clock')}`;
+      title = tr.name || tr.title || `Threat Clock #${tr.id}`;
+      badge = `Threat Clock &bull; ${escapeHtml(tr.type || 'Clock')}`;
+      const curTicks = tr.currentTicks !== undefined ? tr.currentTicks : (tr.value || 0);
+      const maxTicks = tr.maxTicks !== undefined ? tr.maxTicks : (tr.max || 4);
       content = `
         <div class="space-y-1">
-          <div class="text-[11px] text-slate-300"><strong>Ticks:</strong> ${tr.currentTicks || 0} / ${tr.maxTicks || 4}</div>
+          <div class="text-[11px] text-slate-300"><strong>Ticks:</strong> ${curTicks} / ${maxTicks}</div>
+          ${tr.scopeTier ? `<div class="text-[10px] text-sky-400"><strong>Scope:</strong> ${escapeHtml(tr.scopeTier.toUpperCase())}</div>` : ''}
           ${tr.notes || tr.description ? `<div class="text-[11px] text-slate-300 italic line-clamp-2 mt-1">"${escapeHtml(tr.notes || tr.description)}"</div>` : ''}
+          ${Array.isArray(tr.consequences) && tr.consequences.length > 0 ? `<div class="text-[10px] text-amber-400 mt-1"><strong>Consequences:</strong> ${tr.consequences.map(c => `[Tick ${c.tick}: ${escapeHtml(c.description)}]`).join(' ')}</div>` : ''}
         </div>
       `;
     }
@@ -847,14 +883,15 @@ function navigateToWikiEntity(type, id, mapId = null, event = null) {
     selectedEdgeKey = id;
     selectedNodeId = null;
     if (typeof renderInspectorDrawer === "function") renderInspectorDrawer();
-  } else if (type === "npc" || type === "item" || type === "quest" || type === "tracker") {
+  } else if (type === "npc" || type === "item" || type === "quest" || type === "tracker" || type === "clock") {
+    const normType = (type === "clock") ? "tracker" : type;
     if (typeof openEditEntityModal === "function") {
       openEditEntityModal(id);
     } else if (typeof openEntityManager === "function") {
-      openEntityManager(type, id);
+      openEntityManager(normType, id);
     }
     const currentTopo = (typeof Workstation !== "undefined" && Workstation.activeTopology) || {};
-    const entList = currentTopo[type === "npc" ? "npcs" : (type === "item" ? "items" : (type === "quest" ? "quests" : "trackers"))] || [];
+    const entList = currentTopo[normType === "npc" ? "npcs" : (normType === "item" ? "items" : (normType === "quest" ? "quests" : "trackers"))] || [];
     const ent = entList.find(e => String(e.id) === String(id));
     if (ent && ent.nodeId) {
       centerCanvasOnNode(parseInt(ent.nodeId));

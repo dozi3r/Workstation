@@ -8,8 +8,9 @@
   "enabled": true,
   "topologyFile": "topology.json",
   "manifestFile": "modules_manifest.json",
-  "updatedAt": "2026-11-01T22:01:19.953Z",
-  "exportedAt": "2026-11-01T22:01:19.953Z",
+  "updatedAt": "2026-11-03T19:54:31.829Z",
+  "exportedAt": "2026-11-03T19:54:31.829Z",
+  "appliedBatchIds": [],
   "globalDials": {
     "dial8ClimaxTrigger": "crisis",
     "tier0Substratum": false
@@ -1805,6 +1806,123 @@
         "status": "Active"
       }
     ],
+    "trackers": [
+      {
+        "id": "tracker_iron_crisis",
+        "nodeId": "BG-SC-04",
+        "submapId": "map_bg1_sword_coast",
+        "name": "The Iron Crisis Contamination",
+        "type": "Threat Clock",
+        "maxTicks": 8,
+        "currentTicks": 2,
+        "faction": "The Iron Throne",
+        "notes": "Advances whenever trade shipments are attacked or mine sabotage spreads. At 8 ticks, the Sword Coast suffers economic collapse and war with Amn breaks out."
+      },
+      {
+        "id": "tracker_sarevok_ascension",
+        "nodeId": "BG-CTY-05",
+        "submapId": "map_bg1_city",
+        "name": "Sarevok's Ascension & Grand Duke Coronation",
+        "type": "Threat Clock",
+        "maxTicks": 6,
+        "currentTicks": 1,
+        "faction": "The Iron Throne",
+        "notes": "Advances as greater doppelgangers assassinate or replace key magistrates and Grand Dukes. At 6 ticks, Sarevok is crowned supreme Grand Duke and declares martial law."
+      },
+      {
+        "id": "tracker_bhaalspawn_taint",
+        "nodeId": "BG-CK-05",
+        "submapId": "map_bg1_candlekeep",
+        "name": "The Bhaalspawn Awakening",
+        "type": "Threat Clock",
+        "maxTicks": 4,
+        "currentTicks": 0,
+        "faction": "The Cult of Bhaal",
+        "notes": "Advances across major story milestones or dark violent choices. Unlocks divine innate powers (Cure Light Wounds, Slow Poison, Horror, Vampiric Touch)."
+      }
+    ],
+    "tickets": [
+      {
+        "id": "DEV-01",
+        "title": "trackers need updated into relatable and tracked entites like the others, and \"center station node on canvas\"",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "trackers should have their triggers attributable to NPCs, Items, Quests, and other tracekrs. They should be displayed like the others in property inspectors and treated just like we treat the other entities. it should be linkable in quests and you should be able to see the links in the trackers panel, but i just looked and its not there. \n\nalso the \"center stationed node on canvas\" isnt swapping between submaps either. \n\nalso, when you open a new dialog, it should be on top. when i opened the ticket tracker and hit \"new ticket\"m the new ticket window opened to the back.",
+        "createdAt": "2026-11-02T03:12:02.361Z"
+      },
+      {
+        "id": "DEV-02",
+        "title": "jonk comments about quests needing trackers",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "I think the hardest part is that keeping all the randomly dynamic elements might make it hard to cram into the UI, but have you thought about having the \"clocks\" be a subset of the quests?\n\nLike each quest is broken into some number of subelements, and you're hitting \"advance\" on the quest and it separately ticks up the clock based on which things should trigger it? I'm wondering if that would make it easier on the person trying to keep track of all the quests you're doing and the associated clocks\nSo the quest might be \"Track this monster and kill it\" and when you go to track it you find out that there's some clues or whatever you need to get and those tell you how to kill it and when you find its lair you have to hit some switches. but on the quest side it would be \n\n1) Start tracking monster\n2) talk to old lady OR farmer to get pointed in the right direction\n3) enter old forest <---- TRIGGER\n4)  enter old house\n5) find secret door\n6) clue 1\n7) clue 2\n8) Switch Puzzle <---- TRIGGER\n8) enter monsters chamber <---- TRIGGER\n9) deal 50% of his hp <---- TRIGGER\n\nSo as the DM they might fuck around a bunch of different ways but you can always anchor on \"ADVANCE\" for the major points, even if they fuck it up and you have to change the old lady or farmer to a guard that they won't stop trying to talk to",
+        "createdAt": "2026-11-02T03:12:30.116Z"
+      },
+      {
+        "id": "DEV-03",
+        "title": "trackers",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "tracker explorer needs ways to filter and sort, and trackers need \"tiers\" (quest, city, faction, world)",
+        "createdAt": "2026-11-02T03:14:58.941Z"
+      },
+      {
+        "id": "DEV-04",
+        "title": "need ability to edit tickets",
+        "type": "dev",
+        "category": "Platform Architecture",
+        "track": "Platform Development",
+        "tier": 0,
+        "pipeline_tier": 0,
+        "priority": "Medium",
+        "status": "ready_for_authoring",
+        "nodeId": "",
+        "syllogism": "",
+        "fourCorners": "",
+        "mechanics": "",
+        "resources": "",
+        "targetSurface": "start.html",
+        "prereqs": "",
+        "notes": "we should be able to edit the ticket notes rather than making new tickets every little update",
+        "createdAt": "2026-11-02T03:16:01.142Z"
+      }
+    ],
     "factions": [
       {
         "id": "faction_flaming_fist",
@@ -1972,45 +2090,10 @@
         "notes": "Operating out of the ancient subterranean Temple of Bhaal in the Undercity."
       }
     ],
-    "trackers": [
-      {
-        "id": "tracker_iron_crisis",
-        "nodeId": "BG-SC-04",
-        "submapId": "map_bg1_sword_coast",
-        "name": "The Iron Crisis Contamination",
-        "type": "Threat Clock",
-        "maxTicks": 8,
-        "currentTicks": 2,
-        "faction": "The Iron Throne",
-        "notes": "Advances whenever trade shipments are attacked or mine sabotage spreads. At 8 ticks, the Sword Coast suffers economic collapse and war with Amn breaks out."
-      },
-      {
-        "id": "tracker_sarevok_ascension",
-        "nodeId": "BG-CTY-05",
-        "submapId": "map_bg1_city",
-        "name": "Sarevok's Ascension & Grand Duke Coronation",
-        "type": "Threat Clock",
-        "maxTicks": 6,
-        "currentTicks": 1,
-        "faction": "The Iron Throne",
-        "notes": "Advances as greater doppelgangers assassinate or replace key magistrates and Grand Dukes. At 6 ticks, Sarevok is crowned supreme Grand Duke and declares martial law."
-      },
-      {
-        "id": "tracker_bhaalspawn_taint",
-        "nodeId": "BG-CK-05",
-        "submapId": "map_bg1_candlekeep",
-        "name": "The Bhaalspawn Awakening",
-        "type": "Threat Clock",
-        "maxTicks": 4,
-        "currentTicks": 0,
-        "faction": "The Cult of Bhaal",
-        "notes": "Advances across major story milestones or dark violent choices. Unlocks divine innate powers (Cure Light Wounds, Slow Poison, Horror, Vampiric Touch)."
-      }
-    ],
-    "tickets": [],
+    "spatialPins": [],
     "custom_modules": [],
     "deletedModules": [],
     "deletedPrototypes": []
   },
-  "syncToken": "mvydjzgw-yefhd3ib"
+  "syncToken": "mw13wmc5-wzzyy3g0"
 }

@@ -31,6 +31,12 @@
         campSelect.appendChild(opt);
       });
 
+      // Update dynamic module scope count
+      const allScopeOpt = document.getElementById('me-filter-scope-all-opt');
+      if (allScopeOpt && typeof ALL_MODULES !== 'undefined') {
+        allScopeOpt.textContent = `All Project Modules (${ALL_MODULES.length})`;
+      }
+
       // Populate target node selector
       updateTargetNodeDropdown(targetNodeId);
 
@@ -82,7 +88,7 @@
         if (typeof ALL_MODULES !== 'undefined') {
           const registeredCount = (typeof CAMPAIGN_REGISTRY !== "undefined") ? Object.keys(CAMPAIGN_REGISTRY).length : 1;
           ALL_MODULES.forEach(m => {
-            if (registeredCount <= 1 || (m.campaign || '') === activeCamp || (m.campaign_name || '') === (topo.name || activeCamp)) {
+            if (m.isUniversalMod || registeredCount <= 1 || (m.campaign || '') === activeCamp || (m.campaign_name || '') === (topo.name || activeCamp)) {
               set.add(m.id);
             }
           });
@@ -191,6 +197,7 @@
       ensureCampaignModules(topo);
 
       const filtered = ALL_MODULES.filter(m => {
+        if (m.mod_id && typeof Workstation !== 'undefined' && Workstation.disabledMods && Workstation.disabledMods[m.mod_id]) return false;
         if (topo && Array.isArray(topo.deletedModules) && (topo.deletedModules.includes(String(m.id)) || topo.deletedModules.includes(m.id))) {
           return false;
         }
@@ -199,7 +206,9 @@
         const mCamp = m.isCustom ? 'custom_homebrew' : (m.campaign || (typeof activeCampaignId !== 'undefined' ? activeCampaignId : 'campaign'));
         if (campFilter !== 'all' && mCamp !== campFilter) return false;
         if (tierFilter !== 'all') {
-          const tNum = m.pipeline_tier || (m.tier && m.tier.match(/Tier\s*(\d)/i) ? parseInt(m.tier.match(/Tier\s*(\d)/i)[1]) : null);
+          const tNum = (m.pipeline_tier !== undefined && m.pipeline_tier !== null)
+            ? m.pipeline_tier
+            : (m.tier && m.tier.match(/Tier\s*(\d)/i) ? parseInt(m.tier.match(/Tier\s*(\d)/i)[1]) : null);
           if (tNum != parseInt(tierFilter)) return false;
         }
         if (cultureFilter !== 'all') {
