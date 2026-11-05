@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules_manifest.json"
 title: "modules_manifest.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "e734e71391cf51cb"
-reviewed_hash: "e734e71391cf51cb"
+current_hash: "1a3d332288d55be6"
+reviewed_hash: "1a3d332288d55be6"
 stale: false
-size_bytes: 163834
-line_count: 1182
+size_bytes: 166942
+line_count: 1322
 ---
 
 # modules_manifest.json

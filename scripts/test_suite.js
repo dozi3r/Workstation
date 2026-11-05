@@ -69,6 +69,38 @@ function validateCampaignPackage(campaignName) {
     }
   }
 
+  // Validate optional campaign ODV matrix overlay (odv/matrix.json, odv_matrix.json, odv_matrix_*.json)
+  const mxCands = [path.join(campDir, 'odv', 'matrix.json'), path.join(campDir, 'odv_matrix.json')]
+    .concat(fs.readdirSync(campDir).filter(f => /^odv_matrix_.+\.json$/i.test(f)).map(f => path.join(campDir, f)));
+  const mxPath = mxCands.find(p => fs.existsSync(p));
+  if (mxPath) {
+    let cells;
+    try {
+      const mx = JSON.parse(fs.readFileSync(mxPath, 'utf8').replace(/^﻿/, ''));
+      cells = mx && mx.matrix ? mx.matrix : mx;
+    } catch (err) {
+      throw new Error(`Invalid JSON in ${path.basename(mxPath)} (${campaignName}): ${err.message}`);
+    }
+    const keys = Object.keys(cells || {});
+    keys.forEach(k => {
+      const m = /^\[([1-4]), ([1-4]), ([1-4])\]$/.exec(k);
+      if (!m) throw new Error(`ODV matrix key '${k}' is not a valid "[S, E, C]" tag (1..4) in ${campaignName}`);
+      const c = cells[k];
+      if (c.tag !== undefined && c.tag !== k) throw new Error(`ODV matrix cell ${k} has mismatched tag '${c.tag}' in ${campaignName}`);
+      if ((c.s !== undefined && c.s !== +m[1]) || (c.e !== undefined && c.e !== +m[2]) || (c.c !== undefined && c.c !== +m[3])) {
+        throw new Error(`ODV matrix cell ${k} has s/e/c that disagree with its key in ${campaignName}`);
+      }
+      if (!c.archetypeName) throw new Error(`ODV matrix cell ${k} missing archetypeName in ${campaignName}`);
+    });
+    if (keys.length < 64) {
+      const msg = `ODV matrix in ${campaignName} has ${keys.length}/64 cells; missing cells fall back to built-in archetypes`;
+      if (process.argv.includes('--strict-odv')) throw new Error(msg);
+      console.warn(`  [WARN] ${msg}`);
+    } else {
+      console.log(`  [OK] ODV matrix overlay: 64/64 cells in ${campaignName}.`);
+    }
+  }
+
   console.log(`  [OK] Campaign package '${campaignName}' passed structural validation.`);
   return true;
 }

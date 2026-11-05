@@ -2300,6 +2300,17 @@ function testOdvCampaignReflectionAndDenseMatrix() {
   assertEqual(sandbox.getNodeQuadrant({ culture: 'Clan' }), 'Clan', 'getNodeQuadrant honours authored culture');
   assertEqual(sandbox.getNodeQuadrant({}), null, 'getNodeQuadrant is null when nothing is set');
 
+  // 1c. Campaign ODV matrix overlay (SYS-ODV-03 S1)
+  const builtin111 = sandbox.getArchetype('[1, 1, 1]').archetypeName;
+  assertEqual(sandbox.getArchetypeDetails(1, 1, 1).archetypeName, builtin111, 'no override: built-in archetype');
+  assertEqual(sandbox.setCampaignOdvMatrix({ matrix: { '[1, 1, 1]': { tag: '[1, 1, 1]', archetypeName: 'Krynn Test' } } }), 1, 'setCampaignOdvMatrix returns cell count');
+  assertEqual(sandbox.getArchetypeDetails(1, 1, 1).archetypeName, 'Krynn Test', 'override cell wins');
+  assertEqual(sandbox.getArchetype('[4, 4, 4]').archetypeName, sandbox.ODV_MATRIX_64['[4, 4, 4]'].archetypeName, 'omitted cell falls back to built-in');
+  assertEqual(sandbox.ODV_MATRIX_64['[1, 1, 1]'].archetypeName, builtin111, 'built-in constant is never mutated');
+  assertEqual(Object.keys(sandbox.getArchetypeMatrix()).length, Object.keys(sandbox.ODV_MATRIX_64).length, 'merged matrix keeps 64 cells');
+  sandbox.setCampaignOdvMatrix(null);
+  assertEqual(sandbox.getArchetype('[1, 1, 1]').archetypeName, builtin111, 'clearing override restores built-in');
+
   // 2. Verify Edge Corridor ODV resolution (midpoint centroid vs explicit override & friction delta)
   const midEdge = sandbox.resolveEdgeOdv(null, { s: 1, e: 1, c: 1 }, { s: 4, e: 3, c: 4 }, null);
   assertEqual(midEdge.tag, '[3, 2, 3]', 'resolveEdgeOdv computes rounded midpoint [3, 2, 3] between [1,1,1] and [4,3,4]');

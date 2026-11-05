@@ -470,7 +470,7 @@
         <h1 class="article-title">sociology_data.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 5f2db52a)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 1b1b65a6)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (17)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/sociology_data.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>2000 lines &bull; 122.9 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 5f2db52a)</span></td></tr>
+    <tr><th>File Metrics</th><td>2031 lines &bull; 124.1 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 1b1b65a6)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>7</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>17</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/sociology_data.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -516,7 +516,7 @@
 <ul class="wiki-list">
 <li>ODV (SYS-ODV-02 S1): added normalizeOdvInput/getOdv/getEdgeOdv/getNodeQuadrant; resolveNodeOdv now parses via getOdv (invalid values no longer coerced to 2); dropped bogus <code>topo</code> second arg.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">ODV_MATRIX_64</span><span class="pill">SOC_OPERATIONAL_LEVERS</span><span class="pill">SOC_CRISIS_METAMORPHISM</span><span class="pill">SOC_SENSORY_PENTAGON</span><span class="pill">SOC_FACTION_COLORS</span><span class="pill">SOC_DIAGNOSTIC_QUESTIONS</span><span class="pill">CVF_PARADIGMS</span><span class="pill">activeSelectedOdvTag</span></div><h3>Declared Functions / Subroutines (27)</h3><div class="pill-list"><span class="pill">getArchetypeDetails(s, e, c)</span><span class="pill">deriveCvfQuadrant(s, e)</span><span class="pill">deriveOperationalMode(s, c)</span><span class="pill">rollSensoryProfile(s, e, c)</span><span class="pill">getIndex(dimension, dial)</span><span class="pill">getSuggestedCultureForNode(node)</span><span class="pill">getCulturalHarmonyScore(nid)</span><span class="pill">synthesizeCorridorReasonings(link, srcNode, tgtNode)</span><span class="pill">normalizeOdvInput(raw)</span><span class="pill">getOdv(entity)</span><span class="pill">getEdgeOdv(edge, uOdv, vOdv, edgeRecord)</span><span class="pill">getNodeQuadrant(node)</span><span class="pill">resolveNodeOdv(node, fallbackIndex)</span><span class="pill">resolveEdgeOdv(edge, uNodeOdv, vNodeOdv, edgeRecord)</span><span class="pill">buildCampaignOdvIndex(topology)</span><span class="pill">registerCorridor(uId, vId, linkObj, isDirected)</span><span class="pill">renderMdiOdvMatrix()</span><span class="pill">renderMdiOdvDossier(tag, arch, occupants)</span><span class="pill">formatSensoryProfileMarkdown(roll, s, e, c)</span><span class="pill">triggerMdiSensoryRoll(s, e, c)</span><span class="pill">applySensoryRollToSelectedNode(optNodeId = null, optRoll = null, s = 2, e = 2, c = 2)</span><span class="pill">applyMdiOdvToSelectedNode(s, e, c, optNodeId = null)</span><span class="pill">renderMdiOdvWizard(initialS = 2, initialE = 2, initialC = 2)</span><span class="pill">toggleMdiOdvWizard(forceShow = null)</span><span class="pill">onMdiOdvWizardChange()</span><span class="pill">onMdiOdvWizardApplyToNode()</span><span class="pill">openOdvWizardForNode(nodeId)</span></div>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">ODV_MATRIX_64</span><span class="pill">_campaignOdvMatrix</span><span class="pill">SOC_OPERATIONAL_LEVERS</span><span class="pill">SOC_CRISIS_METAMORPHISM</span><span class="pill">SOC_SENSORY_PENTAGON</span><span class="pill">SOC_FACTION_COLORS</span><span class="pill">SOC_DIAGNOSTIC_QUESTIONS</span><span class="pill">CVF_PARADIGMS</span><span class="pill">activeSelectedOdvTag</span></div><h3>Declared Functions / Subroutines (31)</h3><div class="pill-list"><span class="pill">setCampaignOdvMatrix(obj)</span><span class="pill">getCampaignOdvMatrix()</span><span class="pill">getArchetype(tag)</span><span class="pill">getArchetypeMatrix()</span><span class="pill">getArchetypeDetails(s, e, c)</span><span class="pill">deriveCvfQuadrant(s, e)</span><span class="pill">deriveOperationalMode(s, c)</span><span class="pill">rollSensoryProfile(s, e, c)</span><span class="pill">getIndex(dimension, dial)</span><span class="pill">getSuggestedCultureForNode(node)</span><span class="pill">getCulturalHarmonyScore(nid)</span><span class="pill">synthesizeCorridorReasonings(link, srcNode, tgtNode)</span><span class="pill">normalizeOdvInput(raw)</span><span class="pill">getOdv(entity)</span><span class="pill">getEdgeOdv(edge, uOdv, vOdv, edgeRecord)</span><span class="pill">getNodeQuadrant(node)</span><span class="pill">resolveNodeOdv(node, fallbackIndex)</span><span class="pill">resolveEdgeOdv(edge, uNodeOdv, vNodeOdv, edgeRecord)</span><span class="pill">buildCampaignOdvIndex(topology)</span><span class="pill">registerCorridor(uId, vId, linkObj, isDirected)</span><span class="pill">renderMdiOdvMatrix()</span><span class="pill">renderMdiOdvDossier(tag, arch, occupants)</span><span class="pill">formatSensoryProfileMarkdown(roll, s, e, c)</span><span class="pill">triggerMdiSensoryRoll(s, e, c)</span><span class="pill">applySensoryRollToSelectedNode(optNodeId = null, optRoll = null, s = 2, e = 2, c = 2)</span><span class="pill">applyMdiOdvToSelectedNode(s, e, c, optNodeId = null)</span><span class="pill">renderMdiOdvWizard(initialS = 2, initialE = 2, initialC = 2)</span><span class="pill">toggleMdiOdvWizard(forceShow = null)</span><span class="pill">onMdiOdvWizardChange()</span><span class="pill">onMdiOdvWizardApplyToNode()</span><span class="pill">openOdvWizardForNode(nodeId)</span></div>
       <h2 id="outbound-links">Outbound References (7)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
         <td><span class="badge badge-Workstation Shell Template">Included By Template</span></td>
@@ -597,7 +597,7 @@
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/property_grid_inspector.js.html"><strong>src/workstation/scripts/property_grid_inspector.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes deriveCvfQuadrant() defined in sociology_data.js</td>
+        <td>Invokes getArchetype() defined in sociology_data.js</td>
       </tr><tr>
         <td><a href="../../../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
         <td><span class="badge badge-Node.js / Browser Engine Script">Bundles Source</span></td>
@@ -605,7 +605,7 @@
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes normalizeOdvInput() defined in sociology_data.js</td>
+        <td>Invokes setCampaignOdvMatrix() defined in sociology_data.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/supply_chain_simulator.js.html"><strong>src/workstation/scripts/supply_chain_simulator.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

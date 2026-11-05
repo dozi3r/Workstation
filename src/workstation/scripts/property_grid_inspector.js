@@ -1156,8 +1156,8 @@
           node.odv = { s: curS, e: curE, c: curC };
         }
         const odvTag = `[${curS}, ${curE}, ${curC}]`;
-        const archetype = (typeof ODV_MATRIX_64 !== "undefined" && ODV_MATRIX_64[odvTag])
-          ? ODV_MATRIX_64[odvTag]
+        const archetype = (typeof getArchetype === "function" && getArchetype(odvTag))
+          ? getArchetype(odvTag)
           : { archetypeName: 'Standard Archetype', coreBoon: 'N/A', coreBurden: 'N/A' };
 
         const sOptions = [
@@ -2649,7 +2649,7 @@
 
         const disp = Array.isArray(npc.disposition) ? npc.disposition : [2, 2, 2];
         const odvTag = `S${disp[0] || 2}E${disp[1] || 2}C${disp[2] || 2}`;
-        const odvObj = (typeof ODV_MATRIX_64 !== 'undefined' && ODV_MATRIX_64[odvTag]) ? ODV_MATRIX_64[odvTag] : null;
+        const odvObj = (typeof getArchetype === 'function') ? getArchetype(odvTag) : null;
         const archName = odvObj ? odvObj.archetypeName : 'Standard Archetype';
         appendPropRow(tbody, 'ODV Archetype', `[${odvTag}] ${archName}`, false);
 

@@ -777,9 +777,31 @@ const ODV_MATRIX_64 = {
 // Canonical Mathematical Baseline: Neutral [2, 2, 2] ("The Deliberative Concord")
 // Custom fallbacks (e.g. Tarot Major Arcana) may be registered via window.CreatorStudio.registerOdvFallbackResolver(fn)
 
+// Campaign-supplied per-cell overlay on the built-in matrix. Never mutates ODV_MATRIX_64.
+let _campaignOdvMatrix = null;
+
+function setCampaignOdvMatrix(obj) {
+  const cells = obj && obj.matrix ? obj.matrix : obj;
+  _campaignOdvMatrix = (cells && typeof cells === "object" && Object.keys(cells).length) ? cells : null;
+  return _campaignOdvMatrix ? Object.keys(_campaignOdvMatrix).length : 0;
+}
+
+function getCampaignOdvMatrix() { return _campaignOdvMatrix; }
+
+// Single getter for archetype cells: campaign cell wins, else built-in, else null.
+function getArchetype(tag) {
+  if (_campaignOdvMatrix && _campaignOdvMatrix[tag]) return _campaignOdvMatrix[tag];
+  return ODV_MATRIX_64[tag] || null;
+}
+
+// Merged view (built-in with campaign cells overlaid) for iteration.
+function getArchetypeMatrix() {
+  return Object.assign({}, ODV_MATRIX_64, _campaignOdvMatrix || {});
+}
+
 function getArchetypeDetails(s, e, c) {
   const tag = `[${s}, ${e}, ${c}]`;
-  return ODV_MATRIX_64[tag] || {
+  return getArchetype(tag) || {
     s, e, c, tag,
     archetypeName: "Adaptive Frontier Node",
     coreBoon: "Practical improvisation in local environment.",
@@ -1550,8 +1572,9 @@ function renderMdiOdvMatrix() {
     Hierarchy: { bg: '#eff6ff', border: '#93c5fd', badge: '#2563eb' }
   };
 
-  Object.keys(ODV_MATRIX_64).sort().forEach(tag => {
-    const arch = ODV_MATRIX_64[tag];
+  const mergedMatrix = getArchetypeMatrix();
+  Object.keys(mergedMatrix).sort().forEach(tag => {
+    const arch = mergedMatrix[tag];
     const occupants = index[tag] || { nodes: [], edges: [] };
     const hasOccupants = (occupants.nodes.length > 0 || occupants.edges.length > 0);
 
@@ -1630,7 +1653,7 @@ function renderMdiOdvMatrix() {
     gridEl.appendChild(card);
   });
 
-  const activeArch = ODV_MATRIX_64[activeSelectedOdvTag] || ODV_MATRIX_64['[1, 1, 1]'];
+  const activeArch = getArchetype(activeSelectedOdvTag) || getArchetype('[1, 1, 1]');
   const activeOcc = index[activeSelectedOdvTag] || { nodes: [], edges: [] };
   renderMdiOdvDossier(activeSelectedOdvTag, activeArch, activeOcc);
 }
@@ -1938,6 +1961,10 @@ if (typeof window !== "undefined") {
   window.resolveNodeOdv = resolveNodeOdv;
   window.normalizeOdvInput = normalizeOdvInput;
   window.getOdv = getOdv;
+  window.setCampaignOdvMatrix = setCampaignOdvMatrix;
+  window.getCampaignOdvMatrix = getCampaignOdvMatrix;
+  window.getArchetype = getArchetype;
+  window.getArchetypeMatrix = getArchetypeMatrix;
   window.getEdgeOdv = getEdgeOdv;
   window.getNodeQuadrant = getNodeQuadrant;
   window.resolveEdgeOdv = resolveEdgeOdv;
@@ -1975,6 +2002,10 @@ if (typeof module !== "undefined" && module.exports) {
     resolveNodeOdv,
     normalizeOdvInput,
     getOdv,
+    setCampaignOdvMatrix,
+    getCampaignOdvMatrix,
+    getArchetype,
+    getArchetypeMatrix,
     getEdgeOdv,
     getNodeQuadrant,
     resolveEdgeOdv,

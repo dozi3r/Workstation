@@ -236,7 +236,7 @@ Each pair is one polity moving between cells under the pressure the text records
 
 ## 8. Implications for the repository (not applied)
 
-1. **Loading the file.** Open `network/odv_archetype_matrix.html`, use the matrix upload button, pick `campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json`. The page then labels the matrix "Custom Mod (64 Archetypes)". It does not load automatically for Krynn campaigns; wiring `window.ODV_MATRIX_OVERRIDE` per campaign is a separate change.
+1. **Loading the file.** Open `network/odv_archetype_matrix.html`, use the matrix upload button, pick `campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json`. The page then labels the matrix "Custom Mod (64 Archetypes)". It now loads automatically: the build discovers `campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix.json` (renamed from `odv_matrix_krynn.json`), and opening the campaign applies it as a per-cell overlay (see "Campaign Matrix Overlay" in `CONTEXT.md`). Re-run `Build-Suite.ps1` after editing the JSON.
 2. **Campaign data.** Re-scoring 144 nodes was not done. The 90 placeholder `[2,2,2]` values should become unset under SYS-ODV-01 phase 5, then be authored from the ledger in section 4, not guessed. The V1, V2 and V3 presets share this matrix.
 3. **Extractions.** The five `01_peoples_factions_and_councils.md` files carry vectors that will mislead any future import. Suggest a header note on each pointing here. `Sources/` is gitignored, so this is a local edit.
 4. **Authoring skill.** `campaign-preset-builder` should score against the canonical dial text in section 2, not against extraction labels.

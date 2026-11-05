@@ -15,5 +15,4 @@ line_count: 251
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role
 `docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md` serves as a **Technical Documentation / Guide** within **Volume I: System Architecture, Governance & Ontology**.
-
 <!-- END_CUSTOM_NOTES -->

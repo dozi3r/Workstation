@@ -28,6 +28,9 @@ The canonical composite identifier indexing corridor metadata and slotted module
 _Avoid_: Double-dash key (`u--v`), unordered edge key
 
 #### Core Sociology & Hermeneutics
+**Campaign Matrix Overlay**:
+An optional per-campaign set of archetype cells (`campaigns/<id>/odv_matrix.json`, also `odv/matrix.json` or `odv_matrix_*.json`) layered cell-by-cell over the built-in `ODV_MATRIX_64`. The build inlines it into that campaign's `CAMPAIGN_REGISTRY` entry (`odvMatrix`) and `network/campaign_odv_matrices.js`. Opening the campaign calls `setCampaignOdvMatrix`; every consumer reads cells through `getArchetype(tag)`. Omitted cells fall back to built-in. The validator warns below 64 cells (`--strict-odv` fails).
+
 **Granular Disposition `[S, E, C]`**:
 A 3-dimensional integer coordinate vector yielding 64 discrete sociological archetypes across three 1-to-4 axes:
 - **`S` (Social / Structural Fluidity)**: `1` = Immutable Stasis (Totalitarian Purge) to `4` = Radical Autonomy (Total Indifference).

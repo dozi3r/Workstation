@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-05T04:05:29.629Z",
-  "totalFiles": 732,
+  "generatedAt": "2026-11-05T04:22:59.619Z",
+  "totalFiles": 733,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3014,
+  "totalBidirectionalEdges": 3015,
   "staleCount": 0,
   "nodes": [
     {
@@ -6166,10 +6166,10 @@
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "d9ce45314c40b29a",
-      "reviewedHash": "d9ce45314c40b29a",
-      "lineCount": 1340,
-      "sizeBytes": 65852,
+      "hash": "2d6528d1606bbcd8",
+      "reviewedHash": "2d6528d1606bbcd8",
+      "lineCount": 1375,
+      "sizeBytes": 67810,
       "symbols": [
         "toRootRelUrl(absPath)",
         "rebaseFileUrls(jsonStr, prefix)",
@@ -6191,6 +6191,7 @@
         "navManifest",
         "campaignsDir",
         "campaignRegistry",
+        "cId0",
         "defaultCampaignId",
         "modules",
         "networkManifestPath",
@@ -6219,8 +6220,7 @@
         "ALL_MODULES",
         "MODULES_MANIFEST",
         "startTicketsBlock",
-        "MASTER_TICKETS_DATA",
-        "startSurfacesBlock"
+        "MASTER_TICKETS_DATA"
       ],
       "provides": [],
       "requires": [],
@@ -7681,6 +7681,12 @@
         },
         {
           "source": "mods/Update-Mods.ps1",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References build_suite.js"
+        },
+        {
+          "source": "network/campaign_odv_matrices.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References build_suite.js"
@@ -10791,10 +10797,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "239d496f78f7eeb6",
-      "reviewedHash": "239d496f78f7eeb6",
-      "lineCount": 5535,
-      "sizeBytes": 331685,
+      "hash": "e3ad04e48ac4f336",
+      "reviewedHash": "e3ad04e48ac4f336",
+      "lineCount": 5536,
+      "sizeBytes": 331678,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13214,10 +13220,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "e734e71391cf51cb",
-      "reviewedHash": "e734e71391cf51cb",
-      "lineCount": 1182,
-      "sizeBytes": 163834,
+      "hash": "1a3d332288d55be6",
+      "reviewedHash": "1a3d332288d55be6",
+      "lineCount": 1322,
+      "sizeBytes": 166942,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13419,10 +13425,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "2c7c388793a934fb",
-      "reviewedHash": "2c7c388793a934fb",
+      "hash": "85113f2dbfe87258",
+      "reviewedHash": "85113f2dbfe87258",
       "lineCount": 31004,
-      "sizeBytes": 1668795,
+      "sizeBytes": 1668825,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13456,10 +13462,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "2c7c388793a934fb",
-      "reviewedHash": "2c7c388793a934fb",
+      "hash": "85113f2dbfe87258",
+      "reviewedHash": "85113f2dbfe87258",
       "lineCount": 31004,
-      "sizeBytes": 1668795,
+      "sizeBytes": 1668825,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13690,7 +13696,7 @@
           "reason": "Belongs to Krynn_V3_Five_Book_Odyssey campaign sourcebook"
         },
         {
-          "source": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
+          "source": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix.json",
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to Krynn_V3_Five_Book_Odyssey campaign sourcebook"
@@ -16122,8 +16128,8 @@
       ]
     },
     {
-      "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
-      "title": "odv_matrix_krynn.json",
+      "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix.json",
+      "title": "odv_matrix.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
@@ -16155,12 +16161,6 @@
           "sourceType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
-        },
-        {
-          "source": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json"
         }
       ]
     },
@@ -26451,12 +26451,6 @@
           "reason": "References Build-Suite.ps1"
         },
         {
-          "target": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json"
-        },
-        {
           "target": "docs/srd/authoring_engine_srd.md",
           "targetType": "file",
           "type": "Path Reference",
@@ -26481,7 +26475,14 @@
           "reason": "References src/workstation/scripts/sociology_data.js"
         }
       ],
-      "inbound": []
+      "inbound": [
+        {
+          "source": "network/odv_archetype_matrix.html",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md"
+        }
+      ]
     },
     {
       "relPath": "docs/navigation_manifest.json",
@@ -36637,6 +36638,30 @@
       "inbound": []
     },
     {
+      "relPath": "network/campaign_odv_matrices.js",
+      "title": "campaign_odv_matrices.js",
+      "volume": "vol-5",
+      "kind": "Node.js / Browser Engine Script",
+      "stale": false,
+      "hash": "5eeb5e2d00955f9c",
+      "reviewedHash": "5eeb5e2d00955f9c",
+      "lineCount": 3,
+      "sizeBytes": 71805,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "build_suite.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References build_suite.js"
+        }
+      ],
+      "inbound": []
+    },
+    {
       "relPath": "network/campaign_studio.html",
       "title": "Campaign Studio - Redirecting to Workstation...",
       "volume": "vol-5",
@@ -37222,10 +37247,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "359b3e9274d4755e",
-      "reviewedHash": "359b3e9274d4755e",
-      "lineCount": 3384,
-      "sizeBytes": 189213,
+      "hash": "a614f7013a29e4cc",
+      "reviewedHash": "a614f7013a29e4cc",
+      "lineCount": 3403,
+      "sizeBytes": 190313,
       "symbols": [
         "parseMd(text)",
         "stripFormatting(text)",
@@ -37317,6 +37342,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References build_suite.js"
+        },
+        {
+          "target": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md"
         },
         {
           "target": "index.html",
@@ -37448,10 +37479,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "fe6377d695eecd1e",
-      "reviewedHash": "fe6377d695eecd1e",
-      "lineCount": 136937,
-      "sizeBytes": 28935831,
+      "hash": "39a30fca8d51fc7a",
+      "reviewedHash": "39a30fca8d51fc7a",
+      "lineCount": 147096,
+      "sizeBytes": 29762026,
       "symbols": [
         "moduleMatchesTrack(m, track)",
         "getModuleTrackBadges(m)",
@@ -38115,7 +38146,7 @@
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
-          "target": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
+          "target": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
@@ -39192,10 +39223,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "7a8d78be71230cc7",
-      "reviewedHash": "7a8d78be71230cc7",
-      "lineCount": 284,
-      "sizeBytes": 10825,
+      "hash": "e0248a122675cc2f",
+      "reviewedHash": "e0248a122675cc2f",
+      "lineCount": 316,
+      "sizeBytes": 12630,
       "symbols": [
         "validateCampaignPackage(campaignName)",
         "httpGet(url, method = 'GET')",
@@ -44486,10 +44517,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "1ea47548df615b19",
-      "reviewedHash": "1ea47548df615b19",
+      "hash": "e1c9c34c8b8abbcd",
+      "reviewedHash": "e1c9c34c8b8abbcd",
       "lineCount": 4443,
-      "sizeBytes": 209190,
+      "sizeBytes": 209158,
       "symbols": [
         "selectNode(nodeId, e = null)",
         "selectEdge(edgeType, uId, vId, e = null)",
@@ -44645,7 +44676,7 @@
           "target": "src/workstation/scripts/sociology_data.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes deriveCvfQuadrant() defined in sociology_data.js"
+          "reason": "Invokes getArchetype() defined in sociology_data.js"
         },
         {
           "target": "src/workstation/scripts/state_adapter.js",
@@ -45219,11 +45250,15 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "5f2db52af564c1da",
-      "reviewedHash": "5f2db52af564c1da",
-      "lineCount": 2000,
-      "sizeBytes": 125836,
+      "hash": "1b1b65a6727079d0",
+      "reviewedHash": "1b1b65a6727079d0",
+      "lineCount": 2031,
+      "sizeBytes": 127038,
       "symbols": [
+        "setCampaignOdvMatrix(obj)",
+        "getCampaignOdvMatrix()",
+        "getArchetype(tag)",
+        "getArchetypeMatrix()",
         "getArchetypeDetails(s, e, c)",
         "deriveCvfQuadrant(s, e)",
         "deriveOperationalMode(s, c)",
@@ -45254,6 +45289,7 @@
       ],
       "globals": [
         "ODV_MATRIX_64",
+        "_campaignOdvMatrix",
         "SOC_OPERATIONAL_LEVERS",
         "SOC_CRISIS_METAMORPHISM",
         "SOC_SENSORY_PENTAGON",
@@ -45385,7 +45421,7 @@
           "source": "src/workstation/scripts/property_grid_inspector.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes deriveCvfQuadrant() defined in sociology_data.js"
+          "reason": "Invokes getArchetype() defined in sociology_data.js"
         },
         {
           "source": "build_suite.js",
@@ -45397,7 +45433,7 @@
           "source": "src/workstation/scripts/state_adapter.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes normalizeOdvInput() defined in sociology_data.js"
+          "reason": "Invokes setCampaignOdvMatrix() defined in sociology_data.js"
         },
         {
           "source": "src/workstation/scripts/supply_chain_simulator.js",
@@ -45419,10 +45455,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "aa8968a0643341ad",
-      "reviewedHash": "aa8968a0643341ad",
-      "lineCount": 1233,
-      "sizeBytes": 58004,
+      "hash": "99fe114d270956ff",
+      "reviewedHash": "99fe114d270956ff",
+      "lineCount": 1244,
+      "sizeBytes": 58529,
       "symbols": [
         "initMapsRegistry(forceReset = false)",
         "syncActiveMapToRegistry()",
@@ -45538,7 +45574,7 @@
           "target": "src/workstation/scripts/sociology_data.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes normalizeOdvInput() defined in sociology_data.js"
+          "reason": "Invokes setCampaignOdvMatrix() defined in sociology_data.js"
         },
         {
           "target": "src/workstation/scripts/workstation_state.js",
@@ -47445,10 +47481,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "b8c05b6ad4b742fb",
-      "reviewedHash": "b8c05b6ad4b742fb",
-      "lineCount": 182325,
-      "sizeBytes": 31213849,
+      "hash": "f71e1887dc0f7062",
+      "reviewedHash": "f71e1887dc0f7062",
+      "lineCount": 192526,
+      "sizeBytes": 32041739,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
         "normalizeOdv(raw)",
@@ -48202,7 +48238,7 @@
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
         },
         {
-          "target": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
+          "target": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
@@ -49527,10 +49563,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "cccdf12647f90d14",
-      "reviewedHash": "cccdf12647f90d14",
-      "lineCount": 8724,
-      "sizeBytes": 443424,
+      "hash": "961040da1d1a2af2",
+      "reviewedHash": "961040da1d1a2af2",
+      "lineCount": 8735,
+      "sizeBytes": 444497,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -54828,6 +54864,30 @@
       "name": "submitNpcRelationshipModal",
       "signature": "submitNpcRelationshipModal()",
       "file": "src/workstation/scripts/social_graph_renderer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "setCampaignOdvMatrix",
+      "signature": "setCampaignOdvMatrix(obj)",
+      "file": "src/workstation/scripts/sociology_data.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getCampaignOdvMatrix",
+      "signature": "getCampaignOdvMatrix()",
+      "file": "src/workstation/scripts/sociology_data.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getArchetype",
+      "signature": "getArchetype(tag)",
+      "file": "src/workstation/scripts/sociology_data.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getArchetypeMatrix",
+      "signature": "getArchetypeMatrix()",
+      "file": "src/workstation/scripts/sociology_data.js",
       "kind": "Workstation Modular JS Engine"
     },
     {
