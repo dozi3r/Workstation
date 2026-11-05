@@ -577,6 +577,7 @@ function testPortalCascadeDelete() {
       activeMapId: 'map_root'
     };
     sandbox.window = sandbox;
+    injectEngine(sandbox);
 
     vm.createContext(sandbox);
     vm.runInContext(cascadeCode, sandbox);
@@ -2061,6 +2062,7 @@ async function testModuleDeletionAndEntityExplorer() {
   vm.runInContext(workstationStateCode, sandbox);
   sandbox.Workstation.activeTopology = initialTopo;
   vm.runInContext(entityCoreCode, sandbox);
+  injectEngine(sandbox);
   vm.runInContext(cascadeDeleteCode, sandbox);
   vm.runInContext(entityUiCode, sandbox);
 
@@ -4765,6 +4767,7 @@ function testFirstClassFactionsEntityEngine() {
 
   vm.runInContext(stateCode, sandbox);
   vm.runInContext(entityCoreCode, sandbox);
+  injectEngine(sandbox);
   vm.runInContext(cascadeCode, sandbox);
 
   sandbox.Workstation.activeTopology = {
@@ -4939,6 +4942,7 @@ function testNpcSocialWebAndRelationalGraph() {
 
   vm.runInContext(stateCode, sandbox);
   vm.runInContext(entityCoreCode, sandbox);
+  injectEngine(sandbox);
   vm.runInContext(cascadeCode, sandbox);
   vm.runInContext(socialGraphCode, sandbox);
 
@@ -6338,6 +6342,7 @@ function testRelationalTrackersTicketWorkflowsAndSpatialPins() {
   vm.createContext(sandbox);
   vm.runInContext(mdiCode, sandbox);
   vm.runInContext(entityCoreCode, sandbox);
+  injectEngine(sandbox);
   vm.runInContext(cascadeDeleteCode, sandbox);
   vm.runInContext(emUiCode, sandbox);
   vm.runInContext(ticketCenterCode, sandbox);
@@ -6794,6 +6799,7 @@ function testTicket01QuestClockSchemaAndConsequences() {
   assertEqual(tokens[0].value, 'Mine Collapse', 'Clock token value matches');
 
   // Test D: Cascade deletion cleans quest.trackerIds and step triggers
+  injectEngine(sandbox);
   vm.runInContext(cascadeCode, sandbox);
   const testTopoCascade = {
     quests: [
