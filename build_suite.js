@@ -147,6 +147,20 @@ Always consult [\`CONTEXT.md\`](CONTEXT.md) for canonical terminology.
 - **Scale-Fluidity & Portal Node**: Recursive multi-scale pointcrawl trees connected via \`childMapId\` portal rings across arbitrary scale tiers (avoid: *sub-maps*, *minimaps*).
 - **Active Campaign Roster**: Authoritative NPCs, quests, items, dials, and tickets stationed on active nodes (avoid: *character list*, *database*).
 - **Workstation Mod**: Self-contained client-side extension encapsulated in \`mods/<id>/mod.js\` registering hooks via \`window.CreatorStudio.registerMod()\` (avoid: *plugin*, *addon*).
+
+## 6. Agent skills
+
+### Issue tracker
+
+Tickets are local files compiled into \`tickets/master_ticket_manifest.json\` and viewed in the app (no GitHub Issues, no web access). See \`docs/agents/issue-tracker.md\`.
+
+### Triage labels
+
+Default five-role vocabulary recorded in each ticket's \`triage:\` frontmatter field; \`wontfix\` also sets \`status: rejected\`. See \`docs/agents/triage-labels.md\`.
+
+### Domain docs
+
+Single-context: root \`CONTEXT.md\` plus \`docs/adr/\`. See \`docs/agents/domain.md\`.
 `;
 
   safeWriteFileSync(agentsMdPath, agentsMd, 'utf8');
