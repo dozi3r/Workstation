@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-05T04:22:59.619Z",
+  "generatedAt": "2026-11-05T04:23:46.477Z",
   "totalFiles": 733,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3015,
-  "staleCount": 0,
+  "totalBidirectionalEdges": 3018,
+  "staleCount": 2,
   "duplicateAuditTargets": 9,
   "volumes": [
     {
@@ -207,12 +207,12 @@
       "title": "Creator Studio",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "hash": "7a97495687ecbaa0",
+      "hash": "983114ff419229ce",
       "reviewedHash": "7a97495687ecbaa0",
-      "stale": false,
+      "stale": true,
       "auditFlag": null,
-      "outboundCount": 31,
-      "inboundBacklinkCount": 22
+      "outboundCount": 32,
+      "inboundBacklinkCount": 23
     },
     {
       "relPath": "Campaign-AI.ps1",
@@ -5084,7 +5084,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/preset.json",
@@ -6451,11 +6451,11 @@
       "title": "ODV Krynn Adaptation: Work Document",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "hash": "a239aa18e5d3bb50",
+      "hash": "ad94f6197325008e",
       "reviewedHash": "a239aa18e5d3bb50",
-      "stale": false,
+      "stale": true,
       "auditFlag": null,
-      "outboundCount": 6,
+      "outboundCount": 8,
       "inboundBacklinkCount": 1
     },
     {
@@ -8962,7 +8962,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "network/campaign_studio.html",
@@ -9839,8 +9839,8 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "f71e1887dc0f7062",
-      "reviewedHash": "f71e1887dc0f7062",
+      "hash": "d6112c063a40bd49",
+      "reviewedHash": "d6112c063a40bd49",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 186,

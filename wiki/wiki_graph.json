@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-05T04:22:59.619Z",
+  "generatedAt": "2026-11-05T04:23:46.477Z",
   "totalFiles": 733,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3015,
-  "staleCount": 0,
+  "totalBidirectionalEdges": 3018,
+  "staleCount": 2,
   "nodes": [
     {
       "relPath": "AGENTS.md",
@@ -696,11 +696,11 @@
       "title": "Creator Studio",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "stale": false,
-      "hash": "7a97495687ecbaa0",
+      "stale": true,
+      "hash": "983114ff419229ce",
       "reviewedHash": "7a97495687ecbaa0",
-      "lineCount": 393,
-      "sizeBytes": 29200,
+      "lineCount": 396,
+      "sizeBytes": 29741,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -863,6 +863,12 @@
           "reason": "References index.html"
         },
         {
+          "target": "network/campaign_odv_matrices.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References network/campaign_odv_matrices.js"
+        },
+        {
           "target": "network/campaign_studio.html",
           "targetType": "file",
           "type": "Path Reference",
@@ -980,6 +986,12 @@
         },
         {
           "source": "docs/audit/2026-10-creator-studio-audit-dossier.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References CONTEXT.md"
+        },
+        {
+          "source": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References CONTEXT.md"
@@ -16161,6 +16173,12 @@
           "sourceType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "source": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix.json"
         }
       ]
     },
@@ -26428,11 +26446,11 @@
       "title": "ODV Krynn Adaptation: Work Document",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "stale": false,
-      "hash": "a239aa18e5d3bb50",
+      "stale": true,
+      "hash": "ad94f6197325008e",
       "reviewedHash": "a239aa18e5d3bb50",
       "lineCount": 251,
-      "sizeBytes": 36692,
+      "sizeBytes": 36868,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -26449,6 +26467,18 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References Build-Suite.ps1"
+        },
+        {
+          "target": "CONTEXT.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References CONTEXT.md"
+        },
+        {
+          "target": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix.json",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix.json"
         },
         {
           "target": "docs/srd/authoring_engine_srd.md",
@@ -36659,7 +36689,14 @@
           "reason": "References build_suite.js"
         }
       ],
-      "inbound": []
+      "inbound": [
+        {
+          "source": "CONTEXT.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References network/campaign_odv_matrices.js"
+        }
+      ]
     },
     {
       "relPath": "network/campaign_studio.html",
@@ -47481,8 +47518,8 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "f71e1887dc0f7062",
-      "reviewedHash": "f71e1887dc0f7062",
+      "hash": "d6112c063a40bd49",
+      "reviewedHash": "d6112c063a40bd49",
       "lineCount": 192526,
       "sizeBytes": 32041739,
       "symbols": [

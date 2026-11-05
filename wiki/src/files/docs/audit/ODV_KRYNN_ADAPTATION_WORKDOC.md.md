@@ -3,10 +3,10 @@ file_path: "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md"
 title: "ODV Krynn Adaptation: Work Document"
 volume: "vol-1"
 kind: "Technical Documentation / Guide"
-current_hash: "a239aa18e5d3bb50"
+current_hash: "ad94f6197325008e"
 reviewed_hash: "a239aa18e5d3bb50"
-stale: false
-size_bytes: 36692
+stale: true
+size_bytes: 36868
 line_count: 251
 ---
 
