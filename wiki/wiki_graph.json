@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-05T04:32:06.081Z",
+  "generatedAt": "2026-11-05T04:32:46.270Z",
   "totalFiles": 735,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3027,
+  "totalBidirectionalEdges": 3028,
   "staleCount": 0,
   "nodes": [
     {
@@ -6184,10 +6184,10 @@
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "2d6528d1606bbcd8",
-      "reviewedHash": "2d6528d1606bbcd8",
-      "lineCount": 1375,
-      "sizeBytes": 67810,
+      "hash": "21e40869c8785c66",
+      "reviewedHash": "21e40869c8785c66",
+      "lineCount": 1382,
+      "sizeBytes": 68163,
       "symbols": [
         "toRootRelUrl(absPath)",
         "rebaseFileUrls(jsonStr, prefix)",
@@ -6484,6 +6484,12 @@
           "reason": "References server.ps1"
         },
         {
+          "target": "src/workstation/scripts/campaign_override_slots.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/campaign_override_slots.js"
+        },
+        {
           "target": "src/workstation/scripts/entity_core.js",
           "targetType": "file",
           "type": "Path Reference",
@@ -6593,12 +6599,6 @@
         },
         {
           "target": "src/workstation/scripts/campaign_mutation_engine.js",
-          "targetType": "file",
-          "type": "Bundles Source",
-          "reason": "Inlines modular source during suite compilation"
-        },
-        {
-          "target": "src/workstation/scripts/campaign_override_slots.js",
           "targetType": "file",
           "type": "Bundles Source",
           "reason": "Inlines modular source during suite compilation"
@@ -37571,10 +37571,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "ef79eda0d7d0edaf",
-      "reviewedHash": "ef79eda0d7d0edaf",
-      "lineCount": 148253,
-      "sizeBytes": 29847122,
+      "hash": "8747be9449886d49",
+      "reviewedHash": "8747be9449886d49",
+      "lineCount": 148255,
+      "sizeBytes": 29851667,
       "symbols": [
         "moduleMatchesTrack(m, track)",
         "getModuleTrackBadges(m)",
@@ -42211,8 +42211,14 @@
         {
           "source": "build_suite.js",
           "sourceType": "file",
-          "type": "Bundles Source",
-          "reason": "Inlines modular source during suite compilation"
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/campaign_override_slots.js"
+        },
+        {
+          "source": "src/workstation/scripts/state_adapter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes applyCampaignOverrides() defined in campaign_override_slots.js"
         },
         {
           "source": "src/workstation/template.html",
@@ -45596,7 +45602,7 @@
           "source": "src/workstation/scripts/state_adapter.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes setCampaignOdvMatrix() defined in sociology_data.js"
+          "reason": "Invokes normalizeOdvInput() defined in sociology_data.js"
         },
         {
           "source": "src/workstation/scripts/supply_chain_simulator.js",
@@ -45618,10 +45624,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "99fe114d270956ff",
-      "reviewedHash": "99fe114d270956ff",
+      "hash": "3a4893524bc4bd6f",
+      "reviewedHash": "3a4893524bc4bd6f",
       "lineCount": 1244,
-      "sizeBytes": 58529,
+      "sizeBytes": 58574,
       "symbols": [
         "initMapsRegistry(forceReset = false)",
         "syncActiveMapToRegistry()",
@@ -45692,6 +45698,12 @@
           "reason": "Invokes ensureQueryableNodesCollection() defined in campaign_mutation_engine.js"
         },
         {
+          "target": "src/workstation/scripts/campaign_override_slots.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes applyCampaignOverrides() defined in campaign_override_slots.js"
+        },
+        {
           "target": "src/workstation/scripts/canvas_hud.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -45737,7 +45749,7 @@
           "target": "src/workstation/scripts/sociology_data.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes setCampaignOdvMatrix() defined in sociology_data.js"
+          "reason": "Invokes normalizeOdvInput() defined in sociology_data.js"
         },
         {
           "target": "src/workstation/scripts/workstation_state.js",
@@ -47656,10 +47668,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "681bed6e93d1f2a5",
-      "reviewedHash": "681bed6e93d1f2a5",
-      "lineCount": 193748,
-      "sizeBytes": 32131051,
+      "hash": "8acfdbbb67fef489",
+      "reviewedHash": "8acfdbbb67fef489",
+      "lineCount": 193750,
+      "sizeBytes": 32135641,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
         "normalizeOdv(raw)",

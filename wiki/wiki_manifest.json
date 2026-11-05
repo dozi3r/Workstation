@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-05T04:32:06.081Z",
+  "generatedAt": "2026-11-05T04:32:46.270Z",
   "totalFiles": 735,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3027,
+  "totalBidirectionalEdges": 3028,
   "staleCount": 0,
   "duplicateAuditTargets": 9,
   "volumes": [
@@ -3637,8 +3637,8 @@
       "title": "build_suite.js",
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "2d6528d1606bbcd8",
-      "reviewedHash": "2d6528d1606bbcd8",
+      "hash": "21e40869c8785c66",
+      "reviewedHash": "21e40869c8785c66",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 81,
@@ -9055,8 +9055,8 @@
       "title": "Creator Studio: Platform Explorer & Master Audit",
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "ef79eda0d7d0edaf",
-      "reviewedHash": "ef79eda0d7d0edaf",
+      "hash": "8747be9449886d49",
+      "reviewedHash": "8747be9449886d49",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 175,
@@ -9508,7 +9508,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "src/workstation/scripts/canvas_hud.js",
@@ -9755,11 +9755,11 @@
       "title": "state_adapter.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "99fe114d270956ff",
-      "reviewedHash": "99fe114d270956ff",
+      "hash": "3a4893524bc4bd6f",
+      "reviewedHash": "3a4893524bc4bd6f",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 15,
+      "outboundCount": 16,
       "inboundBacklinkCount": 26
     },
     {
@@ -9867,8 +9867,8 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "681bed6e93d1f2a5",
-      "reviewedHash": "681bed6e93d1f2a5",
+      "hash": "8acfdbbb67fef489",
+      "reviewedHash": "8acfdbbb67fef489",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 187,

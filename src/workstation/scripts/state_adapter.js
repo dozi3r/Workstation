@@ -1068,15 +1068,15 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
   if (typeof activeCampaignId !== "undefined") activeCampaignId = campId || "custom";
   localStorage.setItem("cs_active_campaign", activeCampaignId);
 
-  // Campaign ODV matrix overlay: package-supplied, else bundled registry entry; otherwise cleared.
-  if (typeof setCampaignOdvMatrix === "function") {
-    let odvMx = pkg.odvMatrix || null;
-    if (!odvMx && typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY) {
+  // Campaign override slots (SYS-ODV-04): package-supplied, else bundled registry entry; otherwise all cleared.
+  if (typeof applyCampaignOverrides === "function") {
+    let ovr = pkg.overrides || null;
+    if (!ovr && typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY) {
       const rk = activeCampaignId;
       const reg = CAMPAIGN_REGISTRY[rk] || Object.values(CAMPAIGN_REGISTRY).find(c => c && (c.id === rk || c.folder === rk));
-      odvMx = (reg && reg.odvMatrix) || null;
+      ovr = (reg && reg.overrides) || null;
     }
-    setCampaignOdvMatrix(odvMx);
+    window.lastCampaignOverrideReport = applyCampaignOverrides(ovr);
   }
 
   maps = compiledMaps;

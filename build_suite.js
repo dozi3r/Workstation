@@ -510,19 +510,26 @@ if (fs.existsSync(campaignsDir)) {
 
         // Campaign-supplied ODV archetype matrix (overlay on built-in ODV_MATRIX_64).
         // Convention: campaigns/<id>/odv/matrix.json, odv_matrix.json, or odv_matrix_*.json
-        let odvMatrix = null;
+        const overrides = {};
         try {
-          const cands = [path.join(cPath, 'odv', 'matrix.json'), path.join(cPath, 'odv_matrix.json')];
-          fs.readdirSync(cPath).filter(f => /^odv_matrix_.+\.json$/i.test(f)).sort().forEach(f => cands.push(path.join(cPath, f)));
-          const found = cands.find(p => fs.existsSync(p));
-          if (found) {
-            const raw = JSON.parse(fs.readFileSync(found, 'utf8').replace(/^﻿/, ''));
-            const cells = raw && raw.matrix ? raw.matrix : raw;
-            odvMatrix = { source: toRootRelUrl(found), matrix: cells };
-            console.log(`[OK] ODV matrix overlay for '${cId0(meta, folder)}': ${Object.keys(cells).length} cells from ${path.basename(found)}`);
-          }
-        } catch (mxErr) {
-          console.warn(`[WARN] ODV matrix in ${cPath} unreadable:`, mxErr.message);
+          const slotsLib = require('./src/workstation/scripts/campaign_override_slots.js');
+          const rels = [];
+          ['', 'odv', 'overrides', 'overrides/odv'].forEach(sub => {
+            const d = path.join(cPath, sub);
+            if (fs.existsSync(d) && fs.statSync(d).isDirectory()) {
+              fs.readdirSync(d).sort().forEach(f => { if (fs.statSync(path.join(d, f)).isFile()) rels.push((sub ? sub + '/' : '') + f); });
+            }
+          });
+          slotsLib.CAMPAIGN_OVERRIDE_SLOTS.forEach(slot => {
+            const hit = rels.find(r => slotsLib.matchSlotFile(r, [slot]));
+            if (!hit) return;
+            const payload = slot.parse(fs.readFileSync(path.join(cPath, hit), 'utf8'));
+            const warns = slot.validate(payload) || [];
+            overrides[slot.id] = payload;
+            console.log(`[OK] Override slot '${slot.id}' for '${cId0(meta, folder)}' from ${hit}${warns.length ? ' [WARN ' + warns.join('; ') + ']' : ''}`);
+          });
+        } catch (ovErr) {
+          console.warn(`[WARN] Override slot in ${cPath} unreadable:`, ovErr.message);
         }
 
         const cId = meta.id || folder.name;
@@ -533,7 +540,7 @@ if (fs.existsSync(campaignsDir)) {
           preset: presetData,
           modules: modulesData
         };
-        if (odvMatrix) campaignRegistry[cId].odvMatrix = odvMatrix;
+        if (Object.keys(overrides).length) campaignRegistry[cId].overrides = overrides;
         console.log(`[OK] Registered Campaign Sourcebook '${meta.name || cId}' (${modulesData.length} modules, enabled: ${meta.enabled}) from campaigns/${folder.name}`);
       } catch (err) {
         console.warn(`[WARN] Failed to parse campaign in ${cPath}:`, err.message);
@@ -548,9 +555,9 @@ if (fs.existsSync(campaignsDir)) {
   const esc = s => String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   Object.keys(campaignRegistry).forEach(k => {
     const c = campaignRegistry[k];
-    if (!c.odvMatrix) return;
+    if (!c.overrides || !c.overrides.odvMatrix) return;
     const ids = Array.from(new Set([c.id, c.folder].filter(Boolean))).map(esc);
-    reg[k] = { label: (c.metadata && c.metadata.name) || k, match: ids.join('|'), matrix: c.odvMatrix.matrix };
+    reg[k] = { label: (c.metadata && c.metadata.name) || k, match: ids.join('|'), matrix: c.overrides.odvMatrix.matrix };
   });
   const out = path.join(__dirname, 'network', 'campaign_odv_matrices.js');
   fs.writeFileSync(out,

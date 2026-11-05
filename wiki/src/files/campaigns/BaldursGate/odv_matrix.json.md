@@ -15,5 +15,4 @@ line_count: 1155
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role
 `campaigns/BaldursGate/odv_matrix.json` serves as a **Authoritative JSON Data / Manifest** within **Volume VIII: Campaign Packages, Modules & Templates**.
-
 <!-- END_CUSTOM_NOTES -->
