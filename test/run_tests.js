@@ -8237,6 +8237,168 @@ function testSuite50EntityReferenceIntegrity() {
   assert(!!seenContext && seenContext.maps === uiSandbox.maps, 'executeEntityDeletion passes the global maps registry to CampaignMutationEngine.deleteEntity');
   assertEqual(uiMaps.map_child.spatialPins[0].links, [{ type: 'item', id: 'itm_x' }], 'deleting an NPC from the UI scrubs its link from a pin on a child map');
   assertEqual(uiSandbox.Workstation.activeTopology.npcs.map(n => n.id), ['npc_b'], 'deleting an NPC from the UI removes it from the roster');
+
+  // 50.3 (D3): one descriptor table drives both the read-only query and the scrub
+  const descriptors = cme.ENTITY_REFERENCE_DESCRIPTORS;
+  const OP_BY_SHAPE = { id: 'null', ids: 'filter', refs: 'filter', keys: 'delete-key', text: 'clear', operations: 'filter', ticketTarget: 'retarget', pinTarget: 'resync', endpoints: 'splice' };
+  assert(Array.isArray(descriptors) && descriptors.length >= 70, `the reference descriptor table lists ${descriptors.length} reference fields`);
+  assert(descriptors.every(r => OP_BY_SHAPE[r.shape] === r.op), 'every descriptor row pairs its shape with the matching scrub operation');
+  assert(descriptors.every(r => ['npc', 'quest', 'item', 'tracker', 'faction', 'node', '*'].includes(r.target)), 'every descriptor row names a known target type or *');
+
+  const REFERENCE_TYPES = ['npc', 'quest', 'item', 'tracker', 'faction', 'node'];
+  const TARGET_IDS = { npc: 'npc_t', quest: 'quest_t', item: 'item_t', tracker: 'trk_t', faction: 'fac_t', node: '7' };
+  const TARGET_COLLECTION = { npc: 'npcs', quest: 'quests', item: 'items', tracker: 'trackers', faction: 'factions' };
+  const PREVIEW_TYPES = { factions: 'faction', npcs: 'npc', quests: 'quest', items: 'item', trackers: 'tracker' };
+
+  // A world with one referring record per descriptor row (holding the target id) and one decoy per row (holding another id)
+  function buildReferenceWorld(type) {
+    const id = TARGET_IDS[type];
+    const world = { factions: [], npcs: [], quests: [], items: [], trackers: [], tickets: [], spatialPins: [], nodes: {}, links: [], maps: { map_child: { id: 'map_child', nodes: {}, links: [], spatialPins: [] } } };
+    if (TARGET_COLLECTION[type]) world[TARGET_COLLECTION[type]].push({ id, name: `Target ${type}` });
+    else world.nodes[id] = { id: Number(id), name: 'Target node', adj: [], infBy: [] };
+
+    const fill = (rec, row, value) => {
+      let holder = rec;
+      if (row.list) { holder = { id: `${rec.id}_el` }; rec[row.list] = [holder]; }
+      const typed = (o) => (row.typeKey ? Object.assign(o, { [row.typeKey]: type }) : o);
+      switch (row.shape) {
+        case 'id': holder[row.field] = value; if (row.typeField) holder[row.typeField] = type; break;
+        case 'ids': holder[row.field] = ['other', value]; break;
+        case 'refs': rec[row.path] = [typed({ [row.idKeys[0]]: value }), typed({ [row.idKeys[0]]: 'other' })]; break;
+        case 'keys': rec[row.path] = { [value]: 'Allied', other: 'Hostile' }; break;
+        case 'text': rec[row.path] = `warning ${value}`; break;
+        case 'operations': holder[row.field] = [{ npc: value }, { npc: 'other' }]; break;
+        case 'ticketTarget': rec.targetType = type; rec.targetId = value; break;
+        case 'pinTarget': rec.targetType = type; rec.targetId = value; rec.links = []; break;
+        case 'endpoints': rec.source = value; rec.target = 'other'; break;
+        default: throw new Error(`unhandled reference shape ${row.shape}`);
+      }
+    };
+
+    descriptors.filter(r => r.target === '*' || r.target === type).forEach((row, i) => {
+      [id, 'decoy'].forEach(value => {
+        const rec = { id: `${row.collection}_${i}_${value === id ? 'ref' : 'decoy'}` };
+        fill(rec, row, value);
+        const onMap = JSON.parse(JSON.stringify(rec));
+        onMap.id = `${rec.id}_m`;
+        if (row.collection === 'spatialpins') { world.spatialPins.push(rec); world.maps.map_child.spatialPins.push(onMap); }
+        else if (row.collection === 'nodes') { world.nodes[rec.id] = rec; world.maps.map_child.nodes[onMap.id] = onMap; }
+        else if (row.collection === 'links') { world.links.push(rec); world.maps.map_child.links.push(onMap); }
+        else world[row.collection].push(rec);
+      });
+    });
+    const registry = world.maps;
+    delete world.maps;
+    return { world, registry, id, targetKey: TARGET_COLLECTION[type] ? `${TARGET_COLLECTION[type]}::${id}` : `nodes::${id}` };
+  }
+
+  function snapshotWorld(world, registry) {
+    const snap = new Map();
+    const put = (collection, mapId, rec, recId) => snap.set(`${collection}:${mapId}:${recId}`, JSON.stringify(rec));
+    ['factions', 'npcs', 'quests', 'items', 'trackers', 'tickets'].forEach(c => world[c].forEach(r => put(c, '', r, r.id)));
+    world.spatialPins.forEach(r => put('spatialpins', '', r, r.id));
+    Object.values(world.nodes).forEach(r => put('nodes', '', r, r.id));
+    world.links.forEach(l => put('links', '', l, `${l.source}->${l.target}`));
+    Object.values(registry).forEach(m => {
+      m.spatialPins.forEach(r => put('spatialpins', m.id, r, r.id));
+      Object.values(m.nodes).forEach(r => put('nodes', m.id, r, r.id));
+      m.links.forEach(l => put('links', m.id, l, `${l.source}->${l.target}`));
+    });
+    return snap;
+  }
+
+  // The records deleteEntity really changes (ground truth, independent of what it chooses to log)
+  const actuallyChanged = {};
+  REFERENCE_TYPES.forEach(type => {
+    const { world, registry, id, targetKey } = buildReferenceWorld(type);
+    const refs = cme.findEntityReferences(world, type, id, { maps: registry });
+    const untouched = JSON.stringify([world, registry]);
+    const before = snapshotWorld(world, registry);
+    cme.findEntityReferences(world, type, id, { maps: registry });
+    assertEqual(JSON.stringify([world, registry]) === untouched, true, `findEntityReferences(${type}) is read-only`);
+
+    cme.deleteEntity(world, type, id, { allowMissingEntity: true, maps: registry, changes: [] });
+    const after = snapshotWorld(world, registry);
+    const changed = [...before.keys()].filter(k => k !== targetKey && (!after.has(k) || after.get(k) !== before.get(k))).sort();
+    const reported = [...new Set(refs.map(r => `${r.collection}:${r.mapId || ''}:${r.entityId}`))].sort();
+    actuallyChanged[type] = changed;
+    assertEqual(reported, changed, `findEntityReferences(${type}) reports exactly the records deleteEntity changes`);
+
+    const found = new Set(refs.map(r => `${r.collection}|${r.field}`));
+    const missing = descriptors.filter(r => (r.target === '*' || r.target === type) && !found.has(`${r.collection}|${r.path}`)).map(r => `${r.collection}.${r.path}`);
+    assertEqual(missing, [], `findEntityReferences(${type}) finds a referrer for every descriptor row that applies to ${type}`);
+    assert(refs.every(r => !String(r.entityId).includes('decoy')), `findEntityReferences(${type}) ignores records that hold other ids`);
+    assert(refs.some(r => r.mapId === 'map_child'), `findEntityReferences(${type}) searches the registered child map`);
+  });
+
+  // 50.4 (D3): the delete preview lists the same id-based referrers the scrub changes
+  const cascadeUiCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_cascade_delete.js'), 'utf8');
+  function makeCascadeSandbox(world, registry, extra) {
+    const sb = Object.assign({
+      window: {},
+      document: { querySelectorAll: () => [], getElementById: () => null },
+      console,
+      Workstation: { activeTopology: world },
+      maps: registry,
+      activeMapId: 'map_root',
+      getActiveEntityList: (t) => world[{ npc: 'npcs', quest: 'quests', item: 'items', tracker: 'trackers', faction: 'factions' }[t]] || [],
+      getPrototypesForType: () => [],
+      escapeHtml: (s) => String(s)
+    }, extra || {});
+    sb.window = sb;
+    injectEngine(sb);
+    vm.createContext(sb);
+    vm.runInContext(cascadeUiCode, sb);
+    return sb;
+  }
+  REFERENCE_TYPES.forEach(type => {
+    const { world, registry, id } = buildReferenceWorld(type);
+    const analysis = makeCascadeSandbox(world, registry).analyzeEntityDependencies(type, id);
+    const previewed = [...new Set(analysis.dependencies.filter(d => d.kind === 'reference').map(d => `${d.type}:${d.id}`))].sort();
+    const scrubbed = [...new Set(actuallyChanged[type]
+      .map(k => k.split(':'))
+      .filter(([collection, mapId]) => PREVIEW_TYPES[collection] && mapId === '')
+      .map(([collection, mapId, ...rest]) => `${PREVIEW_TYPES[collection]}:${rest.join(':')}`))].sort();
+    assertEqual(previewed, scrubbed, `analyzeEntityDependencies(${type}) lists exactly the id-based referrers deleteEntity changes`);
+    assert(analysis.references.length > 0 && analysis.dependencies.filter(d => d.kind === 'reference').every(d => /^Linked via /.test(d.reason)), `analyzeEntityDependencies(${type}) explains each referrer by the field that links it`);
+  });
+
+  // 50.5 (D3): name mentions are a distinct group and the delete does not touch them
+  const mentionWorld = () => ({
+    factions: [],
+    npcs: [{ id: 'npc_m', name: 'Maren Voss' }, { id: 'npc_w', name: 'Watcher', threat: 'Maren Hunt' }],
+    quests: [
+      { id: 'q_ref', title: 'Linked Quest', npcIds: ['npc_m'] },
+      { id: 'q_men', title: 'Gossip', motivation: 'Hunts maren voss for the bounty' }
+    ],
+    items: [], tickets: [], spatialPins: [], nodes: {}, links: [],
+    trackers: [{ id: 'trk_m', name: 'Maren Hunt' }]
+  });
+  const mentionSandbox = makeCascadeSandbox(mentionWorld(), {});
+  const mentionAnalysis = mentionSandbox.analyzeEntityDependencies('npc', 'npc_m');
+  const kindOf = (list, type, depId) => (list.find(d => d.type === type && d.id === depId) || {}).kind;
+  assertEqual(kindOf(mentionAnalysis.dependencies, 'quest', 'q_ref'), 'reference', 'a quest that lists the NPC in npcIds is an id-based reference');
+  assertEqual(kindOf(mentionAnalysis.dependencies, 'quest', 'q_men'), 'mention', 'a quest that only names the NPC is a mention');
+  assertEqual(mentionAnalysis.mentionCount, 1, 'analyzeEntityDependencies counts mentions separately');
+  const trackerAnalysis = mentionSandbox.analyzeEntityDependencies('tracker', 'trk_m');
+  assertEqual(kindOf(trackerAnalysis.dependencies, 'npc', 'npc_w'), 'mention', 'an NPC whose threat text only names the clock is a mention');
+
+  const mentionDeleteWorld = mentionWorld();
+  makeCascadeSandbox(mentionDeleteWorld, {}).executeEntityDeletion([{ type: 'npc', id: 'npc_m' }]);
+  assertEqual(mentionDeleteWorld.quests.find(q => q.id === 'q_ref').npcIds, [], 'deleting an NPC unlinks it from quests that reference its id');
+  assertEqual(mentionDeleteWorld.quests.find(q => q.id === 'q_men').motivation, 'Hunts maren voss for the bounty', 'deleting an NPC leaves name mentions untouched');
+
+  // The confirmation dialog shows mentions under their own heading
+  const dialogEls = [];
+  const makeDialogEl = () => { const el = { style: {}, innerHTML: '', children: [], classList: { add() {}, remove() {} }, appendChild(c) { this.children.push(c); } }; dialogEls.push(el); return el; };
+  const dialogById = { 'ed-modal-title': makeDialogEl(), 'ed-alert-container': makeDialogEl(), 'ed-dependencies-list': makeDialogEl(), 'modal-entity-delete-confirm': makeDialogEl() };
+  const dialogSandbox = makeCascadeSandbox(mentionWorld(), {}, {
+    document: { querySelectorAll: () => [], getElementById: (elId) => dialogById[elId] || null, createElement: makeDialogEl }
+  });
+  dialogSandbox.promptEntityDelete('npc', 'npc_m');
+  const headings = dialogById['ed-dependencies-list'].children.filter(c => /\(\d+\):$/.test(c.innerHTML)).map(c => c.innerHTML);
+  assertEqual(headings, ['📜 RELATED QUESTS & DILEMMAS (1):', '💬 MENTIONS BY NAME (NOT UNLINKED) (1):'], 'the delete dialog lists related quests and mentions under separate headings');
+  assert(dialogById['ed-alert-container'].innerHTML.includes('only mention this npc by name'), 'the delete dialog banner counts the mentions');
 }
 
 // ============================================================================

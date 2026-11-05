@@ -532,13 +532,374 @@
     }
   }
 
-  function deleteEntity(state, category, entityIdOrRef, batchContext = {}) {
+  // --- Entity Reference Descriptors (SYS-ARCH-01) ---
+  // One declarative table of every field that points at another entity by id. deleteEntity scrubs through
+  // it and findEntityReferences reads it, so the delete preview and the scrub cannot drift apart.
+  //
+  //   collection  where the referring record lives: factions | npcs | quests | items | trackers | tickets |
+  //               spatialpins | nodes | links  (nodes, links and pins are also looked up on every registered map)
+  //   target      entity type being referenced: npc | quest | item | tracker | faction | node, or '*' for any type
+  //   path        field on the record, or 'list[].field' for the field of each element of a nested list
+  //   shape       how the reference is stored, which decides how it is matched:
+  //                 id            scalar id (typeField/untyped: a stored type label guards the match)
+  //                 ids           array of ids
+  //                 refs          array of records (idKeys; optional typeKey + untyped for a stored type label)
+  //                 keys          object keyed by id
+  //                 text          free text that contains the id
+  //                 operations    nested operation records (opKeys name the fields that can hold the target)
+  //                 ticketTarget  ticket targetType/targetId pair
+  //                 pinTarget     pin targetType/targetId pair
+  //                 endpoints     corridor link whose source or target is the id
+  //   op          what the scrub does: null | filter | delete-key | clear | retarget | resync | splice
+  //   log         true when the scrub also records a changelog entry (kept exactly as it was before the table
+  //               existed, so revertBatch sees the same entries)
+  //   label       short human name of the relationship, shown by the delete preview
+  //   set         extra fields written onto the record when the reference is nulled
+  //   logAs       changelog field name template for nested paths ('{id}' is the nested element's id)
+  //
+  // Row order matters: rows run in table order per record, which is the order changelog entries are written.
+  const OP_KEYS = ['npc', 'quest', 'clock', 'tracker', 'item', 'node', 'faction', 'entityId', 'id'];
+  const ENTITY_REFERENCE_DESCRIPTORS = [
+    // factions
+    { collection: 'factions', target: 'npc', path: 'leaderNpcId', shape: 'id', op: 'null', log: true, label: 'faction leader' },
+    { collection: 'factions', target: 'npc', path: 'memberNpcIds', shape: 'ids', op: 'filter', log: true, label: 'faction member list' },
+    { collection: 'factions', target: 'node', path: 'controlledNodeIds', shape: 'ids', op: 'filter', log: true, label: 'controlled territory' },
+    { collection: 'factions', target: 'node', path: 'homeNodeId', shape: 'id', op: 'null', log: true, label: 'faction home node' },
+    { collection: 'factions', target: 'node', path: 'headquartersNodeId', shape: 'id', op: 'null', log: true, label: 'faction headquarters' },
+    { collection: 'factions', target: 'faction', path: 'alliedFactionIds', shape: 'ids', op: 'filter', log: true, label: 'ally list' },
+    { collection: 'factions', target: 'faction', path: 'rivalFactionIds', shape: 'ids', op: 'filter', log: true, label: 'rival list' },
+    { collection: 'factions', target: 'faction', path: 'diplomaticStances', shape: 'keys', op: 'delete-key', log: true, label: 'diplomatic stance' },
+    // npcs
+    { collection: 'npcs', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: true, label: 'faction membership' },
+    { collection: 'npcs', target: 'faction', path: 'faction', shape: 'id', op: 'null', log: true, label: 'faction membership' },
+    { collection: 'npcs', target: 'npc', path: 'relationships', shape: 'refs', idKeys: ['targetNpcId', 'npcId'], op: 'filter', log: true, label: 'social tie' },
+    { collection: 'npcs', target: 'node', path: 'currentNodeId', shape: 'id', op: 'null', log: true, label: 'current location' },
+    { collection: 'npcs', target: 'node', path: 'homeNodeId', shape: 'id', op: 'null', log: true, label: 'home location' },
+    { collection: 'npcs', target: 'node', path: 'nodeId', shape: 'id', op: 'null', log: true, label: 'station node' },
+    { collection: 'npcs', target: 'quest', path: 'questIds', shape: 'ids', op: 'filter', log: true, label: 'quest list' },
+    { collection: 'npcs', target: 'item', path: 'inventoryItemIds', shape: 'ids', op: 'filter', log: true, label: 'inventory' },
+    { collection: 'npcs', target: 'item', path: 'itemIds', shape: 'ids', op: 'filter', log: true, label: 'inventory' },
+    { collection: 'npcs', target: 'item', path: 'carriedItemIds', shape: 'ids', op: 'filter', log: true, label: 'carried items' },
+    { collection: 'npcs', target: 'tracker', path: 'threat', shape: 'text', op: 'clear', log: false, label: 'threat note' },
+    // quests
+    { collection: 'quests', target: 'npc', path: 'npcIds', shape: 'ids', op: 'filter', log: true, label: 'quest roster' },
+    { collection: 'quests', target: 'npc', path: 'giverNpcId', shape: 'id', op: 'null', log: true, label: 'quest giver' },
+    { collection: 'quests', target: 'npc', path: 'targetNpcId', shape: 'id', op: 'null', log: true, label: 'quest target' },
+    { collection: 'quests', target: 'npc', path: 'steps[].targetNpcId', shape: 'id', op: 'null', log: false, label: 'quest step target' },
+    { collection: 'quests', target: 'item', path: 'itemIds', shape: 'ids', op: 'filter', log: true, label: 'quest items' },
+    { collection: 'quests', target: 'item', path: 'rewardItemIds', shape: 'ids', op: 'filter', log: false, label: 'quest rewards' },
+    { collection: 'quests', target: 'item', path: 'rewardItemId', shape: 'id', op: 'null', log: true, label: 'quest reward' },
+    { collection: 'quests', target: 'item', path: 'steps[].requiredItemId', shape: 'id', op: 'null', log: false, label: 'quest step item' },
+    { collection: 'quests', target: 'tracker', path: 'trackerIds', shape: 'ids', op: 'filter', log: true, label: 'quest threat clocks' },
+    { collection: 'quests', target: 'tracker', path: 'steps[].triggerTrackerId', shape: 'id', op: 'null', log: true, logAs: 'step_{id}_triggerTrackerId', label: 'quest step trigger clock' },
+    { collection: 'quests', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: true, label: 'quest faction' },
+    { collection: 'quests', target: 'faction', path: 'faction', shape: 'id', op: 'null', log: false, label: 'quest faction' },
+    { collection: 'quests', target: 'node', path: 'targetNodeId', shape: 'id', op: 'null', log: true, label: 'quest anchor' },
+    { collection: 'quests', target: 'node', path: 'originNodeId', shape: 'id', op: 'null', log: true, label: 'quest anchor' },
+    { collection: 'quests', target: 'node', path: 'nodeId', shape: 'id', op: 'null', log: true, label: 'quest anchor' },
+    { collection: 'quests', target: 'node', path: 'anchorNodeId', shape: 'id', op: 'null', log: true, label: 'quest anchor' },
+    { collection: 'quests', target: 'node', path: 'steps[].targetNodeId', shape: 'id', op: 'null', log: false, label: 'quest step location' },
+    // items
+    { collection: 'items', target: 'npc', path: 'ownerNpcId', shape: 'id', op: 'null', log: true, set: { possessionMode: 'stored' }, label: 'item owner' },
+    { collection: 'items', target: 'node', path: 'locationNodeId', shape: 'id', op: 'null', log: true, label: 'item location' },
+    { collection: 'items', target: 'node', path: 'nodeId', shape: 'id', op: 'null', log: true, label: 'item location' },
+    { collection: 'items', target: 'quest', path: 'linkedQuestId', shape: 'id', op: 'null', log: true, label: 'linked quest' },
+    { collection: 'items', target: 'quest', path: 'questId', shape: 'id', op: 'null', log: true, label: 'linked quest' },
+    { collection: 'items', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: true, label: 'item faction' },
+    // trackers (threat clocks)
+    { collection: 'trackers', target: '*', path: 'triggerRefs', shape: 'refs', idKeys: ['entityId'], typeKey: 'entityType', untyped: 'match', op: 'filter', log: true, label: 'clock trigger' },
+    { collection: 'trackers', target: 'node', path: 'nodeId', shape: 'id', op: 'null', log: true, label: 'clock location' },
+    { collection: 'trackers', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: true, label: 'clock faction' },
+    { collection: 'trackers', target: '*', path: 'consequences[].targetId', shape: 'id', typeField: 'targetType', untyped: 'match', op: 'null', log: false, label: 'clock consequence' },
+    { collection: 'trackers', target: 'quest', path: 'consequences[].questId', shape: 'id', op: 'null', log: false, label: 'clock consequence' },
+    { collection: 'trackers', target: 'tracker', path: 'consequences[].trackerId', shape: 'id', op: 'null', log: false, label: 'clock consequence' },
+    { collection: 'trackers', target: 'tracker', path: 'consequences[].clockId', shape: 'id', op: 'null', log: false, label: 'clock consequence' },
+    { collection: 'trackers', target: 'node', path: 'consequences[].nodeId', shape: 'id', op: 'null', log: false, label: 'clock consequence' },
+    { collection: 'trackers', target: 'npc', path: 'consequences[].npcId', shape: 'id', op: 'null', log: false, label: 'clock consequence' },
+    { collection: 'trackers', target: 'faction', path: 'consequences[].factionId', shape: 'id', op: 'null', log: false, label: 'clock consequence' },
+    { collection: 'trackers', target: 'item', path: 'consequences[].itemId', shape: 'id', op: 'null', log: false, label: 'clock consequence' },
+    { collection: 'trackers', target: '*', path: 'consequences[].operations', shape: 'operations', opKeys: OP_KEYS, op: 'filter', log: false, label: 'clock consequence operation' },
+    // tickets
+    { collection: 'tickets', target: 'node', path: 'linkedNodeId', shape: 'id', op: 'null', log: false, label: 'ticket link' },
+    { collection: 'tickets', target: 'npc', path: 'linkedNpcId', shape: 'id', op: 'null', log: false, label: 'ticket link' },
+    { collection: 'tickets', target: 'quest', path: 'linkedQuestId', shape: 'id', op: 'null', log: false, label: 'ticket link' },
+    { collection: 'tickets', target: 'faction', path: 'linkedFactionId', shape: 'id', op: 'null', log: false, label: 'ticket link' },
+    { collection: 'tickets', target: 'item', path: 'linkedItemId', shape: 'id', op: 'null', log: false, label: 'ticket link' },
+    { collection: 'tickets', target: 'tracker', path: 'linkedTrackerId', shape: 'id', op: 'null', log: false, label: 'ticket link' },
+    { collection: 'tickets', target: '*', path: 'targetId', shape: 'ticketTarget', op: 'retarget', log: false, label: 'ticket target' },
+    // spatial pins (active topology and every registered map)
+    { collection: 'spatialpins', target: '*', path: 'links', shape: 'refs', idKeys: ['id'], typeKey: 'type', untyped: 'ignore', op: 'filter', log: true, label: 'pin link' },
+    { collection: 'spatialpins', target: '*', path: 'targetId', shape: 'pinTarget', op: 'resync', log: false, label: 'pin target' },
+    { collection: 'spatialpins', target: '*', path: 'linkedEntityId', shape: 'id', op: 'null', log: false, label: 'pin link' },
+    // node records (active topology and every registered map)
+    { collection: 'nodes', target: 'node', path: 'adj', shape: 'ids', op: 'filter', log: false, label: 'adjacent node' },
+    { collection: 'nodes', target: 'node', path: 'infBy', shape: 'ids', op: 'filter', log: false, label: 'influence source' },
+    { collection: 'nodes', target: 'npc', path: 'stationedNpcIds', shape: 'ids', op: 'filter', log: false, label: 'node roster' },
+    { collection: 'nodes', target: 'npc', path: 'npcIds', shape: 'ids', op: 'filter', log: false, label: 'node roster' },
+    { collection: 'nodes', target: 'quest', path: 'questIds', shape: 'ids', op: 'filter', log: false, label: 'node quests' },
+    { collection: 'nodes', target: 'item', path: 'itemIds', shape: 'ids', op: 'filter', log: false, label: 'node items' },
+    { collection: 'nodes', target: 'tracker', path: 'trackerIds', shape: 'ids', op: 'filter', log: false, label: 'node clocks' },
+    { collection: 'nodes', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: false, label: 'node faction' },
+    // corridor links (active topology and every registered map)
+    { collection: 'links', target: 'node', path: 'source|target', shape: 'endpoints', op: 'splice', log: false, label: 'corridor endpoint' }
+  ].map(row => {
+    const nested = /^(\w+)\[\]\.(\w+)$/.exec(row.path);
+    return Object.freeze(Object.assign({ list: nested ? nested[1] : null, field: nested ? nested[2] : row.path }, row));
+  });
+
+  // The name a changelog entry uses for each referring collection
+  const REFERRER_NAMES = {
+    factions: r => r.name || r.id,
+    npcs: r => r.name || r.id,
+    quests: r => r.title || r.name || r.id,
+    items: r => r.name || r.id,
+    trackers: r => r.name || r.title || r.id,
+    tickets: r => r.title || r.name || r.id,
+    spatialpins: r => r.label || r.id,
+    nodes: r => r.name || r.id,
+    links: r => r.id
+  };
+
+  function normalizeEntityCategory(category) {
     const rawCat = String(category || '').toLowerCase().trim();
-    const cat = (rawCat === 'clock' || rawCat === 'clocks')
+    return (rawCat === 'clock' || rawCat === 'clocks')
       ? 'trackers'
       : (rawCat === 'spatialpin' || rawCat === 'spatial_pin' || rawCat === 'spatial_pins')
         ? 'spatialpins'
         : (rawCat.endsWith('s') ? rawCat : rawCat + 's');
+  }
+
+  function entityTypeOfCategory(cat) {
+    return cat.endsWith('s') ? cat.slice(0, -1) : cat;
+  }
+
+  function makeReferenceContext(targetType, entityId) {
+    const idStr = String(entityId);
+    return {
+      targetType,
+      idStr,
+      matchesId: (val) => val !== null && val !== undefined && String(val) === idStr,
+      // 'clock' is the legacy stored name of the tracker type
+      typeMatches: (t) => t === targetType || (t === 'clock' && targetType === 'tracker')
+    };
+  }
+
+  // The places a row can look: the record itself, or each element of its nested list
+  function referenceSlots(rec, row) {
+    if (!row.list) return [{ holder: rec, key: row.field, element: null }];
+    const list = rec[row.list];
+    return Array.isArray(list) ? list.filter(Boolean).map(el => ({ holder: el, key: row.field, element: el })) : [];
+  }
+
+  // A stored type label (ticket target type, trigger entityType, link type) guards the id match
+  function storedTypeOk(label, row, ctx) {
+    return label ? ctx.typeMatches(label) : row.untyped === 'match';
+  }
+
+  function scalarHit(slot, row, ctx) {
+    return ctx.matchesId(slot.holder[slot.key]) && (!row.typeField || storedTypeOk(slot.holder[row.typeField], row, ctx));
+  }
+
+  function refRecordHit(r, row, ctx) {
+    return !!r && row.idKeys.some(k => ctx.matchesId(r[k])) && (!row.typeKey || storedTypeOk(r[row.typeKey], row, ctx));
+  }
+
+  function operationTarget(op, row) {
+    return row.opKeys.reduce((found, k) => found || op[k], undefined);
+  }
+
+  function linkEndpoints(l) {
+    const s = (l.source && typeof l.source === 'object') ? l.source.id : (l.source !== undefined ? l.source : l.u);
+    const t = (l.target && typeof l.target === 'object') ? l.target.id : (l.target !== undefined ? l.target : l.v);
+    return [s, t];
+  }
+
+  function logReferenceChange(changes, collection, rec, field, before, after) {
+    changes.push({ category: collection, entityId: String(rec.id), entityName: REFERRER_NAMES[collection](rec), field, before, after });
+  }
+
+  // How each shape is matched (hit, read-only) and scrubbed (apply). apply never runs unless the caller is deleting.
+  const REFERENCE_SHAPES = {
+    id: {
+      hit: (rec, row, ctx) => referenceSlots(rec, row).some(slot => scalarHit(slot, row, ctx)),
+      apply(rec, row, ctx, changes, collection) {
+        referenceSlots(rec, row).forEach(slot => {
+          if (!scalarHit(slot, row, ctx)) return;
+          if (row.log) {
+            const field = row.logAs ? row.logAs.replace('{id}', slot.element.id) : row.path;
+            logReferenceChange(changes, collection, rec, field, slot.holder[slot.key], null);
+          }
+          slot.holder[slot.key] = null;
+          if (row.set) Object.assign(slot.holder, row.set);
+        });
+      }
+    },
+    ids: {
+      hit: (rec, row, ctx) => referenceSlots(rec, row).some(slot => Array.isArray(slot.holder[slot.key]) && slot.holder[slot.key].some(ctx.matchesId)),
+      apply(rec, row, ctx, changes, collection) {
+        referenceSlots(rec, row).forEach(slot => {
+          const arr = slot.holder[slot.key];
+          if (!Array.isArray(arr) || !arr.some(ctx.matchesId)) return;
+          const before = [...arr];
+          slot.holder[slot.key] = arr.filter(id => !ctx.matchesId(id));
+          if (row.log) logReferenceChange(changes, collection, rec, row.path, before, [...slot.holder[slot.key]]);
+        });
+      }
+    },
+    refs: {
+      hit: (rec, row, ctx) => Array.isArray(rec[row.path]) && rec[row.path].some(r => refRecordHit(r, row, ctx)),
+      apply(rec, row, ctx, changes, collection) {
+        const arr = rec[row.path];
+        if (!Array.isArray(arr) || !arr.some(r => refRecordHit(r, row, ctx))) return;
+        const before = JSON.parse(JSON.stringify(arr));
+        rec[row.path] = arr.filter(r => !refRecordHit(r, row, ctx));
+        if (row.log) logReferenceChange(changes, collection, rec, row.path, before, JSON.parse(JSON.stringify(rec[row.path])));
+      }
+    },
+    keys: {
+      hit: (rec, row, ctx) => !!rec[row.path] && typeof rec[row.path] === 'object' && Object.keys(rec[row.path]).some(k => String(k) === ctx.idStr),
+      apply(rec, row, ctx, changes, collection) {
+        const dict = rec[row.path];
+        if (!dict || typeof dict !== 'object') return;
+        for (const k of Object.keys(dict)) {
+          if (String(k) !== ctx.idStr) continue;
+          const before = { ...dict };
+          delete dict[k];
+          if (row.log) logReferenceChange(changes, collection, rec, row.path, before, { ...dict });
+        }
+      }
+    },
+    text: {
+      hit: (rec, row, ctx) => typeof rec[row.path] === 'string' && rec[row.path].includes(ctx.idStr),
+      apply(rec, row, ctx) {
+        if (typeof rec[row.path] === 'string' && rec[row.path].includes(ctx.idStr)) rec[row.path] = '';
+      }
+    },
+    operations: {
+      hit: (rec, row, ctx) => referenceSlots(rec, row).some(slot => Array.isArray(slot.holder[slot.key]) && slot.holder[slot.key].some(op => !!op && ctx.matchesId(operationTarget(op, row)))),
+      // A scrub also drops empty operation entries, as it always has
+      apply(rec, row, ctx) {
+        referenceSlots(rec, row).forEach(slot => {
+          if (Array.isArray(slot.holder[slot.key])) {
+            slot.holder[slot.key] = slot.holder[slot.key].filter(op => !!op && !ctx.matchesId(operationTarget(op, row)));
+          }
+        });
+      }
+    },
+    ticketTarget: {
+      hit: (rec, row, ctx) => rec.targetType === ctx.targetType && ctx.matchesId(rec.targetId),
+      apply(rec, row, ctx) {
+        if (rec.targetType !== ctx.targetType || !ctx.matchesId(rec.targetId)) return;
+        rec.targetType = 'campaign';
+        rec.targetId = '';
+        rec.notes = (rec.notes || '') + `\n[Audit: Target ${ctx.targetType} (${ctx.idStr}) was deleted on ${new Date().toISOString()}]`;
+      }
+    },
+    pinTarget: {
+      hit: (rec, row, ctx) => ctx.matchesId(rec.targetId) && (!rec.targetType || ctx.typeMatches(rec.targetType)),
+      apply(rec, row, ctx) {
+        if (!ctx.matchesId(rec.targetId) || (rec.targetType && !ctx.typeMatches(rec.targetType))) return;
+        if (Array.isArray(rec.links) && rec.links.length > 0) {
+          rec.targetType = rec.links[0].type;
+          rec.targetId = String(rec.links[0].id);
+        } else {
+          rec.targetId = '';
+        }
+      }
+    },
+    endpoints: {
+      hit: (rec, row, ctx) => linkEndpoints(rec).some(ctx.matchesId),
+      apply: null // a link is removed from its list by the walker
+    }
+  };
+
+  // Visit every record a reference can live in, in scrub order: entity collections, spatial pins, node records
+  // and corridor links of the state, then the same for each registered map (state.maps / activeTopology.maps and
+  // options.maps). visit(collection, record, rows, mapId) runs once per record that has rows for this target type.
+  // afterScope(owner) runs once the state, then each map, has been visited.
+  function eachReferrer(state, targetType, options, visit, afterScope, skipRecord) {
+    const rowsByCollection = {};
+    const rowsOf = (collection) => rowsByCollection[collection] || (rowsByCollection[collection] = ENTITY_REFERENCE_DESCRIPTORS.filter(r => r.collection === collection && (r.target === '*' || r.target === targetType)));
+    const asRecords = (col) => (!col ? [] : (Array.isArray(col) ? col : Object.values(col)));
+    const visitRecords = (collection, records, mapId) => {
+      const rows = rowsOf(collection);
+      if (rows.length === 0) return;
+      records.forEach(rec => { if (rec && rec !== skipRecord) visit(collection, rec, rows, mapId); });
+    };
+    const visitLinks = (linksCol, mapId) => {
+      const rows = rowsOf('links');
+      if (rows.length === 0 || !Array.isArray(linksCol)) return;
+      for (let i = linksCol.length - 1; i >= 0; i--) {
+        if (linksCol[i]) visit('links', linksCol[i], rows, mapId, linksCol, i);
+      }
+    };
+    const seenPinLists = new Set();
+    const visitPins = (pins, mapId) => {
+      if (!Array.isArray(pins) || seenPinLists.has(pins)) return;
+      seenPinLists.add(pins);
+      visitRecords('spatialpins', pins, mapId);
+    };
+
+    ['factions', 'npcs', 'quests', 'items', 'trackers', 'tickets'].forEach(name => {
+      const list = getTargetCollection(state, name);
+      if (Array.isArray(list)) visitRecords(name, list, null);
+    });
+    visitPins(getTargetCollection(state, 'spatialpins'), null);
+    visitPins(state.spatialPins, null);
+    if (state.activeTopology) visitPins(state.activeTopology.spatialPins, null);
+    visitRecords('nodes', asRecords(getTargetCollection(state, 'nodes')), null);
+    visitLinks(state.links || (state.activeTopology && state.activeTopology.links), null);
+    if (afterScope) afterScope(state);
+
+    const seenMaps = new Set();
+    [state.maps || (state.activeTopology && state.activeTopology.maps), options && options.maps].forEach(registry => {
+      if (!registry || typeof registry !== 'object') return;
+      Object.keys(registry).forEach(key => {
+        const m = registry[key];
+        if (!m || seenMaps.has(m)) return;
+        seenMaps.add(m);
+        const mapId = m.id || key;
+        visitRecords('nodes', asRecords(m.nodes), mapId);
+        visitLinks(m.links, mapId);
+        visitPins(m.spatialPins, mapId);
+        if (afterScope) afterScope(m);
+      });
+    });
+  }
+
+  /**
+   * Read-only twin of the deleteEntity scrub: every record that holds a reference to the entity, found through
+   * the same descriptor table. Returns [{ collection, entityId, field, label, mapId? }] (mapId only for records
+   * that live on a registered map). The entity's own record is skipped, as deleteEntity removes it first.
+   * options.maps adds a map registry to search, as it does for deleteEntity.
+   */
+  function findEntityReferences(state, category, entityIdOrRef, options = {}) {
+    if (!state || entityIdOrRef === null || entityIdOrRef === undefined || entityIdOrRef === '') return [];
+    const cat = normalizeEntityCategory(category);
+    const targetType = entityTypeOfCategory(cat);
+    const resolvedId = resolveEntityRef(state, cat, entityIdOrRef, options.symbolTable);
+    const entityId = resolvedId !== null && resolvedId !== undefined ? resolvedId : String(entityIdOrRef);
+    const ctx = makeReferenceContext(targetType, entityId);
+
+    const own = getTargetCollection(state, cat);
+    const skipRecord = Array.isArray(own)
+      ? own.find(e => e && String(e.id) === ctx.idStr)
+      : (own && typeof own === 'object' ? own[entityId] : undefined);
+
+    const found = [];
+    eachReferrer(state, targetType, options, (collection, rec, rows, mapId) => {
+      rows.forEach(row => {
+        if (!REFERENCE_SHAPES[row.shape].hit(rec, row, ctx)) return;
+        const ref = { collection, entityId: collection === 'links' ? linkEndpoints(rec).join('->') : String(rec.id), field: row.path, label: row.label };
+        if (mapId) ref.mapId = mapId;
+        found.push(ref);
+      });
+    }, null, skipRecord);
+    return found;
+  }
+
+  function deleteEntity(state, category, entityIdOrRef, batchContext = {}) {
+    const cat = normalizeEntityCategory(category);
     const collection = getTargetCollection(state, cat);
     if (!collection && !batchContext.allowMissingEntity) return false;
 
@@ -580,384 +941,21 @@
       });
     }
 
-    // Cascade cleanup foreign keys across all 11 tables / preserved entity collections
-    const singleType = cat.endsWith('s') ? cat.slice(0, -1) : cat;
-    const targetType = (singleType === 'tracker' || singleType === 'clock') ? 'tracker' : singleType;
-    const idStr = String(entityId);
-    const matchesId = (val) => val !== null && val !== undefined && String(val) === idStr;
-
-    // 1. Factions cleanup
-    const factions = getTargetCollection(state, 'factions');
-    if (Array.isArray(factions)) {
-      factions.forEach(f => {
-        if (!f) return;
-        const fName = f.name || f.id;
-        if (targetType === 'npc') {
-          if (matchesId(f.leaderNpcId)) {
-            changes.push({ category: 'factions', entityId: String(f.id), entityName: fName, field: 'leaderNpcId', before: f.leaderNpcId, after: null });
-            f.leaderNpcId = null;
-          }
-          if (Array.isArray(f.memberNpcIds) && f.memberNpcIds.some(matchesId)) {
-            const before = [...f.memberNpcIds];
-            f.memberNpcIds = f.memberNpcIds.filter(id => !matchesId(id));
-            changes.push({ category: 'factions', entityId: String(f.id), entityName: fName, field: 'memberNpcIds', before, after: [...f.memberNpcIds] });
-          }
-        }
-        if (targetType === 'node') {
-          if (Array.isArray(f.controlledNodeIds) && f.controlledNodeIds.some(matchesId)) {
-            const before = [...f.controlledNodeIds];
-            f.controlledNodeIds = f.controlledNodeIds.filter(id => !matchesId(id));
-            changes.push({ category: 'factions', entityId: String(f.id), entityName: fName, field: 'controlledNodeIds', before, after: [...f.controlledNodeIds] });
-          }
-          if (matchesId(f.homeNodeId)) {
-            changes.push({ category: 'factions', entityId: String(f.id), entityName: fName, field: 'homeNodeId', before: f.homeNodeId, after: null });
-            f.homeNodeId = null;
-          }
-          if (matchesId(f.headquartersNodeId)) {
-            changes.push({ category: 'factions', entityId: String(f.id), entityName: fName, field: 'headquartersNodeId', before: f.headquartersNodeId, after: null });
-            f.headquartersNodeId = null;
-          }
-        }
-        if (targetType === 'faction') {
-          if (Array.isArray(f.alliedFactionIds) && f.alliedFactionIds.some(matchesId)) {
-            const before = [...f.alliedFactionIds];
-            f.alliedFactionIds = f.alliedFactionIds.filter(id => !matchesId(id));
-            changes.push({ category: 'factions', entityId: String(f.id), entityName: fName, field: 'alliedFactionIds', before, after: [...f.alliedFactionIds] });
-          }
-          if (Array.isArray(f.rivalFactionIds) && f.rivalFactionIds.some(matchesId)) {
-            const before = [...f.rivalFactionIds];
-            f.rivalFactionIds = f.rivalFactionIds.filter(id => !matchesId(id));
-            changes.push({ category: 'factions', entityId: String(f.id), entityName: fName, field: 'rivalFactionIds', before, after: [...f.rivalFactionIds] });
-          }
-          if (f.diplomaticStances && typeof f.diplomaticStances === 'object') {
-            for (const k of Object.keys(f.diplomaticStances)) {
-              if (String(k) === idStr) {
-                const before = { ...f.diplomaticStances };
-                delete f.diplomaticStances[k];
-                changes.push({ category: 'factions', entityId: String(f.id), entityName: fName, field: 'diplomaticStances', before, after: { ...f.diplomaticStances } });
-              }
-            }
-          }
-        }
-      });
-    }
-
-    // 2. NPCs cleanup
-    const npcs = getTargetCollection(state, 'npcs');
-    if (Array.isArray(npcs)) {
-      npcs.forEach(n => {
-        if (!n) return;
-        const nName = n.name || n.id;
-        if (targetType === 'faction') {
-          if (matchesId(n.factionId)) {
-            changes.push({ category: 'npcs', entityId: String(n.id), entityName: nName, field: 'factionId', before: n.factionId, after: null });
-            n.factionId = null;
-          }
-          if (matchesId(n.faction)) {
-            changes.push({ category: 'npcs', entityId: String(n.id), entityName: nName, field: 'faction', before: n.faction, after: null });
-            n.faction = null;
-          }
-        }
-        if (targetType === 'npc' && Array.isArray(n.relationships)) {
-          const hasRel = n.relationships.some(r => r && (matchesId(r.targetNpcId) || matchesId(r.npcId)));
-          if (hasRel) {
-            const before = JSON.parse(JSON.stringify(n.relationships));
-            n.relationships = n.relationships.filter(r => !(r && (matchesId(r.targetNpcId) || matchesId(r.npcId))));
-            changes.push({ category: 'npcs', entityId: String(n.id), entityName: nName, field: 'relationships', before, after: JSON.parse(JSON.stringify(n.relationships)) });
-          }
-        }
-        if (targetType === 'node') {
-          ['currentNodeId', 'homeNodeId', 'nodeId'].forEach(nf => {
-            if (matchesId(n[nf])) {
-              changes.push({ category: 'npcs', entityId: String(n.id), entityName: nName, field: nf, before: n[nf], after: null });
-              n[nf] = null;
-            }
-          });
-        }
-        if (targetType === 'quest' && Array.isArray(n.questIds) && n.questIds.some(matchesId)) {
-          const before = [...n.questIds];
-          n.questIds = n.questIds.filter(id => !matchesId(id));
-          changes.push({ category: 'npcs', entityId: String(n.id), entityName: nName, field: 'questIds', before, after: [...n.questIds] });
-        }
-        if (targetType === 'item') {
-          ['inventoryItemIds', 'itemIds', 'carriedItemIds'].forEach(arrField => {
-            if (Array.isArray(n[arrField]) && n[arrField].some(matchesId)) {
-              const before = [...n[arrField]];
-              n[arrField] = n[arrField].filter(id => !matchesId(id));
-              changes.push({ category: 'npcs', entityId: String(n.id), entityName: nName, field: arrField, before, after: [...n[arrField]] });
-            }
-          });
-        }
-        if (targetType === 'tracker' && typeof n.threat === 'string' && n.threat.includes(idStr)) {
-          n.threat = '';
-        }
-      });
-    }
-
-    // 3. Quests cleanup
-    const quests = getTargetCollection(state, 'quests');
-    if (Array.isArray(quests)) {
-      quests.forEach(q => {
-        if (!q) return;
-        const qName = q.title || q.name || q.id;
-        if (targetType === 'npc') {
-          if (Array.isArray(q.npcIds) && q.npcIds.some(matchesId)) {
-            const before = [...q.npcIds];
-            q.npcIds = q.npcIds.filter(id => !matchesId(id));
-            changes.push({ category: 'quests', entityId: String(q.id), entityName: qName, field: 'npcIds', before, after: [...q.npcIds] });
-          }
-          if (matchesId(q.giverNpcId)) {
-            changes.push({ category: 'quests', entityId: String(q.id), entityName: qName, field: 'giverNpcId', before: q.giverNpcId, after: null });
-            q.giverNpcId = null;
-          }
-          if (matchesId(q.targetNpcId)) {
-            changes.push({ category: 'quests', entityId: String(q.id), entityName: qName, field: 'targetNpcId', before: q.targetNpcId, after: null });
-            q.targetNpcId = null;
-          }
-        }
-        if (targetType === 'item') {
-          if (Array.isArray(q.itemIds) && q.itemIds.some(matchesId)) {
-            const before = [...q.itemIds];
-            q.itemIds = q.itemIds.filter(id => !matchesId(id));
-            changes.push({ category: 'quests', entityId: String(q.id), entityName: qName, field: 'itemIds', before, after: [...q.itemIds] });
-          }
-          if (Array.isArray(q.rewardItemIds) && q.rewardItemIds.some(matchesId)) {
-            q.rewardItemIds = q.rewardItemIds.filter(id => !matchesId(id));
-          }
-          if (matchesId(q.rewardItemId)) {
-            changes.push({ category: 'quests', entityId: String(q.id), entityName: qName, field: 'rewardItemId', before: q.rewardItemId, after: null });
-            q.rewardItemId = null;
-          }
-        }
-        if (targetType === 'tracker' && Array.isArray(q.trackerIds) && q.trackerIds.some(matchesId)) {
-          const before = [...q.trackerIds];
-          q.trackerIds = q.trackerIds.filter(id => !matchesId(id));
-          changes.push({ category: 'quests', entityId: String(q.id), entityName: qName, field: 'trackerIds', before, after: [...q.trackerIds] });
-        }
-        if (targetType === 'faction') {
-          if (matchesId(q.factionId)) {
-            changes.push({ category: 'quests', entityId: String(q.id), entityName: qName, field: 'factionId', before: q.factionId, after: null });
-            q.factionId = null;
-          }
-          if (matchesId(q.faction)) {
-            q.faction = null;
-          }
-        }
-        if (targetType === 'node') {
-          ['targetNodeId', 'originNodeId', 'nodeId', 'anchorNodeId'].forEach(nf => {
-            if (matchesId(q[nf])) {
-              changes.push({ category: 'quests', entityId: String(q.id), entityName: qName, field: nf, before: q[nf], after: null });
-              q[nf] = null;
-            }
-          });
-        }
-        if (Array.isArray(q.steps)) {
-          q.steps.forEach(st => {
-            if (!st) return;
-            if (targetType === 'tracker' && matchesId(st.triggerTrackerId)) {
-              changes.push({ category: 'quests', entityId: String(q.id), entityName: qName, field: `step_${st.id}_triggerTrackerId`, before: st.triggerTrackerId, after: null });
-              st.triggerTrackerId = null;
-            }
-            if (targetType === 'npc' && matchesId(st.targetNpcId)) {
-              st.targetNpcId = null;
-            }
-            if (targetType === 'node' && matchesId(st.targetNodeId)) {
-              st.targetNodeId = null;
-            }
-            if (targetType === 'item' && matchesId(st.requiredItemId)) {
-              st.requiredItemId = null;
-            }
-          });
-        }
-      });
-    }
-
-    // 4. Items cleanup
-    const items = getTargetCollection(state, 'items');
-    if (Array.isArray(items)) {
-      items.forEach(it => {
-        if (!it) return;
-        const iName = it.name || it.id;
-        if (targetType === 'npc' && matchesId(it.ownerNpcId)) {
-          changes.push({ category: 'items', entityId: String(it.id), entityName: iName, field: 'ownerNpcId', before: it.ownerNpcId, after: null });
-          it.ownerNpcId = null;
-          it.possessionMode = 'stored';
-        }
-        if (targetType === 'node') {
-          ['locationNodeId', 'nodeId'].forEach(nf => {
-            if (matchesId(it[nf])) {
-              changes.push({ category: 'items', entityId: String(it.id), entityName: iName, field: nf, before: it[nf], after: null });
-              it[nf] = null;
-            }
-          });
-        }
-        if (targetType === 'quest') {
-          ['linkedQuestId', 'questId'].forEach(qf => {
-            if (matchesId(it[qf])) {
-              changes.push({ category: 'items', entityId: String(it.id), entityName: iName, field: qf, before: it[qf], after: null });
-              it[qf] = null;
-            }
-          });
-        }
-        if (targetType === 'faction' && matchesId(it.factionId)) {
-          changes.push({ category: 'items', entityId: String(it.id), entityName: iName, field: 'factionId', before: it.factionId, after: null });
-          it.factionId = null;
-        }
-      });
-    }
-
-    // 5. Trackers cleanup
-    const trackers = getTargetCollection(state, 'trackers');
-    if (Array.isArray(trackers)) {
-      trackers.forEach(tr => {
-        if (!tr) return;
-        const trName = tr.name || tr.title || tr.id;
-        if (Array.isArray(tr.triggerRefs)) {
-          const matchingRef = tr.triggerRefs.some(r => r && (!r.entityType || r.entityType === targetType || (r.entityType === 'clock' && targetType === 'tracker')) && matchesId(r.entityId));
-          if (matchingRef) {
-            const beforeRefs = JSON.parse(JSON.stringify(tr.triggerRefs));
-            tr.triggerRefs = tr.triggerRefs.filter(r => !(r && (!r.entityType || r.entityType === targetType || (r.entityType === 'clock' && targetType === 'tracker')) && matchesId(r.entityId)));
-            changes.push({ category: 'trackers', entityId: String(tr.id), entityName: trName, field: 'triggerRefs', before: beforeRefs, after: JSON.parse(JSON.stringify(tr.triggerRefs)) });
-          }
-        }
-        if (targetType === 'node' && matchesId(tr.nodeId)) {
-          changes.push({ category: 'trackers', entityId: String(tr.id), entityName: trName, field: 'nodeId', before: tr.nodeId, after: null });
-          tr.nodeId = null;
-        }
-        if (targetType === 'faction' && matchesId(tr.factionId)) {
-          changes.push({ category: 'trackers', entityId: String(tr.id), entityName: trName, field: 'factionId', before: tr.factionId, after: null });
-          tr.factionId = null;
-        }
-        if (Array.isArray(tr.consequences)) {
-          tr.consequences.forEach(c => {
-            if (!c) return;
-            if (matchesId(c.targetId) && (!c.targetType || c.targetType === targetType || (c.targetType === 'clock' && targetType === 'tracker'))) {
-              c.targetId = null;
-            }
-            if (targetType === 'quest' && matchesId(c.questId)) c.questId = null;
-            if (targetType === 'tracker') {
-              if (matchesId(c.trackerId)) c.trackerId = null;
-              if (matchesId(c.clockId)) c.clockId = null;
-            }
-            if (targetType === 'node' && matchesId(c.nodeId)) c.nodeId = null;
-            if (targetType === 'npc' && matchesId(c.npcId)) c.npcId = null;
-            if (targetType === 'faction' && matchesId(c.factionId)) c.factionId = null;
-            if (targetType === 'item' && matchesId(c.itemId)) c.itemId = null;
-            if (Array.isArray(c.operations)) {
-              c.operations = c.operations.filter(op => {
-                if (!op) return false;
-                const opTarget = op.npc || op.quest || op.clock || op.tracker || op.item || op.node || op.faction || op.entityId || op.id;
-                return !matchesId(opTarget);
-              });
-            }
-          });
-        }
-      });
-    }
-
-    // 6. Tickets cleanup
-    const tickets = getTargetCollection(state, 'tickets');
-    if (Array.isArray(tickets)) {
-      tickets.forEach(tk => {
-        if (!tk) return;
-        if (targetType === 'node' && matchesId(tk.linkedNodeId)) tk.linkedNodeId = null;
-        if (targetType === 'npc' && matchesId(tk.linkedNpcId)) tk.linkedNpcId = null;
-        if (targetType === 'quest' && matchesId(tk.linkedQuestId)) tk.linkedQuestId = null;
-        if (targetType === 'faction' && matchesId(tk.linkedFactionId)) tk.linkedFactionId = null;
-        if (targetType === 'item' && matchesId(tk.linkedItemId)) tk.linkedItemId = null;
-        if (targetType === 'tracker' && matchesId(tk.linkedTrackerId)) tk.linkedTrackerId = null;
-        if (tk.targetType === targetType && matchesId(tk.targetId)) {
-          tk.targetType = 'campaign';
-          tk.targetId = '';
-          const auditNote = `\n[Audit: Target ${targetType} (${idStr}) was deleted on ${new Date().toISOString()}]`;
-          tk.notes = (tk.notes || '') + auditNote;
-        }
-      });
-    }
-
-    // 7. Spatial Pins cleanup
-    const scrubPinsList = (pinsList) => {
-      if (!Array.isArray(pinsList)) return;
-      pinsList.forEach(pin => {
-        if (!pin) return;
-        if (Array.isArray(pin.links)) {
-          const hasLink = pin.links.some(l => l && (l.type === targetType || (l.type === 'clock' && targetType === 'tracker')) && matchesId(l.id));
-          if (hasLink) {
-            const beforeLinks = JSON.parse(JSON.stringify(pin.links));
-            pin.links = pin.links.filter(l => !(l && (l.type === targetType || (l.type === 'clock' && targetType === 'tracker')) && matchesId(l.id)));
-            changes.push({ category: 'spatialpins', entityId: String(pin.id), entityName: pin.label || pin.id, field: 'links', before: beforeLinks, after: JSON.parse(JSON.stringify(pin.links)) });
-          }
-        }
-        if (matchesId(pin.targetId) && (!pin.targetType || pin.targetType === targetType || (pin.targetType === 'clock' && targetType === 'tracker'))) {
-          if (Array.isArray(pin.links) && pin.links.length > 0) {
-            pin.targetType = pin.links[0].type;
-            pin.targetId = String(pin.links[0].id);
-          } else {
-            pin.targetId = '';
-          }
-        }
-        if (matchesId(pin.linkedEntityId)) {
-          pin.linkedEntityId = null;
-        }
-      });
-    };
-    scrubPinsList(getTargetCollection(state, 'spatialpins'));
-    if (state.spatialPins && state.spatialPins !== getTargetCollection(state, 'spatialpins')) scrubPinsList(state.spatialPins);
-    if (state.activeTopology && Array.isArray(state.activeTopology.spatialPins) && state.activeTopology.spatialPins !== getTargetCollection(state, 'spatialpins')) {
-      scrubPinsList(state.activeTopology.spatialPins);
-    }
-
-    // 8. Nodes & Submaps cleanup
-    const scrubNodeCollection = (nodesCol, linksCol) => {
-      if (!nodesCol) return;
-      const nodeList = Array.isArray(nodesCol) ? nodesCol : Object.values(nodesCol);
-      nodeList.forEach(n => {
-        if (!n) return;
-        if (targetType === 'node') {
-          if (Array.isArray(n.adj)) n.adj = n.adj.filter(id => !matchesId(id));
-          if (Array.isArray(n.infBy)) n.infBy = n.infBy.filter(id => !matchesId(id));
-        }
-        if (targetType === 'npc') {
-          if (Array.isArray(n.stationedNpcIds)) n.stationedNpcIds = n.stationedNpcIds.filter(id => !matchesId(id));
-          if (Array.isArray(n.npcIds)) n.npcIds = n.npcIds.filter(id => !matchesId(id));
-        }
-        if (targetType === 'quest' && Array.isArray(n.questIds)) n.questIds = n.questIds.filter(id => !matchesId(id));
-        if (targetType === 'item' && Array.isArray(n.itemIds)) n.itemIds = n.itemIds.filter(id => !matchesId(id));
-        if (targetType === 'tracker' && Array.isArray(n.trackerIds)) n.trackerIds = n.trackerIds.filter(id => !matchesId(id));
-        if (targetType === 'faction' && matchesId(n.factionId)) n.factionId = null;
-      });
-      if (targetType === 'node' && Array.isArray(linksCol)) {
-        for (let i = linksCol.length - 1; i >= 0; i--) {
-          const l = linksCol[i];
-          if (!l) continue;
-          const sId = (l.source && typeof l.source === 'object') ? l.source.id : (l.source !== undefined ? l.source : l.u);
-          const tId = (l.target && typeof l.target === 'object') ? l.target.id : (l.target !== undefined ? l.target : l.v);
-          if (matchesId(sId) || matchesId(tId)) {
-            linksCol.splice(i, 1);
-          }
-        }
+    // Cascade cleanup of every reference to the deleted entity. ENTITY_REFERENCE_DESCRIPTORS says where the
+    // references live and how each one is scrubbed; findEntityReferences reads the same table.
+    const targetType = entityTypeOfCategory(cat);
+    const ctx = makeReferenceContext(targetType, entityId);
+    eachReferrer(state, targetType, batchContext, (collectionName, rec, rows, mapId, linksCol, linkIndex) => {
+      if (collectionName === 'links') {
+        if (rows.some(row => REFERENCE_SHAPES[row.shape].hit(rec, row, ctx))) linksCol.splice(linkIndex, 1);
+        return;
       }
-    };
-    scrubNodeCollection(getTargetCollection(state, 'nodes'), state.links || (state.activeTopology && state.activeTopology.links));
-    if (targetType === 'node') {
-      removeCorridorsForNode(state, entityId);
-      if (state.activeTopology && state.activeTopology !== state) {
-        removeCorridorsForNode(state.activeTopology, entityId);
-      }
-    }
-    // Child maps live in a registry the caller may hold separately (the UI passes its global `maps` registry,
-    // while Workstation.activeTopology carries none). Walk state.maps / activeTopology.maps and batchContext.maps.
-    // A map reachable through more than one registry is scrubbed once.
-    const scrubbedMaps = new Set();
-    [state.maps || (state.activeTopology && state.activeTopology.maps), batchContext.maps].forEach(registry => {
-      if (!registry || typeof registry !== 'object') return;
-      Object.values(registry).forEach(m => {
-        if (!m || scrubbedMaps.has(m)) return;
-        scrubbedMaps.add(m);
-        scrubNodeCollection(m.nodes, m.links);
-        if (targetType === 'node') removeCorridorsForNode(m, entityId);
-        if (Array.isArray(m.spatialPins)) scrubPinsList(m.spatialPins);
-      });
+      rows.forEach(row => REFERENCE_SHAPES[row.shape].apply(rec, row, ctx, changes, collectionName));
+    }, owner => {
+      // Corridor keys (edgeData, edgeNotes, edgeSlottedModules) are not id fields, so they stay outside the table
+      if (targetType !== 'node') return;
+      removeCorridorsForNode(owner, entityId);
+      if (owner === state && state.activeTopology && state.activeTopology !== state) removeCorridorsForNode(state.activeTopology, entityId);
     });
 
     return true;
@@ -2493,6 +2491,8 @@
     resolveNodeRef,
     upsertEntity,
     deleteEntity,
+    findEntityReferences,
+    ENTITY_REFERENCE_DESCRIPTORS,
     remapEntityCluster,
     linkEntities,
     unlinkEntities,

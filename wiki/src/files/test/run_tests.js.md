@@ -3,11 +3,11 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "6d6d74d7020f0340"
-reviewed_hash: "6d6d74d7020f0340"
+current_hash: "ca8a151522c5382b"
+reviewed_hash: "ca8a151522c5382b"
 stale: false
-size_bytes: 415447
-line_count: 8315
+size_bytes: 426855
+line_count: 8477
 ---
 
 # run_tests.js
@@ -54,4 +54,6 @@ line_count: 8315
 11. **Suite 19.20: Census-aware demographics (SYS-ARCH-01)**: `generateCampaignJSON` normalizes census and flat-array demographics, and the Obsidian node dossier renders census primary, minorities and tags, flat arrays, legacy `{race, pct}` groups, and the Cosmopolitan fallback only when empty. A bare exporter sandbox with no `normalizeDemographics` proves the `typeof` guard path.
 12. **Suite 49: Engine-first include order (SYS-ARCH-01)**: asserts `template.html` lists `campaign_mutation_engine.js` as its first script include and lists each script once. The compiled-bundle boot test in Suite 1 also asserts the engine seam aliases are published and `CampaignStateAdapter` no longer exists.
 13. **Suite 50: Entity reference integrity (SYS-ARCH-01 Phase D)**: `deleteEntity` scrubs child-map pins and nodes passed through `batchContext.maps`, scrubs a map reachable twice once, and keeps the `state.maps` walk. `executeEntityDeletion` passes the global `maps` registry to the engine (spy on the injected engine) and the child-map pin link disappears.
+   - Descriptor parity: a world is generated from `ENTITY_REFERENCE_DESCRIPTORS` (one referring record and one decoy per row, state and child map) for every entity type. `findEntityReferences` must report exactly the records `deleteEntity` changes (measured by diffing the world, not by reading the changelog), be read-only, cover every row, and ignore decoys.
+   - Preview parity: `analyzeEntityDependencies` must list exactly those id-based referrers as `reference` dependencies. Name mentions are a separate `mention` group, are not unlinked by the delete, and the dialog renders them under their own heading.
 <!-- END_CUSTOM_NOTES -->

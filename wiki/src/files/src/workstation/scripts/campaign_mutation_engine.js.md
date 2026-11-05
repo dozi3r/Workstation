@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/campaign_mutation_engine.js"
 title: "campaign_mutation_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "ebb9735c2093ddea"
-reviewed_hash: "ebb9735c2093ddea"
+current_hash: "0737ff77def69573"
+reviewed_hash: "0737ff77def69573"
 stale: false
-size_bytes: 111055
+size_bytes: 116508
 line_count: 2524
 ---
 
@@ -26,6 +26,13 @@ line_count: 2524
 - `targetType`/`targetId` follow `links[0]`. With no links the canvas default applies (`npc`, `''`). Unknown properties (`color`, `notes`, mod fields) are never deleted.
 - The UMD tail publishes `root.normalizeSpatialPin`, so `cad_interaction.js`, `cad_canvas_renderer.js` and `property_grid_inspector.js` resolve the global. Hand-built `vm` sandboxes in `test/run_tests.js` get it from `injectEngine(sandbox)`.
 - `upsertEntity` on an existing pin now also records `visible`/`locked`/`targetType`/`targetId` field diffs in the changelog when the stored pin lacked them.
+
+### Entity Reference Descriptors (SYS-ARCH-01)
+`ENTITY_REFERENCE_DESCRIPTORS` (exported) is the one declarative table of every field that references another entity by id. Each row names the referring `collection` (`factions`, `npcs`, `quests`, `items`, `trackers`, `tickets`, `spatialpins`, `nodes`, `links`), the `target` type (`npc`, `quest`, `item`, `tracker`, `faction`, `node`, or `*`), the `path` (a field, or `list[].field` for a nested list), the `shape` that decides how it is matched, the scrub `op` (`null`, `filter`, `delete-key`, `clear`, `retarget`, `resync`, `splice`), whether the scrub writes a changelog entry (`log`), and a human `label`. Rows run in table order, which is the order changelog entries are written.
+- `deleteEntity` scrubs through the table (`eachReferrer` plus the per-shape handlers in `REFERENCE_SHAPES`). Scrub behavior and changelog output are unchanged from the earlier hand-written version.
+- `findEntityReferences(state, type, id, { maps })` is the read-only twin. It returns `[{ collection, entityId, field, label, mapId? }]` for every record `deleteEntity` would change, skipping the entity's own record. The delete preview in `entity_cascade_delete.js` reads it, so the preview and the scrub cannot drift apart.
+- Corridor keys (`edgeData`, `edgeNotes`, `edgeSlottedModules`) are not id fields and stay in `removeCorridorsForNode`, which runs after each state/map scope.
+- To add a new reference field, add one row. Add a hand-written assertion for it in Suite 44 style, and the Suite 50 parity test covers hit/apply agreement.
 
 ### deleteEntity Map Registry (SYS-ARCH-01)
 `deleteEntity(state, type, id, batchContext)` scrubs child-map nodes, links, corridors and spatial pins from `state.maps` (or `state.activeTopology.maps`) **and** from the optional `batchContext.maps` registry. `Workstation.activeTopology` carries no `maps`, so the UI passes its global `maps` registry (`executeEntityDeletion` in `entity_cascade_delete.js`). A map reachable through both registries is scrubbed once. For `node` targets the same walk also removes the node id from `adj`/`infBy`, links and corridors of every registered map.

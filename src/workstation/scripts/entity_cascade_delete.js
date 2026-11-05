@@ -84,7 +84,13 @@
       const visited = new Set();
       visited.add(`${targetType}:${targetId}`);
 
-      function addDep(type, ent, reason, isActive) {
+      // kind says what the link is:
+      //   reference  the record holds this entity's id in a field the delete scrub unlinks (read from the engine's
+      //              reference descriptor table, the same one CampaignMutationEngine.deleteEntity scrubs through)
+      //   related    a link the scrub leaves alone: forward link, shared node, shared quest, module origin
+      //   mention    matched by name or by a legacy field and never unlinked
+      //   map, module  have their own sections below
+      function addDep(type, ent, reason, isActive, kind) {
         if (!ent) return;
         const entId = ent.id !== undefined ? ent.id : ent.key;
         const key = `${type}:${entId}`;
@@ -104,197 +110,200 @@
           moduleId: ent.moduleId || null,
           isActive: !!isActive,
           reason: reason,
+          kind: kind || 'related',
           rawObject: ent
         });
       }
 
+      // Id-based referrers: ask the engine which records hold this entity's id, with the same rules its scrub uses
+      const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+      const referrerLabels = new Map();
+      let references = [];
+      if (cme && typeof cme.findEntityReferences === 'function' && targetType !== 'module' && targetType !== 'map') {
+        references = cme.findEntityReferences(topo, targetType, targetId, { maps: (typeof maps !== 'undefined' && maps) ? maps : undefined });
+        references.forEach(r => {
+          const key = `${r.collection}:${r.entityId}`;
+          const labels = referrerLabels.get(key) || [];
+          if (!labels.includes(r.label)) labels.push(r.label);
+          referrerLabels.set(key, labels);
+        });
+      }
+      const referenceReason = (collection, ent) => {
+        const labels = referrerLabels.get(`${collection}:${ent.id}`);
+        return labels ? `Linked via ${labels.join(', ')}` : null;
+      };
+
+      // Each loop below takes the table-backed reference first, then links the scrub does not touch, then name mentions.
+
       // 1. QUEST RELATIONSHIPS
       (topo.quests || []).forEach(q => {
-        let reason = null;
-        if (targetType === 'npc') {
-          if (q.npcIds && (q.npcIds.includes(targetId) || (targetObj && targetObj.prototypeId && q.npcIds.includes(targetObj.prototypeId)))) {
-            reason = `Assigned in Quest Roster`;
-          } else if (targetNodeId && q.nodeId && String(q.nodeId) === String(targetNodeId)) {
-            reason = `Anchored at Same Node #${targetNodeId}`;
-          } else if ((q.motivation || q.notes || '').toLowerCase().includes(targetName.toLowerCase())) {
-            reason = `Referenced in Quest Narrative`;
-          }
-        } else if (targetType === 'item') {
-          if (q.itemIds && (q.itemIds.includes(targetId) || (targetObj && targetObj.prototypeId && q.itemIds.includes(targetObj.prototypeId)))) {
-            reason = `Required Relic/Item in Quest Roster`;
-          } else if (targetNodeId && q.nodeId && String(q.nodeId) === String(targetNodeId)) {
-            reason = `Anchored at Same Node #${targetNodeId}`;
-          }
-        } else if (targetType === 'tracker') {
-          if ((q.threat && (q.threat.includes(targetName) || targetName.includes(q.threat))) ||
-              q.trackerId === targetId ||
-              (Array.isArray(q.trackerIds) && q.trackerIds.map(String).includes(String(targetId))) ||
-              (Array.isArray(q.steps) && q.steps.some(st => String(st.triggerTrackerId) === String(targetId)))) {
-            reason = `Quest Stakes Threat Clock`;
-          } else if (targetNodeId && q.nodeId && String(q.nodeId) === String(targetNodeId)) {
-            reason = `Anchored at Same Node #${targetNodeId}`;
-          }
-        } else if (targetType === 'node') {
-          if (String(q.nodeId) === String(targetId)) {
-            reason = `Anchored at this Node #${targetId}`;
-          }
-        } else if (targetType === 'module') {
-          if (q.moduleId === targetId) {
-            reason = `Originating Source Module [${targetId}]`;
+        let reason = referenceReason('quests', q);
+        let kind = reason ? 'reference' : null;
+        if (!reason) {
+          if (targetType === 'npc') {
+            if (q.npcIds && targetObj && targetObj.prototypeId && q.npcIds.includes(targetObj.prototypeId)) {
+              reason = `Assigned via prototype id (not unlinked)`; kind = 'mention';
+            } else if (targetNodeId && q.nodeId && String(q.nodeId) === String(targetNodeId)) {
+              reason = `Anchored at Same Node #${targetNodeId}`; kind = 'related';
+            } else if ((q.motivation || q.notes || '').toLowerCase().includes(targetName.toLowerCase())) {
+              reason = `Referenced in Quest Narrative`; kind = 'mention';
+            }
+          } else if (targetType === 'item') {
+            if (q.itemIds && targetObj && targetObj.prototypeId && q.itemIds.includes(targetObj.prototypeId)) {
+              reason = `Required via prototype id (not unlinked)`; kind = 'mention';
+            } else if (targetNodeId && q.nodeId && String(q.nodeId) === String(targetNodeId)) {
+              reason = `Anchored at Same Node #${targetNodeId}`; kind = 'related';
+            }
+          } else if (targetType === 'tracker') {
+            if ((q.threat && (q.threat.includes(targetName) || targetName.includes(q.threat))) || q.trackerId === targetId) {
+              reason = `Quest Stakes Threat Clock (matched by name, not unlinked)`; kind = 'mention';
+            } else if (targetNodeId && q.nodeId && String(q.nodeId) === String(targetNodeId)) {
+              reason = `Anchored at Same Node #${targetNodeId}`; kind = 'related';
+            }
+          } else if (targetType === 'module') {
+            if (q.moduleId === targetId) {
+              reason = `Originating Source Module [${targetId}]`; kind = 'related';
+            }
           }
         }
         if (reason) {
-          addDep('quest', q, reason, true);
+          addDep('quest', q, reason, true, kind);
         }
       });
 
       // 2. NPC RELATIONSHIPS
       (topo.npcs || []).forEach(n => {
-        let reason = null;
-        if (targetType === 'quest') {
-          if (targetObj && targetObj.npcIds && targetObj.npcIds.includes(n.id)) {
-            reason = `Assigned Character in Quest`;
-          } else if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
-            reason = `Stationed at Quest Anchor Node #${targetNodeId}`;
-          }
-        } else if (targetType === 'npc') {
-          if (Array.isArray(n.relationships) && n.relationships.some(r => String(r.targetNpcId) === String(targetId))) {
-            const rel = n.relationships.find(r => String(r.targetNpcId) === String(targetId));
-            reason = `Holds Social Tie (${rel.relationshipType || rel.type || 'Connected'}) with ${targetName}`;
-          } else if (targetObj && Array.isArray(targetObj.relationships) && targetObj.relationships.some(r => String(r.targetNpcId) === String(n.id))) {
-            const rel = targetObj.relationships.find(r => String(r.targetNpcId) === String(n.id));
-            reason = `Target has Social Tie (${rel.relationshipType || rel.type || 'Connected'}) to this character`;
-          } else if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
-            reason = `Co-stationed at Node #${targetNodeId}`;
-          } else if ((topo.quests || []).some(q => (q.npcIds || []).includes(targetId) && (q.npcIds || []).includes(n.id))) {
-            reason = `Co-featured in Shared Quest`;
-          }
-        } else if (targetType === 'item') {
-          if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
-            reason = `Stationed with Item at Node #${targetNodeId}`;
-          } else if ((topo.quests || []).some(q => (q.itemIds || []).includes(targetId) && (q.npcIds || []).includes(n.id))) {
-            reason = `Connected via Shared Quest`;
-          }
-        } else if (targetType === 'tracker') {
-          if (n.threat && (n.threat.includes(targetName) || targetName.includes(n.threat))) {
-            reason = `Tied to Escalation Clock`;
-          } else if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
-            reason = `Co-stationed at Node #${targetNodeId}`;
-          }
-        } else if (targetType === 'node') {
-          if (String(n.nodeId) === String(targetId)) {
-            reason = `Stationed at this Node #${targetId}`;
-          }
-        } else if (targetType === 'module') {
-          if (n.moduleId === targetId) {
-            reason = `Spawned Character from Module [${targetId}]`;
+        let reason = referenceReason('npcs', n);
+        let kind = reason ? 'reference' : null;
+        if (!reason) {
+          if (targetType === 'quest') {
+            if (targetObj && targetObj.npcIds && targetObj.npcIds.includes(n.id)) {
+              reason = `Assigned Character in Quest`; kind = 'related';
+            } else if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
+              reason = `Stationed at Quest Anchor Node #${targetNodeId}`; kind = 'related';
+            }
+          } else if (targetType === 'npc') {
+            if (targetObj && Array.isArray(targetObj.relationships) && targetObj.relationships.some(r => String(r.targetNpcId) === String(n.id))) {
+              const rel = targetObj.relationships.find(r => String(r.targetNpcId) === String(n.id));
+              reason = `Target has Social Tie (${rel.relationshipType || rel.type || 'Connected'}) to this character`; kind = 'related';
+            } else if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
+              reason = `Co-stationed at Node #${targetNodeId}`; kind = 'related';
+            } else if ((topo.quests || []).some(q => (q.npcIds || []).includes(targetId) && (q.npcIds || []).includes(n.id))) {
+              reason = `Co-featured in Shared Quest`; kind = 'related';
+            }
+          } else if (targetType === 'item') {
+            if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
+              reason = `Stationed with Item at Node #${targetNodeId}`; kind = 'related';
+            } else if ((topo.quests || []).some(q => (q.itemIds || []).includes(targetId) && (q.npcIds || []).includes(n.id))) {
+              reason = `Connected via Shared Quest`; kind = 'related';
+            }
+          } else if (targetType === 'tracker') {
+            if (n.threat && (n.threat.includes(targetName) || targetName.includes(n.threat))) {
+              reason = `Tied to Escalation Clock (matched by name, not unlinked)`; kind = 'mention';
+            } else if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
+              reason = `Co-stationed at Node #${targetNodeId}`; kind = 'related';
+            }
+          } else if (targetType === 'module') {
+            if (n.moduleId === targetId) {
+              reason = `Spawned Character from Module [${targetId}]`; kind = 'related';
+            }
           }
         }
         if (reason) {
-          addDep('npc', n, reason, n.nodeId != null || true);
+          addDep('npc', n, reason, n.nodeId != null || true, kind);
         }
       });
 
       // 3. ITEM RELATIONSHIPS
       (topo.items || []).forEach(itm => {
-        let reason = null;
-        if (targetType === 'quest') {
-          if (targetObj && targetObj.itemIds && targetObj.itemIds.includes(itm.id)) {
-            reason = `Required Relic/Reward in Quest`;
-          } else if (targetNodeId && String(itm.nodeId) === String(targetNodeId)) {
-            reason = `Stationed at Quest Anchor Node #${targetNodeId}`;
-          }
-        } else if (targetType === 'npc') {
-          if (targetNodeId && String(itm.nodeId) === String(targetNodeId)) {
-            reason = `Co-stationed at Node #${targetNodeId}`;
-          } else if ((topo.quests || []).some(q => (q.npcIds || []).includes(targetId) && (q.itemIds || []).includes(itm.id))) {
-            reason = `Linked via Shared Quest`;
-          }
-        } else if (targetType === 'node') {
-          if (String(itm.nodeId) === String(targetId)) {
-            reason = `Stationed at this Node #${targetId}`;
-          }
-        } else if (targetType === 'module') {
-          if (itm.moduleId === targetId) {
-            reason = `Spawned Relic/Item from Module [${targetId}]`;
+        let reason = referenceReason('items', itm);
+        let kind = reason ? 'reference' : null;
+        if (!reason) {
+          if (targetType === 'quest') {
+            if (targetObj && targetObj.itemIds && targetObj.itemIds.includes(itm.id)) {
+              reason = `Required Relic/Reward in Quest`; kind = 'related';
+            } else if (targetNodeId && String(itm.nodeId) === String(targetNodeId)) {
+              reason = `Stationed at Quest Anchor Node #${targetNodeId}`; kind = 'related';
+            }
+          } else if (targetType === 'npc') {
+            if (targetNodeId && String(itm.nodeId) === String(targetNodeId)) {
+              reason = `Co-stationed at Node #${targetNodeId}`; kind = 'related';
+            } else if ((topo.quests || []).some(q => (q.npcIds || []).includes(targetId) && (q.itemIds || []).includes(itm.id))) {
+              reason = `Linked via Shared Quest`; kind = 'related';
+            }
+          } else if (targetType === 'module') {
+            if (itm.moduleId === targetId) {
+              reason = `Spawned Relic/Item from Module [${targetId}]`; kind = 'related';
+            }
           }
         }
         if (reason) {
-          addDep('item', itm, reason, itm.nodeId != null || true);
+          addDep('item', itm, reason, itm.nodeId != null || true, kind);
         }
       });
 
       // 4. TRACKER / CLOCK RELATIONSHIPS
       (topo.trackers || []).forEach(trk => {
-        let reason = null;
-        if (targetType === 'quest') {
-          if (targetObj && targetObj.threat && (targetObj.threat.includes(trk.name) || trk.name.includes(targetObj.threat))) {
-            reason = `Quest Stakes Threat Clock`;
-          } else if (targetNodeId && String(trk.nodeId) === String(targetNodeId)) {
-            reason = `Stationed at Quest Anchor Node #${targetNodeId}`;
-          }
-        } else if (targetType === 'npc') {
-          if (targetObj && targetObj.threat && (targetObj.threat.includes(trk.name) || trk.name.includes(targetObj.threat))) {
-            reason = `Associated Threat Clock`;
-          } else if (targetNodeId && String(trk.nodeId) === String(targetNodeId)) {
-            reason = `Co-stationed at Node #${targetNodeId}`;
-          }
-        } else if (targetType === 'node') {
-          if (String(trk.nodeId) === String(targetId)) {
-            reason = `Stationed at this Node #${targetId}`;
-          }
-        } else if (targetType === 'module') {
-          if (trk.moduleId === targetId) {
-            reason = `Spawned Threat Clock from Module [${targetId}]`;
+        let reason = referenceReason('trackers', trk);
+        let kind = reason ? 'reference' : null;
+        if (!reason) {
+          if (targetType === 'quest') {
+            if (targetObj && targetObj.threat && (targetObj.threat.includes(trk.name) || trk.name.includes(targetObj.threat))) {
+              reason = `Quest Stakes Threat Clock (matched by name, not unlinked)`; kind = 'mention';
+            } else if (targetNodeId && String(trk.nodeId) === String(targetNodeId)) {
+              reason = `Stationed at Quest Anchor Node #${targetNodeId}`; kind = 'related';
+            }
+          } else if (targetType === 'npc') {
+            if (targetObj && targetObj.threat && (targetObj.threat.includes(trk.name) || trk.name.includes(targetObj.threat))) {
+              reason = `Associated Threat Clock (matched by name, not unlinked)`; kind = 'mention';
+            } else if (targetNodeId && String(trk.nodeId) === String(targetNodeId)) {
+              reason = `Co-stationed at Node #${targetNodeId}`; kind = 'related';
+            }
+          } else if (targetType === 'module') {
+            if (trk.moduleId === targetId) {
+              reason = `Spawned Threat Clock from Module [${targetId}]`; kind = 'related';
+            }
           }
         }
         if (reason) {
           const isAct = (trk.currentTicks || 0) > 0 || trk.nodeId != null;
-          addDep('tracker', trk, reason, isAct);
+          addDep('tracker', trk, reason, isAct, kind);
         }
       });
 
       // 4c. FACTION RELATIONSHIPS
       (topo.factions || []).forEach(fac => {
-        let reason = null;
-        if (targetType === 'npc') {
-          if (fac.leaderNpcId && String(fac.leaderNpcId) === String(targetId)) {
-            reason = `Faction Leader of ${fac.name}`;
-          } else if (targetObj && (targetObj.factionId === fac.id || targetObj.faction === fac.name)) {
-            reason = `Member of ${fac.name}`;
-          }
-        } else if (targetType === 'node') {
-          if (fac.headquartersNodeId && String(fac.headquartersNodeId) === String(targetId)) {
-            reason = `Headquarters Anchor of ${fac.name}`;
-          } else if (Array.isArray(fac.controlledNodeIds) && fac.controlledNodeIds.some(nid => String(nid) === String(targetId))) {
-            reason = `Controlled Territory of ${fac.name}`;
-          }
-        } else if (targetType === 'module') {
-          if (fac.moduleId === targetId) {
-            reason = `Originating Faction from Module [${targetId}]`;
-          }
-        } else if (targetType === 'faction') {
-          if (fac.diplomaticStances && fac.diplomaticStances[targetId]) {
-            reason = `Diplomatic Stance (${fac.diplomaticStances[targetId]})`;
+        let reason = referenceReason('factions', fac);
+        let kind = reason ? 'reference' : null;
+        if (!reason) {
+          if (targetType === 'npc') {
+            if (targetObj && (targetObj.factionId === fac.id || targetObj.faction === fac.name)) {
+              reason = `Member of ${fac.name}`; kind = 'related';
+            }
+          } else if (targetType === 'module') {
+            if (fac.moduleId === targetId) {
+              reason = `Originating Faction from Module [${targetId}]`; kind = 'related';
+            }
           }
         }
         if (reason) {
-          addDep('faction', fac, reason, true);
+          addDep('faction', fac, reason, true, kind);
         }
       });
 
       if (targetType === 'faction' && targetObj) {
         if (targetObj.leaderNpcId) {
           const leader = (topo.npcs || []).find(n => String(n.id) === String(targetObj.leaderNpcId));
-          if (leader) addDep('npc', leader, `Faction Leader of ${targetName}`, true);
+          if (leader) addDep('npc', leader, `Faction Leader of ${targetName}`, true, 'related');
         }
         if (targetObj.headquartersNodeId) {
           const hqNode = topo.nodes ? (topo.nodes[targetObj.headquartersNodeId.toString()] || topo.nodes[targetObj.headquartersNodeId]) : null;
-          if (hqNode) addDep('node', { ...hqNode, id: targetObj.headquartersNodeId }, `Headquarters of ${targetName}`, true);
+          if (hqNode) addDep('node', { ...hqNode, id: targetObj.headquartersNodeId }, `Headquarters of ${targetName}`, true, 'related');
         }
+        // Members that hold the faction id are references (found above); a member that only names it is a mention
         (topo.npcs || []).forEach(n => {
-          if (n.factionId === targetId || n.faction === targetName) {
-            addDep('npc', n, `Member of ${targetName}`, true);
+          if (n.faction === targetName) {
+            addDep('npc', n, `Member of ${targetName} (matched by name, not unlinked)`, true, 'mention');
           }
         });
       }
@@ -303,7 +312,7 @@
       if (targetType !== 'node' && targetNodeId) {
         const n = topo.nodes ? (topo.nodes[targetNodeId.toString()] || topo.nodes[targetNodeId]) : null;
         if (n) {
-          addDep('node', { ...n, id: targetNodeId }, `Station Node #${targetNodeId}`, true);
+          addDep('node', { ...n, id: targetNodeId }, `Station Node #${targetNodeId}`, true, 'related');
         }
       }
 
@@ -331,7 +340,7 @@
             name: m.name || mId,
             role: `Attached Sub-Map (${m.scaleTier || 'region'})`,
             nodeId: targetId
-          }, `Portal Sub-Map Attached to Node #${targetId}`, true);
+          }, `Portal Sub-Map Attached to Node #${targetId}`, true, 'map');
         });
       }
 
@@ -339,7 +348,7 @@
       if (targetType !== 'module' && targetModuleId) {
         const m = (typeof ALL_MODULES !== 'undefined') ? ALL_MODULES.find(mod => mod.id === targetModuleId) : null;
         if (m) {
-          addDep('module', m, `Source Module [${targetModuleId}]`, activeCampModules.includes(targetModuleId));
+          addDep('module', m, `Source Module [${targetModuleId}]`, activeCampModules.includes(targetModuleId), 'module');
         }
       }
 
@@ -359,7 +368,9 @@
         },
         dependencies: dependencies,
         totalCount: dependencies.length,
-        activeCount: activeCount
+        activeCount: activeCount,
+        mentionCount: dependencies.filter(d => d.kind === 'mention').length,
+        references: references
       };
     }
     window.analyzeEntityDependencies = analyzeEntityDependencies;
@@ -421,6 +432,7 @@
               ${activeCount > 0 
                 ? `Deleting this ${target.type.toUpperCase()} affects <strong>${totalCount} related entities</strong>, of which <strong>${activeCount} are currently ACTIVE</strong> in the campaign (stationed on nodes or active in the roster). Check any linked entities below to delete them together, or leave unchecked to keep them safely preserved:`
                 : `Found <strong>${totalCount} related entities</strong> in the worldbuilding pools. None are currently active on pointcrawl graph nodes.`}
+              ${depData.mentionCount > 0 ? `<div style="margin-top:3px;"><strong>${depData.mentionCount}</strong> of them only mention this ${target.type} by name and are not unlinked when it is deleted.</div>` : ''}
             </div>
           </div>
         `;
@@ -447,13 +459,16 @@
             { type: 'module', label: 'Related Worldbuilding Modules', icon: '📦' }
           ];
 
-          categories.forEach(cat => {
-            const catDeps = deps.map((d, idx) => ({ ...d, originalIndex: idx })).filter(d => d.type === cat.type);
+          const indexedDeps = deps.map((d, idx) => ({ ...d, originalIndex: idx }));
+
+          // Related entities group by type. Mentions (matched by name, never unlinked by the delete) get a group of
+          // their own so the list does not imply they will be cleaned up.
+          const appendDependencyGroup = (icon, label, catDeps) => {
             if (catDeps.length === 0) return;
 
             const headerDiv = document.createElement('div');
             headerDiv.style.cssText = 'font-size:10px; font-weight:bold; color:#1e3a8a; padding:4px 2px 2px 2px; border-bottom:1px solid #e2e8f0; margin-top:4px;';
-            headerDiv.innerHTML = `${cat.icon} ${cat.label.toUpperCase()} (${catDeps.length}):`;
+            headerDiv.innerHTML = `${icon} ${label.toUpperCase()} (${catDeps.length}):`;
             listContainer.appendChild(headerDiv);
 
             catDeps.forEach(d => {
@@ -488,7 +503,10 @@
               `;
               listContainer.appendChild(rowLabel);
             });
-          });
+          };
+
+          categories.forEach(cat => appendDependencyGroup(cat.icon, cat.label, indexedDeps.filter(d => d.kind !== 'mention' && d.type === cat.type)));
+          appendDependencyGroup('💬', 'Mentions by name (not unlinked)', indexedDeps.filter(d => d.kind === 'mention'));
         }
       }
 
