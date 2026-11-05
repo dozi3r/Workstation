@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/state_adapter.js"
 title: "state_adapter.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "4e76bd2195b4fcb1"
-reviewed_hash: "4e76bd2195b4fcb1"
+current_hash: "aa8968a0643341ad"
+reviewed_hash: "aa8968a0643341ad"
 stale: false
-size_bytes: 58166
-line_count: 1237
+size_bytes: 58004
+line_count: 1233
 ---
 
 # state_adapter.js
@@ -18,4 +18,5 @@ line_count: 1237
 
 ### Corridor / Node Seam Aliases (SYS-ARCH-01)
 This file no longer publishes `formatCorridorKey`, `getNodesList`, `ensureQueryableNodesCollection` and the other pointcrawl aliases, and `window.CampaignStateAdapter` is gone. That tail block was dead (state_adapter loaded before the engine) and had no readers. `campaign_mutation_engine.js` publishes the aliases from its UMD tail. In-file reads of the engine (`getNodesList`, `ensureQueryableNodesCollection`) are runtime `typeof CampaignMutationEngine` checks and are unchanged.
+- ODV (SYS-ODV-02 S1): normalizeOdvVector uses normalizeOdvInput, returns undefined when unset/invalid; odvDefault removed.
 <!-- END_CUSTOM_NOTES -->

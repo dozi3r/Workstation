@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/campaign_exporter.js"
 title: "campaign_exporter.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "f06558c323fe2b99"
-reviewed_hash: "f06558c323fe2b99"
+current_hash: "a198aff755a4d05c"
+reviewed_hash: "a198aff755a4d05c"
 stale: false
-size_bytes: 75674
+size_bytes: 75650
 line_count: 1821
 ---
 
@@ -24,4 +24,5 @@ Ensures full lossless export and hydration for all node metadata properties, spe
 
 ### Entity Module Pack Exporter (`executeExportCsmodPack`)
 Enables packaging of submap branches, stationed entities, and IndexedDB graphics into `.csmod` archives via `buildPackArchive()`. Implements zero-CORS browser downloads appending `<a>` to `document.body` with deferred `URL.revokeObjectURL()`.
+- ODV (SYS-ODV-02 S1): resolveNodeOdv calls no longer pass the topology as fallbackIndex.
 <!-- END_CUSTOM_NOTES -->

@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/preset.json"
 title: "preset.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "7aa302b496e5c92b"
-reviewed_hash: "7aa302b496e5c92b"
+current_hash: "2c7c388793a934fb"
+reviewed_hash: "2c7c388793a934fb"
 stale: false
-size_bytes: 964102
-line_count: 22003
+size_bytes: 1668795
+line_count: 31004
 ---
 
 # preset.json

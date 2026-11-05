@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/campaign_mutation_engine.js"
 title: "campaign_mutation_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "0737ff77def69573"
-reviewed_hash: "0737ff77def69573"
+current_hash: "eb32a270be7edd3b"
+reviewed_hash: "eb32a270be7edd3b"
 stale: false
-size_bytes: 116508
-line_count: 2524
+size_bytes: 117500
+line_count: 2532
 ---
 
 # campaign_mutation_engine.js
@@ -36,4 +36,5 @@ line_count: 2524
 
 ### deleteEntity Map Registry (SYS-ARCH-01)
 `deleteEntity(state, type, id, batchContext)` scrubs child-map nodes, links, corridors and spatial pins from `state.maps` (or `state.activeTopology.maps`) **and** from the optional `batchContext.maps` registry. `Workstation.activeTopology` carries no `maps`, so the UI passes its global `maps` registry (`executeEntityDeletion` in `entity_cascade_delete.js`). A map reachable through both registries is scrubbed once. For `node` targets the same walk also removes the node id from `adj`/`infBy`, links and corridors of every registered map.
+- ODV (SYS-ODV-02 S1): normalizeOdv returns null instead of [2,2,2]; npc/faction odv set-or-delete with odvSource; scalar npc.disposition moves to dispositionToParty.
 <!-- END_CUSTOM_NOTES -->

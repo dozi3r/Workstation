@@ -1,23 +1,23 @@
 {
-  "id": "krynn_v3_five_book_odyssey",
+  "id": "krynn__v3___the_five_book_odyssey__346_352_ac_",
   "name": "Krynn (V3): The Five-Book Odyssey (346–352 AC)",
   "campaignName": "Krynn (V3): The Five-Book Odyssey (346–352 AC)",
   "description": "The complete 5-Book Dragonlance Saga starting in Spring 346 AC (The Soulforge & Brothers in Arms) as custom characters alongside young Raistlin, Caramon, and Kitiara at the Tower of Wayreth and the Siege of Hope's End, bridging 348–350 AC via The Four-Year Shadow Interlude, and carrying your persistent faction stance and legacy scars through the entire 351–352 AC War of the Lance.",
-  "author": "Margaret Weis & Tracy Hickman (Adapted for Creator Studio 2.6)",
+  "author": "Creator Studio World Architect",
   "packageType": "workstation_project",
   "enabled": true,
   "topologyFile": "topology.json",
   "manifestFile": "modules_manifest.json",
-  "updatedAt": "2026-11-04T20:00:00.000Z",
-  "exportedAt": "2026-11-04T20:00:00.000Z",
-  "globalDials": {
-    "dial8ClimaxTrigger": "crisis",
-    "tier0Substratum": true
-  },
+  "updatedAt": "2026-11-05T04:04:40.215Z",
+  "exportedAt": "2026-11-05T04:04:40.215Z",
   "appliedBatchIds": [
     "batch_init_krynn_v3_five_book_odyssey",
     "batch_norm_krynn_v3_five_book_odyssey"
   ],
+  "globalDials": {
+    "dial8ClimaxTrigger": "crisis",
+    "tier0Substratum": true
+  },
   "entities": {
     "npcs": [
       {
@@ -5596,5 +5596,5 @@
     "deletedModules": [],
     "deletedPrototypes": []
   },
-  "syncToken": "tok_krynn_v3_five_book_odyssey_v1"
+  "syncToken": "mw30usnq-cpyozwc5"
 }

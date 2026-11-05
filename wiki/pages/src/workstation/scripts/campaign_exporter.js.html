@@ -470,7 +470,7 @@
         <h1 class="article-title">campaign_exporter.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: f06558c3)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: a198aff7)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (7)</a>
         </div>
@@ -484,7 +484,7 @@
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
     <tr><th>File Metrics</th><td>1821 lines &bull; 73.9 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: f06558c3)</span></td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: a198aff7)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>18</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>7</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/campaign_exporter.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -510,6 +510,9 @@
 <p><code>node.demographics</code> is the census shape <code>{ primary: {name, percentage}, minorities: [{name, percentage}], social_friction_notes, tags: [] }</code> (see <code>CONTEXT.md</code>, <code>normalizeDemographics</code> in <code>entity_core.js</code>). Export (<code>generateCampaignJSON</code>) and import (<code>importCampaignData</code>) both pass it through <code>normalizeDemographics</code>, behind a <code>typeof ... === 'function'</code> guard. The Obsidian node dossier (<code>buildObsidianVaultFiles</code>) renders <code>primary</code> (percentage, marked primary population), each minority, then <code>tags</code>. A legacy flat array renders as tags, and <code>{name|race, percentage|pct}</code> entries in it render as minorities. The "Cosmopolitan / mixed frontier demographic." line appears only when all three are empty.</p>
 <h3>Entity Module Pack Exporter (<code>executeExportCsmodPack</code>)</h3>
 <p>Enables packaging of submap branches, stationed entities, and IndexedDB graphics into <code>.csmod</code> archives via <code>buildPackArchive()</code>. Implements zero-CORS browser downloads appending <code><a></code> to <code>document.body</code> with deferred <code>URL.revokeObjectURL()</code>.</p>
+<ul class="wiki-list">
+<li>ODV (SYS-ODV-02 S1): resolveNodeOdv calls no longer pass the topology as fallbackIndex.</li>
+</ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">activeExportTab</span><span class="pill">tabJson</span><span class="pill">tabMd</span><span class="pill">btnCopyJson</span><span class="pill">btnDownloadJson</span><span class="pill">btnOpenExport</span></div><h3>Declared Functions / Subroutines (17)</h3><div class="pill-list"><span class="pill">resolveMapNodes(mapOrTopo)</span><span class="pill">findNodeObj(mapOrTopo, nodeId)</span><span class="pill">generateCampaignJSON()</span><span class="pill">generateCampaignMarkdown()</span><span class="pill">generateHydratedCampaignJSON()</span><span class="pill">renderStage6()</span><span class="pill">handleCampaignFileIngestion(file)</span><span class="pill">importCampaignData(data, sourceLabel = &quot;&quot;)</span><span class="pill">executeExportCsmodPack()</span><span class="pill">sanitizeVaultFileName(name)</span><span class="pill">formatYamlFrontmatter(fields)</span><span class="pill">formatWikiLink(folder, sanitizedStem, originalName)</span><span class="pill">buildObsidianVaultFiles(topo)</span><span class="pill">exportObsidianVaultZip(topo = null)</span><span class="pill">generateFoundryVTTJSON(topo = null)</span><span class="pill">generateUniversalVTTJSON(topo = null)</span><span class="pill">generateCampaignHTMLDossier(topo = null)</span></div>
       <h2 id="outbound-links">Outbound References (18)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>

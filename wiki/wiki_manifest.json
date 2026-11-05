@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-05T03:27:34.507Z",
-  "totalFiles": 735,
+  "generatedAt": "2026-11-05T04:05:29.629Z",
+  "totalFiles": 732,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3003,
-  "staleCount": 1,
+  "totalBidirectionalEdges": 3014,
+  "staleCount": 0,
   "duplicateAuditTargets": 9,
   "volumes": [
     {
@@ -184,7 +184,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 50,
-      "inboundBacklinkCount": 13
+      "inboundBacklinkCount": 14
     },
     {
       "relPath": "Build-Suite.ps1",
@@ -198,7 +198,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 39
+      "inboundBacklinkCount": 40
     },
     {
       "relPath": "CONTEXT.md",
@@ -353,76 +353,6 @@
       "auditFlag": null,
       "outboundCount": 23,
       "inboundBacklinkCount": 15
-    },
-    {
-      "relPath": "Sources/_OceanofPDF.com_Dragonlance_13_-_Raistlin_Chronicles_-_Bro_-_Margaret_Weis.epub",
-      "wikiHtml": "wiki/pages/Sources/_OceanofPDF.com_Dragonlance_13_-_Raistlin_Chronicles_-_Bro_-_Margaret_Weis.epub.html",
-      "wikiSrc": "wiki/src/files/Sources/_OceanofPDF.com_Dragonlance_13_-_Raistlin_Chronicles_-_Bro_-_Margaret_Weis.epub.md",
-      "title": "_OceanofPDF.com_Dragonlance_13_-_Raistlin_Chronicles_-_Bro_-_Margaret_Weis.epub",
-      "volume": "vol-8",
-      "kind": "Project Asset",
-      "hash": "18691a6062f23dc6",
-      "reviewedHash": "18691a6062f23dc6",
-      "stale": false,
-      "auditFlag": null,
-      "outboundCount": 0,
-      "inboundBacklinkCount": 0
-    },
-    {
-      "relPath": "Sources/_OceanofPDF.com_Dragons_of_Autumn_Twilight_-_Margaret_Weis.epub",
-      "wikiHtml": "wiki/pages/Sources/_OceanofPDF.com_Dragons_of_Autumn_Twilight_-_Margaret_Weis.epub.html",
-      "wikiSrc": "wiki/src/files/Sources/_OceanofPDF.com_Dragons_of_Autumn_Twilight_-_Margaret_Weis.epub.md",
-      "title": "_OceanofPDF.com_Dragons_of_Autumn_Twilight_-_Margaret_Weis.epub",
-      "volume": "vol-8",
-      "kind": "Project Asset",
-      "hash": "e864e361aa621d6d",
-      "reviewedHash": "e864e361aa621d6d",
-      "stale": false,
-      "auditFlag": null,
-      "outboundCount": 0,
-      "inboundBacklinkCount": 0
-    },
-    {
-      "relPath": "Sources/_OceanofPDF.com_Dragons_of_Spring_Dawning_-_Margaret_Weis.epub",
-      "wikiHtml": "wiki/pages/Sources/_OceanofPDF.com_Dragons_of_Spring_Dawning_-_Margaret_Weis.epub.html",
-      "wikiSrc": "wiki/src/files/Sources/_OceanofPDF.com_Dragons_of_Spring_Dawning_-_Margaret_Weis.epub.md",
-      "title": "_OceanofPDF.com_Dragons_of_Spring_Dawning_-_Margaret_Weis.epub",
-      "volume": "vol-8",
-      "kind": "Project Asset",
-      "hash": "d4a9137092ee085c",
-      "reviewedHash": "d4a9137092ee085c",
-      "stale": false,
-      "auditFlag": null,
-      "outboundCount": 0,
-      "inboundBacklinkCount": 0
-    },
-    {
-      "relPath": "Sources/_OceanofPDF.com_Dragons_of_Winter_Night_-_Margaret_Weis.epub",
-      "wikiHtml": "wiki/pages/Sources/_OceanofPDF.com_Dragons_of_Winter_Night_-_Margaret_Weis.epub.html",
-      "wikiSrc": "wiki/src/files/Sources/_OceanofPDF.com_Dragons_of_Winter_Night_-_Margaret_Weis.epub.md",
-      "title": "_OceanofPDF.com_Dragons_of_Winter_Night_-_Margaret_Weis.epub",
-      "volume": "vol-8",
-      "kind": "Project Asset",
-      "hash": "34edd38fe20efb05",
-      "reviewedHash": "34edd38fe20efb05",
-      "stale": false,
-      "auditFlag": null,
-      "outboundCount": 0,
-      "inboundBacklinkCount": 0
-    },
-    {
-      "relPath": "Sources/_OceanofPDF.com_The_Soulforge_-_Margaret_Weis.epub",
-      "wikiHtml": "wiki/pages/Sources/_OceanofPDF.com_The_Soulforge_-_Margaret_Weis.epub.html",
-      "wikiSrc": "wiki/src/files/Sources/_OceanofPDF.com_The_Soulforge_-_Margaret_Weis.epub.md",
-      "title": "_OceanofPDF.com_The_Soulforge_-_Margaret_Weis.epub",
-      "volume": "vol-8",
-      "kind": "Project Asset",
-      "hash": "c916a39dd1826928",
-      "reviewedHash": "c916a39dd1826928",
-      "stale": false,
-      "auditFlag": null,
-      "outboundCount": 0,
-      "inboundBacklinkCount": 0
     },
     {
       "relPath": "Sources/extracted/01_soulforge/index.json",
@@ -4687,8 +4617,8 @@
       "title": "modules_manifest.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "1a3d332288d55be6",
-      "reviewedHash": "1a3d332288d55be6",
+      "hash": "e734e71391cf51cb",
+      "reviewedHash": "e734e71391cf51cb",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 29,
@@ -4701,8 +4631,8 @@
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "7aa302b496e5c92b",
-      "reviewedHash": "7aa302b496e5c92b",
+      "hash": "2c7c388793a934fb",
+      "reviewedHash": "2c7c388793a934fb",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
@@ -4715,8 +4645,8 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "7aa302b496e5c92b",
-      "reviewedHash": "7aa302b496e5c92b",
+      "hash": "2c7c388793a934fb",
+      "reviewedHash": "2c7c388793a934fb",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
@@ -4729,12 +4659,12 @@
       "title": "campaign.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "2eb452d0fb26d7cc",
-      "reviewedHash": "2eb452d0fb26d7cc",
+      "hash": "61ae5f163289ffba",
+      "reviewedHash": "61ae5f163289ffba",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 33
+      "inboundBacklinkCount": 34
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T1_HIGHLORD_COUNCIL_CONCLAVE.md",
@@ -5143,14 +5073,28 @@
       "inboundBacklinkCount": 2
     },
     {
+      "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
+      "wikiHtml": "wiki/pages/campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json.html",
+      "wikiSrc": "wiki/src/files/campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json.md",
+      "title": "odv_matrix_krynn.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "hash": "aa24421dac755a29",
+      "reviewedHash": "aa24421dac755a29",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 1,
+      "inboundBacklinkCount": 3
+    },
+    {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/preset.json",
       "wikiHtml": "wiki/pages/campaigns/Krynn_V3_Five_Book_Odyssey/preset.json.html",
       "wikiSrc": "wiki/src/files/campaigns/Krynn_V3_Five_Book_Odyssey/preset.json.md",
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "af27b6af5ab8c333",
-      "reviewedHash": "af27b6af5ab8c333",
+      "hash": "2c112610e9d52e36",
+      "reviewedHash": "2c112610e9d52e36",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
@@ -5163,8 +5107,8 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "af27b6af5ab8c333",
-      "reviewedHash": "af27b6af5ab8c333",
+      "hash": "2c112610e9d52e36",
+      "reviewedHash": "2c112610e9d52e36",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
@@ -6501,6 +6445,20 @@
       "inboundBacklinkCount": 7
     },
     {
+      "relPath": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
+      "wikiHtml": "wiki/pages/docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md.html",
+      "wikiSrc": "wiki/src/files/docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md.md",
+      "title": "ODV Krynn Adaptation: Work Document",
+      "volume": "vol-1",
+      "kind": "Technical Documentation / Guide",
+      "hash": "a239aa18e5d3bb50",
+      "reviewedHash": "a239aa18e5d3bb50",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 7,
+      "inboundBacklinkCount": 0
+    },
+    {
       "relPath": "docs/navigation_manifest.json",
       "wikiHtml": "wiki/pages/docs/navigation_manifest.json.html",
       "wikiSrc": "wiki/src/files/docs/navigation_manifest.json.md",
@@ -6568,7 +6526,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 34,
-      "inboundBacklinkCount": 106
+      "inboundBacklinkCount": 107
     },
     {
       "relPath": "docs/srd/campaign_preset_specification_srd.md",
@@ -9060,7 +9018,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 17
+      "inboundBacklinkCount": 18
     },
     {
       "relPath": "network/platform_audit_dashboard.html",
@@ -9069,11 +9027,11 @@
       "title": "Creator Studio: Platform Explorer & Master Audit",
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "b98b2f0062e88e8c",
-      "reviewedHash": "b98b2f0062e88e8c",
+      "hash": "fe6377d695eecd1e",
+      "reviewedHash": "fe6377d695eecd1e",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 173,
+      "outboundCount": 174,
       "inboundBacklinkCount": 27
     },
     {
@@ -9340,7 +9298,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "sociology/README.md",
@@ -9447,8 +9405,8 @@
       "title": "cad_canvas_renderer.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "411218de4b6a5223",
-      "reviewedHash": "411218de4b6a5223",
+      "hash": "68898cb19050a386",
+      "reviewedHash": "68898cb19050a386",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 17,
@@ -9489,8 +9447,8 @@
       "title": "campaign_exporter.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "f06558c323fe2b99",
-      "reviewedHash": "f06558c323fe2b99",
+      "hash": "a198aff755a4d05c",
+      "reviewedHash": "a198aff755a4d05c",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 18,
@@ -9503,8 +9461,8 @@
       "title": "campaign_mutation_engine.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "0737ff77def69573",
-      "reviewedHash": "0737ff77def69573",
+      "hash": "eb32a270be7edd3b",
+      "reviewedHash": "eb32a270be7edd3b",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
@@ -9644,8 +9602,8 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "hash": "d1f1ca1ad06bb747",
-      "reviewedHash": "141a27012409e9b4",
-      "stale": true,
+      "reviewedHash": "d1f1ca1ad06bb747",
+      "stale": false,
       "auditFlag": null,
       "outboundCount": 18,
       "inboundBacklinkCount": 19
@@ -9713,8 +9671,8 @@
       "title": "selective_importer.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "1b47b2f9efe62778",
-      "reviewedHash": "1b47b2f9efe62778",
+      "hash": "402e46e9b2686af5",
+      "reviewedHash": "402e46e9b2686af5",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 15,
@@ -9741,12 +9699,12 @@
       "title": "sociology_data.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "a1438d7d13e2577e",
-      "reviewedHash": "a1438d7d13e2577e",
+      "hash": "5f2db52af564c1da",
+      "reviewedHash": "5f2db52af564c1da",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 15
+      "inboundBacklinkCount": 17
     },
     {
       "relPath": "src/workstation/scripts/state_adapter.js",
@@ -9755,11 +9713,11 @@
       "title": "state_adapter.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "4e76bd2195b4fcb1",
-      "reviewedHash": "4e76bd2195b4fcb1",
+      "hash": "aa8968a0643341ad",
+      "reviewedHash": "aa8968a0643341ad",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 14,
+      "outboundCount": 15,
       "inboundBacklinkCount": 26
     },
     {
@@ -9867,11 +9825,11 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "b4d9c1ec609b827b",
-      "reviewedHash": "b4d9c1ec609b827b",
+      "hash": "b8c05b6ad4b742fb",
+      "reviewedHash": "b8c05b6ad4b742fb",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 185,
+      "outboundCount": 186,
       "inboundBacklinkCount": 91
     },
     {
@@ -9951,8 +9909,8 @@
       "title": "run_tests.js",
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "5827a38344a87156",
-      "reviewedHash": "5827a38344a87156",
+      "hash": "cccdf12647f90d14",
+      "reviewedHash": "cccdf12647f90d14",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 22,

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-05T03:27:34.507Z",
-  "totalFiles": 735,
+  "generatedAt": "2026-11-05T04:05:29.629Z",
+  "totalFiles": 732,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3003,
-  "staleCount": 1,
+  "totalBidirectionalEdges": 3014,
+  "staleCount": 0,
   "nodes": [
     {
       "relPath": "AGENTS.md",
@@ -377,6 +377,12 @@
           "reason": "References AGENTS.md"
         },
         {
+          "source": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References AGENTS.md"
+        },
+        {
           "source": "docs/navigation_manifest.json",
           "sourceType": "file",
           "type": "Wiki Citation",
@@ -547,6 +553,12 @@
         },
         {
           "source": "docs/agents/issue-tracker.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        },
+        {
+          "source": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References Build-Suite.ps1"
@@ -1764,91 +1776,6 @@
           "reason": "References README.md"
         }
       ]
-    },
-    {
-      "relPath": "Sources/_OceanofPDF.com_Dragonlance_13_-_Raistlin_Chronicles_-_Bro_-_Margaret_Weis.epub",
-      "title": "_OceanofPDF.com_Dragonlance_13_-_Raistlin_Chronicles_-_Bro_-_Margaret_Weis.epub",
-      "volume": "vol-8",
-      "kind": "Project Asset",
-      "stale": false,
-      "hash": "18691a6062f23dc6",
-      "reviewedHash": "18691a6062f23dc6",
-      "lineCount": 1817,
-      "sizeBytes": 513090,
-      "symbols": [],
-      "globals": [],
-      "provides": [],
-      "requires": [],
-      "outbound": [],
-      "inbound": []
-    },
-    {
-      "relPath": "Sources/_OceanofPDF.com_Dragons_of_Autumn_Twilight_-_Margaret_Weis.epub",
-      "title": "_OceanofPDF.com_Dragons_of_Autumn_Twilight_-_Margaret_Weis.epub",
-      "volume": "vol-8",
-      "kind": "Project Asset",
-      "stale": false,
-      "hash": "e864e361aa621d6d",
-      "reviewedHash": "e864e361aa621d6d",
-      "lineCount": 2220,
-      "sizeBytes": 606891,
-      "symbols": [],
-      "globals": [],
-      "provides": [],
-      "requires": [],
-      "outbound": [],
-      "inbound": []
-    },
-    {
-      "relPath": "Sources/_OceanofPDF.com_Dragons_of_Spring_Dawning_-_Margaret_Weis.epub",
-      "title": "_OceanofPDF.com_Dragons_of_Spring_Dawning_-_Margaret_Weis.epub",
-      "volume": "vol-8",
-      "kind": "Project Asset",
-      "stale": false,
-      "hash": "d4a9137092ee085c",
-      "reviewedHash": "d4a9137092ee085c",
-      "lineCount": 1449,
-      "sizeBytes": 400153,
-      "symbols": [],
-      "globals": [],
-      "provides": [],
-      "requires": [],
-      "outbound": [],
-      "inbound": []
-    },
-    {
-      "relPath": "Sources/_OceanofPDF.com_Dragons_of_Winter_Night_-_Margaret_Weis.epub",
-      "title": "_OceanofPDF.com_Dragons_of_Winter_Night_-_Margaret_Weis.epub",
-      "volume": "vol-8",
-      "kind": "Project Asset",
-      "stale": false,
-      "hash": "34edd38fe20efb05",
-      "reviewedHash": "34edd38fe20efb05",
-      "lineCount": 2982,
-      "sizeBytes": 832428,
-      "symbols": [],
-      "globals": [],
-      "provides": [],
-      "requires": [],
-      "outbound": [],
-      "inbound": []
-    },
-    {
-      "relPath": "Sources/_OceanofPDF.com_The_Soulforge_-_Margaret_Weis.epub",
-      "title": "_OceanofPDF.com_The_Soulforge_-_Margaret_Weis.epub",
-      "volume": "vol-8",
-      "kind": "Project Asset",
-      "stale": false,
-      "hash": "c916a39dd1826928",
-      "reviewedHash": "c916a39dd1826928",
-      "lineCount": 1494,
-      "sizeBytes": 400768,
-      "symbols": [],
-      "globals": [],
-      "provides": [],
-      "requires": [],
-      "outbound": [],
-      "inbound": []
     },
     {
       "relPath": "Sources/extracted/01_soulforge/index.json",
@@ -13287,10 +13214,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "1a3d332288d55be6",
-      "reviewedHash": "1a3d332288d55be6",
-      "lineCount": 1322,
-      "sizeBytes": 166942,
+      "hash": "e734e71391cf51cb",
+      "reviewedHash": "e734e71391cf51cb",
+      "lineCount": 1182,
+      "sizeBytes": 163834,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13492,10 +13419,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "7aa302b496e5c92b",
-      "reviewedHash": "7aa302b496e5c92b",
-      "lineCount": 22003,
-      "sizeBytes": 964102,
+      "hash": "2c7c388793a934fb",
+      "reviewedHash": "2c7c388793a934fb",
+      "lineCount": 31004,
+      "sizeBytes": 1668795,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13529,10 +13456,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "7aa302b496e5c92b",
-      "reviewedHash": "7aa302b496e5c92b",
-      "lineCount": 22003,
-      "sizeBytes": 964102,
+      "hash": "2c7c388793a934fb",
+      "reviewedHash": "2c7c388793a934fb",
+      "lineCount": 31004,
+      "sizeBytes": 1668795,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13566,10 +13493,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "2eb452d0fb26d7cc",
-      "reviewedHash": "2eb452d0fb26d7cc",
+      "hash": "61ae5f163289ffba",
+      "reviewedHash": "61ae5f163289ffba",
       "lineCount": 5600,
-      "sizeBytes": 335178,
+      "sizeBytes": 335150,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13758,6 +13685,12 @@
         },
         {
           "source": "campaigns/Krynn_V3_Five_Book_Odyssey/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Krynn_V3_Five_Book_Odyssey campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to Krynn_V3_Five_Book_Odyssey campaign sourcebook"
@@ -16189,15 +16122,58 @@
       ]
     },
     {
+      "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
+      "title": "odv_matrix_krynn.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "aa24421dac755a29",
+      "reviewedHash": "aa24421dac755a29",
+      "lineCount": 1155,
+      "sizeBytes": 78079,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Krynn_V3_Five_Book_Odyssey/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Krynn_V3_Five_Book_Odyssey campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "source": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json"
+        }
+      ]
+    },
+    {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/preset.json",
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "af27b6af5ab8c333",
-      "reviewedHash": "af27b6af5ab8c333",
-      "lineCount": 22115,
-      "sizeBytes": 970565,
+      "hash": "2c112610e9d52e36",
+      "reviewedHash": "2c112610e9d52e36",
+      "lineCount": 34490,
+      "sizeBytes": 2184357,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16231,10 +16207,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "af27b6af5ab8c333",
-      "reviewedHash": "af27b6af5ab8c333",
-      "lineCount": 22115,
-      "sizeBytes": 970565,
+      "hash": "2c112610e9d52e36",
+      "reviewedHash": "2c112610e9d52e36",
+      "lineCount": 34490,
+      "sizeBytes": 2184357,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -26448,6 +26424,66 @@
       ]
     },
     {
+      "relPath": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
+      "title": "ODV Krynn Adaptation: Work Document",
+      "volume": "vol-1",
+      "kind": "Technical Documentation / Guide",
+      "stale": false,
+      "hash": "a239aa18e5d3bb50",
+      "reviewedHash": "a239aa18e5d3bb50",
+      "lineCount": 251,
+      "sizeBytes": 36692,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "AGENTS.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References AGENTS.md"
+        },
+        {
+          "target": "Build-Suite.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        },
+        {
+          "target": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json"
+        },
+        {
+          "target": "docs/srd/authoring_engine_srd.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/srd/authoring_engine_srd.md"
+        },
+        {
+          "target": "network/odv_archetype_matrix.html",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References network/odv_archetype_matrix.html"
+        },
+        {
+          "target": "sociology/07_Granular_64_Disposition_Matrix.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References sociology/07_Granular_64_Disposition_Matrix.md"
+        },
+        {
+          "target": "src/workstation/scripts/sociology_data.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/sociology_data.js"
+        }
+      ],
+      "inbound": []
+    },
+    {
       "relPath": "docs/navigation_manifest.json",
       "title": "navigation_manifest.json",
       "volume": "vol-3",
@@ -28343,6 +28379,12 @@
           "sourceType": "file",
           "type": "Wiki Citation",
           "reason": "Explicit [[File:docs/srd/authoring_engine_srd.md]] reference"
+        },
+        {
+          "source": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References docs/srd/authoring_engine_srd.md"
         },
         {
           "source": "docs/navigation_manifest.json",
@@ -37357,6 +37399,12 @@
           "reason": "References network/odv_archetype_matrix.html"
         },
         {
+          "source": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References network/odv_archetype_matrix.html"
+        },
+        {
           "source": "network/contradiction_matrix_dashboard.html",
           "sourceType": "file",
           "type": "Path Reference",
@@ -37400,10 +37448,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "b98b2f0062e88e8c",
-      "reviewedHash": "b98b2f0062e88e8c",
-      "lineCount": 124562,
-      "sizeBytes": 27671967,
+      "hash": "fe6377d695eecd1e",
+      "reviewedHash": "fe6377d695eecd1e",
+      "lineCount": 136937,
+      "sizeBytes": 28935831,
       "symbols": [
         "moduleMatchesTrack(m, track)",
         "getModuleTrackBadges(m)",
@@ -38062,6 +38110,12 @@
         },
         {
           "target": "campaigns/Krynn_V3_Five_Book_Odyssey/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
@@ -40465,6 +40519,12 @@
           "reason": "Explicit [[File:sociology/07_Granular_64_Disposition_Matrix.md]] reference"
         },
         {
+          "source": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References sociology/07_Granular_64_Disposition_Matrix.md"
+        },
+        {
           "source": "docs/srd/authoring_engine_srd.md",
           "sourceType": "file",
           "type": "Wiki Citation",
@@ -40860,10 +40920,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "411218de4b6a5223",
-      "reviewedHash": "411218de4b6a5223",
+      "hash": "68898cb19050a386",
+      "reviewedHash": "68898cb19050a386",
       "lineCount": 1631,
-      "sizeBytes": 81480,
+      "sizeBytes": 81468,
       "symbols": [
         "computeStarPoints(cx, cy, spikes, outerRadius, innerRadius)",
         "computePolygonPoints(cx, cy, sides, radius)",
@@ -41559,10 +41619,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "f06558c323fe2b99",
-      "reviewedHash": "f06558c323fe2b99",
+      "hash": "a198aff755a4d05c",
+      "reviewedHash": "a198aff755a4d05c",
       "lineCount": 1821,
-      "sizeBytes": 75674,
+      "sizeBytes": 75650,
       "symbols": [
         "resolveMapNodes(mapOrTopo)",
         "findNodeObj(mapOrTopo, nodeId)",
@@ -41753,13 +41813,14 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "0737ff77def69573",
-      "reviewedHash": "0737ff77def69573",
-      "lineCount": 2524,
-      "sizeBytes": 116508,
+      "hash": "eb32a270be7edd3b",
+      "reviewedHash": "eb32a270be7edd3b",
+      "lineCount": 2532,
+      "sizeBytes": 117500,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
-        "normalizeOdv(val)",
+        "normalizeOdv(raw)",
+        "applyOdvOrDelete(obj, raw)",
         "normalizeSpatialPin(pin)",
         "normalizeEntities(entitiesObj)",
         "getTargetCollection(state, category)",
@@ -43762,9 +43823,9 @@
       "title": "mdi_window_manager.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "stale": true,
+      "stale": false,
       "hash": "d1f1ca1ad06bb747",
-      "reviewedHash": "141a27012409e9b4",
+      "reviewedHash": "d1f1ca1ad06bb747",
       "lineCount": 2924,
       "sizeBytes": 134426,
       "symbols": [
@@ -44907,16 +44968,18 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "1b47b2f9efe62778",
-      "reviewedHash": "1b47b2f9efe62778",
-      "lineCount": 1087,
-      "sizeBytes": 52279,
+      "hash": "402e46e9b2686af5",
+      "reviewedHash": "402e46e9b2686af5",
+      "lineCount": 1092,
+      "sizeBytes": 52940,
       "symbols": [
         "triggerSelectiveImportPackage()",
         "triggerSelectiveImportFolder(options = {})",
         "triggerSelectiveImportFile(options = {})",
         "onSelectiveImportFileSelected(e)",
         "blobToDataUrl(blob)",
+        "localNormalizeOdv(raw)",
+        "setOrDeleteOdv(obj, raw)",
         "normalizeImportedEntities(entitiesObj)",
         "detectEntityConflicts(incomingEntities, currentTopology)",
         "mergeEntitiesWithResolutions(curTopo, incomingEntities, conflicts, resolutions)",
@@ -45156,10 +45219,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "a1438d7d13e2577e",
-      "reviewedHash": "a1438d7d13e2577e",
-      "lineCount": 1971,
-      "sizeBytes": 124062,
+      "hash": "5f2db52af564c1da",
+      "reviewedHash": "5f2db52af564c1da",
+      "lineCount": 2000,
+      "sizeBytes": 125836,
       "symbols": [
         "getArchetypeDetails(s, e, c)",
         "deriveCvfQuadrant(s, e)",
@@ -45169,6 +45232,10 @@
         "getSuggestedCultureForNode(node)",
         "getCulturalHarmonyScore(nid)",
         "synthesizeCorridorReasonings(link, srcNode, tgtNode)",
+        "normalizeOdvInput(raw)",
+        "getOdv(entity)",
+        "getEdgeOdv(edge, uOdv, vOdv, edgeRecord)",
+        "getNodeQuadrant(node)",
         "resolveNodeOdv(node, fallbackIndex)",
         "resolveEdgeOdv(edge, uNodeOdv, vNodeOdv, edgeRecord)",
         "buildCampaignOdvIndex(topology)",
@@ -45279,6 +45346,12 @@
           "reason": "References src/workstation/scripts/sociology_data.js"
         },
         {
+          "source": "docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/sociology_data.js"
+        },
+        {
           "source": "docs/navigation_manifest.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -45321,6 +45394,12 @@
           "reason": "Inlines modular source during suite compilation"
         },
         {
+          "source": "src/workstation/scripts/state_adapter.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes normalizeOdvInput() defined in sociology_data.js"
+        },
+        {
           "source": "src/workstation/scripts/supply_chain_simulator.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -45340,10 +45419,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "4e76bd2195b4fcb1",
-      "reviewedHash": "4e76bd2195b4fcb1",
-      "lineCount": 1237,
-      "sizeBytes": 58166,
+      "hash": "aa8968a0643341ad",
+      "reviewedHash": "aa8968a0643341ad",
+      "lineCount": 1233,
+      "sizeBytes": 58004,
       "symbols": [
         "initMapsRegistry(forceReset = false)",
         "syncActiveMapToRegistry()",
@@ -45358,7 +45437,7 @@
         "getNodeAdjacents(nid)",
         "getNodeIncomingSources(nid)",
         "normalizeNodeSlottedModules(rawMap)",
-        "normalizeOdvVector(odv, fallback)",
+        "normalizeOdvVector(odv)",
         "syncAdapterFromWorkstationTopology()",
         "srcIdRawNorm(v)",
         "syncAdapterToWorkstationTopology()",
@@ -45454,6 +45533,12 @@
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes selectGlobal() defined in property_grid_inspector.js"
+        },
+        {
+          "target": "src/workstation/scripts/sociology_data.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes normalizeOdvInput() defined in sociology_data.js"
         },
         {
           "target": "src/workstation/scripts/workstation_state.js",
@@ -47360,13 +47445,14 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "b4d9c1ec609b827b",
-      "reviewedHash": "b4d9c1ec609b827b",
-      "lineCount": 169912,
-      "sizeBytes": 29944203,
+      "hash": "b8c05b6ad4b742fb",
+      "reviewedHash": "b8c05b6ad4b742fb",
+      "lineCount": 182325,
+      "sizeBytes": 31213849,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
-        "normalizeOdv(val)",
+        "normalizeOdv(raw)",
+        "applyOdvOrDelete(obj, raw)",
         "normalizeSpatialPin(pin)",
         "normalizeEntities(entitiesObj)",
         "getTargetCollection(state, category)",
@@ -47413,8 +47499,7 @@
         "getNodesList(stateOrTopo)",
         "getNodesMap(stateOrTopo)",
         "getNodeById(stateOrTopo, nodeId)",
-        "upsertNode(stateOrTopo, nodePayload)",
-        "removeNode(stateOrTopo, nodeId, options = {})"
+        "upsertNode(stateOrTopo, nodePayload)"
       ],
       "globals": [],
       "provides": [],
@@ -48112,6 +48197,12 @@
         },
         {
           "target": "campaigns/Krynn_V3_Five_Book_Odyssey/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
@@ -49436,10 +49527,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "5827a38344a87156",
-      "reviewedHash": "5827a38344a87156",
-      "lineCount": 8706,
-      "sizeBytes": 441862,
+      "hash": "cccdf12647f90d14",
+      "reviewedHash": "cccdf12647f90d14",
+      "lineCount": 8724,
+      "sizeBytes": 443424,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -51831,7 +51922,13 @@
     },
     {
       "name": "normalizeOdv",
-      "signature": "normalizeOdv(val)",
+      "signature": "normalizeOdv(raw)",
+      "file": "src/workstation/scripts/campaign_mutation_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "applyOdvOrDelete",
+      "signature": "applyOdvOrDelete(obj, raw)",
       "file": "src/workstation/scripts/campaign_mutation_engine.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -54542,6 +54639,18 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "localNormalizeOdv",
+      "signature": "localNormalizeOdv(raw)",
+      "file": "src/workstation/scripts/selective_importer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "setOrDeleteOdv",
+      "signature": "setOrDeleteOdv(obj, raw)",
+      "file": "src/workstation/scripts/selective_importer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "normalizeImportedEntities",
       "signature": "normalizeImportedEntities(entitiesObj)",
       "file": "src/workstation/scripts/selective_importer.js",
@@ -54770,6 +54879,30 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "normalizeOdvInput",
+      "signature": "normalizeOdvInput(raw)",
+      "file": "src/workstation/scripts/sociology_data.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getOdv",
+      "signature": "getOdv(entity)",
+      "file": "src/workstation/scripts/sociology_data.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getEdgeOdv",
+      "signature": "getEdgeOdv(edge, uOdv, vOdv, edgeRecord)",
+      "file": "src/workstation/scripts/sociology_data.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getNodeQuadrant",
+      "signature": "getNodeQuadrant(node)",
+      "file": "src/workstation/scripts/sociology_data.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "resolveNodeOdv",
       "signature": "resolveNodeOdv(node, fallbackIndex)",
       "file": "src/workstation/scripts/sociology_data.js",
@@ -54939,7 +55072,7 @@
     },
     {
       "name": "normalizeOdvVector",
-      "signature": "normalizeOdvVector(odv, fallback)",
+      "signature": "normalizeOdvVector(odv)",
       "file": "src/workstation/scripts/state_adapter.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -55755,7 +55888,13 @@
     },
     {
       "name": "normalizeOdv",
-      "signature": "normalizeOdv(val)",
+      "signature": "normalizeOdv(raw)",
+      "file": "start.html",
+      "kind": "Standalone Zero-CORS HTML Workstation"
+    },
+    {
+      "name": "applyOdvOrDelete",
+      "signature": "applyOdvOrDelete(obj, raw)",
       "file": "start.html",
       "kind": "Standalone Zero-CORS HTML Workstation"
     },
@@ -56038,12 +56177,6 @@
     {
       "name": "upsertNode",
       "signature": "upsertNode(stateOrTopo, nodePayload)",
-      "file": "start.html",
-      "kind": "Standalone Zero-CORS HTML Workstation"
-    },
-    {
-      "name": "removeNode",
-      "signature": "removeNode(stateOrTopo, nodeId, options = {})",
       "file": "start.html",
       "kind": "Standalone Zero-CORS HTML Workstation"
     },

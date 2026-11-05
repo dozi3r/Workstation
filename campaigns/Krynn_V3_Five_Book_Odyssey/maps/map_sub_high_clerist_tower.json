@@ -365,7 +365,8 @@
       "zIndex": 0,
       "visible": true,
       "locked": false,
-      "opacity": 1
+      "opacity": 1,
+      "isCore": true
     },
     {
       "id": "layer-edges",
@@ -381,8 +382,48 @@
       "zIndex": 20,
       "visible": true,
       "locked": false,
-      "opacity": 1
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
   ],
-  "shapes": []
+  "shapes": [],
+  "waves": [],
+  "drawnCards": {},
+  "spatialPins": []
 }
