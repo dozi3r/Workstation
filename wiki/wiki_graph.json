@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-05T04:33:31.008Z",
-  "totalFiles": 735,
+  "generatedAt": "2026-11-05T05:20:42.844Z",
+  "totalFiles": 737,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3030,
+  "totalBidirectionalEdges": 3033,
   "staleCount": 0,
   "nodes": [
     {
@@ -703,10 +703,10 @@
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
       "stale": false,
-      "hash": "983114ff419229ce",
-      "reviewedHash": "983114ff419229ce",
-      "lineCount": 396,
-      "sizeBytes": 29741,
+      "hash": "eea0aa118b3e48bc",
+      "reviewedHash": "eea0aa118b3e48bc",
+      "lineCount": 395,
+      "sizeBytes": 29773,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -6184,10 +6184,10 @@
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "21e40869c8785c66",
-      "reviewedHash": "21e40869c8785c66",
+      "hash": "0887f5d5198804bf",
+      "reviewedHash": "0887f5d5198804bf",
       "lineCount": 1382,
-      "sizeBytes": 68163,
+      "sizeBytes": 68262,
       "symbols": [
         "toRootRelUrl(absPath)",
         "rebaseFileUrls(jsonStr, prefix)",
@@ -6209,7 +6209,7 @@
         "navManifest",
         "campaignsDir",
         "campaignRegistry",
-        "cId0",
+        "resolveCampaignId",
         "defaultCampaignId",
         "modules",
         "networkManifestPath",
@@ -7830,12 +7830,6 @@
           "reason": "Belongs to BaldursGate campaign sourcebook"
         },
         {
-          "source": "campaigns/BaldursGate/odv_matrix.json",
-          "sourceType": "file",
-          "type": "Campaign Package",
-          "reason": "Belongs to BaldursGate campaign sourcebook"
-        },
-        {
           "source": "campaigns/BaldursGate/preset.json",
           "sourceType": "file",
           "type": "Campaign Package",
@@ -7859,43 +7853,6 @@
       "reviewedHash": "37517e5f3dc66819",
       "lineCount": 2,
       "sizeBytes": 3,
-      "symbols": [],
-      "globals": [],
-      "provides": [],
-      "requires": [],
-      "outbound": [
-        {
-          "target": "campaigns/BaldursGate/campaign.json",
-          "targetType": "file",
-          "type": "Campaign Package",
-          "reason": "Belongs to BaldursGate campaign sourcebook"
-        }
-      ],
-      "inbound": [
-        {
-          "source": "start.html",
-          "sourceType": "file",
-          "type": "Data Source",
-          "reason": "Authoritative data source in campaigns/ consumed by start.html"
-        },
-        {
-          "source": "network/platform_audit_dashboard.html",
-          "sourceType": "file",
-          "type": "Data Source",
-          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
-        }
-      ]
-    },
-    {
-      "relPath": "campaigns/BaldursGate/odv_matrix.json",
-      "title": "odv_matrix.json",
-      "volume": "vol-8",
-      "kind": "Authoritative JSON Data / Manifest",
-      "stale": false,
-      "hash": "aa24421dac755a29",
-      "reviewedHash": "aa24421dac755a29",
-      "lineCount": 1155,
-      "sizeBytes": 78079,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -8162,10 +8119,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "af33cc9dbf1b5295",
-      "reviewedHash": "af33cc9dbf1b5295",
-      "lineCount": 4917,
-      "sizeBytes": 308568,
+      "hash": "9ba2b4a6dd1f6f8f",
+      "reviewedHash": "9ba2b4a6dd1f6f8f",
+      "lineCount": 4919,
+      "sizeBytes": 308638,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -8354,6 +8311,12 @@
         },
         {
           "source": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Krynn_V1_Heroes_of_the_Lance campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Krynn_V1_Heroes_of_the_Lance/odv_matrix.json",
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to Krynn_V1_Heroes_of_the_Lance campaign sourcebook"
@@ -10785,15 +10748,52 @@
       ]
     },
     {
+      "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/odv_matrix.json",
+      "title": "odv_matrix.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "aa24421dac755a29",
+      "reviewedHash": "aa24421dac755a29",
+      "lineCount": 1155,
+      "sizeBytes": 78079,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Krynn_V1_Heroes_of_the_Lance/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Krynn_V1_Heroes_of_the_Lance campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/preset.json",
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "96cf31d9473d72db",
-      "reviewedHash": "96cf31d9473d72db",
-      "lineCount": 20767,
-      "sizeBytes": 919083,
+      "hash": "6c71704900805345",
+      "reviewedHash": "6c71704900805345",
+      "lineCount": 20769,
+      "sizeBytes": 919153,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -10827,10 +10827,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "96cf31d9473d72db",
-      "reviewedHash": "96cf31d9473d72db",
-      "lineCount": 20767,
-      "sizeBytes": 919083,
+      "hash": "6c71704900805345",
+      "reviewedHash": "6c71704900805345",
+      "lineCount": 20769,
+      "sizeBytes": 919153,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -10864,10 +10864,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "e3ad04e48ac4f336",
-      "reviewedHash": "e3ad04e48ac4f336",
-      "lineCount": 5536,
-      "sizeBytes": 331678,
+      "hash": "cdd868f0a187b702",
+      "reviewedHash": "cdd868f0a187b702",
+      "lineCount": 5537,
+      "sizeBytes": 331755,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -11056,6 +11056,12 @@
         },
         {
           "source": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Krynn_V2_Shadows_of_the_Lance campaign sourcebook"
+        },
+        {
+          "source": "campaigns/Krynn_V2_Shadows_of_the_Lance/odv_matrix.json",
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to Krynn_V2_Shadows_of_the_Lance campaign sourcebook"
@@ -13487,15 +13493,52 @@
       ]
     },
     {
+      "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/odv_matrix.json",
+      "title": "odv_matrix.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "aa24421dac755a29",
+      "reviewedHash": "aa24421dac755a29",
+      "lineCount": 1155,
+      "sizeBytes": 78079,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/Krynn_V2_Shadows_of_the_Lance/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to Krynn_V2_Shadows_of_the_Lance campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/preset.json",
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "85113f2dbfe87258",
-      "reviewedHash": "85113f2dbfe87258",
-      "lineCount": 31004,
-      "sizeBytes": 1668825,
+      "hash": "5c849cb9aae3beeb",
+      "reviewedHash": "5c849cb9aae3beeb",
+      "lineCount": 22005,
+      "sizeBytes": 964172,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13529,10 +13572,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "85113f2dbfe87258",
-      "reviewedHash": "85113f2dbfe87258",
-      "lineCount": 31004,
-      "sizeBytes": 1668825,
+      "hash": "5c849cb9aae3beeb",
+      "reviewedHash": "5c849cb9aae3beeb",
+      "lineCount": 22005,
+      "sizeBytes": 964172,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13566,10 +13609,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "07a1e135f466fcff",
-      "reviewedHash": "07a1e135f466fcff",
-      "lineCount": 5600,
-      "sizeBytes": 335150,
+      "hash": "be79b2ab32684965",
+      "reviewedHash": "be79b2ab32684965",
+      "lineCount": 5602,
+      "sizeBytes": 335249,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16243,10 +16286,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "6950123c870ae37b",
-      "reviewedHash": "6950123c870ae37b",
-      "lineCount": 34490,
-      "sizeBytes": 2184357,
+      "hash": "8dead3f0c27f8a39",
+      "reviewedHash": "8dead3f0c27f8a39",
+      "lineCount": 22117,
+      "sizeBytes": 970636,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16280,10 +16323,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "6950123c870ae37b",
-      "reviewedHash": "6950123c870ae37b",
-      "lineCount": 34490,
-      "sizeBytes": 2184357,
+      "hash": "8dead3f0c27f8a39",
+      "reviewedHash": "8dead3f0c27f8a39",
+      "lineCount": 22117,
+      "sizeBytes": 970636,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -36728,10 +36771,10 @@
       "volume": "vol-5",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "c3384ed48c067f8e",
-      "reviewedHash": "c3384ed48c067f8e",
+      "hash": "fc39a096c29cc505",
+      "reviewedHash": "fc39a096c29cc505",
       "lineCount": 3,
-      "sizeBytes": 143456,
+      "sizeBytes": 215063,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -37571,10 +37614,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "8747be9449886d49",
-      "reviewedHash": "8747be9449886d49",
-      "lineCount": 148255,
-      "sizeBytes": 29851667,
+      "hash": "05ee2a23339b0e57",
+      "reviewedHash": "05ee2a23339b0e57",
+      "lineCount": 128048,
+      "sizeBytes": 27934565,
       "symbols": [
         "moduleMatchesTrack(m, track)",
         "getModuleTrackBadges(m)",
@@ -37633,12 +37676,6 @@
         },
         {
           "target": "campaigns/BaldursGate/modules_manifest.json",
-          "targetType": "file",
-          "type": "Data Source",
-          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
-        },
-        {
-          "target": "campaigns/BaldursGate/odv_matrix.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
@@ -37860,6 +37897,12 @@
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
         },
         {
+          "target": "campaigns/Krynn_V1_Heroes_of_the_Lance/odv_matrix.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
           "target": "campaigns/Krynn_V1_Heroes_of_the_Lance/preset.json",
           "targetType": "file",
           "type": "Data Source",
@@ -38047,6 +38090,12 @@
         },
         {
           "target": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/Krynn_V2_Shadows_of_the_Lance/odv_matrix.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
@@ -44704,10 +44753,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "e1c9c34c8b8abbcd",
-      "reviewedHash": "e1c9c34c8b8abbcd",
-      "lineCount": 4443,
-      "sizeBytes": 209158,
+      "hash": "fb59d24086104e48",
+      "reviewedHash": "fb59d24086104e48",
+      "lineCount": 4446,
+      "sizeBytes": 209376,
       "symbols": [
         "selectNode(nodeId, e = null)",
         "selectEdge(edgeType, uId, vId, e = null)",
@@ -47692,10 +47741,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "81fbced81e0c2ab0",
-      "reviewedHash": "81fbced81e0c2ab0",
-      "lineCount": 193787,
-      "sizeBytes": 32137016,
+      "hash": "be0769e02d6ff4c3",
+      "reviewedHash": "be0769e02d6ff4c3",
+      "lineCount": 173583,
+      "sizeBytes": 30220188,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
         "normalizeOdv(raw)",
@@ -47844,12 +47893,6 @@
         },
         {
           "target": "campaigns/BaldursGate/modules_manifest.json",
-          "targetType": "file",
-          "type": "Data Source",
-          "reason": "Authoritative data source in campaigns/ consumed by start.html"
-        },
-        {
-          "target": "campaigns/BaldursGate/odv_matrix.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
@@ -48071,6 +48114,12 @@
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
         },
         {
+          "target": "campaigns/Krynn_V1_Heroes_of_the_Lance/odv_matrix.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
           "target": "campaigns/Krynn_V1_Heroes_of_the_Lance/preset.json",
           "targetType": "file",
           "type": "Data Source",
@@ -48258,6 +48307,12 @@
         },
         {
           "target": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/Krynn_V2_Shadows_of_the_Lance/odv_matrix.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
@@ -50083,10 +50138,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "154a4e17b2db80c3",
-      "reviewedHash": "154a4e17b2db80c3",
-      "lineCount": 314,
-      "sizeBytes": 12593,
+      "hash": "5b8894518b8085dc",
+      "reviewedHash": "5b8894518b8085dc",
+      "lineCount": 323,
+      "sizeBytes": 13018,
       "symbols": [
         "cleanHumanProse(str)",
         "sanitizeEntitiesHumanProse({ maps, factions, items, npcs, trackers, quests })",
@@ -50241,15 +50296,32 @@
       "inbound": []
     },
     {
+      "relPath": "tools/krynn/compiler/odv_matrix.json",
+      "title": "odv_matrix.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "aa24421dac755a29",
+      "reviewedHash": "aa24421dac755a29",
+      "lineCount": 1155,
+      "sizeBytes": 78079,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [],
+      "inbound": []
+    },
+    {
       "relPath": "tools/krynn/compiler/package_writer.js",
       "title": "package_writer.js",
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "e2146874bd3738a8",
-      "reviewedHash": "e2146874bd3738a8",
-      "lineCount": 124,
-      "sizeBytes": 4679,
+      "hash": "baf0296b4464a44c",
+      "reviewedHash": "baf0296b4464a44c",
+      "lineCount": 128,
+      "sizeBytes": 4811,
       "symbols": [
         "arr(...candidates)",
         "encodeCampaignPackage(state, opts = {})"

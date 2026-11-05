@@ -1,5 +1,5 @@
 ---
-file_path: "campaigns/BaldursGate/odv_matrix.json"
+file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/odv_matrix.json"
 title: "odv_matrix.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
@@ -14,5 +14,6 @@ line_count: 1155
 
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role
-`campaigns/BaldursGate/odv_matrix.json` serves as a **Authoritative JSON Data / Manifest** within **Volume VIII: Campaign Packages, Modules & Templates**.
+`campaigns/Krynn_V2_Shadows_of_the_Lance/odv_matrix.json` serves as a **Authoritative JSON Data / Manifest** within **Volume VIII: Campaign Packages, Modules & Templates**.
+
 <!-- END_CUSTOM_NOTES -->

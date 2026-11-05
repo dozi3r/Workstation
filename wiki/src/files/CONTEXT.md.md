@@ -3,11 +3,11 @@ file_path: "CONTEXT.md"
 title: "Creator Studio"
 volume: "vol-1"
 kind: "Technical Documentation / Guide"
-current_hash: "983114ff419229ce"
-reviewed_hash: "983114ff419229ce"
+current_hash: "eea0aa118b3e48bc"
+reviewed_hash: "eea0aa118b3e48bc"
 stale: false
-size_bytes: 29741
-line_count: 396
+size_bytes: 29773
+line_count: 395
 ---
 
 # Creator Studio

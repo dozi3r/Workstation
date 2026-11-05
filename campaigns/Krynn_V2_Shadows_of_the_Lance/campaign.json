@@ -1,24 +1,25 @@
 {
-  "id": "krynn__v2___shadows_of_the_lance__351_ac_",
+  "id": "krynn_v2_shadows_of_the_lance",
   "name": "Krynn (V2): Shadows of the Lance (351 AC)",
   "campaignName": "Krynn (V2): Shadows of the Lance (351 AC)",
   "description": "Start in Autumn 351 AC as a custom non-canonical cohort while the Heroes of the Lance move across Ansalon as Autonomous NPCs driven by the 12-tick Companion Odyssey Clock (TRK_COMPANIONS_ODYSSEY). Features the Tri-Vector Allegiance Sandbox (aid the Heroes' flanks, race them as Conclave/Freebooter rivals, or hunt and intercept them as Dragonarmy Highlord operatives) plus 2 Relic & Locus Memory Crucible Quests into 346–347 AC.",
-  "author": "Creator Studio World Architect",
+  "author": "Margaret Weis & Tracy Hickman (Adapted for Creator Studio 2.6)",
   "packageType": "workstation_project",
   "enabled": true,
   "topologyFile": "topology.json",
   "manifestFile": "modules_manifest.json",
-  "updatedAt": "2026-11-05T04:05:25.142Z",
-  "exportedAt": "2026-11-05T04:05:25.142Z",
-  "appliedBatchIds": [
-    "batch_init_krynn_v2_shadows_of_the_lance",
-    "batch_norm_krynn_v2_shadows_of_the_lance",
-    "batch_user_mw30vm2e_k75s"
-  ],
+  "updatedAt": "2026-11-04T20:00:00.000Z",
+  "exportedAt": "2026-11-04T20:00:00.000Z",
+  "entryMapId": "map_ansalon_continent",
+  "entryNodeId": "N_SOLACE",
   "globalDials": {
     "dial8ClimaxTrigger": "crisis",
     "tier0Substratum": true
   },
+  "appliedBatchIds": [
+    "batch_init_krynn_v2_shadows_of_the_lance",
+    "batch_norm_krynn_v2_shadows_of_the_lance"
+  ],
   "entities": {
     "npcs": [
       {
@@ -3099,7 +3100,7 @@
         "type": "Threat Clock",
         "scopeTier": "world",
         "maxTicks": 12,
-        "currentTicks": 6,
+        "currentTicks": 1,
         "faction": "The Heroes of the Lance & Whitestone Vanguard",
         "showOnCanvas": true,
         "notes": "Tracks the autonomous movement of the canonical Heroes of the Lance across Ansalon in Versions 2 & 3. Advancing each tick triggers Clock Threshold Consequences that physically relocate Tanis, Raistlin, Caramon, Sturm, Goldmoon, Riverwind, Tas, and Flint (and their carried artifacts!) across the pointcrawl nodes. Intercept them at any node to aid, rival, or ambush them!",
@@ -5532,5 +5533,5 @@
     "deletedModules": [],
     "deletedPrototypes": []
   },
-  "syncToken": "mw30vrbn-c9u0me6l"
+  "syncToken": "tok_krynn_v2_shadows_of_the_lance_v1"
 }

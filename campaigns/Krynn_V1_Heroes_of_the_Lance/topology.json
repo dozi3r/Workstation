@@ -5,6 +5,8 @@
   "description": "Play as the canonical Heroes of the Lance (Tanis, Sturm, Caramon, Raistlin, Goldmoon, Riverwind, Tasslehoff, Flint + Laurana, Tika, Gilthanas) starting at the Inn of the Last Home in Autumn 351 AC. Includes all 29 branching \"What-If\" Crucibles (such as saving Sturm on the High Clerist's Tower parapet or keeping the Fellowship unified at Tarsis) plus 2 Relic & Locus Memory Crucible Quests projecting into 346–347 AC (The Soulforge & Brothers in Arms).",
   "syncToken": "tok_krynn_v1_heroes_of_the_lance_v1",
   "rootMapId": "map_ansalon_continent",
+  "entryMapId": "map_ansalon_continent",
+  "entryNodeId": "N_SOLACE",
   "activeMapId": "map_ansalon_continent",
   "maps": {
     "map_ansalon_continent": {

@@ -161,6 +161,8 @@ function buildKrynnCampaignPackage(adapter) {
     description: adapter.description,
     author: 'Margaret Weis & Tracy Hickman (Adapted for Creator Studio 2.6)',
     rootMapId: 'map_ansalon_continent',
+    entryMapId: 'map_ansalon_continent',
+    entryNodeId: adapter.editionMode === 'V3_346_AC' ? 'N_WAYRETH' : 'N_SOLACE',
     activeMapId: 'map_ansalon_continent',
     globalDials: {
       dial8ClimaxTrigger: 'crisis',
@@ -205,6 +207,9 @@ function buildKrynnCampaignPackage(adapter) {
     });
   }
 
+  // applyBatch may re-slugify name into id; keep the canonical adapter slug
+  state.id = adapter.slug;
+
   // Encode via CampaignPackageCodec
   const encoded = CampaignPackageCodec.encodeCampaignPackage(state, {
     folderName: adapter.folderName,
@@ -233,6 +238,10 @@ function buildKrynnCampaignPackage(adapter) {
       }
     }
   }
+
+  // Shared ODV matrix overlay for V1/V2/V3
+  const odvSrc = path.join(__dirname, 'odv_matrix.json');
+  if (fs.existsSync(odvSrc)) fs.copyFileSync(odvSrc, path.join(targetDir, 'odv_matrix.json'));
 
   for (const f of encoded.files) {
     const absFile = path.join(targetDir, f.path);

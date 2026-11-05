@@ -18,7 +18,7 @@ function arr(...candidates) {
 function encodeCampaignPackage(state, opts = {}) {
   const src = state || {};
   const cName = src.name || src.campaignName || opts.campaignName || 'campaign';
-  const slug = src.id || opts.slug;
+  const slug = opts.slug || src.id;
   const nowIso = opts.timestamp || new Date().toISOString();
   const syncToken = opts.syncToken || src.syncToken || `tok_${Date.now().toString(36)}`;
 
@@ -57,6 +57,8 @@ function encodeCampaignPackage(state, opts = {}) {
     manifestFile: 'modules_manifest.json',
     updatedAt: nowIso,
     exportedAt: nowIso,
+    entryMapId: src.entryMapId,
+    entryNodeId: src.entryNodeId,
     globalDials: src.globalDials || { dial8ClimaxTrigger: 'crisis', tier0Substratum: true },
     appliedBatchIds,
     entities,
@@ -71,6 +73,8 @@ function encodeCampaignPackage(state, opts = {}) {
     description: campaignMeta.description,
     syncToken,
     rootMapId,
+    entryMapId: src.entryMapId,
+    entryNodeId: src.entryNodeId,
     activeMapId: src.activeMapId || rootMapId,
     maps: cleanMaps,
     edgeData: src.edgeData || {},

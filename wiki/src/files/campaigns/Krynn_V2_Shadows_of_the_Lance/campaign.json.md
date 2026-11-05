@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/campaign.json"
 title: "campaign.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "e3ad04e48ac4f336"
-reviewed_hash: "e3ad04e48ac4f336"
+current_hash: "cdd868f0a187b702"
+reviewed_hash: "cdd868f0a187b702"
 stale: false
-size_bytes: 331678
-line_count: 5536
+size_bytes: 331755
+line_count: 5537
 ---
 
 # campaign.json

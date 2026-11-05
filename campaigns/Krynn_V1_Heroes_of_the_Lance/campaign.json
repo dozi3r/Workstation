@@ -10,6 +10,8 @@
   "manifestFile": "modules_manifest.json",
   "updatedAt": "2026-11-04T20:00:00.000Z",
   "exportedAt": "2026-11-04T20:00:00.000Z",
+  "entryMapId": "map_ansalon_continent",
+  "entryNodeId": "N_SOLACE",
   "globalDials": {
     "dial8ClimaxTrigger": "crisis",
     "tier0Substratum": true

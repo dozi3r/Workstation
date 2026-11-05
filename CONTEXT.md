@@ -153,7 +153,7 @@ A reactive offline token lexer (`[[Node:...]]`, `[[Map:...]]`, `[[Mod:...]]`, `[
 _Avoid_: Lore links, tags, text search
 
 **Transitive Backlink Propagation**:
-The scale-fluid aggregation mechanism where portal nodes automatically roll up inbound citations targeting descendant submap nodes and stationed campaign entities with hierarchical breadcrumb attribution (`â†³ via Submap > Node > NPC`). Descendants are resolved exclusively through `getRecursiveNodeEntities()`, which honors both attachment models (`node.childMapId` and `map.parentMapId` + `map.parentNodeId`), NPC-carried items, and relationally linked quests.
+The scale-fluid aggregation mechanism where portal nodes automatically roll up inbound citations targeting descendant submap nodes and stationed campaign entities with hierarchical breadcrumb attribution (`↳ via Submap > Node > NPC`). Descendants are resolved exclusively through `getRecursiveNodeEntities()`, which honors both attachment models (`node.childMapId` and `map.parentMapId` + `map.parentNodeId`), NPC-carried items, and relationally linked quests.
 _Avoid_: Recursive search, child search, deep links
 
 **Demographics**:

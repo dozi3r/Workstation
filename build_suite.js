@@ -1,4 +1,4 @@
-/**
+﻿/**
  * BUILD SUITE - Centralized Asset Compiler, Zero-CORS Bundler & Agent Navigation Engine
  * Authority: ADR-0001, ADR-0002, docs/navigation_manifest.json
  * 
@@ -172,7 +172,7 @@ Single-context: root \`CONTEXT.md\` plus \`docs/adr/\`. See \`docs/agents/domain
 // ------------------------------------------------------------------------------
 const campaignsDir = path.join(ROOT_DIR, 'campaigns');
 const campaignRegistry = {};
-const cId0 = (meta, folder) => (meta && meta.id) || folder.name;
+const resolveCampaignId = (meta, folder) => (meta && meta.id) || folder.name;
 
 function parseYamlListOrArray(val) {
   if (!val) return [];
@@ -526,7 +526,7 @@ if (fs.existsSync(campaignsDir)) {
             const payload = slot.parse(fs.readFileSync(path.join(cPath, hit), 'utf8'));
             const warns = slot.validate(payload) || [];
             overrides[slot.id] = payload;
-            console.log(`[OK] Override slot '${slot.id}' for '${cId0(meta, folder)}' from ${hit}${warns.length ? ' [WARN ' + warns.join('; ') + ']' : ''}`);
+            console.log(`[OK] Override slot '${slot.id}' for '${resolveCampaignId(meta, folder)}' from ${hit}${warns.length ? ' [WARN ' + warns.join('; ') + ']' : ''}`);
           });
         } catch (ovErr) {
           console.warn(`[WARN] Override slot in ${cPath} unreadable:`, ovErr.message);
@@ -580,30 +580,30 @@ let compiledSurfacesData = [];
 if (navManifest && Array.isArray(navManifest.surfaces)) {
   compiledSurfacesData = navManifest.surfaces.map(s => {
     let cat = 'core';
-    let icon = '⚡';
+    let icon = 'âš¡';
     const f = s.file.toLowerCase();
     if (f.startsWith('regions/')) {
       cat = 'assets';
-      icon = f.endsWith('.ps1') ? '💻' : '🖼️';
+      icon = f.endsWith('.ps1') ? 'ðŸ’»' : 'ðŸ–¼ï¸';
     } else if (f.startsWith('tickets/')) {
       cat = 'trackers';
-      icon = f.includes('tier_0') ? '🌾' : '🎯';
+      icon = f.includes('tier_0') ? 'ðŸŒ¾' : 'ðŸŽ¯';
     } else if (f.startsWith('modules/')) {
       cat = 'modules';
-      icon = '📦';
+      icon = 'ðŸ“¦';
     } else if (f.startsWith('network/')) {
       cat = 'core';
-      if (f.includes('builder')) icon = '📐';
-      else if (f.includes('visualizer')) icon = '🌊';
-      else if (f.includes('contradiction')) icon = '⚖️';
-      else if (f.includes('audit')) icon = '🔍';
-      else if (f.endsWith('.ps1')) icon = '⚙️';
+      if (f.includes('builder')) icon = 'ðŸ“';
+      else if (f.includes('visualizer')) icon = 'ðŸŒŠ';
+      else if (f.includes('contradiction')) icon = 'âš–ï¸';
+      else if (f.includes('audit')) icon = 'ðŸ”';
+      else if (f.endsWith('.ps1')) icon = 'âš™ï¸';
     } else if (f.includes('wiki')) {
       cat = 'core';
-      icon = '📚';
+      icon = 'ðŸ“š';
     } else if (f.includes('admin')) {
       cat = 'core';
-      icon = '🛠️';
+      icon = 'ðŸ› ï¸';
     }
 
     const wikiFile = (s.file === 'wiki/index.html') ? 'wiki/index.html' : `wiki/pages/${s.file}.html`;
