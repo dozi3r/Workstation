@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Spectral Dwarfgate phalanxes awakening around Skullcap"
     level_4: "Full Red Wing pincer ambush in the snow pass"
   threat_clocks:
-    refugee_frostbite_attrition: "Refugee Frostbite & Attrition [6 Ticks] - Advances each day the 800 refugees remain outside Thorbardin's gates."
+    refugee_frostbite_attrition: "Refugee Frostbite & Attrition Clock [6 Ticks] - Advances each day the 800 refugees remain outside Thorbardin's gates."
   yields_resource: "helm_of_grallen_relic, thorbardin_secret_gate_map"
 ---
 
@@ -48,7 +48,7 @@ Lethal high-altitude winter mountain passes haunted by the spectral Dwarfgate le
 * **Tertiary Outcast:** 800 Starving Pax Tharkas Refugees
 
 ### 4. Severance & Escalation Threat Clock
-- **Refugee Frostbite & Attrition [6 Ticks]:** Advances each day the 800 refugees remain outside Thorbardin's gates.
+- **Refugee Frostbite & Attrition Clock [6 Ticks]:** Advances each day the 800 refugees remain outside Thorbardin's gates.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Spectral Guardians of Derkin's Tomb & Skullcap"

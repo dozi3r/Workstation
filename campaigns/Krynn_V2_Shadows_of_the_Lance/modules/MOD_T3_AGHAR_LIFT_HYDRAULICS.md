@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Overloaded chain straining under 85 lbs of Platinum Disks"
     level_4: "Emergency counterweight release flinging the cage to the surface"
   threat_clocks:
-    lift_chain_structural_failure: "Lift Chain Structural Failure [6 Ticks] - Advances when heavy loads or acid splashes corrode the main hoist."
+    lift_chain_structural_failure: "Lift Chain Structural Failure Clock [6 Ticks] - Advances when heavy loads or acid splashes corrode the main hoist."
   yields_resource: "aghar_express_chute_access"
 ---
 
@@ -48,7 +48,7 @@ Precarious counterfactual pulley-lift and slick trash-chute network maintained b
 * **Tertiary Outcast:** Bupu & Tasslehoff Burrfoot at the Winch
 
 ### 4. Severance & Escalation Threat Clock
-- **Lift Chain Structural Failure [6 Ticks]:** Advances when heavy loads or acid splashes corrode the main hoist.
+- **Lift Chain Structural Failure Clock [6 Ticks]:** Advances when heavy loads or acid splashes corrode the main hoist.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Highbulp Phudge I's Lift Operators"

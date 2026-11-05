@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "First batch of Footman's and Mounted Dragonlances completed"
     level_4: "Full armory shipped to Sancrist and the High Clerist's Tower"
   threat_clocks:
-    dragonlance_production: "Dragonlance Production [6 Ticks] - Advances to arm the Knights of Solamnia before the Blue Wing strikes."
+    dragonlance_production: "Dragonlance Production Clock [6 Ticks] - Advances to arm the Knights of Solamnia before the Blue Wing strikes."
   yields_resource: "forged_true_dragonlances"
 ---
 
@@ -48,7 +48,7 @@ Sacred forge inside the silver dragon monument of Southern Ergoth where Theros I
 * **Tertiary Outcast:** Theros Ironfeld (The Silver-Armed Blacksmith)
 
 ### 4. Severance & Escalation Threat Clock
-- **Dragonlance Production [6 Ticks]:** Advances to arm the Knights of Solamnia before the Blue Wing strikes.
+- **Dragonlance Production Clock [6 Ticks]:** Advances to arm the Knights of Solamnia before the Blue Wing strikes.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Silvara & The Guardians of Foghaven Valley"

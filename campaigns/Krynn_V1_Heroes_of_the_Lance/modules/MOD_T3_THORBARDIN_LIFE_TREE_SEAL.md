@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Recovery of the Hammer of Kharas unites the dwarven clans"
     level_4: "Full winter sanctuary granted to the 800 Pax Tharkas refugees"
   threat_clocks:
-    thane_council_isolationism: "Thane Council Isolationism [6 Ticks] - Advances if Theiwar agitators convince the clans that the refugees bring the plague."
+    thane_council_isolationism: "Thane Council Isolationism Clock [6 Ticks] - Advances if Theiwar agitators convince the clans that the refugees bring the plague."
   yields_resource: "hammer_of_kharas_authority, refugee_winter_sanctuary"
 ---
 
@@ -48,7 +48,7 @@ Monumental counterweighted stone plug sealing the subterranean dwarven kingdom s
 * **Tertiary Outcast:** Flint Fireforge, Sestun & The 800 Surface Refugees
 
 ### 4. Severance & Escalation Threat Clock
-- **Thane Council Isolationism [6 Ticks]:** Advances if Theiwar agitators convince the clans that the refugees bring the plague.
+- **Thane Council Isolationism Clock [6 Ticks]:** Advances if Theiwar agitators convince the clans that the refugees bring the plague.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Hylar & Daewar Council of Thanes"

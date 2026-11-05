@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Raistlin drops Ariakas's arcane ward; Tanis strikes for the Crown of Power"
     level_4: "Total Dragonarmy civil war inside the collapsing Temple of Darkness"
   threat_clocks:
-    highlord_civil_war: "Highlord Civil War [6 Ticks] - Advances as Kitiara and Tanis destabilize Ariakas's grip on the Crown of Power."
+    highlord_civil_war: "Highlord Civil War Clock [6 Ticks] - Advances as Kitiara and Tanis destabilize Ariakas's grip on the Crown of Power."
   yields_resource: "crown_of_power_dominion"
 ---
 
@@ -48,7 +48,7 @@ Darwinian military summit of the five Dragonarmies at Neraka where Emperor Ariak
 * **Tertiary Outcast:** Tanis Half-Elven (Disguised in Dragonarmy Plate)
 
 ### 4. Severance & Escalation Threat Clock
-- **Highlord Civil War [6 Ticks]:** Advances as Kitiara and Tanis destabilize Ariakas's grip on the Crown of Power.
+- **Highlord Civil War Clock [6 Ticks]:** Advances as Kitiara and Tanis destabilize Ariakas's grip on the Crown of Power.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Emperor Ariakas & The Imperial Red Guard"

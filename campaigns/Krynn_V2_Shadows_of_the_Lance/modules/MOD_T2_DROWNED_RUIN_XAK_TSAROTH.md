@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Khisanth stalking the flooded subterranean plaza"
     level_4: "Catastrophic cavern collapse triggered by Khisanth's death"
   threat_clocks:
-    khisanth_cavern_collapse: "Khisanth Cavern Collapse [6 Ticks] - Advances during combat in the sunken plaza of Xak Tsaroth."
+    khisanth_cavern_collapse: "Khisanth Cavern Collapse Clock [6 Ticks] - Advances during combat in the sunken plaza of Xak Tsaroth."
   yields_resource: "disks_of_mishakal_liturgy, fistandantilus_sunken_grimoire"
 ---
 
@@ -48,7 +48,7 @@ Cataclysm-tilted city plunged into a subterranean chasm beneath a fetid black sw
 * **Tertiary Outcast:** Bupu & The Aghar Gully Dwarf Clans
 
 ### 4. Severance & Escalation Threat Clock
-- **Khisanth Cavern Collapse [6 Ticks]:** Advances during combat in the sunken plaza of Xak Tsaroth.
+- **Khisanth Cavern Collapse Clock [6 Ticks]:** Advances during combat in the sunken plaza of Xak Tsaroth.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Khisanth (Onyx) & Baaz/Kapak Garrison"

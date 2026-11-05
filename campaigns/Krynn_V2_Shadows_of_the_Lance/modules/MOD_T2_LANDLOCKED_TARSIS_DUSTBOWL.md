@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Blue and Red Dragons strafe the Red Dragon Inn"
     level_4: "Total Dragonarmy martial law across the burning city"
   threat_clocks:
-    tarsis_street_riot: "Tarsis Street Riot [6 Ticks] - Advances when the Dragon Orb is disturbed or Bakaris recognizes the Companions."
+    tarsis_street_riot: "Tarsis Street Riot Clock [6 Ticks] - Advances when the Dragon Orb is disturbed or Bakaris recognizes the Companions."
   yields_resource: "icewall_expedition_charts, silvanesti_griffon_escort"
 ---
 
@@ -48,7 +48,7 @@ Once Krynn's jewel seaport, left forty miles inland by the Cataclysm where rotti
 * **Tertiary Outcast:** Princess Alhana Starbreeze & Her Griffon Guard
 
 ### 4. Severance & Escalation Threat Clock
-- **Tarsis Street Riot [6 Ticks]:** Advances when the Dragon Orb is disturbed or Bakaris recognizes the Companions.
+- **Tarsis Street Riot Clock [6 Ticks]:** Advances when the Dragon Orb is disturbed or Bakaris recognizes the Companions.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Tarsis Merchant Magistrates & City Watch"

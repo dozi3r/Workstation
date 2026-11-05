@@ -125,7 +125,7 @@ injected_mechanics:
   output_dial:
 ${dialYaml}
   threat_clocks:
-    ${slug}: ${yq(m.clockName + ' [6 Ticks] - ' + m.clockNotes)}
+    ${slug}: ${yq(m.clockName + ' Clock [6 Ticks] - ' + m.clockNotes)}
   yields_resource: ${yq(yieldsRes)}
 ---
 
@@ -155,7 +155,7 @@ ${m.summary}
 * **Tertiary Outcast:** ${m.four_corners.outcast}
 
 ### 4. Severance & Escalation Threat Clock
-- **${m.clockName} [6 Ticks]:** ${m.clockNotes}
+- **${m.clockName} Clock [6 Ticks]:** ${m.clockNotes}
 
 ### Key Personnel (NPC Prototypes)
 ${npcBlocks}
@@ -1101,6 +1101,9 @@ function getModuleDefinitions() {
 
   return defs.map(d => ({
     ...d,
+    // Explorer reads these arrays directly (Mechanics & Clocks tab).
+    threat_clocks: [`${d.clockName} Clock [6 Ticks] - ${d.clockNotes}`],
+    dials: d.dials.map(splitCorner),
     path: `./modules/${d.id}.md`,
     raw_markdown: renderModuleMarkdown(d)
   }));

@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Raistlin turns against Takhisis to clear the path to the stone"
     level_4: "Berem reunites the Green Gemstone with Jasla; the Temple of Darkness implodes"
   threat_clocks:
-    takhisis_planar_manifestation: "Takhisis Planar Manifestation [6 Ticks] - Advances each round during the Night of the Eye until the Foundation Stone is sealed or corrupted."
+    takhisis_planar_manifestation: "Takhisis Planar Manifestation Clock [6 Ticks] - Advances each round during the Night of the Eye until the Foundation Stone is sealed or corrupted."
   yields_resource: "sealed_abyssal_foundation_gate"
 ---
 
@@ -48,7 +48,7 @@ The ultimate cosmic climax in the subterranean vaults of Neraka where the five-h
 * **Tertiary Outcast:** Gakhan & The Collapsing Temple Garrison
 
 ### 4. Severance & Escalation Threat Clock
-- **Takhisis Planar Manifestation [6 Ticks]:** Advances each round during the Night of the Eye until the Foundation Stone is sealed or corrupted.
+- **Takhisis Planar Manifestation Clock [6 Ticks]:** Advances each round during the Night of the Eye until the Foundation Stone is sealed or corrupted.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Takhisis (The Dark Queen) & High Cleric Dracart"

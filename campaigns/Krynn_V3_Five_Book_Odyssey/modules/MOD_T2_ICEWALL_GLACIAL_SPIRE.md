@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Assault on the slick ice-tunnels of Icewall Castle"
     level_4: "Duel with Feal-Thas and Sleet at the Orb pedestal"
   threat_clocks:
-    glacial_freeze_white_wing_alert: "Glacial Freeze & White Wing Alert [6 Ticks] - Advances when wolf packs spot approaching ice-boats."
+    glacial_freeze_white_wing_alert: "Glacial Freeze & White Wing Alert Clock [6 Ticks] - Advances when wolf packs spot approaching ice-boats."
   yields_resource: "icewall_dragon_orb, golden_general_reputation"
 ---
 
@@ -48,7 +48,7 @@ Blinding southern ice-sheet crossed by sail-rigged ice-boats and contested by Ic
 * **Tertiary Outcast:** Than-Kar Walrus-Men Thralls
 
 ### 4. Severance & Escalation Threat Clock
-- **Glacial Freeze & White Wing Alert [6 Ticks]:** Advances when wolf packs spot approaching ice-boats.
+- **Glacial Freeze & White Wing Alert Clock [6 Ticks]:** Advances when wolf packs spot approaching ice-boats.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Highlord Feal-Thas, Sleet & The White Wing"

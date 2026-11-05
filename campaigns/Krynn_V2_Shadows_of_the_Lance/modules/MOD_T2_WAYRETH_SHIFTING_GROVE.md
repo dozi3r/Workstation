@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Active elemental and illusion wards repelling Dragonarmy scouts"
     level_4: "Total planar translocation of the grove to a new region"
   threat_clocks:
-    wayreth_ward_perturbation: "Wayreth Ward Perturbation [6 Ticks] - Advances when high-tier necromancy or Dragon Orb resonance disturbs the forest."
+    wayreth_ward_perturbation: "Wayreth Ward Perturbation Clock [6 Ticks] - Advances when high-tier necromancy or Dragon Orb resonance disturbs the forest."
   yields_resource: "high_sorcery_conclave_mandate"
 ---
 
@@ -48,7 +48,7 @@ Sentient mobile woodland that physically relocates across southern Ansalon to co
 * **Tertiary Outcast:** Mundane Guardians & Brothers (Caramon Majere)
 
 ### 4. Severance & Escalation Threat Clock
-- **Wayreth Ward Perturbation [6 Ticks]:** Advances when high-tier necromancy or Dragon Orb resonance disturbs the forest.
+- **Wayreth Ward Perturbation Clock [6 Ticks]:** Advances when high-tier necromancy or Dragon Orb resonance disturbs the forest.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Par-Salian & The Conclave of Wizards"

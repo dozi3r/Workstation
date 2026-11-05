@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Blade-trapping Baaz and venom-blade Kapak kill-squads"
     level_4: "Elite Bozak and Sivak hunter-packs with wyvern air support"
   threat_clocks:
-    draconian_road_dragnet: "Draconian Road Dragnet [6 Ticks] - Advances whenever checkpoints are alerted or survivors escape."
+    draconian_road_dragnet: "Draconian Road Dragnet Clock [6 Ticks] - Advances whenever checkpoints are alerted or survivors escape."
   yields_resource: "abanasinia_rumor_network"
 ---
 
@@ -48,7 +48,7 @@ Roadblock and ambush network across Abanasinia introducing the five Draconian su
 * **Tertiary Outcast:** Terrified Local Ferrymen & Woodcutters
 
 ### 4. Severance & Escalation Threat Clock
-- **Draconian Road Dragnet [6 Ticks]:** Advances whenever checkpoints are alerted or survivors escape.
+- **Draconian Road Dragnet Clock [6 Ticks]:** Advances whenever checkpoints are alerted or survivors escape.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Baaz & Kapak Checkpoint Squads"

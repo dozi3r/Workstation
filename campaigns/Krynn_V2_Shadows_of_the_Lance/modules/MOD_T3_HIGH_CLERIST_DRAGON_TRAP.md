@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Sturm duels Kitiara on the parapet"
     level_4: "Blue Dragons dive blindly into the stone funnels and are impaled on Dragonlances"
   threat_clocks:
-    high_clerist_s_tower_breach: "High Clerist's Tower Breach [6 Ticks] - Advances as Bakaris's draconians batter the West Gate."
+    high_clerist_s_tower_breach: "High Clerist's Tower Breach Clock [6 Ticks] - Advances as Bakaris's draconians batter the West Gate."
   yields_resource: "blue_wing_broken_siege, parapet_of_sturm_legacy"
 ---
 
@@ -48,7 +48,7 @@ Ancient fortress engineered by Vinas Solamnus not to keep dragons out, but to lu
 * **Tertiary Outcast:** Tasslehoff Burrfoot & Flint in the Orb Vault (`CRUC-26`)
 
 ### 4. Severance & Escalation Threat Clock
-- **High Clerist's Tower Breach [6 Ticks]:** Advances as Bakaris's draconians batter the West Gate.
+- **High Clerist's Tower Breach Clock [6 Ticks]:** Advances as Bakaris's draconians batter the West Gate.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Sturm Brightblade, Laurana & The Tower Garrison"

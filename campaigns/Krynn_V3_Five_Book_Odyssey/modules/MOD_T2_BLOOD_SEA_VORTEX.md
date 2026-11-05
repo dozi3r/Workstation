@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Raistlin teleports away with the Dragon Orb as the ship plunges"
     level_4: "Awakening in the air-filled domes of sunken Istar"
   threat_clocks:
-    maelstrom_hull_crush: "Maelstrom Hull Crush [6 Ticks] - Advances each round the Perechon remains trapped in the vortex funnel."
+    maelstrom_hull_crush: "Maelstrom Hull Crush Clock [6 Ticks] - Advances each round the Perechon remains trapped in the vortex funnel."
   yields_resource: "black_robe_transfiguration, berem_everman_revelation"
 ---
 
@@ -48,7 +48,7 @@ Perpetual arterial-red whirlpool above the sunken Cataclysm crater of Istar, pul
 * **Tertiary Outcast:** Apoletta, Dargonesti Sea Elves & Berem the Everman
 
 ### 4. Severance & Escalation Threat Clock
-- **Maelstrom Hull Crush [6 Ticks]:** Advances each round the Perechon remains trapped in the vortex funnel.
+- **Maelstrom Hull Crush Clock [6 Ticks]:** Advances each round the Perechon remains trapped in the vortex funnel.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Kitiara's Blue Wing Aerial Interceptors"

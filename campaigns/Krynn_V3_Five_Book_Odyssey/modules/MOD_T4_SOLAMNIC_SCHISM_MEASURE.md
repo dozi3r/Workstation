@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Derek returns mortally insane; Sturm takes sole command of the parapet"
     level_4: "Sturm's stand unites the surviving Knighthood behind the Golden General"
   threat_clocks:
-    garrison_morale_collapse: "Garrison Morale Collapse [6 Ticks] - Advances when Derek's sally is slaughtered outside the West Gate."
+    garrison_morale_collapse: "Garrison Morale Collapse Clock [6 Ticks] - Advances when Derek's sally is slaughtered outside the West Gate."
   yields_resource: "northern_offensive_supply_line"
 ---
 
@@ -48,7 +48,7 @@ Deadly ideological fracture inside theHigh Clerist's Tower between Lord Derek Cr
 * **Tertiary Outcast:** Young Solamnic Footmen & Squires
 
 ### 4. Severance & Escalation Threat Clock
-- **Garrison Morale Collapse [6 Ticks]:** Advances when Derek's sally is slaughtered outside the West Gate.
+- **Garrison Morale Collapse Clock [6 Ticks]:** Advances when Derek's sally is slaughtered outside the West Gate.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Sturm Brightblade & Laurana's Wall Defenders"

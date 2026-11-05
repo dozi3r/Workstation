@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Immolatus incinerates the keep to extract the clutch"
     level_4: "Raistlin secures the forensic secret of the Sanction egg trade"
   threat_clocks:
-    silver_clutch_extraction: "Silver Clutch Extraction [6 Ticks] - Advances during the final 48 hours of the Siege of Hope's End."
+    silver_clutch_extraction: "Silver Clutch Extraction Clock [6 Ticks] - Advances during the final 48 hours of the Siege of Hope's End."
   yields_resource: "silver_clutch_eggshell_evidence"
 ---
 
@@ -48,7 +48,7 @@ Secret conspiracy beneath the Siege of Hope's End where the Red Dragon Immolatus
 * **Tertiary Outcast:** D'Argent (Mother of the Stolen Silver Clutch)
 
 ### 4. Severance & Escalation Threat Clock
-- **Silver Clutch Extraction [6 Ticks]:** Advances during the final 48 hours of the Siege of Hope's End.
+- **Silver Clutch Extraction Clock [6 Ticks]:** Advances during the final 48 hours of the Siege of Hope's End.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Immolatus (Ancient Red Wyrm) & Sanction Agents"

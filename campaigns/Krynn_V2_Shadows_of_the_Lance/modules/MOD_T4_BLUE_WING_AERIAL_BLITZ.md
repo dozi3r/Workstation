@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Full aerial bombardment of the Red Dragon Inn"
     level_4: "Split extraction: Griffons to Silvanesti vs. Horses to Icewall"
   threat_clocks:
-    tarsis_aerial_encirclement: "Tarsis Aerial Encirclement [6 Ticks] - Advances each hour the party lingers in Tarsis after visiting the library."
+    tarsis_aerial_encirclement: "Tarsis Aerial Encirclement Clock [6 Ticks] - Advances each hour the party lingers in Tarsis after visiting the library."
   yields_resource: "dragon_orb_lore_clue"
 ---
 
@@ -48,7 +48,7 @@ Coordinated dragon-and-draconian shock assault on Tarsis the Beautiful that shat
 * **Tertiary Outcast:** Alhana Starbreeze's Griffon Rescue Flight
 
 ### 4. Severance & Escalation Threat Clock
-- **Tarsis Aerial Encirclement [6 Ticks]:** Advances each hour the party lingers in Tarsis after visiting the library.
+- **Tarsis Aerial Encirclement Clock [6 Ticks]:** Advances each hour the party lingers in Tarsis after visiting the library.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Highlord Kitiara & Lord Bakaris's Blue Wing"

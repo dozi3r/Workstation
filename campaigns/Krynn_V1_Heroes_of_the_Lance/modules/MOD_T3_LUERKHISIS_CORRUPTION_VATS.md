@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Discovery of the corruption vats inside the Temple of Luerkhisis"
     level_4: "Metallic Dragon flights descend across Ansalon carrying Solamnic Lancer Knights"
   threat_clocks:
-    metallic_dragon_awakening: "Metallic Dragon Awakening [6 Ticks] - Advances as proof of the Sanction egg corruption reaches the northern roosts."
+    metallic_dragon_awakening: "Metallic Dragon Awakening Clock [6 Ticks] - Advances as proof of the Sanction egg corruption reaches the northern roosts."
   yields_resource: "metallic_dragon_oath_breaker"
 ---
 
@@ -48,7 +48,7 @@ Volcanic covert operation into Sanction's Temple of Luerkhisis that exposes the 
 * **Tertiary Outcast:** Mutated First-Generation Draconian Hatchlings
 
 ### 4. Severance & Escalation Threat Clock
-- **Metallic Dragon Awakening [6 Ticks]:** Advances as proof of the Sanction egg corruption reaches the northern roosts.
+- **Metallic Dragon Awakening Clock [6 Ticks]:** Advances as proof of the Sanction egg corruption reaches the northern roosts.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Sanction Temple Guard & Dark Clerics of Takhisis"

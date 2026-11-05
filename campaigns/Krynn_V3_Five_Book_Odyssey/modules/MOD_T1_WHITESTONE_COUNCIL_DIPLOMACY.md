@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Theros Ironfeld hurls the True Dragonlance cleanly through the Whitestone"
     level_4: "Unified Whitestone Armies march under the Golden General"
   threat_clocks:
-    coalition_fracture: "Coalition Fracture [6 Ticks] - Advances when racial insults or military defeats erode trust between Solamnia and the Elves."
+    coalition_fracture: "Coalition Fracture Clock [6 Ticks] - Advances when racial insults or military defeats erode trust between Solamnia and the Elves."
   yields_resource: "whitestone_alliance_treaty, gnome_catapult_schematics"
 ---
 
@@ -48,7 +48,7 @@ Fragile continental war-coalition on Sancrist Isle uniting the fractured Knights
 * **Tertiary Outcast:** Tasslehoff Burrfoot, Fizban & Theros Ironfeld
 
 ### 4. Severance & Escalation Threat Clock
-- **Coalition Fracture [6 Ticks]:** Advances when racial insults or military defeats erode trust between Solamnia and the Elves.
+- **Coalition Fracture Clock [6 Ticks]:** Advances when racial insults or military defeats erode trust between Solamnia and the Elves.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Lord Gunthar Uth Wistan & Moderate Knights of the Rose"

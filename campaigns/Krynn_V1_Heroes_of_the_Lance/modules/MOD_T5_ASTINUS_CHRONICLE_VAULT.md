@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Raistlin arrives from the Blood Sea in Black Robes"
     level_4: "The gates of the cursed Tower of Palanthas bow open to the Master of Past and Present"
   threat_clocks:
-    iconochronos_apotheosis: "Iconochronos Apotheosis [6 Ticks] - Advances as Raistlin unlocks the forbidden volumes of Fistandantilus."
+    iconochronos_apotheosis: "Iconochronos Apotheosis Clock [6 Ticks] - Advances as Raistlin unlocks the forbidden volumes of Fistandantilus."
   yields_resource: "astinus_chronicle_prophecy, palanthas_dragon_orb_vault, tower_of_palanthas_key"
 ---
 
@@ -48,7 +48,7 @@ The timeless Great Library of Palanthas where Astinus chronicles all mortal hist
 * **Tertiary Outcast:** Caramon & Tanis Searching for Their Lost Companion
 
 ### 4. Severance & Escalation Threat Clock
-- **Iconochronos Apotheosis [6 Ticks]:** Advances as Raistlin unlocks the forbidden volumes of Fistandantilus.
+- **Iconochronos Apotheosis Clock [6 Ticks]:** Advances as Raistlin unlocks the forbidden volumes of Fistandantilus.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Astinus of Palanthas & Order of Aesthetics"

@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Horkin and the twins discover Baron Ivor's massacre orders"
     level_4: "Immolatus descends in fire to vitrify the valley walls"
   threat_clocks:
-    hope_s_end_wall_breach: "Hope's End Wall Breach [6 Ticks] - Advances as siege engines pound the eastern gate of Hope's End."
+    hope_s_end_wall_breach: "Hope's End Wall Breach Clock [6 Ticks] - Advances as siege engines pound the eastern gate of Hope's End."
   yields_resource: "mercenary_sellsword_contracts, khalkist_smuggler_pass"
 ---
 
@@ -48,7 +48,7 @@ Combined-arms mercenary siege network pairing battle-magic with heavy infantry a
 * **Tertiary Outcast:** Captain Horkin, Caramon & Raistlin's Mutinous Company
 
 ### 4. Severance & Escalation Threat Clock
-- **Hope's End Wall Breach [6 Ticks]:** Advances as siege engines pound the eastern gate of Hope's End.
+- **Hope's End Wall Breach Clock [6 Ticks]:** Advances as siege engines pound the eastern gate of Hope's End.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Mad Baron Ivor's High Command"

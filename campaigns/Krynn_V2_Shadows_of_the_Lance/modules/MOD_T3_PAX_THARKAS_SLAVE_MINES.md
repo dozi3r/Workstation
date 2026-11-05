@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Children freed from the nursery; Flamestrike unleashed upon Pyros"
     level_4: "Verminaard slain in the sanctum; 800 refugees march into the Kharolis"
   threat_clocks:
-    pax_tharkas_garrison_lockdown: "Pax Tharkas Garrison Lockdown [6 Ticks] - Advances if alarms sound before the hostage children are secured."
+    pax_tharkas_garrison_lockdown: "Pax Tharkas Garrison Lockdown Clock [6 Ticks] - Advances if alarms sound before the hostage children are secured."
   yields_resource: "pax_tharkas_iron_ore, liberated_800_refugees, everman_berem_release"
 ---
 
@@ -48,7 +48,7 @@ Verminaard's industrial slave-mining complex where 500 adult prisoners forge Dra
 * **Tertiary Outcast:** Sestun & The Imprisoned Everman Berem
 
 ### 4. Severance & Escalation Threat Clock
-- **Pax Tharkas Garrison Lockdown [6 Ticks]:** Advances if alarms sound before the hostage children are secured.
+- **Pax Tharkas Garrison Lockdown Clock [6 Ticks]:** Advances if alarms sound before the hostage children are secured.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Highlord Verminaard, Pyros & The Red Wing Garrison"

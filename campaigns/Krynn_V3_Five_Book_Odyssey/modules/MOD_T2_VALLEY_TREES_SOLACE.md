@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Red Dragon fire-bombing of the lower vallenwood trunks"
     level_4: "Occupied ash-ruin patrolled by Baaz garrisons"
   threat_clocks:
-    solace_occupation: "Solace Occupation [6 Ticks] - Advances as Verminaard's Red Wing tightens its grip on Abanasinia."
+    solace_occupation: "Solace Occupation Clock [6 Ticks] - Advances as Verminaard's Red Wing tightens its grip on Abanasinia."
   yields_resource: "spiced_potatoes_provisions, fellowship_sanctuary, timber_bridge_maintenance"
 ---
 
@@ -48,7 +48,7 @@ Elevated treetop settlement built into giant vallenwood boughs, providing multi-
 * **Tertiary Outcast:** Refugees Fleeing the Northern Burning
 
 ### 4. Severance & Escalation Threat Clock
-- **Solace Occupation [6 Ticks]:** Advances as Verminaard's Red Wing tightens its grip on Abanasinia.
+- **Solace Occupation Clock [6 Ticks]:** Advances as Verminaard's Red Wing tightens its grip on Abanasinia.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Otik Sandath & Town Militia of Solace"

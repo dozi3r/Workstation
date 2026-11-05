@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Silvara and Gilthanas breach the lava vents to witness the horror"
     level_4: "Metallic Dragons shatter their neutrality oath and burn the vats"
   threat_clocks:
-    draconian_clutch_hatching: "Draconian Clutch Hatching [6 Ticks] - Advances to deploy fresh Sivak and Aurak strike teams across Ansalon."
+    draconian_clutch_hatching: "Draconian Clutch Hatching Clock [6 Ticks] - Advances to deploy fresh Sivak and Aurak strike teams across Ansalon."
   yields_resource: "draconian_army_reinforcements"
 ---
 
@@ -48,7 +48,7 @@ Industrial-ritual egg corruption vats inside the volcanic Temple of Luerkhisis w
 * **Tertiary Outcast:** Captive Unhatched Metallic Dragon Wyrmlings
 
 ### 4. Severance & Escalation Threat Clock
-- **Draconian Clutch Hatching [6 Ticks]:** Advances to deploy fresh Sivak and Aurak strike teams across Ansalon.
+- **Draconian Clutch Hatching Clock [6 Ticks]:** Advances to deploy fresh Sivak and Aurak strike teams across Ansalon.
 
 ### Key Personnel (NPC Prototypes)
 - name: "High Cleric Wyrllish & Temple of Luerkhisis Guard"

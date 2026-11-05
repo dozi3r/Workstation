@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Eben Shatterstone steals the Helm of Grallen"
     level_4: "Desperate stand at the gates of Thorbardin"
   threat_clocks:
-    refugee_column_discovery: "Refugee Column Discovery [6 Ticks] - Advances when campfires or Eben's signals alert Red Wing dragons."
+    refugee_column_discovery: "Refugee Column Discovery Clock [6 Ticks] - Advances when campfires or Eben's signals alert Red Wing dragons."
   yields_resource: "dwarven_heavy_infantry"
 ---
 
@@ -48,7 +48,7 @@ Moving settlement of 800 freed Solace men, women, and children trekking into the
 * **Tertiary Outcast:** Brian Donner & Fever-Stricken Elders
 
 ### 4. Severance & Escalation Threat Clock
-- **Refugee Column Discovery [6 Ticks]:** Advances when campfires or Eben's signals alert Red Wing dragons.
+- **Refugee Column Discovery Clock [6 Ticks]:** Advances when campfires or Eben's signals alert Red Wing dragons.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Elistan, Goldmoon & The Refugee Council"

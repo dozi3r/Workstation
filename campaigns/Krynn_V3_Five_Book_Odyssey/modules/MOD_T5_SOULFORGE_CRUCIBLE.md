@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Fistandantilus offers the Bloodstone pact"
     level_4: "The Soul-Mirror finale: Raistlin incinerates the illusion of Caramon"
   threat_clocks:
-    soulforge_mortality_strain: "Soulforge Mortality Strain [6 Ticks] - Advances through each chamber of the Test of High Sorcery."
+    soulforge_mortality_strain: "Soulforge Mortality Strain Clock [6 Ticks] - Advances through each chamber of the Test of High Sorcery."
   yields_resource: "staff_of_magius_attunement, soulforge_memory_projection"
 ---
 
@@ -48,7 +48,7 @@ The lethal Test of High Sorcery inside the Tower of Wayreth where Fistandantilus
 * **Tertiary Outcast:** Caramon Majere (The Illusory Twin & Real Witness, `CRUC-04`)
 
 ### 4. Severance & Escalation Threat Clock
-- **Soulforge Mortality Strain [6 Ticks]:** Advances through each chamber of the Test of High Sorcery.
+- **Soulforge Mortality Strain Clock [6 Ticks]:** Advances through each chamber of the Test of High Sorcery.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Par-Salian & The Three Orders' Testing Wards"

@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Soth marches into Neraka as Kitiara's personal executioner"
     level_4: "Climax confrontation for Laurana's body and soul"
   threat_clocks:
-    dargaard_soul_claim: "Dargaard Soul-Claim [6 Ticks] - Advances once Laurana is brought in chains to the Temple of Neraka."
+    dargaard_soul_claim: "Dargaard Soul-Claim Clock [6 Ticks] - Advances once Laurana is brought in chains to the Temple of Neraka."
   yields_resource: "soth_death_knight_cavalry, captured_bakaris_leverage"
 ---
 
@@ -48,7 +48,7 @@ Unholy alliance between Highlord Kitiara and the undead Death Knight Lord Loren 
 * **Tertiary Outcast:** Skeletal Cavaliers of Dargaard Keep
 
 ### 4. Severance & Escalation Threat Clock
-- **Dargaard Soul-Claim [6 Ticks]:** Advances once Laurana is brought in chains to the Temple of Neraka.
+- **Dargaard Soul-Claim Clock [6 Ticks]:** Advances once Laurana is brought in chains to the Temple of Neraka.
 
 ### Key Personnel (NPC Prototypes)
 - name: "Lord Loren Soth & His Thirteen Banshees"

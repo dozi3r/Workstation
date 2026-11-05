@@ -18,7 +18,7 @@ injected_mechanics:
     level_3: "Inquisitorial book-burnings and Seeker collaboration with Fewmaster Toede"
     level_4: "Total capitulation to Red Dragonarmy martial law"
   threat_clocks:
-    seeker_theocratic_inquisition: "Seeker Theocratic Inquisition [6 Ticks] - Advances when divine miracles or arcane magic are displayed openly in Haven or Solace."
+    seeker_theocratic_inquisition: "Seeker Theocratic Inquisition Clock [6 Ticks] - Advances when divine miracles or arcane magic are displayed openly in Haven or Solace."
   yields_resource: "seeker_safe_conduct_writ, steel_coin_treasury"
 ---
 
@@ -48,7 +48,7 @@ Post-Cataclysm bureaucratic theocracy in Haven and Solace taxing trade in steel 
 * **Tertiary Outcast:** Suspected Renegade Mages & Herbalists (Raistlin Majere)
 
 ### 4. Severance & Escalation Threat Clock
-- **Seeker Theocratic Inquisition [6 Ticks]:** Advances when divine miracles or arcane magic are displayed openly in Haven or Solace.
+- **Seeker Theocratic Inquisition Clock [6 Ticks]:** Advances when divine miracles or arcane magic are displayed openly in Haven or Solace.
 
 ### Key Personnel (NPC Prototypes)
 - name: "High Seeker Council of Haven & High Theocrat Hederick"
