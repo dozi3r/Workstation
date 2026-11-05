@@ -27,6 +27,7 @@
     root.getNodeById = root.CampaignMutationEngine.getNodeById;
     root.upsertNode = root.CampaignMutationEngine.upsertNode;
     root.removeNode = root.CampaignMutationEngine.removeNode;
+    root.normalizeSpatialPin = root.CampaignMutationEngine.normalizeSpatialPin;
   }
 }(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
@@ -58,23 +59,46 @@
     return { s: 2, e: 2, c: 2 };
   }
 
+  /**
+   * Canonical spatial-pin normalizer (SYS-ARCH-01): the single definition used by the engine,
+   * the canvas renderer, the CAD interaction layer and the property grid.
+   * Mutates `pin` in place and returns the same reference, so callers that ignore the return
+   * value keep working. Never deletes unknown properties (color, notes, mod-injected fields).
+   * Returns null for a non-object.
+   */
   function normalizeSpatialPin(pin) {
     if (!pin || typeof pin !== 'object') return null;
-    const norm = {
-      id: pin.id || generateMonotonicId('pin'),
-      x: Number(pin.x) || 0,
-      y: Number(pin.y) || 0,
-      label: String(pin.label || pin.name || 'POI Pin'),
-      targetType: pin.targetType || (Array.isArray(pin.links) && pin.links[0] ? pin.links[0].type : 'node'),
-      targetId: String(pin.targetId || (Array.isArray(pin.links) && pin.links[0] ? pin.links[0].id : '')),
-      links: []
-    };
-    if (Array.isArray(pin.links) && pin.links.length > 0) {
-      norm.links = pin.links.map(l => ({ type: String(l.type || 'node'), id: String(l.id || '') }));
-    } else if (norm.targetId) {
-      norm.links.push({ type: norm.targetType, id: norm.targetId });
+    if (pin.id === undefined || pin.id === null || pin.id === '') pin.id = generateMonotonicId('pin');
+    pin.x = Number(pin.x) || 0;
+    pin.y = Number(pin.y) || 0;
+    pin.label = String(pin.label || pin.name || 'POI Pin');
+    if (pin.visible === undefined) pin.visible = true;
+    if (pin.locked === undefined) pin.locked = false;
+    if (!Array.isArray(pin.links)) {
+      pin.links = [];
+      if (pin.targetType && pin.targetId) {
+        pin.links.push({ type: pin.targetType, id: String(pin.targetId) });
+      }
+    } else {
+      // Keep each link object (extra fields survive); coerce id to string, default a missing type.
+      for (let i = pin.links.length - 1; i >= 0; i--) {
+        const link = pin.links[i];
+        if (!link || typeof link !== 'object') { pin.links.splice(i, 1); continue; }
+        link.id = (link.id === undefined || link.id === null) ? '' : String(link.id);
+        if (!link.type) link.type = 'node';
+      }
     }
-    return norm;
+    // Legacy targetType / targetId mirror the primary link; 'npc' is the canvas default.
+    if (pin.links.length > 0) {
+      pin.targetType = pin.links[0].type;
+      pin.targetId = pin.links[0].id;
+    } else if (!pin.targetType) {
+      pin.targetType = 'npc';
+      pin.targetId = '';
+    } else {
+      pin.targetId = (pin.targetId === undefined || pin.targetId === null) ? '' : String(pin.targetId);
+    }
+    return pin;
   }
 
   function normalizeEntities(entitiesObj) {
@@ -453,8 +477,7 @@
         }));
       }
     } else if (cat === 'spatialpins') {
-      const pinNorm = normalizeSpatialPin(normPayload);
-      if (pinNorm) Object.assign(normPayload, pinNorm);
+      normalizeSpatialPin(normPayload);
     }
 
     // Clean undefined fields from normPayload

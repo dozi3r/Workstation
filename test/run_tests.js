@@ -39,6 +39,30 @@ function assertEqual(actual, expected, message) {
   assert(actualStr === expectedStr, `${message} (Expected: ${expectedStr}, Got: ${actualStr})`);
 }
 
+// Engine seam for hand-built vm sandboxes (SYS-ARCH-01).
+// campaign_mutation_engine.js is a UMD kernel: require() takes the Node branch and publishes no root
+// globals, while the browser branch (start.html) mirrors the engine onto window. Any sandbox that loads a
+// script which resolves engine globals at runtime must be handed the same globals explicitly.
+// ENGINE_ROOT_ALIASES mirrors the UMD tail (Suite 48 proves the two lists cannot drift apart).
+const ENGINE_ROOT_ALIASES = [
+  'formatCorridorKey', 'parseCorridorKey', 'corridorMatchesNode', 'addCorridor', 'removeCorridor',
+  'removeCorridorsForNode', 'ensureQueryableNodesCollection', 'getNodesList', 'getNodesMap',
+  'getNodeById', 'upsertNode', 'removeNode', 'normalizeSpatialPin'
+];
+function injectEngine(sandbox) {
+  const engine = require(path.join(ROOT_DIR, 'src/workstation/scripts/campaign_mutation_engine.js'));
+  const win = (sandbox.window && typeof sandbox.window === 'object' && sandbox.window !== sandbox) ? sandbox.window : null;
+  const studio = sandbox.CreatorStudio || (win && win.CreatorStudio) || {};
+  studio.ai = engine;
+  [sandbox, win].forEach(root => {
+    if (!root) return;
+    root.CreatorStudio = studio;
+    root.CampaignMutationEngine = engine;
+    ENGINE_ROOT_ALIASES.forEach(name => { root[name] = engine[name]; });
+  });
+  return engine;
+}
+
 console.log('================================================================');
 console.log('     CREATOR STUDIO: HEADLESS JS SYNTAX & UNIT TEST RUNNER      ');
 console.log('================================================================\n');
@@ -6575,6 +6599,7 @@ function testMultiLinkSpatialPinsShapeGripsContextMenuAndGlobalSearch() {
     setStatusBarMessage: () => {}
   };
   sandbox.window = Object.assign(sandbox, sandbox.window);
+  injectEngine(sandbox);
   vm.createContext(sandbox);
   vm.runInContext(cadInteractionCode, sandbox);
 
@@ -6589,6 +6614,7 @@ function testMultiLinkSpatialPinsShapeGripsContextMenuAndGlobalSearch() {
   assertEqual(multiPin.links.length, 4, 'Multi-link Spatial Pin stores all 4 linked entities (NPC, Item, Submap, Tracker)');
   assertEqual(multiPin.targetType, 'npc', 'Primary link targetType synced to legacy pin.targetType');
   assertEqual(multiPin.targetId, 'npc_harbormaster', 'Primary link targetId synced to legacy pin.targetId');
+  assertEqual([multiPin.visible, multiPin.locked], [true, false], 'SYS-ARCH-01: addSpatialPinAt result is visible and unlocked via the engine normalizer');
   assertEqual(sandbox.resolvePinLinkTitle('submap', 'map_warehouse'), 'Vault Warehouse Interior', 'resolvePinLinkTitle resolves submap name');
 
   // 2. Snap-to-grid toggle & coordinate snapping
@@ -7989,6 +8015,92 @@ function testSuite47IndustryChainImporterAndDeduplication() {
 }
 
 // ============================================================================
+// SUITE 48: CANONICAL SPATIAL PIN NORMALIZER (SYS-ARCH-01 / PHASE A)
+// ============================================================================
+function testSuite48CanonicalSpatialPinNormalizer() {
+  console.log('\n--> SUITE 48: Canonical normalizeSpatialPin, in place, one definition (SYS-ARCH-01)...');
+
+  const enginePath = path.join(ROOT_DIR, 'src/workstation/scripts/campaign_mutation_engine.js');
+  const cme = require(enginePath);
+  const norm = cme.normalizeSpatialPin;
+  assert(typeof norm === 'function', 'CampaignMutationEngine exports normalizeSpatialPin');
+
+  // 48.1: mutates in place and returns the same reference
+  const pinA = { id: 'pin_a', x: '12', y: 7, label: 'Gate' };
+  assert(norm(pinA) === pinA, 'normalizeSpatialPin returns the same reference it was given');
+  assertEqual([pinA.x, pinA.y], [12, 7], 'normalizeSpatialPin coerces x/y to numbers in place');
+
+  // 48.2: never deletes or rebuilds unknown properties
+  const pinB = { id: 'pin_b', x: 1, y: 2, label: 'Keep', color: '#ff0000', notes: 'GM only', modField: { depth: 3 } };
+  norm(pinB);
+  assertEqual([pinB.color, pinB.notes, pinB.modField], ['#ff0000', 'GM only', { depth: 3 }], 'normalizeSpatialPin preserves color, notes and mod-injected fields');
+
+  // 48.3: canvas defaults
+  const pinC = { x: 'abc' };
+  norm(pinC);
+  assert(typeof pinC.id === 'string' && pinC.id.startsWith('pin_'), 'normalizeSpatialPin generates a pin_ id when one is missing');
+  assertEqual([pinC.x, pinC.y, pinC.label], [0, 0, 'POI Pin'], 'normalizeSpatialPin defaults x/y to 0 and label to POI Pin');
+  assertEqual([pinC.visible, pinC.locked], [true, false], 'normalizeSpatialPin defaults visible=true and locked=false');
+  assertEqual([pinC.targetType, pinC.targetId, pinC.links], ['npc', '', []], 'a pin with no target defaults to targetType npc, empty targetId and empty links');
+  const pinC2 = { id: 'pin_c2', name: 'Named Only', visible: false, locked: true };
+  norm(pinC2);
+  assertEqual([pinC2.id, pinC2.label, pinC2.visible, pinC2.locked], ['pin_c2', 'Named Only', false, true], 'normalizeSpatialPin keeps an existing id and explicit visible/locked flags and falls back to name for label');
+
+  // 48.4: legacy targetType/targetId become links
+  const pinD = { id: 'pin_d', targetType: 'quest', targetId: 77 };
+  norm(pinD);
+  assertEqual(pinD.links, [{ type: 'quest', id: '77' }], 'legacy targetType/targetId becomes a single link with a string id');
+  assertEqual([pinD.targetType, pinD.targetId], ['quest', '77'], 'legacy targetType/targetId stay synced with the new primary link');
+
+  // 48.5: links[0] drives targetType/targetId
+  const pinE = { id: 'pin_e', targetType: 'npc', targetId: 'stale', links: [{ type: 'item', id: 'itm_1' }, { type: 'npc', id: 'npc_2' }] };
+  norm(pinE);
+  assertEqual([pinE.targetType, pinE.targetId], ['item', 'itm_1'], 'links[0] drives targetType/targetId over stale legacy values');
+  assertEqual(pinE.links.length, 2, 'normalizeSpatialPin keeps every link');
+
+  // 48.6: a link object keeps its extra fields; id is coerced; a missing type defaults to node
+  const richLink = { type: 'submap', id: 5, note: 'trapdoor', meta: { depth: 2 } };
+  const typelessLink = { id: 'x1' };
+  const pinF = { id: 'pin_f', links: [richLink, typelessLink] };
+  norm(pinF);
+  assert(pinF.links[0] === richLink && pinF.links[1] === typelessLink, 'normalizeSpatialPin keeps each link object instead of rebuilding it');
+  assertEqual(richLink, { type: 'submap', id: '5', note: 'trapdoor', meta: { depth: 2 } }, 'a link keeps its extra fields while its id is coerced to string');
+  assertEqual(typelessLink.type, 'node', 'a link without a type defaults to node');
+  assertEqual([pinF.targetType, pinF.targetId], ['submap', '5'], 'primary link of a rich link list syncs targetType/targetId');
+  const before = JSON.stringify(pinF);
+  norm(pinF);
+  assertEqual(JSON.stringify(pinF), before, 'normalizeSpatialPin is idempotent');
+
+  // 48.7: non-objects return null
+  assertEqual([norm(null), norm(undefined), norm('pin'), norm(42)], [null, null, null, null], 'normalizeSpatialPin returns null for a non-object');
+
+  // 48.8: engine upsert of an existing pin keeps unknown fields and records the new visible/locked diffs
+  const upsertState = { spatialPins: [{ id: 'pin_up', x: 1, y: 2, label: 'Old', color: '#0000ff', links: [{ type: 'npc', id: 'npc_1' }] }] };
+  const upsertChanges = [];
+  cme.upsertEntity(upsertState, 'spatialpins', { id: 'pin_up', x: 5, y: 2, label: 'Old', links: [{ type: 'npc', id: 'npc_1' }] }, { changes: upsertChanges });
+  assertEqual(upsertState.spatialPins.length, 1, 'engine upsert updates the existing pin instead of adding one');
+  assertEqual([upsertState.spatialPins[0].x, upsertState.spatialPins[0].color], [5, '#0000ff'], 'engine upsert applies the payload and keeps pin fields the payload does not carry');
+  assertEqual(upsertChanges.map(c => c.field).sort(), ['locked', 'targetId', 'targetType', 'visible', 'x'], 'engine upsert changelog records x plus the normalized visible/locked/targetType/targetId diffs');
+
+  // 48.9: the engine UMD tail publishes the aliases that injectEngine mirrors into sandboxes
+  const umdCtx = vm.createContext({});
+  vm.runInContext(fs.readFileSync(enginePath, 'utf8'), umdCtx);
+  const publishedAliases = Object.keys(umdCtx).filter(k => typeof umdCtx[k] === 'function').sort();
+  assertEqual(publishedAliases, ENGINE_ROOT_ALIASES.slice().sort(), 'injectEngine mirrors exactly the root aliases the engine UMD tail publishes');
+  assert(umdCtx.normalizeSpatialPin === umdCtx.CampaignMutationEngine.normalizeSpatialPin, 'UMD tail publishes root.normalizeSpatialPin straight from the engine');
+  const injected = { window: {} };
+  injectEngine(injected);
+  assert(injected.normalizeSpatialPin === cme.normalizeSpatialPin && injected.window.normalizeSpatialPin === cme.normalizeSpatialPin, 'injectEngine publishes normalizeSpatialPin on the sandbox and on a separate sandbox.window');
+  assert(injected.CreatorStudio.ai === cme && injected.window.CreatorStudio === injected.CreatorStudio, 'injectEngine shares one CreatorStudio.ai engine between sandbox and sandbox.window');
+
+  // 48.10: exactly one definition of normalizeSpatialPin across the workstation scripts
+  const scriptsDir = path.join(ROOT_DIR, 'src/workstation/scripts');
+  const definers = fs.readdirSync(scriptsDir)
+    .filter(f => f.endsWith('.js') && /function\s+normalizeSpatialPin\s*\(|window\.normalizeSpatialPin\s*=/.test(fs.readFileSync(path.join(scriptsDir, f), 'utf8')));
+  assertEqual(definers, ['campaign_mutation_engine.js'], 'normalizeSpatialPin has exactly one definition (campaign_mutation_engine.js)');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -8040,6 +8152,7 @@ function testSuite47IndustryChainImporterAndDeduplication() {
     testSuite45CorridorSeamAndKeyCanonicalization();
     testSuite46PointcrawlGraphNodeSeam();
     testSuite47IndustryChainImporterAndDeduplication();
+    testSuite48CanonicalSpatialPinNormalizer();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

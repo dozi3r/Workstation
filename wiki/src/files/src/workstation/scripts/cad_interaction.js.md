@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/cad_interaction.js"
 title: "cad_interaction.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "0287449c271bf9ca"
-reviewed_hash: "0287449c271bf9ca"
+current_hash: "23b7f995ad04696d"
+reviewed_hash: "23b7f995ad04696d"
 stale: false
-size_bytes: 138474
-line_count: 3087
+size_bytes: 137755
+line_count: 3066
 ---
 
 # cad_interaction.js
@@ -23,4 +23,5 @@ line_count: 3087
 - **Viewport Pan & Cursor-Centered Deep Zoom**: Implements Photoshop-style cursor-centered zoom (`zoomIn`, `zoomOut`, `zoomAt`, `resetZoom`) with world coordinate invariance and zoom clamping (0.02x to 10.0x).
 - **Drag-and-Drop File Import Shield**: Intercepts canvas drag-and-drop events (`dragenter`, `dragover`, `drop`) to shield against accidental browser file navigation while routing `.csmod` entity packs and campaign packages into the workstation importer pipeline.
 - **Graph Topology Mutation**: Executes atomic node creation (`addNodeAt`), edge linking (`createEdge`), edge deletion (`deleteEdge`), node deletion with cascade modal integration (`deleteNode`), and manual coordinate precision input (`promptMoveNode`).
+- **Spatial Pin Normalization (SYS-ARCH-01)**: This file no longer defines or publishes `normalizeSpatialPin`. `getPinLinks`, `selectSpatialPin`, the context menu and the hover card call the global published by the `campaign_mutation_engine.js` UMD tail, which normalizes in place. Test sandboxes that run this file need `injectEngine(sandbox)`.
 <!-- END_CUSTOM_NOTES -->

@@ -3,11 +3,11 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "780ef319fb33eb02"
-reviewed_hash: "780ef319fb33eb02"
+current_hash: "0f708cd087f532dd"
+reviewed_hash: "0f708cd087f532dd"
 stale: false
-size_bytes: 396556
-line_count: 8061
+size_bytes: 404853
+line_count: 8174
 ---
 
 # run_tests.js
@@ -47,4 +47,8 @@ line_count: 8061
    - Tests active map teardown safety guard (switching to `map_root` before submap deletion to avert renderer crashes).
    - Validates custom module slotting purge across node/edge module maps.
    - Asserts 100% round-trip fidelity: export `.csmod` package with submaps and graphics -> parse archive -> install -> verify state parity.
+9. **Engine seam for `vm` sandboxes (SYS-ARCH-01)**: `injectEngine(sandbox)` `require()`s `campaign_mutation_engine.js` and publishes `CampaignMutationEngine`, `CreatorStudio.ai` and the root aliases the engine UMD tail publishes in a browser (`ENGINE_ROOT_ALIASES`, including `normalizeSpatialPin`). It mirrors them onto a separate `sandbox.window` when one exists. Call it in every sandbox that loads a script resolving engine globals at runtime.
+10. **Suite 48: Canonical Spatial Pin Normalizer (SYS-ARCH-01)**:
+   - Exercises `normalizeSpatialPin` through the engine `require()` seam with no DOM: same reference, unknown fields kept, `visible`/`locked`/label/id defaults, legacy `targetType`/`targetId` to `links`, `links[0]` driving the legacy fields, link objects keeping extra fields, `null` for non-objects.
+   - Proves the `ENGINE_ROOT_ALIASES` list equals what the engine UMD tail publishes (the engine is run in a fresh `vm` context) and that only `campaign_mutation_engine.js` defines `normalizeSpatialPin`.
 <!-- END_CUSTOM_NOTES -->

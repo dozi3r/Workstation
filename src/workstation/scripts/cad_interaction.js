@@ -1394,28 +1394,7 @@
     }
 
     // Spatial Pin Selection, Creation & Deletion (Multi-Entity POI Container)
-    function normalizeSpatialPin(pin) {
-      if (!pin || typeof pin !== 'object') return pin;
-      if (pin.visible === undefined) pin.visible = true;
-      if (pin.locked === undefined) pin.locked = false;
-      if (!Array.isArray(pin.links)) {
-        pin.links = [];
-        if (pin.targetType && pin.targetId) {
-          pin.links.push({ type: pin.targetType, id: String(pin.targetId) });
-        }
-      }
-      // Keep legacy targetType / targetId synced with primary link for backwards compatibility
-      if (pin.links.length > 0) {
-        pin.targetType = pin.links[0].type || 'npc';
-        pin.targetId = String(pin.links[0].id || '');
-      } else if (!pin.targetType) {
-        pin.targetType = 'npc';
-        pin.targetId = '';
-      }
-      return pin;
-    }
-    window.normalizeSpatialPin = normalizeSpatialPin;
-
+    // normalizeSpatialPin is the engine's canonical in-place normalizer (campaign_mutation_engine.js UMD tail).
     function getPinLinks(pin) {
       if (!pin) return [];
       normalizeSpatialPin(pin);
