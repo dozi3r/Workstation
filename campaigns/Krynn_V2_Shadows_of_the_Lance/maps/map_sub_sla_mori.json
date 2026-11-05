@@ -1,0 +1,300 @@
+{
+  "id": "map_sub_sla_mori",
+  "name": "The Sla-Mori: Secret Royal Crypts",
+  "scaleTier": "building",
+  "parentMapId": "map_ansalon_continent",
+  "parentNodeId": "N_SLA_MORI",
+  "mapMetadata": {
+    "id": "map_sub_sla_mori",
+    "name": "map_sub_sla_mori_bg.jpg",
+    "assetPath": "assets/map_sub_sla_mori_bg.jpg",
+    "width": 1200,
+    "height": 800,
+    "naturalWidth": 1200,
+    "naturalHeight": 800,
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "lockAspect": true,
+    "opacity": 0.88
+  },
+  "nodes": [
+    {
+      "id": "SLA-01",
+      "name": "Camouflaged Cliffside Portal",
+      "displayName": "Camouflaged Cliffside Portal",
+      "x": 250,
+      "y": 400,
+      "coordinates": {
+        "x": 250,
+        "y": 400
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "SLA-02"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Seamless counterweighted stone door in the Kharolis rockface.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "SLA-02",
+      "name": "Hall of the Silent Kings & Slug Lair",
+      "displayName": "Hall of the Silent Kings & Slug Lair",
+      "x": 600,
+      "y": 400,
+      "coordinates": {
+        "x": 600,
+        "y": 400
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "SLA-01",
+        "SLA-03"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Elven sarcophagi and the corrosive Giant Slug chokepoint.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "SLA-03",
+      "name": "The Molten Ore Chasm & Great Bronze Chain",
+      "displayName": "The Molten Ore Chasm & Great Bronze Chain",
+      "x": 950,
+      "y": 400,
+      "coordinates": {
+        "x": 950,
+        "y": 400
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "SLA-02"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Sixty-foot vertical climb up a heat-slick bronze chain into Pax Tharkas's lower furnace room.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": "SLA-01",
+      "to": "SLA-02",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "SLA-02",
+      "to": "SLA-03",
+      "type": "twoway",
+      "layer": "transit"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {
+    "SLA-01-SLA-02": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    },
+    "SLA-02-SLA-03": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    }
+  },
+  "edgeNotes": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background Layer",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-edges",
+      "name": "Corridors",
+      "zIndex": 10,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Chambers",
+      "zIndex": 20,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    }
+  ],
+  "shapes": []
+}

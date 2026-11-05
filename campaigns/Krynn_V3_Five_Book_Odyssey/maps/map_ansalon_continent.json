@@ -1,0 +1,3252 @@
+{
+  "id": "map_ansalon_continent",
+  "name": "Ansalon Continental Pointcrawl (Chronicles of Krynn)",
+  "scaleTier": "continent",
+  "parentMapId": null,
+  "parentNodeId": null,
+  "mapMetadata": {
+    "id": "map_ansalon_continent",
+    "name": "map_ansalon_continent_bg.jpg",
+    "assetPath": "assets/map_ansalon_continent_bg.jpg",
+    "width": 2304,
+    "height": 1536,
+    "naturalWidth": 1536,
+    "naturalHeight": 1024,
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "lockAspect": true,
+    "opacity": 0.88
+  },
+  "nodes": [
+    {
+      "id": "N_SOLACE",
+      "name": "Solace (The Valleys of the Trees)",
+      "displayName": "Solace & Inn of the Last Home",
+      "x": 910,
+      "y": 790,
+      "coordinates": {
+        "x": 910,
+        "y": 790
+      },
+      "cat": "Bastion",
+      "culture": "Clan",
+      "shape": "pentagon",
+      "adj": [
+        "N_HAVEN",
+        "N_CRYSTALMIR",
+        "N_GATEWAY",
+        "N_LANGTREE"
+      ],
+      "infBy": [
+        "N_HAVEN",
+        "N_CRYSTALMIR",
+        "N_GATEWAY",
+        "N_LANGTREE"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_solace_inn",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Colossal autumnal vallenwood trees cradling buildings in gold-and-scarlet boughs; suspended rope walkways creaking forty feet above leaf-mulched earth; cast-iron skillets sizzling with Otik's spiced potatoes.\n- *Behaviors:* Townsfolk ascending rope ladders at dusk; hooded strangers checking satchels at the crossroads.\n- *Relationships:* Deep tavern kinship around [[NPC:npc_otik]] and [[NPC:npc_tika]] strained by [[NPC:npc_hederick]]'s Seeker inquisition.\n- *Attitudes:* Nostalgic warmth colliding with post-Cataclysm cynicism toward the old gods.\n- *Values:* Hospitality of the hearth versus theocratic conformity.\nPortal submap: [[Map:map_sub_solace_inn]]. Connected to [[Node:N_HAVEN]], [[Node:N_CRYSTALMIR]], and [[Node:N_PAX_THARKAS]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T2_VALLEY_TREES_SOLACE",
+        "MOD_T4_DRACONIAN_CHECKPOINTS"
+      ],
+      "provides": [
+        "spiced_potatoes_provisions",
+        "fellowship_sanctuary",
+        "abanasinia_rumor_network"
+      ],
+      "requires": [
+        "timber_bridge_maintenance"
+      ],
+      "modData": {},
+      "odv": [
+        3,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "fac_seeker_theocracy",
+      "factionPresence": [
+        "fac_companions",
+        "fac_seeker_theocracy"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 78
+        },
+        "minorities": [
+          {
+            "name": "Neidar Hill Dwarf",
+            "percentage": 12,
+            "traits": "Master woodworkers & smiths (Flint Fireforge)"
+          },
+          {
+            "name": "Kender",
+            "percentage": 6,
+            "traits": "Itinerant curiosity-seekers"
+          },
+          {
+            "name": "Baaz Draconian (351 AC)",
+            "percentage": 4,
+            "traits": "Hooded Seeker garrison checkpoint guards"
+          }
+        ],
+        "social_friction_notes": "Seeker magistrates enforce religious taxation while young twins Raistlin and Caramon prepare for the Wayreth summons.",
+        "tags": [
+          "Human",
+          "Neidar Dwarf",
+          "Kender",
+          "Draconian"
+        ]
+      },
+      "partyRapport": {
+        "stance": 2,
+        "notes": "Home sanctuary of the Companions at Otik Sandath's Inn of the Last Home."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_HAVEN",
+      "name": "Haven (Seat of the High Seekers)",
+      "displayName": "Haven Council City",
+      "x": 735,
+      "y": 840,
+      "coordinates": {
+        "x": 735,
+        "y": 840
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "N_SOLACE",
+        "N_WAYRETH"
+      ],
+      "infBy": [
+        "N_SOLACE",
+        "N_WAYRETH"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Whitewashed stone villas, cobble squares smelling of tallow candles, flash-powder sulfur from Belzor's shrine, and wet wool.\n- *Behaviors:* Seeker magistrates weighing steel coins; apprentices reciting rote cantrips under [[NPC:npc_theobald]].\n- *Relationships:* [[NPC:npc_antimodes]] secretly funding [[NPC:npc_raistlin]]'s schooling while [[NPC:npc_widow_judith]] stirs fanaticism.\n- *Attitudes:* Complacent mercantile piety masking cowardly appeasement of [[Faction:fac_red_dragonarmy]].\n- *Values:* Respectability, coin, and dogmatic orthodoxy.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T1_SEEKER_THEOCRACY_NETWORK"
+      ],
+      "provides": [
+        "seeker_safe_conduct_writ",
+        "steel_coin_treasury",
+        "arcane_primer_scrolls"
+      ],
+      "requires": [
+        "tithe_grain_shipments"
+      ],
+      "modData": {},
+      "odv": [
+        1,
+        2,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "fac_seeker_theocracy",
+      "factionPresence": [
+        "fac_seeker_theocracy",
+        "fac_high_sorcery",
+        "fac_red_dragonarmy"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 88
+        },
+        "minorities": [
+          {
+            "name": "Seeker Clerisy & Sellswords",
+            "percentage": 12,
+            "traits": "Tax collectors, charlatan priests, and Master Theobald's school"
+          }
+        ],
+        "social_friction_notes": "In 344-346 AC, Widow Judith's Belzor cult and Master Theobald's mediocre magic school dominate the stone squares.",
+        "tags": [
+          "Human",
+          "Seeker Clerisy"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Bureaucratic Seeker capital; Antimodes maintains a suite at the Whitestone Inn."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_CRYSTALMIR",
+      "name": "Crystalmir Lake & Queer Idol Shore",
+      "displayName": "Crystalmir Lake",
+      "x": 855,
+      "y": 685,
+      "coordinates": {
+        "x": 855,
+        "y": 685
+      },
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "circle",
+      "adj": [
+        "N_SOLACE",
+        "N_DARKEN_WOOD"
+      ],
+      "infBy": [
+        "N_SOLACE",
+        "N_DARKEN_WOOD"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Cold mirror-dark alpine water reflecting autumn vallenwoods; the soot-blackened stone idol where [[NPC:npc_goldmoon]]'s [[Item:ITM-BLUE-STAFF]] blazes against [[NPC:npc_toede]]'s goblin ambush.\n- *Behaviors:* Ferrymen poling flatboats through morning mist; Baaz draconians turning to crumbling stone when slain.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [
+        "freshwater_ferry_route"
+      ],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        3,
+        1,
+        1
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [
+        "fac_companions",
+        "fac_red_dragonarmy"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_DARKEN_WOOD",
+      "name": "Darken Wood (Domain of the Forestmaster)",
+      "displayName": "Darken Wood",
+      "x": 985,
+      "y": 885,
+      "coordinates": {
+        "x": 985,
+        "y": 885
+      },
+      "cat": "Hazard",
+      "culture": "Clan",
+      "shape": "circle",
+      "adj": [
+        "N_CRYSTALMIR",
+        "N_XAK_TSAROTH"
+      ],
+      "infBy": [
+        "N_CRYSTALMIR",
+        "N_XAK_TSAROTH"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Ancient, lightless canopy smelling of crushed wintergreen, ozone, and centuries-old moss; silver moonlight pooling in the clearing of [[NPC:npc_forestmaster]].\n- *Behaviors:* Spectral guardians testing the courage of travelers before opening the eastern pass toward [[Node:N_XAK_TSAROTH]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [
+        "unicorn_blessing",
+        "east_mountain_bypass"
+      ],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        4,
+        1,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "fac_companions",
+      "factionPresence": [
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Spectral Centaur & Woodland Guardians",
+          "percentage": 60
+        },
+        "minorities": [
+          {
+            "name": "Unicorn Herd of the Forestmaster",
+            "percentage": 40,
+            "traits": "Celestial arbiters of purity"
+          }
+        ],
+        "social_friction_notes": "Hostile to all defilers and undead restlessness until the Forestmaster grants passage.",
+        "tags": [
+          "Centaur",
+          "Unicorn",
+          "Spectral"
+        ]
+      },
+      "partyRapport": {
+        "stance": 1,
+        "notes": "The Forestmaster recognizes the true faith of Mishakal."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_XAK_TSAROTH",
+      "name": "Xak Tsaroth (The Drowned Ruin)",
+      "displayName": "Xak Tsaroth Swamp & Chasm",
+      "x": 1130,
+      "y": 815,
+      "coordinates": {
+        "x": 1130,
+        "y": 815
+      },
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "shape": "pentagon",
+      "adj": [
+        "N_DARKEN_WOOD",
+        "N_SANCTION"
+      ],
+      "infBy": [
+        "N_DARKEN_WOOD",
+        "N_SANCTION"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_xak_tsaroth",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Rotting cypress swamp hissing with black-dragon acid; wicker draconian idols; tilted marble colonnades plunging into a cavernous abyss around the rusted Great Lift chain.\n- *Behaviors:* [[NPC:npc_bupu]] clutching her dead dried lizard and emerald; [[NPC:npc_khisanth]] coiled around the platinum [[Item:ITM-DISKS-MISHAKAL]].\nPortal submap: [[Map:map_sub_xak_tsaroth]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T2_DROWNED_RUIN_XAK_TSAROTH",
+        "MOD_T3_AGHAR_LIFT_HYDRAULICS"
+      ],
+      "provides": [
+        "disks_of_mishakal_liturgy",
+        "fistandantilus_sunken_grimoire",
+        "aghar_express_chute_access"
+      ],
+      "requires": [
+        "blue_crystal_staff_charge"
+      ],
+      "modData": {},
+      "odv": [
+        2,
+        4,
+        1
+      ],
+      "odvOverridden": true,
+      "faction": "fac_red_dragonarmy",
+      "factionPresence": [
+        "fac_red_dragonarmy",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Aghar Gully Dwarf (Bulps)",
+          "percentage": 65
+        },
+        "minorities": [
+          {
+            "name": "Baaz & Kapak Draconian",
+            "percentage": 30,
+            "traits": "Swamp raiding garrison"
+          },
+          {
+            "name": "Black Dragon Lair (Khisanth)",
+            "percentage": 5,
+            "traits": "Acid-breathing guardian of the Disks"
+          }
+        ],
+        "social_friction_notes": "Gully dwarf clans (Highbulp Phudge) scavenge beneath the tyranny of Khisanth and draconian taskmasters.",
+        "tags": [
+          "Aghar Gully Dwarf",
+          "Baaz Draconian",
+          "Kapak Draconian",
+          "Black Dragon"
+        ]
+      },
+      "partyRapport": {
+        "stance": -2,
+        "notes": "Lair of the Black Dragon Khisanth (Onyx); Bupu is friendly to Raistlin."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_WAYRETH",
+      "name": "Tower of High Sorcery at Wayreth",
+      "displayName": "Tower of Wayreth",
+      "x": 675,
+      "y": 1095,
+      "coordinates": {
+        "x": 675,
+        "y": 1095
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "adj": [
+        "N_HAVEN"
+      ],
+      "infBy": [
+        "N_HAVEN"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_wayreth_tower",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Polished obsidian spires rising from a sentient, teleporting forest; the smell of ozone, old parchment, and burned flesh in the Chamber of the Test.\n- *Behaviors:* [[NPC:npc_par_salian]] watching through silver mirrors as [[NPC:npc_fistandantilus]] whispers through [[Item:ITM-BLOODSTONE]] to [[NPC:npc_raistlin]].\nPortal submap: [[Map:map_sub_wayreth_tower]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T2_WAYRETH_SHIFTING_GROVE",
+        "MOD_T5_SOULFORGE_CRUCIBLE"
+      ],
+      "provides": [
+        "staff_of_magius_attunement",
+        "high_sorcery_conclave_mandate",
+        "soulforge_memory_projection"
+      ],
+      "requires": [
+        "arcane_primer_scrolls"
+      ],
+      "modData": {},
+      "odv": [
+        2,
+        3,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "fac_high_sorcery",
+      "factionPresence": [
+        "fac_high_sorcery"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Wizards of the Three Robes",
+          "percentage": 100
+        },
+        "minorities": [],
+        "social_friction_notes": "Absolute neutrality under the Three Moons (Solinari, Lunitari, Nuitari); non-initiates cannot locate the forest unless summoned.",
+        "tags": [
+          "White Robes",
+          "Red Robes",
+          "Black Robes"
+        ]
+      },
+      "partyRapport": {
+        "stance": 1,
+        "notes": "Par-Salian and the Conclave test initiates and observe the war across the moons."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_LANGTREE",
+      "name": "Langtree & Baron Ivor's Mustering Grounds",
+      "displayName": "Langtree Mercenary Camp",
+      "x": 1120,
+      "y": 525,
+      "coordinates": {
+        "x": 1120,
+        "y": 525
+      },
+      "cat": "Standard POI",
+      "culture": "Market",
+      "shape": "circle",
+      "adj": [
+        "N_SOLACE",
+        "N_HOPES_END"
+      ],
+      "infBy": [
+        "N_SOLACE",
+        "N_HOPES_END"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Muddy stockade churned by heavy warhorse hooves; smell of wet leather, cheap ale, and whetstones.\n- *Behaviors:* [[NPC:npc_baron_ivor]] and [[NPC:npc_horkin]] drilling mercenary companies while young [[NPC:npc_raistlin]] and [[NPC:npc_caramon]] learn battlefield magic-and-steel tactics.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [
+        "mercenary_sellsword_contracts",
+        "siege_wagons"
+      ],
+      "requires": [
+        "steel_coin_treasury"
+      ],
+      "modData": {},
+      "odv": [
+        1,
+        4,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [
+        "fac_red_dragonarmy",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_HOPES_END",
+      "name": "Hope's End (Besieged Valley Stronghold)",
+      "displayName": "Hope's End",
+      "x": 1365,
+      "y": 465,
+      "coordinates": {
+        "x": 1365,
+        "y": 465
+      },
+      "cat": "Bastion",
+      "culture": "Clan",
+      "shape": "pentagon",
+      "adj": [
+        "N_LANGTREE",
+        "N_PAX_THARKAS",
+        "N_SANCTION"
+      ],
+      "infBy": [
+        "N_LANGTREE",
+        "N_PAX_THARKAS",
+        "N_SANCTION"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_hopes_end_siege",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Steep box-canyon walls fused into black volcanic dragon-glass by [[NPC:npc_immolatus]]'s fire breath; subterranean ice-vaults where the stolen Silver Dragon Eggs were held before being shipped to [[Node:N_SANCTION]].\n- *Relationships:* Where [[NPC:npc_kitiara]] seduced [[NPC:npc_bakaris]] and forged her pact with the Dragonarmies.\nPortal submap: [[Map:map_sub_hopes_end_siege]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T3_MERCENARY_SIEGE_LINES",
+        "MOD_T4_SILVER_CLUTCH_BETRAYAL"
+      ],
+      "provides": [
+        "silver_clutch_eggshell_evidence",
+        "khalkist_smuggler_pass"
+      ],
+      "requires": [
+        "mercenary_sellsword_contracts"
+      ],
+      "modData": {},
+      "odv": [
+        3,
+        3,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "contested",
+      "factionPresence": [
+        "fac_red_dragonarmy",
+        "fac_blue_dragonarmy",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_GATEWAY",
+      "name": "Gateway & Nightlund Border Road",
+      "displayName": "Gateway Ambush Crossing",
+      "x": 1095,
+      "y": 945,
+      "coordinates": {
+        "x": 1095,
+        "y": 945
+      },
+      "cat": "Standard POI",
+      "culture": "Market",
+      "shape": "circle",
+      "adj": [
+        "N_SOLACE",
+        "N_QUALINOST",
+        "N_PAX_THARKAS"
+      ],
+      "infBy": [
+        "N_SOLACE",
+        "N_QUALINOST",
+        "N_PAX_THARKAS"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Charred border tollhouse; iron slave-cages creaking down the muddy ruts toward Pax Tharkas until [[NPC:npc_gilthanas]]'s elven archers strike at dawn.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [
+        "prison_caravan_intercept"
+      ],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        3,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "fac_red_dragonarmy",
+      "factionPresence": [
+        "fac_red_dragonarmy",
+        "fac_qualinesti_silvanesti"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_QUALINOST",
+      "name": "Qualinost (Radiant City of the Sun Speaker)",
+      "displayName": "Qualinost Elven Capital",
+      "x": 775,
+      "y": 975,
+      "coordinates": {
+        "x": 775,
+        "y": 975
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "N_GATEWAY",
+        "N_SLA_MORI",
+        "N_SOUTHERN_ERGOTH"
+      ],
+      "infBy": [
+        "N_GATEWAY",
+        "N_SLA_MORI",
+        "N_SOUTHERN_ERGOTH"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Spires of rose-quartz and gilded glass linked by silver-filigree arches over aspen groves; the Hall of the Sky open to the stars.\n- *Relationships:* [[NPC:npc_laurana]]'s fierce devotion to [[NPC:npc_tanis]] clashing with Porthios's dynastic protection.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [
+        "sla_mori_royal_key",
+        "qualinesti_longbow_support"
+      ],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        3,
+        1,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "fac_qualinesti_silvanesti",
+      "factionPresence": [
+        "fac_qualinesti_silvanesti",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Qualinesti Elf",
+          "percentage": 95
+        },
+        "minorities": [
+          {
+            "name": "Half-Elf & Diplomatic Guests",
+            "percentage": 5,
+            "traits": "Marginally tolerated outsiders (Tanis)"
+          }
+        ],
+        "social_friction_notes": "Elven pride vs. urgent evacuation before Verminaard's Red Wing.",
+        "tags": [
+          "Qualinesti Elf"
+        ]
+      },
+      "partyRapport": {
+        "stance": 1,
+        "notes": "Speaker Solostaran, Porthios, Gilthanas, and Laurana organize the Great Exodus."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_SLA_MORI",
+      "name": "The Sla-Mori (Secret Royal Crypt Tunnel)",
+      "displayName": "The Sla-Mori & Great Chain",
+      "x": 875,
+      "y": 1055,
+      "coordinates": {
+        "x": 875,
+        "y": 1055
+      },
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "adj": [
+        "N_QUALINOST",
+        "N_PAX_THARKAS"
+      ],
+      "infBy": [
+        "N_QUALINOST",
+        "N_PAX_THARKAS"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_sla_mori",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Silent elven kings entombed in obsidian alcoves; Giant Slug slime trails; the deafening roar of molten iron chutes beneath the sixty-foot bronze Great Chain.\nPortal submap: [[Map:map_sub_sla_mori]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [
+        "pax_tharkas_undercroft_breach"
+      ],
+      "requires": [
+        "sla_mori_royal_key"
+      ],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "contested",
+      "factionPresence": [
+        "fac_companions",
+        "fac_red_dragonarmy"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_PAX_THARKAS",
+      "name": "Pax Tharkas (Fortress of Peace / Red Wing Citadel)",
+      "displayName": "Pax Tharkas Citadel",
+      "x": 995,
+      "y": 1125,
+      "coordinates": {
+        "x": 995,
+        "y": 1125
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "adj": [
+        "N_SLA_MORI",
+        "N_GATEWAY",
+        "N_DERKIN_TOMB",
+        "N_HOPES_END"
+      ],
+      "infBy": [
+        "N_SLA_MORI",
+        "N_GATEWAY",
+        "N_DERKIN_TOMB",
+        "N_HOPES_END"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_pax_tharkas",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Colossal twin curtain walls blocking the mountain pass; coal-smoke from the iron smelters; the nursery echoing with [[NPC:npc_flamestrike]]'s wheezing cough.\n- *Relationships:* [[NPC:npc_verminaard]] preaching dark fatalism while [[NPC:npc_elistan]] receives [[Item:ITM-DISKS-MISHAKAL]] and [[NPC:npc_berem]] flees the subterranean cells.\nPortal submap: [[Map:map_sub_pax_tharkas]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T3_PAX_THARKAS_SLAVE_MINES",
+        "MOD_T4_REFUGEE_EXODUS_COLUMN"
+      ],
+      "provides": [
+        "pax_tharkas_iron_ore",
+        "liberated_800_refugees",
+        "everman_berem_release"
+      ],
+      "requires": [
+        "pax_tharkas_undercroft_breach",
+        "disks_of_mishakal_liturgy"
+      ],
+      "modData": {},
+      "odv": [
+        1,
+        3,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [
+        "fac_red_dragonarmy",
+        "fac_companions",
+        "fac_thorbardin"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Enslaved Abanasinian Human Refugees",
+          "percentage": 60
+        },
+        "minorities": [
+          {
+            "name": "Red Dragonarmy Draconians & Hobgoblins",
+            "percentage": 35,
+            "traits": "Verminaard's iron-mine garrison"
+          },
+          {
+            "name": "Red Dragons (Pyros & Flamestrike)",
+            "percentage": 5,
+            "traits": "Aerial siege wyrms"
+          }
+        ],
+        "social_friction_notes": "250 hostage children held in the upper nursery under senile Flamestrike to keep 500 parents docile in the iron mines.",
+        "tags": [
+          "Human Refugees",
+          "Baaz Draconian",
+          "Bozak Draconian",
+          "Red Dragon"
+        ]
+      },
+      "partyRapport": {
+        "stance": -2,
+        "notes": "Seat of Dragon Highlord Verminaard and his mace Nightbringer."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_DERKIN_TOMB",
+      "name": "Skullcap & Derkin's Tomb",
+      "displayName": "Skullcap Fortress Ruins",
+      "x": 825,
+      "y": 1190,
+      "coordinates": {
+        "x": 825,
+        "y": 1190
+      },
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "shape": "pentagon",
+      "adj": [
+        "N_PAX_THARKAS",
+        "N_THORBARDIN"
+      ],
+      "infBy": [
+        "N_PAX_THARKAS",
+        "N_THORBARDIN"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_derkin_skullcap",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* A mountain peak melted into a colossal green-glass skull where [[NPC:npc_fistandantilus]] detonated the Dwarfgate armies; spectral dwarven legions clashing in the mist.\nPortal submap: [[Map:map_sub_derkin_skullcap]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T2_KHAROLIS_WINTER_PASSES"
+      ],
+      "provides": [
+        "helm_of_grallen_relic",
+        "thorbardin_secret_gate_map"
+      ],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        1,
+        4,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "contested",
+      "factionPresence": [
+        "fac_thorbardin",
+        "fac_high_sorcery",
+        "fac_red_dragonarmy"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_THORBARDIN",
+      "name": "Thorbardin (Underground Kingdom of the Dwarves)",
+      "displayName": "Thorbardin Dwarven Realm",
+      "x": 865,
+      "y": 1295,
+      "coordinates": {
+        "x": 865,
+        "y": 1295
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "N_DERKIN_TOMB",
+        "N_TARSIS"
+      ],
+      "infBy": [
+        "N_DERKIN_TOMB",
+        "N_TARSIS"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* The gigantic stalagmite-stalactite column of the Life Tree suspended over an underground sea; the rhythmic clang of a thousand forges.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T3_THORBARDIN_LIFE_TREE_SEAL"
+      ],
+      "provides": [
+        "hammer_of_kharas_authority",
+        "refugee_winter_sanctuary",
+        "dwarven_heavy_infantry"
+      ],
+      "requires": [
+        "helm_of_grallen_relic"
+      ],
+      "modData": {},
+      "odv": [
+        2,
+        1,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "fac_thorbardin",
+      "factionPresence": [
+        "fac_thorbardin",
+        "fac_companions",
+        "fac_red_dragonarmy"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Hylar & Daewar Mountain Dwarf",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Theiwar & Klar Dwarf",
+            "percentage": 20,
+            "traits": "Subterranean conspirators & wildsmiths"
+          },
+          {
+            "name": "Aghar Gully Dwarf (Sestun)",
+            "percentage": 5,
+            "traits": "Maintenance drudges around the Life Tree"
+          }
+        ],
+        "social_friction_notes": "Seven dwarven clans deadlocked without a High King until the Hammer of Kharas is restored.",
+        "tags": [
+          "Hylar Dwarf",
+          "Theiwar Dwarf",
+          "Daewar Dwarf",
+          "Aghar Dwarf"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Returning the Hammer of Kharas opens sanctuary for the 800 Solace refugees."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_TARSIS",
+      "name": "Tarsis the Beautiful (Landlocked Dust-Port)",
+      "displayName": "Tarsis the Beautiful",
+      "x": 1065,
+      "y": 1290,
+      "coordinates": {
+        "x": 1065,
+        "y": 1290
+      },
+      "cat": "Bastion",
+      "culture": "Market",
+      "shape": "pentagon",
+      "adj": [
+        "N_THORBARDIN",
+        "N_ICEWALL",
+        "N_SILVANESTI"
+      ],
+      "infBy": [
+        "N_THORBARDIN",
+        "N_ICEWALL",
+        "N_SILVANESTI"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_tarsis_square",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Sun-bleached marble arcades half-buried in red prairie dust; dry-rotted hulls of ancient swan-ships marooned forty miles from the sea; blue lightning and red dragonfire shattering the Red Dragon Inn.\nPortal submap: [[Map:map_sub_tarsis_square]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T2_LANDLOCKED_TARSIS_DUSTBOWL",
+        "MOD_T4_BLUE_WING_AERIAL_BLITZ"
+      ],
+      "provides": [
+        "icewall_expedition_charts",
+        "silvanesti_griffon_escort",
+        "dragon_orb_lore_clue"
+      ],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        1,
+        3,
+        3
+      ],
+      "odvOverridden": true,
+      "faction": "contested",
+      "factionPresence": [
+        "fac_blue_dragonarmy",
+        "fac_red_dragonarmy",
+        "fac_companions",
+        "fac_qualinesti_silvanesti"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_ICEWALL",
+      "name": "Icewall Castle & Glacial Spire",
+      "displayName": "Icewall Castle",
+      "x": 1105,
+      "y": 1445,
+      "coordinates": {
+        "x": 1105,
+        "y": 1445
+      },
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "adj": [
+        "N_TARSIS",
+        "N_SOUTHERN_ERGOTH"
+      ],
+      "infBy": [
+        "N_TARSIS",
+        "N_SOUTHERN_ERGOTH"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_icewall_castle",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Blue-green glacial ice carved into razor battlements; howling sub-zero gales; the howling of [[NPC:npc_feal_thas]]'s winter wolves.\nPortal submap: [[Map:map_sub_icewall_castle]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T2_ICEWALL_GLACIAL_SPIRE"
+      ],
+      "provides": [
+        "icewall_dragon_orb",
+        "golden_general_reputation"
+      ],
+      "requires": [
+        "icewall_expedition_charts"
+      ],
+      "modData": {},
+      "odv": [
+        1,
+        3,
+        3
+      ],
+      "odvOverridden": true,
+      "faction": "fac_white_dragonarmy",
+      "factionPresence": [
+        "fac_white_dragonarmy",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Ice Folk Barbarians & Than-Kar",
+          "percentage": 70
+        },
+        "minorities": [
+          {
+            "name": "White Dragonarmy & Winter Wolves",
+            "percentage": 25,
+            "traits": "Highlord Feal-Thas's pack"
+          },
+          {
+            "name": "White Dragon Sleet",
+            "percentage": 5,
+            "traits": "Glacial apex predator"
+          }
+        ],
+        "social_friction_notes": "Ice Folk sail ice-boats across the glacier to topple Dark Elf Highlord Feal-Thas.",
+        "tags": [
+          "Ice Folk",
+          "Than-Kar",
+          "Winter Wolf",
+          "White Dragon"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_SILVANESTI",
+      "name": "Silvanesti (The Nightmare Forest of King Lorac)",
+      "displayName": "Silvanesti Nightmare Wood",
+      "x": 1660,
+      "y": 1115,
+      "coordinates": {
+        "x": 1660,
+        "y": 1115
+      },
+      "cat": "Hazard",
+      "culture": "Clan",
+      "shape": "pentagon",
+      "adj": [
+        "N_TARSIS",
+        "N_NERAKA"
+      ],
+      "infBy": [
+        "N_TARSIS",
+        "N_NERAKA"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_silvanesti_dream",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Weeping trees bleeding crimson sap; green chlorine fog exhaled by [[NPC:npc_cyan_bloodbane]] coiled around the dying throne of [[NPC:npc_lorac]]; reality twisting into personal nightmares.\nPortal submap: [[Map:map_sub_silvanesti_dream]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T5_LORAC_DREAMSCAPE_MATRIX"
+      ],
+      "provides": [
+        "silvanesti_dragon_orb",
+        "starjewel_of_alhana"
+      ],
+      "requires": [
+        "silvanesti_griffon_escort"
+      ],
+      "modData": {},
+      "odv": [
+        4,
+        4,
+        1
+      ],
+      "odvOverridden": true,
+      "faction": "fac_green_black_wings",
+      "factionPresence": [
+        "fac_green_black_wings",
+        "fac_qualinesti_silvanesti",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_SOUTHERN_ERGOTH",
+      "name": "Southern Ergoth & Foghaven Valley (Tomb of Huma)",
+      "displayName": "Southern Ergoth & Foghaven",
+      "x": 580,
+      "y": 830,
+      "coordinates": {
+        "x": 580,
+        "y": 830
+      },
+      "cat": "Bastion",
+      "culture": "Clan",
+      "shape": "circle",
+      "adj": [
+        "N_ICEWALL",
+        "N_QUALINOST",
+        "N_SANCRIST"
+      ],
+      "infBy": [
+        "N_ICEWALL",
+        "N_QUALINOST",
+        "N_SANCRIST"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Shrouded mist-canyon concealing the colossal silver dragon statue of Huma's Tomb; [[NPC:npc_theros]] hammering white-hot dragonmetal with [[Item:ITM-SILVER-ARM]] and [[Item:ITM-HAMMER-KHARAS]] beside [[NPC:npc_silvara]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T3_ERGOTH_DRAGONMETAL_FORGE"
+      ],
+      "provides": [
+        "forged_true_dragonlances",
+        "silver_dragon_alliance_seed"
+      ],
+      "requires": [
+        "hammer_of_kharas_authority",
+        "icewall_dragon_orb"
+      ],
+      "modData": {},
+      "odv": [
+        4,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "fac_qualinesti_silvanesti",
+      "factionPresence": [
+        "fac_qualinesti_silvanesti",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_SANCRIST",
+      "name": "Sancrist Isle (Castle Gunthar & The Whitestone Glade)",
+      "displayName": "Sancrist & Whitestone Council",
+      "x": 295,
+      "y": 625,
+      "coordinates": {
+        "x": 295,
+        "y": 625
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "N_SOUTHERN_ERGOTH",
+        "N_PALANTHAS"
+      ],
+      "infBy": [
+        "N_SOUTHERN_ERGOTH",
+        "N_PALANTHAS"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* A towering white quartz boulder in awindswept meadow cleaved cleanly in two by [[NPC:npc_tasslehoff]] and [[NPC:npc_fizban]]; Solamnic banners snapping above [[NPC:npc_gunthar]]'s council hall.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T1_WHITESTONE_COUNCIL_DIPLOMACY"
+      ],
+      "provides": [
+        "whitestone_alliance_treaty",
+        "gnome_catapult_schematics"
+      ],
+      "requires": [
+        "forged_true_dragonlances"
+      ],
+      "modData": {},
+      "odv": [
+        3,
+        1,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "fac_solamnia",
+      "factionPresence": [
+        "fac_solamnia",
+        "fac_qualinesti_silvanesti",
+        "fac_thorbardin",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_PALANTHAS",
+      "name": "Palanthas (The Ancient City & Great Library of Astinus)",
+      "displayName": "Palanthas & Great Library",
+      "x": 855,
+      "y": 300,
+      "coordinates": {
+        "x": 855,
+        "y": 300
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "N_SANCRIST",
+        "N_HIGH_CLERIST_TOWER",
+        "N_BLOOD_SEA"
+      ],
+      "infBy": [
+        "N_SANCRIST",
+        "N_HIGH_CLERIST_TOWER",
+        "N_BLOOD_SEA"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Gleaming white marble avenues radiating like a wagon wheel around the cursed black-gated Tower of High Sorcery (`Shoikan Grove`); the silent scriptorium where [[NPC:npc_astinus]] writes with an unblinking quill.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T5_ASTINUS_CHRONICLE_VAULT"
+      ],
+      "provides": [
+        "astinus_chronicle_prophecy",
+        "palanthas_dragon_orb_vault",
+        "tower_of_palanthas_key"
+      ],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "fac_solamnia",
+      "factionPresence": [
+        "fac_solamnia",
+        "fac_high_sorcery",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_HIGH_CLERIST_TOWER",
+      "name": "The High Clerist's Tower (West Gate Pass)",
+      "displayName": "High Clerist's Tower",
+      "x": 925,
+      "y": 415,
+      "coordinates": {
+        "x": 925,
+        "y": 415
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "adj": [
+        "N_PALANTHAS",
+        "N_KALAMAN",
+        "N_DARGAARD_KEEP"
+      ],
+      "infBy": [
+        "N_PALANTHAS",
+        "N_KALAMAN",
+        "N_DARGAARD_KEEP"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_high_clerist_tower",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Grim grey-granite fortress engineered as a symmetrical dragon-trap; wind whistling through narrow kill-corridors; the sunlit western parapet where [[NPC:npc_sturm]] raises [[Item:ITM-BRIGHTBLADE]] against [[NPC:npc_kitiara]] and [[NPC:npc_skie]].\nPortal submap: [[Map:map_sub_high_clerist_tower]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T3_HIGH_CLERIST_DRAGON_TRAP",
+        "MOD_T4_SOLAMNIC_SCHISM_MEASURE"
+      ],
+      "provides": [
+        "blue_wing_broken_siege",
+        "parapet_of_sturm_legacy"
+      ],
+      "requires": [
+        "forged_true_dragonlances",
+        "whitestone_alliance_treaty"
+      ],
+      "modData": {},
+      "odv": [
+        2,
+        1,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "fac_solamnia",
+      "factionPresence": [
+        "fac_solamnia",
+        "fac_blue_dragonarmy",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_KALAMAN",
+      "name": "Kalaman (Northern Port & Allied War Headquarters)",
+      "displayName": "Kalaman Port Fortress",
+      "x": 1275,
+      "y": 270,
+      "coordinates": {
+        "x": 1275,
+        "y": 270
+      },
+      "cat": "Bastion",
+      "culture": "Market",
+      "shape": "circle",
+      "adj": [
+        "N_HIGH_CLERIST_TOWER",
+        "N_DARGAARD_KEEP",
+        "N_FLOTSAM"
+      ],
+      "infBy": [
+        "N_HIGH_CLERIST_TOWER",
+        "N_DARGAARD_KEEP",
+        "N_FLOTSAM"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Salt-sprayed stone seawalls overlooking the Turbidus Ocean; flying citadels casting eclipsing shadows over the harbor where [[NPC:npc_laurana]] is lured into [[NPC:npc_lord_soth]]'s trap.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [
+        "northern_offensive_supply_line",
+        "captured_bakaris_leverage"
+      ],
+      "requires": [
+        "blue_wing_broken_siege"
+      ],
+      "modData": {},
+      "odv": [
+        2,
+        3,
+        3
+      ],
+      "odvOverridden": true,
+      "faction": "contested",
+      "factionPresence": [
+        "fac_solamnia",
+        "fac_blue_dragonarmy",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_DARGAARD_KEEP",
+      "name": "Dargaard Keep (Citadel of the Death Knight)",
+      "displayName": "Dargaard Keep",
+      "x": 1155,
+      "y": 395,
+      "coordinates": {
+        "x": 1155,
+        "y": 395
+      },
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "N_HIGH_CLERIST_TOWER",
+        "N_KALAMAN"
+      ],
+      "infBy": [
+        "N_HIGH_CLERIST_TOWER",
+        "N_KALAMAN"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Charred black-rose keep perched on a jagged crag in Nightlund; thirteen banshees wailing the curse of [[NPC:npc_lord_soth]] every midnight.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T5_DARGAARD_DEATH_KNIGHT_PACT"
+      ],
+      "provides": [
+        "soth_death_knight_cavalry"
+      ],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        1,
+        1,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "fac_blue_dragonarmy",
+      "factionPresence": [
+        "fac_blue_dragonarmy"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_FLOTSAM",
+      "name": "Flotsam (Lawless Blood Sea Corsair Port)",
+      "displayName": "Flotsam Port",
+      "x": 1700,
+      "y": 415,
+      "coordinates": {
+        "x": 1700,
+        "y": 415
+      },
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "shape": "circle",
+      "adj": [
+        "N_KALAMAN",
+        "N_BLOOD_SEA",
+        "N_NERAKA"
+      ],
+      "infBy": [
+        "N_KALAMAN",
+        "N_BLOOD_SEA",
+        "N_NERAKA"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Ramshackle taverns smelling of bilge water, pickled herring, and draconian sweat; the docked caravel *Perechon* preparing to sail into the Blood Sea.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [
+        "perechon_smuggler_berth"
+      ],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        1,
+        4,
+        1
+      ],
+      "odvOverridden": true,
+      "faction": "fac_blue_dragonarmy",
+      "factionPresence": [
+        "fac_blue_dragonarmy",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_BLOOD_SEA",
+      "name": "The Blood Sea of Istar (Maelstrom & Sunken Temple)",
+      "displayName": "Blood Sea Maelstrom",
+      "x": 1935,
+      "y": 520,
+      "coordinates": {
+        "x": 1935,
+        "y": 520
+      },
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "shape": "diamond",
+      "adj": [
+        "N_FLOTSAM",
+        "N_PALANTHAS"
+      ],
+      "infBy": [
+        "N_FLOTSAM",
+        "N_PALANTHAS"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Churning crimson whirlpool sucking warships down toward the cracked marble domes of drowned Istar; [[NPC:npc_raistlin]] turning his robes pitch-black under Nuitari's gaze.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T2_BLOOD_SEA_VORTEX"
+      ],
+      "provides": [
+        "black_robe_transfiguration",
+        "berem_everman_revelation"
+      ],
+      "requires": [
+        "perechon_smuggler_berth"
+      ],
+      "modData": {},
+      "odv": [
+        3,
+        4,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "contested",
+      "factionPresence": [
+        "fac_high_sorcery",
+        "fac_blue_dragonarmy",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_SANCTION",
+      "name": "Sanction (City of the Lords of Doom & Egg Vats)",
+      "displayName": "Sanction & Temple of Luerkhisis",
+      "x": 1275,
+      "y": 690,
+      "coordinates": {
+        "x": 1275,
+        "y": 690
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "N_HOPES_END",
+        "N_XAK_TSAROTH",
+        "N_NERAKA"
+      ],
+      "infBy": [
+        "N_HOPES_END",
+        "N_XAK_TSAROTH",
+        "N_NERAKA"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* Three active volcanoes (Lords of Doom) spewing rivers of orange magma through obsidian canals; the sulfurous vats of the Temple of Luerkhisis where Wyrllish and Dracart corrupt Good Dragon eggs into Draconians.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T3_SANCTION_EGG_FOUNDRIES",
+        "MOD_T3_LUERKHISIS_CORRUPTION_VATS"
+      ],
+      "provides": [
+        "draconian_army_reinforcements",
+        "metallic_dragon_oath_breaker"
+      ],
+      "requires": [
+        "silver_clutch_eggshell_evidence"
+      ],
+      "modData": {},
+      "odv": [
+        1,
+        4,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "fac_red_dragonarmy",
+      "factionPresence": [
+        "fac_red_dragonarmy",
+        "fac_blue_dragonarmy",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "N_NERAKA",
+      "name": "Neraka (The Temple of Darkness & Imperial Encampment)",
+      "displayName": "Neraka & Temple of Darkness",
+      "x": 1475,
+      "y": 625,
+      "coordinates": {
+        "x": 1475,
+        "y": 625
+      },
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "adj": [
+        "N_SANCTION",
+        "N_FLOTSAM",
+        "N_SILVANESTI"
+      ],
+      "infBy": [
+        "N_SANCTION",
+        "N_FLOTSAM",
+        "N_SILVANESTI"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_sub_neraka_temple",
+      "customNotes": "**5D Sensory Pentagon:**\n- *Physical:* A twisted, shifting gothic cathedral of black obsidian wrenched from old Istar; 200,000 Dragonarmy soldiers camped across the volcanic valley; the cracked subterranean [[Item:ITM-FOUNDATION-STONE]] pulsing with the five-headed shadow of [[NPC:npc_takhisis]] (Q_SPR_03, CRUC-19..CRUC-23).\nPortal submap: [[Map:map_sub_neraka_temple]].",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MOD_T1_HIGHLORD_COUNCIL_CONCLAVE",
+        "MOD_T5_NERAKA_FOUNDATION_PORTAL"
+      ],
+      "provides": [
+        "crown_of_power_dominion",
+        "sealed_abyssal_foundation_gate"
+      ],
+      "requires": [
+        "berem_everman_revelation",
+        "metallic_dragon_oath_breaker"
+      ],
+      "modData": {},
+      "odv": [
+        1,
+        4,
+        4
+      ],
+      "odvOverridden": true,
+      "faction": "fac_red_dragonarmy",
+      "factionPresence": [
+        "fac_red_dragonarmy",
+        "fac_blue_dragonarmy",
+        "fac_white_dragonarmy",
+        "fac_green_black_wings",
+        "fac_companions"
+      ],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": "N_HAVEN",
+      "to": "N_SOLACE",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_SOLACE",
+      "to": "N_CRYSTALMIR",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_CRYSTALMIR",
+      "to": "N_DARKEN_WOOD",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_DARKEN_WOOD",
+      "to": "N_XAK_TSAROTH",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_SOLACE",
+      "to": "N_GATEWAY",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_GATEWAY",
+      "to": "N_QUALINOST",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_HAVEN",
+      "to": "N_WAYRETH",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_SOLACE",
+      "to": "N_LANGTREE",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_LANGTREE",
+      "to": "N_HOPES_END",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_QUALINOST",
+      "to": "N_SLA_MORI",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_SLA_MORI",
+      "to": "N_PAX_THARKAS",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_GATEWAY",
+      "to": "N_PAX_THARKAS",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_PAX_THARKAS",
+      "to": "N_DERKIN_TOMB",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_PAX_THARKAS",
+      "to": "N_HOPES_END",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_DERKIN_TOMB",
+      "to": "N_THORBARDIN",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_THORBARDIN",
+      "to": "N_TARSIS",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_TARSIS",
+      "to": "N_ICEWALL",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_TARSIS",
+      "to": "N_SILVANESTI",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_ICEWALL",
+      "to": "N_SOUTHERN_ERGOTH",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_QUALINOST",
+      "to": "N_SOUTHERN_ERGOTH",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_SOUTHERN_ERGOTH",
+      "to": "N_SANCRIST",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_SANCRIST",
+      "to": "N_PALANTHAS",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_PALANTHAS",
+      "to": "N_HIGH_CLERIST_TOWER",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_HIGH_CLERIST_TOWER",
+      "to": "N_KALAMAN",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_HIGH_CLERIST_TOWER",
+      "to": "N_DARGAARD_KEEP",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_KALAMAN",
+      "to": "N_DARGAARD_KEEP",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_KALAMAN",
+      "to": "N_FLOTSAM",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_FLOTSAM",
+      "to": "N_BLOOD_SEA",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_BLOOD_SEA",
+      "to": "N_PALANTHAS",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_HOPES_END",
+      "to": "N_SANCTION",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_XAK_TSAROTH",
+      "to": "N_SANCTION",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_SANCTION",
+      "to": "N_NERAKA",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_FLOTSAM",
+      "to": "N_NERAKA",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_SILVANESTI",
+      "to": "N_NERAKA",
+      "type": "twoway",
+      "layer": "both"
+    }
+  ],
+  "nodeSlottedModules": {
+    "N_SOLACE": [
+      "MOD_T2_VALLEY_TREES_SOLACE",
+      "MOD_T4_DRACONIAN_CHECKPOINTS"
+    ],
+    "N_HAVEN": [
+      "MOD_T1_SEEKER_THEOCRACY_NETWORK"
+    ],
+    "N_CRYSTALMIR": [],
+    "N_DARKEN_WOOD": [],
+    "N_XAK_TSAROTH": [
+      "MOD_T2_DROWNED_RUIN_XAK_TSAROTH",
+      "MOD_T3_AGHAR_LIFT_HYDRAULICS"
+    ],
+    "N_WAYRETH": [
+      "MOD_T2_WAYRETH_SHIFTING_GROVE",
+      "MOD_T5_SOULFORGE_CRUCIBLE"
+    ],
+    "N_LANGTREE": [],
+    "N_HOPES_END": [
+      "MOD_T3_MERCENARY_SIEGE_LINES",
+      "MOD_T4_SILVER_CLUTCH_BETRAYAL"
+    ],
+    "N_GATEWAY": [],
+    "N_QUALINOST": [],
+    "N_SLA_MORI": [],
+    "N_PAX_THARKAS": [
+      "MOD_T3_PAX_THARKAS_SLAVE_MINES",
+      "MOD_T4_REFUGEE_EXODUS_COLUMN"
+    ],
+    "N_DERKIN_TOMB": [
+      "MOD_T2_KHAROLIS_WINTER_PASSES"
+    ],
+    "N_THORBARDIN": [
+      "MOD_T3_THORBARDIN_LIFE_TREE_SEAL"
+    ],
+    "N_TARSIS": [
+      "MOD_T2_LANDLOCKED_TARSIS_DUSTBOWL",
+      "MOD_T4_BLUE_WING_AERIAL_BLITZ"
+    ],
+    "N_ICEWALL": [
+      "MOD_T2_ICEWALL_GLACIAL_SPIRE"
+    ],
+    "N_SILVANESTI": [
+      "MOD_T5_LORAC_DREAMSCAPE_MATRIX"
+    ],
+    "N_SOUTHERN_ERGOTH": [
+      "MOD_T3_ERGOTH_DRAGONMETAL_FORGE"
+    ],
+    "N_SANCRIST": [
+      "MOD_T1_WHITESTONE_COUNCIL_DIPLOMACY"
+    ],
+    "N_PALANTHAS": [
+      "MOD_T5_ASTINUS_CHRONICLE_VAULT"
+    ],
+    "N_HIGH_CLERIST_TOWER": [
+      "MOD_T3_HIGH_CLERIST_DRAGON_TRAP",
+      "MOD_T4_SOLAMNIC_SCHISM_MEASURE"
+    ],
+    "N_KALAMAN": [],
+    "N_DARGAARD_KEEP": [
+      "MOD_T5_DARGAARD_DEATH_KNIGHT_PACT"
+    ],
+    "N_FLOTSAM": [],
+    "N_BLOOD_SEA": [
+      "MOD_T2_BLOOD_SEA_VORTEX"
+    ],
+    "N_SANCTION": [
+      "MOD_T3_SANCTION_EGG_FOUNDRIES",
+      "MOD_T3_LUERKHISIS_CORRUPTION_VATS"
+    ],
+    "N_NERAKA": [
+      "MOD_T1_HIGHLORD_COUNCIL_CONCLAVE",
+      "MOD_T5_NERAKA_FOUNDATION_PORTAL"
+    ]
+  },
+  "edgeSlottedModules": {},
+  "edgeData": {
+    "N_HAVEN-N_SOLACE": {
+      "blocked": false,
+      "condition": "Patrolled by Seeker guards and Baaz checkpoints.",
+      "distance": "35 miles",
+      "terrain": "Packed gravel Seeker highway",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_seeker_theocracy",
+        "fac_seeker_theocracy"
+      ]
+    },
+    "N_CRYSTALMIR-N_SOLACE": {
+      "blocked": false,
+      "condition": "Escape path from the Inn of the Last Home.",
+      "distance": "6 miles",
+      "terrain": "Autumn vallenwood forest trail",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_seeker_theocracy"
+      ]
+    },
+    "N_CRYSTALMIR-N_DARKEN_WOOD": {
+      "blocked": false,
+      "condition": "Guarded by spectral centaurs of the Forestmaster.",
+      "distance": "18 miles",
+      "terrain": "Misty alpine ridge",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_companions"
+      ]
+    },
+    "N_DARKEN_WOOD-N_XAK_TSAROTH": {
+      "blocked": false,
+      "condition": "Unicorn-guided path into the drowned ruins.",
+      "distance": "28 miles",
+      "terrain": "Subterranean mountain pass & black swamp",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_companions",
+        "fac_red_dragonarmy"
+      ]
+    },
+    "N_GATEWAY-N_SOLACE": {
+      "blocked": false,
+      "condition": "Route of the Dragonarmy slave-cage caravan.",
+      "distance": "40 miles",
+      "terrain": "Southern plains wagon road",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_seeker_theocracy",
+        "fac_red_dragonarmy"
+      ]
+    },
+    "N_GATEWAY-N_QUALINOST": {
+      "blocked": false,
+      "condition": "Guarded by Porthios and Gilthanas's elven archers.",
+      "distance": "32 miles",
+      "terrain": "Qualinesti forest border canopy",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_red_dragonarmy",
+        "fac_qualinesti_silvanesti"
+      ]
+    },
+    "N_HAVEN-N_WAYRETH": {
+      "blocked": false,
+      "condition": "Only opens to those summoned by the Conclave of Wizards.",
+      "distance": "75 miles",
+      "terrain": "Shifting enchanted forest tracks",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_seeker_theocracy",
+        "fac_high_sorcery"
+      ]
+    },
+    "N_LANGTREE-N_SOLACE": {
+      "blocked": false,
+      "condition": "Mercenary recruitment road to Baron Ivor's camp.",
+      "distance": "55 miles",
+      "terrain": "Northern Abanasinian grassland road",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_seeker_theocracy"
+      ]
+    },
+    "N_HOPES_END-N_LANGTREE": {
+      "blocked": false,
+      "condition": "Scorched by the Red Dragon Immolatus in 347 AC.",
+      "distance": "45 miles",
+      "terrain": "Khalkist foothill box-canyon pass",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": []
+    },
+    "N_QUALINOST-N_SLA_MORI": {
+      "blocked": false,
+      "condition": "Requires the royal key or Gilthanas's guidance.",
+      "distance": "22 miles",
+      "terrain": "Hidden mountain ridge trail",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_qualinesti_silvanesti"
+      ]
+    },
+    "N_PAX_THARKAS-N_SLA_MORI": {
+      "blocked": false,
+      "condition": "Bypasses the impregnable curtain walls of Pax Tharkas.",
+      "distance": "3 miles",
+      "terrain": "Subterranean crypt & bronze Great Chain",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": []
+    },
+    "N_GATEWAY-N_PAX_THARKAS": {
+      "blocked": true,
+      "condition": "Blocked by Verminaard's Red Dragonarmy main gate.",
+      "distance": "48 miles",
+      "terrain": "Fortified iron-mine valley highway",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_red_dragonarmy"
+      ]
+    },
+    "N_DERKIN_TOMB-N_PAX_THARKAS": {
+      "blocked": false,
+      "condition": "Refugee exodus trail pursued by Red Wing scouts.",
+      "distance": "38 miles",
+      "terrain": "Kharolis high mountain snow-pass",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": []
+    },
+    "N_HOPES_END-N_PAX_THARKAS": {
+      "blocked": false,
+      "condition": "Links the Kharolis passes to the scorched frontier.",
+      "distance": "50 miles",
+      "terrain": "Mountain valley smuggling track",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": []
+    },
+    "N_DERKIN_TOMB-N_THORBARDIN": {
+      "blocked": false,
+      "condition": "Sealed by the dwarven thanes until the Hammer of Kharas returns.",
+      "distance": "15 miles",
+      "terrain": "Subterranean Northgate causeway",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_thorbardin"
+      ]
+    },
+    "N_TARSIS-N_THORBARDIN": {
+      "blocked": false,
+      "condition": "Ancient trade road to the landlocked port.",
+      "distance": "110 miles",
+      "terrain": "Dust-swept Plains of Dust caravan track",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_thorbardin"
+      ]
+    },
+    "N_ICEWALL-N_TARSIS": {
+      "blocked": false,
+      "condition": "Crossed via Ice Folk ice-boats.",
+      "distance": "180 miles",
+      "terrain": "Frozen southern sea & glacial pack-ice",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_white_dragonarmy"
+      ]
+    },
+    "N_SILVANESTI-N_TARSIS": {
+      "blocked": false,
+      "condition": "Flown on Alhana Starbreeze's griffons.",
+      "distance": "160 miles",
+      "terrain": "Eastern prairie &griffon sky-corridor",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_green_black_wings"
+      ]
+    },
+    "N_ICEWALL-N_SOUTHERN_ERGOTH": {
+      "blocked": false,
+      "condition": "Shipwreck route landing near Foghaven Valley.",
+      "distance": "240 miles",
+      "terrain": "Storm-tossed Sirrion Sea current",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_white_dragonarmy",
+        "fac_qualinesti_silvanesti"
+      ]
+    },
+    "N_QUALINOST-N_SOUTHERN_ERGOTH": {
+      "blocked": false,
+      "condition": "Route of the Qualinesti refugee fleet.",
+      "distance": "130 miles",
+      "terrain": "Straits of Algoni evacuation sea-lane",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_qualinesti_silvanesti",
+        "fac_qualinesti_silvanesti"
+      ]
+    },
+    "N_SANCRIST-N_SOUTHERN_ERGOTH": {
+      "blocked": false,
+      "condition": "Voyage of Silvara and Theros Ironfeld to the Whitestone Council.",
+      "distance": "95 miles",
+      "terrain": "White-capped western ocean channel",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_qualinesti_silvanesti",
+        "fac_solamnia"
+      ]
+    },
+    "N_PALANTHAS-N_SANCRIST": {
+      "blocked": false,
+      "condition": "Protected by the Knights of Solamnia.",
+      "distance": "150 miles",
+      "terrain": "Solamnic naval convoy lane",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_solamnia",
+        "fac_solamnia"
+      ]
+    },
+    "N_HIGH_CLERIST_TOWER-N_PALANTHAS": {
+      "blocked": false,
+      "condition": "Strategic bottleneck defending Palanthas from the Blue Wing.",
+      "distance": "30 miles",
+      "terrain": "Palanthas-Vingaard mountain pass",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_solamnia",
+        "fac_solamnia"
+      ]
+    },
+    "N_HIGH_CLERIST_TOWER-N_KALAMAN": {
+      "blocked": false,
+      "condition": "Route of the Golden General's counter-offensive.",
+      "distance": "115 miles",
+      "terrain": "Vingaard River campaign highway",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_solamnia"
+      ]
+    },
+    "N_DARGAARD_KEEP-N_HIGH_CLERIST_TOWER": {
+      "blocked": false,
+      "condition": "Haunted by Lord Soth's skeletal cavaliers.",
+      "distance": "65 miles",
+      "terrain": "Blighted Nightlund crag-road",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_solamnia",
+        "fac_blue_dragonarmy"
+      ]
+    },
+    "N_DARGAARD_KEEP-N_KALAMAN": {
+      "blocked": false,
+      "condition": "Ambush vector for Kitiara's Flying Citadel.",
+      "distance": "55 miles",
+      "terrain": "Nightlund border marsh",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_blue_dragonarmy"
+      ]
+    },
+    "N_FLOTSAM-N_KALAMAN": {
+      "blocked": false,
+      "condition": "Occupied by Blue and Red Dragonarmy patrols.",
+      "distance": "85 miles",
+      "terrain": "Blood Sea coastal smuggler road",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_blue_dragonarmy"
+      ]
+    },
+    "N_BLOOD_SEA-N_FLOTSAM": {
+      "blocked": false,
+      "condition": "Sailed aboard the caravel Perechon.",
+      "distance": "60 miles",
+      "terrain": "Crimson whirlpool sea-lane",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_blue_dragonarmy"
+      ]
+    },
+    "N_BLOOD_SEA-N_PALANTHAS": {
+      "blocked": false,
+      "condition": "Raistlin's black-robe escape vector to Astinus's Library.",
+      "distance": "210 miles",
+      "terrain": "Arcane teleportation / coastal return",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_solamnia"
+      ]
+    },
+    "N_HOPES_END-N_SANCTION": {
+      "blocked": false,
+      "condition": "Secret route used to transport stolen Silver Dragon eggs.",
+      "distance": "65 miles",
+      "terrain": "Volcanic Khalkist lava-pass",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_red_dragonarmy"
+      ]
+    },
+    "N_SANCTION-N_XAK_TSAROTH": {
+      "blocked": false,
+      "condition": "Supply corridor from Sanction to the eastern swamp wings.",
+      "distance": "55 miles",
+      "terrain": "New Sea cliffside military road",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_red_dragonarmy",
+        "fac_red_dragonarmy"
+      ]
+    },
+    "N_NERAKA-N_SANCTION": {
+      "blocked": false,
+      "condition": "Main artery between the egg vats of Luerkhisis and the Temple of Darkness.",
+      "distance": "48 miles",
+      "terrain": "Imperial Dragonarmy highway",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_red_dragonarmy",
+        "fac_red_dragonarmy"
+      ]
+    },
+    "N_FLOTSAM-N_NERAKA": {
+      "blocked": false,
+      "condition": "Infiltration trail into the Imperial encampment.",
+      "distance": "90 miles",
+      "terrain": "Khalkist high mountain gorge",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_blue_dragonarmy",
+        "fac_red_dragonarmy"
+      ]
+    },
+    "N_NERAKA-N_SILVANESTI": {
+      "blocked": false,
+      "condition": "Aerial corridor linking the green nightmare forest to Neraka.",
+      "distance": "190 miles",
+      "terrain": "Cyan Bloodbane's sky-route north",
+      "conduits": [
+        "Supply Road",
+        "Patrol Corridor"
+      ],
+      "demographics": {
+        "tags": [
+          "Travelers",
+          "Draconian Scouts"
+        ]
+      },
+      "factionPresence": [
+        "fac_green_black_wings",
+        "fac_red_dragonarmy"
+      ]
+    }
+  },
+  "edgeNotes": {
+    "N_HAVEN-N_SOLACE": "35 miles (Packed gravel Seeker highway) — Patrolled by Seeker guards and Baaz checkpoints.",
+    "N_CRYSTALMIR-N_SOLACE": "6 miles (Autumn vallenwood forest trail) — Escape path from the Inn of the Last Home.",
+    "N_CRYSTALMIR-N_DARKEN_WOOD": "18 miles (Misty alpine ridge) — Guarded by spectral centaurs of the Forestmaster.",
+    "N_DARKEN_WOOD-N_XAK_TSAROTH": "28 miles (Subterranean mountain pass & black swamp) — Unicorn-guided path into the drowned ruins.",
+    "N_GATEWAY-N_SOLACE": "40 miles (Southern plains wagon road) — Route of the Dragonarmy slave-cage caravan.",
+    "N_GATEWAY-N_QUALINOST": "32 miles (Qualinesti forest border canopy) — Guarded by Porthios and Gilthanas's elven archers.",
+    "N_HAVEN-N_WAYRETH": "75 miles (Shifting enchanted forest tracks) — Only opens to those summoned by the Conclave of Wizards.",
+    "N_LANGTREE-N_SOLACE": "55 miles (Northern Abanasinian grassland road) — Mercenary recruitment road to Baron Ivor's camp.",
+    "N_HOPES_END-N_LANGTREE": "45 miles (Khalkist foothill box-canyon pass) — Scorched by the Red Dragon Immolatus in 347 AC.",
+    "N_QUALINOST-N_SLA_MORI": "22 miles (Hidden mountain ridge trail) — Requires the royal key or Gilthanas's guidance.",
+    "N_PAX_THARKAS-N_SLA_MORI": "3 miles (Subterranean crypt & bronze Great Chain) — Bypasses the impregnable curtain walls of Pax Tharkas.",
+    "N_GATEWAY-N_PAX_THARKAS": "48 miles (Fortified iron-mine valley highway) — Blocked by Verminaard's Red Dragonarmy main gate.",
+    "N_DERKIN_TOMB-N_PAX_THARKAS": "38 miles (Kharolis high mountain snow-pass) — Refugee exodus trail pursued by Red Wing scouts.",
+    "N_HOPES_END-N_PAX_THARKAS": "50 miles (Mountain valley smuggling track) — Links the Kharolis passes to the scorched frontier.",
+    "N_DERKIN_TOMB-N_THORBARDIN": "15 miles (Subterranean Northgate causeway) — Sealed by the dwarven thanes until the Hammer of Kharas returns.",
+    "N_TARSIS-N_THORBARDIN": "110 miles (Dust-swept Plains of Dust caravan track) — Ancient trade road to the landlocked port.",
+    "N_ICEWALL-N_TARSIS": "180 miles (Frozen southern sea & glacial pack-ice) — Crossed via Ice Folk ice-boats.",
+    "N_SILVANESTI-N_TARSIS": "160 miles (Eastern prairie &griffon sky-corridor) — Flown on Alhana Starbreeze's griffons.",
+    "N_ICEWALL-N_SOUTHERN_ERGOTH": "240 miles (Storm-tossed Sirrion Sea current) — Shipwreck route landing near Foghaven Valley.",
+    "N_QUALINOST-N_SOUTHERN_ERGOTH": "130 miles (Straits of Algoni evacuation sea-lane) — Route of the Qualinesti refugee fleet.",
+    "N_SANCRIST-N_SOUTHERN_ERGOTH": "95 miles (White-capped western ocean channel) — Voyage of Silvara and Theros Ironfeld to the Whitestone Council.",
+    "N_PALANTHAS-N_SANCRIST": "150 miles (Solamnic naval convoy lane) — Protected by the Knights of Solamnia.",
+    "N_HIGH_CLERIST_TOWER-N_PALANTHAS": "30 miles (Palanthas-Vingaard mountain pass) — Strategic bottleneck defending Palanthas from the Blue Wing.",
+    "N_HIGH_CLERIST_TOWER-N_KALAMAN": "115 miles (Vingaard River campaign highway) — Route of the Golden General's counter-offensive.",
+    "N_DARGAARD_KEEP-N_HIGH_CLERIST_TOWER": "65 miles (Blighted Nightlund crag-road) — Haunted by Lord Soth's skeletal cavaliers.",
+    "N_DARGAARD_KEEP-N_KALAMAN": "55 miles (Nightlund border marsh) — Ambush vector for Kitiara's Flying Citadel.",
+    "N_FLOTSAM-N_KALAMAN": "85 miles (Blood Sea coastal smuggler road) — Occupied by Blue and Red Dragonarmy patrols.",
+    "N_BLOOD_SEA-N_FLOTSAM": "60 miles (Crimson whirlpool sea-lane) — Sailed aboard the caravel Perechon.",
+    "N_BLOOD_SEA-N_PALANTHAS": "210 miles (Arcane teleportation / coastal return) — Raistlin's black-robe escape vector to Astinus's Library.",
+    "N_HOPES_END-N_SANCTION": "65 miles (Volcanic Khalkist lava-pass) — Secret route used to transport stolen Silver Dragon eggs.",
+    "N_SANCTION-N_XAK_TSAROTH": "55 miles (New Sea cliffside military road) — Supply corridor from Sanction to the eastern swamp wings.",
+    "N_NERAKA-N_SANCTION": "48 miles (Imperial Dragonarmy highway) — Main artery between the egg vats of Luerkhisis and the Temple of Darkness.",
+    "N_FLOTSAM-N_NERAKA": "90 miles (Khalkist high mountain gorge) — Infiltration trail into the Imperial encampment.",
+    "N_NERAKA-N_SILVANESTI": "190 miles (Cyan Bloodbane's sky-route north) — Aerial corridor linking the green nightmare forest to Neraka."
+  },
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background Layer",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-edges",
+      "name": "Transit Corridors",
+      "zIndex": 10,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Pointcrawl Nodes",
+      "zIndex": 20,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-annotations",
+      "name": "GM Annotations",
+      "zIndex": 30,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    }
+  ],
+  "shapes": []
+}

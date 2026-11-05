@@ -1,0 +1,409 @@
+{
+  "id": "map_sub_neraka_temple",
+  "name": "Neraka: The Warped Temple of Darkness",
+  "scaleTier": "site",
+  "parentMapId": "map_ansalon_continent",
+  "parentNodeId": "N_NERAKA",
+  "mapMetadata": {
+    "id": "map_sub_neraka_temple",
+    "name": "map_sub_neraka_temple_bg.jpg",
+    "assetPath": "assets/map_sub_neraka_temple_bg.jpg",
+    "width": 1200,
+    "height": 800,
+    "naturalWidth": 1200,
+    "naturalHeight": 800,
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "lockAspect": true,
+    "opacity": 0.88
+  },
+  "nodes": [
+    {
+      "id": "NER-01",
+      "name": "Dragonarmy Encampment & Highlord Pavilions",
+      "displayName": "Dragonarmy Encampment & Highlord Pavilions",
+      "x": 250,
+      "y": 260,
+      "coordinates": {
+        "x": 250,
+        "y": 260
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "NER-02"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Kitiara's Blue Wing tent and Lord Soth's black guard.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "NER-02",
+      "name": "Great Council Amphitheater (Crown of Power)",
+      "displayName": "Great Council Amphitheater (Crown of Power)",
+      "x": 600,
+      "y": 260,
+      "coordinates": {
+        "x": 600,
+        "y": 260
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "NER-01",
+        "NER-03",
+        "NER-04"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Emperor Ariakas sits enthroned beneath the Crown of Power.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "NER-03",
+      "name": "Dungeons of Torture & Gakhan's Cells",
+      "displayName": "Dungeons of Torture & Gakhan's Cells",
+      "x": 950,
+      "y": 260,
+      "coordinates": {
+        "x": 950,
+        "y": 260
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "NER-02",
+        "NER-04"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Spiral stairways plunging toward the foundation vaults.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "NER-04",
+      "name": "Vault of the Cracked Foundation Stone",
+      "displayName": "Vault of the Cracked Foundation Stone",
+      "x": 600,
+      "y": 560,
+      "coordinates": {
+        "x": 600,
+        "y": 560
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "NER-02",
+        "NER-03"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "The evergreen emerald pillar where Jasla's spirit waits for Berem to seal Takhisis's portal.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": "NER-01",
+      "to": "NER-02",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "NER-02",
+      "to": "NER-03",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "NER-02",
+      "to": "NER-04",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "NER-03",
+      "to": "NER-04",
+      "type": "twoway",
+      "layer": "transit"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {
+    "NER-01-NER-02": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    },
+    "NER-02-NER-03": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    },
+    "NER-02-NER-04": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    },
+    "NER-03-NER-04": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    }
+  },
+  "edgeNotes": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background Layer",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-edges",
+      "name": "Corridors",
+      "zIndex": 10,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Chambers",
+      "zIndex": 20,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    }
+  ],
+  "shapes": []
+}

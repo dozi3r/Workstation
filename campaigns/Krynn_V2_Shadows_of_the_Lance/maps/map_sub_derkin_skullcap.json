@@ -1,0 +1,300 @@
+{
+  "id": "map_sub_derkin_skullcap",
+  "name": "Skullcap & Derkin's Tomb",
+  "scaleTier": "site",
+  "parentMapId": "map_ansalon_continent",
+  "parentNodeId": "N_DERKIN_TOMB",
+  "mapMetadata": {
+    "id": "map_sub_derkin_skullcap",
+    "name": "map_sub_derkin_skullcap_bg.jpg",
+    "assetPath": "assets/map_sub_derkin_skullcap_bg.jpg",
+    "width": 1200,
+    "height": 800,
+    "naturalWidth": 1200,
+    "naturalHeight": 800,
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "lockAspect": true,
+    "opacity": 0.88
+  },
+  "nodes": [
+    {
+      "id": "DRK-01",
+      "name": "Vitrified Green-Glass Crater",
+      "displayName": "Vitrified Green-Glass Crater",
+      "x": 250,
+      "y": 400,
+      "coordinates": {
+        "x": 250,
+        "y": 400
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "DRK-02"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Fistandantilus's blast crater haunted by spectral Dwarfgate soldiers.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "DRK-02",
+      "name": "Shadow-Guardian Causeway",
+      "displayName": "Shadow-Guardian Causeway",
+      "x": 600,
+      "y": 400,
+      "coordinates": {
+        "x": 600,
+        "y": 400
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "DRK-01",
+        "DRK-03"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Where Eben Shatterstone signals the Red Wing ambush.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "DRK-03",
+      "name": "Vault of the Helm of Grallen",
+      "displayName": "Vault of the Helm of Grallen",
+      "x": 950,
+      "y": 400,
+      "coordinates": {
+        "x": 950,
+        "y": 400
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "DRK-02"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Contains the dwarven royal helm that unlocks Thorbardin's trust.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": "DRK-01",
+      "to": "DRK-02",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "DRK-02",
+      "to": "DRK-03",
+      "type": "twoway",
+      "layer": "transit"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {
+    "DRK-01-DRK-02": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    },
+    "DRK-02-DRK-03": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    }
+  },
+  "edgeNotes": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background Layer",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-edges",
+      "name": "Corridors",
+      "zIndex": 10,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Chambers",
+      "zIndex": 20,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    }
+  ],
+  "shapes": []
+}

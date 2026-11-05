@@ -1,0 +1,388 @@
+{
+  "id": "map_sub_high_clerist_tower",
+  "name": "The High Clerist's Tower (Dragon-Trap Fortress)",
+  "scaleTier": "site",
+  "parentMapId": "map_ansalon_continent",
+  "parentNodeId": "N_HIGH_CLERIST_TOWER",
+  "mapMetadata": {
+    "id": "map_sub_high_clerist_tower",
+    "name": "map_sub_high_clerist_tower_bg.jpg",
+    "assetPath": "assets/map_sub_high_clerist_tower_bg.jpg",
+    "width": 1200,
+    "height": 800,
+    "naturalWidth": 1200,
+    "naturalHeight": 800,
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "lockAspect": true,
+    "opacity": 0.88
+  },
+  "nodes": [
+    {
+      "id": "HCT-01",
+      "name": "West Gate Field (Derek's Folly)",
+      "displayName": "West Gate Field (Derek's Folly)",
+      "x": 250,
+      "y": 260,
+      "coordinates": {
+        "x": 250,
+        "y": 260
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "HCT-02"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Killing ground outside the gate where Derek Crownguard leads his doomed sally.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "HCT-02",
+      "name": "Symmetrical Dragon-Trap Kill Corridors",
+      "displayName": "Symmetrical Dragon-Trap Kill Corridors",
+      "x": 600,
+      "y": 260,
+      "coordinates": {
+        "x": 600,
+        "y": 260
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "HCT-01",
+        "HCT-03",
+        "HCT-04"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Narrow stone funnels where lured Blue Dragons are impaled by Dragonlances.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "HCT-03",
+      "name": "The Sunlit Western Parapet (Sturm's Stand)",
+      "displayName": "The Sunlit Western Parapet (Sturm's Stand)",
+      "x": 950,
+      "y": 260,
+      "coordinates": {
+        "x": 950,
+        "y": 260
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "HCT-02"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Where Sturm Brightblade faces Kitiara and Skie against the rising sun.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "HCT-04",
+      "name": "Lower Vault of the Dragon Orb",
+      "displayName": "Lower Vault of the Dragon Orb",
+      "x": 600,
+      "y": 560,
+      "coordinates": {
+        "x": 600,
+        "y": 560
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "HCT-02"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Where Laurana battles the mind of the Dragon Orb and Tas guards the crystal.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": "HCT-01",
+      "to": "HCT-02",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "HCT-02",
+      "to": "HCT-03",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "HCT-02",
+      "to": "HCT-04",
+      "type": "twoway",
+      "layer": "transit"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {
+    "HCT-01-HCT-02": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    },
+    "HCT-02-HCT-03": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    },
+    "HCT-02-HCT-04": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    }
+  },
+  "edgeNotes": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background Layer",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-edges",
+      "name": "Corridors",
+      "zIndex": 10,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Chambers",
+      "zIndex": 20,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    }
+  ],
+  "shapes": []
+}
