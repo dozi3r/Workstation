@@ -8167,6 +8167,79 @@ function testSuite49EngineIncludeOrder() {
 }
 
 // ============================================================================
+// SUITE 50: ENTITY REFERENCE INTEGRITY, ONE SCRUB (SYS-ARCH-01 / PHASE D)
+// ============================================================================
+function testSuite50EntityReferenceIntegrity() {
+  console.log('\n--> SUITE 50: Entity reference integrity, one scrub for delete preview and execution (SYS-ARCH-01)...');
+
+  const cme = require(path.join(ROOT_DIR, 'src/workstation/scripts/campaign_mutation_engine.js'));
+
+  const buildChildMaps = () => ({
+    map_root: { id: 'map_root', spatialPins: [] },
+    map_child: {
+      id: 'map_child',
+      parentMapId: 'map_root',
+      nodes: { '7': { id: 7, name: 'Cellar', npcIds: ['npc_a', 'npc_b'] } },
+      spatialPins: [
+        { id: 'pin_child', label: 'Cellar Pin', targetType: 'npc', targetId: 'npc_a', links: [{ type: 'npc', id: 'npc_a' }, { type: 'item', id: 'itm_x' }] }
+      ]
+    }
+  });
+  const buildTopo = () => ({
+    npcs: [{ id: 'npc_a', name: 'Alva' }, { id: 'npc_b', name: 'Bren' }],
+    spatialPins: [{ id: 'pin_root', label: 'Root Pin', targetType: 'npc', targetId: 'npc_a', links: [{ type: 'npc', id: 'npc_a' }] }]
+  });
+
+  // 50.1 (D2): deleteEntity scrubs child maps handed in through batchContext.maps (the active topology carries none)
+  const regTopo = buildTopo();
+  const regMaps = buildChildMaps();
+  const regChanges = [];
+  cme.deleteEntity(regTopo, 'npc', 'npc_a', { allowMissingEntity: true, maps: regMaps, changes: regChanges });
+  const childPin = regMaps.map_child.spatialPins[0];
+  assertEqual(childPin.links, [{ type: 'item', id: 'itm_x' }], 'deleteEntity(npc, {maps}) removes the npc link from a pin on a child map');
+  assertEqual([childPin.targetType, childPin.targetId], ['item', 'itm_x'], 'deleteEntity(npc, {maps}) re-syncs the child-map pin target from its remaining link');
+  assertEqual(regMaps.map_child.nodes['7'].npcIds, ['npc_b'], 'deleteEntity(npc, {maps}) filters npcIds on child-map nodes');
+  assertEqual(regTopo.spatialPins[0].links, [], 'deleteEntity(npc, {maps}) still scrubs the active topology pins');
+  assertEqual(regChanges.filter(c => c.category === 'spatialpins' && c.field === 'links').map(c => c.entityId).sort(), ['pin_child', 'pin_root'], 'deleteEntity(npc, {maps}) logs one links change per pin, child map included');
+
+  // A map reachable through both state.maps and batchContext.maps is scrubbed once
+  const dupTopo = Object.assign(buildTopo(), { maps: buildChildMaps() });
+  const dupChanges = [];
+  cme.deleteEntity(dupTopo, 'npc', 'npc_a', { allowMissingEntity: true, maps: dupTopo.maps, changes: dupChanges });
+  assertEqual(dupChanges.filter(c => c.entityId === 'pin_child').length, 1, 'a map reachable through state.maps and batchContext.maps is scrubbed once');
+
+  // The existing state.maps walk is unchanged
+  const stateMapsTopo = Object.assign(buildTopo(), { maps: buildChildMaps() });
+  cme.deleteEntity(stateMapsTopo, 'npc', 'npc_a', { allowMissingEntity: true });
+  assertEqual(stateMapsTopo.maps.map_child.spatialPins[0].links, [{ type: 'item', id: 'itm_x' }], 'deleteEntity still walks state.maps without batchContext.maps');
+
+  // 50.2 (D2): executeEntityDeletion hands the global maps registry to the engine
+  const cascadeCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_cascade_delete.js'), 'utf8');
+  const uiMaps = buildChildMaps();
+  const uiSandbox = {
+    window: {},
+    document: { querySelectorAll: () => [], getElementById: () => null },
+    console,
+    Workstation: { activeTopology: buildTopo() },
+    maps: uiMaps,
+    activeMapId: 'map_root'
+  };
+  uiSandbox.window = uiSandbox;
+  injectEngine(uiSandbox);
+  const realEngine = uiSandbox.CampaignMutationEngine;
+  let seenContext = null;
+  uiSandbox.CampaignMutationEngine = Object.assign({}, realEngine, {
+    deleteEntity: (topo, type, id, ctx) => { seenContext = ctx; return realEngine.deleteEntity(topo, type, id, ctx); }
+  });
+  vm.createContext(uiSandbox);
+  vm.runInContext(cascadeCode, uiSandbox);
+  uiSandbox.executeEntityDeletion([{ type: 'npc', id: 'npc_a' }]);
+  assert(!!seenContext && seenContext.maps === uiSandbox.maps, 'executeEntityDeletion passes the global maps registry to CampaignMutationEngine.deleteEntity');
+  assertEqual(uiMaps.map_child.spatialPins[0].links, [{ type: 'item', id: 'itm_x' }], 'deleting an NPC from the UI scrubs its link from a pin on a child map');
+  assertEqual(uiSandbox.Workstation.activeTopology.npcs.map(n => n.id), ['npc_b'], 'deleting an NPC from the UI removes it from the roster');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -8220,6 +8293,7 @@ function testSuite49EngineIncludeOrder() {
     testSuite47IndustryChainImporterAndDeduplication();
     testSuite48CanonicalSpatialPinNormalizer();
     testSuite49EngineIncludeOrder();
+    testSuite50EntityReferenceIntegrity();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

@@ -950,7 +950,7 @@
       if (cme && typeof cme.deleteEntity === 'function') {
         allToDelete.forEach(ent => {
           if (ent && ent.type && ent.type !== 'module' && ent.type !== 'map') {
-            cme.deleteEntity(topo, ent.type, ent.id, { allowMissingEntity: true });
+            cme.deleteEntity(topo, ent.type, ent.id, { allowMissingEntity: true, maps: (typeof maps !== 'undefined' ? maps : undefined) });
           }
         });
       }

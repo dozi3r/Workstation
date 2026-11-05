@@ -945,15 +945,20 @@
         removeCorridorsForNode(state.activeTopology, entityId);
       }
     }
-    const allMaps = state.maps || (state.activeTopology && state.activeTopology.maps);
-    if (allMaps && typeof allMaps === 'object') {
-      Object.values(allMaps).forEach(m => {
-        if (!m) return;
+    // Child maps live in a registry the caller may hold separately (the UI passes its global `maps` registry,
+    // while Workstation.activeTopology carries none). Walk state.maps / activeTopology.maps and batchContext.maps.
+    // A map reachable through more than one registry is scrubbed once.
+    const scrubbedMaps = new Set();
+    [state.maps || (state.activeTopology && state.activeTopology.maps), batchContext.maps].forEach(registry => {
+      if (!registry || typeof registry !== 'object') return;
+      Object.values(registry).forEach(m => {
+        if (!m || scrubbedMaps.has(m)) return;
+        scrubbedMaps.add(m);
         scrubNodeCollection(m.nodes, m.links);
         if (targetType === 'node') removeCorridorsForNode(m, entityId);
         if (Array.isArray(m.spatialPins)) scrubPinsList(m.spatialPins);
       });
-    }
+    });
 
     return true;
   }

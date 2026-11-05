@@ -3,11 +3,11 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "eba37bcd3605add9"
-reviewed_hash: "eba37bcd3605add9"
+current_hash: "6d6d74d7020f0340"
+reviewed_hash: "6d6d74d7020f0340"
 stale: false
-size_bytes: 410845
-line_count: 8241
+size_bytes: 415447
+line_count: 8315
 ---
 
 # run_tests.js
@@ -53,4 +53,5 @@ line_count: 8241
    - Proves the `ENGINE_ROOT_ALIASES` list equals what the engine UMD tail publishes (the engine is run in a fresh `vm` context) and that only `campaign_mutation_engine.js` defines `normalizeSpatialPin`.
 11. **Suite 19.20: Census-aware demographics (SYS-ARCH-01)**: `generateCampaignJSON` normalizes census and flat-array demographics, and the Obsidian node dossier renders census primary, minorities and tags, flat arrays, legacy `{race, pct}` groups, and the Cosmopolitan fallback only when empty. A bare exporter sandbox with no `normalizeDemographics` proves the `typeof` guard path.
 12. **Suite 49: Engine-first include order (SYS-ARCH-01)**: asserts `template.html` lists `campaign_mutation_engine.js` as its first script include and lists each script once. The compiled-bundle boot test in Suite 1 also asserts the engine seam aliases are published and `CampaignStateAdapter` no longer exists.
+13. **Suite 50: Entity reference integrity (SYS-ARCH-01 Phase D)**: `deleteEntity` scrubs child-map pins and nodes passed through `batchContext.maps`, scrubs a map reachable twice once, and keeps the `state.maps` walk. `executeEntityDeletion` passes the global `maps` registry to the engine (spy on the injected engine) and the child-map pin link disappears.
 <!-- END_CUSTOM_NOTES -->

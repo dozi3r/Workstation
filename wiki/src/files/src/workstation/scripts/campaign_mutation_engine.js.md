@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/campaign_mutation_engine.js"
 title: "campaign_mutation_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "3c9e55f7ad35d642"
-reviewed_hash: "3c9e55f7ad35d642"
+current_hash: "ebb9735c2093ddea"
+reviewed_hash: "ebb9735c2093ddea"
 stale: false
-size_bytes: 110628
-line_count: 2519
+size_bytes: 111055
+line_count: 2524
 ---
 
 # campaign_mutation_engine.js
@@ -26,4 +26,7 @@ line_count: 2519
 - `targetType`/`targetId` follow `links[0]`. With no links the canvas default applies (`npc`, `''`). Unknown properties (`color`, `notes`, mod fields) are never deleted.
 - The UMD tail publishes `root.normalizeSpatialPin`, so `cad_interaction.js`, `cad_canvas_renderer.js` and `property_grid_inspector.js` resolve the global. Hand-built `vm` sandboxes in `test/run_tests.js` get it from `injectEngine(sandbox)`.
 - `upsertEntity` on an existing pin now also records `visible`/`locked`/`targetType`/`targetId` field diffs in the changelog when the stored pin lacked them.
+
+### deleteEntity Map Registry (SYS-ARCH-01)
+`deleteEntity(state, type, id, batchContext)` scrubs child-map nodes, links, corridors and spatial pins from `state.maps` (or `state.activeTopology.maps`) **and** from the optional `batchContext.maps` registry. `Workstation.activeTopology` carries no `maps`, so the UI passes its global `maps` registry (`executeEntityDeletion` in `entity_cascade_delete.js`). A map reachable through both registries is scrubbed once. For `node` targets the same walk also removes the node id from `adj`/`infBy`, links and corridors of every registered map.
 <!-- END_CUSTOM_NOTES -->
