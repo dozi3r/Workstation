@@ -1427,7 +1427,7 @@
       filtered.forEach((it) => {
         const row = document.createElement('div');
         row.className = 'win-item-card';
-        row.style.cssText = 'padding:6px 10px; display:flex; flex-direction:row; justify-content:space-between; align-items:center; gap:12px; cursor:default; min-height:52px; height:auto; border:1px solid #cbd5e1; background:#ffffff; border-radius:2px; box-sizing:border-box; margin-bottom:4px; text-align:left; transition:background 0.1s, border-color 0.1s;';
+        row.style.cssText = 'padding:6px 10px; display:flex; flex-direction:row; justify-content:space-between; align-items:center; gap:12px; cursor:default; min-height:52px; height:auto; flex-shrink:0; border:1px solid #cbd5e1; background:#ffffff; border-radius:2px; box-sizing:border-box; margin-bottom:4px; text-align:left; transition:background 0.1s, border-color 0.1s;';
         row.onmouseenter = () => { row.style.background = '#f8fafc'; row.style.borderColor = '#94a3b8'; };
         row.onmouseleave = () => { row.style.background = '#ffffff'; row.style.borderColor = '#cbd5e1'; };
 
