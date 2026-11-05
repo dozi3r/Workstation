@@ -1,0 +1,409 @@
+{
+  "id": "map_sub_solace_inn",
+  "name": "Solace: The Inn of the Last Home",
+  "scaleTier": "building",
+  "parentMapId": "map_ansalon_continent",
+  "parentNodeId": "N_SOLACE",
+  "mapMetadata": {
+    "id": "map_sub_solace_inn",
+    "name": "map_sub_solace_inn_bg.jpg",
+    "assetPath": "assets/map_sub_solace_inn_bg.jpg",
+    "width": 1200,
+    "height": 800,
+    "naturalWidth": 1200,
+    "naturalHeight": 800,
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "lockAspect": true,
+    "opacity": 0.88
+  },
+  "nodes": [
+    {
+      "id": "SOL-01",
+      "name": "Vallenwood Rope Walkways",
+      "displayName": "Vallenwood Rope Walkways",
+      "x": 250,
+      "y": 260,
+      "coordinates": {
+        "x": 250,
+        "y": 260
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "SOL-02",
+        "SOL-04"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Suspended rope-and-plank bridges forty feet above the forest floor; Seeker checkpoint below.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "SOL-02",
+      "name": "Common Taproom & Hearth",
+      "displayName": "Common Taproom & Hearth",
+      "x": 600,
+      "y": 260,
+      "coordinates": {
+        "x": 600,
+        "y": 260
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "SOL-01",
+        "SOL-03"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Otik's polished bar, Tika's frying pan, and the boulder-hearth where Hederick tumbles into the coals.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "SOL-03",
+      "name": "Otik's Kitchen & Root Chute",
+      "displayName": "Otik's Kitchen & Root Chute",
+      "x": 950,
+      "y": 260,
+      "coordinates": {
+        "x": 950,
+        "y": 260
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "SOL-02",
+        "SOL-04"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Smells of spiced potatoes and fried onions; secret garbage chute drops 40 feet into the brush for emergency escapes.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "SOL-04",
+      "name": "Crystalmir Boat Dock Trail",
+      "displayName": "Crystalmir Boat Dock Trail",
+      "x": 600,
+      "y": 560,
+      "coordinates": {
+        "x": 600,
+        "y": 560
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "SOL-01",
+        "SOL-03"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "Moonlit path leading to the flatbottom ferry across Crystalmir Lake.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": true,
+      "faction": "neutral",
+      "factionPresence": [],
+      "demographics": {
+        "primary": {
+          "name": "Abanasinian Human",
+          "percentage": 75
+        },
+        "minorities": [
+          {
+            "name": "Hill Dwarf",
+            "percentage": 15,
+            "traits": "Craftfolk & smiths"
+          },
+          {
+            "name": "Kender",
+            "percentage": 10,
+            "traits": "Wanderers & handlers"
+          }
+        ],
+        "social_friction_notes": "Post-Cataclysm suspicion of arcane magic and outsiders.",
+        "tags": [
+          "Human",
+          "Dwarf",
+          "Kender"
+        ]
+      },
+      "partyRapport": {
+        "stance": 0,
+        "notes": "Wary frontier neutrality."
+      },
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": "SOL-01",
+      "to": "SOL-02",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "SOL-01",
+      "to": "SOL-04",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "SOL-02",
+      "to": "SOL-03",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "SOL-03",
+      "to": "SOL-04",
+      "type": "twoway",
+      "layer": "transit"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {
+    "SOL-01-SOL-02": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    },
+    "SOL-01-SOL-04": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    },
+    "SOL-02-SOL-03": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    },
+    "SOL-03-SOL-04": {
+      "blocked": false,
+      "condition": "Tactical Dungeon / Site Passage",
+      "distance": "Interior Corridor",
+      "terrain": "Stone / Timber",
+      "conduits": [
+        "Tactical Chokepoint"
+      ],
+      "demographics": {
+        "tags": []
+      },
+      "factionPresence": []
+    }
+  },
+  "edgeNotes": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background Layer",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-edges",
+      "name": "Corridors",
+      "zIndex": 10,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Chambers",
+      "zIndex": 20,
+      "visible": true,
+      "locked": false,
+      "opacity": 1
+    }
+  ],
+  "shapes": []
+}

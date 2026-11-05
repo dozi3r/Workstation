@@ -669,14 +669,10 @@ function normalizeNodeSlottedModules(rawMap) {
 /**
  * Safely normalize a node ODV vector ([S, E, C] array or {s, e, c} object) into a 3-element array
  */
-function normalizeOdvVector(odv, fallback) {
-  const src = odv || fallback;
-  if (!src) return undefined;
-  if (Array.isArray(src)) return [...src];
-  if (typeof src === "object") {
-    return [src.s !== undefined ? src.s : 2, src.e !== undefined ? src.e : 2, src.c !== undefined ? src.c : 2];
-  }
-  return undefined;
+function normalizeOdvVector(odv) {
+  const v = (typeof normalizeOdvInput === "function") ? normalizeOdvInput(odv) : null;
+  if (!v || v.invalid) return undefined;
+  return [v.s, v.e, v.c];
 }
 
 /**
@@ -768,7 +764,7 @@ function syncAdapterFromWorkstationTopology() {
       requires: (n && Array.isArray(n.requires)) ? [...n.requires] : [],
       operationalProfile: (n && n.operationalProfile) ? n.operationalProfile : undefined,
       modData: (n && n.modData) ? JSON.parse(JSON.stringify(n.modData)) : {},
-      odv: normalizeOdvVector(n && n.odv, n && n.odvDefault),
+      odv: normalizeOdvVector(n && n.odv),
       odvOverridden: !!(n && n.odvOverridden),
       faction: (n && n.faction) || "neutral",
       layerId: (n && n.layerId) || "layer-nodes"
@@ -871,7 +867,7 @@ function syncAdapterToWorkstationTopology() {
       requires: Array.isArray(n.requires) ? [...n.requires] : [],
       operationalProfile: n.operationalProfile || undefined,
       modData: n.modData ? JSON.parse(JSON.stringify(n.modData)) : {},
-      odv: normalizeOdvVector(n.odv, n.odvDefault),
+      odv: normalizeOdvVector(n.odv),
       odvOverridden: n.odvOverridden || false,
       faction: n.faction || "neutral",
       layerId: n.layerId || "layer-nodes"
@@ -1071,6 +1067,17 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
   if (typeof currentCampaignName !== "undefined") currentCampaignName = campaignTitle;
   if (typeof activeCampaignId !== "undefined") activeCampaignId = campId || "custom";
   localStorage.setItem("cs_active_campaign", activeCampaignId);
+
+  // Campaign override slots (SYS-ODV-04): package-supplied, else bundled registry entry; otherwise all cleared.
+  if (typeof applyCampaignOverrides === "function") {
+    let ovr = pkg.overrides || null;
+    if (!ovr && typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY) {
+      const rk = activeCampaignId;
+      const reg = CAMPAIGN_REGISTRY[rk] || Object.values(CAMPAIGN_REGISTRY).find(c => c && (c.id === rk || c.folder === rk));
+      ovr = (reg && reg.overrides) || null;
+    }
+    window.lastCampaignOverrideReport = applyCampaignOverrides(ovr);
+  }
 
   maps = compiledMaps;
   const resolvedRootId = (pkg.rootMapId && maps[pkg.rootMapId])

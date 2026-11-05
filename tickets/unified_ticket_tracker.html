@@ -360,13 +360,13 @@ CRITICAL INSTRUCTION:
   <div class="kpi-grid">
     <div class="kpi-card total">
       <div class="kpi-label">Total Backlog Tickets</div>
-      <div class="kpi-value">82</div>
+      <div class="kpi-value">86</div>
       <div class="kpi-sub">Across 3 Specialized Tracks</div>
     </div>
     <div class="kpi-card shipped">
       <div class="kpi-label">Shipped & Integrated</div>
       <div class="kpi-value">74</div>
-      <div class="kpi-sub">90% of Total Backlog</div>
+      <div class="kpi-sub">86% of Total Backlog</div>
     </div>
     <div class="kpi-card progress">
       <div class="kpi-label">In Editorial / Drafting</div>
@@ -375,7 +375,7 @@ CRITICAL INSTRUCTION:
     </div>
     <div class="kpi-card ready">
       <div class="kpi-label">Frontier (Ready for Pickup)</div>
-      <div class="kpi-value">0</div>
+      <div class="kpi-value">4</div>
       <div class="kpi-sub">Unblocked for Immediate Agent Work</div>
     </div>
     <div class="kpi-card backlog">
@@ -387,7 +387,7 @@ CRITICAL INSTRUCTION:
 
   <div class="frontier-banner">
     <div class="frontier-info">
-      <h3>🚀 Active Frontier Radar (0 Unblocked Tickets)</h3>
+      <h3>🚀 Active Frontier Radar (4 Unblocked Tickets)</h3>
       <p>Filtered view of tickets with zero unresolved blockers ready for immediate subagent pickup.</p>
     </div>
     <button class="frontier-btn" onclick="filterToFrontier()">Show Only Frontier</button>
@@ -3039,6 +3039,43 @@ CRITICAL INSTRUCTION:
     "module_path": ""
   },
   {
+    "id": "SYS-ARCH-01",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Normalizer Unification, Engine Include Order & Cascade-Delete Deepening (Architecture Review Phase 1)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Platform Architecture: Deep Modules & Test Seams",
+    "status": "ready_for_spec",
+    "summary": "\n# SYS-ARCH-01: Execution brief for a coding agent\n\nYou are executing phase 1 of an architecture review of Creator Studio (Workstation 2.5). This brief merges the original review with the owner's guar...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Engine: Canonical-Spatial-Pin-Normalizer",
+      "Engine: Entity-Reference-Descriptors"
+    ],
+    "requires": [
+      "Engine: CampaignMutationEngine",
+      "Surface: start.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [
+      "SYS-ARCH-02 (campaign session owner, candidate 1)",
+      "SYS-ARCH-03 (stationing module, candidate 4)"
+    ],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-ARCH-01_normalizer_unification_include_order_and_cascade_delete_deepening.md",
+    "file_url": "../tickets/system/SYS-ARCH-01_normalizer_unification_include_order_and_cascade_delete_deepening.md",
+    "module_path": ""
+  },
+  {
     "id": "SYS-AUDIT-01",
     "track": "Platform Architecture (SYS)",
     "track_code": "SYS",
@@ -3167,6 +3204,108 @@ CRITICAL INSTRUCTION:
     "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
     "ticket_file": "tickets/system/SYS-BACKBURNER-03_regional_image_explorer_external_mod.md",
     "file_url": "../tickets/system/SYS-BACKBURNER-03_regional_image_explorer_external_mod.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-ODV-01",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Unset [S, E, C] Disposition State, Provenance & Placeholder Remediation",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Platform Architecture: Data Integrity",
+    "status": "ready_for_spec",
+    "summary": "\n# SYS-ODV-01: Unset disposition state\n\n## 1. Problem\n\n`[S, E, C]` has no \"not chosen yet\" value. Every reader substitutes `[2, 2, 2]` (The Deliberative Concord) when the field is missing, zero, or ma...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Engine: Canonical-ODV-Resolver",
+      "Validator: ODV-Integrity-Check"
+    ],
+    "requires": [
+      "Engine: CampaignMutationEngine",
+      "Surface: start.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [
+      "SYS-ODV-02 (execution brief, six agent sessions)"
+    ],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-ODV-01_unset_disposition_state_and_placeholder_remediation.md",
+    "file_url": "../tickets/system/SYS-ODV-01_unset_disposition_state_and_placeholder_remediation.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-ODV-02",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Execution Brief: Unset [S, E, C] Disposition (SYS-ODV-01, six agent sessions)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Platform Architecture: Data Integrity",
+    "status": "ready_for_spec",
+    "summary": " Six sessions (S1 to S6), each sized for one agent run. Run them in order. Start each session fresh and tell the agent: **\"Execute session SN of tickets/system/SYS-ODV-02_unset_disposition_execution_brief.md.\"** The agent reads section 2 an...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Engine: Canonical-ODV-Resolver",
+      "Validator: ODV-Integrity-Check"
+    ],
+    "requires": [
+      "Engine: CampaignMutationEngine",
+      "Surface: start.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-ODV-02_unset_disposition_execution_brief.md",
+    "file_url": "../tickets/system/SYS-ODV-02_unset_disposition_execution_brief.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-ODV-04",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Campaign Override Slots (generalize SYS-ODV-03 matrix overlay)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Platform Architecture: Data Integrity",
+    "status": "ready_for_spec",
+    "summary": "\n# Campaign Override Slots\n\nA campaign may ship files that replace app defaults. Each replaceable thing is a **slot**:\n`{ id, files:[names], parse, validate, apply(payload), clear() }`. One routine,\n`...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Engine: Campaign-Override-Slots"
+    ],
+    "requires": [
+      "Surface: start.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-ODV-04_campaign_override_slots_brief.md",
+    "file_url": "../tickets/system/SYS-ODV-04_campaign_override_slots_brief.md",
     "module_path": ""
   },
   {

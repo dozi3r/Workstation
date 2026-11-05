@@ -470,7 +470,7 @@
         <h1 class="article-title">cad_canvas_renderer.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 411218de)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 68898cb1)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (25)</a>
         </div>
@@ -484,7 +484,7 @@
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
     <tr><th>File Metrics</th><td>1631 lines &bull; 79.6 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 411218de)</span></td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 68898cb1)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>17</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>25</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/cad_canvas_renderer.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -510,9 +510,10 @@
 <li><strong>AutoCAD Color Standard (ACI 1-9)</strong>: Defines canonical CAD layer palette indexing (<code>AUTOCAD_COLORS</code>) and cultural quadrant color mapping.</li>
 <li><strong>Player Visibility & Fog-of-War (FoW)</strong>: Manages concealment thresholds, GM vision overrides (<code>toggleGmVision</code>), and hidden node indicators.</li>
 <li><strong>CAD Drawing Shapes & Grip Handles</strong>: Renders <code>topo.shapes</code> into <code>#drawings-layer</code> across rectangle, circle/ellipse, and vector line primitives (<code>renderShapeSvgElement</code>) with stroke styling (solid, dashed, dotted), layer/shape opacity blending, and 4/2-point CAD grip handles when selected.</li>
-<li><strong>Cartographic Elements & Badging</strong>: Renders transit corridors (E_adj), cubic Bezier hegemony influence curves (E_inf), corridor module/flow badges (<code>M:x F:y</code>), portal indicator rings, position lock badges (<code>lockAllNodes</code>), node telemetry badges (<code>M</code>, <code>P</code>, <code>R</code>/<code>⚠️R</code>, <code>N</code>, <code>Q</code>, <code>I</code>, <code>T</code>), crisis state alerts, and draggable threat clock overlay callouts.</li>
+<li><strong>Cartographic Elements & Badging</strong>: Renders transit corridors (E_adj), cubic Bezier hegemony influence curves (E_inf), corridor module/flow badges (<code>M:x F:y</code>), portal indicator rings, position lock badges (<code>lockAllNodes</code>), node telemetry badges (<code>M</code>, <code>P</code>, <code>R</code>/<code>âš ï¸R</code>, <code>N</code>, <code>Q</code>, <code>I</code>, <code>T</code>), crisis state alerts, and draggable threat clock overlay callouts.</li>
 <li><strong>Background Map Canvas Integration</strong>: Dynamically binds and projects raster map backgrounds onto <code>#canvas-bg-image</code> from active metadata (<code>dataUrl</code> or <code>url</code>), supporting opacity blending and layer toggles without canvas flickering.</li>
 <li><strong>Recursive Sub-Map Entity Aggregation</strong>: Resolves effective stationed items and entities across nested portal sub-maps (<code>getItemEffectiveNodeId</code>, <code>getRecursiveNodeEntities</code>, <code>traverseSubmap</code>).</li>
+<li>ODV (SYS-ODV-02 S1): resolveNodeOdv calls no longer pass the topology as fallbackIndex.</li>
 </ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (15)</h3><div class="pill-list"><span class="pill">computeStarPoints(cx, cy, spikes, outerRadius, innerRadius)</span><span class="pill">computePolygonPoints(cx, cy, sides, radius)</span><span class="pill">renderGrid()</span><span class="pill">renderShapeCenteredText(shape, isSelected)</span><span class="pill">renderShapeSvgElement(shape, opacity, isSelected, isLocked)</span><span class="pill">toggleGmVision()</span><span class="pill">lockAllNodes(lock = true)</span><span class="pill">getItemEffectiveNodeId(item)</span><span class="pill">getRecursiveNodeEntities(nodeId, mapId)</span><span class="pill">traverseSubmap(subMap, path)</span><span class="pill">scheduleRenderCanvas()</span><span class="pill">getLayerContainer(layerId, defaultFallbackId = 'layer-drawings', topo = null)</span><span class="pill">renderCanvas()</span><span class="pill">toggleGrid()</span><span class="pill">toggleInfluenceVectors()</span></div>
       <h2 id="outbound-links">Outbound References (17)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
@@ -536,13 +537,13 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes onClockCalloutMouseDown() defined in cad_interaction.js</td>
       </tr><tr>
-        <td><a href="../../../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>
-        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes normalizeSpatialPin() defined in campaign_mutation_engine.js</td>
-      </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/zip_engine.js.html"><strong>src/workstation/scripts/zip_engine.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes escapeHtml() defined in zip_engine.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes normalizeSpatialPin() defined in campaign_mutation_engine.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

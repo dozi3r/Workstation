@@ -470,9 +470,9 @@
         <h1 class="article-title">Creator Studio: 64-Cell ODV Archetype Matrix &amp; Hermeneutics Explorer</h1>
         <div class="article-subtitle">
           <span class="badge">Standalone Zero-CORS HTML Workstation</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 359b3e92)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: a614f701)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (17)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (18)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>network/odv_archetype_matrix.html</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../index.html#vol-5">Volume V</a></td></tr>
     <tr><th>Surface Kind</th><td>Standalone Zero-CORS HTML Workstation</td></tr>
-    <tr><th>File Metrics</th><td>3384 lines &bull; 184.8 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 359b3e92)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>8</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>17</strong> backlinks</td></tr>
+    <tr><th>File Metrics</th><td>3403 lines &bull; 185.9 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: a614f701)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>9</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>18</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../network/odv_archetype_matrix.html" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -495,7 +495,7 @@
       
     <div class="ai-digest">
       <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
-      <p style="margin:4px 0;"><strong>Summary:</strong> Standalone Zero-CORS HTML Workstation located at network/odv_archetype_matrix.html (3384 lines, 189213 bytes).</p>
+      <p style="margin:4px 0;"><strong>Summary:</strong> Standalone Zero-CORS HTML Workstation located at network/odv_archetype_matrix.html (3403 lines, 190313 bytes).</p>
       
       
       
@@ -541,8 +541,14 @@
 <li>Displays stationed settlement nodes and traversing corridors with faction tags, MTG color badges, and road friction hazard levels (<code>[Allied Artery]</code>, <code>[Regulated Border]</code>, <code>[Contested Frontline Δ≥5]</code>).</li>
 <li>Deep-links directly to the desktop workstation canvas (<code>../start.html?selectNode=<id></code>, <code>../start.html?selectEdge=<key></code>).</li>
 </ul>
+<p>7. <strong>Per-Campaign Matrix Registry</strong>:</p>
+<ul class="wiki-list">
+<li>Campaign matrices register themselves through a script tag as <code>window.CS_CAMPAIGN_ODV_MATRICES[key] = { label, match, matrix }</code> (zero-CORS; a missing file is ignored).</li>
+<li>On boot, <code>applyCampaignMatrix()</code> tests <code>match</code> (case-insensitive regex) against the active campaign name and <code>cs_active_campaign</code>, and applies the matrix as <code>ODV_MATRIX_OVERRIDE</code>. It is skipped when a manual override already exists, and the Reset button restores <code>sociology_data.js</code> defaults without re-applying.</li>
+<li>Current entry: <code>campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.js</code> (mirror of <code>odv_matrix_krynn.json</code>; rationale in <code>docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md</code>). The in-workstation MDI matrix window in <code>start.html</code> does not use this registry yet.</li>
+</ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (50)</h3><div class="pill-list"><span class="pill">parseMd(text)</span><span class="pill">stripFormatting(text)</span><span class="pill">extractFieldSnippet(mdText)</span><span class="pill">extractNpcName(npcRaw)</span><span class="pill">resolveNodeOdv(node, fallbackIndex)</span><span class="pill">resolveEdgeOdv(edge, uNodeOdv, vNodeOdv, edgeRecord)</span><span class="pill">buildCampaignOdvIndex(topology)</span><span class="pill">registerCorridor(uId, vId, linkObj, isDirected)</span><span class="pill">loadActiveCampaignTopology()</span><span class="pill">getQuadrant(s, e)</span><span class="pill">getOpMode(s, c)</span><span class="pill">getResonantTarot(s, e, c)</span><span class="pill">initMatrixData()</span><span class="pill">updateTunerUI()</span><span class="pill">selectQuadrantFromGuide(quad)</span><span class="pill">selectModeFromGuide(mode)</span><span class="pill">renderDossierOccupants(tag)</span><span class="pill">renderDossier(tag)</span><span class="pill">setTunerDial(dial, val)</span><span class="pill">pickRandomArchetype()</span><span class="pill">toggleScaleGuide()</span><span class="pill">triggerDossierSensoryRoll()</span><span class="pill">copyDossierSensoryMarkdown()</span><span class="pill">openDiagnosticWizardModal()</span><span class="pill">closeDiagnosticWizardModal()</span><span class="pill">renderDiagnosticWizardModalContent()</span><span class="pill">selectModalWizardOption(dial, val)</span><span class="pill">applyModalWizardCalibration()</span><span class="pill">switchHubTab(tabKey)</span><span class="pill">renderHubTabContent(tabKey)</span><span class="pill">renderLeversTab()</span><span class="pill">renderCrisisTab()</span><span class="pill">renderSensoryTab()</span><span class="pill">renderDimensionRows(items)</span><span class="pill">executeHubSensoryRoll()</span><span class="pill">copyHubSensoryMarkdown()</span><span class="pill">renderFactionsTab()</span><span class="pill">renderDiagnosticTreeTab()</span><span class="pill">selectDiagnosticOption(dial, val)</span><span class="pill">applyDiagnosticCalibration()</span><span class="pill">setTierAxis(axis)</span><span class="pill">applyFilters()</span><span class="pill">clearSearch()</span><span class="pill">toggleOccupiedFilter()</span><span class="pill">setFilterQuadrant(quad)</span><span class="pill">setViewMode(mode)</span><span class="pill">matchesFilter(arch, searchVal)</span><span class="pill">renderOccupancyBadgesHtml(tag)</span><span class="pill">renderDenseCellRowsHtml(arch)</span><span class="pill">renderActiveView()</span></div>
-      <h2 id="outbound-links">Outbound References (8)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2 id="outbound-links">Outbound References (9)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../pages/docs/srd/authoring_engine_srd.md.html"><strong>docs/srd/authoring_engine_srd.md</strong></a></td>
         <td><span class="badge badge-System Reference Document (SRD)">Governing Spec</span></td>
         <td>Authoritative specification for network/odv_archetype_matrix.html</td>
@@ -567,6 +573,10 @@
         <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
         <td>References build_suite.js</td>
       </tr><tr>
+        <td><a href="../../pages/docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md.html"><strong>docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md</td>
+      </tr><tr>
         <td><a href="../../pages/index.html.html"><strong>index.html</strong></a></td>
         <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
         <td>References index.html</td>
@@ -575,7 +585,7 @@
         <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
         <td>References start.html</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (17)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (18)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../pages/series/series_c_sociology_and_tarot_hermeneutics.html"><strong>Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</strong></a></td>
         <td><span class="badge badge-Series">Wiki Citation</span></td>
         <td>Explicit [[File:network/odv_archetype_matrix.html]] reference</td>
@@ -618,6 +628,10 @@
       </tr><tr>
         <td><a href="../../pages/docs/adr/0018-master-sociological-compendium-and-hermeneutic-tooling-on-odv-matrix.md.html"><strong>docs/adr/0018-master-sociological-compendium-and-hermeneutic-tooling-on-odv-matrix.md</strong></a></td>
         <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References network/odv_archetype_matrix.html</td>
+      </tr><tr>
+        <td><a href="../../pages/docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md.html"><strong>docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
         <td>References network/odv_archetype_matrix.html</td>
       </tr><tr>
         <td><a href="../../pages/network/contradiction_matrix_dashboard.html.html"><strong>network/contradiction_matrix_dashboard.html</strong></a></td>

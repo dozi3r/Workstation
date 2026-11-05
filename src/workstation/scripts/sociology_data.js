@@ -777,9 +777,31 @@ const ODV_MATRIX_64 = {
 // Canonical Mathematical Baseline: Neutral [2, 2, 2] ("The Deliberative Concord")
 // Custom fallbacks (e.g. Tarot Major Arcana) may be registered via window.CreatorStudio.registerOdvFallbackResolver(fn)
 
+// Campaign-supplied per-cell overlay on the built-in matrix. Never mutates ODV_MATRIX_64.
+let _campaignOdvMatrix = null;
+
+function setCampaignOdvMatrix(obj) {
+  const cells = obj && obj.matrix ? obj.matrix : obj;
+  _campaignOdvMatrix = (cells && typeof cells === "object" && Object.keys(cells).length) ? cells : null;
+  return _campaignOdvMatrix ? Object.keys(_campaignOdvMatrix).length : 0;
+}
+
+function getCampaignOdvMatrix() { return _campaignOdvMatrix; }
+
+// Single getter for archetype cells: campaign cell wins, else built-in, else null.
+function getArchetype(tag) {
+  if (_campaignOdvMatrix && _campaignOdvMatrix[tag]) return _campaignOdvMatrix[tag];
+  return ODV_MATRIX_64[tag] || null;
+}
+
+// Merged view (built-in with campaign cells overlaid) for iteration.
+function getArchetypeMatrix() {
+  return Object.assign({}, ODV_MATRIX_64, _campaignOdvMatrix || {});
+}
+
 function getArchetypeDetails(s, e, c) {
   const tag = `[${s}, ${e}, ${c}]`;
-  return ODV_MATRIX_64[tag] || {
+  return getArchetype(tag) || {
     s, e, c, tag,
     archetypeName: "Adaptive Frontier Node",
     coreBoon: "Practical improvisation in local environment.",
@@ -1275,33 +1297,54 @@ if (typeof window !== "undefined" && typeof window.generateCorridorSociogram !==
 // ============================================================================
 // 64-CELL ODV CAMPAIGN REFLECTION & HERMENEUTICS ENGINE (ADR-0014 / SYS-START-14)
 // ============================================================================
+// Canonical ODV reader (SYS-ODV-01). Never invents a value.
+function normalizeOdvInput(raw) {
+  if (raw === undefined || raw === null || raw === "" || typeof raw === "number") return null;
+  let v = null;
+  if (Array.isArray(raw)) v = raw.slice(0, 3);
+  else if (typeof raw === "string") { const m = raw.match(/(-?\d+)\D+(-?\d+)\D+(-?\d+)/); if (m) v = [m[1], m[2], m[3]]; }
+  else if (typeof raw === "object") v = [raw.s, raw.e, raw.c];
+  if (!v || v.length < 3) return null;
+  const n = v.map(x => Number(x));
+  if (n.some(x => !Number.isInteger(x) || x < 1 || x > 4)) return { invalid: true, raw };
+  return { s: n[0], e: n[1], c: n[2] };
+}
+
+function getOdv(entity) {
+  const unset = (source) => ({ set: false, s: null, e: null, c: null, tag: null, source });
+  if (!entity) return unset("unset");
+  let raw = entity.odv;
+  if (raw === undefined || raw === null) raw = (typeof entity.disposition === "number") ? undefined : entity.disposition;
+  const v = normalizeOdvInput(raw);
+  if (!v) return unset("unset");
+  if (v.invalid) return unset("invalid");
+  return { set: true, s: v.s, e: v.e, c: v.c, tag: `[${v.s}, ${v.e}, ${v.c}]`, source: entity.odvSource || "imported" };
+}
+
+function getEdgeOdv(edge, uOdv, vOdv, edgeRecord) {
+  const own = getOdv(edge && (edge.odv || edge.disposition) ? edge : edgeRecord);
+  const bothSet = !!(uOdv && uOdv.set !== false && uOdv.s && vOdv && vOdv.set !== false && vOdv.s);
+  const totalDelta = bothSet ? Math.abs(uOdv.s - vOdv.s) + Math.abs(uOdv.e - vOdv.e) + Math.abs(uOdv.c - vOdv.c) : null;
+  if (own.set) return { ...own, explicit: true, totalDelta, isHighHazard: totalDelta !== null && totalDelta >= 5 };
+  if (!bothSet) return { set: false, s: null, e: null, c: null, tag: null, source: "unset", explicit: false, totalDelta: null, isHighHazard: false };
+  const s = Math.round((uOdv.s + vOdv.s) / 2), e = Math.round((uOdv.e + vOdv.e) / 2), c = Math.round((uOdv.c + vOdv.c) / 2);
+  return { set: true, s, e, c, tag: `[${s}, ${e}, ${c}]`, source: "midpoint", explicit: false, totalDelta, isHighHazard: totalDelta >= 5 };
+}
+
+// Authored culture wins; else derive from a set ODV; else null (unknown).
+function getNodeQuadrant(node) {
+  if (!node) return null;
+  if (node.culture) return node.culture;
+  const o = getOdv(node);
+  return o.set ? deriveCvfQuadrant(o.s, o.e) : null;
+}
+
 function resolveNodeOdv(node, fallbackIndex) {
   if (!node) return { s: 2, e: 2, c: 2, tag: "[2, 2, 2]", explicit: false };
   let s = 2, e = 2, c = 2;
-  let explicit = false;
-  const raw = node.odv !== undefined ? node.odv : node.disposition;
-
-  if (raw) {
-    if (Array.isArray(raw) && raw.length >= 3) {
-      s = parseInt(raw[0], 10) || 2;
-      e = parseInt(raw[1], 10) || 2;
-      c = parseInt(raw[2], 10) || 2;
-      explicit = true;
-    } else if (typeof raw === "object" && (raw.s !== undefined || raw.e !== undefined || raw.c !== undefined)) {
-      s = parseInt(raw.s !== undefined ? raw.s : raw[0], 10) || 2;
-      e = parseInt(raw.e !== undefined ? raw.e : raw[1], 10) || 2;
-      c = parseInt(raw.c !== undefined ? raw.c : raw[2], 10) || 2;
-      explicit = true;
-    } else if (typeof raw === "string") {
-      const m = raw.match(/(\d+)\D+(\d+)\D+(\d+)/);
-      if (m) {
-        s = parseInt(m[1], 10) || 2;
-        e = parseInt(m[2], 10) || 2;
-        c = parseInt(m[3], 10) || 2;
-        explicit = true;
-      }
-    }
-  }
+  const parsed = getOdv(node);
+  let explicit = parsed.set;
+  if (explicit) { s = parsed.s; e = parsed.e; c = parsed.c; }
 
   if (!explicit) {
     // 1. Mod Hook: Check for registered custom ODV fallback resolver (e.g. Tarot Mod)
@@ -1529,8 +1572,9 @@ function renderMdiOdvMatrix() {
     Hierarchy: { bg: '#eff6ff', border: '#93c5fd', badge: '#2563eb' }
   };
 
-  Object.keys(ODV_MATRIX_64).sort().forEach(tag => {
-    const arch = ODV_MATRIX_64[tag];
+  const mergedMatrix = getArchetypeMatrix();
+  Object.keys(mergedMatrix).sort().forEach(tag => {
+    const arch = mergedMatrix[tag];
     const occupants = index[tag] || { nodes: [], edges: [] };
     const hasOccupants = (occupants.nodes.length > 0 || occupants.edges.length > 0);
 
@@ -1609,7 +1653,7 @@ function renderMdiOdvMatrix() {
     gridEl.appendChild(card);
   });
 
-  const activeArch = ODV_MATRIX_64[activeSelectedOdvTag] || ODV_MATRIX_64['[1, 1, 1]'];
+  const activeArch = getArchetype(activeSelectedOdvTag) || getArchetype('[1, 1, 1]');
   const activeOcc = index[activeSelectedOdvTag] || { nodes: [], edges: [] };
   renderMdiOdvDossier(activeSelectedOdvTag, activeArch, activeOcc);
 }
@@ -1755,7 +1799,7 @@ function applySensoryRollToSelectedNode(optNodeId = null, optRoll = null, s = 2,
     if (typeof alert === 'function') alert('Select a pointcrawl Node on the canvas first to insert the 5D Sensory Pentagon into its notes.');
     return false;
   }
-  const nodeOdv = resolveNodeOdv(node, topo) || { s: 2, e: 2, c: 2 };
+  const nodeOdv = resolveNodeOdv(node) || { s: 2, e: 2, c: 2 };
   const useS = s || nodeOdv.s || 2;
   const useE = e || nodeOdv.e || 2;
   const useC = c || nodeOdv.c || 2;
@@ -1895,7 +1939,7 @@ function onMdiOdvWizardApplyToNode() {
 function openOdvWizardForNode(nodeId) {
   const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
   const node = (topo && topo.nodes && nodeId !== undefined) ? (topo.nodes[String(nodeId)] || topo.nodes[nodeId]) : null;
-  const odv = node ? (resolveNodeOdv(node, topo) || { s: 2, e: 2, c: 2 }) : { s: 2, e: 2, c: 2 };
+  const odv = node ? (resolveNodeOdv(node) || { s: 2, e: 2, c: 2 }) : { s: 2, e: 2, c: 2 };
   activeSelectedOdvTag = `[${odv.s}, ${odv.e}, ${odv.c}]`;
   if (typeof openOdvMatrixModal === 'function') {
     openOdvMatrixModal();
@@ -1915,6 +1959,14 @@ if (typeof window !== "undefined") {
   if (!window.deriveCvfQuadrant) window.deriveCvfQuadrant = deriveCvfQuadrant;
   if (!window.deriveOperationalMode) window.deriveOperationalMode = deriveOperationalMode;
   window.resolveNodeOdv = resolveNodeOdv;
+  window.normalizeOdvInput = normalizeOdvInput;
+  window.getOdv = getOdv;
+  window.setCampaignOdvMatrix = setCampaignOdvMatrix;
+  window.getCampaignOdvMatrix = getCampaignOdvMatrix;
+  window.getArchetype = getArchetype;
+  window.getArchetypeMatrix = getArchetypeMatrix;
+  window.getEdgeOdv = getEdgeOdv;
+  window.getNodeQuadrant = getNodeQuadrant;
   window.resolveEdgeOdv = resolveEdgeOdv;
   window.buildCampaignOdvIndex = buildCampaignOdvIndex;
   window.renderMdiOdvMatrix = renderMdiOdvMatrix;
@@ -1948,6 +2000,14 @@ if (typeof module !== "undefined" && module.exports) {
     deriveCvfQuadrant,
     deriveOperationalMode,
     resolveNodeOdv,
+    normalizeOdvInput,
+    getOdv,
+    setCampaignOdvMatrix,
+    getCampaignOdvMatrix,
+    getArchetype,
+    getArchetypeMatrix,
+    getEdgeOdv,
+    getNodeQuadrant,
     resolveEdgeOdv,
     buildCampaignOdvIndex,
     renderMdiOdvMatrix,

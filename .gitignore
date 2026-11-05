@@ -43,3 +43,6 @@ Quarantine-Duplicates.bat
 # Git worktrees (isolated agent sandboxes)
 .worktrees/
 worktrees/
+
+# Copyrighted source books (local reference only)
+Sources/

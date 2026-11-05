@@ -2361,6 +2361,36 @@ window.syncDiskModulesIntoRuntimeCatalog = syncDiskModulesIntoRuntimeCatalog;
 /**
  * Load campaign directly from a FileSystemDirectoryHandle
  */
+// SYS-ODV-04: find campaign override slot files (root, odv/, overrides/, overrides/odv/) in a picked folder.
+async function scanCampaignOverrides(dirHandle) {
+  const out = {};
+  if (typeof CAMPAIGN_OVERRIDE_SLOTS === "undefined" || typeof matchSlotFile !== "function") return out;
+  const found = [];
+  const walk = async (h, prefix) => {
+    for await (const [name, entry] of h.entries()) {
+      if (entry.kind === "file") found.push({ rel: prefix + name, entry });
+    }
+  };
+  await walk(dirHandle, "");
+  for (const sub of [["odv"], ["overrides"], ["overrides", "odv"]]) {
+    try {
+      let h = dirHandle;
+      for (const part of sub) h = await h.getDirectoryHandle(part, { create: false });
+      await walk(h, sub.join("/") + "/");
+    } catch (e) { /* folder absent */ }
+  }
+  for (const slot of CAMPAIGN_OVERRIDE_SLOTS) {
+    const hit = found.find(f => matchSlotFile(f.rel, [slot]));
+    if (!hit) continue;
+    try {
+      out[slot.id] = slot.parse(await (await hit.entry.getFile()).text());
+    } catch (e) {
+      console.warn(`[overrides] ${slot.id} unreadable in ${hit.rel}:`, e.message);
+    }
+  }
+  return out;
+}
+
 async function loadCampaignFromDirectoryHandle(dirHandle) {
   if (!dirHandle) return;
   try {
@@ -2595,6 +2625,13 @@ async function loadCampaignFromDirectoryHandle(dirHandle) {
       }
     } catch(modScanErr) {
       console.warn("[loadCampaignFromDirectoryHandle] Module scan notice:", modScanErr);
+    }
+
+    try {
+      const ovr = await scanCampaignOverrides(dirHandle);
+      if (Object.keys(ovr).length) pkg.overrides = ovr;
+    } catch (ovErr) {
+      console.warn("[loadCampaignFromDirectoryHandle] Override scan notice:", ovErr);
     }
 
     if (typeof window.loadCampaignProjectPackage === "function") {

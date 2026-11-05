@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/cad_canvas_renderer.js"
 title: "cad_canvas_renderer.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "411218de4b6a5223"
-reviewed_hash: "411218de4b6a5223"
+current_hash: "68898cb19050a386"
+reviewed_hash: "68898cb19050a386"
 stale: false
-size_bytes: 81480
+size_bytes: 81468
 line_count: 1631
 ---
 
@@ -21,7 +21,8 @@ line_count: 1631
 - **AutoCAD Color Standard (ACI 1-9)**: Defines canonical CAD layer palette indexing (`AUTOCAD_COLORS`) and cultural quadrant color mapping.
 - **Player Visibility & Fog-of-War (FoW)**: Manages concealment thresholds, GM vision overrides (`toggleGmVision`), and hidden node indicators.
 - **CAD Drawing Shapes & Grip Handles**: Renders `topo.shapes` into `#drawings-layer` across rectangle, circle/ellipse, and vector line primitives (`renderShapeSvgElement`) with stroke styling (solid, dashed, dotted), layer/shape opacity blending, and 4/2-point CAD grip handles when selected.
-- **Cartographic Elements & Badging**: Renders transit corridors (E_adj), cubic Bezier hegemony influence curves (E_inf), corridor module/flow badges (`M:x F:y`), portal indicator rings, position lock badges (`lockAllNodes`), node telemetry badges (`M`, `P`, `R`/`⚠️R`, `N`, `Q`, `I`, `T`), crisis state alerts, and draggable threat clock overlay callouts.
+- **Cartographic Elements & Badging**: Renders transit corridors (E_adj), cubic Bezier hegemony influence curves (E_inf), corridor module/flow badges (`M:x F:y`), portal indicator rings, position lock badges (`lockAllNodes`), node telemetry badges (`M`, `P`, `R`/`âš ï¸R`, `N`, `Q`, `I`, `T`), crisis state alerts, and draggable threat clock overlay callouts.
 - **Background Map Canvas Integration**: Dynamically binds and projects raster map backgrounds onto `#canvas-bg-image` from active metadata (`dataUrl` or `url`), supporting opacity blending and layer toggles without canvas flickering.
 - **Recursive Sub-Map Entity Aggregation**: Resolves effective stationed items and entities across nested portal sub-maps (`getItemEffectiveNodeId`, `getRecursiveNodeEntities`, `traverseSubmap`).
+- ODV (SYS-ODV-02 S1): resolveNodeOdv calls no longer pass the topology as fallbackIndex.
 <!-- END_CUSTOM_NOTES -->

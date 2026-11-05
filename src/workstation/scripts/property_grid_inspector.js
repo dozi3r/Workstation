@@ -1156,8 +1156,8 @@
           node.odv = { s: curS, e: curE, c: curC };
         }
         const odvTag = `[${curS}, ${curE}, ${curC}]`;
-        const archetype = (typeof ODV_MATRIX_64 !== "undefined" && ODV_MATRIX_64[odvTag])
-          ? ODV_MATRIX_64[odvTag]
+        const archetype = (typeof getArchetype === "function" && getArchetype(odvTag))
+          ? getArchetype(odvTag)
           : { archetypeName: 'Standard Archetype', coreBoon: 'N/A', coreBurden: 'N/A' };
 
         const sOptions = [
@@ -2647,11 +2647,14 @@
           if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
         });
 
-        const disp = Array.isArray(npc.disposition) ? npc.disposition : [2, 2, 2];
-        const odvTag = `S${disp[0] || 2}E${disp[1] || 2}C${disp[2] || 2}`;
-        const odvObj = (typeof ODV_MATRIX_64 !== 'undefined' && ODV_MATRIX_64[odvTag]) ? ODV_MATRIX_64[odvTag] : null;
+        const resolvedOdv = (typeof getOdv === 'function') ? getOdv(npc) : null;
+        const disp = (resolvedOdv && resolvedOdv.set)
+          ? [resolvedOdv.s, resolvedOdv.e, resolvedOdv.c]
+          : (Array.isArray(npc.disposition) && npc.disposition.length >= 3 ? npc.disposition : [2, 2, 2]);
+        const odvTag = `[${disp[0] || 2}, ${disp[1] || 2}, ${disp[2] || 2}]`;
+        const odvObj = (typeof getArchetype === 'function') ? getArchetype(odvTag) : null;
         const archName = odvObj ? odvObj.archetypeName : 'Standard Archetype';
-        appendPropRow(tbody, 'ODV Archetype', `[${odvTag}] ${archName}`, false);
+        appendPropRow(tbody, 'ODV Archetype', `${odvTag} ${archName}`, false);
 
         appendSelectPropRow(tbody, 'Four-Corners Role', npc.fourCornersRole || 'Active', [
           { val: 'Active', label: '🔥 Catalyst (Active)' },

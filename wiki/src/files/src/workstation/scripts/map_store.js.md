@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/map_store.js"
 title: "map_store.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "1b8dbe26704dc47d"
-reviewed_hash: "1b8dbe26704dc47d"
+current_hash: "1818baa822450319"
+reviewed_hash: "1818baa822450319"
 stale: false
-size_bytes: 122275
-line_count: 2948
+size_bytes: 123650
+line_count: 2985
 ---
 
 # map_store.js

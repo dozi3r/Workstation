@@ -69,6 +69,33 @@ function validateCampaignPackage(campaignName) {
     }
   }
 
+  // Validate campaign override slots (SYS-ODV-04): every slot file found must parse and validate.
+  {
+    const slotsLib = require(path.join(ROOT_DIR, 'src/workstation/scripts/campaign_override_slots.js'));
+    const rels = [];
+    ['', 'odv', 'overrides', 'overrides/odv'].forEach(sub => {
+      const d = path.join(campDir, sub);
+      if (fs.existsSync(d) && fs.statSync(d).isDirectory()) {
+        fs.readdirSync(d).forEach(f => { if (fs.statSync(path.join(d, f)).isFile()) rels.push((sub ? sub + '/' : '') + f); });
+      }
+    });
+    slotsLib.CAMPAIGN_OVERRIDE_SLOTS.forEach(slot => {
+      const hit = rels.find(r => slotsLib.matchSlotFile(r, [slot]));
+      if (!hit) return;
+      let warns;
+      try {
+        warns = slot.validate(slot.parse(fs.readFileSync(path.join(campDir, hit), 'utf8'))) || [];
+      } catch (err) {
+        throw new Error(`Override slot '${slot.id}' (${hit}) invalid in ${campaignName}: ${err.message}`);
+      }
+      if (warns.length && process.argv.includes('--strict-overrides')) {
+        throw new Error(`Override slot '${slot.id}' in ${campaignName}: ${warns.join('; ')}`);
+      }
+      warns.forEach(w => console.warn(`  [WARN] ${slot.id} (${hit}): ${w}`));
+      console.log(`  [OK] Override slot '${slot.id}' valid in ${campaignName} (${hit}).`);
+    });
+  }
+
   console.log(`  [OK] Campaign package '${campaignName}' passed structural validation.`);
   return true;
 }

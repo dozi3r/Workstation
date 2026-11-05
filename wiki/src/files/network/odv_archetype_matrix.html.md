@@ -3,11 +3,11 @@ file_path: "network/odv_archetype_matrix.html"
 title: "Creator Studio: 64-Cell ODV Archetype Matrix & Hermeneutics Explorer"
 volume: "vol-5"
 kind: "Standalone Zero-CORS HTML Workstation"
-current_hash: "359b3e9274d4755e"
-reviewed_hash: "359b3e9274d4755e"
+current_hash: "a614f7013a29e4cc"
+reviewed_hash: "a614f7013a29e4cc"
 stale: false
-size_bytes: 189213
-line_count: 3384
+size_bytes: 190313
+line_count: 3403
 ---
 
 # Creator Studio: 64-Cell ODV Archetype Matrix & Hermeneutics Explorer
@@ -42,4 +42,8 @@ It provides a high-density, interactive tactical and strategic exploration suite
    - Ingests active campaign topology from `localStorage` (`creator_studio_maps_registry`), file upload, or universal 22-node fallback.
    - Displays stationed settlement nodes and traversing corridors with faction tags, MTG color badges, and road friction hazard levels (`[Allied Artery]`, `[Regulated Border]`, `[Contested Frontline Δ≥5]`).
    - Deep-links directly to the desktop workstation canvas (`../start.html?selectNode=<id>`, `../start.html?selectEdge=<key>`).
+7. **Per-Campaign Matrix Registry**:
+   - Campaign matrices register themselves through a script tag as `window.CS_CAMPAIGN_ODV_MATRICES[key] = { label, match, matrix }` (zero-CORS; a missing file is ignored).
+   - On boot, `applyCampaignMatrix()` tests `match` (case-insensitive regex) against the active campaign name and `cs_active_campaign`, and applies the matrix as `ODV_MATRIX_OVERRIDE`. It is skipped when a manual override already exists, and the Reset button restores `sociology_data.js` defaults without re-applying.
+   - Current entry: `campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.js` (mirror of `odv_matrix_krynn.json`; rationale in `docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md`). The in-workstation MDI matrix window in `start.html` does not use this registry yet.
 <!-- END_CUSTOM_NOTES -->

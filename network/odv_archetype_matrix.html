@@ -1145,6 +1145,8 @@ CRITICAL INSTRUCTION:
 
   <!-- LOAD GAME FILES DIRECTLY (ZERO-CORS OFFLINE SCRIPT) -->
   <script src="../src/workstation/scripts/sociology_data.js"></script>
+  <!-- Optional per-campaign matrices (zero-CORS registry; missing files are ignored) -->
+  <script src="campaign_odv_matrices.js" onerror="this.remove()"></script>
 
   <!-- WORKSTATION VISUALIZER ENGINE -->
   <script>
@@ -3358,10 +3360,27 @@ CRITICAL INSTRUCTION:
       }, 2500);
     }
 
+    // Apply a registered campaign matrix when the active campaign matches (boot only, so Reset restores defaults).
+    function applyCampaignMatrix() {
+      const reg = window.CS_CAMPAIGN_ODV_MATRICES;
+      if (!reg || (window.ODV_MATRIX_OVERRIDE && Object.keys(window.ODV_MATRIX_OVERRIDE).length > 0)) return;
+      let activeName = activeCampaignSource || "";
+      try { activeName += " " + (localStorage.getItem("cs_active_campaign") || ""); } catch (e) {}
+      for (const entry of Object.values(reg)) {
+        if (!entry || !entry.matrix || !new RegExp(entry.match, "i").test(activeName)) continue;
+        window.ODV_MATRIX_OVERRIDE = entry.matrix;
+        initMatrixData();
+        const provBadge = document.getElementById("provenance-badge");
+        provBadge.innerText = `● Campaign matrix: ${entry.label} (${Object.keys(activeMatrix).length} Archetypes)`;
+        return;
+      }
+    }
+
     // Boot
     document.addEventListener("DOMContentLoaded", () => {
       initMatrixData();
       loadActiveCampaignTopology();
+      applyCampaignMatrix();
       renderActiveView();
       updateTunerUI();
     });

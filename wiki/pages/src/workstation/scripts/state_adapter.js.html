@@ -470,7 +470,7 @@
         <h1 class="article-title">state_adapter.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 9d8b95d0)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 3a489352)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (26)</a>
         </div>
@@ -483,9 +483,9 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/state_adapter.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1267 lines &bull; 58.6 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 9d8b95d0)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>14</strong> references</td></tr>
+    <tr><th>File Metrics</th><td>1244 lines &bull; 57.2 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 3a489352)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>16</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>26</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/state_adapter.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
@@ -504,8 +504,13 @@
       
       <h3>Architectural Purpose & Role</h3>
 <p><code>src/workstation/scripts/state_adapter.js</code> serves as the authoritative multi-map data model, scale-fluid cartography sync adapter, and campaign package loading orchestrator. Provides <code>switchActiveMap()</code>, <code>loadCampaignProjectPackage()</code>, <code>syncAdapterFromWorkstationTopology()</code>, and <code>syncAdapterToWorkstationTopology()</code>, resolving background images via <code>resolveMapBackgroundUrl()</code> (IndexedDB, in-memory <code>dataUrl</code>, bound folder handle, or zero-CORS offline <code>assetPath</code>) without premature DB cache eviction when asset paths exist, and preserving node modules, ad-hoc resource logistics (<code>provides</code>, <code>requires</code>, <code>operationalProfile</code>), <code>custom_modules</code> (<code>SYS-START-09</code>), and corridor <code>edgeData</code> across map transitions.</p>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">SCALE_TIERS</span><span class="pill">activeMapId</span><span class="pill">maps</span><span class="pill">activeCampaignId</span><span class="pill">currentCampaignName</span><span class="pill">nodes</span><span class="pill">links</span><span class="pill">waves</span><span class="pill">drawnCards</span><span class="pill">nodeSlottedModules</span><span class="pill">edgeSlottedModules</span><span class="pill">revealedNodes</span><span class="pill">fogOfWarMode</span></div><h3>Declared Functions / Subroutines (19)</h3><div class="pill-list"><span class="pill">initMapsRegistry(forceReset = false)</span><span class="pill">syncActiveMapToRegistry()</span><span class="pill">switchActiveMap(targetMapId, force = false, options = {})</span><span class="pill">createMap(name, scaleTier = &quot;region&quot;, parentMapId = null, parentNodeId = null, nodePrefix = null, dispositionModifier = &quot;&quot;)</span><span class="pill">deleteMap(mapId)</span><span class="pill">getBreadcrumbPath(mapId = activeMapId)</span><span class="pill">getActiveMapId()</span><span class="pill">getActiveMapName()</span><span class="pill">getActiveMapScaleTier()</span><span class="pill">getNode(id)</span><span class="pill">getNodeAdjacents(nid)</span><span class="pill">getNodeIncomingSources(nid)</span><span class="pill">normalizeNodeSlottedModules(rawMap)</span><span class="pill">normalizeOdvVector(odv, fallback)</span><span class="pill">syncAdapterFromWorkstationTopology()</span><span class="pill">srcIdRawNorm(v)</span><span class="pill">syncAdapterToWorkstationTopology()</span><span class="pill">syncAdapterFromStudioState()</span><span class="pill">loadCampaignProjectPackage(rawPkg, options = {})</span></div>
-      <h2 id="outbound-links">Outbound References (14)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+<h3>Corridor / Node Seam Aliases (SYS-ARCH-01)</h3>
+<p>This file no longer publishes <code>formatCorridorKey</code>, <code>getNodesList</code>, <code>ensureQueryableNodesCollection</code> and the other pointcrawl aliases, and <code>window.CampaignStateAdapter</code> is gone. That tail block was dead (state_adapter loaded before the engine) and had no readers. <code>campaign_mutation_engine.js</code> publishes the aliases from its UMD tail. In-file reads of the engine (<code>getNodesList</code>, <code>ensureQueryableNodesCollection</code>) are runtime <code>typeof CampaignMutationEngine</code> checks and are unchanged.</p>
+<ul class="wiki-list">
+<li>ODV (SYS-ODV-02 S1): normalizeOdvVector uses normalizeOdvInput, returns undefined when unset/invalid; odvDefault removed.</li>
+</ul>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">SCALE_TIERS</span><span class="pill">activeMapId</span><span class="pill">maps</span><span class="pill">activeCampaignId</span><span class="pill">currentCampaignName</span><span class="pill">nodes</span><span class="pill">links</span><span class="pill">waves</span><span class="pill">drawnCards</span><span class="pill">nodeSlottedModules</span><span class="pill">edgeSlottedModules</span><span class="pill">revealedNodes</span><span class="pill">fogOfWarMode</span></div><h3>Declared Functions / Subroutines (19)</h3><div class="pill-list"><span class="pill">initMapsRegistry(forceReset = false)</span><span class="pill">syncActiveMapToRegistry()</span><span class="pill">switchActiveMap(targetMapId, force = false, options = {})</span><span class="pill">createMap(name, scaleTier = &quot;region&quot;, parentMapId = null, parentNodeId = null, nodePrefix = null, dispositionModifier = &quot;&quot;)</span><span class="pill">deleteMap(mapId)</span><span class="pill">getBreadcrumbPath(mapId = activeMapId)</span><span class="pill">getActiveMapId()</span><span class="pill">getActiveMapName()</span><span class="pill">getActiveMapScaleTier()</span><span class="pill">getNode(id)</span><span class="pill">getNodeAdjacents(nid)</span><span class="pill">getNodeIncomingSources(nid)</span><span class="pill">normalizeNodeSlottedModules(rawMap)</span><span class="pill">normalizeOdvVector(odv)</span><span class="pill">syncAdapterFromWorkstationTopology()</span><span class="pill">srcIdRawNorm(v)</span><span class="pill">syncAdapterToWorkstationTopology()</span><span class="pill">syncAdapterFromStudioState()</span><span class="pill">loadCampaignProjectPackage(rawPkg, options = {})</span></div>
+      <h2 id="outbound-links">Outbound References (16)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_b_scale_fluid_nested_cartography.html"><strong>Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series B: Scale-Fluid Hierarchical Cartography, Global State Swap &amp; IndexedDB</td>
@@ -525,6 +530,10 @@
         <td><a href="../../../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes ensureQueryableNodesCollection() defined in campaign_mutation_engine.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/campaign_override_slots.js.html"><strong>src/workstation/scripts/campaign_override_slots.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes applyCampaignOverrides() defined in campaign_override_slots.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
@@ -553,6 +562,10 @@
         <td><a href="../../../../pages/src/workstation/scripts/property_grid_inspector.js.html"><strong>src/workstation/scripts/property_grid_inspector.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes selectGlobal() defined in property_grid_inspector.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/sociology_data.js.html"><strong>src/workstation/scripts/sociology_data.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes normalizeOdvInput() defined in sociology_data.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/workstation_state.js.html"><strong>src/workstation/scripts/workstation_state.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

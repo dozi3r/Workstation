@@ -1496,7 +1496,7 @@ function generateFoundryVTTJSON(topo = null) {
   nodesList.forEach((n, idx) => {
     if (!n) return;
     const jId = `fvtt_journal_node_${n.id}`;
-    const odvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(n, activeTopo) : { s: 2, e: 2, c: 2 };
+    const odvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(n) : { s: 2, e: 2, c: 2 };
     const odvVec = [odvObj.s || 2, odvObj.e || 2, odvObj.c || 2];
     const quad = n.culture || (typeof deriveCvfQuadrant === 'function' ? deriveCvfQuadrant(odvVec[0], odvVec[1]) : 'Hierarchy');
     const htmlContent = [
@@ -1710,7 +1710,7 @@ function generateCampaignHTMLDossier(topo = null) {
     .replace(/"/g, '&quot;');
 
   const nodeRows = nodesList.map(n => {
-    const odvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(n, activeTopo) : { s: 2, e: 2, c: 2 };
+    const odvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(n) : { s: 2, e: 2, c: 2 };
     const odvVec = [odvObj.s || 2, odvObj.e || 2, odvObj.c || 2];
     const quad = n.culture || (typeof deriveCvfQuadrant === 'function' ? deriveCvfQuadrant(odvVec[0], odvVec[1]) : 'Hierarchy');
     return `<tr>
