@@ -380,6 +380,25 @@
    * Normalize AI-generated or external entity schemas to canonical runtime fields.
    * Supports both canonical entity_core.js fields and Chapter 5 shorthand aliases.
    */
+  // Local copy of sociology_data.js normalizeOdvInput: null when absent or invalid, never a placeholder.
+  function localNormalizeOdv(raw) {
+    if (raw === undefined || raw === null || raw === "" || typeof raw === "number") return null;
+    let v = null;
+    if (Array.isArray(raw)) v = raw.slice(0, 3);
+    else if (typeof raw === "string") { const m = raw.match(/(-?\d+)\D+(-?\d+)\D+(-?\d+)/); if (m) v = [m[1], m[2], m[3]]; }
+    else if (typeof raw === "object") v = [raw.s, raw.e, raw.c];
+    if (!v || v.length < 3) return null;
+    const n = v.map(Number);
+    if (n.some(x => !Number.isInteger(x) || x < 1 || x > 4)) return null;
+    return { s: n[0], e: n[1], c: n[2] };
+  }
+
+  function setOrDeleteOdv(obj, raw) {
+    const o = localNormalizeOdv(raw);
+    if (o) { obj.odv = o; if (!obj.odvSource) obj.odvSource = "imported"; }
+    else { delete obj.odv; delete obj.odvSource; }
+  }
+
   function normalizeImportedEntities(entitiesObj) {
     if (!entitiesObj || typeof entitiesObj !== "object") return entitiesObj;
     if (!Array.isArray(entitiesObj.npcs)) entitiesObj.npcs = [];
@@ -392,16 +411,13 @@
     // 1. Normalize NPCs & carriedItemIds -> item.ownerNpcId
     entitiesObj.npcs.forEach(npc => {
       if (!npc || typeof npc !== "object") return;
-      if (Array.isArray(npc.odv)) {
-        npc.odv = {
-          s: Number(npc.odv[0]) || 2,
-          e: Number(npc.odv[1]) || 2,
-          c: Number(npc.odv[2]) || 2
-        };
-      }
+      setOrDeleteOdv(npc, npc.odv !== undefined ? npc.odv : (typeof npc.disposition === "number" ? null : npc.disposition));
       if (!npc.faction && npc.factionId) npc.faction = npc.factionId;
-      if (npc.disposition === undefined && npc.dispositionToParty !== undefined) {
-        npc.disposition = Number(npc.dispositionToParty) || 0;
+      if (typeof npc.disposition === "number") {
+        if (npc.dispositionToParty === undefined) npc.dispositionToParty = npc.disposition;
+        delete npc.disposition;
+      } else if (Array.isArray(npc.disposition)) {
+        delete npc.disposition;
       }
       if (Array.isArray(npc.carriedItemIds) && npc.id) {
         npc.carriedItemIds.forEach(itemId => {
@@ -477,19 +493,8 @@
     // 4. Normalize Factions (disposition array -> odv object)
     entitiesObj.factions.forEach(fac => {
       if (!fac || typeof fac !== "object") return;
-      if (Array.isArray(fac.disposition) && (!fac.odv || Array.isArray(fac.odv))) {
-        fac.odv = {
-          s: Number(fac.disposition[0]) || 2,
-          e: Number(fac.disposition[1]) || 2,
-          c: Number(fac.disposition[2]) || 2
-        };
-      } else if (Array.isArray(fac.odv)) {
-        fac.odv = {
-          s: Number(fac.odv[0]) || 2,
-          e: Number(fac.odv[1]) || 2,
-          c: Number(fac.odv[2]) || 2
-        };
-      }
+      setOrDeleteOdv(fac, (fac.odv !== undefined && fac.odv !== null) ? fac.odv : fac.disposition);
+      if (Array.isArray(fac.disposition)) delete fac.disposition;
     });
 
     const cme = (typeof window !== "undefined" && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== "undefined" ? CampaignMutationEngine : null);

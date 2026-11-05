@@ -40,23 +40,25 @@
 
   // --- Normalization Helpers (Ported from Import-CampaignSlice.ps1 & selective_importer.js) ---
 
-  function normalizeOdv(val) {
-    if (!val) return { s: 2, e: 2, c: 2 };
-    if (Array.isArray(val)) {
-      return {
-        s: Number(val[0]) || 2,
-        e: Number(val[1]) || 2,
-        c: Number(val[2]) || 2
-      };
-    }
-    if (typeof val === 'object') {
-      return {
-        s: Number(val.s) || 2,
-        e: Number(val.e) || 2,
-        c: Number(val.c) || 2
-      };
-    }
-    return { s: 2, e: 2, c: 2 };
+  // Local copy of sociology_data.js normalizeOdvInput (UMD engine also runs under node tests).
+  // Returns {s,e,c} with integers 1..4, or null when absent/invalid. Never invents a value.
+  function normalizeOdv(raw) {
+    if (raw === undefined || raw === null || raw === '' || typeof raw === 'number') return null;
+    let v = null;
+    if (Array.isArray(raw)) v = raw.slice(0, 3);
+    else if (typeof raw === 'string') { const m = raw.match(/(-?\d+)\D+(-?\d+)\D+(-?\d+)/); if (m) v = [m[1], m[2], m[3]]; }
+    else if (typeof raw === 'object') v = [raw.s, raw.e, raw.c];
+    if (!v || v.length < 3) return null;
+    const n = v.map(x => Number(x));
+    if (n.some(x => !Number.isInteger(x) || x < 1 || x > 4)) return null;
+    return { s: n[0], e: n[1], c: n[2] };
+  }
+
+  // Set-or-delete: writes a valid ODV onto obj, otherwise removes any stale odv/odvSource.
+  function applyOdvOrDelete(obj, raw) {
+    const o = normalizeOdv(raw);
+    if (o) { obj.odv = o; if (!obj.odvSource) obj.odvSource = 'imported'; }
+    else { delete obj.odv; delete obj.odvSource; }
   }
 
   /**
@@ -110,10 +112,13 @@
 
     entitiesObj.npcs.forEach(npc => {
       if (!npc) return;
-      if (!npc.odv || Array.isArray(npc.odv)) npc.odv = normalizeOdv(npc.odv || npc.disposition);
+      applyOdvOrDelete(npc, npc.odv !== undefined ? npc.odv : (typeof npc.disposition === 'number' ? null : npc.disposition));
       if (!npc.faction && npc.factionId) npc.faction = npc.factionId;
-      if (npc.disposition === undefined && npc.dispositionToParty !== undefined) {
-        npc.disposition = Number(npc.dispositionToParty) || 0;
+      if (typeof npc.disposition === 'number') {
+        if (npc.dispositionToParty === undefined) npc.dispositionToParty = npc.disposition;
+        delete npc.disposition;
+      } else if (Array.isArray(npc.disposition)) {
+        delete npc.disposition;
       }
       if (Array.isArray(npc.carriedItemIds) && npc.id) {
         npc.carriedItemIds.forEach(itemId => {
@@ -193,9 +198,8 @@
 
     entitiesObj.factions.forEach(f => {
       if (!f) return;
-      if (!f.odv || Array.isArray(f.odv)) {
-        f.odv = normalizeOdv(f.odv || f.disposition);
-      }
+      applyOdvOrDelete(f, f.odv !== undefined && f.odv !== null ? f.odv : f.disposition);
+      if (Array.isArray(f.disposition)) delete f.disposition;
       if (!f.cvfQuadrant && (f.quadrant || f.culture)) f.cvfQuadrant = f.quadrant || f.culture;
       if (!f.quadrant && f.cvfQuadrant) f.quadrant = f.cvfQuadrant;
       if (!Array.isArray(f.controlledNodeIds)) f.controlledNodeIds = [];
@@ -436,11 +440,15 @@
 
     // Type-specific shorthand normalization
     if (cat === 'npcs') {
-      if (normPayload.odv) normPayload.odv = normalizeOdv(normPayload.odv);
+      if (normPayload.odv !== undefined) {
+        const o = normalizeOdv(normPayload.odv);
+        if (o) normPayload.odv = o; else delete normPayload.odv;
+      }
       if (normPayload.node) normPayload.nodeId = resolveNodeRef(state, normPayload.node, batchContext.symbolTable);
       if (normPayload.nodeId) normPayload.nodeId = resolveNodeRef(state, normPayload.nodeId, batchContext.symbolTable);
-      if (normPayload.dispositionToParty !== undefined && normPayload.disposition === undefined) {
-        normPayload.disposition = Number(normPayload.dispositionToParty) || 0;
+      if (typeof normPayload.disposition === 'number') {
+        if (normPayload.dispositionToParty === undefined) normPayload.dispositionToParty = normPayload.disposition;
+        delete normPayload.disposition;
       }
     } else if (cat === 'quests') {
       if (!normPayload.title && normPayload.name) normPayload.title = normPayload.name;
@@ -1449,12 +1457,12 @@
       }
       if (targetObj) {
         const clamp = (v) => Math.max(1, Math.min(4, Number(v) || 2));
-        const curOdv = normalizeOdv(targetObj.odv || targetObj.disposition);
-        if (c.odv || c.disposition) {
-          const next = normalizeOdv(c.odv || c.disposition);
-          targetObj.odv = { s: clamp(next.s), e: clamp(next.e), c: clamp(next.c) };
-          targetObj.disposition = [targetObj.odv.s, targetObj.odv.e, targetObj.odv.c];
-        } else if (c.delta || c.deltaS !== undefined || c.deltaE !== undefined || c.deltaC !== undefined) {
+        const curOdv = normalizeOdv(targetObj.odv !== undefined ? targetObj.odv : (typeof targetObj.disposition === 'number' ? null : targetObj.disposition));
+        const nextOdv = (c.odv || c.disposition) ? normalizeOdv(c.odv || c.disposition) : null;
+        if (nextOdv) {
+          targetObj.odv = { s: clamp(nextOdv.s), e: clamp(nextOdv.e), c: clamp(nextOdv.c) };
+          targetObj.odvSource = 'authored';
+        } else if (curOdv && (c.delta || c.deltaS !== undefined || c.deltaE !== undefined || c.deltaC !== undefined)) {
           const ds = Array.isArray(c.delta) ? (Number(c.delta[0]) || 0) : (c.delta && typeof c.delta === 'object' ? (Number(c.delta.s) || 0) : (Number(c.deltaS) || 0));
           const de = Array.isArray(c.delta) ? (Number(c.delta[1]) || 0) : (c.delta && typeof c.delta === 'object' ? (Number(c.delta.e) || 0) : (Number(c.deltaE) || 0));
           const dc = Array.isArray(c.delta) ? (Number(c.delta[2]) || 0) : (c.delta && typeof c.delta === 'object' ? (Number(c.delta.c) || 0) : (Number(c.deltaC) || 0));
@@ -1463,7 +1471,7 @@
             e: clamp(curOdv.e + de),
             c: clamp(curOdv.c + dc)
           };
-          targetObj.disposition = [targetObj.odv.s, targetObj.odv.e, targetObj.odv.c];
+          targetObj.odvSource = 'authored';
         }
       }
     } else if (cType === 'reveal_node') {

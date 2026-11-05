@@ -888,8 +888,8 @@
                   selectEdge('road', uId, vId, e);
                 };
 
-                const uOdvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(u, topo) : { s: 2, e: 2, c: 2 };
-                const vOdvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(v, topo) : { s: 2, e: 2, c: 2 };
+                const uOdvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(u) : { s: 2, e: 2, c: 2 };
+                const vOdvObj = (typeof resolveNodeOdv === 'function') ? resolveNodeOdv(v) : { s: 2, e: 2, c: 2 };
                 const corridorDelta = Math.abs((uOdvObj.s || 2) - (vOdvObj.s || 2)) + Math.abs((uOdvObj.e || 2) - (vOdvObj.e || 2)) + Math.abs((uOdvObj.c || 2) - (vOdvObj.c || 2));
                 const isHighFriction = (corridorDelta >= 5) && (Workstation.showContradictionOverlay !== false);
 

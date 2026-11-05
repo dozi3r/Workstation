@@ -669,14 +669,10 @@ function normalizeNodeSlottedModules(rawMap) {
 /**
  * Safely normalize a node ODV vector ([S, E, C] array or {s, e, c} object) into a 3-element array
  */
-function normalizeOdvVector(odv, fallback) {
-  const src = odv || fallback;
-  if (!src) return undefined;
-  if (Array.isArray(src)) return [...src];
-  if (typeof src === "object") {
-    return [src.s !== undefined ? src.s : 2, src.e !== undefined ? src.e : 2, src.c !== undefined ? src.c : 2];
-  }
-  return undefined;
+function normalizeOdvVector(odv) {
+  const v = (typeof normalizeOdvInput === "function") ? normalizeOdvInput(odv) : null;
+  if (!v || v.invalid) return undefined;
+  return [v.s, v.e, v.c];
 }
 
 /**
@@ -768,7 +764,7 @@ function syncAdapterFromWorkstationTopology() {
       requires: (n && Array.isArray(n.requires)) ? [...n.requires] : [],
       operationalProfile: (n && n.operationalProfile) ? n.operationalProfile : undefined,
       modData: (n && n.modData) ? JSON.parse(JSON.stringify(n.modData)) : {},
-      odv: normalizeOdvVector(n && n.odv, n && n.odvDefault),
+      odv: normalizeOdvVector(n && n.odv),
       odvOverridden: !!(n && n.odvOverridden),
       faction: (n && n.faction) || "neutral",
       layerId: (n && n.layerId) || "layer-nodes"
@@ -871,7 +867,7 @@ function syncAdapterToWorkstationTopology() {
       requires: Array.isArray(n.requires) ? [...n.requires] : [],
       operationalProfile: n.operationalProfile || undefined,
       modData: n.modData ? JSON.parse(JSON.stringify(n.modData)) : {},
-      odv: normalizeOdvVector(n.odv, n.odvDefault),
+      odv: normalizeOdvVector(n.odv),
       odvOverridden: n.odvOverridden || false,
       faction: n.faction || "neutral",
       layerId: n.layerId || "layer-nodes"

@@ -2282,6 +2282,24 @@ function testOdvCampaignReflectionAndDenseMatrix() {
   const cultureFallbackMarket = sandbox.resolveNodeOdv({ id: 3, name: 'Market Bazaar', culture: 'Market' });
   assertEqual(cultureFallbackMarket.tag, '[2, 3, 2]', 'resolveNodeOdv falls back to Market culture disposition [2, 3, 2]');
 
+  // 1b. Canonical getOdv / getEdgeOdv / getNodeQuadrant (SYS-ODV-02 S1)
+  const g0 = sandbox.getOdv({});
+  assertEqual(g0.set, false, 'getOdv({}) is unset');
+  assertEqual(g0.source, 'unset', 'getOdv({}) source is unset');
+  assertEqual(sandbox.getOdv({ odv: null }).set, false, 'getOdv({odv:null}) is unset');
+  assertEqual(sandbox.getOdv({ odv: [0, 1, 2] }).source, 'invalid', 'getOdv rejects 0 instead of coercing to 2');
+  assertEqual(sandbox.getOdv({ odv: [9, 9, 9] }).source, 'invalid', 'getOdv rejects [9,9,9] instead of clamping');
+  assertEqual(sandbox.getOdv({ odv: '[1, 3, 4]' }).tag, '[1, 3, 4]', 'getOdv parses string tag');
+  assertEqual(sandbox.getOdv({ odv: { s: 4, e: 1, c: 3 }, odvSource: 'authored' }).source, 'authored', 'getOdv reports odvSource');
+  assertEqual(sandbox.getOdv({ disposition: 1 }).set, false, 'getOdv ignores NPC scalar disposition');
+  assertEqual(sandbox.getOdv({ disposition: [3, 3, 3] }).set, true, 'getOdv reads array disposition');
+  const eUnset = sandbox.getEdgeOdv(null, { set: true, s: 1, e: 1, c: 1 }, { set: false }, null);
+  assertEqual(eUnset.set, false, 'getEdgeOdv with an unset endpoint is unset');
+  assertEqual(eUnset.totalDelta, null, 'getEdgeOdv with an unset endpoint has null totalDelta');
+  assertEqual(eUnset.isHighHazard, false, 'getEdgeOdv with an unset endpoint is not high hazard');
+  assertEqual(sandbox.getNodeQuadrant({ culture: 'Clan' }), 'Clan', 'getNodeQuadrant honours authored culture');
+  assertEqual(sandbox.getNodeQuadrant({}), null, 'getNodeQuadrant is null when nothing is set');
+
   // 2. Verify Edge Corridor ODV resolution (midpoint centroid vs explicit override & friction delta)
   const midEdge = sandbox.resolveEdgeOdv(null, { s: 1, e: 1, c: 1 }, { s: 4, e: 3, c: 4 }, null);
   assertEqual(midEdge.tag, '[3, 2, 3]', 'resolveEdgeOdv computes rounded midpoint [3, 2, 3] between [1,1,1] and [4,3,4]');
