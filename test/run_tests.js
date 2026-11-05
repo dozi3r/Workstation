@@ -6692,8 +6692,21 @@ function testMultiLinkSpatialPinsShapeGripsContextMenuAndGlobalSearch() {
   const searchEntries = sandbox.collectGlobalSearchEntries();
   assert(searchEntries.some(e => e.cat === 'spatialPin' && e.entityId === multiPin.id), 'RT-08: collectGlobalSearchEntries indexes multi-link spatialPins alongside nodes and entities');
 
+  // RT-04, converted from a source-text check on entity_cascade_delete.js (SYS-ARCH-01): delete through the real
+  // executeEntityDeletion and look at the pins. Entity links are scrubbed by the engine on the active topology and on
+  // child maps; sub-map links are scrubbed by the cascade file because the engine is never called for maps.
   const cascadeCode = fs.readFileSync(path.join(scriptsDir, 'entity_cascade_delete.js'), 'utf8');
-  assert(cascadeCode.includes('sanitizePinArray(topo.spatialPins)'), 'RT-04: executeEntityDeletion scrubs deleted entity links from spatialPins');
+  vm.runInContext(cascadeCode, sandbox);
+  sandbox.maps.map_warehouse.spatialPins = [
+    { id: 'pin_wh', label: 'Warehouse Pin', targetType: 'npc', targetId: 'npc_harbormaster', links: [{ type: 'npc', id: 'npc_harbormaster' }, { type: 'item', id: 'itm_ledger' }] }
+  ];
+  const linkKeys = (pin) => pin.links.map(l => `${l.type}:${l.id}`);
+  sandbox.executeEntityDeletion([{ type: 'npc', id: 'npc_harbormaster' }]);
+  assertEqual(linkKeys(multiPin), ['item:itm_ledger', 'submap:map_warehouse', 'tracker:trk_patrol'], 'RT-04: executeEntityDeletion removes a deleted NPC link from spatialPins on the active topology');
+  assertEqual(linkKeys(sandbox.maps.map_warehouse.spatialPins[0]), ['item:itm_ledger'], 'RT-04: executeEntityDeletion removes a deleted NPC link from spatialPins on a child map');
+  assertEqual([multiPin.targetType, multiPin.targetId], ['item', 'itm_ledger'], 'RT-04: the pin target follows its first remaining link after the NPC is deleted');
+  sandbox.executeEntityDeletion([{ type: 'map', id: 'map_warehouse' }]);
+  assertEqual(linkKeys(multiPin), ['item:itm_ledger', 'tracker:trk_patrol'], 'RT-04: executeEntityDeletion removes submap links to a deleted sub-map from spatialPins');
 
   const propGridCode = fs.readFileSync(path.join(scriptsDir, 'property_grid_inspector.js'), 'utf8');
   assert(cadInteractionCode.includes('function onPinMouseDown'), 'cad_interaction.js defines onPinMouseDown for dragging spatial pins');
@@ -6719,8 +6732,6 @@ function testTicket01QuestClockSchemaAndConsequences() {
   assert(entityCoreCode.includes('function evaluateTrackerConsequences'), 'entity_core.js exports evaluateTrackerConsequences');
   assert(entityCoreCode.includes('function syncQuestAndTrackerLinks'), 'entity_core.js exports syncQuestAndTrackerLinks');
   assert(entityCoreCode.includes('function syncTrackerToQuests'), 'entity_core.js exports syncTrackerToQuests');
-  assert(cascadeCode.includes('q.trackerIds.filter'), 'entity_cascade_delete.js scrubs deleted tracker IDs from quest.trackerIds');
-  assert(cascadeCode.includes('st.triggerTrackerId && deletedIdsByType.tracker.has'), 'entity_cascade_delete.js scrubs deleted tracker IDs from quest.steps');
   assert(wikiCode.includes('clock: { label: "Threat Clock"'), 'wiki_engine.js registers clock in WIKI_TOKEN_TYPES');
 
   // 2. Behavioral testing in VM sandbox
@@ -6828,6 +6839,11 @@ function testTicket01QuestClockSchemaAndConsequences() {
   assertEqual(testTopoCascade.quests[0].steps[1].triggerTrackerId, 'trk_keep', 'Preserved tracker ID is kept on quest step 2');
   assertEqual(testTopoCascade.items[0].ownerNpcId, null, 'Deleted owner NPC is nulled out on carried item');
   assertEqual(testTopoCascade.items[0].possessionMode, 'stored', 'Carried item reverts to stored when owner NPC is deleted');
+
+  // Converted from source-text checks on entity_cascade_delete.js (SYS-ARCH-01): the engine owns this scrub now, so
+  // assert the outcome. Nothing in quest.trackerIds, quest.steps or the item roster may still point at what was deleted.
+  assertEqual(sandbox.CampaignMutationEngine.findEntityReferences(testTopoCascade, 'tracker', 'trk_del'), [], 'cascade delete leaves no reference to the deleted tracker in quest.trackerIds or quest.steps');
+  assertEqual(sandbox.CampaignMutationEngine.findEntityReferences(testTopoCascade, 'npc', 'npc_del'), [], 'cascade delete leaves no reference to the deleted NPC');
 }
 
 function testTicket02CampaignMutationEngine() {
@@ -8399,6 +8415,52 @@ function testSuite50EntityReferenceIntegrity() {
   const headings = dialogById['ed-dependencies-list'].children.filter(c => /\(\d+\):$/.test(c.innerHTML)).map(c => c.innerHTML);
   assertEqual(headings, ['📜 RELATED QUESTS & DILEMMAS (1):', '💬 MENTIONS BY NAME (NOT UNLINKED) (1):'], 'the delete dialog lists related quests and mentions under separate headings');
   assert(dialogById['ed-alert-container'].innerHTML.includes('only mention this npc by name'), 'the delete dialog banner counts the mentions');
+
+  // 50.6 (D4): the cascade file no longer scrubs entity types itself; it only calls the engine
+  const spyWorld = () => ({
+    factions: [], items: [], nodes: {}, links: [], deletedPrototypes: [],
+    npcs: [{ id: 'npc_a', name: 'Alva' }],
+    quests: [{ id: 'q_a', title: 'Q', npcIds: ['npc_a'] }],
+    trackers: [{ id: 'trk_a', name: 'T', triggerRefs: [{ entityType: 'npc', entityId: 'npc_a' }] }],
+    tickets: [{ id: 'tk_a', targetType: 'npc', targetId: 'npc_a', notes: '' }],
+    spatialPins: [{ id: 'pin_a', links: [{ type: 'npc', id: 'npc_a' }], targetType: 'npc', targetId: 'npc_a' }]
+  });
+  const engineCalls = [];
+  const spyDeleteWorld = spyWorld();
+  const spySandbox = makeCascadeSandbox(spyDeleteWorld, {});
+  spySandbox.CampaignMutationEngine = Object.assign({}, spySandbox.CampaignMutationEngine, {
+    deleteEntity: (topo, type, entId, ctx) => { engineCalls.push(`${type}:${entId}`); return true; }
+  });
+  spySandbox.executeEntityDeletion([{ type: 'npc', id: 'npc_a' }]);
+  assertEqual(engineCalls, ['npc:npc_a'], 'executeEntityDeletion delegates an NPC delete to CampaignMutationEngine.deleteEntity');
+  assertEqual(JSON.stringify(spyDeleteWorld.npcs.concat(spyDeleteWorld.quests, spyDeleteWorld.trackers, spyDeleteWorld.tickets, spyDeleteWorld.spatialPins)), JSON.stringify(spyWorld().npcs.concat(spyWorld().quests, spyWorld().trackers, spyWorld().tickets, spyWorld().spatialPins)), 'with the engine stubbed out, executeEntityDeletion leaves the roster, quests, trigger refs, tickets and pins alone');
+  assertEqual(spyDeleteWorld.deletedPrototypes, ['npc_a'], 'executeEntityDeletion still records the deleted prototype id');
+
+  // 50.7 (D4): tickets that target a deleted entity (engine), sub-map or module (cascade file) get one audit note each
+  const ticketWorld = () => ({
+    factions: [], items: [], quests: [], trackers: [], nodes: {}, links: [], spatialPins: [], campaign_modules: ['MOD-1'],
+    npcs: [{ id: 'npc_a', name: 'Alva' }],
+    tickets: [
+      { id: 'tk_npc', targetType: 'npc', targetId: 'npc_a', notes: 'n1' },
+      { id: 'tk_map', targetType: 'map', targetId: 'map_child', notes: 'n2' },
+      { id: 'tk_mod', targetType: 'module', targetId: 'MOD-1', notes: 'n3' },
+      { id: 'tk_other', targetType: 'npc', targetId: 'npc_other', notes: 'n4' }
+    ]
+  });
+  const ticketDeleteWorld = ticketWorld();
+  const ticketRegistry = buildChildMaps();
+  makeCascadeSandbox(ticketDeleteWorld, ticketRegistry).executeEntityDeletion([
+    { type: 'npc', id: 'npc_a' },
+    { type: 'map', id: 'map_child' },
+    { type: 'module', id: 'MOD-1' }
+  ]);
+  const audited = (tid) => ticketDeleteWorld.tickets.find(t => t.id === tid);
+  ['tk_npc', 'tk_map', 'tk_mod'].forEach(tid => {
+    assertEqual([audited(tid).targetType, audited(tid).targetId], ['campaign', ''], `ticket ${tid} is retargeted to the campaign when its target is deleted`);
+    assertEqual((audited(tid).notes.match(/\[Audit: Target /g) || []).length, 1, `ticket ${tid} gets exactly one audit note`);
+  });
+  assert(audited('tk_map').notes.includes('Target map (map_child) was deleted'), 'the sub-map ticket audit note names the deleted map');
+  assertEqual([audited('tk_other').targetType, audited('tk_other').targetId, audited('tk_other').notes], ['npc', 'npc_other', 'n4'], 'a ticket aimed at something else is left alone');
 }
 
 // ============================================================================

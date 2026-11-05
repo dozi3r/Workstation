@@ -912,15 +912,11 @@
         promptEntityDelete(CurrentEntityTab, entityId);
         return;
       }
+      // No confirmation dialog loaded: still delete through the engine so every reference is unlinked the same way
       const topo = Workstation.activeTopology;
-      if (CurrentEntityTab === 'npc' && topo.npcs) {
-        topo.npcs = topo.npcs.filter(n => n.id !== entityId);
-      } else if (CurrentEntityTab === 'quest' && topo.quests) {
-        topo.quests = topo.quests.filter(q => q.id !== entityId);
-      } else if (CurrentEntityTab === 'item' && topo.items) {
-        topo.items = topo.items.filter(i => i.id !== entityId);
-      } else if (CurrentEntityTab === 'tracker' && topo.trackers) {
-        topo.trackers = topo.trackers.filter(t => t.id !== entityId);
+      const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+      if (cme && typeof cme.deleteEntity === 'function' && ['npc', 'quest', 'item', 'tracker', 'faction'].includes(CurrentEntityTab)) {
+        cme.deleteEntity(topo, CurrentEntityTab, entityId, { allowMissingEntity: true, maps: (typeof maps !== 'undefined' ? maps : undefined) });
       }
 
       saveActiveCampaign();

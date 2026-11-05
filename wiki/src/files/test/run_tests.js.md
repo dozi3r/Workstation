@@ -3,11 +3,11 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "ca8a151522c5382b"
-reviewed_hash: "ca8a151522c5382b"
+current_hash: "dccadefb0041ae43"
+reviewed_hash: "dccadefb0041ae43"
 stale: false
-size_bytes: 426855
-line_count: 8477
+size_bytes: 431900
+line_count: 8539
 ---
 
 # run_tests.js
@@ -56,4 +56,6 @@ line_count: 8477
 13. **Suite 50: Entity reference integrity (SYS-ARCH-01 Phase D)**: `deleteEntity` scrubs child-map pins and nodes passed through `batchContext.maps`, scrubs a map reachable twice once, and keeps the `state.maps` walk. `executeEntityDeletion` passes the global `maps` registry to the engine (spy on the injected engine) and the child-map pin link disappears.
    - Descriptor parity: a world is generated from `ENTITY_REFERENCE_DESCRIPTORS` (one referring record and one decoy per row, state and child map) for every entity type. `findEntityReferences` must report exactly the records `deleteEntity` changes (measured by diffing the world, not by reading the changelog), be read-only, cover every row, and ignore decoys.
    - Preview parity: `analyzeEntityDependencies` must list exactly those id-based referrers as `reference` dependencies. Name mentions are a separate `mention` group, are not unlinked by the delete, and the dialog renders them under their own heading.
+   - Ownership: with the engine's `deleteEntity` stubbed out, `executeEntityDeletion` changes none of the roster, quests, trigger refs, tickets or pins (the cascade file no longer scrubs entity types). Tickets aimed at a deleted NPC (engine), sub-map or module (cascade file) each get exactly one audit note.
+   - Converted source-text checks (SYS-ARCH-01): the `sanitizePinArray(topo.spatialPins)` check (Suite 37 RT-04) and the `q.trackerIds.filter` / `st.triggerTrackerId && deletedIdsByType.tracker.has` checks (Suite 38) now run the real `executeEntityDeletion` and assert the outcome on pins, `quest.trackerIds` and `quest.steps`.
 <!-- END_CUSTOM_NOTES -->

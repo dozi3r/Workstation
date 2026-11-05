@@ -973,37 +973,21 @@
         });
       }
 
-      // 1. Delete NPCs
-      if (topo.npcs && deletedIdsByType.npc.size > 0) {
-        topo.npcs = topo.npcs.filter(n => !deletedIdsByType.npc.has(String(n.id)));
+      if (!cme || typeof cme.deleteEntity !== 'function') {
+        console.error('[CascadeDelete] CampaignMutationEngine is not loaded; entities were not removed or unlinked.');
       }
 
-      // 2. Delete Quests
-      if (topo.quests && deletedIdsByType.quest.size > 0) {
-        topo.quests = topo.quests.filter(q => !deletedIdsByType.quest.has(String(q.id)));
-      }
+      // The engine has now removed each entity from its collection and unlinked every reference to it: quests, items,
+      // NPCs, factions, trackers (triggerRefs, consequences), tickets, spatial pins and node records, on the active
+      // topology and on every registered map. What stays below is what the engine does not own: map and module
+      // targets, sub-map and node bookkeeping, module purges, and UI refresh.
 
-      // 3. Delete Items
-      if (topo.items && deletedIdsByType.item.size > 0) {
-        topo.items = topo.items.filter(i => !deletedIdsByType.item.has(String(i.id)));
-      }
-
-      // 4. Delete Trackers
-      if (topo.trackers && deletedIdsByType.tracker.size > 0) {
-        topo.trackers = topo.trackers.filter(t => !deletedIdsByType.tracker.has(String(t.id)));
-      }
-
-      // 4c. Delete Factions
-      if (topo.factions && deletedIdsByType.faction.size > 0) {
-        topo.factions = topo.factions.filter(f => !deletedIdsByType.faction.has(String(f.id)));
-      }
-
-      // 4d. Sanitize Tickets targeting deleted entities (Orphan Protection)
+      // 4d. Tickets that target a deleted map or module (the engine retargets tickets of entity types)
       if (topo.tickets && Array.isArray(topo.tickets)) {
         topo.tickets.forEach(tk => {
           const tType = tk.targetType;
           const tId = String(tk.targetId || '');
-          if (tType && deletedIdsByType[tType] && deletedIdsByType[tType].has(tId)) {
+          if ((tType === 'map' || tType === 'module') && deletedIdsByType[tType].has(tId)) {
             tk.targetType = 'campaign';
             tk.targetId = '';
             const auditNote = `\n[Audit: Target ${tType} (${tId}) was deleted on ${new Date().toISOString()}]`;
@@ -1012,46 +996,33 @@
         });
       }
 
-      // 4e. Sanitize Trackers triggerRefs pointing to deleted entities
-      if (topo.trackers && Array.isArray(topo.trackers)) {
-        topo.trackers.forEach(trk => {
-          if (Array.isArray(trk.triggerRefs)) {
-            trk.triggerRefs = trk.triggerRefs.filter(ref => {
-              const rType = ref.entityType;
-              const rId = String(ref.entityId || '');
-              return !(rType && deletedIdsByType[rType] && deletedIdsByType[rType].has(rId));
-            });
-          }
-        });
-      }
-
-      // 4f. Sanitize Spatial Pins (pin.links & pin.targetId) across active topology and all maps (Orphan Protection)
-      const sanitizePinArray = (pinsArr) => {
-        if (!Array.isArray(pinsArr)) return;
-        pinsArr.forEach(pin => {
-          if (!pin) return;
-          const isDeletedTarget = (tType, tId) => {
-            const normType = (tType === 'submap') ? 'map' : tType;
-            return !!(normType && deletedIdsByType[normType] && deletedIdsByType[normType].has(String(tId || '')));
-          };
-          if (Array.isArray(pin.links)) {
-            pin.links = pin.links.filter(lnk => !isDeletedTarget(lnk.type, lnk.id));
-          }
-          if (isDeletedTarget(pin.targetType, pin.targetId)) {
-            if (Array.isArray(pin.links) && pin.links.length > 0) {
-              pin.targetType = pin.links[0].type;
-              pin.targetId = String(pin.links[0].id);
-            } else {
-              pin.targetId = '';
+      // 4f. Spatial pin links to a deleted sub-map ('map' / 'submap' link types) on the active topology and all maps.
+      // Links to entity types were scrubbed by the engine.
+      if (deletedIdsByType.map.size > 0) {
+        const isDeletedMapLink = (tType, tId) => (tType === 'submap' || tType === 'map') && deletedIdsByType.map.has(String(tId || ''));
+        const sanitizePinArray = (pinsArr) => {
+          if (!Array.isArray(pinsArr)) return;
+          pinsArr.forEach(pin => {
+            if (!pin) return;
+            if (Array.isArray(pin.links)) {
+              pin.links = pin.links.filter(lnk => !(lnk && isDeletedMapLink(lnk.type, lnk.id)));
             }
-          }
-        });
-      };
-      sanitizePinArray(topo.spatialPins);
-      if (typeof maps !== 'undefined' && maps) {
-        Object.values(maps).forEach(m => {
-          if (m && Array.isArray(m.spatialPins)) sanitizePinArray(m.spatialPins);
-        });
+            if (isDeletedMapLink(pin.targetType, pin.targetId)) {
+              if (Array.isArray(pin.links) && pin.links.length > 0) {
+                pin.targetType = pin.links[0].type;
+                pin.targetId = String(pin.links[0].id);
+              } else {
+                pin.targetId = '';
+              }
+            }
+          });
+        };
+        sanitizePinArray(topo.spatialPins);
+        if (typeof maps !== 'undefined' && maps) {
+          Object.values(maps).forEach(m => {
+            if (m && Array.isArray(m.spatialPins)) sanitizePinArray(m.spatialPins);
+          });
+        }
       }
 
       // 4b. Delete Attached Sub-Maps (if explicitly selected for cascade deletion)
@@ -1268,88 +1239,8 @@
         }
       }
 
-      // 7. UNLINK REFERENCES ACROSS REMAINING PRESERVED ENTITIES
-      if (topo.quests) {
-        topo.quests.forEach(q => {
-          if (q.npcIds) q.npcIds = q.npcIds.filter(id => !deletedIdsByType.npc.has(String(id)));
-          if (q.itemIds) q.itemIds = q.itemIds.filter(id => !deletedIdsByType.item.has(String(id)));
-          if (q.trackerIds) q.trackerIds = q.trackerIds.filter(id => !deletedIdsByType.tracker.has(String(id)));
-          if (Array.isArray(q.steps)) {
-            q.steps.forEach(st => {
-              if (st && st.triggerTrackerId && deletedIdsByType.tracker.has(String(st.triggerTrackerId))) {
-                st.triggerTrackerId = null;
-              }
-            });
-          }
-          if (q.nodeId && deletedIdsByType.node.has(String(q.nodeId))) q.nodeId = null;
-        });
-      }
-
-      if (topo.items) {
-        topo.items.forEach(i => {
-          if (i.nodeId && deletedIdsByType.node.has(String(i.nodeId))) i.nodeId = null;
-          if (i.ownerNpcId && deletedIdsByType.npc.has(String(i.ownerNpcId))) {
-            i.ownerNpcId = null;
-            i.possessionMode = 'stored';
-          }
-        });
-      }
-
-      if (topo.trackers) {
-        topo.trackers.forEach(t => {
-          if (t.nodeId && deletedIdsByType.node.has(String(t.nodeId))) t.nodeId = null;
-          if (Array.isArray(t.consequences)) {
-            t.consequences.forEach(c => {
-              if (Array.isArray(c.operations)) {
-                c.operations = c.operations.filter(op => {
-                  const target = op.npc || op.quest || op.clock || op.item || op.node || op.entityId;
-                  if (!target) return true;
-                  const str = String(target);
-                  return !deletedIdsByType.npc.has(str) &&
-                         !deletedIdsByType.quest.has(str) &&
-                         !deletedIdsByType.tracker.has(str) &&
-                         !deletedIdsByType.item.has(str) &&
-                         !deletedIdsByType.node.has(str);
-                });
-              }
-            });
-          }
-        });
-      }
-
-      // Faction references unlinking
-      if (topo.factions) {
-        topo.factions.forEach(f => {
-          if (f.leaderNpcId && deletedIdsByType.npc.has(String(f.leaderNpcId))) {
-            f.leaderNpcId = null;
-          }
-          if (f.headquartersNodeId && deletedIdsByType.node.has(String(f.headquartersNodeId))) {
-            f.headquartersNodeId = null;
-          }
-          if (Array.isArray(f.controlledNodeIds)) {
-            f.controlledNodeIds = f.controlledNodeIds.filter(nid => !deletedIdsByType.node.has(String(nid)));
-          }
-          if (f.diplomaticStances && deletedIdsByType.faction.size > 0) {
-            deletedIdsByType.faction.forEach(fid => {
-              delete f.diplomaticStances[fid];
-            });
-          }
-        });
-      }
-
-      if (topo.npcs) {
-        topo.npcs.forEach(n => {
-          if (n.nodeId && deletedIdsByType.node.has(String(n.nodeId))) n.nodeId = null;
-          if (n.threat && Array.from(deletedIdsByType.tracker).some(tid => n.threat.includes(tid))) n.threat = '';
-          if (n.factionId && deletedIdsByType.faction.has(String(n.factionId))) n.factionId = null;
-          if (Array.isArray(n.relationships) && deletedIdsByType.npc.size > 0) {
-            n.relationships = n.relationships.filter(r => !deletedIdsByType.npc.has(String(r.targetNpcId)));
-          }
-          if (Array.isArray(n.questIds) && deletedIdsByType.quest.size > 0) {
-            n.questIds = n.questIds.filter(qid => !deletedIdsByType.quest.has(String(qid)));
-          }
-        });
-      }
+      // 7. Reference unlinking across the preserved entities is owned by the engine (CampaignMutationEngine.deleteEntity,
+      // driven by ENTITY_REFERENCE_DESCRIPTORS), which already ran above.
 
       // 8. Persist & Refresh UI
       if (typeof activeMapId !== 'undefined' && deletedIdsByType.map.has(String(activeMapId))) {
