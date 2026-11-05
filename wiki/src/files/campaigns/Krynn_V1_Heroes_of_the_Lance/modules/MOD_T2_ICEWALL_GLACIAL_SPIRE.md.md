@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_ICEWALL_GLACIA
 title: "MOD_T2_ICEWALL_GLACIAL_SPIRE: The Sub-Zero Glacier & Ice-Boat Wastes of Icewall"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "57ab98dcb97a36c5"
-reviewed_hash: "57ab98dcb97a36c5"
+current_hash: "9b6eb24944f046af"
+reviewed_hash: "9b6eb24944f046af"
 stale: false
-size_bytes: 3437
+size_bytes: 3506
 line_count: 70
 ---
 

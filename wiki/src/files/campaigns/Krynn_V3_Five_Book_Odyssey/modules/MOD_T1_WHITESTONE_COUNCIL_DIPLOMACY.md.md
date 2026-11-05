@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T1_WHITESTONE_COUNC
 title: "MOD_T1_WHITESTONE_COUNCIL_DIPLOMACY: The Whitestone Council & Measure of Solamnia"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "e2c8d9f87dafd746"
-reviewed_hash: "e2c8d9f87dafd746"
+current_hash: "9137cd93333694e1"
+reviewed_hash: "9137cd93333694e1"
 stale: false
-size_bytes: 3813
+size_bytes: 3882
 line_count: 70
 ---
 

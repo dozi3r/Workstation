@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/03_Atlas_Corridors_and_Tactical_Submaps/03_Lan
 title: "03: Langtree and The Siege of Hope's End"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "3fc98efd56281225"
-reviewed_hash: "3fc98efd56281225"
+current_hash: "7d932af369767994"
+reviewed_hash: "7d932af369767994"
 stale: false
-size_bytes: 24593
+size_bytes: 24870
 line_count: 278
 ---
 

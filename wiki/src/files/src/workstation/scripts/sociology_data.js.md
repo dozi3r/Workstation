@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/sociology_data.js"
 title: "sociology_data.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "1b1b65a6727079d0"
-reviewed_hash: "1b1b65a6727079d0"
+current_hash: "1271371d500da587"
+reviewed_hash: "1271371d500da587"
 stale: false
-size_bytes: 127038
+size_bytes: 129068
 line_count: 2031
 ---
 

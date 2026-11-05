@@ -3,10 +3,10 @@ file_path: "tools/krynn/compiler/data_quests_and_clocks.js"
 title: "data_quests_and_clocks.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "1fd75ae90c2f6c57"
-reviewed_hash: "1fd75ae90c2f6c57"
+current_hash: "4e9ee43268bbddc0"
+reviewed_hash: "4e9ee43268bbddc0"
 stale: false
-size_bytes: 48431
+size_bytes: 49182
 line_count: 752
 ---
 

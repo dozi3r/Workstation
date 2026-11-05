@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T1_HIGHLORD_COUNCIL
 title: "MOD_T1_HIGHLORD_COUNCIL_CONCLAVE: The Imperial Highlord Conclave of Neraka"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "86ab1215597fed3f"
-reviewed_hash: "86ab1215597fed3f"
+current_hash: "f74d3104c6a0f501"
+reviewed_hash: "f74d3104c6a0f501"
 stale: false
-size_bytes: 3740
+size_bytes: 3809
 line_count: 70
 ---
 

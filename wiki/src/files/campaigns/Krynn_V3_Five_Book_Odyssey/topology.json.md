@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/topology.json"
 title: "topology.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "8dead3f0c27f8a39"
-reviewed_hash: "8dead3f0c27f8a39"
+current_hash: "58c6f48e87fe387f"
+reviewed_hash: "58c6f48e87fe387f"
 stale: false
-size_bytes: 970636
+size_bytes: 992752
 line_count: 22117
 ---
 

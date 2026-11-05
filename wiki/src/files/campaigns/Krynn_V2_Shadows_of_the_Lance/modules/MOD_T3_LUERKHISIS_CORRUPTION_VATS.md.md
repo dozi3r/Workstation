@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_LUERKHISIS_CO
 title: "MOD_T3_LUERKHISIS_CORRUPTION_VATS: The Temple of Luerkhisis & Metallic Dragon Awakening"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "925f492d383c2c94"
-reviewed_hash: "925f492d383c2c94"
+current_hash: "c59c44dc092239f8"
+reviewed_hash: "c59c44dc092239f8"
 stale: false
-size_bytes: 3710
+size_bytes: 3779
 line_count: 70
 ---
 

@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_PAX_THARKAS_S
 title: "MOD_T3_PAX_THARKAS_SLAVE_MINES: The Iron Mines, Great Chain & Hostage Nursery of Pax Tharkas"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "c96250786041bc63"
-reviewed_hash: "c96250786041bc63"
+current_hash: "3eb65a4d7d2b705e"
+reviewed_hash: "3eb65a4d7d2b705e"
 stale: false
-size_bytes: 3822
+size_bytes: 3891
 line_count: 70
 ---
 

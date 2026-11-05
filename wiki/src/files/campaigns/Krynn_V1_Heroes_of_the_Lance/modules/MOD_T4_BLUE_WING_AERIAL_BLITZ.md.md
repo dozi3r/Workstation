@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T4_BLUE_WING_AERI
 title: "MOD_T4_BLUE_WING_AERIAL_BLITZ: Kitiara's Blue Wing Aerial Blitz & The Tarsis Split"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "d00aa0afbc765576"
-reviewed_hash: "d00aa0afbc765576"
+current_hash: "b6cc6c700039c813"
+reviewed_hash: "b6cc6c700039c813"
 stale: false
-size_bytes: 3414
+size_bytes: 3483
 line_count: 70
 ---
 

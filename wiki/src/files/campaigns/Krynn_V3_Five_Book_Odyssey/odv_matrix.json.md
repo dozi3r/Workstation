@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix.json"
 title: "odv_matrix.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "aa24421dac755a29"
-reviewed_hash: "aa24421dac755a29"
+current_hash: "7d3be244825404c8"
+reviewed_hash: "7d3be244825404c8"
 stale: false
-size_bytes: 78079
+size_bytes: 79233
 line_count: 1155
 ---
 

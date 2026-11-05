@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/02_Dramatis_Personae_and_Companions/02_Seconda
 title: "Master Dossier: Secondary Companions, Allies & Divine Agents"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "6f8dc8c92cb312c5"
-reviewed_hash: "6f8dc8c92cb312c5"
+current_hash: "79a114e4b5a1a426"
+reviewed_hash: "79a114e4b5a1a426"
 stale: false
-size_bytes: 35360
+size_bytes: 35727
 line_count: 368
 ---
 

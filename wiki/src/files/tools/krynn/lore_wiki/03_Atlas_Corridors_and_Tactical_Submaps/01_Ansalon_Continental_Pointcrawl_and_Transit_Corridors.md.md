@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/03_Atlas_Corridors_and_Tactical_Submaps/01_Ans
 title: "01: Ansalon Continental Pointcrawl and Transit Corridors"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "9cf9c63808128d91"
-reviewed_hash: "9cf9c63808128d91"
+current_hash: "278efc13d383a7c2"
+reviewed_hash: "278efc13d383a7c2"
 stale: false
-size_bytes: 20667
+size_bytes: 20854
 line_count: 188
 ---
 

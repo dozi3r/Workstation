@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/03_Atlas_Corridors_and_Tactical_Submaps/02_Aba
 title: "02: Abanasinia, Solace, Haven and Tower of Wayreth"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "0e2fd4a7c3b9397b"
-reviewed_hash: "0e2fd4a7c3b9397b"
+current_hash: "c635ba7d18b239b6"
+reviewed_hash: "c635ba7d18b239b6"
 stale: false
-size_bytes: 34516
+size_bytes: 34849
 line_count: 334
 ---
 

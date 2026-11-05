@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_LANDLOCKED_TARSI
 title: "MOD_T2_LANDLOCKED_TARSIS_DUSTBOWL: The Landlocked Dust-Harbor of Tarsis"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "848a924c3bf6964a"
-reviewed_hash: "848a924c3bf6964a"
+current_hash: "b947b2f3376a742f"
+reviewed_hash: "b947b2f3376a742f"
 stale: false
-size_bytes: 3460
+size_bytes: 3529
 line_count: 70
 ---
 

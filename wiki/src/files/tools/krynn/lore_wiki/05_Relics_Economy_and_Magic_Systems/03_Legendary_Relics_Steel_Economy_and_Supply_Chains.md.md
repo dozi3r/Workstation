@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/05_Relics_Economy_and_Magic_Systems/03_Legenda
 title: "Legendary Relics, Steel Economy & Tier 3 Supply Chains"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "5888458020195345"
-reviewed_hash: "5888458020195345"
+current_hash: "375f241ae9812d06"
+reviewed_hash: "375f241ae9812d06"
 stale: false
-size_bytes: 31535
+size_bytes: 31982
 line_count: 448
 ---
 

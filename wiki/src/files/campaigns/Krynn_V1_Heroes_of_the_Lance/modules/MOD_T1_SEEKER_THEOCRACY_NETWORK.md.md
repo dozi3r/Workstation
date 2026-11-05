@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T1_SEEKER_THEOCRA
 title: "MOD_T1_SEEKER_THEOCRACY_NETWORK: The High Seeker Bureaucracy & Cult of Belzor"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "1c11141b6227cce8"
-reviewed_hash: "1c11141b6227cce8"
+current_hash: "632a6a8e2aa5f16b"
+reviewed_hash: "632a6a8e2aa5f16b"
 stale: false
-size_bytes: 3638
+size_bytes: 3707
 line_count: 70
 ---
 

@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/01_Peoples_Factions_and_Councils/04_The_Five_D
 title: "The Five Dragonarmies and the Highlord Council"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "9a3b406fbf04a423"
-reviewed_hash: "9a3b406fbf04a423"
+current_hash: "8835bc50b3890c3e"
+reviewed_hash: "8835bc50b3890c3e"
 stale: false
-size_bytes: 20277
+size_bytes: 20510
 line_count: 234
 ---
 

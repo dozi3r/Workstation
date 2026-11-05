@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/01_Peoples_Factions_and_Councils/03_Knights_of
 title: "The Knights of Solamnia and The Orders of High Sorcery"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "f4346452ca411201"
-reviewed_hash: "f4346452ca411201"
+current_hash: "d983a4aa1c34b1be"
+reviewed_hash: "d983a4aa1c34b1be"
 stale: false
-size_bytes: 18437
+size_bytes: 18658
 line_count: 222
 ---
 

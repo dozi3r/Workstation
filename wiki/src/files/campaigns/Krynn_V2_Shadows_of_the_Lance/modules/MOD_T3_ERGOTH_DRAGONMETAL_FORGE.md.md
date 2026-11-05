@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_ERGOTH_DRAGON
 title: "MOD_T3_ERGOTH_DRAGONMETAL_FORGE: The Foghaven Dragonlance Forge of Huma"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "f699142647618d75"
-reviewed_hash: "f699142647618d75"
+current_hash: "9d425835624f4ceb"
+reviewed_hash: "9d425835624f4ceb"
 stale: false
-size_bytes: 3569
+size_bytes: 3638
 line_count: 70
 ---
 

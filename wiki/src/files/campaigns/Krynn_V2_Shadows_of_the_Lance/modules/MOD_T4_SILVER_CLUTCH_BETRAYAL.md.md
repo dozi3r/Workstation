@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T4_SILVER_CLUTCH
 title: "MOD_T4_SILVER_CLUTCH_BETRAYAL: The Stolen Silver Clutch of Hope's End (347 AC)"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "caae6ca7b93d96a4"
-reviewed_hash: "caae6ca7b93d96a4"
+current_hash: "3a5df3d292089946"
+reviewed_hash: "3a5df3d292089946"
 stale: false
-size_bytes: 3613
+size_bytes: 3682
 line_count: 70
 ---
 

@@ -3,10 +3,10 @@ file_path: "tools/krynn/compiler/data_npcs.js"
 title: "data_npcs.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "64d2e58ea1994012"
-reviewed_hash: "64d2e58ea1994012"
+current_hash: "3cb1d7149c18a230"
+reviewed_hash: "3cb1d7149c18a230"
 stale: false
-size_bytes: 46567
+size_bytes: 47546
 line_count: 980
 ---
 

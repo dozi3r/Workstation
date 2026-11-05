@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/05_Relics_Economy_and_Magic_Systems/01_Cosmolo
 title: "Cosmology, Gods of the Balance & Divine Restoration"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "8e89992027aae741"
-reviewed_hash: "8e89992027aae741"
+current_hash: "460b4f67a870df34"
+reviewed_hash: "460b4f67a870df34"
 stale: false
-size_bytes: 26223
+size_bytes: 26488
 line_count: 266
 ---
 

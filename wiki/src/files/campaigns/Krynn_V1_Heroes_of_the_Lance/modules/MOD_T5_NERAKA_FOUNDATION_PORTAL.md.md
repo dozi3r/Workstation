@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T5_NERAKA_FOUNDAT
 title: "MOD_T5_NERAKA_FOUNDATION_PORTAL: The Cracked Foundation Stone & Takhisis's Abyssal Gate"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "b081e851f094bf3b"
-reviewed_hash: "b081e851f094bf3b"
+current_hash: "61ab7240bba2c996"
+reviewed_hash: "61ab7240bba2c996"
 stale: false
-size_bytes: 4034
+size_bytes: 4103
 line_count: 70
 ---
 

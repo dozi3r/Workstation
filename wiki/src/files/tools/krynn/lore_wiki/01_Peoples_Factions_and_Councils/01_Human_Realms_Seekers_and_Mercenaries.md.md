@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/01_Peoples_Factions_and_Councils/01_Human_Real
 title: "Human Realms, Seekers, and Mercenary Companies of Ansalon"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "aeed018df301058c"
-reviewed_hash: "aeed018df301058c"
+current_hash: "459b1d73f958d8a1"
+reviewed_hash: "459b1d73f958d8a1"
 stale: false
-size_bytes: 27601
+size_bytes: 27915
 line_count: 315
 ---
 

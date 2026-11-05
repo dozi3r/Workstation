@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/02_Dramatis_Personae_and_Companions/03_Dragon_
 title: "Master Dossier: Dragon Highlords & Dark Commanders"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "a869a9d3efd7815f"
-reviewed_hash: "a869a9d3efd7815f"
+current_hash: "ccae11cd844b5a4b"
+reviewed_hash: "ccae11cd844b5a4b"
 stale: false
-size_bytes: 26403
+size_bytes: 26673
 line_count: 271
 ---
 

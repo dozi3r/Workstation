@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T4_REFUGEE_EXODU
 title: "MOD_T4_REFUGEE_EXODUS_COLUMN: The 800 Refugees of Pax Tharkas & The Traitor Within"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "0a5c0fff83fcfc8b"
-reviewed_hash: "0a5c0fff83fcfc8b"
+current_hash: "46facb9b4c4774f6"
+reviewed_hash: "46facb9b4c4774f6"
 stale: false
-size_bytes: 3333
+size_bytes: 3402
 line_count: 70
 ---
 

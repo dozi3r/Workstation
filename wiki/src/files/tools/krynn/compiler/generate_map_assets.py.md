@@ -3,10 +3,10 @@ file_path: "tools/krynn/compiler/generate_map_assets.py"
 title: "generate_map_assets.py"
 volume: "vol-8"
 kind: "Project Asset"
-current_hash: "a87efd1af31b92eb"
-reviewed_hash: "a87efd1af31b92eb"
+current_hash: "792bd2811d815bc8"
+reviewed_hash: "792bd2811d815bc8"
 stale: false
-size_bytes: 16624
+size_bytes: 17002
 line_count: 379
 ---
 

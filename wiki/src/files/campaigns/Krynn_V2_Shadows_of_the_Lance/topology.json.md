@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/topology.json"
 title: "topology.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "5c849cb9aae3beeb"
-reviewed_hash: "5c849cb9aae3beeb"
+current_hash: "73f7685cdcf1f1b8"
+reviewed_hash: "73f7685cdcf1f1b8"
 stale: false
-size_bytes: 964172
+size_bytes: 986176
 line_count: 22005
 ---
 

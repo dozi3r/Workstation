@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_DROWNED_RUIN_XAK
 title: "MOD_T2_DROWNED_RUIN_XAK_TSAROTH: The Sunken Swamp & Acid Caverns of Xak Tsaroth"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "08ca7ec421e208d5"
-reviewed_hash: "08ca7ec421e208d5"
+current_hash: "20ae73346e011b58"
+reviewed_hash: "20ae73346e011b58"
 stale: false
-size_bytes: 3531
+size_bytes: 3600
 line_count: 70
 ---
 

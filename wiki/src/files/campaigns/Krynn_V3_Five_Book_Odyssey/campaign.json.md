@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/campaign.json"
 title: "campaign.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "be79b2ab32684965"
-reviewed_hash: "be79b2ab32684965"
+current_hash: "f5041bfeeecde622"
+reviewed_hash: "f5041bfeeecde622"
 stale: false
-size_bytes: 335249
+size_bytes: 340850
 line_count: 5602
 ---
 

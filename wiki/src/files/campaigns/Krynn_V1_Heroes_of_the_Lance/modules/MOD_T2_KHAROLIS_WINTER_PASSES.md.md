@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_KHAROLIS_WINTE
 title: "MOD_T2_KHAROLIS_WINTER_PASSES: The Kharolis Blizzard Passes & Vitrified Skullcap"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "87619a43f81f830a"
-reviewed_hash: "87619a43f81f830a"
+current_hash: "dc52cd2d37d2b333"
+reviewed_hash: "dc52cd2d37d2b333"
 stale: false
-size_bytes: 3418
+size_bytes: 3487
 line_count: 70
 ---
 

@@ -3,10 +3,10 @@ file_path: "tools/krynn/compiler/package_writer.js"
 title: "package_writer.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "baf0296b4464a44c"
-reviewed_hash: "baf0296b4464a44c"
+current_hash: "60c9227e408f892f"
+reviewed_hash: "60c9227e408f892f"
 stale: false
-size_bytes: 4811
+size_bytes: 4938
 line_count: 128
 ---
 

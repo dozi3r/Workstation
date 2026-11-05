@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/01_Peoples_Factions_and_Councils/02_Elven_King
 title: "Elven Kingdoms and Dwarven Clans of Krynn"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "d05150c3044b8320"
-reviewed_hash: "d05150c3044b8320"
+current_hash: "0ad2fdcc246eb8c0"
+reviewed_hash: "0ad2fdcc246eb8c0"
 stale: false
-size_bytes: 20662
+size_bytes: 20892
 line_count: 231
 ---
 

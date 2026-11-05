@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_VALLEY_TREES_SOL
 title: "MOD_T2_VALLEY_TREES_SOLACE: The Vallenwood Canopy of Solace"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "4717a58519cfa6b2"
-reviewed_hash: "4717a58519cfa6b2"
+current_hash: "adea23bf41197ade"
+reviewed_hash: "adea23bf41197ade"
 stale: false
-size_bytes: 3478
+size_bytes: 3547
 line_count: 70
 ---
 

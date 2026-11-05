@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/02_Dramatis_Personae_and_Companions/04_Archmag
 title: "Master Dossier: Archmages, Monarchs & Council Leaders"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "a22a9eff8b0e7884"
-reviewed_hash: "a22a9eff8b0e7884"
+current_hash: "30f094d6cdbb1555"
+reviewed_hash: "30f094d6cdbb1555"
 stale: false
-size_bytes: 22761
+size_bytes: 23048
 line_count: 288
 ---
 

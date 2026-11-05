@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T5_SOULFORGE_CRUCIB
 title: "MOD_T5_SOULFORGE_CRUCIBLE: The Soulforge of Wayreth & Fistandantilus's Blood-Pact"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "ac95d6b528d8fd06"
-reviewed_hash: "ac95d6b528d8fd06"
+current_hash: "d33eb0fbc7bb9f30"
+reviewed_hash: "d33eb0fbc7bb9f30"
 stale: false
-size_bytes: 3903
+size_bytes: 3972
 line_count: 70
 ---
 
