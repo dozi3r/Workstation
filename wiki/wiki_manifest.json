@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-05T04:23:46.477Z",
-  "totalFiles": 733,
+  "generatedAt": "2026-11-05T04:32:06.081Z",
+  "totalFiles": 735,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3018,
-  "staleCount": 2,
+  "totalBidirectionalEdges": 3027,
+  "staleCount": 0,
   "duplicateAuditTargets": 9,
   "volumes": [
     {
@@ -198,7 +198,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 40
+      "inboundBacklinkCount": 41
     },
     {
       "relPath": "CONTEXT.md",
@@ -208,8 +208,8 @@
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
       "hash": "983114ff419229ce",
-      "reviewedHash": "7a97495687ecbaa0",
-      "stale": true,
+      "reviewedHash": "983114ff419229ce",
+      "stale": false,
       "auditFlag": null,
       "outboundCount": 32,
       "inboundBacklinkCount": 23
@@ -3641,7 +3641,7 @@
       "reviewedHash": "2d6528d1606bbcd8",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 80,
+      "outboundCount": 81,
       "inboundBacklinkCount": 177
     },
     {
@@ -3656,7 +3656,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "campaigns/BaldursGate/modules_manifest.json",
@@ -3667,6 +3667,20 @@
       "kind": "Authoritative JSON Data / Manifest",
       "hash": "37517e5f3dc66819",
       "reviewedHash": "37517e5f3dc66819",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 1,
+      "inboundBacklinkCount": 2
+    },
+    {
+      "relPath": "campaigns/BaldursGate/odv_matrix.json",
+      "wikiHtml": "wiki/pages/campaigns/BaldursGate/odv_matrix.json.html",
+      "wikiSrc": "wiki/src/files/campaigns/BaldursGate/odv_matrix.json.md",
+      "title": "odv_matrix.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "hash": "aa24421dac755a29",
+      "reviewedHash": "aa24421dac755a29",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
@@ -4659,8 +4673,8 @@
       "title": "campaign.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "61ae5f163289ffba",
-      "reviewedHash": "61ae5f163289ffba",
+      "hash": "07a1e135f466fcff",
+      "reviewedHash": "07a1e135f466fcff",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
@@ -5093,8 +5107,8 @@
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "2c112610e9d52e36",
-      "reviewedHash": "2c112610e9d52e36",
+      "hash": "6950123c870ae37b",
+      "reviewedHash": "6950123c870ae37b",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
@@ -5107,8 +5121,8 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "2c112610e9d52e36",
-      "reviewedHash": "2c112610e9d52e36",
+      "hash": "6950123c870ae37b",
+      "reviewedHash": "6950123c870ae37b",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
@@ -6452,8 +6466,8 @@
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
       "hash": "ad94f6197325008e",
-      "reviewedHash": "a239aa18e5d3bb50",
-      "stale": true,
+      "reviewedHash": "ad94f6197325008e",
+      "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
       "inboundBacklinkCount": 1
@@ -8957,8 +8971,8 @@
       "title": "campaign_odv_matrices.js",
       "volume": "vol-5",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "5eeb5e2d00955f9c",
-      "reviewedHash": "5eeb5e2d00955f9c",
+      "hash": "c3384ed48c067f8e",
+      "reviewedHash": "c3384ed48c067f8e",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
@@ -9041,11 +9055,11 @@
       "title": "Creator Studio: Platform Explorer & Master Audit",
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "39a30fca8d51fc7a",
-      "reviewedHash": "39a30fca8d51fc7a",
+      "hash": "ef79eda0d7d0edaf",
+      "reviewedHash": "ef79eda0d7d0edaf",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 174,
+      "outboundCount": 175,
       "inboundBacklinkCount": 27
     },
     {
@@ -9483,6 +9497,20 @@
       "inboundBacklinkCount": 18
     },
     {
+      "relPath": "src/workstation/scripts/campaign_override_slots.js",
+      "wikiHtml": "wiki/pages/src/workstation/scripts/campaign_override_slots.js.html",
+      "wikiSrc": "wiki/src/files/src/workstation/scripts/campaign_override_slots.js.md",
+      "title": "campaign_override_slots.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "hash": "8f00a8bb38dae43b",
+      "reviewedHash": "8f00a8bb38dae43b",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 4,
+      "inboundBacklinkCount": 2
+    },
+    {
       "relPath": "src/workstation/scripts/canvas_hud.js",
       "wikiHtml": "wiki/pages/src/workstation/scripts/canvas_hud.js.html",
       "wikiSrc": "wiki/src/files/src/workstation/scripts/canvas_hud.js.md",
@@ -9718,7 +9746,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 17
+      "inboundBacklinkCount": 18
     },
     {
       "relPath": "src/workstation/scripts/state_adapter.js",
@@ -9825,12 +9853,12 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "hash": "5f8043943defb83d",
-      "reviewedHash": "5f8043943defb83d",
+      "hash": "36e0bf5e586288d8",
+      "reviewedHash": "36e0bf5e586288d8",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 49,
-      "inboundBacklinkCount": 42
+      "outboundCount": 50,
+      "inboundBacklinkCount": 43
     },
     {
       "relPath": "start.html",
@@ -9839,12 +9867,12 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "d6112c063a40bd49",
-      "reviewedHash": "d6112c063a40bd49",
+      "hash": "681bed6e93d1f2a5",
+      "reviewedHash": "681bed6e93d1f2a5",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 186,
-      "inboundBacklinkCount": 91
+      "outboundCount": 187,
+      "inboundBacklinkCount": 92
     },
     {
       "relPath": "system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md",
@@ -9923,8 +9951,8 @@
       "title": "run_tests.js",
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "961040da1d1a2af2",
-      "reviewedHash": "961040da1d1a2af2",
+      "hash": "48c6f76065565e24",
+      "reviewedHash": "48c6f76065565e24",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 22,

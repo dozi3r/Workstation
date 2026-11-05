@@ -2825,6 +2825,38 @@
     "module_path": ""
   },
   {
+    "id": "SYS-ODV-04",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Campaign Override Slots (generalize SYS-ODV-03 matrix overlay)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Platform Architecture: Data Integrity",
+    "status": "ready_for_spec",
+    "summary": "\n# Campaign Override Slots\n\nA campaign may ship files that replace app defaults. Each replaceable thing is a **slot**:\n`{ id, files:[names], parse, validate, apply(payload), clear() }`. One routine,\n`...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Engine: Campaign-Override-Slots"
+    ],
+    "requires": [
+      "Surface: start.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-ODV-04_campaign_override_slots_brief.md",
+    "file_url": "tickets/system/SYS-ODV-04_campaign_override_slots_brief.md",
+    "module_path": ""
+  },
+  {
     "id": "SYS-RACE-01",
     "track": "Platform Architecture (SYS)",
     "track_code": "SYS",

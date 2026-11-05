@@ -4,8 +4,8 @@ title: "ODV Krynn Adaptation: Work Document"
 volume: "vol-1"
 kind: "Technical Documentation / Guide"
 current_hash: "ad94f6197325008e"
-reviewed_hash: "a239aa18e5d3bb50"
-stale: true
+reviewed_hash: "ad94f6197325008e"
+stale: false
 size_bytes: 36868
 line_count: 251
 ---

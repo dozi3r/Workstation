@@ -4,8 +4,8 @@ title: "Creator Studio"
 volume: "vol-1"
 kind: "Technical Documentation / Guide"
 current_hash: "983114ff419229ce"
-reviewed_hash: "7a97495687ecbaa0"
-stale: true
+reviewed_hash: "983114ff419229ce"
+stale: false
 size_bytes: 29741
 line_count: 396
 ---

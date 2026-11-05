@@ -3,11 +3,11 @@ file_path: "src/workstation/template.html"
 title: "Creator Studio - Campaign Authoring Workstation"
 volume: "vol-4"
 kind: "Workstation Shell Template"
-current_hash: "5f8043943defb83d"
-reviewed_hash: "5f8043943defb83d"
+current_hash: "36e0bf5e586288d8"
+reviewed_hash: "36e0bf5e586288d8"
 stale: false
-size_bytes: 53166
-line_count: 770
+size_bytes: 53218
+line_count: 771
 ---
 
 # Creator Studio - Campaign Authoring Workstation

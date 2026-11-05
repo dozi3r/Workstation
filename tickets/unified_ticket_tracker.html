@@ -360,13 +360,13 @@ CRITICAL INSTRUCTION:
   <div class="kpi-grid">
     <div class="kpi-card total">
       <div class="kpi-label">Total Backlog Tickets</div>
-      <div class="kpi-value">85</div>
+      <div class="kpi-value">86</div>
       <div class="kpi-sub">Across 3 Specialized Tracks</div>
     </div>
     <div class="kpi-card shipped">
       <div class="kpi-label">Shipped & Integrated</div>
       <div class="kpi-value">74</div>
-      <div class="kpi-sub">87% of Total Backlog</div>
+      <div class="kpi-sub">86% of Total Backlog</div>
     </div>
     <div class="kpi-card progress">
       <div class="kpi-label">In Editorial / Drafting</div>
@@ -375,7 +375,7 @@ CRITICAL INSTRUCTION:
     </div>
     <div class="kpi-card ready">
       <div class="kpi-label">Frontier (Ready for Pickup)</div>
-      <div class="kpi-value">3</div>
+      <div class="kpi-value">4</div>
       <div class="kpi-sub">Unblocked for Immediate Agent Work</div>
     </div>
     <div class="kpi-card backlog">
@@ -387,7 +387,7 @@ CRITICAL INSTRUCTION:
 
   <div class="frontier-banner">
     <div class="frontier-info">
-      <h3>🚀 Active Frontier Radar (3 Unblocked Tickets)</h3>
+      <h3>🚀 Active Frontier Radar (4 Unblocked Tickets)</h3>
       <p>Filtered view of tickets with zero unresolved blockers ready for immediate subagent pickup.</p>
     </div>
     <button class="frontier-btn" onclick="filterToFrontier()">Show Only Frontier</button>
@@ -3274,6 +3274,38 @@ CRITICAL INSTRUCTION:
     "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
     "ticket_file": "tickets/system/SYS-ODV-02_unset_disposition_execution_brief.md",
     "file_url": "../tickets/system/SYS-ODV-02_unset_disposition_execution_brief.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-ODV-04",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Campaign Override Slots (generalize SYS-ODV-03 matrix overlay)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Platform Architecture: Data Integrity",
+    "status": "ready_for_spec",
+    "summary": "\n# Campaign Override Slots\n\nA campaign may ship files that replace app defaults. Each replaceable thing is a **slot**:\n`{ id, files:[names], parse, validate, apply(payload), clear() }`. One routine,\n`...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Engine: Campaign-Override-Slots"
+    ],
+    "requires": [
+      "Surface: start.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-ODV-04_campaign_override_slots_brief.md",
+    "file_url": "../tickets/system/SYS-ODV-04_campaign_override_slots_brief.md",
     "module_path": ""
   },
   {

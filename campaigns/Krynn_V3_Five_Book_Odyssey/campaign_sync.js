@@ -5,8 +5,8 @@
 window.__CS_LIVE_CAMPAIGNS__ = window.__CS_LIVE_CAMPAIGNS__ || {};
 window.__CS_LIVE_CAMPAIGNS__["krynn__v3___the_five_book_odyssey__346_352_ac_"] = {
   folder: "krynn__v3___the_five_book_odyssey__346_352_ac_",
-  syncToken: "mw30usnq-cpyozwc5",
-  updatedAt: "2026-11-05T04:04:40.215Z",
+  syncToken: "mw31l9mp-5p0axmyc",
+  updatedAt: "2026-11-05T04:25:15.267Z",
   lastBatchId: "batch_norm_krynn_v3_five_book_odyssey",
   census: {"npcs":52,"quests":14,"items":22,"trackers":7,"factions":10}
 };

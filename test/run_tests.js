@@ -2300,6 +2300,21 @@ function testOdvCampaignReflectionAndDenseMatrix() {
   assertEqual(sandbox.getNodeQuadrant({ culture: 'Clan' }), 'Clan', 'getNodeQuadrant honours authored culture');
   assertEqual(sandbox.getNodeQuadrant({}), null, 'getNodeQuadrant is null when nothing is set');
 
+  // 1d. Campaign override slots (SYS-ODV-04 S1)
+  {
+    const ovr = require(path.join(ROOT_DIR, 'src/workstation/scripts/campaign_override_slots.js'));
+    const log = [];
+    const mk = (id, bad) => ({ id, files: [new RegExp('^' + id + '\\.json$')], parse: x => x, validate: p => { if (bad) throw new Error('boom'); return []; }, apply: p => log.push('apply:' + id), clear: () => log.push('clear:' + id) });
+    const slots = [mk('a', true), mk('b', false)];
+    const rep = ovr.applyCampaignOverrides({ a: {}, b: {} }, slots);
+    assertEqual(rep[0].status, 'skipped', 'bad slot is skipped');
+    assertEqual(rep[1].status, 'applied', 'good slot still applies after a bad one');
+    assertEqual(log.indexOf('clear:a') < log.indexOf('apply:b'), true, 'all slots cleared before apply');
+    assertEqual(ovr.applyCampaignOverrides(null, slots).length, 0, 'null overrides applies nothing');
+    assertEqual(ovr.matchSlotFile('overrides/odv_matrix_x.json').id, 'odvMatrix', 'matchSlotFile finds odvMatrix (overrides/ prefix)');
+    assertEqual(ovr.matchSlotFile('campaign.json'), null, 'matchSlotFile ignores other files');
+  }
+
   // 1c. Campaign ODV matrix overlay (SYS-ODV-03 S1)
   const builtin111 = sandbox.getArchetype('[1, 1, 1]').archetypeName;
   assertEqual(sandbox.getArchetypeDetails(1, 1, 1).archetypeName, builtin111, 'no override: built-in archetype');

@@ -8,8 +8,8 @@
   "enabled": true,
   "topologyFile": "topology.json",
   "manifestFile": "modules_manifest.json",
-  "updatedAt": "2026-11-05T04:04:40.215Z",
-  "exportedAt": "2026-11-05T04:04:40.215Z",
+  "updatedAt": "2026-11-05T04:25:15.267Z",
+  "exportedAt": "2026-11-05T04:25:15.267Z",
   "appliedBatchIds": [
     "batch_init_krynn_v3_five_book_odyssey",
     "batch_norm_krynn_v3_five_book_odyssey"
@@ -5596,5 +5596,5 @@
     "deletedModules": [],
     "deletedPrototypes": []
   },
-  "syncToken": "mw30usnq-cpyozwc5"
+  "syncToken": "mw31l9mp-5p0axmyc"
 }

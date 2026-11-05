@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-05T04:23:46.477Z",
-  "totalFiles": 733,
+  "generatedAt": "2026-11-05T04:32:06.081Z",
+  "totalFiles": 735,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3018,
-  "staleCount": 2,
+  "totalBidirectionalEdges": 3027,
+  "staleCount": 0,
   "nodes": [
     {
       "relPath": "AGENTS.md",
@@ -654,6 +654,12 @@
           "reason": "References Build-Suite.ps1"
         },
         {
+          "source": "src/workstation/scripts/campaign_override_slots.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        },
+        {
           "source": "src/workstation/scripts/industry_chain_importer.js",
           "sourceType": "file",
           "type": "Path Reference",
@@ -696,9 +702,9 @@
       "title": "Creator Studio",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "stale": true,
+      "stale": false,
       "hash": "983114ff419229ce",
-      "reviewedHash": "7a97495687ecbaa0",
+      "reviewedHash": "983114ff419229ce",
       "lineCount": 396,
       "sizeBytes": 29741,
       "symbols": [],
@@ -6592,6 +6598,12 @@
           "reason": "Inlines modular source during suite compilation"
         },
         {
+          "target": "src/workstation/scripts/campaign_override_slots.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
           "target": "src/workstation/scripts/canvas_hud.js",
           "targetType": "file",
           "type": "Bundles Source",
@@ -7818,6 +7830,12 @@
           "reason": "Belongs to BaldursGate campaign sourcebook"
         },
         {
+          "source": "campaigns/BaldursGate/odv_matrix.json",
+          "sourceType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        },
+        {
           "source": "campaigns/BaldursGate/preset.json",
           "sourceType": "file",
           "type": "Campaign Package",
@@ -7841,6 +7859,43 @@
       "reviewedHash": "37517e5f3dc66819",
       "lineCount": 2,
       "sizeBytes": 3,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/campaign.json",
+          "targetType": "file",
+          "type": "Campaign Package",
+          "reason": "Belongs to BaldursGate campaign sourcebook"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "start.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "source": "network/platform_audit_dashboard.html",
+          "sourceType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        }
+      ]
+    },
+    {
+      "relPath": "campaigns/BaldursGate/odv_matrix.json",
+      "title": "odv_matrix.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "stale": false,
+      "hash": "aa24421dac755a29",
+      "reviewedHash": "aa24421dac755a29",
+      "lineCount": 1155,
+      "sizeBytes": 78079,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13511,8 +13566,8 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "61ae5f163289ffba",
-      "reviewedHash": "61ae5f163289ffba",
+      "hash": "07a1e135f466fcff",
+      "reviewedHash": "07a1e135f466fcff",
       "lineCount": 5600,
       "sizeBytes": 335150,
       "symbols": [],
@@ -16188,8 +16243,8 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "2c112610e9d52e36",
-      "reviewedHash": "2c112610e9d52e36",
+      "hash": "6950123c870ae37b",
+      "reviewedHash": "6950123c870ae37b",
       "lineCount": 34490,
       "sizeBytes": 2184357,
       "symbols": [],
@@ -16225,8 +16280,8 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "2c112610e9d52e36",
-      "reviewedHash": "2c112610e9d52e36",
+      "hash": "6950123c870ae37b",
+      "reviewedHash": "6950123c870ae37b",
       "lineCount": 34490,
       "sizeBytes": 2184357,
       "symbols": [],
@@ -26446,9 +26501,9 @@
       "title": "ODV Krynn Adaptation: Work Document",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "stale": true,
+      "stale": false,
       "hash": "ad94f6197325008e",
-      "reviewedHash": "a239aa18e5d3bb50",
+      "reviewedHash": "ad94f6197325008e",
       "lineCount": 251,
       "sizeBytes": 36868,
       "symbols": [],
@@ -36673,10 +36728,10 @@
       "volume": "vol-5",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "5eeb5e2d00955f9c",
-      "reviewedHash": "5eeb5e2d00955f9c",
+      "hash": "c3384ed48c067f8e",
+      "reviewedHash": "c3384ed48c067f8e",
       "lineCount": 3,
-      "sizeBytes": 71805,
+      "sizeBytes": 143456,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -37516,10 +37571,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "39a30fca8d51fc7a",
-      "reviewedHash": "39a30fca8d51fc7a",
-      "lineCount": 147096,
-      "sizeBytes": 29762026,
+      "hash": "ef79eda0d7d0edaf",
+      "reviewedHash": "ef79eda0d7d0edaf",
+      "lineCount": 148253,
+      "sizeBytes": 29847122,
       "symbols": [
         "moduleMatchesTrack(m, track)",
         "getModuleTrackBadges(m)",
@@ -37578,6 +37633,12 @@
         },
         {
           "target": "campaigns/BaldursGate/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/odv_matrix.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
@@ -42103,6 +42164,65 @@
       ]
     },
     {
+      "relPath": "src/workstation/scripts/campaign_override_slots.js",
+      "title": "campaign_override_slots.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "stale": false,
+      "hash": "8f00a8bb38dae43b",
+      "reviewedHash": "8f00a8bb38dae43b",
+      "lineCount": 66,
+      "sizeBytes": 3087,
+      "symbols": [
+        "matchSlotFile(relPath, slots)",
+        "clearCampaignOverrides(slots)",
+        "applyCampaignOverrides(overrides, slots)"
+      ],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "src/workstation/template.html",
+          "targetType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "target": "src/workstation/scripts/sociology_data.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes setCampaignOdvMatrix() defined in sociology_data.js"
+        },
+        {
+          "target": "Build-Suite.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "source": "src/workstation/template.html",
+          "sourceType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/campaign_override_slots.js @@"
+        }
+      ]
+    },
+    {
       "relPath": "src/workstation/scripts/canvas_hud.js",
       "title": "canvas_hud.js",
       "volume": "vol-4",
@@ -45449,6 +45569,12 @@
           "reason": "Invokes deriveCvfQuadrant() defined in sociology_data.js"
         },
         {
+          "source": "src/workstation/scripts/campaign_override_slots.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes setCampaignOdvMatrix() defined in sociology_data.js"
+        },
+        {
           "source": "src/workstation/scripts/mdi_window_manager.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -46953,10 +47079,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "5f8043943defb83d",
-      "reviewedHash": "5f8043943defb83d",
-      "lineCount": 770,
-      "sizeBytes": 53166,
+      "hash": "36e0bf5e586288d8",
+      "reviewedHash": "36e0bf5e586288d8",
+      "lineCount": 771,
+      "sizeBytes": 53218,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -47027,6 +47153,12 @@
           "targetType": "file",
           "type": "Template Include",
           "reason": "Inlined via @@INCLUDE: scripts/sociology_data.js @@"
+        },
+        {
+          "target": "src/workstation/scripts/campaign_override_slots.js",
+          "targetType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/campaign_override_slots.js @@"
         },
         {
           "target": "src/workstation/scripts/wiki_engine.js",
@@ -47373,6 +47505,12 @@
           "reason": "Assembled into master Workstation template"
         },
         {
+          "source": "src/workstation/scripts/campaign_override_slots.js",
+          "sourceType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
           "source": "src/workstation/scripts/canvas_hud.js",
           "sourceType": "file",
           "type": "Included By Template",
@@ -47518,10 +47656,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "d6112c063a40bd49",
-      "reviewedHash": "d6112c063a40bd49",
-      "lineCount": 192526,
-      "sizeBytes": 32041739,
+      "hash": "681bed6e93d1f2a5",
+      "reviewedHash": "681bed6e93d1f2a5",
+      "lineCount": 193748,
+      "sizeBytes": 32131051,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
         "normalizeOdv(raw)",
@@ -47670,6 +47808,12 @@
         },
         {
           "target": "campaigns/BaldursGate/modules_manifest.json",
+          "targetType": "file",
+          "type": "Data Source",
+          "reason": "Authoritative data source in campaigns/ consumed by start.html"
+        },
+        {
+          "target": "campaigns/BaldursGate/odv_matrix.json",
           "targetType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by start.html"
@@ -49087,6 +49231,12 @@
           "reason": "Bundled into standalone offline workstation via build_suite.js"
         },
         {
+          "source": "src/workstation/scripts/campaign_override_slots.js",
+          "sourceType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
           "source": "src/workstation/scripts/canvas_hud.js",
           "sourceType": "file",
           "type": "Compiles Into",
@@ -49600,10 +49750,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "961040da1d1a2af2",
-      "reviewedHash": "961040da1d1a2af2",
-      "lineCount": 8735,
-      "sizeBytes": 444497,
+      "hash": "48c6f76065565e24",
+      "reviewedHash": "48c6f76065565e24",
+      "lineCount": 8750,
+      "sizeBytes": 445624,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -52291,6 +52441,24 @@
       "name": "removeNode",
       "signature": "removeNode(stateOrTopo, nodeId, options = {})",
       "file": "src/workstation/scripts/campaign_mutation_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "matchSlotFile",
+      "signature": "matchSlotFile(relPath, slots)",
+      "file": "src/workstation/scripts/campaign_override_slots.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "clearCampaignOverrides",
+      "signature": "clearCampaignOverrides(slots)",
+      "file": "src/workstation/scripts/campaign_override_slots.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "applyCampaignOverrides",
+      "signature": "applyCampaignOverrides(overrides, slots)",
+      "file": "src/workstation/scripts/campaign_override_slots.js",
       "kind": "Workstation Modular JS Engine"
     },
     {
