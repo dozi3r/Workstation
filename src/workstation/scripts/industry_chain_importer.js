@@ -257,6 +257,9 @@
     const container = document.getElementById('ici-stages-container');
     if (!container) return;
 
+    // Keep the import target in sync with the dropdown (onchange / re-audit route through here)
+    currentSelectedChainId = chainId || null;
+
     if (!chainId) {
       container.innerHTML = '<div style="padding:20px; text-align:center; color:#666;">No industry chain selected.</div>';
       return;
@@ -364,6 +367,29 @@
 
   function onActionChange(stageIdx) {
     // Optional hook for secondary inputs
+  }
+
+  /**
+   * Adds a corridor between u and v, MERGING flows into any dedicatedFlows already on the edge
+   * (addCorridor's metadata merge is a shallow Object.assign and would overwrite earlier chains).
+   */
+  function wireConduit(topo, u, v, conduitType, newFlows) {
+    let edgeKey = `${u}->${v}`;
+    if (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine.formatCorridorKey) {
+      edgeKey = CampaignMutationEngine.formatCorridorKey(u, v, 'adj');
+    }
+    if (!topo.edgeData) topo.edgeData = {};
+    const existing = topo.edgeData[edgeKey] || {};
+    const merged = Array.isArray(existing.dedicatedFlows) ? existing.dedicatedFlows.slice() : [];
+    (newFlows || []).forEach(f => {
+      if (!merged.some(m => m && m.tag === f.tag && m.sourceModuleId === f.sourceModuleId)) merged.push(f);
+    });
+    const meta = { conduitType: existing.conduitType || conduitType, dedicatedFlows: merged };
+    if (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine.addCorridor) {
+      CampaignMutationEngine.addCorridor(topo, u, v, 'adj', meta);
+    } else {
+      topo.edgeData[edgeKey] = Object.assign(existing, meta);
+    }
   }
 
   /**
@@ -508,15 +534,7 @@
           wiredConsumer = true;
           const conduitType = inferConduitType(matchedTags);
           const flows = matchedTags.map(tag => ({ tag, sourceModuleId: uStage.moduleId }));
-          if (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine.addCorridor) {
-            CampaignMutationEngine.addCorridor(topo, u, v, 'adj', { conduitType, dedicatedFlows: flows });
-          } else {
-            const edgeKey = `${u}->${v}`;
-            if (!topo.edgeData[edgeKey]) topo.edgeData[edgeKey] = {};
-            topo.edgeData[edgeKey].conduitType = conduitType;
-            if (!Array.isArray(topo.edgeData[edgeKey].dedicatedFlows)) topo.edgeData[edgeKey].dedicatedFlows = [];
-            topo.edgeData[edgeKey].dedicatedFlows.push(...flows);
-          }
+          wireConduit(topo, u, v, conduitType, flows);
         }
       }
 
@@ -527,15 +545,7 @@
           const conduitTag = uProvides[0] || 'Trade: Goods';
           const conduitType = inferConduitType([conduitTag]);
           const flowPayload = { tag: conduitTag, sourceModuleId: uStage.moduleId };
-          if (typeof CampaignMutationEngine !== 'undefined' && CampaignMutationEngine.addCorridor) {
-            CampaignMutationEngine.addCorridor(topo, u, v, 'adj', { conduitType, dedicatedFlows: [flowPayload] });
-          } else {
-            const edgeKey = `${u}->${v}`;
-            if (!topo.edgeData[edgeKey]) topo.edgeData[edgeKey] = {};
-            topo.edgeData[edgeKey].conduitType = conduitType;
-            if (!Array.isArray(topo.edgeData[edgeKey].dedicatedFlows)) topo.edgeData[edgeKey].dedicatedFlows = [];
-            topo.edgeData[edgeKey].dedicatedFlows.push(flowPayload);
-          }
+          wireConduit(topo, u, v, conduitType, [flowPayload]);
         }
       }
     }

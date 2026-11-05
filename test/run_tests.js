@@ -8084,6 +8084,172 @@ function testSuite47IndustryChainImporterAndDeduplication() {
 }
 
 // ============================================================================
+// SUITE 51: IMPORTER REGRESSIONS - stale chain selection & conduit flow overwrite
+// ============================================================================
+function testSuite51ImporterChainSelectionAndConduitMerge() {
+  console.log('\n--> SUITE 51: Importer imports the selected chain and merges conduit flows across imports...');
+
+  const ICI = require(path.join(ROOT, 'src', 'workstation', 'scripts', 'industry_chain_importer.js'));
+  const CME = require(path.join(ROOT, 'src', 'workstation', 'scripts', 'campaign_mutation_engine.js'));
+
+  // ---- save globals we touch ----
+  const keys = ['document', 'ALL_MODULES', 'Workstation', 'nodeSlottedModules', 'CampaignMutationEngine', 'alert'];
+  const saved = {};
+  keys.forEach(k => { saved[k] = Object.prototype.hasOwnProperty.call(global, k) ? { v: global[k] } : null; });
+  const alerts = [];
+
+  try {
+    // ---- fake DOM: elements keyed by id, with value + classList ----
+    const els = {};
+    const getEl = id => (els[id] = els[id] || { id, value: '', innerHTML: '', classList: { add() {}, remove() {} }, appendChild(o) { this.options = (this.options || []).concat(o); } });
+    global.document = { getElementById: getEl, createElement: () => ({ value: '', textContent: '' }) };
+    global.alert = m => alerts.push(m);
+    global.CampaignMutationEngine = CME;
+
+    const mkMod = (id, chain, stage, role, provides, requires) =>
+      ({ id, title: id, chain_id: chain, chain_stage: stage, chain_role: role, provides, requires });
+    global.ALL_MODULES = [
+      mkMod('A-1', 'CHAIN-A', 1, 'extraction', ['Commodity: Cane'], []),
+      mkMod('A-2', 'CHAIN-A', 2, 'refining', ['Commodity: Molasses'], ['Commodity: Cane']),
+      mkMod('B-1', 'CHAIN-B', 1, 'extraction', ['Timber: Logs'], []),
+      mkMod('B-2', 'CHAIN-B', 2, 'refining', ['Timber: Lumber'], ['Timber: Logs'])
+    ];
+
+    const freshTopo = () => ({
+      nodes: {
+        'N1': { id: 'N1', name: 'Alpha', modules: [], adj: [], infBy: [] },
+        'N2': { id: 'N2', name: 'Beta', modules: [], adj: [], infBy: [] }
+      },
+      edgeData: {}, campaign_modules: []
+    });
+    const setup = () => {
+      const topo = freshTopo();
+      global.Workstation = { activeTopology: topo, disabledMods: {} };
+      global.nodeSlottedModules = {};
+      return topo;
+    };
+    const place = (stageToNode) => Object.keys(stageToNode).forEach(i => { getEl(`ici-stage-action-${i}`).value = stageToNode[i]; });
+
+    // ---- BUG 1: dropdown change must retarget the import ----
+    let topo = setup();
+    ICI.openIndustryChainImporterModal();            // opens with first chain (CHAIN-A) selected
+    getEl('ici-chain-select').value = 'CHAIN-B';
+    ICI.renderChainStageGrid('CHAIN-B');             // exactly what the select's onchange calls
+    place({ 0: 'N1', 1: 'N2' });
+    ICI.executeChainImport();
+    assert(topo.nodes.N1.modules.includes('B-1') && topo.nodes.N2.modules.includes('B-2'), 'Switching dropdown to CHAIN-B imports CHAIN-B modules');
+    assert(!topo.nodes.N1.modules.includes('A-1') && !topo.nodes.N2.modules.includes('A-2'), 'Switching dropdown does NOT import the originally opened CHAIN-A');
+    assert(topo.campaign_modules.includes('B-1') && !topo.campaign_modules.includes('A-1'), 'campaign_modules contains only the selected chain');
+    assert(alerts[alerts.length - 1].includes('CHAIN-B') || alerts[alerts.length - 1].includes('CHAIN-B Industry Chain'), 'Summary message names the selected chain');
+
+    // Re-audit button path (renderChainStageGrid with select value) also retargets
+    topo = setup();
+    ICI.openIndustryChainImporterModal('CHAIN-A');
+    ICI.renderChainStageGrid('CHAIN-B');
+    place({ 0: 'N1', 1: 'N2' });
+    ICI.executeChainImport();
+    assert(topo.nodes.N1.modules.includes('B-1'), 'Re-render with another chain retargets import');
+
+    // Opening with an explicit default chain still works without a change event
+    topo = setup();
+    ICI.openIndustryChainImporterModal('CHAIN-B');
+    place({ 0: 'N1', 1: 'N2' });
+    ICI.executeChainImport();
+    assert(topo.nodes.N1.modules.includes('B-1') && !topo.nodes.N1.modules.includes('A-1'), 'openIndustryChainImporterModal(defaultChainId) imports that chain');
+
+    // Clearing selection imports nothing
+    topo = setup();
+    ICI.renderChainStageGrid(null);
+    const alertsBefore = alerts.length;
+    ICI.executeChainImport();
+    assertEqual(alerts.length, alertsBefore, 'No chain selected -> executeChainImport is a no-op');
+    assertEqual(topo.campaign_modules.length, 0, 'No chain selected -> nothing slotted');
+
+    // ---- BUG 2: second import must merge, not overwrite, dedicatedFlows on a shared edge ----
+    topo = setup();
+    const edgeKey = CME.formatCorridorKey('N1', 'N2', 'adj');
+
+    ICI.openIndustryChainImporterModal('CHAIN-A');
+    place({ 0: 'N1', 1: 'N2' });
+    ICI.executeChainImport();
+    let flows = (topo.edgeData[edgeKey] || {}).dedicatedFlows || [];
+    assert(flows.some(f => f.tag === 'Commodity: Cane' && f.sourceModuleId === 'A-1'), 'Import #1 wires Cane flow on N1-N2');
+
+    ICI.openIndustryChainImporterModal('CHAIN-B');
+    place({ 0: 'N1', 1: 'N2' });
+    ICI.executeChainImport();
+    flows = topo.edgeData[edgeKey].dedicatedFlows;
+    assert(flows.some(f => f.tag === 'Commodity: Cane'), 'Import #2 preserves Cane flow from import #1');
+    assert(flows.some(f => f.tag === 'Timber: Logs' && f.sourceModuleId === 'B-1'), 'Import #2 adds Timber flow alongside Cane');
+    assertEqual(flows.length, 2, 'Shared edge carries exactly both flows');
+    assert(topo.nodes.N1.modules.includes('A-1') && topo.nodes.N1.modules.includes('B-1'), 'Node keeps both chains\' modules');
+
+    // Idempotency: re-importing the same chain must not duplicate flows
+    ICI.openIndustryChainImporterModal('CHAIN-B');
+    // stages are now already_slotted -> default action 'skip'; force rebinding to hit wireConduit again
+    place({ 0: 'N1', 1: 'N2' });
+    ICI.executeChainImport();
+    assertEqual(topo.edgeData[edgeKey].dedicatedFlows.length, 2, 'Re-importing same chain does not duplicate flows');
+
+    // Existing conduitType is preserved, adjacency stays symmetric and deduped
+    topo = setup();
+    topo.edgeData[edgeKey] = { conduitType: 'Smuggling Tunnel', dedicatedFlows: [{ tag: 'Ore: Pre-existing', sourceModuleId: 'X-1' }] };
+    ICI.openIndustryChainImporterModal('CHAIN-B');
+    place({ 0: 'N1', 1: 'N2' });
+    ICI.executeChainImport();
+    const e = topo.edgeData[edgeKey];
+    assertEqual(e.conduitType, 'Smuggling Tunnel', 'Pre-existing conduitType is not clobbered');
+    assert(e.dedicatedFlows.some(f => f.tag === 'Ore: Pre-existing') && e.dedicatedFlows.some(f => f.tag === 'Timber: Logs'), 'Hand-authored flows survive an import');
+    assertEqual(topo.nodes.N1.adj.filter(x => String(x) === 'N2').length, 1, 'adjacency N1->N2 recorded once');
+    assertEqual(topo.nodes.N2.adj.filter(x => String(x) === 'N1').length, 1, 'adjacency N2->N1 recorded once');
+
+    // ---- Realistic scenario with the shipped modules: SUGAR then TIMBER on the same nodes ----
+    const realMods = [];
+    const peridot = path.join(ROOT, 'campaigns', 'Peridot', 'modules_manifest.json');
+    const preInd = path.join(ROOT, 'mods', 'pre_industrial_resources', 'modules_manifest.json');
+    if (fs.existsSync(peridot)) realMods.push(...JSON.parse(fs.readFileSync(peridot, 'utf8')));
+    if (fs.existsSync(preInd)) realMods.push(...JSON.parse(fs.readFileSync(preInd, 'utf8')).map(m => ({ ...m, mod_id: 'pre_industrial_resources' })));
+    global.ALL_MODULES = realMods;
+    const realChains = ICI.getAvailableIndustryChains();
+    if (realChains['CHAIN-SUGAR'] && realChains['CHAIN-TIMBER']) {
+      topo = setup();
+      topo.nodes = {
+        'BG-SC-01': { id: 'BG-SC-01', name: 'Candlekeep', modules: [], adj: [], infBy: [] },
+        'BG-SC-13': { id: 'BG-SC-13', name: 'Cloakwood', modules: [], adj: [], infBy: [] }
+      };
+      const nStages = c => realChains[c].stages.length;
+      const layout = c => { const m = {}; for (let i = 0; i < nStages(c); i++) m[i] = (i === nStages(c) - 1) ? 'BG-SC-01' : 'BG-SC-13'; return m; };
+
+      ICI.openIndustryChainImporterModal('CHAIN-SUGAR');
+      getEl('ici-chain-select').value = 'CHAIN-TIMBER';
+      ICI.renderChainStageGrid('CHAIN-TIMBER');         // user switches dropdown to Timber
+      place(layout('CHAIN-TIMBER'));
+      ICI.executeChainImport();
+      const timberIds = realChains['CHAIN-TIMBER'].stages.map(s => s.module.id);
+      const sugarIds = realChains['CHAIN-SUGAR'].stages.map(s => s.module.id);
+      assert(timberIds.every(id => topo.campaign_modules.includes(id)), 'Real: Timber modules slotted after switching dropdown');
+      assert(!sugarIds.some(id => topo.campaign_modules.includes(id)), 'Real: Sugar modules NOT slotted when Timber selected');
+
+      const key = CME.formatCorridorKey('BG-SC-13', 'BG-SC-01', 'adj');
+      const timberTags = ((topo.edgeData[key] || {}).dedicatedFlows || []).map(f => f.tag);
+      assert(timberTags.length > 0, 'Real: Timber import created dedicated flows on the 13-01 edge');
+
+      ICI.openIndustryChainImporterModal('CHAIN-SUGAR');
+      place(layout('CHAIN-SUGAR'));
+      ICI.executeChainImport();
+      const after = ((topo.edgeData[key] || {}).dedicatedFlows || []).map(f => f.tag);
+      assert(timberTags.every(t => after.includes(t)), 'Real: Sugar import keeps Timber flows on shared edge');
+      assert(after.length > timberTags.length, 'Real: Sugar import adds its own flows alongside Timber');
+      assert(sugarIds.every(id => topo.campaign_modules.includes(id)), 'Real: Sugar modules slotted after second import');
+    } else {
+      assert(false, 'Real chains CHAIN-SUGAR and CHAIN-TIMBER must exist in shipped manifests');
+    }
+  } finally {
+    keys.forEach(k => { if (saved[k]) global[k] = saved[k].v; else delete global[k]; });
+  }
+}
+
+// ============================================================================
 // SUITE 48: CANONICAL SPATIAL PIN NORMALIZER (SYS-ARCH-01 / PHASE A)
 // ============================================================================
 function testSuite48CanonicalSpatialPinNormalizer() {
@@ -8518,6 +8684,7 @@ function testSuite50EntityReferenceIntegrity() {
     testSuite48CanonicalSpatialPinNormalizer();
     testSuite49EngineIncludeOrder();
     testSuite50EntityReferenceIntegrity();
+    testSuite51ImporterChainSelectionAndConduitMerge();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');
