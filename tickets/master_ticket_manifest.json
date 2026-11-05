@@ -2587,6 +2587,43 @@
     "module_path": ""
   },
   {
+    "id": "SYS-ARCH-01",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Normalizer Unification, Engine Include Order & Cascade-Delete Deepening (Architecture Review Phase 1)",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Platform Architecture: Deep Modules & Test Seams",
+    "status": "ready_for_spec",
+    "summary": "\n# SYS-ARCH-01: Execution brief for a coding agent\n\nYou are executing phase 1 of an architecture review of Creator Studio (Workstation 2.5). This brief merges the original review with the owner's guar...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Engine: Canonical-Spatial-Pin-Normalizer",
+      "Engine: Entity-Reference-Descriptors"
+    ],
+    "requires": [
+      "Engine: CampaignMutationEngine",
+      "Surface: start.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [
+      "SYS-ARCH-02 (campaign session owner, candidate 1)",
+      "SYS-ARCH-03 (stationing module, candidate 4)"
+    ],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-ARCH-01_normalizer_unification_include_order_and_cascade_delete_deepening.md",
+    "file_url": "tickets/system/SYS-ARCH-01_normalizer_unification_include_order_and_cascade_delete_deepening.md",
+    "module_path": ""
+  },
+  {
     "id": "SYS-AUDIT-01",
     "track": "Platform Architecture (SYS)",
     "track_code": "SYS",
