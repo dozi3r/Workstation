@@ -485,7 +485,7 @@
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
     <tr><th>File Metrics</th><td>1780 lines &bull; 88.3 KB</td></tr>
     <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 28e48511)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>31</strong> references</td></tr>
+    <tr><th>Outbound Links</th><td><strong>32</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>28</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/workstation_state.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
@@ -512,7 +512,7 @@
 <li><strong>Workbench UI Chrome, Deep-Linking & Modals</strong>: Implements menu bar interaction (<code>initMenuBar</code>, <code>toggleMenu</code>, <code>closeAllMenus</code>), URL query parameter deep-linking (<code>?selectNode=<id></code> and <code>?selectEdge=<u-v></code> from <code>network/odv_archetype_matrix.html</code>), status bar telemetry (<code>setStatusBarMessage</code>, <code>updateStatusBar</code>), MDI registration (including <code>modal-custom-module-editor</code> and <code>modal-pack-installer</code>), sourcebook package manager (<code>openSourcebooksModal</code>, <code>renderSourcebooksList</code>, <code>switchSourcebookTab</code> delegating to <code>packEngine.renderInstalledPacksView</code>), and universal multi-format campaign export modal (<code>openCampaignExportModal</code>, <code>switchExportTab</code>, <code>populatePackExportForm</code>, <code>downloadExportFile</code>).</li>
 </ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (35)</h3><div class="pill-list"><span class="pill">ensureBuiltinModulesBaseline()</span><span class="pill">createSterileTopology(options = {})</span><span class="pill">resetWorkstationSlate(options = {})</span><span class="pill">pushHistoryState(description)</span><span class="pill">promptLoadRuntimeModFile()</span><span class="pill">loadPersistedRuntimeUserMods()</span><span class="pill">initTopology()</span><span class="pill">ensureEntityCollections(topo)</span><span class="pill">purgeDeletedModulesFromRuntimeCatalog(topo)</span><span class="pill">flushProjectDirectorySync()</span><span class="pill">saveActiveCampaign()</span><span class="pill">setStatusBarMessage(msg)</span><span class="pill">updateStatusBar()</span><span class="pill">showOriginDiagnostics()</span><span class="pill">exitWorkstationServer()</span><span class="pill">initMenuBar()</span><span class="pill">toggleMenu(menuId)</span><span class="pill">closeAllMenus()</span><span class="pill">toggleToolPalette()</span><span class="pill">resetBalancing()</span><span class="pill">openMapNavigatorModal()</span><span class="pill">renderMapNavigatorTree()</span><span class="pill">switchSourcebookTab(tabName)</span><span class="pill">openSourcebooksModal()</span><span class="pill">renderSourcebooksList()</span><span class="pill">enableAllSourcebooks()</span><span class="pill">disableInactiveSourcebooks()</span><span class="pill">openCampaignExportModal()</span><span class="pill">switchExportTab(tabKey)</span><span class="pill">populatePackExportForm()</span><span class="pill">updateExportOutput()</span><span class="pill">copyExportToClipboard()</span><span class="pill">downloadExportFile()</span><span class="pill">toggleContradictionOverlay()</span><span class="pill">reloadLiveModulesFromLoopback(options = {})</span></div>
-      <h2 id="outbound-links">Outbound References (31)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2 id="outbound-links">Outbound References (32)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
@@ -528,6 +528,10 @@
         <td><a href="../../../../pages/src/workstation/scripts/cad_canvas_renderer.js.html"><strong>src/workstation/scripts/cad_canvas_renderer.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes renderGrid() defined in cad_canvas_renderer.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/cad_interaction.js.html"><strong>src/workstation/scripts/cad_interaction.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes initCanvasInteractions() defined in cad_interaction.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/zip_engine.js.html"><strong>src/workstation/scripts/zip_engine.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

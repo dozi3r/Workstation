@@ -470,7 +470,7 @@
         <h1 class="article-title">entity_cascade_delete.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 00a331b4)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 7e751c17)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (9)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/entity_cascade_delete.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1368 lines &bull; 60.6 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 00a331b4)</span></td></tr>
+    <tr><th>File Metrics</th><td>1277 lines &bull; 58.6 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 7e751c17)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>16</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>9</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/entity_cascade_delete.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -509,9 +509,30 @@
 <li><strong>Relational Dependency Tracing</strong>: Performs comprehensive dependency graph traversal (<code>analyzeEntityDependencies</code>) whenever an entity or node is selected for deletion, discovering co-stationed NPCs, linked quests, held items, threat clocks, module bindings, and attached portal sub-maps (<code>childMapId</code> / <code>parentNodeId</code>).</li>
 <li><strong>Interactive Cascade Deletion Modal</strong>: Prompts the author with a detailed dependency impact dialog (<code>promptEntityDelete</code>), offering granular checkboxes to selectively delete linked entities or keep them unlinked/orphaned.</li>
 <li><strong>Zero-CORS Backup Archiving</strong>: Bundles a standalone zip backup (<code>saveDeletedBackupZip</code>) of the pre-deletion campaign state using <code>ZeroCorsZip</code>, safely prefixing all exported archive artifacts with <code>_deleted_</code> before destructive operations.</li>
-<li><strong>Cascaded Clean Deletion Engine & Disk File Removal</strong>: Executes the atomic removal of chosen entities from the active topology (<code>executeEntityDeletion</code>), unlinking or cascade-deleting portal sub-maps, persisting deleted module IDs to <code>cs_deleted_modules</code> (<code>localStorage</code>), recursively removing nested module <code>.md</code> files and updating <code>modules_manifest.json</code> on disk (<code>deleteModuleFilesFromBoundProjectDirectory</code>), purging deleted modules from <code>ALL_MODULES</code>, <code>MODULES_MANIFEST</code>, and <code>custom_modules</code>, sanitizing relationship tables, updating properties grids, and refreshing active views.</li>
+<li><strong>Cascaded Clean Deletion Engine & Disk File Removal</strong>: Executes the atomic removal of chosen entities from the active topology (<code>executeEntityDeletion</code>), unlinking or cascade-deleting portal sub-maps, persisting deleted module IDs to <code>cs_deleted_modules</code> (<code>localStorage</code>), recursively removing nested module <code>.md</code> files and updating <code>modules_manifest.json</code> on disk (<code>deleteModuleFilesFromBoundProjectDirectory</code>), purging deleted modules from <code>ALL_MODULES</code>, <code>MODULES_MANIFEST</code>, and <code>custom_modules</code>, updating properties grids, and refreshing active views. Relationship tables are sanitized by the engine (see Engine Delegation below).</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (16)</h3><div class="pill-list"><span class="pill">getEntityIcon(type)</span><span class="pill">analyzeEntityDependencies(targetType, targetId)</span><span class="pill">addDep(type, ent, reason, isActive)</span><span class="pill">promptEntityDelete(targetType, targetId)</span><span class="pill">setAllDeletionCheckboxes(checked)</span><span class="pill">setActiveOnlyDeletionCheckboxes()</span><span class="pill">updateDeletionSelectionSummary()</span><span class="pill">removeFileAtRelativePath(rootHandle, relPath)</span><span class="pill">matchesModuleFileName(entryName, idStr)</span><span class="pill">removeModuleFileFromDirRecursive(dirHandle, idStr, maxDepth = 4)</span><span class="pill">purgeModulesManifestInDir(dirHandle, idSet)</span><span class="pill">resolveActiveDirectoryHandlesForModuleDeletion()</span><span class="pill">deleteModuleFilesFromBoundProjectDirectory(modIds)</span><span class="pill">confirmExecuteDeletion(doBackup)</span><span class="pill">saveDeletedBackupZip(target, checkedDeps, preservedDeps)</span><span class="pill">executeEntityDeletion(allToDelete, targetTopo = null)</span></div>
+<h3>Delete Preview Reads The Engine's Reference Table (SYS-ARCH-01)</h3>
+<p><code>analyzeEntityDependencies</code> takes its id-based referrers from <code>CampaignMutationEngine.findEntityReferences</code>, the read-only twin of the scrub, so the preview lists exactly the records the delete unlinks. Every dependency carries a <code>kind</code>:</p>
+<ul class="wiki-list">
+<li><code>reference</code>: holds the target id in a field the scrub unlinks (from the engine's descriptor table).</li>
+<li><code>related</code>: a link the scrub leaves alone (forward link, shared node, shared quest, module origin, station node).</li>
+<li><code>mention</code>: matched by name (quest narrative, NPC/quest <code>threat</code> text, faction name) or by a legacy field (<code>quest.trackerId</code>, prototype ids). Never unlinked. <code>promptEntityDelete</code> shows these in their own "Mentions by name (not unlinked)" group and the banner counts them.</li>
+<li><code>map</code> and <code>module</code>: the sub-map/portal and source-module sections, unchanged.</li>
+</ul>
+<p>The result also carries <code>mentionCount</code> and the raw <code>references</code> list.</p>
+<h3>Engine Delegation (SYS-ARCH-01)</h3>
+<p><code>executeEntityDeletion</code> calls <code>CampaignMutationEngine.deleteEntity</code> for every <code>npc</code>, <code>quest</code>, <code>item</code>, <code>tracker</code>, <code>faction</code> and <code>node</code> target and passes the global <code>maps</code> registry as <code>batchContext.maps</code>. The engine is the only scrub for those types: it removes the entity from its collection and unlinks it from quests, items, NPCs, factions, trackers (<code>triggerRefs</code>, consequences), tickets (with the audit note), spatial pins and node records, on the active topology and every registered map. This file no longer filters the five entity collections or unlinks entity references, and it logs an error if the engine is missing.</p>
+<p>What stays here, because the engine is never called for <code>module</code> or <code>map</code> targets or because it is UI work:</p>
+<ul class="wiki-list">
+<li><code>deletedPrototypes</code> / <code>deletedModules</code> bookkeeping and the <code>nodeChildMapSnapshot</code> taken before the engine removes the node.</li>
+<li>Sub-map deletion, re-parenting of child maps, <code>deletePersistedMapFromDB</code>, active-map fallback.</li>
+<li>Node removal bookkeeping after the engine (<code>topo.nodes</code> entry, <code>adj</code>/<code>infBy</code>, corridor and edge-data keys, mirror arrays).</li>
+<li>Module deletion, including the <code>dedicatedFlows</code> purge, <code>ALL_MODULES</code>/<code>MODULES_MANIFEST</code>/<code>nodeSlottedModules</code> purges and <code>localStorage</code>.</li>
+<li>Ticket retargeting with the audit note for <code>map</code> and <code>module</code> targets only.</li>
+<li>Pin link scrubbing for <code>map</code>/<code>submap</code> link types only.</li>
+<li>Persist and refresh of the UI.</li>
+</ul>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (16)</h3><div class="pill-list"><span class="pill">getEntityIcon(type)</span><span class="pill">analyzeEntityDependencies(targetType, targetId)</span><span class="pill">addDep(type, ent, reason, isActive, kind)</span><span class="pill">promptEntityDelete(targetType, targetId)</span><span class="pill">setAllDeletionCheckboxes(checked)</span><span class="pill">setActiveOnlyDeletionCheckboxes()</span><span class="pill">updateDeletionSelectionSummary()</span><span class="pill">removeFileAtRelativePath(rootHandle, relPath)</span><span class="pill">matchesModuleFileName(entryName, idStr)</span><span class="pill">removeModuleFileFromDirRecursive(dirHandle, idStr, maxDepth = 4)</span><span class="pill">purgeModulesManifestInDir(dirHandle, idSet)</span><span class="pill">resolveActiveDirectoryHandlesForModuleDeletion()</span><span class="pill">deleteModuleFilesFromBoundProjectDirectory(modIds)</span><span class="pill">confirmExecuteDeletion(doBackup)</span><span class="pill">saveDeletedBackupZip(target, checkedDeps, preservedDeps)</span><span class="pill">executeEntityDeletion(allToDelete, targetTopo = null)</span></div>
       <h2 id="outbound-links">Outbound References (16)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
@@ -535,7 +556,7 @@
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes deleteEntity() defined in campaign_mutation_engine.js</td>
+        <td>Invokes findEntityReferences() defined in campaign_mutation_engine.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
