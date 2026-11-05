@@ -195,6 +195,10 @@ HTML_SURFACES.forEach(relPath => {
   bootSandbox.globalThis = bootSandbox;
   vm.runInNewContext(scriptMatch[1], bootSandbox, { filename: 'start.html#boot' });
   assert(typeof bootSandbox.openLoadPresetModal === 'function' && typeof bootSandbox.toggleMenu === 'function', 'start.html runtime executes top-to-bottom without ReferenceError and registers UI handlers');
+  // SYS-ARCH-01: the engine loads first, so the bundle publishes its seam from the UMD tail with no state_adapter.js alias block
+  assert(typeof bootSandbox.getNodesList === 'function' && typeof bootSandbox.ensureQueryableNodesCollection === 'function' && typeof bootSandbox.normalizeSpatialPin === 'function', 'start.html runtime publishes the engine seam aliases (getNodesList, ensureQueryableNodesCollection, normalizeSpatialPin)');
+  assert(bootSandbox.normalizeSpatialPin === bootSandbox.CampaignMutationEngine.normalizeSpatialPin, 'start.html runtime normalizeSpatialPin is the engine function');
+  assert(typeof bootSandbox.CampaignStateAdapter === 'undefined', 'start.html runtime defines no CampaignStateAdapter alias bag');
 })();
 
 async function testZeroCorsZip() {
@@ -7826,10 +7830,11 @@ function testSuite46PointcrawlGraphNodeSeam() {
   const foundAnchor = resolvedList.find(n => n && n.id == 10);
   assert(foundAnchor && foundAnchor.name === 'Portal Gate', 'Portal anchor node found in Dictionary topo without TypeError');
 
-  // 4. Exporter and State Adapter integration check
-  const stateAdapterSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'state_adapter.js'), 'utf8');
-  assert(stateAdapterSrc.includes('ensureQueryableNodesCollection: CampaignMutationEngine.ensureQueryableNodesCollection'), 'state_adapter.js exposes ensureQueryableNodesCollection on CampaignStateAdapter');
-  assert(stateAdapterSrc.includes('getNodesList: CampaignMutationEngine.getNodesList'), 'state_adapter.js exposes getNodesList on CampaignStateAdapter');
+  // 4. Exporter and sandbox seam check (SYS-ARCH-01: the engine UMD tail, mirrored by injectEngine, is the only alias publisher)
+  const seamSandbox = {};
+  injectEngine(seamSandbox);
+  assert(typeof seamSandbox.ensureQueryableNodesCollection === 'function', 'injected sandbox exposes ensureQueryableNodesCollection from the engine');
+  assert(typeof seamSandbox.getNodesList === 'function', 'injected sandbox exposes getNodesList from the engine');
 
   const exporterSrc = fs.readFileSync(path.join(ROOT, 'src', 'workstation', 'scripts', 'campaign_exporter.js'), 'utf8');
   assert(exporterSrc.includes('CampaignMutationEngine.getNodesList'), 'campaign_exporter.js uses CampaignMutationEngine.getNodesList in resolveMapNodes');
@@ -8101,6 +8106,19 @@ function testSuite48CanonicalSpatialPinNormalizer() {
 }
 
 // ============================================================================
+// SUITE 49: ENGINE INCLUDE ORDER (SYS-ARCH-01 / PHASE B)
+// ============================================================================
+function testSuite49EngineIncludeOrder() {
+  console.log('\n--> SUITE 49: Engine-first script include order (SYS-ARCH-01)...');
+
+  const templateHtml = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/template.html'), 'utf8');
+  const scriptIncludes = [...templateHtml.matchAll(/^\/\/\s*@@INCLUDE:\s*scripts\/(\S+)\s*@@/gm)].map(m => m[1]);
+  assert(scriptIncludes.length > 20, `template.html lists the workstation script includes (${scriptIncludes.length})`);
+  assertEqual(scriptIncludes[0], 'campaign_mutation_engine.js', 'template.html includes campaign_mutation_engine.js before every other script');
+  assertEqual(scriptIncludes.length, new Set(scriptIncludes).size, 'template.html includes each workstation script exactly once');
+}
+
+// ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -8153,6 +8171,7 @@ function testSuite48CanonicalSpatialPinNormalizer() {
     testSuite46PointcrawlGraphNodeSeam();
     testSuite47IndustryChainImporterAndDeduplication();
     testSuite48CanonicalSpatialPinNormalizer();
+    testSuite49EngineIncludeOrder();
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

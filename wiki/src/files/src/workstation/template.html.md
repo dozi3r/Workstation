@@ -3,8 +3,8 @@ file_path: "src/workstation/template.html"
 title: "Creator Studio - Campaign Authoring Workstation"
 volume: "vol-4"
 kind: "Workstation Shell Template"
-current_hash: "6f9f6e0848b261cb"
-reviewed_hash: "6f9f6e0848b261cb"
+current_hash: "5f8043943defb83d"
+reviewed_hash: "5f8043943defb83d"
 stale: false
 size_bytes: 53166
 line_count: 770
@@ -19,4 +19,5 @@ line_count: 770
 ### Subsystems & Integrations
 - **Pack Ingestion Entry Points**: Provides hidden file input `#pack-installer-file-input` triggering `packEngine.onPackFileSelected()`, with menu triggers integrated into the Start Menu ("Install Entity Pack (.csmod)..."), File Menu ("Install Entity Pack (.csmod)..."), and Help Menu documentation reference.
 - **MDI Scaffolding & Viewport**: Hosts the CAD SVG canvas, HUD overlays, toolbar palettes, and placeholder injection slots for modular modal files (`studio_mdi_windows.html`, `entity_modals.html`, `lifecycle_modals.html`, `explorer_modals.html`, `ticket_modals.html`).
+- **Script Include Order (SYS-ARCH-01)**: `// @@INCLUDE: scripts/campaign_mutation_engine.js @@` is the first script include. The engine has no dependencies, and its UMD tail publishes the root aliases (`getNodesList`, `formatCorridorKey`, `normalizeSpatialPin`, and the rest) before any other workstation script loads. `build_suite.js` inlines includes in template order, so this order is the compiled order. Suite 49 guards it.
 <!-- END_CUSTOM_NOTES -->

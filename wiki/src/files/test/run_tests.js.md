@@ -3,11 +3,11 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "0f708cd087f532dd"
-reviewed_hash: "0f708cd087f532dd"
+current_hash: "eb6c5a6f0f59334e"
+reviewed_hash: "eb6c5a6f0f59334e"
 stale: false
-size_bytes: 404853
-line_count: 8174
+size_bytes: 406502
+line_count: 8193
 ---
 
 # run_tests.js
@@ -51,4 +51,5 @@ line_count: 8174
 10. **Suite 48: Canonical Spatial Pin Normalizer (SYS-ARCH-01)**:
    - Exercises `normalizeSpatialPin` through the engine `require()` seam with no DOM: same reference, unknown fields kept, `visible`/`locked`/label/id defaults, legacy `targetType`/`targetId` to `links`, `links[0]` driving the legacy fields, link objects keeping extra fields, `null` for non-objects.
    - Proves the `ENGINE_ROOT_ALIASES` list equals what the engine UMD tail publishes (the engine is run in a fresh `vm` context) and that only `campaign_mutation_engine.js` defines `normalizeSpatialPin`.
+11. **Suite 49: Engine-first include order (SYS-ARCH-01)**: asserts `template.html` lists `campaign_mutation_engine.js` as its first script include and lists each script once. The compiled-bundle boot test in Suite 1 also asserts the engine seam aliases are published and `CampaignStateAdapter` no longer exists.
 <!-- END_CUSTOM_NOTES -->

@@ -1233,34 +1233,4 @@ window.loadInstalledCampaign = loadCampaignProjectPackage;
 window.getMapsRegistry = function() { return maps; };
 window.createMap = createMap;
 
-// Canonical Pointcrawl Graph & Corridor Seam Aliases (delegating to CampaignMutationEngine)
-if (typeof CampaignMutationEngine !== "undefined" && CampaignMutationEngine) {
-  window.formatCorridorKey = CampaignMutationEngine.formatCorridorKey;
-  window.parseCorridorKey = CampaignMutationEngine.parseCorridorKey;
-  window.corridorMatchesNode = CampaignMutationEngine.corridorMatchesNode;
-  window.addCorridor = CampaignMutationEngine.addCorridor;
-  window.removeCorridor = CampaignMutationEngine.removeCorridor;
-  window.removeCorridorsForNode = CampaignMutationEngine.removeCorridorsForNode;
-  window.ensureQueryableNodesCollection = CampaignMutationEngine.ensureQueryableNodesCollection;
-  window.getNodesList = CampaignMutationEngine.getNodesList;
-  window.getNodesMap = CampaignMutationEngine.getNodesMap;
-  window.getNodeById = CampaignMutationEngine.getNodeById;
-  window.upsertNode = CampaignMutationEngine.upsertNode;
-  window.removeNode = CampaignMutationEngine.removeNode;
-  window.CampaignStateAdapter = Object.assign(window.CampaignStateAdapter || {}, {
-    formatCorridorKey: CampaignMutationEngine.formatCorridorKey,
-    parseCorridorKey: CampaignMutationEngine.parseCorridorKey,
-    corridorMatchesNode: CampaignMutationEngine.corridorMatchesNode,
-    addCorridor: CampaignMutationEngine.addCorridor,
-    removeCorridor: CampaignMutationEngine.removeCorridor,
-    removeCorridorsForNode: CampaignMutationEngine.removeCorridorsForNode,
-    ensureQueryableNodesCollection: CampaignMutationEngine.ensureQueryableNodesCollection,
-    getNodesList: CampaignMutationEngine.getNodesList,
-    getNodesMap: CampaignMutationEngine.getNodesMap,
-    getNodeById: CampaignMutationEngine.getNodeById,
-    upsertNode: CampaignMutationEngine.upsertNode,
-    removeNode: CampaignMutationEngine.removeNode
-  });
-}
-
 
