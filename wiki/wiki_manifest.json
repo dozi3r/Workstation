@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-05T03:18:50.524Z",
+  "generatedAt": "2026-11-05T03:27:34.507Z",
   "totalFiles": 735,
   "totalSeries": 7,
   "totalBidirectionalEdges": 3003,
-  "staleCount": 0,
+  "staleCount": 1,
   "duplicateAuditTargets": 9,
   "volumes": [
     {
@@ -9643,9 +9643,9 @@
       "title": "mdi_window_manager.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "141a27012409e9b4",
+      "hash": "d1f1ca1ad06bb747",
       "reviewedHash": "141a27012409e9b4",
-      "stale": false,
+      "stale": true,
       "auditFlag": null,
       "outboundCount": 18,
       "inboundBacklinkCount": 19
@@ -9867,8 +9867,8 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "85fd3ff9c81d3dbb",
-      "reviewedHash": "85fd3ff9c81d3dbb",
+      "hash": "b4d9c1ec609b827b",
+      "reviewedHash": "b4d9c1ec609b827b",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 185,

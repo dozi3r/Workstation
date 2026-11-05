@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-05T03:18:50.524Z",
+  "generatedAt": "2026-11-05T03:27:34.507Z",
   "totalFiles": 735,
   "totalSeries": 7,
   "totalBidirectionalEdges": 3003,
-  "staleCount": 0,
+  "staleCount": 1,
   "nodes": [
     {
       "relPath": "AGENTS.md",
@@ -43762,11 +43762,11 @@
       "title": "mdi_window_manager.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "stale": false,
-      "hash": "141a27012409e9b4",
+      "stale": true,
+      "hash": "d1f1ca1ad06bb747",
       "reviewedHash": "141a27012409e9b4",
       "lineCount": 2924,
-      "sizeBytes": 134411,
+      "sizeBytes": 134426,
       "symbols": [
         "toggleStartMenu()",
         "updateClock()",
@@ -47360,10 +47360,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "85fd3ff9c81d3dbb",
-      "reviewedHash": "85fd3ff9c81d3dbb",
+      "hash": "b4d9c1ec609b827b",
+      "reviewedHash": "b4d9c1ec609b827b",
       "lineCount": 169912,
-      "sizeBytes": 29944188,
+      "sizeBytes": 29944203,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
         "normalizeOdv(val)",
