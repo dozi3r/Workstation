@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-05T04:32:46.270Z",
+  "generatedAt": "2026-11-05T04:33:31.008Z",
   "totalFiles": 735,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3028,
+  "totalBidirectionalEdges": 3030,
   "staleCount": 0,
   "nodes": [
     {
@@ -39321,10 +39321,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "e0248a122675cc2f",
-      "reviewedHash": "e0248a122675cc2f",
-      "lineCount": 316,
-      "sizeBytes": 12630,
+      "hash": "affd7c55ad66ca77",
+      "reviewedHash": "affd7c55ad66ca77",
+      "lineCount": 311,
+      "sizeBytes": 12444,
       "symbols": [
         "validateCampaignPackage(campaignName)",
         "httpGet(url, method = 'GET')",
@@ -39360,6 +39360,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References server.ps1"
+        },
+        {
+          "target": "src/workstation/scripts/campaign_override_slots.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/campaign_override_slots.js"
         },
         {
           "target": "start.html",
@@ -42215,6 +42221,18 @@
           "reason": "References src/workstation/scripts/campaign_override_slots.js"
         },
         {
+          "source": "scripts/test_suite.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/campaign_override_slots.js"
+        },
+        {
+          "source": "src/workstation/scripts/map_store.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes matchSlotFile() defined in campaign_override_slots.js"
+        },
+        {
           "source": "src/workstation/scripts/state_adapter.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -43730,10 +43748,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "1b8dbe26704dc47d",
-      "reviewedHash": "1b8dbe26704dc47d",
-      "lineCount": 2948,
-      "sizeBytes": 122275,
+      "hash": "1818baa822450319",
+      "reviewedHash": "1818baa822450319",
+      "lineCount": 2985,
+      "sizeBytes": 123650,
       "symbols": [
         "openMapDatabase()",
         "saveMapImageToDB(name, dataUrl, width, height, opacity = 0.85, mapId = null, extra = {})",
@@ -43845,6 +43863,12 @@
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes applyBatch() defined in campaign_mutation_engine.js"
+        },
+        {
+          "target": "src/workstation/scripts/campaign_override_slots.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes matchSlotFile() defined in campaign_override_slots.js"
         },
         {
           "target": "src/workstation/scripts/canvas_hud.js",
@@ -47668,10 +47692,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "8acfdbbb67fef489",
-      "reviewedHash": "8acfdbbb67fef489",
-      "lineCount": 193750,
-      "sizeBytes": 32135641,
+      "hash": "81fbced81e0c2ab0",
+      "reviewedHash": "81fbced81e0c2ab0",
+      "lineCount": 193787,
+      "sizeBytes": 32137016,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
         "normalizeOdv(raw)",

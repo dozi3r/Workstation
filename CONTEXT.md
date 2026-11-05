@@ -28,7 +28,7 @@ The canonical composite identifier indexing corridor metadata and slotted module
 _Avoid_: Double-dash key (`u--v`), unordered edge key
 
 #### Core Sociology & Hermeneutics
-**Campaign Matrix Overlay**:
+**Campaign Override Slot** (first slot: the matrix overlay):
 An optional per-campaign set of archetype cells (`campaigns/<id>/odv_matrix.json`, also `odv/matrix.json` or `odv_matrix_*.json`) layered cell-by-cell over the built-in `ODV_MATRIX_64`. The build inlines it into that campaign's `CAMPAIGN_REGISTRY` entry (`odvMatrix`) and `network/campaign_odv_matrices.js`. Opening the campaign calls `setCampaignOdvMatrix`; every consumer reads cells through `getArchetype(tag)`. Omitted cells fall back to built-in. The validator warns below 64 cells (`--strict-odv` fails).
 
 **Granular Disposition `[S, E, C]`**:
@@ -153,7 +153,7 @@ A reactive offline token lexer (`[[Node:...]]`, `[[Map:...]]`, `[[Mod:...]]`, `[
 _Avoid_: Lore links, tags, text search
 
 **Transitive Backlink Propagation**:
-The scale-fluid aggregation mechanism where portal nodes automatically roll up inbound citations targeting descendant submap nodes and stationed campaign entities with hierarchical breadcrumb attribution (`↳ via Submap > Node > NPC`). Descendants are resolved exclusively through `getRecursiveNodeEntities()`, which honors both attachment models (`node.childMapId` and `map.parentMapId` + `map.parentNodeId`), NPC-carried items, and relationally linked quests.
+The scale-fluid aggregation mechanism where portal nodes automatically roll up inbound citations targeting descendant submap nodes and stationed campaign entities with hierarchical breadcrumb attribution (`â†³ via Submap > Node > NPC`). Descendants are resolved exclusively through `getRecursiveNodeEntities()`, which honors both attachment models (`node.childMapId` and `map.parentMapId` + `map.parentNodeId`), NPC-carried items, and relationally linked quests.
 _Avoid_: Recursive search, child search, deep links
 
 **Demographics**:
@@ -391,5 +391,4 @@ _Avoid_: Temp copy folder, branch clone
 **Zero-Token Drift Audit**:
 Verifying synchronization between documentation, schema models, and implementation files using Git status and file tree hashes (`Find-CodebaseNode.ps1 -Stale` or `git status --porcelain`) rather than reading documents into prompt memory.
 _Avoid_: Manual doc comparison, full text drift check
-
 

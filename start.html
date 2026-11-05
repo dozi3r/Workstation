@@ -2106,7 +2106,7 @@ CRITICAL INSTRUCTION:
       <div class="title-bar-text">
         <span style="display:inline-block; width:12px; height:12px; background:#fff; border:1px solid #000; text-align:center; line-height:10px; font-size:8px; color:#000;">CS</span>
         <span>Creator Studio - Pointcrawl Authoring Workstation</span>
-        <span id="ws-build-stamp-badge" data-build-time="2026-11-05 04:32 UTC" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: 2026-11-05 04:32 UTC]</span>
+        <span id="ws-build-stamp-badge" data-build-time="2026-11-05 04:33 UTC" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: 2026-11-05 04:33 UTC]</span>
       </div>
       <div class="title-bar-controls">
         <button class="win-btn" onclick="alert('Creator Studio Desktop Workstation v1.2')">_</button>
@@ -155294,6 +155294,36 @@ window.syncDiskModulesIntoRuntimeCatalog = syncDiskModulesIntoRuntimeCatalog;
 /**
  * Load campaign directly from a FileSystemDirectoryHandle
  */
+// SYS-ODV-04: find campaign override slot files (root, odv/, overrides/, overrides/odv/) in a picked folder.
+async function scanCampaignOverrides(dirHandle) {
+  const out = {};
+  if (typeof CAMPAIGN_OVERRIDE_SLOTS === "undefined" || typeof matchSlotFile !== "function") return out;
+  const found = [];
+  const walk = async (h, prefix) => {
+    for await (const [name, entry] of h.entries()) {
+      if (entry.kind === "file") found.push({ rel: prefix + name, entry });
+    }
+  };
+  await walk(dirHandle, "");
+  for (const sub of [["odv"], ["overrides"], ["overrides", "odv"]]) {
+    try {
+      let h = dirHandle;
+      for (const part of sub) h = await h.getDirectoryHandle(part, { create: false });
+      await walk(h, sub.join("/") + "/");
+    } catch (e) { /* folder absent */ }
+  }
+  for (const slot of CAMPAIGN_OVERRIDE_SLOTS) {
+    const hit = found.find(f => matchSlotFile(f.rel, [slot]));
+    if (!hit) continue;
+    try {
+      out[slot.id] = slot.parse(await (await hit.entry.getFile()).text());
+    } catch (e) {
+      console.warn(`[overrides] ${slot.id} unreadable in ${hit.rel}:`, e.message);
+    }
+  }
+  return out;
+}
+
 async function loadCampaignFromDirectoryHandle(dirHandle) {
   if (!dirHandle) return;
   try {
@@ -155528,6 +155558,13 @@ async function loadCampaignFromDirectoryHandle(dirHandle) {
       }
     } catch(modScanErr) {
       console.warn("[loadCampaignFromDirectoryHandle] Module scan notice:", modScanErr);
+    }
+
+    try {
+      const ovr = await scanCampaignOverrides(dirHandle);
+      if (Object.keys(ovr).length) pkg.overrides = ovr;
+    } catch (ovErr) {
+      console.warn("[loadCampaignFromDirectoryHandle] Override scan notice:", ovErr);
     }
 
     if (typeof window.loadCampaignProjectPackage === "function") {
