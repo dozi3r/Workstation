@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/campaign_exporter.js"
 title: "campaign_exporter.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "a7d93138a62775a1"
-reviewed_hash: "a7d93138a62775a1"
+current_hash: "f06558c323fe2b99"
+reviewed_hash: "f06558c323fe2b99"
 stale: false
-size_bytes: 74552
-line_count: 1807
+size_bytes: 75674
+line_count: 1821
 ---
 
 # campaign_exporter.js
@@ -18,6 +18,9 @@ line_count: 1807
 
 ### Data Preservation (ADR-0015 v2)
 Ensures full lossless export and hydration for all node metadata properties, specifically: `demographics`, `factionPresence`, `partyRapport`, `provides`, `requires`, `exportDown`, and `importUp`.
+
+### Census-Aware Demographics (SYS-ARCH-01)
+`node.demographics` is the census shape `{ primary: {name, percentage}, minorities: [{name, percentage}], social_friction_notes, tags: [] }` (see `CONTEXT.md`, `normalizeDemographics` in `entity_core.js`). Export (`generateCampaignJSON`) and import (`importCampaignData`) both pass it through `normalizeDemographics`, behind a `typeof ... === 'function'` guard. The Obsidian node dossier (`buildObsidianVaultFiles`) renders `primary` (percentage, marked primary population), each minority, then `tags`. A legacy flat array renders as tags, and `{name|race, percentage|pct}` entries in it render as minorities. The "Cosmopolitan / mixed frontier demographic." line appears only when all three are empty.
 
 ### Entity Module Pack Exporter (`executeExportCsmodPack`)
 Enables packaging of submap branches, stationed entities, and IndexedDB graphics into `.csmod` archives via `buildPackArchive()`. Implements zero-CORS browser downloads appending `<a>` to `document.body` with deferred `URL.revokeObjectURL()`.

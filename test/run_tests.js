@@ -3068,6 +3068,48 @@ function testExtensibleWikiMentionsAndDemographics() {
   openedEntityId = null;
   sandbox.navigateToWikiEntity('npc', 'npc_01');
   assertEqual(openedEntityId, 'npc_01', 'navigateToWikiEntity opens entity modal for npc_01');
+
+  // 19.20: SYS-ARCH-01 census-aware demographics in the campaign JSON export and the Obsidian node dossier
+  sandbox.nodes = [
+    { id: 11, name: 'Census Harbor', demographics: { primary: { name: 'Seafolk', percentage: 60 }, minorities: [{ name: 'Dwarves', percentage: 25 }], tags: ['Dockworkers'] } },
+    { id: 12, name: 'Flat Hamlet', demographics: ['Goblin', 'goblin', 'Kobold'] }
+  ];
+  const censusExport = JSON.parse(sandbox.generateCampaignJSON());
+  const censusExpNode = censusExport.nodes.find(n => n.id === 11);
+  assertEqual(censusExpNode.demographics.primary, { name: 'Seafolk', percentage: 60 }, 'generateCampaignJSON keeps census primary through normalizeDemographics');
+  assertEqual(censusExpNode.demographics.minorities, [{ name: 'Dwarves', percentage: 25 }], 'generateCampaignJSON keeps census minorities');
+  assertEqual(censusExport.nodes.find(n => n.id === 12).demographics, { minorities: [], tags: ['Goblin', 'Kobold'] }, 'generateCampaignJSON normalizes a flat demographics array the way importCampaignData does');
+
+  const dossierTopo = {
+    name: 'Census Isle',
+    nodes: {
+      '1': { id: 1, name: 'Census Harbor', tier: 2, culture: 'Market', demographics: { primary: { name: 'Seafolk', percentage: 60 }, minorities: [{ name: 'Dwarves', percentage: 25 }, { name: 'Gnomes', percentage: 15 }], tags: ['Dockworkers'] } },
+      '2': { id: 2, name: 'Flat Hamlet', tier: 1, culture: 'Clan', demographics: ['Goblin', 'goblin', 'Kobold'] },
+      '3': { id: 3, name: 'Empty Fort', tier: 1, culture: 'Hierarchy' },
+      '4': { id: 4, name: 'Legacy Quay', tier: 1, culture: 'Market', demographics: [{ race: 'Elves', pct: 30 }, 'Merchant'] }
+    },
+    edges: [], factions: [], npcs: [], quests: [], items: []
+  };
+  const dossierNoteFrom = (vault, name) => (vault.find(f => f.path.startsWith('Nodes/') && f.path.includes(name)) || { content: '' }).content;
+  const dossierVault = sandbox.buildObsidianVaultFiles(dossierTopo);
+  const censusDossier = dossierNoteFrom(dossierVault, 'Census Harbor');
+  assert(censusDossier.includes('- **Seafolk** (60%)') && censusDossier.includes('- Dwarves (25%)') && censusDossier.includes('- Gnomes (15%)') && censusDossier.includes('- Dockworkers'), 'Obsidian node dossier renders census primary, minorities and tags');
+  assert(!censusDossier.includes('Cosmopolitan'), 'Obsidian node dossier omits the Cosmopolitan fallback for a census node');
+  const flatDossier = dossierNoteFrom(dossierVault, 'Flat Hamlet');
+  assert(flatDossier.includes('- Goblin') && flatDossier.includes('- Kobold') && !flatDossier.includes('Cosmopolitan'), 'Obsidian node dossier still renders a flat demographics array');
+  assertEqual((flatDossier.match(/- goblin/gi) || []).length, 1, 'Obsidian node dossier lists a flat-array tag once (case-insensitive dedupe)');
+  const legacyDossier = dossierNoteFrom(dossierVault, 'Legacy Quay');
+  assert(legacyDossier.includes('- Elves (30%)') && legacyDossier.includes('- Merchant'), 'Obsidian node dossier keeps legacy flat-array {race, pct} groups and strings');
+  assert(dossierNoteFrom(dossierVault, 'Empty Fort').includes('*Cosmopolitan / mixed frontier demographic.*'), 'Obsidian node dossier keeps the Cosmopolitan fallback only when demographics are empty');
+
+  // The typeof guard: a sandbox without entity_core.js (no normalizeDemographics) still renders census demographics
+  const bareExporter = { window: {}, document: { getElementById: () => null, querySelectorAll: () => [], addEventListener: () => {} }, TextEncoder, TextDecoder, Uint8Array, DataView, ArrayBuffer, Blob, console };
+  bareExporter.window = bareExporter;
+  vm.createContext(bareExporter);
+  vm.runInContext(exportCode, bareExporter);
+  assert(typeof bareExporter.normalizeDemographics === 'undefined', 'bare exporter sandbox has no normalizeDemographics');
+  const bareCensus = dossierNoteFrom(bareExporter.buildObsidianVaultFiles(dossierTopo), 'Census Harbor');
+  assert(bareCensus.includes('- **Seafolk** (60%)') && bareCensus.includes('- Dwarves (25%)') && bareCensus.includes('- Dockworkers') && !bareCensus.includes('Cosmopolitan'), 'Obsidian node dossier renders census demographics even without normalizeDemographics');
 }
 
 // ============================================================================

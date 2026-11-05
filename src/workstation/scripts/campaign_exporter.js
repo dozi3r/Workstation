@@ -76,7 +76,7 @@ function generateCampaignJSON() {
         color: n.color || null,
         odv: n.odv || null,
         odvOverridden: !!n.odvOverridden,
-        demographics: n.demographics || null,
+        demographics: (typeof normalizeDemographics === 'function') ? normalizeDemographics(n.demographics) : (n.demographics || null),
         factionPresence: Array.isArray(n.factionPresence) ? n.factionPresence : [],
         partyRapport: n.partyRapport || null,
         provides: Array.isArray(n.provides) ? n.provides : [],
@@ -1098,13 +1098,27 @@ function buildObsidianVaultFiles(topo) {
       nodeMd += `\n`;
     }
 
-    // Demographics
+    // Demographics: census shape { primary, minorities, tags } (CONTEXT.md). A legacy flat array holds tag strings
+    // or { name|race, percentage|pct } groups; groups are treated as minorities.
     nodeMd += `## 👥 Demographics & Local Peoples\n\n`;
-    if (n.demographics && Array.isArray(n.demographics) && n.demographics.length > 0) {
-      n.demographics.forEach(d => {
-        nodeMd += `- ${typeof d === 'string' ? d : `${d.name || d.race}: ${d.percentage || d.pct || 0}%`}\n`;
-      });
-      nodeMd += `\n`;
+    let rawDemographics = n.demographics;
+    if (Array.isArray(rawDemographics)) {
+      rawDemographics = {
+        minorities: rawDemographics.filter(d => d && typeof d === 'object'),
+        tags: rawDemographics.filter(d => typeof d === 'string')
+      };
+    }
+    const censusDemographics = (typeof normalizeDemographics === 'function') ? normalizeDemographics(rawDemographics) : (rawDemographics || {});
+    const demographicLines = [];
+    if (censusDemographics.primary && censusDemographics.primary.name) {
+      demographicLines.push(`- **${censusDemographics.primary.name}** (${censusDemographics.primary.percentage || 0}%) &mdash; primary population`);
+    }
+    (Array.isArray(censusDemographics.minorities) ? censusDemographics.minorities : []).forEach(m => {
+      if (m && (m.name || m.race)) demographicLines.push(`- ${m.name || m.race} (${m.percentage || m.pct || 0}%)`);
+    });
+    (Array.isArray(censusDemographics.tags) ? censusDemographics.tags : []).forEach(tag => demographicLines.push(`- ${tag}`));
+    if (demographicLines.length > 0) {
+      nodeMd += demographicLines.join('\n') + `\n\n`;
     } else {
       nodeMd += `*Cosmopolitan / mixed frontier demographic.*\n\n`;
     }
