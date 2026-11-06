@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules_manifest.json"
 title: "modules_manifest.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "fe72935fd484af4b"
-reviewed_hash: "fe72935fd484af4b"
+current_hash: "270b17562f7d9f1c"
+reviewed_hash: "270b17562f7d9f1c"
 stale: false
-size_bytes: 493
+size_bytes: 486
 line_count: 21
 ---
 

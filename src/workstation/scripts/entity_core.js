@@ -745,6 +745,7 @@
         status: 'Active',
         isCustom: false
       };
+      if (proto.fft) newEntity.fft = JSON.parse(JSON.stringify(proto.fft)); // never share a tree between entities
       if (type === 'tracker') {
         newEntity.currentTicks = proto.currentTicks !== undefined ? proto.currentTicks : (proto.value || 0);
         newEntity.maxTicks = proto.maxTicks !== undefined ? proto.maxTicks : (proto.max || 6);

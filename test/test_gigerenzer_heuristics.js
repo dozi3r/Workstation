@@ -108,7 +108,9 @@ module.exports = function testGigerenzerHeuristics(h) {
   assertEqual(nf.computeConduitNaturalFrequency(undefined, 100).totalThreatWatches, 0, 'undefined conduit is safe');
 
   let conserved = true;
-  for (let lvl = 0; lvl <= 3; lvl++) for (let n = 1; n <= 37; n++) {
+  assertEqual(nf.computeConduitNaturalFrequency({ hazardLevel: 4 }, 100).totalThreatWatches, 50, 'hazardLevel 4 (catastrophic) default is 50%');
+  assertEqual(nf.computeConduitNaturalFrequency({ hazardLevel: 9 }, 100).totalThreatWatches, 50, 'hazardLevel above 4 clamps to 4');
+  for (let lvl = 0; lvl <= 4; lvl++) for (let n = 1; n <= 37; n++) {
     const r = nf.computeConduitNaturalFrequency({ hazardLevel: lvl }, n);
     const m = r.matrix;
     if (m.hits + m.misses + m.falseAlarms + m.correctRejections !== n) conserved = false;

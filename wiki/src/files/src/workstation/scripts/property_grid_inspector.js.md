@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/property_grid_inspector.js"
 title: "property_grid_inspector.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "9a9824e89adc4b41"
-reviewed_hash: "9a9824e89adc4b41"
+current_hash: "b4f1a0569d6de028"
+reviewed_hash: "b4f1a0569d6de028"
 stale: false
-size_bytes: 213821
-line_count: 4446
+size_bytes: 218031
+line_count: 4516
 ---
 
 # property_grid_inspector.js
@@ -30,4 +30,5 @@ line_count: 4446
   - *Demographics & Geopolitics (ADR-0015 v2)*: Renders demographic census readouts, in-cell tag chips (`appendChipInputPropRow`) for peoples and faction presence with datalist suggestions, controlling faction selectors, and party rapport editors (`appendPartyRapportPropRow`) across nodes and non-hegemony corridors.
   - *Dynamic Mod Hooks*: Injects third-party mod inspector fields seamlessly into active property categories.
 - **Bi-Directional Wiki Link Inspector**: Parses and renders embedded `[[Token]]` backlinks (`appendBacklinksPropRow`) with live navigation into the technical manual, grouping direct citations alongside scale-fluid sub-map and stationed entity citations (`↳ via ...`).
+- Gigerenzer suite (ADR 0024): appendHazardOpticsRows adds percentage / natural-frequency hazard display, editable scout rates, and a copyable odds sheet under Hazard Rating.
 <!-- END_CUSTOM_NOTES -->

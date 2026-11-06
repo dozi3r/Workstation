@@ -3,11 +3,11 @@ file_path: "network/odv_archetype_matrix.html"
 title: "Creator Studio: 64-Cell ODV Archetype Matrix & Hermeneutics Explorer"
 volume: "vol-5"
 kind: "Standalone Zero-CORS HTML Workstation"
-current_hash: "3738034e257c6da8"
-reviewed_hash: "3738034e257c6da8"
+current_hash: "6b0ac1e2facec4e1"
+reviewed_hash: "6b0ac1e2facec4e1"
 stale: false
-size_bytes: 193393
-line_count: 3403
+size_bytes: 195889
+line_count: 3477
 ---
 
 # Creator Studio: 64-Cell ODV Archetype Matrix & Hermeneutics Explorer
@@ -46,4 +46,5 @@ It provides a high-density, interactive tactical and strategic exploration suite
    - Campaign matrices register themselves through a script tag as `window.CS_CAMPAIGN_ODV_MATRICES[key] = { label, match, matrix }` (zero-CORS; a missing file is ignored).
    - On boot, `applyCampaignMatrix()` tests `match` (case-insensitive regex) against the active campaign name and `cs_active_campaign`, and applies the matrix as `ODV_MATRIX_OVERRIDE`. It is skipped when a manual override already exists, and the Reset button restores `sociology_data.js` defaults without re-applying.
    - Current entry: `campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.js` (mirror of `odv_matrix_krynn.json`; rationale in `docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md`). The in-workstation MDI matrix window in `start.html` does not use this registry yet.
+- Gigerenzer suite (ADR 0024): fourth view mode 'Heuristics' (renderHeuristicsView) groups cells by decision strategy and lists ecological-fit warnings for the selected cell.
 <!-- END_CUSTOM_NOTES -->

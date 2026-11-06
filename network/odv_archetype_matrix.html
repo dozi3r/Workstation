@@ -321,6 +321,10 @@ CRITICAL INSTRUCTION:
 .max-h-\[600px\] { max-height: 600px; }
 .pr-1 { padding-right: 0.25rem; }
 .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.font-normal { font-weight: 400; }
+.list-disc { list-style-type: disc; }
+.pl-4 { padding-left: 1rem; }
+.space-y-0\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.125rem; }
 .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
 .bg-black\/80 { background-color: rgba(0, 0, 0, 0.8); }
 .justify-center { justify-content: center; }
@@ -1097,6 +1101,9 @@ CRITICAL INSTRUCTION:
         </button>
         <button onclick="setViewMode('cvf')" id="btn-view-cvf" class="view-mode-btn px-2.5 py-1 rounded text-slate-400 hover:text-white flex items-center gap-1">
           <span>🧭 CVF Quadrants</span>
+        </button>
+        <button onclick="setViewMode('heuristics')" id="btn-view-heuristics" class="view-mode-btn px-2.5 py-1 rounded text-slate-400 hover:text-white flex items-center gap-1">
+          <span>🧠 Heuristics</span>
         </button>
       </div>
     </div>
@@ -2835,7 +2842,7 @@ CRITICAL INSTRUCTION:
 
     function setViewMode(mode) {
       currentViewMode = mode;
-      ["layered", "catalog", "cvf"].forEach(m => {
+      ["layered", "catalog", "cvf", "heuristics"].forEach(m => {
         const btn = document.getElementById(`btn-view-${m}`);
         if (m === mode) {
           btn.className = "view-mode-btn active px-2.5 py-1 rounded bg-slate-800 text-white font-semibold flex items-center gap-1 shadow-sm";
@@ -2940,6 +2947,8 @@ CRITICAL INSTRUCTION:
         totalVisible = renderCatalogView(container, searchVal);
       } else if (currentViewMode === "cvf") {
         totalVisible = renderCvfView(container, searchVal);
+      } else if (currentViewMode === "heuristics") {
+        totalVisible = renderHeuristicsView(container, searchVal);
       }
 
       document.getElementById("visible-archetype-count").innerText = totalVisible;
@@ -3201,6 +3210,71 @@ CRITICAL INSTRUCTION:
 
       html += `</div>`;
       container.innerHTML = html;
+      return count;
+    }
+
+    // VIEW 4: GIGERENZER HEURISTICS (decision strategy per cell; quadrant picks it, C modulates it)
+    const HEURISTIC_META = {
+      TAKE_THE_BEST: { name: "Take-the-Best", color: "#f59e0b", text: "Decides on the single most valid cue that separates the options and ignores the rest." },
+      TALLYING: { name: "Tallying + 1/N", color: "#3b82f6", text: "Counts positive against negative indicators with equal weights and splits budgets evenly." },
+      SOCIAL_PROOF: { name: "Social Proof", color: "#22c55e", text: "Copies what the majority of its in-group does and punishes deviants." },
+      FAST_AND_FRUGAL_TREE: { name: "Fast-and-Frugal Tree", color: "#dc2626", text: "Checks codified cues in a fixed order and acts at the first one that discriminates." }
+    };
+    const HEURISTIC_ENVS = [
+      { label: "Redundant, stable guild trade", env: { stability: "stable", cueRedundancy: "high", threat: "none" } },
+      { label: "Turbulent frontier with sparse information", env: { stability: "turbulent", cueRedundancy: "low", threat: "none" } },
+      { label: "Asymmetric warfare", env: { stability: "turbulent", cueRedundancy: "low", threat: "asymmetric" } }
+    ];
+
+    function heuristicInspectorHtml() {
+      const m = selectedTag && selectedTag.match(/\[(\d+),\s*(\d+),\s*(\d+)\]/);
+      if (!m || typeof deriveHeuristicProfile !== "function") {
+        return `<div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3 text-xs text-slate-400">Select a cell to see how that culture decides, and where its strategy fits or fails.</div>`;
+      }
+      const p = deriveHeuristicProfile(+m[1], +m[2], +m[3]);
+      const meta = HEURISTIC_META[p.primary];
+      const rows = HEURISTIC_ENVS.map(x => {
+        const w = diagnoseEcologicalMatch(p, x.env);
+        return `<li><span class="text-slate-400">${x.label}:</span> ${w.length ? `<span class="text-amber-300">${w.map(i => i.message).join(" ")}</span>` : `<span class="text-emerald-300">Good fit.</span>`}</li>`;
+      }).join("");
+      return `<div class="bg-slate-900/90 border rounded-xl p-3 text-xs space-y-1" style="border-color:${meta.color}">
+        <div class="font-bold text-white">${selectedTag} &mdash; <span style="color:${meta.color}">${meta.name}</span> <span class="text-slate-400 font-normal">(${p.strictness}, patience ${p.searchPatience})</span></div>
+        <div class="text-slate-300">${p.summary}</div>
+        <div class="text-slate-400">Cue priority: ${p.cueValidityHierarchy.join(" &gt; ")} &bull; Allocation: ${p.allocationRule.replace(/_/g, " ").toLowerCase()}</div>
+        <ul class="list-disc pl-4 space-y-0.5">${rows}</ul></div>`;
+    }
+
+    function renderHeuristicsView(container, searchVal) {
+      if (typeof deriveHeuristicProfile !== "function") {
+        container.innerHTML = `<div class="text-xs text-amber-300 p-4">Heuristic profiles need sociology_data.js (deriveHeuristicProfile).</div>`;
+        return 0;
+      }
+      let count = 0;
+      const cols = { TAKE_THE_BEST: [], TALLYING: [], SOCIAL_PROOF: [], FAST_AND_FRUGAL_TREE: [] };
+      for (let s = 1; s <= 4; s++) for (let e = 1; e <= 4; e++) for (let c = 1; c <= 4; c++) {
+        const tag = `[${s}, ${e}, ${c}]`;
+        const arch = activeMatrix[tag] || { s, e, c, tag, archetypeName: "Frontier Cell" };
+        if (!matchesFilter(arch, searchVal)) continue;
+        cols[deriveHeuristicProfile(s, e, c).primary].push(arch);
+        count++;
+      }
+      let html = heuristicInspectorHtml() + `<div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-3">`;
+      Object.keys(cols).forEach(key => {
+        const meta = HEURISTIC_META[key];
+        html += `<div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex flex-col space-y-2">
+          <div class="pb-2 border-b border-slate-800">
+            <div class="flex items-center justify-between"><span class="font-extrabold text-sm" style="color:${meta.color}">${meta.name}</span><span class="text-[11px] font-mono text-slate-400">${cols[key].length}/16</span></div>
+            <div class="text-[10px] text-slate-400 mt-1">${meta.text}</div></div>
+          <div class="space-y-1.5 overflow-y-auto max-h-[600px] custom-scroll pr-1">`;
+        cols[key].forEach(arch => {
+          const p = deriveHeuristicProfile(arch.s, arch.e, arch.c);
+          html += `<div onclick="selectArchetypeCell('${arch.tag}'); renderActiveView();" data-tag="${arch.tag}" class="archetype-cell ${arch.tag === selectedTag ? 'cell-selected' : ''} p-2 rounded-lg border border-slate-800 cursor-pointer" style="border-left:4px solid ${meta.color}">
+            <div class="flex items-center justify-between text-[10px]"><span class="font-mono font-bold text-slate-300">${arch.tag}</span><span class="text-slate-400">${p.strictness} &bull; patience ${p.searchPatience}</span></div>
+            <div class="font-bold text-white text-xs truncate">${arch.archetypeName}</div></div>`;
+        });
+        html += `</div></div>`;
+      });
+      container.innerHTML = html + `</div>`;
       return count;
     }
 

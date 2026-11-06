@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/sociology_data.js"
 title: "sociology_data.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "1271371d500da587"
-reviewed_hash: "1271371d500da587"
+current_hash: "cd83a65611e3b823"
+reviewed_hash: "cd83a65611e3b823"
 stale: false
-size_bytes: 129068
-line_count: 2031
+size_bytes: 133294
+line_count: 2115
 ---
 
 # sociology_data.js
@@ -26,4 +26,5 @@ It provides data models, reference dictionaries, and procedural generators conso
 7. `SOC_DIAGNOSTIC_QUESTIONS` (`SOC-06`): Deterministic 3-question calibration decision tree for inter-rater reliability.
 8. `renderMdiOdvMatrix` & `renderMdiOdvDossier`: Win95 desktop workstation integration for `start.html` with full functional parity.
 - ODV (SYS-ODV-02 S1): added normalizeOdvInput/getOdv/getEdgeOdv/getNodeQuadrant; resolveNodeOdv now parses via getOdv (invalid values no longer coerced to 2); dropped bogus `topo` second arg.
+- Gigerenzer suite (ADR 0024): added deriveHeuristicProfile, getHeuristicProfile and diagnoseEcologicalMatch. Quadrant from deriveCvfQuadrant picks the heuristic; C sets strictness and searchPatience.
 <!-- END_CUSTOM_NOTES -->

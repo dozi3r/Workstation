@@ -5,8 +5,8 @@
   if (typeof module !== "undefined" && module.exports) module.exports = factory(root);
   else Object.assign(root, factory(root));
 })(typeof window !== "undefined" ? window : globalThis, function () {
-  // Used only when a conduit has no explicit hazardProbability. Index = hazardLevel 0..3.
-  const HAZARD_LEVEL_BASE_RATE = [0, 0.05, 0.15, 0.30];
+  // Used only when a conduit has no explicit hazardProbability. Index = hazardLevel 0..4 (the inspector offers 0-4).
+  const HAZARD_LEVEL_BASE_RATE = [0, 0.05, 0.15, 0.30, 0.50];
 
   function rate(v, fallback) {
     const n = Number(v);
@@ -17,7 +17,7 @@
   function baseRateFor(conduit) {
     const explicit = rate(conduit.hazardProbability, null);
     if (explicit !== null) return explicit;
-    const lvl = Math.min(3, Math.max(0, parseInt(conduit.hazardLevel, 10) || 0));
+    const lvl = Math.min(HAZARD_LEVEL_BASE_RATE.length - 1, Math.max(0, parseInt(conduit.hazardLevel, 10) || 0));
     return HAZARD_LEVEL_BASE_RATE[lvl];
   }
 

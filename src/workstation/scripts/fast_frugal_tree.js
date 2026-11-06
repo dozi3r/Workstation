@@ -75,5 +75,80 @@
     };
   }
 
-  return { FFT_TEST_TYPES: FFT_TEST_TYPES, validateFft: validateFft, evaluateFastAndFrugalTree: evaluateFastAndFrugalTree };
+  // ---- Presets (Phase 2) ----
+  const FFT_PRESETS = {
+    sentry_triage: {
+      name: "Emergency Sentry Triage", purpose: "Fight, detain or pass travelers at a checkpoint",
+      cues: [
+        { id: "weapons_drawn", label: "Party has drawn weapons or active war magic?", testType: "boolean_query", targetValue: true, exitDirection: "yes", exitAction: "ATTACK_HOSTILE", exitLabel: "Sound alarm and engage" },
+        { id: "official_writ", label: "Carries an official writ or seal?", testType: "item_check", targetValue: "writ", exitDirection: "yes", exitAction: "GRANT_PASSAGE", exitLabel: "Salute and open the gate" },
+        { id: "can_pay_toll", label: "Can pay the entry levy?", testType: "gold_threshold", targetValue: 50, exitDirection: "no", exitAction: "REFUSE_ENTRY", exitLabel: "Turn away" }
+      ],
+      defaultExit: { action: "GRANT_PASSAGE_WITH_ESCORT", label: "Allow entry under armed escort" }
+    },
+    bail_ransom: {
+      name: "Bail / Ransom Determination", purpose: "Release a prisoner or hold them indefinitely",
+      cues: [
+        { id: "kin_in_power", label: "Prisoner is kin to someone in authority?", testType: "boolean_query", targetValue: true, exitDirection: "yes", exitAction: "RELEASE", exitLabel: "Release quietly" },
+        { id: "ransom_paid", label: "Can the ransom be paid?", testType: "gold_threshold", targetValue: 100, exitDirection: "yes", exitAction: "RELEASE_ON_RANSOM", exitLabel: "Release on ransom" }
+      ],
+      defaultExit: { action: "HOLD_INDEFINITELY", label: "Hold in the dungeon" }
+    },
+    trade_parley: {
+      name: "Trade Parley Protocol", purpose: "Accredit, tariff or seize a trading party",
+      cues: [
+        { id: "contraband", label: "Carrying contraband?", testType: "boolean_query", targetValue: true, exitDirection: "yes", exitAction: "SEIZE_GOODS", exitLabel: "Seize cargo" },
+        { id: "guild_standing", label: "In good standing with the guild?", testType: "faction_standing", targetValue: { factionId: "guild", min: 1 }, exitDirection: "yes", exitAction: "ACCREDIT", exitLabel: "Accredit and trade freely" }
+      ],
+      defaultExit: { action: "APPLY_TARIFF", label: "Allow trade with a tariff" }
+    },
+    contagion_inspection: {
+      name: "Contagion / Infiltration Inspection", purpose: "Burn, quarantine or cleanse arrivals",
+      cues: [
+        { id: "visible_plague", label: "Shows visible signs of plague?", testType: "boolean_query", targetValue: true, exitDirection: "yes", exitAction: "BURN", exitLabel: "Burn belongings and isolate" },
+        { id: "cleansing_rite", label: "Carries proof of a cleansing rite?", testType: "item_check", targetValue: "cleansing_token", exitDirection: "yes", exitAction: "CLEANSE_PASS", exitLabel: "Pass" }
+      ],
+      defaultExit: { action: "QUARANTINE", label: "Hold in quarantine for observation" }
+    }
+  };
+
+  function createDefaultFft(templateType) {
+    const src = FFT_PRESETS[templateType] || FFT_PRESETS.sentry_triage;
+    const copy = JSON.parse(JSON.stringify(src));
+    copy.id = "fft_" + (FFT_PRESETS[templateType] ? templateType : "sentry_triage");
+    return copy;
+  }
+
+  // ---- Pure editing helpers (return a new tree; never mutate the input) ----
+  function cloneFft(fft) { return JSON.parse(JSON.stringify(fft)); }
+
+  function moveCue(fft, index, delta) {
+    const out = cloneFft(fft);
+    const j = index + delta;
+    if (index < 0 || index >= out.cues.length || j < 0 || j >= out.cues.length) return out;
+    const tmp = out.cues[index]; out.cues[index] = out.cues[j]; out.cues[j] = tmp;
+    return out;
+  }
+
+  function addCue(fft, cue) {
+    const out = cloneFft(fft);
+    let id = (cue && cue.id) || "cue";
+    const ids = new Set(out.cues.map(function (c) { return c.id; }));
+    let n = 1, candidate = id;
+    while (ids.has(candidate)) candidate = id + "_" + (++n);
+    out.cues.push(Object.assign({ testType: "boolean_query", targetValue: true, exitDirection: "yes", exitAction: "EXIT" }, cue, { id: candidate }));
+    return out;
+  }
+
+  function removeCue(fft, index) {
+    const out = cloneFft(fft);
+    if (index >= 0 && index < out.cues.length) out.cues.splice(index, 1);
+    return out;
+  }
+
+  return {
+    FFT_TEST_TYPES: FFT_TEST_TYPES, FFT_PRESETS: FFT_PRESETS,
+    validateFft: validateFft, evaluateFastAndFrugalTree: evaluateFastAndFrugalTree,
+    createDefaultFft: createDefaultFft, moveCue: moveCue, addCue: addCue, removeCue: removeCue
+  };
 });

@@ -2032,6 +2032,7 @@
               <div style="margin-top:4px; font-size:10px; color:#555;">
                 Condition: <strong>${edge.condition}</strong> • Patrol: <strong>${edge.patrolFaction}</strong>
               </div>
+              ${typeof computeConduitNaturalFrequency === 'function' ? `<div style="margin-top:4px; font-size:10px; color:#334155;">${escapeHtml(computeConduitNaturalFrequency(Workstation.activeTopology && Workstation.activeTopology.edgeData && (Workstation.activeTopology.edgeData[edge.edgeKey] || Workstation.activeTopology.edgeData[edge.pairKey]) || { hazardLevel: edge.hazardLevel }, 20).readableSummary)}</div>` : ''}
               <button class="win-btn" style="width:100%; margin-top:6px; font-weight:bold; padding:3px 6px;" onclick="openCorridorHazardDialog('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', Workstation.activeTopology && Workstation.activeTopology.edgeData && (Workstation.activeTopology.edgeData['${escapedKey}'] || Workstation.activeTopology.edgeData['${escapedPairKey}']))">🎲 Roll Tabletop Hazard Check...</button>
             </div>
 
@@ -2707,6 +2708,10 @@
               </div>
             </div>
 
+            <!-- Heuristic style & decision tree (Gigerenzer suite) -->
+            ${typeof renderHeuristicBadgeHtml === 'function' ? renderHeuristicBadgeHtml(facObj.disposition) : ''}
+            ${typeof renderFftDossierHtml === 'function' ? renderFftDossierHtml('faction', facObj) : ''}
+
             <!-- Diplomatic Stances Matrix -->
             <div>
               <div style="font-weight:bold; color:#000080; margin-bottom:2px;">🤝 Diplomatic Stance Matrix:</div>
@@ -2972,6 +2977,10 @@
                 </div>
               ` : ''}
             </div>
+
+            <!-- Heuristic style & decision tree (Gigerenzer suite) -->
+            ${typeof renderHeuristicBadgeHtml === 'function' ? renderHeuristicBadgeHtml(npcObj.odv) : ''}
+            ${typeof renderFftDossierHtml === 'function' ? renderFftDossierHtml('npc', npcObj) : ''}
 
             <!-- Three-Clue Secrets Known -->
             <div>

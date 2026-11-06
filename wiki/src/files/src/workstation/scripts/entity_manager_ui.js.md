@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_manager_ui.js"
 title: "entity_manager_ui.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "28da2fc5de1c0b5b"
-reviewed_hash: "28da2fc5de1c0b5b"
+current_hash: "3b5f204813611bf3"
+reviewed_hash: "3b5f204813611bf3"
 stale: false
-size_bytes: 184273
-line_count: 3095
+size_bytes: 185268
+line_count: 3104
 ---
 
 # entity_manager_ui.js
@@ -22,4 +22,5 @@ line_count: 3095
 - **Filterable Entity Roster Table**: Generates the central multi-column tabular ledger (`renderEntityManagerList`, `renderMiniClockGauge`) displaying status tags, ownership indicators, station nodes, and archetype badges.
 - **Comprehensive Entity Inspector**: Implements the in-depth right inspector pane (`selectEntityItem`), providing editable fields, ODV coordinate readouts, relationship tables, quest step progression lists, item inventory links, and clock gauge controllers.
 - **Deep-Link Entity Navigation**: Exposes `navigateToEntity(type, id)` to programmatically transition workstation focus from canvas nodes or HUD badges directly into the specific entity inspector.
+- Gigerenzer suite (ADR 0024): NPC and faction panes render the heuristic badge and decision-tree dossier; Edge Explorer shows a natural-frequency summary under hazard risk.
 <!-- END_CUSTOM_NOTES -->

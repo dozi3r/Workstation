@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_core.js"
 title: "entity_core.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "9fa60a7670fc6812"
-reviewed_hash: "9fa60a7670fc6812"
+current_hash: "bea8df7f95e0ab05"
+reviewed_hash: "bea8df7f95e0ab05"
 stale: false
-size_bytes: 51607
-line_count: 1187
+size_bytes: 51722
+line_count: 1188
 ---
 
 # entity_core.js
@@ -23,4 +23,5 @@ line_count: 1187
 - **Demographics, Factions & Party Rapport (ADR-0015 v2)**: Provides pure normalizers and mutators (`normalizeDemographics`, `getDemographicNames`, `normalizePartyRapport`, `PARTY_STANCE_LABELS`, `addDemographicTag`, `removeDemographicTag`, `addFactionPresence`, `removeFactionPresence`, `setPartyRapport`) preserving SYS-RACE-02 census data while enabling freeform peoples tags, multi-map faction suggestion aggregation (`getCampaignFactionSuggestions`), and standardized 5-point rapport tracking with pre-mutation history snapshots (`pushHistoryState`).
 - **Prototypes & Stationing**: Queries campaign module prototypes (`getPrototypesForType`), accesses typed active entity rosters (`getActiveEntityList`), promotes prototypes into campaign instances (`promotePrototypeToCampaign`), stations entities to pointcrawl nodes (`assignEntityToNode`), and controls threat clock ticks/dials (`advanceTrackerTick`, `resetTrackerTicks`, `setTrackerDialLevel`).
 - **Removal (SYS-ARCH-01)**: `removeEntityFromCampaign` opens the cascade dialog (`promptEntityDelete`). Without the dialog it deletes through `CampaignMutationEngine.deleteEntity` (passing the `maps` registry) so references are unlinked the same way. The old fallback that filtered four collections and unlinked nothing is gone.
+- Gigerenzer suite (ADR 0024): promotePrototypeToCampaign deep-copies the optional fft so promoted entities never share a tree.
 <!-- END_CUSTOM_NOTES -->

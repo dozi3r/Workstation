@@ -1676,7 +1676,9 @@
         ], val => {
           edgeRecord.hazardLevel = parseInt(val) || 0;
           saveActiveCampaign();
+          updatePropertiesGrid();
         });
+        appendHazardOpticsRows(tbody, edgeRecord);
 
         appendPropRow(tbody, 'Toll / Permit', edgeRecord.tollCost || 'None', true, val => {
           edgeRecord.tollCost = val;
@@ -2428,6 +2430,74 @@
       td.textContent = name;
       tr.appendChild(td);
       tbody.appendChild(tr);
+    }
+
+    // Hazard Optics: shows corridor risk as percentages or as whole-number natural frequencies (Gigerenzer).
+    let hazardOpticsMode = 'frequency';
+    try { hazardOpticsMode = localStorage.getItem('cs_hazardOpticsMode') || 'frequency'; } catch (e) { /* storage unavailable */ }
+
+    function parsePercentInput(raw) {
+      const t = String(raw).trim().replace('%', '');
+      if (t === '') return undefined; // blank = fall back to the hazard-level default
+      const n = Number(t);
+      return isFinite(n) ? Math.min(100, Math.max(0, n)) / 100 : undefined;
+    }
+
+    function appendHazardOpticsRows(tbody, edgeRecord) {
+      if (typeof computeConduitNaturalFrequency !== 'function') return;
+      const pct = v => (v === undefined || v === null ? '' : String(Math.round(v * 1000) / 10));
+      const setRate = (key, raw) => {
+        const v = parsePercentInput(raw);
+        if (v === undefined) delete edgeRecord[key]; else edgeRecord[key] = v;
+        saveActiveCampaign();
+        updatePropertiesGrid();
+      };
+      appendCategoryRow(tbody, 'Hazard Optics (Natural Frequencies)');
+      appendSelectPropRow(tbody, 'Display Mode', hazardOpticsMode, [
+        { val: 'frequency', label: 'Natural Frequency (counts)' },
+        { val: 'percent', label: 'Percentage' }
+      ], val => {
+        hazardOpticsMode = val;
+        try { localStorage.setItem('cs_hazardOpticsMode', val); } catch (e) { /* ignore */ }
+        updatePropertiesGrid();
+      });
+      appendPropRow(tbody, 'Hazard Chance %', pct(edgeRecord.hazardProbability), true, raw => setRate('hazardProbability', raw));
+      appendPropRow(tbody, 'Scout Detects %', pct(edgeRecord.scoutDetectionRate), true, raw => setRate('scoutDetectionRate', raw));
+      appendPropRow(tbody, 'Scout False Alarm %', pct(edgeRecord.scoutFalseAlarmRate), true, raw => setRate('scoutFalseAlarmRate', raw));
+
+      const nf = computeConduitNaturalFrequency(edgeRecord, 100);
+      const tr = document.createElement('tr');
+      tr.className = 'prop-row';
+      const td = document.createElement('td');
+      td.colSpan = 2;
+      td.style.padding = '3px 4px';
+      if (hazardOpticsMode === 'percent') {
+        const rb = Math.round(nf.totalThreatWatches);
+        td.textContent = `${rb}% hazard chance per trip. Leave the fields above blank to use the Hazard Rating default.`;
+      } else {
+        const m = nf.matrix;
+        const cell = (label, n, bg, fg) => `<td style="background:${bg}; color:${fg}; border:1px solid #888; padding:2px 4px; text-align:center;"><div style="font-size:14px; font-weight:bold;">${n}</div><div style="font-size:9px;">${label}</div></td>`;
+        td.innerHTML =
+          `<div style="font-size:10px; margin-bottom:3px;">Out of ${nf.sampleSize} trips, ${nf.totalThreatWatches} meet a hazard.</div>` +
+          `<table style="border-collapse:collapse; width:100%;"><tr>` +
+          cell('Hit: alarm, danger real', m.hits, '#dcfce7', '#166534') +
+          cell('False alarm: alarm, safe', m.falseAlarms, '#fef9c3', '#854d0e') + `</tr><tr>` +
+          cell('Miss: silent, danger strikes', m.misses, '#fee2e2', '#991b1b') +
+          cell('Correct rejection: silent, safe', m.correctRejections, '#e5e7eb', '#374151') + `</tr></table>` +
+          `<div style="font-size:9px; color:#475569; margin-top:3px;">${nf.alertsTotal ? `${m.hits} of ${nf.alertsTotal} alarms are real.` : 'Scouts raise no alarms.'}</div>`;
+      }
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+
+      appendButtonPropRow(tbody, 'Odds Sheet', 'Copy Encounter Odds Sheet', () => {
+        const s = computeConduitNaturalFrequency(edgeRecord, 20);
+        const text = `Encounter odds for this corridor (per 20 travel watches)\n${s.readableSummary}`;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => setStatusBarMessage('Encounter odds sheet copied.'), () => window.prompt('Copy the odds sheet:', text));
+        } else {
+          window.prompt('Copy the odds sheet:', text);
+        }
+      });
     }
 
     function appendBoolPropRow(tbody, propName, boolVal, onCommit) {
