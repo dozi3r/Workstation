@@ -8729,6 +8729,7 @@ function testSuite50EntityReferenceIntegrity() {
     testSuite49EngineIncludeOrder();
     testSuite50EntityReferenceIntegrity();
     testSuite51ImporterChainSelectionAndConduitMerge();
+    require('./test_gigerenzer_heuristics.js')({ assert, assertEqual, ROOT });
 
     const elapsedMs = Date.now() - suiteStartTime;
     console.log('\n================================================================');

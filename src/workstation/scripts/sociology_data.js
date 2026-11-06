@@ -1951,8 +1951,92 @@ function openOdvWizardForNode(nodeId) {
   renderMdiOdvWizard(odv.s, odv.e, odv.c);
 }
 
+// ============================================================================
+// ADAPTIVE TOOLBOX HEURISTIC PROFILES (Gigerenzer-inspired design mapping)
+// Quadrant (from [S,E], via deriveCvfQuadrant) picks the heuristic; C modulates it.
+// Total over all 64 cells by construction. Authority: tickets/plans/gigerenzer_heuristics_implementation_plan.md
+// ============================================================================
+const HEURISTIC_BASE_BY_QUADRANT = {
+  Clan: {
+    primary: "SOCIAL_PROOF",
+    socialRule: "IMITATE_MAJORITY",
+    allocationRule: "KIN_SHARE",
+    cueValidityHierarchy: ["elder_consensus", "kin_standing", "precedent"],
+    summary: "Samples what in-group peers do and adopts the majority; deviants are ostracized."
+  },
+  Hierarchy: {
+    primary: "FAST_AND_FRUGAL_TREE",
+    socialRule: "FOLLOW_CODE",
+    allocationRule: "RANK_PRIORITY",
+    cueValidityHierarchy: ["protocol_breach", "written_writ", "rank"],
+    summary: "Checks codified cues in fixed order and enforces at the first one that discriminates."
+  },
+  Adhocracy: {
+    primary: "TAKE_THE_BEST",
+    socialRule: "IMITATE_SUCCESSFUL",
+    allocationRule: "WINNER_TAKES_BUDGET",
+    cueValidityHierarchy: ["immediate_threat", "tactical_advantage", "economic_profit"],
+    summary: "Ranks cues by validity and decides on the first single cue that separates the options."
+  },
+  Market: {
+    primary: "TALLYING",
+    socialRule: "BENCHMARK_PEERS",
+    allocationRule: "EQUALITY_ONE_OVER_N",
+    cueValidityHierarchy: ["price", "volume", "reputation", "risk"],
+    summary: "Counts positive against negative indicators with unit weights; splits budgets 1/N."
+  }
+};
+
+function deriveHeuristicProfile(s, e, c) {
+  const clamp = (v) => Math.min(4, Math.max(1, Math.round(Number(v)) || 1));
+  const S = clamp(s), E = clamp(e), C = clamp(c);
+  const quadrant = deriveCvfQuadrant(S, E);
+  const base = HEURISTIC_BASE_BY_QUADRANT[quadrant];
+  return {
+    quadrant,
+    primary: base.primary,
+    socialRule: base.socialRule,
+    allocationRule: base.allocationRule,
+    cueValidityHierarchy: base.cueValidityHierarchy.slice(),
+    searchPatience: C,
+    strictness: C >= 3 ? "codified" : "improvised",
+    summary: base.summary
+  };
+}
+
+// Returns the profile for a node/entity carrying `odv: {s,e,c}`, or null when it has none.
+function getHeuristicProfile(subject) {
+  const odv = subject && subject.odv;
+  if (!odv || odv.s == null || odv.e == null || odv.c == null) return null;
+  return deriveHeuristicProfile(odv.s, odv.e, odv.c);
+}
+
+// env: { stability: "stable"|"turbulent", cueRedundancy: "high"|"low", threat: "none"|"conventional"|"asymmetric" }
+// Returns an array of { code, message }; empty when the profile fits the environment.
+function diagnoseEcologicalMatch(profile, env) {
+  const warnings = [];
+  if (!profile || !env) return warnings;
+  if (profile.primary === "TAKE_THE_BEST" && env.cueRedundancy === "high") {
+    warnings.push({ code: "OVERFITTING_ONE_REASON", message: "Ecological Mismatch: Take-the-Best discards redundant cues where Tallying would be more robust (reckless one-reason bias)." });
+  }
+  if (profile.primary === "FAST_AND_FRUGAL_TREE" && env.threat === "asymmetric") {
+    warnings.push({ code: "PROCEDURAL_PARALYSIS", message: "Ecological Mismatch: a fixed cue order cannot adapt to asymmetric threats (procedural paralysis)." });
+  }
+  if (profile.primary === "TALLYING" && env.stability === "turbulent" && env.cueRedundancy === "low") {
+    warnings.push({ code: "TALLY_ON_NOISE", message: "Ecological Mismatch: Tallying sums unreliable indicators when cues are sparse and conditions shift." });
+  }
+  if (profile.primary === "SOCIAL_PROOF" && env.stability === "turbulent") {
+    warnings.push({ code: "HERDING_UNDER_CHANGE", message: "Ecological Mismatch: imitating the majority lags when the environment changes faster than precedent." });
+  }
+  return warnings;
+}
+
 // Global exports for zero-CORS HTML visualizers and dynamic modding
 if (typeof window !== "undefined") {
+  window.HEURISTIC_BASE_BY_QUADRANT = HEURISTIC_BASE_BY_QUADRANT;
+  window.deriveHeuristicProfile = deriveHeuristicProfile;
+  window.getHeuristicProfile = getHeuristicProfile;
+  window.diagnoseEcologicalMatch = diagnoseEcologicalMatch;
   if (!window.ODV_MATRIX_64) window.ODV_MATRIX_64 = ODV_MATRIX_64;
   if (!window.CVF_PARADIGMS) window.CVF_PARADIGMS = CVF_PARADIGMS;
   if (!window.getArchetypeDetails) window.getArchetypeDetails = getArchetypeDetails;
