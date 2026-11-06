@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/cad_canvas_renderer.js"
 title: "cad_canvas_renderer.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "f5b4c84d18e81a46"
-reviewed_hash: "f5b4c84d18e81a46"
+current_hash: "047d8514d1704598"
+reviewed_hash: "047d8514d1704598"
 stale: false
-size_bytes: 83098
-line_count: 1631
+size_bytes: 83611
+line_count: 1638
 ---
 
 # cad_canvas_renderer.js
@@ -25,4 +25,5 @@ line_count: 1631
 - **Background Map Canvas Integration**: Dynamically binds and projects raster map backgrounds onto `#canvas-bg-image` from active metadata (`dataUrl` or `url`), supporting opacity blending and layer toggles without canvas flickering.
 - **Recursive Sub-Map Entity Aggregation**: Resolves effective stationed items and entities across nested portal sub-maps (`getItemEffectiveNodeId`, `getRecursiveNodeEntities`, `traverseSubmap`).
 - ODV (SYS-ODV-02 S1): resolveNodeOdv calls no longer pass the topology as fallbackIndex.
+- Gigerenzer suite (ADR 0024): road lines are tinted and pulsed when getDreadOverlayEdgeKind reports a dreaded or detour conduit.
 <!-- END_CUSTOM_NOTES -->

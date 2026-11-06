@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/property_grid_inspector.js"
 title: "property_grid_inspector.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "b4f1a0569d6de028"
-reviewed_hash: "b4f1a0569d6de028"
+current_hash: "4b86ba142b343cee"
+reviewed_hash: "4b86ba142b343cee"
 stale: false
-size_bytes: 218031
-line_count: 4516
+size_bytes: 218494
+line_count: 4523
 ---
 
 # property_grid_inspector.js
@@ -31,4 +31,5 @@ line_count: 4516
   - *Dynamic Mod Hooks*: Injects third-party mod inspector fields seamlessly into active property categories.
 - **Bi-Directional Wiki Link Inspector**: Parses and renders embedded `[[Token]]` backlinks (`appendBacklinksPropRow`) with live navigation into the technical manual, grouping direct citations alongside scale-fluid sub-map and stationed entity citations (`↳ via ...`).
 - Gigerenzer suite (ADR 0024): appendHazardOpticsRows adds percentage / natural-frequency hazard display, editable scout rates, and a copyable odds sheet under Hazard Rating.
+- Gigerenzer suite (ADR 0024): node property grid has a Dread Risk What-If section (run and clear buttons).
 <!-- END_CUSTOM_NOTES -->

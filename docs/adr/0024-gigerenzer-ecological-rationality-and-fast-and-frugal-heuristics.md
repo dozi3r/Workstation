@@ -38,9 +38,17 @@ NPCs, factions and conduits carry static descriptions and a disposition vector. 
 - The Edge Explorer shows the natural-frequency summary under hazard and travel risk.
 - `odv_archetype_matrix.html` has a Heuristics view that groups the 64 cells by strategy and explains where each one fits or fails.
 
-## Deferred
+## Dread risk what-if
 
-The dread-risk cascade (traffic diversion after a catastrophe, with secondary casualties) is not built. If built, it should be an opt-in what-if overlay that never writes `hazardLevel`, guards S at 0, caps diverted flow by detour capacity, and conserves total traffic.
+After a catastrophe, travelers avoid the dreaded conduits and crowd onto detours, where congestion can cost more lives than the original event. `simulateDreadRiskCascade(topo, opts)` in `dread_risk.js` models this as a pure what-if. It never writes to the topology.
+
+- Dread index: `severity x (1 + novelty) x C / max(1, S)`, using the source node's ODV. Diversion rate: `min(1, index / 10)`.
+- Each road at the source node is a dreaded conduit. Diverted traffic takes the shortest road path that avoids that conduit. Blocked roads are skipped.
+- Assumptions, all overridable per edge: `trafficVolume` (default 100), nominal `capacity` (default 1.25 x traffic), hard cap of 2 x capacity. Flow beyond the hard cap is reported as unserved (stranded), not lost.
+- Detour casualties are `added flow x loss rate(effective level) x congestion`. Congestion is at least 1. Load above nominal capacity raises the effective hazard level by 1, and load above 1.5 x capacity raises it by 2 (capped at 4), so crowding makes even a hazard-free road dangerous. Flow is conserved: entering = direct + served + unserved.
+- Nodes on detours are flagged Refugee Strain, or Famine Risk when congestion exceeds 1.5.
+- `dread_risk_overlay.js` runs it from a "Dread Risk What-If" button in the node property grid, tints dreaded (red) and detour (amber) conduits on the canvas, and writes the totals to the status bar. A clear button removes it.
+- The loss rates and capacity defaults are tuning values, not figures from the book.
 
 ## Consequences
 

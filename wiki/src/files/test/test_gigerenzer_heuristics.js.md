@@ -3,11 +3,11 @@ file_path: "test/test_gigerenzer_heuristics.js"
 title: "test_gigerenzer_heuristics.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "87c4973cf538c32f"
-reviewed_hash: "87c4973cf538c32f"
+current_hash: "e28e1f75673eeefb"
+reviewed_hash: "e28e1f75673eeefb"
 stale: false
-size_bytes: 8978
-line_count: 122
+size_bytes: 13427
+line_count: 179
 ---
 
 # test_gigerenzer_heuristics.js
@@ -17,4 +17,5 @@ line_count: 122
 `test/test_gigerenzer_heuristics.js` serves as a **Node.js / Browser Engine Script** within **Volume VIII: Campaign Packages, Modules & Templates**.
 
 - Covers heuristic derivation over all 64 cells, FFT stopping rules and validation, and natural-frequency boundaries. Called from run_tests.js.
+- Also covers the dread-risk cascade: flow conservation, capacity caps, blocked roads, hyphenated node ids, S of 0 guard, no mutation.
 <!-- END_CUSTOM_NOTES -->

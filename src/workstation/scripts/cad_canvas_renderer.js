@@ -902,6 +902,13 @@
                 line.setAttribute('stroke', isSelected ? '#f43f5e' : (isRoadHidden ? '#94a3b8' : (isDimmed ? '#334155' : (isHighFriction ? '#f59e0b' : '#3b82f6'))));
                 line.setAttribute('stroke-width', isSelected ? '4' : (isHighFriction ? '3' : '2.5'));
                 line.style.cursor = 'pointer';
+                // Dread risk what-if overlay (ADR 0024): tint dreaded and detour conduits, never persisted.
+                const dreadKind = (typeof window.getDreadOverlayEdgeKind === 'function') ? window.getDreadOverlayEdgeKind(pairKey) : null;
+                if (dreadKind) {
+                  line.setAttribute('stroke', dreadKind === 'primary' ? '#dc2626' : '#f59e0b');
+                  line.setAttribute('stroke-width', '5');
+                  line.classList.add('dread-pulse');
+                }
                 if (isRoadHidden) {
                   line.setAttribute('stroke-dasharray', '5,5');
                   line.setAttribute('opacity', String(0.38 * roadsOpacityMultiplier));

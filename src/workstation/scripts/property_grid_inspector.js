@@ -1223,6 +1223,13 @@
         });
 
         // Category: Hierarchical Cartography (Associated Sub-Maps & Child Portals)
+        if (typeof window.runDreadRiskWhatIf === 'function') {
+          appendCategoryRow(tbody, 'Dread Risk What-If');
+          appendButtonPropRow(tbody, 'Catastrophe', 'Simulate Panic Detours...', () => window.runDreadRiskWhatIf(node.id));
+          if (window.isDreadRiskWhatIfActive && window.isDreadRiskWhatIfActive()) {
+            appendButtonPropRow(tbody, 'Overlay', 'Clear What-If', () => window.clearDreadRiskWhatIf());
+          }
+        }
         appendCategoryRow(tbody, 'Associated Sub-Maps');
         const curMapId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
         const rec = getRecursiveNodeEntities(node.id, curMapId);

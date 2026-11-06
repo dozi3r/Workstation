@@ -118,4 +118,61 @@ module.exports = function testGigerenzerHeuristics(h) {
   }
   assert(conserved, 'matrix cells are non-negative and sum to sample size across levels and sizes');
   assert(/8 of 17 alarms are real/.test(base.readableSummary), 'summary states how many alarms are real');
+
+  // ---- Dread risk what-if ----
+  const dr = require(path.join(scripts, 'dread_risk.js'));
+  const mkTopo = () => ({
+    nodes: {
+      A: { id: 'A', adj: ['B', 'C'], odv: { s: 1, e: 2, c: 4 } },
+      B: { id: 'B', adj: ['A', 'C'] },
+      C: { id: 'C', adj: ['A', 'B', 'D'] },
+      D: { id: 'D', adj: ['C'] }
+    },
+    edgeData: { 'A-B': { hazardLevel: 1 }, 'A-C': { hazardLevel: 1 }, 'B-C': { hazardLevel: 2 } }
+  });
+  const topo1 = mkTopo();
+  const snapshot = JSON.stringify(topo1);
+  const res = dr.simulateDreadRiskCascade(topo1, { sourceNodeId: 'A', severity: 10 });
+  assertEqual(JSON.stringify(topo1), snapshot, 'what-if never mutates the topology');
+  assertEqual(res.diversionRate, 1, 'diversion rate clamps at 1');
+  const T = res.totals;
+  assert(Math.abs(T.entering - (T.direct + T.served + T.unserved)) < 1e-9, 'flow conserved: entering = direct + served + unserved');
+  assertEqual(T.direct, 0, 'full dread leaves no direct traffic');
+  assert(T.secondaryLosses > 0 && T.primaryLosses === 0, 'all traffic diverted: losses are on detours');
+  assertEqual(res.conduits.find(c => c.v === 'B').detourPath.join('>'), 'A>C>B', 'A-B detours through C');
+  assert(res.detours.every(d => d.congestion >= 1), 'congestion multiplier is at least 1');
+  assert(res.flaggedNodes.some(f => f.nodeId === 'C'), 'node on the detour is flagged');
+
+  const free = { nodes: { A: { id: 'A', adj: ['B', 'C'], odv: { s: 1, e: 1, c: 4 } }, B: { id: 'B', adj: ['A', 'C'] }, C: { id: 'C', adj: ['A', 'B'] } }, edgeData: {} };
+  const crowd = dr.simulateDreadRiskCascade(free, { sourceNodeId: 'A', severity: 10 });
+  assert(crowd.detours.some(d => d.congestion > 1.5 && d.escalatedLevel >= 2) && crowd.totals.secondaryLosses > 0, 'crowding makes a hazard-free detour dangerous');
+
+  const calm = dr.simulateDreadRiskCascade(mkTopo(), { sourceNodeId: 'A', severity: 0 });
+  assertEqual([calm.totals.diverted, calm.detours.length, calm.flaggedNodes.length], [0, 0, 0], 'severity 0 causes no diversion');
+  const mid = dr.simulateDreadRiskCascade(mkTopo(), { sourceNodeId: 'A', severity: 3, novelty: 0, odv: { s: 2, e: 2, c: 2 } });
+  assert(mid.diversionRate > 0 && mid.diversionRate < 1 && mid.totals.direct > 0, 'partial dread splits traffic');
+  assert(mid.totals.amplificationPct !== null && mid.totals.primaryLosses > 0, 'amplification is reported when primary losses exist');
+  assertEqual(dr.dreadIndex(5, 0, { s: 0, c: 3 }), 15, 'S of 0 is guarded (treated as 1)');
+  assert(isFinite(dr.simulateDreadRiskCascade(mkTopo(), { sourceNodeId: 'A', severity: 10, odv: { s: 0, e: 1, c: 4 } }).dreadIndex), 'S of 0 gives a finite dread index');
+
+  const leaf = dr.simulateDreadRiskCascade(mkTopo(), { sourceNodeId: 'D', severity: 10, odv: { s: 1, e: 1, c: 4 } });
+  assertEqual([leaf.totals.served, leaf.totals.unserved], [0, leaf.totals.diverted], 'no detour: diverted traffic is unserved, not lost');
+  assert(Math.abs(leaf.totals.entering - (leaf.totals.direct + leaf.totals.served + leaf.totals.unserved)) < 1e-9, 'flow conserved with no detour');
+
+  const tight = mkTopo(); tight.edgeData['A-C'].capacity = 10; tight.edgeData['A-C'].trafficVolume = 10;
+  const capped = dr.simulateDreadRiskCascade(tight, { sourceNodeId: 'A', severity: 10 });
+  assert(capped.totals.unserved > 0, 'detour capacity caps diverted flow');
+  assert(Math.abs(capped.totals.entering - (capped.totals.direct + capped.totals.served + capped.totals.unserved)) < 1e-9, 'flow conserved under capacity caps');
+
+  const blocked = mkTopo(); blocked.edgeData['B-C'].blocked = true;
+  assertEqual(dr.simulateDreadRiskCascade(blocked, { sourceNodeId: 'A', severity: 10 }).conduits.find(c => c.v === 'B').detourPath.length, 0, 'blocked roads are not used as detours');
+
+  const dashed = { nodes: { 'n-1': { id: 'n-1', adj: ['n-2', 'n-3'], odv: { s: 1, e: 1, c: 4 } }, 'n-2': { id: 'n-2', adj: ['n-1', 'n-3'] }, 'n-3': { id: 'n-3', adj: ['n-1', 'n-2'] } }, edgeData: {} };
+  const dres = dr.simulateDreadRiskCascade(dashed, { sourceNodeId: 'n-1', severity: 10 });
+  assert(dres.totals.served > 0 && dres.detours.length > 0, 'node ids containing hyphens work');
+
+  let threwDr = false;
+  try { dr.simulateDreadRiskCascade(mkTopo(), { sourceNodeId: 'nope' }); } catch (e) { threwDr = true; }
+  assert(threwDr, 'unknown source node throws');
+  assert(/Dread Cascade \(what-if\): Primary Losses: \d+ \| Secondary Detour Losses: \d+/.test(dr.formatDreadSummary(res)), 'summary line format');
 };
