@@ -5,6 +5,8 @@
       if (type === 'npc') return '👤';
       if (type === 'quest') return '📜';
       if (type === 'item') return '💎';
+      if (type === 'resource') return '📦';
+      if (type === 'creature') return '🐉';
       if (type === 'tracker') return '⏱️';
       if (type === 'faction') return '👑';
       if (type === 'node') return '🌐';
@@ -120,7 +122,8 @@
       const referrerLabels = new Map();
       let references = [];
       if (cme && typeof cme.findEntityReferences === 'function' && targetType !== 'module' && targetType !== 'map') {
-        references = cme.findEntityReferences(topo, targetType, targetId, { maps: (typeof maps !== 'undefined' && maps) ? maps : undefined });
+        const cmeTargetType = targetType === 'resource' ? 'item' : targetType;
+        references = cme.findEntityReferences(topo, cmeTargetType, targetId, { maps: (typeof maps !== 'undefined' && maps) ? maps : undefined });
         references.forEach(r => {
           const key = `${r.collection}:${r.entityId}`;
           const labels = referrerLabels.get(key) || [];
@@ -989,7 +992,8 @@
       if (cme && typeof cme.deleteEntity === 'function') {
         allToDelete.forEach(ent => {
           if (ent && ent.type && ent.type !== 'module' && ent.type !== 'map') {
-            cme.deleteEntity(topo, ent.type, ent.id, { allowMissingEntity: true, maps: (typeof maps !== 'undefined' ? maps : undefined) });
+            const cmeType = ent.type === 'resource' ? 'item' : ent.type;
+            cme.deleteEntity(topo, cmeType, ent.id, { allowMissingEntity: true, maps: (typeof maps !== 'undefined' ? maps : undefined) });
           }
         });
       }

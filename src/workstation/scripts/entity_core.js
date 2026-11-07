@@ -2,6 +2,7 @@
     // UNIVERSAL CAMPAIGN ENTITY MANAGER - CORE (STATE, DISSONANCE & PROTOTYPES)
     // ========================================================================
     let CurrentEntityTab = 'npc';
+    if (typeof window !== 'undefined') window.CurrentEntityTab = CurrentEntityTab;
     let SelectedEntityFilter = 'all'; // 'all', 'unassigned', or moduleId / nodeId / culture / tier
     let SelectedEntityId = null;
 

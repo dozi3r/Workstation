@@ -2033,6 +2033,8 @@ async function testModuleDeletionAndEntityExplorer() {
       windows: {},
       renderTaskbar: () => {}
     },
+    addEventListener: () => {},
+    removeEventListener: () => {},
     closeAllMenus: () => {},
     Workstation: {
       activeTopology: initialTopo
@@ -8822,6 +8824,176 @@ async function testSuite52ResourcePartitionAndBestiaryPersistence() {
   }
 }
 
+async function testSuite53ResourceExplorerUiAndMultiMapAggregation() {
+  console.log('\n--- Suite 53: Resource Explorer Tab, DF Stockpile Inspector & Multi-Map Aggregation ---');
+
+  // 1. Verify entity_modals.html template defines the new tabs
+  const modalsHtml = fs.readFileSync(path.join(ROOT_DIR, 'src', 'workstation', 'modals', 'entity_modals.html'), 'utf8');
+  assert(modalsHtml.includes('id="em-tab-resource"'), 'entity_modals.html contains #em-tab-resource button');
+  assert(modalsHtml.includes('id="em-tab-creature"'), 'entity_modals.html contains #em-tab-creature button');
+
+  // 2. Set up VM sandbox with entity_core, entity_manager_ui, cad_canvas_renderer, entity_crud_dialogs, entity_cascade_delete
+  const entityCoreCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_core.js'), 'utf8');
+  const workstationStateCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/workstation_state.js'), 'utf8');
+  const cmeCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/campaign_mutation_engine.js'), 'utf8');
+  const cadRendererCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/cad_canvas_renderer.js'), 'utf8');
+  const emUiCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_manager_ui.js'), 'utf8');
+  const crudCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_crud_dialogs.js'), 'utf8');
+  const cascadeCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_cascade_delete.js'), 'utf8');
+
+  // DOM Mock stubs
+  const domElements = {};
+  const makeElement = (id) => ({
+    id,
+    style: {},
+    classList: { add: () => {}, remove: () => {} },
+    innerHTML: '',
+    textContent: '',
+    value: '',
+    checked: false,
+    appendChild: () => {},
+    querySelectorAll: () => [],
+    querySelector: () => null,
+    getAttribute: () => null,
+    setAttribute: () => {},
+    setAttributeNS: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {}
+  });
+
+  const sb = {
+    console,
+    Math,
+    Date,
+    parseInt,
+    parseFloat,
+    isNaN,
+    Array,
+    Object,
+    Set,
+    Map,
+    String,
+    Boolean,
+    RegExp,
+    JSON,
+    localStorage: {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {}
+    },
+    prompt: () => '',
+    window: {},
+    document: {
+      getElementById: (id) => {
+        if (!domElements[id]) domElements[id] = makeElement(id);
+        return domElements[id];
+      },
+      querySelectorAll: () => [],
+      createElement: (tag) => makeElement(tag),
+      createElementNS: (ns, tag) => makeElement(tag)
+    },
+    MDIWindowManager: {
+      open: () => {},
+      windows: {},
+      renderTaskbar: () => {}
+    },
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    closeAllMenus: () => {},
+    renderCanvas: () => {},
+    updatePropertiesGrid: () => {},
+    setStatusBarMessage: () => {},
+    saveActiveCampaign: () => {},
+    closeModal: () => {}
+  };
+  sb.window = sb;
+
+  vm.createContext(sb);
+  vm.runInContext(entityCoreCode, sb);
+  vm.runInContext(workstationStateCode, sb);
+  vm.runInContext(cmeCode, sb);
+  vm.runInContext(cadRendererCode, sb);
+  vm.runInContext(emUiCode, sb);
+  vm.runInContext(crudCode, sb);
+  vm.runInContext(cascadeCode, sb);
+
+  // 3. Multi-map node aggregation test
+  const testWorld = {
+    name: 'Multi-Map Test World',
+    nodes: {
+      '1': { id: 1, name: 'Root Citadel', modData: { pre_industrial_resources: { stockpile: { 'Timber': 25 } } } }
+    },
+    edges: [],
+    npcs: [],
+    quests: [
+      { id: 'q_timber', title: 'Timber Supply', itemIds: ['res_timber'] }
+    ],
+    items: [
+      { id: 'it_sword', name: 'Steel Longsword', category: 'Weapon', nodeId: 1 },
+      { id: 'res_timber', name: 'Boreal Timber', category: 'Resource Export / Supply Anchor', isResource: true, nodeId: 1 }
+    ],
+    creatures: [
+      { id: 'cr_wolf', name: 'Timber Wolf', threatTier: 1, stationing: { nodeId: 201 } }
+    ],
+    maps: {
+      map_sub: {
+        id: 'map_sub',
+        name: 'Deep Forest Submap',
+        nodes: [
+          { id: 201, name: 'Wolf Den', modData: { pre_industrial_resources: { backpressureHalt: true } } }
+        ]
+      }
+    }
+  };
+
+  sb.Workstation.activeTopology = testWorld;
+  sb.maps = testWorld.maps;
+
+  // Test getAllKnownNodesMap aggregates across root map and submap
+  const allNodes = sb.getAllKnownNodesMap();
+  assert(Boolean(allNodes['1']), 'getAllKnownNodesMap includes root node 1');
+  assert(Boolean(allNodes['201']), 'getAllKnownNodesMap includes submap node 201');
+
+  // Test getRecursiveNodeEntities partitions items vs resources, and surfaces creatures
+  const recRoot = sb.getRecursiveNodeEntities(1, 'map_root');
+  assertEqual(recRoot.direct.items.map(i => i.id), ['it_sword'], 'getRecursiveNodeEntities direct.items has only non-resource items');
+  assertEqual(recRoot.direct.resources.map(r => r.id), ['res_timber'], 'getRecursiveNodeEntities direct.resources has resource item');
+
+  // Test switchEntityManagerTab
+  sb.switchEntityManagerTab('resource');
+  assertEqual(sb.CurrentEntityTab, 'resource', 'switchEntityManagerTab("resource") sets CurrentEntityTab to "resource"');
+
+  sb.switchEntityManagerTab('resources');
+  assertEqual(sb.CurrentEntityTab, 'resource', 'switchEntityManagerTab("resources") normalizes to "resource"');
+
+  sb.switchEntityManagerTab('creature');
+  assertEqual(sb.CurrentEntityTab, 'creature', 'switchEntityManagerTab("creature") sets CurrentEntityTab to "creature"');
+
+  // Test Resource CRUD in entity_crud_dialogs: save custom resource
+  sb.CurrentEntityTab = 'resource';
+  sb.document.getElementById('ee-entity-type').value = 'resource';
+  sb.document.getElementById('ee-entity-id').value = '';
+  sb.document.getElementById('ee-name').value = 'Highland Wool';
+  sb.document.getElementById('ee-role').value = 'Commodity: Textiles';
+  sb.document.getElementById('ee-meta').value = 'Bale [50 lbs]';
+  sb.document.getElementById('ee-notes').value = 'Spun from highland sheep.';
+  sb.document.getElementById('ee-node-select').value = '1';
+
+  sb.saveCustomEntity();
+
+  const activeResources = sb.getActiveEntityList('resource');
+  const activeItems = sb.getActiveEntityList('item');
+  assert(activeResources.some(r => r.name === 'Highland Wool' && r.isResource === true), 'saveCustomEntity creates new resource with isResource: true in backing items');
+  assert(!activeItems.some(i => i.name === 'Highland Wool'), 'new custom resource is excluded from active items tab');
+
+  // Test entity cascade deletion for resource
+  const wool = activeResources.find(r => r.name === 'Highland Wool');
+  const depData = sb.analyzeEntityDependencies('resource', wool.id);
+  assert(depData.target.id === wool.id, 'analyzeEntityDependencies resolves resource target');
+  assertEqual(sb.getEntityIcon('resource'), '📦', 'getEntityIcon("resource") returns 📦');
+  assertEqual(sb.getEntityIcon('creature'), '🐉', 'getEntityIcon("creature") returns 🐉');
+}
+
 // ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
@@ -8879,6 +9051,7 @@ async function testSuite52ResourcePartitionAndBestiaryPersistence() {
     testSuite50EntityReferenceIntegrity();
     testSuite51ImporterChainSelectionAndConduitMerge();
     await testSuite52ResourcePartitionAndBestiaryPersistence();
+    await testSuite53ResourceExplorerUiAndMultiMapAggregation();
     require('./test_gigerenzer_heuristics.js')({ assert, assertEqual, ROOT });
 
     const elapsedMs = Date.now() - suiteStartTime;

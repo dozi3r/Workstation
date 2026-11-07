@@ -508,9 +508,63 @@
     }
     window.jumpToEdgeMap = jumpToEdgeMap;
 
+    function normalizeEntityType(type) {
+      const normMap = {
+        npcs: 'npc',
+        quests: 'quest',
+        items: 'item',
+        resources: 'resource',
+        creatures: 'creature',
+        trackers: 'tracker',
+        factions: 'faction',
+        nodes: 'node',
+        edges: 'edge'
+      };
+      return normMap[type] || type || 'npc';
+    }
+
+    function getAllKnownNodesMap() {
+      const topo = Workstation.activeTopology;
+      const mapDict = (typeof maps !== "undefined" && maps) ? maps : (topo && topo.maps ? topo.maps : {});
+      const nodeMap = {};
+      if (topo && topo.nodes) {
+        Object.keys(topo.nodes).forEach(k => {
+          nodeMap[String(k)] = topo.nodes[k];
+        });
+      }
+      Object.keys(mapDict).forEach(mId => {
+        const m = mapDict[mId];
+        if (m && m.nodes) {
+          if (Array.isArray(m.nodes)) {
+            m.nodes.forEach(n => {
+              if (n && n.id != null) nodeMap[String(n.id)] = n;
+            });
+          } else if (typeof m.nodes === 'object') {
+            Object.keys(m.nodes).forEach(k => {
+              nodeMap[String(k)] = m.nodes[k];
+            });
+          }
+        }
+      });
+      return nodeMap;
+    }
+
+    function getEntityEffectiveNodeId(e, type) {
+      if (!e) return null;
+      const t = type || CurrentEntityTab;
+      if (t === 'item' || t === 'resource') {
+        return (typeof getItemEffectiveNodeId === 'function') ? getItemEffectiveNodeId(e) : (e.nodeId != null ? e.nodeId : (e.location && e.location.nodeId));
+      }
+      if (t === 'creature') {
+        return (typeof getCreatureEffectiveNodeId === 'function') ? getCreatureEffectiveNodeId(e) : ((e.stationing && e.stationing.nodeId != null) ? e.stationing.nodeId : (e.nodeId != null ? e.nodeId : null));
+      }
+      return e.nodeId != null ? e.nodeId : (e.headquartersNodeId != null ? e.headquartersNodeId : null);
+    }
+
     function openEntityManager(type, selectEntityId) {
       closeAllMenus();
-      CurrentEntityTab = type || 'npc';
+      CurrentEntityTab = normalizeEntityType(type);
+      if (typeof window !== 'undefined') window.CurrentEntityTab = CurrentEntityTab;
       SelectedEntityId = selectEntityId || null;
       SelectedEntityFilter = 'all';
 
@@ -529,7 +583,8 @@
     }
 
     function switchEntityManagerTab(type) {
-      CurrentEntityTab = type;
+      CurrentEntityTab = normalizeEntityType(type);
+      if (typeof window !== 'undefined') window.CurrentEntityTab = CurrentEntityTab;
       SelectedEntityId = null;
       SelectedEntityFilter = 'all';
       updateEntityTabButtons();
@@ -539,7 +594,7 @@
     }
 
     function updateEntityTabButtons() {
-      ['npc', 'quest', 'item', 'tracker', 'faction', 'node', 'edge'].forEach(t => {
+      ['npc', 'quest', 'item', 'resource', 'creature', 'tracker', 'faction', 'node', 'edge'].forEach(t => {
         const btn = document.getElementById(`em-tab-${t}`);
         if (btn) {
           if (t === CurrentEntityTab) {
@@ -553,6 +608,8 @@
         'npc': 'NPC Manager - Character Roster',
         'quest': 'Quest Tracker - Dynamic Dilemmas & Stakes',
         'item': 'Item & Relic Catalog - Hardware & Artifacts',
+        'resource': 'Resource & Commodity Catalog - Physical Logistics & Supply Chains',
+        'creature': 'Bestiary & Encounter Matrix - Ecological Threats & Heuristics',
         'tracker': 'Threat Clocks & Trackers - Escalation Dials',
         'faction': 'Faction Dossier - Cultural Alignment & Diplomatic Matrix',
         'node': 'Node Explorer - Spatial Topology & Hub Roster',
@@ -575,6 +632,10 @@
           btnNew.textContent = '+ New Edge...';
         } else if (CurrentEntityTab === 'faction') {
           btnNew.textContent = '+ New Faction...';
+        } else if (CurrentEntityTab === 'resource') {
+          btnNew.textContent = '+ New Resource...';
+        } else if (CurrentEntityTab === 'creature') {
+          btnNew.textContent = '+ New Creature...';
         } else {
           btnNew.textContent = `+ New ${CurrentEntityTab.toUpperCase()}...`;
         }
@@ -818,13 +879,93 @@
         return;
       }
 
-      // ENTITIES (NPCS, QUESTS, ITEMS, TRACKERS) TREE
+      // ENTITIES (NPCS, QUESTS, ITEMS, RESOURCES, CREATURES, TRACKERS) TREE
       const activeList = getActiveEntityList(CurrentEntityTab);
       const protoList = getPrototypesForType(CurrentEntityTab);
 
       // 1. All Active
       addTreeItem(container, `All Active (${activeList.length})`, 'all');
-      addTreeItem(container, `Unassigned (${activeList.filter(e => !e.nodeId).length})`, 'unassigned');
+      addTreeItem(container, `Unassigned (${activeList.filter(e => !getEntityEffectiveNodeId(e)).length})`, 'unassigned');
+
+      // Resource Sectors & Physical Logistics
+      if (CurrentEntityTab === 'resource') {
+        const secHeader = document.createElement('div');
+        secHeader.style.padding = '8px 6px 2px 6px';
+        secHeader.style.fontSize = '10px';
+        secHeader.style.fontWeight = 'bold';
+        secHeader.style.color = '#555';
+        secHeader.textContent = 'BY COMMODITY SECTOR:';
+        container.appendChild(secHeader);
+
+        const getResourceSector = (r) => {
+          const cat = r.category || '';
+          const m = cat.match(/(?:Commodity|Resource)\s*:\s*([^,;]+)/i);
+          if (m) return m[1].trim();
+          if (cat.includes('_and_')) return cat.replace(/_/g, ' ');
+          return cat || 'General Commodities';
+        };
+
+        const sectorMap = {};
+        activeList.forEach(r => {
+          const s = getResourceSector(r);
+          sectorMap[s] = (sectorMap[s] || 0) + 1;
+        });
+
+        Object.keys(sectorMap).sort().forEach(sec => {
+          addTreeItem(container, `${sec} (${sectorMap[sec]})`, `sector:${sec}`);
+        });
+
+        const logHeader = document.createElement('div');
+        logHeader.style.padding = '8px 6px 2px 6px';
+        logHeader.style.fontSize = '10px';
+        logHeader.style.fontWeight = 'bold';
+        logHeader.style.color = '#555';
+        logHeader.textContent = 'BY PHYSICAL LOGISTICS:';
+        container.appendChild(logHeader);
+
+        const allNodesMap = getAllKnownNodesMap();
+        let stockpiledCount = 0;
+        let haltedCount = 0;
+        activeList.forEach(r => {
+          const effNid = getEntityEffectiveNodeId(r);
+          const n = effNid ? allNodesMap[String(effNid)] : null;
+          const modD = n && n.modData && n.modData.pre_industrial_resources;
+          if (modD) {
+            if (modD.stockpile && Object.keys(modD.stockpile).length > 0) stockpiledCount++;
+            if (modD.backpressureHalt) haltedCount++;
+          }
+        });
+        addTreeItem(container, `With Depot Stockpile (${stockpiledCount})`, 'logistics:stockpiled');
+        if (haltedCount > 0) {
+          addTreeItem(container, `⛔ Backpressure Halted (${haltedCount})`, 'logistics:backpressure');
+        }
+      }
+
+      // Bestiary Threat Tiers (Creatures)
+      if (CurrentEntityTab === 'creature') {
+        const threatHeader = document.createElement('div');
+        threatHeader.style.padding = '8px 6px 2px 6px';
+        threatHeader.style.fontSize = '10px';
+        threatHeader.style.fontWeight = 'bold';
+        threatHeader.style.color = '#555';
+        threatHeader.textContent = 'BY THREAT TIER:';
+        container.appendChild(threatHeader);
+
+        const threatNames = {
+          '0': 'Tier 0: Minion / Vermin',
+          '1': 'Tier 1: Common Encounter',
+          '2': 'Tier 2: Dangerous Threat',
+          '3': 'Tier 3: Apex / Elite Lair',
+          '4': 'Tier 4: Legendary Monster',
+          '5': 'Tier 5: World-Ender Crucible'
+        };
+        for (let t = 0; t <= 5; t++) {
+          const count = activeList.filter(c => (c.threatTier !== undefined ? c.threatTier : 2) === t).length;
+          if (count > 0) {
+            addTreeItem(container, `${threatNames[t] || `Tier ${t}`} (${count})`, `threat:${t}`);
+          }
+        }
+      }
 
       // Tracker Scope Tiers (DEV-03)
       if (CurrentEntityTab === 'tracker') {
@@ -848,7 +989,7 @@
         });
       }
 
-      // 2. By Node Section
+      // 2. By Node Section (Aggregated Multi-Map Topology)
       const nodeHeader = document.createElement('div');
       nodeHeader.style.padding = '4px 6px 2px 6px';
       nodeHeader.style.fontSize = '10px';
@@ -857,10 +998,11 @@
       nodeHeader.textContent = 'BY NODE STATION:';
       container.appendChild(nodeHeader);
 
-      Object.keys(topo.nodes || {}).forEach(k => {
-        const count = activeList.filter(e => String((CurrentEntityTab === 'item' ? getItemEffectiveNodeId(e) : e.nodeId)) === String(k)).length;
+      const allKnownNodes = getAllKnownNodesMap();
+      Object.keys(allKnownNodes).forEach(k => {
+        const count = activeList.filter(e => String(getEntityEffectiveNodeId(e)) === String(k)).length;
         if (count > 0) {
-          const n = topo.nodes[k];
+          const n = allKnownNodes[k];
           addTreeItem(container, `${n.name || `Node ${k}`} (${count})`, `node:${k}`);
         }
       });
@@ -1130,11 +1272,15 @@
         return;
       }
 
-      // ENTITIES (NPCS, QUESTS, ITEMS, TRACKERS) TABLE
+      // ENTITIES (NPCS, QUESTS, ITEMS, RESOURCES, CREATURES, TRACKERS) TABLE
       if (CurrentEntityTab === 'npc') {
         thead.innerHTML = '<th style="min-width:130px;">Name</th><th style="min-width:120px;">Role &amp; Status</th><th style="width:75px;">Standing</th><th style="min-width:150px;">Stationed Node</th><th style="width:110px;">Culture / [S,E,C]</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
       } else if (CurrentEntityTab === 'quest') {
         thead.innerHTML = '<th>Quest Title</th><th>Type / Stakes</th><th style="min-width:150px;">Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
+      } else if (CurrentEntityTab === 'resource') {
+        thead.innerHTML = '<th style="min-width:130px;">Resource / Commodity</th><th style="min-width:110px;">Sector / Category</th><th style="width:110px;">Stockpile &amp; Units</th><th style="min-width:150px;">Stationed Node / Depot</th><th>Source Mod</th><th style="width:35px; text-align:center;">Action</th>';
+      } else if (CurrentEntityTab === 'creature') {
+        thead.innerHTML = '<th style="min-width:140px;">Creature / Monster</th><th style="width:85px;">Threat Tier</th><th style="width:110px;">Kind / Subtype</th><th style="width:75px;">Dread</th><th style="min-width:150px;">Lair / Station Node</th><th>Source Campaign</th><th style="width:35px; text-align:center;">Action</th>';
       } else if (CurrentEntityTab === 'tracker') {
         thead.innerHTML = '<th>Threat / Clock Title</th><th style="width:75px;">Scope Tier</th><th style="width:85px;">Type</th><th style="width:95px;">Ticks / Progress</th><th style="min-width:140px;">Stationed Node</th><th>Source / Faction</th><th style="width:35px; text-align:center;">Action</th>';
       } else if (CurrentEntityTab === 'faction') {
@@ -1155,7 +1301,7 @@
             ...p,
             isPrototype: true,
             inCampaign: !!activeInstance,
-            activeNodeId: activeInstance ? (CurrentEntityTab === 'item' ? getItemEffectiveNodeId(activeInstance) : activeInstance.nodeId) : null,
+            activeNodeId: activeInstance ? getEntityEffectiveNodeId(activeInstance) : null,
             currentTicks: activeInstance ? activeInstance.currentTicks : p.currentTicks,
             ownerNpcId: activeInstance ? activeInstance.ownerNpcId : p.ownerNpcId,
             possessionMode: activeInstance ? activeInstance.possessionMode : p.possessionMode,
@@ -1179,6 +1325,31 @@
               return !item.headquartersNodeId && (!Array.isArray(item.controlledNodeIds) || item.controlledNodeIds.length === 0);
             }
           }
+          if (CurrentEntityTab === 'resource') {
+            if (SelectedEntityFilter.startsWith('sector:')) {
+              const sec = SelectedEntityFilter.replace('sector:', '').toLowerCase();
+              const cat = (item.category || '').toLowerCase();
+              return cat.includes(sec);
+            }
+            if (SelectedEntityFilter === 'logistics:stockpiled') {
+              const eff = getEntityEffectiveNodeId(item);
+              const allN = getAllKnownNodesMap();
+              const n = eff ? allN[String(eff)] : null;
+              return !!(n && n.modData && n.modData.pre_industrial_resources && n.modData.pre_industrial_resources.stockpile && Object.keys(n.modData.pre_industrial_resources.stockpile).length > 0);
+            }
+            if (SelectedEntityFilter === 'logistics:backpressure') {
+              const eff = getEntityEffectiveNodeId(item);
+              const allN = getAllKnownNodesMap();
+              const n = eff ? allN[String(eff)] : null;
+              return !!(n && n.modData && n.modData.pre_industrial_resources && n.modData.pre_industrial_resources.backpressureHalt);
+            }
+          }
+          if (CurrentEntityTab === 'creature') {
+            if (SelectedEntityFilter.startsWith('threat:')) {
+              const th = parseInt(SelectedEntityFilter.replace('threat:', ''), 10);
+              return (item.threatTier !== undefined ? item.threatTier : 2) === th;
+            }
+          }
           if (CurrentEntityTab === 'tracker' && SelectedEntityFilter.startsWith('scope:')) {
             const sc = SelectedEntityFilter.replace('scope:', '').toLowerCase();
             const rawTier = (item.scopeTier || 'settlement').toLowerCase();
@@ -1186,19 +1357,13 @@
             return normTier === (sc === 'city' ? 'settlement' : sc);
           }
           if (SelectedEntityFilter === 'unassigned') {
-            if (CurrentEntityTab === 'item') {
-              const effNode = getItemEffectiveNodeId(item);
-              return !effNode;
-            }
-            return !item.nodeId;
+            const effNode = getEntityEffectiveNodeId(item);
+            return !effNode;
           }
           if (SelectedEntityFilter.startsWith('node:')) {
             const nId = SelectedEntityFilter.replace('node:', '');
-            if (CurrentEntityTab === 'item') {
-              const effNode = getItemEffectiveNodeId(item);
-              return String(effNode) === String(nId);
-            }
-            return String(item.nodeId) === String(nId);
+            const effNode = getEntityEffectiveNodeId(item);
+            return String(effNode) === String(nId);
           }
           return true;
         });
@@ -1287,6 +1452,34 @@
             <td>${cultBadge}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
             <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('npc', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete NPC">Del</button></td>
+          `;
+        } else if (CurrentEntityTab === 'resource') {
+          const effNodeId = getEntityEffectiveNodeId(item);
+          const formattedNode = effNodeId ? formatNodeRef(effNodeId, topo) : '(Unassigned Depot)';
+          const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('item', item.id) : [];
+          const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
+
+          let stockpileDisplay = `<span style="color:#64748b;">${escapeHtml(item.specs || 'Batch Standard')}</span>`;
+          if (effNodeId) {
+            const allNodesMap = getAllKnownNodesMap();
+            const n = allNodesMap[String(effNodeId)];
+            const modD = n && n.modData && n.modData.pre_industrial_resources;
+            if (modD && modD.stockpile) {
+              const matchedKey = Object.keys(modD.stockpile).find(k => k.toLowerCase().includes((item.name || '').toLowerCase()));
+              if (matchedKey) {
+                stockpileDisplay = `<strong style="color:#0f766e;">${modD.stockpile[matchedKey]} units</strong> in depot`;
+              }
+            }
+          }
+
+          const escapedId = escapeJsArg(item.id);
+          tr.innerHTML = `
+            <td><strong>📦 ${nameVal}</strong>${tkBadge}</td>
+            <td><span class="entity-badge-tag" style="background:#e0f2fe; color:#0369a1;">${roleVal || 'Commodity'}</span></td>
+            <td>${stockpileDisplay}</td>
+            <td>${formattedNode}</td>
+            <td><span class="entity-badge-tag">${srcVal}</span></td>
+            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('resource', '${escapedId}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Resource">Del</button></td>
           `;
         } else if (CurrentEntityTab === 'item') {
           const ownerNpc = (topo.npcs || []).find(n => String(n.id) === String(item.ownerNpcId));
@@ -1856,28 +2049,32 @@
             <!-- Stationed Narrative Entities (Direct + Recursive Sub-Maps) -->
             <div style="border-top:1px solid #ddd; padding-top:4px;">
               <div style="display:flex; justify-content:space-between; align-items:center;">
-                <strong>Stationed Entities (${rec.totals.npcs + rec.totals.quests + rec.totals.items + rec.totals.trackers} total):</strong>
+                <strong>Stationed Entities (${rec.totals.npcs + rec.totals.quests + rec.totals.items + (rec.totals.resources || 0) + (rec.totals.creatures || 0) + rec.totals.trackers} total):</strong>
                 ${rec.totals.submaps > 0 ? `<span style="font-size:9px; color:#0f766e; font-weight:bold;">🌀 ${rec.totals.submaps} Sub-Map(s)</span>` : ''}
               </div>
 
               <!-- Direct Entities -->
               <div style="display:flex; flex-direction:column; gap:2px; margin-top:3px; font-size:10px;">
-                ${rec.direct.npcs.map(n => `<div style="cursor:pointer; color:#000080;" onclick="switchEntityManagerTab('npc'); selectEntityItem('${escapeJsArg(n.id)}', false);">&bull; NPC: <strong>${n.name}</strong> (${n.role || 'Resident'})</div>`).join('')}
-                ${rec.direct.quests.map(q => `<div style="cursor:pointer; color:#b91c1c;" onclick="switchEntityManagerTab('quest'); selectEntityItem('${escapeJsArg(q.id)}', false);">&bull; Quest: <strong>${q.title || q.name}</strong> [${q.threat || 'Threat'}]</div>`).join('')}
-                ${rec.direct.items.map(i => `<div style="cursor:pointer; color:#065f46;" onclick="switchEntityManagerTab('item'); selectEntityItem('${escapeJsArg(i.id)}', false);">&bull; Item: <strong>${i.name}</strong> [${i.category || 'Gear'}]</div>`).join('')}
-                ${rec.direct.trackers.map(t => `<div style="cursor:pointer; color:#991b1b;" onclick="switchEntityManagerTab('tracker'); selectEntityItem('${escapeJsArg(t.id)}', false);">&bull; Clock: <strong>${t.name}</strong> (${t.currentTicks || 0}/${t.maxTicks || 6} ticks)</div>`).join('')}
-                ${(rec.direct.npcs.length + rec.direct.quests.length + rec.direct.items.length + rec.direct.trackers.length === 0) ? '<span style="color:#777; font-style:italic;">No direct entities stationed here.</span>' : ''}
+                ${rec.direct.npcs.map(n => `<div style="cursor:pointer; color:#000080;" onclick="switchEntityManagerTab('npc'); selectEntityItem('${escapeJsArg(n.id)}', false);">&bull; NPC: <strong>${escapeHtml(n.name)}</strong> (${escapeHtml(n.role || 'Resident')})</div>`).join('')}
+                ${rec.direct.quests.map(q => `<div style="cursor:pointer; color:#b91c1c;" onclick="switchEntityManagerTab('quest'); selectEntityItem('${escapeJsArg(q.id)}', false);">&bull; Quest: <strong>${escapeHtml(q.title || q.name)}</strong> [${escapeHtml(q.threat || 'Threat')}]</div>`).join('')}
+                ${rec.direct.items.map(i => `<div style="cursor:pointer; color:#065f46;" onclick="switchEntityManagerTab('item'); selectEntityItem('${escapeJsArg(i.id)}', false);">&bull; Item: <strong>${escapeHtml(i.name)}</strong> [${escapeHtml(i.category || 'Gear')}]</div>`).join('')}
+                ${(rec.direct.resources || []).map(r => `<div style="cursor:pointer; color:#0f766e;" onclick="switchEntityManagerTab('resource'); selectEntityItem('${escapeJsArg(r.id)}', false);">&bull; Resource: <strong>${escapeHtml(r.name)}</strong> [${escapeHtml(r.category || 'Commodity')}]</div>`).join('')}
+                ${(rec.direct.creatures || []).map(c => `<div style="cursor:pointer; color:#c2410c;" onclick="switchEntityManagerTab('creature'); selectEntityItem('${escapeJsArg(c.id)}', false);">&bull; Creature: <strong>${escapeHtml(c.name)}</strong> [Tier ${c.threatTier !== undefined ? c.threatTier : 2} ${escapeHtml(c.kind || 'Beast')}]</div>`).join('')}
+                ${rec.direct.trackers.map(t => `<div style="cursor:pointer; color:#991b1b;" onclick="switchEntityManagerTab('tracker'); selectEntityItem('${escapeJsArg(t.id)}', false);">&bull; Clock: <strong>${escapeHtml(t.name)}</strong> (${t.currentTicks || 0}/${t.maxTicks || 6} ticks)</div>`).join('')}
+                ${(rec.direct.npcs.length + rec.direct.quests.length + rec.direct.items.length + (rec.direct.resources || []).length + (rec.direct.creatures || []).length + rec.direct.trackers.length === 0) ? '<span style="color:#777; font-style:italic;">No direct entities stationed here.</span>' : ''}
               </div>
 
               <!-- Recursive Sub-Map Entities -->
               ${rec.submaps.length > 0 ? `
                 <div style="margin-top:6px; background:#f0fdf4; border:1px solid #bbf7d0; padding:4px 6px; border-radius:2px;">
-                  <div style="font-size:9px; font-weight:bold; color:#166534; margin-bottom:2px;">RECURSIVE SUB-MAP ENTITIES (${rec.submaps.reduce((acc, sm) => acc + sm.npcs.length + sm.quests.length + sm.items.length + sm.trackers.length, 0)}):</div>
+                  <div style="font-size:9px; font-weight:bold; color:#166534; margin-bottom:2px;">RECURSIVE SUB-MAP ENTITIES (${rec.submaps.reduce((acc, sm) => acc + sm.npcs.length + sm.quests.length + sm.items.length + (sm.resources || []).length + (sm.creatures || []).length + sm.trackers.length, 0)}):</div>
                   <div style="display:flex; flex-direction:column; gap:2px; font-size:9px;">
                     ${rec.submaps.map(sm => {
                       const allSubEnts = [...sm.npcs.map(n => ({ type:'npc', label: `NPC: ${n.name}`, id: n.id })),
                                           ...sm.quests.map(q => ({ type:'quest', label: `Quest: ${q.title || q.name}`, id: q.id })),
                                           ...sm.items.map(i => ({ type:'item', label: `Item: ${i.name}`, id: i.id })),
+                                          ...(sm.resources || []).map(r => ({ type:'resource', label: `Resource: ${r.name}`, id: r.id })),
+                                          ...(sm.creatures || []).map(c => ({ type:'creature', label: `Creature: ${c.name}`, id: c.id })),
                                           ...sm.trackers.map(t => ({ type:'tracker', label: `Clock: ${t.name}`, id: t.id }))];
                       if (allSubEnts.length === 0) return '';
                       return `
@@ -2590,6 +2787,176 @@
               ` : `
                 <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit Item</button>
                 <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('item', '${entity.id}')">Delete Item...</button>
+              `}
+            </div>
+          </div>
+        `;
+      } else if (CurrentEntityTab === 'resource') {
+        // DEDICATED RESOURCE & COMMODITY INSPECTOR
+        const resObj = activeInstance || entity;
+        const effNodeId = getEntityEffectiveNodeId(resObj);
+        const allNodesMap = getAllKnownNodesMap();
+        const stationNode = effNodeId ? allNodesMap[String(effNodeId)] : null;
+
+        // DF Physical Logistics & Storage Inspector
+        const modData = stationNode && stationNode.modData && stationNode.modData.pre_industrial_resources;
+        let storageHtml = '';
+        if (stationNode) {
+          const inputHoppers = modData && modData.inputHopper ? Object.entries(modData.inputHopper) : [];
+          const outputBins = modData && modData.outputBin ? Object.entries(modData.outputBin) : [];
+          const stockpiles = modData && modData.stockpile ? Object.entries(modData.stockpile) : [];
+          const isHalted = modData && modData.backpressureHalt;
+
+          storageHtml = `
+            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <strong style="color:#0f172a; font-size:11px;">🏭 Depot &amp; Facility Logistics:</strong>
+                ${isHalted ? '<span class="entity-badge-tag" style="background:#fee2e2; color:#b91c1c; border:1px solid #ef4444; font-weight:bold;">⛔ Backpressure Halt</span>' : '<span class="entity-badge-tag" style="background:#dcfce7; color:#166534;">🟢 Flow Active</span>'}
+              </div>
+              <div style="font-size:10px; color:#334155; margin-bottom:4px;">
+                Depot Station: <strong>${formatNodeRef(effNodeId, topo)}</strong>
+                ${stationNode.tier === 0 ? '<span class="entity-badge-tag" style="font-size:8px; margin-left:3px;">T0 Settlement</span>' : ''}
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; font-size:9px;">
+                <div style="background:#fff; border:1px solid #e2e8f0; padding:4px; border-radius:2px;">
+                  <div style="font-weight:bold; color:#475569;">📥 Input Hopper (Raw):</div>
+                  <div>${inputHoppers.length > 0 ? inputHoppers.map(([k, v]) => `${escapeHtml(k)}: <strong>${v}</strong>`).join('<br>') : '<span style="color:#94a3b8; font-style:italic;">Empty</span>'}</div>
+                </div>
+                <div style="background:#fff; border:1px solid #e2e8f0; padding:4px; border-radius:2px;">
+                  <div style="font-weight:bold; color:#475569;">📤 Output Bin (Export):</div>
+                  <div>${outputBins.length > 0 ? outputBins.map(([k, v]) => `${escapeHtml(k)}: <strong>${v}</strong>`).join('<br>') : '<span style="color:#94a3b8; font-style:italic;">Empty</span>'}</div>
+                </div>
+              </div>
+              <div style="background:#fff; border:1px solid #e2e8f0; padding:4px; border-radius:2px; margin-top:4px; font-size:9px;">
+                <div style="font-weight:bold; color:#0f766e;">🏛️ Long-Term Stockpile:</div>
+                <div>${stockpiles.length > 0 ? stockpiles.map(([k, v]) => `${escapeHtml(k)}: <strong>${v}</strong> units`).join(' &bull; ') : '<span style="color:#94a3b8; font-style:italic;">No stockpiled inventory recorded yet.</span>'}</div>
+              </div>
+            </div>
+          `;
+        } else {
+          storageHtml = `
+            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px; font-size:10px; color:#64748b;">
+              📦 <em>This commodity is currently unstationed. Assign it to a settlement depot or resource facility node below to enable physical hauling, production hoppers, and stockpile tracking.</em>
+            </div>
+          `;
+        }
+
+        // Active In-Transit Conduits & Shipments
+        const inTransitShipments = [];
+        const edgesList = (typeof getEdgesForMapScope === 'function') ? getEdgesForMapScope('all') : [];
+        edgesList.forEach(ed => {
+          const edModData = ed.modData && ed.modData.pre_industrial_resources;
+          if (edModData && Array.isArray(edModData.inTransit)) {
+            edModData.inTransit.forEach(sh => {
+              if (sh && (sh.resource || '').toLowerCase().includes((resObj.name || '').toLowerCase())) {
+                inTransitShipments.push({ ...sh, edgeKey: ed.edgeKey || `${ed.uId}-${ed.vId}` });
+              }
+            });
+          }
+        });
+
+        let transitHtml = '';
+        if (inTransitShipments.length > 0) {
+          transitHtml = `
+            <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:6px; border-radius:2px;">
+              <strong style="color:#166534; font-size:11px;">🚚 Active Hauling Shipments (${inTransitShipments.length}):</strong>
+              <div style="display:flex; flex-direction:column; gap:2px; margin-top:3px; font-size:9px;">
+                ${inTransitShipments.map(s => `
+                  <div style="background:#fff; border:1px solid #86efac; padding:2px 5px; border-radius:2px;">
+                    Route: <strong>${s.from} &rarr; ${s.to}</strong> &bull; Cargo: <strong>${s.qty} units</strong> &bull; ETA: <strong>${s.etaTurns} turns</strong> (${s.edgeKey})
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        const referencingQuests = (topo.quests || []).filter(q =>
+          (q.itemIds && q.itemIds.includes(resObj.id)) ||
+          (q.itemIds && q.itemIds.includes(entity.id)) ||
+          (q.nodeId && effNodeId && String(q.nodeId) === String(effNodeId))
+        );
+
+        let questsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No active quests currently reference this resource.</div>';
+        if (referencingQuests.length > 0) {
+          questsHtml = referencingQuests.map(q => `
+            <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
+              <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
+                <span style="font-weight:bold; font-size:11px;">📜 ${escapeHtml(q.title || q.name)}</span>
+                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? formatNodeRef(q.nodeId, topo) : 'Unassigned'}]</span>
+              </div>
+              <div style="display:flex; gap:2px;">
+                <button class="win-btn" onclick="window.navigateToEntity('quest', '${escapeJsArg(q.id)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                ${q.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(q.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
+              </div>
+            </div>
+          `).join('');
+        }
+
+        pane.innerHTML = `
+          <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
+            <h3 style="font-size:13px; color:#0f766e; margin-bottom:2px;">📦 ${escapeHtml(entity.name || entity.title)}</h3>
+            <span class="entity-badge-tag">${entity.moduleId ? `Module: ${escapeHtml(entity.moduleId)}` : 'Pre-Industrial Resource Mod'}</span>
+            <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
+            <span class="entity-badge-tag" style="background:#e0f2fe; color:#0369a1;">${escapeHtml(entity.category || 'Commodity / Resource')}</span>
+          </div>
+
+          <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 130px);">
+            <!-- Storage & Physical Logistics -->
+            ${storageHtml}
+
+            <!-- In-Transit Hauling -->
+            ${transitHtml}
+
+            <!-- Specifications & Batch Specs -->
+            ${entity.specs ? `
+              <div>
+                <strong>Batch Specs &amp; Logistics Traits:</strong>
+                <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd; font-family:Consolas, monospace;">${escapeHtml(entity.specs)}</p>
+              </div>
+            ` : ''}
+
+            <!-- Provenance & Lore -->
+            <div>
+              <strong>Extraction Lore, Refining &amp; Industrial Context:</strong>
+              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${escapeHtml(entity.motivation || entity.notes || 'Universal pre-industrial trade commodity and physical supply anchor.')}</p>
+            </div>
+
+            <!-- Referencing Quests -->
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+                <strong>Referencing Quests (${referencingQuests.length}):</strong>
+                <button class="win-btn" onclick="openNewEntityModal('quest')" style="font-size:9px; padding:1px 4px;">+ New Quest</button>
+              </div>
+              ${questsHtml}
+            </div>
+
+            <!-- Linked Threat Clocks -->
+            ${renderLinkedTrackersSection('item', resObj.id, effNodeId)}
+
+            <!-- Assigned Authoring Tickets -->
+            ${renderAssignedTicketsSection('item', resObj.id, effNodeId)}
+          </div>
+
+          <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Station to Node / Depot:</strong>
+              <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(entity.id)}', this.value, ${isPrototype})">
+                ${nodeOptions}
+              </select>
+            </label>
+
+            ${(effNodeId) ? `
+              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(effNodeId)}')"><strong>🎯 Center Stationed Depot on Canvas</strong></button>
+            ` : ''}
+
+            <div style="display:flex; gap:4px; margin-top:4px;">
+              ${isPrototype ? `
+                <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${escapeJsArg(entity.id)}', 'resource')"><strong>+ Add Resource to Campaign</strong></button>
+                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('resource', '${escapeJsArg(entity.id)}')">Delete Resource...</button>
+              ` : `
+                <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')">Edit Resource</button>
+                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('resource', '${escapeJsArg(entity.id)}')">Delete Resource...</button>
               `}
             </div>
           </div>

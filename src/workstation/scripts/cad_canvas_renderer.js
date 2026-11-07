@@ -358,15 +358,19 @@
           npcs: [],
           quests: [],
           items: [],
+          resources: [],
+          creatures: [],
           trackers: [],
           submaps: []
         },
-        submaps: [], // Array of { mapId, mapName, scaleTier, path: [...], nodes: [...], npcs: [...], quests: [...], items: [...], trackers: [...] }
+        submaps: [], // Array of { mapId, mapName, scaleTier, path: [...], nodes: [...], npcs: [...], quests: [...], items: [...], resources: [...], creatures: [...], trackers: [...] }
         allNodes: [{ mapId: targetMapId, nodeId: nodeId }],
         totals: {
           npcs: 0,
           quests: 0,
           items: 0,
+          resources: 0,
+          creatures: 0,
           trackers: 0,
           submaps: 0
         }
@@ -377,22 +381,36 @@
       const campaignNpcs = topo.npcs || [];
       const campaignQuests = topo.quests || [];
       const campaignItems = topo.items || [];
+      const campaignCreatures = topo.creatures || [];
       const campaignTrackers = topo.trackers || [];
+
+      const isRes = (typeof isResourceItem === 'function')
+        ? isResourceItem
+        : (i => i && (i.isResource || i.category === 'Resource Export / Supply Anchor' || /^(Resource|Commodity)\s*:/i.test(i.category || '')));
+      const getCreatureNode = (typeof getCreatureEffectiveNodeId === 'function')
+        ? getCreatureEffectiveNodeId
+        : (c => (c && c.stationing && c.stationing.nodeId != null) ? c.stationing.nodeId : (c && c.nodeId != null ? c.nodeId : null));
 
       const rootNode = (topo.nodes && (topo.nodes[nodeId] || topo.nodes[String(nodeId)]))
         || (allMaps[targetMapId] && Array.isArray(allMaps[targetMapId].nodes) && allMaps[targetMapId].nodes.find(n => String(n.id) === String(nodeId)));
 
       // Direct entities stationed on this node
       result.direct.npcs = campaignNpcs.filter(e => String(e.nodeId) === String(nodeId));
-      result.direct.items = campaignItems.filter(e => {
+      const allDirectItems = campaignItems.filter(e => {
         const effNode = getItemEffectiveNodeId(e);
+        return effNode != null && String(effNode) === String(nodeId);
+      });
+      result.direct.items = allDirectItems.filter(i => !isRes(i));
+      result.direct.resources = allDirectItems.filter(i => isRes(i));
+      result.direct.creatures = campaignCreatures.filter(c => {
+        const effNode = getCreatureNode(c);
         return effNode != null && String(effNode) === String(nodeId);
       });
       result.direct.trackers = campaignTrackers.filter(e => String(e.nodeId) === String(nodeId));
       result.direct.quests = campaignQuests.filter(q => {
         if (String(q.nodeId) === String(nodeId)) return true;
         if (Array.isArray(q.npcIds) && q.npcIds.some(nId => result.direct.npcs.some(n => n.id === nId))) return true;
-        if (Array.isArray(q.itemIds) && q.itemIds.some(iId => result.direct.items.some(i => i.id === iId))) return true;
+        if (Array.isArray(q.itemIds) && q.itemIds.some(iId => (result.direct.items.some(i => i.id === iId) || result.direct.resources.some(r => r.id === iId)))) return true;
         return false;
       });
 
@@ -423,6 +441,8 @@
           npcs: [],
           quests: [],
           items: [],
+          resources: [],
+          creatures: [],
           trackers: []
         };
 
@@ -441,20 +461,28 @@
           result.allNodes.push({ mapId: subMap.id, nodeId: sNodeId });
 
           const sNpcs = campaignNpcs.filter(e => String(e.nodeId) === String(sNodeId));
-          const sItems = campaignItems.filter(e => {
+          const allSubItems = campaignItems.filter(e => {
             const effNode = getItemEffectiveNodeId(e);
+            return effNode != null && String(effNode) === String(sNodeId);
+          });
+          const sItems = allSubItems.filter(i => !isRes(i));
+          const sResources = allSubItems.filter(i => isRes(i));
+          const sCreatures = campaignCreatures.filter(c => {
+            const effNode = getCreatureNode(c);
             return effNode != null && String(effNode) === String(sNodeId);
           });
           const sTrackers = campaignTrackers.filter(e => String(e.nodeId) === String(sNodeId));
           const sQuests = campaignQuests.filter(q => {
             if (String(q.nodeId) === String(sNodeId)) return true;
             if (Array.isArray(q.npcIds) && q.npcIds.some(nId => sNpcs.some(n => n.id === nId))) return true;
-            if (Array.isArray(q.itemIds) && q.itemIds.some(iId => sItems.some(i => i.id === iId))) return true;
+            if (Array.isArray(q.itemIds) && q.itemIds.some(iId => (sItems.some(i => i.id === iId) || sResources.some(r => r.id === iId)))) return true;
             return false;
           });
 
           sNpcs.forEach(n => subEntry.npcs.push({ ...n, _subMap: subMap, _subNode: sNode }));
           sItems.forEach(i => subEntry.items.push({ ...i, _subMap: subMap, _subNode: sNode }));
+          sResources.forEach(r => subEntry.resources.push({ ...r, _subMap: subMap, _subNode: sNode }));
+          sCreatures.forEach(c => subEntry.creatures.push({ ...c, _subMap: subMap, _subNode: sNode }));
           sQuests.forEach(q => subEntry.quests.push({ ...q, _subMap: subMap, _subNode: sNode }));
           sTrackers.forEach(t => subEntry.trackers.push({ ...t, _subMap: subMap, _subNode: sNode }));
 
@@ -477,17 +505,21 @@
         traverseSubmap(dm, [rootName]);
       });
 
-      let recNpcs = 0, recQuests = 0, recItems = 0, recTrackers = 0;
+      let recNpcs = 0, recQuests = 0, recItems = 0, recResources = 0, recCreatures = 0, recTrackers = 0;
       result.submaps.forEach(sm => {
         recNpcs += sm.npcs.length;
         recQuests += sm.quests.length;
         recItems += sm.items.length;
+        recResources += (sm.resources || []).length;
+        recCreatures += (sm.creatures || []).length;
         recTrackers += sm.trackers.length;
       });
 
       result.totals.npcs = result.direct.npcs.length + recNpcs;
       result.totals.quests = result.direct.quests.length + recQuests;
       result.totals.items = result.direct.items.length + recItems;
+      result.totals.resources = result.direct.resources.length + recResources;
+      result.totals.creatures = result.direct.creatures.length + recCreatures;
       result.totals.trackers = result.direct.trackers.length + recTrackers;
       result.totals.submaps = result.submaps.length;
 

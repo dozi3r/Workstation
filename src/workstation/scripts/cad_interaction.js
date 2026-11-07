@@ -2922,7 +2922,7 @@
         return;
       }
 
-      const tabMap = { npc: 'npcs', item: 'items', quest: 'quests', tracker: 'trackers', faction: 'factions' };
+      const tabMap = { npc: 'npcs', item: 'items', resource: 'resources', creature: 'creatures', quest: 'quests', tracker: 'trackers', faction: 'factions' };
       if (typeof openEntityManager === 'function' && tabMap[r.cat]) {
         openEntityManager(tabMap[r.cat]);
       } else if (typeof switchEntityTab === 'function' && tabMap[r.cat]) {

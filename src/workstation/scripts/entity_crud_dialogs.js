@@ -388,6 +388,25 @@
             `).join('');
           }
         }
+      } else if (type === 'resource') {
+        document.getElementById('ee-role-label').textContent = 'Resource Sector & Commodity (e.g. Mining, Timber, Agriculture):';
+        document.getElementById('ee-meta-label').textContent = 'DF Stockpile / Batch Specs / Unit Weight:';
+        document.getElementById('ee-notes-label').textContent = 'Extraction Lore, Refining Steps & Logistics Notes:';
+        if (nodeLabel) nodeLabel.textContent = 'Stationed Stockpile Node:';
+        if (itemExt) itemExt.style.display = 'flex';
+
+        const ownerSel = document.getElementById('ee-item-owner');
+        if (ownerSel) {
+          const allNpcs = (Workstation.activeTopology && Workstation.activeTopology.npcs) || [];
+          let opts = '<option value="">(None - Public Stockpile / Settlement Depot)</option>';
+          allNpcs.forEach(n => {
+            opts += `<option value="${n.id}">👤 ${n.name} (${n.role || 'Resident'})</option>`;
+          });
+          ownerSel.innerHTML = opts;
+          ownerSel.value = '';
+        }
+        const posSel = document.getElementById('ee-item-possession-mode');
+        if (posSel) posSel.value = 'stored';
       } else {
         document.getElementById('ee-role-label').textContent = 'Item Category (Weapon, Gear, Relic, Tech, Document, Key Item):';
         document.getElementById('ee-meta-label').textContent = 'Specifications / Output Dial / Trait:';
@@ -503,11 +522,13 @@
         if (document.getElementById('ee-npc-dialogue')) {
           document.getElementById('ee-npc-dialogue').value = (entity.dialogueHooks || []).join('\n');
         }
-      } else if (CurrentEntityTab === 'item') {
+      } else if (CurrentEntityTab === 'item' || CurrentEntityTab === 'resource') {
         const ownerSel = document.getElementById('ee-item-owner');
         if (ownerSel) {
           const allNpcs = (Workstation.activeTopology && Workstation.activeTopology.npcs) || [];
-          let opts = '<option value="">(None - Unassigned / Public World Relic)</option>';
+          let opts = CurrentEntityTab === 'resource'
+            ? '<option value="">(None - Public Stockpile / Settlement Depot)</option>'
+            : '<option value="">(None - Unassigned / Public World Relic)</option>';
           allNpcs.forEach(n => {
             opts += `<option value="${n.id}" ${String(entity.ownerNpcId) === String(n.id) ? 'selected' : ''}>👤 ${n.name} (${n.role || 'Resident'})</option>`;
           });
@@ -702,6 +723,14 @@
             ];
             entity.description = notes;
             entity.notes = notes;
+          } else if (type === 'resource') {
+            entity.name = name;
+            entity.category = role || 'Resource Export / Supply Anchor';
+            entity.specs = meta;
+            entity.notes = notes;
+            entity.isResource = true;
+            if (document.getElementById('ee-item-owner')) entity.ownerNpcId = document.getElementById('ee-item-owner').value || null;
+            if (document.getElementById('ee-item-possession-mode')) entity.possessionMode = document.getElementById('ee-item-possession-mode').value || 'stored';
           } else {
             entity.name = name;
             entity.category = role;
@@ -814,6 +843,14 @@
           newEntity.description = notes;
           newEntity.notes = notes;
           if (typeof registerCampaignFaction === 'function') registerCampaignFaction(name);
+        } else if (type === 'resource') {
+          newEntity.name = name;
+          newEntity.category = role || 'Resource Export / Supply Anchor';
+          newEntity.specs = meta;
+          newEntity.notes = notes;
+          newEntity.isResource = true;
+          newEntity.ownerNpcId = document.getElementById('ee-item-owner') ? (document.getElementById('ee-item-owner').value || null) : null;
+          newEntity.possessionMode = document.getElementById('ee-item-possession-mode') ? (document.getElementById('ee-item-possession-mode').value || 'stored') : 'stored';
         } else {
           newEntity.name = name;
           newEntity.category = role;
