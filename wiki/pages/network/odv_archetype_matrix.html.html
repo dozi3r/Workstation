@@ -470,7 +470,7 @@
         <h1 class="article-title">Creator Studio: 64-Cell ODV Archetype Matrix &amp; Hermeneutics Explorer</h1>
         <div class="article-subtitle">
           <span class="badge">Standalone Zero-CORS HTML Workstation</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 3738034e)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 6b0ac1e2)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (18)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>network/odv_archetype_matrix.html</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../index.html#vol-5">Volume V</a></td></tr>
     <tr><th>Surface Kind</th><td>Standalone Zero-CORS HTML Workstation</td></tr>
-    <tr><th>File Metrics</th><td>3403 lines &bull; 188.9 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 3738034e)</span></td></tr>
+    <tr><th>File Metrics</th><td>3477 lines &bull; 191.3 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 6b0ac1e2)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>9</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>18</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../network/odv_archetype_matrix.html" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -495,7 +495,7 @@
       
     <div class="ai-digest">
       <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
-      <p style="margin:4px 0;"><strong>Summary:</strong> Standalone Zero-CORS HTML Workstation located at network/odv_archetype_matrix.html (3403 lines, 193393 bytes).</p>
+      <p style="margin:4px 0;"><strong>Summary:</strong> Standalone Zero-CORS HTML Workstation located at network/odv_archetype_matrix.html (3477 lines, 195889 bytes).</p>
       
       
       
@@ -546,6 +546,7 @@
 <li>Campaign matrices register themselves through a script tag as <code>window.CS_CAMPAIGN_ODV_MATRICES[key] = { label, match, matrix }</code> (zero-CORS; a missing file is ignored).</li>
 <li>On boot, <code>applyCampaignMatrix()</code> tests <code>match</code> (case-insensitive regex) against the active campaign name and <code>cs_active_campaign</code>, and applies the matrix as <code>ODV_MATRIX_OVERRIDE</code>. It is skipped when a manual override already exists, and the Reset button restores <code>sociology_data.js</code> defaults without re-applying.</li>
 <li>Current entry: <code>campaigns/Krynn_V3_Five_Book_Odyssey/odv_matrix_krynn.js</code> (mirror of <code>odv_matrix_krynn.json</code>; rationale in <code>docs/audit/ODV_KRYNN_ADAPTATION_WORKDOC.md</code>). The in-workstation MDI matrix window in <code>start.html</code> does not use this registry yet.</li>
+<li>Gigerenzer suite (ADR 0024): fourth view mode 'Heuristics' (renderHeuristicsView) groups cells by decision strategy and lists ecological-fit warnings for the selected cell.</li>
 </ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (50)</h3><div class="pill-list"><span class="pill">parseMd(text)</span><span class="pill">stripFormatting(text)</span><span class="pill">extractFieldSnippet(mdText)</span><span class="pill">extractNpcName(npcRaw)</span><span class="pill">resolveNodeOdv(node, fallbackIndex)</span><span class="pill">resolveEdgeOdv(edge, uNodeOdv, vNodeOdv, edgeRecord)</span><span class="pill">buildCampaignOdvIndex(topology)</span><span class="pill">registerCorridor(uId, vId, linkObj, isDirected)</span><span class="pill">loadActiveCampaignTopology()</span><span class="pill">getQuadrant(s, e)</span><span class="pill">getOpMode(s, c)</span><span class="pill">getResonantTarot(s, e, c)</span><span class="pill">initMatrixData()</span><span class="pill">updateTunerUI()</span><span class="pill">selectQuadrantFromGuide(quad)</span><span class="pill">selectModeFromGuide(mode)</span><span class="pill">renderDossierOccupants(tag)</span><span class="pill">renderDossier(tag)</span><span class="pill">setTunerDial(dial, val)</span><span class="pill">pickRandomArchetype()</span><span class="pill">toggleScaleGuide()</span><span class="pill">triggerDossierSensoryRoll()</span><span class="pill">copyDossierSensoryMarkdown()</span><span class="pill">openDiagnosticWizardModal()</span><span class="pill">closeDiagnosticWizardModal()</span><span class="pill">renderDiagnosticWizardModalContent()</span><span class="pill">selectModalWizardOption(dial, val)</span><span class="pill">applyModalWizardCalibration()</span><span class="pill">switchHubTab(tabKey)</span><span class="pill">renderHubTabContent(tabKey)</span><span class="pill">renderLeversTab()</span><span class="pill">renderCrisisTab()</span><span class="pill">renderSensoryTab()</span><span class="pill">renderDimensionRows(items)</span><span class="pill">executeHubSensoryRoll()</span><span class="pill">copyHubSensoryMarkdown()</span><span class="pill">renderFactionsTab()</span><span class="pill">renderDiagnosticTreeTab()</span><span class="pill">selectDiagnosticOption(dial, val)</span><span class="pill">applyDiagnosticCalibration()</span><span class="pill">setTierAxis(axis)</span><span class="pill">applyFilters()</span><span class="pill">clearSearch()</span><span class="pill">toggleOccupiedFilter()</span><span class="pill">setFilterQuadrant(quad)</span><span class="pill">setViewMode(mode)</span><span class="pill">matchesFilter(arch, searchVal)</span><span class="pill">renderOccupancyBadgesHtml(tag)</span><span class="pill">renderDenseCellRowsHtml(arch)</span><span class="pill">renderActiveView()</span></div>
       <h2 id="outbound-links">Outbound References (9)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>

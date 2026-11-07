@@ -5,8 +5,8 @@
 window.__CS_LIVE_CAMPAIGNS__ = window.__CS_LIVE_CAMPAIGNS__ || {};
 window.__CS_LIVE_CAMPAIGNS__["baldur_s_gate__the_sword_coast_campaign"] = {
   folder: "baldur_s_gate__the_sword_coast_campaign",
-  syncToken: "mw13wmc5-wzzyy3g0",
-  updatedAt: "2026-11-03T19:54:31.829Z",
+  syncToken: "mw4it5h4-d3vp1fvd",
+  updatedAt: "2026-11-06T05:15:02.777Z",
   lastBatchId: null,
-  census: {"npcs":30,"quests":16,"items":16,"trackers":3,"factions":6}
+  census: {"npcs":34,"quests":16,"items":30,"trackers":3,"factions":6}
 };

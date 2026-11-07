@@ -1,0 +1,203 @@
+{
+  "id": "map_tristram_region",
+  "name": "Tristram and the Land Above the Dungeon",
+  "scaleTier": "region",
+  "parentMapId": null,
+  "parentNodeId": null,
+  "nodes": [
+    {
+      "id": "N_TRISTRAM",
+      "name": "Tristram",
+      "cat": "Bastion",
+      "culture": "Market",
+      "tier": 3,
+      "customNotes": "# Tristram\n\nA medieval village near which the labyrinthine dungeons and grottos are carved deep in the earth. It is the hub town, where the adventurer begins and returns after dungeon excursions. Its geography stays constant while the dungeons generate randomly.\n\n**Sights:** a central fountain (Cain stands near it), a stream to the southeast with Adria's hut across it, a graveyard, the Blacksmith, the Witch's shop, and a church with a cursed cathedral leading into the labyrinth. Wirt whispers for attention across the stream behind Gillian's house. The houses of Gillian and Pepin stand here. A Town Portal opens a spot just outside the town square.\n\n**Who is there:** Townsfolk who all have something valuable to say and who trigger most quests: Pepin the Healer, Adria the Witch, Ogden the Tavern Owner, and a Wounded Townsman begging for help at the desecrated cathedral. Some citizens have unique abilities the player uses throughout the game.\n\n**Trade:** Townsfolk generally ask for items snatched from the dungeon, which are traded for other items or services. Unwanted treasure fetches quick cash, and magical items can be identified. Healing potions and Scrolls of Healing come from the Healer and the Witch, and Mana Shield scrolls from the witch. Items can be thrown on the ground as storage, and lesser magic items with resistance can be left in Tristram until they come in handy.\n\n**Stakes:** Quests given here include the Butcher, Poisoned Water Supply and the Curse of King Leoric. Hauling loot back is a logistical problem. The town sits atop the dungeon, and it is wise to check the townsfolk's new inventories on each return.",
+      "x": 785,
+      "y": 532,
+      "adj": [
+        "N_DUNGEON",
+        "N_DIABLO_DUNGEON",
+        "N_HELL_LEVELS",
+        "N_CAVES"
+      ],
+      "childMapId": "map_tristram",
+      "displayName": "Tristram",
+      "coordinates": {
+        "x": 785,
+        "y": 532
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_HELL_LEVELS",
+      "name": "Hell levels",
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "tier": 3,
+      "customNotes": "# Hell levels\n\nThe bottom of the dungeon, with large crowds of magical monsters. Like the Cavern levels, the Hell levels give ranged attackers enough room to run and keep distance, so they are not easily drawn through doorways. A Warrior has the roughest road here.\n\n**Who is there:** Succubi are the particular danger: if you're chasing around Succubi, there is no such thing as a short combat. Counselor-type monsters are found in the depths of hell and do not pursue the player.\n\n**Stakes:** merchants begin to stock random Elixirs once the player descends here. The last two levels hold some of the best treasure, and Diablo's level is 16. When you reach the hell levels, another way to the town level appears.",
+      "x": 1146,
+      "y": 814,
+      "adj": [
+        "N_DIABLO_DUNGEON",
+        "N_TRISTRAM"
+      ],
+      "childMapId": null,
+      "displayName": "Hell levels",
+      "coordinates": {
+        "x": 1146,
+        "y": 814
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_DUNGEON",
+      "name": "Dungeon",
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "tier": 3,
+      "customNotes": "# Dungeon\n\nThe dark, subterranean lands beneath Tristram where the Servants of Darkness dwell. Flesh-eating demons, rotting corpses, and winged beasties lurch, swarm, and flutter through the dank rooms and dark halls of this godless abattoir.\n\n**Hazards:** Unique monsters that are resistant or immune to common magic, and hordes of minions. Monster levels are selected by game level. Deeper within lie the Cavern levels.",
+      "x": 784,
+      "y": 157,
+      "adj": [
+        "N_TRISTRAM",
+        "N_DIABLO_DUNGEON",
+        "N_CAVES"
+      ],
+      "childMapId": "map_dungeon",
+      "displayName": "Dungeon",
+      "coordinates": {
+        "x": 784,
+        "y": 157
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_DIABLO_DUNGEON",
+      "name": "The Diablo dungeon",
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "tier": 3,
+      "customNotes": "The dungeon in which the player descends through levels. Monsters are sorted by depth (mid-to-lower, deep, bottom).\n\n**Inhabitants:** Hidden; Goat Demons; Bats; Acid Beasts; Overlords; Magma Demons; Horned Demons; Vipers; Gargoyles; Balrogs; Knights; Red Storm.\n\n\"Found near the bottom of the Diablo dungeon, Knights resist virtually every type of magic\"",
+      "x": 1141,
+      "y": 415,
+      "adj": [
+        "N_TRISTRAM",
+        "N_DUNGEON",
+        "N_HELL_LEVELS"
+      ],
+      "childMapId": null,
+      "displayName": "The Diablo dungeon",
+      "coordinates": {
+        "x": 1141,
+        "y": 415
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_CAVES",
+      "name": "Caves",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "tier": 1,
+      "customNotes": "An area reached by the dungeon. \"When you reach the caves, another entrance to the surface will open.\"",
+      "x": 404,
+      "y": 277,
+      "adj": [
+        "N_TRISTRAM",
+        "N_DUNGEON"
+      ],
+      "childMapId": null,
+      "displayName": "Caves",
+      "coordinates": {
+        "x": 404,
+        "y": 277
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_TRISTRAM",
+      "to": "N_DUNGEON",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_TRISTRAM",
+      "to": "N_DIABLO_DUNGEON",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_DUNGEON",
+      "to": "N_DIABLO_DUNGEON",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_DIABLO_DUNGEON",
+      "to": "N_HELL_LEVELS",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_HELL_LEVELS",
+      "to": "N_TRISTRAM",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_CAVES",
+      "to": "N_TRISTRAM",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_CAVES",
+      "to": "N_DUNGEON",
+      "type": "twoway",
+      "layer": "both"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "layers": [],
+  "shapes": []
+}

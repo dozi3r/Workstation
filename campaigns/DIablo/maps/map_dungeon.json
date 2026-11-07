@@ -1,0 +1,349 @@
+{
+  "id": "map_dungeon",
+  "name": "The Dungeon Beneath Tristram",
+  "scaleTier": "region",
+  "parentMapId": "map_tristram_region",
+  "parentNodeId": "N_DUNGEON",
+  "nodes": [
+    {
+      "id": "N_KING_LEORIC_TOMB",
+      "name": "King Leoric's Tomb",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "tier": 2,
+      "customNotes": "# King Leoric's Tomb\n\nReached from Level 3. A tomb with cramped quarters stuffed with Skeletons. A small room holds obvious treasure chests, and a hidden antechamber lies beyond.\n\n**Hidden area:** Destroy each of the crucified Skeletons in the large room's corners. When the last falls to the ground, a door opens in the middle of the long northern wall. Inside wait more foes and treasures.\n\n**Who is there:** Skeletons, the crucified Skeletons guarding the hidden door, and King Leoric, who is entombed here.",
+      "x": 943,
+      "y": 611,
+      "adj": [
+        "N_DUNGEON_BENEATH_THE_CATHEDRAL"
+      ],
+      "childMapId": null,
+      "displayName": "King Leoric's Tomb",
+      "coordinates": {
+        "x": 943,
+        "y": 611
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_POISONED_WATER_CAVERNS",
+      "name": "Poisoned Water caverns",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "tier": 2,
+      "customNotes": "# Poisoned Water caverns\n\nA set-piece cavern level beyond a crack in the wall of Level 2, where a fouled underground spring is tainted by a demon infestation.\n\n**Entrance:** a crack in the wall surrounded by ornaments usually reserved for important tomes of lore, labeled 'To A Dark Passage'.\n\n**Who is there:** Fallen ones wait on arrival. The player traverses a few rock corridors and kills Goat Demons and lesser beasts.\n\n**Atmosphere:** rock corridors and caverns; a fouled waterway.",
+      "x": 662,
+      "y": 156,
+      "adj": [
+        "N_LEVEL_2_CATHEDRAL"
+      ],
+      "childMapId": null,
+      "displayName": "Poisoned Water caverns",
+      "coordinates": {
+        "x": 662,
+        "y": 156
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_SNOTSPILL_SET_PIECE_DUNGEON_LEVEL_4",
+      "name": "Snotspill's set piece (Dungeon Level 4)",
+      "cat": "Hazard",
+      "culture": "Clan",
+      "tier": 2,
+      "customNotes": "# Snotspill's set piece (Dungeon Level 4)\n\nA small set-piece area on Dungeon Level 4, between the player and the staircase down to Level 5. It must be cleared to reach that staircase.\n\n**Who is there:** Snotspill and his friends wait here, along with several massive monsters guarding the large chest.\n\n**Hidden/Treasure:** the large chest contains the tavern sign (Ogden's sign).",
+      "x": 815,
+      "y": 696,
+      "adj": [
+        "N_DUNGEON_BENEATH_THE_CATHEDRAL"
+      ],
+      "childMapId": null,
+      "displayName": "Snotspill's set piece (Dungeon Level 4)",
+      "coordinates": {
+        "x": 815,
+        "y": 696
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_DUNGEON_BENEATH_THE_CATHEDRAL",
+      "name": "Dungeon beneath the cathedral",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "tier": 3,
+      "customNotes": "# Dungeon beneath the cathedral\n\nA stone stairway inside the church plunges down into darkness to a dungeon where the scent of death surrounds the hero. It is the entry point into the game's 16 dungeon levels, which also house a random mix of peripheral environments.\n\n**Hazards:** monsters and mayhem, with a huge list of foes.",
+      "x": 792,
+      "y": 529,
+      "adj": [
+        "N_LEVEL_2_CATHEDRAL",
+        "N_KING_LEORIC_TOMB",
+        "N_SNOTSPILL_SET_PIECE_DUNGEON_LEVEL_4",
+        "N_CATACOMBS",
+        "N_CAVERN_LEVELS"
+      ],
+      "childMapId": null,
+      "displayName": "Dungeon beneath the cathedral",
+      "coordinates": {
+        "x": 792,
+        "y": 529
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_CAVERN_LEVELS",
+      "name": "Cavern levels",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "tier": 2,
+      "customNotes": "# Cavern levels\n\nThe cave-like midlevels of the dungeon, where lava lakes become common and create narrow paths.\n\n**Who is there:** Poison Spitters are common, and monsters usually arrive in hordes with generally slower monsters. The Rogue needs an insanely high To Hit percentage to thin them out.\n\n**Layout:** unlike the common tight corridors, the Cavern levels give ranged attackers enough room to run and keep distance.",
+      "x": 996,
+      "y": 422,
+      "adj": [
+        "N_DUNGEON_BENEATH_THE_CATHEDRAL",
+        "N_NARROW_PATH_BETWEEN_LAVA_LAKES"
+      ],
+      "childMapId": null,
+      "displayName": "Cavern levels",
+      "coordinates": {
+        "x": 996,
+        "y": 422
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_CATACOMBS",
+      "name": "The Catacombs",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "tier": 2,
+      "customNotes": "A dungeon area where Horned Demons are a particular bane.\n\n**Inhabitants:** Horned Demons. \"The Horned Demons are the bane of the Catacombs.\"",
+      "x": 570,
+      "y": 656,
+      "adj": [
+        "N_DUNGEON_BENEATH_THE_CATHEDRAL",
+        "N_CHAMBER_OF_BONE",
+        "N_BLOOD_FOUNTAIN"
+      ],
+      "childMapId": null,
+      "displayName": "The Catacombs",
+      "coordinates": {
+        "x": 570,
+        "y": 656
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_BLOOD_FOUNTAIN",
+      "name": "Blood Fountain",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "tier": 1,
+      "customNotes": "A fountain in the dungeon. \"A drink from the Blood Fountain restores your character's Health.\"",
+      "x": 392,
+      "y": 656,
+      "adj": [
+        "N_CATACOMBS"
+      ],
+      "childMapId": null,
+      "displayName": "Blood Fountain",
+      "coordinates": {
+        "x": 392,
+        "y": 656
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_NARROW_PATH_BETWEEN_LAVA_LAKES",
+      "name": "Narrow Path Between Lava Lakes",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "tier": 1,
+      "customNotes": "A narrow path between two lava lakes, common in the dungeon's cave-like midlevels. Narrower than even a doorway, these crossings are probably the most restrictive hurdles a horde of monsters can run into.\n\nA strong character can stand toe-to-toe with one or two foes here. Rogues can hold back and hit the crossing with a hail of arrows, because the brutes are slow to form a single-file line and can be picked off while they organize. Lava lakes also slightly inhibit the movement of Poison Spitters.",
+      "x": 1158,
+      "y": 348,
+      "adj": [
+        "N_CAVERN_LEVELS"
+      ],
+      "childMapId": null,
+      "displayName": "Narrow Path Between Lava Lakes",
+      "coordinates": {
+        "x": 1158,
+        "y": 348
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_CHAMBER_OF_BONE",
+      "name": "Chamber of Bone",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "tier": 1,
+      "customNotes": "A dungeon area with a main room. \"For grins, try using Infravision outside the Chamber of Bone's main room.\"",
+      "x": 484,
+      "y": 814,
+      "adj": [
+        "N_CATACOMBS"
+      ],
+      "childMapId": null,
+      "displayName": "Chamber of Bone",
+      "coordinates": {
+        "x": 484,
+        "y": 814
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_LEVEL_2_CATHEDRAL",
+      "name": "Level 2 cathedral",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "tier": 2,
+      "customNotes": "A desecrated cathedral in the Level 2 area, where the Butcher's first quest begins.\n\n**Sights:** Desecrated cathedral; church entrance with a dying townsman.",
+      "x": 718,
+      "y": 322,
+      "adj": [
+        "N_DUNGEON_BENEATH_THE_CATHEDRAL",
+        "N_POISONED_WATER_CAVERNS"
+      ],
+      "childMapId": null,
+      "displayName": "Level 2 cathedral",
+      "coordinates": {
+        "x": 718,
+        "y": 322
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_DUNGEON_BENEATH_THE_CATHEDRAL",
+      "to": "N_LEVEL_2_CATHEDRAL",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_LEVEL_2_CATHEDRAL",
+      "to": "N_POISONED_WATER_CAVERNS",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_DUNGEON_BENEATH_THE_CATHEDRAL",
+      "to": "N_KING_LEORIC_TOMB",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_DUNGEON_BENEATH_THE_CATHEDRAL",
+      "to": "N_SNOTSPILL_SET_PIECE_DUNGEON_LEVEL_4",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_DUNGEON_BENEATH_THE_CATHEDRAL",
+      "to": "N_CATACOMBS",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_CATACOMBS",
+      "to": "N_CHAMBER_OF_BONE",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_CATACOMBS",
+      "to": "N_BLOOD_FOUNTAIN",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_DUNGEON_BENEATH_THE_CATHEDRAL",
+      "to": "N_CAVERN_LEVELS",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_CAVERN_LEVELS",
+      "to": "N_NARROW_PATH_BETWEEN_LAVA_LAKES",
+      "type": "twoway",
+      "layer": "both"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "layers": [],
+  "shapes": []
+}

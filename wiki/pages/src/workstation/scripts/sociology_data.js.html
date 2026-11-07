@@ -470,9 +470,9 @@
         <h1 class="article-title">sociology_data.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 1271371d)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: cd83a656)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (18)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (20)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/sociology_data.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>2031 lines &bull; 126.0 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 1271371d)</span></td></tr>
+    <tr><th>File Metrics</th><td>2115 lines &bull; 130.2 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: cd83a656)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>7</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>18</strong> backlinks</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>20</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/sociology_data.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -515,8 +515,9 @@
 <p>8. <code>renderMdiOdvMatrix</code> & <code>renderMdiOdvDossier</code>: Win95 desktop workstation integration for <code>start.html</code> with full functional parity.</p>
 <ul class="wiki-list">
 <li>ODV (SYS-ODV-02 S1): added normalizeOdvInput/getOdv/getEdgeOdv/getNodeQuadrant; resolveNodeOdv now parses via getOdv (invalid values no longer coerced to 2); dropped bogus <code>topo</code> second arg.</li>
+<li>Gigerenzer suite (ADR 0024): added deriveHeuristicProfile, getHeuristicProfile and diagnoseEcologicalMatch. Quadrant from deriveCvfQuadrant picks the heuristic; C sets strictness and searchPatience.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">ODV_MATRIX_64</span><span class="pill">_campaignOdvMatrix</span><span class="pill">SOC_OPERATIONAL_LEVERS</span><span class="pill">SOC_CRISIS_METAMORPHISM</span><span class="pill">SOC_SENSORY_PENTAGON</span><span class="pill">SOC_FACTION_COLORS</span><span class="pill">SOC_DIAGNOSTIC_QUESTIONS</span><span class="pill">CVF_PARADIGMS</span><span class="pill">activeSelectedOdvTag</span></div><h3>Declared Functions / Subroutines (31)</h3><div class="pill-list"><span class="pill">setCampaignOdvMatrix(obj)</span><span class="pill">getCampaignOdvMatrix()</span><span class="pill">getArchetype(tag)</span><span class="pill">getArchetypeMatrix()</span><span class="pill">getArchetypeDetails(s, e, c)</span><span class="pill">deriveCvfQuadrant(s, e)</span><span class="pill">deriveOperationalMode(s, c)</span><span class="pill">rollSensoryProfile(s, e, c)</span><span class="pill">getIndex(dimension, dial)</span><span class="pill">getSuggestedCultureForNode(node)</span><span class="pill">getCulturalHarmonyScore(nid)</span><span class="pill">synthesizeCorridorReasonings(link, srcNode, tgtNode)</span><span class="pill">normalizeOdvInput(raw)</span><span class="pill">getOdv(entity)</span><span class="pill">getEdgeOdv(edge, uOdv, vOdv, edgeRecord)</span><span class="pill">getNodeQuadrant(node)</span><span class="pill">resolveNodeOdv(node, fallbackIndex)</span><span class="pill">resolveEdgeOdv(edge, uNodeOdv, vNodeOdv, edgeRecord)</span><span class="pill">buildCampaignOdvIndex(topology)</span><span class="pill">registerCorridor(uId, vId, linkObj, isDirected)</span><span class="pill">renderMdiOdvMatrix()</span><span class="pill">renderMdiOdvDossier(tag, arch, occupants)</span><span class="pill">formatSensoryProfileMarkdown(roll, s, e, c)</span><span class="pill">triggerMdiSensoryRoll(s, e, c)</span><span class="pill">applySensoryRollToSelectedNode(optNodeId = null, optRoll = null, s = 2, e = 2, c = 2)</span><span class="pill">applyMdiOdvToSelectedNode(s, e, c, optNodeId = null)</span><span class="pill">renderMdiOdvWizard(initialS = 2, initialE = 2, initialC = 2)</span><span class="pill">toggleMdiOdvWizard(forceShow = null)</span><span class="pill">onMdiOdvWizardChange()</span><span class="pill">onMdiOdvWizardApplyToNode()</span><span class="pill">openOdvWizardForNode(nodeId)</span></div>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">ODV_MATRIX_64</span><span class="pill">_campaignOdvMatrix</span><span class="pill">SOC_OPERATIONAL_LEVERS</span><span class="pill">SOC_CRISIS_METAMORPHISM</span><span class="pill">SOC_SENSORY_PENTAGON</span><span class="pill">SOC_FACTION_COLORS</span><span class="pill">SOC_DIAGNOSTIC_QUESTIONS</span><span class="pill">CVF_PARADIGMS</span><span class="pill">activeSelectedOdvTag</span><span class="pill">HEURISTIC_BASE_BY_QUADRANT</span></div><h3>Declared Functions / Subroutines (34)</h3><div class="pill-list"><span class="pill">setCampaignOdvMatrix(obj)</span><span class="pill">getCampaignOdvMatrix()</span><span class="pill">getArchetype(tag)</span><span class="pill">getArchetypeMatrix()</span><span class="pill">getArchetypeDetails(s, e, c)</span><span class="pill">deriveCvfQuadrant(s, e)</span><span class="pill">deriveOperationalMode(s, c)</span><span class="pill">rollSensoryProfile(s, e, c)</span><span class="pill">getIndex(dimension, dial)</span><span class="pill">getSuggestedCultureForNode(node)</span><span class="pill">getCulturalHarmonyScore(nid)</span><span class="pill">synthesizeCorridorReasonings(link, srcNode, tgtNode)</span><span class="pill">normalizeOdvInput(raw)</span><span class="pill">getOdv(entity)</span><span class="pill">getEdgeOdv(edge, uOdv, vOdv, edgeRecord)</span><span class="pill">getNodeQuadrant(node)</span><span class="pill">resolveNodeOdv(node, fallbackIndex)</span><span class="pill">resolveEdgeOdv(edge, uNodeOdv, vNodeOdv, edgeRecord)</span><span class="pill">buildCampaignOdvIndex(topology)</span><span class="pill">registerCorridor(uId, vId, linkObj, isDirected)</span><span class="pill">renderMdiOdvMatrix()</span><span class="pill">renderMdiOdvDossier(tag, arch, occupants)</span><span class="pill">formatSensoryProfileMarkdown(roll, s, e, c)</span><span class="pill">triggerMdiSensoryRoll(s, e, c)</span><span class="pill">applySensoryRollToSelectedNode(optNodeId = null, optRoll = null, s = 2, e = 2, c = 2)</span><span class="pill">applyMdiOdvToSelectedNode(s, e, c, optNodeId = null)</span><span class="pill">renderMdiOdvWizard(initialS = 2, initialE = 2, initialC = 2)</span><span class="pill">toggleMdiOdvWizard(forceShow = null)</span><span class="pill">onMdiOdvWizardChange()</span><span class="pill">onMdiOdvWizardApplyToNode()</span><span class="pill">openOdvWizardForNode(nodeId)</span><span class="pill">deriveHeuristicProfile(s, e, c)</span><span class="pill">getHeuristicProfile(subject)</span><span class="pill">diagnoseEcologicalMatch(profile, env)</span></div>
       <h2 id="outbound-links">Outbound References (7)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
         <td><span class="badge badge-Workstation Shell Template">Included By Template</span></td>
@@ -546,7 +547,7 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes saveActiveCampaign() defined in workstation_state.js</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (18)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (20)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_c_sociology_and_tarot_hermeneutics.html"><strong>Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</strong></a></td>
         <td><span class="badge badge-Series">Wiki Citation</span></td>
         <td>Explicit [[File:src/workstation/scripts/sociology_data.js]] reference</td>
@@ -594,6 +595,14 @@
         <td><a href="../../../../pages/src/workstation/scripts/campaign_override_slots.js.html"><strong>src/workstation/scripts/campaign_override_slots.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes setCampaignOdvMatrix() defined in sociology_data.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/dread_risk_overlay.js.html"><strong>src/workstation/scripts/dread_risk_overlay.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes resolveNodeOdv() defined in sociology_data.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/fft_editor_ui.js.html"><strong>src/workstation/scripts/fft_editor_ui.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes deriveHeuristicProfile() defined in sociology_data.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/mdi_window_manager.js.html"><strong>src/workstation/scripts/mdi_window_manager.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

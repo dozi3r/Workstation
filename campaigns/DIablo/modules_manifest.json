@@ -1,0 +1,2132 @@
+[
+  {
+    "id": "MOD_DIABLO_ABI_BLOOD_STAR",
+    "title": "Blood Star",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Black/Red",
+    "provides": [
+      "Power: Blood-Magic-Spell",
+      "Bio: Health-Sacrifice-Casting"
+    ],
+    "requires": [
+      "Power: Mana-Pool",
+      "Bio: Caster-Vitality",
+      "Ecology: Monsters-Without-Magic-Resistance"
+    ],
+    "summary": "A highest-tier Monster Class spell that works on any monster without Magic resistance. A hit takes a fixed share of the caster's Magic from the foe's vitality rather than rolling a range of harm, and casting costs Health as well as Mana.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_BLOOD_STAR.md",
+    "standalone_fallback": "Use it as a costly signature spell: the caster pays in both Mana and Health to strike any foe that lacks magical resistance, with the harm tied to the caster's own magical strength rather than to chance.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_BONE_SPIRIT",
+    "title": "Bone Spirit",
+    "set": "Diablo",
+    "tier": "Tier 5 (Esoteric & Eschatological Engines)",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy",
+    "color": "Black",
+    "provides": [
+      "Power: Vitality-Draining-Spell",
+      "Climax: Boss-Killer"
+    ],
+    "requires": [
+      "Power: Mana-Reserve",
+      "Bio: Caster-Vitality"
+    ],
+    "summary": "A highest-tier Monster Class spell that strips a large share of a target's remaining vitality with each strike. After a few shots even a formerly tough foe falls quickly. It costs Health as well as Mana.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_BONE_SPIRIT.md",
+    "standalone_fallback": "Use it as a costly spirit-bolt that gnaws away a big portion of a foe's remaining strength per hit, paid for in the caster's own blood and magic.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_CHAIN_LIGHTNING",
+    "title": "Chain Lightning",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Red/Blue",
+    "provides": [
+      "Power: Chain-Lightning-Bursts",
+      "Lore: Sorcerer-High-Spells"
+    ],
+    "requires": [
+      "Bio: Arcane-Caster",
+      "Fuel: Mana",
+      "Lore: Spell-Book"
+    ],
+    "summary": "A high-end lightning spell the Sorcerer relies on as the best defense later in the game, found as books in the dungeon.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_CHAIN_LIGHTNING.md",
+    "standalone_fallback": "Use it as a late-game offensive caster spell that arcs lightning through enemies, at the cost of draining the caster's magical reserves quickly.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_CHARGED_BOLT",
+    "title": "Charged Bolt",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Red/Blue",
+    "provides": [
+      "Power: Lightning-Projectiles"
+    ],
+    "requires": [
+      "Power: Mana-Pool",
+      "Bio: Spellcaster"
+    ],
+    "summary": "A lightning spell that produces multiple projectiles which bounce off walls. It is a poor choice against lightning-resistant creatures, which it may slow but probably will not kill.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_CHARGED_BOLT.md",
+    "standalone_fallback": "Use it as a cheap lightning attack that fires several bolts to ricochet around a room. It is weak against anything that resists lightning.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_ELEMENTAL",
+    "title": "Elemental",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Red/Blue",
+    "provides": [
+      "Power: Long-Range-Offense"
+    ],
+    "requires": [
+      "Power: Mana-Pool",
+      "Bio: Spellcaster"
+    ],
+    "summary": "A high-end Sorcerer offensive spell that does not dissipate over distance and so works well at range.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_ELEMENTAL.md",
+    "standalone_fallback": "Use it as a ranged elemental attack spell for an experienced caster. It keeps its force over distance, so it suits attacks on distant foes.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_FIREBALL",
+    "title": "Fireball",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Red",
+    "provides": [
+      "Power: Ranged-Fire-Spell",
+      "Lore: Sorcerer-Spell-List"
+    ],
+    "requires": [
+      "Authority: Sorcerer-Training",
+      "Power: Arcane-Casting"
+    ],
+    "summary": "A Sorcerer spell that does not dissipate over distance, so it works well at range.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_FIREBALL.md",
+    "standalone_fallback": "Use it as a long-range blast that a spellcaster can hurl across a room or cavern without losing force. It needs no setting beyond a caster and a distant foe.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_FIREBOLT",
+    "title": "Firebolt",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Red",
+    "provides": [
+      "Power: Fire-Bolt",
+      "Lore: Starter-Spell"
+    ],
+    "requires": [
+      "Fuel: Mana"
+    ],
+    "summary": "A basic fire spell that almost every character learns early on.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_FIREBOLT.md",
+    "standalone_fallback": "Use it as the simple starter attack spell of any caster: a bolt of fire that gets faster and cheaper with further study.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_FLAME_WAVE",
+    "title": "Flame Wave",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Red",
+    "provides": [
+      "Power: Fire-Offense"
+    ],
+    "requires": [
+      "Power: Mana-Pool",
+      "Lore: Spell-Book",
+      "Bio: Spellcaster"
+    ],
+    "summary": "A high-end Sorcerer offensive spell, used once the Sorcerer has advanced. It is found as a spell book in the dungeon.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_FLAME_WAVE.md",
+    "standalone_fallback": "Use it as a late-game fire attack spell for an advanced caster. It is a reward found in a spell book, not something learned early.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_GOLEM",
+    "title": "Golem",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy",
+    "color": "Colorless",
+    "provides": [
+      "Power: Summoned-Ally",
+      "Defense: Decoy-Attention",
+      "Labor: Stone-Servant"
+    ],
+    "requires": [
+      "Power: Mana-Pool",
+      "Bio: Spellcaster"
+    ],
+    "summary": "A summoned stone ally that hunts enemies. The Sorcerer sends it into a room to draw attacks so that Stone Curse can be placed on the attackers.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_GOLEM.md",
+    "standalone_fallback": "Use it as a single summoned decoy and hunter that the caster sends ahead. It pulls enemy attention so the caster can act on the enemies while they are distracted.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_HEAL_OTHER",
+    "title": "Heal Other",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Clan",
+    "color": "White",
+    "provides": [
+      "Power: Ally-Healing",
+      "Bio: Restorative-Magic"
+    ],
+    "requires": [
+      "Authority: Spell-Book",
+      "Power: Mana-Reserve",
+      "Lore: Multiplayer-Party"
+    ],
+    "summary": "A multiplayer spell that heals a weary comrade. The caster highlights the target, then right-clicks to restore their health.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_HEAL_OTHER.md",
+    "standalone_fallback": "Use it as a spell that lets one character mend an ally they can see, at a cost to the caster's magical reserves. It suits any party with a healer.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_HEALING",
+    "title": "Healing",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Clan",
+    "color": "White",
+    "provides": [
+      "Power: Self-Healing",
+      "Defense: Mana-Fueled-Recovery"
+    ],
+    "requires": [
+      "Fuel: Mana-Reserve",
+      "Lore: Spellbook-Training",
+      "Bio: Arcane-Capable-Caster"
+    ],
+    "summary": "A restorative spell cast by the Sorcerer that heals the caster at the cost of Mana. Best used outside combat, with stockpiled scrolls covering battle.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_HEALING.md",
+    "standalone_fallback": "A caster can mend their own wounds by spending magical energy. Use it between fights, and keep consumable scrolls for the heat of battle.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_IDENTIFY",
+    "title": "Identify",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Market",
+    "color": "Blue",
+    "provides": [
+      "Lore: Item-Appraisal",
+      "Signal: Magic-Item-Revelation"
+    ],
+    "requires": [
+      "Material: Identify-Scroll",
+      "Authority: Item-Vendor"
+    ],
+    "summary": "A spell, available only through scroll or staff, that reveals the nature of magical objects, which may help or harm their owner.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_IDENTIFY.md",
+    "standalone_fallback": "A consumable charm or scroll reveals what a magical object truly does, so the party can tell blessings from curses without a trip back to town.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_INFERNO",
+    "title": "Inferno",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Red",
+    "provides": [
+      "Power: Fire-Area-Attack",
+      "Lore: Sorcerer-High-Spells"
+    ],
+    "requires": [
+      "Fuel: Mana",
+      "Lore: Spell-Book"
+    ],
+    "summary": "A high-level fire spell whose area and efficiency grow with the caster's experience, far more impressive for a Sorcerer than a Warrior.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_INFERNO.md",
+    "standalone_fallback": "Use it as a fire spell whose area grows as its caster advances. A dedicated mage commands a large blaze, while a martial character gets only a modest one.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_INFRAVISION",
+    "title": "Infravision",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Blue",
+    "provides": [
+      "Signal: Sight-Through-Walls",
+      "Tech: Scouting-Aid"
+    ],
+    "requires": [
+      "Material: Scroll"
+    ],
+    "summary": "Lets the caster see through walls, showing lurking monsters in a reddish hue. It is seldom a significant tactical advantage, except when lining up a Wall of Fire. Scroll only.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_INFRAVISION.md",
+    "standalone_fallback": "Use it as a one-off scouting charm that reveals hidden creatures behind walls as red shapes. It helps most when the caster plans an area attack.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_LIGHTNING",
+    "title": "Lightning",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Red/Blue",
+    "provides": [
+      "Power: Long-Range-Lightning",
+      "Lore: Sorcerer-Spell-List"
+    ],
+    "requires": [
+      "Fuel: Mana",
+      "Bio: Arcane-Caster"
+    ],
+    "summary": "A Sorcerer spell that does not dissipate over distance and outranges Poison Spitter spitting, but is useless against lightning-immune demons.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_LIGHTNING.md",
+    "standalone_fallback": "Use it as a caster's long-range bolt that nothing can outdistance. Creatures immune to lightning force the caster to pick another approach.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_MANA_SHIELD",
+    "title": "Mana Shield",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy",
+    "color": "Blue/White",
+    "provides": [
+      "Defense: Mana-Barrier",
+      "Lore: Spell-Scrolls"
+    ],
+    "requires": [
+      "Fuel: Mana",
+      "Lore: Spell-Book-Or-Scroll",
+      "Authority: Scroll-Vendor"
+    ],
+    "summary": "A protective spell, learned from a book or bought as a scroll, that lets magical reserves absorb harm in place of life.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_MANA_SHIELD.md",
+    "standalone_fallback": "Use it as a protective spell that makes the caster's magical reserve a second health pool. It lapses whenever the caster travels between places.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_NOVA",
+    "title": "Nova",
+    "set": "Diablo",
+    "tier": "Tier 5 (Esoteric & Eschatological Engines)",
+    "pipeline_tier": 5,
+    "culture": "Adhocracy",
+    "color": "Red/Blue",
+    "provides": [
+      "Power: Radial-Lightning-Burst",
+      "Lore: Unlearnable-Spell"
+    ],
+    "requires": [
+      "Material: Scroll-Or-Staff"
+    ],
+    "summary": "A devastating radial Lightning attack found only on scrolls and staffs. It is so powerful that even a Sorcerer cannot learn it from a book.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_NOVA.md",
+    "standalone_fallback": "Treat it as a rare one-use or item-bound lightning burst that strikes all around the wielder. Whoever finds the scroll or staff gets a story-turning blast.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_PHASE",
+    "title": "Phase",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Blue",
+    "provides": [
+      "Power: Random-Teleport",
+      "Defense: Emergency-Escape"
+    ],
+    "requires": [
+      "Power: Mana-Reserve"
+    ],
+    "summary": "Teleports the caster in a random direction. It is hard to aim and wasteful of Mana, so the guide recommends it for leaping across dungeon sections or escaping swarms.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_PHASE.md",
+    "standalone_fallback": "Use it as a panic jump that throws the caster somewhere nearby and unpredictable. It is good for escaping a crowd or skipping a stretch of a dungeon.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_RESURRECT",
+    "title": "Resurrect",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "White",
+    "provides": [
+      "Power: Raise-Dead",
+      "Defense: Ally-Recovery"
+    ],
+    "requires": [
+      "Material: Resurrect-Scroll",
+      "Authority: Item-Vendor",
+      "Fuel: Mana-Reserve"
+    ],
+    "summary": "A multiplayer-only spell, available through staff and scroll, that raises a dead ally who returns barely alive.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_RESURRECT.md",
+    "standalone_fallback": "A rare scroll can call a fallen companion back, but they return on the brink of death. Use it only once the area is safe.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_ROGUE_TRAP_DISARMING",
+    "title": "Rogue Trap Disarming",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Colorless",
+    "provides": [
+      "Defense: Trap-Disarming",
+      "Signal: Trap-Detection"
+    ],
+    "requires": [
+      "Bio: Rogue-Practitioner",
+      "Tech: Trapped-Mechanism"
+    ],
+    "summary": "The Rogue's innate skill of identifying and disarming traps, specifically booby-trapped chests and doors.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_ROGUE_TRAP_DISARMING.md",
+    "standalone_fallback": "A nimble specialist can spot and defuse trapped chests and doors before they spring, making a dungeon's locked prizes safer to open.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_SORCERER_STAFF_RECHARGING",
+    "title": "Sorcerer Staff Recharging",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Blue",
+    "provides": [
+      "Power: Staff-Recharge",
+      "Labor: Magic-Item-Maintenance"
+    ],
+    "requires": [
+      "Material: Charged-Staff",
+      "Bio: Sorcerer-Practitioner"
+    ],
+    "summary": "The Sorcerer's innate ability to recharge staves, analogous to the Warrior's repair skill.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_SORCERER_STAFF_RECHARGING.md",
+    "standalone_fallback": "A spellcaster can restore the charges of a magical staff, though each recharge leaves the staff able to hold less than before.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_STONE_CURSE",
+    "title": "Stone Curse",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Blue/Black",
+    "provides": [
+      "Power: Area-Petrification",
+      "Power: Anti-Flight-Control",
+      "Lore: Sorcerer-High-Spells"
+    ],
+    "requires": [
+      "Bio: Arcane-Caster",
+      "Fuel: Mana",
+      "Lore: Spell-Book"
+    ],
+    "summary": "A high-end spell that petrifies enemies over an area, even without line of sight, so they cannot flee and shatter under a few weapon blows.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_STONE_CURSE.md",
+    "standalone_fallback": "Use it as a caster's signature control spell. It freezes a group of foes in stone for a short time, and allies can then smash them with ordinary weapons.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_TELEKINESIS",
+    "title": "Telekinesis",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Blue",
+    "provides": [
+      "Power: Distant-Manipulation",
+      "Tech: Remote-Door-Opening"
+    ],
+    "requires": [
+      "Power: Mana-Pool",
+      "Bio: Spellcaster"
+    ],
+    "summary": "A spell that lets the caster manipulate distant objects with the mind. The Rogue uses it to open doors from afar and fire arrows through the opening.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_TELEKINESIS.md",
+    "standalone_fallback": "Use it as a minor utility power that opens doors, chests and sarcophagi from a distance. It can also shove a monster back, which lets an archer shoot through the gap.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_TOWN_PORTAL",
+    "title": "Town Portal",
+    "set": "Diablo",
+    "tier": "Tier 5 (Esoteric & Eschatological Engines)",
+    "pipeline_tier": 5,
+    "culture": "Market",
+    "color": "Blue",
+    "provides": [
+      "Authority: Safe-Retreat-Route",
+      "Signal: Dungeon-Town-Gateway",
+      "Material: Portal-Scrolls"
+    ],
+    "requires": [
+      "Lore: Home-Settlement-Hub",
+      "Authority: Scroll-Merchant"
+    ],
+    "summary": "A spell that opens a gateway between the dungeon and a spot just outside Tristram's town square. It lets the caster return to town quickly and come back to the exact point they left.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_TOWN_PORTAL.md",
+    "standalone_fallback": "Use it as a reliable escape-and-resupply gate in any delve. The portal leads to a safe hub and returns the party to the exact spot where it was opened.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_WALL_OF_FIRE",
+    "title": "Wall of Fire",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Red",
+    "provides": [
+      "Power: Fire-Barrier-Spell",
+      "Defense: Area-Denial"
+    ],
+    "requires": [
+      "Power: Mana-Pool",
+      "Lore: Spell-Book-Or-Scroll-Or-Staff"
+    ],
+    "summary": "A fire spell listed in the spell index with a modest Magic requirement from scrolls or staves and a higher one from a book. Book study lengthens its duration and eases its Mana cost, and infravision helps line it up.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_WALL_OF_FIRE.md",
+    "standalone_fallback": "Use it as a fire barrier a caster raises to block or punish passage, easier to cast from a scroll or staff than from a book, and best aimed with good sight in the dark.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_ABI_WARRIOR_REPAIR_SKILL",
+    "title": "Warrior Repair Skill",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy",
+    "color": "Red",
+    "provides": [
+      "Labor: Field-Repair",
+      "Defense: Gear-Maintenance"
+    ],
+    "requires": [
+      "Tech: Worn-Equipment",
+      "Bio: Warrior-Practitioner"
+    ],
+    "summary": "The Warrior's innate skill of repairing weapons and armor in the field, measured by an item's Durability.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_DIABLO_ABI_WARRIOR_REPAIR_SKILL.md",
+    "standalone_fallback": "A fighter can patch up weapons and armor in the field, but each item wears down for good over time and vanishes when it has nothing left.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_FAC_BROTHERHOOD_OF_THE_VIZJEREI",
+    "title": "Brotherhood of the Vizjerei",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy",
+    "color": "Blue",
+    "provides": [
+      "Lore: Spellcraft-Tradition",
+      "Authority: Magic-Order"
+    ],
+    "requires": [
+      "Labor: Order-Initiates"
+    ],
+    "summary": "An order of magic-users to which the Sorcerer belongs.",
+    "yields": "",
+    "path": "./modules/Factions/MOD_DIABLO_FAC_BROTHERHOOD_OF_THE_VIZJEREI.md",
+    "standalone_fallback": "Use them as an order of scholarly spellcasters whose members are skilled with scrolls and spells. A member can appear as a patron, mentor or rival to any magic-using character.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "faction",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_FAC_SISTERS_OF_THE_SIGHTLESS_EYE",
+    "title": "Sisters of the Sightless Eye",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "Blue",
+    "provides": [
+      "Lore: Trap-Sense-Tradition",
+      "Authority: Secretive-Order",
+      "Defense: Trap-Disarming-Expertise"
+    ],
+    "requires": [
+      "Labor: Order-Initiates"
+    ],
+    "summary": "A mysterious order to which the Rogue belongs, whose members have a sixth sense for perceiving and disarming traps before they spring.",
+    "yields": "",
+    "path": "./modules/Factions/MOD_DIABLO_FAC_SISTERS_OF_THE_SIGHTLESS_EYE.md",
+    "standalone_fallback": "Use them as a secretive sisterhood of scouts and infiltrators whose members can sense and defuse traps before they trigger. Any party delving into a trapped site can meet one as a guide, rival or recruiter.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "faction",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_BALROG_WEAKNESS_HINT",
+    "title": "Balrog Weakness Hint",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "Red",
+    "provides": [
+      "Lore: Fire-Resistance-Warning",
+      "Ecology: Balrog-Threat-Profile"
+    ],
+    "requires": [
+      "Defense: Fire-Ward",
+      "Lore: Balrog-Sighting"
+    ],
+    "summary": "A veteran's piece of guidance says fire resistance should be a priority, because the Balrogs will soon give the player reason enough to seek it.",
+    "yields": "Fire-ward gear or knowledge and the confidence to face Balrogs with a fighting chance.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_BALROG_WEAKNESS_HINT.md",
+    "standalone_fallback": "Run it as a one-shot briefing scene. A veteran warns the party that the demons ahead burn what they touch, and the party has one chance to find fire protection before the first Balrog encounter.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_BLOOD_FOUNTAIN",
+    "title": "Blood Fountain",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "White",
+    "provides": [
+      "Bio: Restorative-Fountain",
+      "Defense: Field-Recovery"
+    ],
+    "requires": [
+      "Authority: Safe-Access-To-Fountain"
+    ],
+    "summary": "A fountain in the dungeon from which a single drink restores a character's Health. A small refuge of recovery amid the depths.",
+    "yields": "Restored Health for the party, and a fixed point of safety to plan a descent around.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_BLOOD_FOUNTAIN.md",
+    "standalone_fallback": "Run it as a quiet oasis room in any dungeon: a fountain of blood-red liquid offers healing to whoever dares drink, and the only question is whether the party takes the offer, shares it, or guards it against others who also need it.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_BUTCHER_IS_DEFEATED_BY_LURING_HIM_THROUGH_A_GRAT",
+    "title": "The Butcher and the Grated Door",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Adhocracy",
+    "color": "Blue",
+    "provides": [
+      "Material: Butcher-Cleaver",
+      "Defense: Grated-Door-Chokepoint"
+    ],
+    "requires": [
+      "Defense: Ranged-Weapon",
+      "Lore: Butcher-Location"
+    ],
+    "summary": "After the party clears the cathedral depths, it lures the Butcher to a doorway flanked by steel grating, closes the door on him, shoots him with a bow until he dies, then takes his Cleaver.",
+    "yields": "The Butcher's Cleaver, a cleared route onward, and the promise to the dying townsman kept.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_BUTCHER_IS_DEFEATED_BY_LURING_HIM_THROUGH_A_GRAT.md",
+    "standalone_fallback": "Run it as a one-shot tactical puzzle. A relentless brute cannot be fought in melee, but a doorway with a grated view lets one ranged attacker whittle it down safely, if the party can bait it there.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_BUTCHER_QUEST_IS_TRIGGERED_AT_THE_DESECRATED_CAT",
+    "title": "A Dying Plea at the Desecrated Cathedral",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "Black",
+    "provides": [
+      "Authority: Avenge-Mandate",
+      "Lore: Archbishop-Betrayal-Account"
+    ],
+    "requires": [
+      "Lore: Lost-Prince-Expedition",
+      "Defense: Descent-Readiness"
+    ],
+    "summary": "At the cathedral entrance a dying townsman tells the player that Archbishop Lazarus led them into a trap set by a demon called the Butcher, and begs the player to avenge them.",
+    "yields": "A clear objective, the Butcher, and a damning account of Archbishop Lazarus that gives the party moral standing.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_BUTCHER_QUEST_IS_TRIGGERED_AT_THE_DESECRATED_CAT.md",
+    "standalone_fallback": "Run it as a one-shot scene. The party meets a dying survivor at a defiled church door, hears who betrayed his group and what killed them, and chooses whether to take up his dying request.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_CATACOMBS",
+    "title": "The Catacombs",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "Black",
+    "provides": [
+      "Ecology: Demon-Haunt",
+      "Lore: Dungeon-Region"
+    ],
+    "requires": [
+      "Defense: Prepared-Party"
+    ],
+    "summary": "A dungeon area where Horned Demons are a particular bane.",
+    "yields": "Safe passage through the dungeon region and the removal of its defining danger.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_CATACOMBS.md",
+    "standalone_fallback": "Run it as a one-shot: the party explores a tomb-like dungeon region where a single kind of horned demon is the greatest threat, and must find a way to get through or around them.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_CATACOMBS_MAUSOLEUM",
+    "title": "Catacombs Mausoleum",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "White",
+    "provides": [
+      "Defense: Safe-Retreat-Route",
+      "Lore: Mausoleum-Threshold"
+    ],
+    "requires": [
+      "Authority: Town-Sanctuary",
+      "Ecology: Catacombs-Descent"
+    ],
+    "summary": "A mausoleum in the catacombs that opens when the party arrives, letting them return to town from that level.",
+    "yields": "A reliable return path from the catacombs to town for recovery and resupply.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_CATACOMBS_MAUSOLEUM.md",
+    "standalone_fallback": "Run it as a one-shot: deep in a catacomb, a sealed mausoleum opens and offers the party a way back to the surface, at the risk of what slumbers in the tombs around it.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_CAVE_NEAR_WIRT_CLEARING",
+    "title": "Cave near Wirt's Clearing",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Market",
+    "color": "Black",
+    "provides": [
+      "Defense: Safe-Retreat-Route",
+      "Lore: Cave-Threshold"
+    ],
+    "requires": [
+      "Authority: Town-Sanctuary",
+      "Ecology: Deep-Dungeon-Descent"
+    ],
+    "summary": "A cave near where Wirt stands in Tristram; the stairs from the ninth dungeon level lead up to it and back to town.",
+    "yields": "A route back to town from deep in the dungeon, with access to trade and recovery.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_CAVE_NEAR_WIRT_CLEARING.md",
+    "standalone_fallback": "Run it as a one-shot: after a punishing descent, the party climbs a stair into a cave beside a shady peddler's stand and must trade, recover and decide whether to go back down.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_CAVERN_LEVELS",
+    "title": "Cavern Levels",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "Red",
+    "provides": [
+      "Ecology: Poison-Spitter-Hordes",
+      "Defense: Lava-Narrowed-Paths",
+      "Lore: Open-Cave-Warfare"
+    ],
+    "requires": [
+      "Lore: Dungeon-Descent-Route"
+    ],
+    "summary": "The cave-like middle depths of the dungeon. Lava lakes squeeze the footing into narrow paths, Poison Spitters hold the open ground, and big hordes have room to run. Ranged attackers can also keep their distance here, so the usual doorway trick fails.",
+    "yields": "Safe passage to the deeper dungeon, plus knowledge of which narrow lava paths hold, which can be reused as a defensible route.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_CAVERN_LEVELS.md",
+    "standalone_fallback": "Run it as a one-shot fighting retreat across a lava-lit cave. The party must thin or evade a huge horde while Poison Spitters pepper them from range, and the only safe footing is a few narrow paths between lava lakes. Success means reaching the far side of the cave. Staying put means being overrun.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_CAVES",
+    "title": "Caves",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy",
+    "color": "Green",
+    "provides": [
+      "Authority: Surface-Access",
+      "Lore: Cave-Entrance"
+    ],
+    "requires": [
+      "Defense: Dungeon-Descent-Progress"
+    ],
+    "summary": "An area reached by descending the dungeon. Arriving here opens another entrance to the surface, giving the party a new way out and back.",
+    "yields": "A second entrance to the surface, shortening retreat and resupply.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_CAVES.md",
+    "standalone_fallback": "Run it as a cavern region that the party has pushed deep enough to reach, where discovering a second route to the surface changes how they resupply, retreat and plan.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_CHAMBER_OF_BONE",
+    "title": "Chamber of Bone",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy",
+    "color": "Black",
+    "provides": [
+      "Lore: Infravision-Oddity",
+      "Ecology: Bone-Vault-Hazard"
+    ],
+    "requires": [
+      "Defense: Dark-Sight-Method",
+      "Signal: Heat-Vision-Sense"
+    ],
+    "summary": "A dungeon area built around a main room. The source only hints that its surroundings behave differently under infravision, so the rest is left for the table to fill in.",
+    "yields": "A revealed secret about the chamber's layout or hidden contents, plus safe knowledge of how to see what others miss.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_CHAMBER_OF_BONE.md",
+    "standalone_fallback": "Run it as a one-room crawl. The party reaches a bone-strewn main chamber and finds that heat-sight or similar darkvision reveals something different outside the room than inside it. They decide whether to investigate the difference or leave.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_CHARACTER_CLASS_PHILOSOPHY",
+    "title": "Character Class Philosophy",
+    "set": "Diablo",
+    "tier": "Tier 1 (Macro Network & Governance)",
+    "pipeline_tier": 1,
+    "culture": "Adhocracy",
+    "color": "Blue",
+    "provides": [
+      "Authority: Build-Doctrine",
+      "Lore: Archetype-Guidance"
+    ],
+    "requires": [
+      "Lore: Hero-Archetype-Roster"
+    ],
+    "summary": "The guide's view that the three hero classes are archetypes, that the Sorcerer is the pivot point of character abilities, and that players should build a primary and a secondary configuration instead of specializing narrowly.",
+    "yields": "A shared understanding of how to build a flexible hero, giving the party a secondary approach before it is needed.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_CHARACTER_CLASS_PHILOSOPHY.md",
+    "standalone_fallback": "Run it as a short mentor scene where a veteran advises the party to prepare a second approach for foes their usual method cannot handle. The scene ends with each hero naming a backup method they will cultivate.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_CRYPT_IN_THE_GRAVEYARD",
+    "title": "Crypt in the Graveyard",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "Black",
+    "provides": [
+      "Defense: Safe-Retreat-Route",
+      "Lore: Graveyard-Threshold"
+    ],
+    "requires": [
+      "Authority: Town-Sanctuary",
+      "Ecology: Deep-Dungeon-Descent"
+    ],
+    "summary": "A crypt in Tristram's graveyard where the stairway from the fifth dungeon level emerges, giving delvers a way back to town.",
+    "yields": "A safe way back to town to heal, resupply and regroup, plus knowledge of what is stirring below.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_CRYPT_IN_THE_GRAVEYARD.md",
+    "standalone_fallback": "Run it as a one-shot: the party climbs out of a lower dungeon through a crypt into a quiet graveyard above a frightened village, and must decide whether to rest, resupply and return below or seal the way behind them.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_CURSE_OF_KING_LEORIC_QUEST_IS_TRIGGERED_BY_OGDEN",
+    "title": "The Tavern Keeper's Plea: The Curse of King Leoric",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "White",
+    "provides": [
+      "Lore: Fallen-King-Legend",
+      "Authority: Townsfolk-Quest-Mandate",
+      "Signal: Tomb-Rumor"
+    ],
+    "requires": [
+      "Defense: Undead-Slaying-Capability",
+      "Lore: Local-Town-Community"
+    ],
+    "summary": "In the Tristram tavern, Ogden recounts the tragic tale of King Leoric and begs the hero to destroy the king's cursed form and free his soul.",
+    "yields": "A clear mandate from the townsfolk, the story of the king's fall, and the direction to his tomb.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_CURSE_OF_KING_LEORIC_QUEST_IS_TRIGGERED_BY_OGDEN.md",
+    "standalone_fallback": "Run it as a single tavern scene. A frightened innkeeper tells of a king who rose from the grave in a cursed body and pleads with the party to end his torment. The scene closes when the party accepts or refuses, and the innkeeper points them toward the king's resting place.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_CURSED_CATHEDRAL",
+    "title": "The Cursed Cathedral",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "White",
+    "provides": [
+      "Lore: Dungeon-Main-Entrance",
+      "Defense: Threshold-Chokepoint",
+      "Authority: Corrupted-Sacred-Ground"
+    ],
+    "requires": [
+      "Lore: Surface-Settlement-Gateway"
+    ],
+    "summary": "The church in Tristram. Its front door is the main entrance to the dungeon and leads down to the first level of the labyrinth.",
+    "yields": "Access to the first level of the labyrinth, a safe return route to Tristram, and a clear sense of how the dungeon connects to the town.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_CURSED_CATHEDRAL.md",
+    "standalone_fallback": "Run it as a one-shot threshold scene. The party stands at the front door of a cursed church, goes down into the labyrinth beneath it, and faces the first room-by-room exploration. The door is also their way back, along with stairways deep below that open to the town.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_DARK_EXILE",
+    "title": "The Dark Exile",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "Black",
+    "provides": [
+      "Lore: Exile-Tale-Fragment",
+      "Lore: Tome-Of-The-Exile"
+    ],
+    "requires": [
+      "Authority: Custodian-Of-The-Tomes"
+    ],
+    "summary": "A tale recorded in tomes scattered through the game world, recounting the Dark Exile. The card gives only the existence of the story, so its content is left for the table to fill in.",
+    "yields": "Knowledge of the Dark Exile's story, which can serve as a lead, a rumor, or leverage with those who care about the tale.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_DARK_EXILE.md",
+    "standalone_fallback": "The party finds a tome in a ruined library or crypt that tells of a banished figure. Reading it raises the question of who the exile was, why they were cast out, and whether anyone still wants the story kept hidden. Resolve it as a single scene of discovery and a choice about what to do with the knowledge.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_DARK_RIDERS_AND_RITUAL_AT_THE_RUINED_CATHEDRAL",
+    "title": "Dark Riders and Ritual at the Ruined Cathedral",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Adhocracy",
+    "color": "Black",
+    "provides": [
+      "Lore: Dark-Rider-Rumor",
+      "Lore: Cathedral-Ritual-Report",
+      "Signal: Unclear-Evil-Warning"
+    ],
+    "requires": [
+      "Authority: Frightened-Local-Witnesses"
+    ],
+    "summary": "Townsfolk report an invasion by dark riders and strange rituals in the ruined cathedral at the edge of town, but the true nature of the evil is not yet clear.",
+    "yields": "A working hypothesis about the evil, a lead to the cathedral, and local trust when the party shares what it finds.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_DARK_RIDERS_AND_RITUAL_AT_THE_RUINED_CATHEDRAL.md",
+    "standalone_fallback": "Run it as a mystery seed. The party hears conflicting accounts of riders and ritual, then must decide what the evil really is by investigating the cathedral.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_DIABLO_DUNGEON",
+    "title": "The Diablo Dungeon",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "Black",
+    "provides": [
+      "Ecology: Depth-Stratified-Monster-Ladder",
+      "Lore: Descent-Into-Hell-Setting",
+      "Defense: Magic-Resistant-Guardians"
+    ],
+    "requires": [
+      "Authority: Surface-Settlement-Base",
+      "Tech: Descent-Access-Stairway"
+    ],
+    "summary": "The dungeon beneath Tristram, descended level by level. Its monsters are sorted by depth, from Goat Demons and Bats near the top to Acid Beasts, Overlords and Balrogs in the lower reaches. The Knights wait near the bottom.",
+    "yields": "Clearing a depth tier gives safer passage, knowledge of that tier's monster family, and access to the next level. Reaching the bottom gives the objective the dungeon guards.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_DIABLO_DUNGEON.md",
+    "standalone_fallback": "Run it as a one-shot delve. The party descends through tiers of worsening monsters toward a bottom guarded by magic-resistant Knights. Each tier is a new threat family, and a way back up is the only safe resource.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_DIABLO_MONSTER_TEMPLATES",
+    "title": "Diablo's Monster Templates",
+    "set": "Diablo",
+    "tier": "Tier 1 (Macro Network & Governance)",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy",
+    "color": "Colorless",
+    "provides": [
+      "Lore: Monster-Taxonomy",
+      "Ecology: Template-Variation-Rules"
+    ],
+    "requires": [
+      "Lore: Bestiary-Knowledge"
+    ],
+    "summary": "The many monsters of the dungeon derive from a few general templates, the Undead, the Demons and the Animals. Added magical immunities or a distance attack modify each, so a new foe can be read as a variation on a known one.",
+    "yields": "A working taxonomy the party can use to predict and counter new monsters, and a GM shorthand for building them.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_DIABLO_MONSTER_TEMPLATES.md",
+    "standalone_fallback": "Use it as a GM design tool. Pick a base template (Undead, Demon or Animal), add one twist such as a magical immunity or a ranged attack, and present the result as a new monster that veterans can half-recognize.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_DUNGEON",
+    "title": "The Dungeon",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "Black",
+    "provides": [
+      "Ecology: Servants-of-Darkness-Habitat",
+      "Lore: Descent-Beneath-Tristram",
+      "Defense: Resistant-Unique-Monsters"
+    ],
+    "requires": [
+      "Lore: Surface-Settlement-Gateway"
+    ],
+    "summary": "The dark subterranean realm beneath Tristram, home of the Servants of Darkness. Its dank rooms and hordes grow harder with depth and lead down to the Cavern levels.",
+    "yields": "Treasure, knowledge of the Servants of Darkness, and progress toward ending the threat beneath the town.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_DUNGEON.md",
+    "standalone_fallback": "Run it as a one-shot delve. The party descends from a threatened town into a godless abattoir of dank rooms and dark halls, faces escalating hordes and a few Uniques resistant to common magic, and tries to reach a goal and get back out.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_DUNGEON_BENEATH_THE_CATHEDRAL",
+    "title": "Dungeon Beneath the Cathedral",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy",
+    "color": "Black",
+    "provides": [
+      "Ecology: Dungeon-Descent",
+      "Lore: Scent-Of-Death-Threshold",
+      "Defense: Endless-Foe-Roster"
+    ],
+    "requires": [
+      "Authority: Reason-To-Descend",
+      "Tech: Light-Source-For-The-Dark"
+    ],
+    "summary": "A dungeon reached by a stone stairway descending from the ruined church; the entry point into the game's 16 dungeon levels and their peripheral environments.",
+    "yields": "The party gains access to the whole descent, its levels and peripheral environments, and the chance to push deeper.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_DUNGEON_BENEATH_THE_CATHEDRAL.md",
+    "standalone_fallback": "Run it as a one-shot descent. The party takes the stone stairway from a ruined church into darkness, where the scent of death surrounds them and monsters wait below.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_DUNGEON_LEVEL_PROGRESSION",
+    "title": "Dungeon Level Progression",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "Black",
+    "provides": [
+      "Lore: Depth-Threat-Ladder",
+      "Ecology: Monster-Depth-Map"
+    ],
+    "requires": [
+      "Defense: Party-Readiness",
+      "Lore: Bestiary-Knowledge"
+    ],
+    "summary": "Monster types are ordered by dungeon depth. Hidden and Goat Demons appear mid-to-lower, Vipers lower, Overlords and Magma Demons deep, Horned Demons in the middle stretch, and Knights near the bottom.",
+    "yields": "A clear threat ladder for pacing a delve, and the rewards that come with passing each threshold.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_DUNGEON_LEVEL_PROGRESSION.md",
+    "standalone_fallback": "Use it as a descent table. Each stage down brings a new class of foe, and the party can run it as a sequence of escalating zones, each introduced by its signature monster.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_DUNGEON_STAIRWAYS_BACK_TO_TRISTRAM",
+    "title": "Dungeon Stairways Back to Tristram",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Market",
+    "color": "White",
+    "provides": [
+      "Defense: Safe-Retreat-Route",
+      "Material: Resupply-Access",
+      "Lore: Shortcut-Locations"
+    ],
+    "requires": [
+      "Authority: Surface-Town-Refuge"
+    ],
+    "summary": "Hidden stairways deep in the dungeon lead back to town, saving the player a long walk and enabling quick trips topside to replenish health and mana.",
+    "yields": "Safe recovery, resupply, and a reliable loop between town and dungeon.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_DUNGEON_STAIRWAYS_BACK_TO_TRISTRAM.md",
+    "standalone_fallback": "Run it as a delve-and-retreat loop. The party pushes into dangerous depths, finds a stairway or portal back to a safe settlement, and uses short trips to recover and resupply before pushing deeper.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_EARLY_DUNGEON_MONSTER_PATTERN",
+    "title": "Early Dungeon Monster Pattern",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "Red",
+    "provides": [
+      "Lore: Monster-Behavior-Primer",
+      "Ecology: Early-Dungeon-Foe-Mix",
+      "Defense: Target-Priority-Doctrine"
+    ],
+    "requires": [
+      "Defense: Party-Positioning",
+      "Lore: Scout-Intelligence"
+    ],
+    "summary": "The first dungeon levels pair Skeletons, Archers, Fallen Ones and Zombies so that their tactics teach the patterns of tougher foes later on. The party learns by reading speed and range and by choosing the order of attack.",
+    "yields": "The party learns reusable tactical patterns of speed, range and order of attack that transfer to tougher foes deeper down.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_EARLY_DUNGEON_MONSTER_PATTERN.md",
+    "standalone_fallback": "Run it as a one-room tactics puzzle. A fast skittish pack, a middling rank of footsoldiers with a few ranged shooters behind them, and a slow heavy hitter that slips away all enter in one fight. The party wins by choosing the order in which to deal with them.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_FISSURE_BEHIND_PEPIN_HOUSE",
+    "title": "The Fissure behind Pepin's House",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "Black",
+    "provides": [
+      "Lore: Hell-Passage",
+      "Authority: Threshold-Access"
+    ],
+    "requires": [
+      "Lore: Dungeon-Descent",
+      "Defense: Village-Watch"
+    ],
+    "summary": "A fissure in the ground behind Pepin's house, opened by the up staircase on dungeon level 13, through which travelers can return to hell.",
+    "yields": "A direct route to Hell, and a defensible choke point to watch or seal.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_FISSURE_BEHIND_PEPIN_HOUSE.md",
+    "standalone_fallback": "Run it as a one-shot: the party climbs a staircase out of the depths and finds a crack in the earth behind a healer's house in a quiet village. Beyond it lies a way back down to somewhere far worse. They must decide whether to use it, seal it, or guard it.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_HELL",
+    "title": "Hell",
+    "set": "Diablo",
+    "tier": "Tier 5 (Esoteric & Eschatological Engines)",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy",
+    "color": "Black",
+    "provides": [
+      "Climax: Final-Descent",
+      "Lore: Infernal-Realm"
+    ],
+    "requires": [
+      "Lore: Hell-Passage",
+      "Defense: Prepared-Party"
+    ],
+    "summary": "The deep realm reached through the fissure behind Pepin's house on dungeon level 13.",
+    "yields": "Confrontation with the source of the evil and a conclusive end to the descent.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_HELL.md",
+    "standalone_fallback": "Run it as a one-shot: the party steps through a crack in the earth into a hostile infernal realm and must press on to confront its source. The card says little about the realm, so the GM supplies its geography and inhabitants.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_HELL_LEVELS",
+    "title": "Hell Levels",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "Black",
+    "provides": [
+      "Material: Best-Treasure",
+      "Climax: Diablo-Confrontation",
+      "Lore: Return-Route-To-Town",
+      "Ecology: Magical-Monster-Hordes"
+    ],
+    "requires": [
+      "Defense: Party-Combat-Capability",
+      "Lore: Dungeon-Descent"
+    ],
+    "summary": "The bottom of the dungeon, with large crowds of magical monsters, Succubi and Counselor-type monsters. There is room to run, so ranged attackers can keep their distance, and the best treasure and Diablo himself are here.",
+    "yields": "The best treasure in the game, the confrontation with Diablo, and another way back to the town level.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_HELL_LEVELS.md",
+    "standalone_fallback": "Run the Hell levels as a final-descent one-shot. The party fights through crowds of magical monsters in open spaces, survives the Succubi, and reaches Diablo for the climax, with a way back to town opening along the way.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_KING_LEORIC_IS_DESTROYED_IN_LEORIC_TOMB",
+    "title": "The Bone King's Tomb",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "Black",
+    "provides": [
+      "Material: Skeleton-Crown",
+      "Defense: Undead-Horde-Neutralized",
+      "Lore: Fallen-King-Resolution"
+    ],
+    "requires": [
+      "Lore: Cursed-King-Legend",
+      "Defense: Combat-Capability-Against-Undead"
+    ],
+    "summary": "Reached through an obvious passage in the dungeon, Leoric's Tomb is a small level where the cursed king summons skeletons to defend himself. Destroying him earns the Skeleton Crown.",
+    "yields": "The Skeleton Crown, the end of the king's curse, and removal of the undead horde's threat.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_KING_LEORIC_IS_DESTROYED_IN_LEORIC_TOMB.md",
+    "standalone_fallback": "Run it as a one-shot dungeon crawl. The party finds a passage into a royal tomb, fights through waves of skeletons the undead king keeps summoning, and destroys him to claim his crown.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_KING_LEORIC_TOMB",
+    "title": "King Leoric's Tomb",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "Black",
+    "provides": [
+      "Material: Tomb-Treasure",
+      "Lore: Hidden-Antechamber",
+      "Ecology: Skeleton-Guardians"
+    ],
+    "requires": [
+      "Defense: Party-Combat-Capability",
+      "Lore: Dungeon-Access-Route"
+    ],
+    "summary": "A cramped tomb stuffed with Skeletons, with a small room of obvious treasure chests and a hidden antechamber. The hidden area opens only when every crucified Skeleton in the large room's corners has been destroyed.",
+    "yields": "Treasure from the chests in the small room and better treasure from the hidden antechamber.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_KING_LEORIC_TOMB.md",
+    "standalone_fallback": "Run the tomb as a one-room puzzle fight. The party must find and destroy every crucified Skeleton in the corners of the large room to open the hidden door, then face what is behind it for the better treasure.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_LEVEL_2_CATHEDRAL",
+    "title": "Level 2 Cathedral",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "Black",
+    "provides": [
+      "Authority: Butcher-Quest-Hook",
+      "Lore: Desecration-Evidence"
+    ],
+    "requires": [
+      "Defense: Combat-Ready-Party",
+      "Labor: Townsfolk-Request"
+    ],
+    "summary": "A desecrated cathedral on the second dungeon level where the Butcher's first quest begins, with a dying townsman at the church entrance.",
+    "yields": "The start of the Butcher quest, with the townsman's warning and the chance to restore the church.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_LEVEL_2_CATHEDRAL.md",
+    "standalone_fallback": "Run it as a one-shot. The party reaches a profaned cathedral, meets a dying townsman at its door, and takes up his plea to deal with the horror inside.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_MAGICAL_ITEM_PREFIXES_AND_SUFFIXES",
+    "title": "Magical item prefixes and suffixes",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Market",
+    "color": "Blue",
+    "provides": [
+      "Material: Magical-Item-Properties",
+      "Tech: Item-Enchantment-Profile",
+      "Lore: Item-Identification-Clue"
+    ],
+    "requires": [
+      "Material: Unidentified-Magical-Item",
+      "Lore: Item-Source"
+    ],
+    "summary": "Magical weapons, armor, amulets and cloaks gain randomly assigned prefixes and suffixes that define their properties. Items with both a positive prefix and suffix are best, and prefixes can modify damage, armor, accuracy, Mana, resistances and spell levels.",
+    "yields": "Knowledge of an item's properties and a useful, well-matched magical item.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_MAGICAL_ITEM_PREFIXES_AND_SUFFIXES.md",
+    "standalone_fallback": "Run it as an item-appraisal scene: the party finds a magical item and learns its random properties from its prefix and suffix. They decide whether to keep, trade or fear what it does.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_MAGICAL_RESISTANCE",
+    "title": "Magical Resistance",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy",
+    "color": "White",
+    "provides": [
+      "Defense: Magic-Resistance",
+      "Defense: Fire-Resistance",
+      "Defense: Lightning-Resistance"
+    ],
+    "requires": [
+      "Material: Resistance-Bearing-Gear"
+    ],
+    "summary": "Three kinds of magic resistance, General, Fire and Lightning, protect the hero from magical attacks. Because magic does not wear down armor the way physical blows do, resistance can justify wearing otherwise weak armor.",
+    "yields": "Resistance to General, Fire or Lightning magic, and the knowledge that warded gear can be worth wearing even when its physical protection is weak.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_MAGICAL_RESISTANCE.md",
+    "standalone_fallback": "Run it as a single encounter against casters, such as succubi, where the party must decide whether to trade solid armor for protection against magic, and see how their choice plays out.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_MAGICAL_SHRINES",
+    "title": "Magical Shrines",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy",
+    "color": [
+      "Blue",
+      "Red"
+    ],
+    "provides": [
+      "Lore: Cryptic-Shrine-Messages",
+      "Power: Shrine-Boons"
+    ],
+    "requires": [
+      "Lore: Shrine-Message-Table"
+    ],
+    "summary": "Shrines trigger when stepped upon and give only a cryptic message. Their effects range from helpful to costly, so every one is a gamble that rewards preparation.",
+    "yields": "A boon such as improved attributes, sturdier items, a spell upgrade or a protective shield, along with knowledge of what each shrine does.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_MAGICAL_SHRINES.md",
+    "standalone_fallback": "Run it as a single chamber holding one unmarked shrine. The party must decide whether to activate it after reading an ambiguous message, with the outcome a blessing, a trade-off or a hidden cost.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_NARROW_PATH_BETWEEN_LAVA_LAKES",
+    "title": "Narrow Path Between Lava Lakes",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "Red",
+    "provides": [
+      "Defense: Chokepoint-Advantage",
+      "Material: Defensible-Crossing"
+    ],
+    "requires": [
+      "Defense: Ranged-Attackers",
+      "Lore: Cave-Midlevel-Access"
+    ],
+    "summary": "A crossing between two lava lakes in the cave-like midlevels, narrower than a doorway and likely the most restrictive hurdle a horde of monsters can meet. Defenders gain the advantage; attackers must funnel through.",
+    "yields": "A defensible position that neutralizes a horde's numbers, and time to thin it out.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_NARROW_PATH_BETWEEN_LAVA_LAKES.md",
+    "standalone_fallback": "Run it as a one-room set piece: a hero or party holds a crossing between lava lakes while a horde tries to funnel through, and the fight turns on who controls the choke.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_OGDEN_SIGN_QUEST",
+    "title": "Ogden's Sign Quest",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": [
+      "White",
+      "Black"
+    ],
+    "provides": [
+      "Authority: Descent-Permission",
+      "Lore: Harlequin-Crest-Reward"
+    ],
+    "requires": [
+      "Authority: Tavern-Owner-Commission",
+      "Defense: Dungeon-Level-Clearance"
+    ],
+    "summary": "Demons have stolen the sign of Ogden's Rising Sun Inn and Tavern. Snotspill will not let the party descend until it is recovered, and then a choice awaits about who gets it.",
+    "yields": "Passage down to the fifth level, and either the Harlequin Crest from Ogden or a random item from Snotspill.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_OGDEN_SIGN_QUEST.md",
+    "standalone_fallback": "Run it as a one-shot where a tavern's stolen sign sits in a monster's lair. A gatekeeper blocks the stairs until the sign is claimed, and the party must decide between giving it to the gatekeeper or returning it to its owner.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_OPENING_ARRIVAL_IN_THE_VILLAGE",
+    "title": "Opening Arrival in the Village",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "White",
+    "provides": [
+      "Lore: Rumor-of-Dark-Riders",
+      "Lore: Ruined-Cathedral-Lead",
+      "Signal: Dungeon-Entrance-Hook",
+      "Authority: Frightened-Local-Petitioners"
+    ],
+    "requires": [],
+    "summary": "The hero arrives in a somber, twilit village, hears of dark riders and rituals at a ruined cathedral, passes a dying man at the church entrance, and faces a stone stairway leading down into darkness.",
+    "yields": "Rumors, motivation and a clear route into the dungeon. The party leaves with their first leads and a reason to care.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_OPENING_ARRIVAL_IN_THE_VILLAGE.md",
+    "standalone_fallback": "Run it as a one-shot prologue. The party arrives in a dimming village, gathers rumors from a frightened few, sees the dying man at the church door, and chooses whether to descend the stairs. The descent is the cliffhanger.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_OPENING_THE_SECRET_ANTECHAMBER_OF_KING_LEORIC_TO",
+    "title": "Opening the Secret Antechamber of King Leoric's Tomb",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy",
+    "color": "Black",
+    "provides": [
+      "Material: Antechamber-Treasure",
+      "Lore: Hidden-Door-Trigger",
+      "Defense: Antechamber-Guardians"
+    ],
+    "requires": [
+      "Lore: Tomb-Large-Room",
+      "Defense: Crucified-Skeletons"
+    ],
+    "summary": "In the large room of King Leoric's Tomb, the player destroys every crucified Skeleton in the corners. When the last one falls, a door opens in the middle of the long northern wall and reveals a secret antechamber with more foes and treasures.",
+    "yields": "Antechamber treasure, plus the satisfaction and advantage of having solved the room's lock.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_OPENING_THE_SECRET_ANTECHAMBER_OF_KING_LEORIC_TO.md",
+    "standalone_fallback": "Run it as a one-room puzzle fight. The party enters a chamber with a crucified Skeleton in each corner, learns that destroying them all opens a hidden door in the northern wall, and then faces the guardians and loot behind it.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_POISON_WATER_QUEST_BATTLE",
+    "title": "Poison Water Quest Battle",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "Red",
+    "provides": [
+      "Defense: Combined-Demon-Ambush",
+      "Lore: Allied-Monster-Warband"
+    ],
+    "requires": [
+      "Lore: Poison-Water-Quest"
+    ],
+    "summary": "During the Poison Water Quest, the Fallen Ones and a Goat Demon band together and attack the party at once.",
+    "yields": "Quest progress: surviving the battle clears the way to complete the Poison Water Quest.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_POISON_WATER_QUEST_BATTLE.md",
+    "standalone_fallback": "Run it as a one-shot: while the party seeks to cleanse a poisoned water source, a band of Fallen Ones and a Goat Demon close in from different sides and fight as one force.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_POISONED_WATER_CAVERNS",
+    "title": "Poisoned Water Caverns",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "Black",
+    "provides": [
+      "Ecology: Fouled-Waterway",
+      "Lore: Dark-Passage-Entrance",
+      "Defense: Demon-Infestation-Gauntlet"
+    ],
+    "requires": [
+      "Authority: Reason-To-Seek-The-Spring",
+      "Tech: Light-Source-For-Rock-Corridors"
+    ],
+    "summary": "A set-piece cavern level beyond a crack in the Level 2 wall, where a fouled underground spring is tainted by a demon infestation.",
+    "yields": "The party gains a cleared dark passage, whatever lore or loot the marked entrance hid, and the chance to end the spring's fouling.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_POISONED_WATER_CAVERNS.md",
+    "standalone_fallback": "Run it as a one-shot cavern crawl. The party finds a crack in a wall marked 'To A Dark Passage', is ambushed by fallen ones on arrival, and fights through rock corridors of Goat Demons and lesser beasts to the fouled spring. They can cleanse it or flee.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_POISONED_WATER_SUPPLY_QUEST_IS_COMPLETED_IN_THE_",
+    "title": "The Fouled Spring Beneath the Dungeon",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": [
+      "Green",
+      "White"
+    ],
+    "provides": [
+      "Water: Cleansed-Spring",
+      "Material: Ring-of-Truth",
+      "Authority: Healer-Gratitude"
+    ],
+    "requires": [
+      "Defense: Monster-Clearing-Force",
+      "Lore: Poisoned-Water-Complaint"
+    ],
+    "summary": "Behind a crack in the wall, a set-piece cavern holds Goat Demons and lesser beasts that foul the town's water. Clearing them cleanses the spring, and Pepin rewards the hero with the Ring of Truth.",
+    "yields": "A cleansed water supply and the Ring of Truth from Pepin.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_POISONED_WATER_SUPPLY_QUEST_IS_COMPLETED_IN_THE_.md",
+    "standalone_fallback": "Run it as a one-shot cavern clearing. The party finds a hidden crack in a dungeon wall, fights the demons and beasts in the caverns beyond, and when the last falls the fouled water runs clear and a grateful healer gives a reward.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_POTIONS_OF_HEALING_AND_MANA",
+    "title": "Potions of Healing and Mana",
+    "set": "Diablo",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Market",
+    "color": "White",
+    "provides": [
+      "Bio: Restorative-Potions",
+      "Chem: Mana-Draughts"
+    ],
+    "requires": [
+      "Material: Gold-Coin",
+      "Labor: Inventory-Space"
+    ],
+    "summary": "Nearly every restorative in Tristram comes from the Healer or the Witch. Using them well is an economic puzzle of gold, pack space and what kind of fighter you are.",
+    "yields": "A well-matched kit of restoratives that covers both health and mana at lower cost, plus the know-how to rebuild it as equipment changes.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_POTIONS_OF_HEALING_AND_MANA.md",
+    "standalone_fallback": "Run it as a shopping scene in a besieged town. Two merchants sell restoratives, the party's purse and carrying room are limited, and each character must decide which mix of healing and mana to carry before descending.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_PROCEDURAL_DUNGEONS_AND_FIXED_GEOGRAPHY",
+    "title": "Procedural Dungeons and Fixed Geography",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": [
+      "White",
+      "Green"
+    ],
+    "provides": [
+      "Lore: Constant-Town-Anchor",
+      "Defense: Direct-Route-Home",
+      "Ecology: Shifting-Underground-Layout"
+    ],
+    "requires": [
+      "Authority: Table-Consent-To-Improvise",
+      "Lore: Dungeon-Descent-Setting"
+    ],
+    "summary": "The dungeons and caves generate randomly while Tristram's geography remains constant.",
+    "yields": "A dependable anchor in Tristram, knowledge of the direct avenues home, and the party's growing skill at reading unfamiliar ground.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_PROCEDURAL_DUNGEONS_AND_FIXED_GEOGRAPHY.md",
+    "standalone_fallback": "Run it as a base-and-descent scenario. Fix Tristram as a map the party can trust, generate each underground level fresh as they enter it, and let them use the direct avenues back to the town whenever they need to recover.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_RANDOMLY_GENERATED_DUNGEON_WORLD",
+    "title": "Randomly Generated Dungeon World",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy",
+    "color": "Red",
+    "provides": [
+      "Lore: Ever-Shifting-Depths",
+      "Ecology: Reshuffled-Monster-Roster",
+      "Material: Unpredictable-Arms-Cache"
+    ],
+    "requires": [
+      "Defense: Adaptable-Party",
+      "Authority: Table-Consent-To-Improvise"
+    ],
+    "summary": "The game's world is generated randomly: levels, weapons, monsters and the cast of characters change each time the game is started, so the same play-through is never repeated.",
+    "yields": "Fresh armaments and magic spells won, bought or bartered along the way, plus hard-won knowledge of a threat the party has now learned to counter.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_RANDOMLY_GENERATED_DUNGEON_WORLD.md",
+    "standalone_fallback": "Run it as a one-shot descent. Before play, shuffle the layout, the foes and the loot with random tables, and let the party learn each new level only by entering it. Nothing is carried over from a previous run, and no map is trusted.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_RISING_SUN_INN_AND_TAVERN",
+    "title": "Rising Sun Inn and Tavern",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "White",
+    "provides": [
+      "Authority: Tavern-Owner-Contact",
+      "Lore: Local-Rumor-Hub",
+      "Labor: Lodging-And-Hospitality"
+    ],
+    "requires": [
+      "Defense: Protection-From-Demon-Raids"
+    ],
+    "summary": "Ogden's inn and tavern, whose hanging sign was stolen by demons.",
+    "yields": "Recovering the sign earns Ogden's gratitude, a safe place to rest, and the goodwill and rumors of the town.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_RISING_SUN_INN_AND_TAVERN.md",
+    "standalone_fallback": "Run it as a one-scene hook. The party arrives at a tavern whose owner is upset that demons stole his hanging sign, and they may be hired to recover it.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_RUINED_CATHEDRAL_AT_THE_EDGE_OF_THE_VILLAGE",
+    "title": "Ruined Cathedral at the Edge of the Village",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "Black",
+    "provides": [
+      "Lore: Strange-Ritual-Rumors",
+      "Tech: Descent-Access-Stairway",
+      "Ecology: Gateway-To-Underworld"
+    ],
+    "requires": [
+      "Authority: Frightened-Local-Populace"
+    ],
+    "summary": "A ruined cathedral at the edge of a somber, twilit village, where the townsfolk say strange rituals are performed. Dim light seeps from its church doorway, and inside a stone stairway plunges into darkness toward a dungeon.",
+    "yields": "Dealing with the cathedral gives the party the villagers' trust and information, and access to the stairway down into the dungeon.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_RUINED_CATHEDRAL_AT_THE_EDGE_OF_THE_VILLAGE.md",
+    "standalone_fallback": "Run it as a one-shot threshold scene. The party arrives at a twilit village, hears of rituals in the ruined cathedral, meets a dying man at the church door, and must decide whether to take the stairway down.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_SAVE_BEFORE_ACCESSING_A_SHRINE",
+    "title": "Save Before Accessing a Shrine",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Adhocracy",
+    "color": "Blue",
+    "provides": [
+      "Lore: Shrine-Effect-Foreknowledge",
+      "Authority: Informed-Choice"
+    ],
+    "requires": [
+      "Ecology: Dungeon-Setting"
+    ],
+    "summary": "A shrine in the dungeon offers an unknown boon or burden, and the wise delegate pauses to weigh it before committing.",
+    "yields": "Foreknowledge and a deliberate choice: the party gains the shrine's effect on terms they chose with open eyes.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_SAVE_BEFORE_ACCESSING_A_SHRINE.md",
+    "standalone_fallback": "Run it as a one-shot: the party finds a lone shrine in a dark chamber. Before anyone touches it, let them take a moment to consider, scout, and debate. Then reveal its effect and let them live with the consequences.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_SERVANTS_OF_DARKNESS",
+    "title": "Servants of Darkness",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "Black",
+    "provides": [
+      "Ecology: Monster-Host",
+      "Defense: Dungeon-Garrison",
+      "Lore: Monster-Taxonomy"
+    ],
+    "requires": [
+      "Authority: Diablo-Command",
+      "Ecology: Dungeon-Habitat"
+    ],
+    "summary": "The vast host of dungeon monsters, unique horrors with a single purpose, which is to kill. They fall into Undead, Animal-based monsters and Demons, and are served up by category and template.",
+    "yields": "Knowledge of each monster family's habits, and safer passage through the dungeon once a family's pattern is understood.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_SERVANTS_OF_DARKNESS.md",
+    "standalone_fallback": "Run it as a single encounter table. Pick one of three families (Undead, Animal-based, Demon), build a monster from a template in that family, and place it where the party must pass.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_SHRINE_INSCRIPTIONS",
+    "title": "Shrine Inscriptions",
+    "set": "Diablo",
+    "tier": "Tier 5 (Esoteric & Eschatological Engines)",
+    "pipeline_tier": 5,
+    "culture": "Adhocracy",
+    "color": "Blue",
+    "provides": [
+      "Lore: Shrine-Riddle-Hints",
+      "Lore: Boon-Bargain-Warnings"
+    ],
+    "requires": [
+      "Lore: Shrine-Site"
+    ],
+    "summary": "Every shrine speaks a riddling message that hints at what it will do, and the table supplies the translation. Some messages split between 'You' and 'Others', showing who the shrine's effect lands on.",
+    "yields": "A boon of strength, insight or fortune, and a clearer grasp of how the world's shrines trade power for cost.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_SHRINE_INSCRIPTIONS.md",
+    "standalone_fallback": "Run it as a one-shot puzzle at a single shrine. The GM reads the inscription aloud, the players argue over what it means and who it affects, and then someone commits to touching it. The GM reveals the true effect, with a boon and a cost that match the riddle.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_SNOTSPILL_SET_PIECE_DUNGEON_LEVEL_4",
+    "title": "Snotspill's Set Piece",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "Red",
+    "provides": [
+      "Material: Tavern-Sign-Chest",
+      "Defense: Guarded-Stair-Chokepoint",
+      "Authority: Snotspill-Encounter"
+    ],
+    "requires": [
+      "Authority: Quest-For-The-Tavern-Sign",
+      "Defense: Party-Strong-Enough-For-Massive-Monsters"
+    ],
+    "summary": "A small set-piece area on Dungeon Level 4, between the player and the staircase down to Level 5. Snotspill waits here, and the large chest holding the tavern sign is here, guarded by several massive monsters.",
+    "yields": "The party gains the large chest with the tavern sign, and passage to the staircase down.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_SNOTSPILL_SET_PIECE_DUNGEON_LEVEL_4.md",
+    "standalone_fallback": "Run it as a one-shot boss room. The party must clear a small chamber held by Snotspill, his friends and several massive monsters to open the large chest and reach the stair down.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_SORCERY_AND_MAGIC_IN_DIABLO",
+    "title": "Sorcery and Magic in Diablo",
+    "set": "Diablo",
+    "tier": "Tier 5 (Esoteric & Eschatological Engines)",
+    "pipeline_tier": 5,
+    "culture": "Adhocracy",
+    "color": "Blue",
+    "provides": [
+      "Power: Sorcerous-Magic",
+      "Lore: Magic-Primer",
+      "Power: Shrine-Blessing"
+    ],
+    "requires": [
+      "Power: Mana-Reserve",
+      "Lore: Spellcasting-Knowledge"
+    ],
+    "summary": "Magic is framed as the defining power of the Diablo experience, whether wielded by a Sorcerer or granted by shrines. Sorcerers rely on magic and Mana most, and their spell levels and Mana economy scale faster than those of Warriors or Rogues, who find scrolls and books mostly useless and are better off selling them.",
+    "yields": "Understanding of the magical components and awesome magical power, plus coin from scrolls and books the non-casters sell.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_SORCERY_AND_MAGIC_IN_DIABLO.md",
+    "standalone_fallback": "Run it as a magical-power scene: one caster shows how awesome magic can be through spells or a shrine's boon. Non-casters realize scrolls and books are only trade goods for them.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_THREE_HEROES",
+    "title": "The Three Heroes",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "Colorless",
+    "provides": [
+      "Lore: Hero-Archetype-Choice",
+      "Authority: Player-Agency-Over-Protagonist",
+      "Labor: Delver-Expedition"
+    ],
+    "requires": [
+      "Lore: Dungeon-Descent-Setting",
+      "Material: Pre-Descent-Supplies"
+    ],
+    "summary": "Players guide one of three distinct characters through the dungeons beneath Tristram.",
+    "yields": "A well-matched hero with fitting supplies, and the player's understanding of what each archetype does best.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_THREE_HEROES.md",
+    "standalone_fallback": "Run it as a character-choice opening. Offer the table three distinct delver archetypes (the Rogue, the Warrior and the Sorcerer), let each player claim one, and send them into a single labyrinthine descent where their differences shape every problem.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_TRISTRAM",
+    "title": "Tristram",
+    "set": "Diablo",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Market",
+    "color": "White",
+    "provides": [
+      "Authority: Quest-Giving-Townsfolk",
+      "Material: Item-Appraisal-And-Resale",
+      "Material: Healing-Scroll-Stock",
+      "Defense: Mana-Shield-Scroll-Stock",
+      "Lore: Safe-Hub-Base",
+      "Material: Ground-Item-Storage"
+    ],
+    "requires": [
+      "Material: Dungeon-Loot",
+      "Lore: Dungeon-Access-Route"
+    ],
+    "summary": "A medieval village built over a labyrinth of dungeons. It is the party's fixed home base: the dungeon changes, the town does not. Its townsfolk hand out most quests and trade for what the party hauls up from below.",
+    "yields": "Quick cash and trade for loot, identification of magical items, healing and mana shield scrolls, free storage of items, and the quests that point toward the dungeon.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_TRISTRAM.md",
+    "standalone_fallback": "Run Tristram as a one-session hub scenario. The party arrives, meets the townsfolk, takes two or three requests tied to something below the town, and has to choose what loot to carry back and what to leave in storage.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_UNIQUE_MONSTERS_AS_ABILITY_TESTS",
+    "title": "Unique Monsters as Ability Tests",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy",
+    "color": "Red",
+    "provides": [
+      "Lore: Readiness-Gauge",
+      "Signal: Tactical-Feedback"
+    ],
+    "requires": [],
+    "summary": "A Unique monster serves as a measure of the party: a narrow win means readiness, repeated defeat means something is missing.",
+    "yields": "Self-knowledge: a clear read on whether the party is ready for the dungeon beyond, and a new plan if not.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_UNIQUE_MONSTERS_AS_ABILITY_TESTS.md",
+    "standalone_fallback": "Run it as a one-shot: a single Unique monster blocks the way forward. How the party fares against it tells them whether to press on, retrain, or change plans entirely.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  },
+  {
+    "id": "MOD_DIABLO_SIT_UNIQUES",
+    "title": "Uniques",
+    "set": "Diablo",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "Red",
+    "provides": [
+      "Material: Magical-Item-Reward",
+      "Lore: Named-Monster-Lead",
+      "Ecology: Empowered-Horde"
+    ],
+    "requires": [
+      "Ecology: Ordinary-Monster-Kin",
+      "Lore: Dungeon-Setting"
+    ],
+    "summary": "Named, randomly placed monsters that are devastating versions of ordinary monster types. They resemble their kin apart from coloring or armaments, hit harder and resist more, and lead a horde of more dangerous siblings who share the Unique's special magic until it dies. Slaying one yields a magical item.",
+    "yields": "A magical item from the slain Unique, plus the collapse of the horde's special magic.",
+    "path": "./modules/Situations/MOD_DIABLO_SIT_UNIQUES.md",
+    "standalone_fallback": "Run it as a single hunt: the party meets a named, oddly colored brute at the head of an empowered pack in any dark place. They break the pack's borrowed magic by killing the leader, and the leader drops one magical item.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "DIABLO"
+  }
+]

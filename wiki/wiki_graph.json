@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-05T05:21:19.612Z",
-  "totalFiles": 737,
+  "generatedAt": "2026-11-06T05:59:50.276Z",
+  "totalFiles": 744,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3033,
+  "totalBidirectionalEdges": 3070,
   "staleCount": 0,
   "nodes": [
     {
@@ -660,7 +660,37 @@
           "reason": "References Build-Suite.ps1"
         },
         {
+          "source": "src/workstation/scripts/dread_risk.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        },
+        {
+          "source": "src/workstation/scripts/dread_risk_overlay.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        },
+        {
+          "source": "src/workstation/scripts/fast_frugal_tree.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        },
+        {
+          "source": "src/workstation/scripts/fft_editor_ui.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        },
+        {
           "source": "src/workstation/scripts/industry_chain_importer.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        },
+        {
+          "source": "src/workstation/scripts/natural_frequency_engine.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References Build-Suite.ps1"
@@ -6610,6 +6640,18 @@
           "reason": "Inlines modular source during suite compilation"
         },
         {
+          "target": "src/workstation/scripts/dread_risk.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "target": "src/workstation/scripts/dread_risk_overlay.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
           "target": "src/workstation/scripts/entity_cascade_delete.js",
           "targetType": "file",
           "type": "Bundles Source",
@@ -6623,6 +6665,18 @@
         },
         {
           "target": "src/workstation/scripts/entity_manager_ui.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "target": "src/workstation/scripts/fast_frugal_tree.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "target": "src/workstation/scripts/fft_editor_ui.js",
           "targetType": "file",
           "type": "Bundles Source",
           "reason": "Inlines modular source during suite compilation"
@@ -6659,6 +6713,12 @@
         },
         {
           "target": "src/workstation/scripts/module_explorer.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "target": "src/workstation/scripts/natural_frequency_engine.js",
           "targetType": "file",
           "type": "Bundles Source",
           "reason": "Inlines modular source during suite compilation"
@@ -7801,10 +7861,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "893d8fbc9f162d17",
-      "reviewedHash": "893d8fbc9f162d17",
-      "lineCount": 2099,
-      "sizeBytes": 74899,
+      "hash": "551157b7f3205177",
+      "reviewedHash": "551157b7f3205177",
+      "lineCount": 2351,
+      "sizeBytes": 84758,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -7886,10 +7946,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "9c73e434458fa48f",
-      "reviewedHash": "9c73e434458fa48f",
-      "lineCount": 11287,
-      "sizeBytes": 361487,
+      "hash": "387f6d1a469dfcb6",
+      "reviewedHash": "387f6d1a469dfcb6",
+      "lineCount": 13465,
+      "sizeBytes": 426217,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -7923,10 +7983,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "9c73e434458fa48f",
-      "reviewedHash": "9c73e434458fa48f",
-      "lineCount": 11287,
-      "sizeBytes": 361487,
+      "hash": "387f6d1a469dfcb6",
+      "reviewedHash": "387f6d1a469dfcb6",
+      "lineCount": 13465,
+      "sizeBytes": 426217,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -10548,10 +10608,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "fe72935fd484af4b",
-      "reviewedHash": "fe72935fd484af4b",
+      "hash": "270b17562f7d9f1c",
+      "reviewedHash": "270b17562f7d9f1c",
       "lineCount": 21,
-      "sizeBytes": 493,
+      "sizeBytes": 486,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -13293,10 +13353,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "fe72935fd484af4b",
-      "reviewedHash": "fe72935fd484af4b",
+      "hash": "270b17562f7d9f1c",
+      "reviewedHash": "270b17562f7d9f1c",
       "lineCount": 21,
-      "sizeBytes": 493,
+      "sizeBytes": 486,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16038,10 +16098,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "fe72935fd484af4b",
-      "reviewedHash": "fe72935fd484af4b",
+      "hash": "270b17562f7d9f1c",
+      "reviewedHash": "270b17562f7d9f1c",
       "lineCount": 21,
-      "sizeBytes": 493,
+      "sizeBytes": 486,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16360,10 +16420,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "424d1718fbbb43b8",
-      "reviewedHash": "424d1718fbbb43b8",
-      "lineCount": 88,
-      "sizeBytes": 2211,
+      "hash": "93dcba0535a340de",
+      "reviewedHash": "93dcba0535a340de",
+      "lineCount": 91,
+      "sizeBytes": 2197,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -23184,10 +23244,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "604fc4bd877c658e",
-      "reviewedHash": "604fc4bd877c658e",
-      "lineCount": 6993,
-      "sizeBytes": 177484,
+      "hash": "8196ecdce6001f61",
+      "reviewedHash": "8196ecdce6001f61",
+      "lineCount": 4756,
+      "sizeBytes": 107530,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -23227,10 +23287,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "604fc4bd877c658e",
-      "reviewedHash": "604fc4bd877c658e",
-      "lineCount": 6993,
-      "sizeBytes": 177484,
+      "hash": "8196ecdce6001f61",
+      "reviewedHash": "8196ecdce6001f61",
+      "lineCount": 4756,
+      "sizeBytes": 107530,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -25976,6 +26036,23 @@
           "reason": "Mentions module SPARK-08"
         }
       ],
+      "inbound": []
+    },
+    {
+      "relPath": "docs/adr/0024-gigerenzer-ecological-rationality-and-fast-and-frugal-heuristics.md",
+      "title": "0024. Ecological rationality and fast-and-frugal heuristics",
+      "volume": "vol-1",
+      "kind": "Architectural Decision Record (ADR)",
+      "stale": false,
+      "hash": "c8426cf409ac291d",
+      "reviewedHash": "c8426cf409ac291d",
+      "lineCount": 58,
+      "sizeBytes": 4852,
+      "symbols": [],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [],
       "inbound": []
     },
     {
@@ -37382,10 +37459,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "3738034e257c6da8",
-      "reviewedHash": "3738034e257c6da8",
-      "lineCount": 3403,
-      "sizeBytes": 193393,
+      "hash": "6b0ac1e2facec4e1",
+      "reviewedHash": "6b0ac1e2facec4e1",
+      "lineCount": 3477,
+      "sizeBytes": 195889,
       "symbols": [
         "parseMd(text)",
         "stripFormatting(text)",
@@ -37614,10 +37691,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "76ae514e5c2a1c68",
-      "reviewedHash": "76ae514e5c2a1c68",
-      "lineCount": 124112,
-      "sizeBytes": 26704430,
+      "hash": "19a1a6398197066b",
+      "reviewedHash": "19a1a6398197066b",
+      "lineCount": 124308,
+      "sizeBytes": 26716501,
       "symbols": [
         "moduleMatchesTrack(m, track)",
         "getModuleTrackBadges(m)",
@@ -41104,10 +41181,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "f5b4c84d18e81a46",
-      "reviewedHash": "f5b4c84d18e81a46",
-      "lineCount": 1631,
-      "sizeBytes": 83098,
+      "hash": "047d8514d1704598",
+      "reviewedHash": "047d8514d1704598",
+      "lineCount": 1638,
+      "sizeBytes": 83611,
       "symbols": [
         "computeStarPoints(cx, cy, spikes, outerRadius, innerRadius)",
         "computePolygonPoints(cx, cy, sides, radius)",
@@ -41265,6 +41342,12 @@
         },
         {
           "source": "src/workstation/scripts/canvas_hud.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderCanvas() defined in cad_canvas_renderer.js"
+        },
+        {
+          "source": "src/workstation/scripts/dread_risk_overlay.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes renderCanvas() defined in cad_canvas_renderer.js"
@@ -42552,6 +42635,145 @@
       ]
     },
     {
+      "relPath": "src/workstation/scripts/dread_risk.js",
+      "title": "dread_risk.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "stale": false,
+      "hash": "3aef89228e9d58a1",
+      "reviewedHash": "3aef89228e9d58a1",
+      "lineCount": 165,
+      "sizeBytes": 8345,
+      "symbols": [
+        "pairKey(a, b)",
+        "rateFor(level)",
+        "num(v, d)",
+        "buildRoadGraph(topo)",
+        "detourPath(graph, a, b)",
+        "dreadIndex(severity, novelty, odv)",
+        "simulateDreadRiskCascade(topo, opts)",
+        "formatDreadSummary(result)"
+      ],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "src/workstation/template.html",
+          "targetType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "target": "Build-Suite.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "source": "src/workstation/scripts/dread_risk_overlay.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes simulateDreadRiskCascade() defined in dread_risk.js"
+        },
+        {
+          "source": "src/workstation/template.html",
+          "sourceType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/dread_risk.js @@"
+        }
+      ]
+    },
+    {
+      "relPath": "src/workstation/scripts/dread_risk_overlay.js",
+      "title": "dread_risk_overlay.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "stale": false,
+      "hash": "bb6535c81889e18a",
+      "reviewedHash": "bb6535c81889e18a",
+      "lineCount": 52,
+      "sizeBytes": 2676,
+      "symbols": [
+        "injectStyle()"
+      ],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "src/workstation/template.html",
+          "targetType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "target": "src/workstation/scripts/cad_canvas_renderer.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderCanvas() defined in cad_canvas_renderer.js"
+        },
+        {
+          "target": "src/workstation/scripts/dread_risk.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes simulateDreadRiskCascade() defined in dread_risk.js"
+        },
+        {
+          "target": "src/workstation/scripts/sociology_data.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes resolveNodeOdv() defined in sociology_data.js"
+        },
+        {
+          "target": "src/workstation/scripts/workstation_state.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes setStatusBarMessage() defined in workstation_state.js"
+        },
+        {
+          "target": "Build-Suite.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "source": "src/workstation/template.html",
+          "sourceType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/dread_risk_overlay.js @@"
+        }
+      ]
+    },
+    {
       "relPath": "src/workstation/scripts/entity_cascade_delete.js",
       "title": "entity_cascade_delete.js",
       "volume": "vol-4",
@@ -42743,10 +42965,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "9fa60a7670fc6812",
-      "reviewedHash": "9fa60a7670fc6812",
-      "lineCount": 1187,
-      "sizeBytes": 51607,
+      "hash": "bea8df7f95e0ab05",
+      "reviewedHash": "bea8df7f95e0ab05",
+      "lineCount": 1188,
+      "sizeBytes": 51722,
       "symbols": [
         "getItemEffectiveNodeId(item)",
         "computeNpcNodeDissonance(npc, node)",
@@ -43103,10 +43325,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "28da2fc5de1c0b5b",
-      "reviewedHash": "28da2fc5de1c0b5b",
-      "lineCount": 3095,
-      "sizeBytes": 184273,
+      "hash": "3b5f204813611bf3",
+      "reviewedHash": "3b5f204813611bf3",
+      "lineCount": 3104,
+      "sizeBytes": 185268,
       "symbols": [
         "escapeHtml(str)",
         "getEdgeDisplayInfo(edge)",
@@ -43214,6 +43436,12 @@
           "reason": "Invokes escapeJsArg() defined in ticket_center.js"
         },
         {
+          "target": "src/workstation/scripts/fft_editor_ui.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderHeuristicBadgeHtml() defined in fft_editor_ui.js"
+        },
+        {
           "target": "src/workstation/scripts/mdi_window_manager.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -43224,6 +43452,12 @@
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes openModuleExplorer() defined in module_explorer.js"
+        },
+        {
+          "target": "src/workstation/scripts/natural_frequency_engine.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes computeConduitNaturalFrequency() defined in natural_frequency_engine.js"
         },
         {
           "target": "src/workstation/scripts/property_grid_inspector.js",
@@ -43330,6 +43564,12 @@
           "reason": "Inlines modular source during suite compilation"
         },
         {
+          "source": "src/workstation/scripts/fft_editor_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes selectEntityItem() defined in entity_manager_ui.js"
+        },
+        {
           "source": "src/workstation/scripts/industry_chain_importer.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -43394,6 +43634,166 @@
           "sourceType": "file",
           "type": "Template Include",
           "reason": "Inlined via @@INCLUDE: scripts/entity_manager_ui.js @@"
+        }
+      ]
+    },
+    {
+      "relPath": "src/workstation/scripts/fast_frugal_tree.js",
+      "title": "fast_frugal_tree.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "stale": false,
+      "hash": "76bb93130007885f",
+      "reviewedHash": "76bb93130007885f",
+      "lineCount": 155,
+      "sizeBytes": 8132,
+      "symbols": [
+        "validateFft(fft)",
+        "testCue(cue, ctx)",
+        "evaluateFastAndFrugalTree(fft, ctx)",
+        "createDefaultFft(templateType)",
+        "cloneFft(fft)",
+        "moveCue(fft, index, delta)",
+        "addCue(fft, cue)",
+        "removeCue(fft, index)"
+      ],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "src/workstation/template.html",
+          "targetType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "target": "Build-Suite.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "source": "src/workstation/scripts/fft_editor_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes validateFft() defined in fast_frugal_tree.js"
+        },
+        {
+          "source": "src/workstation/template.html",
+          "sourceType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/fast_frugal_tree.js @@"
+        }
+      ]
+    },
+    {
+      "relPath": "src/workstation/scripts/fft_editor_ui.js",
+      "title": "fft_editor_ui.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "stale": false,
+      "hash": "9e4c7b1b665b6466",
+      "reviewedHash": "9e4c7b1b665b6466",
+      "lineCount": 225,
+      "sizeBytes": 16252,
+      "symbols": [
+        "findEntity(entityType, entityId)",
+        "formatTarget(type, v)",
+        "parseTarget(type, raw)",
+        "renderHeuristicBadgeHtml(vec)",
+        "renderFftDossierHtml(entityType, entity)",
+        "ensureModal()",
+        "cueRowHtml(cue, i, total)",
+        "renderBuilder()",
+        "openFftBuilderModal(entityType, entityId)",
+        "update(next)"
+      ],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "src/workstation/template.html",
+          "targetType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "target": "src/workstation/scripts/entity_manager_ui.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes selectEntityItem() defined in entity_manager_ui.js"
+        },
+        {
+          "target": "src/workstation/scripts/fast_frugal_tree.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes validateFft() defined in fast_frugal_tree.js"
+        },
+        {
+          "target": "src/workstation/scripts/mdi_window_manager.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes openModal() defined in mdi_window_manager.js"
+        },
+        {
+          "target": "src/workstation/scripts/sociology_data.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes deriveHeuristicProfile() defined in sociology_data.js"
+        },
+        {
+          "target": "src/workstation/scripts/workstation_state.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes saveActiveCampaign() defined in workstation_state.js"
+        },
+        {
+          "target": "Build-Suite.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "src/workstation/scripts/entity_manager_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes renderHeuristicBadgeHtml() defined in fft_editor_ui.js"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "source": "src/workstation/template.html",
+          "sourceType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/fft_editor_ui.js @@"
         }
       ]
     },
@@ -44326,6 +44726,12 @@
           "reason": "Invokes initWorkspaceSplitters() defined in mdi_window_manager.js"
         },
         {
+          "source": "src/workstation/scripts/fft_editor_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes openModal() defined in mdi_window_manager.js"
+        },
+        {
           "source": "src/workstation/scripts/map_store.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -44606,6 +45012,71 @@
       ]
     },
     {
+      "relPath": "src/workstation/scripts/natural_frequency_engine.js",
+      "title": "natural_frequency_engine.js",
+      "volume": "vol-4",
+      "kind": "Workstation Modular JS Engine",
+      "stale": false,
+      "hash": "5aafcef9e076ddb3",
+      "reviewedHash": "5aafcef9e076ddb3",
+      "lineCount": 56,
+      "sizeBytes": 2644,
+      "symbols": [
+        "rate(v, fallback)",
+        "baseRateFor(conduit)",
+        "computeConduitNaturalFrequency(conduit, sampleSize)"
+      ],
+      "globals": [],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "src/workstation/template.html",
+          "targetType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "target": "start.html",
+          "targetType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "target": "Build-Suite.ps1",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References Build-Suite.ps1"
+        }
+      ],
+      "inbound": [
+        {
+          "source": "src/workstation/scripts/entity_manager_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes computeConduitNaturalFrequency() defined in natural_frequency_engine.js"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "source": "src/workstation/scripts/property_grid_inspector.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes computeConduitNaturalFrequency() defined in natural_frequency_engine.js"
+        },
+        {
+          "source": "src/workstation/template.html",
+          "sourceType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/natural_frequency_engine.js @@"
+        }
+      ]
+    },
+    {
       "relPath": "src/workstation/scripts/pack_engine.js",
       "title": "pack_engine.js",
       "volume": "vol-4",
@@ -44753,10 +45224,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "9a9824e89adc4b41",
-      "reviewedHash": "9a9824e89adc4b41",
-      "lineCount": 4446,
-      "sizeBytes": 213821,
+      "hash": "4b86ba142b343cee",
+      "reviewedHash": "4b86ba142b343cee",
+      "lineCount": 4523,
+      "sizeBytes": 218494,
       "symbols": [
         "selectNode(nodeId, e = null)",
         "selectEdge(edgeType, uId, vId, e = null)",
@@ -44769,6 +45240,8 @@
         "promptRepositionSelection()",
         "updatePropertiesGrid(targetTbody = null, targetEntity = null, targetTopo = null)",
         "appendCategoryRow(tbody, name)",
+        "parsePercentInput(raw)",
+        "appendHazardOpticsRows(tbody, edgeRecord)",
         "appendBoolPropRow(tbody, propName, boolVal, onCommit)",
         "getNodeSelectOptions(topo)",
         "getNpcSelectOptions(topo)",
@@ -44895,6 +45368,12 @@
           "targetType": "file",
           "type": "Calls Function",
           "reason": "Invokes openModuleExplorer() defined in module_explorer.js"
+        },
+        {
+          "target": "src/workstation/scripts/natural_frequency_engine.js",
+          "targetType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes computeConduitNaturalFrequency() defined in natural_frequency_engine.js"
         },
         {
           "target": "src/workstation/scripts/workstation_state.js",
@@ -45486,10 +45965,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "1271371d500da587",
-      "reviewedHash": "1271371d500da587",
-      "lineCount": 2031,
-      "sizeBytes": 129068,
+      "hash": "cd83a65611e3b823",
+      "reviewedHash": "cd83a65611e3b823",
+      "lineCount": 2115,
+      "sizeBytes": 133294,
       "symbols": [
         "setCampaignOdvMatrix(obj)",
         "getCampaignOdvMatrix()",
@@ -45521,7 +46000,10 @@
         "toggleMdiOdvWizard(forceShow = null)",
         "onMdiOdvWizardChange()",
         "onMdiOdvWizardApplyToNode()",
-        "openOdvWizardForNode(nodeId)"
+        "openOdvWizardForNode(nodeId)",
+        "deriveHeuristicProfile(s, e, c)",
+        "getHeuristicProfile(subject)",
+        "diagnoseEcologicalMatch(profile, env)"
       ],
       "globals": [
         "ODV_MATRIX_64",
@@ -45532,7 +46014,8 @@
         "SOC_FACTION_COLORS",
         "SOC_DIAGNOSTIC_QUESTIONS",
         "CVF_PARADIGMS",
-        "activeSelectedOdvTag"
+        "activeSelectedOdvTag",
+        "HEURISTIC_BASE_BY_QUADRANT"
       ],
       "provides": [],
       "requires": [],
@@ -45652,6 +46135,18 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes setCampaignOdvMatrix() defined in sociology_data.js"
+        },
+        {
+          "source": "src/workstation/scripts/dread_risk_overlay.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes resolveNodeOdv() defined in sociology_data.js"
+        },
+        {
+          "source": "src/workstation/scripts/fft_editor_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes deriveHeuristicProfile() defined in sociology_data.js"
         },
         {
           "source": "src/workstation/scripts/mdi_window_manager.js",
@@ -46850,6 +47345,12 @@
           "reason": "Invokes saveActiveCampaign() defined in workstation_state.js"
         },
         {
+          "source": "src/workstation/scripts/dread_risk_overlay.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes setStatusBarMessage() defined in workstation_state.js"
+        },
+        {
           "source": "src/workstation/scripts/entity_cascade_delete.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -46869,6 +47370,12 @@
         },
         {
           "source": "src/workstation/scripts/entity_manager_ui.js",
+          "sourceType": "file",
+          "type": "Calls Function",
+          "reason": "Invokes saveActiveCampaign() defined in workstation_state.js"
+        },
+        {
+          "source": "src/workstation/scripts/fft_editor_ui.js",
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes saveActiveCampaign() defined in workstation_state.js"
@@ -47164,10 +47671,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "cff43ef9ebe30bcd",
-      "reviewedHash": "cff43ef9ebe30bcd",
-      "lineCount": 771,
-      "sizeBytes": 53988,
+      "hash": "42c2f4c1c6a30808",
+      "reviewedHash": "42c2f4c1c6a30808",
+      "lineCount": 776,
+      "sizeBytes": 54219,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -47246,6 +47753,30 @@
           "reason": "Inlined via @@INCLUDE: scripts/campaign_override_slots.js @@"
         },
         {
+          "target": "src/workstation/scripts/fast_frugal_tree.js",
+          "targetType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/fast_frugal_tree.js @@"
+        },
+        {
+          "target": "src/workstation/scripts/natural_frequency_engine.js",
+          "targetType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/natural_frequency_engine.js @@"
+        },
+        {
+          "target": "src/workstation/scripts/dread_risk.js",
+          "targetType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/dread_risk.js @@"
+        },
+        {
+          "target": "src/workstation/scripts/dread_risk_overlay.js",
+          "targetType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/dread_risk_overlay.js @@"
+        },
+        {
           "target": "src/workstation/scripts/wiki_engine.js",
           "targetType": "file",
           "type": "Template Include",
@@ -47310,6 +47841,12 @@
           "targetType": "file",
           "type": "Template Include",
           "reason": "Inlined via @@INCLUDE: scripts/entity_manager_ui.js @@"
+        },
+        {
+          "target": "src/workstation/scripts/fft_editor_ui.js",
+          "targetType": "file",
+          "type": "Template Include",
+          "reason": "Inlined via @@INCLUDE: scripts/fft_editor_ui.js @@"
         },
         {
           "target": "src/workstation/scripts/entity_crud_dialogs.js",
@@ -47602,6 +48139,18 @@
           "reason": "Assembled into master Workstation template"
         },
         {
+          "source": "src/workstation/scripts/dread_risk.js",
+          "sourceType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "source": "src/workstation/scripts/dread_risk_overlay.js",
+          "sourceType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
           "source": "src/workstation/scripts/entity_cascade_delete.js",
           "sourceType": "file",
           "type": "Included By Template",
@@ -47621,6 +48170,18 @@
         },
         {
           "source": "src/workstation/scripts/entity_manager_ui.js",
+          "sourceType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "source": "src/workstation/scripts/fast_frugal_tree.js",
+          "sourceType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "source": "src/workstation/scripts/fft_editor_ui.js",
           "sourceType": "file",
           "type": "Included By Template",
           "reason": "Assembled into master Workstation template"
@@ -47657,6 +48218,12 @@
         },
         {
           "source": "src/workstation/scripts/module_explorer.js",
+          "sourceType": "file",
+          "type": "Included By Template",
+          "reason": "Assembled into master Workstation template"
+        },
+        {
+          "source": "src/workstation/scripts/natural_frequency_engine.js",
           "sourceType": "file",
           "type": "Included By Template",
           "reason": "Assembled into master Workstation template"
@@ -47741,10 +48308,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "fb486ed11a11af08",
-      "reviewedHash": "fb486ed11a11af08",
-      "lineCount": 169647,
-      "sizeBytes": 29012004,
+      "hash": "e0bc4a2eb7ecdec2",
+      "reviewedHash": "e0bc4a2eb7ecdec2",
+      "lineCount": 170669,
+      "sizeBytes": 29072646,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
         "normalizeOdv(raw)",
@@ -49334,6 +49901,18 @@
           "reason": "Bundled into standalone offline workstation via build_suite.js"
         },
         {
+          "source": "src/workstation/scripts/dread_risk.js",
+          "sourceType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "source": "src/workstation/scripts/dread_risk_overlay.js",
+          "sourceType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
           "source": "src/workstation/scripts/entity_cascade_delete.js",
           "sourceType": "file",
           "type": "Compiles Into",
@@ -49353,6 +49932,18 @@
         },
         {
           "source": "src/workstation/scripts/entity_manager_ui.js",
+          "sourceType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "source": "src/workstation/scripts/fast_frugal_tree.js",
+          "sourceType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "source": "src/workstation/scripts/fft_editor_ui.js",
           "sourceType": "file",
           "type": "Compiles Into",
           "reason": "Bundled into standalone offline workstation via build_suite.js"
@@ -49389,6 +49980,12 @@
         },
         {
           "source": "src/workstation/scripts/module_explorer.js",
+          "sourceType": "file",
+          "type": "Compiles Into",
+          "reason": "Bundled into standalone offline workstation via build_suite.js"
+        },
+        {
+          "source": "src/workstation/scripts/natural_frequency_engine.js",
           "sourceType": "file",
           "type": "Compiles Into",
           "reason": "Bundled into standalone offline workstation via build_suite.js"
@@ -49841,10 +50438,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "f5828b392c0fa87e",
-      "reviewedHash": "f5828b392c0fa87e",
-      "lineCount": 8750,
-      "sizeBytes": 454373,
+      "hash": "78da4b0f4e4a2545",
+      "reviewedHash": "78da4b0f4e4a2545",
+      "lineCount": 8751,
+      "sizeBytes": 454453,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -50101,6 +50698,29 @@
           "reason": "References test/run_tests.js"
         }
       ]
+    },
+    {
+      "relPath": "test/test_gigerenzer_heuristics.js",
+      "title": "test_gigerenzer_heuristics.js",
+      "volume": "vol-8",
+      "kind": "Node.js / Browser Engine Script",
+      "stale": false,
+      "hash": "e28e1f75673eeefb",
+      "reviewedHash": "e28e1f75673eeefb",
+      "lineCount": 179,
+      "sizeBytes": 13427,
+      "symbols": [
+        "testGigerenzerHeuristics(h)"
+      ],
+      "globals": [
+        "fs",
+        "path",
+        "vm"
+      ],
+      "provides": [],
+      "requires": [],
+      "outbound": [],
+      "inbound": []
     },
     {
       "relPath": "tools/krynn/CAMPAIGN_STORYLINE_SPEC.md",
@@ -52822,6 +53442,60 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "pairKey",
+      "signature": "pairKey(a, b)",
+      "file": "src/workstation/scripts/dread_risk.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "rateFor",
+      "signature": "rateFor(level)",
+      "file": "src/workstation/scripts/dread_risk.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "num",
+      "signature": "num(v, d)",
+      "file": "src/workstation/scripts/dread_risk.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "buildRoadGraph",
+      "signature": "buildRoadGraph(topo)",
+      "file": "src/workstation/scripts/dread_risk.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "detourPath",
+      "signature": "detourPath(graph, a, b)",
+      "file": "src/workstation/scripts/dread_risk.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "dreadIndex",
+      "signature": "dreadIndex(severity, novelty, odv)",
+      "file": "src/workstation/scripts/dread_risk.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "simulateDreadRiskCascade",
+      "signature": "simulateDreadRiskCascade(topo, opts)",
+      "file": "src/workstation/scripts/dread_risk.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "formatDreadSummary",
+      "signature": "formatDreadSummary(result)",
+      "file": "src/workstation/scripts/dread_risk.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "injectStyle",
+      "signature": "injectStyle()",
+      "file": "src/workstation/scripts/dread_risk_overlay.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "getEntityIcon",
       "signature": "getEntityIcon(type)",
       "file": "src/workstation/scripts/entity_cascade_delete.js",
@@ -53383,6 +54057,114 @@
       "name": "updateFactionStance",
       "signature": "updateFactionStance(sourceId, targetId, stance)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "validateFft",
+      "signature": "validateFft(fft)",
+      "file": "src/workstation/scripts/fast_frugal_tree.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "testCue",
+      "signature": "testCue(cue, ctx)",
+      "file": "src/workstation/scripts/fast_frugal_tree.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "evaluateFastAndFrugalTree",
+      "signature": "evaluateFastAndFrugalTree(fft, ctx)",
+      "file": "src/workstation/scripts/fast_frugal_tree.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "createDefaultFft",
+      "signature": "createDefaultFft(templateType)",
+      "file": "src/workstation/scripts/fast_frugal_tree.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "cloneFft",
+      "signature": "cloneFft(fft)",
+      "file": "src/workstation/scripts/fast_frugal_tree.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "moveCue",
+      "signature": "moveCue(fft, index, delta)",
+      "file": "src/workstation/scripts/fast_frugal_tree.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "addCue",
+      "signature": "addCue(fft, cue)",
+      "file": "src/workstation/scripts/fast_frugal_tree.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "removeCue",
+      "signature": "removeCue(fft, index)",
+      "file": "src/workstation/scripts/fast_frugal_tree.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "findEntity",
+      "signature": "findEntity(entityType, entityId)",
+      "file": "src/workstation/scripts/fft_editor_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "formatTarget",
+      "signature": "formatTarget(type, v)",
+      "file": "src/workstation/scripts/fft_editor_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "parseTarget",
+      "signature": "parseTarget(type, raw)",
+      "file": "src/workstation/scripts/fft_editor_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "renderHeuristicBadgeHtml",
+      "signature": "renderHeuristicBadgeHtml(vec)",
+      "file": "src/workstation/scripts/fft_editor_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "renderFftDossierHtml",
+      "signature": "renderFftDossierHtml(entityType, entity)",
+      "file": "src/workstation/scripts/fft_editor_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "ensureModal",
+      "signature": "ensureModal()",
+      "file": "src/workstation/scripts/fft_editor_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "cueRowHtml",
+      "signature": "cueRowHtml(cue, i, total)",
+      "file": "src/workstation/scripts/fft_editor_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "renderBuilder",
+      "signature": "renderBuilder()",
+      "file": "src/workstation/scripts/fft_editor_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "openFftBuilderModal",
+      "signature": "openFftBuilderModal(entityType, entityId)",
+      "file": "src/workstation/scripts/fft_editor_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "update",
+      "signature": "update(next)",
+      "file": "src/workstation/scripts/fft_editor_ui.js",
       "kind": "Workstation Modular JS Engine"
     },
     {
@@ -54526,6 +55308,24 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "rate",
+      "signature": "rate(v, fallback)",
+      "file": "src/workstation/scripts/natural_frequency_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "baseRateFor",
+      "signature": "baseRateFor(conduit)",
+      "file": "src/workstation/scripts/natural_frequency_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "computeConduitNaturalFrequency",
+      "signature": "computeConduitNaturalFrequency(conduit, sampleSize)",
+      "file": "src/workstation/scripts/natural_frequency_engine.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "uint8ArrayToDataUrl",
       "signature": "uint8ArrayToDataUrl(bytes, mimeType)",
       "file": "src/workstation/scripts/pack_engine.js",
@@ -54672,6 +55472,18 @@
     {
       "name": "appendCategoryRow",
       "signature": "appendCategoryRow(tbody, name)",
+      "file": "src/workstation/scripts/property_grid_inspector.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "parsePercentInput",
+      "signature": "parsePercentInput(raw)",
+      "file": "src/workstation/scripts/property_grid_inspector.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "appendHazardOpticsRows",
+      "signature": "appendHazardOpticsRows(tbody, edgeRecord)",
       "file": "src/workstation/scripts/property_grid_inspector.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -55362,6 +56174,24 @@
     {
       "name": "openOdvWizardForNode",
       "signature": "openOdvWizardForNode(nodeId)",
+      "file": "src/workstation/scripts/sociology_data.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "deriveHeuristicProfile",
+      "signature": "deriveHeuristicProfile(s, e, c)",
+      "file": "src/workstation/scripts/sociology_data.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "getHeuristicProfile",
+      "signature": "getHeuristicProfile(subject)",
+      "file": "src/workstation/scripts/sociology_data.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "diagnoseEcologicalMatch",
+      "signature": "diagnoseEcologicalMatch(profile, env)",
       "file": "src/workstation/scripts/sociology_data.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -56911,6 +57741,12 @@
       "name": "testTicket02CampaignMutationEngine",
       "signature": "testTicket02CampaignMutationEngine()",
       "file": "test/run_tests.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "testGigerenzerHeuristics",
+      "signature": "testGigerenzerHeuristics(h)",
+      "file": "test/test_gigerenzer_heuristics.js",
       "kind": "Node.js / Browser Engine Script"
     },
     {

@@ -1,5 +1,5 @@
 {
-  "id": "peridot",
+  "id": "peridot_isle",
   "name": "Peridot Isle",
   "campaignName": "Peridot Isle",
   "description": "Authored in Creator Studio Pointcrawl Workstation",
@@ -8,8 +8,9 @@
   "enabled": true,
   "topologyFile": "topology.json",
   "manifestFile": "modules_manifest.json",
-  "updatedAt": "2026-10-31T15:50:01.893Z",
-  "exportedAt": "2026-10-31T15:50:01.893Z",
+  "updatedAt": "2026-11-06T05:10:59.220Z",
+  "exportedAt": "2026-11-06T05:10:59.220Z",
+  "appliedBatchIds": [],
   "globalDials": {
     "dial8ClimaxTrigger": "crisis",
     "tier0Substratum": false
@@ -76,6 +77,8 @@
     ],
     "trackers": [],
     "tickets": [],
+    "factions": [],
+    "spatialPins": [],
     "custom_modules": [],
     "deletedModules": [
       "CONF-01",
@@ -84,5 +87,5 @@
     ],
     "deletedPrototypes": []
   },
-  "syncToken": "mvwkumxx-4mk0x2qo"
+  "syncToken": "mw4inxjn-0k4zkicp"
 }

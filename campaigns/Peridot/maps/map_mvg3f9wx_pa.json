@@ -1,0 +1,260 @@
+{
+  "id": "map_mvg3f9wx_pa",
+  "name": "Cathedral",
+  "nodePrefix": "CA-",
+  "scaleTier": "floorplan",
+  "parentMapId": "map_mvg3e071_ip",
+  "parentNodeId": "OU-9",
+  "dispositionModifier": "",
+  "nodes": [
+    {
+      "id": "CA-1",
+      "name": "CA-1 Arrival Portal",
+      "displayName": "CA-1 Arrival Portal",
+      "x": 28,
+      "y": 393,
+      "coordinates": {
+        "x": 28,
+        "y": 393
+      },
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [
+        "CA-2"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "CA-2",
+      "name": "CA-Tower Stairs",
+      "displayName": "CA-Tower Stairs",
+      "x": 345,
+      "y": 442,
+      "coordinates": {
+        "x": 345,
+        "y": 442
+      },
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "circle",
+      "adj": [
+        "CA-1"
+      ],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "CA-3",
+      "name": "CA-Crypt",
+      "displayName": "CA-Crypt",
+      "x": 760,
+      "y": 468,
+      "coordinates": {
+        "x": 760,
+        "y": 468
+      },
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    {
+      "id": "CA-4",
+      "name": "CA-4",
+      "displayName": "CA-4",
+      "x": 372,
+      "y": 15,
+      "coordinates": {
+        "x": 372,
+        "y": 15
+      },
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_mvj11lsr_pj",
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    }
+  ],
+  "links": [
+    {
+      "from": "CA-1",
+      "to": "CA-2",
+      "type": "twoway",
+      "layer": "transit"
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {
+    "CA-1": [],
+    "CA-2": [],
+    "CA-3": [],
+    "CA-4": []
+  },
+  "edgeSlottedModules": {},
+  "revealedNodes": {
+    "CA-1": true
+  },
+  "mapMetadata": {
+    "id": "map_mvg3f9wx_pa",
+    "name": "map_mvg3f9wx_pa_bg.jpg",
+    "width": 1024,
+    "height": 765,
+    "opacity": 0.85,
+    "timestamp": 1793240386200,
+    "assetPath": "assets/map_mvg3f9wx_pa_bg.jpg"
+  },
+  "customNotes": "",
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    }
+  ],
+  "shapes": [],
+  "custom_modules": [],
+  "mapScale": {
+    "value": 5,
+    "unit": "feet",
+    "pixels": 20
+  },
+  "spatialPins": []
+}

@@ -18,7 +18,10 @@
       "cat": "Standard POI",
       "culture": "Hierarchy",
       "shape": "pentagon",
-      "adj": [],
+      "adj": [
+        "BG-SC-13",
+        "BG-SC-03"
+      ],
       "infBy": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -29,7 +32,10 @@
       "locked": true,
       "visible": true,
       "color": null,
-      "modules": [],
+      "modules": [
+        "IND-IRON-03",
+        "IND-TIMBER-02"
+      ],
       "provides": [],
       "requires": [],
       "modData": {},
@@ -92,7 +98,9 @@
       "cat": "Standard POI",
       "culture": "Clan",
       "shape": "pentagon",
-      "adj": [],
+      "adj": [
+        "BG-SC-01"
+      ],
       "infBy": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -103,7 +111,9 @@
       "locked": true,
       "visible": true,
       "color": null,
-      "modules": [],
+      "modules": [
+        "IND-TIMBER-03"
+      ],
       "provides": [],
       "requires": [],
       "modData": {},
@@ -462,7 +472,10 @@
       "cat": "Standard POI",
       "culture": "Clan",
       "shape": "circle",
-      "adj": [],
+      "adj": [
+        "BG-SC-14",
+        "BG-SC-01"
+      ],
       "infBy": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -473,7 +486,10 @@
       "locked": true,
       "visible": true,
       "color": null,
-      "modules": [],
+      "modules": [
+        "MINE-IRON-02",
+        "EXT-TIMBER-01"
+      ],
       "provides": [],
       "requires": [],
       "modData": {},
@@ -499,7 +515,10 @@
       "cat": "Standard POI",
       "culture": "Market",
       "shape": "triangle",
-      "adj": [],
+      "adj": [
+        "bind",
+        "BG-SC-13"
+      ],
       "infBy": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -510,7 +529,9 @@
       "locked": true,
       "visible": true,
       "color": null,
-      "modules": [],
+      "modules": [
+        "MINE-IRON-01"
+      ],
       "provides": [],
       "requires": [],
       "modData": {},
@@ -672,7 +693,32 @@
       "layerId": "layer-nodes"
     }
   ],
-  "links": [],
+  "links": [
+    {
+      "from": "BG-SC-01",
+      "to": "BG-SC-13",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "BG-SC-01",
+      "to": "BG-SC-03",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "BG-SC-13",
+      "to": "BG-SC-14",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "BG-SC-14",
+      "to": "bind",
+      "type": "twoway",
+      "layer": "transit"
+    }
+  ],
   "mapMetadata": {
     "id": "map_bg1_sword_coast",
     "name": "swordcoast.gif",
@@ -691,9 +737,20 @@
   "waves": [],
   "drawnCards": {},
   "nodeSlottedModules": {
-    "BG-SC-01": [],
+    "1": [
+      "MINE-IRON-02"
+    ],
+    "2": [
+      "IND-IRON-03"
+    ],
+    "BG-SC-01": [
+      "IND-IRON-03",
+      "IND-TIMBER-02"
+    ],
     "BG-SC-02": [],
-    "BG-SC-03": [],
+    "BG-SC-03": [
+      "IND-TIMBER-03"
+    ],
     "BG-SC-04": [],
     "BG-SC-05": [],
     "BG-SC-06": [],
@@ -703,13 +760,22 @@
     "BG-SC-10": [],
     "BG-SC-11": [],
     "BG-SC-12": [],
-    "BG-SC-13": [],
-    "BG-SC-14": [],
+    "BG-SC-13": [
+      "MINE-IRON-02",
+      "EXT-TIMBER-01"
+    ],
+    "BG-SC-14": [
+      "MINE-IRON-01"
+    ],
     "BG-SC-15": [],
     "BG-SC-16": [],
     "BG-SC-17": [],
     "BG-SC-18": [],
-    "TS-1": []
+    "TS-1": [],
+    "bind": [
+      "MINE-IRON-02",
+      "IND-IRON-03"
+    ]
   },
   "edgeSlottedModules": {},
   "layers": [
@@ -770,7 +836,57 @@
   ],
   "shapes": [],
   "revealedNodes": {},
-  "edgeData": {},
+  "edgeData": {
+    "1-BG-SC-14": {
+      "conduitType": "Caravan Trade Route",
+      "dedicatedFlows": [
+        {
+          "tag": "Ore: Raw-Iron-Ore",
+          "sourceModuleId": "MINE-IRON-01"
+        }
+      ]
+    },
+    "BG-SC-14-bind": {
+      "conduitType": "Caravan Trade Route",
+      "dedicatedFlows": [
+        {
+          "tag": "Ore: Raw-Iron-Ore",
+          "sourceModuleId": "MINE-IRON-01"
+        }
+      ]
+    },
+    "BG-SC-13-BG-SC-14": {
+      "conduitType": "Caravan Trade Route",
+      "dedicatedFlows": [
+        {
+          "tag": "Ore: Raw-Iron-Ore",
+          "sourceModuleId": "MINE-IRON-01"
+        }
+      ]
+    },
+    "BG-SC-01-BG-SC-13": {
+      "conduitType": "Caravan Trade Route",
+      "dedicatedFlows": [
+        {
+          "tag": "Metal: Pig-Iron",
+          "sourceModuleId": "MINE-IRON-02"
+        },
+        {
+          "tag": "Timber: Hardwood-Logs",
+          "sourceModuleId": "EXT-TIMBER-01"
+        }
+      ]
+    },
+    "BG-SC-01-BG-SC-03": {
+      "conduitType": "Caravan Trade Route",
+      "dedicatedFlows": [
+        {
+          "tag": "Timber: Sawn-Lumber",
+          "sourceModuleId": "IND-TIMBER-02"
+        }
+      ]
+    }
+  },
   "edgeNotes": {},
   "modData": {},
   "custom_modules": [],

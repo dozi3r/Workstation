@@ -3,7 +3,7 @@
   "name": "Baldur's Gate: The Sword Coast Campaign",
   "campaignName": "Baldur's Gate: The Sword Coast Campaign",
   "rootMapId": "map_bg1_sword_coast",
-  "activeMapId": "map_bg1_nashkel_mines_l4",
+  "activeMapId": "map_bg1_sword_coast",
   "maps": {
     "map_bg1_sword_coast": {
       "id": "map_bg1_sword_coast",
@@ -25,7 +25,10 @@
           "cat": "Standard POI",
           "culture": "Hierarchy",
           "shape": "pentagon",
-          "adj": [],
+          "adj": [
+            "BG-SC-13",
+            "BG-SC-03"
+          ],
           "infBy": [],
           "hubEligibility": "candidate",
           "eligible": true,
@@ -36,7 +39,10 @@
           "locked": true,
           "visible": true,
           "color": null,
-          "modules": [],
+          "modules": [
+            "IND-IRON-03",
+            "IND-TIMBER-02"
+          ],
           "provides": [],
           "requires": [],
           "modData": {},
@@ -99,7 +105,9 @@
           "cat": "Standard POI",
           "culture": "Clan",
           "shape": "pentagon",
-          "adj": [],
+          "adj": [
+            "BG-SC-01"
+          ],
           "infBy": [],
           "hubEligibility": "candidate",
           "eligible": true,
@@ -110,7 +118,9 @@
           "locked": true,
           "visible": true,
           "color": null,
-          "modules": [],
+          "modules": [
+            "IND-TIMBER-03"
+          ],
           "provides": [],
           "requires": [],
           "modData": {},
@@ -469,7 +479,10 @@
           "cat": "Standard POI",
           "culture": "Clan",
           "shape": "circle",
-          "adj": [],
+          "adj": [
+            "BG-SC-14",
+            "BG-SC-01"
+          ],
           "infBy": [],
           "hubEligibility": "candidate",
           "eligible": true,
@@ -480,7 +493,10 @@
           "locked": true,
           "visible": true,
           "color": null,
-          "modules": [],
+          "modules": [
+            "MINE-IRON-02",
+            "EXT-TIMBER-01"
+          ],
           "provides": [],
           "requires": [],
           "modData": {},
@@ -506,7 +522,10 @@
           "cat": "Standard POI",
           "culture": "Market",
           "shape": "triangle",
-          "adj": [],
+          "adj": [
+            "bind",
+            "BG-SC-13"
+          ],
           "infBy": [],
           "hubEligibility": "candidate",
           "eligible": true,
@@ -517,7 +536,9 @@
           "locked": true,
           "visible": true,
           "color": null,
-          "modules": [],
+          "modules": [
+            "MINE-IRON-01"
+          ],
           "provides": [],
           "requires": [],
           "modData": {},
@@ -679,7 +700,32 @@
           "layerId": "layer-nodes"
         }
       ],
-      "links": [],
+      "links": [
+        {
+          "from": "BG-SC-01",
+          "to": "BG-SC-13",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "BG-SC-01",
+          "to": "BG-SC-03",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "BG-SC-13",
+          "to": "BG-SC-14",
+          "type": "twoway",
+          "layer": "transit"
+        },
+        {
+          "from": "BG-SC-14",
+          "to": "bind",
+          "type": "twoway",
+          "layer": "transit"
+        }
+      ],
       "mapMetadata": {
         "id": "map_bg1_sword_coast",
         "name": "swordcoast.gif",
@@ -698,9 +744,20 @@
       "waves": [],
       "drawnCards": {},
       "nodeSlottedModules": {
-        "BG-SC-01": [],
+        "1": [
+          "MINE-IRON-02"
+        ],
+        "2": [
+          "IND-IRON-03"
+        ],
+        "BG-SC-01": [
+          "IND-IRON-03",
+          "IND-TIMBER-02"
+        ],
         "BG-SC-02": [],
-        "BG-SC-03": [],
+        "BG-SC-03": [
+          "IND-TIMBER-03"
+        ],
         "BG-SC-04": [],
         "BG-SC-05": [],
         "BG-SC-06": [],
@@ -710,13 +767,22 @@
         "BG-SC-10": [],
         "BG-SC-11": [],
         "BG-SC-12": [],
-        "BG-SC-13": [],
-        "BG-SC-14": [],
+        "BG-SC-13": [
+          "MINE-IRON-02",
+          "EXT-TIMBER-01"
+        ],
+        "BG-SC-14": [
+          "MINE-IRON-01"
+        ],
         "BG-SC-15": [],
         "BG-SC-16": [],
         "BG-SC-17": [],
         "BG-SC-18": [],
-        "TS-1": []
+        "TS-1": [],
+        "bind": [
+          "MINE-IRON-02",
+          "IND-IRON-03"
+        ]
       },
       "edgeSlottedModules": {},
       "layers": [
@@ -777,7 +843,57 @@
       ],
       "shapes": [],
       "revealedNodes": {},
-      "edgeData": {},
+      "edgeData": {
+        "1-BG-SC-14": {
+          "conduitType": "Caravan Trade Route",
+          "dedicatedFlows": [
+            {
+              "tag": "Ore: Raw-Iron-Ore",
+              "sourceModuleId": "MINE-IRON-01"
+            }
+          ]
+        },
+        "BG-SC-14-bind": {
+          "conduitType": "Caravan Trade Route",
+          "dedicatedFlows": [
+            {
+              "tag": "Ore: Raw-Iron-Ore",
+              "sourceModuleId": "MINE-IRON-01"
+            }
+          ]
+        },
+        "BG-SC-13-BG-SC-14": {
+          "conduitType": "Caravan Trade Route",
+          "dedicatedFlows": [
+            {
+              "tag": "Ore: Raw-Iron-Ore",
+              "sourceModuleId": "MINE-IRON-01"
+            }
+          ]
+        },
+        "BG-SC-01-BG-SC-13": {
+          "conduitType": "Caravan Trade Route",
+          "dedicatedFlows": [
+            {
+              "tag": "Metal: Pig-Iron",
+              "sourceModuleId": "MINE-IRON-02"
+            },
+            {
+              "tag": "Timber: Hardwood-Logs",
+              "sourceModuleId": "EXT-TIMBER-01"
+            }
+          ]
+        },
+        "BG-SC-01-BG-SC-03": {
+          "conduitType": "Caravan Trade Route",
+          "dedicatedFlows": [
+            {
+              "tag": "Timber: Sawn-Lumber",
+              "sourceModuleId": "IND-TIMBER-02"
+            }
+          ]
+        }
+      },
       "edgeNotes": {},
       "modData": {},
       "custom_modules": [],
@@ -4666,110 +4782,275 @@
     }
   },
   "activeTopology": {
-    "id": "map_bg1_nashkel_mines_l4",
-    "name": "Nashkel Mines: Level 4 (AR5404)",
+    "id": "map_bg1_sword_coast",
+    "name": "Baldur's Gate: The Sword Coast Campaign",
     "campaignName": "Baldur's Gate: The Sword Coast Campaign",
     "rootMapId": "map_root",
     "activeMapId": "map_root",
     "nodes": {
-      "231": {
-        "id": 231,
-        "name": "Subterranean Incline from Level 3",
-        "x": 80,
-        "y": 660,
+      "BG-SC-01": {
+        "id": "BG-SC-01",
+        "name": "Candlekeep Fortress & Great Library",
+        "x": 91,
+        "y": 468,
         "coordinates": {
-          "x": 80,
-          "y": 660
+          "x": 91,
+          "y": 468
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Hierarchy",
+        "shape": "pentagon",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [
+          "BG-SC-13",
+          "BG-SC-03"
+        ],
+        "infBy": [],
+        "childMapId": "map_bg1_candlekeep",
+        "customNotes": "A colossal sea-cliff citadel housing the greatest repository of philosophical, historical, and prophetic tomes in Faerun. Monks chant the prophecies of Alaundo within walled courtyards under the austere rule of the Keeper of Tomes.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [
+          "IND-IRON-03",
+          "IND-TIMBER-02"
+        ],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-02": {
+        "id": "BG-SC-02",
+        "name": "The Coast Way & Lion's Way",
+        "x": 119,
+        "y": 620,
+        "coordinates": {
+          "x": 119,
+          "y": 620
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Clan",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "Rutted coastal highway winding through coastal scrubland and low limestone crags. Gorion fell here to armored ambushers in the night. The scent of spilled blood and ozone still clings to the road verge.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-03": {
+        "id": "BG-SC-03",
+        "name": "The Friendly Arm Inn",
+        "x": 315,
+        "y": 348,
+        "coordinates": {
+          "x": 315,
+          "y": 348
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Clan",
+        "shape": "pentagon",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [
+          "BG-SC-01"
+        ],
+        "infBy": [],
+        "childMapId": "map_bg1_friendly_arm",
+        "customNotes": "A fortified walled citadel built around an ancient stone keep by the gnome illusionist Bentley Mirrorshade. Banners of Garl Glittergold flutter above stone ramparts that offer sanctuary to beleaguered trade caravans.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [
+          "IND-TIMBER-03"
+        ],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-04": {
+        "id": "BG-SC-04",
+        "name": "Township of Beregost",
+        "x": 318,
+        "y": 553,
+        "coordinates": {
+          "x": 318,
+          "y": 553
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Market",
+        "shape": "pentagon",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": "map_bg1_beregost",
+        "customNotes": "A bustling crossroads market town smelling of coal smoke, roasted mutton, and damp horsehair. Four sprawling coaching taverns surround the high chimney of Taerom Fuiruim's Thunderhammer Smithy.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-05": {
+        "id": "BG-SC-05",
+        "name": "High Hedge Estate",
+        "x": 215,
+        "y": 571,
+        "coordinates": {
+          "x": 215,
+          "y": 571
         },
         "wave": 1,
         "tier": 2,
         "culture": "Adhocracy",
-        "shape": "square",
+        "shape": "diamond",
         "eligible": true,
         "hubEligibility": "candidate",
         "adj": [],
         "infBy": [],
         "childMapId": null,
-        "customNotes": "The wet subterranean approach carved through black schist. Water sloshes along the narrow stone ledges flanked by glowing phosphor fungus.",
-        "locked": false,
+        "customNotes": "A towering manse shielded by enchanted bramble mazes and patrolling flesh golems. Within, the reclusive conjure-master Thalantyr tests the limits of planar binding and antique artifact transmutation.",
+        "locked": true,
         "visible": true,
         "color": null,
         "modules": [],
         "provides": [],
         "requires": [],
         "modData": {},
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "232": {
-        "id": 232,
-        "name": "Sanctum Approach & Xan's Prison Cell",
-        "x": 380,
-        "y": 440,
+      "BG-SC-06": {
+        "id": "BG-SC-06",
+        "name": "Township of Nashkel",
+        "x": 313,
+        "y": 784,
         "coordinates": {
-          "x": 380,
-          "y": 440
+          "x": 313,
+          "y": 784
         },
         "wave": 1,
         "tier": 2,
         "culture": "Hierarchy",
-        "shape": "square",
+        "shape": "pentagon",
         "eligible": true,
         "hubEligibility": "candidate",
         "adj": [],
         "infBy": [],
-        "childMapId": null,
-        "customNotes": "A barred alcove overlooking the central cavern where the melancholic elven sorcerer Xan is bound in iron shackles. He warns of certain doom and laments the theft of his Moonblade.",
-        "locked": false,
+        "childMapId": "map_bg1_nashkel_town",
+        "customNotes": "Northern Amnian frontier outpost at the foot of the Cloud Peaks. Armed town guards in scarlet tunics eye refugees suspiciously while miners pack tavern porches demanding answers to the iron rot.",
+        "locked": true,
         "visible": true,
         "color": null,
         "modules": [],
         "provides": [],
         "requires": [],
         "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "233": {
-        "id": 233,
-        "name": "Mulahey's Desecrated Shrine & Sanctum",
-        "x": 590,
-        "y": 380,
+      "BG-SC-07": {
+        "id": "BG-SC-07",
+        "name": "Nashkel Mines Surface Quarry",
+        "x": 424,
+        "y": 863,
         "coordinates": {
-          "x": 590,
-          "y": 380
+          "x": 424,
+          "y": 863
         },
         "wave": 1,
         "tier": 2,
-        "culture": "Hierarchy",
-        "shape": "star",
+        "culture": "Market",
+        "shape": "triangle",
         "eligible": true,
         "hubEligibility": "candidate",
         "adj": [],
         "infBy": [],
-        "childMapId": null,
-        "customNotes": "A natural island cavern surrounded by subterranean waters, converted into a shrine to Cyric. The priest Mulahey directs the poison operations here with a chest full of Iron Throne correspondence.",
-        "locked": false,
+        "childMapId": "map_bg1_nashkel_mines_surface",
+        "customNotes": "Open-pit iron excavation choked with wooden derricks, gravel heaps, and soldier pickets. Contaminated ore sits piled in wooden sluices while terrified miners refuse to descend into the lower galleries.",
+        "locked": true,
         "visible": true,
         "color": null,
         "modules": [],
         "provides": [],
         "requires": [],
         "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "234": {
-        "id": 234,
-        "name": "Underground Lake Shore",
-        "x": 740,
-        "y": 220,
+      "BG-SC-08": {
+        "id": "BG-SC-08",
+        "name": "Cloud Peaks & Gnoll Stronghold",
+        "x": 67,
+        "y": 882,
         "coordinates": {
-          "x": 740,
-          "y": 220
+          "x": 67,
+          "y": 882
         },
         "wave": 1,
         "tier": 2,
@@ -4780,26 +5061,101 @@
         "adj": [],
         "infBy": [],
         "childMapId": null,
-        "customNotes": "A slippery calcite terrace bordering the underground lake. Subterranean oozes and cave lizards nest among discarded mining helmets and half-eaten rations.",
-        "locked": false,
+        "customNotes": "Craggy, windswept mountain passes crowned by a barbaric timber-and-boulder fortress overlooking deep river gorges. Howls of gnoll war-packs echo across natural rope bridges.",
+        "locked": true,
         "visible": true,
         "color": null,
         "modules": [],
         "provides": [],
         "requires": [],
         "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       },
-      "235": {
-        "id": 235,
-        "name": "Valley Chute / Cloud Peak Surface Exit",
-        "x": 970,
-        "y": 380,
+      "BG-SC-09": {
+        "id": "BG-SC-09",
+        "name": "Gullykin & Firewine Ruins",
+        "x": 571,
+        "y": 648,
         "coordinates": {
-          "x": 970,
-          "y": 380
+          "x": 571,
+          "y": 648
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Clan",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "A peaceful halfling burrowing hamlet perched atop the sunken catacombs of the ancient elven city of Firewine. Wine cellars conceal hidden masonry tunnels into kobold-infested crypts.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-10": {
+        "id": "BG-SC-10",
+        "name": "Ulcaster School of Sorcery Ruins",
+        "x": 446,
+        "y": 616,
+        "coordinates": {
+          "x": 446,
+          "y": 616
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Adhocracy",
+        "shape": "diamond",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "The charred stone carcass of a grand conjuration academy razed three centuries ago by Calishite mages. The spectral shade of Ulcaster still glides across scorched stone arches reciting lost arcana.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-11": {
+        "id": "BG-SC-11",
+        "name": "Larswood & Peldvale Frontier",
+        "x": 497,
+        "y": 328,
+        "coordinates": {
+          "x": 497,
+          "y": 328
         },
         "wave": 1,
         "tier": 2,
@@ -4810,20 +5166,306 @@
         "adj": [],
         "infBy": [],
         "childMapId": null,
-        "customNotes": "A natural drainage cleft through the eastern rock wall bathed in crisp outside sunlight. The tunnel empties onto the steep scree slopes of the eastern Cloud Peaks.",
-        "locked": false,
+        "customNotes": "Dense deciduous woodland traversed by hidden bandit trails. Raiken and Teven's raiding outposts ambush merchant supply lines heading north toward the Chionthar.",
+        "locked": true,
         "visible": true,
         "color": null,
         "modules": [],
         "provides": [],
         "requires": [],
         "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-12": {
+        "id": "BG-SC-12",
+        "name": "Tazok's Hidden Bandit Camp",
+        "x": 457,
+        "y": 252,
+        "coordinates": {
+          "x": 457,
+          "y": 252
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Market",
+        "shape": "pentagon",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": "map_bg1_bandit_camp",
+        "customNotes": "A massive military encampment concealed within a pine hollow, occupied by Chill hobgoblins, Black Talon human archers, and iron-hoard tents orchestrated by the half-ogre Tazok.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-13": {
+        "id": "BG-SC-13",
+        "name": "Cloakwood Primeval Forest",
+        "x": 149,
+        "y": 365,
+        "coordinates": {
+          "x": 149,
+          "y": 365
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Clan",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [
+          "BG-SC-14",
+          "BG-SC-01"
+        ],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "Dense, sun-choked canopy choked with hanging moss, territorial Shadow Druids, giant phase spiders, and nesting forest wyverns along the river gorge.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [
+          "MINE-IRON-02",
+          "EXT-TIMBER-01"
+        ],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-14": {
+        "id": "BG-SC-14",
+        "name": "Cloakwood Secret Iron Mines",
+        "x": 62,
+        "y": 321,
+        "coordinates": {
+          "x": 62,
+          "y": 321
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Market",
+        "shape": "triangle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [
+          "bind",
+          "BG-SC-13"
+        ],
+        "infBy": [],
+        "childMapId": "map_bg1_cloakwood_mines",
+        "customNotes": "A fortified quarry and subterranean smelter operated by Iron Throne slave drivers and guarded by black-glass wards, overseen by the ruthless battle-mage Davaeorn.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [
+          "MINE-IRON-01"
+        ],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-15": {
+        "id": "BG-SC-15",
+        "name": "Wyrm's Crossing Bridge",
+        "x": 344,
+        "y": 189,
+        "coordinates": {
+          "x": 344,
+          "y": 189
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Hierarchy",
+        "shape": "diamond",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "A colossal double-span stone arched viaduct crossing the wide Chionthar River, guarded by a fortified Flaming Fist gatehouse screening travelers for iron contraband and fugitives.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-16": {
+        "id": "BG-SC-16",
+        "name": "Metropolis of Baldur's Gate",
+        "x": 156,
+        "y": 102,
+        "coordinates": {
+          "x": 156,
+          "y": 102
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Hierarchy",
+        "shape": "star",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": "map_bg1_city",
+        "customNotes": "The sovereign trade capital of the Sword Coast. Sprawling multi-tiered granite bastions, crowded merchant docks, labyrinthine sewers, and the towering black-iron monolith of the Iron Throne HQ.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-17": {
+        "id": "BG-SC-17",
+        "name": "Ulgoth's Beard Seaport",
+        "x": 469,
+        "y": 53,
+        "coordinates": {
+          "x": 469,
+          "y": 53
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Adhocracy",
+        "shape": "circle",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": null,
+        "customNotes": "A foggy northern fishing hamlet where arcane eccentric Shandalar resides, serving as the staging ground for maritime expeditions to the Isle of Balduran and Durlag's Tower.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
+        "odvOverridden": false,
+        "faction": "neutral",
+        "layerId": "layer-nodes"
+      },
+      "BG-SC-18": {
+        "id": "BG-SC-18",
+        "name": "Durlag's Tower Citadel",
+        "x": 510,
+        "y": 768,
+        "coordinates": {
+          "x": 510,
+          "y": 768
+        },
+        "wave": 1,
+        "tier": 2,
+        "culture": "Adhocracy",
+        "shape": "star",
+        "eligible": true,
+        "hubEligibility": "candidate",
+        "adj": [],
+        "infBy": [],
+        "childMapId": "map_bg1_durlags_tower",
+        "customNotes": "A tragic dwarven fortress built by hero Durlag Trollkiller, now a nightmare dungeon of four deadly subterranean levels choked with lethal wards, doppelgangers, and the Demon Knight.",
+        "locked": true,
+        "visible": true,
+        "color": null,
+        "modules": [],
+        "provides": [],
+        "requires": [],
+        "modData": {},
+        "odv": [
+          2,
+          2,
+          2
+        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
       }
     },
-    "links": [],
+    "links": [
+      {
+        "from": "BG-SC-01",
+        "to": "BG-SC-13",
+        "type": "twoway",
+        "layer": "transit"
+      },
+      {
+        "from": "BG-SC-01",
+        "to": "BG-SC-03",
+        "type": "twoway",
+        "layer": "transit"
+      },
+      {
+        "from": "BG-SC-13",
+        "to": "BG-SC-14",
+        "type": "twoway",
+        "layer": "transit"
+      },
+      {
+        "from": "BG-SC-14",
+        "to": "bind",
+        "type": "twoway",
+        "layer": "transit"
+      }
+    ],
     "waves": [],
     "layers": [
       {
@@ -6189,6 +6831,62 @@
           "Welcome, friends, to the Friendly Arm Inn! Put away your steel, order an ale, and rest easy."
         ],
         "relationships": []
+      },
+      {
+        "id": "npc-mw4ip7jd-1",
+        "name": "Bera Iron-Grip",
+        "role": "Pit Shoring Carpenter & Sump Tender",
+        "faction": "Hierarchy / Clan",
+        "motivation": "Keep timber props braced against the creeping south fault line.",
+        "moduleId": "MINE-IRON-01",
+        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-01-npc-2",
+        "nodeId": "BG-SC-14",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw4ip7jl-2",
+        "name": "Foreman Grim Torvald",
+        "role": "Chief Mine Quarryman",
+        "faction": "Hierarchy / Clan",
+        "motivation": "Drive extraction quotas to earn his crew",
+        "moduleId": "MINE-IRON-01",
+        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-01-npc-1",
+        "nodeId": "BG-SC-14",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw4ip7kb-5",
+        "name": "Sela the Tapper",
+        "role": "Taphole Chisel Specialist",
+        "faction": "Hierarchy / Market",
+        "motivation": "Survive the deadly white-hot slag run and secure safe casting molds for iron shot.",
+        "moduleId": "MINE-IRON-02",
+        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-02-npc-2",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw4ip7ki-6",
+        "name": "Master Smelter Kaelen",
+        "role": "Chief Blast Master",
+        "faction": "Hierarchy / Market",
+        "motivation": "Keep the furnace tapped on schedule to prevent the molten salamander from freezing solid.",
+        "moduleId": "MINE-IRON-02",
+        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-02-npc-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
       }
     ],
     "quests": [
@@ -6670,6 +7368,202 @@
         "ownerNpcId": "npc_thalantyr",
         "possessionMode": "carried",
         "status": "Active"
+      },
+      {
+        "id": "item-mw4ip7jt-3",
+        "name": "Open-Cast Iron Ore Pit",
+        "category": "Infrastructural Machinery",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-01.",
+        "moduleId": "MINE-IRON-01",
+        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-01-item-apparatus",
+        "nodeId": "BG-SC-14",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4ip7k3-4",
+        "name": "Ore: Raw Iron Ore",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Ore: Raw-Iron-Ore",
+        "notes": "Supply chain material or energy export produced by MINE-IRON-01 for downstream consumer nodes.",
+        "moduleId": "MINE-IRON-01",
+        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-01-item-res-1",
+        "nodeId": "BG-SC-14",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4ip7kq-7",
+        "name": "Charcoal Bloomery and Blast Furnace",
+        "category": "Infrastructural Machinery",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-02.",
+        "moduleId": "MINE-IRON-02",
+        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-02-item-apparatus",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4ip7kz-8",
+        "name": "Metal: Pig Iron",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Metal: Pig-Iron",
+        "notes": "Supply chain material or energy export produced by MINE-IRON-02 for downstream consumer nodes.",
+        "moduleId": "MINE-IRON-02",
+        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-02-item-res-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4ip7l9-9",
+        "name": "Blacksmith Forge",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-IRON-03.",
+        "moduleId": "IND-IRON-03",
+        "moduleTitle": "Blacksmith Forge",
+        "suggestedNode": null,
+        "prototypeId": "IND-IRON-03-item-apparatus",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4ip7li-a",
+        "name": "Metal: Forged Iron",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Metal: Forged-Iron",
+        "notes": "Supply chain material or energy export produced by IND-IRON-03 for downstream consumer nodes.",
+        "moduleId": "IND-IRON-03",
+        "moduleTitle": "Blacksmith Forge",
+        "suggestedNode": null,
+        "prototypeId": "IND-IRON-03-item-res-1",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4ea-b",
+        "name": "Hardwood Logging Camp",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01.",
+        "moduleId": "EXT-TIMBER-01",
+        "moduleTitle": "Hardwood Logging Camp",
+        "suggestedNode": null,
+        "prototypeId": "EXT-TIMBER-01-item-apparatus",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4em-c",
+        "name": "Timber: Hardwood Logs",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Timber: Hardwood-Logs",
+        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
+        "moduleId": "EXT-TIMBER-01",
+        "moduleTitle": "Hardwood Logging Camp",
+        "suggestedNode": null,
+        "prototypeId": "EXT-TIMBER-01-item-res-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4ex-d",
+        "name": "Fuel: Wood Fuel",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Fuel: Wood-Fuel",
+        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
+        "moduleId": "EXT-TIMBER-01",
+        "moduleTitle": "Hardwood Logging Camp",
+        "suggestedNode": null,
+        "prototypeId": "EXT-TIMBER-01-item-res-2",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4f8-e",
+        "name": "Water-Powered Sawmill",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-02.",
+        "moduleId": "IND-TIMBER-02",
+        "moduleTitle": "Water-Powered Sawmill",
+        "suggestedNode": null,
+        "prototypeId": "IND-TIMBER-02-item-apparatus",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4fn-f",
+        "name": "Timber: Sawn Lumber",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Timber: Sawn-Lumber",
+        "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
+        "moduleId": "IND-TIMBER-02",
+        "moduleTitle": "Water-Powered Sawmill",
+        "suggestedNode": null,
+        "prototypeId": "IND-TIMBER-02-item-res-1",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4fw-g",
+        "name": "Timber: Mine Props",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Timber: Mine-Props",
+        "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
+        "moduleId": "IND-TIMBER-02",
+        "moduleTitle": "Water-Powered Sawmill",
+        "suggestedNode": null,
+        "prototypeId": "IND-TIMBER-02-item-res-2",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4gc-h",
+        "name": "Master Cooperage",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-03.",
+        "moduleId": "IND-TIMBER-03",
+        "moduleTitle": "Master Cooperage",
+        "suggestedNode": null,
+        "prototypeId": "IND-TIMBER-03-item-apparatus",
+        "nodeId": "BG-SC-03",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4gp-i",
+        "name": "Timber: Cooperage Casks",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Timber: Cooperage-Casks",
+        "notes": "Supply chain material or energy export produced by IND-TIMBER-03 for downstream consumer nodes.",
+        "moduleId": "IND-TIMBER-03",
+        "moduleTitle": "Master Cooperage",
+        "suggestedNode": null,
+        "prototypeId": "IND-TIMBER-03-item-res-1",
+        "nodeId": "BG-SC-03",
+        "status": "Active",
+        "isCustom": false
       }
     ],
     "trackers": [
@@ -6789,7 +7683,57 @@
         "createdAt": "2026-11-02T03:16:01.142Z"
       }
     ],
-    "edgeData": {},
+    "edgeData": {
+      "1-BG-SC-14": {
+        "conduitType": "Caravan Trade Route",
+        "dedicatedFlows": [
+          {
+            "tag": "Ore: Raw-Iron-Ore",
+            "sourceModuleId": "MINE-IRON-01"
+          }
+        ]
+      },
+      "BG-SC-14-bind": {
+        "conduitType": "Caravan Trade Route",
+        "dedicatedFlows": [
+          {
+            "tag": "Ore: Raw-Iron-Ore",
+            "sourceModuleId": "MINE-IRON-01"
+          }
+        ]
+      },
+      "BG-SC-13-BG-SC-14": {
+        "conduitType": "Caravan Trade Route",
+        "dedicatedFlows": [
+          {
+            "tag": "Ore: Raw-Iron-Ore",
+            "sourceModuleId": "MINE-IRON-01"
+          }
+        ]
+      },
+      "BG-SC-01-BG-SC-13": {
+        "conduitType": "Caravan Trade Route",
+        "dedicatedFlows": [
+          {
+            "tag": "Metal: Pig-Iron",
+            "sourceModuleId": "MINE-IRON-02"
+          },
+          {
+            "tag": "Timber: Hardwood-Logs",
+            "sourceModuleId": "EXT-TIMBER-01"
+          }
+        ]
+      },
+      "BG-SC-01-BG-SC-03": {
+        "conduitType": "Caravan Trade Route",
+        "dedicatedFlows": [
+          {
+            "tag": "Timber: Sawn-Lumber",
+            "sourceModuleId": "IND-TIMBER-02"
+          }
+        ]
+      }
+    },
     "edgeNotes": {},
     "custom_modules": [],
     "deletedModules": [],
@@ -6961,115 +7905,484 @@
         "notes": "Operating out of the ancient subterranean Temple of Bhaal in the Undercity."
       }
     ],
-    "scaleTier": "dungeon",
+    "scaleTier": "region",
     "spatialPins": [],
     "modData": {},
     "appliedBatchIds": [],
     "changelog": [],
     "description": "The complete Baldur's Gate 1 campaign ported to Creator Studio. Features an 18-node regional Sword Coast pointcrawl and 9 scale-fluid submaps spanning Candlekeep, Friendly Arm, Beregost, Tazok's Bandit Camp, Cloakwood Mines, Baldur's Gate City, the Undercity, and Durlag's Tower.",
-    "campaign_modules": []
+    "campaign_modules": [
+      "AGRI-SUGAR-01",
+      "AGRI-SUGAR-02",
+      "AGRI-SUGAR-03",
+      "EXT-ALUM-01",
+      "EXT-CLAY-01",
+      "EXT-FISH-01",
+      "EXT-FURS-01",
+      "EXT-GLASS-01",
+      "EXT-LIME-01",
+      "EXT-PINE-01",
+      "EXT-PORC-01",
+      "EXT-SALT-01",
+      "EXT-SALTPETER-01",
+      "EXT-TANNIN-01",
+      "EXT-TIMBER-01",
+      "EXT-WHALE-01",
+      "FARM-CATTLE-01",
+      "FARM-CORN-01",
+      "FARM-COTTON-01",
+      "FARM-FLAX-01",
+      "FARM-HEMP-01",
+      "FARM-INDIGO-01",
+      "FARM-OLIVE-01",
+      "FARM-RICE-01",
+      "FARM-SHEEP-01",
+      "FARM-SILK-01",
+      "FARM-SPICE-01",
+      "FARM-VINE-01",
+      "FARM-WHEAT-01",
+      "IND-APOTH-01",
+      "IND-BARGE-01",
+      "IND-BREW-01",
+      "IND-BREW-02",
+      "IND-BRONZE-01",
+      "IND-CANDLE-01",
+      "IND-CATTLE-02",
+      "IND-CATTLE-03",
+      "IND-CHARCOAL-01",
+      "IND-CLAY-02",
+      "IND-COPPER-02",
+      "IND-COPPER-03",
+      "IND-CORN-02",
+      "IND-CORN-03",
+      "IND-COTTON-02",
+      "IND-COTTON-03",
+      "IND-FISH-02",
+      "IND-FLAX-02",
+      "IND-FLAX-03",
+      "IND-FURS-02",
+      "IND-GLASS-02",
+      "IND-GOLD-02",
+      "IND-HEMP-02",
+      "IND-HEMP-03",
+      "IND-INDIGO-02",
+      "IND-IRON-03",
+      "IND-LEAD-01",
+      "IND-LIME-02",
+      "IND-LIME-03",
+      "IND-OLIVE-02",
+      "IND-OPTIC-01",
+      "IND-OPTIC-02",
+      "IND-PAPER-01",
+      "IND-PAPER-02",
+      "IND-PAPER-03",
+      "IND-PINE-02",
+      "IND-PORC-02",
+      "IND-POWDER-03",
+      "IND-RICE-02",
+      "IND-SALT-02",
+      "IND-SHEEP-02",
+      "IND-SHEEP-03",
+      "IND-SHIP-01",
+      "IND-SHIP-02",
+      "IND-SHIP-03",
+      "IND-SILK-02",
+      "IND-SILK-03",
+      "IND-SILVER-02",
+      "IND-SILVER-03",
+      "IND-SOAP-01",
+      "IND-SPICE-02",
+      "IND-STEEL-01",
+      "IND-TANNIN-02",
+      "IND-TIMBER-02",
+      "IND-TIMBER-03",
+      "IND-TIN-02",
+      "IND-VINE-02",
+      "IND-VINE-03",
+      "IND-WHALE-02",
+      "IND-WHEAT-02",
+      "IND-WHEAT-03",
+      "MINE-COAL-01",
+      "MINE-COPPER-01",
+      "MINE-GOLD-01",
+      "MINE-IRON-01",
+      "MINE-IRON-02",
+      "MINE-SILVER-01",
+      "MINE-SULFUR-02",
+      "MINE-TIN-01",
+      "CWT-020",
+      "CWT-021",
+      "CWT-022",
+      "CWT-023",
+      "CWT-024",
+      "CWT-025",
+      "T0-DOM-01",
+      "T0-DOM-02",
+      "T0-DOM-03",
+      "T0-DOM-04",
+      "T0-DOM-05",
+      "T0-DOM-06",
+      "T0-DOM-07",
+      "T0-DOM-08",
+      "CWT-010",
+      "CWT-011",
+      "CWT-012",
+      "CWT-013",
+      "CWT-014",
+      "CWT-015",
+      "CWT-030",
+      "CWT-031",
+      "CWT-032",
+      "CWT-033",
+      "CWT-034",
+      "CWT-040",
+      "CWT-041",
+      "CWT-042",
+      "CWT-044",
+      "CWT-045",
+      "CWT-050",
+      "CWT-060",
+      "CWT-061",
+      "CWT-062",
+      "CWT-063",
+      "CWT-064",
+      "CWT-065",
+      "CWT-066",
+      "CWT-067",
+      "CWT-068",
+      "CWT-069",
+      "CWT-070",
+      "CWT-071",
+      "CWT-072",
+      "CWT-073",
+      "CWT-074",
+      "CWT-075",
+      "CWT-076",
+      "CWT-077",
+      "CWT-078",
+      "STARTER-02",
+      "STARTER-03",
+      "STARTER-04",
+      "STARTER-05",
+      "STARTER-06"
+    ]
   },
-  "edgeData": {},
+  "edgeData": {
+    "1-BG-SC-14": {
+      "conduitType": "Caravan Trade Route",
+      "dedicatedFlows": [
+        {
+          "tag": "Ore: Raw-Iron-Ore",
+          "sourceModuleId": "MINE-IRON-01"
+        }
+      ]
+    },
+    "BG-SC-14-bind": {
+      "conduitType": "Caravan Trade Route",
+      "dedicatedFlows": [
+        {
+          "tag": "Ore: Raw-Iron-Ore",
+          "sourceModuleId": "MINE-IRON-01"
+        }
+      ]
+    },
+    "BG-SC-13-BG-SC-14": {
+      "conduitType": "Caravan Trade Route",
+      "dedicatedFlows": [
+        {
+          "tag": "Ore: Raw-Iron-Ore",
+          "sourceModuleId": "MINE-IRON-01"
+        }
+      ]
+    },
+    "BG-SC-01-BG-SC-13": {
+      "conduitType": "Caravan Trade Route",
+      "dedicatedFlows": [
+        {
+          "tag": "Metal: Pig-Iron",
+          "sourceModuleId": "MINE-IRON-02"
+        },
+        {
+          "tag": "Timber: Hardwood-Logs",
+          "sourceModuleId": "EXT-TIMBER-01"
+        }
+      ]
+    },
+    "BG-SC-01-BG-SC-03": {
+      "conduitType": "Caravan Trade Route",
+      "dedicatedFlows": [
+        {
+          "tag": "Timber: Sawn-Lumber",
+          "sourceModuleId": "IND-TIMBER-02"
+        }
+      ]
+    }
+  },
   "edgeNotes": {},
   "nodes": {
-    "231": {
-      "id": 231,
-      "name": "Subterranean Incline from Level 3",
-      "x": 80,
-      "y": 660,
+    "BG-SC-01": {
+      "id": "BG-SC-01",
+      "name": "Candlekeep Fortress & Great Library",
+      "x": 91,
+      "y": 468,
       "coordinates": {
-        "x": 80,
-        "y": 660
+        "x": 91,
+        "y": 468
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Hierarchy",
+      "shape": "pentagon",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [
+        "BG-SC-13",
+        "BG-SC-03"
+      ],
+      "infBy": [],
+      "childMapId": "map_bg1_candlekeep",
+      "customNotes": "A colossal sea-cliff citadel housing the greatest repository of philosophical, historical, and prophetic tomes in Faerun. Monks chant the prophecies of Alaundo within walled courtyards under the austere rule of the Keeper of Tomes.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "IND-IRON-03",
+        "IND-TIMBER-02"
+      ],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-02": {
+      "id": "BG-SC-02",
+      "name": "The Coast Way & Lion's Way",
+      "x": 119,
+      "y": 620,
+      "coordinates": {
+        "x": 119,
+        "y": 620
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Clan",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "Rutted coastal highway winding through coastal scrubland and low limestone crags. Gorion fell here to armored ambushers in the night. The scent of spilled blood and ozone still clings to the road verge.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-03": {
+      "id": "BG-SC-03",
+      "name": "The Friendly Arm Inn",
+      "x": 315,
+      "y": 348,
+      "coordinates": {
+        "x": 315,
+        "y": 348
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Clan",
+      "shape": "pentagon",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [
+        "BG-SC-01"
+      ],
+      "infBy": [],
+      "childMapId": "map_bg1_friendly_arm",
+      "customNotes": "A fortified walled citadel built around an ancient stone keep by the gnome illusionist Bentley Mirrorshade. Banners of Garl Glittergold flutter above stone ramparts that offer sanctuary to beleaguered trade caravans.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "IND-TIMBER-03"
+      ],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-04": {
+      "id": "BG-SC-04",
+      "name": "Township of Beregost",
+      "x": 318,
+      "y": 553,
+      "coordinates": {
+        "x": 318,
+        "y": 553
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Market",
+      "shape": "pentagon",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": "map_bg1_beregost",
+      "customNotes": "A bustling crossroads market town smelling of coal smoke, roasted mutton, and damp horsehair. Four sprawling coaching taverns surround the high chimney of Taerom Fuiruim's Thunderhammer Smithy.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-05": {
+      "id": "BG-SC-05",
+      "name": "High Hedge Estate",
+      "x": 215,
+      "y": 571,
+      "coordinates": {
+        "x": 215,
+        "y": 571
       },
       "wave": 1,
       "tier": 2,
       "culture": "Adhocracy",
-      "shape": "square",
+      "shape": "diamond",
       "eligible": true,
       "hubEligibility": "candidate",
       "adj": [],
       "infBy": [],
       "childMapId": null,
-      "customNotes": "The wet subterranean approach carved through black schist. Water sloshes along the narrow stone ledges flanked by glowing phosphor fungus.",
-      "locked": false,
+      "customNotes": "A towering manse shielded by enchanted bramble mazes and patrolling flesh golems. Within, the reclusive conjure-master Thalantyr tests the limits of planar binding and antique artifact transmutation.",
+      "locked": true,
       "visible": true,
       "color": null,
       "modules": [],
       "provides": [],
       "requires": [],
       "modData": {},
+      "odv": {
+        "s": 2,
+        "e": 2,
+        "c": 2
+      },
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "232": {
-      "id": 232,
-      "name": "Sanctum Approach & Xan's Prison Cell",
-      "x": 380,
-      "y": 440,
+    "BG-SC-06": {
+      "id": "BG-SC-06",
+      "name": "Township of Nashkel",
+      "x": 313,
+      "y": 784,
       "coordinates": {
-        "x": 380,
-        "y": 440
+        "x": 313,
+        "y": 784
       },
       "wave": 1,
       "tier": 2,
       "culture": "Hierarchy",
-      "shape": "square",
+      "shape": "pentagon",
       "eligible": true,
       "hubEligibility": "candidate",
       "adj": [],
       "infBy": [],
-      "childMapId": null,
-      "customNotes": "A barred alcove overlooking the central cavern where the melancholic elven sorcerer Xan is bound in iron shackles. He warns of certain doom and laments the theft of his Moonblade.",
-      "locked": false,
+      "childMapId": "map_bg1_nashkel_town",
+      "customNotes": "Northern Amnian frontier outpost at the foot of the Cloud Peaks. Armed town guards in scarlet tunics eye refugees suspiciously while miners pack tavern porches demanding answers to the iron rot.",
+      "locked": true,
       "visible": true,
       "color": null,
       "modules": [],
       "provides": [],
       "requires": [],
       "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "233": {
-      "id": 233,
-      "name": "Mulahey's Desecrated Shrine & Sanctum",
-      "x": 590,
-      "y": 380,
+    "BG-SC-07": {
+      "id": "BG-SC-07",
+      "name": "Nashkel Mines Surface Quarry",
+      "x": 424,
+      "y": 863,
       "coordinates": {
-        "x": 590,
-        "y": 380
+        "x": 424,
+        "y": 863
       },
       "wave": 1,
       "tier": 2,
-      "culture": "Hierarchy",
-      "shape": "star",
+      "culture": "Market",
+      "shape": "triangle",
       "eligible": true,
       "hubEligibility": "candidate",
       "adj": [],
       "infBy": [],
-      "childMapId": null,
-      "customNotes": "A natural island cavern surrounded by subterranean waters, converted into a shrine to Cyric. The priest Mulahey directs the poison operations here with a chest full of Iron Throne correspondence.",
-      "locked": false,
+      "childMapId": "map_bg1_nashkel_mines_surface",
+      "customNotes": "Open-pit iron excavation choked with wooden derricks, gravel heaps, and soldier pickets. Contaminated ore sits piled in wooden sluices while terrified miners refuse to descend into the lower galleries.",
+      "locked": true,
       "visible": true,
       "color": null,
       "modules": [],
       "provides": [],
       "requires": [],
       "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "234": {
-      "id": 234,
-      "name": "Underground Lake Shore",
-      "x": 740,
-      "y": 220,
+    "BG-SC-08": {
+      "id": "BG-SC-08",
+      "name": "Cloud Peaks & Gnoll Stronghold",
+      "x": 67,
+      "y": 882,
       "coordinates": {
-        "x": 740,
-        "y": 220
+        "x": 67,
+        "y": 882
       },
       "wave": 1,
       "tier": 2,
@@ -7080,26 +8393,101 @@
       "adj": [],
       "infBy": [],
       "childMapId": null,
-      "customNotes": "A slippery calcite terrace bordering the underground lake. Subterranean oozes and cave lizards nest among discarded mining helmets and half-eaten rations.",
-      "locked": false,
+      "customNotes": "Craggy, windswept mountain passes crowned by a barbaric timber-and-boulder fortress overlooking deep river gorges. Howls of gnoll war-packs echo across natural rope bridges.",
+      "locked": true,
       "visible": true,
       "color": null,
       "modules": [],
       "provides": [],
       "requires": [],
       "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     },
-    "235": {
-      "id": 235,
-      "name": "Valley Chute / Cloud Peak Surface Exit",
-      "x": 970,
-      "y": 380,
+    "BG-SC-09": {
+      "id": "BG-SC-09",
+      "name": "Gullykin & Firewine Ruins",
+      "x": 571,
+      "y": 648,
       "coordinates": {
-        "x": 970,
-        "y": 380
+        "x": 571,
+        "y": 648
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Clan",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "A peaceful halfling burrowing hamlet perched atop the sunken catacombs of the ancient elven city of Firewine. Wine cellars conceal hidden masonry tunnels into kobold-infested crypts.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-10": {
+      "id": "BG-SC-10",
+      "name": "Ulcaster School of Sorcery Ruins",
+      "x": 446,
+      "y": 616,
+      "coordinates": {
+        "x": 446,
+        "y": 616
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Adhocracy",
+      "shape": "diamond",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "The charred stone carcass of a grand conjuration academy razed three centuries ago by Calishite mages. The spectral shade of Ulcaster still glides across scorched stone arches reciting lost arcana.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-11": {
+      "id": "BG-SC-11",
+      "name": "Larswood & Peldvale Frontier",
+      "x": 497,
+      "y": 328,
+      "coordinates": {
+        "x": 497,
+        "y": 328
       },
       "wave": 1,
       "tier": 2,
@@ -7110,20 +8498,306 @@
       "adj": [],
       "infBy": [],
       "childMapId": null,
-      "customNotes": "A natural drainage cleft through the eastern rock wall bathed in crisp outside sunlight. The tunnel empties onto the steep scree slopes of the eastern Cloud Peaks.",
-      "locked": false,
+      "customNotes": "Dense deciduous woodland traversed by hidden bandit trails. Raiken and Teven's raiding outposts ambush merchant supply lines heading north toward the Chionthar.",
+      "locked": true,
       "visible": true,
       "color": null,
       "modules": [],
       "provides": [],
       "requires": [],
       "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-12": {
+      "id": "BG-SC-12",
+      "name": "Tazok's Hidden Bandit Camp",
+      "x": 457,
+      "y": 252,
+      "coordinates": {
+        "x": 457,
+        "y": 252
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Market",
+      "shape": "pentagon",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": "map_bg1_bandit_camp",
+      "customNotes": "A massive military encampment concealed within a pine hollow, occupied by Chill hobgoblins, Black Talon human archers, and iron-hoard tents orchestrated by the half-ogre Tazok.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-13": {
+      "id": "BG-SC-13",
+      "name": "Cloakwood Primeval Forest",
+      "x": 149,
+      "y": 365,
+      "coordinates": {
+        "x": 149,
+        "y": 365
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Clan",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [
+        "BG-SC-14",
+        "BG-SC-01"
+      ],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "Dense, sun-choked canopy choked with hanging moss, territorial Shadow Druids, giant phase spiders, and nesting forest wyverns along the river gorge.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MINE-IRON-02",
+        "EXT-TIMBER-01"
+      ],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-14": {
+      "id": "BG-SC-14",
+      "name": "Cloakwood Secret Iron Mines",
+      "x": 62,
+      "y": 321,
+      "coordinates": {
+        "x": 62,
+        "y": 321
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Market",
+      "shape": "triangle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [
+        "bind",
+        "BG-SC-13"
+      ],
+      "infBy": [],
+      "childMapId": "map_bg1_cloakwood_mines",
+      "customNotes": "A fortified quarry and subterranean smelter operated by Iron Throne slave drivers and guarded by black-glass wards, overseen by the ruthless battle-mage Davaeorn.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [
+        "MINE-IRON-01"
+      ],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-15": {
+      "id": "BG-SC-15",
+      "name": "Wyrm's Crossing Bridge",
+      "x": 344,
+      "y": 189,
+      "coordinates": {
+        "x": 344,
+        "y": 189
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Hierarchy",
+      "shape": "diamond",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "A colossal double-span stone arched viaduct crossing the wide Chionthar River, guarded by a fortified Flaming Fist gatehouse screening travelers for iron contraband and fugitives.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-16": {
+      "id": "BG-SC-16",
+      "name": "Metropolis of Baldur's Gate",
+      "x": 156,
+      "y": 102,
+      "coordinates": {
+        "x": 156,
+        "y": 102
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Hierarchy",
+      "shape": "star",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": "map_bg1_city",
+      "customNotes": "The sovereign trade capital of the Sword Coast. Sprawling multi-tiered granite bastions, crowded merchant docks, labyrinthine sewers, and the towering black-iron monolith of the Iron Throne HQ.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-17": {
+      "id": "BG-SC-17",
+      "name": "Ulgoth's Beard Seaport",
+      "x": 469,
+      "y": 53,
+      "coordinates": {
+        "x": 469,
+        "y": 53
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Adhocracy",
+      "shape": "circle",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": null,
+      "customNotes": "A foggy northern fishing hamlet where arcane eccentric Shandalar resides, serving as the staging ground for maritime expeditions to the Isle of Balduran and Durlag's Tower.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
+    },
+    "BG-SC-18": {
+      "id": "BG-SC-18",
+      "name": "Durlag's Tower Citadel",
+      "x": 510,
+      "y": 768,
+      "coordinates": {
+        "x": 510,
+        "y": 768
+      },
+      "wave": 1,
+      "tier": 2,
+      "culture": "Adhocracy",
+      "shape": "star",
+      "eligible": true,
+      "hubEligibility": "candidate",
+      "adj": [],
+      "infBy": [],
+      "childMapId": "map_bg1_durlags_tower",
+      "customNotes": "A tragic dwarven fortress built by hero Durlag Trollkiller, now a nightmare dungeon of four deadly subterranean levels choked with lethal wards, doppelgangers, and the Demon Knight.",
+      "locked": true,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
     }
   },
-  "links": [],
+  "links": [
+    {
+      "from": "BG-SC-01",
+      "to": "BG-SC-13",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "BG-SC-01",
+      "to": "BG-SC-03",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "BG-SC-13",
+      "to": "BG-SC-14",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "BG-SC-14",
+      "to": "bind",
+      "type": "twoway",
+      "layer": "transit"
+    }
+  ],
   "waves": [],
   "entities": {
     "npcs": [
@@ -8433,6 +10107,62 @@
           "Welcome, friends, to the Friendly Arm Inn! Put away your steel, order an ale, and rest easy."
         ],
         "relationships": []
+      },
+      {
+        "id": "npc-mw4ip7jd-1",
+        "name": "Bera Iron-Grip",
+        "role": "Pit Shoring Carpenter & Sump Tender",
+        "faction": "Hierarchy / Clan",
+        "motivation": "Keep timber props braced against the creeping south fault line.",
+        "moduleId": "MINE-IRON-01",
+        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-01-npc-2",
+        "nodeId": "BG-SC-14",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw4ip7jl-2",
+        "name": "Foreman Grim Torvald",
+        "role": "Chief Mine Quarryman",
+        "faction": "Hierarchy / Clan",
+        "motivation": "Drive extraction quotas to earn his crew",
+        "moduleId": "MINE-IRON-01",
+        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-01-npc-1",
+        "nodeId": "BG-SC-14",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw4ip7kb-5",
+        "name": "Sela the Tapper",
+        "role": "Taphole Chisel Specialist",
+        "faction": "Hierarchy / Market",
+        "motivation": "Survive the deadly white-hot slag run and secure safe casting molds for iron shot.",
+        "moduleId": "MINE-IRON-02",
+        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-02-npc-2",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw4ip7ki-6",
+        "name": "Master Smelter Kaelen",
+        "role": "Chief Blast Master",
+        "faction": "Hierarchy / Market",
+        "motivation": "Keep the furnace tapped on schedule to prevent the molten salamander from freezing solid.",
+        "moduleId": "MINE-IRON-02",
+        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-02-npc-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
       }
     ],
     "quests": [
@@ -8914,6 +10644,202 @@
         "ownerNpcId": "npc_thalantyr",
         "possessionMode": "carried",
         "status": "Active"
+      },
+      {
+        "id": "item-mw4ip7jt-3",
+        "name": "Open-Cast Iron Ore Pit",
+        "category": "Infrastructural Machinery",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-01.",
+        "moduleId": "MINE-IRON-01",
+        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-01-item-apparatus",
+        "nodeId": "BG-SC-14",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4ip7k3-4",
+        "name": "Ore: Raw Iron Ore",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Ore: Raw-Iron-Ore",
+        "notes": "Supply chain material or energy export produced by MINE-IRON-01 for downstream consumer nodes.",
+        "moduleId": "MINE-IRON-01",
+        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-01-item-res-1",
+        "nodeId": "BG-SC-14",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4ip7kq-7",
+        "name": "Charcoal Bloomery and Blast Furnace",
+        "category": "Infrastructural Machinery",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-02.",
+        "moduleId": "MINE-IRON-02",
+        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-02-item-apparatus",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4ip7kz-8",
+        "name": "Metal: Pig Iron",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Metal: Pig-Iron",
+        "notes": "Supply chain material or energy export produced by MINE-IRON-02 for downstream consumer nodes.",
+        "moduleId": "MINE-IRON-02",
+        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "suggestedNode": null,
+        "prototypeId": "MINE-IRON-02-item-res-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4ip7l9-9",
+        "name": "Blacksmith Forge",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-IRON-03.",
+        "moduleId": "IND-IRON-03",
+        "moduleTitle": "Blacksmith Forge",
+        "suggestedNode": null,
+        "prototypeId": "IND-IRON-03-item-apparatus",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4ip7li-a",
+        "name": "Metal: Forged Iron",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Metal: Forged-Iron",
+        "notes": "Supply chain material or energy export produced by IND-IRON-03 for downstream consumer nodes.",
+        "moduleId": "IND-IRON-03",
+        "moduleTitle": "Blacksmith Forge",
+        "suggestedNode": null,
+        "prototypeId": "IND-IRON-03-item-res-1",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4ea-b",
+        "name": "Hardwood Logging Camp",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01.",
+        "moduleId": "EXT-TIMBER-01",
+        "moduleTitle": "Hardwood Logging Camp",
+        "suggestedNode": null,
+        "prototypeId": "EXT-TIMBER-01-item-apparatus",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4em-c",
+        "name": "Timber: Hardwood Logs",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Timber: Hardwood-Logs",
+        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
+        "moduleId": "EXT-TIMBER-01",
+        "moduleTitle": "Hardwood Logging Camp",
+        "suggestedNode": null,
+        "prototypeId": "EXT-TIMBER-01-item-res-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4ex-d",
+        "name": "Fuel: Wood Fuel",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Fuel: Wood-Fuel",
+        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
+        "moduleId": "EXT-TIMBER-01",
+        "moduleTitle": "Hardwood Logging Camp",
+        "suggestedNode": null,
+        "prototypeId": "EXT-TIMBER-01-item-res-2",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4f8-e",
+        "name": "Water-Powered Sawmill",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-02.",
+        "moduleId": "IND-TIMBER-02",
+        "moduleTitle": "Water-Powered Sawmill",
+        "suggestedNode": null,
+        "prototypeId": "IND-TIMBER-02-item-apparatus",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4fn-f",
+        "name": "Timber: Sawn Lumber",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Timber: Sawn-Lumber",
+        "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
+        "moduleId": "IND-TIMBER-02",
+        "moduleTitle": "Water-Powered Sawmill",
+        "suggestedNode": null,
+        "prototypeId": "IND-TIMBER-02-item-res-1",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4fw-g",
+        "name": "Timber: Mine Props",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Timber: Mine-Props",
+        "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
+        "moduleId": "IND-TIMBER-02",
+        "moduleTitle": "Water-Powered Sawmill",
+        "suggestedNode": null,
+        "prototypeId": "IND-TIMBER-02-item-res-2",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4gc-h",
+        "name": "Master Cooperage",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-03.",
+        "moduleId": "IND-TIMBER-03",
+        "moduleTitle": "Master Cooperage",
+        "suggestedNode": null,
+        "prototypeId": "IND-TIMBER-03-item-apparatus",
+        "nodeId": "BG-SC-03",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw4it4gp-i",
+        "name": "Timber: Cooperage Casks",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Timber: Cooperage-Casks",
+        "notes": "Supply chain material or energy export produced by IND-TIMBER-03 for downstream consumer nodes.",
+        "moduleId": "IND-TIMBER-03",
+        "moduleTitle": "Master Cooperage",
+        "suggestedNode": null,
+        "prototypeId": "IND-TIMBER-03-item-res-1",
+        "nodeId": "BG-SC-03",
+        "status": "Active",
+        "isCustom": false
       }
     ],
     "trackers": [
@@ -10512,6 +12438,62 @@
         "Welcome, friends, to the Friendly Arm Inn! Put away your steel, order an ale, and rest easy."
       ],
       "relationships": []
+    },
+    {
+      "id": "npc-mw4ip7jd-1",
+      "name": "Bera Iron-Grip",
+      "role": "Pit Shoring Carpenter & Sump Tender",
+      "faction": "Hierarchy / Clan",
+      "motivation": "Keep timber props braced against the creeping south fault line.",
+      "moduleId": "MINE-IRON-01",
+      "moduleTitle": "Open-Cast Iron Ore Pit",
+      "suggestedNode": null,
+      "prototypeId": "MINE-IRON-01-npc-2",
+      "nodeId": "BG-SC-14",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "npc-mw4ip7jl-2",
+      "name": "Foreman Grim Torvald",
+      "role": "Chief Mine Quarryman",
+      "faction": "Hierarchy / Clan",
+      "motivation": "Drive extraction quotas to earn his crew",
+      "moduleId": "MINE-IRON-01",
+      "moduleTitle": "Open-Cast Iron Ore Pit",
+      "suggestedNode": null,
+      "prototypeId": "MINE-IRON-01-npc-1",
+      "nodeId": "BG-SC-14",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "npc-mw4ip7kb-5",
+      "name": "Sela the Tapper",
+      "role": "Taphole Chisel Specialist",
+      "faction": "Hierarchy / Market",
+      "motivation": "Survive the deadly white-hot slag run and secure safe casting molds for iron shot.",
+      "moduleId": "MINE-IRON-02",
+      "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+      "suggestedNode": null,
+      "prototypeId": "MINE-IRON-02-npc-2",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "npc-mw4ip7ki-6",
+      "name": "Master Smelter Kaelen",
+      "role": "Chief Blast Master",
+      "faction": "Hierarchy / Market",
+      "motivation": "Keep the furnace tapped on schedule to prevent the molten salamander from freezing solid.",
+      "moduleId": "MINE-IRON-02",
+      "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+      "suggestedNode": null,
+      "prototypeId": "MINE-IRON-02-npc-1",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
     }
   ],
   "quests": [
@@ -10993,6 +12975,202 @@
       "ownerNpcId": "npc_thalantyr",
       "possessionMode": "carried",
       "status": "Active"
+    },
+    {
+      "id": "item-mw4ip7jt-3",
+      "name": "Open-Cast Iron Ore Pit",
+      "category": "Infrastructural Machinery",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-01.",
+      "moduleId": "MINE-IRON-01",
+      "moduleTitle": "Open-Cast Iron Ore Pit",
+      "suggestedNode": null,
+      "prototypeId": "MINE-IRON-01-item-apparatus",
+      "nodeId": "BG-SC-14",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4ip7k3-4",
+      "name": "Ore: Raw Iron Ore",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Ore: Raw-Iron-Ore",
+      "notes": "Supply chain material or energy export produced by MINE-IRON-01 for downstream consumer nodes.",
+      "moduleId": "MINE-IRON-01",
+      "moduleTitle": "Open-Cast Iron Ore Pit",
+      "suggestedNode": null,
+      "prototypeId": "MINE-IRON-01-item-res-1",
+      "nodeId": "BG-SC-14",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4ip7kq-7",
+      "name": "Charcoal Bloomery and Blast Furnace",
+      "category": "Infrastructural Machinery",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-02.",
+      "moduleId": "MINE-IRON-02",
+      "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+      "suggestedNode": null,
+      "prototypeId": "MINE-IRON-02-item-apparatus",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4ip7kz-8",
+      "name": "Metal: Pig Iron",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Metal: Pig-Iron",
+      "notes": "Supply chain material or energy export produced by MINE-IRON-02 for downstream consumer nodes.",
+      "moduleId": "MINE-IRON-02",
+      "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+      "suggestedNode": null,
+      "prototypeId": "MINE-IRON-02-item-res-1",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4ip7l9-9",
+      "name": "Blacksmith Forge",
+      "category": "Tabletop Asset / Relic",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by IND-IRON-03.",
+      "moduleId": "IND-IRON-03",
+      "moduleTitle": "Blacksmith Forge",
+      "suggestedNode": null,
+      "prototypeId": "IND-IRON-03-item-apparatus",
+      "nodeId": "BG-SC-01",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4ip7li-a",
+      "name": "Metal: Forged Iron",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Metal: Forged-Iron",
+      "notes": "Supply chain material or energy export produced by IND-IRON-03 for downstream consumer nodes.",
+      "moduleId": "IND-IRON-03",
+      "moduleTitle": "Blacksmith Forge",
+      "suggestedNode": null,
+      "prototypeId": "IND-IRON-03-item-res-1",
+      "nodeId": "BG-SC-01",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4it4ea-b",
+      "name": "Hardwood Logging Camp",
+      "category": "Tabletop Asset / Relic",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01.",
+      "moduleId": "EXT-TIMBER-01",
+      "moduleTitle": "Hardwood Logging Camp",
+      "suggestedNode": null,
+      "prototypeId": "EXT-TIMBER-01-item-apparatus",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4it4em-c",
+      "name": "Timber: Hardwood Logs",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Timber: Hardwood-Logs",
+      "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
+      "moduleId": "EXT-TIMBER-01",
+      "moduleTitle": "Hardwood Logging Camp",
+      "suggestedNode": null,
+      "prototypeId": "EXT-TIMBER-01-item-res-1",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4it4ex-d",
+      "name": "Fuel: Wood Fuel",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Fuel: Wood-Fuel",
+      "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
+      "moduleId": "EXT-TIMBER-01",
+      "moduleTitle": "Hardwood Logging Camp",
+      "suggestedNode": null,
+      "prototypeId": "EXT-TIMBER-01-item-res-2",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4it4f8-e",
+      "name": "Water-Powered Sawmill",
+      "category": "Tabletop Asset / Relic",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-02.",
+      "moduleId": "IND-TIMBER-02",
+      "moduleTitle": "Water-Powered Sawmill",
+      "suggestedNode": null,
+      "prototypeId": "IND-TIMBER-02-item-apparatus",
+      "nodeId": "BG-SC-01",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4it4fn-f",
+      "name": "Timber: Sawn Lumber",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Timber: Sawn-Lumber",
+      "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
+      "moduleId": "IND-TIMBER-02",
+      "moduleTitle": "Water-Powered Sawmill",
+      "suggestedNode": null,
+      "prototypeId": "IND-TIMBER-02-item-res-1",
+      "nodeId": "BG-SC-01",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4it4fw-g",
+      "name": "Timber: Mine Props",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Timber: Mine-Props",
+      "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
+      "moduleId": "IND-TIMBER-02",
+      "moduleTitle": "Water-Powered Sawmill",
+      "suggestedNode": null,
+      "prototypeId": "IND-TIMBER-02-item-res-2",
+      "nodeId": "BG-SC-01",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4it4gc-h",
+      "name": "Master Cooperage",
+      "category": "Tabletop Asset / Relic",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-03.",
+      "moduleId": "IND-TIMBER-03",
+      "moduleTitle": "Master Cooperage",
+      "suggestedNode": null,
+      "prototypeId": "IND-TIMBER-03-item-apparatus",
+      "nodeId": "BG-SC-03",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw4it4gp-i",
+      "name": "Timber: Cooperage Casks",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Timber: Cooperage-Casks",
+      "notes": "Supply chain material or energy export produced by IND-TIMBER-03 for downstream consumer nodes.",
+      "moduleId": "IND-TIMBER-03",
+      "moduleTitle": "Master Cooperage",
+      "suggestedNode": null,
+      "prototypeId": "IND-TIMBER-03-item-res-1",
+      "nodeId": "BG-SC-03",
+      "status": "Active",
+      "isCustom": false
     }
   ],
   "trackers": [

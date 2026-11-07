@@ -1,0 +1,281 @@
+{
+  "id": "map_tristram",
+  "name": "Tristram",
+  "scaleTier": "district",
+  "parentMapId": "map_tristram_region",
+  "parentNodeId": "N_TRISTRAM",
+  "nodes": [
+    {
+      "id": "N_RISING_SUN_INN_AND_TAVERN",
+      "name": "Rising Sun Inn and Tavern",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "tier": 1,
+      "customNotes": "# Rising Sun Inn and Tavern\n\nOgden's inn and tavern in Tristram. Its hanging sign was stolen by demons.",
+      "x": 872,
+      "y": 454,
+      "adj": [
+        "N_CURSED_CATHEDRAL",
+        "N_CAVE_NEAR_WIRT_CLEARING"
+      ],
+      "childMapId": null,
+      "displayName": "Rising Sun Inn and Tavern",
+      "coordinates": {
+        "x": 872,
+        "y": 454
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_RUINED_CATHEDRAL_AT_THE_EDGE_OF_THE_VILLAGE",
+      "name": "Ruined cathedral at the edge of the village",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "tier": 3,
+      "customNotes": "# Ruined cathedral at the edge of the village\n\nA ruined cathedral at the edge of a somber, twilit village, where the townsfolk say strange rituals are performed. Something evil haunts the place, though its nature is not immediately clear.\n\n**Sights:** at the entrance to the church a dying man writhes in agony. Dim light seeps from the church doorway, and within, a stone stairway plunges down into darkness.\n\n**Smells:** below, the scent of death surrounds the hero.\n\n**Who is there:** an anxious and dwindling populace speaks of invasion by dark riders and of the rituals performed in the ruin.",
+      "x": 1223,
+      "y": 303,
+      "adj": [
+        "N_CURSED_CATHEDRAL"
+      ],
+      "childMapId": null,
+      "displayName": "Ruined cathedral at the edge of the village",
+      "coordinates": {
+        "x": 1223,
+        "y": 303
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_CURSED_CATHEDRAL",
+      "name": "The Cursed Cathedral",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "tier": 3,
+      "customNotes": "# The Cursed Cathedral\n\nThe church in Tristram. The main entrance to the dungeon is through its front door, which takes the player down to the first level of the labyrinth, where they explore room by room.\n\n**Hazards:** labyrinthine dungeon levels with increasingly vicious monsters. Stairways deep within the dungeon open back to Tristram.",
+      "x": 1134,
+      "y": 478,
+      "adj": [
+        "N_RUINED_CATHEDRAL_AT_THE_EDGE_OF_THE_VILLAGE",
+        "N_RISING_SUN_INN_AND_TAVERN",
+        "N_CATACOMBS_MAUSOLEUM",
+        "N_CRYPT_IN_THE_GRAVEYARD"
+      ],
+      "childMapId": null,
+      "displayName": "The Cursed Cathedral",
+      "coordinates": {
+        "x": 1134,
+        "y": 478
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_FISSURE_BEHIND_PEPIN_HOUSE",
+      "name": "Fissure behind Pepin's house",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "tier": 2,
+      "customNotes": "# Fissure behind Pepin's house\n\nTaking the up staircase on level 13 opens a fissure in the ground behind Pepin's house in Tristram. Through this fissure the player can return to hell.",
+      "x": 399,
+      "y": 411,
+      "adj": [
+        "N_CAVE_NEAR_WIRT_CLEARING",
+        "N_HELL"
+      ],
+      "childMapId": null,
+      "displayName": "Fissure behind Pepin's house",
+      "coordinates": {
+        "x": 399,
+        "y": 411
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_HELL",
+      "name": "Hell",
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "tier": 3,
+      "customNotes": "The deep realm reached through the fissure behind Pepin's house on dungeon level 13.\n\nThe fissure behind Pepin's house lets the player return to hell from the dungeon.",
+      "x": 213,
+      "y": 394,
+      "adj": [
+        "N_FISSURE_BEHIND_PEPIN_HOUSE"
+      ],
+      "childMapId": null,
+      "displayName": "Hell",
+      "coordinates": {
+        "x": 213,
+        "y": 394
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_CRYPT_IN_THE_GRAVEYARD",
+      "name": "Crypt in the graveyard",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "tier": 1,
+      "customNotes": "A crypt in Tristram's graveyard. On the fifth level of the dungeon, stairways emerge from the crypt, opening an avenue leading to Tristram and giving a route back to town.",
+      "x": 1189,
+      "y": 667,
+      "adj": [
+        "N_CURSED_CATHEDRAL"
+      ],
+      "childMapId": null,
+      "displayName": "Crypt in the graveyard",
+      "coordinates": {
+        "x": 1189,
+        "y": 667
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_CAVE_NEAR_WIRT_CLEARING",
+      "name": "Cave near Wirt's clearing",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "tier": 1,
+      "customNotes": "A cave near where Wirt stands in Tristram. On the ninth level of the dungeon, the stairs to town lead to this cave.",
+      "x": 625,
+      "y": 431,
+      "adj": [
+        "N_RISING_SUN_INN_AND_TAVERN",
+        "N_FISSURE_BEHIND_PEPIN_HOUSE"
+      ],
+      "childMapId": null,
+      "displayName": "Cave near Wirt's clearing",
+      "coordinates": {
+        "x": 625,
+        "y": 431
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_CATACOMBS_MAUSOLEUM",
+      "name": "Catacombs mausoleum",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "tier": 1,
+      "customNotes": "A mausoleum in the catacombs. When the player reaches the catacombs, the mausoleum opens so the player can return to the town from that level.",
+      "x": 1338,
+      "y": 497,
+      "adj": [
+        "N_CURSED_CATHEDRAL"
+      ],
+      "childMapId": null,
+      "displayName": "Catacombs mausoleum",
+      "coordinates": {
+        "x": 1338,
+        "y": 497
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_CURSED_CATHEDRAL",
+      "to": "N_RUINED_CATHEDRAL_AT_THE_EDGE_OF_THE_VILLAGE",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_RISING_SUN_INN_AND_TAVERN",
+      "to": "N_CURSED_CATHEDRAL",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_CATACOMBS_MAUSOLEUM",
+      "to": "N_CURSED_CATHEDRAL",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_CRYPT_IN_THE_GRAVEYARD",
+      "to": "N_CURSED_CATHEDRAL",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_CAVE_NEAR_WIRT_CLEARING",
+      "to": "N_RISING_SUN_INN_AND_TAVERN",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_FISSURE_BEHIND_PEPIN_HOUSE",
+      "to": "N_CAVE_NEAR_WIRT_CLEARING",
+      "type": "twoway",
+      "layer": "both"
+    },
+    {
+      "from": "N_FISSURE_BEHIND_PEPIN_HOUSE",
+      "to": "N_HELL",
+      "type": "twoway",
+      "layer": "both"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "layers": [],
+  "shapes": []
+}
