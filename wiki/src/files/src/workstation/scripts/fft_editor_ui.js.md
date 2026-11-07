@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/fft_editor_ui.js"
 title: "fft_editor_ui.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "8c69088ebd82ddd9"
-reviewed_hash: "8c69088ebd82ddd9"
+current_hash: "50657bbae8de32ca"
+reviewed_hash: "50657bbae8de32ca"
 stale: false
-size_bytes: 16476
-line_count: 225
+size_bytes: 18339
+line_count: 276
 ---
 
 # fft_editor_ui.js

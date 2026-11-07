@@ -998,7 +998,9 @@
         entity.nodeId = parsedNodeId;
         if (entity.stationing) {
           entity.stationing.nodeId = parsedNodeId;
-          if (parsedNodeId && !entity.stationing.mode) entity.stationing.mode = 'lair';
+          if (parsedNodeId && (!entity.stationing.mode || entity.stationing.mode === 'unassigned')) {
+            entity.stationing.mode = 'lair';
+          }
         } else if (CurrentEntityTab === 'creature') {
           entity.stationing = { mode: parsedNodeId ? 'lair' : 'unassigned', nodeId: parsedNodeId };
         }

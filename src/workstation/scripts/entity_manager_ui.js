@@ -587,6 +587,7 @@
       if (typeof window !== 'undefined') window.CurrentEntityTab = CurrentEntityTab;
       SelectedEntityId = null;
       SelectedEntityFilter = 'all';
+      if (typeof window !== 'undefined') window.SelectedEntityFilter = SelectedEntityFilter;
       updateEntityTabButtons();
       renderEntityManagerTree();
       renderEntityManagerList();
@@ -941,7 +942,7 @@
         }
       }
 
-      // Bestiary Threat Tiers (Creatures)
+      // Bestiary Threat Tiers & Classifications (Creatures)
       if (CurrentEntityTab === 'creature') {
         const threatHeader = document.createElement('div');
         threatHeader.style.padding = '8px 6px 2px 6px';
@@ -965,6 +966,24 @@
             addTreeItem(container, `${threatNames[t] || `Tier ${t}`} (${count})`, `threat:${t}`);
           }
         }
+
+        const kindHeader = document.createElement('div');
+        kindHeader.style.padding = '8px 6px 2px 6px';
+        kindHeader.style.fontSize = '10px';
+        kindHeader.style.fontWeight = 'bold';
+        kindHeader.style.color = '#555';
+        kindHeader.textContent = 'BY CLASSIFICATION:';
+        container.appendChild(kindHeader);
+
+        const kindMap = {};
+        activeList.forEach(c => {
+          const k = (c.kind || 'beast').toLowerCase();
+          kindMap[k] = (kindMap[k] || 0) + 1;
+        });
+        Object.keys(kindMap).sort().forEach(k => {
+          const title = k.charAt(0).toUpperCase() + k.slice(1);
+          addTreeItem(container, `${title} (${kindMap[k]})`, `kind:${k}`);
+        });
       }
 
       // Tracker Scope Tiers (DEV-03)
@@ -1034,12 +1053,20 @@
       div.textContent = label;
       div.onclick = () => {
         SelectedEntityFilter = filterVal;
+        if (typeof window !== 'undefined') window.SelectedEntityFilter = SelectedEntityFilter;
         renderEntityManagerTree();
         renderEntityManagerList();
       };
       container.appendChild(div);
     }
 
+    function setEntityManagerFilter(filterVal) {
+      SelectedEntityFilter = filterVal || 'all';
+      if (typeof window !== 'undefined') window.SelectedEntityFilter = SelectedEntityFilter;
+      renderEntityManagerTree();
+      renderEntityManagerList();
+    }
+    window.setEntityManagerFilter = setEntityManagerFilter;
 
     let CurrentEntitySort = 'default';
     function setEntityManagerSort(sortMode) {
@@ -1050,6 +1077,9 @@
 
     // --- Entity Catalog List Table ---
     function renderEntityManagerList() {
+      if (typeof window !== 'undefined' && window.SelectedEntityFilter !== undefined) {
+        SelectedEntityFilter = window.SelectedEntityFilter;
+      }
       const thead = document.getElementById('em-table-head');
       const tbody = document.getElementById('em-table-body');
       if (!thead || !tbody) return;
@@ -1349,6 +1379,10 @@
               const th = parseInt(SelectedEntityFilter.replace('threat:', ''), 10);
               return (item.threatTier !== undefined ? item.threatTier : 2) === th;
             }
+            if (SelectedEntityFilter.startsWith('kind:')) {
+              const k = SelectedEntityFilter.replace('kind:', '').toLowerCase();
+              return (item.kind || 'beast').toLowerCase() === k;
+            }
           }
           if (CurrentEntityTab === 'tracker' && SelectedEntityFilter.startsWith('scope:')) {
             const sc = SelectedEntityFilter.replace('scope:', '').toLowerCase();
@@ -1546,6 +1580,42 @@
             <td>${hqNode}</td>
             <td><span class="entity-badge-tag" style="background:#15803d; color:#fff;">${terrCount} Nodes</span></td>
             <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('faction', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Faction">Del</button></td>
+          `;
+        } else if (CurrentEntityTab === 'creature') {
+          const effNodeId = getEntityEffectiveNodeId(item);
+          const formattedNode = effNodeId ? formatNodeRef(effNodeId, topo) : '<span style="color:#64748b; font-style:italic;">(Roaming / Wild)</span>';
+          const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('creature', item.id) : [];
+          const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
+
+          const tTier = (item.threatTier !== undefined) ? item.threatTier : 2;
+          const tierStyles = {
+            0: 'background:#64748b; color:#fff;',
+            1: 'background:#16a34a; color:#fff;',
+            2: 'background:#d97706; color:#fff;',
+            3: 'background:#dc2626; color:#fff;',
+            4: 'background:#7c3aed; color:#fff;',
+            5: 'background:#991b1b; color:#fff;'
+          };
+          const tierStyle = tierStyles[tTier] || 'background:#d97706; color:#fff;';
+          const tierBadge = `<span class="entity-badge-tag" style="${tierStyle}; font-weight:bold;">T${tTier}</span>`;
+
+          const kindStr = item.kind ? (item.kind.charAt(0).toUpperCase() + item.kind.slice(1)) : 'Beast';
+          const subtypeStr = item.subtype ? ` <span style="color:#64748b; font-size:9px;">(${escapeHtml(item.subtype)})</span>` : '';
+          const dreadVal = (item.dreadIndex !== undefined) ? item.dreadIndex : ((item.gigerenzerBehavior && item.gigerenzerBehavior.dreadIndex) !== undefined ? item.gigerenzerBehavior.dreadIndex : 1);
+          const dreadColor = dreadVal >= 7 ? '#b91c1c' : (dreadVal >= 4 ? '#ea580c' : '#475569');
+          const dreadBadge = `<span class="entity-badge-tag" style="background:#fff; border:1px solid ${dreadColor}; color:${dreadColor}; font-weight:bold;">💀 ${dreadVal}/10</span>`;
+
+          const srcCampaign = item.moduleId || (topo.name || 'Active Campaign');
+          const escapedId = escapeJsArg(item.id);
+
+          tr.innerHTML = `
+            <td><strong>🐉 ${nameVal}</strong>${tkBadge}</td>
+            <td>${tierBadge}</td>
+            <td><div>${kindStr}</div>${subtypeStr}</td>
+            <td>${dreadBadge}</td>
+            <td>${formattedNode}</td>
+            <td><span class="entity-badge-tag">${srcCampaign}</span></td>
+            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('creature', '${escapedId}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Creature">Del</button></td>
           `;
         } else {
           const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('quest', item.id) : [];
@@ -2294,7 +2364,7 @@
       const activeInstance = activeList.find(a => a.id === id || a.prototypeId === id);
 
       let nodeOptions = '<option value="">(Unassigned / In Pool)</option>';
-      const currentStationId = activeInstance ? activeInstance.nodeId : (entity.suggestedNode || entity.nodeId);
+      const currentStationId = getEntityEffectiveNodeId(activeInstance || entity) || (activeInstance ? activeInstance.nodeId : (entity.suggestedNode || entity.nodeId));
 
       if (typeof maps !== "undefined" && Object.keys(maps).length > 1) {
         Object.keys(maps).forEach(mId => {
@@ -3106,6 +3176,269 @@
             <div style="display:flex; gap:4px; margin-top:4px;">
               <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${facObj.id}')">Edit Faction</button>
               <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('faction', '${facObj.id}')">Delete Faction...</button>
+            </div>
+          </div>
+        `;
+      } else if (CurrentEntityTab === 'creature') {
+        // DEDICATED BESTIARY CREATURE INSPECTOR
+        const creatureObj = activeInstance || entity;
+        const currentStationId = getEntityEffectiveNodeId(creatureObj);
+        const allKnownNodes = getAllKnownNodesMap();
+        const hostNode = currentStationId ? (allKnownNodes[String(currentStationId)] || (topo.nodes && topo.nodes[String(currentStationId)])) : null;
+
+        const tTier = (creatureObj.threatTier !== undefined) ? creatureObj.threatTier : 2;
+        const tierNames = {
+          0: 'Tier 0: Minion / Vermin',
+          1: 'Tier 1: Common Encounter',
+          2: 'Tier 2: Dangerous Threat',
+          3: 'Tier 3: Apex / Elite Lair',
+          4: 'Tier 4: Legendary Monster',
+          5: 'Tier 5: World-Ender Crucible'
+        };
+        const tierStyles = {
+          0: 'background:#64748b; color:#fff;',
+          1: 'background:#16a34a; color:#fff;',
+          2: 'background:#d97706; color:#fff;',
+          3: 'background:#dc2626; color:#fff;',
+          4: 'background:#7c3aed; color:#fff;',
+          5: 'background:#991b1b; color:#fff;'
+        };
+        const tierStyle = tierStyles[tTier] || 'background:#d97706; color:#fff;';
+        const tierLabel = tierNames[tTier] || `Tier ${tTier}`;
+
+        // 6 Relative Capabilities (1-5 Pips)
+        const caps = creatureObj.relativeCapabilities || {};
+        const capKeys = [
+          { key: 'might', label: 'Might', icon: '💪' },
+          { key: 'agility', label: 'Agility', icon: '⚡' },
+          { key: 'resilience', label: 'Resilience', icon: '🛡️' },
+          { key: 'cunning', label: 'Cunning', icon: '🧠' },
+          { key: 'awareness', label: 'Awareness', icon: '👁️' },
+          { key: 'presence', label: 'Presence', icon: '👑' }
+        ];
+        const capBarsHtml = capKeys.map(k => {
+          const val = Math.max(1, Math.min(5, Number(caps[k.key] || 1)));
+          let pips = '';
+          for (let p = 1; p <= 5; p++) {
+            pips += (p <= val) ? '●' : '○';
+          }
+          return `
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; border:1px solid #cbd5e1; padding:2px 5px; border-radius:2px; font-size:10px;">
+              <span><strong>${k.icon} ${k.label}:</strong></span>
+              <span style="font-family:monospace; font-size:11px; color:#000080; letter-spacing:1px;">${pips} <span style="font-size:9px; color:#64748b;">(${val}/5)</span></span>
+            </div>
+          `;
+        }).join('');
+
+        // Dread Index & Gigerenzer Heuristics
+        const dreadVal = (creatureObj.dreadIndex !== undefined) ? creatureObj.dreadIndex : ((creatureObj.gigerenzerBehavior && creatureObj.gigerenzerBehavior.dreadIndex) !== undefined ? creatureObj.gigerenzerBehavior.dreadIndex : 1);
+        const dreadEffect = creatureObj.dreadEffect || (creatureObj.gigerenzerBehavior && creatureObj.gigerenzerBehavior.dreadEffect) || 'Corridor transit hazard; parties must stay vigilant.';
+        const hProfile = (creatureObj.gigerenzerBehavior && creatureObj.gigerenzerBehavior.heuristicProfile) || {};
+        const cueHierarchy = Array.isArray(hProfile.cueValidityHierarchy) ? hProfile.cueValidityHierarchy.join(' → ') : '';
+        const stoppingRule = hProfile.stoppingRule || '';
+
+        // Senses, Locomotion & Defenses
+        const senses = creatureObj.senses || {};
+        const sensesHtml = `
+          <div style="font-size:10px; color:#334155; line-height:1.35;">
+            <div><strong>Vision:</strong> ${escapeHtml(senses.vision || 'Standard')}</div>
+            ${senses.blindspots ? `<div><strong>Tactical Blindspots:</strong> ${escapeHtml(senses.blindspots)}</div>` : ''}
+            ${(Array.isArray(senses.special) && senses.special.length > 0) ? `<div><strong>Special Senses:</strong> ${escapeHtml(senses.special.join(', '))}</div>` : ''}
+          </div>
+        `;
+
+        const loco = creatureObj.locomotion || {};
+        const locoHtml = `
+          <div style="font-size:10px; color:#334155; line-height:1.35;">
+            <div><strong>Primary Mode:</strong> ${escapeHtml(loco.primary || 'Walk / Crawl')}</div>
+            ${(Array.isArray(loco.terrainAffinities) && loco.terrainAffinities.length > 0) ? `<div><strong>Terrain Affinities:</strong> ${escapeHtml(loco.terrainAffinities.join(', '))}</div>` : ''}
+          </div>
+        `;
+
+        const defenses = creatureObj.defenses || {};
+        const resList = Array.isArray(defenses.resistances) ? defenses.resistances.join(', ') : 'None';
+        const vulnList = Array.isArray(defenses.vulnerabilities) ? defenses.vulnerabilities.join(', ') : 'None';
+        const defensesHtml = `
+          <div style="font-size:10px; color:#334155; line-height:1.35;">
+            <div><strong>Armor / Hide:</strong> ${escapeHtml(defenses.armorType || 'Natural')}</div>
+            <div><strong>Resistances:</strong> ${escapeHtml(resList)}</div>
+            <div><strong>Vulnerabilities:</strong> <strong style="color:#b91c1c;">${escapeHtml(vulnList)}</strong></div>
+            ${(Array.isArray(defenses.anatomicalWeakSpots) && defenses.anatomicalWeakSpots.length > 0) ? `
+              <div style="margin-top:2px;"><strong>Weak Spots:</strong> ${defenses.anatomicalWeakSpots.map(w => `<span style="color:#0f766e; font-style:italic;">${escapeHtml(w)}</span>`).join('; ')}</div>
+            ` : ''}
+          </div>
+        `;
+
+        // Signature Actions
+        const sigActions = Array.isArray(creatureObj.signatureActions) ? creatureObj.signatureActions : [];
+        let sigActionsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No signature combat actions authored.</div>';
+        if (sigActions.length > 0) {
+          sigActionsHtml = sigActions.map(act => `
+            <div style="background:#fff; border:1px solid #cbd5e1; padding:4px 6px; border-radius:2px; margin-bottom:3px; font-size:10px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#000080;">⚡ ${escapeHtml(act.name)}</strong>
+                ${act.severity ? `<span class="entity-badge-tag" style="background:${act.severity === 'Lethal' ? '#991b1b' : (act.severity === 'Dangerous' ? '#d97706' : '#2563eb')}; color:#fff; font-size:8px;">${act.severity}</span>` : ''}
+              </div>
+              ${act.trigger ? `<div style="font-size:9px; color:#475569; margin-top:1px;"><strong>Trigger:</strong> ${escapeHtml(act.trigger)}</div>` : ''}
+              <div style="color:#1e293b; margin-top:2px; line-height:1.3;">${escapeHtml(act.effect)}</div>
+            </div>
+          `).join('');
+        }
+
+        // Folklore & Spoor
+        const psych = creatureObj.psychologyAndFolklore || {};
+        const spoorList = Array.isArray(psych.spoorAndSigns) ? psych.spoorAndSigns.join('; ') : '';
+        const folkloreList = Array.isArray(psych.vernacularFolklore) ? psych.vernacularFolklore.join('; ') : '';
+
+        // Canon Evidence Rationale (Collapsible)
+        const evidence = (topo.creatureEvidence && topo.creatureEvidence[creatureObj.id]) || null;
+        let evidenceHtml = '';
+        if (evidence) {
+          const figRows = (evidence.figures || []).map(f => `
+            <tr>
+              <td style="padding:2px 4px; border:1px solid #cbd5e1; font-weight:bold; color:#334155;">${escapeHtml(f.label)}</td>
+              <td style="padding:2px 4px; border:1px solid #cbd5e1; color:#0f172a; font-family:monospace;">${escapeHtml(f.value)}</td>
+            </tr>
+          `).join('');
+
+          const rat = evidence.rationale || {};
+          const ratEntries = Object.keys(rat).map(k => `
+            <div style="margin-bottom:2px;">
+              <strong style="text-transform:capitalize; color:#000080;">${escapeHtml(k)}:</strong> 
+              <span style="color:#334155;">${escapeHtml(rat[k])}</span>
+            </div>
+          `).join('');
+
+          evidenceHtml = `
+            <details style="background:#f1f5f9; border:1px solid #94a3b8; border-radius:2px; padding:4px 6px;">
+              <summary style="font-size:10px; font-weight:bold; cursor:pointer; color:#000080;">
+                📜 Source Figures &amp; Rating Rationale (${evidence.sources ? evidence.sources.join(', ') : 'Documented Canon'})
+              </summary>
+              <div style="margin-top:6px; font-size:9.5px; display:flex; flex-direction:column; gap:4px;">
+                ${figRows ? `
+                  <table style="width:100%; border-collapse:collapse; background:#fff; font-size:9px; margin-bottom:4px;">
+                    <thead><tr style="background:#e2e8f0;"><th style="padding:2px 4px; text-align:left; border:1px solid #cbd5e1;">Canonical Stat Figure</th><th style="padding:2px 4px; text-align:left; border:1px solid #cbd5e1;">Printed Canon Value</th></tr></thead>
+                    <tbody>${figRows}</tbody>
+                  </table>
+                ` : ''}
+                ${ratEntries ? `
+                  <div style="background:#fff; border:1px solid #cbd5e1; padding:4px 6px; border-radius:2px;">
+                    ${ratEntries}
+                  </div>
+                ` : ''}
+              </div>
+            </details>
+          `;
+        }
+
+        pane.innerHTML = `
+          <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">🐉 ${creatureObj.name}</h3>
+              <span class="entity-badge-tag" style="${tierStyle}; font-weight:bold;">${tierLabel}</span>
+            </div>
+            <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
+              <span class="entity-badge-tag" style="background:#f1f5f9; color:#0f172a; font-weight:bold;">${escapeHtml(creatureObj.size || 'Medium')} ${escapeHtml(creatureObj.kind || 'beast')}</span>
+              ${creatureObj.subtype ? `<span class="entity-badge-tag" style="background:#e0f2fe; color:#0369a1;">${escapeHtml(creatureObj.subtype)}</span>` : ''}
+              <span class="entity-badge-tag">${creatureObj.moduleId ? `Module: ${creatureObj.moduleId}` : 'Custom Authored'}</span>
+            </div>
+          </div>
+
+          <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 130px);">
+            ${creatureObj.summary ? `
+              <div style="background:#fff; border:1px solid #ddd; padding:6px; border-radius:2px; font-size:10px; line-height:1.35; color:#333;">
+                ${escapeHtml(creatureObj.summary)}
+              </div>
+            ` : ''}
+
+            <!-- 6 Relative Capabilities (1-5 Pips) -->
+            <div>
+              <div style="font-size:10px; font-weight:bold; color:#0f172a; margin-bottom:2px;">📊 Relative Capabilities (1–5 Physical &amp; Mental Rating):</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:3px;">
+                ${capBarsHtml}
+              </div>
+            </div>
+
+            <!-- Gigerenzer Heuristics & Dread Suite -->
+            <div style="background:#fff7ed; border:1px solid #fdba74; padding:6px; border-radius:2px; display:flex; flex-direction:column; gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#9a3412; font-size:10px;">💀 Dread &amp; Heuristic Operational Profile:</strong>
+                <span class="entity-badge-tag" style="background:#b91c1c; color:#fff; font-weight:bold;">Dread: ${dreadVal}/10</span>
+              </div>
+              <div style="font-size:9.5px; color:#7c2d12; line-height:1.3; background:#ffedd5; padding:3px 5px; border-radius:2px;">
+                <strong>Dread Effect:</strong> ${escapeHtml(dreadEffect)}
+              </div>
+              ${hProfile.strategy ? `
+                <div style="font-size:10px; color:#1e293b;">
+                  Strategy: <span class="entity-badge-tag" style="background:#0f766e; color:#fff; font-weight:bold;">${escapeHtml(hProfile.strategy)}</span>
+                  ${cueHierarchy ? `<div style="font-size:9px; color:#475569; margin-top:2px;"><strong>Cue Priority:</strong> ${escapeHtml(cueHierarchy)}</div>` : ''}
+                  ${stoppingRule ? `<div style="font-size:9px; color:#0f172a; margin-top:2px; font-style:italic;"><strong>Stopping Rule:</strong> &ldquo;${escapeHtml(stoppingRule)}&rdquo;</div>` : ''}
+                </div>
+              ` : ''}
+              ${typeof renderHeuristicBadgeHtml === 'function' ? renderHeuristicBadgeHtml(creatureObj.disposition && creatureObj.disposition.odv) : ''}
+              ${typeof renderFftDossierHtml === 'function' ? renderFftDossierHtml('creature', creatureObj) : ''}
+            </div>
+
+            <!-- Senses, Locomotion & Defenses -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+              <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:5px; border-radius:2px;">
+                <strong style="font-size:10px; color:#000080;">👁️ Senses:</strong>
+                ${sensesHtml}
+              </div>
+              <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:5px; border-radius:2px;">
+                <strong style="font-size:10px; color:#000080;">🐾 Locomotion:</strong>
+                ${locoHtml}
+              </div>
+            </div>
+
+            <!-- Defenses & Vulnerabilities -->
+            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:5px; border-radius:2px;">
+              <strong style="font-size:10px; color:#000080;">🛡️ Defenses &amp; Tactical Weaknesses:</strong>
+              ${defensesHtml}
+            </div>
+
+            <!-- Signature Actions -->
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+                <strong style="font-size:10px; color:#0f172a;">⚡ Signature Combat Actions (${sigActions.length}):</strong>
+              </div>
+              ${sigActionsHtml}
+            </div>
+
+            <!-- Folklore, Spoor & Signs -->
+            ${(spoorList || folkloreList) ? `
+              <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:5px; border-radius:2px; font-size:9.5px; line-height:1.35;">
+                <strong style="color:#0f172a;">📜 Signs, Spoor &amp; Folklore:</strong>
+                ${spoorList ? `<div style="margin-top:2px;"><strong>Spoor / Trail:</strong> ${escapeHtml(spoorList)}</div>` : ''}
+                ${folkloreList ? `<div style="margin-top:2px; font-style:italic; color:#475569;">&ldquo;${escapeHtml(folkloreList)}&rdquo;</div>` : ''}
+              </div>
+            ` : ''}
+
+            <!-- Canon Evidence (Collapsible) -->
+            ${evidenceHtml}
+
+            <!-- Linked Threat Clocks (DEV-01) -->
+            ${renderLinkedTrackersSection('creature', creatureObj.id, currentStationId)}
+
+            <!-- Assigned Authoring Tickets (DEV-01 & DEV-04) -->
+            ${renderAssignedTicketsSection('creature', creatureObj.id, currentStationId)}
+          </div>
+
+          <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Station Lair to Node:</strong>
+              <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(creatureObj.id)}', this.value, ${isPrototype})">
+                ${nodeOptions}
+              </select>
+            </label>
+
+            ${(currentStationId) ? `
+              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(currentStationId)}')"><strong>🎯 Center Lair Node on Canvas</strong></button>
+            ` : ''}
+
+            <div style="display:flex; gap:4px; margin-top:4px;">
+              <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(creatureObj.id)}')">Edit Creature</button>
+              <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('creature', '${escapeJsArg(creatureObj.id)}')">Delete Creature...</button>
             </div>
           </div>
         `;

@@ -17,8 +17,37 @@
   function findEntity(entityType, entityId) {
     const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) || null;
     if (!topo) return null;
-    const list = entityType === 'npc' ? topo.npcs : topo.factions;
+    let list;
+    if (entityType === 'npc') list = topo.npcs;
+    else if (entityType === 'faction') list = topo.factions;
+    else if (entityType === 'creature') list = topo.creatures;
+    else list = topo[entityType + 's'] || [];
     return (list || []).find(function (e) { return String(e.id) === String(entityId); }) || null;
+  }
+
+  function normalizeCreatureFft(fft) {
+    if (!fft || typeof fft !== 'object') return null;
+    const n = JSON.parse(JSON.stringify(fft));
+    if (!n.id) n.id = 'tree';
+    if (!n.name) n.name = 'Behavioral Decision Tree';
+    (n.cues || []).forEach(function (c, i) {
+      if (!c.id) c.id = 'cue_' + (i + 1);
+      if (!c.testType) c.testType = 'boolean_query';
+      if (c.targetValue === undefined) c.targetValue = true;
+      if (!c.exitDirection) c.exitDirection = 'yes';
+    });
+    if (!n.defaultExit) n.defaultExit = { action: 'DEFAULT_ACTION', label: 'Default behavior' };
+    else if (!n.defaultExit.action && n.defaultExit.label) n.defaultExit.action = n.defaultExit.label.toUpperCase().replace(/\s+/g, '_');
+    return n;
+  }
+
+  function getEntityFft(entityType, entity) {
+    if (!entity) return null;
+    if (entity.fft) return entity.fft;
+    if (entityType === 'creature' && entity.gigerenzerBehavior && entity.gigerenzerBehavior.fastAndFrugalTree) {
+      return normalizeCreatureFft(entity.gigerenzerBehavior.fastAndFrugalTree);
+    }
+    return null;
   }
 
   function formatTarget(type, v) {
@@ -54,11 +83,11 @@
     if (!entity) return '';
     const idArg = jsArg(entity.id);
     const head = '<div style="font-weight:bold; color:#000080; margin-bottom:2px;">&#127795; Decision Tree (Fast-and-Frugal):</div>';
-    if (!entity.fft) {
+    const fft = getEntityFft(entityType, entity);
+    if (!fft) {
       return '<div>' + head + '<div style="font-size:10px; color:#64748b; font-style:italic;">No decision tree authored.</div>' +
         '<button class="win-btn" style="font-size:10px; margin-top:3px;" onclick="openFftBuilderModal(\'' + entityType + '\', \'' + idArg + '\')">Author Decision Tree...</button></div>';
     }
-    const fft = entity.fft;
     const rows = (fft.cues || []).map(function (cue, i) {
       const exitsOn = cue.exitDirection === 'yes' ? 'YES' : 'NO';
       const contOn = cue.exitDirection === 'yes' ? 'NO' : 'YES';
@@ -157,11 +186,12 @@
 
   function openFftBuilderModal(entityType, entityId) {
     const ent = findEntity(entityType, entityId);
-    if (!ent) { alert('Add this character or faction to the active campaign before authoring a decision tree.'); return; }
+    if (!ent) { alert('Add this character, faction, or creature to the active campaign before authoring a decision tree.'); return; }
     ensureModal();
+    const existingFft = getEntityFft(entityType, ent);
     B = {
       entityType: entityType, entityId: entityId,
-      fft: ent.fft ? JSON.parse(JSON.stringify(ent.fft)) : window.createDefaultFft('sentry_triage'),
+      fft: existingFft ? JSON.parse(JSON.stringify(existingFft)) : window.createDefaultFft('sentry_triage'),
       party: { gold: 0, disposition: 0, items: '', standingsText: '', standings: {}, answers: {} }
     };
     renderBuilder();
@@ -203,7 +233,14 @@
     if (errors.length) { alert(errors.join('\n')); return; }
     const ent = findEntity(B.entityType, B.entityId);
     if (!ent) return;
-    ent.fft = JSON.parse(JSON.stringify(B.fft));
+    const cloned = JSON.parse(JSON.stringify(B.fft));
+    if (B.entityType === 'creature') {
+      ent.gigerenzerBehavior = ent.gigerenzerBehavior || {};
+      ent.gigerenzerBehavior.fastAndFrugalTree = cloned;
+      ent.fft = cloned;
+    } else {
+      ent.fft = cloned;
+    }
     if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
     closeModal(MODAL_ID);
     if (typeof selectEntityItem === 'function') selectEntityItem(B.entityId, false);
@@ -214,11 +251,25 @@
     const ent = findEntity(entityType, entityId);
     if (!ent || !confirm('Remove the decision tree from ' + (ent.name || ent.id) + '?')) return;
     delete ent.fft;
+    if (entityType === 'creature' && ent.gigerenzerBehavior) {
+      delete ent.gigerenzerBehavior.fastAndFrugalTree;
+    }
     if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
     if (typeof selectEntityItem === 'function') selectEntityItem(entityId, false);
   };
 
+  window.normalizeCreatureFft = normalizeCreatureFft;
+  window.getEntityFft = getEntityFft;
   window.openFftBuilderModal = openFftBuilderModal;
   window.renderFftDossierHtml = renderFftDossierHtml;
   window.renderHeuristicBadgeHtml = renderHeuristicBadgeHtml;
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+      normalizeCreatureFft: normalizeCreatureFft,
+      getEntityFft: getEntityFft,
+      renderFftDossierHtml: renderFftDossierHtml,
+      renderHeuristicBadgeHtml: renderHeuristicBadgeHtml,
+      findEntity: findEntity
+    };
+  }
 })();

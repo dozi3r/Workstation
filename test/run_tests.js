@@ -8994,6 +8994,220 @@ async function testSuite53ResourceExplorerUiAndMultiMapAggregation() {
   assertEqual(sb.getEntityIcon('creature'), '🐉', 'getEntityIcon("creature") returns 🐉');
 }
 
+async function testSuite54BestiaryExplorerAndFftIntegration() {
+  console.log('\n--- Suite 54: Bestiary Explorer Tab, Creature FFT Adapter & Canon Evidence Integration ---');
+
+  const fftCoreCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/fast_frugal_tree.js'), 'utf8');
+  const fftUiCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/fft_editor_ui.js'), 'utf8');
+  const entityCoreCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_core.js'), 'utf8');
+  const workstationStateCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/workstation_state.js'), 'utf8');
+  const cmeCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/campaign_mutation_engine.js'), 'utf8');
+  const cadRendererCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/cad_canvas_renderer.js'), 'utf8');
+  const emUiCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_manager_ui.js'), 'utf8');
+
+  // 1. Verify Diablo campaign has 68 creatures and evidence
+  const diabloTopoPath = path.join(ROOT_DIR, 'campaigns/DIablo/topology.json');
+  const diabloEvPath = path.join(ROOT_DIR, 'campaigns/DIablo/creatures/evidence.json');
+  const diabloTopo = JSON.parse(fs.readFileSync(diabloTopoPath, 'utf8'));
+  const diabloEv = JSON.parse(fs.readFileSync(diabloEvPath, 'utf8'));
+
+  assert(Array.isArray(diabloTopo.creatures) && diabloTopo.creatures.length === 68, 'Diablo topology contains 68 bestiary creatures');
+  assert(Object.keys(diabloEv).length === 68, 'Diablo creature evidence contains 68 evidence records');
+
+  // 2. Set up VM sandbox
+  const domElements = {};
+  const makeElement = (id) => ({
+    id,
+    style: {},
+    classList: { add: () => {}, remove: () => {} },
+    innerHTML: '',
+    textContent: '',
+    value: '',
+    checked: false,
+    appendChild: () => {},
+    querySelectorAll: () => [],
+    querySelector: () => null,
+    getAttribute: () => null,
+    setAttribute: () => {},
+    setAttributeNS: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {}
+  });
+
+  const sb = {
+    console,
+    Math,
+    Date,
+    parseInt,
+    parseFloat,
+    isNaN,
+    Boolean,
+    String,
+    Number,
+    Array,
+    Object,
+    Set,
+    JSON,
+    document: {
+      getElementById: (id) => {
+        if (!domElements[id]) domElements[id] = makeElement(id);
+        return domElements[id];
+      },
+      createElement: (tag) => makeElement(tag),
+      createElementNS: (ns, tag) => makeElement(tag),
+      body: { appendChild: () => {} },
+      querySelectorAll: () => []
+    },
+    window: {},
+    Workstation: {
+      activeTopology: diabloTopo,
+      registeredMods: {}
+    },
+    MDIWindowManager: {
+      open: () => {},
+      windows: {},
+      renderTaskbar: () => {}
+    },
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    closeAllMenus: () => {},
+    closeModal: () => {},
+    maps: { map_root: diabloTopo },
+    activeMapId: 'map_root',
+    saveActiveCampaign: () => {},
+    renderCanvas: () => {},
+    updatePropertiesGrid: () => {},
+    setStatusBarMessage: () => {},
+    alert: () => {},
+    confirm: () => true,
+    prompt: () => ''
+  };
+  sb.window = sb;
+  sb.globalThis = sb;
+
+  vm.createContext(sb);
+  vm.runInContext(fftCoreCode, sb);
+  vm.runInContext(fftUiCode, sb);
+  vm.runInContext(workstationStateCode, sb);
+  vm.runInContext(cmeCode, sb);
+  vm.runInContext(entityCoreCode, sb);
+  vm.runInContext(cadRendererCode, sb);
+  vm.runInContext(emUiCode, sb);
+
+  // Set activeTopology on Workstation after scripts initialize
+  sb.Workstation.activeTopology = diabloTopo;
+  diabloTopo.creatureEvidence = diabloEv;
+
+  // Test normalizeCreatureFft & getEntityFft
+  assert(typeof sb.normalizeCreatureFft === 'function', 'normalizeCreatureFft is exported on window');
+  assert(typeof sb.getEntityFft === 'function', 'getEntityFft is exported on window');
+
+  let invalidCreatureFftCount = 0;
+  diabloTopo.creatures.forEach(c => {
+    if (c.gigerenzerBehavior && c.gigerenzerBehavior.fastAndFrugalTree) {
+      const norm = sb.normalizeCreatureFft(c.gigerenzerBehavior.fastAndFrugalTree);
+      const errs = sb.validateFft(norm);
+      if (errs.length > 0) invalidCreatureFftCount++;
+      norm.cues.forEach((cue, i) => {
+        assert(cue.id === 'cue_' + (i + 1), `Creature ${c.id} cue ${i} has normalized cue ID`);
+        assert(cue.testType === 'boolean_query', `Creature ${c.id} cue ${i} has boolean_query testType`);
+        assert(cue.targetValue === true, `Creature ${c.id} cue ${i} has boolean targetValue: true`);
+      });
+    }
+  });
+  assertEqual(invalidCreatureFftCount, 0, 'All 68 Diablo creature FFTs pass validateFft after normalization');
+
+  // Test getEntityFft resolution
+  const acidBeast = diabloTopo.creatures.find(c => c.id === 'creature_acid_beasts');
+  const acidFft = sb.getEntityFft('creature', acidBeast);
+  assert(acidFft !== null && acidFft.name === 'Acid beast spit', 'getEntityFft resolves and normalizes creature FFT');
+
+  // Test renderFftDossierHtml for creature
+  const fftHtml = sb.renderFftDossierHtml('creature', acidBeast);
+  assert(fftHtml.includes('Acid beast spit'), 'renderFftDossierHtml renders tree name');
+  assert(fftHtml.includes('Is a target within spit range?'), 'renderFftDossierHtml renders cue questions');
+  assert(fftHtml.includes('Spit acid at it'), 'renderFftDossierHtml renders exit label');
+  assert(fftHtml.includes('Advance with the swarm'), 'renderFftDossierHtml renders default exit label');
+
+  // 3. Test Bestiary Tab Switching & Tree Rendering
+  sb.switchEntityManagerTab('creature');
+  assertEqual(sb.CurrentEntityTab, 'creature', 'CurrentEntityTab is creature');
+
+  const treeContainer = sb.document.getElementById('em-tree-container');
+  treeContainer.children = [];
+  treeContainer.appendChild = (child) => { treeContainer.children.push(child); };
+  sb.renderEntityManagerTree();
+  assert(treeContainer.children.some(c => (c.textContent || '').includes('BY THREAT TIER:')), 'Tree contains BY THREAT TIER header');
+  assert(treeContainer.children.some(c => (c.textContent || '').includes('BY CLASSIFICATION:')), 'Tree contains BY CLASSIFICATION header');
+  assert(treeContainer.children.some(c => (c.textContent || '').includes('Tier 2: Dangerous Threat')), 'Tree contains Tier 2 count');
+
+  // 4. Test Bestiary List Table Rendering & Row Structure
+  const tableBody = sb.document.getElementById('em-table-body');
+  tableBody.rows = [];
+  tableBody.appendChild = (row) => { tableBody.rows.push(row); };
+  sb.renderEntityManagerList();
+
+  const thead = sb.document.getElementById('em-table-head');
+  assert(thead.innerHTML.includes('Creature / Monster'), 'Table header has Creature / Monster column');
+  assert(thead.innerHTML.includes('Threat Tier'), 'Table header has Threat Tier column');
+  assert(thead.innerHTML.includes('Kind / Subtype'), 'Table header has Kind / Subtype column');
+  assert(thead.innerHTML.includes('Dread'), 'Table header has Dread column');
+  assert(thead.innerHTML.includes('Lair / Station Node'), 'Table header has Lair / Station Node column');
+
+  assert(tableBody.rows.length === 68, 'All 68 Diablo creatures rendered in table list');
+  const acidRow = tableBody.rows.find(r => (r.innerHTML || '').includes('Acid Beasts'));
+  assert(acidRow !== null, 'Table contains row for Acid Beasts');
+  assert(acidRow.innerHTML.includes('🐉 Acid Beasts'), 'Row contains creature icon and name');
+  assert(acidRow.innerHTML.includes('T2'), 'Row contains Threat Tier T2 badge');
+  assert(acidRow.innerHTML.includes('💀 4/10'), 'Row contains Dread Index 4/10 badge');
+  assert(acidRow.innerHTML.includes('Beast'), 'Row contains Kind');
+
+  // 5. Test Filtering by Threat Tier and Kind
+  sb.SelectedEntityFilter = 'threat:2';
+  tableBody.rows = [];
+  sb.renderEntityManagerList();
+  assert(tableBody.rows.length > 0 && tableBody.rows.length < 68, 'Filtered list by threat:2');
+
+  sb.SelectedEntityFilter = 'kind:beast';
+  tableBody.rows = [];
+  sb.renderEntityManagerList();
+  assert(tableBody.rows.length > 0, 'Filtered list by kind:beast');
+
+  sb.SelectedEntityFilter = 'all';
+
+  // 6. Test Creature Detail Inspector (selectEntityItem)
+  const detailPane = sb.document.getElementById('em-detail-pane');
+  sb.selectEntityItem('creature_acid_beasts', false);
+
+  assert(detailPane.innerHTML.includes('🐉 Acid Beasts'), 'Detail pane contains creature header');
+  assert(detailPane.innerHTML.includes('Tier 2: Dangerous Threat'), 'Detail pane contains threat tier badge');
+  assert(detailPane.innerHTML.includes('Relative Capabilities'), 'Detail pane contains Relative Capabilities section');
+  assert(detailPane.innerHTML.includes('Might:'), 'Detail pane contains Might capability bar');
+  assert(detailPane.innerHTML.includes('Agility:'), 'Detail pane contains Agility capability bar');
+  assert(detailPane.innerHTML.includes('Dread: 4/10'), 'Detail pane contains Dread 4/10 badge');
+  assert(detailPane.innerHTML.includes('Acid-spitting swarms make corridors hazardous'), 'Detail pane contains Dread Effect');
+  assert(detailPane.innerHTML.includes('TAKE_THE_BEST'), 'Detail pane contains heuristic strategy TAKE_THE_BEST');
+  assert(detailPane.innerHTML.includes('target_in_spit_range → target_standing_still'), 'Detail pane contains Cue Priority');
+  assert(detailPane.innerHTML.includes('Spit at the first target in range'), 'Detail pane contains Stopping Rule');
+  assert(detailPane.innerHTML.includes('Acid beast spit'), 'Detail pane renders embedded decision tree');
+  assert(detailPane.innerHTML.includes('Acid Glob'), 'Detail pane contains signature action Acid Glob');
+  assert(detailPane.innerHTML.includes('Agonizing Spit'), 'Detail pane contains signature action Agonizing Spit');
+  assert(detailPane.innerHTML.includes('Source Figures &amp; Rating Rationale'), 'Detail pane contains collapsible Source Figures section');
+  assert(detailPane.innerHTML.includes('Table 5-8 Acid Beast resistance/immunity'), 'Detail pane contains canonical figure from evidence.json');
+  assert(detailPane.innerHTML.includes('Station Lair to Node:'), 'Detail pane contains Station Lair to Node selector');
+
+  // 7. Test Stationing creature to a node
+  sb.assignEntityToNode('creature_acid_beasts', '1', false);
+  assertEqual(acidBeast.nodeId, 1, 'assignEntityToNode stations creature to Node 1');
+  assertEqual(acidBeast.stationing.nodeId, 1, 'assignEntityToNode sets stationing.nodeId to 1');
+  assertEqual(acidBeast.stationing.mode, 'lair', 'assignEntityToNode sets stationing.mode to lair');
+
+  // Test getRecursiveNodeEntities surfaces creature on Node 1
+  const recNode1 = sb.getRecursiveNodeEntities(1, 'map_root');
+  assert(recNode1.direct.creatures.some(c => c.id === 'creature_acid_beasts'), 'getRecursiveNodeEntities includes direct creature on Node 1');
+  assertEqual(recNode1.totals.creatures, 1, 'getRecursiveNodeEntities totals.creatures is 1');
+}
+
 // ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
@@ -9052,6 +9266,7 @@ async function testSuite53ResourceExplorerUiAndMultiMapAggregation() {
     testSuite51ImporterChainSelectionAndConduitMerge();
     await testSuite52ResourcePartitionAndBestiaryPersistence();
     await testSuite53ResourceExplorerUiAndMultiMapAggregation();
+    await testSuite54BestiaryExplorerAndFftIntegration();
     require('./test_gigerenzer_heuristics.js')({ assert, assertEqual, ROOT });
 
     const elapsedMs = Date.now() - suiteStartTime;

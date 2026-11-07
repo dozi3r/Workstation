@@ -1528,6 +1528,33 @@
           openNewEntityModal('tracker', node.id);
         });
 
+        // Category: Bestiary Creatures & Lairs (Direct + Recursive Sub-Maps)
+        appendCategoryRow(tbody, `Stationed Bestiary Creatures (${rec.totals.creatures || 0} total)`);
+        const totalCreatures = rec.totals.creatures || 0;
+        const directCreatures = rec.direct.creatures || [];
+        if (directCreatures.length === 0 && totalCreatures === 0) {
+          appendPropRow(tbody, '(None)', 'No creatures stationed here', false);
+        } else {
+          directCreatures.forEach((c, idx) => {
+            const tierBadge = `[T${c.threatTier !== undefined ? c.threatTier : 2}]`;
+            appendActionPropRow(tbody, `Direct Creature #${idx+1}`, `🐉 ${tierBadge} ${c.name} (${c.kind || 'Beast'})`, () => {
+              openEntityManager('creature', c.id);
+            });
+          });
+          (rec.submaps || []).forEach(sm => {
+            (sm.creatures || []).forEach(c => {
+              const tierBadge = `[T${c.threatTier !== undefined ? c.threatTier : 2}]`;
+              appendActionPropRow(tbody, `Sub-Map Creature`, `🌀 ${sm.mapName} [#${c.nodeId}]: 🐉 ${tierBadge} ${c.name}`, () => {
+                if (typeof switchActiveMap === 'function') switchActiveMap(sm.mapId);
+                setTimeout(() => openEntityManager('creature', c.id), 60);
+              });
+            });
+          });
+        }
+        appendActionPropRow(tbody, '[+ Station Creature]', `+ Station Creature to Node ${node.id}...`, () => {
+          openEntityManager('creature');
+        });
+
         // Category: Mod Extensions (Dynamic Hooks)
         appendCategoryRow(tbody, 'Mod Extensions');
         let hasMods = false;
@@ -1893,6 +1920,20 @@
           assignedTickets.forEach((tk, idx) => {
             appendActionPropRow(tbody, `Ticket #${idx+1}`, `${tk.id}: ${tk.title} [${tk.status || 'Backlog'}]`, () => {
               if (typeof openTicketCenter === 'function') openTicketCenter();
+            });
+          });
+        }
+
+        const corridorCreatures = (topo.creatures || []).filter(c => {
+          const st = c.stationing || {};
+          return (st.edgeKey && (st.edgeKey === edgeKey || st.edgeKey === pairKey)) ||
+                 (st.roamingScope && String(st.roamingScope).includes('patrol') && (String(st.nodeId) === String(uId) || String(st.nodeId) === String(vId)));
+        });
+        if (corridorCreatures.length > 0) {
+          corridorCreatures.forEach((c, idx) => {
+            const tierBadge = `[T${c.threatTier !== undefined ? c.threatTier : 2}]`;
+            appendActionPropRow(tbody, `Patrol Creature #${idx+1}`, `🐉 ${tierBadge} ${c.name} (${c.kind || 'Beast'})`, () => {
+              openEntityManager('creature', c.id);
             });
           });
         }
