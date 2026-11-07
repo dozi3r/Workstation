@@ -1094,7 +1094,8 @@
         });
 
         // AutoCAD Standard Palette (ACI 1-9)
-        appendSelectPropRow(tbody, 'Node Color (CAD)', (node.color || '').toLowerCase(), AUTOCAD_COLORS.map(c => ({ val: (c.val || '').toLowerCase(), label: c.label })), val => {
+        const cadColors = (typeof AUTOCAD_COLORS !== 'undefined') ? AUTOCAD_COLORS : (window.AUTOCAD_COLORS || []);
+        appendSelectPropRow(tbody, 'Node Color (CAD)', (node.color || '').toLowerCase(), cadColors.map(c => ({ val: (c.val || '').toLowerCase(), label: c.label })), val => {
           node.color = val;
           renderCanvas();
           updatePropertiesGrid();
@@ -2623,6 +2624,22 @@
           item.category = val;
           if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
         });
+        appendSelectPropRow(tbody, 'Condition / Status', item.status || 'intact', [
+          { val: 'intact', label: '🟢 intact (Normal)' },
+          { val: 'Active', label: '🟢 Active' },
+          { val: 'damaged', label: '🟠 damaged' },
+          { val: 'depleted', label: '⚪ depleted' },
+          { val: 'attuned', label: '🟣 attuned' },
+          { val: 'lost', label: '⚫ lost' },
+          { val: 'destroyed', label: '🔴 destroyed' }
+        ], val => {
+          item.status = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendPropRow(tbody, 'Valuation / Price', (item.value !== undefined && item.value !== null) ? String(item.value) : '', true, val => {
+          item.value = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
         appendPropRow(tbody, 'Source Module', item.moduleId ? `Module [${item.moduleId}]` : (isProto ? 'Prototype' : 'Custom Authored'), false);
 
         // Ownership & Possession Mode
@@ -2776,8 +2793,15 @@
 
         appendSelectPropRow(tbody, 'Four-Corners Role', npc.fourCornersRole || 'Active', [
           { val: 'Active', label: '🔥 Catalyst (Active)' },
+          { val: 'Catalyst', label: '⚡ Catalyst' },
+          { val: 'Protagonist', label: '🌟 Protagonist' },
+          { val: 'Mentor', label: '🧭 Mentor' },
+          { val: 'Ally', label: '🛡️ Ally' },
           { val: 'Adversary', label: '⚔️ Adversary' },
+          { val: 'Nemesis', label: '💀 Nemesis' },
+          { val: 'Opponent', label: '🗡️ Opponent' },
           { val: 'Shadow', label: '👥 Shadow Mirror' },
+          { val: 'Outcast', label: '⛺ Outcast' },
           { val: 'Target', label: '🎯 Prize / Target' }
         ], val => {
           npc.fourCornersRole = val;
@@ -2805,6 +2829,14 @@
           npc.notes = val;
           if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
         });
+        const hookCount = Array.isArray(npc.dialogueHooks) ? npc.dialogueHooks.length : 0;
+        appendPropRow(tbody, 'Dialogue Hooks', `${hookCount} hook${hookCount === 1 ? '' : 's'} recorded`, false);
+        const secretCount = Array.isArray(npc.secretsKnown) ? npc.secretsKnown.length : 0;
+        appendPropRow(tbody, 'Secrets Known', `${secretCount} secret${secretCount === 1 ? '' : 's'} recorded`, false);
+        if (npc.leverage) {
+          const levStr = typeof npc.leverage === 'string' ? npc.leverage : (npc.leverage.vulnerability || npc.leverage.bribe || 'Authored leverage');
+          appendPropRow(tbody, 'Tactical Leverage', levStr, false);
+        }
 
         // Social Relationships
         const rels = Array.isArray(npc.relationships) ? npc.relationships : [];
@@ -2883,8 +2915,9 @@
           if (typeof updateObjectSelector === 'function') updateObjectSelector();
           if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
         });
-        appendPropRow(tbody, 'Category / Arc', quest.category || 'Main Arc', true, val => {
+        appendPropRow(tbody, 'Category / Arc', quest.category || quest.type || 'Main Arc', true, val => {
           quest.category = val;
+          quest.type = val;
           if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
         });
         appendPropRow(tbody, 'Threat / Stakes', quest.threat || quest.stakes || 'Standard Encounter', true, val => {
@@ -2903,6 +2936,7 @@
         appendCategoryRow(tbody, 'Narrative Objective');
         appendTextareaPropRow(tbody, 'Objective & Synopsis', quest.motivation || quest.description || quest.notes || '', 3, val => {
           quest.motivation = val;
+          quest.notes = val;
           if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
         });
 
@@ -2942,7 +2976,10 @@
           linkedNpcIds.forEach(nId => {
             const nObj = (topo.npcs || []).find(n => String(n.id) === String(nId));
             const nName = nObj ? (nObj.name || nObj.id) : nId;
-            appendButtonPropRow(tbody, `[NPC] ${nName}`, '🔍 Inspect Character', () => {
+            let roleTag = '';
+            if (String(quest.giverNpcId) === String(nId)) roleTag = ' [Quest Giver]';
+            else if (String(quest.targetNpcId) === String(nId)) roleTag = ' [Quest Target]';
+            appendButtonPropRow(tbody, `[NPC] ${nName}${roleTag}`, '🔍 Inspect Character', () => {
               if (pin) {
                 pin._inspectedLink = { type: 'npc', id: nId };
                 updatePropertiesGrid();
@@ -3092,11 +3129,172 @@
           if (typeof renderCanvas === 'function') renderCanvas();
           if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
         });
+        appendSelectPropRow(tbody, 'Status', fac.status || 'Active', [
+          { val: 'Active', label: '🟢 Active' },
+          { val: 'Ascendant', label: '🔵 Ascendant' },
+          { val: 'Underground', label: '🟣 Underground' },
+          { val: 'Contested', label: '🟠 Contested' },
+          { val: 'Dissolved', label: '🔴 Dissolved' }
+        ], val => {
+          fac.status = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        if (fac.reach !== undefined || fac.force !== undefined || fac.wealth !== undefined || fac.secrecy !== undefined) {
+          appendCategoryRow(tbody, 'Organizational Power Profile');
+          appendPropRow(tbody, 'Reach', fac.reach || 'Medium', true, val => { fac.reach = val; if (typeof saveActiveCampaign === 'function') saveActiveCampaign(); });
+          appendPropRow(tbody, 'Force', fac.force || 'Medium', true, val => { fac.force = val; if (typeof saveActiveCampaign === 'function') saveActiveCampaign(); });
+          appendPropRow(tbody, 'Wealth', fac.wealth || 'Medium', true, val => { fac.wealth = val; if (typeof saveActiveCampaign === 'function') saveActiveCampaign(); });
+          appendPropRow(tbody, 'Secrecy', fac.secrecy || 'Low', true, val => { fac.secrecy = val; if (typeof saveActiveCampaign === 'function') saveActiveCampaign(); });
+        }
+        const terrCount = [
+          ...(Array.isArray(fac.controlledNodeIds) ? fac.controlledNodeIds : []),
+          ...(Array.isArray(fac.territoryNodeIds) ? fac.territoryNodeIds : [])
+        ].length;
+        appendPropRow(tbody, 'Territory Size', `${terrCount} node${terrCount === 1 ? '' : 's'} controlled`, false);
+        const memCount = (topo.npcs || []).filter(n => n.factionId === fac.id || n.faction === fac.name || (Array.isArray(fac.memberNpcIds) && fac.memberNpcIds.includes(String(n.id)))).length;
+        appendPropRow(tbody, 'Affiliated Members', `${memCount} character${memCount === 1 ? '' : 's'}`, false);
 
         appendCategoryRow(tbody, 'Entity Roster Actions');
         appendButtonPropRow(tbody, 'Faction Registry', '📂 Open Faction Registry in Explorer...', () => {
           if (typeof openEntityManager === 'function') openEntityManager('faction');
           if (typeof selectEntityItem === 'function') selectEntityItem(fac.id, isProto);
+        });
+
+      } else if (entityType === 'creature') {
+        let creature = (topo.creatures || []).find(c => String(c.id) === String(entityId));
+        let isProto = false;
+        if (!creature && typeof getPrototypesForType === 'function') {
+          const protos = getPrototypesForType('creature');
+          creature = protos.find(p => String(p.id) === String(entityId));
+          isProto = true;
+        }
+        if (!creature) {
+          appendCategoryRow(tbody, `Creature: ${entityId} (Not Found)`);
+          appendPropRow(tbody, 'Status', 'Entity record missing from campaign', false);
+          return;
+        }
+
+        appendCategoryRow(tbody, `Creature: ${creature.name || creature.id}`);
+        appendPropRow(tbody, 'Creature Name', creature.name || '', true, val => {
+          creature.name = val;
+          if (pin && !pin.label) pin.label = val;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          if (typeof updateObjectSelector === 'function') updateObjectSelector();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        if (creature.scientificOrArchaicName) {
+          appendPropRow(tbody, 'Scientific / Archaic', creature.scientificOrArchaicName, false);
+        }
+        appendSelectPropRow(tbody, 'Threat Tier', String(creature.threatTier !== undefined ? creature.threatTier : 2), [
+          { val: '0', label: 'Tier 0: Minion / Vermin' },
+          { val: '1', label: 'Tier 1: Common Encounter' },
+          { val: '2', label: 'Tier 2: Dangerous Threat' },
+          { val: '3', label: 'Tier 3: Apex / Elite Lair' },
+          { val: '4', label: 'Tier 4: Legendary Monster' },
+          { val: '5', label: 'Tier 5: World-Ender Crucible' }
+        ], val => {
+          creature.threatTier = parseInt(val);
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendPropRow(tbody, 'Kind / Subtype', `${creature.size || 'Medium'} ${creature.kind || 'beast'}${creature.subtype ? ' (' + creature.subtype + ')' : ''}`, false);
+        
+        const curStationNodeId = (creature.stationing && creature.stationing.nodeId) || creature.nodeId;
+        appendSelectPropRow(tbody, 'Stationed Lair Node', String(curStationNodeId || ''), nodeOptions, val => {
+          const nid = val ? (isNaN(val) ? val : parseInt(val)) : null;
+          if (!creature.stationing || typeof creature.stationing !== 'object') {
+            creature.stationing = { nodeId: nid, roamingScope: creature.roamingScope || 'stationary_lair' };
+          } else {
+            creature.stationing.nodeId = nid;
+          }
+          creature.nodeId = nid;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          updatePropertiesGrid();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        const curScope = (creature.stationing && creature.stationing.roamingScope) || creature.roamingScope || 'stationary_lair';
+        appendSelectPropRow(tbody, 'Roaming Scope', curScope, [
+          { val: 'stationary_lair', label: '📍 Stationary Lair' },
+          { val: 'patrol_radius', label: '🔄 Patrol Radius' },
+          { val: 'roaming', label: '🐾 Roaming Encounter' }
+        ], val => {
+          if (!creature.stationing || typeof creature.stationing !== 'object') {
+            creature.stationing = { nodeId: creature.nodeId || null, roamingScope: val };
+          } else {
+            creature.stationing.roamingScope = val;
+          }
+          creature.roamingScope = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        // Capabilities & Dread
+        appendCategoryRow(tbody, 'Tactical & Cognitive Profile');
+        const dVal = (creature.dreadIndex !== undefined) ? creature.dreadIndex : ((creature.gigerenzerBehavior && creature.gigerenzerBehavior.dreadIndex) !== undefined ? creature.gigerenzerBehavior.dreadIndex : 1);
+        appendPropRow(tbody, 'Dread Index', `${dVal}/10`, false);
+        const caps = creature.relativeCapabilities || {};
+        appendPropRow(tbody, 'Capabilities (1-5)', `M:${caps.might||1} A:${caps.agility||1} R:${caps.resilience||1} C:${caps.cunning||1} Aw:${caps.awareness||1} P:${caps.presence||1}`, false);
+        const defs = creature.defenses || {};
+        if (defs.immunities && defs.immunities.length) appendPropRow(tbody, 'Immunities', defs.immunities.join(', '), false);
+        if (defs.resistances && defs.resistances.length) appendPropRow(tbody, 'Resistances', defs.resistances.join(', '), false);
+        if (defs.vulnerabilities && defs.vulnerabilities.length) appendPropRow(tbody, 'Vulnerabilities', defs.vulnerabilities.join(', '), false);
+
+        appendCategoryRow(tbody, 'Entity Roster Actions');
+        appendButtonPropRow(tbody, 'Bestiary Roster', '📂 Open Bestiary in Explorer...', () => {
+          if (typeof openEntityManager === 'function') openEntityManager('creature');
+          if (typeof selectEntityItem === 'function') selectEntityItem(creature.id, isProto);
+        });
+
+      } else if (entityType === 'resource') {
+        let res = (topo.resources || []).find(r => String(r.id) === String(entityId));
+        let isProto = false;
+        if (!res && typeof getPrototypesForType === 'function') {
+          const protos = getPrototypesForType('resource');
+          res = protos.find(p => String(p.id) === String(entityId));
+          isProto = true;
+        }
+        if (!res) {
+          appendCategoryRow(tbody, `Resource: ${entityId} (Not Found)`);
+          appendPropRow(tbody, 'Status', 'Entity record missing from campaign', false);
+          return;
+        }
+
+        appendCategoryRow(tbody, `Resource: ${res.name || res.id}`);
+        appendPropRow(tbody, 'Resource Name', res.name || '', true, val => {
+          res.name = val;
+          if (pin && !pin.label) pin.label = val;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          if (typeof updateObjectSelector === 'function') updateObjectSelector();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendPropRow(tbody, 'Category', res.category || 'Commodity / Resource', true, val => {
+          res.category = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendSelectPropRow(tbody, 'Supply Tier', String(res.tier !== undefined ? res.tier : 1), [
+          { val: '1', label: 'Tier 1: Raw Extraction' },
+          { val: '2', label: 'Tier 2: Refined Intermediate' },
+          { val: '3', label: 'Tier 3: Advanced Apparatus' }
+        ], val => {
+          res.tier = parseInt(val);
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendSelectPropRow(tbody, 'Stationed Node / Depot', String(res.nodeId || ''), nodeOptions, val => {
+          res.nodeId = val ? (isNaN(val) ? val : parseInt(val)) : null;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          updatePropertiesGrid();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        if (res.priceIndex !== undefined) {
+          appendPropRow(tbody, 'Price Index', String(res.priceIndex), true, val => {
+            res.priceIndex = parseFloat(val) || 1.0;
+            if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+          });
+        }
+
+        appendCategoryRow(tbody, 'Entity Roster Actions');
+        appendButtonPropRow(tbody, 'Resource Catalog', '📂 Open Resource Catalog in Explorer...', () => {
+          if (typeof openEntityManager === 'function') openEntityManager('resource');
+          if (typeof selectEntityItem === 'function') selectEntityItem(res.id, isProto);
         });
 
       } else if (entityType === 'ticket') {

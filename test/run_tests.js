@@ -8778,20 +8778,20 @@ async function testSuite52ResourcePartitionAndBestiaryPersistence() {
   assertEqual(sb.getActiveEntityList('resource').map(i => i.id), ['res_ore', 'res_grain', 'res_timber', 'res_coal'], 'pushing to getBackingEntityList("resource") updates the active resource view');
   assertEqual(sb.getActiveEntityList('item').map(i => i.id), ['it_sword', 'it_pot', 'it_mill'], 'pushing resource does not leak into active items view');
 
-  // 4. DIablo Campaign Hydration & Zero-CORS Evidence
-  const diabloTopoPath = path.join(ROOT_DIR, 'campaigns', 'DIablo', 'topology.json');
-  const diabloEvidencePath = path.join(ROOT_DIR, 'campaigns', 'DIablo', 'creatures', 'evidence.json');
-  assert(fs.existsSync(diabloTopoPath), 'campaigns/DIablo/topology.json exists on disk');
-  assert(fs.existsSync(diabloEvidencePath), 'campaigns/DIablo/creatures/evidence.json exists on disk');
+  // 4. Diablo1 Campaign Hydration & Zero-CORS Evidence
+  const diabloTopoPath = path.join(ROOT_DIR, 'campaigns', 'Diablo1', 'topology.json');
+  const diabloEvidencePath = path.join(ROOT_DIR, 'campaigns', 'Diablo1', 'creatures', 'evidence.json');
+  assert(fs.existsSync(diabloTopoPath), 'campaigns/Diablo1/topology.json exists on disk');
+  assert(fs.existsSync(diabloEvidencePath), 'campaigns/Diablo1/creatures/evidence.json exists on disk');
 
   const diabloTopo = JSON.parse(fs.readFileSync(diabloTopoPath, 'utf8'));
   const diabloEvidence = JSON.parse(fs.readFileSync(diabloEvidencePath, 'utf8'));
 
-  assert(Array.isArray(diabloTopo.creatures) && diabloTopo.creatures.length === 68, 'DIablo topology.json defines 68 bestiary creatures');
-  assert(Object.keys(diabloEvidence).length === 68, 'DIablo evidence.json defines 68 creature evidence records');
+  assert(Array.isArray(diabloTopo.creatures) && diabloTopo.creatures.length === 68, 'Diablo1 topology.json defines 68 bestiary creatures');
+  assert(Object.keys(diabloEvidence).length === 68, 'Diablo1 evidence.json defines 68 creature evidence records');
 
   await sb.loadCampaignProjectPackage({
-    id: 'DIablo',
+    id: 'Diablo1',
     name: 'Diablo: The Darkening of Tristram',
     preset: diabloTopo,
     creatures: diabloTopo.creatures,
@@ -9006,8 +9006,8 @@ async function testSuite54BestiaryExplorerAndFftIntegration() {
   const emUiCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_manager_ui.js'), 'utf8');
 
   // 1. Verify Diablo campaign has 68 creatures and evidence
-  const diabloTopoPath = path.join(ROOT_DIR, 'campaigns/DIablo/topology.json');
-  const diabloEvPath = path.join(ROOT_DIR, 'campaigns/DIablo/creatures/evidence.json');
+  const diabloTopoPath = path.join(ROOT_DIR, 'campaigns/Diablo1/topology.json');
+  const diabloEvPath = path.join(ROOT_DIR, 'campaigns/Diablo1/creatures/evidence.json');
   const diabloTopo = JSON.parse(fs.readFileSync(diabloTopoPath, 'utf8'));
   const diabloEv = JSON.parse(fs.readFileSync(diabloEvPath, 'utf8'));
 
@@ -9211,8 +9211,8 @@ async function testSuite54BestiaryExplorerAndFftIntegration() {
 async function testSuite55CreatureCrudAndCascadeDelete() {
   console.log('\n--- Suite 55: Creature CRUD Dialogs, Cascade Deletion & Stationing Lifecycle ---');
 
-  const diabloTopo = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaigns/DIablo/topology.json'), 'utf8'));
-  const diabloEv = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaigns/DIablo/creatures/evidence.json'), 'utf8'));
+  const diabloTopo = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaigns/Diablo1/topology.json'), 'utf8'));
+  const diabloEv = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaigns/Diablo1/creatures/evidence.json'), 'utf8'));
 
   const fftCoreCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/fast_frugal_tree.js'), 'utf8');
   const fftUiCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/fft_editor_ui.js'), 'utf8');
@@ -9437,6 +9437,669 @@ async function testSuite55CreatureCrudAndCascadeDelete() {
   assertEqual(acidBeast.stationing.mode, 'unassigned', 'CME deleteEntity on node resets creature stationing.mode to unassigned');
 }
 
+function testSuite56QuestExplorerEnrichmentAndCrucible() {
+  console.log('\n--- Test Suite 56: Quest Explorer Enrichment, What-If Crucibles & NPC Semantic Roles ---');
+
+  const emUiCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_manager_ui.js'), 'utf8');
+  const wsStateCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/workstation_state.js'), 'utf8');
+
+  const sb = {
+    console,
+    Math,
+    Date,
+    Array,
+    Object,
+    String,
+    Number,
+    RegExp,
+    Set,
+    Map,
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    document: {
+      getElementById: () => null,
+      querySelectorAll: () => [],
+      querySelector: () => null,
+      addEventListener: () => {},
+      removeEventListener: () => {}
+    },
+    window: {},
+    Workstation: { activeTopology: {} }
+  };
+  sb.window = sb;
+
+  vm.createContext(sb);
+  vm.runInContext(wsStateCode, sb);
+  vm.runInContext(emUiCode, sb);
+
+  // 1. Test parseQuestCrucibleNotes on standard What-If Crucible with markdown tokens
+  const sample1 = `A rogue sister has turned to evil.
+**Canonical Outcome:** Kashya rewards the rogue hero.
+**Crucible Divergence Point:** The hero spares Blood Raven's corrupted soul.
+**Snarky vs Altruistic:** Mock the Sisterhood or uphold their solemn vow.
+**Immediate Dilemma:** Execute or exorcise.
+**Long-Term Ripple:** Rogue archers refuse to aid the Monastery.
+**Key NPC Reactions:** Akara weeps; Kashya draws her blade.
+**Table Hook:** A haunting melody plays across the burial grounds.`;
+
+  const res1 = sb.parseQuestCrucibleNotes(sample1);
+  assertEqual(res1.hasCrucible, true, 'Crucible detected in sample 1');
+  assertEqual(res1.synopsis, 'A rogue sister has turned to evil.', 'Synopsis separated cleanly');
+  assert(res1.canonicalOutcome.includes('Kashya rewards'), 'Canonical outcome extracted');
+  assert(res1.divergencePoint.includes('spares Blood Raven'), 'Divergence point extracted');
+  assert(res1.snarkyVsAltruistic.includes('Mock the Sisterhood'), 'Snarky vs altruistic extracted');
+  assert(res1.dilemma.includes('Execute or exorcise'), 'Immediate dilemma extracted');
+  assert(res1.ripple.includes('Rogue archers refuse'), 'Long-term ripple extracted');
+  assert(res1.npcReactions.includes('Akara weeps'), 'Key NPC reactions extracted');
+  assert(res1.tableHook.includes('haunting melody'), 'Table hook extracted');
+
+  // 2. Test parseQuestCrucibleNotes with **What-If Crucible:** header
+  const sample2 = `Rescue Cain from Tristram.
+**What-If Crucible:**
+**Immediate Dilemma:** The portal closes before Cain escapes.
+**Long-Term Ripple:** Tristram remains consumed by flames.`;
+
+  const res2 = sb.parseQuestCrucibleNotes(sample2);
+  assertEqual(res2.hasCrucible, true, 'Crucible detected with What-If header');
+  assertEqual(res2.synopsis, 'Rescue Cain from Tristram.', 'Synopsis separated cleanly with header');
+  assert(res2.dilemma.includes('portal closes'), 'Dilemma extracted with header');
+  assert(res2.ripple.includes('consumed by flames'), 'Ripple extracted with header');
+
+  // 3. Test parseQuestCrucibleNotes without crucible tokens
+  const sample3 = 'Retrieve the Horadric Malus from the Smith.';
+  const res3 = sb.parseQuestCrucibleNotes(sample3);
+  assertEqual(res3.hasCrucible, false, 'No crucible detected on plain notes');
+  assertEqual(res3.synopsis, 'Retrieve the Horadric Malus from the Smith.', 'Plain synopsis retained intact');
+  assertEqual(res3.canonicalOutcome, '', 'Canonical outcome is empty for plain notes');
+
+  // 4. Test getQuestThreatBadgeHtml
+  const lethalBadge = sb.getQuestThreatBadgeHtml('Lethal');
+  assert(lethalBadge.includes('#fee2e2') && lethalBadge.includes('Lethal'), 'Lethal threat displays text with red badge style');
+
+  const ticksBadge = sb.getQuestThreatBadgeHtml('4 Ticks');
+  assert(ticksBadge.includes('4 Ticks'), '4 Ticks threat displays text');
+
+  const emptyBadge = sb.getQuestThreatBadgeHtml('');
+  assertEqual(emptyBadge, '', 'Empty threat returns empty string');
+
+  // 5. Test ensureEntityCollections normalization of quest roles and step dual flags
+  const testTopo = {
+    nodes: { '1': { id: 1, name: 'Rogue Encampment' } },
+    npcs: [
+      { id: 'npc_akara', name: 'Akara' },
+      { id: 'npc_blood_raven', name: 'Blood Raven' }
+    ],
+    quests: [
+      {
+        id: 'q_blood_raven',
+        title: "Sisters' Burial Grounds",
+        giverNpcId: 'npc_akara',
+        targetNpcId: 'npc_blood_raven',
+        npcIds: [],
+        steps: [
+          { id: 's1', title: 'Find the Burial Grounds', completed: true },
+          { id: 's2', title: 'Slay Blood Raven', isCompleted: false, text: 'Defeat the corrupted sister.' }
+        ]
+      }
+    ]
+  };
+
+  sb.ensureEntityCollections(testTopo);
+  const normQ = testTopo.quests[0];
+  assertEqual(normQ.name, "Sisters' Burial Grounds", 'Quest name synchronized with title');
+  assert(normQ.npcIds.includes('npc_akara'), 'giverNpcId included in npcIds');
+  assert(normQ.npcIds.includes('npc_blood_raven'), 'targetNpcId included in npcIds');
+  assertEqual(normQ.steps[0].isCompleted, true, 'step[0].isCompleted synchronized from completed:true');
+  assertEqual(normQ.steps[0].completed, true, 'step[0].completed preserved');
+  assertEqual(normQ.steps[1].completed, false, 'step[1].completed synchronized from isCompleted:false');
+  assertEqual(normQ.steps[1].text, 'Defeat the corrupted sister.', 'step.text narrative preserved');
+}
+
+async function testSuite57CrossCampaignExplorerAndTransplant() {
+  console.log('\n--- Test Suite 57: Cross-Campaign Entity Exploration & Transplant Packaging Wizard ---');
+
+  const ecCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_core.js'), 'utf8');
+  const wsStateCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/workstation_state.js'), 'utf8');
+  const emUiCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_manager_ui.js'), 'utf8');
+  const crudCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_crud_dialogs.js'), 'utf8');
+
+  // Create mock DOM & Browser environment
+  const mockElements = {};
+  function createMockElement(id) {
+    return {
+      id,
+      value: '',
+      textContent: '',
+      innerHTML: '',
+      style: {},
+      classList: {
+        add: () => {},
+        remove: () => {},
+        contains: () => false
+      },
+      appendChild: () => {},
+      querySelectorAll: () => [],
+      querySelector: () => null
+    };
+  }
+
+  const domIds = [
+    'modal-transplant-package', 'tp-modal-title', 'tp-primary-summary',
+    'tp-primary-name', 'tp-primary-meta', 'tp-target-node', 'tp-id-strategy',
+    'tp-deps-count', 'tp-deps-table-body', 'tp-conflict-banner', 'em-sources-popover',
+    'em-sources-checklist', 'em-sources-count-badge', 'em-table-body', 'em-detail-pane'
+  ];
+  domIds.forEach(id => { mockElements[id] = createMockElement(id); });
+
+  const sb = {
+    console,
+    Math,
+    Date,
+    Array,
+    Object,
+    String,
+    Number,
+    RegExp,
+    Set,
+    Map,
+    JSON,
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    alert: (msg) => {},
+    confirm: () => true,
+    localStorage: {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {}
+    },
+    document: {
+      getElementById: (id) => mockElements[id] || null,
+      querySelectorAll: () => [],
+      querySelector: (sel) => null,
+      createElement: (tag) => createMockElement(tag),
+      addEventListener: () => {},
+      removeEventListener: () => {}
+    },
+    window: {},
+    CAMPAIGN_REGISTRY: {
+      diablo2: {
+        name: 'Diablo II: Lord of Destruction',
+        campaign: {
+          topology: {
+            nodes: {
+              '10': { id: '10', name: 'Rogue Encampment', culture: 'Clan' },
+              '11': { id: '11', name: 'Burial Grounds', culture: 'Hierarchy' }
+            },
+            npcs: [
+              { id: 'npc_ext_kashya', name: 'Kashya', nodeId: '10', role: 'Captain' },
+              { id: 'npc_ext_raven', name: 'Blood Raven', nodeId: '11', role: 'Corrupted Sister' }
+            ],
+            items: [
+              { id: 'item_ext_bow', name: 'Raven Claw Bow', ownerNpcId: 'npc_ext_raven', nodeId: '11' }
+            ],
+            quests: [
+              {
+                id: 'quest_blood_raven',
+                title: 'Sisters\' Burial Grounds',
+                giverNpcId: 'npc_ext_kashya',
+                targetNpcId: 'npc_ext_raven',
+                itemIds: ['item_ext_bow'],
+                nodeId: '11',
+                steps: [
+                  { title: 'Defeat Raven', triggerTrackerId: 'clock_corrupt' }
+                ]
+              }
+            ],
+            trackers: [
+              { id: 'clock_corrupt', title: 'Corruption Clock', segments: 4 }
+            ]
+          }
+        }
+      }
+    },
+    Workstation: {
+      activeTopology: {
+        name: 'Active Campaign',
+        nodes: {
+          '1': { id: '1', name: 'Town Square', culture: 'Clan' }
+        },
+        npcs: [
+          { id: 'npc_active_deckard', name: 'Deckard Cain', nodeId: '1' }
+        ],
+        items: [],
+        quests: [],
+        trackers: [],
+        factions: [],
+        creatures: []
+      }
+    },
+    saveActiveCampaign: () => {},
+    setStatusBarMessage: () => {}
+  };
+  sb.window = sb;
+
+  vm.createContext(sb);
+  vm.runInContext(wsStateCode, sb);
+  vm.runInContext(ecCode, sb);
+  vm.runInContext(emUiCode, sb);
+  vm.runInContext(crudCode, sb);
+
+  sb.Workstation.activeTopology = {
+    name: 'Active Campaign',
+    nodes: {
+      '1': { id: '1', name: 'Town Square', culture: 'Clan' }
+    },
+    npcs: [
+      { id: 'npc_active_deckard', name: 'Deckard Cain', nodeId: '1' }
+    ],
+    items: [],
+    quests: [],
+    trackers: [],
+    factions: [],
+    creatures: []
+  };
+
+  // 1. Verify CrossCampaignService registration
+  assert(sb.CrossCampaignService, 'CrossCampaignService is defined and attached to window');
+  const sources = sb.CrossCampaignService.discoverAvailableSources();
+  assert(Array.isArray(sources), 'discoverAvailableSources returns an array');
+  const d2Source = sources.find(s => s.id === 'diablo2');
+  assert(d2Source, 'Bundled diablo2 source found in available sources');
+  assertEqual(d2Source.isLoaded, false, 'Diablo 2 starts unloaded');
+
+  // 2. Toggle load source
+  const loadedPkg = await sb.CrossCampaignService.toggleSource('diablo2', true);
+  assert(loadedPkg, 'toggleSource loads Diablo II');
+  assertEqual(sb.CrossCampaignService.isSourceLoaded('diablo2'), true, 'Diablo II is marked loaded');
+
+  // 3. Strict Isolation Invariant: active campaign list untouched
+  const activeQuests = sb.getActiveEntityList('quest');
+  assertEqual(activeQuests.length, 0, 'Active campaign quests list remains empty (Strict Isolation)');
+
+  // 4. Staged external entities accessible via CrossCampaignService
+  const extQuests = sb.CrossCampaignService.getExternalEntities('quest');
+  assertEqual(extQuests.length, 1, '1 external quest discovered across loaded sources');
+  const extQ = extQuests[0];
+  assertEqual(extQ._isExternal, true, 'External entity stamped with _isExternal');
+  assertEqual(extQ._sourceCampaignId, 'diablo2', 'External entity stamped with _sourceCampaignId');
+  assertEqual(extQ.nodeId, null, 'External entity stationing decoupled to null to prevent collision');
+  assertEqual(extQ._originalNodeId, '11', 'Original stationing captured in _originalNodeId');
+  assertEqual(extQ._externalKey, 'ext::diablo2::quest_blood_raven', 'External key formatted correctly');
+
+  // 5. Test resolveExternalEntity
+  const resolved = sb.CrossCampaignService.resolveExternalEntity('ext::diablo2::quest_blood_raven', 'quest');
+  assert(resolved, 'resolveExternalEntity finds external quest by key');
+  assertEqual(resolved.sourceId, 'diablo2', 'Resolved sourceId matches');
+  assertEqual(resolved.entity.id, 'quest_blood_raven', 'Resolved entity matches');
+
+  // 6. Test analyzeTransplantDependencies
+  const deps = sb.analyzeTransplantDependencies(resolved.entity, 'quest', resolved.sourcePool);
+  assert(Array.isArray(deps), 'analyzeTransplantDependencies returns array');
+  assertEqual(deps.length, 4, 'Discovered exactly 4 dependencies (Giver NPC, Target NPC, Item, Tracker)');
+
+  const giverDep = deps.find(d => d.id === 'npc_ext_kashya');
+  assert(giverDep, 'Giver NPC found in dependencies');
+  assertEqual(giverDep.role, 'Quest Giver', 'Giver role identified');
+  assertEqual(giverDep.type, 'npc', 'Giver type is npc');
+
+  const tgtDep = deps.find(d => d.id === 'npc_ext_raven');
+  assert(tgtDep, 'Target NPC found in dependencies');
+  assertEqual(tgtDep.role, 'Quest Target', 'Target role identified');
+
+  const itemDep = deps.find(d => d.id === 'item_ext_bow');
+  assert(itemDep, 'Bow relic found in dependencies');
+  assertEqual(itemDep.role, 'Required / Reward Relic', 'Item role identified');
+
+  const clockDep = deps.find(d => d.id === 'clock_corrupt');
+  assert(clockDep, 'Trigger clock found in dependencies');
+  assertEqual(clockDep.role, 'Step Trigger Clock', 'Clock role identified');
+
+  // 7. Test openTransplantPackageModal
+  sb.openTransplantPackageModal('ext::diablo2::quest_blood_raven', 'quest');
+  assert(mockElements['tp-primary-name'].textContent.includes('Burial Grounds'), 'Transplant modal populated primary entity name');
+
+  // 8. Test executeTransplantPackage with Foreign-Key Rewriting & ID auto_unique
+  mockElements['tp-id-strategy'].value = 'auto_unique';
+  mockElements['tp-target-node'].value = '1';
+
+  // Override querySelector to simulate user selecting:
+  // - giver: copy
+  // - target: copy
+  // - item: copy
+  // - clock: omit
+  sb.document.querySelector = (sel) => {
+    if (sel.includes('.tp-action-select[data-dep-idx="0"]')) return { value: 'copy' };
+    if (sel.includes('.tp-action-select[data-dep-idx="1"]')) return { value: 'copy' };
+    if (sel.includes('.tp-action-select[data-dep-idx="2"]')) return { value: 'copy' };
+    if (sel.includes('.tp-action-select[data-dep-idx="3"]')) return { value: 'omit' };
+    return null;
+  };
+
+  sb.executeTransplantPackage();
+
+  // Verify Active Campaign after transplant
+  const topo = sb.Workstation.activeTopology;
+  assertEqual(topo.quests.length, 1, 'Active campaign now contains 1 transplanted quest');
+  const activeQ = topo.quests[0];
+  assertEqual(activeQ.id, 'quest_blood_raven', 'Transplanted quest ID preserved under auto_unique without collision');
+  assertEqual(activeQ.nodeId, '1', 'Transplanted quest stationed to selected active node 1');
+  assertEqual(activeQ._isExternal, undefined, '_isExternal stripped on transplant');
+
+  // Verify NPCs copied into active campaign
+  assertEqual(topo.npcs.length, 3, 'Active campaign has 3 NPCs (Deckard + Kashya + Raven)');
+  const kashya = topo.npcs.find(n => n.name === 'Kashya');
+  const raven = topo.npcs.find(n => n.name === 'Blood Raven');
+  assert(kashya, 'Kashya copied into active campaign');
+  assert(raven, 'Raven copied into active campaign');
+  assertEqual(kashya.nodeId, '1', 'Kashya stationed to active node 1');
+  assertEqual(raven.nodeId, '1', 'Raven stationed to active node 1');
+
+  // Verify Foreign Key Rewriting on quest
+  assertEqual(activeQ.giverNpcId, kashya.id, 'Quest giver foreign key rewritten to active Kashya');
+  assertEqual(activeQ.targetNpcId, raven.id, 'Quest target foreign key rewritten to active Raven');
+
+  // Verify Item copied
+  assertEqual(topo.items.length, 1, 'Bow relic copied into active campaign');
+  assertEqual(topo.items[0].nodeId, '1', 'Bow stationed to active node 1');
+
+  // Verify Omitted clock cleared from quest step
+  assertEqual(activeQ.steps[0].triggerTrackerId, null, 'Omitted clock reference cleanly severed to null');
+  assertEqual(topo.trackers.length, 0, 'Omitted clock was not added to active trackers');
+
+  // 9. Test ID collision handling under auto_unique
+  sb.openTransplantPackageModal('ext::diablo2::quest_blood_raven', 'quest');
+  sb.executeTransplantPackage();
+  assertEqual(topo.quests.length, 2, 'Second transplant created duplicate without error under auto_unique');
+  assertEqual(topo.quests[1].id, 'quest_blood_raven_imported', 'Second transplant generated unique ID with _imported suffix');
+
+  // 10. Test unloadAllSources
+  sb.CrossCampaignService.unloadAllSources();
+  assertEqual(sb.CrossCampaignService.getLoadedSourcesList().length, 0, 'unloadAllSources clears loaded sources');
+  assertEqual(sb.CrossCampaignService.getExternalEntities('quest').length, 0, 'External entities empty after unload');
+}
+
+function testSuite58MultiExplorerEnrichment() {
+  console.log('\n--- Test Suite 58: Multi-Explorer Enrichment & Cross-Entity Property Grid Parity ---');
+
+  const ecCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_core.js'), 'utf8');
+  const wsStateCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/workstation_state.js'), 'utf8');
+  const emUiCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_manager_ui.js'), 'utf8');
+  const propGridCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/property_grid_inspector.js'), 'utf8');
+
+  const mockElements = {};
+  function getMockEl(id) {
+    if (!mockElements[id]) {
+      mockElements[id] = {
+        id,
+        value: '',
+        textContent: '',
+        innerHTML: '',
+        style: {},
+        classList: { add: () => {}, remove: () => {}, contains: () => false },
+        appendChild: function(child) { this.children.push(child); },
+        children: [],
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        setAttribute: () => {},
+        getAttribute: () => null,
+        removeAttribute: () => {},
+        querySelectorAll: () => [],
+        querySelector: () => null
+      };
+    }
+    return mockElements[id];
+  }
+
+  const sb = {
+    console,
+    Math,
+    Date,
+    Array,
+    Object,
+    String,
+    Number,
+    RegExp,
+    Set,
+    Map,
+    JSON,
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    alert: () => {},
+    confirm: () => true,
+    MDIWindowManager: { windows: {} },
+    AUTOCAD_COLORS: [{ val: 'red', label: 'Red' }],
+    getRecursiveNodeEntities: () => ({ direct: { npcs: [], quests: [], items: [], trackers: [], submaps: [] }, submaps: [], totals: { npcs: 0, quests: 0, items: 0, trackers: 0, submaps: 0 } }),
+    document: {
+      getElementById: (id) => getMockEl(id),
+      querySelectorAll: () => [],
+      querySelector: () => null,
+      createElement: (tag) => getMockEl(tag),
+      addEventListener: () => {},
+      removeEventListener: () => {}
+    },
+    window: {}
+  };
+  sb.window = sb;
+
+  vm.createContext(sb);
+  vm.runInContext(wsStateCode, sb);
+  vm.runInContext(ecCode, sb);
+  vm.runInContext(emUiCode, sb);
+  vm.runInContext(propGridCode, sb);
+
+  // 1. formatEntityNavId helper tests
+  assertEqual(sb.formatEntityNavId('npc_1', false), 'npc_1', 'formatEntityNavId preserves bare ID for local entities');
+  assertEqual(sb.formatEntityNavId('npc_1', true, 'bg1'), 'ext::bg1::npc_1', 'formatEntityNavId prefixes ext::<sourceId>:: for external entities');
+  assertEqual(sb.formatEntityNavId('ext::bg1::npc_1', true, 'bg1'), 'ext::bg1::npc_1', 'formatEntityNavId does not double-prefix external key');
+  assertEqual(sb.formatEntityNavId('', true, 'bg1'), '', 'formatEntityNavId returns empty string for falsy ID');
+
+  // 2. renderNpcDialogueHooksHtml polymorphic tests
+  const objHookNpc = {
+    dialogueHooks: [
+      { text: 'The ancient stone gate is sealed shut.', revealed: true },
+      { text: 'Knows the royal secret passphrase.', revealed: false }
+    ]
+  };
+  const objHookHtml = sb.renderNpcDialogueHooksHtml(objHookNpc, false);
+  assert(!objHookHtml.includes('[object Object]'), 'Object dialogue hooks do not render as [object Object]');
+  assert(objHookHtml.includes('[REVEALED IN CANON]') && objHookHtml.includes('ancient stone gate'), 'Object hook renders [REVEALED IN CANON] badge and text');
+  assert(objHookHtml.includes('royal secret passphrase'), 'Object hook renders unrevealed dialogue hook text');
+
+  const bifocalHookNpc = {
+    dialogueHooks: [
+      'Spoken: Greetings, traveler! | Subtext: Assessing whether you carry gold'
+    ]
+  };
+  const bifocalHtml = sb.renderNpcDialogueHooksHtml(bifocalHookNpc, false);
+  assert(!bifocalHtml.includes('[object Object]'), 'Bifocal dialogue hook does not render as [object Object]');
+  assert(bifocalHtml.includes('Greetings, traveler!') && bifocalHtml.includes('Assessing whether you carry gold'), 'Bifocal hook renders both spoken dialogue and subtext');
+
+  // 3. Property Grid Inspector Parity Tests
+  const mockTopo = {
+    nodes: {
+      '1': { id: 1, name: 'Beregost' },
+      '2': { id: 2, name: 'Friendly Arm Inn' }
+    },
+    npcs: [
+      { id: 'npc_1', name: 'Khalid', fourCornersRole: 'Mentor' }
+    ],
+    items: [
+      { id: 'item_1', name: 'Moonblade', status: 'attuned', value: '5000 gp' }
+    ],
+    quests: [],
+    trackers: [],
+    factions: [
+      {
+        id: 'fac_1',
+        name: 'Harpers',
+        status: 'Underground',
+        reach: 'Regional',
+        force: 'Covert',
+        wealth: 'Substantial',
+        secrecy: 'High',
+        territoryNodeIds: ['1', '2'],
+        memberNpcIds: ['npc_1']
+      }
+    ],
+    creatures: [
+      {
+        id: 'cr_1',
+        name: 'Gargoyle',
+        threatTier: 'Apex',
+        kind: 'Monstrosity',
+        roamingScope: 'territorial',
+        defenses: { immunities: ['Petrification'] }
+      }
+    ],
+    resources: [
+      {
+        id: 'res_1',
+        name: 'Refined Iron',
+        category: 'Metals & Minerals',
+        supplyTier: 'Manufactured',
+        priceIndex: '15 gp / ingot'
+      }
+    ]
+  };
+
+  // 3a: Creature in property grid
+  const crTbody = getMockEl('tbody-creature-pg');
+  sb.renderEntityExplorerProperties(crTbody, 'creature', 'cr_1', mockTopo);
+  assert(crTbody.children.length > 5, 'Creature properties rendered in property grid');
+
+  // 3b: Resource in property grid
+  const resTbody = getMockEl('tbody-resource-pg');
+  sb.renderEntityExplorerProperties(resTbody, 'resource', 'res_1', mockTopo);
+  assert(resTbody.children.length > 4, 'Resource properties rendered in property grid');
+
+  // 3c: Item status & value in property grid
+  const itmTbody = getMockEl('tbody-item-pg');
+  sb.renderEntityExplorerProperties(itmTbody, 'item', 'item_1', mockTopo);
+  assert(itmTbody.children.length > 5, 'Item properties rendered in property grid');
+
+  // 3d: Faction 4-axis power & territory in property grid
+  const facTbody = getMockEl('tbody-faction-pg');
+  sb.renderEntityExplorerProperties(facTbody, 'faction', 'fac_1', mockTopo);
+  assert(facTbody.children.length > 5, 'Faction properties rendered in property grid');
+
+  // 4. Faction Inspector in entity_manager_ui.js
+  sb.Workstation.activeTopology = {
+    name: 'Active Test Campaign',
+    nodes: {
+      '1': {
+        id: 1,
+        name: 'Beregost',
+        cat: 'Settlement',
+        dangerRating: 3,
+        customNotes: 'A bustling trade town centered around the Jovial Juggler.',
+        provides: ['Food: Grain', 'Water: Well'],
+        requires: ['Defense: Militia'],
+        demographics: { primary: { name: 'Humans', percentage: 80 } },
+        faction: 'Shadow Thieves',
+        factionPresence: ['Harpers'],
+        partyRapport: { stance: 1, notes: 'Saved the town from bandits' }
+      },
+      '2': { id: 2, name: 'Coast Way' }
+    },
+    npcs: [
+      { id: 'npc_boss', name: 'Shadowmaster', factionId: 'fac_shadow', carriedItemIds: ['itm_dagger'] },
+      { id: 'npc_footpad', name: 'Footpad', faction: 'Shadow Thieves' }
+    ],
+    items: [
+      { id: 'itm_dagger', name: 'Poison Dagger', status: 'Active', value: '150 gp', ownerNpcId: 'npc_boss' }
+    ],
+    quests: [],
+    trackers: [],
+    factions: [
+      {
+        id: 'fac_shadow',
+        name: 'Shadow Thieves',
+        status: 'Active',
+        disposition: [1, 3, 2],
+        reach: 'Continental',
+        force: 'Lethal',
+        wealth: 'Immense',
+        secrecy: 'Absolute',
+        territoryNodeIds: ['1'],
+        controlledNodeIds: ['2'],
+        memberNpcIds: ['npc_boss']
+      }
+    ],
+    creatures: [
+      {
+        id: 'cr_drake',
+        name: 'Shadow Drake',
+        scientificOrArchaicName: 'Draco Umbra',
+        threatTier: 'Apex',
+        roamingScope: 'regional',
+        defenses: { immunities: ['Cold', 'Necrotic'] },
+        harvest: { harvestYields: ['Shadow Drake Scales x4'], domesticationProfile: 'Wild / Untamable' },
+        relationalLinks: { hunts: 'Mountain Wyverns' }
+      }
+    ]
+  };
+
+  sb.switchEntityManagerTab('faction');
+  sb.selectEntityItem('fac_shadow');
+  const facPaneHtml = getMockEl('em-detail-pane').innerHTML;
+  assert(facPaneHtml.includes('Shadow Thieves'), 'Faction Inspector renders faction title');
+  assert(facPaneHtml.includes('REACH') && facPaneHtml.includes('Continental'), 'Faction Inspector renders Reach metric');
+  assert(facPaneHtml.includes('FORCE') && facPaneHtml.includes('Lethal'), 'Faction Inspector renders Force metric');
+  assert(facPaneHtml.includes('WEALTH') && facPaneHtml.includes('Immense'), 'Faction Inspector renders Wealth metric');
+  assert(facPaneHtml.includes('SECRECY') && facPaneHtml.includes('Absolute'), 'Faction Inspector renders Secrecy metric');
+  assert(facPaneHtml.includes('Beregost') && facPaneHtml.includes('Coast Way'), 'Faction Inspector unionizes territoryNodeIds and controlledNodeIds');
+  assert(facPaneHtml.includes('Shadowmaster') && facPaneHtml.includes('Footpad'), 'Faction Inspector unionizes memberNpcIds and faction matching');
+  assert(facPaneHtml.includes('Highlight on Canvas'), 'Local faction renders Canvas Territory Highlight button');
+
+  // 5. External Faction Isolation
+  const extFac = {
+    id: 'fac_ext',
+    name: 'Red Wizards of Thay',
+    status: 'Ascendant',
+    _isExternal: true,
+    _sourceCampaignId: 'bg1',
+    territoryNodeIds: ['10'],
+    diplomaticStances: { fac_other: 'Hostile' }
+  };
+  sb.CrossCampaignService.loadedSources['bg1'] = {
+    id: 'bg1',
+    name: 'Baldurs Gate',
+    factions: [extFac, { id: 'fac_other', name: 'Harpers' }],
+    npcs: [],
+    items: [],
+    quests: [],
+    creatures: [],
+    trackers: []
+  };
+  sb.selectEntityItem('ext::bg1::fac_ext');
+  const extFacPaneHtml = getMockEl('em-detail-pane').innerHTML;
+  assert(!extFacPaneHtml.includes('Highlight on Canvas'), 'External faction omits Canvas Territory Highlight button');
+  assert(extFacPaneHtml.includes('Hostile'), 'External faction renders read-only diplomatic stance');
+
+  // 6. Creature Inspector in entity_manager_ui.js
+  sb.switchEntityManagerTab('creature');
+  sb.selectEntityItem('cr_drake');
+  const crPaneHtml = getMockEl('em-detail-pane').innerHTML;
+  assert(crPaneHtml.includes('Draco Umbra'), 'Creature Inspector renders scientificOrArchaicName');
+  assert(crPaneHtml.includes('Cold') && crPaneHtml.includes('Necrotic'), 'Creature Inspector renders immunities');
+  assert(crPaneHtml.includes('Shadow Drake Scales x4'), 'Creature Inspector renders harvest yields');
+  assert(crPaneHtml.includes('Wild / Untamable'), 'Creature Inspector renders domestication profile');
+  assert(crPaneHtml.includes('Mountain Wyverns'), 'Creature Inspector renders relational links');
+  assert(crPaneHtml.includes('regional'), 'Creature Inspector renders roaming scope selector');
+
+  // 7. Node Inspector Subtab 1 (Telemetry & Links)
+  sb.switchEntityManagerTab('node');
+  sb.selectEntityItem(1);
+  const nodePaneHtml = getMockEl('em-detail-pane').innerHTML;
+  assert(nodePaneHtml.includes('Danger Rating'), 'Node Inspector renders Danger Rating selector');
+  assert(nodePaneHtml.includes('Settlement'), 'Node Inspector renders Node Category selector');
+  assert(nodePaneHtml.includes('Humans') && nodePaneHtml.includes('80%'), 'Node Inspector renders Demographics summary');
+  assert(nodePaneHtml.includes('Shadow Thieves'), 'Node Inspector renders Controlling Faction link');
+  assert(nodePaneHtml.includes('Friendly'), 'Node Inspector renders Party Rapport stance');
+  assert(nodePaneHtml.includes('bustling trade town'), 'Node Inspector renders Lore reader');
+  assert(nodePaneHtml.includes('Food: Grain') && nodePaneHtml.includes('Defense: Militia'), 'Node Inspector renders Commodity Logistics summary');
+}
+
 // ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
@@ -9497,6 +10160,9 @@ async function testSuite55CreatureCrudAndCascadeDelete() {
     await testSuite53ResourceExplorerUiAndMultiMapAggregation();
     await testSuite54BestiaryExplorerAndFftIntegration();
     await testSuite55CreatureCrudAndCascadeDelete();
+    testSuite56QuestExplorerEnrichmentAndCrucible();
+    await testSuite57CrossCampaignExplorerAndTransplant();
+    testSuite58MultiExplorerEnrichment();
     require('./test_gigerenzer_heuristics.js')({ assert, assertEqual, ROOT });
 
     const elapsedMs = Date.now() - suiteStartTime;

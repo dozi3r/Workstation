@@ -3,11 +3,11 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "81cf00004e02dfb1"
-reviewed_hash: "81cf00004e02dfb1"
+current_hash: "64aebaec393428a9"
+reviewed_hash: "64aebaec393428a9"
 stale: false
-size_bytes: 484836
-line_count: 9519
+size_bytes: 513153
+line_count: 10185
 ---
 
 # run_tests.js
@@ -63,4 +63,14 @@ line_count: 9519
    - *Suite 53*: Validates multi-map node aggregation for resource export commodities, DF logistics stockpile specifications, and resource CRUD.
    - *Suite 54*: Validates Diablo bestiary FFT normalization (all 68 creatures pass `validateFft`), Threat Tier / Kind filtering, Relative Capability stat bars with pips, Dread Index gauge (1-10), and collapsible Source Figures section hydrated from `creatureEvidence`.
    - *Suite 55*: Validates creature creation via `openNewEntityModal('creature')` and `saveCustomEntity()`, editing via `openEditEntityModal()`, cascade deletion dependency analysis via `analyzeEntityDependencies('creature')`, deletion execution via `executeCascadeDelete`, and node deletion cascade unlinking stationed creatures.
+15. **Suites 56–57: Quest Explorer Enrichment, Crucibles, Cross-Campaign Explorer & Transplant Packaging**:
+   - *Suite 56*: Tests What-If Crucible parsing (`parseQuestCrucibleNotes`), synopsis extraction, dilemma/ripple breakdown, threat tier rendering, step progress meters, and semantic Quest Giver (`giverNpcId`) and Target (`targetNpcId`) binding.
+   - *Suite 57*: Tests cross-campaign source discovery (`CrossCampaignService.discoverAvailableSources`), on-demand loading (`toggleSource`), strict isolation invariant (external entities never appear in `getActiveEntityList`), external entity normalization and staging (`_isExternal: true`, `_sourceCampaignId`, `nodeId: null`, `_originalNodeId`), composite key addressing (`ext::<sourceId>::<id>`), dependency graph analysis (`analyzeTransplantDependencies`), and transplant execution (`executeTransplantPackage`) with 3-way dependency actions (`copy`, `reassign`, `omit`), ID conflict strategies (`auto_unique`, `overwrite_if_exists`, `preserve_strict`), and foreign key rewriting.
+16. **Suite 58: Multi-Explorer Enrichment & Cross-Entity Property Grid Parity**:
+   - Validates `formatEntityNavId` prefixing `ext::<sourceId>::<id>` with idempotency and isolation.
+   - Validates polymorphic `renderNpcDialogueHooksHtml` handling bare string quotes, bifocal `Spoken: ... | Subtext: ...` blocks, and `{ text, revealed }` objects with `[REVEALED IN CANON]` indicators.
+   - Validates Property Grid parity across `creature`, `resource`, `item` (status and valuation), and `faction` (4-axis power profile and territory/member readouts).
+   - Validates Faction Inspector in `entity_manager_ui.js` unionizing `territoryNodeIds`/`controlledNodeIds`, unionizing `memberNpcIds` and faction matching, rendering 4-Axis Power Matrix, and isolating external campaigns (omitting territory highlight on canvas and enforcing read-only diplomatic stances).
+   - Validates Creature Inspector displaying `scientificOrArchaicName`, `immunities`, `harvestYields`, `domesticationProfile`, `relationalLinks`, and `roamingScope`.
+   - Validates Node Inspector Subtab 1 rendering Danger Rating (0-4), Node Category selector, Demographics Census & Faction Presence, Party Rapport stance, collapsible Node Lore reader, and Commodity Logistics summary.
 <!-- END_CUSTOM_NOTES -->

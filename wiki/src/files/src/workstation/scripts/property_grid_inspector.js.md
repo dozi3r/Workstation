@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/property_grid_inspector.js"
 title: "property_grid_inspector.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "31b70479e274530b"
-reviewed_hash: "31b70479e274530b"
+current_hash: "fe8daa1574fddf77"
+reviewed_hash: "fe8daa1574fddf77"
 stale: false
-size_bytes: 216250
-line_count: 4564
+size_bytes: 228343
+line_count: 4762
 ---
 
 # property_grid_inspector.js
@@ -32,4 +32,10 @@ line_count: 4564
 - **Bi-Directional Wiki Link Inspector**: Parses and renders embedded `[[Token]]` backlinks (`appendBacklinksPropRow`) with live navigation into the technical manual, grouping direct citations alongside scale-fluid sub-map and stationed entity citations (`↳ via ...`).
 - Gigerenzer suite (ADR 0024): appendHazardOpticsRows adds percentage / natural-frequency hazard display, editable scout rates, and a copyable odds sheet under Hazard Rating.
 - Gigerenzer suite (ADR 0024): node property grid has a Dread Risk What-If section (run and clear buttons).
+- **Entity Explorer Property Grid Parity (`renderEntityExplorerProperties`)**: Extends property inspection to all campaign entities:
+  - *Creatures*: Threat Tier, Kind, Stationed Lair Node, Roaming Scope, Dread Index, Capabilities, Immunities, and 1-click Bestiary jump button.
+  - *Resources*: Category, Supply Tier, Stationed Depot Node, Price Index, and 1-click Resource Catalog jump button.
+  - *Items*: Condition/Status dropdown (`intact`, `damaged`, `depleted`, `attuned`, `lost`, `destroyed`) and Valuation/Price index.
+  - *Factions*: Operational Status dropdown, 4-Axis Power Matrix (`Reach`, `Force`, `Wealth`, `Secrecy`), and Territory Size / Affiliated Members readouts.
+  - *NPCs*: Expanded Four-Corners literary roles, Dialogue Hooks, Secrets Known, and Tactical Leverage readouts.
 <!-- END_CUSTOM_NOTES -->

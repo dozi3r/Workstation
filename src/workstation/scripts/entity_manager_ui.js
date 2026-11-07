@@ -643,6 +643,136 @@
       }
     }
 
+    // --- Cross-Campaign Sources Popover & Dynamic Library Loader ---
+    function toggleEntitySourcesPopover(ev) {
+      if (ev) ev.stopPropagation();
+      const pop = document.getElementById('em-sources-popover');
+      if (!pop) return;
+      const isHidden = pop.classList.contains('hidden');
+      if (isHidden) {
+        pop.classList.remove('hidden');
+        renderEntitySourcesPopover();
+      } else {
+        pop.classList.add('hidden');
+      }
+    }
+    window.toggleEntitySourcesPopover = toggleEntitySourcesPopover;
+
+    function closeEntitySourcesPopover() {
+      const pop = document.getElementById('em-sources-popover');
+      if (pop) pop.classList.add('hidden');
+    }
+    window.closeEntitySourcesPopover = closeEntitySourcesPopover;
+
+    function renderEntitySourcesPopover() {
+      const listEl = document.getElementById('em-sources-checklist');
+      if (!listEl) return;
+      listEl.innerHTML = '';
+
+      if (typeof CrossCampaignService === 'undefined') {
+        listEl.innerHTML = '<div style="font-size:10px; color:#666; padding:4px;">CrossCampaignService initializing...</div>';
+        return;
+      }
+
+      const sources = CrossCampaignService.discoverAvailableSources();
+      const loadedCount = Object.keys(CrossCampaignService.loadedSources || {}).length;
+
+      const badge = document.getElementById('em-sources-count-badge');
+      if (badge) {
+        badge.textContent = loadedCount > 0 ? `+${loadedCount} Ext` : 'Active Only';
+        badge.style.background = loadedCount > 0 ? '#c7d2fe' : '#dbeafe';
+        badge.style.color = loadedCount > 0 ? '#312e81' : '#1e40af';
+      }
+
+      sources.forEach(src => {
+        const row = document.createElement('label');
+        row.style.display = 'flex';
+        row.style.alignItems = 'center';
+        row.style.justifyContent = 'space-between';
+        row.style.padding = '3px 4px';
+        row.style.borderBottom = '1px solid #f1f5f9';
+        row.style.cursor = src.isCurrentActive ? 'default' : 'pointer';
+
+        const left = document.createElement('div');
+        left.style.display = 'flex';
+        left.style.alignItems = 'center';
+        left.style.gap = '5px';
+        left.style.overflow = 'hidden';
+
+        const chk = document.createElement('input');
+        chk.type = 'checkbox';
+        chk.checked = src.isCurrentActive || src.isLoaded;
+        chk.disabled = src.isCurrentActive;
+
+        if (!src.isCurrentActive) {
+          chk.onchange = async () => {
+            await CrossCampaignService.toggleSource(src.id, chk.checked);
+            renderEntitySourcesPopover();
+            renderEntityManagerTree();
+            renderEntityManagerList();
+          };
+        }
+
+        const titleSpan = document.createElement('span');
+        titleSpan.style.whiteSpace = 'nowrap';
+        titleSpan.style.textOverflow = 'ellipsis';
+        titleSpan.style.overflow = 'hidden';
+        titleSpan.style.fontSize = '10.5px';
+        titleSpan.textContent = src.name;
+        if (src.isCurrentActive) {
+          titleSpan.style.fontWeight = 'bold';
+          titleSpan.style.color = '#000080';
+        }
+
+        left.appendChild(chk);
+        left.appendChild(titleSpan);
+
+        const right = document.createElement('span');
+        right.className = 'entity-badge-tag';
+        right.style.fontSize = '8.5px';
+        if (src.isCurrentActive) {
+          right.style.background = '#dbeafe';
+          right.style.color = '#1e40af';
+          right.textContent = 'Active Workspace';
+        } else {
+          const totalEnt = (src.counts.npcs || 0) + (src.counts.quests || 0) + (src.counts.items || 0);
+          right.textContent = totalEnt > 0 ? `${totalEnt} ent` : (src.sourceType === 'folder' ? 'Folder' : (src.sourceType === 'custom_file' ? 'File' : 'Preset'));
+        }
+
+        row.appendChild(left);
+        row.appendChild(right);
+        listEl.appendChild(row);
+      });
+    }
+    window.renderEntitySourcesPopover = renderEntitySourcesPopover;
+
+    function appendExternalCampaignsTreeSection(container, tab) {
+      if (tab === 'node' || tab === 'edge') return;
+      if (typeof CrossCampaignService === 'undefined') return;
+      const loadedList = CrossCampaignService.getLoadedSourcesList();
+      if (!loadedList || loadedList.length === 0) return;
+
+      const extHeader = document.createElement('div');
+      extHeader.style.padding = '8px 6px 2px 6px';
+      extHeader.style.fontSize = '10px';
+      extHeader.style.fontWeight = 'bold';
+      extHeader.style.color = '#3730a3';
+      extHeader.textContent = 'EXTERNAL CAMPAIGNS:';
+      container.appendChild(extHeader);
+
+      let totalForTab = 0;
+      loadedList.forEach(s => {
+        const c = s.counts[tab === 'item' ? 'items' : (tab === 'resource' ? 'resources' : tab + 's')] || 0;
+        totalForTab += c;
+      });
+
+      addTreeItem(container, `🌐 All External (${totalForTab})`, 'ext:all');
+
+      loadedList.forEach(s => {
+        const c = s.counts[tab === 'item' ? 'items' : (tab === 'resource' ? 'resources' : tab + 's')] || 0;
+        addTreeItem(container, `📦 ${s.name} (${c})`, `ext:${s.id}`);
+      });
+    }
 
     // --- Entity Hierarchy Tree ---
     function renderEntityManagerTree() {
@@ -877,6 +1007,7 @@
         if (unseatedCount > 0) {
           addTreeItem(container, `Unseated / Nomadic (${unseatedCount})`, 'has:unseated');
         }
+        appendExternalCampaignsTreeSection(container, CurrentEntityTab);
         return;
       }
 
@@ -1008,6 +1139,50 @@
         });
       }
 
+      // Quest Crucible Forks & Sub-Map Acts (Quests)
+      if (CurrentEntityTab === 'quest') {
+        const qHeader = document.createElement('div');
+        qHeader.style.padding = '8px 6px 2px 6px';
+        qHeader.style.fontSize = '10px';
+        qHeader.style.fontWeight = 'bold';
+        qHeader.style.color = '#555';
+        qHeader.textContent = 'BY QUEST FILTER:';
+        container.appendChild(qHeader);
+
+        const crucibleCount = activeList.filter(q => parseQuestCrucibleNotes(q.notes || q.motivation || '').hasCrucible).length;
+        if (crucibleCount > 0) {
+          addTreeItem(container, `⚡ With Crucible Fork (${crucibleCount})`, 'has:crucible');
+        }
+        const completedCount = activeList.filter(q => String(q.status || '').toLowerCase() === 'completed').length;
+        if (completedCount > 0) {
+          addTreeItem(container, `Completed Quests (${completedCount})`, 'status:Completed');
+        }
+
+        // Sub-Map / Act Scoping
+        const submapMap = {};
+        activeList.forEach(q => {
+          if (q.submapId) {
+            submapMap[q.submapId] = (submapMap[q.submapId] || 0) + 1;
+          }
+        });
+        const submapKeys = Object.keys(submapMap);
+        if (submapKeys.length > 0) {
+          const actHeader = document.createElement('div');
+          actHeader.style.padding = '8px 6px 2px 6px';
+          actHeader.style.fontSize = '10px';
+          actHeader.style.fontWeight = 'bold';
+          actHeader.style.color = '#555';
+          actHeader.textContent = 'BY SUB-MAP / ACT:';
+          container.appendChild(actHeader);
+
+          const allMapsDict = (typeof maps !== 'undefined' && maps) ? maps : {};
+          submapKeys.forEach(smId => {
+            const smName = (allMapsDict[smId] && allMapsDict[smId].name) || smId;
+            addTreeItem(container, `🗺️ ${smName} (${submapMap[smId]})`, `submap:${smId}`);
+          });
+        }
+      }
+
       // 2. By Node Section (Aggregated Multi-Map Topology)
       const nodeHeader = document.createElement('div');
       nodeHeader.style.padding = '4px 6px 2px 6px';
@@ -1045,6 +1220,8 @@
       Object.keys(moduleMap).forEach(modId => {
         addTreeItem(container, `${modId} Pool (${moduleMap[modId]})`, `module:${modId}`);
       });
+
+      appendExternalCampaignsTreeSection(container, CurrentEntityTab);
     }
 
     function addTreeItem(container, label, filterVal) {
@@ -1323,7 +1500,12 @@
       const activeList = getActiveEntityList(CurrentEntityTab);
       const protoList = getPrototypesForType(CurrentEntityTab);
 
-      if (SelectedEntityFilter.startsWith('module:')) {
+      if (SelectedEntityFilter === 'ext:all') {
+        displayList = (typeof CrossCampaignService !== 'undefined') ? CrossCampaignService.getExternalEntities(CurrentEntityTab) : [];
+      } else if (SelectedEntityFilter.startsWith('ext:')) {
+        const extSourceId = SelectedEntityFilter.slice(4);
+        displayList = (typeof CrossCampaignService !== 'undefined') ? CrossCampaignService.getExternalEntities(CurrentEntityTab, extSourceId) : [];
+      } else if (SelectedEntityFilter.startsWith('module:')) {
         const modId = SelectedEntityFilter.replace('module:', '');
         displayList = protoList.filter(p => p.moduleId === modId).map(p => {
           const activeInstance = activeList.find(a => a.id === p.id || a.prototypeId === p.id);
@@ -1336,7 +1518,12 @@
             ownerNpcId: activeInstance ? activeInstance.ownerNpcId : p.ownerNpcId,
             possessionMode: activeInstance ? activeInstance.possessionMode : p.possessionMode,
             status: activeInstance ? activeInstance.status : p.status,
-            dispositionToParty: activeInstance ? activeInstance.dispositionToParty : p.dispositionToParty
+            dispositionToParty: activeInstance ? activeInstance.dispositionToParty : p.dispositionToParty,
+            steps: activeInstance ? activeInstance.steps : p.steps,
+            giverNpcId: activeInstance ? activeInstance.giverNpcId : p.giverNpcId,
+            targetNpcId: activeInstance ? activeInstance.targetNpcId : p.targetNpcId,
+            threat: activeInstance ? activeInstance.threat : p.threat,
+            notes: activeInstance ? (activeInstance.notes || activeInstance.motivation) : (p.notes || p.motivation)
           };
         });
       } else {
@@ -1384,6 +1571,19 @@
               return (item.kind || 'beast').toLowerCase() === k;
             }
           }
+          if (CurrentEntityTab === 'quest') {
+            if (SelectedEntityFilter === 'has:crucible') {
+              return parseQuestCrucibleNotes(item.notes || item.motivation || '').hasCrucible;
+            }
+            if (SelectedEntityFilter.startsWith('status:')) {
+              const st = SelectedEntityFilter.replace('status:', '').toLowerCase();
+              return String(item.status || 'Active').toLowerCase() === st;
+            }
+            if (SelectedEntityFilter.startsWith('submap:')) {
+              const smId = SelectedEntityFilter.replace('submap:', '');
+              return String(item.submapId || '') === smId;
+            }
+          }
           if (CurrentEntityTab === 'tracker' && SelectedEntityFilter.startsWith('scope:')) {
             const sc = SelectedEntityFilter.replace('scope:', '').toLowerCase();
             const rawTier = (item.scopeTier || 'settlement').toLowerCase();
@@ -1401,6 +1601,13 @@
           }
           return true;
         });
+
+        if (SelectedEntityFilter === 'all' && typeof CrossCampaignService !== 'undefined') {
+          const extAll = CrossCampaignService.getExternalEntities(CurrentEntityTab);
+          if (extAll.length > 0) {
+            displayList.push(...extAll);
+          }
+        }
 
         if (CurrentEntitySort === 'name') {
           displayList.sort((a, b) => String(a.name || a.title || '').localeCompare(String(b.name || b.title || '')));
@@ -1443,12 +1650,17 @@
 
       displayList.forEach(item => {
         const tr = document.createElement('tr');
-        if (SelectedEntityId === item.id) tr.className = 'selected';
+        const isSelected = (SelectedEntityId === item.id || (item._externalKey && SelectedEntityId === item._externalKey));
+        if (isSelected) tr.className = 'selected';
 
         const nameVal = item.name || item.title;
         const roleVal = item.role || item.category || item.type;
-        const nodeVal = item.isPrototype ? (item.inCampaign ? `${formatNodeRef(item.activeNodeId, topo)} (In Use)` : '(In Pool)') : formatNodeRef(item.nodeId, topo);
-        const srcVal = item.isPrototype ? `Module [${item.moduleId}]` : (item.moduleId ? `Module [${item.moduleId}]` : 'Custom Authored');
+        const nodeVal = item._isExternal
+          ? `<span style="color:#4338ca; font-size:10px;" title="Original station in ${escapeHtml(item._sourceCampaignName || 'External Campaign')}">📍 ${escapeHtml(item._originalNodeName || 'Unassigned')} <em>(Ext)</em></span>`
+          : (item.isPrototype ? (item.inCampaign ? `${formatNodeRef(item.activeNodeId, topo)} (In Use)` : '(In Pool)') : formatNodeRef(item.nodeId, topo));
+        const srcVal = item._isExternal
+          ? `<span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; border:1px solid #818cf8; font-weight:bold;">📦 ${escapeHtml(item._sourceCampaignName)}</span>`
+          : (item.isPrototype ? `Module [${item.moduleId}]` : (item.moduleId ? `Module [${item.moduleId}]` : 'Custom Authored'));
 
         if (CurrentEntityTab === 'npc') {
           const stMap = {
@@ -1478,6 +1690,10 @@
           const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('npc', item.id) : [];
           const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
+          const actionBtn = item._isExternal
+            ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'npc')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('npc', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete NPC">Del</button>`;
+
           tr.innerHTML = `
             <td><strong>👤 ${nameVal}</strong>${tkBadge}</td>
             <td><div>${roleVal || '-'}</div><div style="margin-top:2px;">${statusBadge}</div></td>
@@ -1485,7 +1701,7 @@
             <td>${nodeVal}</td>
             <td>${cultBadge}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
-            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('npc', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete NPC">Del</button></td>
+            <td style="text-align:center;">${actionBtn}</td>
           `;
         } else if (CurrentEntityTab === 'resource') {
           const effNodeId = getEntityEffectiveNodeId(item);
@@ -1507,13 +1723,17 @@
           }
 
           const escapedId = escapeJsArg(item.id);
+          const actionBtn = item._isExternal
+            ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'resource')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('resource', '${escapedId}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Resource">Del</button>`;
+
           tr.innerHTML = `
             <td><strong>📦 ${nameVal}</strong>${tkBadge}</td>
             <td><span class="entity-badge-tag" style="background:#e0f2fe; color:#0369a1;">${roleVal || 'Commodity'}</span></td>
             <td>${stockpileDisplay}</td>
             <td>${formattedNode}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
-            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('resource', '${escapedId}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Resource">Del</button></td>
+            <td style="text-align:center;">${actionBtn}</td>
           `;
         } else if (CurrentEntityTab === 'item') {
           const ownerNpc = (topo.npcs || []).find(n => String(n.id) === String(item.ownerNpcId));
@@ -1530,13 +1750,17 @@
           const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('item', item.id) : [];
           const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
+          const actionBtn = item._isExternal
+            ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'item')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('item', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Item">Del</button>`;
+
           tr.innerHTML = `
             <td><strong>💎 ${nameVal}</strong>${tkBadge}</td>
             <td>${roleVal || '-'}</td>
             <td>${ownerBadge}</td>
             <td>${nodeDisplay}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
-            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('item', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Item">Del</button></td>
+            <td style="text-align:center;">${actionBtn}</td>
           `;
         } else if (CurrentEntityTab === 'tracker') {
           const curTicks = item.currentTicks || 0;
@@ -1548,6 +1772,10 @@
           const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('tracker', item.id) : [];
           const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
+          const actionBtn = item._isExternal
+            ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'tracker')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('tracker', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Clock">Del</button>`;
+
           tr.innerHTML = `
             <td><strong>⏱️ ${nameVal}</strong>${tkBadge}</td>
             <td><span class="entity-badge-tag" style="background:${scopeBadgeColor}; color:#fff; text-transform:uppercase; font-size:8px;">${scopeTier}</span></td>
@@ -1558,7 +1786,7 @@
             </td>
             <td>${nodeVal}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
-            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('tracker', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Clock">Del</button></td>
+            <td style="text-align:center;">${actionBtn}</td>
           `;
         } else if (CurrentEntityTab === 'faction') {
           const leaderNpc = (topo.npcs || []).find(n => String(n.id) === String(item.leaderNpcId));
@@ -1572,6 +1800,10 @@
           const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('faction', item.id) : [];
           const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
+          const actionBtn = item._isExternal
+            ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'faction')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('faction', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Faction">Del</button>`;
+
           tr.innerHTML = `
             <td><strong>👑 ${nameVal}</strong>${tkBadge}</td>
             <td><span class="entity-badge-tag" style="background:#4338ca; color:#fff;">${cult}</span></td>
@@ -1579,7 +1811,7 @@
             <td>${leaderBadge}</td>
             <td>${hqNode}</td>
             <td><span class="entity-badge-tag" style="background:#15803d; color:#fff;">${terrCount} Nodes</span></td>
-            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('faction', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Faction">Del</button></td>
+            <td style="text-align:center;">${actionBtn}</td>
           `;
         } else if (CurrentEntityTab === 'creature') {
           const effNodeId = getEntityEffectiveNodeId(item);
@@ -1608,35 +1840,59 @@
           const srcCampaign = item.moduleId || (topo.name || 'Active Campaign');
           const escapedId = escapeJsArg(item.id);
 
+          const actionBtn = item._isExternal
+            ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'creature')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('creature', '${escapedId}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Creature">Del</button>`;
+
           tr.innerHTML = `
             <td><strong>🐉 ${nameVal}</strong>${tkBadge}</td>
             <td>${tierBadge}</td>
             <td><div>${kindStr}</div>${subtypeStr}</td>
             <td>${dreadBadge}</td>
             <td>${formattedNode}</td>
-            <td><span class="entity-badge-tag">${srcCampaign}</span></td>
-            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('creature', '${escapedId}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Creature">Del</button></td>
+            <td><span class="entity-badge-tag">${srcVal}</span></td>
+            <td style="text-align:center;">${actionBtn}</td>
           `;
         } else {
           const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('quest', item.id) : [];
           const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
+          const parsedCruc = parseQuestCrucibleNotes(item.notes || item.motivation || '');
+          const crucBadge = parsedCruc.hasCrucible ? ' <span class="entity-badge-tag" style="background:#fef3c7; color:#92400e; border:1px solid #f59e0b; font-size:8px;" title="Contains What-If Crucible Divergence">⚡ Crucible</span>' : '';
+          const stepsArr = Array.isArray(item.steps) ? item.steps : [];
+          const doneCount = stepsArr.filter(s => s && (s.isCompleted || s.completed)).length;
+          const stepsBadge = stepsArr.length > 0 ? ` <span class="entity-badge-tag" style="background:${doneCount === stepsArr.length ? '#dcfce7; color:#166534;' : '#f1f5f9; color:#475569;'} font-size:8px;">✓ ${doneCount}/${stepsArr.length}</span>` : '';
+          const threatBadge = getQuestThreatBadgeHtml(item.threat);
+
+          const actionBtn = item._isExternal
+            ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'quest')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('quest', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Quest">Del</button>`;
+
           tr.innerHTML = `
-            <td><strong>📜 ${nameVal}</strong>${tkBadge}</td>
-            <td>${roleVal || '-'}</td>
+            <td><strong>📜 ${nameVal}</strong>${tkBadge}${crucBadge}</td>
+            <td>
+              <div>${escapeHtml(roleVal || 'Quest')}</div>
+              ${(threatBadge || stepsBadge) ? `<div style="margin-top:2px; display:flex; gap:2px; flex-wrap:wrap; align-items:center;">${threatBadge}${stepsBadge}</div>` : ''}
+            </td>
             <td>${nodeVal}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
-            <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('quest', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Quest">Del</button></td>
+            <td style="text-align:center;">${actionBtn}</td>
           `;
         }
 
-        tr.setAttribute('draggable', 'true');
-        tr.title = 'Click to inspect • Drag onto the CAD Canvas to place or link into a Spatial Pin';
-        tr.ondragstart = (ev) => {
-          if (typeof onEntityListDragStart === 'function') {
-            onEntityListDragStart(ev, CurrentEntityTab, item.id, nameVal, !!item.isPrototype);
-          }
-        };
-        tr.onclick = () => selectEntityItem(item.id, item.isPrototype);
+        if (!item._isExternal) {
+          tr.setAttribute('draggable', 'true');
+          tr.title = 'Click to inspect • Drag onto the CAD Canvas to place or link into a Spatial Pin';
+          tr.ondragstart = (ev) => {
+            if (typeof onEntityListDragStart === 'function') {
+              onEntityListDragStart(ev, CurrentEntityTab, item.id, nameVal, !!item.isPrototype);
+            }
+          };
+          tr.onclick = () => selectEntityItem(item.id, item.isPrototype);
+        } else {
+          tr.removeAttribute('draggable');
+          tr.title = `External Entity from ${item._sourceCampaignName} • Click to inspect and transplant`;
+          tr.onclick = () => selectEntityItem(item._externalKey, false);
+        }
         tbody.appendChild(tr);
       });
 
@@ -1781,12 +2037,110 @@
     }
     window.updateTrackerScopeTier = updateTrackerScopeTier;
 
+    function parseQuestCrucibleNotes(rawText) {
+      const result = {
+        synopsis: '',
+        milestoneHeader: '',
+        canonical: '',
+        divergence: '',
+        snarky: '',
+        altruistic: '',
+        dilemma: '',
+        ripple: '',
+        secondaryFork: '',
+        secondaryDilemma: '',
+        secondaryRipple: '',
+        npcReactions: '',
+        tableHook: '',
+        hasCrucible: false
+      };
+      if (!rawText || typeof rawText !== 'string') return result;
+
+      const lines = rawText.split(/\r?\n/);
+      let currentKey = null;
+      const synopsisLines = [];
+
+      const headerPatterns = [
+        { key: 'milestoneHeader', regex: /^(?:-\s*)?\*\*(?:Milestone & Palace|Chapter & Milestone Name|Quest):\*\*\s*(.*)$/i },
+        { key: 'canonical', regex: /^(?:-\s*)?\*\*(?:Canonical Outcome|Canonical Game Outcome):\*\*\s*(.*)$/i },
+        { key: 'divergence', regex: /^(?:-\s*)?\*\*(?:What-If Crucible|Crucible Divergence Point.*?):\*\*\s*(.*)$/i },
+        { key: 'snarky', regex: /^(?:-\s*)?\*\*(?:Snarky \/ Selfish Approach|Snarky vs Altruistic|Snarky Approach):\*\*\s*(.*)$/i },
+        { key: 'altruistic', regex: /^(?:-\s*)?\*\*(?:Altruistic \/ Heroic Approach|Altruistic Approach):\*\*\s*(.*)$/i },
+        { key: 'dilemma', regex: /^(?:-\s*)?\*\*(?:Immediate Dilemma(?: & Cost)?):\*\*\s*(.*)$/i },
+        { key: 'ripple', regex: /^(?:-\s*)?\*\*(?:Long-Term (?:Campaign )?Ripple):\*\*\s*(.*)$/i },
+        { key: 'secondaryFork', regex: /^(?:-\s*)?\*\*(?:Secondary Fork|Secondary Divergence Point.*?):\*\*\s*(.*)$/i },
+        { key: 'secondaryDilemma', regex: /^(?:-\s*)?\*\*(?:Secondary Dilemma(?: & Cost)?):\*\*\s*(.*)$/i },
+        { key: 'secondaryRipple', regex: /^(?:-\s*)?\*\*(?:Secondary Ripple):\*\*\s*(.*)$/i },
+        { key: 'npcReactions', regex: /^(?:-\s*)?\*\*(?:Key NPC Reactions):\*\*\s*(.*)$/i },
+        { key: 'tableHook', regex: /^(?:-\s*)?\*\*(?:Table Hook):\*\*\s*(.*)$/i }
+      ];
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        let matched = false;
+        for (const hp of headerPatterns) {
+          const m = line.match(hp.regex);
+          if (m) {
+            currentKey = hp.key;
+            result[currentKey] = m[1].trim();
+            matched = true;
+            break;
+          }
+        }
+        if (!matched) {
+          if (currentKey) {
+            if (line.trim()) {
+              result[currentKey] = result[currentKey] ? (result[currentKey] + ' ' + line.trim()) : line.trim();
+            }
+          } else {
+            synopsisLines.push(line);
+          }
+        }
+      }
+
+      result.synopsis = synopsisLines.join('\n').trim();
+      result.canonicalOutcome = result.canonical;
+      result.divergencePoint = result.divergence;
+      result.snarkyVsAltruistic = result.snarky || result.altruistic;
+      result.hasCrucible = Boolean(
+        result.divergence ||
+        result.dilemma ||
+        result.ripple ||
+        result.snarky ||
+        result.altruistic ||
+        result.secondaryFork
+      );
+      return result;
+    }
+    window.parseQuestCrucibleNotes = parseQuestCrucibleNotes;
+
+    function getQuestThreatBadgeHtml(threatStr) {
+      if (!threatStr) return '';
+      const t = String(threatStr).trim().toLowerCase();
+      const esc = (typeof escapeHtml === 'function') ? escapeHtml(threatStr) : threatStr;
+      if (t === 'light') {
+        return `<span class="entity-badge-tag" style="background:#dcfce7; color:#166534; border:1px solid #86efac; font-weight:bold;">Light</span>`;
+      }
+      if (t === 'moderate') {
+        return `<span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af; border:1px solid #93c5fd; font-weight:bold;">Moderate</span>`;
+      }
+      if (t === 'severe') {
+        return `<span class="entity-badge-tag" style="background:#ffedd5; color:#9a3412; border:1px solid #fdba74; font-weight:bold;">Severe</span>`;
+      }
+      if (['extreme', 'lethal', 'crisis'].includes(t)) {
+        return `<span class="entity-badge-tag" style="background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; font-weight:bold;">${esc}</span>`;
+      }
+      return `<span class="entity-badge-tag" style="background:#f1f5f9; color:#334155; border:1px solid #cbd5e1;">${esc}</span>`;
+    }
+    window.getQuestThreatBadgeHtml = getQuestThreatBadgeHtml;
+
     function advanceQuestStep(questId, stepIndex) {
       const topo = Workstation.activeTopology || {};
       const quest = (topo.quests || []).find(q => q.id === questId);
       if (!quest || !Array.isArray(quest.steps) || !quest.steps[stepIndex]) return;
       const step = quest.steps[stepIndex];
       step.isCompleted = true;
+      step.completed = true;
 
       if (step.triggerTrackerId) {
         const delta = step.tickDelta || 1;
@@ -1815,8 +2169,9 @@
       const quest = (topo.quests || []).find(q => q.id === questId);
       if (!quest || !Array.isArray(quest.steps) || !quest.steps[stepIndex]) return;
       const step = quest.steps[stepIndex];
-      const wasCompleted = !!step.isCompleted;
+      const wasCompleted = !!(step.isCompleted || step.completed);
       step.isCompleted = false;
+      step.completed = false;
 
       if (wasCompleted && step.triggerTrackerId) {
         const delta = step.tickDelta || 1;
@@ -1857,6 +2212,8 @@
       const newTitle = prompt('Edit Quest Step Title / Objective:', step.title || '');
       if (newTitle === null) return;
       if (newTitle.trim()) step.title = newTitle.trim();
+      const newText = prompt('Edit Quest Step Narrative / Details (optional):', step.text || '');
+      if (newText !== null) step.text = newText.trim() || step.title;
       saveActiveCampaign();
       selectEntityItem(questId, false);
     }
@@ -1896,6 +2253,7 @@
 
       const title = prompt('Enter Quest Step Title / Objective:');
       if (!title) return;
+      const text = prompt('Enter Quest Step Narrative / Details (optional, leave blank to use title):', '');
 
       const trackers = topo.trackers || [];
       let trackerPrompt = '';
@@ -1909,7 +2267,9 @@
         id: `step_${Date.now().toString().slice(-4)}`,
         order: quest.steps.length + 1,
         title: title,
+        text: (text && text.trim()) ? text.trim() : title,
         isCompleted: false,
+        completed: false,
         triggerTrackerId: linkedTrkId ? linkedTrkId.trim() : null,
         tickDelta: 1
       });
@@ -1920,6 +2280,121 @@
       if (typeof setStatusBarMessage === 'function') setStatusBarMessage(`Added step "${title}" to quest.`);
     }
     window.addQuestStep = addQuestStep;
+
+    function formatEntityNavId(targetId, isExternal, sourceId) {
+      if (!targetId) return '';
+      if (isExternal && sourceId && !String(targetId).startsWith('ext::')) {
+        return 'ext::' + sourceId + '::' + String(targetId);
+      }
+      return String(targetId);
+    }
+    window.formatEntityNavId = formatEntityNavId;
+
+    function renderNpcDialogueHooksHtml(npcObj, isExternal) {
+      if (!npcObj || !Array.isArray(npcObj.dialogueHooks) || npcObj.dialogueHooks.length === 0) {
+        return '';
+      }
+      const hooksHtml = npcObj.dialogueHooks.map((h, hIdx) => {
+        let spokenText = '';
+        let subtext = '';
+        let isRevealed = false;
+
+        if (typeof h === 'string') {
+          if (h.includes('| Subtext:')) {
+            const parts = h.split('| Subtext:');
+            spokenText = parts[0].replace(/^Spoken:\s*/i, '').trim();
+            subtext = (parts[1] || '').trim();
+          } else {
+            spokenText = h.trim();
+          }
+        } else if (h && typeof h === 'object') {
+          spokenText = h.text || h.quote || h.spoken || '';
+          subtext = h.subtext || h.context || h.notes || '';
+          isRevealed = !!h.revealed;
+        }
+
+        if (!spokenText && !subtext) return '';
+        return `
+          <div style="background:#fff; border:1px solid #cbd5e1; padding:4px 6px; border-radius:2px; margin-bottom:3px; font-size:9.5px; line-height:1.35;">
+            ${spokenText ? `<div style="font-style:italic; color:#0f172a; font-weight:500;">&ldquo;${escapeHtml(spokenText)}&rdquo;</div>` : ''}
+            ${subtext ? `<div style="font-size:8.5px; color:#475569; margin-top:2px; background:#f8fafc; padding:2px 4px; border-left:2px solid #3b82f6;"><strong>Context:</strong> ${escapeHtml(subtext)}</div>` : ''}
+            ${isRevealed ? `<span style="font-size:8px; color:#15803d; font-weight:bold;">[REVEALED IN CANON]</span>` : ''}
+          </div>
+        `;
+      }).filter(Boolean).join('');
+
+      if (!hooksHtml) return '';
+      return `
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <strong style="font-size:10px; color:#0f172a;">💬 Dialogue Hooks &amp; Spoken Quotes (${npcObj.dialogueHooks.length}):</strong>
+          </div>
+          <div style="background:#f1f5f9; border:1px solid #cbd5e1; padding:4px; border-radius:2px;">
+            ${hooksHtml}
+          </div>
+        </div>
+      `;
+    }
+    window.renderNpcDialogueHooksHtml = renderNpcDialogueHooksHtml;
+
+    function updateItemInlineProp(itemId, prop, value) {
+      const topo = (typeof Workstation !== 'undefined') ? Workstation.activeTopology : null;
+      if (!topo || !topo.items) return;
+      const item = topo.items.find(i => String(i.id) === String(itemId));
+      if (item) {
+        item[prop] = value;
+        if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+        if (typeof selectEntityItem === 'function') selectEntityItem(itemId, false);
+      }
+    }
+    window.updateItemInlineProp = updateItemInlineProp;
+
+    function highlightFactionTerritoryOnCanvas(facId) {
+      const topo = (typeof Workstation !== 'undefined') ? Workstation.activeTopology : null;
+      if (!topo) return;
+      const poolFactions = (topo.factions || []);
+      const fac = poolFactions.find(f => String(f.id) === String(facId));
+      if (!fac) return;
+      const rawList = [
+        ...(Array.isArray(fac.controlledNodeIds) ? fac.controlledNodeIds : []),
+        ...(Array.isArray(fac.territoryNodeIds) ? fac.territoryNodeIds : []),
+        ...(fac.headquartersNodeId ? [fac.headquartersNodeId] : [])
+      ];
+      const uniqueNodes = Array.from(new Set(rawList.map(String)));
+      if (typeof selectedNodes !== 'undefined') {
+        selectedNodes.clear();
+        uniqueNodes.forEach(nid => selectedNodes.add(nid));
+      }
+      if (typeof renderCanvas === 'function') renderCanvas();
+      if (fac.headquartersNodeId && typeof centerOnNode === 'function') {
+        centerOnNode(fac.headquartersNodeId);
+      } else if (uniqueNodes.length > 0 && typeof centerOnNode === 'function') {
+        centerOnNode(uniqueNodes[0]);
+      }
+      if (typeof setStatusBarMessage === 'function') {
+        setStatusBarMessage(`Highlighted ${uniqueNodes.length} territorial nodes for faction ${fac.name || fac.id}.`);
+      }
+    }
+    window.highlightFactionTerritoryOnCanvas = highlightFactionTerritoryOnCanvas;
+
+    function updateCreatureRoamingScope(creatureId, val) {
+      const topo = (typeof Workstation !== 'undefined') ? Workstation.activeTopology : null;
+      if (!topo || !topo.creatures) return;
+      const creature = topo.creatures.find(c => String(c.id) === String(creatureId));
+      if (creature) {
+        if (!creature.stationing || typeof creature.stationing !== 'object') {
+          creature.stationing = { nodeId: creature.nodeId || null, roamingScope: val };
+        } else {
+          creature.stationing.roamingScope = val;
+        }
+        creature.roamingScope = val;
+        if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+        if (typeof selectEntityItem === 'function') selectEntityItem(creatureId, false);
+      }
+    }
+    window.updateCreatureRoamingScope = updateCreatureRoamingScope;
 
     // --- Entity Detail & Property Inspector ---
     function selectEntityItem(id, isProto, optMapId = null) {
@@ -2040,6 +2515,81 @@
                 </select>
               </label>
             </div>
+
+            <!-- Category & Danger Rating -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+              <label style="display:flex; flex-direction:column; gap:2px;">
+                <strong>Node Category:</strong>
+                <select class="win-select-input" onchange="updateNodeProp('${escapedId}', 'cat', this.value, '${escapedMapId}')">
+                  <option value="Settlement" ${node.cat === 'Settlement' ? 'selected' : ''}>Settlement (Town / Village)</option>
+                  <option value="Bastion" ${node.cat === 'Bastion' ? 'selected' : ''}>Bastion (City / Metropolis)</option>
+                  <option value="Stronghold" ${node.cat === 'Stronghold' ? 'selected' : ''}>Stronghold (Fortress / Castle)</option>
+                  <option value="Dungeon" ${node.cat === 'Dungeon' ? 'selected' : ''}>Dungeon (Labyrinth / Ruins)</option>
+                  <option value="Wilderness" ${node.cat === 'Wilderness' ? 'selected' : ''}>Wilderness (Forest / Plain)</option>
+                  <option value="Transit" ${node.cat === 'Transit' ? 'selected' : ''}>Transit (Road / Crossroads)</option>
+                  <option value="Shrine" ${node.cat === 'Shrine' ? 'selected' : ''}>Shrine (Sacred / Temple)</option>
+                  <option value="Standard Location" ${!node.cat || node.cat === 'Standard Location' ? 'selected' : ''}>Standard Location</option>
+                </select>
+              </label>
+
+              <label style="display:flex; flex-direction:column; gap:2px;">
+                <strong>Danger Rating:</strong>
+                <select class="win-select-input" onchange="updateNodeProp('${escapedId}', 'danger', this.value, '${escapedMapId}')">
+                  <option value="None" ${node.danger === 'None' ? 'selected' : ''}>None (Safe Haven)</option>
+                  <option value="Light" ${node.danger === 'Light' ? 'selected' : ''}>Light (Low Hazard)</option>
+                  <option value="Moderate" ${node.danger === 'Moderate' || !node.danger ? 'selected' : ''}>Moderate (Standard Danger)</option>
+                  <option value="Severe" ${node.danger === 'Severe' ? 'selected' : ''}>Severe (Dangerous Threat)</option>
+                  <option value="Lethal" ${node.danger === 'Lethal' ? 'selected' : ''}>Lethal (Deadly Encounter)</option>
+                </select>
+              </label>
+            </div>
+
+            <!-- Demographics, Faction & Party Rapport Card -->
+            ${(() => {
+              const demo = node.demographics || {};
+              const prim = demo.primary ? `${escapeHtml(demo.primary.name)} (${demo.primary.percentage}%)` : null;
+              const mins = Array.isArray(demo.minorities) ? demo.minorities.map(m => `${escapeHtml(m.name)} (${m.percentage}%)`).join(', ') : '';
+              const demoSummary = prim ? (mins ? `${prim}, ${mins}` : prim) : (mins || 'Universal Mixed (100%)');
+              const facCtrl = node.faction || 'neutral';
+              const facList = Array.isArray(node.factionPresence) ? node.factionPresence : [];
+              const pr = node.partyRapport || {};
+              const stanceLabels = { '2': 'Allied (+2)', '1': 'Friendly (+1)', '0': 'Neutral (0)', '-1': 'Unfriendly (-1)', '-2': 'Hostile (-2)' };
+              const stanceColors = { '2': '#15803d', '1': '#16a34a', '0': '#475569', '-1': '#d97706', '-2': '#dc2626' };
+              const stVal = String(pr.stance !== undefined ? pr.stance : 0);
+
+              return `
+                <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px; font-size:10px; line-height:1.35;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+                    <strong style="color:#0f172a;">🏛️ Demographics &amp; Faction Control:</strong>
+                    <span class="entity-badge-tag" style="background:${stanceColors[stVal] || '#475569'}; color:#fff; font-size:8.5px;">Rapport: ${stanceLabels[stVal] || stVal}</span>
+                  </div>
+                  <div><strong>Census:</strong> <span style="color:#334155;">${demoSummary}</span></div>
+                  <div><strong>Controlling Faction:</strong> <span style="font-weight:bold; color:#000080;">${escapeHtml(facCtrl)}</span>${facList.length > 0 ? ` &bull; <strong>Present:</strong> ${escapeHtml(facList.join(', '))}` : ''}</div>
+                  ${pr.notes ? `<div style="font-size:9px; color:#64748b; font-style:italic; margin-top:2px;">&ldquo;${escapeHtml(pr.notes)}&rdquo;</div>` : ''}
+                </div>
+              `;
+            })()}
+
+            <!-- Collapsible Node Lore Reader -->
+            ${(node.customNotes || node.notes) ? `
+              <details open style="background:#fff; border:1px solid #cbd5e1; border-radius:2px; padding:4px 6px;">
+                <summary style="font-size:10px; font-weight:bold; cursor:pointer; color:#000080;">
+                  📖 Node Lore &amp; Atmosphere Description
+                </summary>
+                <div style="margin-top:4px; font-size:9.5px; color:#1e293b; line-height:1.4; max-height:160px; overflow-y:auto; white-space:pre-wrap; background:#f8fafc; padding:4px 6px; border:1px solid #e2e8f0; border-radius:2px;">
+                  ${escapeHtml(node.customNotes || node.notes)}
+                </div>
+              </details>
+            ` : ''}
+
+            <!-- Local Resource Endowments -->
+            ${((Array.isArray(node.provides) && node.provides.length > 0) || (Array.isArray(node.requires) && node.requires.length > 0)) ? `
+              <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:5px; border-radius:2px; font-size:9.5px;">
+                <strong style="color:#166534;">📦 Local Commodity Logistics:</strong>
+                ${(node.provides && node.provides.length > 0) ? `<div style="margin-top:1px;"><strong style="color:#15803d;">Provides:</strong> ${escapeHtml(node.provides.join(', '))}</div>` : ''}
+                ${(node.requires && node.requires.length > 0) ? `<div style="margin-top:1px;"><strong style="color:#b91c1c;">Requires:</strong> ${escapeHtml(node.requires.join(', '))}</div>` : ''}
+              </div>
+            ` : ''}
 
             <!-- Visibility & Position Locking -->
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
@@ -2356,12 +2906,29 @@
       const activeList = getActiveEntityList(CurrentEntityTab);
       const protoList = getPrototypesForType(CurrentEntityTab);
 
+      let isExternal = false;
+      let externalSourcePool = null;
+
       let entity = activeList.find(e => e.id === id);
       if (!entity) entity = protoList.find(p => p.id === id);
+      if (!entity && typeof CrossCampaignService !== 'undefined') {
+        const resolved = CrossCampaignService.resolveExternalEntity(id, CurrentEntityTab);
+        if (resolved) {
+          entity = resolved.entity;
+          isExternal = true;
+          externalSourcePool = resolved.sourcePool;
+        }
+      }
+      if (entity && entity._isExternal) {
+        isExternal = true;
+        if (!externalSourcePool && typeof CrossCampaignService !== 'undefined') {
+          externalSourcePool = CrossCampaignService.loadedSources[entity._sourceCampaignId] || null;
+        }
+      }
       if (!entity) return;
 
-      const isPrototype = !activeList.some(a => a.id === id || a.prototypeId === id);
-      const activeInstance = activeList.find(a => a.id === id || a.prototypeId === id);
+      const isPrototype = !isExternal && !activeList.some(a => a.id === id || a.prototypeId === id);
+      const activeInstance = !isExternal ? activeList.find(a => a.id === id || a.prototypeId === id) : null;
 
       let nodeOptions = '<option value="">(Unassigned / In Pool)</option>';
       const currentStationId = getEntityEffectiveNodeId(activeInstance || entity) || (activeInstance ? activeInstance.nodeId : (entity.suggestedNode || entity.nodeId));
@@ -2541,35 +3108,46 @@
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
-            <label style="display:flex; flex-direction:column; gap:2px;">
-              <strong>Station to Node:</strong>
-              <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
-                ${nodeOptions}
-              </select>
-            </label>
+            ${isExternal ? `
+              <div style="font-size:10px; color:#475569;">
+                Source: <strong>${escapeHtml(entity._sourceCampaignName)}</strong> &bull; Original Station: <strong>${escapeHtml(entity._originalNodeName || 'Unassigned')}</strong>
+              </div>
+              <button class="win-btn" style="background:#000080; color:#fff; font-weight:bold; padding:6px 12px; font-size:11px;" onclick="openTransplantPackageModal('${escapeJsArg(entity._externalKey)}', 'tracker')">
+                📦 Configure &amp; Add Clock to Active Campaign...
+              </button>
+            ` : `
+              <label style="display:flex; flex-direction:column; gap:2px;">
+                <strong>Station to Node:</strong>
+                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
+                  ${nodeOptions}
+                </select>
+              </label>
 
-            ${(activeInstance && activeInstance.nodeId) ? `
-              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(activeInstance.nodeId)}')"><strong>🎯 Center Stationed Node on Canvas</strong></button>
-            ` : ''}
+              ${(activeInstance && activeInstance.nodeId) ? `
+                <button class="win-btn" onclick="centerOnNode('${escapeJsArg(activeInstance.nodeId)}')"><strong>🎯 Center Stationed Node on Canvas</strong></button>
+              ` : ''}
 
-            <div style="display:flex; gap:4px; margin-top:2px;">
-              ${isPrototype ? `
-                <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add to Active Campaign</strong></button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('tracker', '${entity.id}')">Delete Clock...</button>
-              ` : `
-                <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit Clock</button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('tracker', '${entity.id}')">Delete Clock...</button>
-              `}
-            </div>
+              <div style="display:flex; gap:4px; margin-top:2px;">
+                ${isPrototype ? `
+                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add to Active Campaign</strong></button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('tracker', '${entity.id}')">Delete Clock...</button>
+                ` : `
+                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit Clock</button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('tracker', '${entity.id}')">Delete Clock...</button>
+                `}
+              </div>
+            `}
           </div>
         `;
       } else if (CurrentEntityTab === 'quest') {
         // DEDICATED QUEST INSPECTOR
         const questObj = activeInstance || entity;
         const spanningNodes = (typeof getQuestSpanningNodes === 'function') ? getQuestSpanningNodes(questObj) : [];
-        const campaignNpcs = topo.npcs || [];
-        const campaignItems = topo.items || [];
-        const linkedNpcs = campaignNpcs.filter(n => (questObj.npcIds || []).includes(n.id));
+        const campaignNpcs = isExternal ? ((externalSourcePool && externalSourcePool.npcs) || []) : (topo.npcs || []);
+        const campaignItems = isExternal ? ((externalSourcePool && externalSourcePool.items) || []) : (topo.items || []);
+        const giverNpc = questObj.giverNpcId ? campaignNpcs.find(n => String(n.id) === String(questObj.giverNpcId)) : null;
+        const targetNpc = questObj.targetNpcId ? campaignNpcs.find(n => String(n.id) === String(questObj.targetNpcId)) : null;
+        const otherLinkedNpcs = campaignNpcs.filter(n => (questObj.npcIds || []).includes(n.id) && String(n.id) !== String(questObj.giverNpcId) && String(n.id) !== String(questObj.targetNpcId));
         const linkedItems = campaignItems.filter(i => (questObj.itemIds || []).includes(i.id));
 
         let spanningHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No nodes mapped yet.</div>';
@@ -2585,9 +3163,43 @@
           `).join('');
         }
 
-        let npcsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No NPCs linked to this quest.</div>';
-        if (linkedNpcs.length > 0) {
-          npcsHtml = linkedNpcs.map(npc => `
+        let semanticNpcHtml = '';
+        if (giverNpc || targetNpc) {
+          semanticNpcHtml = `
+            <div style="display:flex; flex-direction:column; gap:3px; background:#f8fafc; border:1px solid #cbd5e1; padding:4px 6px; border-radius:2px;">
+              ${giverNpc ? `
+                <div style="display:flex; align-items:center; justify-content:space-between;">
+                  <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
+                    <span style="font-weight:bold; font-size:10px; color:#1e40af;">🗣️ Quest Giver:</span>
+                    <strong style="font-size:11px; margin-left:3px;">${escapeHtml(giverNpc.name)}</strong>
+                    <span style="font-size:9px; color:#475569;">(${giverNpc.role || 'Resident'}) - ${giverNpc.nodeId ? formatNodeRef(giverNpc.nodeId, topo) : 'Unassigned'}</span>
+                  </div>
+                  <div style="display:flex; gap:2px;">
+                    <button class="win-btn" onclick="window.navigateToEntity('npc', '${escapeJsArg(giverNpc.id)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                    ${giverNpc.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(giverNpc.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
+                  </div>
+                </div>
+              ` : ''}
+              ${targetNpc ? `
+                <div style="display:flex; align-items:center; justify-content:space-between; ${giverNpc ? 'border-top:1px dashed #cbd5e1; padding-top:3px;' : ''}">
+                  <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
+                    <span style="font-weight:bold; font-size:10px; color:#b91c1c;">🎯 Target / Boss:</span>
+                    <strong style="font-size:11px; margin-left:3px;">${escapeHtml(targetNpc.name)}</strong>
+                    <span style="font-size:9px; color:#475569;">(${targetNpc.role || 'Adversary'}) - ${targetNpc.nodeId ? formatNodeRef(targetNpc.nodeId, topo) : 'Unassigned'}</span>
+                  </div>
+                  <div style="display:flex; gap:2px;">
+                    <button class="win-btn" onclick="window.navigateToEntity('npc', '${escapeJsArg(targetNpc.id)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                    ${targetNpc.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(targetNpc.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }
+
+        let npcsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No additional NPCs linked.</div>';
+        if (otherLinkedNpcs.length > 0) {
+          npcsHtml = otherLinkedNpcs.map(npc => `
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                 <span style="font-weight:bold; font-size:11px;">${npc.name}</span>
@@ -2623,24 +3235,27 @@
           stepsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No progress steps configured. Click "+ Add Step" to define milestones and clock triggers.</div>';
         } else {
           stepsHtml = steps.map((st, sIdx) => {
-            const allTrks = topo.trackers || [];
+            const allTrks = isExternal ? ((externalSourcePool && externalSourcePool.trackers) || []) : (topo.trackers || []);
             const trkOptions = `<option value="">(No Clock Trigger)</option>` + allTrks.map(t => `<option value="${escapeHtml(t.id)}" ${String(st.triggerTrackerId) === String(t.id) ? 'selected' : ''}>⚡ ${escapeHtml(t.name || t.title)} (${t.currentTicks || 0}/${t.maxTicks || 6})</option>`).join('');
+            const isDone = !!(st.isCompleted || st.completed);
+            const hasExtraText = st.text && st.text.trim() !== (st.title || '').trim();
             return `
-              <div style="display:flex; flex-direction:column; gap:3px; background:${st.isCompleted ? '#f0fdf4' : '#fff'}; border:1px solid ${st.isCompleted ? '#86efac' : '#cbd5e1'}; padding:4px 6px; border-radius:2px; margin-bottom:3px;">
+              <div style="display:flex; flex-direction:column; gap:3px; background:${isDone ? '#f0fdf4' : '#fff'}; border:1px solid ${isDone ? '#86efac' : '#cbd5e1'}; padding:4px 6px; border-radius:2px; margin-bottom:3px;">
                 <div style="display:flex; align-items:center; justify-content:space-between; gap:4px;">
                   <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1;">
-                    <span style="font-weight:bold; font-size:11px; ${st.isCompleted ? 'text-decoration:line-through; color:#15803d;' : 'color:#0f172a;'}">${sIdx + 1}. ${escapeHtml(st.title)}</span>
+                    <span style="font-weight:bold; font-size:11px; ${isDone ? 'text-decoration:line-through; color:#15803d;' : 'color:#0f172a;'}">${sIdx + 1}. ${escapeHtml(st.title || 'Step ' + (sIdx + 1))}</span>
                   </div>
                   <div style="display:flex; gap:2px; align-items:center;">
-                    ${!st.isCompleted
+                    ${!isDone
                       ? `<button class="win-btn" onclick="advanceQuestStep('${escapeJsArg(questObj.id)}', ${sIdx})" style="font-size:9px; font-weight:bold; color:#15803d; padding:1px 5px;" title="Complete step and advance linked clock">▶ Advance</button>`
                       : `<button class="win-btn" onclick="resetQuestStep('${escapeJsArg(questObj.id)}', ${sIdx})" style="font-size:9px; color:#64748b; padding:1px 4px;" title="Reset step and roll back linked clock">↺ Reset</button>`}
                     <button class="win-btn" onclick="moveQuestStep('${escapeJsArg(questObj.id)}', ${sIdx}, -1)" style="font-size:8px; padding:1px 3px;" title="Move Step Up">↑</button>
                     <button class="win-btn" onclick="moveQuestStep('${escapeJsArg(questObj.id)}', ${sIdx}, 1)" style="font-size:8px; padding:1px 3px;" title="Move Step Down">↓</button>
-                    <button class="win-btn" onclick="editQuestStep('${escapeJsArg(questObj.id)}', ${sIdx})" style="font-size:8px; padding:1px 3px;" title="Edit Step Title">✏️</button>
+                    <button class="win-btn" onclick="editQuestStep('${escapeJsArg(questObj.id)}', ${sIdx})" style="font-size:8px; padding:1px 3px;" title="Edit Step">✏️</button>
                     <button class="win-btn" onclick="deleteQuestStep('${escapeJsArg(questObj.id)}', ${sIdx})" style="font-size:8px; padding:1px 3px; color:#b91c1c;" title="Delete Step">🗑️</button>
                   </div>
                 </div>
+                ${hasExtraText ? `<div style="font-size:10px; color:#334155; line-height:1.3; background:${isDone ? '#eafbf0' : '#f8fafc'}; padding:2px 4px; border-radius:2px;">${escapeHtml(st.text)}</div>` : ''}
                 <div style="display:flex; align-items:center; justify-content:space-between; gap:4px; font-size:9px;">
                   <span style="color:#64748b;">Trigger on Advance:</span>
                   <select class="win-select-input" style="font-size:9px; padding:0 2px; flex:1; max-width:210px;" onchange="updateQuestStepTrigger('${escapeJsArg(questObj.id)}', ${sIdx}, this.value)">
@@ -2652,25 +3267,106 @@
           }).join('');
         }
 
+        const cruc = parseQuestCrucibleNotes(questObj.motivation || questObj.notes || '');
+        const threatBadgeHtml = getQuestThreatBadgeHtml(questObj.threat);
+        const crucBadgeHtml = cruc.hasCrucible ? '<span class="entity-badge-tag" style="background:#fef3c7; color:#92400e; border:1px solid #f59e0b; font-weight:bold;">⚡ Has Crucible Divergence</span>' : '';
+        const submapBadgeHtml = questObj.submapId ? `<span class="entity-badge-tag" style="background:#0f172a; color:#fff;">🗺️ ${escapeHtml(questObj.submapId)}</span>` : '';
+        const statusBadgeStyle = (questObj.status === 'Completed') ? 'background:#dcfce7; color:#166534;' : 'background:#f1f5f9; color:#334155;';
+
         pane.innerHTML = `
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
-            <h3 style="font-size:13px; color:#000080; margin-bottom:2px;">📜 ${entity.title || entity.name}</h3>
-            <span class="entity-badge-tag">${entity.moduleId ? `Module: ${entity.moduleId}` : 'Custom Authored'}</span>
-            <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
-            <span class="entity-badge-tag" style="background:#fef3c7; color:#92400e;">${entity.type || entity.category || 'Standard Quest'}</span>
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">📜 ${escapeHtml(questObj.title || questObj.name)}</h3>
+              <span class="entity-badge-tag" style="${statusBadgeStyle}">${escapeHtml(questObj.status || 'Active')}</span>
+            </div>
+            <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
+              <span class="entity-badge-tag">${questObj.moduleId ? `Module: ${questObj.moduleId}` : 'Custom Authored'}</span>
+              <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
+              <span class="entity-badge-tag" style="background:#fef3c7; color:#92400e;">${escapeHtml(questObj.type || questObj.category || 'Standard Quest')}</span>
+              ${threatBadgeHtml}
+              ${submapBadgeHtml}
+              ${crucBadgeHtml}
+            </div>
           </div>
 
           <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 130px);">
-            ${entity.threat ? `<div><strong>Stakes / Failure Condition:</strong> <span style="color:#b91c1c;">${entity.threat}</span></div>` : ''}
+            <!-- Narrative Synopsis -->
             <div>
               <strong>Narrative Objective &amp; Details:</strong>
-              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${entity.motivation || entity.notes || 'No description provided.'}</p>
+              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd; white-space:pre-wrap;">${escapeHtml(cruc.synopsis || (!cruc.hasCrucible ? (questObj.motivation || questObj.notes || 'No description provided.') : 'See structured crucible breakdown below.'))}</p>
             </div>
 
-            <!-- Linked NPCs -->
+            <!-- Structured Crucible Cards (If Present) -->
+            ${cruc.hasCrucible ? `
+              <div style="background:#fffbeb; border:1px solid #fde68a; padding:6px; border-radius:2px;">
+                <div style="font-weight:bold; color:#b45309; font-size:11px; margin-bottom:4px;">⚡ WHAT-IF CRUCIBLE &amp; DIVERGENCE:</div>
+                ${cruc.milestoneHeader ? `<div style="font-size:10px; color:#64748b; margin-bottom:4px;"><strong>Phase / Milestone:</strong> ${escapeHtml(cruc.milestoneHeader)}</div>` : ''}
+                ${cruc.canonical ? `
+                  <div style="background:#eff6ff; border:1px solid #bfdbfe; border-left:3px solid #2563eb; padding:5px 8px; border-radius:2px; margin-bottom:4px;">
+                    <div style="font-weight:bold; color:#1e40af; font-size:10px;">🔵 CANONICAL RESOLUTION:</div>
+                    <div style="color:#1e3a8a; font-size:10px; line-height:1.3; margin-top:2px;">${escapeHtml(cruc.canonical)}</div>
+                  </div>
+                ` : ''}
+                ${cruc.divergence ? `
+                  <div style="background:#fefce8; border:1px solid #fde047; border-left:3px solid #eab308; padding:5px 8px; border-radius:2px; margin-bottom:4px;">
+                    <div style="font-weight:bold; color:#854d0e; font-size:10px;">🟡 CRUCIBLE DIVERGENCE POINT:</div>
+                    <div style="color:#713f12; font-size:10px; line-height:1.3; margin-top:2px;">${escapeHtml(cruc.divergence)}</div>
+                  </div>
+                ` : ''}
+                ${(cruc.snarky || cruc.altruistic) ? `
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-bottom:4px;">
+                    <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-left:3px solid #db2777; padding:4px 6px; border-radius:2px;">
+                      <div style="font-weight:bold; color:#9d174d; font-size:9px;">🦊 SNARKY / SELFISH:</div>
+                      <div style="color:#831843; font-size:9px; line-height:1.2; margin-top:2px;">${escapeHtml(cruc.snarky || '-')}</div>
+                    </div>
+                    <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-left:3px solid #16a34a; padding:4px 6px; border-radius:2px;">
+                      <div style="font-weight:bold; color:#166534; font-size:9px;">🛡️ ALTRUISTIC / HEROIC:</div>
+                      <div style="color:#14532d; font-size:9px; line-height:1.2; margin-top:2px;">${escapeHtml(cruc.altruistic || '-')}</div>
+                    </div>
+                  </div>
+                ` : ''}
+                ${cruc.dilemma ? `
+                  <div style="background:#fef2f2; border:1px solid #fecaca; border-left:3px solid #dc2626; padding:5px 8px; border-radius:2px; margin-bottom:4px;">
+                    <div style="font-weight:bold; color:#991b1b; font-size:10px;">🔴 IMMEDIATE DILEMMA &amp; COST:</div>
+                    <div style="color:#7f1d1d; font-size:10px; line-height:1.3; margin-top:2px;">${escapeHtml(cruc.dilemma)}</div>
+                  </div>
+                ` : ''}
+                ${cruc.ripple ? `
+                  <div style="background:#faf5ff; border:1px solid #e9d5ff; border-left:3px solid #9333ea; padding:5px 8px; border-radius:2px; margin-bottom:4px;">
+                    <div style="font-weight:bold; color:#6b21a8; font-size:10px;">🟣 LONG-TERM CAMPAIGN RIPPLE:</div>
+                    <div style="color:#581c87; font-size:10px; line-height:1.3; margin-top:2px;">${escapeHtml(cruc.ripple)}</div>
+                  </div>
+                ` : ''}
+                ${(cruc.secondaryFork || cruc.secondaryDilemma || cruc.secondaryRipple) ? `
+                  <div style="background:#f8fafc; border:1px solid #cbd5e1; border-left:3px solid #475569; padding:5px 8px; border-radius:2px; margin-bottom:4px;">
+                    <div style="font-weight:bold; color:#334155; font-size:10px;">🔀 SECONDARY FORK &amp; RIPPLE:</div>
+                    ${cruc.secondaryFork ? `<div style="color:#1e293b; font-size:10px; line-height:1.3; margin-top:2px;"><strong>Fork:</strong> ${escapeHtml(cruc.secondaryFork)}</div>` : ''}
+                    ${cruc.secondaryDilemma ? `<div style="color:#475569; font-size:9px; line-height:1.3; margin-top:2px;"><strong>Cost:</strong> ${escapeHtml(cruc.secondaryDilemma)}</div>` : ''}
+                    ${cruc.secondaryRipple ? `<div style="color:#475569; font-size:9px; line-height:1.3; margin-top:2px;"><strong>Ripple:</strong> ${escapeHtml(cruc.secondaryRipple)}</div>` : ''}
+                  </div>
+                ` : ''}
+                ${cruc.npcReactions ? `
+                  <div style="background:#f0fdfa; border:1px solid #99f6e4; border-left:3px solid #0d9488; padding:5px 8px; border-radius:2px; margin-bottom:4px;">
+                    <div style="font-weight:bold; color:#115e59; font-size:10px;">👥 KEY NPC REACTIONS:</div>
+                    <div style="color:#134e4a; font-size:10px; line-height:1.3; margin-top:2px;">${escapeHtml(cruc.npcReactions)}</div>
+                  </div>
+                ` : ''}
+                ${cruc.tableHook ? `
+                  <div style="background:#fffbeb; border:1px solid #fde68a; border-left:3px solid #d97706; padding:5px 8px; border-radius:2px; margin-bottom:4px;">
+                    <div style="font-weight:bold; color:#92400e; font-size:10px;">🎲 TABLE HOOK &amp; RUNNING NOTES:</div>
+                    <div style="color:#78350f; font-size:10px; line-height:1.3; margin-top:2px;">${escapeHtml(cruc.tableHook)}</div>
+                  </div>
+                ` : ''}
+              </div>
+            ` : ''}
+
+            <!-- Semantic NPC Roles (Giver & Target) -->
+            ${semanticNpcHtml}
+
+            <!-- Other Linked NPCs -->
             <div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
-                <strong>Linked NPCs (${linkedNpcs.length}):</strong>
+                <strong>${(giverNpc || targetNpc) ? `Other Linked NPCs (${otherLinkedNpcs.length}):` : `Linked NPCs (${otherLinkedNpcs.length}):`}</strong>
                 ${!isPrototype ? `<button class="win-btn" onclick="openEditEntityModal('${entity.id}')" style="font-size:9px; padding:1px 4px;">+ Link NPCs</button>` : ''}
               </div>
               ${npcsHtml}
@@ -2712,36 +3408,59 @@
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
-            <label style="display:flex; flex-direction:column; gap:2px;">
-              <strong>Main Quest Anchor Node:</strong>
-              <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
-                ${nodeOptions}
-              </select>
-            </label>
+            ${isExternal ? `
+              <div style="font-size:10px; color:#475569;">
+                Source: <strong>${escapeHtml(entity._sourceCampaignName)}</strong> &bull; Original Anchor: <strong>${escapeHtml(entity._originalNodeName || 'Unassigned')}</strong>
+              </div>
+              <button class="win-btn" style="background:#000080; color:#fff; font-weight:bold; padding:6px 12px; font-size:11px;" onclick="openTransplantPackageModal('${escapeJsArg(entity._externalKey)}', 'quest')">
+                📦 Configure &amp; Transplant Quest Package...
+              </button>
+            ` : `
+              <label style="display:flex; flex-direction:column; gap:2px;">
+                <strong>Main Quest Anchor Node:</strong>
+                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
+                  ${nodeOptions}
+                </select>
+              </label>
 
-            ${(currentStationId) ? `
-              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(currentStationId)}')"><strong>🎯 Center Anchor Node on Canvas</strong></button>
-            ` : ''}
+              ${(currentStationId) ? `
+                <button class="win-btn" onclick="centerOnNode('${escapeJsArg(currentStationId)}')"><strong>🎯 Center Anchor Node on Canvas</strong></button>
+              ` : ''}
 
-            <div style="display:flex; gap:4px; margin-top:4px;">
-              ${isPrototype ? `
-                <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add Quest to Campaign</strong></button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('quest', '${entity.id}')">Delete Quest...</button>
-              ` : `
-                <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit Quest</button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('quest', '${entity.id}')">Delete Quest...</button>
-              `}
-            </div>
+              <div style="display:flex; gap:4px; margin-top:4px;">
+                ${isPrototype ? `
+                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add Quest to Campaign</strong></button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('quest', '${entity.id}')">Delete Quest...</button>
+                ` : `
+                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit Quest</button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('quest', '${entity.id}')">Delete Quest...</button>
+                `}
+              </div>
+            `}
           </div>
         `;
       } else if (CurrentEntityTab === 'item') {
         // DEDICATED ITEM INSPECTOR
         const itemObj = activeInstance || entity;
-        const ownerNpc = (topo.npcs || []).find(n => String(n.id) === String(itemObj.ownerNpcId));
+        const poolNpcs = isExternal ? ((externalSourcePool && externalSourcePool.npcs) || []) : (topo.npcs || []);
+        const poolQuests = isExternal ? ((externalSourcePool && externalSourcePool.quests) || []) : (topo.quests || []);
+        const ownerNpc = poolNpcs.find(n => String(n.id) === String(itemObj.ownerNpcId));
         const isCarried = (itemObj.possessionMode === 'carried' && ownerNpc);
         const effNodeId = isCarried ? (ownerNpc.nodeId != null ? ownerNpc.nodeId : null) : (activeInstance ? activeInstance.nodeId : (entity.suggestedNode || entity.nodeId));
 
-        const referencingQuests = (topo.quests || []).filter(q => 
+        const itemStatus = itemObj.status || 'intact';
+        const itemStatusColors = {
+          'intact': 'background:#047857; color:#fff;',
+          'Active': 'background:#047857; color:#fff;',
+          'damaged': 'background:#d97706; color:#fff;',
+          'depleted': 'background:#64748b; color:#fff;',
+          'attuned': 'background:#7c3aed; color:#fff;',
+          'lost': 'background:#475569; color:#fff;',
+          'destroyed': 'background:#991b1b; color:#fff;'
+        };
+        const itemStatusStyle = itemStatusColors[itemStatus] || 'background:#047857; color:#fff;';
+
+        const referencingQuests = poolQuests.filter(q => 
           (q.itemIds && q.itemIds.includes(itemObj.id)) || 
           (q.itemIds && q.itemIds.includes(entity.id)) ||
           (q.nodeId && effNodeId && String(q.nodeId) === String(effNodeId))
@@ -2749,35 +3468,60 @@
 
         let questsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No active quests currently reference this item.</div>';
         if (referencingQuests.length > 0) {
-          questsHtml = referencingQuests.map(q => `
+          questsHtml = referencingQuests.map(q => {
+            const qNavId = formatEntityNavId(q.id, isExternal, entity._sourceCampaignId);
+            return `
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
-                <span style="font-weight:bold; font-size:11px;">📜 ${q.title || q.name}</span>
+                <span style="font-weight:bold; font-size:11px;">📜 ${escapeHtml(q.title || q.name || 'Untitled Quest')}</span>
                 <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? formatNodeRef(q.nodeId, topo) : 'Unassigned'}]</span>
               </div>
               <div style="display:flex; gap:2px;">
-                <button class="win-btn" onclick="window.navigateToEntity('quest', '${q.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
-                ${q.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(q.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
+                <button class="win-btn" onclick="window.navigateToEntity('quest', '${escapeJsArg(qNavId)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                ${(q.nodeId && !isExternal) ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(q.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
               </div>
             </div>
-          `).join('');
+          `;
+          }).join('');
         }
 
         const possessionBadge = ownerNpc
           ? (isCarried
-              ? `<span class="entity-badge-tag" style="background:#0f766e; color:#fff;">🎒 Equipped / Carried by ${ownerNpc.name}</span>`
-              : `<span class="entity-badge-tag" style="background:#475569; color:#fff;">📦 Stored at ${itemObj.nodeId ? formatNodeRef(itemObj.nodeId, topo) : 'Unassigned'} (Owned by ${ownerNpc.name})</span>`)
+              ? `<span class="entity-badge-tag" style="background:#0f766e; color:#fff;">🎒 Equipped / Carried by ${escapeHtml(ownerNpc.name)}</span>`
+              : `<span class="entity-badge-tag" style="background:#475569; color:#fff;">📦 Stored at ${itemObj.nodeId ? formatNodeRef(itemObj.nodeId, topo) : 'Unassigned'} (Owned by ${escapeHtml(ownerNpc.name)})</span>`)
           : `<span class="entity-badge-tag" style="background:#f1f5f9; color:#64748b;">(Unowned / Public Relic)</span>`;
 
         pane.innerHTML = `
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
-            <h3 style="font-size:13px; color:#000080; margin-bottom:2px;">💎 ${entity.name || entity.title}</h3>
-            <span class="entity-badge-tag">${entity.moduleId ? `Module: ${entity.moduleId}` : 'Custom Authored'}</span>
-            <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
-            <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3;">${entity.category || entity.role || entity.type || 'Relic / Item'}</span>
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">💎 ${escapeHtml(entity.name || entity.title || 'Untitled Item')}</h3>
+              <span class="entity-badge-tag" style="${itemStatusStyle}">${escapeHtml(itemStatus)}</span>
+            </div>
+            <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
+              <span class="entity-badge-tag">${entity.moduleId ? `Module: ${entity.moduleId}` : 'Custom Authored'}</span>
+              <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
+              <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3;">${escapeHtml(entity.category || entity.role || entity.type || 'Relic / Item')}</span>
+              ${(itemObj.value !== undefined && itemObj.value !== null && String(itemObj.value) !== '') ? `<span class="entity-badge-tag" style="background:#fef3c7; color:#92400e; border:1px solid #fcd34d; font-weight:bold;">💰 Value: ${escapeHtml(String(itemObj.value))}</span>` : ''}
+            </div>
           </div>
 
           <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 130px);">
+            <!-- Status Selector Row (if not external) -->
+            ${!isExternal ? `
+              <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px;">
+                <strong style="font-size:10px;">Item Condition / Status:</strong>
+                <select class="win-select-input" style="font-size:9px; padding:1px 3px;" onchange="updateItemInlineProp('${escapeJsArg(itemObj.id)}', 'status', this.value)">
+                  <option value="intact" ${itemStatus === 'intact' ? 'selected' : ''}>intact (Normal)</option>
+                  <option value="Active" ${itemStatus === 'Active' ? 'selected' : ''}>Active</option>
+                  <option value="damaged" ${itemStatus === 'damaged' ? 'selected' : ''}>damaged</option>
+                  <option value="depleted" ${itemStatus === 'depleted' ? 'selected' : ''}>depleted</option>
+                  <option value="attuned" ${itemStatus === 'attuned' ? 'selected' : ''}>attuned</option>
+                  <option value="lost" ${itemStatus === 'lost' ? 'selected' : ''}>lost</option>
+                  <option value="destroyed" ${itemStatus === 'destroyed' ? 'selected' : ''}>destroyed</option>
+                </select>
+              </div>
+            ` : ''}
+
             <!-- Ownership & Possession Status Card -->
             <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
@@ -2786,19 +3530,21 @@
               </div>
               ${ownerNpc ? `
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-top:3px;">
-                  <span style="font-size:10px; color:#334155;">Owner: <strong>${ownerNpc.name}</strong> (${ownerNpc.role || 'Resident'})</span>
-                  <button class="win-btn" onclick="navigateToEntity('npc', '${ownerNpc.id}')" style="font-size:9px; padding:1px 4px;">Inspect Character</button>
+                  <span style="font-size:10px; color:#334155;">Owner: <strong>${escapeHtml(ownerNpc.name)}</strong> (${escapeHtml(ownerNpc.role || 'Resident')})</span>
+                  <button class="win-btn" onclick="navigateToEntity('npc', '${escapeJsArg(formatEntityNavId(ownerNpc.id, isExternal, entity._sourceCampaignId))}')" style="font-size:9px; padding:1px 4px;">Inspect Character</button>
                 </div>
                 <div style="font-size:10px; color:#64748b; margin-top:2px;">
                   ${isCarried
                     ? `🎒 Dynamically inherits station node from carrier <strong>${ownerNpc.nodeId != null ? formatNodeRef(ownerNpc.nodeId, topo) : 'Unassigned'}</strong>.`
                     : `📦 Stored at designated station <strong>${itemObj.nodeId ? formatNodeRef(itemObj.nodeId, topo) : 'Unassigned'}</strong> (e.g. in vault/armory).`}
                 </div>
-                <div style="margin-top:4px;">
-                  <button class="win-btn" onclick="toggleItemPossessionMode('${itemObj.id}', ${isPrototype})" style="font-size:10px; width:100%;">
-                    ${isCarried ? '📦 Switch to Stored at Node' : '🎒 Switch to Equipped / Carried by Owner'}
-                  </button>
-                </div>
+                ${!isExternal ? `
+                  <div style="margin-top:4px;">
+                    <button class="win-btn" onclick="toggleItemPossessionMode('${itemObj.id}', ${isPrototype})" style="font-size:10px; width:100%;">
+                      ${isCarried ? '📦 Switch to Stored at Node' : '🎒 Switch to Equipped / Carried by Owner'}
+                    </button>
+                  </div>
+                ` : ''}
               ` : `
                 <div style="font-size:10px; color:#64748b;">This item is currently unowned or a public world relic. Edit this item to assign an owning NPC.</div>
               `}
@@ -2807,20 +3553,20 @@
             ${entity.specs ? `
               <div>
                 <strong>Specifications &amp; Dial Traits:</strong>
-                <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd; font-family:Consolas, monospace;">${entity.specs}</p>
+                <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd; font-family:Consolas, monospace;">${escapeHtml(entity.specs)}</p>
               </div>
             ` : ''}
 
             <div>
               <strong>Lore, Provenance &amp; Notes:</strong>
-              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${entity.motivation || entity.notes || 'No description provided.'}</p>
+              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${escapeHtml(entity.motivation || entity.notes || entity.description || 'No description provided.')}</p>
             </div>
 
             <!-- Associated / Referencing Quests -->
             <div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
                 <strong>Referencing Quests (${referencingQuests.length}):</strong>
-                <button class="win-btn" onclick="openNewEntityModal('quest')" style="font-size:9px; padding:1px 4px;">+ New Quest</button>
+                ${!isExternal ? `<button class="win-btn" onclick="openNewEntityModal('quest')" style="font-size:9px; padding:1px 4px;">+ New Quest</button>` : ''}
               </div>
               ${questsHtml}
             </div>
@@ -2833,32 +3579,41 @@
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
-            ${isCarried ? `
-              <div style="font-size:10px; background:#f0fdf4; border:1px solid #86efac; padding:4px 6px; border-radius:2px; color:#166534;">
-                <strong>Station Node: ${effNodeId != null ? formatNodeRef(effNodeId, topo) : 'Unassigned'}</strong> (Inherited from carrier ${ownerNpc.name}). To station elsewhere, switch possession to "Stored at Node".
+            ${isExternal ? `
+              <div style="font-size:10px; color:#1e40af; background:#dbeafe; padding:4px 6px; border:1px solid #93c5fd; border-radius:2px;">
+                <strong>External Campaign Item:</strong> Sourced from <em>${escapeHtml(entity._sourceCampaignName || entity._sourceCampaignId || 'External')}</em>.
               </div>
+              <button class="win-btn" style="background:#2563eb; color:#fff; font-weight:bold; padding:4px 8px;" onclick="window.openTransplantPackageModal('${escapeJsArg(entity._externalKey || id)}', 'item')">
+                📥 Configure Transplant into Current Campaign...
+              </button>
             ` : `
-              <label style="display:flex; flex-direction:column; gap:2px;">
-                <strong>Station to Node:</strong>
-                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
-                  ${nodeOptions}
-                </select>
-              </label>
-            `}
-
-            ${(effNodeId) ? `
-              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(effNodeId)}')"><strong>🎯 Center Stationed Node on Canvas</strong></button>
-            ` : ''}
-
-            <div style="display:flex; gap:4px; margin-top:4px;">
-              ${isPrototype ? `
-                <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add Item to Campaign</strong></button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('item', '${entity.id}')">Delete Item...</button>
+              ${isCarried ? `
+                <div style="font-size:10px; background:#f0fdf4; border:1px solid #86efac; padding:4px 6px; border-radius:2px; color:#166534;">
+                  <strong>Station Node: ${effNodeId != null ? formatNodeRef(effNodeId, topo) : 'Unassigned'}</strong> (Inherited from carrier ${ownerNpc.name}). To station elsewhere, switch possession to "Stored at Node".
+                </div>
               ` : `
-                <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit Item</button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('item', '${entity.id}')">Delete Item...</button>
+                <label style="display:flex; flex-direction:column; gap:2px;">
+                  <strong>Station to Node:</strong>
+                  <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
+                    ${nodeOptions}
+                  </select>
+                </label>
               `}
-            </div>
+
+              ${(effNodeId) ? `
+                <button class="win-btn" onclick="centerOnNode('${escapeJsArg(effNodeId)}')"><strong>🎯 Center Stationed Node on Canvas</strong></button>
+              ` : ''}
+
+              <div style="display:flex; gap:4px; margin-top:4px;">
+                ${isPrototype ? `
+                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add Item to Campaign</strong></button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('item', '${entity.id}')">Delete Item...</button>
+                ` : `
+                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit Item</button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('item', '${entity.id}')">Delete Item...</button>
+                `}
+              </div>
+            `}
           </div>
         `;
       } else if (CurrentEntityTab === 'resource') {
@@ -2941,7 +3696,8 @@
           `;
         }
 
-        const referencingQuests = (topo.quests || []).filter(q =>
+        const poolQuests = isExternal ? ((externalSourcePool && externalSourcePool.quests) || []) : (topo.quests || []);
+        const referencingQuests = poolQuests.filter(q =>
           (q.itemIds && q.itemIds.includes(resObj.id)) ||
           (q.itemIds && q.itemIds.includes(entity.id)) ||
           (q.nodeId && effNodeId && String(q.nodeId) === String(effNodeId))
@@ -3009,41 +3765,91 @@
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
-            <label style="display:flex; flex-direction:column; gap:2px;">
-              <strong>Station to Node / Depot:</strong>
-              <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(entity.id)}', this.value, ${isPrototype})">
-                ${nodeOptions}
-              </select>
-            </label>
+            ${isExternal ? `
+              <div style="font-size:10px; color:#1e40af; background:#dbeafe; padding:4px 6px; border:1px solid #93c5fd; border-radius:2px;">
+                <strong>External Campaign Resource:</strong> Sourced from <em>${escapeHtml(entity._sourceCampaignName || entity._sourceCampaignId || 'External')}</em>.
+              </div>
+              <button class="win-btn" style="background:#2563eb; color:#fff; font-weight:bold; padding:4px 8px;" onclick="window.openTransplantPackageModal('${escapeJsArg(entity._externalKey || id)}', 'resource')">
+                📥 Configure Transplant into Current Campaign...
+              </button>
+            ` : `
+              <label style="display:flex; flex-direction:column; gap:2px;">
+                <strong>Station to Node / Depot:</strong>
+                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(entity.id)}', this.value, ${isPrototype})">
+                  ${nodeOptions}
+                </select>
+              </label>
 
-            ${(effNodeId) ? `
-              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(effNodeId)}')"><strong>🎯 Center Stationed Depot on Canvas</strong></button>
-            ` : ''}
+              ${(effNodeId) ? `
+                <button class="win-btn" onclick="centerOnNode('${escapeJsArg(effNodeId)}')"><strong>🎯 Center Stationed Depot on Canvas</strong></button>
+              ` : ''}
 
-            <div style="display:flex; gap:4px; margin-top:4px;">
-              ${isPrototype ? `
-                <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${escapeJsArg(entity.id)}', 'resource')"><strong>+ Add Resource to Campaign</strong></button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('resource', '${escapeJsArg(entity.id)}')">Delete Resource...</button>
-              ` : `
-                <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')">Edit Resource</button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('resource', '${escapeJsArg(entity.id)}')">Delete Resource...</button>
-              `}
-            </div>
+              <div style="display:flex; gap:4px; margin-top:4px;">
+                ${isPrototype ? `
+                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${escapeJsArg(entity.id)}', 'resource')"><strong>+ Add Resource to Campaign</strong></button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('resource', '${escapeJsArg(entity.id)}')">Delete Resource...</button>
+                ` : `
+                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')">Edit Resource</button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('resource', '${escapeJsArg(entity.id)}')">Delete Resource...</button>
+                `}
+              </div>
+            `}
           </div>
         `;
       } else if (CurrentEntityTab === 'faction') {
         const facObj = activeInstance || entity;
-        const leaderNpc = (topo.npcs || []).find(n => String(n.id) === String(facObj.leaderNpcId));
+        const poolNpcs = isExternal ? ((externalSourcePool && externalSourcePool.npcs) || []) : (topo.npcs || []);
+        const leaderNpc = poolNpcs.find(n => String(n.id) === String(facObj.leaderNpcId));
         const cult = facObj.cvfQuadrant || 'Clan';
         const color = facObj.colorIdentity || 'C';
-        const disp = Array.isArray(facObj.disposition) ? facObj.disposition : [2, 2, 2];
+        const disp = Array.isArray(facObj.disposition) ? facObj.disposition : (facObj.odv ? [facObj.odv.s || 2, facObj.odv.e || 2, facObj.odv.c || 2] : [2, 2, 2]);
         const hqNodeId = facObj.headquartersNodeId;
         const hqNode = hqNodeId ? resolveNodeObject(hqNodeId, topo) : null;
-        const terrList = Array.isArray(facObj.controlledNodeIds) ? facObj.controlledNodeIds : [];
-        const memberNpcs = (topo.npcs || []).filter(n => n.factionId === facObj.id || n.faction === facObj.name);
+        const rawTerrList = [
+          ...(Array.isArray(facObj.controlledNodeIds) ? facObj.controlledNodeIds : []),
+          ...(Array.isArray(facObj.territoryNodeIds) ? facObj.territoryNodeIds : [])
+        ];
+        const terrList = Array.from(new Set(rawTerrList.map(String)));
+        const explicitMemberIds = Array.isArray(facObj.memberNpcIds) ? facObj.memberNpcIds.map(String) : [];
+        const memberNpcs = poolNpcs.filter(n => n.factionId === facObj.id || n.faction === facObj.name || explicitMemberIds.includes(String(n.id)));
+
+        const facStatus = facObj.status || 'Active';
+        const facStatusColors = {
+          'Active': 'background:#047857; color:#fff;',
+          'Ascendant': 'background:#0284c7; color:#fff;',
+          'Underground': 'background:#7c3aed; color:#fff;',
+          'Contested': 'background:#ea580c; color:#fff;',
+          'Dissolved': 'background:#991b1b; color:#fff;'
+        };
+        const facStatusStyle = facStatusColors[facStatus] || 'background:#047857; color:#fff;';
+
+        const has4Axis = (facObj.reach !== undefined || facObj.force !== undefined || facObj.wealth !== undefined || facObj.secrecy !== undefined);
+        const fourAxisHtml = has4Axis ? `
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+            <div style="font-size:10px; font-weight:bold; color:#475569; margin-bottom:4px;">ORGANIZATIONAL POWER PROFILE (4-AXIS):</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:4px; text-align:center;">
+              <div style="background:#fff; border:1px solid #cbd5e1; padding:3px 2px; border-radius:2px;">
+                <div style="font-size:9px; color:#64748b; font-weight:bold;">🌐 REACH</div>
+                <div style="font-size:10px; font-weight:bold; color:#0f172a; margin-top:1px;">${escapeHtml(facObj.reach || 'Medium')}</div>
+              </div>
+              <div style="background:#fff; border:1px solid #cbd5e1; padding:3px 2px; border-radius:2px;">
+                <div style="font-size:9px; color:#64748b; font-weight:bold;">⚔️ FORCE</div>
+                <div style="font-size:10px; font-weight:bold; color:#0f172a; margin-top:1px;">${escapeHtml(facObj.force || 'Medium')}</div>
+              </div>
+              <div style="background:#fff; border:1px solid #cbd5e1; padding:3px 2px; border-radius:2px;">
+                <div style="font-size:9px; color:#64748b; font-weight:bold;">💰 WEALTH</div>
+                <div style="font-size:10px; font-weight:bold; color:#0f172a; margin-top:1px;">${escapeHtml(facObj.wealth || 'Medium')}</div>
+              </div>
+              <div style="background:#fff; border:1px solid #cbd5e1; padding:3px 2px; border-radius:2px;">
+                <div style="font-size:9px; color:#64748b; font-weight:bold;">🕵️ SECRECY</div>
+                <div style="font-size:10px; font-weight:bold; color:#0f172a; margin-top:1px;">${escapeHtml(facObj.secrecy || 'Low')}</div>
+              </div>
+            </div>
+          </div>
+        ` : '';
 
         // Build Diplomatic Stance table
-        const otherFactions = (topo.factions || []).filter(f => f.id !== facObj.id);
+        const otherFactions = (isExternal ? ((externalSourcePool && externalSourcePool.factions) || []) : (topo.factions || [])).filter(f => f.id !== facObj.id);
         let diploTableHtml = '';
         if (otherFactions.length === 0) {
           diploTableHtml = '<div style="font-size:10px; color:#64748b; font-style:italic;">No other factions registered in active campaign.</div>';
@@ -3061,15 +3867,17 @@
                   const currentStance = (facObj.diplomaticStances && facObj.diplomaticStances[other.id]) || 'Neutral';
                   return `
                     <tr>
-                      <td><strong>👑 ${other.name}</strong></td>
+                      <td><strong>👑 ${escapeHtml(other.name || other.id)}</strong></td>
                       <td>
-                        <select class="win-select-input" style="font-size:9px; padding:1px 2px;" onchange="updateFactionStance('${facObj.id}', '${other.id}', this.value)">
-                          <option value="Allied" ${currentStance === 'Allied' ? 'selected' : ''}>Allied (+2)</option>
-                          <option value="Neutral" ${currentStance === 'Neutral' ? 'selected' : ''}>Neutral (0)</option>
-                          <option value="Hostile" ${currentStance === 'Hostile' ? 'selected' : ''}>Hostile (-2)</option>
-                          <option value="Vassal" ${currentStance === 'Vassal' ? 'selected' : ''}>Vassal</option>
-                          <option value="Rival" ${currentStance === 'Rival' ? 'selected' : ''}>Rival</option>
-                        </select>
+                        ${!isExternal ? `
+                          <select class="win-select-input" style="font-size:9px; padding:1px 2px;" onchange="updateFactionStance('${escapeJsArg(facObj.id)}', '${escapeJsArg(other.id)}', this.value)">
+                            <option value="Allied" ${currentStance === 'Allied' ? 'selected' : ''}>Allied (+2)</option>
+                            <option value="Neutral" ${currentStance === 'Neutral' ? 'selected' : ''}>Neutral (0)</option>
+                            <option value="Hostile" ${currentStance === 'Hostile' ? 'selected' : ''}>Hostile (-2)</option>
+                            <option value="Vassal" ${currentStance === 'Vassal' ? 'selected' : ''}>Vassal</option>
+                            <option value="Rival" ${currentStance === 'Rival' ? 'selected' : ''}>Rival</option>
+                          </select>
+                        ` : `<span class="entity-badge-tag">${escapeHtml(currentStance)}</span>`}
                       </td>
                     </tr>
                   `;
@@ -3082,26 +3890,32 @@
         pane.innerHTML = `
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
             <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <h3 style="font-size:13px; color:#000080; margin-bottom:2px;">👑 ${facObj.name}</h3>
+              <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">👑 ${escapeHtml(facObj.name || facObj.id || 'Untitled Faction')}</h3>
               <div style="display:flex; gap:3px;">
-                <span class="entity-badge-tag" style="background:#4338ca; color:#fff;">${cult}</span>
-                <span class="entity-badge-tag" style="background:#0f172a; color:#f8fafc; font-weight:bold;">${color}</span>
+                <span class="entity-badge-tag" style="${facStatusStyle}">${escapeHtml(facStatus)}</span>
+                <span class="entity-badge-tag" style="background:#4338ca; color:#fff;">${escapeHtml(cult)}</span>
+                <span class="entity-badge-tag" style="background:#0f172a; color:#f8fafc; font-weight:bold;">${escapeHtml(color)}</span>
               </div>
             </div>
-            <span class="entity-badge-tag">${facObj.type || 'Power Group'}</span>
-            <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">[S:${disp[0]} E:${disp[1]} C:${disp[2]}]</span>
+            <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
+              <span class="entity-badge-tag">${escapeHtml(facObj.type || 'Power Group')}</span>
+              <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">[S:${disp[0]} E:${disp[1]} C:${disp[2]}]</span>
+            </div>
           </div>
 
           <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 130px);">
+            <!-- 4-Axis Power Profile -->
+            ${fourAxisHtml}
+
             <!-- Faction Leader Card -->
             <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
               <div style="font-size:10px; font-weight:bold; color:#475569; margin-bottom:2px;">FACTION LEADER / SPOKESPERSON:</div>
               ${leaderNpc ? `
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                   <div>
-                    <strong style="color:#0284c7;">👤 ${leaderNpc.name}</strong> (${leaderNpc.role || 'Resident'})
+                    <strong style="color:#0284c7;">👤 ${escapeHtml(leaderNpc.name)}</strong> (${escapeHtml(leaderNpc.role || 'Resident')})
                   </div>
-                  <button class="win-btn" onclick="switchEntityManagerTab('npc'); selectEntityItem('${leaderNpc.id}');" style="font-size:9px; padding:1px 4px;">Inspect Leader</button>
+                  <button class="win-btn" onclick="switchEntityManagerTab('npc'); selectEntityItem('${escapeJsArg(formatEntityNavId(leaderNpc.id, isExternal, entity._sourceCampaignId))}');" style="font-size:9px; padding:1px 4px;">Inspect Leader</button>
                 </div>
               ` : `
                 <div style="font-size:10px; color:#64748b;">(Autonomous Council / No Individual Leader Assigned)</div>
@@ -3114,9 +3928,9 @@
               ${hqNode ? `
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                   <div>
-                    <strong style="color:#000080;">🌐 Node ${hqNodeId}:</strong> ${hqNode.name} (${hqNode.culture || 'Adhocracy'})
+                    <strong style="color:#000080;">🌐 Node ${hqNodeId}:</strong> ${escapeHtml(hqNode.name || 'Node')} (${escapeHtml(hqNode.culture || 'Adhocracy')})
                   </div>
-                  <button class="win-btn" onclick="switchEntityManagerTab('node'); selectEntityItem('${hqNodeId}');" style="font-size:9px; padding:1px 4px;">Inspect Node</button>
+                  <button class="win-btn" onclick="switchEntityManagerTab('node'); selectEntityItem('${escapeJsArg(hqNodeId)}');" style="font-size:9px; padding:1px 4px;">Inspect Node</button>
                 </div>
               ` : `
                 <div style="font-size:10px; color:#64748b;">(Unseated / Nomadic / Secret Enclave)</div>
@@ -3125,12 +3939,15 @@
 
             <!-- Controlled Territory Badges -->
             <div>
-              <strong>Controlled Territory (${terrList.length} Nodes):</strong>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong>Controlled Territory (${terrList.length} Nodes):</strong>
+                ${(!isExternal && terrList.length > 0) ? `<button class="win-btn" onclick="highlightFactionTerritoryOnCanvas('${escapeJsArg(facObj.id)}')" style="font-size:9px; padding:1px 5px; color:#1e40af; font-weight:bold;">🎯 Highlight on Canvas</button>` : ''}
+              </div>
               <div style="display:flex; flex-wrap:wrap; gap:3px; margin-top:2px;">
                 ${terrList.length > 0 ? terrList.map(nid => {
                   const nodeObj = resolveNodeObject(nid, topo);
                   const nName = nodeObj ? (nodeObj.displayName || nodeObj.name || `Node ${nid}`) : `Node ${nid}`;
-                  return `<button class="win-btn" onclick="switchEntityManagerTab('node'); selectEntityItem('${nid}');" style="font-size:9px; padding:1px 4px;">📍 #${nid}: ${nName}</button>`;
+                  return `<button class="win-btn" onclick="switchEntityManagerTab('node'); selectEntityItem('${escapeJsArg(nid)}');" style="font-size:9px; padding:1px 4px;">📍 #${nid}: ${escapeHtml(nName)}</button>`;
                 }).join('') : '<span style="font-size:10px; color:#64748b; font-style:italic;">No territorial nodes claimed.</span>'}
               </div>
             </div>
@@ -3140,7 +3957,8 @@
               <strong>Associated Characters (${memberNpcs.length}):</strong>
               <div style="display:flex; flex-wrap:wrap; gap:3px; margin-top:2px;">
                 ${memberNpcs.length > 0 ? memberNpcs.map(m => {
-                  return `<button class="win-btn" onclick="switchEntityManagerTab('npc'); selectEntityItem('${m.id}');" style="font-size:9px; padding:1px 4px;">👤 ${m.name}</button>`;
+                  const mNavId = formatEntityNavId(m.id, isExternal, entity._sourceCampaignId);
+                  return `<button class="win-btn" onclick="switchEntityManagerTab('npc'); selectEntityItem('${escapeJsArg(mNavId)}');" style="font-size:9px; padding:1px 4px;">👤 ${escapeHtml(m.name)}</button>`;
                 }).join('') : '<span style="font-size:10px; color:#64748b; font-style:italic;">No member characters assigned to this faction.</span>'}
               </div>
             </div>
@@ -3158,7 +3976,7 @@
             <!-- Dossier & Lore -->
             <div>
               <strong>Ideological Agenda &amp; Dossier:</strong>
-              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${facObj.description || facObj.notes || 'No description provided.'}</p>
+              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${escapeHtml(facObj.description || facObj.notes || 'No description provided.')}</p>
             </div>
 
             <!-- Linked Threat Clocks (DEV-01) -->
@@ -3169,14 +3987,23 @@
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
-            ${hqNodeId ? `
-              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(hqNodeId)}')"><strong>🎯 Center Headquarters on Canvas</strong></button>
-            ` : ''}
+            ${isExternal ? `
+              <div style="font-size:10px; color:#1e40af; background:#dbeafe; padding:4px 6px; border:1px solid #93c5fd; border-radius:2px;">
+                <strong>External Campaign Faction:</strong> Sourced from <em>${escapeHtml(entity._sourceCampaignName || entity._sourceCampaignId || 'External')}</em>.
+              </div>
+              <button class="win-btn" style="background:#2563eb; color:#fff; font-weight:bold; padding:4px 8px;" onclick="window.openTransplantPackageModal('${escapeJsArg(entity._externalKey || id)}', 'faction')">
+                📥 Configure Transplant into Current Campaign...
+              </button>
+            ` : `
+              ${hqNodeId ? `
+                <button class="win-btn" onclick="centerOnNode('${escapeJsArg(hqNodeId)}')"><strong>🎯 Center Headquarters on Canvas</strong></button>
+              ` : ''}
 
-            <div style="display:flex; gap:4px; margin-top:4px;">
-              <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${facObj.id}')">Edit Faction</button>
-              <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('faction', '${facObj.id}')">Delete Faction...</button>
-            </div>
+              <div style="display:flex; gap:4px; margin-top:4px;">
+                <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${facObj.id}')">Edit Faction</button>
+                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('faction', '${facObj.id}')">Delete Faction...</button>
+              </div>
+            `}
           </div>
         `;
       } else if (CurrentEntityTab === 'creature') {
@@ -3205,6 +4032,14 @@
         };
         const tierStyle = tierStyles[tTier] || 'background:#d97706; color:#fff;';
         const tierLabel = tierNames[tTier] || `Tier ${tTier}`;
+
+        const roamingScope = (creatureObj.stationing && creatureObj.stationing.roamingScope) || creatureObj.roamingScope || 'stationary_lair';
+        const scopeLabels = {
+          'stationary_lair': '📍 Stationary Lair',
+          'patrol_radius': '🔄 Patrol Radius',
+          'roaming': '🐾 Roaming Encounter'
+        };
+        const scopeLabel = scopeLabels[roamingScope] || roamingScope;
 
         // 6 Relative Capabilities (1-5 Pips)
         const caps = creatureObj.relativeCapabilities || {};
@@ -3258,9 +4093,11 @@
         const defenses = creatureObj.defenses || {};
         const resList = Array.isArray(defenses.resistances) ? defenses.resistances.join(', ') : 'None';
         const vulnList = Array.isArray(defenses.vulnerabilities) ? defenses.vulnerabilities.join(', ') : 'None';
+        const immList = Array.isArray(defenses.immunities) ? defenses.immunities.join(', ') : '';
         const defensesHtml = `
           <div style="font-size:10px; color:#334155; line-height:1.35;">
             <div><strong>Armor / Hide:</strong> ${escapeHtml(defenses.armorType || 'Natural')}</div>
+            ${immList ? `<div><strong>Immunities:</strong> <strong style="color:#059669;">🛡️ ${escapeHtml(immList)}</strong></div>` : ''}
             <div><strong>Resistances:</strong> ${escapeHtml(resList)}</div>
             <div><strong>Vulnerabilities:</strong> <strong style="color:#b91c1c;">${escapeHtml(vulnList)}</strong></div>
             ${(Array.isArray(defenses.anatomicalWeakSpots) && defenses.anatomicalWeakSpots.length > 0) ? `
@@ -3285,10 +4122,49 @@
           `).join('');
         }
 
-        // Folklore & Spoor
+        // Folklore, Ethology, Quirks & Spoor
         const psych = creatureObj.psychologyAndFolklore || {};
         const spoorList = Array.isArray(psych.spoorAndSigns) ? psych.spoorAndSigns.join('; ') : '';
         const folkloreList = Array.isArray(psych.vernacularFolklore) ? psych.vernacularFolklore.join('; ') : '';
+        const quirks = Array.isArray(psych.instinctiveQuirks) ? psych.instinctiveQuirks : [];
+        const ethology = (creatureObj.disposition && creatureObj.disposition.ethologySummary) || '';
+
+        // Harvest Yields & Domestication Profile
+        const harvest = creatureObj.harvest || {};
+        const harvestYields = Array.isArray(harvest.harvestYields) ? harvest.harvestYields : [];
+        const domestication = harvest.domesticationProfile || creatureObj.domesticationProfile || '';
+        let harvestHtml = '';
+        if (harvestYields.length > 0 || domestication) {
+          harvestHtml = `
+            <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:5px; border-radius:2px; font-size:9.5px; line-height:1.35;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+                <strong style="color:#166534;">🧪 Harvest Yields &amp; Domestication:</strong>
+                ${domestication ? `<span class="entity-badge-tag" style="background:#15803d; color:#fff; font-size:8px;">${escapeHtml(domestication)}</span>` : ''}
+              </div>
+              ${harvestYields.length > 0 ? `
+                <div style="margin-top:2px;">
+                  ${harvestYields.map(y => `<span style="display:inline-block; background:#fff; border:1px solid #86efac; border-radius:2px; padding:1px 4px; margin-right:3px; margin-bottom:2px; color:#14532d;">🥩 ${escapeHtml(typeof y === 'object' ? (y.name || y.item || JSON.stringify(y)) : y)}</span>`).join('')}
+                </div>
+              ` : '<div style="color:#64748b; font-style:italic;">No alchemical or edible parts harvestable.</div>'}
+            </div>
+          `;
+        }
+
+        // Relational Links (Ecology)
+        const relLinks = creatureObj.relationalLinks || {};
+        let relLinksHtml = '';
+        if (Object.keys(relLinks).length > 0) {
+          relLinksHtml = `
+            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:5px; border-radius:2px; font-size:9.5px;">
+              <strong style="color:#0f172a;">🌲 Ecological Web &amp; Relational Ties:</strong>
+              <div style="margin-top:3px; display:flex; flex-direction:column; gap:2px;">
+                ${Object.entries(relLinks).map(([k, v]) => `
+                  <div><strong style="text-transform:capitalize; color:#0369a1;">${escapeHtml(k)}:</strong> <span style="color:#334155;">${escapeHtml(Array.isArray(v) ? v.join(', ') : String(v))}</span></div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
 
         // Canon Evidence Rationale (Collapsible)
         const evidence = (topo.creatureEvidence && topo.creatureEvidence[creatureObj.id]) || null;
@@ -3334,17 +4210,32 @@
         pane.innerHTML = `
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
             <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">🐉 ${creatureObj.name}</h3>
+              <div>
+                <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">🐉 ${escapeHtml(creatureObj.name || creatureObj.id)}</h3>
+                ${creatureObj.scientificOrArchaicName ? `<div style="font-size:10px; color:#475569; font-style:italic; margin-top:1px;">(${escapeHtml(creatureObj.scientificOrArchaicName)})</div>` : ''}
+              </div>
               <span class="entity-badge-tag" style="${tierStyle}; font-weight:bold;">${tierLabel}</span>
             </div>
             <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
               <span class="entity-badge-tag" style="background:#f1f5f9; color:#0f172a; font-weight:bold;">${escapeHtml(creatureObj.size || 'Medium')} ${escapeHtml(creatureObj.kind || 'beast')}</span>
               ${creatureObj.subtype ? `<span class="entity-badge-tag" style="background:#e0f2fe; color:#0369a1;">${escapeHtml(creatureObj.subtype)}</span>` : ''}
+              <span class="entity-badge-tag" style="background:#e2e8f0; color:#334155; font-weight:bold;">${escapeHtml(scopeLabel)}</span>
               <span class="entity-badge-tag">${creatureObj.moduleId ? `Module: ${creatureObj.moduleId}` : 'Custom Authored'}</span>
             </div>
           </div>
 
           <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 130px);">
+            ${!isExternal ? `
+              <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px;">
+                <strong style="font-size:10px;">Roaming Behavior:</strong>
+                <select class="win-select-input" style="font-size:9px; padding:1px 3px;" onchange="updateCreatureRoamingScope('${escapeJsArg(creatureObj.id)}', this.value)">
+                  <option value="stationary_lair" ${roamingScope === 'stationary_lair' ? 'selected' : ''}>📍 Stationary Lair</option>
+                  <option value="patrol_radius" ${roamingScope === 'patrol_radius' ? 'selected' : ''}>🔄 Patrol Radius</option>
+                  <option value="roaming" ${roamingScope === 'roaming' ? 'selected' : ''}>🐾 Roaming Encounter</option>
+                </select>
+              </div>
+            ` : ''}
+
             ${creatureObj.summary ? `
               <div style="background:#fff; border:1px solid #ddd; padding:6px; border-radius:2px; font-size:10px; line-height:1.35; color:#333;">
                 ${escapeHtml(creatureObj.summary)}
@@ -3405,11 +4296,26 @@
               ${sigActionsHtml}
             </div>
 
-            <!-- Folklore, Spoor & Signs -->
-            ${(spoorList || folkloreList) ? `
+            <!-- Harvest Yields & Domestication -->
+            ${harvestHtml}
+
+            <!-- Relational Ecological Ties -->
+            ${relLinksHtml}
+
+            <!-- Folklore, Spoor, Quirks & Ethology -->
+            ${(spoorList || folkloreList || quirks.length > 0 || ethology) ? `
               <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:5px; border-radius:2px; font-size:9.5px; line-height:1.35;">
-                <strong style="color:#0f172a;">📜 Signs, Spoor &amp; Folklore:</strong>
+                <strong style="color:#0f172a;">📜 Signs, Spoor, Quirks &amp; Folklore:</strong>
+                ${ethology ? `<div style="margin-top:2px; color:#0f766e; font-weight:bold;"><strong>Ethology:</strong> ${escapeHtml(ethology)}</div>` : ''}
                 ${spoorList ? `<div style="margin-top:2px;"><strong>Spoor / Trail:</strong> ${escapeHtml(spoorList)}</div>` : ''}
+                ${quirks.length > 0 ? `
+                  <div style="margin-top:2px;">
+                    <strong>Instinctive Quirks:</strong>
+                    <ul style="margin:2px 0 0 14px; padding:0;">
+                      ${quirks.map(q => `<li>${escapeHtml(q)}</li>`).join('')}
+                    </ul>
+                  </div>
+                ` : ''}
                 ${folkloreList ? `<div style="margin-top:2px; font-style:italic; color:#475569;">&ldquo;${escapeHtml(folkloreList)}&rdquo;</div>` : ''}
               </div>
             ` : ''}
@@ -3425,21 +4331,30 @@
           </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
-            <label style="display:flex; flex-direction:column; gap:2px;">
-              <strong>Station Lair to Node:</strong>
-              <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(creatureObj.id)}', this.value, ${isPrototype})">
-                ${nodeOptions}
-              </select>
-            </label>
+            ${isExternal ? `
+              <div style="font-size:10px; color:#1e40af; background:#dbeafe; padding:4px 6px; border:1px solid #93c5fd; border-radius:2px;">
+                <strong>External Campaign Creature:</strong> Sourced from <em>${escapeHtml(entity._sourceCampaignName || entity._sourceCampaignId || 'External')}</em>.
+              </div>
+              <button class="win-btn" style="background:#2563eb; color:#fff; font-weight:bold; padding:4px 8px;" onclick="window.openTransplantPackageModal('${escapeJsArg(entity._externalKey || id)}', 'creature')">
+                📥 Configure Transplant into Current Campaign...
+              </button>
+            ` : `
+              <label style="display:flex; flex-direction:column; gap:2px;">
+                <strong>Station Lair to Node:</strong>
+                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(creatureObj.id)}', this.value, ${isPrototype})">
+                  ${nodeOptions}
+                </select>
+              </label>
 
-            ${(currentStationId) ? `
-              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(currentStationId)}')"><strong>🎯 Center Lair Node on Canvas</strong></button>
-            ` : ''}
+              ${(currentStationId) ? `
+                <button class="win-btn" onclick="centerOnNode('${escapeJsArg(currentStationId)}')"><strong>🎯 Center Lair Node on Canvas</strong></button>
+              ` : ''}
 
-            <div style="display:flex; gap:4px; margin-top:4px;">
-              <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(creatureObj.id)}')">Edit Creature</button>
-              <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('creature', '${escapeJsArg(creatureObj.id)}')">Delete Creature...</button>
-            </div>
+              <div style="display:flex; gap:4px; margin-top:4px;">
+                <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(creatureObj.id)}')">Edit Creature</button>
+                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('creature', '${escapeJsArg(creatureObj.id)}')">Delete Creature...</button>
+              </div>
+            `}
           </div>
         `;
       } else {
@@ -3477,15 +4392,27 @@
         // 4. Four-Corners Badge
         const fourCornersBadges = {
           'Active': '<span class="entity-badge-tag" style="background:#0284c7; color:#fff;">⚡ Catalyst (Active)</span>',
+          'Catalyst': '<span class="entity-badge-tag" style="background:#0284c7; color:#fff;">⚡ Catalyst</span>',
+          'Protagonist': '<span class="entity-badge-tag" style="background:#2563eb; color:#fff;">🌟 Protagonist</span>',
+          'Mentor': '<span class="entity-badge-tag" style="background:#059669; color:#fff;">🧭 Mentor</span>',
+          'Ally': '<span class="entity-badge-tag" style="background:#16a34a; color:#fff;">🛡️ Ally</span>',
           'Adversary': '<span class="entity-badge-tag" style="background:#b91c1c; color:#fff;">⚔️ Adversary</span>',
+          'Nemesis': '<span class="entity-badge-tag" style="background:#991b1b; color:#fff;">💀 Nemesis</span>',
+          'Opponent': '<span class="entity-badge-tag" style="background:#dc2626; color:#fff;">🗡️ Opponent</span>',
           'Shadow': '<span class="entity-badge-tag" style="background:#6b21a8; color:#fff;">👤 Shadow Mirror</span>',
+          'Outcast': '<span class="entity-badge-tag" style="background:#7c3aed; color:#fff;">⛺ Outcast</span>',
           'Target': '<span class="entity-badge-tag" style="background:#d97706; color:#fff;">🎯 Prize / Target</span>'
         };
-        const fourCornerBadge = npcObj.fourCornersRole ? (fourCornersBadges[npcObj.fourCornersRole] || '') : '';
+        const fourCornerBadge = npcObj.fourCornersRole ? (fourCornersBadges[npcObj.fourCornersRole] || `<span class="entity-badge-tag" style="background:#475569; color:#fff;">🎭 ${escapeHtml(npcObj.fourCornersRole)}</span>`) : '';
 
         // 5. Inter-NPC Relationships (Outbound & Inbound)
+        const poolNpcs = isExternal ? ((externalSourcePool && externalSourcePool.npcs) || []) : (topo.npcs || []);
+        const poolItems = isExternal ? ((externalSourcePool && externalSourcePool.items) || []) : (topo.items || []);
+        const poolQuests = isExternal ? ((externalSourcePool && externalSourcePool.quests) || []) : (topo.quests || []);
+        const poolFactions = isExternal ? ((externalSourcePool && externalSourcePool.factions) || []) : (topo.factions || []);
+
         const outboundRels = Array.isArray(npcObj.relationships) ? npcObj.relationships : [];
-        const inboundRels = (topo.npcs || []).filter(other => other.id !== npcObj.id && Array.isArray(other.relationships) && other.relationships.some(r => String(r.targetNpcId) === String(npcObj.id))).map(other => {
+        const inboundRels = poolNpcs.filter(other => other.id !== npcObj.id && Array.isArray(other.relationships) && other.relationships.some(r => String(r.targetNpcId) === String(npcObj.id))).map(other => {
           const matchingRel = other.relationships.find(r => String(r.targetNpcId) === String(npcObj.id));
           return {
             sourceNpc: other,
@@ -3503,7 +4430,7 @@
         let relsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No recorded social relationships.</div>';
         if (outboundRels.length > 0 || inboundRels.length > 0) {
           const outItems = outboundRels.map(r => {
-            const targetNpc = (topo.npcs || []).find(n => String(n.id) === String(r.targetNpcId));
+            const targetNpc = poolNpcs.find(n => String(n.id) === String(r.targetNpcId));
             const targetName = targetNpc ? targetNpc.name : `NPC [${r.targetNpcId}]`;
             const rType = r.relationshipType || r.relationship || r.type || 'Connected';
             const col = relTypeColors[rType] || '#0f172a';
@@ -3513,19 +4440,22 @@
               : (s < 0)
               ? `<span style="font-size:8.5px; padding:1px 4px; border-radius:2px; font-weight:bold; background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5;">${s}</span>`
               : `<span style="font-size:8.5px; padding:1px 4px; border-radius:2px; font-weight:bold; background:#f1f5f9; color:#64748b; border:1px solid #cbd5e1;">0</span>`;
+            const targetNavId = formatEntityNavId(r.targetNpcId, isExternal, entity._sourceCampaignId);
 
             return `
               <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:2px;">
                 <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px; flex:1;">
-                  <strong style="color:${col}; font-size:10px;">→ ${rType}:</strong> 
-                  <span style="font-size:10px; font-weight:bold; cursor:pointer; color:#1e1b4b;" onclick="navigateToEntity('npc', '${r.targetNpcId}')">${targetName}</span>
+                  <strong style="color:${col}; font-size:10px;">→ ${escapeHtml(rType)}:</strong> 
+                  <span style="font-size:10px; font-weight:bold; cursor:pointer; color:#1e1b4b;" onclick="navigateToEntity('npc', '${escapeJsArg(targetNavId)}')">${escapeHtml(targetName)}</span>
                   ${sBadge}
-                  ${r.notes ? `<div style="font-size:9px; color:#64748b; font-style:italic;">${r.notes}</div>` : ''}
+                  ${r.notes ? `<div style="font-size:9px; color:#64748b; font-style:italic;">${escapeHtml(r.notes)}</div>` : ''}
                 </div>
-                <div style="display:flex; gap:2px;">
-                  <button class="win-btn" onclick="openAddNpcRelationshipModal('${npcObj.id}', '${r.targetNpcId}')" style="font-size:9px; padding:1px 4px;" title="Edit relationship">Edit</button>
-                  <button class="win-btn" onclick="removeNpcRelationship('${npcObj.id}', '${r.targetNpcId}', true)" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete relationship">X</button>
-                </div>
+                ${!isExternal ? `
+                  <div style="display:flex; gap:2px;">
+                    <button class="win-btn" onclick="openAddNpcRelationshipModal('${npcObj.id}', '${r.targetNpcId}')" style="font-size:9px; padding:1px 4px;" title="Edit relationship">Edit</button>
+                    <button class="win-btn" onclick="removeNpcRelationship('${npcObj.id}', '${r.targetNpcId}', true)" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete relationship">X</button>
+                  </div>
+                ` : ''}
               </div>
             `;
           }).join('');
@@ -3539,16 +4469,17 @@
               : (s < 0)
               ? `<span style="font-size:8.5px; padding:1px 4px; border-radius:2px; font-weight:bold; background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5;">${s}</span>`
               : `<span style="font-size:8.5px; padding:1px 4px; border-radius:2px; font-weight:bold; background:#f1f5f9; color:#64748b; border:1px solid #cbd5e1;">0</span>`;
+            const sourceNavId = formatEntityNavId(ib.sourceNpc.id, isExternal, entity._sourceCampaignId);
 
             return `
               <div style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:2px;">
                 <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px; flex:1;">
-                  <strong style="color:${col}; font-size:10px;">← Viewed as ${inType} by:</strong> 
-                  <span style="font-size:10px; font-weight:bold; cursor:pointer; color:#1e1b4b;" onclick="navigateToEntity('npc', '${ib.sourceNpc.id}')">${ib.sourceNpc.name}</span>
+                  <strong style="color:${col}; font-size:10px;">← Viewed as ${escapeHtml(inType)} by:</strong> 
+                  <span style="font-size:10px; font-weight:bold; cursor:pointer; color:#1e1b4b;" onclick="navigateToEntity('npc', '${escapeJsArg(sourceNavId)}')">${escapeHtml(ib.sourceNpc.name)}</span>
                   ${sBadge}
-                  ${ib.rel.notes ? `<div style="font-size:9px; color:#64748b; font-style:italic;">${ib.rel.notes}</div>` : ''}
+                  ${ib.rel.notes ? `<div style="font-size:9px; color:#64748b; font-style:italic;">${escapeHtml(ib.rel.notes)}</div>` : ''}
                 </div>
-                <button class="win-btn" onclick="navigateToEntity('npc', '${ib.sourceNpc.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                <button class="win-btn" onclick="navigateToEntity('npc', '${escapeJsArg(sourceNavId)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
               </div>
             `;
           }).join('');
@@ -3556,21 +4487,23 @@
           relsHtml = `<div style="display:flex; flex-direction:column; gap:2px;">${outItems}${inItems}</div>`;
         }
 
-        // 6. Owned & Carried Items
-        const ownedItems = (topo.items || []).filter(i => String(i.ownerNpcId) === String(npcObj.id));
+        // 6. Owned & Carried Items (Union of ownerNpcId matching and carriedItemIds)
+        const explicitCarriedIds = Array.isArray(npcObj.carriedItemIds) ? npcObj.carriedItemIds.map(String) : [];
+        const ownedItems = poolItems.filter(i => String(i.ownerNpcId) === String(npcObj.id) || explicitCarriedIds.includes(String(i.id)));
         let ownedItemsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No items owned or carried.</div>';
         if (ownedItems.length > 0) {
           ownedItemsHtml = ownedItems.map(itm => {
-            const isCarried = (itm.possessionMode === 'carried');
+            const isCarried = (itm.possessionMode === 'carried' || explicitCarriedIds.includes(String(itm.id)));
+            const itmNavId = formatEntityNavId(itm.id, isExternal, entity._sourceCampaignId);
             return `
               <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:2px;">
                 <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
-                  <span style="font-weight:bold; font-size:10px;">💎 ${itm.name}</span>
+                  <span style="font-weight:bold; font-size:10px;">💎 ${escapeHtml(itm.name || 'Item')}</span>
                   <span class="entity-badge-tag" style="font-size:8px; ${isCarried ? 'background:#0f766e; color:#fff;' : 'background:#475569; color:#fff;'}">${isCarried ? '🎒 Carried' : '📦 Stored @ ' + (itm.nodeId ? formatNodeRef(itm.nodeId, topo) : 'Unassigned')}</span>
                 </div>
                 <div style="display:flex; gap:2px;">
-                  <button class="win-btn" onclick="toggleItemPossessionMode('${itm.id}', false)" style="font-size:9px; padding:1px 3px;">${isCarried ? 'Store' : 'Equip'}</button>
-                  <button class="win-btn" onclick="navigateToEntity('item', '${itm.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                  ${!isExternal ? `<button class="win-btn" onclick="toggleItemPossessionMode('${itm.id}', false)" style="font-size:9px; padding:1px 3px;">${isCarried ? 'Store' : 'Equip'}</button>` : ''}
+                  <button class="win-btn" onclick="navigateToEntity('item', '${escapeJsArg(itmNavId)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
                 </div>
               </div>
             `;
@@ -3583,54 +4516,77 @@
         if (secrets.length > 0) {
           secretsHtml = secrets.map((sec, sIdx) => {
             const isRev = (typeof sec === 'object') ? !!sec.revealed : false;
-            const text = (typeof sec === 'object') ? sec.secret : sec;
+            const text = (typeof sec === 'object') ? (sec.secret || sec.text || '') : sec;
             return `
-              <label style="display:flex; align-items:flex-start; gap:6px; cursor:pointer; font-size:10px; padding:3px 0; border-bottom:1px dashed #e2e8f0;">
-                <input type="checkbox" ${isRev ? 'checked' : ''} onchange="toggleNpcSecretRevealed('${npcObj.id}', ${sIdx})" style="margin-top:2px; cursor:pointer;">
-                <span style="${isRev ? 'text-decoration:line-through; color:#64748b;' : 'color:#0f172a; font-weight:bold;'}">${text} ${isRev ? '<strong style="color:#16a34a; font-size:9px;">[REVEALED TO PLAYERS]</strong>' : ''}</span>
+              <label style="display:flex; align-items:flex-start; gap:6px; cursor:${isExternal ? 'default' : 'pointer'}; font-size:10px; padding:3px 0; border-bottom:1px dashed #e2e8f0;">
+                <input type="checkbox" ${isRev ? 'checked' : ''} ${isExternal ? 'disabled' : `onchange="toggleNpcSecretRevealed('${npcObj.id}', ${sIdx})"`} style="margin-top:2px; cursor:${isExternal ? 'default' : 'pointer'};">
+                <span style="${isRev ? 'text-decoration:line-through; color:#64748b;' : 'color:#0f172a; font-weight:bold;'}">${escapeHtml(text)} ${isRev ? '<strong style="color:#16a34a; font-size:9px;">[REVEALED IN CANON]</strong>' : ''}</span>
               </label>
             `;
           }).join('');
         }
 
         // 8. Referencing Quests
-        const referencingQuests = (topo.quests || []).filter(q => 
-          (q.npcIds && q.npcIds.includes(npcObj.id)) || 
-          (q.npcIds && q.npcIds.includes(entity.id)) ||
+        const referencingQuests = poolQuests.filter(q => 
+          (q.npcIds && (q.npcIds.includes(npcObj.id) || q.npcIds.includes(entity.id))) ||
+          String(q.giverNpcId) === String(npcObj.id) || String(q.giverNpcId) === String(entity.id) ||
+          String(q.targetNpcId) === String(npcObj.id) || String(q.targetNpcId) === String(entity.id) ||
           (q.nodeId && currentStationId && String(q.nodeId) === String(currentStationId))
         );
         let questsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No active quests currently feature this NPC.</div>';
         if (referencingQuests.length > 0) {
-          questsHtml = referencingQuests.map(q => `
+          questsHtml = referencingQuests.map(q => {
+            let roleBadge = '';
+            if (String(q.giverNpcId) === String(npcObj.id) || String(q.giverNpcId) === String(entity.id)) {
+              roleBadge = '<span class="entity-badge-tag" style="background:#0284c7; color:#fff; font-size:8px; margin-left:4px;">Quest Giver</span>';
+            } else if (String(q.targetNpcId) === String(npcObj.id) || String(q.targetNpcId) === String(entity.id)) {
+              roleBadge = '<span class="entity-badge-tag" style="background:#dc2626; color:#fff; font-size:8px; margin-left:4px;">Quest Target</span>';
+            }
+            const qNavId = formatEntityNavId(q.id, isExternal, entity._sourceCampaignId);
+            return `
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
-                <span style="font-weight:bold; font-size:11px;">📜 ${q.title || q.name}</span>
+                <span style="font-weight:bold; font-size:11px;">📜 ${escapeHtml(q.title || q.name || 'Untitled Quest')}</span>
+                ${roleBadge}
                 <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? formatNodeRef(q.nodeId, topo) : 'Unassigned'}]</span>
               </div>
               <div style="display:flex; gap:2px;">
-                <button class="win-btn" onclick="window.navigateToEntity('quest', '${q.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
-                ${q.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(q.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
+                <button class="win-btn" onclick="window.navigateToEntity('quest', '${escapeJsArg(qNavId)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                ${(q.nodeId && !isExternal) ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(q.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
               </div>
             </div>
-          `).join('');
+          `;
+          }).join('');
+        }
+
+        let factionBadgeHtml = '';
+        if (entity.faction || entity.factionId) {
+          const facName = entity.faction || entity.factionId;
+          const facMatch = poolFactions.find(f => String(f.id) === String(entity.factionId) || String(f.name) === String(entity.faction) || String(f.id) === String(entity.faction));
+          if (facMatch) {
+            const facNavId = formatEntityNavId(facMatch.id, isExternal, entity._sourceCampaignId);
+            factionBadgeHtml = `<button class="win-btn" onclick="navigateToEntity('faction', '${escapeJsArg(facNavId)}')" style="font-size:9px; padding:1px 5px; background:#f1f5f9; color:#1e293b; font-weight:bold;" title="Inspect Faction">👑 ${escapeHtml(facMatch.name || facName)}</button>`;
+          } else {
+            factionBadgeHtml = `<span class="entity-badge-tag" style="background:#f1f5f9; color:#334155;">👑 ${escapeHtml(facName)}</span>`;
+          }
         }
 
         pane.innerHTML = `
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
             <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">👤 ${entity.name || entity.title}</h3>
+              <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">👤 ${escapeHtml(entity.name || entity.title || 'Untitled Character')}</h3>
               <span class="entity-badge-tag" style="${statusBadgeStyle}">${npcStatus}</span>
             </div>
             <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
               <span class="entity-badge-tag">${entity.moduleId ? `Module: ${entity.moduleId}` : 'Custom Authored'}</span>
               <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
               ${fourCornerBadge}
-              ${entity.faction ? `<span class="entity-badge-tag" style="background:#f1f5f9; color:#334155;">${entity.faction}</span>` : ''}
+              ${factionBadgeHtml}
             </div>
           </div>
 
           <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 130px);">
-            <div><strong>Role / Vocation:</strong> ${entity.role || entity.category || 'Resident / Specialist'}</div>
+            <div><strong>Role / Vocation:</strong> ${escapeHtml(entity.role || entity.category || 'Resident / Specialist')}</div>
 
             <!-- Sociological Alignment & Cultural Dissonance Engine -->
             <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
@@ -3664,16 +4620,22 @@
                   ${curStandObj.label}
                 </span>
               </div>
-              <div style="display:flex; gap:4px; margin-bottom:4px;">
-                <button class="win-btn" onclick="setNpcPartyDisposition('${npcObj.id}', -1)" style="flex:1; font-size:10px;">- Step Down</button>
-                <button class="win-btn" onclick="setNpcPartyDisposition('${npcObj.id}', 1)" style="flex:1; font-size:10px;">+ Step Up</button>
-              </div>
+              ${!isExternal ? `
+                <div style="display:flex; gap:4px; margin-bottom:4px;">
+                  <button class="win-btn" onclick="setNpcPartyDisposition('${npcObj.id}', -1)" style="flex:1; font-size:10px;">- Step Down</button>
+                  <button class="win-btn" onclick="setNpcPartyDisposition('${npcObj.id}', 1)" style="flex:1; font-size:10px;">+ Step Up</button>
+                </div>
+              ` : '<div style="font-size:9px; color:#64748b; font-style:italic; margin-top:2px;">(Party standing fixed in external source)</div>'}
 
               <!-- Leverage / Vulnerabilities -->
-              ${(npcObj.leverage && (npcObj.leverage.vulnerability || npcObj.leverage.bribe)) ? `
+              ${(npcObj.leverage && (typeof npcObj.leverage === 'object' ? Object.keys(npcObj.leverage).length > 0 : !!npcObj.leverage)) ? `
                 <div style="background:#fff; border:1px solid #fed7aa; padding:4px 6px; border-radius:2px; font-size:9px; margin-top:3px;">
-                  ${npcObj.leverage.vulnerability ? `<div><strong>Vulnerability:</strong> ${npcObj.leverage.vulnerability}</div>` : ''}
-                  ${npcObj.leverage.bribe ? `<div><strong>Accepted Bribe / Price:</strong> ${npcObj.leverage.bribe}</div>` : ''}
+                  ${typeof npcObj.leverage === 'string' ? `<div><strong>Leverage:</strong> ${escapeHtml(npcObj.leverage)}</div>` : `
+                    ${npcObj.leverage.vulnerability ? `<div><strong>Vulnerability:</strong> ${escapeHtml(npcObj.leverage.vulnerability)}</div>` : ''}
+                    ${npcObj.leverage.bribe ? `<div><strong>Accepted Bribe / Price:</strong> ${escapeHtml(npcObj.leverage.bribe)}</div>` : ''}
+                    ${npcObj.leverage.threat ? `<div><strong>Coercion / Threat:</strong> ${escapeHtml(npcObj.leverage.threat)}</div>` : ''}
+                    ${npcObj.leverage.desire ? `<div><strong>Deep Desire:</strong> ${escapeHtml(npcObj.leverage.desire)}</div>` : ''}
+                  `}
                 </div>
               ` : ''}
             </div>
@@ -3690,24 +4652,19 @@
               </div>
             </div>
 
-            <!-- Dialogue Hooks -->
-            ${(npcObj.dialogueHooks && npcObj.dialogueHooks.length > 0) ? `
-              <div>
-                <strong style="font-size:10px;">💬 Dialogue Hooks &amp; Quotes:</strong>
-                <div style="background:#fff; border:1px solid #ddd; padding:4px 6px; border-radius:2px; font-size:9px; line-height:1.35; margin-top:2px;">
-                  ${npcObj.dialogueHooks.map(h => `<div style="font-style:italic; margin-bottom:2px;">&ldquo;${h}&rdquo;</div>`).join('')}
-                </div>
-              </div>
-            ` : ''}
+            <!-- Dialogue Hooks & Spoken Tells -->
+            ${renderNpcDialogueHooksHtml(npcObj, isExternal)}
 
             <!-- Inter-NPC Social Web & Relational Graph -->
             <div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
                 <strong style="font-size:10px;">👥 Social Web &amp; Relationships (${outboundRels.length + inboundRels.length}):</strong>
-                <div style="display:flex; gap:3px;">
-                  <button class="win-btn" onclick="openAddNpcRelationshipModal('${npcObj.id}')" style="font-size:9px; padding:1px 5px;">+ Add Tie...</button>
-                  <button class="win-btn" onclick="openSocialGraphModal('${npcObj.id}')" style="font-size:9px; padding:1px 5px; font-weight:bold; color:#312e81;" title="Open interactive 2D SVG Social Graph">🕸️ Graph</button>
-                </div>
+                ${!isExternal ? `
+                  <div style="display:flex; gap:3px;">
+                    <button class="win-btn" onclick="openAddNpcRelationshipModal('${npcObj.id}')" style="font-size:9px; padding:1px 5px;">+ Add Tie...</button>
+                    <button class="win-btn" onclick="openSocialGraphModal('${npcObj.id}')" style="font-size:9px; padding:1px 5px; font-weight:bold; color:#312e81;" title="Open interactive 2D SVG Social Graph">🕸️ Graph</button>
+                  </div>
+                ` : ''}
               </div>
               ${relsHtml}
             </div>
@@ -3716,21 +4673,21 @@
             <div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
                 <strong style="font-size:10px;">💎 Owned / Carried Relics (${ownedItems.length}):</strong>
-                <button class="win-btn" onclick="openNewEntityModal('item')" style="font-size:9px; padding:1px 4px;">+ Add Item</button>
+                ${!isExternal ? `<button class="win-btn" onclick="openNewEntityModal('item')" style="font-size:9px; padding:1px 4px;">+ Add Item</button>` : ''}
               </div>
               ${ownedItemsHtml}
             </div>
 
             <div>
               <strong>Motivation, Agenda &amp; Personality:</strong>
-              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${entity.motivation || entity.notes || 'No description provided.'}</p>
+              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${escapeHtml(entity.motivation || entity.notes || 'No description provided.')}</p>
             </div>
 
             <!-- Associated / Referencing Quests -->
             <div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
                 <strong>Quests Featuring this NPC (${referencingQuests.length}):</strong>
-                <button class="win-btn" onclick="openNewEntityModal('quest')" style="font-size:9px; padding:1px 4px;">+ New Quest</button>
+                ${!isExternal ? `<button class="win-btn" onclick="openNewEntityModal('quest')" style="font-size:9px; padding:1px 4px;">+ New Quest</button>` : ''}
               </div>
               ${questsHtml}
             </div>
@@ -3741,28 +4698,39 @@
             <!-- Assigned Authoring Tickets (DEV-01 & DEV-04) -->
             ${renderAssignedTicketsSection('npc', npcObj.id, npcObj.nodeId)}
           </div>
+            ${renderAssignedTicketsSection('npc', npcObj.id, npcObj.nodeId)}
+          </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
-            <label style="display:flex; flex-direction:column; gap:2px;">
-              <strong>Station to Node:</strong>
-              <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
-                ${nodeOptions}
-              </select>
-            </label>
+            ${isExternal ? `
+              <div style="font-size:10px; color:#1e40af; background:#dbeafe; padding:4px 6px; border:1px solid #93c5fd; border-radius:2px;">
+                <strong>External Campaign NPC:</strong> Sourced from <em>${escapeHtml(entity._sourceCampaignName || entity._sourceCampaignId || 'External')}</em>.
+              </div>
+              <button class="win-btn" style="background:#2563eb; color:#fff; font-weight:bold; padding:4px 8px;" onclick="window.openTransplantPackageModal('${escapeJsArg(entity._externalKey || id)}', 'npc')">
+                📥 Configure Transplant into Current Campaign...
+              </button>
+            ` : `
+              <label style="display:flex; flex-direction:column; gap:2px;">
+                <strong>Station to Node:</strong>
+                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
+                  ${nodeOptions}
+                </select>
+              </label>
 
-            ${(currentStationId) ? `
-              <button class="win-btn" onclick="centerOnNode('${escapeJsArg(currentStationId)}')"><strong>🎯 Center Stationed Node on Canvas</strong></button>
-            ` : ''}
+              ${(currentStationId) ? `
+                <button class="win-btn" onclick="centerOnNode('${escapeJsArg(currentStationId)}')"><strong>🎯 Center Stationed Node on Canvas</strong></button>
+              ` : ''}
 
-            <div style="display:flex; gap:4px; margin-top:4px;">
-              ${isPrototype ? `
-                <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add NPC to Campaign</strong></button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('npc', '${entity.id}')">Delete NPC...</button>
-              ` : `
-                <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit NPC</button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('npc', '${entity.id}')">Delete NPC...</button>
-              `}
-            </div>
+              <div style="display:flex; gap:4px; margin-top:4px;">
+                ${isPrototype ? `
+                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add NPC to Campaign</strong></button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('npc', '${entity.id}')">Delete NPC...</button>
+                ` : `
+                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit NPC</button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('npc', '${entity.id}')">Delete NPC...</button>
+                `}
+              </div>
+            `}
           </div>
         `;
       }
