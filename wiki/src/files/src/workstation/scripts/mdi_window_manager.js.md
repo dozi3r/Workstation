@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/mdi_window_manager.js"
 title: "mdi_window_manager.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "ccc58b9cc2adf78c"
+current_hash: "d1f1ca1ad06bb747"
 reviewed_hash: "ccc58b9cc2adf78c"
-stale: false
-size_bytes: 137349
+stale: true
+size_bytes: 134426
 line_count: 2924
 ---
 

@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/04_Bestiary_and_Encounter_Ecology/01_Draconian
 title: "Draconians of Krynn: Corruption Lore, Tactical Profiles & Death-Throes"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "5506843a75975e0a"
+current_hash: "84db10fe255bb7f7"
 reviewed_hash: "5506843a75975e0a"
-stale: false
-size_bytes: 19915
+stale: true
+size_bytes: 19659
 line_count: 257
 ---
 

@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/state_adapter.js"
 title: "state_adapter.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "b9633b7d05796df3"
+current_hash: "3a4893524bc4bd6f"
 reviewed_hash: "b9633b7d05796df3"
-stale: false
-size_bytes: 59817
+stale: true
+size_bytes: 58574
 line_count: 1244
 ---
 

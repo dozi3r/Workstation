@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_HIGH_CLERIST_D
 title: "MOD_T3_HIGH_CLERIST_DRAGON_TRAP: The Architectural Dragon-Trap of the High Clerist's Tower"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "bf1983917ebfe27f"
+current_hash: "868469bddc5e0c0c"
 reviewed_hash: "bf1983917ebfe27f"
-stale: false
-size_bytes: 3848
+stale: true
+size_bytes: 3779
 line_count: 70
 ---
 

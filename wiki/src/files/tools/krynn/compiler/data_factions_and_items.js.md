@@ -3,10 +3,10 @@ file_path: "tools/krynn/compiler/data_factions_and_items.js"
 title: "data_factions_and_items.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "748cc8cb4fc49552"
+current_hash: "d480d465496f217f"
 reviewed_hash: "748cc8cb4fc49552"
-stale: false
-size_bytes: 23915
+stale: true
+size_bytes: 23396
 line_count: 520
 ---
 

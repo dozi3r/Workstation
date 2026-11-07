@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/05_Relics_Economy_and_Magic_Systems/02_Arcane_
 title: "Arcane Magic, Three Moons & The Test of High Sorcery"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "22b3b27549a2a1a4"
+current_hash: "beb392b42f247a2d"
 reviewed_hash: "22b3b27549a2a1a4"
-stale: false
-size_bytes: 22526
+stale: true
+size_bytes: 22295
 line_count: 232
 ---
 

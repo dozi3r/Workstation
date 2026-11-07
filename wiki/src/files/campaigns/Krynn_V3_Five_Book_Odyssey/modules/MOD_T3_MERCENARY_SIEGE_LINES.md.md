@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_MERCENARY_SIEGE_
 title: "MOD_T3_MERCENARY_SIEGE_LINES: Baron Ivor's Mercenary Siege Logistics (347 AC)"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "bf07119ed4cae6e1"
+current_hash: "eeb30ccf221c4d9a"
 reviewed_hash: "bf07119ed4cae6e1"
-stale: false
-size_bytes: 3581
+stale: true
+size_bytes: 3512
 line_count: 70
 ---
 

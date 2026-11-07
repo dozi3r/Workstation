@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/fast_frugal_tree.js"
 title: "fast_frugal_tree.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "76bb93130007885f"
+current_hash: "489e141260a5a719"
 reviewed_hash: "76bb93130007885f"
-stale: false
-size_bytes: 8132
+stale: true
+size_bytes: 8286
 line_count: 155
 ---
 

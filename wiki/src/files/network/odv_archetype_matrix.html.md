@@ -3,10 +3,10 @@ file_path: "network/odv_archetype_matrix.html"
 title: "Creator Studio: 64-Cell ODV Archetype Matrix & Hermeneutics Explorer"
 volume: "vol-5"
 kind: "Standalone Zero-CORS HTML Workstation"
-current_hash: "6b0ac1e2facec4e1"
-reviewed_hash: "6b0ac1e2facec4e1"
+current_hash: "6474b3d80039cf34"
+reviewed_hash: "6474b3d80039cf34"
 stale: false
-size_bytes: 195889
+size_bytes: 199039
 line_count: 3477
 ---
 

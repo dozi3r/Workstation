@@ -1,18 +1,619 @@
 [
   {
-    "id": "MOD",
-    "title": "MODULE MOD_T1_HIGHLORD_COUNCIL_CONCLAVE: THE IMPERIAL HIGHLORD CONCLAVE OF NERAKA",
-    "set": "Core Modules",
+    "id": "MOD_T1_HIGHLORD_COUNCIL_CONCLAVE",
+    "title": "The Imperial Highlord Conclave of Neraka",
+    "set": "Set_4_Spring_Dawning",
+    "tier": "Tier 1",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy",
+    "color": "BR",
+    "provides": [
+      "crown_of_power_dominion"
+    ],
+    "requires": [
+      "draconian_army_reinforcements"
+    ],
+    "summary": "Darwinian military summit of the five Dragonarmies at Neraka where Emperor Ariakas rules via the Crown of Power while Highlord Kitiara plots her coup (`CRUC-19`, `CRUC-23`).",
+    "yields": "",
+    "path": "./modules/MOD_T1_HIGHLORD_COUNCIL_CONCLAVE.md",
+    "standalone_fallback": "Each Dragonarmy Wing operates as an autonomous regional warlord state if Neraka's central command collapses.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T1_SEEKER_THEOCRACY_NETWORK",
+    "title": "The High Seeker Bureaucracy & Cult of Belzor",
+    "set": "Set_1_Preludes_and_Abanasinia",
+    "tier": "Tier 1",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy",
+    "color": "WB",
+    "provides": [
+      "seeker_safe_conduct_writ",
+      "steel_coin_treasury"
+    ],
+    "requires": [],
+    "summary": "Post-Cataclysm bureaucratic theocracy in Haven and Solace taxing trade in steel pieces while appeasing Dragonarmy envoys and staging flash-powder miracles (`CRUC-02`).",
+    "yields": "",
+    "path": "./modules/MOD_T1_SEEKER_THEOCRACY_NETWORK.md",
+    "standalone_fallback": "Operates via local village bailiffs and traveling Seeker inquisitors even if Haven is cut off.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T1_WHITESTONE_COUNCIL_DIPLOMACY",
+    "title": "The Whitestone Council & Measure of Solamnia",
+    "set": "Set_3_Winter_Night",
+    "tier": "Tier 1",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy",
+    "color": "GW",
+    "provides": [
+      "whitestone_alliance_treaty",
+      "gnome_catapult_schematics"
+    ],
+    "requires": [
+      "forged_true_dragonlances"
+    ],
+    "summary": "Fragile continental war-coalition on Sancrist Isle uniting the fractured Knights of Solamnia, exiled Elves, and Dwarves around the cleaved Whitestone (`CRUC-15`).",
+    "yields": "",
+    "path": "./modules/MOD_T1_WHITESTONE_COUNCIL_DIPLOMACY.md",
+    "standalone_fallback": "Lord Gunthar commands his loyal Solamnic knights independently if the elven/dwarven envoys walk out.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T2_BLOOD_SEA_VORTEX",
+    "title": "The Blood Sea of Istar Maelstrom & Drowned Ruins",
+    "set": "Set_4_Spring_Dawning",
+    "tier": "Tier 2",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy",
+    "color": "UR",
+    "provides": [
+      "black_robe_transfiguration",
+      "berem_everman_revelation"
+    ],
+    "requires": [
+      "perechon_smuggler_berth"
+    ],
+    "summary": "Perpetual arterial-red whirlpool above the sunken Cataclysm crater of Istar, pulling ships down into the Dargonesti sea-elf ruins (`Q_SPR_01`).",
+    "yields": "",
+    "path": "./modules/MOD_T2_BLOOD_SEA_VORTEX.md",
+    "standalone_fallback": "Red silt storms and corsair patrols hazard all shipping between Flotsam and Kalaman.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T2_DROWNED_RUIN_XAK_TSAROTH",
+    "title": "The Sunken Swamp & Acid Caverns of Xak Tsaroth",
+    "set": "Set_2_Autumn_Twilight",
+    "tier": "Tier 2",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy",
+    "color": "BG",
+    "provides": [
+      "disks_of_mishakal_liturgy",
+      "fistandantilus_sunken_grimoire"
+    ],
+    "requires": [],
+    "summary": "Cataclysm-tilted city plunged into a subterranean chasm beneath a fetid black swamp, contested by Aghar gully dwarves, Baaz draconians, and the black wyrm Khisanth (`Q_AUT_02`).",
+    "yields": "",
+    "path": "./modules/MOD_T2_DROWNED_RUIN_XAK_TSAROTH.md",
+    "standalone_fallback": "Natural swamp miasma and collapsing marble colonnades challenge delves even after Khisanth's death.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T2_ICEWALL_GLACIAL_SPIRE",
+    "title": "The Sub-Zero Glacier & Ice-Boat Wastes of Icewall",
+    "set": "Set_3_Winter_Night",
+    "tier": "Tier 2",
+    "pipeline_tier": 2,
+    "culture": "Adhocracy",
+    "color": "WU",
+    "provides": [
+      "icewall_dragon_orb",
+      "golden_general_reputation"
+    ],
+    "requires": [
+      "icewall_expedition_charts"
+    ],
+    "summary": "Blinding southern ice-sheet crossed by sail-rigged ice-boats and contested by Ice Folk barbarians, Than-Kar walrus-men, and Highlord Feal-Thas's white wolves (`Q_WIN_03B`).",
+    "yields": "",
+    "path": "./modules/MOD_T2_ICEWALL_GLACIAL_SPIRE.md",
+    "standalone_fallback": "Extreme cold and crevasse hazards challenge any expedition to the southern pole.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T2_KHAROLIS_WINTER_PASSES",
+    "title": "The Kharolis Blizzard Passes & Vitrified Skullcap",
+    "set": "Set_3_Winter_Night",
+    "tier": "Tier 2",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "RW",
+    "provides": [
+      "helm_of_grallen_relic",
+      "thorbardin_secret_gate_map"
+    ],
+    "requires": [],
+    "summary": "Lethal high-altitude winter mountain passes haunted by the spectral Dwarfgate legions around Fistandantilus's melted skull-fortress (`Q_WIN_01`, `CRUC-12`).",
+    "yields": "",
+    "path": "./modules/MOD_T2_KHAROLIS_WINTER_PASSES.md",
+    "standalone_fallback": "Freezing exposure and spectral guardians persist across the mountain trails year-round.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T2_LANDLOCKED_TARSIS_DUSTBOWL",
+    "title": "The Landlocked Dust-Harbor of Tarsis",
+    "set": "Set_3_Winter_Night",
+    "tier": "Tier 2",
+    "pipeline_tier": 2,
+    "culture": "Market",
+    "color": "WR",
+    "provides": [
+      "icewall_expedition_charts",
+      "silvanesti_griffon_escort"
+    ],
+    "requires": [],
+    "summary": "Once Krynn's jewel seaport, left forty miles inland by the Cataclysm where rotting galleons sit in prairie dust under corrupt merchants and Blue Wing occupation (`Q_WIN_02`).",
+    "yields": "",
+    "path": "./modules/MOD_T2_LANDLOCKED_TARSIS_DUSTBOWL.md",
+    "standalone_fallback": "Functions as a black-market caravan hub across the Plains of Dust.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T2_VALLEY_TREES_SOLACE",
+    "title": "The Vallenwood Canopy of Solace",
+    "set": "Set_1_Preludes_and_Abanasinia",
+    "tier": "Tier 2",
+    "pipeline_tier": 2,
+    "culture": "Clan",
+    "color": "G",
+    "provides": [
+      "spiced_potatoes_provisions",
+      "fellowship_sanctuary",
+      "timber_bridge_maintenance"
+    ],
+    "requires": [],
+    "summary": "Elevated treetop settlement built into giant vallenwood boughs, providing multi-tiered rope-bridge traversal and the hearth of the Inn of the Last Home (`Q_AUT_01`).",
+    "yields": "",
+    "path": "./modules/MOD_T2_VALLEY_TREES_SOLACE.md",
+    "standalone_fallback": "Retracting rope ladders isolates the upper vallenwood platforms from ground patrols.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T2_WAYRETH_SHIFTING_GROVE",
+    "title": "The Shifting Enchanted Forest of Wayreth",
+    "set": "Set_1_Preludes_and_Abanasinia",
+    "tier": "Tier 2",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "U",
+    "provides": [
+      "high_sorcery_conclave_mandate"
+    ],
+    "requires": [],
+    "summary": "Sentient mobile woodland that physically relocates across southern Ansalon to conceal the obsidian Tower of High Sorcery from the uninvited (`Q_PRE_01`).",
+    "yields": "",
+    "path": "./modules/MOD_T2_WAYRETH_SHIFTING_GROVE.md",
+    "standalone_fallback": "Manifests as an impenetrable mist-bound pine forest to non-magical travelers.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T3_AGHAR_LIFT_HYDRAULICS",
+    "title": "The Great Chain Lift & Express Chutes of Xak Tsaroth",
+    "set": "Set_2_Autumn_Twilight",
     "tier": "Tier 3",
     "pipeline_tier": 3,
-    "culture": "Universal",
-    "color": "Colorless",
-    "provides": [],
+    "culture": "Adhocracy",
+    "color": "RG",
+    "provides": [
+      "aghar_express_chute_access"
+    ],
     "requires": [],
-    "summary": "",
+    "summary": "Precarious counterfactual pulley-lift and slick trash-chute network maintained by the Aghar gully dwarves across the vertical tiers of sunken Xak Tsaroth (`Q_AUT_02`, `CRUC-28`).",
+    "yields": "",
+    "path": "./modules/MOD_T3_AGHAR_LIFT_HYDRAULICS.md",
+    "standalone_fallback": "Counterweight buckets operate manually via gully dwarf crank-teams.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T3_ERGOTH_DRAGONMETAL_FORGE",
+    "title": "The Foghaven Dragonlance Forge of Huma",
+    "set": "Set_3_Winter_Night",
+    "tier": "Tier 3",
+    "pipeline_tier": 3,
+    "culture": "Clan",
+    "color": "WU",
+    "provides": [
+      "forged_true_dragonlances"
+    ],
+    "requires": [
+      "hammer_of_kharas_authority",
+      "icewall_dragon_orb"
+    ],
+    "summary": "Sacred forge inside the silver dragon monument of Southern Ergoth where Theros Ironfeld unites the Silver Arm of Ergoth, the Hammer of Kharas, and pure dragonmetal (`Q_WIN_03B`, `CRUC-18`).",
+    "yields": "",
+    "path": "./modules/MOD_T3_ERGOTH_DRAGONMETAL_FORGE.md",
+    "standalone_fallback": "Produces masterwork silvered weapons even if one of the two forging artifacts is delayed.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T3_HIGH_CLERIST_DRAGON_TRAP",
+    "title": "The Architectural Dragon-Trap of the High Clerist's Tower",
+    "set": "Set_3_Winter_Night",
+    "tier": "Tier 3",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy",
+    "color": "W",
+    "provides": [
+      "blue_wing_broken_siege",
+      "parapet_of_sturm_legacy"
+    ],
+    "requires": [
+      "forged_true_dragonlances",
+      "whitestone_alliance_treaty"
+    ],
+    "summary": "Ancient fortress engineered by Vinas Solamnus not to keep dragons out, but to lure them via a central Dragon Orb into narrow stone kill-chutes lined with Dragonlances (`Q_WIN_04`, `CRUC-13`, `CRUC-17`).",
+    "yields": "",
+    "path": "./modules/MOD_T3_HIGH_CLERIST_DRAGON_TRAP.md",
+    "standalone_fallback": "Outer curtain walls hold conventional infantry assaults even without the Dragon Orb active.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T3_LUERKHISIS_CORRUPTION_VATS",
+    "title": "The Temple of Luerkhisis & Metallic Dragon Awakening",
+    "set": "Set_4_Spring_Dawning",
+    "tier": "Tier 3",
+    "pipeline_tier": 3,
+    "culture": "Clan",
+    "color": "WRG",
+    "provides": [
+      "metallic_dragon_oath_breaker"
+    ],
+    "requires": [
+      "silver_clutch_eggshell_evidence"
+    ],
+    "summary": "Volcanic covert operation into Sanction's Temple of Luerkhisis that exposes the corruption of the Good Dragon eggs and brings the Gold, Silver, Bronze, Brass, and Copper Dragons into the war (`Q_SPR_02`).",
+    "yields": "",
+    "path": "./modules/MOD_T3_LUERKHISIS_CORRUPTION_VATS.md",
+    "standalone_fallback": "Operates via smuggled eggshell proof (`ITM-SILVER-SHARD`) from Hope's End.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T3_MERCENARY_SIEGE_LINES",
+    "title": "Baron Ivor's Mercenary Siege Logistics (347 AC)",
+    "set": "Set_1_Preludes_and_Abanasinia",
+    "tier": "Tier 3",
+    "pipeline_tier": 3,
+    "culture": "Market",
+    "color": "BR",
+    "provides": [
+      "mercenary_sellsword_contracts",
+      "khalkist_smuggler_pass"
+    ],
+    "requires": [
+      "steel_coin_treasury"
+    ],
+    "summary": "Combined-arms mercenary siege network pairing battle-magic with heavy infantry at Langtree and Hope's End (`Q_PRE_02`, `Q_ECHO_02`, `CRUC-05`).",
+    "yields": "",
+    "path": "./modules/MOD_T3_MERCENARY_SIEGE_LINES.md",
+    "standalone_fallback": "Veteran sellsword companies hire out to local barons for raw steel barter.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T3_PAX_THARKAS_SLAVE_MINES",
+    "title": "The Iron Mines, Great Chain & Hostage Nursery of Pax Tharkas",
+    "set": "Set_2_Autumn_Twilight",
+    "tier": "Tier 3",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy",
+    "color": "BR",
+    "provides": [
+      "pax_tharkas_iron_ore",
+      "liberated_800_refugees",
+      "everman_berem_release"
+    ],
+    "requires": [
+      "pax_tharkas_undercroft_breach",
+      "disks_of_mishakal_liturgy"
+    ],
+    "summary": "Verminaard's industrial slave-mining complex where 500 adult prisoners forge Dragonarmy steel while 250 children are held hostage under the senile red dragon Flamestrike (`Q_AUT_03`, `CRUC-10`).",
+    "yields": "",
+    "path": "./modules/MOD_T3_PAX_THARKAS_SLAVE_MINES.md",
+    "standalone_fallback": "Produces raw iron weapons via hobgoblin labor if the human slaves revolt.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T3_SANCTION_EGG_FOUNDRIES",
+    "title": "The Volcanic Draconian Hatcheries of Sanction",
+    "set": "Set_1_Preludes_and_Abanasinia",
+    "tier": "Tier 3",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy",
+    "color": "BR",
+    "provides": [
+      "draconian_army_reinforcements"
+    ],
+    "requires": [
+      "silver_clutch_eggshell_evidence"
+    ],
+    "summary": "Industrial-ritual egg corruption vats inside the volcanic Temple of Luerkhisis where stolen Good Dragon eggs are mutated into Baaz, Kapak, Bozak, Sivak, and Aurak draconians (`Q_PRE_03`, `Q_SPR_02`).",
+    "yields": "",
+    "path": "./modules/MOD_T3_SANCTION_EGG_FOUNDRIES.md",
+    "standalone_fallback": "Continues spawning reserve draconian regiments from stockpiled clutches until infiltrated.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T3_THORBARDIN_LIFE_TREE_SEAL",
+    "title": "The Great Northgate & Life Tree Foundations of Thorbardin",
+    "set": "Set_3_Winter_Night",
+    "tier": "Tier 3",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy",
+    "color": "RW",
+    "provides": [
+      "hammer_of_kharas_authority",
+      "refugee_winter_sanctuary"
+    ],
+    "requires": [
+      "helm_of_grallen_relic"
+    ],
+    "summary": "Monumental counterweighted stone plug sealing the subterranean dwarven kingdom since the Dwarfgate War, reopened only by the Helm of Grallen and Hammer of Kharas (`Q_WIN_01`).",
+    "yields": "",
+    "path": "./modules/MOD_T3_THORBARDIN_LIFE_TREE_SEAL.md",
+    "standalone_fallback": "Remains hermetically sealed on internal subterranean mushroom farms and aquifers.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T4_BLUE_WING_AERIAL_BLITZ",
+    "title": "Kitiara's Blue Wing Aerial Blitz & The Tarsis Split",
+    "set": "Set_3_Winter_Night",
+    "tier": "Tier 4",
+    "pipeline_tier": 4,
+    "culture": "Market",
+    "color": "UB",
+    "provides": [
+      "dragon_orb_lore_clue"
+    ],
+    "requires": [],
+    "summary": "Coordinated dragon-and-draconian shock assault on Tarsis the Beautiful that shatters the Red Dragon Inn and forces the Fellowship's iconic split (`Q_WIN_02`, `CRUC-24`).",
+    "yields": "",
+    "path": "./modules/MOD_T4_BLUE_WING_AERIAL_BLITZ.md",
+    "standalone_fallback": "Blue Dragon patrols sweep the Plains of Dust and northern ports.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T4_DRACONIAN_CHECKPOINTS",
+    "title": "Hooded Draconian Checkpoints & Death-Throes Ecology",
+    "set": "Set_2_Autumn_Twilight",
+    "tier": "Tier 4",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy",
+    "color": "BR",
+    "provides": [
+      "abanasinia_rumor_network"
+    ],
+    "requires": [],
+    "summary": "Roadblock and ambush network across Abanasinia introducing the five Draconian sub-types and their lethal death-throes (Baaz petrification trapping swords, Kapak acid pools, Bozak bone-detonations, Sivak shape-stealing, Aurak arcane blasts).",
+    "yields": "",
+    "path": "./modules/MOD_T4_DRACONIAN_CHECKPOINTS.md",
+    "standalone_fallback": "Patrols operate autonomously along all major transit corridors.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T4_REFUGEE_EXODUS_COLUMN",
+    "title": "The 800 Refugees of Pax Tharkas & The Traitor Within",
+    "set": "Set_2_Autumn_Twilight",
+    "tier": "Tier 4",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "WG",
+    "provides": [
+      "dwarven_heavy_infantry"
+    ],
+    "requires": [
+      "liberated_800_refugees"
+    ],
+    "summary": "Moving settlement of 800 freed Solace men, women, and children trekking into the Kharolis Mountains while Eben Shatterstone secretly signals Red Wing pursuers (`Q_WIN_01`, `CRUC-12`).",
+    "yields": "",
+    "path": "./modules/MOD_T4_REFUGEE_EXODUS_COLUMN.md",
+    "standalone_fallback": "Refugees fortify a hidden mountain box-canyon while scouts search for Thorbardin.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T4_SILVER_CLUTCH_BETRAYAL",
+    "title": "The Stolen Silver Clutch of Hope's End (347 AC)",
+    "set": "Set_1_Preludes_and_Abanasinia",
+    "tier": "Tier 4",
+    "pipeline_tier": 4,
+    "culture": "Adhocracy",
+    "color": "UBR",
+    "provides": [
+      "silver_clutch_eggshell_evidence"
+    ],
+    "requires": [
+      "mercenary_sellsword_contracts"
+    ],
+    "summary": "Secret conspiracy beneath the Siege of Hope's End where the Red Dragon Immolatus uses Baron Ivor's war as a smokescreen to seize a clutch of Silver Dragon eggs (`Q_PRE_02`, `Q_ECHO_02`, `CRUC-07`).",
+    "yields": "",
+    "path": "./modules/MOD_T4_SILVER_CLUTCH_BETRAYAL.md",
+    "standalone_fallback": "Leaves forensic dragon-glass and eggshell shards (`ITM-SILVER-SHARD`) in the ruined cellars of Hope's End.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T4_SOLAMNIC_SCHISM_MEASURE",
+    "title": "The Solamnic Schism: Derek's Folly vs. Sturm's Honor",
+    "set": "Set_3_Winter_Night",
+    "tier": "Tier 4",
+    "pipeline_tier": 4,
+    "culture": "Hierarchy",
+    "color": "W",
+    "provides": [
+      "northern_offensive_supply_line"
+    ],
+    "requires": [
+      "blue_wing_broken_siege"
+    ],
+    "summary": "Deadly ideological fracture inside theHigh Clerist's Tower between Lord Derek Crownguard's glory-seeking charge and Sturm Brightblade's selfless defense of the walls (`Q_WIN_04`, `CRUC-13`).",
+    "yields": "",
+    "path": "./modules/MOD_T4_SOLAMNIC_SCHISM_MEASURE.md",
+    "standalone_fallback": "Resolves at the Whitestone war-table if the Tower siege is bypassed.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T5_ASTINUS_CHRONICLE_VAULT",
+    "title": "The Iconochronos of Astinus & Shoikan Grove",
+    "set": "Set_4_Spring_Dawning",
+    "tier": "Tier 5",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy",
+    "color": "UB",
+    "provides": [
+      "astinus_chronicle_prophecy",
+      "palanthas_dragon_orb_vault",
+      "tower_of_palanthas_key"
+    ],
+    "requires": [
+      "black_robe_transfiguration"
+    ],
+    "summary": "The timeless Great Library of Palanthas where Astinus chronicles all mortal history and where Black-Robe Raistlin claims his destiny as Master of Past and Present (`Q_SPR_01`).",
+    "yields": "",
+    "path": "./modules/MOD_T5_ASTINUS_CHRONICLE_VAULT.md",
+    "standalone_fallback": "Provides historical lore and the third Dragon Orb to scholars who pass the Aesthetic monks.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T5_DARGAARD_DEATH_KNIGHT_PACT",
+    "title": "Lord Soth's Banshee Curse & The Soul-Trade of Laurana",
+    "set": "Set_4_Spring_Dawning",
+    "tier": "Tier 5",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy",
+    "color": "B",
+    "provides": [
+      "soth_death_knight_cavalry",
+      "captured_bakaris_leverage"
+    ],
+    "requires": [],
+    "summary": "Unholy alliance between Highlord Kitiara and the undead Death Knight Lord Loren Soth of Dargaard Keep, trading Laurana's radiant soul for Soth's skeletal legions (`Q_SPR_02`, `CRUC-21`).",
+    "yields": "",
+    "path": "./modules/MOD_T5_DARGAARD_DEATH_KNIGHT_PACT.md",
+    "standalone_fallback": "Dargaard Keep projects a lethal fear-and-chill aura across Nightlund.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T5_LORAC_DREAMSCAPE_MATRIX",
+    "title": "The Silvanesti Dragon Orb Nightmare & Cyan Bloodbane",
+    "set": "Set_3_Winter_Night",
+    "tier": "Tier 5",
+    "pipeline_tier": 5,
+    "culture": "Adhocracy",
+    "color": "BG",
+    "provides": [
+      "silvanesti_dragon_orb",
+      "starjewel_of_alhana"
+    ],
+    "requires": [
+      "silvanesti_griffon_escort"
+    ],
+    "summary": "Reality-warping psychic dreamscape generated by the Silvanesti Dragon Orb and the green wyrm Cyan Bloodbane through the dying mind of Speaker Lorac (`Q_WIN_03A`, `CRUC-16`).",
+    "yields": "",
+    "path": "./modules/MOD_T5_LORAC_DREAMSCAPE_MATRIX.md",
+    "standalone_fallback": "Hallucinatory forest zones test each character's deepest primal wound and lie.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T5_NERAKA_FOUNDATION_PORTAL",
+    "title": "The Cracked Foundation Stone & Takhisis's Abyssal Gate",
+    "set": "Set_4_Spring_Dawning",
+    "tier": "Tier 5",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy",
+    "color": "WUBRG",
+    "provides": [
+      "sealed_abyssal_foundation_gate"
+    ],
+    "requires": [
+      "berem_everman_revelation",
+      "metallic_dragon_oath_breaker"
+    ],
+    "summary": "The ultimate cosmic climax in the subterranean vaults of Neraka where the five-headed Queen of Darkness strains against the Foundation Stone—decided by Berem the Everman, Raistlin, and the Companions (`Q_SPR_03`, `CRUC-20`, `CRUC-22`, `CRUC-29`).",
+    "yields": "",
+    "path": "./modules/MOD_T5_NERAKA_FOUNDATION_PORTAL.md",
+    "standalone_fallback": "Operates as the final campaign climax engine across all three campaign editions.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_T5_SOULFORGE_CRUCIBLE",
+    "title": "The Soulforge of Wayreth & Fistandantilus's Blood-Pact",
+    "set": "Set_1_Preludes_and_Abanasinia",
+    "tier": "Tier 5",
+    "pipeline_tier": 5,
+    "culture": "Adhocracy",
+    "color": "UBR",
+    "provides": [
+      "staff_of_magius_attunement",
+      "soulforge_memory_projection"
+    ],
+    "requires": [
+      "high_sorcery_conclave_mandate"
+    ],
+    "summary": "The lethal Test of High Sorcery inside the Tower of Wayreth where Fistandantilus offers young Raistlin survival at the price of his health, golden skin, and hourglass eyes—and where Raistlin destroys the illusion of Caramon (`Q_PRE_01`, `Q_ECHO_01`, `CRUC-03`, `CRUC-04`).",
     "yields": "",
     "path": "./modules/MOD_T5_SOULFORGE_CRUCIBLE.md",
-    "standalone_fallback": "",
+    "standalone_fallback": "Triggered as a playable Temporal Memory Crucible (`Q_ECHO_01`) whenever a 351 AC party attunes to the Bloodstone or Staff of Magius.",
     "chain_id": null,
     "chain_stage": null,
     "chain_role": null

@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/03_Atlas_Corridors_and_Tactical_Submaps/04_Dar
 title: "04: Darken Wood, Xak Tsaroth, Qualinost and Pax Tharkas"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "c68d7a3f095f92d3"
+current_hash: "ad88ad526737a500"
 reviewed_hash: "c68d7a3f095f92d3"
-stale: false
-size_bytes: 22301
+stale: true
+size_bytes: 22042
 line_count: 260
 ---
 

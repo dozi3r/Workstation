@@ -3,10 +3,10 @@ file_path: "tools/krynn/compiler/data_modules.js"
 title: "data_modules.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "51e06f645ffaf3a8"
+current_hash: "b894da7d751d8859"
 reviewed_hash: "51e06f645ffaf3a8"
-stale: false
-size_bytes: 60383
+stale: true
+size_bytes: 59269
 line_count: 1115
 ---
 

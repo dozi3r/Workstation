@@ -3,11 +3,11 @@ file_path: "campaigns/BaldursGate/campaign.json"
 title: "campaign.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "551157b7f3205177"
-reviewed_hash: "551157b7f3205177"
+current_hash: "509fbd73137f8cd3"
+reviewed_hash: "509fbd73137f8cd3"
 stale: false
-size_bytes: 84758
-line_count: 2351
+size_bytes: 87519
+line_count: 2417
 ---
 
 # campaign.json

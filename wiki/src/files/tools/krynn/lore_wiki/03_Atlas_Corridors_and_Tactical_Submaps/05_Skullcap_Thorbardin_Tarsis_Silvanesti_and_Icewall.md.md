@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/03_Atlas_Corridors_and_Tactical_Submaps/05_Sku
 title: "05: Skullcap, Thorbardin, Tarsis, Silvanesti and Icewall"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "01f46a454a80ecd8"
+current_hash: "87f1a44664bd4076"
 reviewed_hash: "01f46a454a80ecd8"
-stale: false
-size_bytes: 26517
+stale: true
+size_bytes: 26232
 line_count: 286
 ---
 

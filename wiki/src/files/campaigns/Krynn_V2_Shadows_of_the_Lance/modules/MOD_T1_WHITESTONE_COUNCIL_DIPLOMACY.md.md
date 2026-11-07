@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T1_WHITESTONE_CO
 title: "MOD_T1_WHITESTONE_COUNCIL_DIPLOMACY: The Whitestone Council & Measure of Solamnia"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "9137cd93333694e1"
+current_hash: "e2c8d9f87dafd746"
 reviewed_hash: "9137cd93333694e1"
-stale: false
-size_bytes: 3882
+stale: true
+size_bytes: 3813
 line_count: 70
 ---
 

@@ -3,10 +3,10 @@ file_path: "docs/adr/0024-gigerenzer-ecological-rationality-and-fast-and-frugal-
 title: "0024. Ecological rationality and fast-and-frugal heuristics"
 volume: "vol-1"
 kind: "Architectural Decision Record (ADR)"
-current_hash: "c8426cf409ac291d"
+current_hash: "455e5dbad023cff9"
 reviewed_hash: "c8426cf409ac291d"
-stale: false
-size_bytes: 4852
+stale: true
+size_bytes: 4909
 line_count: 58
 ---
 

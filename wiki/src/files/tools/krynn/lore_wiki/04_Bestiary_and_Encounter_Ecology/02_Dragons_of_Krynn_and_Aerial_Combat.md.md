@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/04_Bestiary_and_Encounter_Ecology/02_Dragons_o
 title: "Dragons of Krynn: Named Dossiers, Dogfight Rules & Dragon-Traps"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "c92b6416071736ea"
+current_hash: "3d7818eab01f6837"
 reviewed_hash: "c92b6416071736ea"
-stale: false
-size_bytes: 15219
+stale: true
+size_bytes: 15024
 line_count: 196
 ---
 

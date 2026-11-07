@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_AGHAR_LIFT_HYDRA
 title: "MOD_T3_AGHAR_LIFT_HYDRAULICS: The Great Chain Lift & Express Chutes of Xak Tsaroth"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "140ba54bf96a2006"
+current_hash: "85cb2305d22fc681"
 reviewed_hash: "140ba54bf96a2006"
-stale: false
-size_bytes: 3461
+stale: true
+size_bytes: 3392
 line_count: 70
 ---
 

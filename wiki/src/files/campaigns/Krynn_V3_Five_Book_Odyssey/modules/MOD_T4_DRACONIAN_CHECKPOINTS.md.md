@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T4_DRACONIAN_CHECKP
 title: "MOD_T4_DRACONIAN_CHECKPOINTS: Hooded Draconian Checkpoints & Death-Throes Ecology"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "6517344c3ece4261"
+current_hash: "ac7118494021fb5e"
 reviewed_hash: "6517344c3ece4261"
-stale: false
-size_bytes: 3556
+stale: true
+size_bytes: 3487
 line_count: 70
 ---
 

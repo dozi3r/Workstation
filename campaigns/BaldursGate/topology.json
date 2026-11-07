@@ -26,8 +26,7 @@
           "culture": "Hierarchy",
           "shape": "pentagon",
           "adj": [
-            "BG-SC-13",
-            "BG-SC-03"
+            "BG-SC-13"
           ],
           "infBy": [],
           "hubEligibility": "candidate",
@@ -40,8 +39,8 @@
           "visible": true,
           "color": null,
           "modules": [
-            "IND-IRON-03",
-            "IND-TIMBER-02"
+            "AGRI-SUGAR-03",
+            "IND-PINE-02"
           ],
           "provides": [],
           "requires": [],
@@ -105,9 +104,7 @@
           "cat": "Standard POI",
           "culture": "Clan",
           "shape": "pentagon",
-          "adj": [
-            "BG-SC-01"
-          ],
+          "adj": [],
           "infBy": [],
           "hubEligibility": "candidate",
           "eligible": true,
@@ -118,9 +115,7 @@
           "locked": true,
           "visible": true,
           "color": null,
-          "modules": [
-            "IND-TIMBER-03"
-          ],
+          "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
@@ -480,7 +475,6 @@
           "culture": "Clan",
           "shape": "circle",
           "adj": [
-            "BG-SC-14",
             "BG-SC-01"
           ],
           "infBy": [],
@@ -494,12 +488,20 @@
           "visible": true,
           "color": null,
           "modules": [
-            "MINE-IRON-02",
-            "EXT-TIMBER-01"
+            "AGRI-SUGAR-01",
+            "AGRI-SUGAR-02",
+            "EXT-PINE-01"
           ],
           "provides": [],
           "requires": [],
-          "modData": {},
+          "modData": {
+            "pre_industrial_resources": {
+              "inputHopper": {},
+              "outputBin": {},
+              "stockpile": {},
+              "backpressureHalt": false
+            }
+          },
           "odv": [
             2,
             2,
@@ -522,10 +524,7 @@
           "cat": "Standard POI",
           "culture": "Market",
           "shape": "triangle",
-          "adj": [
-            "bind",
-            "BG-SC-13"
-          ],
+          "adj": [],
           "infBy": [],
           "hubEligibility": "candidate",
           "eligible": true,
@@ -536,9 +535,7 @@
           "locked": true,
           "visible": true,
           "color": null,
-          "modules": [
-            "MINE-IRON-01"
-          ],
+          "modules": [],
           "provides": [],
           "requires": [],
           "modData": {},
@@ -706,24 +703,6 @@
           "to": "BG-SC-13",
           "type": "twoway",
           "layer": "transit"
-        },
-        {
-          "from": "BG-SC-01",
-          "to": "BG-SC-03",
-          "type": "twoway",
-          "layer": "transit"
-        },
-        {
-          "from": "BG-SC-13",
-          "to": "BG-SC-14",
-          "type": "twoway",
-          "layer": "transit"
-        },
-        {
-          "from": "BG-SC-14",
-          "to": "bind",
-          "type": "twoway",
-          "layer": "transit"
         }
       ],
       "mapMetadata": {
@@ -738,26 +717,18 @@
         "y": 0,
         "lockAspect": true,
         "opacity": 0.85,
-        "timestamp": 1793735554066,
+        "timestamp": 1793844921481,
         "assetPath": "assets/map_bg1_sword_coast_bg.png"
       },
       "waves": [],
       "drawnCards": {},
       "nodeSlottedModules": {
-        "1": [
-          "MINE-IRON-02"
-        ],
-        "2": [
-          "IND-IRON-03"
-        ],
         "BG-SC-01": [
-          "IND-IRON-03",
-          "IND-TIMBER-02"
+          "AGRI-SUGAR-03",
+          "IND-PINE-02"
         ],
         "BG-SC-02": [],
-        "BG-SC-03": [
-          "IND-TIMBER-03"
-        ],
+        "BG-SC-03": [],
         "BG-SC-04": [],
         "BG-SC-05": [],
         "BG-SC-06": [],
@@ -768,21 +739,16 @@
         "BG-SC-11": [],
         "BG-SC-12": [],
         "BG-SC-13": [
-          "MINE-IRON-02",
-          "EXT-TIMBER-01"
+          "AGRI-SUGAR-01",
+          "AGRI-SUGAR-02",
+          "EXT-PINE-01"
         ],
-        "BG-SC-14": [
-          "MINE-IRON-01"
-        ],
+        "BG-SC-14": [],
         "BG-SC-15": [],
         "BG-SC-16": [],
         "BG-SC-17": [],
         "BG-SC-18": [],
-        "TS-1": [],
-        "bind": [
-          "MINE-IRON-02",
-          "IND-IRON-03"
-        ]
+        "TS-1": []
       },
       "edgeSlottedModules": {},
       "layers": [
@@ -844,58 +810,27 @@
       "shapes": [],
       "revealedNodes": {},
       "edgeData": {
-        "1-BG-SC-14": {
-          "conduitType": "Caravan Trade Route",
-          "dedicatedFlows": [
-            {
-              "tag": "Ore: Raw-Iron-Ore",
-              "sourceModuleId": "MINE-IRON-01"
-            }
-          ]
-        },
-        "BG-SC-14-bind": {
-          "conduitType": "Caravan Trade Route",
-          "dedicatedFlows": [
-            {
-              "tag": "Ore: Raw-Iron-Ore",
-              "sourceModuleId": "MINE-IRON-01"
-            }
-          ]
-        },
-        "BG-SC-13-BG-SC-14": {
-          "conduitType": "Caravan Trade Route",
-          "dedicatedFlows": [
-            {
-              "tag": "Ore: Raw-Iron-Ore",
-              "sourceModuleId": "MINE-IRON-01"
-            }
-          ]
-        },
         "BG-SC-01-BG-SC-13": {
           "conduitType": "Caravan Trade Route",
           "dedicatedFlows": [
             {
-              "tag": "Metal: Pig-Iron",
-              "sourceModuleId": "MINE-IRON-02"
-            },
-            {
-              "tag": "Timber: Hardwood-Logs",
-              "sourceModuleId": "EXT-TIMBER-01"
+              "tag": "Commodity: Cane-Molasses",
+              "sourceModuleId": "AGRI-SUGAR-02"
             }
-          ]
-        },
-        "BG-SC-01-BG-SC-03": {
-          "conduitType": "Caravan Trade Route",
-          "dedicatedFlows": [
-            {
-              "tag": "Timber: Sawn-Lumber",
-              "sourceModuleId": "IND-TIMBER-02"
+          ],
+          "modData": {
+            "pre_industrial_resources": {
+              "inTransit": []
             }
-          ]
+          }
         }
       },
       "edgeNotes": {},
-      "modData": {},
+      "modData": {
+        "pre_industrial_resources": {
+          "dfSimEnabled": false
+        }
+      },
       "custom_modules": [],
       "spatialPins": []
     },
@@ -4804,8 +4739,7 @@
         "eligible": true,
         "hubEligibility": "candidate",
         "adj": [
-          "BG-SC-13",
-          "BG-SC-03"
+          "BG-SC-13"
         ],
         "infBy": [],
         "childMapId": "map_bg1_candlekeep",
@@ -4814,17 +4748,17 @@
         "visible": true,
         "color": null,
         "modules": [
-          "IND-IRON-03",
-          "IND-TIMBER-02"
+          "AGRI-SUGAR-03",
+          "IND-PINE-02"
         ],
         "provides": [],
         "requires": [],
         "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
@@ -4879,18 +4813,14 @@
         "shape": "pentagon",
         "eligible": true,
         "hubEligibility": "candidate",
-        "adj": [
-          "BG-SC-01"
-        ],
+        "adj": [],
         "infBy": [],
         "childMapId": "map_bg1_friendly_arm",
         "customNotes": "A fortified walled citadel built around an ancient stone keep by the gnome illusionist Bentley Mirrorshade. Banners of Garl Glittergold flutter above stone ramparts that offer sanctuary to beleaguered trade caravans.",
         "locked": true,
         "visible": true,
         "color": null,
-        "modules": [
-          "IND-TIMBER-03"
-        ],
+        "modules": [],
         "provides": [],
         "requires": [],
         "modData": {},
@@ -4964,11 +4894,11 @@
         "provides": [],
         "requires": [],
         "modData": {},
-        "odv": {
-          "s": 2,
-          "e": 2,
-          "c": 2
-        },
+        "odv": [
+          2,
+          2,
+          2
+        ],
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
@@ -5234,7 +5164,6 @@
         "eligible": true,
         "hubEligibility": "candidate",
         "adj": [
-          "BG-SC-14",
           "BG-SC-01"
         ],
         "infBy": [],
@@ -5244,17 +5173,25 @@
         "visible": true,
         "color": null,
         "modules": [
-          "MINE-IRON-02",
-          "EXT-TIMBER-01"
+          "AGRI-SUGAR-01",
+          "AGRI-SUGAR-02",
+          "EXT-PINE-01"
         ],
         "provides": [],
         "requires": [],
-        "modData": {},
-        "odv": [
-          2,
-          2,
-          2
-        ],
+        "modData": {
+          "pre_industrial_resources": {
+            "inputHopper": {},
+            "outputBin": {},
+            "stockpile": {},
+            "backpressureHalt": false
+          }
+        },
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 2
+        },
         "odvOverridden": false,
         "faction": "neutral",
         "layerId": "layer-nodes"
@@ -5274,19 +5211,14 @@
         "shape": "triangle",
         "eligible": true,
         "hubEligibility": "candidate",
-        "adj": [
-          "bind",
-          "BG-SC-13"
-        ],
+        "adj": [],
         "infBy": [],
         "childMapId": "map_bg1_cloakwood_mines",
         "customNotes": "A fortified quarry and subterranean smelter operated by Iron Throne slave drivers and guarded by black-glass wards, overseen by the ruthless battle-mage Davaeorn.",
         "locked": true,
         "visible": true,
         "color": null,
-        "modules": [
-          "MINE-IRON-01"
-        ],
+        "modules": [],
         "provides": [],
         "requires": [],
         "modData": {},
@@ -5444,24 +5376,6 @@
       {
         "from": "BG-SC-01",
         "to": "BG-SC-13",
-        "type": "twoway",
-        "layer": "transit"
-      },
-      {
-        "from": "BG-SC-01",
-        "to": "BG-SC-03",
-        "type": "twoway",
-        "layer": "transit"
-      },
-      {
-        "from": "BG-SC-13",
-        "to": "BG-SC-14",
-        "type": "twoway",
-        "layer": "transit"
-      },
-      {
-        "from": "BG-SC-14",
-        "to": "bind",
         "type": "twoway",
         "layer": "transit"
       }
@@ -6833,58 +6747,86 @@
         "relationships": []
       },
       {
-        "id": "npc-mw4ip7jd-1",
-        "name": "Bera Iron-Grip",
-        "role": "Pit Shoring Carpenter & Sump Tender",
-        "faction": "Hierarchy / Clan",
-        "motivation": "Keep timber props braced against the creeping south fault line.",
-        "moduleId": "MINE-IRON-01",
-        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "id": "npc-mw2x2abt-1",
+        "name": "Jarek Horn",
+        "role": "Cutter Foreman & Labor Advocate",
+        "faction": "Clan / Hierarchy",
+        "motivation": "Secure quinine rations and wage advances for the ditch-clearing crews.",
+        "moduleId": "AGRI-SUGAR-01",
+        "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
-        "prototypeId": "MINE-IRON-01-npc-2",
-        "nodeId": "BG-SC-14",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "npc-mw4ip7jl-2",
-        "name": "Foreman Grim Torvald",
-        "role": "Chief Mine Quarryman",
-        "faction": "Hierarchy / Clan",
-        "motivation": "Drive extraction quotas to earn his crew",
-        "moduleId": "MINE-IRON-01",
-        "moduleTitle": "Open-Cast Iron Ore Pit",
-        "suggestedNode": null,
-        "prototypeId": "MINE-IRON-01-npc-1",
-        "nodeId": "BG-SC-14",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "npc-mw4ip7kb-5",
-        "name": "Sela the Tapper",
-        "role": "Taphole Chisel Specialist",
-        "faction": "Hierarchy / Market",
-        "motivation": "Survive the deadly white-hot slag run and secure safe casting molds for iron shot.",
-        "moduleId": "MINE-IRON-02",
-        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
-        "suggestedNode": null,
-        "prototypeId": "MINE-IRON-02-npc-2",
+        "prototypeId": "AGRI-SUGAR-01-npc-2",
         "nodeId": "BG-SC-13",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "npc-mw4ip7ki-6",
-        "name": "Master Smelter Kaelen",
-        "role": "Chief Blast Master",
-        "faction": "Hierarchy / Market",
-        "motivation": "Keep the furnace tapped on schedule to prevent the molten salamander from freezing solid.",
-        "moduleId": "MINE-IRON-02",
-        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "id": "npc-mw2x2ac1-2",
+        "name": "Thaddeus Varen",
+        "role": "Field Overseer & Cane Steward",
+        "faction": "Clan / Hierarchy",
+        "motivation": "Enforce strict harvest quotas before tropical monsoon season rots the stalks.",
+        "moduleId": "AGRI-SUGAR-01",
+        "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
-        "prototypeId": "MINE-IRON-02-npc-1",
+        "prototypeId": "AGRI-SUGAR-01-npc-1",
         "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw2x2acj-5",
+        "name": "Tobias Pike",
+        "role": "Millwright & Steam Engineer",
+        "faction": "Market / Hierarchy",
+        "motivation": "Keep the bronze roller bearings packed with beef tallow to avoid catastrophic seizures.",
+        "moduleId": "AGRI-SUGAR-02",
+        "moduleTitle": "Cane Crushing Mill and Boiling House",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-02-npc-2",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw2x2aco-6",
+        "name": "Kasia Vorn",
+        "role": "Master Sugar Boiler & Still-Watcher",
+        "faction": "Market / Hierarchy",
+        "motivation": "Perfect the crystalline strike point and prevent sugar masters from shorting her share.",
+        "moduleId": "AGRI-SUGAR-02",
+        "moduleTitle": "Cane Crushing Mill and Boiling House",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-02-npc-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw2x2ada-a",
+        "name": "Magistrate Hector Finch",
+        "role": "Senior Imperial Excise Collector",
+        "faction": "Market / Adhocracy",
+        "motivation": "Stamp every barrel with sovereign tax seals and confiscate contraband manifests.",
+        "moduleId": "AGRI-SUGAR-03",
+        "moduleTitle": "Rum Distillery and Excise Harbor",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-03-npc-2",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw2x2adi-b",
+        "name": "Captain Orlaith Vance",
+        "role": "Smuggler & Independent Privateer",
+        "faction": "Market / Adhocracy",
+        "motivation": "Evade customs cutter patrols and ferry untaxed spirit casks to distant insurgent cells.",
+        "moduleId": "AGRI-SUGAR-03",
+        "moduleTitle": "Rum Distillery and Excise Harbor",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-03-npc-1",
+        "nodeId": "BG-SC-01",
         "status": "Active",
         "isCustom": false
       }
@@ -7370,198 +7312,236 @@
         "status": "Active"
       },
       {
-        "id": "item-mw4ip7jt-3",
-        "name": "Open-Cast Iron Ore Pit",
+        "id": "item-mw2x2ac9-3",
+        "name": "Sugarcane Plantation and Harvest Fields",
         "category": "Infrastructural Machinery",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-01.",
-        "moduleId": "MINE-IRON-01",
-        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-01.",
+        "moduleId": "AGRI-SUGAR-01",
+        "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
-        "prototypeId": "MINE-IRON-01-item-apparatus",
-        "nodeId": "BG-SC-14",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "item-mw4ip7k3-4",
-        "name": "Ore: Raw Iron Ore",
-        "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Ore: Raw-Iron-Ore",
-        "notes": "Supply chain material or energy export produced by MINE-IRON-01 for downstream consumer nodes.",
-        "moduleId": "MINE-IRON-01",
-        "moduleTitle": "Open-Cast Iron Ore Pit",
-        "suggestedNode": null,
-        "prototypeId": "MINE-IRON-01-item-res-1",
-        "nodeId": "BG-SC-14",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "item-mw4ip7kq-7",
-        "name": "Charcoal Bloomery and Blast Furnace",
-        "category": "Infrastructural Machinery",
-        "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-02.",
-        "moduleId": "MINE-IRON-02",
-        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
-        "suggestedNode": null,
-        "prototypeId": "MINE-IRON-02-item-apparatus",
+        "prototypeId": "AGRI-SUGAR-01-item-apparatus",
         "nodeId": "BG-SC-13",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4ip7kz-8",
-        "name": "Metal: Pig Iron",
+        "id": "item-mw2x2ace-4",
+        "name": "Crop: Raw Sugarcane",
         "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Metal: Pig-Iron",
-        "notes": "Supply chain material or energy export produced by MINE-IRON-02 for downstream consumer nodes.",
-        "moduleId": "MINE-IRON-02",
-        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "specs": "Provides: Crop: Raw-Sugarcane",
+        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-01 for downstream consumer nodes.",
+        "moduleId": "AGRI-SUGAR-01",
+        "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
-        "prototypeId": "MINE-IRON-02-item-res-1",
+        "prototypeId": "AGRI-SUGAR-01-item-res-1",
         "nodeId": "BG-SC-13",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4ip7l9-9",
-        "name": "Blacksmith Forge",
-        "category": "Tabletop Asset / Relic",
+        "id": "item-mw2x2acw-7",
+        "name": "Cane Crushing Mill and Boiling House",
+        "category": "Infrastructural Machinery",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-IRON-03.",
-        "moduleId": "IND-IRON-03",
-        "moduleTitle": "Blacksmith Forge",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-02.",
+        "moduleId": "AGRI-SUGAR-02",
+        "moduleTitle": "Cane Crushing Mill and Boiling House",
         "suggestedNode": null,
-        "prototypeId": "IND-IRON-03-item-apparatus",
-        "nodeId": "BG-SC-01",
+        "prototypeId": "AGRI-SUGAR-02-item-apparatus",
+        "nodeId": "BG-SC-13",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4ip7li-a",
-        "name": "Metal: Forged Iron",
+        "id": "item-mw2x2ad1-8",
+        "name": "Commodity: Cane Molasses",
         "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Metal: Forged-Iron",
-        "notes": "Supply chain material or energy export produced by IND-IRON-03 for downstream consumer nodes.",
-        "moduleId": "IND-IRON-03",
-        "moduleTitle": "Blacksmith Forge",
+        "specs": "Provides: Commodity: Cane-Molasses",
+        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+        "moduleId": "AGRI-SUGAR-02",
+        "moduleTitle": "Cane Crushing Mill and Boiling House",
         "suggestedNode": null,
-        "prototypeId": "IND-IRON-03-item-res-1",
+        "prototypeId": "AGRI-SUGAR-02-item-res-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw2x2ad6-9",
+        "name": "Food: Refined Sugar",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Food: Refined-Sugar",
+        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+        "moduleId": "AGRI-SUGAR-02",
+        "moduleTitle": "Cane Crushing Mill and Boiling House",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-02-item-res-2",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw2x2adq-c",
+        "name": "Rum Distillery and Excise Harbor",
+        "category": "Infrastructural Machinery",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-03.",
+        "moduleId": "AGRI-SUGAR-03",
+        "moduleTitle": "Rum Distillery and Excise Harbor",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-03-item-apparatus",
         "nodeId": "BG-SC-01",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4it4ea-b",
+        "id": "item-mw2x2adu-d",
+        "name": "Commodity: High Proof Rum",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Commodity: High-Proof-Rum",
+        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-03 for downstream consumer nodes.",
+        "moduleId": "AGRI-SUGAR-03",
+        "moduleTitle": "Rum Distillery and Excise Harbor",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-03-item-res-1",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-882118",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
         "name": "Hardwood Logging Camp",
         "category": "Tabletop Asset / Relic",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01.",
-        "moduleId": "EXT-TIMBER-01",
-        "moduleTitle": "Hardwood Logging Camp",
-        "suggestedNode": null,
-        "prototypeId": "EXT-TIMBER-01-item-apparatus",
-        "nodeId": "BG-SC-13",
-        "status": "Active",
-        "isCustom": false
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
       },
       {
-        "id": "item-mw4it4em-c",
+        "id": "item-885321",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
+        "name": "Hardwood Logging Camp",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+      },
+      {
+        "id": "item-887088",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
+        "name": "Hardwood Logging Camp",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+      },
+      {
+        "id": "item-904673",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
+        "name": "Hardwood Logging Camp",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+      },
+      {
+        "id": "item-905144",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
         "name": "Timber: Hardwood Logs",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Timber: Hardwood-Logs",
-        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
-        "moduleId": "EXT-TIMBER-01",
-        "moduleTitle": "Hardwood Logging Camp",
-        "suggestedNode": null,
-        "prototypeId": "EXT-TIMBER-01-item-res-1",
-        "nodeId": "BG-SC-13",
-        "status": "Active",
-        "isCustom": false
+        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
       },
       {
-        "id": "item-mw4it4ex-d",
+        "id": "item-905623",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
         "name": "Fuel: Wood Fuel",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Fuel: Wood-Fuel",
-        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
-        "moduleId": "EXT-TIMBER-01",
-        "moduleTitle": "Hardwood Logging Camp",
+        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
+      },
+      {
+        "id": "item-mw2xlgp7-1",
+        "name": "Boreal Conifer Logging",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-PINE-01.",
+        "moduleId": "EXT-PINE-01",
+        "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
         "suggestedNode": null,
-        "prototypeId": "EXT-TIMBER-01-item-res-2",
+        "prototypeId": "EXT-PINE-01-item-apparatus",
         "nodeId": "BG-SC-13",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4it4f8-e",
-        "name": "Water-Powered Sawmill",
+        "id": "item-mw2xlgpf-2",
+        "name": "Timber: Mast Spars",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Timber: Mast-Spars",
+        "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+        "moduleId": "EXT-PINE-01",
+        "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
+        "suggestedNode": null,
+        "prototypeId": "EXT-PINE-01-item-res-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw2xlgpj-3",
+        "name": "Resin: Raw Pine Resin",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Resin: Raw-Pine-Resin",
+        "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+        "moduleId": "EXT-PINE-01",
+        "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
+        "suggestedNode": null,
+        "prototypeId": "EXT-PINE-01-item-res-2",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw2xlgpp-4",
+        "name": "Tar Kiln",
         "category": "Tabletop Asset / Relic",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-02.",
-        "moduleId": "IND-TIMBER-02",
-        "moduleTitle": "Water-Powered Sawmill",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-PINE-02.",
+        "moduleId": "IND-PINE-02",
+        "moduleTitle": "Tar Kiln & Pitch Boilery",
         "suggestedNode": null,
-        "prototypeId": "IND-TIMBER-02-item-apparatus",
+        "prototypeId": "IND-PINE-02-item-apparatus",
         "nodeId": "BG-SC-01",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4it4fn-f",
-        "name": "Timber: Sawn Lumber",
+        "id": "item-mw2xlgpt-5",
+        "name": "Chem: Pine Pitch",
         "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Timber: Sawn-Lumber",
-        "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
-        "moduleId": "IND-TIMBER-02",
-        "moduleTitle": "Water-Powered Sawmill",
+        "specs": "Provides: Chem: Pine-Pitch",
+        "notes": "Supply chain material or energy export produced by IND-PINE-02 for downstream consumer nodes.",
+        "moduleId": "IND-PINE-02",
+        "moduleTitle": "Tar Kiln & Pitch Boilery",
         "suggestedNode": null,
-        "prototypeId": "IND-TIMBER-02-item-res-1",
+        "prototypeId": "IND-PINE-02-item-res-1",
         "nodeId": "BG-SC-01",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "item-mw4it4fw-g",
-        "name": "Timber: Mine Props",
-        "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Timber: Mine-Props",
-        "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
-        "moduleId": "IND-TIMBER-02",
-        "moduleTitle": "Water-Powered Sawmill",
-        "suggestedNode": null,
-        "prototypeId": "IND-TIMBER-02-item-res-2",
-        "nodeId": "BG-SC-01",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "item-mw4it4gc-h",
-        "name": "Master Cooperage",
-        "category": "Tabletop Asset / Relic",
-        "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-03.",
-        "moduleId": "IND-TIMBER-03",
-        "moduleTitle": "Master Cooperage",
-        "suggestedNode": null,
-        "prototypeId": "IND-TIMBER-03-item-apparatus",
-        "nodeId": "BG-SC-03",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "item-mw4it4gp-i",
-        "name": "Timber: Cooperage Casks",
-        "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Timber: Cooperage-Casks",
-        "notes": "Supply chain material or energy export produced by IND-TIMBER-03 for downstream consumer nodes.",
-        "moduleId": "IND-TIMBER-03",
-        "moduleTitle": "Master Cooperage",
-        "suggestedNode": null,
-        "prototypeId": "IND-TIMBER-03-item-res-1",
-        "nodeId": "BG-SC-03",
         "status": "Active",
         "isCustom": false
       }
@@ -7684,54 +7664,19 @@
       }
     ],
     "edgeData": {
-      "1-BG-SC-14": {
-        "conduitType": "Caravan Trade Route",
-        "dedicatedFlows": [
-          {
-            "tag": "Ore: Raw-Iron-Ore",
-            "sourceModuleId": "MINE-IRON-01"
-          }
-        ]
-      },
-      "BG-SC-14-bind": {
-        "conduitType": "Caravan Trade Route",
-        "dedicatedFlows": [
-          {
-            "tag": "Ore: Raw-Iron-Ore",
-            "sourceModuleId": "MINE-IRON-01"
-          }
-        ]
-      },
-      "BG-SC-13-BG-SC-14": {
-        "conduitType": "Caravan Trade Route",
-        "dedicatedFlows": [
-          {
-            "tag": "Ore: Raw-Iron-Ore",
-            "sourceModuleId": "MINE-IRON-01"
-          }
-        ]
-      },
       "BG-SC-01-BG-SC-13": {
         "conduitType": "Caravan Trade Route",
         "dedicatedFlows": [
           {
-            "tag": "Metal: Pig-Iron",
-            "sourceModuleId": "MINE-IRON-02"
-          },
-          {
-            "tag": "Timber: Hardwood-Logs",
-            "sourceModuleId": "EXT-TIMBER-01"
+            "tag": "Commodity: Cane-Molasses",
+            "sourceModuleId": "AGRI-SUGAR-02"
           }
-        ]
-      },
-      "BG-SC-01-BG-SC-03": {
-        "conduitType": "Caravan Trade Route",
-        "dedicatedFlows": [
-          {
-            "tag": "Timber: Sawn-Lumber",
-            "sourceModuleId": "IND-TIMBER-02"
+        ],
+        "modData": {
+          "pre_industrial_resources": {
+            "inTransit": []
           }
-        ]
+        }
       }
     },
     "edgeNotes": {},
@@ -7907,7 +7852,11 @@
     ],
     "scaleTier": "region",
     "spatialPins": [],
-    "modData": {},
+    "modData": {
+      "pre_industrial_resources": {
+        "dfSimEnabled": false
+      }
+    },
     "appliedBatchIds": [],
     "changelog": [],
     "description": "The complete Baldur's Gate 1 campaign ported to Creator Studio. Features an 18-node regional Sword Coast pointcrawl and 9 scale-fluid submaps spanning Candlekeep, Friendly Arm, Beregost, Tazok's Bandit Camp, Cloakwood Mines, Baldur's Gate City, the Undercity, and Durlag's Tower.",
@@ -8068,54 +8017,19 @@
     ]
   },
   "edgeData": {
-    "1-BG-SC-14": {
-      "conduitType": "Caravan Trade Route",
-      "dedicatedFlows": [
-        {
-          "tag": "Ore: Raw-Iron-Ore",
-          "sourceModuleId": "MINE-IRON-01"
-        }
-      ]
-    },
-    "BG-SC-14-bind": {
-      "conduitType": "Caravan Trade Route",
-      "dedicatedFlows": [
-        {
-          "tag": "Ore: Raw-Iron-Ore",
-          "sourceModuleId": "MINE-IRON-01"
-        }
-      ]
-    },
-    "BG-SC-13-BG-SC-14": {
-      "conduitType": "Caravan Trade Route",
-      "dedicatedFlows": [
-        {
-          "tag": "Ore: Raw-Iron-Ore",
-          "sourceModuleId": "MINE-IRON-01"
-        }
-      ]
-    },
     "BG-SC-01-BG-SC-13": {
       "conduitType": "Caravan Trade Route",
       "dedicatedFlows": [
         {
-          "tag": "Metal: Pig-Iron",
-          "sourceModuleId": "MINE-IRON-02"
-        },
-        {
-          "tag": "Timber: Hardwood-Logs",
-          "sourceModuleId": "EXT-TIMBER-01"
+          "tag": "Commodity: Cane-Molasses",
+          "sourceModuleId": "AGRI-SUGAR-02"
         }
-      ]
-    },
-    "BG-SC-01-BG-SC-03": {
-      "conduitType": "Caravan Trade Route",
-      "dedicatedFlows": [
-        {
-          "tag": "Timber: Sawn-Lumber",
-          "sourceModuleId": "IND-TIMBER-02"
+      ],
+      "modData": {
+        "pre_industrial_resources": {
+          "inTransit": []
         }
-      ]
+      }
     }
   },
   "edgeNotes": {},
@@ -8136,8 +8050,7 @@
       "eligible": true,
       "hubEligibility": "candidate",
       "adj": [
-        "BG-SC-13",
-        "BG-SC-03"
+        "BG-SC-13"
       ],
       "infBy": [],
       "childMapId": "map_bg1_candlekeep",
@@ -8146,17 +8059,17 @@
       "visible": true,
       "color": null,
       "modules": [
-        "IND-IRON-03",
-        "IND-TIMBER-02"
+        "AGRI-SUGAR-03",
+        "IND-PINE-02"
       ],
       "provides": [],
       "requires": [],
       "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
+      "odv": {
+        "s": 2,
+        "e": 2,
+        "c": 2
+      },
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
@@ -8211,18 +8124,14 @@
       "shape": "pentagon",
       "eligible": true,
       "hubEligibility": "candidate",
-      "adj": [
-        "BG-SC-01"
-      ],
+      "adj": [],
       "infBy": [],
       "childMapId": "map_bg1_friendly_arm",
       "customNotes": "A fortified walled citadel built around an ancient stone keep by the gnome illusionist Bentley Mirrorshade. Banners of Garl Glittergold flutter above stone ramparts that offer sanctuary to beleaguered trade caravans.",
       "locked": true,
       "visible": true,
       "color": null,
-      "modules": [
-        "IND-TIMBER-03"
-      ],
+      "modules": [],
       "provides": [],
       "requires": [],
       "modData": {},
@@ -8296,11 +8205,11 @@
       "provides": [],
       "requires": [],
       "modData": {},
-      "odv": {
-        "s": 2,
-        "e": 2,
-        "c": 2
-      },
+      "odv": [
+        2,
+        2,
+        2
+      ],
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
@@ -8566,7 +8475,6 @@
       "eligible": true,
       "hubEligibility": "candidate",
       "adj": [
-        "BG-SC-14",
         "BG-SC-01"
       ],
       "infBy": [],
@@ -8576,17 +8484,25 @@
       "visible": true,
       "color": null,
       "modules": [
-        "MINE-IRON-02",
-        "EXT-TIMBER-01"
+        "AGRI-SUGAR-01",
+        "AGRI-SUGAR-02",
+        "EXT-PINE-01"
       ],
       "provides": [],
       "requires": [],
-      "modData": {},
-      "odv": [
-        2,
-        2,
-        2
-      ],
+      "modData": {
+        "pre_industrial_resources": {
+          "inputHopper": {},
+          "outputBin": {},
+          "stockpile": {},
+          "backpressureHalt": false
+        }
+      },
+      "odv": {
+        "s": 2,
+        "e": 2,
+        "c": 2
+      },
       "odvOverridden": false,
       "faction": "neutral",
       "layerId": "layer-nodes"
@@ -8606,19 +8522,14 @@
       "shape": "triangle",
       "eligible": true,
       "hubEligibility": "candidate",
-      "adj": [
-        "bind",
-        "BG-SC-13"
-      ],
+      "adj": [],
       "infBy": [],
       "childMapId": "map_bg1_cloakwood_mines",
       "customNotes": "A fortified quarry and subterranean smelter operated by Iron Throne slave drivers and guarded by black-glass wards, overseen by the ruthless battle-mage Davaeorn.",
       "locked": true,
       "visible": true,
       "color": null,
-      "modules": [
-        "MINE-IRON-01"
-      ],
+      "modules": [],
       "provides": [],
       "requires": [],
       "modData": {},
@@ -8776,24 +8687,6 @@
     {
       "from": "BG-SC-01",
       "to": "BG-SC-13",
-      "type": "twoway",
-      "layer": "transit"
-    },
-    {
-      "from": "BG-SC-01",
-      "to": "BG-SC-03",
-      "type": "twoway",
-      "layer": "transit"
-    },
-    {
-      "from": "BG-SC-13",
-      "to": "BG-SC-14",
-      "type": "twoway",
-      "layer": "transit"
-    },
-    {
-      "from": "BG-SC-14",
-      "to": "bind",
       "type": "twoway",
       "layer": "transit"
     }
@@ -10109,58 +10002,86 @@
         "relationships": []
       },
       {
-        "id": "npc-mw4ip7jd-1",
-        "name": "Bera Iron-Grip",
-        "role": "Pit Shoring Carpenter & Sump Tender",
-        "faction": "Hierarchy / Clan",
-        "motivation": "Keep timber props braced against the creeping south fault line.",
-        "moduleId": "MINE-IRON-01",
-        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "id": "npc-mw2x2abt-1",
+        "name": "Jarek Horn",
+        "role": "Cutter Foreman & Labor Advocate",
+        "faction": "Clan / Hierarchy",
+        "motivation": "Secure quinine rations and wage advances for the ditch-clearing crews.",
+        "moduleId": "AGRI-SUGAR-01",
+        "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
-        "prototypeId": "MINE-IRON-01-npc-2",
-        "nodeId": "BG-SC-14",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "npc-mw4ip7jl-2",
-        "name": "Foreman Grim Torvald",
-        "role": "Chief Mine Quarryman",
-        "faction": "Hierarchy / Clan",
-        "motivation": "Drive extraction quotas to earn his crew",
-        "moduleId": "MINE-IRON-01",
-        "moduleTitle": "Open-Cast Iron Ore Pit",
-        "suggestedNode": null,
-        "prototypeId": "MINE-IRON-01-npc-1",
-        "nodeId": "BG-SC-14",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "npc-mw4ip7kb-5",
-        "name": "Sela the Tapper",
-        "role": "Taphole Chisel Specialist",
-        "faction": "Hierarchy / Market",
-        "motivation": "Survive the deadly white-hot slag run and secure safe casting molds for iron shot.",
-        "moduleId": "MINE-IRON-02",
-        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
-        "suggestedNode": null,
-        "prototypeId": "MINE-IRON-02-npc-2",
+        "prototypeId": "AGRI-SUGAR-01-npc-2",
         "nodeId": "BG-SC-13",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "npc-mw4ip7ki-6",
-        "name": "Master Smelter Kaelen",
-        "role": "Chief Blast Master",
-        "faction": "Hierarchy / Market",
-        "motivation": "Keep the furnace tapped on schedule to prevent the molten salamander from freezing solid.",
-        "moduleId": "MINE-IRON-02",
-        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "id": "npc-mw2x2ac1-2",
+        "name": "Thaddeus Varen",
+        "role": "Field Overseer & Cane Steward",
+        "faction": "Clan / Hierarchy",
+        "motivation": "Enforce strict harvest quotas before tropical monsoon season rots the stalks.",
+        "moduleId": "AGRI-SUGAR-01",
+        "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
-        "prototypeId": "MINE-IRON-02-npc-1",
+        "prototypeId": "AGRI-SUGAR-01-npc-1",
         "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw2x2acj-5",
+        "name": "Tobias Pike",
+        "role": "Millwright & Steam Engineer",
+        "faction": "Market / Hierarchy",
+        "motivation": "Keep the bronze roller bearings packed with beef tallow to avoid catastrophic seizures.",
+        "moduleId": "AGRI-SUGAR-02",
+        "moduleTitle": "Cane Crushing Mill and Boiling House",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-02-npc-2",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw2x2aco-6",
+        "name": "Kasia Vorn",
+        "role": "Master Sugar Boiler & Still-Watcher",
+        "faction": "Market / Hierarchy",
+        "motivation": "Perfect the crystalline strike point and prevent sugar masters from shorting her share.",
+        "moduleId": "AGRI-SUGAR-02",
+        "moduleTitle": "Cane Crushing Mill and Boiling House",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-02-npc-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw2x2ada-a",
+        "name": "Magistrate Hector Finch",
+        "role": "Senior Imperial Excise Collector",
+        "faction": "Market / Adhocracy",
+        "motivation": "Stamp every barrel with sovereign tax seals and confiscate contraband manifests.",
+        "moduleId": "AGRI-SUGAR-03",
+        "moduleTitle": "Rum Distillery and Excise Harbor",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-03-npc-2",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "npc-mw2x2adi-b",
+        "name": "Captain Orlaith Vance",
+        "role": "Smuggler & Independent Privateer",
+        "faction": "Market / Adhocracy",
+        "motivation": "Evade customs cutter patrols and ferry untaxed spirit casks to distant insurgent cells.",
+        "moduleId": "AGRI-SUGAR-03",
+        "moduleTitle": "Rum Distillery and Excise Harbor",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-03-npc-1",
+        "nodeId": "BG-SC-01",
         "status": "Active",
         "isCustom": false
       }
@@ -10646,198 +10567,236 @@
         "status": "Active"
       },
       {
-        "id": "item-mw4ip7jt-3",
-        "name": "Open-Cast Iron Ore Pit",
+        "id": "item-mw2x2ac9-3",
+        "name": "Sugarcane Plantation and Harvest Fields",
         "category": "Infrastructural Machinery",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-01.",
-        "moduleId": "MINE-IRON-01",
-        "moduleTitle": "Open-Cast Iron Ore Pit",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-01.",
+        "moduleId": "AGRI-SUGAR-01",
+        "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
-        "prototypeId": "MINE-IRON-01-item-apparatus",
-        "nodeId": "BG-SC-14",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "item-mw4ip7k3-4",
-        "name": "Ore: Raw Iron Ore",
-        "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Ore: Raw-Iron-Ore",
-        "notes": "Supply chain material or energy export produced by MINE-IRON-01 for downstream consumer nodes.",
-        "moduleId": "MINE-IRON-01",
-        "moduleTitle": "Open-Cast Iron Ore Pit",
-        "suggestedNode": null,
-        "prototypeId": "MINE-IRON-01-item-res-1",
-        "nodeId": "BG-SC-14",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "item-mw4ip7kq-7",
-        "name": "Charcoal Bloomery and Blast Furnace",
-        "category": "Infrastructural Machinery",
-        "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-02.",
-        "moduleId": "MINE-IRON-02",
-        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
-        "suggestedNode": null,
-        "prototypeId": "MINE-IRON-02-item-apparatus",
+        "prototypeId": "AGRI-SUGAR-01-item-apparatus",
         "nodeId": "BG-SC-13",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4ip7kz-8",
-        "name": "Metal: Pig Iron",
+        "id": "item-mw2x2ace-4",
+        "name": "Crop: Raw Sugarcane",
         "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Metal: Pig-Iron",
-        "notes": "Supply chain material or energy export produced by MINE-IRON-02 for downstream consumer nodes.",
-        "moduleId": "MINE-IRON-02",
-        "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+        "specs": "Provides: Crop: Raw-Sugarcane",
+        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-01 for downstream consumer nodes.",
+        "moduleId": "AGRI-SUGAR-01",
+        "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
-        "prototypeId": "MINE-IRON-02-item-res-1",
+        "prototypeId": "AGRI-SUGAR-01-item-res-1",
         "nodeId": "BG-SC-13",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4ip7l9-9",
-        "name": "Blacksmith Forge",
-        "category": "Tabletop Asset / Relic",
+        "id": "item-mw2x2acw-7",
+        "name": "Cane Crushing Mill and Boiling House",
+        "category": "Infrastructural Machinery",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-IRON-03.",
-        "moduleId": "IND-IRON-03",
-        "moduleTitle": "Blacksmith Forge",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-02.",
+        "moduleId": "AGRI-SUGAR-02",
+        "moduleTitle": "Cane Crushing Mill and Boiling House",
         "suggestedNode": null,
-        "prototypeId": "IND-IRON-03-item-apparatus",
-        "nodeId": "BG-SC-01",
+        "prototypeId": "AGRI-SUGAR-02-item-apparatus",
+        "nodeId": "BG-SC-13",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4ip7li-a",
-        "name": "Metal: Forged Iron",
+        "id": "item-mw2x2ad1-8",
+        "name": "Commodity: Cane Molasses",
         "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Metal: Forged-Iron",
-        "notes": "Supply chain material or energy export produced by IND-IRON-03 for downstream consumer nodes.",
-        "moduleId": "IND-IRON-03",
-        "moduleTitle": "Blacksmith Forge",
+        "specs": "Provides: Commodity: Cane-Molasses",
+        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+        "moduleId": "AGRI-SUGAR-02",
+        "moduleTitle": "Cane Crushing Mill and Boiling House",
         "suggestedNode": null,
-        "prototypeId": "IND-IRON-03-item-res-1",
+        "prototypeId": "AGRI-SUGAR-02-item-res-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw2x2ad6-9",
+        "name": "Food: Refined Sugar",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Food: Refined-Sugar",
+        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+        "moduleId": "AGRI-SUGAR-02",
+        "moduleTitle": "Cane Crushing Mill and Boiling House",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-02-item-res-2",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw2x2adq-c",
+        "name": "Rum Distillery and Excise Harbor",
+        "category": "Infrastructural Machinery",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-03.",
+        "moduleId": "AGRI-SUGAR-03",
+        "moduleTitle": "Rum Distillery and Excise Harbor",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-03-item-apparatus",
         "nodeId": "BG-SC-01",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4it4ea-b",
+        "id": "item-mw2x2adu-d",
+        "name": "Commodity: High Proof Rum",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Commodity: High-Proof-Rum",
+        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-03 for downstream consumer nodes.",
+        "moduleId": "AGRI-SUGAR-03",
+        "moduleTitle": "Rum Distillery and Excise Harbor",
+        "suggestedNode": null,
+        "prototypeId": "AGRI-SUGAR-03-item-res-1",
+        "nodeId": "BG-SC-01",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-882118",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
         "name": "Hardwood Logging Camp",
         "category": "Tabletop Asset / Relic",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01.",
-        "moduleId": "EXT-TIMBER-01",
-        "moduleTitle": "Hardwood Logging Camp",
-        "suggestedNode": null,
-        "prototypeId": "EXT-TIMBER-01-item-apparatus",
-        "nodeId": "BG-SC-13",
-        "status": "Active",
-        "isCustom": false
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
       },
       {
-        "id": "item-mw4it4em-c",
+        "id": "item-885321",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
+        "name": "Hardwood Logging Camp",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+      },
+      {
+        "id": "item-887088",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
+        "name": "Hardwood Logging Camp",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+      },
+      {
+        "id": "item-904673",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
+        "name": "Hardwood Logging Camp",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+      },
+      {
+        "id": "item-905144",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
         "name": "Timber: Hardwood Logs",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Timber: Hardwood-Logs",
-        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
-        "moduleId": "EXT-TIMBER-01",
-        "moduleTitle": "Hardwood Logging Camp",
-        "suggestedNode": null,
-        "prototypeId": "EXT-TIMBER-01-item-res-1",
-        "nodeId": "BG-SC-13",
-        "status": "Active",
-        "isCustom": false
+        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
       },
       {
-        "id": "item-mw4it4ex-d",
+        "id": "item-905623",
+        "nodeId": null,
+        "moduleId": "EXT-TIMBER-01",
+        "isCustom": false,
+        "status": "Active",
         "name": "Fuel: Wood Fuel",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Fuel: Wood-Fuel",
-        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
-        "moduleId": "EXT-TIMBER-01",
-        "moduleTitle": "Hardwood Logging Camp",
+        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
+      },
+      {
+        "id": "item-mw2xlgp7-1",
+        "name": "Boreal Conifer Logging",
+        "category": "Tabletop Asset / Relic",
+        "specs": "Infrastructural Resource Output",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-PINE-01.",
+        "moduleId": "EXT-PINE-01",
+        "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
         "suggestedNode": null,
-        "prototypeId": "EXT-TIMBER-01-item-res-2",
+        "prototypeId": "EXT-PINE-01-item-apparatus",
         "nodeId": "BG-SC-13",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4it4f8-e",
-        "name": "Water-Powered Sawmill",
+        "id": "item-mw2xlgpf-2",
+        "name": "Timber: Mast Spars",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Timber: Mast-Spars",
+        "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+        "moduleId": "EXT-PINE-01",
+        "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
+        "suggestedNode": null,
+        "prototypeId": "EXT-PINE-01-item-res-1",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw2xlgpj-3",
+        "name": "Resin: Raw Pine Resin",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Resin: Raw-Pine-Resin",
+        "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+        "moduleId": "EXT-PINE-01",
+        "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
+        "suggestedNode": null,
+        "prototypeId": "EXT-PINE-01-item-res-2",
+        "nodeId": "BG-SC-13",
+        "status": "Active",
+        "isCustom": false
+      },
+      {
+        "id": "item-mw2xlgpp-4",
+        "name": "Tar Kiln",
         "category": "Tabletop Asset / Relic",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-02.",
-        "moduleId": "IND-TIMBER-02",
-        "moduleTitle": "Water-Powered Sawmill",
+        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-PINE-02.",
+        "moduleId": "IND-PINE-02",
+        "moduleTitle": "Tar Kiln & Pitch Boilery",
         "suggestedNode": null,
-        "prototypeId": "IND-TIMBER-02-item-apparatus",
+        "prototypeId": "IND-PINE-02-item-apparatus",
         "nodeId": "BG-SC-01",
         "status": "Active",
         "isCustom": false
       },
       {
-        "id": "item-mw4it4fn-f",
-        "name": "Timber: Sawn Lumber",
+        "id": "item-mw2xlgpt-5",
+        "name": "Chem: Pine Pitch",
         "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Timber: Sawn-Lumber",
-        "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
-        "moduleId": "IND-TIMBER-02",
-        "moduleTitle": "Water-Powered Sawmill",
+        "specs": "Provides: Chem: Pine-Pitch",
+        "notes": "Supply chain material or energy export produced by IND-PINE-02 for downstream consumer nodes.",
+        "moduleId": "IND-PINE-02",
+        "moduleTitle": "Tar Kiln & Pitch Boilery",
         "suggestedNode": null,
-        "prototypeId": "IND-TIMBER-02-item-res-1",
+        "prototypeId": "IND-PINE-02-item-res-1",
         "nodeId": "BG-SC-01",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "item-mw4it4fw-g",
-        "name": "Timber: Mine Props",
-        "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Timber: Mine-Props",
-        "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
-        "moduleId": "IND-TIMBER-02",
-        "moduleTitle": "Water-Powered Sawmill",
-        "suggestedNode": null,
-        "prototypeId": "IND-TIMBER-02-item-res-2",
-        "nodeId": "BG-SC-01",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "item-mw4it4gc-h",
-        "name": "Master Cooperage",
-        "category": "Tabletop Asset / Relic",
-        "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-03.",
-        "moduleId": "IND-TIMBER-03",
-        "moduleTitle": "Master Cooperage",
-        "suggestedNode": null,
-        "prototypeId": "IND-TIMBER-03-item-apparatus",
-        "nodeId": "BG-SC-03",
-        "status": "Active",
-        "isCustom": false
-      },
-      {
-        "id": "item-mw4it4gp-i",
-        "name": "Timber: Cooperage Casks",
-        "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Timber: Cooperage-Casks",
-        "notes": "Supply chain material or energy export produced by IND-TIMBER-03 for downstream consumer nodes.",
-        "moduleId": "IND-TIMBER-03",
-        "moduleTitle": "Master Cooperage",
-        "suggestedNode": null,
-        "prototypeId": "IND-TIMBER-03-item-res-1",
-        "nodeId": "BG-SC-03",
         "status": "Active",
         "isCustom": false
       }
@@ -12440,58 +12399,86 @@
       "relationships": []
     },
     {
-      "id": "npc-mw4ip7jd-1",
-      "name": "Bera Iron-Grip",
-      "role": "Pit Shoring Carpenter & Sump Tender",
-      "faction": "Hierarchy / Clan",
-      "motivation": "Keep timber props braced against the creeping south fault line.",
-      "moduleId": "MINE-IRON-01",
-      "moduleTitle": "Open-Cast Iron Ore Pit",
+      "id": "npc-mw2x2abt-1",
+      "name": "Jarek Horn",
+      "role": "Cutter Foreman & Labor Advocate",
+      "faction": "Clan / Hierarchy",
+      "motivation": "Secure quinine rations and wage advances for the ditch-clearing crews.",
+      "moduleId": "AGRI-SUGAR-01",
+      "moduleTitle": "Sugarcane Plantation and Harvest Fields",
       "suggestedNode": null,
-      "prototypeId": "MINE-IRON-01-npc-2",
-      "nodeId": "BG-SC-14",
-      "status": "Active",
-      "isCustom": false
-    },
-    {
-      "id": "npc-mw4ip7jl-2",
-      "name": "Foreman Grim Torvald",
-      "role": "Chief Mine Quarryman",
-      "faction": "Hierarchy / Clan",
-      "motivation": "Drive extraction quotas to earn his crew",
-      "moduleId": "MINE-IRON-01",
-      "moduleTitle": "Open-Cast Iron Ore Pit",
-      "suggestedNode": null,
-      "prototypeId": "MINE-IRON-01-npc-1",
-      "nodeId": "BG-SC-14",
-      "status": "Active",
-      "isCustom": false
-    },
-    {
-      "id": "npc-mw4ip7kb-5",
-      "name": "Sela the Tapper",
-      "role": "Taphole Chisel Specialist",
-      "faction": "Hierarchy / Market",
-      "motivation": "Survive the deadly white-hot slag run and secure safe casting molds for iron shot.",
-      "moduleId": "MINE-IRON-02",
-      "moduleTitle": "Charcoal Bloomery and Blast Furnace",
-      "suggestedNode": null,
-      "prototypeId": "MINE-IRON-02-npc-2",
+      "prototypeId": "AGRI-SUGAR-01-npc-2",
       "nodeId": "BG-SC-13",
       "status": "Active",
       "isCustom": false
     },
     {
-      "id": "npc-mw4ip7ki-6",
-      "name": "Master Smelter Kaelen",
-      "role": "Chief Blast Master",
-      "faction": "Hierarchy / Market",
-      "motivation": "Keep the furnace tapped on schedule to prevent the molten salamander from freezing solid.",
-      "moduleId": "MINE-IRON-02",
-      "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+      "id": "npc-mw2x2ac1-2",
+      "name": "Thaddeus Varen",
+      "role": "Field Overseer & Cane Steward",
+      "faction": "Clan / Hierarchy",
+      "motivation": "Enforce strict harvest quotas before tropical monsoon season rots the stalks.",
+      "moduleId": "AGRI-SUGAR-01",
+      "moduleTitle": "Sugarcane Plantation and Harvest Fields",
       "suggestedNode": null,
-      "prototypeId": "MINE-IRON-02-npc-1",
+      "prototypeId": "AGRI-SUGAR-01-npc-1",
       "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "npc-mw2x2acj-5",
+      "name": "Tobias Pike",
+      "role": "Millwright & Steam Engineer",
+      "faction": "Market / Hierarchy",
+      "motivation": "Keep the bronze roller bearings packed with beef tallow to avoid catastrophic seizures.",
+      "moduleId": "AGRI-SUGAR-02",
+      "moduleTitle": "Cane Crushing Mill and Boiling House",
+      "suggestedNode": null,
+      "prototypeId": "AGRI-SUGAR-02-npc-2",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "npc-mw2x2aco-6",
+      "name": "Kasia Vorn",
+      "role": "Master Sugar Boiler & Still-Watcher",
+      "faction": "Market / Hierarchy",
+      "motivation": "Perfect the crystalline strike point and prevent sugar masters from shorting her share.",
+      "moduleId": "AGRI-SUGAR-02",
+      "moduleTitle": "Cane Crushing Mill and Boiling House",
+      "suggestedNode": null,
+      "prototypeId": "AGRI-SUGAR-02-npc-1",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "npc-mw2x2ada-a",
+      "name": "Magistrate Hector Finch",
+      "role": "Senior Imperial Excise Collector",
+      "faction": "Market / Adhocracy",
+      "motivation": "Stamp every barrel with sovereign tax seals and confiscate contraband manifests.",
+      "moduleId": "AGRI-SUGAR-03",
+      "moduleTitle": "Rum Distillery and Excise Harbor",
+      "suggestedNode": null,
+      "prototypeId": "AGRI-SUGAR-03-npc-2",
+      "nodeId": "BG-SC-01",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "npc-mw2x2adi-b",
+      "name": "Captain Orlaith Vance",
+      "role": "Smuggler & Independent Privateer",
+      "faction": "Market / Adhocracy",
+      "motivation": "Evade customs cutter patrols and ferry untaxed spirit casks to distant insurgent cells.",
+      "moduleId": "AGRI-SUGAR-03",
+      "moduleTitle": "Rum Distillery and Excise Harbor",
+      "suggestedNode": null,
+      "prototypeId": "AGRI-SUGAR-03-npc-1",
+      "nodeId": "BG-SC-01",
       "status": "Active",
       "isCustom": false
     }
@@ -12977,198 +12964,236 @@
       "status": "Active"
     },
     {
-      "id": "item-mw4ip7jt-3",
-      "name": "Open-Cast Iron Ore Pit",
+      "id": "item-mw2x2ac9-3",
+      "name": "Sugarcane Plantation and Harvest Fields",
       "category": "Infrastructural Machinery",
       "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-01.",
-      "moduleId": "MINE-IRON-01",
-      "moduleTitle": "Open-Cast Iron Ore Pit",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-01.",
+      "moduleId": "AGRI-SUGAR-01",
+      "moduleTitle": "Sugarcane Plantation and Harvest Fields",
       "suggestedNode": null,
-      "prototypeId": "MINE-IRON-01-item-apparatus",
-      "nodeId": "BG-SC-14",
-      "status": "Active",
-      "isCustom": false
-    },
-    {
-      "id": "item-mw4ip7k3-4",
-      "name": "Ore: Raw Iron Ore",
-      "category": "Resource Export / Supply Anchor",
-      "specs": "Provides: Ore: Raw-Iron-Ore",
-      "notes": "Supply chain material or energy export produced by MINE-IRON-01 for downstream consumer nodes.",
-      "moduleId": "MINE-IRON-01",
-      "moduleTitle": "Open-Cast Iron Ore Pit",
-      "suggestedNode": null,
-      "prototypeId": "MINE-IRON-01-item-res-1",
-      "nodeId": "BG-SC-14",
-      "status": "Active",
-      "isCustom": false
-    },
-    {
-      "id": "item-mw4ip7kq-7",
-      "name": "Charcoal Bloomery and Blast Furnace",
-      "category": "Infrastructural Machinery",
-      "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by MINE-IRON-02.",
-      "moduleId": "MINE-IRON-02",
-      "moduleTitle": "Charcoal Bloomery and Blast Furnace",
-      "suggestedNode": null,
-      "prototypeId": "MINE-IRON-02-item-apparatus",
+      "prototypeId": "AGRI-SUGAR-01-item-apparatus",
       "nodeId": "BG-SC-13",
       "status": "Active",
       "isCustom": false
     },
     {
-      "id": "item-mw4ip7kz-8",
-      "name": "Metal: Pig Iron",
+      "id": "item-mw2x2ace-4",
+      "name": "Crop: Raw Sugarcane",
       "category": "Resource Export / Supply Anchor",
-      "specs": "Provides: Metal: Pig-Iron",
-      "notes": "Supply chain material or energy export produced by MINE-IRON-02 for downstream consumer nodes.",
-      "moduleId": "MINE-IRON-02",
-      "moduleTitle": "Charcoal Bloomery and Blast Furnace",
+      "specs": "Provides: Crop: Raw-Sugarcane",
+      "notes": "Supply chain material or energy export produced by AGRI-SUGAR-01 for downstream consumer nodes.",
+      "moduleId": "AGRI-SUGAR-01",
+      "moduleTitle": "Sugarcane Plantation and Harvest Fields",
       "suggestedNode": null,
-      "prototypeId": "MINE-IRON-02-item-res-1",
+      "prototypeId": "AGRI-SUGAR-01-item-res-1",
       "nodeId": "BG-SC-13",
       "status": "Active",
       "isCustom": false
     },
     {
-      "id": "item-mw4ip7l9-9",
-      "name": "Blacksmith Forge",
-      "category": "Tabletop Asset / Relic",
+      "id": "item-mw2x2acw-7",
+      "name": "Cane Crushing Mill and Boiling House",
+      "category": "Infrastructural Machinery",
       "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by IND-IRON-03.",
-      "moduleId": "IND-IRON-03",
-      "moduleTitle": "Blacksmith Forge",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-02.",
+      "moduleId": "AGRI-SUGAR-02",
+      "moduleTitle": "Cane Crushing Mill and Boiling House",
       "suggestedNode": null,
-      "prototypeId": "IND-IRON-03-item-apparatus",
-      "nodeId": "BG-SC-01",
+      "prototypeId": "AGRI-SUGAR-02-item-apparatus",
+      "nodeId": "BG-SC-13",
       "status": "Active",
       "isCustom": false
     },
     {
-      "id": "item-mw4ip7li-a",
-      "name": "Metal: Forged Iron",
+      "id": "item-mw2x2ad1-8",
+      "name": "Commodity: Cane Molasses",
       "category": "Resource Export / Supply Anchor",
-      "specs": "Provides: Metal: Forged-Iron",
-      "notes": "Supply chain material or energy export produced by IND-IRON-03 for downstream consumer nodes.",
-      "moduleId": "IND-IRON-03",
-      "moduleTitle": "Blacksmith Forge",
+      "specs": "Provides: Commodity: Cane-Molasses",
+      "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+      "moduleId": "AGRI-SUGAR-02",
+      "moduleTitle": "Cane Crushing Mill and Boiling House",
       "suggestedNode": null,
-      "prototypeId": "IND-IRON-03-item-res-1",
+      "prototypeId": "AGRI-SUGAR-02-item-res-1",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw2x2ad6-9",
+      "name": "Food: Refined Sugar",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Food: Refined-Sugar",
+      "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+      "moduleId": "AGRI-SUGAR-02",
+      "moduleTitle": "Cane Crushing Mill and Boiling House",
+      "suggestedNode": null,
+      "prototypeId": "AGRI-SUGAR-02-item-res-2",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw2x2adq-c",
+      "name": "Rum Distillery and Excise Harbor",
+      "category": "Infrastructural Machinery",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-03.",
+      "moduleId": "AGRI-SUGAR-03",
+      "moduleTitle": "Rum Distillery and Excise Harbor",
+      "suggestedNode": null,
+      "prototypeId": "AGRI-SUGAR-03-item-apparatus",
       "nodeId": "BG-SC-01",
       "status": "Active",
       "isCustom": false
     },
     {
-      "id": "item-mw4it4ea-b",
+      "id": "item-mw2x2adu-d",
+      "name": "Commodity: High Proof Rum",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Commodity: High-Proof-Rum",
+      "notes": "Supply chain material or energy export produced by AGRI-SUGAR-03 for downstream consumer nodes.",
+      "moduleId": "AGRI-SUGAR-03",
+      "moduleTitle": "Rum Distillery and Excise Harbor",
+      "suggestedNode": null,
+      "prototypeId": "AGRI-SUGAR-03-item-res-1",
+      "nodeId": "BG-SC-01",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-882118",
+      "nodeId": null,
+      "moduleId": "EXT-TIMBER-01",
+      "isCustom": false,
+      "status": "Active",
       "name": "Hardwood Logging Camp",
       "category": "Tabletop Asset / Relic",
       "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01.",
-      "moduleId": "EXT-TIMBER-01",
-      "moduleTitle": "Hardwood Logging Camp",
-      "suggestedNode": null,
-      "prototypeId": "EXT-TIMBER-01-item-apparatus",
-      "nodeId": "BG-SC-13",
-      "status": "Active",
-      "isCustom": false
+      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
     },
     {
-      "id": "item-mw4it4em-c",
+      "id": "item-885321",
+      "nodeId": null,
+      "moduleId": "EXT-TIMBER-01",
+      "isCustom": false,
+      "status": "Active",
+      "name": "Hardwood Logging Camp",
+      "category": "Tabletop Asset / Relic",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+    },
+    {
+      "id": "item-887088",
+      "nodeId": null,
+      "moduleId": "EXT-TIMBER-01",
+      "isCustom": false,
+      "status": "Active",
+      "name": "Hardwood Logging Camp",
+      "category": "Tabletop Asset / Relic",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+    },
+    {
+      "id": "item-904673",
+      "nodeId": null,
+      "moduleId": "EXT-TIMBER-01",
+      "isCustom": false,
+      "status": "Active",
+      "name": "Hardwood Logging Camp",
+      "category": "Tabletop Asset / Relic",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+    },
+    {
+      "id": "item-905144",
+      "nodeId": null,
+      "moduleId": "EXT-TIMBER-01",
+      "isCustom": false,
+      "status": "Active",
       "name": "Timber: Hardwood Logs",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Timber: Hardwood-Logs",
-      "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
-      "moduleId": "EXT-TIMBER-01",
-      "moduleTitle": "Hardwood Logging Camp",
-      "suggestedNode": null,
-      "prototypeId": "EXT-TIMBER-01-item-res-1",
-      "nodeId": "BG-SC-13",
-      "status": "Active",
-      "isCustom": false
+      "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
     },
     {
-      "id": "item-mw4it4ex-d",
+      "id": "item-905623",
+      "nodeId": null,
+      "moduleId": "EXT-TIMBER-01",
+      "isCustom": false,
+      "status": "Active",
       "name": "Fuel: Wood Fuel",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Fuel: Wood-Fuel",
-      "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes.",
-      "moduleId": "EXT-TIMBER-01",
-      "moduleTitle": "Hardwood Logging Camp",
+      "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
+    },
+    {
+      "id": "item-mw2xlgp7-1",
+      "name": "Boreal Conifer Logging",
+      "category": "Tabletop Asset / Relic",
+      "specs": "Infrastructural Resource Output",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-PINE-01.",
+      "moduleId": "EXT-PINE-01",
+      "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
       "suggestedNode": null,
-      "prototypeId": "EXT-TIMBER-01-item-res-2",
+      "prototypeId": "EXT-PINE-01-item-apparatus",
       "nodeId": "BG-SC-13",
       "status": "Active",
       "isCustom": false
     },
     {
-      "id": "item-mw4it4f8-e",
-      "name": "Water-Powered Sawmill",
+      "id": "item-mw2xlgpf-2",
+      "name": "Timber: Mast Spars",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Timber: Mast-Spars",
+      "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+      "moduleId": "EXT-PINE-01",
+      "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
+      "suggestedNode": null,
+      "prototypeId": "EXT-PINE-01-item-res-1",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw2xlgpj-3",
+      "name": "Resin: Raw Pine Resin",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Resin: Raw-Pine-Resin",
+      "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+      "moduleId": "EXT-PINE-01",
+      "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
+      "suggestedNode": null,
+      "prototypeId": "EXT-PINE-01-item-res-2",
+      "nodeId": "BG-SC-13",
+      "status": "Active",
+      "isCustom": false
+    },
+    {
+      "id": "item-mw2xlgpp-4",
+      "name": "Tar Kiln",
       "category": "Tabletop Asset / Relic",
       "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-02.",
-      "moduleId": "IND-TIMBER-02",
-      "moduleTitle": "Water-Powered Sawmill",
+      "notes": "Primary technological, infrastructural, or tactical anchor established by IND-PINE-02.",
+      "moduleId": "IND-PINE-02",
+      "moduleTitle": "Tar Kiln & Pitch Boilery",
       "suggestedNode": null,
-      "prototypeId": "IND-TIMBER-02-item-apparatus",
+      "prototypeId": "IND-PINE-02-item-apparatus",
       "nodeId": "BG-SC-01",
       "status": "Active",
       "isCustom": false
     },
     {
-      "id": "item-mw4it4fn-f",
-      "name": "Timber: Sawn Lumber",
+      "id": "item-mw2xlgpt-5",
+      "name": "Chem: Pine Pitch",
       "category": "Resource Export / Supply Anchor",
-      "specs": "Provides: Timber: Sawn-Lumber",
-      "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
-      "moduleId": "IND-TIMBER-02",
-      "moduleTitle": "Water-Powered Sawmill",
+      "specs": "Provides: Chem: Pine-Pitch",
+      "notes": "Supply chain material or energy export produced by IND-PINE-02 for downstream consumer nodes.",
+      "moduleId": "IND-PINE-02",
+      "moduleTitle": "Tar Kiln & Pitch Boilery",
       "suggestedNode": null,
-      "prototypeId": "IND-TIMBER-02-item-res-1",
+      "prototypeId": "IND-PINE-02-item-res-1",
       "nodeId": "BG-SC-01",
-      "status": "Active",
-      "isCustom": false
-    },
-    {
-      "id": "item-mw4it4fw-g",
-      "name": "Timber: Mine Props",
-      "category": "Resource Export / Supply Anchor",
-      "specs": "Provides: Timber: Mine-Props",
-      "notes": "Supply chain material or energy export produced by IND-TIMBER-02 for downstream consumer nodes.",
-      "moduleId": "IND-TIMBER-02",
-      "moduleTitle": "Water-Powered Sawmill",
-      "suggestedNode": null,
-      "prototypeId": "IND-TIMBER-02-item-res-2",
-      "nodeId": "BG-SC-01",
-      "status": "Active",
-      "isCustom": false
-    },
-    {
-      "id": "item-mw4it4gc-h",
-      "name": "Master Cooperage",
-      "category": "Tabletop Asset / Relic",
-      "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by IND-TIMBER-03.",
-      "moduleId": "IND-TIMBER-03",
-      "moduleTitle": "Master Cooperage",
-      "suggestedNode": null,
-      "prototypeId": "IND-TIMBER-03-item-apparatus",
-      "nodeId": "BG-SC-03",
-      "status": "Active",
-      "isCustom": false
-    },
-    {
-      "id": "item-mw4it4gp-i",
-      "name": "Timber: Cooperage Casks",
-      "category": "Resource Export / Supply Anchor",
-      "specs": "Provides: Timber: Cooperage-Casks",
-      "notes": "Supply chain material or energy export produced by IND-TIMBER-03 for downstream consumer nodes.",
-      "moduleId": "IND-TIMBER-03",
-      "moduleTitle": "Master Cooperage",
-      "suggestedNode": null,
-      "prototypeId": "IND-TIMBER-03-item-res-1",
-      "nodeId": "BG-SC-03",
       "status": "Active",
       "isCustom": false
     }

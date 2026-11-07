@@ -19,8 +19,7 @@
       "culture": "Hierarchy",
       "shape": "pentagon",
       "adj": [
-        "BG-SC-13",
-        "BG-SC-03"
+        "BG-SC-13"
       ],
       "infBy": [],
       "hubEligibility": "candidate",
@@ -33,8 +32,8 @@
       "visible": true,
       "color": null,
       "modules": [
-        "IND-IRON-03",
-        "IND-TIMBER-02"
+        "AGRI-SUGAR-03",
+        "IND-PINE-02"
       ],
       "provides": [],
       "requires": [],
@@ -98,9 +97,7 @@
       "cat": "Standard POI",
       "culture": "Clan",
       "shape": "pentagon",
-      "adj": [
-        "BG-SC-01"
-      ],
+      "adj": [],
       "infBy": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -111,9 +108,7 @@
       "locked": true,
       "visible": true,
       "color": null,
-      "modules": [
-        "IND-TIMBER-03"
-      ],
+      "modules": [],
       "provides": [],
       "requires": [],
       "modData": {},
@@ -473,7 +468,6 @@
       "culture": "Clan",
       "shape": "circle",
       "adj": [
-        "BG-SC-14",
         "BG-SC-01"
       ],
       "infBy": [],
@@ -487,12 +481,20 @@
       "visible": true,
       "color": null,
       "modules": [
-        "MINE-IRON-02",
-        "EXT-TIMBER-01"
+        "AGRI-SUGAR-01",
+        "AGRI-SUGAR-02",
+        "EXT-PINE-01"
       ],
       "provides": [],
       "requires": [],
-      "modData": {},
+      "modData": {
+        "pre_industrial_resources": {
+          "inputHopper": {},
+          "outputBin": {},
+          "stockpile": {},
+          "backpressureHalt": false
+        }
+      },
       "odv": [
         2,
         2,
@@ -515,10 +517,7 @@
       "cat": "Standard POI",
       "culture": "Market",
       "shape": "triangle",
-      "adj": [
-        "bind",
-        "BG-SC-13"
-      ],
+      "adj": [],
       "infBy": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -529,9 +528,7 @@
       "locked": true,
       "visible": true,
       "color": null,
-      "modules": [
-        "MINE-IRON-01"
-      ],
+      "modules": [],
       "provides": [],
       "requires": [],
       "modData": {},
@@ -699,24 +696,6 @@
       "to": "BG-SC-13",
       "type": "twoway",
       "layer": "transit"
-    },
-    {
-      "from": "BG-SC-01",
-      "to": "BG-SC-03",
-      "type": "twoway",
-      "layer": "transit"
-    },
-    {
-      "from": "BG-SC-13",
-      "to": "BG-SC-14",
-      "type": "twoway",
-      "layer": "transit"
-    },
-    {
-      "from": "BG-SC-14",
-      "to": "bind",
-      "type": "twoway",
-      "layer": "transit"
     }
   ],
   "mapMetadata": {
@@ -731,26 +710,18 @@
     "y": 0,
     "lockAspect": true,
     "opacity": 0.85,
-    "timestamp": 1793735554066,
+    "timestamp": 1793844921481,
     "assetPath": "assets/map_bg1_sword_coast_bg.png"
   },
   "waves": [],
   "drawnCards": {},
   "nodeSlottedModules": {
-    "1": [
-      "MINE-IRON-02"
-    ],
-    "2": [
-      "IND-IRON-03"
-    ],
     "BG-SC-01": [
-      "IND-IRON-03",
-      "IND-TIMBER-02"
+      "AGRI-SUGAR-03",
+      "IND-PINE-02"
     ],
     "BG-SC-02": [],
-    "BG-SC-03": [
-      "IND-TIMBER-03"
-    ],
+    "BG-SC-03": [],
     "BG-SC-04": [],
     "BG-SC-05": [],
     "BG-SC-06": [],
@@ -761,21 +732,16 @@
     "BG-SC-11": [],
     "BG-SC-12": [],
     "BG-SC-13": [
-      "MINE-IRON-02",
-      "EXT-TIMBER-01"
+      "AGRI-SUGAR-01",
+      "AGRI-SUGAR-02",
+      "EXT-PINE-01"
     ],
-    "BG-SC-14": [
-      "MINE-IRON-01"
-    ],
+    "BG-SC-14": [],
     "BG-SC-15": [],
     "BG-SC-16": [],
     "BG-SC-17": [],
     "BG-SC-18": [],
-    "TS-1": [],
-    "bind": [
-      "MINE-IRON-02",
-      "IND-IRON-03"
-    ]
+    "TS-1": []
   },
   "edgeSlottedModules": {},
   "layers": [
@@ -837,58 +803,27 @@
   "shapes": [],
   "revealedNodes": {},
   "edgeData": {
-    "1-BG-SC-14": {
-      "conduitType": "Caravan Trade Route",
-      "dedicatedFlows": [
-        {
-          "tag": "Ore: Raw-Iron-Ore",
-          "sourceModuleId": "MINE-IRON-01"
-        }
-      ]
-    },
-    "BG-SC-14-bind": {
-      "conduitType": "Caravan Trade Route",
-      "dedicatedFlows": [
-        {
-          "tag": "Ore: Raw-Iron-Ore",
-          "sourceModuleId": "MINE-IRON-01"
-        }
-      ]
-    },
-    "BG-SC-13-BG-SC-14": {
-      "conduitType": "Caravan Trade Route",
-      "dedicatedFlows": [
-        {
-          "tag": "Ore: Raw-Iron-Ore",
-          "sourceModuleId": "MINE-IRON-01"
-        }
-      ]
-    },
     "BG-SC-01-BG-SC-13": {
       "conduitType": "Caravan Trade Route",
       "dedicatedFlows": [
         {
-          "tag": "Metal: Pig-Iron",
-          "sourceModuleId": "MINE-IRON-02"
-        },
-        {
-          "tag": "Timber: Hardwood-Logs",
-          "sourceModuleId": "EXT-TIMBER-01"
+          "tag": "Commodity: Cane-Molasses",
+          "sourceModuleId": "AGRI-SUGAR-02"
         }
-      ]
-    },
-    "BG-SC-01-BG-SC-03": {
-      "conduitType": "Caravan Trade Route",
-      "dedicatedFlows": [
-        {
-          "tag": "Timber: Sawn-Lumber",
-          "sourceModuleId": "IND-TIMBER-02"
+      ],
+      "modData": {
+        "pre_industrial_resources": {
+          "inTransit": []
         }
-      ]
+      }
     }
   },
   "edgeNotes": {},
-  "modData": {},
+  "modData": {
+    "pre_industrial_resources": {
+      "dfSimEnabled": false
+    }
+  },
   "custom_modules": [],
   "spatialPins": []
 }

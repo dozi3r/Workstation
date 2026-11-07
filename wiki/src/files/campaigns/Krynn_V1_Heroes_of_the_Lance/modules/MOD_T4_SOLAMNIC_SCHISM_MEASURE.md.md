@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T4_SOLAMNIC_SCHIS
 title: "MOD_T4_SOLAMNIC_SCHISM_MEASURE: The Solamnic Schism: Derek's Folly vs. Sturm's Honor"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "88d400318b4f54ad"
+current_hash: "96f1cfb0c55656c0"
 reviewed_hash: "88d400318b4f54ad"
-stale: false
-size_bytes: 3717
+stale: true
+size_bytes: 3648
 line_count: 70
 ---
 

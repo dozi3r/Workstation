@@ -3,10 +3,10 @@ file_path: "tools/krynn/lore_wiki/02_Dramatis_Personae_and_Companions/01_Heroes_
 title: "Master Dossier: The Core Eight Heroes of the Lance"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "52314853506a92e1"
+current_hash: "1bcb91353b3a2f86"
 reviewed_hash: "52314853506a92e1"
-stale: false
-size_bytes: 53454
+stale: true
+size_bytes: 53025
 line_count: 430
 ---
 

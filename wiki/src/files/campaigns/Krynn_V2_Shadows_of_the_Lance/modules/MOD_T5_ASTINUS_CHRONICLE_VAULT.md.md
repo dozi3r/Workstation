@@ -3,10 +3,10 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T5_ASTINUS_CHRON
 title: "MOD_T5_ASTINUS_CHRONICLE_VAULT: The Iconochronos of Astinus & Shoikan Grove"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "f75edbb7a705b86e"
+current_hash: "38c7fce3e9c4fe27"
 reviewed_hash: "f75edbb7a705b86e"
-stale: false
-size_bytes: 3820
+stale: true
+size_bytes: 3751
 line_count: 70
 ---
 
