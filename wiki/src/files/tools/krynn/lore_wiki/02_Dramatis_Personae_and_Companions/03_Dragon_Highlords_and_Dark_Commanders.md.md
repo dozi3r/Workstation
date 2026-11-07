@@ -4,8 +4,8 @@ title: "Master Dossier: Dragon Highlords & Dark Commanders"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "a869a9d3efd7815f"
-reviewed_hash: "ccae11cd844b5a4b"
-stale: true
+reviewed_hash: "a869a9d3efd7815f"
+stale: false
 size_bytes: 26403
 line_count: 271
 ---

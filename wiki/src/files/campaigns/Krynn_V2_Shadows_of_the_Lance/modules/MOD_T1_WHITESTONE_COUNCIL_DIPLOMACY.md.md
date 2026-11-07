@@ -4,8 +4,8 @@ title: "MOD_T1_WHITESTONE_COUNCIL_DIPLOMACY: The Whitestone Council & Measure of
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "e2c8d9f87dafd746"
-reviewed_hash: "9137cd93333694e1"
-stale: true
+reviewed_hash: "e2c8d9f87dafd746"
+stale: false
 size_bytes: 3813
 line_count: 70
 ---

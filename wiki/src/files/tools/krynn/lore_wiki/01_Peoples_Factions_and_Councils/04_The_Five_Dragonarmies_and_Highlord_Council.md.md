@@ -4,8 +4,8 @@ title: "The Five Dragonarmies and the Highlord Council"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "9a3b406fbf04a423"
-reviewed_hash: "8835bc50b3890c3e"
-stale: true
+reviewed_hash: "9a3b406fbf04a423"
+stale: false
 size_bytes: 20277
 line_count: 234
 ---

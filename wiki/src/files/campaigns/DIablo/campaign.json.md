@@ -15,5 +15,4 @@ line_count: 10168
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role
 `campaigns/DIablo/campaign.json` serves as a **Authoritative JSON Data / Manifest** within **Volume VIII: Campaign Packages, Modules & Templates**.
-
 <!-- END_CUSTOM_NOTES -->

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * BUILD SUITE - Centralized Asset Compiler, Zero-CORS Bundler & Agent Navigation Engine
  * Authority: ADR-0001, ADR-0002, docs/navigation_manifest.json
  * 
@@ -410,6 +410,31 @@ if (fs.existsSync(campaignsDir)) {
           } else if (!meta.entities || Object.keys(meta.entities).length === 0) {
             meta.entities = presetData.entities;
           }
+
+          if (Array.isArray(presetData.creatures) && presetData.creatures.length > 0) {
+            if (!presetData.entities) presetData.entities = {};
+            if (!presetData.entities.creatures || presetData.entities.creatures.length === 0) {
+              presetData.entities.creatures = presetData.creatures;
+            }
+            if (meta.entities && (!meta.entities.creatures || meta.entities.creatures.length === 0)) {
+              meta.entities.creatures = presetData.creatures;
+            }
+          } else if (presetData.entities && Array.isArray(presetData.entities.creatures) && presetData.entities.creatures.length > 0) {
+            if (!presetData.creatures) presetData.creatures = presetData.entities.creatures;
+          }
+
+          // Zero-CORS Bestiary Evidence Support (campaigns/<id>/creatures/evidence.json)
+          const evidencePath = path.join(cPath, 'creatures', 'evidence.json');
+          if (fs.existsSync(evidencePath)) {
+            try {
+              const evidenceData = JSON.parse(fs.readFileSync(evidencePath, 'utf8'));
+              presetData.creatureEvidence = evidenceData;
+              if (presetData.entities) presetData.entities.creatureEvidence = evidenceData;
+              if (meta.entities) meta.entities.creatureEvidence = evidenceData;
+            } catch (evErr) {
+              console.warn(`[WARN] Failed to parse creature evidence in ${evidencePath}:`, evErr.message);
+            }
+          }
         }
         
         const deletedSet = new Set((meta.entities?.deletedModules || presetData?.deletedModules || []).map(String));
@@ -540,6 +565,9 @@ if (fs.existsSync(campaignsDir)) {
           preset: presetData,
           modules: modulesData
         };
+        if (presetData && presetData.creatureEvidence) {
+          campaignRegistry[cId].creatureEvidence = presetData.creatureEvidence;
+        }
         if (Object.keys(overrides).length) campaignRegistry[cId].overrides = overrides;
         console.log(`[OK] Registered Campaign Sourcebook '${meta.name || cId}' (${modulesData.length} modules, enabled: ${meta.enabled}) from campaigns/${folder.name}`);
       } catch (err) {

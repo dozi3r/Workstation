@@ -4,8 +4,8 @@ title: "entity_manager_ui.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
 current_hash: "813a9226fadbc16f"
-reviewed_hash: "3b5f204813611bf3"
-stale: true
+reviewed_hash: "813a9226fadbc16f"
+stale: false
 size_bytes: 188371
 line_count: 3104
 ---

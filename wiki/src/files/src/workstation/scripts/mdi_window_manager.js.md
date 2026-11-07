@@ -4,8 +4,8 @@ title: "mdi_window_manager.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
 current_hash: "d1f1ca1ad06bb747"
-reviewed_hash: "ccc58b9cc2adf78c"
-stale: true
+reviewed_hash: "d1f1ca1ad06bb747"
+stale: false
 size_bytes: 134426
 line_count: 2924
 ---

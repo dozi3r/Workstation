@@ -4,8 +4,8 @@ title: "Master Threat Clocks & Villain Agendas"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "e49f67d249cc70ad"
-reviewed_hash: "ce013cb8e12fec9a"
-stale: true
+reviewed_hash: "e49f67d249cc70ad"
+stale: false
 size_bytes: 14985
 line_count: 255
 ---

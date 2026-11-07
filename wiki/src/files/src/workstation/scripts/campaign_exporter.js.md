@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/campaign_exporter.js"
 title: "campaign_exporter.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "a198aff755a4d05c"
-reviewed_hash: "5e11e89c007f20e3"
-stale: true
-size_bytes: 75650
-line_count: 1821
+current_hash: "48aa933a85b6be4a"
+reviewed_hash: "48aa933a85b6be4a"
+stale: false
+size_bytes: 76301
+line_count: 1830
 ---
 
 # campaign_exporter.js

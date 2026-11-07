@@ -4,8 +4,8 @@ title: "MOD_T3_HIGH_CLERIST_DRAGON_TRAP: The Architectural Dragon-Trap of the Hi
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "868469bddc5e0c0c"
-reviewed_hash: "bf1983917ebfe27f"
-stale: true
+reviewed_hash: "868469bddc5e0c0c"
+stale: false
 size_bytes: 3779
 line_count: 70
 ---

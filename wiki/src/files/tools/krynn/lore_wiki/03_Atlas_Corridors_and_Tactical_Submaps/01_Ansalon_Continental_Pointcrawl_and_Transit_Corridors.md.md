@@ -4,8 +4,8 @@ title: "01: Ansalon Continental Pointcrawl and Transit Corridors"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "9cf9c63808128d91"
-reviewed_hash: "278efc13d383a7c2"
-stale: true
+reviewed_hash: "9cf9c63808128d91"
+stale: false
 size_bytes: 20667
 line_count: 188
 ---

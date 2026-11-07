@@ -4,8 +4,8 @@ title: "MOD_T5_ASTINUS_CHRONICLE_VAULT: The Iconochronos of Astinus & Shoikan Gr
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "38c7fce3e9c4fe27"
-reviewed_hash: "f75edbb7a705b86e"
-stale: true
+reviewed_hash: "38c7fce3e9c4fe27"
+stale: false
 size_bytes: 3751
 line_count: 70
 ---

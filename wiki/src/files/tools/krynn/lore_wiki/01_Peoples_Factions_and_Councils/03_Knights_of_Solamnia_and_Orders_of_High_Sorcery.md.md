@@ -4,8 +4,8 @@ title: "The Knights of Solamnia and The Orders of High Sorcery"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "f4346452ca411201"
-reviewed_hash: "d983a4aa1c34b1be"
-stale: true
+reviewed_hash: "f4346452ca411201"
+stale: false
 size_bytes: 18437
 line_count: 222
 ---

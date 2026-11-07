@@ -4,8 +4,8 @@ title: "MOD_T3_THORBARDIN_LIFE_TREE_SEAL: The Great Northgate & Life Tree Founda
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "03cfec3bddca5ce4"
-reviewed_hash: "df88d07656b35d16"
-stale: true
+reviewed_hash: "03cfec3bddca5ce4"
+stale: false
 size_bytes: 3661
 line_count: 70
 ---

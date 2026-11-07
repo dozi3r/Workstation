@@ -15,5 +15,4 @@ line_count: 3329
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role
 `campaigns/DIablo/creatures/evidence.json` serves as a **Authoritative JSON Data / Manifest** within **Volume VIII: Campaign Packages, Modules & Templates**.
-
 <!-- END_CUSTOM_NOTES -->

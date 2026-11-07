@@ -4,8 +4,8 @@ title: "MOD_T5_NERAKA_FOUNDATION_PORTAL: The Cracked Foundation Stone & Takhisis
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "b081e851f094bf3b"
-reviewed_hash: "61ab7240bba2c996"
-stale: true
+reviewed_hash: "b081e851f094bf3b"
+stale: false
 size_bytes: 4034
 line_count: 70
 ---

@@ -4,8 +4,8 @@ title: "MOD_T5_DARGAARD_DEATH_KNIGHT_PACT: Lord Soth's Banshee Curse & The Soul-
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "8e41313b5a75b325"
-reviewed_hash: "56c1d27f9bf30592"
-stale: true
+reviewed_hash: "8e41313b5a75b325"
+stale: false
 size_bytes: 3554
 line_count: 70
 ---

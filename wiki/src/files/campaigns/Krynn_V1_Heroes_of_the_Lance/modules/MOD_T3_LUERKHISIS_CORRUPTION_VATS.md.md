@@ -4,8 +4,8 @@ title: "MOD_T3_LUERKHISIS_CORRUPTION_VATS: The Temple of Luerkhisis & Metallic D
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "925f492d383c2c94"
-reviewed_hash: "c59c44dc092239f8"
-stale: true
+reviewed_hash: "925f492d383c2c94"
+stale: false
 size_bytes: 3710
 line_count: 70
 ---

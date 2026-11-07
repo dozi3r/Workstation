@@ -4,8 +4,8 @@ title: "Triage Labels"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "04b3252aa77bc520"
-reviewed_hash: "4d8d71b5338aa4a9"
-stale: true
+reviewed_hash: "04b3252aa77bc520"
+stale: false
 size_bytes: 1486
 line_count: 20
 ---

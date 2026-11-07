@@ -4,8 +4,8 @@ title: "Master Dossier: The Core Eight Heroes of the Lance"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "1bcb91353b3a2f86"
-reviewed_hash: "52314853506a92e1"
-stale: true
+reviewed_hash: "1bcb91353b3a2f86"
+stale: false
 size_bytes: 53025
 line_count: 430
 ---

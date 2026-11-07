@@ -4,8 +4,8 @@ title: "MOD_T3_PAX_THARKAS_SLAVE_MINES: The Iron Mines, Great Chain & Hostage Nu
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "c96250786041bc63"
-reviewed_hash: "3eb65a4d7d2b705e"
-stale: true
+reviewed_hash: "c96250786041bc63"
+stale: false
 size_bytes: 3822
 line_count: 70
 ---

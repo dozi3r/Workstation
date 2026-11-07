@@ -4,8 +4,8 @@ title: "MOD_T4_SOLAMNIC_SCHISM_MEASURE: The Solamnic Schism: Derek's Folly vs. S
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "96f1cfb0c55656c0"
-reviewed_hash: "88d400318b4f54ad"
-stale: true
+reviewed_hash: "96f1cfb0c55656c0"
+stale: false
 size_bytes: 3648
 line_count: 70
 ---

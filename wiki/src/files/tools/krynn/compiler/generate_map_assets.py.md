@@ -4,8 +4,8 @@ title: "generate_map_assets.py"
 volume: "vol-8"
 kind: "Project Asset"
 current_hash: "a87efd1af31b92eb"
-reviewed_hash: "792bd2811d815bc8"
-stale: true
+reviewed_hash: "a87efd1af31b92eb"
+stale: false
 size_bytes: 16624
 line_count: 379
 ---

@@ -4,8 +4,8 @@ title: "MOD_T3_AGHAR_LIFT_HYDRAULICS: The Great Chain Lift & Express Chutes of X
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "85cb2305d22fc681"
-reviewed_hash: "140ba54bf96a2006"
-stale: true
+reviewed_hash: "85cb2305d22fc681"
+stale: false
 size_bytes: 3392
 line_count: 70
 ---

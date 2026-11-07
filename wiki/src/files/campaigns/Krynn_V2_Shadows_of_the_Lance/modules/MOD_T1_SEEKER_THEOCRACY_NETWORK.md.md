@@ -4,8 +4,8 @@ title: "MOD_T1_SEEKER_THEOCRACY_NETWORK: The High Seeker Bureaucracy & Cult of B
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "1c11141b6227cce8"
-reviewed_hash: "632a6a8e2aa5f16b"
-stale: true
+reviewed_hash: "1c11141b6227cce8"
+stale: false
 size_bytes: 3638
 line_count: 70
 ---

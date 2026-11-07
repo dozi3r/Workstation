@@ -4,8 +4,8 @@ title: "MOD_T5_SOULFORGE_CRUCIBLE: The Soulforge of Wayreth & Fistandantilus's B
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "ac95d6b528d8fd06"
-reviewed_hash: "d33eb0fbc7bb9f30"
-stale: true
+reviewed_hash: "ac95d6b528d8fd06"
+stale: false
 size_bytes: 3903
 line_count: 70
 ---

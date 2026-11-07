@@ -4,8 +4,8 @@ title: "MOD_T2_KHAROLIS_WINTER_PASSES: The Kharolis Blizzard Passes & Vitrified 
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "87619a43f81f830a"
-reviewed_hash: "dc52cd2d37d2b333"
-stale: true
+reviewed_hash: "87619a43f81f830a"
+stale: false
 size_bytes: 3418
 line_count: 70
 ---

@@ -4,8 +4,8 @@ title: "02: Abanasinia, Solace, Haven and Tower of Wayreth"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "0e2fd4a7c3b9397b"
-reviewed_hash: "c635ba7d18b239b6"
-stale: true
+reviewed_hash: "0e2fd4a7c3b9397b"
+stale: false
 size_bytes: 34516
 line_count: 334
 ---

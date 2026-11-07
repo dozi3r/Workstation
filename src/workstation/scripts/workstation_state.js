@@ -35,8 +35,11 @@
         npcs: [],
         quests: [],
         items: [],
+        creatures: [],
+        creatureEvidence: {},
         trackers: [],
         tickets: [],
+        factions: [],
         edgeData: {},
         edgeNotes: {},
         custom_modules: [],
@@ -784,6 +787,8 @@
               Workstation.activeTopology.npcs = campaignEntities.npcs || [];
               Workstation.activeTopology.quests = campaignEntities.quests || [];
               Workstation.activeTopology.items = campaignEntities.items || [];
+              Workstation.activeTopology.creatures = campaignEntities.creatures || [];
+              Workstation.activeTopology.creatureEvidence = campaignEntities.creatureEvidence || {};
               Workstation.activeTopology.trackers = campaignEntities.trackers || [];
               Workstation.activeTopology.tickets = campaignEntities.tickets || [];
               Workstation.activeTopology.factions = campaignEntities.factions || [];
@@ -852,6 +857,8 @@
           npcs: (p.entities && p.entities.npcs) || p.npcs || [],
           quests: (p.entities && p.entities.quests) || p.quests || [],
           items: (p.entities && p.entities.items) || p.items || [],
+          creatures: (p.entities && p.entities.creatures) || p.creatures || [],
+          creatureEvidence: p.creatureEvidence || (p.entities && p.entities.creatureEvidence) || (CAMPAIGN_REGISTRY[activeCamp] && CAMPAIGN_REGISTRY[activeCamp].creatureEvidence) || {},
           trackers: (p.entities && p.entities.trackers) || p.trackers || [],
           tickets: (p.entities && p.entities.tickets) || p.tickets || [],
           factions: (p.entities && p.entities.factions) || p.factions || []
@@ -943,6 +950,8 @@
       if (!topo.npcs) topo.npcs = [];
       if (!topo.quests) topo.quests = [];
       if (!topo.items) topo.items = [];
+      if (!topo.creatures) topo.creatures = [];
+      if (!topo.creatureEvidence || typeof topo.creatureEvidence !== 'object') topo.creatureEvidence = {};
       if (!topo.trackers) topo.trackers = [];
       if (!topo.tickets) topo.tickets = [];
       if (!topo.factions) topo.factions = [];
@@ -1087,6 +1096,8 @@
           npcs: Workstation.activeTopology.npcs || [],
           quests: Workstation.activeTopology.quests || [],
           items: Workstation.activeTopology.items || [],
+          creatures: Workstation.activeTopology.creatures || [],
+          creatureEvidence: Workstation.activeTopology.creatureEvidence || {},
           trackers: Workstation.activeTopology.trackers || [],
           tickets: Workstation.activeTopology.tickets || [],
           factions: Workstation.activeTopology.factions || [],

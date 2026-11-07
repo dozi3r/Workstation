@@ -4,8 +4,8 @@ title: "MOD_T1_HIGHLORD_COUNCIL_CONCLAVE: The Imperial Highlord Conclave of Nera
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "86ab1215597fed3f"
-reviewed_hash: "f74d3104c6a0f501"
-stale: true
+reviewed_hash: "86ab1215597fed3f"
+stale: false
 size_bytes: 3740
 line_count: 70
 ---

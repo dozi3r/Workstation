@@ -4,8 +4,8 @@ title: "Regional Tavern Rumors & Cut Scene Hooks"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "4c87e44334a419a5"
-reviewed_hash: "fc3e3e642504df1c"
-stale: true
+reviewed_hash: "4c87e44334a419a5"
+stale: false
 size_bytes: 28603
 line_count: 327
 ---

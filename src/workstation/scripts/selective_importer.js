@@ -42,7 +42,7 @@
         name: dirHandle.name,
         sourceType: "folder",
         maps: {},
-        entities: { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] },
+        entities: { npcs: [], quests: [], items: [], creatures: [], creatureEvidence: {}, trackers: [], tickets: [], factions: [] },
         globalDials: {},
         directoryHandle: dirHandle
       };
@@ -59,6 +59,8 @@
             npcs: parsed.entities.npcs || [],
             quests: parsed.entities.quests || [],
             items: parsed.entities.items || [],
+            creatures: parsed.entities.creatures || [],
+            creatureEvidence: parsed.entities.creatureEvidence || {},
             trackers: parsed.entities.trackers || [],
             tickets: parsed.entities.tickets || [],
             factions: parsed.entities.factions || []
@@ -67,6 +69,8 @@
         if (Array.isArray(parsed.npcs)) pkg.entities.npcs = parsed.npcs;
         if (Array.isArray(parsed.quests)) pkg.entities.quests = parsed.quests;
         if (Array.isArray(parsed.items)) pkg.entities.items = parsed.items;
+        if (Array.isArray(parsed.creatures)) pkg.entities.creatures = parsed.creatures;
+        if (parsed.creatureEvidence) pkg.entities.creatureEvidence = parsed.creatureEvidence;
         if (Array.isArray(parsed.trackers)) pkg.entities.trackers = parsed.trackers;
         if (Array.isArray(parsed.tickets)) pkg.entities.tickets = parsed.tickets;
         if (Array.isArray(parsed.factions)) pkg.entities.factions = parsed.factions;
@@ -112,12 +116,14 @@
               npcs: topoParsed.activeTopology.npcs || [],
               quests: topoParsed.activeTopology.quests || [],
               items: topoParsed.activeTopology.items || [],
+              creatures: topoParsed.activeTopology.creatures || [],
+              creatureEvidence: topoParsed.activeTopology.creatureEvidence || {},
               trackers: topoParsed.activeTopology.trackers || [],
               tickets: topoParsed.activeTopology.tickets || [],
               factions: topoParsed.activeTopology.factions || []
              } : null);
 
-        ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions'].forEach(cat => {
+        ['npcs', 'quests', 'items', 'creatures', 'trackers', 'tickets', 'factions'].forEach(cat => {
           if (!pkg.entities[cat] || pkg.entities[cat].length === 0) {
             if (candidateEntities && Array.isArray(candidateEntities[cat]) && candidateEntities[cat].length > 0) {
               pkg.entities[cat] = candidateEntities[cat];
@@ -221,6 +227,8 @@
               npcs: mainData.activeTopology.npcs || [],
               quests: mainData.activeTopology.quests || [],
               items: mainData.activeTopology.items || [],
+              creatures: mainData.activeTopology.creatures || [],
+              creatureEvidence: mainData.activeTopology.creatureEvidence || {},
               trackers: mainData.activeTopology.trackers || [],
               tickets: mainData.activeTopology.tickets || [],
               factions: mainData.activeTopology.factions || [],
@@ -233,6 +241,8 @@
           npcs: (candidateEntities && candidateEntities.npcs) || campMeta.npcs || (mainData && mainData.npcs) || [],
           quests: (candidateEntities && candidateEntities.quests) || campMeta.quests || (mainData && mainData.quests) || [],
           items: (candidateEntities && candidateEntities.items) || campMeta.items || (mainData && mainData.items) || [],
+          creatures: (candidateEntities && candidateEntities.creatures) || campMeta.creatures || (mainData && mainData.creatures) || [],
+          creatureEvidence: (candidateEntities && candidateEntities.creatureEvidence) || campMeta.creatureEvidence || (mainData && mainData.creatureEvidence) || {},
           trackers: (candidateEntities && candidateEntities.trackers) || campMeta.trackers || (mainData && mainData.trackers) || [],
           tickets: (candidateEntities && candidateEntities.tickets) || campMeta.tickets || (mainData && mainData.tickets) || [],
           factions: (candidateEntities && candidateEntities.factions) || campMeta.factions || (mainData && mainData.factions) || [],
@@ -314,6 +324,8 @@
               npcs: parsed.activeTopology.npcs || [],
               quests: parsed.activeTopology.quests || [],
               items: parsed.activeTopology.items || [],
+              creatures: parsed.activeTopology.creatures || [],
+              creatureEvidence: parsed.activeTopology.creatureEvidence || {},
               trackers: parsed.activeTopology.trackers || [],
               tickets: parsed.activeTopology.tickets || [],
               factions: parsed.activeTopology.factions || []
@@ -323,6 +335,8 @@
           npcs: (candidateEntities && candidateEntities.npcs) || parsed.npcs || [],
           quests: (candidateEntities && candidateEntities.quests) || parsed.quests || [],
           items: (candidateEntities && candidateEntities.items) || parsed.items || [],
+          creatures: (candidateEntities && candidateEntities.creatures) || parsed.creatures || [],
+          creatureEvidence: (candidateEntities && candidateEntities.creatureEvidence) || parsed.creatureEvidence || {},
           trackers: (candidateEntities && candidateEntities.trackers) || parsed.trackers || [],
           tickets: (candidateEntities && candidateEntities.tickets) || parsed.tickets || [],
           factions: (candidateEntities && candidateEntities.factions) || parsed.factions || []
@@ -404,6 +418,7 @@
     if (!Array.isArray(entitiesObj.npcs)) entitiesObj.npcs = [];
     if (!Array.isArray(entitiesObj.quests)) entitiesObj.quests = [];
     if (!Array.isArray(entitiesObj.items)) entitiesObj.items = [];
+    if (!Array.isArray(entitiesObj.creatures)) entitiesObj.creatures = [];
     if (!Array.isArray(entitiesObj.trackers)) entitiesObj.trackers = [];
     if (!Array.isArray(entitiesObj.tickets)) entitiesObj.tickets = [];
     if (!Array.isArray(entitiesObj.factions)) entitiesObj.factions = [];
@@ -518,6 +533,7 @@
       { key: "npcs", label: "NPC", nameProp: "name", compareProps: ["role", "faction", "motivation", "moduleId"] },
       { key: "quests", label: "Quest", nameProp: "title", compareProps: ["type", "threat", "faction", "status", "notes"] },
       { key: "items", label: "Item", nameProp: "name", compareProps: ["category", "specs", "notes"] },
+      { key: "creatures", label: "Creature", nameProp: "name", compareProps: ["threatTier", "primaryArchetype", "dreadIndex", "notes"] },
       { key: "trackers", label: "Threat Clock", nameProp: "name", compareProps: ["type", "maxTicks", "faction", "notes"] },
       { key: "tickets", label: "Ticket", nameProp: "title", compareProps: ["status", "priority", "syllogism", "notes"] },
       { key: "factions", label: "Faction", nameProp: "name", compareProps: ["cvfQuadrant", "colorIdentity", "leaderNpcId", "headquartersNodeId", "description"] }
@@ -574,6 +590,7 @@
     if (!curTopo.npcs) curTopo.npcs = [];
     if (!curTopo.quests) curTopo.quests = [];
     if (!curTopo.items) curTopo.items = [];
+    if (!curTopo.creatures) curTopo.creatures = [];
     if (!curTopo.trackers) curTopo.trackers = [];
     if (!curTopo.tickets) curTopo.tickets = [];
     if (!curTopo.factions) curTopo.factions = [];
@@ -582,7 +599,7 @@
     const conflictList = conflicts || [];
     const resMap = resolutions || {};
     const cloneIdMap = {};
-    const importedBatchCluster = { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
+    const importedBatchCluster = { npcs: [], quests: [], items: [], creatures: [], trackers: [], tickets: [], factions: [] };
 
     conflictList.forEach((c, idx) => {
       const action = resMap[idx] || "keep_existing";
@@ -613,7 +630,7 @@
       // 'keep_existing': do nothing
     });
 
-    ["npcs", "quests", "items", "trackers", "tickets", "factions"].forEach(cat => {
+    ["npcs", "quests", "items", "creatures", "trackers", "tickets", "factions"].forEach(cat => {
       const inList = incomingEntities[cat] || [];
       const curList = curTopo[cat] || [];
       inList.forEach(inEnt => {
@@ -926,6 +943,10 @@
         targetTopo.npcs = JSON.parse(JSON.stringify(incomingPackage.entities.npcs || []));
         targetTopo.quests = JSON.parse(JSON.stringify(incomingPackage.entities.quests || []));
         targetTopo.items = JSON.parse(JSON.stringify(incomingPackage.entities.items || []));
+        targetTopo.creatures = JSON.parse(JSON.stringify(incomingPackage.entities.creatures || []));
+        if (incomingPackage.entities.creatureEvidence) {
+          targetTopo.creatureEvidence = JSON.parse(JSON.stringify(incomingPackage.entities.creatureEvidence));
+        }
         targetTopo.trackers = JSON.parse(JSON.stringify(incomingPackage.entities.trackers || []));
         targetTopo.tickets = JSON.parse(JSON.stringify(incomingPackage.entities.tickets || []));
         targetTopo.factions = JSON.parse(JSON.stringify(incomingPackage.entities.factions || []));

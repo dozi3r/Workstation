@@ -4,8 +4,8 @@ title: "Master Three-Clue Rule Forensic Matrix"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "911d32ca27b245b8"
-reviewed_hash: "d37effc015ef5f86"
-stale: true
+reviewed_hash: "911d32ca27b245b8"
+stale: false
 size_bytes: 46465
 line_count: 620
 ---

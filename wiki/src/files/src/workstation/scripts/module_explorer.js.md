@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/module_explorer.js"
 title: "module_explorer.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "a68e2a2fbefc95a0"
-reviewed_hash: "a68e2a2fbefc95a0"
+current_hash: "cab30f781fd5ad4d"
+reviewed_hash: "cab30f781fd5ad4d"
 stale: false
-size_bytes: 51083
+size_bytes: 51159
 line_count: 1148
 ---
 

@@ -3,10 +3,10 @@ file_path: "src/workstation/scripts/industry_chain_importer.js"
 title: "industry_chain_importer.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "3012707ad1a9bccc"
-reviewed_hash: "3012707ad1a9bccc"
+current_hash: "ac1078450acbcd68"
+reviewed_hash: "ac1078450acbcd68"
 stale: false
-size_bytes: 24906
+size_bytes: 24918
 line_count: 590
 ---
 

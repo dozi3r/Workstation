@@ -4,8 +4,8 @@ title: "MOD_T2_VALLEY_TREES_SOLACE: The Vallenwood Canopy of Solace"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "4717a58519cfa6b2"
-reviewed_hash: "adea23bf41197ade"
-stale: true
+reviewed_hash: "4717a58519cfa6b2"
+stale: false
 size_bytes: 3478
 line_count: 70
 ---

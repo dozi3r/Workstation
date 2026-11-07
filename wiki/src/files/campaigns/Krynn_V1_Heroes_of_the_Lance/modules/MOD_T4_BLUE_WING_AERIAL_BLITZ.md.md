@@ -4,8 +4,8 @@ title: "MOD_T4_BLUE_WING_AERIAL_BLITZ: Kitiara's Blue Wing Aerial Blitz & The Ta
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "d00aa0afbc765576"
-reviewed_hash: "b6cc6c700039c813"
-stale: true
+reviewed_hash: "d00aa0afbc765576"
+stale: false
 size_bytes: 3414
 line_count: 70
 ---

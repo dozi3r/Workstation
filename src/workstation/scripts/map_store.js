@@ -1481,6 +1481,8 @@ async function buildCampaignPackageFiles(opts = {}) {
     npcs: (activeTopo && activeTopo.npcs) || [],
     quests: (activeTopo && activeTopo.quests) || [],
     items: (activeTopo && activeTopo.items) || [],
+    creatures: (activeTopo && activeTopo.creatures) || [],
+    creatureEvidence: (activeTopo && activeTopo.creatureEvidence) || {},
     trackers: (activeTopo && activeTopo.trackers) || [],
     tickets: (activeTopo && activeTopo.tickets) || [],
     factions: (activeTopo && activeTopo.factions) || [],
@@ -1539,6 +1541,8 @@ async function buildCampaignPackageFiles(opts = {}) {
     npcs: entities.npcs,
     quests: entities.quests,
     items: entities.items,
+    creatures: entities.creatures,
+    creatureEvidence: entities.creatureEvidence,
     trackers: entities.trackers,
     tickets: entities.tickets,
     factions: entities.factions,
@@ -1562,6 +1566,10 @@ async function buildCampaignPackageFiles(opts = {}) {
 
   files.push({ path: "preset.json", data: presetStr, sig: presetSig });
   files.push({ path: "topology.json", data: presetStr, sig: presetSig });
+  if (entities.creatureEvidence && typeof entities.creatureEvidence === 'object' && Object.keys(entities.creatureEvidence).length > 0) {
+    const evStr = JSON.stringify(entities.creatureEvidence, null, 2);
+    files.push({ path: "creatures/evidence.json", data: evStr, sig: "json:" + quickSignature(evStr) });
+  }
 
   // 5. Per-map files in maps/
   for (const [mId, mMap] of Object.entries(cleanMaps)) {
@@ -1586,6 +1594,7 @@ async function buildCampaignPackageFiles(opts = {}) {
     npcs: entities.npcs.length,
     quests: entities.quests.length,
     items: entities.items.length,
+    creatures: entities.creatures.length,
     trackers: entities.trackers.length,
     factions: entities.factions.length
   };
@@ -2428,6 +2437,8 @@ async function loadCampaignFromDirectoryHandle(dirHandle) {
           npcs: parsed.entities.npcs || [],
           quests: parsed.entities.quests || [],
           items: parsed.entities.items || [],
+          creatures: parsed.entities.creatures || [],
+          creatureEvidence: parsed.entities.creatureEvidence || {},
           trackers: parsed.entities.trackers || [],
           tickets: parsed.entities.tickets || [],
           factions: parsed.entities.factions || []
@@ -2436,6 +2447,8 @@ async function loadCampaignFromDirectoryHandle(dirHandle) {
       if (Array.isArray(parsed.npcs)) pkg.entities.npcs = parsed.npcs;
       if (Array.isArray(parsed.quests)) pkg.entities.quests = parsed.quests;
       if (Array.isArray(parsed.items)) pkg.entities.items = parsed.items;
+      if (Array.isArray(parsed.creatures)) pkg.entities.creatures = parsed.creatures;
+      if (parsed.creatureEvidence) pkg.entities.creatureEvidence = parsed.creatureEvidence;
       if (Array.isArray(parsed.trackers)) pkg.entities.trackers = parsed.trackers;
       if (Array.isArray(parsed.tickets)) pkg.entities.tickets = parsed.tickets;
       if (Array.isArray(parsed.factions)) pkg.entities.factions = parsed.factions;
@@ -2514,12 +2527,14 @@ async function loadCampaignFromDirectoryHandle(dirHandle) {
             npcs: topoParsed.activeTopology.npcs || [],
             quests: topoParsed.activeTopology.quests || [],
             items: topoParsed.activeTopology.items || [],
+            creatures: topoParsed.activeTopology.creatures || [],
+            creatureEvidence: topoParsed.activeTopology.creatureEvidence || {},
             trackers: topoParsed.activeTopology.trackers || [],
             tickets: topoParsed.activeTopology.tickets || [],
             factions: topoParsed.activeTopology.factions || []
            } : null);
 
-      ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions', 'custom_modules', 'deletedModules', 'deletedPrototypes'].forEach(cat => {
+      ['npcs', 'quests', 'items', 'creatures', 'trackers', 'tickets', 'factions', 'custom_modules', 'deletedModules', 'deletedPrototypes'].forEach(cat => {
         if (!pkg.entities[cat] || pkg.entities[cat].length === 0) {
           if (candidateEntities && Array.isArray(candidateEntities[cat]) && candidateEntities[cat].length > 0) {
             pkg.entities[cat] = candidateEntities[cat];
@@ -2528,10 +2543,23 @@ async function loadCampaignFromDirectoryHandle(dirHandle) {
           }
         }
       });
+      if (candidateEntities && candidateEntities.creatureEvidence && Object.keys(candidateEntities.creatureEvidence).length > 0 && (!pkg.entities.creatureEvidence || Object.keys(pkg.entities.creatureEvidence).length === 0)) {
+        pkg.entities.creatureEvidence = candidateEntities.creatureEvidence;
+      }
       if (Array.isArray(pkg.entities.custom_modules)) pkg.custom_modules = pkg.entities.custom_modules;
       if (Array.isArray(pkg.entities.deletedModules)) pkg.deletedModules = pkg.entities.deletedModules;
       if (Array.isArray(pkg.entities.deletedPrototypes)) pkg.deletedPrototypes = pkg.entities.deletedPrototypes;
     }
+
+    // 2b. Read creatures/evidence.json if present
+    try {
+      const creaturesDir = await dirHandle.getDirectoryHandle("creatures", { create: false });
+      const evFile = await creaturesDir.getFileHandle("evidence.json");
+      const evText = await (await evFile.getFile()).text();
+      const parsedEvidence = JSON.parse(evText);
+      pkg.creatureEvidence = parsedEvidence;
+      if (pkg.entities) pkg.entities.creatureEvidence = parsedEvidence;
+    } catch (_) {}
 
     // 3. Hydrate raster images from assets/
     try {

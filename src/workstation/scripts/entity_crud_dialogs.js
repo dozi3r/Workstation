@@ -584,6 +584,7 @@
         return;
       }
 
+      const backingList = typeof getBackingEntityList === 'function' ? getBackingEntityList(type) : getActiveEntityList(type);
       const activeList = getActiveEntityList(type);
 
       if (id) {
@@ -821,7 +822,7 @@
           newEntity.ownerNpcId = document.getElementById('ee-item-owner') ? (document.getElementById('ee-item-owner').value || null) : null;
           newEntity.possessionMode = document.getElementById('ee-item-possession-mode') ? (document.getElementById('ee-item-possession-mode').value || 'stored') : 'stored';
         }
-        activeList.push(newEntity);
+        backingList.push(newEntity);
       }
 
       saveActiveCampaign();

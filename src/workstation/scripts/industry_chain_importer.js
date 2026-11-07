@@ -503,7 +503,7 @@
 
       // Promote and station latent entity prototypes for this module
       if (typeof getPrototypesForType === 'function' && typeof promotePrototypeToCampaign === 'function') {
-        ['npc', 'quest', 'item', 'tracker'].forEach(type => {
+        ['npc', 'quest', 'item', 'resource', 'tracker'].forEach(type => {
           const protos = getPrototypesForType(type) || [];
           protos.forEach(proto => {
             if (proto && proto.moduleId === st.moduleId) {

@@ -4,8 +4,8 @@ title: "Master Architecture: Truby 4-Corner Opposition, Hickman Triangle Models 
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "c46e323cf82aafc9"
-reviewed_hash: "90104e7116a026eb"
-stale: true
+reviewed_hash: "c46e323cf82aafc9"
+stale: false
 size_bytes: 26938
 line_count: 349
 ---

@@ -4,8 +4,8 @@ title: "0024. Ecological rationality and fast-and-frugal heuristics"
 volume: "vol-1"
 kind: "Architectural Decision Record (ADR)"
 current_hash: "455e5dbad023cff9"
-reviewed_hash: "c8426cf409ac291d"
-stale: true
+reviewed_hash: "455e5dbad023cff9"
+stale: false
 size_bytes: 4909
 line_count: 58
 ---

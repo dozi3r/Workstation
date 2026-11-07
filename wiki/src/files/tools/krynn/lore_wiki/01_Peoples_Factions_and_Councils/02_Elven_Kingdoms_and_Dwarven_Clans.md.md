@@ -4,8 +4,8 @@ title: "Elven Kingdoms and Dwarven Clans of Krynn"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "d05150c3044b8320"
-reviewed_hash: "0ad2fdcc246eb8c0"
-stale: true
+reviewed_hash: "d05150c3044b8320"
+stale: false
 size_bytes: 20662
 line_count: 231
 ---

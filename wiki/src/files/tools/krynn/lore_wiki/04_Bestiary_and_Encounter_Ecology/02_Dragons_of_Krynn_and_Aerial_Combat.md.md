@@ -4,8 +4,8 @@ title: "Dragons of Krynn: Named Dossiers, Dogfight Rules & Dragon-Traps"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "3d7818eab01f6837"
-reviewed_hash: "c92b6416071736ea"
-stale: true
+reviewed_hash: "3d7818eab01f6837"
+stale: false
 size_bytes: 15024
 line_count: 196
 ---

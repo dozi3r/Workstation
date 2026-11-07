@@ -4,8 +4,8 @@ title: "Human Realms, Seekers, and Mercenary Companies of Ansalon"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "aeed018df301058c"
-reviewed_hash: "459b1d73f958d8a1"
-stale: true
+reviewed_hash: "aeed018df301058c"
+stale: false
 size_bytes: 27601
 line_count: 315
 ---

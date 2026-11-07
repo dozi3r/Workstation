@@ -4,8 +4,8 @@ title: "MOD_T2_BLOOD_SEA_VORTEX: The Blood Sea of Istar Maelstrom & Drowned Ruin
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "1da864287ebfd83f"
-reviewed_hash: "36020fa09e3775ef"
-stale: true
+reviewed_hash: "1da864287ebfd83f"
+stale: false
 size_bytes: 3470
 line_count: 70
 ---

@@ -18,6 +18,23 @@
     }
     window.getItemEffectiveNodeId = getItemEffectiveNodeId;
 
+    function isResourceItem(item) {
+      if (!item) return false;
+      return Boolean(
+        item.isResource === true ||
+        item.category === 'Resource Export / Supply Anchor' ||
+        /^(Resource|Commodity)\s*:/i.test(item.category || '') ||
+        (item.tags && Array.isArray(item.tags) && item.tags.some(t => /^(resource|commodity)$/i.test(t)))
+      );
+    }
+    window.isResourceItem = isResourceItem;
+
+    function getCreatureEffectiveNodeId(creature) {
+      if (!creature) return null;
+      return (creature.stationing && creature.stationing.nodeId != null) ? creature.stationing.nodeId : (creature.nodeId != null ? creature.nodeId : null);
+    }
+    window.getCreatureEffectiveNodeId = getCreatureEffectiveNodeId;
+
     function computeNpcNodeDissonance(npc, node) {
       if (!npc || !node) return null;
       const nOdv = node.odv || { s: 2, e: 2, c: 2 };
@@ -288,18 +305,43 @@
     // --- Entity Collection & Prototype Seeding ---
     function getPrototypesForType(type) {
       let result = [];
-      const seeds = MODULE_ENTITY_PROTOTYPES[type === 'npc' ? 'npcs' : (type === 'quest' ? 'quests' : (type === 'item' ? 'items' : (type === 'tracker' ? 'trackers' : (type === 'faction' ? 'factions' : ''))))] || [];
+      const seedsKey = type === 'npc' ? 'npcs'
+        : (type === 'quest' ? 'quests'
+        : ((type === 'item' || type === 'resource') ? 'items'
+        : (type === 'creature' ? 'creatures'
+        : (type === 'tracker' ? 'trackers'
+        : (type === 'faction' ? 'factions' : '')))));
+      const protoBag = (typeof MODULE_ENTITY_PROTOTYPES !== 'undefined' && MODULE_ENTITY_PROTOTYPES) ? MODULE_ENTITY_PROTOTYPES : {};
+      const rawSeeds = protoBag[seedsKey] || [];
+      const seeds = (type === 'resource')
+        ? rawSeeds.filter(i => isResourceItem(i))
+        : ((type === 'item') ? rawSeeds.filter(i => !isResourceItem(i)) : rawSeeds);
       result.push(...seeds);
 
       if (typeof ALL_MODULES !== 'undefined' && Array.isArray(ALL_MODULES)) {
         ALL_MODULES.forEach(m => {
-          if (type === 'npc' || type === 'quest' || type === 'item') {
-            const list = type === 'npc' ? m.extracted_npcs : (type === 'quest' ? m.extracted_quests : m.extracted_items);
+          if (type === 'npc' || type === 'quest' || type === 'item' || type === 'resource') {
+            const rawList = type === 'npc' ? m.extracted_npcs : (type === 'quest' ? m.extracted_quests : m.extracted_items);
+            const list = (type === 'resource')
+              ? (Array.isArray(rawList) ? rawList.filter(i => isResourceItem(i)) : [])
+              : ((type === 'item') ? (Array.isArray(rawList) ? rawList.filter(i => !isResourceItem(i)) : []) : rawList);
             if (Array.isArray(list)) {
               list.forEach(item => {
                 if (!result.some(existing => existing.id === item.id || (item.name && existing.name === item.name) || (item.title && existing.title === item.title))) {
                   result.push({
                     ...item,
+                    suggestedNode: null
+                  });
+                }
+              });
+            }
+          } else if (type === 'creature') {
+            const list = m.extracted_creatures || m.creatures;
+            if (Array.isArray(list)) {
+              list.forEach(c => {
+                if (!result.some(existing => existing.id === c.id || (c.name && existing.name === c.name))) {
+                  result.push({
+                    ...c,
                     suggestedNode: null
                   });
                 }
@@ -365,12 +407,51 @@
     }
 
 
+    function getBackingEntityList(type) {
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+      if (!topo) return [];
+      if (type === 'npc') {
+        if (!Array.isArray(topo.npcs)) topo.npcs = [];
+        return topo.npcs;
+      }
+      if (type === 'quest') {
+        if (!Array.isArray(topo.quests)) topo.quests = [];
+        return topo.quests;
+      }
+      if (type === 'item' || type === 'resource') {
+        if (!Array.isArray(topo.items)) topo.items = [];
+        return topo.items;
+      }
+      if (type === 'creature') {
+        if (!Array.isArray(topo.creatures)) topo.creatures = [];
+        return topo.creatures;
+      }
+      if (type === 'tracker') {
+        if (!Array.isArray(topo.trackers)) topo.trackers = [];
+        return topo.trackers;
+      }
+      if (type === 'faction') {
+        if (!Array.isArray(topo.factions)) topo.factions = [];
+        return topo.factions;
+      }
+      return [];
+    }
+    window.getBackingEntityList = getBackingEntityList;
+
     function getActiveEntityList(type) {
-      const topo = Workstation.activeTopology;
+      const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
       if (!topo) return [];
       if (type === 'npc') return topo.npcs || [];
       if (type === 'quest') return topo.quests || [];
-      if (type === 'item') return topo.items || [];
+      if (type === 'item') {
+        return (topo.items || []).filter(i => !isResourceItem(i));
+      }
+      if (type === 'resource') {
+        return (topo.items || []).filter(i => isResourceItem(i));
+      }
+      if (type === 'creature') {
+        return topo.creatures || [];
+      }
       if (type === 'tracker') return topo.trackers || [];
       if (type === 'faction') return topo.factions || [];
       if (type === 'node') {
@@ -386,6 +467,7 @@
       }
       return [];
     }
+    window.getActiveEntityList = getActiveEntityList;
 
     function getTicketsForEntity(targetType, targetId) {
       const topo = Workstation.activeTopology;
@@ -727,6 +809,7 @@
       if (!proto) return null;
 
       const activeList = getActiveEntityList(type);
+      const backingList = getBackingEntityList(type);
       const existing = activeList.find(e => String(e.prototypeId) === String(proto.id) || String(e.id) === String(proto.id));
       if (existing) {
         if (proto.suggestedNode && !existing.nodeId) existing.nodeId = proto.suggestedNode;
@@ -745,6 +828,18 @@
         status: 'Active',
         isCustom: false
       };
+      if (type === 'resource') {
+        newEntity.isResource = true;
+        if (!newEntity.category) newEntity.category = 'Resource Export / Supply Anchor';
+      }
+      if (type === 'creature') {
+        if (!newEntity.stationing) {
+          newEntity.stationing = {
+            mode: proto.suggestedNode ? 'lair' : 'unassigned',
+            nodeId: proto.suggestedNode || null
+          };
+        }
+      }
       if (proto.fft) newEntity.fft = JSON.parse(JSON.stringify(proto.fft)); // never share a tree between entities
       if (type === 'tracker') {
         newEntity.currentTicks = proto.currentTicks !== undefined ? proto.currentTicks : (proto.value || 0);
@@ -756,7 +851,7 @@
         newEntity.status = proto.status || 'Active';
       }
 
-      activeList.push(newEntity);
+      backingList.push(newEntity);
 
       // Relational foreign key rewriting: update references across active topology pointing to protoId
       const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
@@ -887,17 +982,25 @@
     window.syncTrackerToQuests = syncTrackerToQuests;
 
     function assignEntityToNode(entityId, nodeIdVal, isProto) {
-      const activeList = getActiveEntityList(CurrentEntityTab);
+      let activeList = getActiveEntityList(CurrentEntityTab);
       let entity = activeList.find(e => e.id === entityId || e.prototypeId === entityId);
 
       if (!entity && isProto) {
         // Auto-promote when assigning a prototype
         promotePrototypeToCampaign(entityId, CurrentEntityTab);
-        entity = activeList[activeList.length - 1];
+        activeList = getActiveEntityList(CurrentEntityTab);
+        entity = activeList.find(e => e.id === entityId || e.prototypeId === entityId) || activeList[activeList.length - 1];
       }
 
       if (entity) {
-        entity.nodeId = nodeIdVal ? ((isNaN(nodeIdVal) || String(nodeIdVal).includes('-')) ? nodeIdVal : parseInt(nodeIdVal)) : null;
+        const parsedNodeId = nodeIdVal ? ((isNaN(nodeIdVal) || String(nodeIdVal).includes('-')) ? nodeIdVal : parseInt(nodeIdVal)) : null;
+        entity.nodeId = parsedNodeId;
+        if (entity.stationing) {
+          entity.stationing.nodeId = parsedNodeId;
+          if (parsedNodeId && !entity.stationing.mode) entity.stationing.mode = 'lair';
+        } else if (CurrentEntityTab === 'creature') {
+          entity.stationing = { mode: parsedNodeId ? 'lair' : 'unassigned', nodeId: parsedNodeId };
+        }
         saveActiveCampaign();
         renderCanvas();
         updatePropertiesGrid();
@@ -916,8 +1019,9 @@
       // No confirmation dialog loaded: still delete through the engine so every reference is unlinked the same way
       const topo = Workstation.activeTopology;
       const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
-      if (cme && typeof cme.deleteEntity === 'function' && ['npc', 'quest', 'item', 'tracker', 'faction'].includes(CurrentEntityTab)) {
-        cme.deleteEntity(topo, CurrentEntityTab, entityId, { allowMissingEntity: true, maps: (typeof maps !== 'undefined' ? maps : undefined) });
+      const effectiveType = CurrentEntityTab === 'resource' ? 'item' : CurrentEntityTab;
+      if (cme && typeof cme.deleteEntity === 'function' && ['npc', 'quest', 'item', 'creature', 'tracker', 'faction'].includes(effectiveType)) {
+        cme.deleteEntity(topo, effectiveType, entityId, { allowMissingEntity: true, maps: (typeof maps !== 'undefined' ? maps : undefined) });
       }
 
       saveActiveCampaign();

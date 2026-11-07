@@ -4,8 +4,8 @@ title: "05: Skullcap, Thorbardin, Tarsis, Silvanesti and Icewall"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "87f1a44664bd4076"
-reviewed_hash: "01f46a454a80ecd8"
-stale: true
+reviewed_hash: "87f1a44664bd4076"
+stale: false
 size_bytes: 26232
 line_count: 286
 ---

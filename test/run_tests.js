@@ -8469,17 +8469,17 @@ function testSuite50EntityReferenceIntegrity() {
   const OP_BY_SHAPE = { id: 'null', ids: 'filter', refs: 'filter', keys: 'delete-key', text: 'clear', operations: 'filter', ticketTarget: 'retarget', pinTarget: 'resync', endpoints: 'splice' };
   assert(Array.isArray(descriptors) && descriptors.length >= 70, `the reference descriptor table lists ${descriptors.length} reference fields`);
   assert(descriptors.every(r => OP_BY_SHAPE[r.shape] === r.op), 'every descriptor row pairs its shape with the matching scrub operation');
-  assert(descriptors.every(r => ['npc', 'quest', 'item', 'tracker', 'faction', 'node', '*'].includes(r.target)), 'every descriptor row names a known target type or *');
+  assert(descriptors.every(r => ['npc', 'quest', 'item', 'creature', 'tracker', 'faction', 'node', '*'].includes(r.target)), 'every descriptor row names a known target type or *');
 
   const REFERENCE_TYPES = ['npc', 'quest', 'item', 'tracker', 'faction', 'node'];
   const TARGET_IDS = { npc: 'npc_t', quest: 'quest_t', item: 'item_t', tracker: 'trk_t', faction: 'fac_t', node: '7' };
   const TARGET_COLLECTION = { npc: 'npcs', quest: 'quests', item: 'items', tracker: 'trackers', faction: 'factions' };
-  const PREVIEW_TYPES = { factions: 'faction', npcs: 'npc', quests: 'quest', items: 'item', trackers: 'tracker' };
+  const PREVIEW_TYPES = { factions: 'faction', npcs: 'npc', quests: 'quest', items: 'item', creatures: 'creature', trackers: 'tracker' };
 
   // A world with one referring record per descriptor row (holding the target id) and one decoy per row (holding another id)
   function buildReferenceWorld(type) {
     const id = TARGET_IDS[type];
-    const world = { factions: [], npcs: [], quests: [], items: [], trackers: [], tickets: [], spatialPins: [], nodes: {}, links: [], maps: { map_child: { id: 'map_child', nodes: {}, links: [], spatialPins: [] } } };
+    const world = { factions: [], npcs: [], quests: [], items: [], creatures: [], trackers: [], tickets: [], spatialPins: [], nodes: {}, links: [], maps: { map_child: { id: 'map_child', nodes: {}, links: [], spatialPins: [] } } };
     if (TARGET_COLLECTION[type]) world[TARGET_COLLECTION[type]].push({ id, name: `Target ${type}` });
     else world.nodes[id] = { id: Number(id), name: 'Target node', adj: [], infBy: [] };
 
@@ -8521,7 +8521,7 @@ function testSuite50EntityReferenceIntegrity() {
   function snapshotWorld(world, registry) {
     const snap = new Map();
     const put = (collection, mapId, rec, recId) => snap.set(`${collection}:${mapId}:${recId}`, JSON.stringify(rec));
-    ['factions', 'npcs', 'quests', 'items', 'trackers', 'tickets'].forEach(c => world[c].forEach(r => put(c, '', r, r.id)));
+    ['factions', 'npcs', 'quests', 'items', 'creatures', 'trackers', 'tickets'].forEach(c => (world[c] || []).forEach(r => put(c, '', r, r.id)));
     world.spatialPins.forEach(r => put('spatialpins', '', r, r.id));
     Object.values(world.nodes).forEach(r => put('nodes', '', r, r.id));
     world.links.forEach(l => put('links', '', l, `${l.source}->${l.target}`));
@@ -8567,7 +8567,7 @@ function testSuite50EntityReferenceIntegrity() {
       Workstation: { activeTopology: world },
       maps: registry,
       activeMapId: 'map_root',
-      getActiveEntityList: (t) => world[{ npc: 'npcs', quest: 'quests', item: 'items', tracker: 'trackers', faction: 'factions' }[t]] || [],
+      getActiveEntityList: (t) => world[{ npc: 'npcs', quest: 'quests', item: 'items', creature: 'creatures', tracker: 'trackers', faction: 'factions' }[t]] || [],
       getPrototypesForType: () => [],
       escapeHtml: (s) => String(s)
     }, extra || {});
@@ -8648,7 +8648,7 @@ function testSuite50EntityReferenceIntegrity() {
 
   // 50.7 (D4): tickets that target a deleted entity (engine), sub-map or module (cascade file) get one audit note each
   const ticketWorld = () => ({
-    factions: [], items: [], quests: [], trackers: [], nodes: {}, links: [], spatialPins: [], campaign_modules: ['MOD-1'],
+    factions: [], items: [], quests: [], creatures: [], trackers: [], nodes: {}, links: [], spatialPins: [], campaign_modules: ['MOD-1'],
     npcs: [{ id: 'npc_a', name: 'Alva' }],
     tickets: [
       { id: 'tk_npc', targetType: 'npc', targetId: 'npc_a', notes: 'n1' },
@@ -8671,6 +8671,155 @@ function testSuite50EntityReferenceIntegrity() {
   });
   assert(audited('tk_map').notes.includes('Target map (map_child) was deleted'), 'the sub-map ticket audit note names the deleted map');
   assertEqual([audited('tk_other').targetType, audited('tk_other').targetId, audited('tk_other').notes], ['npc', 'npc_other', 'n4'], 'a ticket aimed at something else is left alone');
+}
+
+async function testSuite52ResourcePartitionAndBestiaryPersistence() {
+  console.log('\n--- Suite 52: Resource Partitioning, Bestiary Persistence & Zero-CORS Evidence Pipeline ---');
+
+  // Load scripts in a sandbox
+  const entityCoreCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_core.js'), 'utf8');
+  const workstationStateCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/workstation_state.js'), 'utf8');
+  const stateAdapterCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/state_adapter.js'), 'utf8');
+
+  const sb = {
+    window: {},
+    document: {
+      querySelectorAll: () => [],
+      getElementById: () => null,
+      addEventListener: () => {},
+      removeEventListener: () => {}
+    },
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    console,
+    localStorage: {
+      _store: {},
+      getItem: function(k) { return this._store[k] || null; },
+      setItem: function(k, v) { this._store[k] = String(v); },
+      removeItem: function(k) { delete this._store[k]; }
+    },
+    MODULE_ENTITY_PROTOTYPES: {},
+    ALL_MODULES: [],
+    CAMPAIGN_REGISTRY: {},
+    saveActiveCampaign: () => {},
+    renderCanvas: () => {},
+    updatePropertiesGrid: () => {},
+    renderEntityManagerTree: () => {},
+    renderEntityManagerList: () => {},
+    setStatusBarMessage: () => {}
+  };
+  sb.window = sb;
+  injectEngine(sb);
+  vm.createContext(sb);
+
+  vm.runInContext(workstationStateCode, sb);
+  vm.runInContext(entityCoreCode, sb);
+  vm.runInContext(stateAdapterCode, sb);
+
+  // 1. isResourceItem classification tests
+  const sword = { id: 'it_sword', name: 'Moonblade', category: 'Weapon' };
+  const potion = { id: 'it_pot', name: 'Healing Salve', category: 'Consumable' };
+  const gristmill = { id: 'it_mill', name: 'Windmill Grist', category: 'Infrastructural Machinery' };
+  const ore = { id: 'res_ore', name: 'Iron Ore', category: 'Resource Export / Supply Anchor' };
+  const grain = { id: 'res_grain', name: 'Hard Wheat', isResource: true };
+  const timber = { id: 'res_timber', name: 'Oak Logs', category: 'Commodity: Timber' };
+  const fuel = { id: 'res_coal', name: 'Bituminous Coal', category: 'Resource: Fuel' };
+  const flax = { id: 'res_flax', name: 'Raw Flax', tags: ['resource'] };
+
+  assert(!sb.isResourceItem(sword), 'Moonblade is not classified as a resource');
+  assert(!sb.isResourceItem(potion), 'Healing Salve is not classified as a resource');
+  assert(!sb.isResourceItem(gristmill), 'Infrastructural Machinery is not classified as a resource');
+  assert(sb.isResourceItem(ore), 'Resource Export / Supply Anchor is classified as a resource');
+  assert(sb.isResourceItem(grain), 'isResource: true flag is classified as a resource');
+  assert(sb.isResourceItem(timber), 'Commodity: prefix is classified as a resource');
+  assert(sb.isResourceItem(fuel), 'Resource: prefix is classified as a resource');
+  assert(sb.isResourceItem(flax), 'tags: ["resource"] is classified as a resource');
+
+  // 2. getCreatureEffectiveNodeId tests
+  const cUnassigned = { id: 'c1', name: 'Demon' };
+  const cNodeId = { id: 'c2', name: 'Ghoul', nodeId: 'node_dungeon_3' };
+  const cStationing = { id: 'c3', name: 'Butcher', stationing: { mode: 'lair', nodeId: 'node_cellar_1' } };
+  assertEqual(sb.getCreatureEffectiveNodeId(cUnassigned), null, 'unassigned creature returns null effective node');
+  assertEqual(sb.getCreatureEffectiveNodeId(cNodeId), 'node_dungeon_3', 'creature with direct nodeId returns nodeId');
+  assertEqual(sb.getCreatureEffectiveNodeId(cStationing), 'node_cellar_1', 'creature with stationing.nodeId returns stationing.nodeId');
+
+  // 3. getBackingEntityList vs getActiveEntityList Partitioning
+  const testWorld = {
+    nodes: { 1: { id: 1, name: 'Town' }, 2: { id: 2, name: 'Mine' } },
+    links: [],
+    npcs: [],
+    quests: [],
+    items: [sword, potion, gristmill, ore, grain, timber],
+    creatures: [cUnassigned, cNodeId, cStationing],
+    trackers: [],
+    tickets: [],
+    factions: []
+  };
+  sb.Workstation.activeTopology = testWorld;
+
+  // Verify getBackingEntityList returns the raw mutable array
+  assert(sb.getBackingEntityList('item') === testWorld.items, 'getBackingEntityList("item") returns the exact backing items array');
+  assert(sb.getBackingEntityList('resource') === testWorld.items, 'getBackingEntityList("resource") returns the exact backing items array');
+  assert(sb.getBackingEntityList('creature') === testWorld.creatures, 'getBackingEntityList("creature") returns the exact backing creatures array');
+
+  // Verify getActiveEntityList partitions items vs resources
+  const activeItems = sb.getActiveEntityList('item');
+  const activeResources = sb.getActiveEntityList('resource');
+  const activeCreatures = sb.getActiveEntityList('creature');
+
+  assertEqual(activeItems.map(i => i.id), ['it_sword', 'it_pot', 'it_mill'], 'getActiveEntityList("item") returns only non-resource items (including Machinery)');
+  assertEqual(activeResources.map(i => i.id), ['res_ore', 'res_grain', 'res_timber'], 'getActiveEntityList("resource") returns only resource/commodity items');
+  assertEqual(activeCreatures.map(c => c.id), ['c1', 'c2', 'c3'], 'getActiveEntityList("creature") returns creatures array');
+
+  // Verify mutating backing list via getBackingEntityList('resource').push updates backing items and partition
+  sb.getBackingEntityList('resource').push(fuel);
+  assertEqual(sb.getActiveEntityList('resource').map(i => i.id), ['res_ore', 'res_grain', 'res_timber', 'res_coal'], 'pushing to getBackingEntityList("resource") updates the active resource view');
+  assertEqual(sb.getActiveEntityList('item').map(i => i.id), ['it_sword', 'it_pot', 'it_mill'], 'pushing resource does not leak into active items view');
+
+  // 4. DIablo Campaign Hydration & Zero-CORS Evidence
+  const diabloTopoPath = path.join(ROOT_DIR, 'campaigns', 'DIablo', 'topology.json');
+  const diabloEvidencePath = path.join(ROOT_DIR, 'campaigns', 'DIablo', 'creatures', 'evidence.json');
+  assert(fs.existsSync(diabloTopoPath), 'campaigns/DIablo/topology.json exists on disk');
+  assert(fs.existsSync(diabloEvidencePath), 'campaigns/DIablo/creatures/evidence.json exists on disk');
+
+  const diabloTopo = JSON.parse(fs.readFileSync(diabloTopoPath, 'utf8'));
+  const diabloEvidence = JSON.parse(fs.readFileSync(diabloEvidencePath, 'utf8'));
+
+  assert(Array.isArray(diabloTopo.creatures) && diabloTopo.creatures.length === 68, 'DIablo topology.json defines 68 bestiary creatures');
+  assert(Object.keys(diabloEvidence).length === 68, 'DIablo evidence.json defines 68 creature evidence records');
+
+  await sb.loadCampaignProjectPackage({
+    id: 'DIablo',
+    name: 'Diablo: The Darkening of Tristram',
+    preset: diabloTopo,
+    creatures: diabloTopo.creatures,
+    creatureEvidence: diabloEvidence,
+    maps: diabloTopo.maps
+  });
+  assertEqual(sb.Workstation.activeTopology.creatures.length, 68, 'loadCampaignProjectPackage hydrates all 68 creatures onto activeTopology');
+  assertEqual(Object.keys(sb.Workstation.activeTopology.creatureEvidence).length, 68, 'loadCampaignProjectPackage preserves all 68 creature evidence records');
+
+  // Verify submap stationing resolution for Diablo creatures
+  const skel = sb.Workstation.activeTopology.creatures.find(c => c.id === 'creature_crucified_skeletons');
+  assert(Boolean(skel), 'Crucified Skeletons creature exists in hydrated topology');
+  assertEqual(sb.getCreatureEffectiveNodeId(skel), 'N_KING_LEORIC_TOMB', 'Crucified Skeletons effective node resolves to submap node N_KING_LEORIC_TOMB');
+
+  // 5. BaldursGate Campaign Items vs Resources Partition
+  const bgTopoPath = path.join(ROOT_DIR, 'campaigns', 'BaldursGate', 'topology.json');
+  if (fs.existsSync(bgTopoPath)) {
+    const bgTopo = JSON.parse(fs.readFileSync(bgTopoPath, 'utf8'));
+    await sb.loadCampaignProjectPackage({
+      id: 'BaldursGate',
+      name: bgTopo.name || 'BaldursGate',
+      preset: bgTopo,
+      maps: bgTopo.maps
+    });
+    const bgItems = sb.getActiveEntityList('item');
+    const bgResources = sb.getActiveEntityList('resource');
+    assert(bgItems.length > 0, `BaldursGate active items loaded (${bgItems.length} items)`);
+    assert(bgResources.length > 0, `BaldursGate active resources loaded (${bgResources.length} resources)`);
+    assertEqual(bgItems.length + bgResources.length, bgTopo.items.length, 'Sum of BaldursGate items + resources equals total backing items count');
+  }
 }
 
 // ============================================================================
@@ -8729,6 +8878,7 @@ function testSuite50EntityReferenceIntegrity() {
     testSuite49EngineIncludeOrder();
     testSuite50EntityReferenceIntegrity();
     testSuite51ImporterChainSelectionAndConduitMerge();
+    await testSuite52ResourcePartitionAndBestiaryPersistence();
     require('./test_gigerenzer_heuristics.js')({ assert, assertEqual, ROOT });
 
     const elapsedMs = Date.now() - suiteStartTime;

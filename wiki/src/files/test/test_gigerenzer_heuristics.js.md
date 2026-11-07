@@ -4,8 +4,8 @@ title: "test_gigerenzer_heuristics.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
 current_hash: "cf9157b8ef3da3cd"
-reviewed_hash: "e28e1f75673eeefb"
-stale: true
+reviewed_hash: "cf9157b8ef3da3cd"
+stale: false
 size_bytes: 13605
 line_count: 179
 ---

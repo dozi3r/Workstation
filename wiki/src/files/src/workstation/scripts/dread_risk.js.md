@@ -4,8 +4,8 @@ title: "dread_risk.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
 current_hash: "424ab6728016c666"
-reviewed_hash: "3aef89228e9d58a1"
-stale: true
+reviewed_hash: "424ab6728016c666"
+stale: false
 size_bytes: 8509
 line_count: 165
 ---

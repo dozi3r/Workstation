@@ -4,8 +4,8 @@ title: "03: Langtree and The Siege of Hope's End"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "3fc98efd56281225"
-reviewed_hash: "7d932af369767994"
-stale: true
+reviewed_hash: "3fc98efd56281225"
+stale: false
 size_bytes: 24593
 line_count: 278
 ---

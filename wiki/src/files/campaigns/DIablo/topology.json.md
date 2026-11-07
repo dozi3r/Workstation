@@ -15,5 +15,4 @@ line_count: 21341
 <!-- BEGIN_CUSTOM_NOTES -->
 ### Architectural Purpose & Role
 `campaigns/DIablo/topology.json` serves as a **Authoritative JSON Data / Manifest** within **Volume VIII: Campaign Packages, Modules & Templates**.
-
 <!-- END_CUSTOM_NOTES -->

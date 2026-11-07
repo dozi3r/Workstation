@@ -4,8 +4,8 @@ title: "Master Chronology: 3000 PC to 352 AC"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "6d8f2f0e6baa869f"
-reviewed_hash: "821e0f0299b5182b"
-stale: true
+reviewed_hash: "6d8f2f0e6baa869f"
+stale: false
 size_bytes: 21406
 line_count: 240
 ---

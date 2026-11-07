@@ -4,8 +4,8 @@ title: "Master Dossier: Secondary Companions, Allies & Divine Agents"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "6f8dc8c92cb312c5"
-reviewed_hash: "79a114e4b5a1a426"
-stale: true
+reviewed_hash: "6f8dc8c92cb312c5"
+stale: false
 size_bytes: 35360
 line_count: 368
 ---

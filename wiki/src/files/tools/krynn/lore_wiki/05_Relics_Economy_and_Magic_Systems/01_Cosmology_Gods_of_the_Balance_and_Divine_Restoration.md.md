@@ -4,8 +4,8 @@ title: "Cosmology, Gods of the Balance & Divine Restoration"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "8e89992027aae741"
-reviewed_hash: "460b4f67a870df34"
-stale: true
+reviewed_hash: "8e89992027aae741"
+stale: false
 size_bytes: 26223
 line_count: 266
 ---

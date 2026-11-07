@@ -4,8 +4,8 @@ title: "04: Darken Wood, Xak Tsaroth, Qualinost and Pax Tharkas"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "ad88ad526737a500"
-reviewed_hash: "c68d7a3f095f92d3"
-stale: true
+reviewed_hash: "ad88ad526737a500"
+stale: false
 size_bytes: 22042
 line_count: 260
 ---

@@ -4,8 +4,8 @@ title: "campaign_override_slots.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
 current_hash: "8f00a8bb38dae43b"
-reviewed_hash: "63da501124db2745"
-stale: true
+reviewed_hash: "8f00a8bb38dae43b"
+stale: false
 size_bytes: 3087
 line_count: 66
 ---

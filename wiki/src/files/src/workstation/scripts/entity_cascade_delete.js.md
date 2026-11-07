@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_cascade_delete.js"
 title: "entity_cascade_delete.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "7e751c17f086a3f8"
-reviewed_hash: "7e751c17f086a3f8"
+current_hash: "b9a851d0d83a205c"
+reviewed_hash: "b9a851d0d83a205c"
 stale: false
-size_bytes: 59984
-line_count: 1277
+size_bytes: 60879
+line_count: 1298
 ---
 
 # entity_cascade_delete.js

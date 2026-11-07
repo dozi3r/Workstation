@@ -4,8 +4,8 @@ title: "MOD_T3_SANCTION_EGG_FOUNDRIES: The Volcanic Draconian Hatcheries of Sanc
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "f492d91937e9f4c4"
-reviewed_hash: "f45c6e0a72969b47"
-stale: true
+reviewed_hash: "f492d91937e9f4c4"
+stale: false
 size_bytes: 3741
 line_count: 70
 ---

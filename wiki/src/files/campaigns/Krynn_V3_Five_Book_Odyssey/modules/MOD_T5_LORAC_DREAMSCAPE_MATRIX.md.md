@@ -4,8 +4,8 @@ title: "MOD_T5_LORAC_DREAMSCAPE_MATRIX: The Silvanesti Dragon Orb Nightmare & Cy
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "fb57a0cca4263150"
-reviewed_hash: "81ab6c6af00a487f"
-stale: true
+reviewed_hash: "fb57a0cca4263150"
+stale: false
 size_bytes: 3670
 line_count: 70
 ---

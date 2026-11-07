@@ -4,8 +4,8 @@ title: "MOD_T2_ICEWALL_GLACIAL_SPIRE: The Sub-Zero Glacier & Ice-Boat Wastes of 
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "57ab98dcb97a36c5"
-reviewed_hash: "9b6eb24944f046af"
-stale: true
+reviewed_hash: "57ab98dcb97a36c5"
+stale: false
 size_bytes: 3437
 line_count: 70
 ---

@@ -4,8 +4,8 @@ title: "Undead Monstrosities, Guardians & Regional Encounter Tables"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "02d71c3441c4c47b"
-reviewed_hash: "8e6089d84200a9f8"
-stale: true
+reviewed_hash: "02d71c3441c4c47b"
+stale: false
 size_bytes: 25381
 line_count: 312
 ---

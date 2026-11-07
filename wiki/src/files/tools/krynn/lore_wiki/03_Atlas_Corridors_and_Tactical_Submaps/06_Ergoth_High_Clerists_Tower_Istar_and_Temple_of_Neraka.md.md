@@ -4,8 +4,8 @@ title: "06: Ergoth, High Clerist's Tower, Istar and Temple of Neraka"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "04cfd82b4a535a4d"
-reviewed_hash: "28c89ac814f66073"
-stale: true
+reviewed_hash: "04cfd82b4a535a4d"
+stale: false
 size_bytes: 38940
 line_count: 421
 ---

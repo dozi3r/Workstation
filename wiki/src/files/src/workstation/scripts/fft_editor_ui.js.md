@@ -4,8 +4,8 @@ title: "fft_editor_ui.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
 current_hash: "8c69088ebd82ddd9"
-reviewed_hash: "9e4c7b1b665b6466"
-stale: true
+reviewed_hash: "8c69088ebd82ddd9"
+stale: false
 size_bytes: 16476
 line_count: 225
 ---

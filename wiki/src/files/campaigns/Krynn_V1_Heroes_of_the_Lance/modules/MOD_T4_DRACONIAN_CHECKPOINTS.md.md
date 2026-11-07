@@ -4,8 +4,8 @@ title: "MOD_T4_DRACONIAN_CHECKPOINTS: Hooded Draconian Checkpoints & Death-Throe
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "ac7118494021fb5e"
-reviewed_hash: "6517344c3ece4261"
-stale: true
+reviewed_hash: "ac7118494021fb5e"
+stale: false
 size_bytes: 3487
 line_count: 70
 ---

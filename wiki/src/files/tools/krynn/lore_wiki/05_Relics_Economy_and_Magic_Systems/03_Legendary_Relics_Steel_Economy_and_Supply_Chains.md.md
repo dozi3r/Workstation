@@ -4,8 +4,8 @@ title: "Legendary Relics, Steel Economy & Tier 3 Supply Chains"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "5888458020195345"
-reviewed_hash: "375f241ae9812d06"
-stale: true
+reviewed_hash: "5888458020195345"
+stale: false
 size_bytes: 31535
 line_count: 448
 ---

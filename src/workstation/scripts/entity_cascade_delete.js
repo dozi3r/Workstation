@@ -242,6 +242,27 @@
         }
       });
 
+      // 3b. CREATURE RELATIONSHIPS
+      (topo.creatures || []).forEach(cr => {
+        let reason = referenceReason('creatures', cr);
+        let kind = reason ? 'reference' : null;
+        if (!reason) {
+          if (targetType === 'node') {
+            const effNode = (typeof getCreatureEffectiveNodeId === 'function') ? getCreatureEffectiveNodeId(cr) : (cr.stationing ? cr.stationing.nodeId : cr.nodeId);
+            if (effNode && String(effNode) === String(targetId)) {
+              reason = `Stationed at Node #${targetId}`; kind = 'related';
+            }
+          } else if (targetType === 'faction') {
+            if (cr.factionId && String(cr.factionId) === String(targetId)) {
+              reason = `Associated with Faction`; kind = 'related';
+            }
+          }
+        }
+        if (reason) {
+          addDep('creature', cr, reason, true, kind);
+        }
+      });
+
       // 4. TRACKER / CLOCK RELATIONSHIPS
       (topo.trackers || []).forEach(trk => {
         let reason = referenceReason('trackers', trk);

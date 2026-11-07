@@ -218,6 +218,20 @@ async function switchActiveMap(targetMapId, force = false, options = {}) {
       : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.items))
           ? Workstation.activeTopology.items
           : (targetEntities && Array.isArray(targetEntities.items) ? targetEntities.items : [])),
+    creatures: (isPackageLoad && targetEntities && targetEntities.creatures)
+      ? targetEntities.creatures
+      : (Array.isArray(target.creatures) && target.creatures.length > 0
+          ? target.creatures
+          : ((isPackageLoad && targetEntities)
+              ? []
+              : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.creatures))
+                  ? Workstation.activeTopology.creatures
+                  : (targetEntities && Array.isArray(targetEntities.creatures) ? targetEntities.creatures : [])))),
+    creatureEvidence: (target.creatureEvidence && typeof target.creatureEvidence === 'object' && Object.keys(target.creatureEvidence).length > 0)
+      ? target.creatureEvidence
+      : (targetEntities && targetEntities.creatureEvidence && typeof targetEntities.creatureEvidence === 'object' && Object.keys(targetEntities.creatureEvidence).length > 0
+          ? targetEntities.creatureEvidence
+          : ((Workstation.activeTopology && Workstation.activeTopology.creatureEvidence) || {})),
     trackers: (isPackageLoad && targetEntities)
       ? (targetEntities.trackers || [])
       : ((Workstation.activeTopology && Array.isArray(Workstation.activeTopology.trackers))
@@ -371,6 +385,8 @@ async function switchActiveMap(targetMapId, force = false, options = {}) {
   Workstation.activeTopology.npcs = cachedEntities.npcs;
   Workstation.activeTopology.quests = cachedEntities.quests;
   Workstation.activeTopology.items = cachedEntities.items;
+  Workstation.activeTopology.creatures = cachedEntities.creatures || [];
+  Workstation.activeTopology.creatureEvidence = cachedEntities.creatureEvidence || {};
   Workstation.activeTopology.trackers = cachedEntities.trackers;
   Workstation.activeTopology.tickets = cachedEntities.tickets;
   Workstation.activeTopology.factions = cachedEntities.factions || [];
@@ -943,6 +959,8 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
         links: reg.preset?.links || null,
         waves: reg.preset?.waves || null,
         entities: reg.preset?.entities || reg.metadata?.entities || null,
+        creatures: reg.preset?.creatures || reg.preset?.entities?.creatures || reg.metadata?.entities?.creatures || null,
+        creatureEvidence: reg.creatureEvidence || reg.preset?.creatureEvidence || null,
         globalDials: reg.metadata?.globalDials || reg.preset?.globalDials || null,
         modules: reg.modules || []
       };
@@ -970,6 +988,8 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
         npcs: pkg.activeTopology.npcs || [],
         quests: pkg.activeTopology.quests || [],
         items: pkg.activeTopology.items || [],
+        creatures: pkg.activeTopology.creatures || [],
+        creatureEvidence: pkg.activeTopology.creatureEvidence || {},
         trackers: pkg.activeTopology.trackers || [],
         tickets: pkg.activeTopology.tickets || [],
         factions: pkg.activeTopology.factions || []
@@ -985,6 +1005,14 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     items: (candidateEntities && Array.isArray(candidateEntities.items) && candidateEntities.items.length > 0)
       ? JSON.parse(JSON.stringify(candidateEntities.items))
       : (Array.isArray(pkg.items) ? JSON.parse(JSON.stringify(pkg.items)) : (pkg.preset && Array.isArray(pkg.preset.items) ? JSON.parse(JSON.stringify(pkg.preset.items)) : [])),
+    creatures: (candidateEntities && Array.isArray(candidateEntities.creatures) && candidateEntities.creatures.length > 0)
+      ? JSON.parse(JSON.stringify(candidateEntities.creatures))
+      : (Array.isArray(pkg.creatures) ? JSON.parse(JSON.stringify(pkg.creatures)) : (pkg.preset && Array.isArray(pkg.preset.creatures) ? JSON.parse(JSON.stringify(pkg.preset.creatures)) : [])),
+    creatureEvidence: (pkg.creatureEvidence && typeof pkg.creatureEvidence === 'object')
+      ? JSON.parse(JSON.stringify(pkg.creatureEvidence))
+      : ((pkg.preset && pkg.preset.creatureEvidence)
+          ? JSON.parse(JSON.stringify(pkg.preset.creatureEvidence))
+          : ((candidateEntities && candidateEntities.creatureEvidence) ? JSON.parse(JSON.stringify(candidateEntities.creatureEvidence)) : {})),
     trackers: (candidateEntities && Array.isArray(candidateEntities.trackers) && candidateEntities.trackers.length > 0)
       ? JSON.parse(JSON.stringify(candidateEntities.trackers))
       : (Array.isArray(pkg.trackers) ? JSON.parse(JSON.stringify(pkg.trackers)) : (pkg.preset && Array.isArray(pkg.preset.trackers) ? JSON.parse(JSON.stringify(pkg.preset.trackers)) : [])),
@@ -1112,6 +1140,8 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     Workstation.activeTopology.npcs = extractedEntities.npcs;
     Workstation.activeTopology.quests = extractedEntities.quests;
     Workstation.activeTopology.items = extractedEntities.items;
+    Workstation.activeTopology.creatures = extractedEntities.creatures || [];
+    Workstation.activeTopology.creatureEvidence = extractedEntities.creatureEvidence || {};
     Workstation.activeTopology.trackers = extractedEntities.trackers;
     Workstation.activeTopology.tickets = extractedEntities.tickets;
     Workstation.activeTopology.factions = extractedEntities.factions || [];
@@ -1161,6 +1191,8 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     Workstation.activeTopology.npcs = extractedEntities.npcs;
     Workstation.activeTopology.quests = extractedEntities.quests;
     Workstation.activeTopology.items = extractedEntities.items;
+    Workstation.activeTopology.creatures = extractedEntities.creatures || [];
+    Workstation.activeTopology.creatureEvidence = extractedEntities.creatureEvidence || {};
     Workstation.activeTopology.trackers = extractedEntities.trackers;
     Workstation.activeTopology.tickets = extractedEntities.tickets;
     Workstation.activeTopology.factions = extractedEntities.factions || [];
@@ -1229,7 +1261,7 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     if (typeof updateStatusBar === "function") updateStatusBar();
     if (typeof closeModal === "function") closeModal("modal-load");
     if (typeof setStatusBarMessage === "function") {
-      setStatusBarMessage(`Loaded campaign package: "${campaignTitle}" [${Object.keys(maps).length} Maps, ${extractedEntities.npcs.length} NPCs, ${extractedEntities.quests.length} Quests, ${extractedEntities.items.length} Items, ${extractedEntities.factions ? extractedEntities.factions.length : 0} Factions].`);
+      setStatusBarMessage(`Loaded campaign package: "${campaignTitle}" [${Object.keys(maps).length} Maps, ${extractedEntities.npcs.length} NPCs, ${extractedEntities.quests.length} Quests, ${extractedEntities.items.length} Items, ${extractedEntities.creatures ? extractedEntities.creatures.length : 0} Creatures, ${extractedEntities.factions ? extractedEntities.factions.length : 0} Factions].`);
     }
   } catch(refreshErr) {
     console.error("[loadCampaignProjectPackage] Refresh warning:", refreshErr);

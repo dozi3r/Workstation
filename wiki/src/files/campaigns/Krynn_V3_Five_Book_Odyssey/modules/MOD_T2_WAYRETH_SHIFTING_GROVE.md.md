@@ -4,8 +4,8 @@ title: "MOD_T2_WAYRETH_SHIFTING_GROVE: The Shifting Enchanted Forest of Wayreth"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
 current_hash: "9ae00a74048aff2b"
-reviewed_hash: "f8eb35dda3d53609"
-stale: true
+reviewed_hash: "9ae00a74048aff2b"
+stale: false
 size_bytes: 3449
 line_count: 70
 ---

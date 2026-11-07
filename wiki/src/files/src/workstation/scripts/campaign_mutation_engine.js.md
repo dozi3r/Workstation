@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/campaign_mutation_engine.js"
 title: "campaign_mutation_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "eb32a270be7edd3b"
-reviewed_hash: "67a7f7bb1322ec8f"
-stale: true
-size_bytes: 117500
-line_count: 2532
+current_hash: "cc072ec3b9d38984"
+reviewed_hash: "cc072ec3b9d38984"
+stale: false
+size_bytes: 118804
+line_count: 2552
 ---
 
 # campaign_mutation_engine.js

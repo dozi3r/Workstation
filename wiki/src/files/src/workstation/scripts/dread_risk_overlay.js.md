@@ -4,8 +4,8 @@ title: "dread_risk_overlay.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
 current_hash: "86da6905ee551b12"
-reviewed_hash: "bb6535c81889e18a"
-stale: true
+reviewed_hash: "86da6905ee551b12"
+stale: false
 size_bytes: 2727
 line_count: 52
 ---

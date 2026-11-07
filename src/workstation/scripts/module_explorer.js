@@ -736,7 +736,7 @@
 
       const topo = Workstation.activeTopology;
       ensureEntityCollections(topo);
-      const activeList = getActiveEntityList(type);
+      const backingList = typeof getBackingEntityList === 'function' ? getBackingEntityList(type) : getActiveEntityList(type);
 
       const targetNode = CurrentModuleTargetNodeId;
 
@@ -765,7 +765,7 @@
         newEnt.notes = entity.notes;
       }
 
-      activeList.push(newEnt);
+      backingList.push(newEnt);
       saveActiveCampaign();
       renderCanvas();
       updatePropertiesGrid();

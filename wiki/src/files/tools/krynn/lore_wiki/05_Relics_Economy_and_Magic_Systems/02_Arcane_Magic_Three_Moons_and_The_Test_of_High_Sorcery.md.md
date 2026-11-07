@@ -4,8 +4,8 @@ title: "Arcane Magic, Three Moons & The Test of High Sorcery"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
 current_hash: "beb392b42f247a2d"
-reviewed_hash: "22b3b27549a2a1a4"
-stale: true
+reviewed_hash: "beb392b42f247a2d"
+stale: false
 size_bytes: 22295
 line_count: 232
 ---

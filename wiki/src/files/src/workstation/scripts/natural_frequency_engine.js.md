@@ -4,8 +4,8 @@ title: "natural_frequency_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
 current_hash: "4b3dbc924395e4f1"
-reviewed_hash: "5aafcef9e076ddb3"
-stale: true
+reviewed_hash: "4b3dbc924395e4f1"
+stale: false
 size_bytes: 2699
 line_count: 56
 ---

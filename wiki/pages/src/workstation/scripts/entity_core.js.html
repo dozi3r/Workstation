@@ -470,7 +470,7 @@
         <h1 class="article-title">entity_core.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-warn">⚠️ SOURCE MODIFIED SINCE LAST WIKI REVIEW</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 57ab0a07)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (17)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/entity_core.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1188 lines &bull; 51.7 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-warn">⚠️ SOURCE MODIFIED SINCE LAST WIKI REVIEW</span></td></tr>
+    <tr><th>File Metrics</th><td>1292 lines &bull; 54.8 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 57ab0a07)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>13</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>17</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/entity_core.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -514,7 +514,7 @@
 <li><strong>Removal (SYS-ARCH-01)</strong>: <code>removeEntityFromCampaign</code> opens the cascade dialog (<code>promptEntityDelete</code>). Without the dialog it deletes through <code>CampaignMutationEngine.deleteEntity</code> (passing the <code>maps</code> registry) so references are unlinked the same way. The old fallback that filtered four collections and unlinked nothing is gone.</li>
 <li>Gigerenzer suite (ADR 0024): promotePrototypeToCampaign deep-copies the optional fft so promoted entities never share a tree.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (36)</h3><div class="pill-list"><span class="pill">getItemEffectiveNodeId(item)</span><span class="pill">computeNpcNodeDissonance(npc, node)</span><span class="pill">setNpcPartyDisposition(npcId, delta)</span><span class="pill">toggleNpcSecretRevealed(npcId, secretIndex)</span><span class="pill">toggleItemPossessionMode(itemId, isProto)</span><span class="pill">addNpcRelationship(sourceNpcId, targetNpcId, relationshipType, sentiment = 0, notes = '', isReciprocal = false)</span><span class="pill">removeNpcRelationship(sourceNpcId, targetNpcId, isReciprocal = true)</span><span class="pill">promptAddNpcRelationship(sourceNpcId)</span><span class="pill">getPrototypesForType(type)</span><span class="pill">getActiveEntityList(type)</span><span class="pill">getTicketsForEntity(targetType, targetId)</span><span class="pill">getTrackersForEntity(targetType, targetId)</span><span class="pill">evaluateTrackerConsequences(trk, prevTicks, newTicks, options = {})</span><span class="pill">advanceTrackerTick(trackerId, delta, options = {})</span><span class="pill">resetTrackerTicks(trackerId, options = {})</span><span class="pill">toggleTrackerCanvasVisibility(trackerId, isVisible, isPrototype)</span><span class="pill">setTrackerDialLevel(trackerId, level, isPrototype)</span><span class="pill">resetTrackerOffset(trackerId)</span><span class="pill">updateNodeProp(nodeId, prop, value, targetMapId = null)</span><span class="pill">centerOnNode(nodeId, optMapId = null)</span><span class="pill">promotePrototypeToCampaign(protoId, explicitType = null)</span><span class="pill">syncQuestAndTrackerLinks(quest, previousTrackerIds = [])</span><span class="pill">syncTrackerToQuests(tracker, previousTriggerQuestIds = [])</span><span class="pill">assignEntityToNode(entityId, nodeIdVal, isProto)</span><span class="pill">removeEntityFromCampaign(entityId)</span><span class="pill">dedupeStringsCI(arr)</span><span class="pill">normalizeDemographics(raw)</span><span class="pill">getDemographicNames(raw)</span><span class="pill">normalizePartyRapport(raw)</span><span class="pill">addDemographicTag(target, tag)</span><span class="pill">removeDemographicTag(target, tag)</span><span class="pill">addFactionPresence(target, faction)</span><span class="pill">removeFactionPresence(target, faction)</span><span class="pill">setPartyRapport(target, rapport)</span><span class="pill">getCampaignFactionSuggestions()</span><span class="pill">registerCampaignFaction(name)</span></div>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (39)</h3><div class="pill-list"><span class="pill">getItemEffectiveNodeId(item)</span><span class="pill">isResourceItem(item)</span><span class="pill">getCreatureEffectiveNodeId(creature)</span><span class="pill">computeNpcNodeDissonance(npc, node)</span><span class="pill">setNpcPartyDisposition(npcId, delta)</span><span class="pill">toggleNpcSecretRevealed(npcId, secretIndex)</span><span class="pill">toggleItemPossessionMode(itemId, isProto)</span><span class="pill">addNpcRelationship(sourceNpcId, targetNpcId, relationshipType, sentiment = 0, notes = '', isReciprocal = false)</span><span class="pill">removeNpcRelationship(sourceNpcId, targetNpcId, isReciprocal = true)</span><span class="pill">promptAddNpcRelationship(sourceNpcId)</span><span class="pill">getPrototypesForType(type)</span><span class="pill">getBackingEntityList(type)</span><span class="pill">getActiveEntityList(type)</span><span class="pill">getTicketsForEntity(targetType, targetId)</span><span class="pill">getTrackersForEntity(targetType, targetId)</span><span class="pill">evaluateTrackerConsequences(trk, prevTicks, newTicks, options = {})</span><span class="pill">advanceTrackerTick(trackerId, delta, options = {})</span><span class="pill">resetTrackerTicks(trackerId, options = {})</span><span class="pill">toggleTrackerCanvasVisibility(trackerId, isVisible, isPrototype)</span><span class="pill">setTrackerDialLevel(trackerId, level, isPrototype)</span><span class="pill">resetTrackerOffset(trackerId)</span><span class="pill">updateNodeProp(nodeId, prop, value, targetMapId = null)</span><span class="pill">centerOnNode(nodeId, optMapId = null)</span><span class="pill">promotePrototypeToCampaign(protoId, explicitType = null)</span><span class="pill">syncQuestAndTrackerLinks(quest, previousTrackerIds = [])</span><span class="pill">syncTrackerToQuests(tracker, previousTriggerQuestIds = [])</span><span class="pill">assignEntityToNode(entityId, nodeIdVal, isProto)</span><span class="pill">removeEntityFromCampaign(entityId)</span><span class="pill">dedupeStringsCI(arr)</span><span class="pill">normalizeDemographics(raw)</span><span class="pill">getDemographicNames(raw)</span><span class="pill">normalizePartyRapport(raw)</span><span class="pill">addDemographicTag(target, tag)</span><span class="pill">removeDemographicTag(target, tag)</span><span class="pill">addFactionPresence(target, faction)</span><span class="pill">removeFactionPresence(target, faction)</span><span class="pill">setPartyRapport(target, rapport)</span><span class="pill">getCampaignFactionSuggestions()</span><span class="pill">registerCampaignFaction(name)</span></div>
       <h2 id="outbound-links">Outbound References (13)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
@@ -595,7 +595,7 @@
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/campaign_exporter.js.html"><strong>src/workstation/scripts/campaign_exporter.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes normalizeDemographics() defined in entity_core.js</td>
+        <td>Invokes getCreatureEffectiveNodeId() defined in entity_core.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
@@ -603,7 +603,7 @@
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/entity_cascade_delete.js.html"><strong>src/workstation/scripts/entity_cascade_delete.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes getPrototypesForType() defined in entity_core.js</td>
+        <td>Invokes getCreatureEffectiveNodeId() defined in entity_core.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/entity_crud_dialogs.js.html"><strong>src/workstation/scripts/entity_crud_dialogs.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
@@ -619,7 +619,7 @@
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/module_explorer.js.html"><strong>src/workstation/scripts/module_explorer.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes getActiveEntityList() defined in entity_core.js</td>
+        <td>Invokes getBackingEntityList() defined in entity_core.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/property_grid_inspector.js.html"><strong>src/workstation/scripts/property_grid_inspector.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

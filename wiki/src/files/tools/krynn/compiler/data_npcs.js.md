@@ -4,8 +4,8 @@ title: "data_npcs.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
 current_hash: "64d2e58ea1994012"
-reviewed_hash: "3cb1d7149c18a230"
-stale: true
+reviewed_hash: "64d2e58ea1994012"
+stale: false
 size_bytes: 46567
 line_count: 980
 ---

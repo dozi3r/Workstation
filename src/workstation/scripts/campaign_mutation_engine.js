@@ -105,7 +105,7 @@
 
   function normalizeEntities(entitiesObj) {
     if (!entitiesObj || typeof entitiesObj !== 'object') entitiesObj = {};
-    const categories = ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions'];
+    const categories = ['npcs', 'quests', 'items', 'creatures', 'trackers', 'tickets', 'factions'];
     categories.forEach(k => {
       if (!Array.isArray(entitiesObj[k])) entitiesObj[k] = [];
     });
@@ -290,7 +290,7 @@
       if (subMatches.length === 1) return subMatches[0][0];
     } else if (normType === 'anys' || !collection) {
       // Search across all entity collections when type is ambiguous
-      const searchCats = ['npcs', 'quests', 'items', 'trackers', 'factions', 'tickets', 'spatialpins'];
+      const searchCats = ['npcs', 'quests', 'items', 'creatures', 'trackers', 'factions', 'tickets', 'spatialpins'];
       for (const sc of searchCats) {
         const col = getTargetCollection(state, sc);
         if (Array.isArray(col)) {
@@ -614,6 +614,10 @@
     { collection: 'items', target: 'quest', path: 'linkedQuestId', shape: 'id', op: 'null', log: true, label: 'linked quest' },
     { collection: 'items', target: 'quest', path: 'questId', shape: 'id', op: 'null', log: true, label: 'linked quest' },
     { collection: 'items', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: true, label: 'item faction' },
+    // creatures (bestiary)
+    { collection: 'creatures', target: 'node', path: 'nodeId', shape: 'id', op: 'null', log: true, label: 'creature location' },
+    { collection: 'creatures', target: 'node', path: 'stationing.nodeId', shape: 'id', op: 'null', log: true, label: 'creature stationing node' },
+    { collection: 'creatures', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: true, label: 'creature faction' },
     // trackers (threat clocks)
     { collection: 'trackers', target: '*', path: 'triggerRefs', shape: 'refs', idKeys: ['entityId'], typeKey: 'entityType', untyped: 'match', op: 'filter', log: true, label: 'clock trigger' },
     { collection: 'trackers', target: 'node', path: 'nodeId', shape: 'id', op: 'null', log: true, label: 'clock location' },
@@ -646,6 +650,7 @@
     { collection: 'nodes', target: 'npc', path: 'npcIds', shape: 'ids', op: 'filter', log: false, label: 'node roster' },
     { collection: 'nodes', target: 'quest', path: 'questIds', shape: 'ids', op: 'filter', log: false, label: 'node quests' },
     { collection: 'nodes', target: 'item', path: 'itemIds', shape: 'ids', op: 'filter', log: false, label: 'node items' },
+    { collection: 'nodes', target: 'creature', path: 'creatureIds', shape: 'ids', op: 'filter', log: false, label: 'node creatures' },
     { collection: 'nodes', target: 'tracker', path: 'trackerIds', shape: 'ids', op: 'filter', log: false, label: 'node clocks' },
     { collection: 'nodes', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: false, label: 'node faction' },
     // corridor links (active topology and every registered map)
@@ -661,6 +666,7 @@
     npcs: r => r.name || r.id,
     quests: r => r.title || r.name || r.id,
     items: r => r.name || r.id,
+    creatures: r => r.name || r.id,
     trackers: r => r.name || r.title || r.id,
     tickets: r => r.title || r.name || r.id,
     spatialpins: r => r.label || r.id,
@@ -848,7 +854,7 @@
       visitRecords('spatialpins', pins, mapId);
     };
 
-    ['factions', 'npcs', 'quests', 'items', 'trackers', 'tickets'].forEach(name => {
+    ['factions', 'npcs', 'quests', 'items', 'creatures', 'trackers', 'tickets'].forEach(name => {
       const list = getTargetCollection(state, name);
       if (Array.isArray(list)) visitRecords(name, list, null);
     });
@@ -1059,6 +1065,7 @@
       { key: 'npcs', single: 'npc', prefix: 'npc' },
       { key: 'quests', single: 'quest', prefix: 'quest' },
       { key: 'items', single: 'item', prefix: 'item' },
+      { key: 'creatures', single: 'creature', prefix: 'creature' },
       { key: 'trackers', single: 'tracker', prefix: 'trk' },
       { key: 'tickets', single: 'ticket', prefix: 'tkt' }
     ];
@@ -1184,6 +1191,17 @@
           if (it.locationNodeId) it.locationNodeId = remapId(it.locationNodeId);
           if (it.nodeId) it.nodeId = remapId(it.nodeId);
           if (it.submapId) it.submapId = remapMapId(it.submapId);
+        }
+      }
+
+      // 4b. Remap Creatures
+      if (Array.isArray(container.creatures)) {
+        for (const cr of container.creatures) {
+          if (!cr) continue;
+          if (cr.nodeId) cr.nodeId = remapId(cr.nodeId);
+          if (cr.stationing && cr.stationing.nodeId) cr.stationing.nodeId = remapId(cr.stationing.nodeId);
+          if (cr.factionId) cr.factionId = remapId(cr.factionId);
+          if (cr.submapId) cr.submapId = remapMapId(cr.submapId);
         }
       }
 
@@ -1883,7 +1901,7 @@
     const normalized = normalizeEntities(slicePayload.entities || slicePayload);
     const operations = [];
 
-    ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions'].forEach(cat => {
+    ['npcs', 'quests', 'items', 'creatures', 'trackers', 'tickets', 'factions'].forEach(cat => {
       const items = normalized[cat] || [];
       const currentList = getTargetCollection(state, cat) || [];
 
@@ -1920,6 +1938,7 @@
     const npcs = getTargetCollection(state, 'npcs') || [];
     const quests = getTargetCollection(state, 'quests') || [];
     const items = getTargetCollection(state, 'items') || [];
+    const creatures = getTargetCollection(state, 'creatures') || [];
     const trackers = getTargetCollection(state, 'trackers') || [];
     const factions = getTargetCollection(state, 'factions') || [];
     const nodes = getTargetCollection(state, 'nodes') || [];
@@ -1932,6 +1951,7 @@
         npcs: npcs.length,
         quests: quests.length,
         items: items.length,
+        creatures: creatures.length,
         trackers: trackers.length,
         factions: factions.length
       },
