@@ -15,7 +15,8 @@ Every campaign setting in Creator Studio resides within its own isolated subfold
 ```text
 campaigns/<campaign_id>/
 ├── campaign.json            # Identity, author, and enablement metadata
-├── preset.json              # 22-node topology, 7 waves, disembark table, color wheel
+├── preset.json              # Scale-fluid pointcrawl topology, waves, arrival table, color wheel
+├── topology.json            # Spatial coordinates, edge conduits, and scale tiers
 ├── modules_manifest.json    # JSON array catalog of setting modules
 └── modules/                 # Authoritative 5-Tier module Markdown files (*.md)
 ```
@@ -40,22 +41,22 @@ Folders beginning with `_` or `.` are skipped by the build compiler. Settings wi
 ```
 
 ### 2.2 `preset.json` Requirements
-- **`nodes`**: A dictionary containing string keys `"1"` through `"22"`.
-  - Keys 1–21 represent spatial locations on the pointcrawl canvas.
-  - Key 22 represents the subterranean or metaphysical **Core Equilibrium Key**.
+- **`nodes`**: An array or dictionary of scale-fluid spatial node objects ($N \ge 1$):
+  - Node count is **unconstrained**: compact settings (5–10 nodes), regional campaigns (11–25 nodes), or expansive world networks (26–60+ nodes).
   - Each node defines:
+    - `id` (String): Unique node identifier (e.g., `N_WATERFRONT`, `1`).
     - `name` (String): Setting-specific proper noun.
     - `x`, `y` (Number): Canvas display coordinates.
-    - `eligible` (Boolean): True if capable of hub election; False if chokepoint or dependent.
-    - `hubEligibility` (String): `"candidate"` or `"never"`.
-    - `adj` (Array of Numbers): Connected node numbers (aligned with 52 canonical links).
-    - `infBy` (Array of Numbers): Inbound influence source nodes.
-    - `cat` (String): Spatial category (e.g., "Outer Perimeter Bastion", "Wild Plains").
-    - `culture` (String): CVF quadrant (`"Hierarchy"`, `"Adhocracy"`, `"Market"`, `"Clan"`, or `"Universal"`).
-    - `tier` (Number): Bastion rank or settlement tier (0 to 3).
-- **`waves`**: Exactly 7 wave objects sequencing the procedural card deal and balancing progression.
-- **`disembarkTable`**: Exactly 22 card objects for the Major Arcana (`The Fool` to `The World`), each declaring `upEvent`, `revEvent`, `upGain`, and `revDebt`.
-- **`colorWheel`**: Exactly 5 cultural color profiles (`White`, `Blue`, `Black`, `Red`, `Green`) defining `culture`, `opsProfile`, `theme`, `perimeterDefense`, `leader`, `economy`, and `flaw`.
+    - `scaleTier` (String, optional): `"region"`, `"settlement"`, `"site"`, or `"room"`.
+    - `adj` (Array): Connected node identifiers or numbers.
+    - `culture` (String, optional): CVF quadrant (`"Hierarchy"`, `"Adhocracy"`, `"Market"`, `"Clan"`, or `"Universal"`).
+    - `tier` (Number, optional): Bastion rank or settlement tier (0 to 3).
+- **`waves`** (Array, optional): Progressive exploration wave objects sequencing narrative discovery or campaign tiers.
+- **`disembarkTable` / `tarotCards`** (Array, optional): Arrival and exploration gambit events declaring `upEvent`, `revEvent`, `upGain`, and `revDebt`.
+- **`colorWheel`** (Object, optional): Cultural color profiles (`White`, `Blue`, `Black`, `Red`, `Green`) defining `culture`, `opsProfile`, `theme`, `leader`, `economy`, and `flaw`.
+
+> [!NOTE]
+> *Legacy 22-Node Archetype Presets*: Early builds (retired in [ADR-0011](../adr/0011-retirement-of-vestigial-tarot-balancing-engine.md)) hardcoded a 22-node Major Arcana format. Modern Creator Studio is completely scale-fluid; presets are never restricted by a minimum or maximum node limit.
 
 ---
 

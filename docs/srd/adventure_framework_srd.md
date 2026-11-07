@@ -195,7 +195,7 @@ Each campaign resides in its own isolated directory: `campaigns/<campaign_id>/`:
 ```text
 campaigns/<campaign_id>/
 ├── campaign.json             # Manifest metadata (id, name, author, default dials, enabled flag)
-├── preset.json               # 22-Node pointcrawl topology, coordinates, wave sequence, disembark table
+├── preset.json               # Scale-fluid pointcrawl topology, coordinates, wave sequence, arrival table
 ├── modules_manifest.json     # Machine-readable catalog of setting-specific modules
 └── modules/                  # Modular worldbuilding markdown source documents
 ```

@@ -44,7 +44,7 @@ Every element of an external IP belongs to a discrete tier in the Creator Studio
 
 ## 3. Topographical Pointcrawl Integration & Hub Eligibility
 
-Modules socket into nodes within a 22-node pointcrawl network. The IP author must specify how their module behaves topographically.
+Modules socket into nodes within a scale-fluid pointcrawl network ($N \ge 1$, without artificial minimums or maximums). The IP author must specify how their module behaves topographically.
 
 ### 3.1 Hub Eligibility Archetypes
 * **`candidate`**: Standard urban center, castle, fortress, or major village. Capable of winning Tarot wave elections to become one of the 5 regional **Sovereign Hubs**.

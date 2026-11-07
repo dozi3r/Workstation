@@ -58,7 +58,7 @@ Creator/
 ├── campaigns/
 │   └── Peridot/                       # [ACTIVE CAMPAIGN] Peridot Isle Comprehensive Sourcebook (109 Modules)
 │       ├── campaign.json              # Metadata, active toggle
-│       ├── preset.json                # Canonical 22-node preset
+│       ├── preset.json                # Scale-fluid pointcrawl preset
 │       ├── modules_manifest.json      # 109-module manifest
 │       └── modules/                   # 109 deeply detailed modules
 │           ├── Set_A_Infrastructure_and_Engineering/

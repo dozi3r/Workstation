@@ -588,7 +588,7 @@ If upstream iron deliveries cease, gate gaskets begin leaking within 30 days. Th
   ```text
   campaigns/<slug>/
   ├── campaign.json            # Campaign identity and metadata
-  ├── preset.json              # 22 nodes, 7 waves, disembark table, color wheel
+  ├── preset.json              # Scale-fluid pointcrawl preset, dynamic waves, arrival table, color wheel
   ├── modules_manifest.json    # JSON array catalog of setting modules
   └── modules/                 # Authoritative 5-Tier module Markdown files (*.md)
   ```
