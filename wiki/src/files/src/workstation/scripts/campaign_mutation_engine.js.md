@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/campaign_mutation_engine.js"
 title: "campaign_mutation_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "cc072ec3b9d38984"
-reviewed_hash: "cc072ec3b9d38984"
+current_hash: "f57478906947faec"
+reviewed_hash: "f57478906947faec"
 stale: false
-size_bytes: 118804
-line_count: 2552
+size_bytes: 120709
+line_count: 2597
 ---
 
 # campaign_mutation_engine.js
@@ -33,6 +33,11 @@ line_count: 2552
 - `findEntityReferences(state, type, id, { maps })` is the read-only twin. It returns `[{ collection, entityId, field, label, mapId? }]` for every record `deleteEntity` would change, skipping the entity's own record. The delete preview in `entity_cascade_delete.js` reads it, so the preview and the scrub cannot drift apart.
 - Corridor keys (`edgeData`, `edgeNotes`, `edgeSlottedModules`) are not id fields and stay in `removeCorridorsForNode`, which runs after each state/map scope.
 - To add a new reference field, add one row. Add a hand-written assertion for it in Suite 44 style, and the Suite 50 parity test covers hit/apply agreement.
+
+### Bestiary Entity & Dotted Reference Descriptors
+- **Creature Scrub Descriptors**: Registers canonical descriptors for Bestiary entities across pointcrawl nodes and factions (`creatures.nodeId`, `creatures.stationing.nodeId` with `set: { mode: 'unassigned' }`, `creatures.factionId`, and `nodes.creatureIds`).
+- **Dotted Path Resolution in `referenceSlots`**: Supports nested dotted field references (e.g., `stationing.nodeId`) while preserving backwards-compatibility with flat keys.
+- **Authoritative Topology Collection Sync**: `getTargetCollection` ensures `state[cat]` and `state.entities[cat]` remain synchronized so that pointcrawl graph mutations accurately reflect in active runtime collections.
 
 ### deleteEntity Map Registry (SYS-ARCH-01)
 `deleteEntity(state, type, id, batchContext)` scrubs child-map nodes, links, corridors and spatial pins from `state.maps` (or `state.activeTopology.maps`) **and** from the optional `batchContext.maps` registry. `Workstation.activeTopology` carries no `maps`, so the UI passes its global `maps` registry (`executeEntityDeletion` in `entity_cascade_delete.js`). A map reachable through both registries is scrubbed once. For `node` targets the same walk also removes the node id from `adj`/`infBy`, links and corridors of every registered map.

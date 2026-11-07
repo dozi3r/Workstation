@@ -64,8 +64,12 @@
         const protoInstance = protoList.find(p => String(p.id) === String(targetId));
         targetObj = activeInstance || protoInstance || { id: targetId, name: `${targetType} ${targetId}` };
         targetName = targetObj.name || targetObj.title || `${targetType} ${targetId}`;
-        targetRole = targetObj.role || targetObj.category || targetObj.type || targetType.toUpperCase();
-        targetNodeId = activeInstance ? activeInstance.nodeId : (targetObj.suggestedNode || targetObj.nodeId || null);
+        targetRole = (targetType === 'creature')
+          ? (targetObj.subtype ? `${targetObj.kind || 'Creature'} (${targetObj.subtype})` : (targetObj.kind || 'Bestiary Creature'))
+          : (targetObj.role || targetObj.category || targetObj.type || targetType.toUpperCase());
+        targetNodeId = activeInstance
+          ? ((typeof getCreatureEffectiveNodeId === 'function' && targetType === 'creature') ? getCreatureEffectiveNodeId(activeInstance) : activeInstance.nodeId)
+          : (targetObj.suggestedNode || targetObj.nodeId || null);
         targetModuleId = targetObj.moduleId || null;
         isTargetActive = !!activeInstance;
 
@@ -77,6 +81,11 @@
           targetNodeId = targetObj.headquartersNodeId || null;
           const terrCount = Array.isArray(targetObj.controlledNodeIds) ? targetObj.controlledNodeIds.length : 0;
           targetDetails = `CVF: ${targetObj.cvfQuadrant || 'Clan'} • HQ: Node #${targetNodeId || 'None'} • Territory: ${terrCount} Nodes`;
+        } else if (targetType === 'creature') {
+          const tTier = targetObj.threatTier !== undefined ? `Tier ${targetObj.threatTier}` : 'Unranked';
+          const dread = (targetObj.gigerenzerBehavior && targetObj.gigerenzerBehavior.dreadIndex !== undefined) ? targetObj.gigerenzerBehavior.dreadIndex : (targetObj.dreadIndex || 1);
+          const formattedNode = targetNodeId ? (typeof window.formatNodeRef === 'function' ? window.formatNodeRef(targetNodeId) : 'Node #' + targetNodeId) : null;
+          targetDetails = `${tTier} • Dread: ${dread}/10 • ${formattedNode ? `Lair Stationed at ${formattedNode}` : (isTargetActive ? 'Active in Bestiary (Unassigned)' : 'Creature Pool')}`;
         } else {
           targetDetails = targetNodeId ? `Stationed at ${(typeof window.formatNodeRef === 'function' ? window.formatNodeRef(targetNodeId) : 'Node #' + targetNodeId)}` : (isTargetActive ? 'Active in Campaign Roster (Unassigned)' : 'Module Prototype Pool');
         }
@@ -954,6 +963,8 @@
       const topo = targetTopo || ((typeof Workstation !== 'undefined') ? Workstation.activeTopology : null) || {};
       if (typeof ensureEntityCollections === 'function') ensureEntityCollections(topo);
 
+      allToDelete = allToDelete || (typeof window !== 'undefined' && window._activeDeletionContext ? [window._activeDeletionContext.target] : []);
+
       if (!Array.isArray(topo.deletedPrototypes)) topo.deletedPrototypes = [];
       if (!Array.isArray(topo.deletedModules)) topo.deletedModules = [];
 
@@ -961,6 +972,8 @@
         npc: new Set(),
         quest: new Set(),
         item: new Set(),
+        resource: new Set(),
+        creature: new Set(),
         tracker: new Set(),
         faction: new Set(),
         node: new Set(),

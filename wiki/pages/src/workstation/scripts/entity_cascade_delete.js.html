@@ -470,7 +470,7 @@
         <h1 class="article-title">entity_cascade_delete.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 8aa093d7)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: b4b38641)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (9)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/entity_cascade_delete.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1302 lines &bull; 59.7 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 8aa093d7)</span></td></tr>
+    <tr><th>File Metrics</th><td>1315 lines &bull; 60.9 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: b4b38641)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>16</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>9</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/entity_cascade_delete.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -510,6 +510,11 @@
 <li><strong>Interactive Cascade Deletion Modal</strong>: Prompts the author with a detailed dependency impact dialog (<code>promptEntityDelete</code>), offering granular checkboxes to selectively delete linked entities or keep them unlinked/orphaned.</li>
 <li><strong>Zero-CORS Backup Archiving</strong>: Bundles a standalone zip backup (<code>saveDeletedBackupZip</code>) of the pre-deletion campaign state using <code>ZeroCorsZip</code>, safely prefixing all exported archive artifacts with <code>_deleted_</code> before destructive operations.</li>
 <li><strong>Cascaded Clean Deletion Engine & Disk File Removal</strong>: Executes the atomic removal of chosen entities from the active topology (<code>executeEntityDeletion</code>), unlinking or cascade-deleting portal sub-maps, persisting deleted module IDs to <code>cs_deleted_modules</code> (<code>localStorage</code>), recursively removing nested module <code>.md</code> files and updating <code>modules_manifest.json</code> on disk (<code>deleteModuleFilesFromBoundProjectDirectory</code>), purging deleted modules from <code>ALL_MODULES</code>, <code>MODULES_MANIFEST</code>, and <code>custom_modules</code>, updating properties grids, and refreshing active views. Relationship tables are sanitized by the engine (see Engine Delegation below).</li>
+</ul>
+<h3>Bestiary Creature Cascade Deletion & Lair Stationing</h3>
+<ul class="wiki-list">
+<li><strong>Creature Dependency Tracing</strong>: <code>analyzeEntityDependencies</code> discovers creatures stationed at nodes or associated with factions using <code>getCreatureEffectiveNodeId</code>, rendering detailed target info (Threat Tier, Dread Index, Lair stationing node).</li>
+<li><strong>Execution Delegation</strong>: <code>executeEntityDeletion</code> tracks <code>creature</code> and <code>resource</code> entity types and delegates foreign-key scrubbing directly to <code>CampaignMutationEngine.deleteEntity</code>.</li>
 </ul>
 <h3>Delete Preview Reads The Engine's Reference Table (SYS-ARCH-01)</h3>
 <p><code>analyzeEntityDependencies</code> takes its id-based referrers from <code>CampaignMutationEngine.findEntityReferences</code>, the read-only twin of the scrub, so the preview lists exactly the records the delete unlinks. Every dependency carries a <code>kind</code>:</p>

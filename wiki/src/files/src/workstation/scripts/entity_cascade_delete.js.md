@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_cascade_delete.js"
 title: "entity_cascade_delete.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "8aa093d717e01f14"
-reviewed_hash: "8aa093d717e01f14"
+current_hash: "b4b38641254986f7"
+reviewed_hash: "b4b38641254986f7"
 stale: false
-size_bytes: 61125
-line_count: 1302
+size_bytes: 62351
+line_count: 1315
 ---
 
 # entity_cascade_delete.js
@@ -21,6 +21,10 @@ line_count: 1302
 - **Interactive Cascade Deletion Modal**: Prompts the author with a detailed dependency impact dialog (`promptEntityDelete`), offering granular checkboxes to selectively delete linked entities or keep them unlinked/orphaned.
 - **Zero-CORS Backup Archiving**: Bundles a standalone zip backup (`saveDeletedBackupZip`) of the pre-deletion campaign state using `ZeroCorsZip`, safely prefixing all exported archive artifacts with `_deleted_` before destructive operations.
 - **Cascaded Clean Deletion Engine & Disk File Removal**: Executes the atomic removal of chosen entities from the active topology (`executeEntityDeletion`), unlinking or cascade-deleting portal sub-maps, persisting deleted module IDs to `cs_deleted_modules` (`localStorage`), recursively removing nested module `.md` files and updating `modules_manifest.json` on disk (`deleteModuleFilesFromBoundProjectDirectory`), purging deleted modules from `ALL_MODULES`, `MODULES_MANIFEST`, and `custom_modules`, updating properties grids, and refreshing active views. Relationship tables are sanitized by the engine (see Engine Delegation below).
+
+### Bestiary Creature Cascade Deletion & Lair Stationing
+- **Creature Dependency Tracing**: `analyzeEntityDependencies` discovers creatures stationed at nodes or associated with factions using `getCreatureEffectiveNodeId`, rendering detailed target info (Threat Tier, Dread Index, Lair stationing node).
+- **Execution Delegation**: `executeEntityDeletion` tracks `creature` and `resource` entity types and delegates foreign-key scrubbing directly to `CampaignMutationEngine.deleteEntity`.
 
 ### Delete Preview Reads The Engine's Reference Table (SYS-ARCH-01)
 `analyzeEntityDependencies` takes its id-based referrers from `CampaignMutationEngine.findEntityReferences`, the read-only twin of the scrub, so the preview lists exactly the records the delete unlinks. Every dependency carries a `kind`:

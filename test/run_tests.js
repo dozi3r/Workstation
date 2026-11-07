@@ -9208,6 +9208,235 @@ async function testSuite54BestiaryExplorerAndFftIntegration() {
   assertEqual(recNode1.totals.creatures, 1, 'getRecursiveNodeEntities totals.creatures is 1');
 }
 
+async function testSuite55CreatureCrudAndCascadeDelete() {
+  console.log('\n--- Suite 55: Creature CRUD Dialogs, Cascade Deletion & Stationing Lifecycle ---');
+
+  const diabloTopo = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaigns/DIablo/topology.json'), 'utf8'));
+  const diabloEv = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaigns/DIablo/creatures/evidence.json'), 'utf8'));
+
+  const fftCoreCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/fast_frugal_tree.js'), 'utf8');
+  const fftUiCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/fft_editor_ui.js'), 'utf8');
+  const workstationStateCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/workstation_state.js'), 'utf8');
+  const cmeCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/campaign_mutation_engine.js'), 'utf8');
+  const entityCoreCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_core.js'), 'utf8');
+  const cadRendererCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/cad_canvas_renderer.js'), 'utf8');
+  const emUiCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_manager_ui.js'), 'utf8');
+  const entityCrudCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_crud_dialogs.js'), 'utf8');
+  const cascadeDeleteCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_cascade_delete.js'), 'utf8');
+
+  const domElements = {};
+  function makeElement(id) {
+    return {
+      id: id,
+      value: '',
+      innerHTML: '',
+      textContent: '',
+      style: { display: '' },
+      classList: {
+        classes: new Set(),
+        add: function(c) { this.classes.add(c); },
+        remove: function(c) { this.classes.delete(c); },
+        contains: function(c) { return this.classes.has(c); }
+      },
+      children: [],
+      appendChild: function(c) { this.children.push(c); },
+      querySelectorAll: function() { return []; },
+      getAttribute: function(k) { return ''; },
+      setAttribute: function(k, v) {},
+      getAttributeNS: function(ns, k) { return ''; },
+      setAttributeNS: function(ns, k, v) {},
+      addEventListener: function() {},
+      removeEventListener: function() {}
+    };
+  }
+
+  const sb = {
+    console,
+    Math,
+    parseInt,
+    parseFloat,
+    isNaN,
+    Array,
+    Object,
+    String,
+    Number,
+    Boolean,
+    Date,
+    RegExp,
+    Set,
+    Map,
+    localStorage: {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {}
+    },
+    JSON,
+    document: {
+      getElementById: (id) => {
+        if (!domElements[id]) domElements[id] = makeElement(id);
+        return domElements[id];
+      },
+      createElement: (tag) => makeElement(tag),
+      createElementNS: (ns, tag) => makeElement(tag),
+      body: { appendChild: () => {} },
+      querySelectorAll: () => []
+    },
+    window: {},
+    Workstation: {
+      activeTopology: diabloTopo,
+      registeredMods: {}
+    },
+    MDIWindowManager: {
+      open: () => {},
+      windows: {},
+      renderTaskbar: () => {}
+    },
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    closeAllMenus: () => {},
+    closeModal: () => {},
+    maps: { map_root: diabloTopo },
+    activeMapId: 'map_root',
+    saveActiveCampaign: () => {},
+    renderCanvas: () => {},
+    updatePropertiesGrid: () => {},
+    setStatusBarMessage: () => {},
+    alert: () => {},
+    confirm: () => true,
+    prompt: () => ''
+  };
+  sb.window = sb;
+  sb.globalThis = sb;
+
+  vm.createContext(sb);
+  vm.runInContext(fftCoreCode, sb);
+  vm.runInContext(fftUiCode, sb);
+  vm.runInContext(workstationStateCode, sb);
+  vm.runInContext(cmeCode, sb);
+  vm.runInContext(entityCoreCode, sb);
+  vm.runInContext(cadRendererCode, sb);
+  vm.runInContext(emUiCode, sb);
+  vm.runInContext(entityCrudCode, sb);
+  vm.runInContext(cascadeDeleteCode, sb);
+
+  sb.Workstation.activeTopology = diabloTopo;
+  diabloTopo.creatureEvidence = diabloEv;
+
+  // 1. Test openNewEntityModal('creature')
+  sb.switchEntityManagerTab('creature');
+  sb.openNewEntityModal('creature');
+
+  const titleEl = sb.document.getElementById('ee-modal-title');
+  assert(titleEl.textContent.includes('CREATURE'), 'openNewEntityModal sets CREATURE title');
+  const creatureExt = sb.document.getElementById('ee-creature-extensions');
+  assertEqual(creatureExt.style.display, 'flex', 'openNewEntityModal displays creature extensions');
+  const npcExt = sb.document.getElementById('ee-npc-extensions');
+  assertEqual(npcExt.style.display, 'none', 'openNewEntityModal hides NPC extensions');
+
+  assertEqual(sb.document.getElementById('ee-creature-kind').value, 'beast', 'Default creature kind is beast');
+  assertEqual(sb.document.getElementById('ee-creature-size').value, 'Medium', 'Default creature size is Medium');
+  assertEqual(sb.document.getElementById('ee-creature-threat-tier').value, '2', 'Default creature threat tier is 2');
+  assertEqual(sb.document.getElementById('ee-creature-dread-index').value, '3', 'Default creature dread index is 3');
+  assertEqual(sb.document.getElementById('ee-creature-roaming-scope').value, 'stationary_lair', 'Default roaming scope is stationary_lair');
+  assertEqual(sb.document.getElementById('ee-creature-might').value, '3', 'Default might capability is 3');
+
+  // 2. Test Custom Creature Creation via saveCustomEntity()
+  const initialCreatureCount = diabloTopo.creatures.length;
+  sb.document.getElementById('ee-entity-type').value = 'creature';
+  sb.document.getElementById('ee-entity-id').value = '';
+  sb.document.getElementById('ee-name').value = 'Obsidian Behemoth';
+  sb.document.getElementById('ee-notes').value = 'Colossal magma beast dwelling in the subterranean depths.';
+  sb.document.getElementById('ee-node-select').value = '1';
+  sb.document.getElementById('ee-creature-kind').value = 'elemental';
+  sb.document.getElementById('ee-creature-subtype').value = 'magma behemoth';
+  sb.document.getElementById('ee-creature-size').value = 'Gargantuan';
+  sb.document.getElementById('ee-creature-threat-tier').value = '4';
+  sb.document.getElementById('ee-creature-dread-index').value = '8';
+  sb.document.getElementById('ee-creature-dread-effect').value = 'Radiates extreme heat that melts weapons.';
+  sb.document.getElementById('ee-creature-roaming-scope').value = 'district_wide';
+  sb.document.getElementById('ee-creature-might').value = '5';
+  sb.document.getElementById('ee-creature-agility').value = '1';
+  sb.document.getElementById('ee-creature-resilience').value = '5';
+  sb.document.getElementById('ee-creature-cunning').value = '2';
+  sb.document.getElementById('ee-creature-awareness').value = '3';
+  sb.document.getElementById('ee-creature-presence').value = '5';
+
+  sb.saveCustomEntity();
+
+  assertEqual(diabloTopo.creatures.length, initialCreatureCount + 1, 'New creature pushed to diabloTopo.creatures');
+  const createdCreature = diabloTopo.creatures.find(c => c.name === 'Obsidian Behemoth');
+  assert(createdCreature !== undefined, 'Created creature found in creatures list');
+  assert(createdCreature.id.startsWith('creature_obsidian_behemoth'), 'Created creature ID slugified');
+  assertEqual(createdCreature.kind, 'elemental', 'Created creature kind is elemental');
+  assertEqual(createdCreature.subtype, 'magma behemoth', 'Created creature subtype is magma behemoth');
+  assertEqual(createdCreature.size, 'Gargantuan', 'Created creature size is Gargantuan');
+  assertEqual(createdCreature.threatTier, 4, 'Created creature threat tier is 4');
+  assertEqual(createdCreature.nodeId, 1, 'Created creature nodeId is 1');
+  assertEqual(createdCreature.stationing.nodeId, 1, 'Created creature stationing.nodeId is 1');
+  assertEqual(createdCreature.stationing.mode, 'lair', 'Created creature stationing.mode is lair');
+  assertEqual(createdCreature.stationing.roamingScope, 'district_wide', 'Created creature roaming scope is district_wide');
+  assertEqual(createdCreature.relativeCapabilities.might, 5, 'Might capability is 5');
+  assertEqual(createdCreature.relativeCapabilities.resilience, 5, 'Resilience capability is 5');
+  assertEqual(createdCreature.gigerenzerBehavior.dreadIndex, 8, 'Dread index is 8');
+  assertEqual(createdCreature.gigerenzerBehavior.dreadEffect, 'Radiates extreme heat that melts weapons.', 'Dread effect saved');
+  assert(createdCreature.gigerenzerBehavior.fastAndFrugalTree !== undefined, 'Auto-generated fastAndFrugalTree exists');
+  assertEqual(sb.validateFft(createdCreature.gigerenzerBehavior.fastAndFrugalTree).length, 0, 'Auto-generated FFT passes validation');
+
+  // 3. Test Editing Creature via openEditEntityModal & saveCustomEntity()
+  sb.openEditEntityModal(createdCreature.id);
+  assertEqual(sb.document.getElementById('ee-name').value, 'Obsidian Behemoth', 'openEditEntityModal populates name');
+  assertEqual(sb.document.getElementById('ee-creature-kind').value, 'elemental', 'openEditEntityModal populates kind');
+  assertEqual(sb.document.getElementById('ee-creature-threat-tier').value, '4', 'openEditEntityModal populates threat tier');
+  assertEqual(sb.document.getElementById('ee-creature-dread-index').value, '8', 'openEditEntityModal populates dread index');
+  assertEqual(sb.document.getElementById('ee-node-select').value, '1', 'openEditEntityModal populates stationed node');
+
+  // Modify fields
+  sb.document.getElementById('ee-name').value = 'Elder Obsidian Behemoth';
+  sb.document.getElementById('ee-creature-threat-tier').value = '5';
+  sb.document.getElementById('ee-creature-dread-index').value = '10';
+  sb.document.getElementById('ee-node-select').value = '2';
+  sb.saveCustomEntity();
+
+  assertEqual(createdCreature.name, 'Elder Obsidian Behemoth', 'Edited creature name updated');
+  assertEqual(createdCreature.threatTier, 5, 'Edited creature threat tier updated to 5');
+  assertEqual(createdCreature.gigerenzerBehavior.dreadIndex, 10, 'Edited creature dread index updated to 10');
+  assertEqual(createdCreature.nodeId, 2, 'Edited creature nodeId updated to 2');
+  assertEqual(createdCreature.stationing.nodeId, 2, 'Edited creature stationing.nodeId updated to 2');
+
+  // 4. Test analyzeEntityDependencies on Creature
+  const depData = sb.analyzeEntityDependencies('creature', createdCreature.id);
+  assert(depData !== null, 'analyzeEntityDependencies returns dependency data for creature');
+  assertEqual(depData.target.name, 'Elder Obsidian Behemoth', 'Dependency target name matches');
+  assert(depData.target.role.includes('elemental'), 'Dependency target role includes elemental');
+  assert(depData.target.details.includes('Tier 5'), 'Dependency target details includes Tier 5');
+  assert(depData.target.details.includes('Dread: 10/10'), 'Dependency target details includes Dread 10/10');
+  assertEqual(depData.target.isActive, true, 'Dependency target is active in campaign');
+
+  // 5. Test Deletion of Creature via executeCascadeDelete
+  sb._activeDeletionContext = depData;
+  sb.executeCascadeDelete([depData.target]);
+  assertEqual(diabloTopo.creatures.some(c => c.id === createdCreature.id), false, 'Created creature removed from diabloTopo.creatures by cascade delete');
+
+  // 6. Test Node Deletion Cascade Unlinking Stationed Creature
+  const nodeKeys = Object.keys(diabloTopo.nodes);
+  const targetNodeKey = nodeKeys[0];
+  const acidBeast = diabloTopo.creatures.find(c => c.id === 'creature_acid_beasts');
+  sb.assignEntityToNode('creature_acid_beasts', targetNodeKey, false);
+  assertEqual(acidBeast.stationing.nodeId, targetNodeKey, 'Acid beasts stationed at target node');
+
+  // Analyze target node dependencies
+  const nodeDep = sb.analyzeEntityDependencies('node', targetNodeKey);
+  const creatureDep = nodeDep.dependencies.find(d => d.type === 'creature' && d.id === 'creature_acid_beasts');
+  assert(creatureDep !== undefined, 'Target node dependency analysis detects stationed creature');
+  assert(creatureDep.reason.toLowerCase().includes('station'), 'Creature dependency reason mentions node stationing');
+
+  // Delete target node via CampaignMutationEngine
+  sb.CampaignMutationEngine.deleteEntity(diabloTopo, 'nodes', targetNodeKey);
+  assertEqual(acidBeast.nodeId, null, 'CME deleteEntity on node nulls creature nodeId');
+  assertEqual(acidBeast.stationing.nodeId, null, 'CME deleteEntity on node nulls creature stationing.nodeId');
+  assertEqual(acidBeast.stationing.mode, 'unassigned', 'CME deleteEntity on node resets creature stationing.mode to unassigned');
+}
+
 // ============================================================================
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
@@ -9267,6 +9496,7 @@ async function testSuite54BestiaryExplorerAndFftIntegration() {
     await testSuite52ResourcePartitionAndBestiaryPersistence();
     await testSuite53ResourceExplorerUiAndMultiMapAggregation();
     await testSuite54BestiaryExplorerAndFftIntegration();
+    await testSuite55CreatureCrudAndCascadeDelete();
     require('./test_gigerenzer_heuristics.js')({ assert, assertEqual, ROOT });
 
     const elapsedMs = Date.now() - suiteStartTime;

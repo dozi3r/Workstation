@@ -213,20 +213,40 @@
     if (!state) return null;
     const cat = category.toLowerCase();
     const camelCat = (cat === 'spatialpins' || cat === 'spatial_pins' || cat === 'spatialpin') ? 'spatialPins' : cat;
-    // Support category names: npcs, quests, items, trackers, factions, tickets, nodes, spatialPins
+    // Support category names: npcs, quests, items, creatures, trackers, factions, tickets, nodes, spatialPins
+    if (Array.isArray(state[cat])) {
+      if (state.entities && Array.isArray(state.entities[cat]) && state.entities[cat] !== state[cat]) {
+        state.entities[cat] = state[cat];
+      }
+      return state[cat];
+    }
+    if (Array.isArray(state[camelCat])) {
+      if (state.entities && Array.isArray(state.entities[camelCat]) && state.entities[camelCat] !== state[camelCat]) {
+        state.entities[camelCat] = state[camelCat];
+      }
+      return state[camelCat];
+    }
     if (state.entities) {
       if (Array.isArray(state.entities[cat])) return state.entities[cat];
       if (Array.isArray(state.entities[camelCat])) return state.entities[camelCat];
     }
-    if (Array.isArray(state[cat])) return state[cat];
-    if (Array.isArray(state[camelCat])) return state[camelCat];
     if (state.activeTopology) {
+      if (Array.isArray(state.activeTopology[cat])) {
+        if (state.activeTopology.entities && Array.isArray(state.activeTopology.entities[cat]) && state.activeTopology.entities[cat] !== state.activeTopology[cat]) {
+          state.activeTopology.entities[cat] = state.activeTopology[cat];
+        }
+        return state.activeTopology[cat];
+      }
+      if (Array.isArray(state.activeTopology[camelCat])) {
+        if (state.activeTopology.entities && Array.isArray(state.activeTopology.entities[camelCat]) && state.activeTopology.entities[camelCat] !== state.activeTopology[camelCat]) {
+          state.activeTopology.entities[camelCat] = state.activeTopology[camelCat];
+        }
+        return state.activeTopology[camelCat];
+      }
       if (state.activeTopology.entities) {
         if (Array.isArray(state.activeTopology.entities[cat])) return state.activeTopology.entities[cat];
         if (Array.isArray(state.activeTopology.entities[camelCat])) return state.activeTopology.entities[camelCat];
       }
-      if (Array.isArray(state.activeTopology[cat])) return state.activeTopology[cat];
-      if (Array.isArray(state.activeTopology[camelCat])) return state.activeTopology[camelCat];
       if (cat === 'nodes' && state.activeTopology.nodes) return state.activeTopology.nodes;
     }
     if (cat === 'nodes' && state.nodes) return state.nodes;
@@ -616,7 +636,7 @@
     { collection: 'items', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: true, label: 'item faction' },
     // creatures (bestiary)
     { collection: 'creatures', target: 'node', path: 'nodeId', shape: 'id', op: 'null', log: true, label: 'creature location' },
-    { collection: 'creatures', target: 'node', path: 'stationing.nodeId', shape: 'id', op: 'null', log: true, label: 'creature stationing node' },
+    { collection: 'creatures', target: 'node', path: 'stationing.nodeId', shape: 'id', op: 'null', set: { mode: 'unassigned' }, log: true, label: 'creature stationing node' },
     { collection: 'creatures', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: true, label: 'creature faction' },
     // trackers (threat clocks)
     { collection: 'trackers', target: '*', path: 'triggerRefs', shape: 'refs', idKeys: ['entityId'], typeKey: 'entityType', untyped: 'match', op: 'filter', log: true, label: 'clock trigger' },
@@ -700,9 +720,34 @@
 
   // The places a row can look: the record itself, or each element of its nested list
   function referenceSlots(rec, row) {
-    if (!row.list) return [{ holder: rec, key: row.field, element: null }];
+    if (!row.list) {
+      if (rec[row.field] !== undefined) {
+        return [{ holder: rec, key: row.field, element: null }];
+      }
+      if (row.field && row.field.includes('.')) {
+        const parts = row.field.split('.');
+        let cur = rec;
+        for (let i = 0; i < parts.length - 1; i++) {
+          cur = cur ? cur[parts[i]] : null;
+        }
+        return cur ? [{ holder: cur, key: parts[parts.length - 1], element: null }] : [];
+      }
+      return [{ holder: rec, key: row.field, element: null }];
+    }
     const list = rec[row.list];
-    return Array.isArray(list) ? list.filter(Boolean).map(el => ({ holder: el, key: row.field, element: el })) : [];
+    if (!Array.isArray(list)) return [];
+    if (row.field && row.field.includes('.')) {
+      const parts = row.field.split('.');
+      return list.filter(Boolean).map(el => {
+        if (el[row.field] !== undefined) return { holder: el, key: row.field, element: el };
+        let cur = el;
+        for (let i = 0; i < parts.length - 1; i++) {
+          cur = cur ? cur[parts[i]] : null;
+        }
+        return cur ? { holder: cur, key: parts[parts.length - 1], element: el } : null;
+      }).filter(Boolean);
+    }
+    return list.filter(Boolean).map(el => ({ holder: el, key: row.field, element: el }));
   }
 
   // A stored type label (ticket target type, trigger entityType, link type) guards the id match

@@ -243,6 +243,7 @@
       const itemExt = document.getElementById('ee-item-extensions');
       const trackerExt = document.getElementById('ee-tracker-extensions');
       const factionExt = document.getElementById('ee-faction-extensions');
+      const creatureExt = document.getElementById('ee-creature-extensions');
       const nodeLabel = document.getElementById('ee-node-label');
 
       if (npcExt) npcExt.style.display = (type === 'npc') ? 'flex' : 'none';
@@ -250,6 +251,7 @@
       if (questExt) questExt.style.display = (type === 'quest') ? 'flex' : 'none';
       if (trackerExt) trackerExt.style.display = (type === 'tracker') ? 'flex' : 'none';
       if (factionExt) factionExt.style.display = (type === 'faction') ? 'flex' : 'none';
+      if (creatureExt) creatureExt.style.display = (type === 'creature') ? 'flex' : 'none';
 
       if (type === 'npc') {
         document.getElementById('ee-role-label').textContent = 'Role / Profession:';
@@ -407,6 +409,24 @@
         }
         const posSel = document.getElementById('ee-item-possession-mode');
         if (posSel) posSel.value = 'stored';
+      } else if (type === 'creature') {
+        document.getElementById('ee-role-label').textContent = 'Kind / Subtype Summary:';
+        document.getElementById('ee-meta-label').textContent = 'Tactical Role / Ecological Niche:';
+        document.getElementById('ee-notes-label').textContent = 'Creature Summary & Encounter Lore:';
+        if (nodeLabel) nodeLabel.textContent = 'Stationed Lair Node:';
+        if (document.getElementById('ee-creature-kind')) document.getElementById('ee-creature-kind').value = 'beast';
+        if (document.getElementById('ee-creature-subtype')) document.getElementById('ee-creature-subtype').value = '';
+        if (document.getElementById('ee-creature-size')) document.getElementById('ee-creature-size').value = 'Medium';
+        if (document.getElementById('ee-creature-threat-tier')) document.getElementById('ee-creature-threat-tier').value = '2';
+        if (document.getElementById('ee-creature-dread-index')) document.getElementById('ee-creature-dread-index').value = '3';
+        if (document.getElementById('ee-creature-roaming-scope')) document.getElementById('ee-creature-roaming-scope').value = 'stationary_lair';
+        if (document.getElementById('ee-creature-dread-effect')) document.getElementById('ee-creature-dread-effect').value = '';
+        if (document.getElementById('ee-creature-might')) document.getElementById('ee-creature-might').value = '3';
+        if (document.getElementById('ee-creature-agility')) document.getElementById('ee-creature-agility').value = '2';
+        if (document.getElementById('ee-creature-resilience')) document.getElementById('ee-creature-resilience').value = '3';
+        if (document.getElementById('ee-creature-cunning')) document.getElementById('ee-creature-cunning').value = '1';
+        if (document.getElementById('ee-creature-awareness')) document.getElementById('ee-creature-awareness').value = '2';
+        if (document.getElementById('ee-creature-presence')) document.getElementById('ee-creature-presence').value = '2';
       } else {
         document.getElementById('ee-role-label').textContent = 'Item Category (Weapon, Gear, Relic, Tech, Document, Key Item):';
         document.getElementById('ee-meta-label').textContent = 'Specifications / Output Dial / Trait:';
@@ -491,10 +511,11 @@
       document.getElementById('ee-modal-title').textContent = `Edit ${CurrentEntityTab.toUpperCase()}`;
       document.getElementById('ee-entity-id').value = entity.id;
       document.getElementById('ee-name').value = entity.name || entity.title || '';
-      document.getElementById('ee-role').value = entity.role || entity.category || entity.type || '';
-      document.getElementById('ee-meta').value = (CurrentEntityTab === 'tracker') ? (entity.maxTicks || 6) : (entity.faction || entity.threat || entity.specs || '');
-      document.getElementById('ee-notes').value = entity.motivation || entity.notes || '';
-      document.getElementById('ee-node-select').value = entity.nodeId != null ? String(entity.nodeId) : '';
+      document.getElementById('ee-role').value = entity.role || entity.category || entity.type || entity.subtype || '';
+      document.getElementById('ee-meta').value = (CurrentEntityTab === 'tracker') ? (entity.maxTicks || 6) : (entity.faction || entity.threat || entity.specs || (CurrentEntityTab === 'creature' ? (entity.size || 'Medium') : ''));
+      document.getElementById('ee-notes').value = entity.motivation || entity.notes || entity.summary || '';
+      const effectiveNodeId = (CurrentEntityTab === 'creature' && typeof getCreatureEffectiveNodeId === 'function') ? getCreatureEffectiveNodeId(entity) : entity.nodeId;
+      document.getElementById('ee-node-select').value = effectiveNodeId != null ? String(effectiveNodeId) : '';
 
       if (CurrentEntityTab === 'npc') {
         if (document.getElementById('ee-npc-status')) document.getElementById('ee-npc-status').value = entity.status || 'Active';
@@ -587,6 +608,24 @@
         document.querySelectorAll('.ee-faction-node-cb').forEach(cb => {
           cb.checked = controlled.includes(String(cb.value));
         });
+      } else if (CurrentEntityTab === 'creature') {
+        if (document.getElementById('ee-creature-kind')) document.getElementById('ee-creature-kind').value = entity.kind || 'beast';
+        if (document.getElementById('ee-creature-subtype')) document.getElementById('ee-creature-subtype').value = entity.subtype || '';
+        if (document.getElementById('ee-creature-size')) document.getElementById('ee-creature-size').value = entity.size || 'Medium';
+        if (document.getElementById('ee-creature-threat-tier')) document.getElementById('ee-creature-threat-tier').value = String(entity.threatTier !== undefined ? entity.threatTier : 2);
+        const dreadVal = (entity.gigerenzerBehavior && entity.gigerenzerBehavior.dreadIndex !== undefined) ? entity.gigerenzerBehavior.dreadIndex : (entity.dreadIndex !== undefined ? entity.dreadIndex : 3);
+        if (document.getElementById('ee-creature-dread-index')) document.getElementById('ee-creature-dread-index').value = String(dreadVal);
+        const dreadEff = (entity.gigerenzerBehavior && entity.gigerenzerBehavior.dreadEffect) || entity.dreadEffect || '';
+        if (document.getElementById('ee-creature-dread-effect')) document.getElementById('ee-creature-dread-effect').value = dreadEff;
+        const rScope = (entity.stationing && entity.stationing.roamingScope) || 'stationary_lair';
+        if (document.getElementById('ee-creature-roaming-scope')) document.getElementById('ee-creature-roaming-scope').value = rScope;
+        const caps = entity.relativeCapabilities || {};
+        if (document.getElementById('ee-creature-might')) document.getElementById('ee-creature-might').value = String(caps.might || 3);
+        if (document.getElementById('ee-creature-agility')) document.getElementById('ee-creature-agility').value = String(caps.agility || 2);
+        if (document.getElementById('ee-creature-resilience')) document.getElementById('ee-creature-resilience').value = String(caps.resilience || 3);
+        if (document.getElementById('ee-creature-cunning')) document.getElementById('ee-creature-cunning').value = String(caps.cunning || 1);
+        if (document.getElementById('ee-creature-awareness')) document.getElementById('ee-creature-awareness').value = String(caps.awareness || 2);
+        if (document.getElementById('ee-creature-presence')) document.getElementById('ee-creature-presence').value = String(caps.presence || 2);
       }
     }
 
@@ -731,6 +770,31 @@
             entity.isResource = true;
             if (document.getElementById('ee-item-owner')) entity.ownerNpcId = document.getElementById('ee-item-owner').value || null;
             if (document.getElementById('ee-item-possession-mode')) entity.possessionMode = document.getElementById('ee-item-possession-mode').value || 'stored';
+          } else if (type === 'creature') {
+            entity.name = name;
+            entity.summary = notes;
+            entity.notes = notes;
+            if (document.getElementById('ee-creature-kind')) entity.kind = document.getElementById('ee-creature-kind').value || 'beast';
+            if (document.getElementById('ee-creature-subtype')) entity.subtype = document.getElementById('ee-creature-subtype').value.trim() || '';
+            if (document.getElementById('ee-creature-size')) entity.size = document.getElementById('ee-creature-size').value || 'Medium';
+            if (document.getElementById('ee-creature-threat-tier')) entity.threatTier = parseInt(document.getElementById('ee-creature-threat-tier').value, 10) || 0;
+            entity.relativeCapabilities = entity.relativeCapabilities || {};
+            if (document.getElementById('ee-creature-might')) entity.relativeCapabilities.might = parseInt(document.getElementById('ee-creature-might').value, 10) || 1;
+            if (document.getElementById('ee-creature-agility')) entity.relativeCapabilities.agility = parseInt(document.getElementById('ee-creature-agility').value, 10) || 1;
+            if (document.getElementById('ee-creature-resilience')) entity.relativeCapabilities.resilience = parseInt(document.getElementById('ee-creature-resilience').value, 10) || 1;
+            if (document.getElementById('ee-creature-cunning')) entity.relativeCapabilities.cunning = parseInt(document.getElementById('ee-creature-cunning').value, 10) || 1;
+            if (document.getElementById('ee-creature-awareness')) entity.relativeCapabilities.awareness = parseInt(document.getElementById('ee-creature-awareness').value, 10) || 1;
+            if (document.getElementById('ee-creature-presence')) entity.relativeCapabilities.presence = parseInt(document.getElementById('ee-creature-presence').value, 10) || 1;
+
+            entity.gigerenzerBehavior = entity.gigerenzerBehavior || {};
+            if (document.getElementById('ee-creature-dread-index')) entity.gigerenzerBehavior.dreadIndex = parseInt(document.getElementById('ee-creature-dread-index').value, 10) || 1;
+            if (document.getElementById('ee-creature-dread-effect')) entity.gigerenzerBehavior.dreadEffect = document.getElementById('ee-creature-dread-effect').value.trim() || '';
+
+            entity.stationing = entity.stationing || {};
+            entity.stationing.nodeId = nodeId;
+            entity.stationing.mode = nodeId != null ? 'lair' : 'unassigned';
+            if (document.getElementById('ee-creature-roaming-scope')) entity.stationing.roamingScope = document.getElementById('ee-creature-roaming-scope').value || 'stationary_lair';
+            entity.nodeId = nodeId;
           } else {
             entity.name = name;
             entity.category = role;
@@ -851,6 +915,81 @@
           newEntity.isResource = true;
           newEntity.ownerNpcId = document.getElementById('ee-item-owner') ? (document.getElementById('ee-item-owner').value || null) : null;
           newEntity.possessionMode = document.getElementById('ee-item-possession-mode') ? (document.getElementById('ee-item-possession-mode').value || 'stored') : 'stored';
+        } else if (type === 'creature') {
+          const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+          newEntity.id = `creature_${slug || Date.now().toString().slice(-6)}`;
+          newEntity.name = name;
+          newEntity.kind = document.getElementById('ee-creature-kind') ? document.getElementById('ee-creature-kind').value : 'beast';
+          newEntity.subtype = document.getElementById('ee-creature-subtype') ? document.getElementById('ee-creature-subtype').value.trim() : '';
+          newEntity.size = document.getElementById('ee-creature-size') ? document.getElementById('ee-creature-size').value : 'Medium';
+          newEntity.threatTier = document.getElementById('ee-creature-threat-tier') ? (parseInt(document.getElementById('ee-creature-threat-tier').value, 10) || 0) : 2;
+          newEntity.summary = notes;
+          newEntity.notes = notes;
+          newEntity.relativeCapabilities = {
+            might: document.getElementById('ee-creature-might') ? (parseInt(document.getElementById('ee-creature-might').value, 10) || 3) : 3,
+            agility: document.getElementById('ee-creature-agility') ? (parseInt(document.getElementById('ee-creature-agility').value, 10) || 2) : 2,
+            resilience: document.getElementById('ee-creature-resilience') ? (parseInt(document.getElementById('ee-creature-resilience').value, 10) || 3) : 3,
+            cunning: document.getElementById('ee-creature-cunning') ? (parseInt(document.getElementById('ee-creature-cunning').value, 10) || 1) : 1,
+            awareness: document.getElementById('ee-creature-awareness') ? (parseInt(document.getElementById('ee-creature-awareness').value, 10) || 2) : 2,
+            presence: document.getElementById('ee-creature-presence') ? (parseInt(document.getElementById('ee-creature-presence').value, 10) || 2) : 2
+          };
+          newEntity.senses = { vision: 'standard', special: [], blindspots: '' };
+          newEntity.locomotion = { primary: 'walk', secondary: [], terrainAffinities: [] };
+          newEntity.defenses = { armorType: 'natural hide', immunities: [], resistances: [], vulnerabilities: [], anatomicalWeakSpots: [] };
+          newEntity.disposition = {
+            odv: { s: 2, e: 2, c: 2 },
+            odvTag: '[2, 2, 2]',
+            cvfQuadrant: 'Clan',
+            ethologySummary: 'Autonomous Instinct'
+          };
+          const dreadVal = document.getElementById('ee-creature-dread-index') ? (parseInt(document.getElementById('ee-creature-dread-index').value, 10) || 3) : 3;
+          const dreadEff = document.getElementById('ee-creature-dread-effect') ? document.getElementById('ee-creature-dread-effect').value.trim() : 'Corridor transit hazard; parties must stay vigilant.';
+          newEntity.gigerenzerBehavior = {
+            dreadIndex: dreadVal,
+            dreadEffect: dreadEff,
+            heuristicProfile: {
+              strategy: 'TAKE_THE_BEST',
+              cueValidityHierarchy: ['target_in_range', 'threat_detected'],
+              stoppingRule: 'Engage the first hostile target encountered.'
+            },
+            fastAndFrugalTree: {
+              id: `tree_${slug || 'creature'}`,
+              name: `${name} Instinct`,
+              cues: [
+                {
+                  id: 'cue_1',
+                  label: 'Is a hostile target within melee range?',
+                  testType: 'boolean_query',
+                  targetValue: true,
+                  exitDirection: 'yes',
+                  exitAction: 'ATTACK',
+                  exitLabel: 'Attack aggressively'
+                }
+              ],
+              defaultExit: {
+                action: 'STALK',
+                label: 'Stalk and circle prey'
+              }
+            }
+          };
+          newEntity.signatureActions = [];
+          newEntity.psychologyAndFolklore = {
+            instinctiveQuirks: [],
+            primaryDrive: 'territory_defense',
+            moraleThreshold: 'normal',
+            spoorAndSigns: [],
+            vocalizations: [],
+            vernacularFolklore: []
+          };
+          newEntity.harvest = { harvestYields: [], domesticationProfile: 'untameable' };
+          newEntity.stationing = {
+            mode: nodeId != null ? 'lair' : 'unassigned',
+            nodeId: nodeId,
+            edgeKey: null,
+            roamingScope: document.getElementById('ee-creature-roaming-scope') ? (document.getElementById('ee-creature-roaming-scope').value || 'stationary_lair') : 'stationary_lair'
+          };
+          newEntity.relationalLinks = {};
+          newEntity.isCustom = true;
         } else {
           newEntity.name = name;
           newEntity.category = role;

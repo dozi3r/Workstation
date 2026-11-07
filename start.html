@@ -2106,7 +2106,7 @@ CRITICAL INSTRUCTION:
       <div class="title-bar-text">
         <span style="display:inline-block; width:12px; height:12px; background:#fff; border:1px solid #000; text-align:center; line-height:10px; font-size:8px; color:#000;">CS</span>
         <span>Creator Studio - Pointcrawl Authoring Workstation</span>
-        <span id="ws-build-stamp-badge" data-build-time="2026-11-07 05:43 UTC" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: 2026-11-07 05:43 UTC]</span>
+        <span id="ws-build-stamp-badge" data-build-time="2026-11-07 06:04 UTC" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: 2026-11-07 06:04 UTC]</span>
       </div>
       <div class="title-bar-controls">
         <button class="win-btn" onclick="alert('Creator Studio Desktop Workstation v1.2')">_</button>
@@ -3842,6 +3842,151 @@ CRITICAL INSTRUCTION:
             <strong>Controlled Territory Nodes:</strong>
             <div id="ee-faction-nodes-list" class="bevel-inset" style="max-height:85px; overflow-y:auto; background:#fff; padding:4px; font-size:11px; display:flex; flex-direction:column; gap:2px;">
               <!-- Dynamic Node Checkboxes -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Creature / Bestiary Extensions (Kind, Threat Tier, Capabilities, Dread Index, Roaming) -->
+        <div id="ee-creature-extensions" style="display:none; flex-direction:column; gap:6px; border-top:1px solid #ccc; padding-top:6px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Kind / Family:</strong>
+              <select id="ee-creature-kind" class="win-select-input">
+                <option value="beast">Beast / Wildlife</option>
+                <option value="undead">Undead</option>
+                <option value="demon">Demon / Infernal</option>
+                <option value="humanoid">Humanoid</option>
+                <option value="monstrosity">Monstrosity</option>
+                <option value="construct">Construct</option>
+                <option value="elemental">Elemental</option>
+                <option value="aberration">Aberration</option>
+                <option value="dragon">Dragon / Wyrm</option>
+                <option value="plant">Plant / Fungus</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Subtype / Breed:</strong>
+              <input type="text" id="ee-creature-subtype" class="win-select-input" placeholder="e.g. acid-spitting swarmer">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Body Size:</strong>
+              <select id="ee-creature-size" class="win-select-input">
+                <option value="Tiny">Tiny</option>
+                <option value="Small">Small</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Large">Large</option>
+                <option value="Huge">Huge</option>
+                <option value="Gargantuan">Gargantuan</option>
+              </select>
+            </label>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Threat Tier (0-5):</strong>
+              <select id="ee-creature-threat-tier" class="win-select-input">
+                <option value="0">T0 - Harmless Prey / Vermin</option>
+                <option value="1">T1 - Low Threat / Pack Minion</option>
+                <option value="2" selected>T2 - Moderate Threat / Soldier</option>
+                <option value="3">T3 - Severe Threat / Champion</option>
+                <option value="4">T4 - Deadly Threat / Boss</option>
+                <option value="5">T5 - Apocalyptic / Scourge</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Dread Index (1-10):</strong>
+              <select id="ee-creature-dread-index" class="win-select-input">
+                <option value="1">1/10 - Trivial</option>
+                <option value="2">2/10 - Minor</option>
+                <option value="3" selected>3/10 - Noticeable</option>
+                <option value="4">4/10 - Hazardous</option>
+                <option value="5">5/10 - Severe</option>
+                <option value="6">6/10 - Gruesome</option>
+                <option value="7">7/10 - Terrifying</option>
+                <option value="8">8/10 - Horrific</option>
+                <option value="9">9/10 - Nightmarish</option>
+                <option value="10">10/10 - Eldritch Dread</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Roaming Scope:</strong>
+              <select id="ee-creature-roaming-scope" class="win-select-input">
+                <option value="stationary_lair" selected>Stationary Lair</option>
+                <option value="adjacent_corridor">Adjacent Corridors</option>
+                <option value="district_wide">District-Wide Roam</option>
+                <option value="campaign_wide">Campaign-Wide Apex</option>
+              </select>
+            </label>
+          </div>
+
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Dread Effect &amp; Environmental Impact:</strong>
+            <input type="text" id="ee-creature-dread-effect" class="win-select-input" placeholder="e.g. Acid pools hazard corridors; parties must keep moving or perish">
+          </label>
+
+          <div style="display:flex; flex-direction:column; gap:4px; background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+            <div style="font-size:10px; font-weight:bold; color:#0f172a; text-transform:uppercase;">Relative Capabilities (1 to 5 Pips):</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Might:</span>
+                <select id="ee-creature-might" class="win-select-input">
+                  <option value="1">1 - Feeble</option>
+                  <option value="2">2 - Weak</option>
+                  <option value="3" selected>3 - Average</option>
+                  <option value="4">4 - Strong</option>
+                  <option value="5">5 - Colossal</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Agility:</span>
+                <select id="ee-creature-agility" class="win-select-input">
+                  <option value="1">1 - Sluggish</option>
+                  <option value="2" selected>2 - Deliberate</option>
+                  <option value="3">3 - Agile</option>
+                  <option value="4">4 - Swift</option>
+                  <option value="5">5 - Lightning</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Resilience:</span>
+                <select id="ee-creature-resilience" class="win-select-input">
+                  <option value="1">1 - Fragile</option>
+                  <option value="2">2 - Soft</option>
+                  <option value="3" selected>3 - Tough</option>
+                  <option value="4">4 - Armored</option>
+                  <option value="5">5 - Indestructible</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Cunning:</span>
+                <select id="ee-creature-cunning" class="win-select-input">
+                  <option value="1" selected>1 - Mindless</option>
+                  <option value="2">2 - Instinctive</option>
+                  <option value="3">3 - Clever</option>
+                  <option value="4">4 - Devious</option>
+                  <option value="5">5 - Genius</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Awareness:</span>
+                <select id="ee-creature-awareness" class="win-select-input">
+                  <option value="1">1 - Oblivious</option>
+                  <option value="2" selected>2 - Alert</option>
+                  <option value="3">3 - Keen</option>
+                  <option value="4">4 - Sharp-Eyed</option>
+                  <option value="5">5 - All-Seeing</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Presence:</span>
+                <select id="ee-creature-presence" class="win-select-input">
+                  <option value="1">1 - Diminutive</option>
+                  <option value="2" selected>2 - Noticeable</option>
+                  <option value="3">3 - Imposing</option>
+                  <option value="4">4 - Dreadful</option>
+                  <option value="5">5 - Overwhelming</option>
+                </select>
+              </label>
             </div>
           </div>
         </div>
@@ -174556,20 +174701,40 @@ const ALL_SURFACES_DATA = [
     if (!state) return null;
     const cat = category.toLowerCase();
     const camelCat = (cat === 'spatialpins' || cat === 'spatial_pins' || cat === 'spatialpin') ? 'spatialPins' : cat;
-    // Support category names: npcs, quests, items, trackers, factions, tickets, nodes, spatialPins
+    // Support category names: npcs, quests, items, creatures, trackers, factions, tickets, nodes, spatialPins
+    if (Array.isArray(state[cat])) {
+      if (state.entities && Array.isArray(state.entities[cat]) && state.entities[cat] !== state[cat]) {
+        state.entities[cat] = state[cat];
+      }
+      return state[cat];
+    }
+    if (Array.isArray(state[camelCat])) {
+      if (state.entities && Array.isArray(state.entities[camelCat]) && state.entities[camelCat] !== state[camelCat]) {
+        state.entities[camelCat] = state[camelCat];
+      }
+      return state[camelCat];
+    }
     if (state.entities) {
       if (Array.isArray(state.entities[cat])) return state.entities[cat];
       if (Array.isArray(state.entities[camelCat])) return state.entities[camelCat];
     }
-    if (Array.isArray(state[cat])) return state[cat];
-    if (Array.isArray(state[camelCat])) return state[camelCat];
     if (state.activeTopology) {
+      if (Array.isArray(state.activeTopology[cat])) {
+        if (state.activeTopology.entities && Array.isArray(state.activeTopology.entities[cat]) && state.activeTopology.entities[cat] !== state.activeTopology[cat]) {
+          state.activeTopology.entities[cat] = state.activeTopology[cat];
+        }
+        return state.activeTopology[cat];
+      }
+      if (Array.isArray(state.activeTopology[camelCat])) {
+        if (state.activeTopology.entities && Array.isArray(state.activeTopology.entities[camelCat]) && state.activeTopology.entities[camelCat] !== state.activeTopology[camelCat]) {
+          state.activeTopology.entities[camelCat] = state.activeTopology[camelCat];
+        }
+        return state.activeTopology[camelCat];
+      }
       if (state.activeTopology.entities) {
         if (Array.isArray(state.activeTopology.entities[cat])) return state.activeTopology.entities[cat];
         if (Array.isArray(state.activeTopology.entities[camelCat])) return state.activeTopology.entities[camelCat];
       }
-      if (Array.isArray(state.activeTopology[cat])) return state.activeTopology[cat];
-      if (Array.isArray(state.activeTopology[camelCat])) return state.activeTopology[camelCat];
       if (cat === 'nodes' && state.activeTopology.nodes) return state.activeTopology.nodes;
     }
     if (cat === 'nodes' && state.nodes) return state.nodes;
@@ -174959,7 +175124,7 @@ const ALL_SURFACES_DATA = [
     { collection: 'items', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: true, label: 'item faction' },
     // creatures (bestiary)
     { collection: 'creatures', target: 'node', path: 'nodeId', shape: 'id', op: 'null', log: true, label: 'creature location' },
-    { collection: 'creatures', target: 'node', path: 'stationing.nodeId', shape: 'id', op: 'null', log: true, label: 'creature stationing node' },
+    { collection: 'creatures', target: 'node', path: 'stationing.nodeId', shape: 'id', op: 'null', set: { mode: 'unassigned' }, log: true, label: 'creature stationing node' },
     { collection: 'creatures', target: 'faction', path: 'factionId', shape: 'id', op: 'null', log: true, label: 'creature faction' },
     // trackers (threat clocks)
     { collection: 'trackers', target: '*', path: 'triggerRefs', shape: 'refs', idKeys: ['entityId'], typeKey: 'entityType', untyped: 'match', op: 'filter', log: true, label: 'clock trigger' },
@@ -175043,9 +175208,34 @@ const ALL_SURFACES_DATA = [
 
   // The places a row can look: the record itself, or each element of its nested list
   function referenceSlots(rec, row) {
-    if (!row.list) return [{ holder: rec, key: row.field, element: null }];
+    if (!row.list) {
+      if (rec[row.field] !== undefined) {
+        return [{ holder: rec, key: row.field, element: null }];
+      }
+      if (row.field && row.field.includes('.')) {
+        const parts = row.field.split('.');
+        let cur = rec;
+        for (let i = 0; i < parts.length - 1; i++) {
+          cur = cur ? cur[parts[i]] : null;
+        }
+        return cur ? [{ holder: cur, key: parts[parts.length - 1], element: null }] : [];
+      }
+      return [{ holder: rec, key: row.field, element: null }];
+    }
     const list = rec[row.list];
-    return Array.isArray(list) ? list.filter(Boolean).map(el => ({ holder: el, key: row.field, element: el })) : [];
+    if (!Array.isArray(list)) return [];
+    if (row.field && row.field.includes('.')) {
+      const parts = row.field.split('.');
+      return list.filter(Boolean).map(el => {
+        if (el[row.field] !== undefined) return { holder: el, key: row.field, element: el };
+        let cur = el;
+        for (let i = 0; i < parts.length - 1; i++) {
+          cur = cur ? cur[parts[i]] : null;
+        }
+        return cur ? { holder: cur, key: parts[parts.length - 1], element: el } : null;
+      }).filter(Boolean);
+    }
+    return list.filter(Boolean).map(el => ({ holder: el, key: row.field, element: el }));
   }
 
   // A stored type label (ticket target type, trigger entityType, link type) guards the id match
@@ -207104,6 +207294,7 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
       const itemExt = document.getElementById('ee-item-extensions');
       const trackerExt = document.getElementById('ee-tracker-extensions');
       const factionExt = document.getElementById('ee-faction-extensions');
+      const creatureExt = document.getElementById('ee-creature-extensions');
       const nodeLabel = document.getElementById('ee-node-label');
 
       if (npcExt) npcExt.style.display = (type === 'npc') ? 'flex' : 'none';
@@ -207111,6 +207302,7 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
       if (questExt) questExt.style.display = (type === 'quest') ? 'flex' : 'none';
       if (trackerExt) trackerExt.style.display = (type === 'tracker') ? 'flex' : 'none';
       if (factionExt) factionExt.style.display = (type === 'faction') ? 'flex' : 'none';
+      if (creatureExt) creatureExt.style.display = (type === 'creature') ? 'flex' : 'none';
 
       if (type === 'npc') {
         document.getElementById('ee-role-label').textContent = 'Role / Profession:';
@@ -207268,6 +207460,24 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
         }
         const posSel = document.getElementById('ee-item-possession-mode');
         if (posSel) posSel.value = 'stored';
+      } else if (type === 'creature') {
+        document.getElementById('ee-role-label').textContent = 'Kind / Subtype Summary:';
+        document.getElementById('ee-meta-label').textContent = 'Tactical Role / Ecological Niche:';
+        document.getElementById('ee-notes-label').textContent = 'Creature Summary & Encounter Lore:';
+        if (nodeLabel) nodeLabel.textContent = 'Stationed Lair Node:';
+        if (document.getElementById('ee-creature-kind')) document.getElementById('ee-creature-kind').value = 'beast';
+        if (document.getElementById('ee-creature-subtype')) document.getElementById('ee-creature-subtype').value = '';
+        if (document.getElementById('ee-creature-size')) document.getElementById('ee-creature-size').value = 'Medium';
+        if (document.getElementById('ee-creature-threat-tier')) document.getElementById('ee-creature-threat-tier').value = '2';
+        if (document.getElementById('ee-creature-dread-index')) document.getElementById('ee-creature-dread-index').value = '3';
+        if (document.getElementById('ee-creature-roaming-scope')) document.getElementById('ee-creature-roaming-scope').value = 'stationary_lair';
+        if (document.getElementById('ee-creature-dread-effect')) document.getElementById('ee-creature-dread-effect').value = '';
+        if (document.getElementById('ee-creature-might')) document.getElementById('ee-creature-might').value = '3';
+        if (document.getElementById('ee-creature-agility')) document.getElementById('ee-creature-agility').value = '2';
+        if (document.getElementById('ee-creature-resilience')) document.getElementById('ee-creature-resilience').value = '3';
+        if (document.getElementById('ee-creature-cunning')) document.getElementById('ee-creature-cunning').value = '1';
+        if (document.getElementById('ee-creature-awareness')) document.getElementById('ee-creature-awareness').value = '2';
+        if (document.getElementById('ee-creature-presence')) document.getElementById('ee-creature-presence').value = '2';
       } else {
         document.getElementById('ee-role-label').textContent = 'Item Category (Weapon, Gear, Relic, Tech, Document, Key Item):';
         document.getElementById('ee-meta-label').textContent = 'Specifications / Output Dial / Trait:';
@@ -207352,10 +207562,11 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
       document.getElementById('ee-modal-title').textContent = `Edit ${CurrentEntityTab.toUpperCase()}`;
       document.getElementById('ee-entity-id').value = entity.id;
       document.getElementById('ee-name').value = entity.name || entity.title || '';
-      document.getElementById('ee-role').value = entity.role || entity.category || entity.type || '';
-      document.getElementById('ee-meta').value = (CurrentEntityTab === 'tracker') ? (entity.maxTicks || 6) : (entity.faction || entity.threat || entity.specs || '');
-      document.getElementById('ee-notes').value = entity.motivation || entity.notes || '';
-      document.getElementById('ee-node-select').value = entity.nodeId != null ? String(entity.nodeId) : '';
+      document.getElementById('ee-role').value = entity.role || entity.category || entity.type || entity.subtype || '';
+      document.getElementById('ee-meta').value = (CurrentEntityTab === 'tracker') ? (entity.maxTicks || 6) : (entity.faction || entity.threat || entity.specs || (CurrentEntityTab === 'creature' ? (entity.size || 'Medium') : ''));
+      document.getElementById('ee-notes').value = entity.motivation || entity.notes || entity.summary || '';
+      const effectiveNodeId = (CurrentEntityTab === 'creature' && typeof getCreatureEffectiveNodeId === 'function') ? getCreatureEffectiveNodeId(entity) : entity.nodeId;
+      document.getElementById('ee-node-select').value = effectiveNodeId != null ? String(effectiveNodeId) : '';
 
       if (CurrentEntityTab === 'npc') {
         if (document.getElementById('ee-npc-status')) document.getElementById('ee-npc-status').value = entity.status || 'Active';
@@ -207448,6 +207659,24 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
         document.querySelectorAll('.ee-faction-node-cb').forEach(cb => {
           cb.checked = controlled.includes(String(cb.value));
         });
+      } else if (CurrentEntityTab === 'creature') {
+        if (document.getElementById('ee-creature-kind')) document.getElementById('ee-creature-kind').value = entity.kind || 'beast';
+        if (document.getElementById('ee-creature-subtype')) document.getElementById('ee-creature-subtype').value = entity.subtype || '';
+        if (document.getElementById('ee-creature-size')) document.getElementById('ee-creature-size').value = entity.size || 'Medium';
+        if (document.getElementById('ee-creature-threat-tier')) document.getElementById('ee-creature-threat-tier').value = String(entity.threatTier !== undefined ? entity.threatTier : 2);
+        const dreadVal = (entity.gigerenzerBehavior && entity.gigerenzerBehavior.dreadIndex !== undefined) ? entity.gigerenzerBehavior.dreadIndex : (entity.dreadIndex !== undefined ? entity.dreadIndex : 3);
+        if (document.getElementById('ee-creature-dread-index')) document.getElementById('ee-creature-dread-index').value = String(dreadVal);
+        const dreadEff = (entity.gigerenzerBehavior && entity.gigerenzerBehavior.dreadEffect) || entity.dreadEffect || '';
+        if (document.getElementById('ee-creature-dread-effect')) document.getElementById('ee-creature-dread-effect').value = dreadEff;
+        const rScope = (entity.stationing && entity.stationing.roamingScope) || 'stationary_lair';
+        if (document.getElementById('ee-creature-roaming-scope')) document.getElementById('ee-creature-roaming-scope').value = rScope;
+        const caps = entity.relativeCapabilities || {};
+        if (document.getElementById('ee-creature-might')) document.getElementById('ee-creature-might').value = String(caps.might || 3);
+        if (document.getElementById('ee-creature-agility')) document.getElementById('ee-creature-agility').value = String(caps.agility || 2);
+        if (document.getElementById('ee-creature-resilience')) document.getElementById('ee-creature-resilience').value = String(caps.resilience || 3);
+        if (document.getElementById('ee-creature-cunning')) document.getElementById('ee-creature-cunning').value = String(caps.cunning || 1);
+        if (document.getElementById('ee-creature-awareness')) document.getElementById('ee-creature-awareness').value = String(caps.awareness || 2);
+        if (document.getElementById('ee-creature-presence')) document.getElementById('ee-creature-presence').value = String(caps.presence || 2);
       }
     }
 
@@ -207592,6 +207821,31 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
             entity.isResource = true;
             if (document.getElementById('ee-item-owner')) entity.ownerNpcId = document.getElementById('ee-item-owner').value || null;
             if (document.getElementById('ee-item-possession-mode')) entity.possessionMode = document.getElementById('ee-item-possession-mode').value || 'stored';
+          } else if (type === 'creature') {
+            entity.name = name;
+            entity.summary = notes;
+            entity.notes = notes;
+            if (document.getElementById('ee-creature-kind')) entity.kind = document.getElementById('ee-creature-kind').value || 'beast';
+            if (document.getElementById('ee-creature-subtype')) entity.subtype = document.getElementById('ee-creature-subtype').value.trim() || '';
+            if (document.getElementById('ee-creature-size')) entity.size = document.getElementById('ee-creature-size').value || 'Medium';
+            if (document.getElementById('ee-creature-threat-tier')) entity.threatTier = parseInt(document.getElementById('ee-creature-threat-tier').value, 10) || 0;
+            entity.relativeCapabilities = entity.relativeCapabilities || {};
+            if (document.getElementById('ee-creature-might')) entity.relativeCapabilities.might = parseInt(document.getElementById('ee-creature-might').value, 10) || 1;
+            if (document.getElementById('ee-creature-agility')) entity.relativeCapabilities.agility = parseInt(document.getElementById('ee-creature-agility').value, 10) || 1;
+            if (document.getElementById('ee-creature-resilience')) entity.relativeCapabilities.resilience = parseInt(document.getElementById('ee-creature-resilience').value, 10) || 1;
+            if (document.getElementById('ee-creature-cunning')) entity.relativeCapabilities.cunning = parseInt(document.getElementById('ee-creature-cunning').value, 10) || 1;
+            if (document.getElementById('ee-creature-awareness')) entity.relativeCapabilities.awareness = parseInt(document.getElementById('ee-creature-awareness').value, 10) || 1;
+            if (document.getElementById('ee-creature-presence')) entity.relativeCapabilities.presence = parseInt(document.getElementById('ee-creature-presence').value, 10) || 1;
+
+            entity.gigerenzerBehavior = entity.gigerenzerBehavior || {};
+            if (document.getElementById('ee-creature-dread-index')) entity.gigerenzerBehavior.dreadIndex = parseInt(document.getElementById('ee-creature-dread-index').value, 10) || 1;
+            if (document.getElementById('ee-creature-dread-effect')) entity.gigerenzerBehavior.dreadEffect = document.getElementById('ee-creature-dread-effect').value.trim() || '';
+
+            entity.stationing = entity.stationing || {};
+            entity.stationing.nodeId = nodeId;
+            entity.stationing.mode = nodeId != null ? 'lair' : 'unassigned';
+            if (document.getElementById('ee-creature-roaming-scope')) entity.stationing.roamingScope = document.getElementById('ee-creature-roaming-scope').value || 'stationary_lair';
+            entity.nodeId = nodeId;
           } else {
             entity.name = name;
             entity.category = role;
@@ -207712,6 +207966,81 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
           newEntity.isResource = true;
           newEntity.ownerNpcId = document.getElementById('ee-item-owner') ? (document.getElementById('ee-item-owner').value || null) : null;
           newEntity.possessionMode = document.getElementById('ee-item-possession-mode') ? (document.getElementById('ee-item-possession-mode').value || 'stored') : 'stored';
+        } else if (type === 'creature') {
+          const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+          newEntity.id = `creature_${slug || Date.now().toString().slice(-6)}`;
+          newEntity.name = name;
+          newEntity.kind = document.getElementById('ee-creature-kind') ? document.getElementById('ee-creature-kind').value : 'beast';
+          newEntity.subtype = document.getElementById('ee-creature-subtype') ? document.getElementById('ee-creature-subtype').value.trim() : '';
+          newEntity.size = document.getElementById('ee-creature-size') ? document.getElementById('ee-creature-size').value : 'Medium';
+          newEntity.threatTier = document.getElementById('ee-creature-threat-tier') ? (parseInt(document.getElementById('ee-creature-threat-tier').value, 10) || 0) : 2;
+          newEntity.summary = notes;
+          newEntity.notes = notes;
+          newEntity.relativeCapabilities = {
+            might: document.getElementById('ee-creature-might') ? (parseInt(document.getElementById('ee-creature-might').value, 10) || 3) : 3,
+            agility: document.getElementById('ee-creature-agility') ? (parseInt(document.getElementById('ee-creature-agility').value, 10) || 2) : 2,
+            resilience: document.getElementById('ee-creature-resilience') ? (parseInt(document.getElementById('ee-creature-resilience').value, 10) || 3) : 3,
+            cunning: document.getElementById('ee-creature-cunning') ? (parseInt(document.getElementById('ee-creature-cunning').value, 10) || 1) : 1,
+            awareness: document.getElementById('ee-creature-awareness') ? (parseInt(document.getElementById('ee-creature-awareness').value, 10) || 2) : 2,
+            presence: document.getElementById('ee-creature-presence') ? (parseInt(document.getElementById('ee-creature-presence').value, 10) || 2) : 2
+          };
+          newEntity.senses = { vision: 'standard', special: [], blindspots: '' };
+          newEntity.locomotion = { primary: 'walk', secondary: [], terrainAffinities: [] };
+          newEntity.defenses = { armorType: 'natural hide', immunities: [], resistances: [], vulnerabilities: [], anatomicalWeakSpots: [] };
+          newEntity.disposition = {
+            odv: { s: 2, e: 2, c: 2 },
+            odvTag: '[2, 2, 2]',
+            cvfQuadrant: 'Clan',
+            ethologySummary: 'Autonomous Instinct'
+          };
+          const dreadVal = document.getElementById('ee-creature-dread-index') ? (parseInt(document.getElementById('ee-creature-dread-index').value, 10) || 3) : 3;
+          const dreadEff = document.getElementById('ee-creature-dread-effect') ? document.getElementById('ee-creature-dread-effect').value.trim() : 'Corridor transit hazard; parties must stay vigilant.';
+          newEntity.gigerenzerBehavior = {
+            dreadIndex: dreadVal,
+            dreadEffect: dreadEff,
+            heuristicProfile: {
+              strategy: 'TAKE_THE_BEST',
+              cueValidityHierarchy: ['target_in_range', 'threat_detected'],
+              stoppingRule: 'Engage the first hostile target encountered.'
+            },
+            fastAndFrugalTree: {
+              id: `tree_${slug || 'creature'}`,
+              name: `${name} Instinct`,
+              cues: [
+                {
+                  id: 'cue_1',
+                  label: 'Is a hostile target within melee range?',
+                  testType: 'boolean_query',
+                  targetValue: true,
+                  exitDirection: 'yes',
+                  exitAction: 'ATTACK',
+                  exitLabel: 'Attack aggressively'
+                }
+              ],
+              defaultExit: {
+                action: 'STALK',
+                label: 'Stalk and circle prey'
+              }
+            }
+          };
+          newEntity.signatureActions = [];
+          newEntity.psychologyAndFolklore = {
+            instinctiveQuirks: [],
+            primaryDrive: 'territory_defense',
+            moraleThreshold: 'normal',
+            spoorAndSigns: [],
+            vocalizations: [],
+            vernacularFolklore: []
+          };
+          newEntity.harvest = { harvestYields: [], domesticationProfile: 'untameable' };
+          newEntity.stationing = {
+            mode: nodeId != null ? 'lair' : 'unassigned',
+            nodeId: nodeId,
+            edgeKey: null,
+            roamingScope: document.getElementById('ee-creature-roaming-scope') ? (document.getElementById('ee-creature-roaming-scope').value || 'stationary_lair') : 'stationary_lair'
+          };
+          newEntity.relationalLinks = {};
+          newEntity.isCustom = true;
         } else {
           newEntity.name = name;
           newEntity.category = role;
@@ -207895,8 +208224,12 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
         const protoInstance = protoList.find(p => String(p.id) === String(targetId));
         targetObj = activeInstance || protoInstance || { id: targetId, name: `${targetType} ${targetId}` };
         targetName = targetObj.name || targetObj.title || `${targetType} ${targetId}`;
-        targetRole = targetObj.role || targetObj.category || targetObj.type || targetType.toUpperCase();
-        targetNodeId = activeInstance ? activeInstance.nodeId : (targetObj.suggestedNode || targetObj.nodeId || null);
+        targetRole = (targetType === 'creature')
+          ? (targetObj.subtype ? `${targetObj.kind || 'Creature'} (${targetObj.subtype})` : (targetObj.kind || 'Bestiary Creature'))
+          : (targetObj.role || targetObj.category || targetObj.type || targetType.toUpperCase());
+        targetNodeId = activeInstance
+          ? ((typeof getCreatureEffectiveNodeId === 'function' && targetType === 'creature') ? getCreatureEffectiveNodeId(activeInstance) : activeInstance.nodeId)
+          : (targetObj.suggestedNode || targetObj.nodeId || null);
         targetModuleId = targetObj.moduleId || null;
         isTargetActive = !!activeInstance;
 
@@ -207908,6 +208241,11 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
           targetNodeId = targetObj.headquartersNodeId || null;
           const terrCount = Array.isArray(targetObj.controlledNodeIds) ? targetObj.controlledNodeIds.length : 0;
           targetDetails = `CVF: ${targetObj.cvfQuadrant || 'Clan'} • HQ: Node #${targetNodeId || 'None'} • Territory: ${terrCount} Nodes`;
+        } else if (targetType === 'creature') {
+          const tTier = targetObj.threatTier !== undefined ? `Tier ${targetObj.threatTier}` : 'Unranked';
+          const dread = (targetObj.gigerenzerBehavior && targetObj.gigerenzerBehavior.dreadIndex !== undefined) ? targetObj.gigerenzerBehavior.dreadIndex : (targetObj.dreadIndex || 1);
+          const formattedNode = targetNodeId ? (typeof window.formatNodeRef === 'function' ? window.formatNodeRef(targetNodeId) : 'Node #' + targetNodeId) : null;
+          targetDetails = `${tTier} • Dread: ${dread}/10 • ${formattedNode ? `Lair Stationed at ${formattedNode}` : (isTargetActive ? 'Active in Bestiary (Unassigned)' : 'Creature Pool')}`;
         } else {
           targetDetails = targetNodeId ? `Stationed at ${(typeof window.formatNodeRef === 'function' ? window.formatNodeRef(targetNodeId) : 'Node #' + targetNodeId)}` : (isTargetActive ? 'Active in Campaign Roster (Unassigned)' : 'Module Prototype Pool');
         }
@@ -208785,6 +209123,8 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
       const topo = targetTopo || ((typeof Workstation !== 'undefined') ? Workstation.activeTopology : null) || {};
       if (typeof ensureEntityCollections === 'function') ensureEntityCollections(topo);
 
+      allToDelete = allToDelete || (typeof window !== 'undefined' && window._activeDeletionContext ? [window._activeDeletionContext.target] : []);
+
       if (!Array.isArray(topo.deletedPrototypes)) topo.deletedPrototypes = [];
       if (!Array.isArray(topo.deletedModules)) topo.deletedModules = [];
 
@@ -208792,6 +209132,8 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
         npc: new Set(),
         quest: new Set(),
         item: new Set(),
+        resource: new Set(),
+        creature: new Set(),
         tracker: new Set(),
         faction: new Set(),
         node: new Set(),

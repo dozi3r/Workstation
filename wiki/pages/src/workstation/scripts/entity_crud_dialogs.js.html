@@ -470,7 +470,7 @@
         <h1 class="article-title">entity_crud_dialogs.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 9624a0d8)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: a15ae6ac)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (6)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/entity_crud_dialogs.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>971 lines &bull; 50.8 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 9624a0d8)</span></td></tr>
+    <tr><th>File Metrics</th><td>1110 lines &bull; 62.7 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: a15ae6ac)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>10</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>6</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/entity_crud_dialogs.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -509,6 +509,8 @@
 <li><strong>Multi-Node Quest Spanning Engine</strong>: Computes and previews the topological footprint of narrative quests across pointcrawl nodes (<code>getQuestSpanningNodes</code>, <code>updateQuestSpanningPreview</code>), identifying anchor stations, objective nodes, and referenced character/item locations.</li>
 <li><strong>Custom Entity Authoring Dialog</strong>: Powers the New Entity creation modal (<code>openNewEntityModal</code>), pre-populating fields based on the active entity tab and auto-suggesting stationing candidates.</li>
 <li><strong>Entity Edit Controller</strong>: Handles in-flight modification of existing campaign entities (<code>openEditEntityModal</code>), populating existing traits, descriptions, requirements, and reward structures.</li>
+<li><strong>Bestiary Creature Authoring</strong>: Powers <code>#ee-creature-extensions</code> in <code>openNewEntityModal('creature')</code> and <code>openEditEntityModal</code>, configuring kind, breed/subtype, body size, threat tier 0-5, dread index 1-10, dread effect, roaming scope, and 6 relative capabilities.</li>
+<li><strong>Tactical & Behavior Initialization</strong>: In <code>saveCustomEntity()</code>, generates slugified IDs (<code>creature_<slug></code>), synthesizes initial Fast-and-Frugal Trees (<code>fastAndFrugalTree</code>), sets up senses, defenses, and locomotion matrices, and stations the creature to active node lairs.</li>
 <li><strong>Persistence & Canvas Synchronization</strong>: Validates and commits created/updated entities to the active campaign topology (<code>saveCustomEntity</code>), triggering canvas HUD refreshes, properties grid updates, and notification status messages.</li>
 </ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (8)</h3><div class="pill-list"><span class="pill">getQuestSpanningNodes(quest)</span><span class="pill">resolveNodeInfo(nodeId)</span><span class="pill">updateQuestSpanningPreview()</span><span class="pill">openNewEntityModal(type, preselectedNodeId)</span><span class="pill">openEditEntityModal(entityId)</span><span class="pill">saveCustomEntity()</span><span class="pill">openCreateEdgeModal(defaultSrcId = null, defaultTgtId = null, defaultType = 'road')</span><span class="pill">submitCreateEdgeModal()</span></div>

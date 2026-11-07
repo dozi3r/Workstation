@@ -384,6 +384,151 @@
           </div>
         </div>
 
+        <!-- Creature / Bestiary Extensions (Kind, Threat Tier, Capabilities, Dread Index, Roaming) -->
+        <div id="ee-creature-extensions" style="display:none; flex-direction:column; gap:6px; border-top:1px solid #ccc; padding-top:6px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Kind / Family:</strong>
+              <select id="ee-creature-kind" class="win-select-input">
+                <option value="beast">Beast / Wildlife</option>
+                <option value="undead">Undead</option>
+                <option value="demon">Demon / Infernal</option>
+                <option value="humanoid">Humanoid</option>
+                <option value="monstrosity">Monstrosity</option>
+                <option value="construct">Construct</option>
+                <option value="elemental">Elemental</option>
+                <option value="aberration">Aberration</option>
+                <option value="dragon">Dragon / Wyrm</option>
+                <option value="plant">Plant / Fungus</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Subtype / Breed:</strong>
+              <input type="text" id="ee-creature-subtype" class="win-select-input" placeholder="e.g. acid-spitting swarmer">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Body Size:</strong>
+              <select id="ee-creature-size" class="win-select-input">
+                <option value="Tiny">Tiny</option>
+                <option value="Small">Small</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Large">Large</option>
+                <option value="Huge">Huge</option>
+                <option value="Gargantuan">Gargantuan</option>
+              </select>
+            </label>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Threat Tier (0-5):</strong>
+              <select id="ee-creature-threat-tier" class="win-select-input">
+                <option value="0">T0 - Harmless Prey / Vermin</option>
+                <option value="1">T1 - Low Threat / Pack Minion</option>
+                <option value="2" selected>T2 - Moderate Threat / Soldier</option>
+                <option value="3">T3 - Severe Threat / Champion</option>
+                <option value="4">T4 - Deadly Threat / Boss</option>
+                <option value="5">T5 - Apocalyptic / Scourge</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Dread Index (1-10):</strong>
+              <select id="ee-creature-dread-index" class="win-select-input">
+                <option value="1">1/10 - Trivial</option>
+                <option value="2">2/10 - Minor</option>
+                <option value="3" selected>3/10 - Noticeable</option>
+                <option value="4">4/10 - Hazardous</option>
+                <option value="5">5/10 - Severe</option>
+                <option value="6">6/10 - Gruesome</option>
+                <option value="7">7/10 - Terrifying</option>
+                <option value="8">8/10 - Horrific</option>
+                <option value="9">9/10 - Nightmarish</option>
+                <option value="10">10/10 - Eldritch Dread</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px;">
+              <strong>Roaming Scope:</strong>
+              <select id="ee-creature-roaming-scope" class="win-select-input">
+                <option value="stationary_lair" selected>Stationary Lair</option>
+                <option value="adjacent_corridor">Adjacent Corridors</option>
+                <option value="district_wide">District-Wide Roam</option>
+                <option value="campaign_wide">Campaign-Wide Apex</option>
+              </select>
+            </label>
+          </div>
+
+          <label style="display:flex; flex-direction:column; gap:2px;">
+            <strong>Dread Effect &amp; Environmental Impact:</strong>
+            <input type="text" id="ee-creature-dread-effect" class="win-select-input" placeholder="e.g. Acid pools hazard corridors; parties must keep moving or perish">
+          </label>
+
+          <div style="display:flex; flex-direction:column; gap:4px; background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+            <div style="font-size:10px; font-weight:bold; color:#0f172a; text-transform:uppercase;">Relative Capabilities (1 to 5 Pips):</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Might:</span>
+                <select id="ee-creature-might" class="win-select-input">
+                  <option value="1">1 - Feeble</option>
+                  <option value="2">2 - Weak</option>
+                  <option value="3" selected>3 - Average</option>
+                  <option value="4">4 - Strong</option>
+                  <option value="5">5 - Colossal</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Agility:</span>
+                <select id="ee-creature-agility" class="win-select-input">
+                  <option value="1">1 - Sluggish</option>
+                  <option value="2" selected>2 - Deliberate</option>
+                  <option value="3">3 - Agile</option>
+                  <option value="4">4 - Swift</option>
+                  <option value="5">5 - Lightning</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Resilience:</span>
+                <select id="ee-creature-resilience" class="win-select-input">
+                  <option value="1">1 - Fragile</option>
+                  <option value="2">2 - Soft</option>
+                  <option value="3" selected>3 - Tough</option>
+                  <option value="4">4 - Armored</option>
+                  <option value="5">5 - Indestructible</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Cunning:</span>
+                <select id="ee-creature-cunning" class="win-select-input">
+                  <option value="1" selected>1 - Mindless</option>
+                  <option value="2">2 - Instinctive</option>
+                  <option value="3">3 - Clever</option>
+                  <option value="4">4 - Devious</option>
+                  <option value="5">5 - Genius</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Awareness:</span>
+                <select id="ee-creature-awareness" class="win-select-input">
+                  <option value="1">1 - Oblivious</option>
+                  <option value="2" selected>2 - Alert</option>
+                  <option value="3">3 - Keen</option>
+                  <option value="4">4 - Sharp-Eyed</option>
+                  <option value="5">5 - All-Seeing</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:1px; font-size:10px;">
+                <span>Presence:</span>
+                <select id="ee-creature-presence" class="win-select-input">
+                  <option value="1">1 - Diminutive</option>
+                  <option value="2" selected>2 - Noticeable</option>
+                  <option value="3">3 - Imposing</option>
+                  <option value="4">4 - Dreadful</option>
+                  <option value="5">5 - Overwhelming</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+
         <div class="dialog-footer" style="justify-content:flex-end; gap:6px; margin-top:8px;">
           <button class="win-btn" onclick="saveCustomEntity()" style="min-width:70px;">Save</button>
           <button class="win-btn" onclick="closeModal('modal-entity-edit')" style="min-width:70px;">Cancel</button>

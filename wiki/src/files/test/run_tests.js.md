@@ -3,11 +3,11 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "222079df11fd985e"
-reviewed_hash: "222079df11fd985e"
+current_hash: "81cf00004e02dfb1"
+reviewed_hash: "81cf00004e02dfb1"
 stale: false
-size_bytes: 472389
-line_count: 9289
+size_bytes: 484836
+line_count: 9519
 ---
 
 # run_tests.js
@@ -58,4 +58,9 @@ line_count: 9289
    - Preview parity: `analyzeEntityDependencies` must list exactly those id-based referrers as `reference` dependencies. Name mentions are a separate `mention` group, are not unlinked by the delete, and the dialog renders them under their own heading.
    - Ownership: with the engine's `deleteEntity` stubbed out, `executeEntityDeletion` changes none of the roster, quests, trigger refs, tickets or pins (the cascade file no longer scrubs entity types). Tickets aimed at a deleted NPC (engine), sub-map or module (cascade file) each get exactly one audit note.
    - Converted source-text checks (SYS-ARCH-01): the `sanitizePinArray(topo.spatialPins)` check (Suite 37 RT-04) and the `q.trackerIds.filter` / `st.triggerTrackerId && deletedIdsByType.tracker.has` checks (Suite 38) now run the real `executeEntityDeletion` and assert the outcome on pins, `quest.trackerIds` and `quest.steps`.
+14. **Suites 52–55: Resource Partitioning, Bestiary Explorer, FFT Adaptation, Creature CRUD & Cascade Lifecycle**:
+   - *Suite 52*: Validates 6-seam bidirectional creature persistence, zero-CORS evidence loading, and commodity item partitioning (`isResourceItem`, `getActiveEntityList('resource')`).
+   - *Suite 53*: Validates multi-map node aggregation for resource export commodities, DF logistics stockpile specifications, and resource CRUD.
+   - *Suite 54*: Validates Diablo bestiary FFT normalization (all 68 creatures pass `validateFft`), Threat Tier / Kind filtering, Relative Capability stat bars with pips, Dread Index gauge (1-10), and collapsible Source Figures section hydrated from `creatureEvidence`.
+   - *Suite 55*: Validates creature creation via `openNewEntityModal('creature')` and `saveCustomEntity()`, editing via `openEditEntityModal()`, cascade deletion dependency analysis via `analyzeEntityDependencies('creature')`, deletion execution via `executeCascadeDelete`, and node deletion cascade unlinking stationed creatures.
 <!-- END_CUSTOM_NOTES -->
