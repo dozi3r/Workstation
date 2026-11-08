@@ -1,0 +1,1418 @@
+[
+  {
+    "id": "MOD_JTTW_FAC_PILGRIM_PARTY",
+    "title": "The Tang Pilgrim Party",
+    "kind": "faction",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 1,
+    "culture_quadrant": "Clan",
+    "linkedEntityType": "faction",
+    "linkedEntityId": "fac_pilgrim_party",
+    "provides": [
+      "Authority: Sanctioned Mission",
+      "Labor: Skilled Escort"
+    ],
+    "requires": [
+      "Water: Safe Drinking Supply",
+      "Defense: Protector in the Wings"
+    ],
+    "summary": "Four sworn travellers on a commissioned journey whose one rule is that the road goes west and nothing may turn it aside.",
+    "standalone_fallback": "Use the party as a small sanctioned expedition (a leader, a fighter, a muscle-and-appetite companion, a quiet guard) that must cross one impassable barrier before the story can move on.",
+    "bands": {
+      "reach": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "Heaven, Buddha and a dozen lesser powers act to protect the journey."
+      },
+      "force": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "Wukong matches the Bull King for over a hundred rounds twice."
+      },
+      "wealth": {
+        "rating": "Low",
+        "basis": "stated",
+        "why": "They live on alms and hospitality and bribe no one."
+      },
+      "secrecy": {
+        "rating": "Low",
+        "basis": "judged",
+        "why": "They arrive announcing their commission at every door."
+      }
+    },
+    "facts": {
+      "symbols": [
+        "Palm-Leaf Fan carried on a shoulder",
+        "Muckrake",
+        "Golden-hooped rod"
+      ],
+      "ranks": [
+        "Master",
+        "Eldest disciple",
+        "Second disciple",
+        "Third disciple"
+      ],
+      "allies": [
+        "Little Sumeru Temple",
+        "Heavenly Enforcement Host"
+      ],
+      "rivals": [
+        "Palm-Leaf Cave Household",
+        "Hoard-Thunder Court"
+      ],
+      "doctrine_taboos": [
+        "Never turn away from the West",
+        "Wukong's kinship bonds restrain him from killing kin"
+      ],
+      "headquarters": "The Fire-Line Camp (a roadside halt)"
+    },
+    "sections": [
+      {
+        "heading": "Philosophy & Goals",
+        "text": "Reach the scriptures. The party answers to a Buddhist decree, not to local lords, and the master will not take another road."
+      },
+      {
+        "heading": "Structure & Ranks",
+        "text": "Tripitaka decides; Wukong acts; Eight Rules complains and then fights; Sha Monk guards the luggage and the master."
+      },
+      {
+        "heading": "Methods & Resources",
+        "text": "Disguise, negotiation by kinship, brute force, and appeal to Heaven when force fails."
+      },
+      {
+        "heading": "Allies and Rivals",
+        "text": "Allied with Lingji and the Heavenly host; hostile to the Bull King's two households; welcome but dependent among the villagers."
+      },
+      {
+        "heading": "Internal Tensions",
+        "text": "Eight Rules wants another road; Wukong's old bonds make him spare enemies the others would kill; Tripitaka's fear of the fire is hidden behind duty."
+      },
+      {
+        "heading": "Joining and Dealing With Them",
+        "text": "Outsiders cannot join. They can feed them, guide them or bind them with debt; the party always repays."
+      },
+      {
+        "heading": "Using them in play",
+        "text": "Run them as the PCs' travelling companions or as a patron that arrives, solves one problem violently, and leaves the aftermath to the local power."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_FAC_LITTLE_SUMERU",
+      "MOD_JTTW_FAC_HEAVENLY_HOST",
+      "MOD_JTTW_SIT_MOUNTAIN_OF_FLAMES"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_FAC_FLAME_HOUSEHOLDS",
+    "title": "The Households of the Mountain of Flames",
+    "kind": "faction",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 1,
+    "culture_quadrant": "Clan",
+    "linkedEntityType": "faction",
+    "linkedEntityId": "fac_flame_households",
+    "provides": [
+      "Lore: Local Knowledge of the Barrier",
+      "Labor: Farm Households"
+    ],
+    "requires": [
+      "Water: Rain Source",
+      "Authority: Tutelary Spirit"
+    ],
+    "summary": "Red-roofed farming villages that cannot grow a grain without a distant keeper's rain and who have no ruler but a banished spirit.",
+    "standalone_fallback": "Use the households as any farming community whose harvest depends on a ritual tribute to a powerful outsider and who will pay a stranger to break the dependency.",
+    "bands": {
+      "reach": {
+        "rating": "Low",
+        "basis": "stated",
+        "why": "A string of villages near one mountain; the householder knows only the next stage of the road."
+      },
+      "force": {
+        "rating": "Low",
+        "basis": "judged",
+        "why": "No guards or fighters appear; the local spirit's ghost soldiers are Heaven's, not theirs."
+      },
+      "wealth": {
+        "rating": "Low",
+        "basis": "stated",
+        "why": "Nothing grows without the fan; they offer pigs and sheep once a decade."
+      },
+      "secrecy": {
+        "rating": "Low",
+        "basis": "judged",
+        "why": "Everything about them is public: red roofs, public rituals."
+      }
+    },
+    "facts": {
+      "symbols": [
+        "Red brick and red tile",
+        "Rice-pudding cart"
+      ],
+      "ranks": [
+        "Householder",
+        "Peddler"
+      ],
+      "allies": [
+        "Local Spirit Office",
+        "Pilgrim Party"
+      ],
+      "rivals": [],
+      "doctrine_taboos": [
+        "Never approach the keeper without gifts",
+        "Wash before the pilgrimage"
+      ],
+      "headquarters": "The Red-Brick Village"
+    },
+    "sections": [
+      {
+        "heading": "Philosophy & Goals",
+        "text": "Keep the fan's rain and the fire at bay; every season is hot, and every harvest is borrowed."
+      },
+      {
+        "heading": "Structure & Ranks",
+        "text": "A householder speaks for the village; no ruler; the mountain's spirit is the only official."
+      },
+      {
+        "heading": "Methods & Resources",
+        "text": "Pilgrimage with four hogs, four sheep, flowers, fruit, fowl and wine, once every ten years; a month's round trip."
+      },
+      {
+        "heading": "Allies and Rivals",
+        "text": "Friendly to the pilgrims; neutral toward the fan's keeper, whom they know only by a title."
+      },
+      {
+        "heading": "Internal Tensions",
+        "text": "Some say the fire returns each year, others each decade; the party's arrival makes the households ask if the monks caused the fire."
+      },
+      {
+        "heading": "Joining and Dealing With Them",
+        "text": "Offer a gift, bathe, and ask the householder. Outsiders become hosts or guests for a night."
+      },
+      {
+        "heading": "Using them in play",
+        "text": "A safe, rumour-rich start; an NPC well for local knowledge; their harvest clock raises pressure whenever the fire returns."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_SIT_DECENNIAL_TRIBUTE",
+      "MOD_JTTW_SIT_FAN_RAIN_GRAIN_CHAIN",
+      "MOD_JTTW_FAC_PILGRIM_PARTY"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_FAC_PALM_LEAF_HOUSEHOLD",
+    "title": "The Palm-Leaf Cave Household",
+    "kind": "faction",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 4,
+    "culture_quadrant": "Clan",
+    "linkedEntityType": "faction",
+    "linkedEntityId": "fac_palm_leaf_household",
+    "provides": [
+      "Water: Rain on Demand",
+      "Defense: Wind Barrier"
+    ],
+    "requires": [
+      "Authority: Husband's Protection",
+      "Lore: News of a Lost Son"
+    ],
+    "summary": "A strict cultivators' cave with a single treasure that can end a region's drought or send an army across a continent.",
+    "standalone_fallback": "Use the household as an isolated sorceress with a world-altering tool, an old grudge and a husband who left her; she negotiates only from strength.",
+    "bands": {
+      "reach": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "Her fan controls fire, wind and rain over an eight-hundred-li region and can blow a person 84,000 li."
+      },
+      "force": {
+        "rating": "Medium",
+        "basis": "stated",
+        "why": "Swords and the fan; she loses a wrestling bout with Wukong's rod and a stomach assault."
+      },
+      "wealth": {
+        "rating": "Medium",
+        "basis": "judged",
+        "why": "A decade of village tribute and the Bull King's sent jewels, silk and rice."
+      },
+      "secrecy": {
+        "rating": "Medium",
+        "basis": "stated",
+        "why": "Known only by a title; the fan's formulae are oral secrets."
+      }
+    },
+    "facts": {
+      "symbols": [
+        "Palm-leaf fan",
+        "Two blue swords"
+      ],
+      "ranks": [
+        "Princess",
+        "Maid"
+      ],
+      "allies": [],
+      "rivals": [
+        "Hoard-Thunder Court",
+        "Pilgrim Party"
+      ],
+      "doctrine_taboos": [
+        "No man inside the household",
+        "A treasure is not lent lightly"
+      ],
+      "headquarters": "The Palm-Leaf Cave Hall"
+    },
+    "sections": [
+      {
+        "heading": "Philosophy & Goals",
+        "text": "Hold her cultivation and her fan; avenge Red Boy; keep a husband who is rarely home."
+      },
+      {
+        "heading": "Structure & Ranks",
+        "text": "Rakshasi, her maids and her gate attendant. No male inside."
+      },
+      {
+        "heading": "Methods & Resources",
+        "text": "The fan, two swords, wine and a good memory for grievances."
+      },
+      {
+        "heading": "Allies and Rivals",
+        "text": "The Bull King's first wife and rival of Jade Countenance; hostile to Wukong."
+      },
+      {
+        "heading": "Internal Tensions",
+        "text": "She wants her son and her husband, but cannot hold both; drink loosens her tongue and her secrets."
+      },
+      {
+        "heading": "Joining and Dealing With Them",
+        "text": "Approach with Red Boy's news or the Bull King's name; offer, do not demand."
+      },
+      {
+        "heading": "Using them in play",
+        "text": "A diplomacy-and-duel hub with a loot-and-secret ending, and a good source of reversals."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_ABI_PALM_LEAF_FAN",
+      "MOD_JTTW_FAC_HOARD_THUNDER_COURT",
+      "MOD_JTTW_SIT_BORROWED_HUSBAND"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_FAC_HOARD_THUNDER_COURT",
+    "title": "The Hoard-Thunder Court",
+    "kind": "faction",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 4,
+    "culture_quadrant": "Market",
+    "linkedEntityType": "faction",
+    "linkedEntityId": "fac_hoard_thunder_court",
+    "provides": [
+      "Material: Dowry Fortune",
+      "Defense: Beast Garrison"
+    ],
+    "requires": [
+      "Authority: A Famous Protector",
+      "Lore: Court Gossip"
+    ],
+    "summary": "A household bought with a fox king's fortune, defended by a hundred beast-spirits, and run by a demon king who splits his time between two wives.",
+    "standalone_fallback": "Use the court as a wealthy bandit-lord's seat whose strength depends on one man's reputation and whose weakness is a divided home.",
+    "bands": {
+      "reach": {
+        "rating": "Medium",
+        "basis": "stated",
+        "why": "The Bull King has friends at the lagoon and a name known across the West."
+      },
+      "force": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "A hundred-plus guards plus a demon king who ties the Great Sage."
+      },
+      "wealth": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "A ten-thousand-year fox king's fortune given as dowry."
+      },
+      "secrecy": {
+        "rating": "Low",
+        "basis": "judged",
+        "why": "Wukong finds the cave from a single question to its mistress."
+      }
+    },
+    "facts": {
+      "symbols": [
+        "Golden-eyed beast",
+        "Cast-iron rod"
+      ],
+      "ranks": [
+        "Demon King",
+        "Princess",
+        "Guard Captain",
+        "Beast-spirits"
+      ],
+      "allies": [
+        "Green Wave Lagoon Court"
+      ],
+      "rivals": [
+        "Palm-Leaf Cave Household",
+        "Heavenly Enforcement Host",
+        "Pilgrim Party"
+      ],
+      "doctrine_taboos": [
+        "Never slight a friend's wife or concubine"
+      ],
+      "headquarters": "The Cloud-Touching Cave"
+    },
+    "sections": [
+      {
+        "heading": "Philosophy & Goals",
+        "text": "Keep the fortune and the husband; enjoy the library and the banquets; take revenge for the son."
+      },
+      {
+        "heading": "Structure & Ranks",
+        "text": "The Bull King commands; Jade Countenance holds the purse; a captain runs the outer guard."
+      },
+      {
+        "heading": "Methods & Resources",
+        "text": "Wealth, a beast garrison, shape-changing and friends with other courts."
+      },
+      {
+        "heading": "Allies and Rivals",
+        "text": "Allied with the lagoon dragons; at odds with Rakshasi's household; hunted by Heaven."
+      },
+      {
+        "heading": "Internal Tensions",
+        "text": "The first wife's claim, the second wife's money and a husband who leaves one to please the other."
+      },
+      {
+        "heading": "Joining and Dealing With Them",
+        "text": "Flattery and gossip about his wives are the quickest keys; he is slow to forgive insults to either."
+      },
+      {
+        "heading": "Using them in play",
+        "text": "A moral-complication stronghold: a siege that can end in a trial of loyalties rather than just a fight."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_SIT_BORROWED_HUSBAND",
+      "MOD_JTTW_FAC_GREEN_WAVE_COURT",
+      "MOD_JTTW_ABI_SHAPE_CHANGING_CONTEST"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_FAC_GREEN_WAVE_COURT",
+    "title": "The Green Wave Lagoon Court",
+    "kind": "faction",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 4,
+    "culture_quadrant": "Adhocracy",
+    "linkedEntityType": "faction",
+    "linkedEntityId": "fac_green_wave_dragons",
+    "provides": [
+      "Lore: Gossip of the Powerful",
+      "Ecology: Dry Hall Under Water"
+    ],
+    "requires": [
+      "Authority: Respect for Etiquette",
+      "Material: Banquet Stores"
+    ],
+    "summary": "An aquatic court whose politics is the banquet and whose security is its etiquette.",
+    "standalone_fallback": "Use the court as a neutral hall where rival lords meet to drink; entering in disguise costs only a poem, being unmasked costs the host his dignity.",
+    "bands": {
+      "reach": {
+        "rating": "Medium",
+        "basis": "judged",
+        "why": "Hosts the Bull King and attendants from across the region."
+      },
+      "force": {
+        "rating": "Medium",
+        "basis": "judged",
+        "why": "Dragon sons seize intruders, but flog rather than kill."
+      },
+      "wealth": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "Gold roof tiles, jade frames, coral railings, pearl light."
+      },
+      "secrecy": {
+        "rating": "Low",
+        "basis": "judged",
+        "why": "Its hall is a stage for being seen."
+      }
+    },
+    "facts": {
+      "symbols": [
+        "Pearl light",
+        "Banquet music"
+      ],
+      "ranks": [
+        "Old Dragon King",
+        "Dragon sons",
+        "Attendants"
+      ],
+      "allies": [
+        "Hoard-Thunder Court"
+      ],
+      "rivals": [],
+      "doctrine_taboos": [
+        "A guest must follow etiquette",
+        "The sentence for a breach is flogging"
+      ],
+      "headquarters": "The Green Wave Dragon Palace"
+    },
+    "sections": [
+      {
+        "heading": "Philosophy & Goals",
+        "text": "Host; be seen; avoid quarrels that reach the hall."
+      },
+      {
+        "heading": "Structure & Ranks",
+        "text": "The old dragon rules; sons and grandsons enforce; courtiers intercede."
+      },
+      {
+        "heading": "Methods & Resources",
+        "text": "Banquets, music and a water-repelling gate that keeps a dry floor."
+      },
+      {
+        "heading": "Allies and Rivals",
+        "text": "Friend to the Bull King; wary of the Great Sage once he is recognised."
+      },
+      {
+        "heading": "Internal Tensions",
+        "text": "Courtiers will plead for a ridiculous intruder to avoid a scene."
+      },
+      {
+        "heading": "Joining and Dealing With Them",
+        "text": "Arrive by invitation or in humble disguise; speak in verse."
+      },
+      {
+        "heading": "Using them in play",
+        "text": "An infiltration set-piece where the prize is a mount, a rumour or a good enemy."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_FAC_HOARD_THUNDER_COURT"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_FAC_HEAVENLY_HOST",
+    "title": "The Heavenly and Buddhist Enforcement Host",
+    "kind": "faction",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 1,
+    "culture_quadrant": "Hierarchy",
+    "linkedEntityType": "faction",
+    "linkedEntityId": "fac_heavenly_host",
+    "provides": [
+      "Authority: Divine Decree",
+      "Defense: Cosmic Net"
+    ],
+    "requires": [
+      "Signal: A Memorial from Below",
+      "Lore: Knowledge of the Offender's True Form"
+    ],
+    "summary": "A chain-of-command army that moves only on a decree and, once it moves, closes every quarter of the sky.",
+    "standalone_fallback": "Use the host as a distant imperial enforcement arm that intervenes only after a formal petition and always arrives in overwhelming strength.",
+    "bands": {
+      "reach": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "Guardians at four mountains and a general in the sky."
+      },
+      "force": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "They seal the Bull King's every escape and reduce him to a roped bull."
+      },
+      "wealth": {
+        "rating": "Medium",
+        "basis": "judged",
+        "why": "Treasure mountains and heavenly weapons, but no coin appears."
+      },
+      "secrecy": {
+        "rating": "Medium",
+        "basis": "stated",
+        "why": "Acts by secret command of Tathagata and the Jade Emperor's decree."
+      }
+    },
+    "facts": {
+      "symbols": [
+        "Cosmic nets",
+        "Imp-reflecting mirror",
+        "Fiery wheel"
+      ],
+      "ranks": [
+        "Devaraja",
+        "Prince",
+        "Diamond Guardian",
+        "Gods of Darkness and Light"
+      ],
+      "allies": [
+        "Pilgrim Party",
+        "Little Sumeru Temple"
+      ],
+      "rivals": [
+        "Hoard-Thunder Court",
+        "Palm-Leaf Cave Household"
+      ],
+      "doctrine_taboos": [
+        "No god may withhold protection from the scripture journey"
+      ],
+      "headquarters": "Jade Cloud Mountain (while deployed)"
+    },
+    "sections": [
+      {
+        "heading": "Philosophy & Goals",
+        "text": "Defend the journey and the decree; arrest the Bull King and lead him to the Buddha."
+      },
+      {
+        "heading": "Structure & Ranks",
+        "text": "A devaraja commands; a prince executes; four guardians hold the quarters."
+      },
+      {
+        "heading": "Methods & Resources",
+        "text": "Nets, a mirror, a fiery wheel, a rope and a sword that cannot kill a head that regrows."
+      },
+      {
+        "heading": "Allies and Rivals",
+        "text": "Allied with the pilgrims and Little Sumeru; hostile to the Bull King."
+      },
+      {
+        "heading": "Internal Tensions",
+        "text": "Nata's methods outpace his father's patience; the guardians wait for a command."
+      },
+      {
+        "heading": "Joining and Dealing With Them",
+        "text": "Only via petition: a memorial goes up, a decree comes down, the host arrives."
+      },
+      {
+        "heading": "Using them in play",
+        "text": "A deus ex machina with a cost: the PCs' stand-down is the price of their intervention."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_SIT_NET_OF_HEAVEN_AND_EARTH",
+      "MOD_JTTW_ABI_THREE_HEADS_SIX_ARMS"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_FAC_LITTLE_SUMERU",
+    "title": "The Little Sumeru Temple",
+    "kind": "faction",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 1,
+    "culture_quadrant": "Hierarchy",
+    "linkedEntityType": "faction",
+    "linkedEntityId": "fac_little_sumeru",
+    "provides": [
+      "Lore: Counter to a Wind Artifact",
+      "Power: Buddhist Patronage"
+    ],
+    "requires": [
+      "Signal: A Petitioner"
+    ],
+    "summary": "A single bodhisattva's mountain that holds one unused counter to the fan and gives it freely to those on the journey.",
+    "standalone_fallback": "Use the temple as a one-scene boon-giver: a patient hierarch with an exact counter-item, a short audience and no time to entertain.",
+    "bands": {
+      "reach": {
+        "rating": "Medium",
+        "basis": "stated",
+        "why": "Fifty thousand li from the Mountain of Flames."
+      },
+      "force": {
+        "rating": "Medium",
+        "basis": "stated",
+        "why": "Lingji's staff subdued the Yellow Wind fiend."
+      },
+      "wealth": {
+        "rating": "Low",
+        "basis": "judged",
+        "why": "A throne and a gate worker; no treasury appears."
+      },
+      "secrecy": {
+        "rating": "Low",
+        "basis": "judged",
+        "why": "Open gates, loud bells."
+      }
+    },
+    "facts": {
+      "symbols": [
+        "Bells",
+        "Staff"
+      ],
+      "ranks": [
+        "Bodhisattva",
+        "Gate worker"
+      ],
+      "allies": [
+        "Pilgrim Party",
+        "Heavenly Enforcement Host"
+      ],
+      "rivals": [],
+      "doctrine_taboos": [
+        "Items are held for the journey"
+      ],
+      "headquarters": "Little Sumeru Mountain"
+    },
+    "sections": [
+      {
+        "heading": "Philosophy & Goals",
+        "text": "Serve Tathagata's order by lending the right tool at the right time."
+      },
+      {
+        "heading": "Structure & Ranks",
+        "text": "One bodhisattva and attendants."
+      },
+      {
+        "heading": "Methods & Resources",
+        "text": "A staff and an elixir, held back until needed."
+      },
+      {
+        "heading": "Allies and Rivals",
+        "text": "Allied with the pilgrims."
+      },
+      {
+        "heading": "Internal Tensions",
+        "text": "Lingji's hospitality is brief by his own account; he will help, but he will not host the party or escort it back."
+      },
+      {
+        "heading": "Joining and Dealing With Them",
+        "text": "Arrive by cloud, be announced, explain; receive and go."
+      },
+      {
+        "heading": "Using them in play",
+        "text": "A guaranteed-boon stop that ends a failure streak and gives a sewn-in advantage with a hidden side effect."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_ABI_WIND_ARRESTING_ELIXIR"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_ABI_PALM_LEAF_FAN",
+    "title": "The Palm-Leaf Fan: Fire, Wind and Rain",
+    "kind": "ability",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 5,
+    "culture_quadrant": "Clan",
+    "provides": [
+      "Water: Rain on Demand",
+      "Defense: Fire Quench"
+    ],
+    "requires": [
+      "Lore: Activation Formula",
+      "Material: A Willing Keeper"
+    ],
+    "summary": "A supreme-yin leaf that puts out fire, raises wind or brings rain on three waves, and blows a person across the world on one.",
+    "standalone_fallback": "Use as a macro-scale tool item: three waves for three effects, an enlarge-only command that must be paired with a separate shrink secret, and a hundred-wave variant for permanent effects.",
+    "bands": {
+      "potency": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "Quenches an eight-hundred-li fire in three waves; blows a mortal 84,000 li."
+      },
+      "range": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "Rain falls on the whole burnt region only."
+      },
+      "cost": {
+        "rating": "Medium",
+        "basis": "judged",
+        "why": "No cost is stated, but the formula and the shrink secret limit use to those who learned them."
+      }
+    },
+    "facts": {
+      "school": "Supreme yin",
+      "practitioners": [
+        "Rakshasi",
+        "Bull Demon King",
+        "Wukong (partial)"
+      ],
+      "cost_narrative": "No stated cost; use depends on knowing both enlarge and shrink formulas.",
+      "counters": [
+        {
+          "original": "Wind-Arresting Elixir",
+          "generic": [
+            "wind"
+          ]
+        },
+        {
+          "original": "Fire reversed by a false fan",
+          "generic": [
+            "fire"
+          ]
+        }
+      ],
+      "range_note": "Eighty-four thousand li drift; permanent quenching needs forty-nine waves."
+    },
+    "sections": [
+      {
+        "heading": "What It Does",
+        "text": "Wave one: fire out. Wave two: breeze. Wave three: rain on the burnt area only. At a creature: drift of 84,000 li. Forty-nine waves end the fire for good."
+      },
+      {
+        "heading": "Source & Teachers",
+        "text": "Born at the back of Mount Kunlun when chaos divided; its keeper shows the enlarging formula only by accident."
+      },
+      {
+        "heading": "Costs & Limits",
+        "text": "Press the seventh red thread with the left thumb and speak the six-syllable breath formula to enlarge; the shrink formula is separate. The false fan makes fire worse."
+      },
+      {
+        "heading": "Lore",
+        "text": "Villagers know it as the Immortal Iron-Fan's treasure; Lingji knows its origin; the Bull King knows how to shrink it."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_FAC_PALM_LEAF_HOUSEHOLD",
+      "MOD_JTTW_ABI_WIND_ARRESTING_ELIXIR",
+      "MOD_JTTW_SIT_FAN_RAIN_GRAIN_CHAIN"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_ABI_SHAPE_CHANGING_CONTEST",
+    "title": "The Contest of Transformations",
+    "kind": "ability",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 5,
+    "culture_quadrant": "Adhocracy",
+    "provides": [
+      "Lore: Disguise Mastery",
+      "Climax: Duel of Shapes"
+    ],
+    "requires": [
+      "Lore: Knowledge of the Opponent's Counter-Forms"
+    ],
+    "summary": "A pursuit duel in which each shape-shifter takes the form that preys on the other's last form.",
+    "standalone_fallback": "Use as a duel minigame: each round, the pursuer picks a form that beats the fugitive's last form; the fugitive escapes only by changing to something larger or by reverting.",
+    "bands": {
+      "potency": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "Both fighters have seventy-two transformations; neither wins until the gods arrive."
+      },
+      "range": {
+        "rating": "Medium",
+        "basis": "stated",
+        "why": "The contest moves across the sky and mountain."
+      },
+      "cost": {
+        "rating": "Low",
+        "basis": "judged",
+        "why": "No stated cost beyond time and exhaustion."
+      }
+    },
+    "facts": {
+      "school": "The seventy-two transformations",
+      "practitioners": [
+        "Sun Wukong",
+        "Bull Demon King"
+      ],
+      "cost_narrative": "Exhaustion over a whole day and night of fighting.",
+      "counters": [
+        {
+          "original": "Imp-reflecting mirror pins the creature in its true form",
+          "generic": [
+            "arcane"
+          ]
+        }
+      ],
+      "range_note": "From cave mouth to mountain skies."
+    },
+    "sections": [
+      {
+        "heading": "What It Does",
+        "text": "Swan, vulture, eagle, phoenix, crane, deer, tiger, leopard, lion, bear, elephant, then bull and giant: each form beats or evades the last."
+      },
+      {
+        "heading": "Source & Teachers",
+        "text": "Both fighters learned the same method; the Bull King is bulkier and slower."
+      },
+      {
+        "heading": "Costs & Limits",
+        "text": "A caught form cannot be left once the mirror is trained on it; size matches size."
+      },
+      {
+        "heading": "Lore",
+        "text": "The bull's last form is ten thousand feet long and eight hundred feet high; Wukong grows to a hundred thousand."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_FAC_HOARD_THUNDER_COURT",
+      "MOD_JTTW_SIT_NET_OF_HEAVEN_AND_EARTH"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_ABI_WIND_ARRESTING_ELIXIR",
+    "title": "The Wind-Arresting Elixir",
+    "kind": "ability",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 3,
+    "culture_quadrant": "Hierarchy",
+    "provides": [
+      "Defense: Immunity to Forced Drift"
+    ],
+    "requires": [
+      "Authority: A Bodhisattva's Grant"
+    ],
+    "summary": "A single pellet that makes the swallower unmovable by a wind artifact for the rest of the arc.",
+    "standalone_fallback": "Use as a one-use counter-item that nullifies the biggest wind or force effect in the scene and has an unnoticed ongoing effect.",
+    "bands": {
+      "potency": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "The fan cannot move Wukong even three times in a row."
+      },
+      "range": {
+        "rating": "Low",
+        "basis": "judged",
+        "why": "Self only."
+      },
+      "cost": {
+        "rating": "Medium",
+        "basis": "stated",
+        "why": "One pellet, one use; swallowing it is permanent."
+      }
+    },
+    "facts": {
+      "school": "Bodhisattva gift",
+      "practitioners": [
+        "Lingji (keeper)",
+        "Sun Wukong (user)"
+      ],
+      "cost_narrative": "Single use; swallowed unawares when Wukong becomes a mole cricket.",
+      "counters": [
+        {
+          "original": "Use against the palm-leaf fan only",
+          "generic": [
+            "wind"
+          ]
+        }
+      ],
+      "range_note": "Personal."
+    },
+    "sections": [
+      {
+        "heading": "What It Does",
+        "text": "Makes viscera firm and bones fortified; any wind from the fan fails to move the carrier."
+      },
+      {
+        "heading": "Source & Teachers",
+        "text": "Given to Lingji by Tathagata with the Flying-Dragon Staff; never used before."
+      },
+      {
+        "heading": "Costs & Limits",
+        "text": "A tiny silk bag; sew it under the collar to store, hold it in the mouth to use."
+      },
+      {
+        "heading": "Lore",
+        "text": "Wukong later swallows it unknowingly; that is why the Bull King's fan fails at his first try."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_FAC_LITTLE_SUMERU",
+      "MOD_JTTW_ABI_PALM_LEAF_FAN"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_ABI_THREE_HEADS_SIX_ARMS",
+    "title": "Three Heads, Six Arms, and the Monster-Binding Kit",
+    "kind": "ability",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 5,
+    "culture_quadrant": "Hierarchy",
+    "provides": [
+      "Defense: Capture Kit"
+    ],
+    "requires": [
+      "Authority: Decree to Capture"
+    ],
+    "summary": "A prince's capture routine: take a many-armed war form, cut, burn, pin the shape and rope the nose.",
+    "standalone_fallback": "Use as a staged capture procedure with four steps (cut, burn, mirror-pin, rope) and a clean surrender at the end.",
+    "bands": {
+      "potency": {
+        "rating": "High",
+        "basis": "stated",
+        "why": "Takes a mountain-sized bull that Wukong cannot beat alone."
+      },
+      "range": {
+        "rating": "Medium",
+        "basis": "stated",
+        "why": "Works at melee reach and at sight range with the mirror."
+      },
+      "cost": {
+        "rating": "Low",
+        "basis": "judged",
+        "why": "No cost stated; needs a decree and a second holder for the mirror."
+      }
+    },
+    "facts": {
+      "school": "Heavenly martial arts",
+      "practitioners": [
+        "Prince Nata",
+        "Devaraja Li"
+      ],
+      "cost_narrative": "Needs two cooperating officers.",
+      "counters": [
+        {
+          "original": "Fire against the bull's horn",
+          "generic": [
+            "fire"
+          ]
+        }
+      ],
+      "range_note": "Sight range for the mirror."
+    },
+    "sections": [
+      {
+        "heading": "What It Does",
+        "text": "Three heads and six arms; the sword beheads, the wheel burns, the mirror pins, the rope leads."
+      },
+      {
+        "heading": "Source & Teachers",
+        "text": "A Heavenly Prince's gifts; the mirror belongs to his father."
+      },
+      {
+        "heading": "Costs & Limits",
+        "text": "A beheaded bull regrows a head each time, so cutting alone fails."
+      },
+      {
+        "heading": "Lore",
+        "text": "More than ten heads fall before the fiery wheel is hung on a horn."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_FAC_HEAVENLY_HOST",
+      "MOD_JTTW_SIT_NET_OF_HEAVEN_AND_EARTH"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_SIT_DECENNIAL_TRIBUTE",
+    "title": "The Decennial Tribute Compact",
+    "kind": "situation",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 1,
+    "culture_quadrant": "Clan",
+    "hub_eligibility": "candidate",
+    "linkedEntityType": "node",
+    "linkedEntityId": "N_RED_BRICK_VILLAGE",
+    "provides": [
+      "Authority: Ritual Compact"
+    ],
+    "requires": [
+      "Material: Tribute Goods",
+      "Labor: Month-Long Pilgrimage"
+    ],
+    "summary": "A farming region pays a distant keeper once a decade for rain, and nobody remembers who set the price.",
+    "standalone_fallback": "Use as a village's ritual dependence on a hidden benefactor: the gift list is fixed, the benefactor never appears, and any stranger who offers a shortcut disturbs the compact.",
+    "premise": "Dependence on a hidden power leads to ritual; ritual leads to resentment; resentment leads to a bargain with an outsider.",
+    "sensory": {
+      "sight": "Red tile, red brick, red benches, hot dust.",
+      "sound": "Cart bells of the pudding peddler; chanted tribute lists.",
+      "smell": "Hot rice, wine, scorched clay.",
+      "touch": "Boiling puddings; stone benches too hot to sit on.",
+      "taste": "Millet cake, tea, wine for the gift."
+    },
+    "four_corners": {
+      "establishment": {
+        "name": "The Old Householder",
+        "worldview": "The compact works if everyone follows it.",
+        "leverage": "He controls hospitality and local lore.",
+        "flaw": "He has never seen the fan's keeper."
+      },
+      "main_opponent": {
+        "name": "The Fire",
+        "worldview": "Nothing grows here; it is natural.",
+        "leverage": "The whole region.",
+        "flaw": "A fan can quench it."
+      },
+      "thematic_shadow": {
+        "name": "The Peddler",
+        "worldview": "Sell now; ask later.",
+        "leverage": "Knows the flour source.",
+        "flaw": "Depends on the same rain."
+      },
+      "tertiary_outcast": {
+        "name": "The Local Spirit",
+        "worldview": "The fire is his punishment and his duty.",
+        "leverage": "Knows the origin.",
+        "flaw": "In exile, needs a pardon."
+      }
+    },
+    "output_dial": {
+      "level_1": "The compact holds; the pilgrims are a curiosity.",
+      "level_2": "The households ask the pilgrims to carry a gift to the keeper.",
+      "level_3": "The households blame the pilgrims for provoking the keeper.",
+      "level_4": "The compact breaks; the villagers march on Jade Cloud Mountain."
+    },
+    "threat_clocks": [
+      {
+        "name": "The Fire's Return",
+        "ticks": 8,
+        "advances_when": "A harvest month passes after a one-wave quench or the fan is withheld."
+      }
+    ],
+    "yields_resource": "Authority: Ritual Compact (rain rights and the right to ask for an audience)",
+    "sections": [
+      {
+        "heading": "Core Premise",
+        "text": "Every ten years, households bathe, load hogs, sheep, flowers, fruit, fowl and wine, and walk a month to beg an immortal for rain."
+      },
+      {
+        "heading": "GM Placement & Synergies",
+        "text": "Start here: it explains the fan, the fire and the cost of both. It pairs with the Fan-Rain Grain Chain and the Fire's Return clock."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_FAC_FLAME_HOUSEHOLDS",
+      "MOD_JTTW_SIT_FAN_RAIN_GRAIN_CHAIN"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_SIT_MOUNTAIN_OF_FLAMES",
+    "title": "The Mountain of Flames",
+    "kind": "situation",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 2,
+    "culture_quadrant": "Hierarchy",
+    "hub_eligibility": "never",
+    "linkedEntityType": "node",
+    "linkedEntityId": "N_FLAMING_MOUNTAIN",
+    "provides": [
+      "Ecology: Fire Barrier"
+    ],
+    "requires": [
+      "Water: A Fan's Rain"
+    ],
+    "summary": "Eight hundred li of flame across the only road west; a bronze skull would melt.",
+    "standalone_fallback": "Use as a fire-wall barrier on a road: scorching ground, no grass for miles, and a counter that must be fetched from two or three powers.",
+    "premise": "A cosmic accident created the barrier; the barrier forces the journey to ask the powers it avoided.",
+    "sensory": {
+      "sight": "Eight hundred li of flame; red sky.",
+      "sound": "Roar and crackle.",
+      "smell": "Scorched earth.",
+      "touch": "Boot soles hot, hair frizzing.",
+      "taste": "Ash and dry heat."
+    },
+    "four_corners": {
+      "establishment": {
+        "name": "Laozi's Brazier (origin)",
+        "worldview": "Order is a furnace.",
+        "leverage": "The mountain's exile office.",
+        "flaw": "A careless attendant."
+      },
+      "main_opponent": {
+        "name": "The Flames",
+        "worldview": "Fire grows when fanned by the false.",
+        "leverage": "A hundredfold in one wave.",
+        "flaw": "Quenched by the true fan."
+      },
+      "thematic_shadow": {
+        "name": "Sha Monk's Dilemma",
+        "worldview": "Where there are scriptures there is fire.",
+        "leverage": "Truth.",
+        "flaw": "No solution offered."
+      },
+      "tertiary_outcast": {
+        "name": "The Local Spirit",
+        "worldview": "Serve and wait for a pardon.",
+        "leverage": "Ghost soldiers.",
+        "flaw": "Cannot leave."
+      }
+    },
+    "output_dial": {
+      "level_1": "The camp is hot but safe.",
+      "level_2": "Boots scorch and the horse refuses.",
+      "level_3": "The fire climbs; the camp must retreat.",
+      "level_4": "The fire fills the road; only a god's decree opens it."
+    },
+    "threat_clocks": [
+      {
+        "name": "The Mountain's Heat",
+        "ticks": 8,
+        "advances_when": "The party fans with the false fan, enters unprotected or idles at camp."
+      }
+    ],
+    "yields_resource": "Ecology: A passable road once the fire is quenched forty-nine times",
+    "sections": [
+      {
+        "heading": "Core Premise",
+        "text": "A burning wall born from kicked-over brazier bricks; the fan is the only tool, the false fan makes it worse."
+      },
+      {
+        "heading": "GM Placement & Synergies",
+        "text": "The central obstacle. It links to the Fire's Return and Heat clocks and the Palm-Leaf Fan ability."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_ABI_PALM_LEAF_FAN",
+      "MOD_JTTW_FAC_PILGRIM_PARTY"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_SIT_FAN_RAIN_GRAIN_CHAIN",
+    "title": "The Fan-Rain Grain Chain",
+    "kind": "situation",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 3,
+    "culture_quadrant": "Clan",
+    "hub_eligibility": "never",
+    "linkedEntityType": "node",
+    "linkedEntityId": "N_RED_BRICK_VILLAGE",
+    "provides": [
+      "Material: Rice Flour and Millet"
+    ],
+    "requires": [
+      "Water: Rain From a Fan",
+      "Authority: A Keeper's Audience"
+    ],
+    "summary": "One treasure sets the fire, the rain, the harvest and the pudding cart; break the chain at the top and everything downstream goes quiet.",
+    "standalone_fallback": "Use as a supply chain with a single upstream owner: weather, grain, food, trade; stop the owner and everyone downstream suffers.",
+    "premise": "A single owner of the key resource shapes every price and every season downstream.",
+    "sensory": {
+      "sight": "Green on a burnt field after rain; red roofs.",
+      "sound": "Rain on hot tile.",
+      "smell": "Wet ash then rice steam.",
+      "touch": "Warm cakes.",
+      "taste": "Rice pudding."
+    },
+    "four_corners": {
+      "establishment": {
+        "name": "Rakshasi",
+        "worldview": "The fan is not lent lightly.",
+        "leverage": "Sole owner.",
+        "flaw": "Lonely and drunk."
+      },
+      "main_opponent": {
+        "name": "The Bull King",
+        "worldview": "He can shrink what he is not given.",
+        "leverage": "Knows the shrink formula.",
+        "flaw": "Torn between two wives."
+      },
+      "thematic_shadow": {
+        "name": "Wukong with the False Fan",
+        "worldview": "Borrowing is not owning.",
+        "leverage": "Trickery.",
+        "flaw": "Forgets to ask the whole procedure."
+      },
+      "tertiary_outcast": {
+        "name": "The Peddler",
+        "worldview": "Rain is rice.",
+        "leverage": "Local trade.",
+        "flaw": "Powerless."
+      }
+    },
+    "output_dial": {
+      "level_1": "Rain comes yearly; the chain holds.",
+      "level_2": "Rain comes late; puddings cost double.",
+      "level_3": "One wave, one harvest, then fire again.",
+      "level_4": "Forty-nine waves; a permanent harvest but no keeper."
+    },
+    "threat_clocks": [
+      {
+        "name": "The Fire's Return",
+        "ticks": 8,
+        "advances_when": "A harvest month passes after the last wave."
+      }
+    ],
+    "yields_resource": "Material: Rice Flour and Millet (via a quenched fire and a returned fan)",
+    "sections": [
+      {
+        "heading": "Core Premise",
+        "text": "Fire out, breeze, rain; then sowing, reaping, flour, puddings. The villagers call it a yearly harvest; the text leaves the real cadence open."
+      },
+      {
+        "heading": "GM Placement & Synergies",
+        "text": "Use it when the PCs consider keeping the fan: it shows what the region loses."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_ABI_PALM_LEAF_FAN",
+      "MOD_JTTW_SIT_DECENNIAL_TRIBUTE"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_SIT_BORROWED_HUSBAND",
+    "title": "The Borrowed Husband",
+    "kind": "situation",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 4,
+    "culture_quadrant": "Market",
+    "hub_eligibility": "candidate",
+    "linkedEntityType": "node",
+    "linkedEntityId": "N_CLOUD_TOUCHING_CAVE",
+    "provides": [
+      "Climax: Domestic Showdown"
+    ],
+    "requires": [
+      "Lore: The Husband's Habits"
+    ],
+    "summary": "A demon king with two homes, two wives and one treasure that only the first wife holds; whoever impersonates him wins it.",
+    "standalone_fallback": "Use as a two-household love triangle where the husband's absence is the weakness and a disguise unlocks the first wife's secret.",
+    "premise": "Divided loyalty invites imitation; imitation invites betrayal; betrayal makes a lord lose more than a fan.",
+    "sensory": {
+      "sight": "A library of elixir books; bolts of silk and jewels sent to the first wife.",
+      "sound": "Weeping and shouting.",
+      "smell": "Wine and orchid.",
+      "touch": "Hands held under a table.",
+      "taste": "Home brew from a shared cup."
+    },
+    "four_corners": {
+      "establishment": {
+        "name": "The Bull King",
+        "worldview": "A hero keeps both houses.",
+        "leverage": "Strength.",
+        "flaw": "Vain; sloppy about weapons and mounts."
+      },
+      "main_opponent": {
+        "name": "Wukong",
+        "worldview": "Borrow now, return later.",
+        "leverage": "Disguise.",
+        "flaw": "Forgets the shrink formula."
+      },
+      "thematic_shadow": {
+        "name": "Rakshasi",
+        "worldview": "A wife manages; a husband provides.",
+        "leverage": "The fan.",
+        "flaw": "Drink."
+      },
+      "tertiary_outcast": {
+        "name": "Jade Countenance",
+        "worldview": "She bought protection and wants it kept.",
+        "leverage": "A fortune.",
+        "flaw": "No kin."
+      }
+    },
+    "output_dial": {
+      "level_1": "The husband visits both wives and the gossip stays quiet.",
+      "level_2": "A false husband appears and a treasure moves.",
+      "level_3": "The real husband finds the mount gone and races home.",
+      "level_4": "One wife is dead and the other is in tears; the fan is the only thing left."
+    },
+    "threat_clocks": [
+      {
+        "name": "Rakshasi's Grudge",
+        "ticks": 6,
+        "advances_when": "An insult to Rakshasi, an impersonation of her husband, or a refusal to bring Red Boy."
+      },
+      {
+        "name": "The Bull King's Pursuit",
+        "ticks": 6,
+        "advances_when": "An hour passes with the fan outside the party's hands."
+      }
+    ],
+    "yields_resource": "Climax: A true fan and a husband in pursuit",
+    "sections": [
+      {
+        "heading": "Core Premise",
+        "text": "Wukong plays a husband, Rakshasi gets drunk, the real husband returns and changes shape to take it back."
+      },
+      {
+        "heading": "GM Placement & Synergies",
+        "text": "Best placed after the first duel: the party now has a plan, the Bull King's mount and a reason to hurry."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_FAC_HOARD_THUNDER_COURT",
+      "MOD_JTTW_FAC_PALM_LEAF_HOUSEHOLD"
+    ]
+  },
+  {
+    "id": "MOD_JTTW_SIT_NET_OF_HEAVEN_AND_EARTH",
+    "title": "The Net of Heaven and Earth",
+    "kind": "situation",
+    "ip": "JTTW",
+    "set": "Journey to the West: Flaming Mountains",
+    "pipeline_tier": 5,
+    "culture_quadrant": "Hierarchy",
+    "hub_eligibility": "never",
+    "linkedEntityType": "node",
+    "linkedEntityId": "N_JADE_CLOUD",
+    "provides": [
+      "Climax: Divine Intervention"
+    ],
+    "requires": [
+      "Signal: A Memorial From Below",
+      "Authority: A Decree"
+    ],
+    "summary": "A fugitive demon runs to each quarter and finds a guardian waiting; the sky is closed and the end is arrest.",
+    "standalone_fallback": "Use as a four-corners trap: each exit is held by a named guardian; the fugitive's only alternative is surrender.",
+    "premise": "The more powerful the fugitive, the more certain the net; the net needs a decree, and a decree needs a reason the gods cannot ignore.",
+    "sensory": {
+      "sight": "Cosmic nets spread between mountains; gold-eyed bull; fiery wheel on a horn.",
+      "sound": "Bellows and roars.",
+      "smell": "Burnt hair and immortal fire.",
+      "touch": "Heat through a rope.",
+      "taste": "Iron and smoke."
+    },
+    "four_corners": {
+      "establishment": {
+        "name": "Devaraja Li",
+        "worldview": "A decree is a decree.",
+        "leverage": "The mirror.",
+        "flaw": "Bound by orders."
+      },
+      "main_opponent": {
+        "name": "The Bull King",
+        "worldview": "My hatred is deep.",
+        "leverage": "Shape-changing.",
+        "flaw": "Cornered."
+      },
+      "thematic_shadow": {
+        "name": "Prince Nata",
+        "worldview": "Cut it until it yields.",
+        "leverage": "Many arms and a wheel.",
+        "flaw": "Impatient."
+      },
+      "tertiary_outcast": {
+        "name": "Wukong",
+        "worldview": "I wanted a fair duel.",
+        "leverage": "The ending is his.",
+        "flaw": "The old brotherhood."
+      }
+    },
+    "output_dial": {
+      "level_1": "A lone guardian blocks one road.",
+      "level_2": "Two quarters are closed.",
+      "level_3": "Four quarters are closed and the sky is blocked.",
+      "level_4": "The bull is roped and led to the Buddha; the fan is handed over."
+    },
+    "threat_clocks": [
+      {
+        "name": "The Net of Heaven and Earth",
+        "ticks": 4,
+        "advances_when": "A Diamond Guardian takes up a quarter."
+      }
+    ],
+    "yields_resource": "Climax: A captured bull and a surrendered fan",
+    "sections": [
+      {
+        "heading": "Core Premise",
+        "text": "North, south, east and west guardians block the Bull King; Li and Nata block the sky."
+      },
+      {
+        "heading": "GM Placement & Synergies",
+        "text": "Use it to end the arc. It rewards the PCs for earlier restraint and punishes a premature ending."
+      }
+    ],
+    "related": [
+      "MOD_JTTW_FAC_HEAVENLY_HOST",
+      "MOD_JTTW_ABI_THREE_HEADS_SIX_ARMS",
+      "MOD_JTTW_ABI_SHAPE_CHANGING_CONTEST"
+    ]
+  }
+]

@@ -8,7 +8,7 @@
   "mapMetadata": {
     "id": "map_fo2_den",
     "name": "denwestside.jpg",
-    "assetPath": "assets/denwestside.jpg",
+    "assetPath": "assets/map_fo2_den_bg.jpg",
     "width": 800,
     "height": 600,
     "opacity": 0.85
@@ -25,7 +25,17 @@
       "x": 240,
       "y": 260,
       "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "scaleTier": "district",
+      "displayName": "Becky's Casino & Dining Bar",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "tier": 1,
+      "adj": [],
+      "childMapId": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "customNotes": ""
     },
     {
       "id": "FO2-DEN-02",
@@ -38,7 +48,17 @@
       "x": 380,
       "y": 220,
       "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "scaleTier": "district",
+      "displayName": "Tubby's & Flick's Pawn Stash",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "tier": 1,
+      "adj": [],
+      "childMapId": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "customNotes": ""
     },
     {
       "id": "FO2-DEN-03",
@@ -51,7 +71,17 @@
       "x": 520,
       "y": 280,
       "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "scaleTier": "district",
+      "displayName": "Metzger's Slaver Guild Compound",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "tier": 1,
+      "adj": [],
+      "childMapId": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "customNotes": ""
     },
     {
       "id": "FO2-DEN-04",
@@ -64,24 +94,31 @@
       "x": 660,
       "y": 340,
       "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "scaleTier": "district",
+      "displayName": "Smitty's Junkyard & Highwayman",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "tier": 1,
+      "adj": [],
+      "childMapId": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "customNotes": ""
     }
   ],
   "links": [
     {
-      "source": "FO2-DEN-01",
-      "target": "FO2-DEN-02",
-      "weight": 1
+      "type": "twoway",
+      "layer": "layer-corridors"
     },
     {
-      "source": "FO2-DEN-02",
-      "target": "FO2-DEN-03",
-      "weight": 1
+      "type": "twoway",
+      "layer": "layer-corridors"
     },
     {
-      "source": "FO2-DEN-03",
-      "target": "FO2-DEN-04",
-      "weight": 1
+      "type": "twoway",
+      "layer": "layer-corridors"
     }
   ],
   "waves": [],
@@ -93,8 +130,57 @@
       "id": "layer-nodes",
       "name": "Tactical Points",
       "visible": true,
-      "locked": false
+      "locked": false,
+      "zIndex": 0,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
   ],
-  "shapes": []
+  "shapes": [],
+  "spatialPins": []
 }

@@ -8,7 +8,7 @@
   "mapMetadata": {
     "id": "map_fo2_redding",
     "name": "reddingdowntown.jpg",
-    "assetPath": "assets/reddingdowntown.jpg",
+    "assetPath": "assets/map_fo2_redding_bg.jpg",
     "width": 800,
     "height": 600,
     "opacity": 0.85
@@ -17,84 +17,208 @@
     {
       "id": "FO2-RDG-01",
       "name": "Downtown & Malamute Saloon",
-      "label": "Downtown & Malamute Saloon",
+      "displayName": "Downtown & Malamute Saloon",
+      "x": 220,
+      "y": 280,
       "coordinates": {
         "x": 220,
         "y": 280
       },
-      "x": 220,
-      "y": 280,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-RDG-02",
       "name": "Sheriff Marion's Precinct",
-      "label": "Sheriff Marion's Precinct",
+      "displayName": "Sheriff Marion's Precinct",
+      "x": 380,
+      "y": 240,
       "coordinates": {
         "x": 380,
         "y": 240
       },
-      "x": 380,
-      "y": 240,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-RDG-03",
       "name": "Morningstar Mine Headquarters",
-      "label": "Morningstar Mine Headquarters",
+      "displayName": "Morningstar Mine Headquarters",
+      "x": 540,
+      "y": 280,
       "coordinates": {
         "x": 540,
         "y": 280
       },
-      "x": 540,
-      "y": 280,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-RDG-04",
       "name": "Wanamingo Mine Deep Pit",
-      "label": "Wanamingo Mine Deep Pit",
+      "displayName": "Wanamingo Mine Deep Pit",
+      "x": 680,
+      "y": 320,
       "coordinates": {
         "x": 680,
         "y": 320
       },
-      "x": 680,
-      "y": 320,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
-    {
-      "source": "FO2-RDG-01",
-      "target": "FO2-RDG-02",
-      "weight": 1
-    },
-    {
-      "source": "FO2-RDG-02",
-      "target": "FO2-RDG-03",
-      "weight": 1
-    },
-    {
-      "source": "FO2-RDG-03",
-      "target": "FO2-RDG-04",
-      "weight": 1
-    }
-  ],
+  "links": [],
   "waves": [],
   "drawnCards": {},
-  "nodeSlottedModules": {},
+  "nodeSlottedModules": {
+    "FO2-RDG-01": [],
+    "FO2-RDG-02": [],
+    "FO2-RDG-03": [],
+    "FO2-RDG-04": []
+  },
   "edgeSlottedModules": {},
   "layers": [
     {
       "id": "layer-nodes",
       "name": "Tactical Points",
       "visible": true,
-      "locked": false
+      "locked": false,
+      "zIndex": 0,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
   ],
-  "shapes": []
+  "shapes": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": [],
+  "spatialPins": []
 }

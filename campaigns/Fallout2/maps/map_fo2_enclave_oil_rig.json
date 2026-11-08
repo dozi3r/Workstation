@@ -8,7 +8,7 @@
   "mapMetadata": {
     "id": "map_fo2_enclave_oil_rig",
     "name": "enclavedock.jpg",
-    "assetPath": "assets/enclavedock.jpg",
+    "assetPath": "assets/map_fo2_enclave_oil_rig_bg.jpg",
     "width": 800,
     "height": 600,
     "opacity": 0.85
@@ -17,84 +17,203 @@
     {
       "id": "FO2-ENC-01",
       "name": "Rig Docking Bay & Security Turrets",
-      "label": "Rig Docking Bay & Security Turrets",
+      "displayName": "Rig Docking Bay & Security Turrets",
+      "x": 200,
+      "y": 280,
       "coordinates": {
         "x": 200,
         "y": 280
       },
-      "x": 200,
-      "y": 280,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-ENC-02",
       "name": "Barracks & Trap Floor Maze",
-      "label": "Barracks & Trap Floor Maze",
+      "displayName": "Barracks & Trap Floor Maze",
+      "x": 360,
+      "y": 240,
       "coordinates": {
         "x": 360,
         "y": 240
       },
-      "x": 360,
-      "y": 240,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-ENC-03",
       "name": "President Richardson's Office",
-      "label": "President Richardson's Office",
+      "displayName": "President Richardson's Office",
+      "x": 520,
+      "y": 280,
       "coordinates": {
         "x": 520,
         "y": 280
       },
-      "x": 520,
-      "y": 280,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-ENC-04",
       "name": "Reactor Core & Frank Horrigan Arena",
-      "label": "Reactor Core & Frank Horrigan Arena",
+      "displayName": "Reactor Core & Frank Horrigan Arena",
+      "x": 680,
+      "y": 320,
       "coordinates": {
         "x": 680,
         "y": 320
       },
-      "x": 680,
-      "y": 320,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
-    {
-      "source": "FO2-ENC-01",
-      "target": "FO2-ENC-02",
-      "weight": 1
-    },
-    {
-      "source": "FO2-ENC-02",
-      "target": "FO2-ENC-03",
-      "weight": 1
-    },
-    {
-      "source": "FO2-ENC-03",
-      "target": "FO2-ENC-04",
-      "weight": 1
-    }
-  ],
+  "links": [],
   "waves": [],
   "drawnCards": {},
-  "nodeSlottedModules": {},
+  "nodeSlottedModules": {
+    "FO2-ENC-01": [],
+    "FO2-ENC-02": [],
+    "FO2-ENC-03": [],
+    "FO2-ENC-04": []
+  },
   "edgeSlottedModules": {},
   "layers": [
     {
       "id": "layer-nodes",
       "name": "Tactical Points",
       "visible": true,
-      "locked": false
+      "locked": false,
+      "zIndex": 0,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
   ],
-  "shapes": []
+  "shapes": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": [],
+  "spatialPins": []
 }

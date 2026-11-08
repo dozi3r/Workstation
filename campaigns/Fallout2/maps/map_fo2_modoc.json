@@ -8,7 +8,7 @@
   "mapMetadata": {
     "id": "map_fo2_modoc",
     "name": "modocmainstreet.jpg",
-    "assetPath": "assets/modocmainstreet.jpg",
+    "assetPath": "assets/map_fo2_modoc_bg.jpg",
     "width": 800,
     "height": 600,
     "opacity": 0.85
@@ -17,84 +17,223 @@
     {
       "id": "FO2-MDC-01",
       "name": "Rose's Bed and Breakfast",
-      "label": "Rose's Bed and Breakfast",
+      "displayName": "Rose's Bed and Breakfast",
+      "x": 511,
+      "y": 39,
       "coordinates": {
-        "x": 240,
-        "y": 280
+        "x": 511,
+        "y": 39
       },
-      "x": 240,
-      "y": 280,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-MDC-02",
       "name": "General Store & Farrel's Garden",
-      "label": "General Store & Farrel's Garden",
+      "displayName": "General Store & Farrel's Garden",
+      "x": 509,
+      "y": 239,
       "coordinates": {
-        "x": 400,
-        "y": 240
+        "x": 509,
+        "y": 239
       },
-      "x": 400,
-      "y": 240,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-MDC-03",
       "name": "Main Street & Modoc Town Well",
-      "label": "Main Street & Modoc Town Well",
+      "displayName": "Main Street & Modoc Town Well",
+      "x": 358,
+      "y": 187,
       "coordinates": {
-        "x": 540,
-        "y": 300
+        "x": 358,
+        "y": 187
       },
-      "x": 540,
-      "y": 300,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-MDC-04",
       "name": "Slag Ghost Farm Foothills",
-      "label": "Slag Ghost Farm Foothills",
+      "displayName": "Slag Ghost Farm Foothills",
+      "x": 396,
+      "y": 418,
       "coordinates": {
-        "x": 680,
-        "y": 340
+        "x": 396,
+        "y": 418
       },
-      "x": 680,
-      "y": 340,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
-    {
-      "source": "FO2-MDC-01",
-      "target": "FO2-MDC-02",
-      "weight": 1
-    },
-    {
-      "source": "FO2-MDC-02",
-      "target": "FO2-MDC-03",
-      "weight": 1
-    },
-    {
-      "source": "FO2-MDC-03",
-      "target": "FO2-MDC-04",
-      "weight": 1
-    }
-  ],
+  "links": [],
   "waves": [],
   "drawnCards": {},
-  "nodeSlottedModules": {},
+  "nodeSlottedModules": {
+    "FO2-MDC-01": [],
+    "FO2-MDC-02": [],
+    "FO2-MDC-03": [],
+    "FO2-MDC-04": []
+  },
   "edgeSlottedModules": {},
   "layers": [
     {
       "id": "layer-nodes",
       "name": "Tactical Points",
       "visible": true,
-      "locked": false
+      "locked": false,
+      "zIndex": 0,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
   ],
-  "shapes": []
+  "shapes": [],
+  "spatialPins": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": []
 }

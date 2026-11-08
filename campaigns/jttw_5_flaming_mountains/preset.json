@@ -1,0 +1,116 @@
+{
+  "id": "jttw_5_flaming_mountains_preset",
+  "name": "Journey to the West: The Flaming Mountains (ch. 59-61)",
+  "rootMapId": "map_flame_road",
+  "cvfByNode": {
+    "N_RED_BRICK_VILLAGE": "Clan",
+    "N_FLAME_LINE_CAMP": "Clan",
+    "N_FLAMING_MOUNTAIN": "Hierarchy",
+    "N_LITTLE_SUMERU": "Hierarchy",
+    "N_JADE_CLOUD": "Hierarchy",
+    "N_HOARD_THUNDER": "Market",
+    "N_SCATTERED_ROCKS": "Adhocracy",
+    "N_FIVE_PLATFORMS": "Hierarchy",
+    "N_EMEI_COOL_CAVE": "Hierarchy",
+    "N_SUMERU_EAR_RIDGE": "Hierarchy",
+    "N_KUNLUN_GOLDEN_BEAM": "Hierarchy",
+    "N_JC_WOODCUTTER_PATH": "Clan",
+    "N_PALM_LEAF_GATE": "Clan",
+    "N_PALM_LEAF_HALL": "Clan",
+    "N_HT_ORCHID_PINES": "Market",
+    "N_CLOUD_TOUCHING_CAVE": "Market",
+    "N_GW_TABLET_SHORE": "Adhocracy",
+    "N_GW_DRAGON_PALACE": "Adhocracy"
+  },
+  "odvByNode": {
+    "N_RED_BRICK_VILLAGE": {
+      "s": 3,
+      "e": -2,
+      "c": -1
+    },
+    "N_LITTLE_SUMERU": {
+      "s": -1,
+      "e": -2,
+      "c": 2
+    },
+    "N_PALM_LEAF_HALL": {
+      "s": 2,
+      "e": -1,
+      "c": 2
+    },
+    "N_CLOUD_TOUCHING_CAVE": {
+      "s": -2,
+      "e": 4,
+      "c": 2
+    },
+    "N_GW_DRAGON_PALACE": {
+      "s": 2,
+      "e": 3,
+      "c": 1
+    }
+  },
+  "waves": [
+    {
+      "wave": 1,
+      "nodeIds": [
+        "N_RED_BRICK_VILLAGE",
+        "N_FLAME_LINE_CAMP",
+        "N_FLAMING_MOUNTAIN",
+        "N_LITTLE_SUMERU",
+        "N_JADE_CLOUD",
+        "N_HOARD_THUNDER",
+        "N_SCATTERED_ROCKS",
+        "N_FIVE_PLATFORMS",
+        "N_EMEI_COOL_CAVE",
+        "N_SUMERU_EAR_RIDGE",
+        "N_KUNLUN_GOLDEN_BEAM",
+        "N_JC_WOODCUTTER_PATH",
+        "N_PALM_LEAF_GATE",
+        "N_PALM_LEAF_HALL",
+        "N_HT_ORCHID_PINES",
+        "N_CLOUD_TOUCHING_CAVE",
+        "N_GW_TABLET_SHORE",
+        "N_GW_DRAGON_PALACE"
+      ]
+    }
+  ],
+  "arrivalTables": {},
+  "creatureStationing": {
+    "creature_great_white_bull": {
+      "mode": "node",
+      "nodeId": "N_CLOUD_TOUCHING_CAVE",
+      "edgeKey": null,
+      "roamingScope": "stationary_lair"
+    },
+    "creature_golden_eyed_beast": {
+      "mode": "node",
+      "nodeId": "N_GW_DRAGON_PALACE",
+      "edgeKey": null,
+      "roamingScope": "stationary_lair"
+    },
+    "creature_hoard_thunder_beast_spirits": {
+      "mode": "node",
+      "nodeId": "N_CLOUD_TOUCHING_CAVE",
+      "edgeKey": null,
+      "roamingScope": "stationary_lair"
+    },
+    "creature_yin_ghost_soldiers": {
+      "mode": "node",
+      "nodeId": "N_FLAMING_MOUNTAIN",
+      "edgeKey": null,
+      "roamingScope": "stationary_lair"
+    },
+    "creature_green_wave_court_spirits": {
+      "mode": "node",
+      "nodeId": "N_GW_DRAGON_PALACE",
+      "edgeKey": null,
+      "roamingScope": "stationary_lair"
+    },
+    "creature_jade_cloud_road_predators": {
+      "mode": "edge",
+      "nodeId": null,
+      "edgeKey": "N_RED_BRICK_VILLAGE->N_JADE_CLOUD",
+      "roamingScope": "corridor_patrol"
+    }
+  }
+}

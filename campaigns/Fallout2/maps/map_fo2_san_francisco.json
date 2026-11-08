@@ -8,7 +8,7 @@
   "mapMetadata": {
     "id": "map_fo2_san_francisco",
     "name": "sfochinatown.jpg",
-    "assetPath": "assets/sfochinatown.jpg",
+    "assetPath": "assets/map_fo2_san_francisco_bg.jpg",
     "width": 800,
     "height": 600,
     "opacity": 0.85
@@ -17,84 +17,208 @@
     {
       "id": "FO2-SFO-01",
       "name": "Chinatown Main Street & Red 888",
-      "label": "Chinatown Main Street & Red 888",
+      "displayName": "Chinatown Main Street & Red 888",
+      "x": 206,
+      "y": 268,
       "coordinates": {
-        "x": 200,
-        "y": 280
+        "x": 206,
+        "y": 268
       },
-      "x": 200,
-      "y": 280,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-SFO-02",
       "name": "Shi Steel Palace & Emperor Computer",
-      "label": "Shi Steel Palace & Emperor Computer",
+      "displayName": "Shi Steel Palace & Emperor Computer",
+      "x": 360,
+      "y": 240,
       "coordinates": {
         "x": 360,
         "y": 240
       },
-      "x": 360,
-      "y": 240,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-SFO-03",
       "name": "Hubologist Celestial Palace",
-      "label": "Hubologist Celestial Palace",
+      "displayName": "Hubologist Celestial Palace",
+      "x": 520,
+      "y": 280,
       "coordinates": {
         "x": 520,
         "y": 280
       },
-      "x": 520,
-      "y": 280,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-SFO-04",
       "name": "Docks & PMV Valdez Oil Tanker",
-      "label": "Docks & PMV Valdez Oil Tanker",
+      "displayName": "Docks & PMV Valdez Oil Tanker",
+      "x": 680,
+      "y": 320,
       "coordinates": {
         "x": 680,
         "y": 320
       },
-      "x": 680,
-      "y": 320,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
-    {
-      "source": "FO2-SFO-01",
-      "target": "FO2-SFO-02",
-      "weight": 1
-    },
-    {
-      "source": "FO2-SFO-02",
-      "target": "FO2-SFO-03",
-      "weight": 1
-    },
-    {
-      "source": "FO2-SFO-03",
-      "target": "FO2-SFO-04",
-      "weight": 1
-    }
-  ],
+  "links": [],
   "waves": [],
   "drawnCards": {},
-  "nodeSlottedModules": {},
+  "nodeSlottedModules": {
+    "FO2-SFO-01": [],
+    "FO2-SFO-02": [],
+    "FO2-SFO-03": [],
+    "FO2-SFO-04": []
+  },
   "edgeSlottedModules": {},
   "layers": [
     {
       "id": "layer-nodes",
       "name": "Tactical Points",
       "visible": true,
-      "locked": false
+      "locked": false,
+      "zIndex": 0,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
   ],
-  "shapes": []
+  "shapes": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": [],
+  "spatialPins": []
 }

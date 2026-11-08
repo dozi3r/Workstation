@@ -1,0 +1,577 @@
+{
+  "id": "map_flame_road",
+  "name": "The Western Road: Mountain of Flames and the Four Quarters",
+  "scaleTier": "world",
+  "parentMapId": null,
+  "parentNodeId": null,
+  "nodes": [
+    {
+      "id": "N_RED_BRICK_VILLAGE",
+      "name": "The Red-Brick Village",
+      "x": 300,
+      "y": 500,
+      "cat": "Bastion",
+      "tier": 3,
+      "factionId": "fac_flame_households",
+      "faction": "fac_flame_households",
+      "culture": "Clan",
+      "customNotes": "**Sights:** Every roof is red tile, every wall red brick, every door red paint, every bench red lacquer. **Heat:** There is no spring or autumn here; all four seasons are hot. **Who is here:** An old householder in a not-quite-yellow robe of brass cloth who offers tea and a meal, and a young man pushing a red cart who sells rice-puddings too hot to hold. **Hidden:** The householder knows the fan is not free: families offer four hogs, four sheep, flowers, fruit, fowl and wine once every ten years, after ritual baths, and walk a month to Jade Cloud Mountain. **Sociology:** S+3 / E-3 / C-1: close kin-work, subsistence farming, no resident ruler.",
+      "odv": {
+        "s": 3,
+        "e": -2,
+        "c": -1
+      },
+      "odvOverridden": true,
+      "adj": [
+        "N_FLAME_LINE_CAMP",
+        "N_JADE_CLOUD"
+      ],
+      "childMapId": null,
+      "displayName": "The Red-Brick Village",
+      "coordinates": {
+        "x": 300,
+        "y": 500
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_FLAME_LINE_CAMP",
+      "name": "The Fire-Line Camp",
+      "x": 520,
+      "y": 480,
+      "cat": "Standard POI",
+      "tier": 3,
+      "factionId": "fac_pilgrim_party",
+      "faction": "fac_pilgrim_party",
+      "culture": "Clan",
+      "customNotes": "**Sights:** Heat thickens at 40 li west of the village; the road is hot underfoot. **Events:** The pilgrims rest here after the failed fan test, twenty li back from the flames. The local spirit arrives with a hawk-beaked, fish-jawed demon carrying a copper pan of steamed cakes, puddings and yellow millet. **Tension:** Sha Monk's line 'where there are scriptures there is fire' is spoken here.",
+      "adj": [
+        "N_RED_BRICK_VILLAGE",
+        "N_FLAMING_MOUNTAIN"
+      ],
+      "childMapId": null,
+      "displayName": "The Fire-Line Camp",
+      "coordinates": {
+        "x": 520,
+        "y": 480
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_FLAMING_MOUNTAIN",
+      "name": "The Mountain of Flames",
+      "x": 760,
+      "y": 440,
+      "cat": "Hazard",
+      "tier": 3,
+      "factionId": "fac_flame_households",
+      "faction": "fac_flame_households",
+      "culture": "Hierarchy",
+      "customNotes": "**Scale:** Over 800 li of flame; no blade of grass for miles around; a bronze skull and an iron body would melt. **Origin:** The local spirit says it is the scattered bricks from Laozi's eight-trigram brazier, kicked over when Wukong escaped it 500 years ago. **Effect of the fake fan:** Fire grows brighter, then a hundredfold, then ten thousand feet tall. **Permanent fix:** 49 waves of the true fan; rain falls only where it burned. **Who is here:** The banished local spirit, formerly a Daoist furnace attendant of the Tushita Palace, with his ghost soldiers.",
+      "adj": [
+        "N_FLAME_LINE_CAMP",
+        "N_HOARD_THUNDER"
+      ],
+      "childMapId": null,
+      "displayName": "The Mountain of Flames",
+      "coordinates": {
+        "x": 760,
+        "y": 440
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_LITTLE_SUMERU",
+      "name": "Little Sumeru Mountain",
+      "x": 300,
+      "y": 200,
+      "cat": "Bastion",
+      "tier": 2,
+      "factionId": "fac_little_sumeru",
+      "faction": "fac_little_sumeru",
+      "culture": "Hierarchy",
+      "customNotes": "**Sound:** Loud chiming bells carry down the slope. **Who is here:** Bodhisattva Lingji on a treasure throne, a gate worker who announces 'the hairy-faced Great Sage' by memory. **Hidden:** The Wind-Arresting Elixir in a silk bag, unused since Tathagata gave it with the Flying-Dragon Staff. **Sociology:** S-1 / E-2 / C+2: a single hierarch and few workers.",
+      "odv": {
+        "s": -1,
+        "e": -2,
+        "c": 2
+      },
+      "odvOverridden": true,
+      "adj": [
+        "N_JADE_CLOUD"
+      ],
+      "childMapId": null,
+      "displayName": "Little Sumeru Mountain",
+      "coordinates": {
+        "x": 300,
+        "y": 200
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_JADE_CLOUD",
+      "name": "Jade Cloud Mountain",
+      "x": 260,
+      "y": 700,
+      "cat": "Standard POI",
+      "tier": 3,
+      "factionId": "fac_heavenly_host",
+      "faction": "fac_heavenly_host",
+      "culture": "Hierarchy",
+      "customNotes": "**Sights:** Rock-boned mountain, lichen and moss, a pair of bamboo forests and a path of dense flowers. **Sounds:** A woodcutter's chant at the foot of the mountain; the call of apes and birds. **Role in the arc:** Palm-Leaf Cave and final siege site; the Heavenly host takes position here. **Portal:** Enter map_jade_cloud via the woodcutter's path.",
+      "adj": [
+        "N_RED_BRICK_VILLAGE",
+        "N_SCATTERED_ROCKS",
+        "N_HOARD_THUNDER",
+        "N_LITTLE_SUMERU",
+        "N_FIVE_PLATFORMS",
+        "N_EMEI_COOL_CAVE",
+        "N_SUMERU_EAR_RIDGE",
+        "N_KUNLUN_GOLDEN_BEAM"
+      ],
+      "childMapId": "map_jade_cloud",
+      "displayName": "Jade Cloud Mountain",
+      "coordinates": {
+        "x": 260,
+        "y": 700
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_HOARD_THUNDER",
+      "name": "Hoard-Thunder Mountain",
+      "x": 800,
+      "y": 740,
+      "cat": "Standard POI",
+      "tier": 3,
+      "factionId": "fac_hoard_thunder_court",
+      "faction": "fac_hoard_thunder_court",
+      "culture": "Market",
+      "customNotes": "**Weather:** Sun-warm before the mountain, wind-cold behind; ice stays unmelted in late summer. **Sights:** A dragon lagoon, flowers by a tiger's lair, flowing streams like jade threads. **Role in the arc:** The Bull King's second household and the site of the transformation contest. **Portal:** Enter map_hoard_thunder at the orchid pines.",
+      "adj": [
+        "N_FLAMING_MOUNTAIN",
+        "N_SCATTERED_ROCKS",
+        "N_JADE_CLOUD"
+      ],
+      "childMapId": "map_hoard_thunder",
+      "displayName": "Hoard-Thunder Mountain",
+      "coordinates": {
+        "x": 800,
+        "y": 740
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_SCATTERED_ROCKS",
+      "name": "Scattered-Rocks Mountain",
+      "x": 1100,
+      "y": 640,
+      "cat": "Standard POI",
+      "tier": 2,
+      "factionId": "fac_green_wave_dragons",
+      "faction": "fac_green_wave_dragons",
+      "culture": "Adhocracy",
+      "customNotes": "**Sights:** Deep lagoon of clear water; beside it a stone tablet inscribed Scattered-Rocks Mountain, Green Wave Lagoon. **Rumour:** An aquatic fiend must be 'a dragon spirit, fish spirit or turtle spirit' (Wukong's inference). **Portal:** Enter map_green_wave at the tablet.",
+      "adj": [
+        "N_HOARD_THUNDER",
+        "N_JADE_CLOUD"
+      ],
+      "childMapId": "map_green_wave",
+      "displayName": "Scattered-Rocks Mountain",
+      "coordinates": {
+        "x": 1100,
+        "y": 640
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_FIVE_PLATFORMS",
+      "name": "Cliff of Mysterious Demons, Mountain of Five Platforms",
+      "x": 560,
+      "y": 150,
+      "cat": "Standard POI",
+      "tier": 1,
+      "factionId": "fac_heavenly_host",
+      "faction": "fac_heavenly_host",
+      "culture": "Hierarchy",
+      "customNotes": "**Post of Diamond Guardian Dharma Diffusion on the Cliff of Mysterious Demons.** North quarter of the cosmic net, sealed by Sakyamuni's order.",
+      "adj": [
+        "N_JADE_CLOUD"
+      ],
+      "childMapId": null,
+      "displayName": "Cliff of Mysterious Demons, Mountain of Five Platforms",
+      "coordinates": {
+        "x": 560,
+        "y": 150
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_EMEI_COOL_CAVE",
+      "name": "Pure-Cool Cave, Emei Mountain",
+      "x": 560,
+      "y": 820,
+      "cat": "Standard POI",
+      "tier": 1,
+      "factionId": "fac_heavenly_host",
+      "faction": "fac_heavenly_host",
+      "culture": "Hierarchy",
+      "customNotes": "**Post of Diamond Guardian Victorious Ultimate in the Pure-Cool Cave of Emei Mountain.** South quarter of the cosmic net, by the Buddha's decree.",
+      "adj": [
+        "N_JADE_CLOUD"
+      ],
+      "childMapId": null,
+      "displayName": "Pure-Cool Cave, Emei Mountain",
+      "coordinates": {
+        "x": 560,
+        "y": 820
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_SUMERU_EAR_RIDGE",
+      "name": "Ear-Touching Ridge, Sumeru Mountain",
+      "x": 1000,
+      "y": 500,
+      "cat": "Standard POI",
+      "tier": 1,
+      "factionId": "fac_heavenly_host",
+      "faction": "fac_heavenly_host",
+      "culture": "Hierarchy",
+      "customNotes": "**Post of Diamond Guardian Great Strength, a Vaisravana ascetic of the Ear-Touching Ridge.** East quarter of the cosmic net, by Tathagata's secret command.",
+      "adj": [
+        "N_JADE_CLOUD"
+      ],
+      "childMapId": null,
+      "displayName": "Ear-Touching Ridge, Sumeru Mountain",
+      "coordinates": {
+        "x": 1000,
+        "y": 500
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_KUNLUN_GOLDEN_BEAM",
+      "name": "Golden Beam Summit, Kunlun Mountain",
+      "x": 160,
+      "y": 420,
+      "cat": "Standard POI",
+      "tier": 1,
+      "factionId": "fac_heavenly_host",
+      "faction": "fac_heavenly_host",
+      "culture": "Hierarchy",
+      "customNotes": "**Post of Diamond Guardian Ever Abiding on the Golden Beam Summit.** West quarter, stationed by the personal order of the aged Buddha of the Great Thunderclap Monastery. The back of Kunlun is also where the palm-leaf fan was born.",
+      "adj": [
+        "N_JADE_CLOUD"
+      ],
+      "childMapId": null,
+      "displayName": "Golden Beam Summit, Kunlun Mountain",
+      "coordinates": {
+        "x": 160,
+        "y": 420
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_RED_BRICK_VILLAGE",
+      "to": "N_FLAME_LINE_CAMP",
+      "type": "twoway",
+      "layer": "road",
+      "transitMode": "foot",
+      "dangerRating": 2,
+      "travelTime": "about 40 li, one day on foot"
+    },
+    {
+      "from": "N_FLAME_LINE_CAMP",
+      "to": "N_FLAMING_MOUNTAIN",
+      "type": "twoway",
+      "layer": "road",
+      "transitMode": "foot",
+      "dangerRating": 5,
+      "travelTime": "about 20 li to the fire's edge; the ground burns through boots"
+    },
+    {
+      "from": "N_RED_BRICK_VILLAGE",
+      "to": "N_JADE_CLOUD",
+      "type": "twoway",
+      "layer": "road",
+      "transitMode": "foot",
+      "dangerRating": 3,
+      "travelTime": "about 1,450 li round trip, roughly a month on foot; instant by cloud"
+    },
+    {
+      "from": "N_FLAMING_MOUNTAIN",
+      "to": "N_HOARD_THUNDER",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 3,
+      "travelTime": "about 3,000 li due south, under half an hour by cloud"
+    },
+    {
+      "from": "N_HOARD_THUNDER",
+      "to": "N_SCATTERED_ROCKS",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "northwest by cloud, distance not stated"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_SCATTERED_ROCKS",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "short by cloud"
+    },
+    {
+      "from": "N_HOARD_THUNDER",
+      "to": "N_JADE_CLOUD",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 3,
+      "travelTime": "short by cloud"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_LITTLE_SUMERU",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "one night when fan-blown; return by cloud somersault"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_FIVE_PLATFORMS",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "short by cloud; north flight"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_EMEI_COOL_CAVE",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "short by cloud; south flight"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_SUMERU_EAR_RIDGE",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "short by cloud; east flight"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_KUNLUN_GOLDEN_BEAM",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "short by cloud; west flight"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N_RED_BRICK_VILLAGE",
+      "to": "N_FLAME_LINE_CAMP",
+      "type": "twoway",
+      "layer": "road",
+      "transitMode": "foot",
+      "dangerRating": 2,
+      "travelTime": "about 40 li, one day on foot"
+    },
+    {
+      "from": "N_FLAME_LINE_CAMP",
+      "to": "N_FLAMING_MOUNTAIN",
+      "type": "twoway",
+      "layer": "road",
+      "transitMode": "foot",
+      "dangerRating": 5,
+      "travelTime": "about 20 li to the fire's edge; the ground burns through boots"
+    },
+    {
+      "from": "N_RED_BRICK_VILLAGE",
+      "to": "N_JADE_CLOUD",
+      "type": "twoway",
+      "layer": "road",
+      "transitMode": "foot",
+      "dangerRating": 3,
+      "travelTime": "about 1,450 li round trip, roughly a month on foot; instant by cloud"
+    },
+    {
+      "from": "N_FLAMING_MOUNTAIN",
+      "to": "N_HOARD_THUNDER",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 3,
+      "travelTime": "about 3,000 li due south, under half an hour by cloud"
+    },
+    {
+      "from": "N_HOARD_THUNDER",
+      "to": "N_SCATTERED_ROCKS",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "northwest by cloud, distance not stated"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_SCATTERED_ROCKS",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "short by cloud"
+    },
+    {
+      "from": "N_HOARD_THUNDER",
+      "to": "N_JADE_CLOUD",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 3,
+      "travelTime": "short by cloud"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_LITTLE_SUMERU",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "one night when fan-blown; return by cloud somersault"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_FIVE_PLATFORMS",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "short by cloud; north flight"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_EMEI_COOL_CAVE",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "short by cloud; south flight"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_SUMERU_EAR_RIDGE",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "short by cloud; east flight"
+    },
+    {
+      "from": "N_JADE_CLOUD",
+      "to": "N_KUNLUN_GOLDEN_BEAM",
+      "type": "twoway",
+      "layer": "sky",
+      "transitMode": "cloud",
+      "dangerRating": 2,
+      "travelTime": "short by cloud; west flight"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "layers": [],
+  "shapes": []
+}

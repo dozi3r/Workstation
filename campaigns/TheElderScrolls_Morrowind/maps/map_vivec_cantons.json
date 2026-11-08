@@ -1,0 +1,742 @@
+{
+  "id": "map_vivec_cantons",
+  "name": "Vivec City Cantons",
+  "scaleTier": "settlement",
+  "theme": "canton_city_of_the_warrior_poet",
+  "parentMapId": "map_morrowind_vvardenfell",
+  "parentNodeId": "N_VIVEC_CITY",
+  "nodeIds": [
+    "N_VIVEC_FOREIGN_QUARTER",
+    "N_VIVEC_HLAALU_CANTON",
+    "N_VIVEC_REDORAN_CANTON",
+    "N_VIVEC_TELVANNI_CANTON",
+    "N_VIVEC_ARENA_CANTON",
+    "N_VIVEC_ST_DELYN",
+    "N_VIVEC_ST_OLMS",
+    "N_VIVEC_PUZZLE_CANAL",
+    "N_VIVEC_PALACE",
+    "N_VIVEC_MINISTRY_OF_TRUTH"
+  ],
+  "nodes": [
+    {
+      "id": "N_VIVEC_FOREIGN_QUARTER",
+      "mapId": "map_vivec_cantons",
+      "name": "Vivec Foreign Quarter",
+      "displayName": "Vivec Foreign Quarter",
+      "scaleTier": "site",
+      "x": 220,
+      "y": 600,
+      "coordinates": {
+        "x": 220,
+        "y": 600
+      },
+      "region": "Vivec",
+      "description": "Canton of outlanders and traders beneath the Library of Vivec, where Mehra Milo keeps the Blades' ear in the stacks.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 4,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Outlander merchants, Hlaalu-bribed clerks, Blades informants",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_thieves_guild",
+        "fac_blades",
+        "fac_east_empire_company"
+      ],
+      "adj": [
+        "N_VIVEC_HLAALU_CANTON",
+        "N_VIVEC_ST_DELYN"
+      ],
+      "childMapId": null,
+      "customNotes": "Canton of outlanders and traders beneath the Library of Vivec, where Mehra Milo keeps the Blades' ear in the stacks.",
+      "npcIds": [
+        "npc_mehra_milo",
+        "npc_mevel_aren"
+      ],
+      "questIds": [
+        "Q_MW_THE_LIBRARY_INFORMANT",
+        "Q_MW_THIEVES_THE_BOOTS_HEIST"
+      ],
+      "itemIds": [
+        "ITM_BOOTS_OF_BLINDING_SPEED"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VIVEC_HLAALU_CANTON",
+      "mapId": "map_vivec_cantons",
+      "name": "Hlaalu Canton",
+      "displayName": "Hlaalu Canton",
+      "scaleTier": "site",
+      "x": 340,
+      "y": 440,
+      "coordinates": {
+        "x": 340,
+        "y": 440
+      },
+      "region": "Vivec",
+      "description": "House Hlaalu's lavish canton of banks and brokers, full of whispered land-purchase bribes.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 4,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Hlaalu councilors, bankers, Camonna enforcers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_hlaalu",
+        "fac_camonna_tong"
+      ],
+      "adj": [
+        "N_VIVEC_FOREIGN_QUARTER",
+        "N_VIVEC_REDORAN_CANTON"
+      ],
+      "childMapId": null,
+      "customNotes": "House Hlaalu's lavish canton of banks and brokers, full of whispered land-purchase bribes.",
+      "npcIds": [
+        "npc_crassius_curio",
+        "npc_nileno_dorvayn",
+        "npc_lenda_hlas"
+      ],
+      "questIds": [
+        "Q_MW_HLAALU_CRASSIUS_CURIOS_PLAY"
+      ],
+      "itemIds": [
+        "ITM_CURIO_PLAY_SCRIPT"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VIVEC_REDORAN_CANTON",
+      "mapId": "map_vivec_cantons",
+      "name": "Redoran Canton",
+      "displayName": "Redoran Canton",
+      "scaleTier": "site",
+      "x": 460,
+      "y": 250,
+      "coordinates": {
+        "x": 460,
+        "y": 250
+      },
+      "region": "Vivec",
+      "description": "Austere Redoran canton, its hall of arms closing ranks around old oaths while the world changes outside.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Redoran guards, scribes, veterans",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_redoran"
+      ],
+      "adj": [
+        "N_VIVEC_HLAALU_CANTON",
+        "N_VIVEC_TELVANNI_CANTON"
+      ],
+      "childMapId": null,
+      "customNotes": "Austere Redoran canton, its hall of arms closing ranks around old oaths while the world changes outside.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VIVEC_TELVANNI_CANTON",
+      "mapId": "map_vivec_cantons",
+      "name": "Telvanni Canton",
+      "displayName": "Telvanni Canton",
+      "scaleTier": "site",
+      "x": 600,
+      "y": 330,
+      "coordinates": {
+        "x": 600,
+        "y": 330
+      },
+      "region": "Vivec",
+      "description": "A sparse Telvanni canton of towers where the wizard-lords' proxies conduct delicate unions of arcane gossip.",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 1,
+      "odv": {
+        "s": 1,
+        "e": 3,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Telvanni mages' retainers, scholars",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_telvanni"
+      ],
+      "adj": [
+        "N_VIVEC_REDORAN_CANTON",
+        "N_VIVEC_ARENA_CANTON"
+      ],
+      "childMapId": null,
+      "customNotes": "A sparse Telvanni canton of towers where the wizard-lords' proxies conduct delicate unions of arcane gossip.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VIVEC_ARENA_CANTON",
+      "mapId": "map_vivec_cantons",
+      "name": "Arena Canton",
+      "displayName": "Arena Canton",
+      "scaleTier": "site",
+      "x": 760,
+      "y": 420,
+      "coordinates": {
+        "x": 760,
+        "y": 420
+      },
+      "region": "Vivec",
+      "description": "The Arena Pit and its Fighters Guild seat, where bookmakers trade favors with Morag Tong quiet-seekers.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 4,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Gladiators, bookmakers, off-duty Ordinators",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_fighters_guild",
+        "fac_morag_tong"
+      ],
+      "adj": [
+        "N_VIVEC_TELVANNI_CANTON",
+        "N_VIVEC_PUZZLE_CANAL"
+      ],
+      "childMapId": null,
+      "customNotes": "The Arena Pit and its Fighters Guild seat, where bookmakers trade favors with Morag Tong quiet-seekers.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VIVEC_ST_DELYN",
+      "mapId": "map_vivec_cantons",
+      "name": "St. Delyn Canton",
+      "displayName": "St. Delyn Canton",
+      "scaleTier": "site",
+      "x": 320,
+      "y": 740,
+      "coordinates": {
+        "x": 320,
+        "y": 740
+      },
+      "region": "Vivec",
+      "description": "Working canton of Dunmer tenants where Eno Hlaalu's Morag Tong hall hides behind a dull sanctioned shopfront.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 2,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Dunmer poor, pilgrims, Morag Tong contacts",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_morag_tong",
+        "fac_tribunal_temple"
+      ],
+      "adj": [
+        "N_VIVEC_FOREIGN_QUARTER",
+        "N_VIVEC_ST_OLMS"
+      ],
+      "childMapId": null,
+      "customNotes": "Working canton of Dunmer tenants where Eno Hlaalu's Morag Tong hall hides behind a dull sanctioned shopfront.",
+      "npcIds": [
+        "npc_eno_hlaalu",
+        "npc_rilm_atheran"
+      ],
+      "questIds": [
+        "Q_MW_MORAG_TONG_WRIT_OF_EXECUTION",
+        "Q_MW_MORAG_TONG_THE_INITIATE_TEST",
+        "Q_MW_MORAG_TONG_THE_TONG_EXILE"
+      ],
+      "itemIds": [
+        "ITM_EBONY_MAIL",
+        "ITM_MORAG_TONG_WRIT",
+        "ITM_MORAG_TONG_DAGGER"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VIVEC_ST_OLMS",
+      "mapId": "map_vivec_cantons",
+      "name": "St. Olms Canton",
+      "displayName": "St. Olms Canton",
+      "scaleTier": "site",
+      "x": 640,
+      "y": 740,
+      "coordinates": {
+        "x": 640,
+        "y": 740
+      },
+      "region": "Vivec",
+      "description": "Poor, crowded canton and nursery of Camonna Tong muscle; the Black Shalk Corner Club answers to Orvas Dren.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 2,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Dunmer laborers, Camonna Tong thugs, Temple lay-brothers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple",
+        "fac_camonna_tong"
+      ],
+      "adj": [
+        "N_VIVEC_ST_DELYN",
+        "N_VIVEC_PUZZLE_CANAL"
+      ],
+      "childMapId": null,
+      "customNotes": "Poor, crowded canton and nursery of Camonna Tong muscle; the Black Shalk Corner Club answers to Orvas Dren.",
+      "npcIds": [
+        "npc_orvas_dren",
+        "npc_garas_dren"
+      ],
+      "questIds": [
+        "Q_MW_HLAALU_THE_CAMONNA_LEDGER"
+      ],
+      "itemIds": [
+        "ITM_CAMONNA_BRIBE_LEDGER"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VIVEC_PUZZLE_CANAL",
+      "mapId": "map_vivec_cantons",
+      "name": "Puzzle Canal",
+      "displayName": "Puzzle Canal",
+      "scaleTier": "site",
+      "x": 500,
+      "y": 580,
+      "coordinates": {
+        "x": 500,
+        "y": 580
+      },
+      "region": "Vivec",
+      "description": "The Temple canal of Vivec with the Puzzle Canal's Dwemer-tuned ballast gates, a flooded pilgrimage tunnel and a crowd of Temple minders.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 2,
+        "e": 2,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Temple lay brothers, Ordinators, pilgrims",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple"
+      ],
+      "adj": [
+        "N_VIVEC_ARENA_CANTON",
+        "N_VIVEC_PALACE",
+        "N_VIVEC_ST_OLMS"
+      ],
+      "childMapId": null,
+      "customNotes": "The Temple canal of Vivec with the Puzzle Canal's Dwemer-tuned ballast gates, a flooded pilgrimage tunnel and a crowd of Temple minders.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [
+        "creature_greater_bonewalker"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VIVEC_PALACE",
+      "mapId": "map_vivec_cantons",
+      "name": "Palace of Vivec",
+      "displayName": "Palace of Vivec",
+      "scaleTier": "site",
+      "x": 480,
+      "y": 760,
+      "coordinates": {
+        "x": 480,
+        "y": 760
+      },
+      "region": "Vivec",
+      "description": "The golden palace-fane where Lord Vivec holds court and keeps Wraithguard behind sky-high scholarship and guarded silence.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Buoyant Armigers, Temple elite, Vivec's poets",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple"
+      ],
+      "adj": [
+        "N_VIVEC_PUZZLE_CANAL",
+        "N_VIVEC_MINISTRY_OF_TRUTH"
+      ],
+      "childMapId": null,
+      "customNotes": "The golden palace-fane where Lord Vivec holds court and keeps Wraithguard behind sky-high scholarship and guarded silence.",
+      "npcIds": [
+        "npc_lord_vivec"
+      ],
+      "questIds": [
+        "Q_MW_THE_MOON_AND_STAR",
+        "Q_MW_THE_TOOLS_OF_KAGRENAC",
+        "Q_MW_THE_TRIBUNALS_SECRET",
+        "Q_MW_TEMPLE_THE_ARMIGER_TRIAL"
+      ],
+      "itemIds": [
+        "ITM_WRAITHGUARD",
+        "ITM_KEENING",
+        "ITM_MOON_AND_STAR",
+        "ITM_ARMIGER_OATH_BLADE"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VIVEC_MINISTRY_OF_TRUTH",
+      "mapId": "map_vivec_cantons",
+      "name": "Ministry of Truth",
+      "displayName": "Ministry of Truth",
+      "scaleTier": "site",
+      "x": 900,
+      "y": 150,
+      "coordinates": {
+        "x": 900,
+        "y": 150
+      },
+      "region": "Vivec",
+      "description": "The floating pyramid of Vivec's control and secret, the unlikely stage where Sixth House spies once attempted treason.",
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 2,
+      "odv": {
+        "s": 1,
+        "e": 2,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Ministry guards, Temple examiners, Sixth House infiltrators",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple"
+      ],
+      "adj": [
+        "N_VIVEC_PALACE"
+      ],
+      "childMapId": null,
+      "customNotes": "The floating pyramid of Vivec's control and secret, the unlikely stage where Sixth House spies once attempted treason.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [
+        "ITM_DAEDRIC_CRESCENT"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_VIVEC_FOREIGN_QUARTER",
+      "to": "N_VIVEC_HLAALU_CANTON",
+      "type": "twoway",
+      "note": "Canal walk",
+      "cost": 1,
+      "label": "Canal walk",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_HLAALU_CANTON",
+      "to": "N_VIVEC_REDORAN_CANTON",
+      "type": "twoway",
+      "note": "Canton bridge",
+      "cost": 1,
+      "label": "Canton bridge",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_REDORAN_CANTON",
+      "to": "N_VIVEC_TELVANNI_CANTON",
+      "type": "twoway",
+      "note": "Canton bridge",
+      "cost": 1,
+      "label": "Canton bridge",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_TELVANNI_CANTON",
+      "to": "N_VIVEC_ARENA_CANTON",
+      "type": "twoway",
+      "note": "Arena Road",
+      "cost": 1,
+      "label": "Arena Road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_ARENA_CANTON",
+      "to": "N_VIVEC_PUZZLE_CANAL",
+      "type": "twoway",
+      "note": "Service tunnel",
+      "cost": 1,
+      "label": "Service tunnel",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_PUZZLE_CANAL",
+      "to": "N_VIVEC_PALACE",
+      "type": "twoway",
+      "note": "Palace stair",
+      "cost": 1,
+      "label": "Palace stair",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_FOREIGN_QUARTER",
+      "to": "N_VIVEC_ST_DELYN",
+      "type": "twoway",
+      "note": "Dock ramp",
+      "cost": 1,
+      "label": "Dock ramp",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_ST_DELYN",
+      "to": "N_VIVEC_ST_OLMS",
+      "type": "twoway",
+      "note": "Waterline walk",
+      "cost": 1,
+      "label": "Waterline walk",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_ST_OLMS",
+      "to": "N_VIVEC_PUZZLE_CANAL",
+      "type": "twoway",
+      "note": "Lantern bridge",
+      "cost": 1,
+      "label": "Lantern bridge",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_PALACE",
+      "to": "N_VIVEC_MINISTRY_OF_TRUTH",
+      "type": "twoway",
+      "note": "Temple levitation way",
+      "cost": 2,
+      "label": "Temple levitation way",
+      "transit": "teleport"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N_VIVEC_FOREIGN_QUARTER",
+      "to": "N_VIVEC_HLAALU_CANTON",
+      "type": "twoway",
+      "note": "Canal walk",
+      "cost": 1,
+      "label": "Canal walk",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_HLAALU_CANTON",
+      "to": "N_VIVEC_REDORAN_CANTON",
+      "type": "twoway",
+      "note": "Canton bridge",
+      "cost": 1,
+      "label": "Canton bridge",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_REDORAN_CANTON",
+      "to": "N_VIVEC_TELVANNI_CANTON",
+      "type": "twoway",
+      "note": "Canton bridge",
+      "cost": 1,
+      "label": "Canton bridge",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_TELVANNI_CANTON",
+      "to": "N_VIVEC_ARENA_CANTON",
+      "type": "twoway",
+      "note": "Arena Road",
+      "cost": 1,
+      "label": "Arena Road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_ARENA_CANTON",
+      "to": "N_VIVEC_PUZZLE_CANAL",
+      "type": "twoway",
+      "note": "Service tunnel",
+      "cost": 1,
+      "label": "Service tunnel",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_PUZZLE_CANAL",
+      "to": "N_VIVEC_PALACE",
+      "type": "twoway",
+      "note": "Palace stair",
+      "cost": 1,
+      "label": "Palace stair",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_FOREIGN_QUARTER",
+      "to": "N_VIVEC_ST_DELYN",
+      "type": "twoway",
+      "note": "Dock ramp",
+      "cost": 1,
+      "label": "Dock ramp",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_ST_DELYN",
+      "to": "N_VIVEC_ST_OLMS",
+      "type": "twoway",
+      "note": "Waterline walk",
+      "cost": 1,
+      "label": "Waterline walk",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_ST_OLMS",
+      "to": "N_VIVEC_PUZZLE_CANAL",
+      "type": "twoway",
+      "note": "Lantern bridge",
+      "cost": 1,
+      "label": "Lantern bridge",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_PALACE",
+      "to": "N_VIVEC_MINISTRY_OF_TRUTH",
+      "type": "twoway",
+      "note": "Temple levitation way",
+      "cost": 2,
+      "label": "Temple levitation way",
+      "transit": "teleport"
+    }
+  ]
+}

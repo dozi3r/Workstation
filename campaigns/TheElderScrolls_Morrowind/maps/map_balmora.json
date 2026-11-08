@@ -1,0 +1,496 @@
+{
+  "id": "map_balmora",
+  "name": "Balmora & the Odai River Quarter",
+  "scaleTier": "settlement",
+  "theme": "hlaalu_river_city",
+  "parentMapId": "map_morrowind_vvardenfell",
+  "parentNodeId": "N_BALMORA",
+  "nodeIds": [
+    "N_BALMORA_COUNCIL_MANOR",
+    "N_BALMORA_CAIUS_APARTMENT",
+    "N_BALMORA_MAGES_GUILD",
+    "N_BALMORA_FIGHTERS_GUILD",
+    "N_BALMORA_TEMPLE",
+    "N_BALMORA_SOUTH_WALL"
+  ],
+  "nodes": [
+    {
+      "id": "N_BALMORA_COUNCIL_MANOR",
+      "mapId": "map_balmora",
+      "name": "Hlaalu Council Manor",
+      "displayName": "Hlaalu Council Manor",
+      "scaleTier": "site",
+      "x": 520,
+      "y": 300,
+      "coordinates": {
+        "x": 520,
+        "y": 300
+      },
+      "region": "Balmora",
+      "description": "The Hlaalu Council Manor, where trade licenses, estate titles and quiet murders are all notarized in the same ledger.",
+      "cat": "Bastion",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 3,
+      "odv": {
+        "s": 3,
+        "e": 4,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Hlaalu councilors, clerks, bodyguards",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_hlaalu"
+      ],
+      "adj": [
+        "N_BALMORA_CAIUS_APARTMENT",
+        "N_BALMORA_MAGES_GUILD"
+      ],
+      "childMapId": null,
+      "customNotes": "The Hlaalu Council Manor, where trade licenses, estate titles and quiet murders are all notarized in the same ledger.",
+      "npcIds": [
+        "npc_dram_bero",
+        "npc_ilvi_telas"
+      ],
+      "questIds": [
+        "Q_MW_HLAALU_ESTATE_TITLES",
+        "Q_MW_HLAALU_THE_ARCHMASTERS_SEAT",
+        "Q_MW_THIEVES_THE_HLAALU_LEDGER_BURGLARY"
+      ],
+      "itemIds": [
+        "ITM_HLAALU_LAND_DEED",
+        "ITM_HLAALU_CREDITOR_LEDGER"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_BALMORA_CAIUS_APARTMENT",
+      "mapId": "map_balmora",
+      "name": "Caius Cosades' Apartment",
+      "displayName": "Caius Cosades' Apartment",
+      "scaleTier": "site",
+      "x": 380,
+      "y": 480,
+      "coordinates": {
+        "x": 380,
+        "y": 480
+      },
+      "region": "Balmora",
+      "description": "A bare apartment over the South Wall Cornerclub entrance where Caius Cosades receives couriers and fresh recruits behind a hidden trapdoor.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 2,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Blades agents, couriers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_blades"
+      ],
+      "adj": [
+        "N_BALMORA_SOUTH_WALL",
+        "N_BALMORA_COUNCIL_MANOR",
+        "N_BALMORA_FIGHTERS_GUILD"
+      ],
+      "childMapId": null,
+      "customNotes": "A bare apartment over the South Wall Cornerclub entrance where Caius Cosades receives couriers and fresh recruits behind a hidden trapdoor.",
+      "npcIds": [
+        "npc_caius_cosades"
+      ],
+      "questIds": [
+        "Q_MW_REPORT_TO_CAIUS",
+        "Q_MW_THE_BLADES_FINAL_REPORT"
+      ],
+      "itemIds": [
+        "ITM_BLADES_SIGNET",
+        "ITM_CAIUS_COSADES_LEDGER"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_BALMORA_MAGES_GUILD",
+      "mapId": "map_balmora",
+      "name": "Balmora Guild of Mages",
+      "displayName": "Balmora Guild of Mages",
+      "scaleTier": "site",
+      "x": 700,
+      "y": 400,
+      "coordinates": {
+        "x": 700,
+        "y": 400
+      },
+      "region": "Balmora",
+      "description": "Hall of the Mages Guild with its teleportation guide to the other chapterhouses and a laboratory that smells of burnt lotus.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 2,
+        "e": 2,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Mages Guild teachers, apprentices, alchemists",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_mages_guild"
+      ],
+      "adj": [
+        "N_BALMORA_COUNCIL_MANOR",
+        "N_BALMORA_TEMPLE"
+      ],
+      "childMapId": null,
+      "customNotes": "Hall of the Mages Guild with its teleportation guide to the other chapterhouses and a laboratory that smells of burnt lotus.",
+      "npcIds": [
+        "npc_trebonius_artorius",
+        "npc_ranis_athrys",
+        "npc_ajira",
+        "npc_codus_callonus",
+        "npc_odrin_fels"
+      ],
+      "questIds": [
+        "Q_MW_HLAALU_RANIS_ATHRYS_DEBT",
+        "Q_MW_MAGES_THE_RECRUITERS_TEST",
+        "Q_MW_MAGES_THE_TELVANNI_DEFECTOR",
+        "Q_MW_MAGES_THE_CHARTER_VOTE"
+      ],
+      "itemIds": [
+        "ITM_MAGES_GUILD_CHARTER_AMENDMENT",
+        "ITM_AJIRA_ALCHEMY_KIT",
+        "ITM_DAEDRIC_LORE_COMPENDIUM"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_BALMORA_FIGHTERS_GUILD",
+      "mapId": "map_balmora",
+      "name": "Balmora Fighters Guild Hall",
+      "displayName": "Balmora Fighters Guild Hall",
+      "scaleTier": "site",
+      "x": 400,
+      "y": 650,
+      "coordinates": {
+        "x": 400,
+        "y": 650
+      },
+      "region": "Balmora",
+      "description": "Barracks-like hall where Hasphat Antabolis assigns contracts against bandits, smugglers and Sixth House sleepers.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 2,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Fighters Guild veterans, contract hunters",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_fighters_guild"
+      ],
+      "adj": [
+        "N_BALMORA_TEMPLE",
+        "N_BALMORA_SOUTH_WALL",
+        "N_BALMORA_CAIUS_APARTMENT"
+      ],
+      "childMapId": null,
+      "customNotes": "Barracks-like hall where Hasphat Antabolis assigns contracts against bandits, smugglers and Sixth House sleepers.",
+      "npcIds": [
+        "npc_hasphat_antabolis"
+      ],
+      "questIds": [
+        "Q_MW_THE_DWEMER_PUZZLE_BOX",
+        "Q_MW_FIGHTERS_BANDITS_AT_HLORMAREN",
+        "Q_MW_FIGHTERS_THE_GUILDMASTERS_CHALLENGE"
+      ],
+      "itemIds": [
+        "ITM_DWEMER_PUZZLE_BOX",
+        "ITM_DWEMER_CENTRIFUGE_PLANS",
+        "ITM_FIGHTERS_GUILD_CONTRACT_BOARD"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_BALMORA_TEMPLE",
+      "mapId": "map_balmora",
+      "name": "Balmora Temple",
+      "displayName": "Balmora Temple",
+      "scaleTier": "site",
+      "x": 800,
+      "y": 600,
+      "coordinates": {
+        "x": 800,
+        "y": 600
+      },
+      "region": "Balmora",
+      "description": "The Temple of Balmora, its Ordinators and healers serving a congregation torn between orthodox duty and the secular Hlaalu market.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Temple priests, pilgrims, Ordinators",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple"
+      ],
+      "adj": [
+        "N_BALMORA_MAGES_GUILD",
+        "N_BALMORA_FIGHTERS_GUILD"
+      ],
+      "childMapId": null,
+      "customNotes": "The Temple of Balmora, its Ordinators and healers serving a congregation torn between orthodox duty and the secular Hlaalu market.",
+      "npcIds": [
+        "npc_temple_priest_balmora"
+      ],
+      "questIds": [
+        "Q_MW_TEMPLE_ORDINATOR_PURGE"
+      ],
+      "itemIds": [
+        "ITM_ORDINATOR_WARRANT"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_BALMORA_SOUTH_WALL",
+      "mapId": "map_balmora",
+      "name": "South Wall Cornerclub",
+      "displayName": "South Wall Cornerclub",
+      "scaleTier": "site",
+      "x": 560,
+      "y": 760,
+      "coordinates": {
+        "x": 560,
+        "y": 760
+      },
+      "region": "Balmora",
+      "description": "A smoky cornerclub whose back stairs lead to the Thieves Guild fence and an unlisted door for the Blades.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 1
+      },
+      "demographics": {
+        "primary": "Thieves Guild fences, off-duty guards, smugglers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_thieves_guild",
+        "fac_blades"
+      ],
+      "adj": [
+        "N_BALMORA_CAIUS_APARTMENT",
+        "N_BALMORA_FIGHTERS_GUILD"
+      ],
+      "childMapId": null,
+      "customNotes": "A smoky cornerclub whose back stairs lead to the Thieves Guild fence and an unlisted door for the Blades.",
+      "npcIds": [
+        "npc_sugar_lips_habasi"
+      ],
+      "questIds": [
+        "Q_MW_THIEVES_THE_FENCE_RUN",
+        "Q_MW_THIEVES_THE_GUILDMASTERS_TEST"
+      ],
+      "itemIds": [
+        "ITM_FORK_OF_HORRIPILATION",
+        "ITM_THIEVES_GUILD_FENCE_LEDGER"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_BALMORA_SOUTH_WALL",
+      "to": "N_BALMORA_CAIUS_APARTMENT",
+      "type": "twoway",
+      "note": "Hidden stairs to Caius's apartment",
+      "cost": 1,
+      "label": "Hidden stairs to Caius's apartment",
+      "transit": "door"
+    },
+    {
+      "from": "N_BALMORA_CAIUS_APARTMENT",
+      "to": "N_BALMORA_COUNCIL_MANOR",
+      "type": "twoway",
+      "note": "Odai bridge",
+      "cost": 1,
+      "label": "Odai bridge",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA_COUNCIL_MANOR",
+      "to": "N_BALMORA_MAGES_GUILD",
+      "type": "twoway",
+      "note": "Plaza stairs",
+      "cost": 1,
+      "label": "Plaza stairs",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA_MAGES_GUILD",
+      "to": "N_BALMORA_TEMPLE",
+      "type": "twoway",
+      "note": "Eastern lane",
+      "cost": 1,
+      "label": "Eastern lane",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA_TEMPLE",
+      "to": "N_BALMORA_FIGHTERS_GUILD",
+      "type": "twoway",
+      "note": "Temple Row to Fighters Guild",
+      "cost": 1,
+      "label": "Temple Row to Fighters Guild",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA_FIGHTERS_GUILD",
+      "to": "N_BALMORA_SOUTH_WALL",
+      "type": "twoway",
+      "note": "South Wall Street",
+      "cost": 1,
+      "label": "South Wall Street",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA_CAIUS_APARTMENT",
+      "to": "N_BALMORA_FIGHTERS_GUILD",
+      "type": "twoway",
+      "note": "Back alley",
+      "cost": 1,
+      "label": "Back alley",
+      "transit": "overland"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N_BALMORA_SOUTH_WALL",
+      "to": "N_BALMORA_CAIUS_APARTMENT",
+      "type": "twoway",
+      "note": "Hidden stairs to Caius's apartment",
+      "cost": 1,
+      "label": "Hidden stairs to Caius's apartment",
+      "transit": "door"
+    },
+    {
+      "from": "N_BALMORA_CAIUS_APARTMENT",
+      "to": "N_BALMORA_COUNCIL_MANOR",
+      "type": "twoway",
+      "note": "Odai bridge",
+      "cost": 1,
+      "label": "Odai bridge",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA_COUNCIL_MANOR",
+      "to": "N_BALMORA_MAGES_GUILD",
+      "type": "twoway",
+      "note": "Plaza stairs",
+      "cost": 1,
+      "label": "Plaza stairs",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA_MAGES_GUILD",
+      "to": "N_BALMORA_TEMPLE",
+      "type": "twoway",
+      "note": "Eastern lane",
+      "cost": 1,
+      "label": "Eastern lane",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA_TEMPLE",
+      "to": "N_BALMORA_FIGHTERS_GUILD",
+      "type": "twoway",
+      "note": "Temple Row to Fighters Guild",
+      "cost": 1,
+      "label": "Temple Row to Fighters Guild",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA_FIGHTERS_GUILD",
+      "to": "N_BALMORA_SOUTH_WALL",
+      "type": "twoway",
+      "note": "South Wall Street",
+      "cost": 1,
+      "label": "South Wall Street",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA_CAIUS_APARTMENT",
+      "to": "N_BALMORA_FIGHTERS_GUILD",
+      "type": "twoway",
+      "note": "Back alley",
+      "cost": 1,
+      "label": "Back alley",
+      "transit": "overland"
+    }
+  ]
+}

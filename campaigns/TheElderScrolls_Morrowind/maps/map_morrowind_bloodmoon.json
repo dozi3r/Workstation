@@ -1,0 +1,642 @@
+{
+  "id": "map_morrowind_bloodmoon",
+  "name": "Island of Solstheim",
+  "scaleTier": "region",
+  "theme": "frozen_colonial_frontier",
+  "parentMapId": "map_morrowind_vvardenfell",
+  "parentNodeId": "N_KHUUL",
+  "nodeIds": [
+    "N_FORT_FROSTMOTH",
+    "N_RAVEN_ROCK",
+    "N_SKAAL_VILLAGE",
+    "N_MORTRAG_GLACIER",
+    "N_THIRSK_MEAD_HALL",
+    "N_CASTLE_KARSTAAG",
+    "N_BRODIR_GROVE",
+    "N_HIRSTAANG_FOREST"
+  ],
+  "nodes": [
+    {
+      "id": "N_FORT_FROSTMOTH",
+      "mapId": "map_morrowind_bloodmoon",
+      "name": "Fort Frostmoth",
+      "displayName": "Fort Frostmoth",
+      "scaleTier": "settlement",
+      "x": 250,
+      "y": 640,
+      "coordinates": {
+        "x": 250,
+        "y": 640
+      },
+      "region": "Solstheim",
+      "description": "Imperial fort on the southern coast of Solstheim, the foothold from which the Empire administers the colony.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 2,
+        "e": 1,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Legion soldiers, East Empire clerks, Nordic scouts",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_imperial_legion"
+      ],
+      "adj": [
+        "N_RAVEN_ROCK",
+        "N_BRODIR_GROVE"
+      ],
+      "childMapId": null,
+      "customNotes": "Imperial fort on the southern coast of Solstheim, the foothold from which the Empire administers the colony.",
+      "npcIds": [
+        "npc_captain_falx_carius",
+        "npc_legion_sergeant_frostmoth"
+      ],
+      "questIds": [
+        "Q_MW_BLOODMOON_AN_ISLAND_TO_THE_NORTH",
+        "Q_MW_BLOODMOON_THE_DISAPPEARANCE_OF_CAPTAIN_CARIUS"
+      ],
+      "itemIds": [
+        "ITM_FROSTMOTH_SUPPLY_TALLY",
+        "ITM_CARIUS_WOLF_PELT"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_RAVEN_ROCK",
+      "mapId": "map_morrowind_bloodmoon",
+      "name": "Raven Rock",
+      "displayName": "Raven Rock",
+      "scaleTier": "settlement",
+      "x": 380,
+      "y": 480,
+      "coordinates": {
+        "x": 380,
+        "y": 480
+      },
+      "region": "Solstheim",
+      "description": "East Empire Company colony town raised around an ebony mine, its Redoran refugees clinging to one fragile charter.",
+      "cat": "Bastion",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 3,
+      "odv": {
+        "s": 3,
+        "e": 4,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Dunmer settlers, Company factors, Nord miners",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_east_empire_company",
+        "fac_house_redoran"
+      ],
+      "adj": [
+        "N_FORT_FROSTMOTH",
+        "N_SKAAL_VILLAGE",
+        "N_BRODIR_GROVE"
+      ],
+      "childMapId": null,
+      "customNotes": "East Empire Company colony town raised around an ebony mine, its Redoran refugees clinging to one fragile charter.",
+      "npcIds": [
+        "npc_falco_galenus",
+        "npc_aldam_berendus",
+        "npc_aelius_varro"
+      ],
+      "questIds": [
+        "Q_MW_BLOODMOON_THE_FACTORS_ESTATE",
+        "Q_MW_BLOODMOON_ESTABLISH_THE_MINE",
+        "Q_MW_BLOODMOON_SUPPLY_ROUTE_PROBLEMS",
+        "Q_MW_BLOODMOON_HIRING_GUARDS"
+      ],
+      "itemIds": [
+        "ITM_RAVEN_ROCK_CHARTER",
+        "ITM_EBONY_ORE_CRATE"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_SKAAL_VILLAGE",
+      "mapId": "map_morrowind_bloodmoon",
+      "name": "Skaal Village",
+      "displayName": "Skaal Village",
+      "scaleTier": "settlement",
+      "x": 560,
+      "y": 280,
+      "coordinates": {
+        "x": 560,
+        "y": 280
+      },
+      "region": "Solstheim",
+      "description": "Windswept all-father village of the Skaal, who hold to their ancestral all-maker rites against creeping colonial pressure.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 1,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Skaal hunters, shamans, tribal families",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_skaal"
+      ],
+      "adj": [
+        "N_RAVEN_ROCK",
+        "N_MORTRAG_GLACIER",
+        "N_THIRSK_MEAD_HALL"
+      ],
+      "childMapId": null,
+      "customNotes": "Windswept all-father village of the Skaal, who hold to their ancestral all-maker rites against creeping colonial pressure.",
+      "npcIds": [
+        "npc_tharsten_heart_fang",
+        "npc_korst_wind_eye",
+        "npc_risi_ice_mane",
+        "npc_kayvald_fjell"
+      ],
+      "questIds": [
+        "Q_MW_BLOODMOON_THE_SKAAL_TRIALS",
+        "Q_MW_BLOODMOON_DISRUPT_THE_SKAAL_HUNT",
+        "Q_MW_BLOODMOON_THE_SIEGE_OF_THE_SKAAL_VILLAGE"
+      ],
+      "itemIds": [
+        "ITM_SKAAL_HUNTING_HORN",
+        "ITM_ALL_MAKER_STONE"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_MORTRAG_GLACIER",
+      "mapId": "map_morrowind_bloodmoon",
+      "name": "Mortrag Glacier",
+      "displayName": "Mortrag Glacier",
+      "scaleTier": "settlement",
+      "x": 760,
+      "y": 150,
+      "coordinates": {
+        "x": 760,
+        "y": 150
+      },
+      "region": "Solstheim",
+      "description": "Frozen glacier-fields where Hircine's werewolf pack holds its hunting grounds and the Moesring Mountains drop to the sea.",
+      "cat": "Hazard",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 2,
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Werewolves, Hircine's hunters, thrall-wolves",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_hircine_pack"
+      ],
+      "adj": [
+        "N_SKAAL_VILLAGE"
+      ],
+      "childMapId": null,
+      "customNotes": "Frozen glacier-fields where Hircine's werewolf pack holds its hunting grounds and the Moesring Mountains drop to the sea.",
+      "npcIds": [
+        "npc_hircine_hunter"
+      ],
+      "questIds": [
+        "Q_MW_BLOODMOON_RITE_OF_THE_WOLF_GIVER",
+        "Q_MW_BLOODMOON_THE_TOTEM_OF_CLAW_AND_FANG",
+        "Q_MW_BLOODMOON_HIRCINES_HUNT"
+      ],
+      "itemIds": [
+        "ITM_TOTEM_OF_CLAW_AND_FANG",
+        "ITM_HIRCINES_RING",
+        "ITM_WOLF_GIVER_SIGIL"
+      ],
+      "creatureIds": [
+        "creature_werewolf_dread_hound",
+        "creature_aspect_of_hircine"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_THIRSK_MEAD_HALL",
+      "mapId": "map_morrowind_bloodmoon",
+      "name": "Thirsk Mead Hall",
+      "displayName": "Thirsk Mead Hall",
+      "scaleTier": "settlement",
+      "x": 740,
+      "y": 400,
+      "coordinates": {
+        "x": 740,
+        "y": 400
+      },
+      "region": "Solstheim",
+      "description": "Remote Nord mead hall of the Ristaag trials and grim hospitality of the Fjalding bloodline.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 2,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Nord warriors, skald-bards, thralls",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_independents"
+      ],
+      "adj": [
+        "N_HIRSTAANG_FOREST",
+        "N_CASTLE_KARSTAAG",
+        "N_SKAAL_VILLAGE"
+      ],
+      "childMapId": null,
+      "customNotes": "Remote Nord mead hall of the Ristaag trials and grim hospitality of the Fjalding bloodline.",
+      "npcIds": [
+        "npc_hroldar_the_strange",
+        "npc_aenar",
+        "npc_brynja_stone_arm"
+      ],
+      "questIds": [
+        "Q_MW_BLOODMOON_THE_RISTAAG"
+      ],
+      "itemIds": [
+        "ITM_RISTAAG_CREST"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_CASTLE_KARSTAAG",
+      "mapId": "map_morrowind_bloodmoon",
+      "name": "Castle Karstaag",
+      "displayName": "Castle Karstaag",
+      "scaleTier": "settlement",
+      "x": 900,
+      "y": 300,
+      "coordinates": {
+        "x": 900,
+        "y": 300
+      },
+      "region": "Solstheim",
+      "description": "Frost-giant fortress ruling the northeast ice, a besieged keep of Karstaag's ancient Jotun thralls.",
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 2,
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Nord ice giants, frost trolls, ancient guard",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_independents"
+      ],
+      "adj": [
+        "N_THIRSK_MEAD_HALL"
+      ],
+      "childMapId": null,
+      "customNotes": "Frost-giant fortress ruling the northeast ice, a besieged keep of Karstaag's ancient Jotun thralls.",
+      "npcIds": [],
+      "questIds": [
+        "Q_MW_BLOODMOON_SIEGE_OF_CASTLE_KARSTAAG"
+      ],
+      "itemIds": [
+        "ITM_KARSTAAG_ICE_SHARD"
+      ],
+      "creatureIds": [
+        "creature_frost_grahl"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_BRODIR_GROVE",
+      "mapId": "map_morrowind_bloodmoon",
+      "name": "Brodir Grove",
+      "displayName": "Brodir Grove",
+      "scaleTier": "settlement",
+      "x": 460,
+      "y": 780,
+      "coordinates": {
+        "x": 460,
+        "y": 780
+      },
+      "region": "Solstheim",
+      "description": "Forested hunting grounds claimed by the Brodir clan and a Glenmoril coven; the site of Hircine's dark bargains.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 2,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Glenmoril witches, Nord lumberers, hunting spirits",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_hircine_pack",
+        "fac_skaal"
+      ],
+      "adj": [
+        "N_RAVEN_ROCK",
+        "N_HIRSTAANG_FOREST",
+        "N_FORT_FROSTMOTH"
+      ],
+      "childMapId": null,
+      "customNotes": "Forested hunting grounds claimed by the Brodir clan and a Glenmoril coven; the site of Hircine's dark bargains.",
+      "npcIds": [],
+      "questIds": [
+        "Q_MW_BLOODMOON_DREAM_OF_HIRCINE"
+      ],
+      "itemIds": [
+        "ITM_DREAM_OF_HIRCINE_ANTLER",
+        "ITM_GLENMORIL_WITCH_NOTE"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_HIRSTAANG_FOREST",
+      "mapId": "map_morrowind_bloodmoon",
+      "name": "Hirstaang Forest",
+      "displayName": "Hirstaang Forest",
+      "scaleTier": "settlement",
+      "x": 630,
+      "y": 620,
+      "coordinates": {
+        "x": 630,
+        "y": 620
+      },
+      "region": "Solstheim",
+      "description": "Old forest northwest of Raven Rock, Company timber contracts burning down the primeval treeline.",
+      "cat": "Hazard",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 2,
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Werewolf hunters, Company loggers, forest spirits",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_hircine_pack",
+        "fac_east_empire_company"
+      ],
+      "adj": [
+        "N_BRODIR_GROVE",
+        "N_THIRSK_MEAD_HALL"
+      ],
+      "childMapId": null,
+      "customNotes": "Old forest northwest of Raven Rock, Company timber contracts burning down the primeval treeline.",
+      "npcIds": [
+        "npc_hjalti_trapper"
+      ],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_FORT_FROSTMOTH",
+      "to": "N_RAVEN_ROCK",
+      "type": "twoway",
+      "note": "Imperial road north",
+      "cost": 2,
+      "label": "Imperial road north",
+      "transit": "overland"
+    },
+    {
+      "from": "N_RAVEN_ROCK",
+      "to": "N_SKAAL_VILLAGE",
+      "type": "twoway",
+      "note": "Frost pass",
+      "cost": 3,
+      "label": "Frost pass",
+      "transit": "overland"
+    },
+    {
+      "from": "N_RAVEN_ROCK",
+      "to": "N_BRODIR_GROVE",
+      "type": "twoway",
+      "note": "Forest road",
+      "cost": 2,
+      "label": "Forest road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BRODIR_GROVE",
+      "to": "N_HIRSTAANG_FOREST",
+      "type": "twoway",
+      "note": "Logging track",
+      "cost": 2,
+      "label": "Logging track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_HIRSTAANG_FOREST",
+      "to": "N_THIRSK_MEAD_HALL",
+      "type": "twoway",
+      "note": "Wolf track east",
+      "cost": 3,
+      "label": "Wolf track east",
+      "transit": "overland"
+    },
+    {
+      "from": "N_THIRSK_MEAD_HALL",
+      "to": "N_CASTLE_KARSTAAG",
+      "type": "twoway",
+      "note": "Frozen fjord road",
+      "cost": 3,
+      "label": "Frozen fjord road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_SKAAL_VILLAGE",
+      "to": "N_MORTRAG_GLACIER",
+      "type": "twoway",
+      "note": "Glacier trail",
+      "cost": 3,
+      "label": "Glacier trail",
+      "transit": "overland"
+    },
+    {
+      "from": "N_FORT_FROSTMOTH",
+      "to": "N_BRODIR_GROVE",
+      "type": "twoway",
+      "note": "Southern coast track",
+      "cost": 3,
+      "label": "Southern coast track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_SKAAL_VILLAGE",
+      "to": "N_THIRSK_MEAD_HALL",
+      "type": "twoway",
+      "note": "Skaal hunting trail",
+      "cost": 3,
+      "label": "Skaal hunting trail",
+      "transit": "overland"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N_FORT_FROSTMOTH",
+      "to": "N_RAVEN_ROCK",
+      "type": "twoway",
+      "note": "Imperial road north",
+      "cost": 2,
+      "label": "Imperial road north",
+      "transit": "overland"
+    },
+    {
+      "from": "N_RAVEN_ROCK",
+      "to": "N_SKAAL_VILLAGE",
+      "type": "twoway",
+      "note": "Frost pass",
+      "cost": 3,
+      "label": "Frost pass",
+      "transit": "overland"
+    },
+    {
+      "from": "N_RAVEN_ROCK",
+      "to": "N_BRODIR_GROVE",
+      "type": "twoway",
+      "note": "Forest road",
+      "cost": 2,
+      "label": "Forest road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BRODIR_GROVE",
+      "to": "N_HIRSTAANG_FOREST",
+      "type": "twoway",
+      "note": "Logging track",
+      "cost": 2,
+      "label": "Logging track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_HIRSTAANG_FOREST",
+      "to": "N_THIRSK_MEAD_HALL",
+      "type": "twoway",
+      "note": "Wolf track east",
+      "cost": 3,
+      "label": "Wolf track east",
+      "transit": "overland"
+    },
+    {
+      "from": "N_THIRSK_MEAD_HALL",
+      "to": "N_CASTLE_KARSTAAG",
+      "type": "twoway",
+      "note": "Frozen fjord road",
+      "cost": 3,
+      "label": "Frozen fjord road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_SKAAL_VILLAGE",
+      "to": "N_MORTRAG_GLACIER",
+      "type": "twoway",
+      "note": "Glacier trail",
+      "cost": 3,
+      "label": "Glacier trail",
+      "transit": "overland"
+    },
+    {
+      "from": "N_FORT_FROSTMOTH",
+      "to": "N_BRODIR_GROVE",
+      "type": "twoway",
+      "note": "Southern coast track",
+      "cost": 3,
+      "label": "Southern coast track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_SKAAL_VILLAGE",
+      "to": "N_THIRSK_MEAD_HALL",
+      "type": "twoway",
+      "note": "Skaal hunting trail",
+      "cost": 3,
+      "label": "Skaal hunting trail",
+      "transit": "overland"
+    }
+  ]
+}

@@ -8,7 +8,7 @@
   "mapMetadata": {
     "id": "map_fo2_arroyo",
     "name": "arroyovillage.jpg",
-    "assetPath": "assets/arroyovillage.jpg",
+    "assetPath": "assets/map_fo2_arroyo_bg.jpg",
     "width": 800,
     "height": 600,
     "opacity": 0.85
@@ -17,104 +17,261 @@
     {
       "id": "FO2-ARY-01",
       "name": "Elder's Tent & Arroyo Well",
-      "label": "Elder's Tent & Arroyo Well",
+      "displayName": "Elder's Tent & Arroyo Well",
+      "x": 314,
+      "y": 253,
       "coordinates": {
-        "x": 220,
-        "y": 260
+        "x": 314,
+        "y": 253
       },
-      "x": 220,
-      "y": 260,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-ARY-02",
       "name": "Hakunin's Herbal Garden",
-      "label": "Hakunin's Herbal Garden",
+      "displayName": "Hakunin's Herbal Garden",
+      "x": 331,
+      "y": 171,
       "coordinates": {
-        "x": 360,
-        "y": 240
+        "x": 331,
+        "y": 171
       },
-      "x": 360,
-      "y": 240,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-ARY-03",
       "name": "Arroyo Bridge & Great Cliff",
-      "label": "Arroyo Bridge & Great Cliff",
+      "displayName": "Arroyo Bridge & Great Cliff",
+      "x": 335,
+      "y": 465,
       "coordinates": {
-        "x": 480,
-        "y": 320
+        "x": 335,
+        "y": 465
       },
-      "x": 480,
-      "y": 320,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-ARY-04",
       "name": "Temple of Trials Entrance",
-      "label": "Temple of Trials Entrance",
+      "displayName": "Temple of Trials Entrance",
+      "x": 544,
+      "y": 100,
       "coordinates": {
-        "x": 620,
-        "y": 200
+        "x": 544,
+        "y": 100
       },
-      "x": 620,
-      "y": 200,
-      "layerId": "layer-nodes",
-      "scaleTier": "district",
-      "type": "portal",
-      "childMapId": "map_fo2_temple"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": "map_fo2_temple",
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-ARY-05",
       "name": "Nagor's Hunting Grounds",
-      "label": "Nagor's Hunting Grounds",
+      "displayName": "Nagor's Hunting Grounds",
+      "x": 437,
+      "y": 172,
       "coordinates": {
-        "x": 260,
-        "y": 420
+        "x": 437,
+        "y": 172
       },
-      "x": 260,
-      "y": 420,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
-    {
-      "source": "FO2-ARY-01",
-      "target": "FO2-ARY-02",
-      "weight": 1
-    },
-    {
-      "source": "FO2-ARY-02",
-      "target": "FO2-ARY-03",
-      "weight": 1
-    },
-    {
-      "source": "FO2-ARY-03",
-      "target": "FO2-ARY-04",
-      "weight": 1
-    },
-    {
-      "source": "FO2-ARY-04",
-      "target": "FO2-ARY-05",
-      "weight": 1
-    }
-  ],
+  "links": [],
   "waves": [],
   "drawnCards": {},
-  "nodeSlottedModules": {},
+  "nodeSlottedModules": {
+    "FO2-ARY-01": [],
+    "FO2-ARY-02": [],
+    "FO2-ARY-03": [],
+    "FO2-ARY-04": [],
+    "FO2-ARY-05": []
+  },
   "edgeSlottedModules": {},
   "layers": [
     {
       "id": "layer-nodes",
       "name": "Tactical Points",
       "visible": true,
-      "locked": false
+      "locked": false,
+      "zIndex": 0,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
   ],
-  "shapes": []
+  "shapes": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": [],
+  "spatialPins": []
 }

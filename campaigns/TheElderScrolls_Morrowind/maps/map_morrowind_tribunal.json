@@ -1,0 +1,672 @@
+{
+  "id": "map_morrowind_tribunal",
+  "name": "Mournhold & Sotha Sil's Clockwork City",
+  "scaleTier": "region",
+  "theme": "divine_court_and_clockwork",
+  "parentMapId": "map_morrowind_vvardenfell",
+  "parentNodeId": "N_EBONHEART",
+  "nodeIds": [
+    "N_MOURNHOLD_PLAZA",
+    "N_MOURNHOLD_GODSREACH",
+    "N_MOURNHOLD_TEMPLE",
+    "N_MOURNHOLD_PALACE",
+    "N_MOURNHOLD_BAZAAR",
+    "N_MOURNHOLD_CRAFTSMENS_HALL",
+    "N_OLD_MOURNHOLD",
+    "N_BAMZ_AMSCHEND",
+    "N_CLOCKWORK_CITY"
+  ],
+  "nodes": [
+    {
+      "id": "N_MOURNHOLD_PLAZA",
+      "mapId": "map_morrowind_tribunal",
+      "name": "Plaza Brindisi Dorom",
+      "displayName": "Plaza Brindisi Dorom",
+      "scaleTier": "settlement",
+      "x": 260,
+      "y": 600,
+      "coordinates": {
+        "x": 260,
+        "y": 600
+      },
+      "region": "Mournhold",
+      "description": "The cosmopolitan central square of Mournhold, its Great Bazaar and Craftsmen's Hall tuned to Helseth's bright new rule.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 4,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Imperial and Dunmer merchants, Royal Guards, Temple pilgrims",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_mournhold_court",
+        "fac_east_empire_company"
+      ],
+      "adj": [
+        "N_MOURNHOLD_BAZAAR",
+        "N_MOURNHOLD_TEMPLE",
+        "N_MOURNHOLD_PALACE",
+        "N_MOURNHOLD_GODSREACH"
+      ],
+      "childMapId": null,
+      "customNotes": "The cosmopolitan central square of Mournhold, its Great Bazaar and Craftsmen's Hall tuned to Helseth's bright new rule.",
+      "npcIds": [],
+      "questIds": [
+        "Q_MW_TRIBUNAL_AN_ASSASSINATION_ATTEMPT"
+      ],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_MOURNHOLD_GODSREACH",
+      "mapId": "map_morrowind_tribunal",
+      "name": "Godsreach",
+      "displayName": "Godsreach",
+      "scaleTier": "settlement",
+      "x": 160,
+      "y": 760,
+      "coordinates": {
+        "x": 160,
+        "y": 760
+      },
+      "region": "Mournhold",
+      "description": "Poor quarter of Mournhold, rich in rumor and short in justice; Dark Brotherhood sleepers walk its alleys disguised as dock-folk.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 2,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Mournhold poor, Dark Brotherhood fences, beggars",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_dark_brotherhood",
+        "fac_thieves_guild"
+      ],
+      "adj": [
+        "N_MOURNHOLD_PLAZA",
+        "N_OLD_MOURNHOLD"
+      ],
+      "childMapId": null,
+      "customNotes": "Poor quarter of Mournhold, rich in rumor and short in justice; Dark Brotherhood sleepers walk its alleys disguised as dock-folk.",
+      "npcIds": [
+        "npc_dark_brotherhood_contact",
+        "npc_black_dart_adren"
+      ],
+      "questIds": [
+        "Q_MW_TRIBUNAL_EVIDENCE_OF_CONSPIRACY",
+        "Q_MW_TRIBUNAL_THE_BLACK_DART_GANG",
+        "Q_MW_TRIBUNAL_HUNT_THE_DARK_BROTHERHOOD"
+      ],
+      "itemIds": [
+        "ITM_HELSETH_BROTHERHOOD_CONTRACT"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_MOURNHOLD_TEMPLE",
+      "mapId": "map_morrowind_tribunal",
+      "name": "Mournhold Temple",
+      "displayName": "Mournhold Temple",
+      "scaleTier": "settlement",
+      "x": 480,
+      "y": 300,
+      "coordinates": {
+        "x": 480,
+        "y": 300
+      },
+      "region": "Mournhold",
+      "description": "Great Temple of Almalexia, mother-goddess whose grief rules the throne room of the Hands.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 1,
+        "e": 4,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Almalexia's Hands, Temple priests, Ordinators",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple"
+      ],
+      "adj": [
+        "N_MOURNHOLD_PLAZA",
+        "N_CLOCKWORK_CITY"
+      ],
+      "childMapId": null,
+      "customNotes": "Great Temple of Almalexia, mother-goddess whose grief rules the throne room of the Hands.",
+      "npcIds": [
+        "npc_almalexia",
+        "npc_fedris_hler"
+      ],
+      "questIds": [
+        "Q_MW_TRIBUNAL_A_TEMPLE_INFORMANT",
+        "Q_MW_TRIBUNAL_THE_SHRINE_OF_THE_DEAD",
+        "Q_MW_TRIBUNAL_THE_MISSING_HAND",
+        "Q_MW_TRIBUNAL_THE_BLADE_OF_NEREVAR"
+      ],
+      "itemIds": [
+        "ITM_HAND_OF_ALMALEXIA_SIGIL",
+        "ITM_MOURNHOLD_TEMPLE_RELIC"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_MOURNHOLD_PALACE",
+      "mapId": "map_morrowind_tribunal",
+      "name": "Mournhold Royal Palace",
+      "displayName": "Mournhold Royal Palace",
+      "scaleTier": "settlement",
+      "x": 620,
+      "y": 220,
+      "coordinates": {
+        "x": 620,
+        "y": 220
+      },
+      "region": "Mournhold",
+      "description": "Crown seat of King Hlaalu Helseth, where the ghost-light of Barenziah's portrait glares at every petition.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Royal Guards, court intriguers, King Helseth's spies",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_mournhold_court"
+      ],
+      "adj": [
+        "N_MOURNHOLD_PLAZA"
+      ],
+      "childMapId": null,
+      "customNotes": "Crown seat of King Hlaalu Helseth, where the ghost-light of Barenziah's portrait glares at every petition.",
+      "npcIds": [
+        "npc_helseth",
+        "npc_barenziah",
+        "npc_dovor_oren",
+        "npc_tienius_delitian"
+      ],
+      "questIds": [
+        "Q_MW_TRIBUNAL_HELSETHS_CHAMPION"
+      ],
+      "itemIds": [
+        "ITM_BARENZIAH_INVITATION"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_MOURNHOLD_BAZAAR",
+      "mapId": "map_morrowind_tribunal",
+      "name": "Great Bazaar",
+      "displayName": "Great Bazaar",
+      "scaleTier": "settlement",
+      "x": 380,
+      "y": 500,
+      "coordinates": {
+        "x": 380,
+        "y": 500
+      },
+      "region": "Mournhold",
+      "description": "Teeming covered marketplace whose stall-keepers know every new law of Helseth before the criers do.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 4,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Merchants, guild runners, pickpockets",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_mournhold_court"
+      ],
+      "adj": [
+        "N_MOURNHOLD_PLAZA",
+        "N_MOURNHOLD_CRAFTSMENS_HALL"
+      ],
+      "childMapId": null,
+      "customNotes": "Teeming covered marketplace whose stall-keepers know every new law of Helseth before the criers do.",
+      "npcIds": [],
+      "questIds": [
+        "Q_MW_TRIBUNAL_SPEAK_TO_THE_PEOPLE"
+      ],
+      "itemIds": [
+        "ITM_BITTERCUP"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_MOURNHOLD_CRAFTSMENS_HALL",
+      "mapId": "map_morrowind_tribunal",
+      "name": "Craftsmen's Hall",
+      "displayName": "Craftsmen's Hall",
+      "scaleTier": "settlement",
+      "x": 520,
+      "y": 480,
+      "coordinates": {
+        "x": 520,
+        "y": 480
+      },
+      "region": "Mournhold",
+      "description": "Guild hall of Mournhold armorers whose forges still hammer fabricant-grade steel.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Armorers, clerks, apprentice smiths",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_mournhold_court"
+      ],
+      "adj": [
+        "N_MOURNHOLD_BAZAAR"
+      ],
+      "childMapId": null,
+      "customNotes": "Guild hall of Mournhold armorers whose forges still hammer fabricant-grade steel.",
+      "npcIds": [
+        "npc_craftsmen_hall_smith"
+      ],
+      "questIds": [
+        "Q_MW_TRIBUNAL_THE_SMITHS_APPRENTICE"
+      ],
+      "itemIds": [
+        "ITM_LORDS_MAIL",
+        "ITM_EBONY_INGOT_MOURNHOLD"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_OLD_MOURNHOLD",
+      "mapId": "map_morrowind_tribunal",
+      "name": "Old Mournhold Ruins",
+      "displayName": "Old Mournhold Ruins",
+      "scaleTier": "settlement",
+      "x": 340,
+      "y": 700,
+      "coordinates": {
+        "x": 340,
+        "y": 700
+      },
+      "region": "Mournhold",
+      "description": "Buried first Mournhold below the present city, a labyrinth of Dwemer plazas and Daedric shrines left to scavengers.",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 2,
+      "odv": {
+        "s": 1,
+        "e": 3,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Dwemer ghosts, goblin raiders, ruined warbots",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_independents"
+      ],
+      "adj": [
+        "N_MOURNHOLD_GODSREACH",
+        "N_BAMZ_AMSCHEND"
+      ],
+      "childMapId": null,
+      "customNotes": "Buried first Mournhold below the present city, a labyrinth of Dwemer plazas and Daedric shrines left to scavengers.",
+      "npcIds": [
+        "npc_ghost_variner",
+        "npc_goblin_chieftain"
+      ],
+      "questIds": [
+        "Q_MW_TRIBUNAL_VARINERS_GHOST",
+        "Q_MW_TRIBUNAL_THE_GOBLIN_ARMY"
+      ],
+      "itemIds": [
+        "ITM_VARINERS_JOURNAL",
+        "ITM_GOBLIN_WAR_TOTEM"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_BAMZ_AMSCHEND",
+      "mapId": "map_morrowind_tribunal",
+      "name": "Bamz-Amschend",
+      "displayName": "Bamz-Amschend",
+      "scaleTier": "settlement",
+      "x": 700,
+      "y": 740,
+      "coordinates": {
+        "x": 700,
+        "y": 740
+      },
+      "region": "Mournhold",
+      "description": "Dwemer ruin below Mournhold whose automata still guard the vaults of Kagrenac's lore.",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 2,
+      "odv": {
+        "s": 1,
+        "e": 3,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Dwemer automata, goblin hunters, blight scavengers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_independents"
+      ],
+      "adj": [
+        "N_OLD_MOURNHOLD"
+      ],
+      "childMapId": null,
+      "customNotes": "Dwemer ruin below Mournhold whose automata still guard the vaults of Kagrenac's lore.",
+      "npcIds": [
+        "npc_dwemer_automaton"
+      ],
+      "questIds": [
+        "Q_MW_MAGES_THE_STAFF_OF_MAGNUS",
+        "Q_MW_TRIBUNAL_INVESTIGATE_BAMZ_AMSCHEND"
+      ],
+      "itemIds": [
+        "ITM_STAFF_OF_MAGNUS",
+        "ITM_BLADE_OF_NEREVAR",
+        "ITM_DWEMER_VAULT_NOTES"
+      ],
+      "creatureIds": [
+        "creature_dwemer_steam_centurion"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_CLOCKWORK_CITY",
+      "mapId": "map_morrowind_tribunal",
+      "name": "Clockwork City",
+      "displayName": "Clockwork City",
+      "scaleTier": "settlement",
+      "x": 880,
+      "y": 520,
+      "coordinates": {
+        "x": 880,
+        "y": 520
+      },
+      "region": "Clockwork City",
+      "description": "Sotha Sil's hermit-workshop, a clockwork wilderness where gears turn like prayers.",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 2,
+      "odv": {
+        "s": 1,
+        "e": 1,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Fabricants, Dwemer gear-spirits, Sotha Sil's servants",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple"
+      ],
+      "adj": [
+        "N_MOURNHOLD_TEMPLE"
+      ],
+      "childMapId": null,
+      "customNotes": "Sotha Sil's hermit-workshop, a clockwork wilderness where gears turn like prayers.",
+      "npcIds": [
+        "npc_sotha_sil",
+        "npc_clockwork_fabricant"
+      ],
+      "questIds": [
+        "Q_MW_TRIBUNAL_THE_MAD_GOD"
+      ],
+      "itemIds": [
+        "ITM_FABRICANT_GEAR_HEART"
+      ],
+      "creatureIds": [
+        "creature_clockwork_fabricant"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_MOURNHOLD_PLAZA",
+      "to": "N_MOURNHOLD_BAZAAR",
+      "type": "twoway",
+      "note": "Bazaar arcade",
+      "cost": 1,
+      "label": "Bazaar arcade",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_PLAZA",
+      "to": "N_MOURNHOLD_TEMPLE",
+      "type": "twoway",
+      "note": "Temple Way",
+      "cost": 1,
+      "label": "Temple Way",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_PLAZA",
+      "to": "N_MOURNHOLD_PALACE",
+      "type": "twoway",
+      "note": "Palace gate",
+      "cost": 1,
+      "label": "Palace gate",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_PLAZA",
+      "to": "N_MOURNHOLD_GODSREACH",
+      "type": "twoway",
+      "note": "Godsreach descent",
+      "cost": 1,
+      "label": "Godsreach descent",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_BAZAAR",
+      "to": "N_MOURNHOLD_CRAFTSMENS_HALL",
+      "type": "twoway",
+      "note": "Smiths' arcade",
+      "cost": 1,
+      "label": "Smiths' arcade",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_GODSREACH",
+      "to": "N_OLD_MOURNHOLD",
+      "type": "twoway",
+      "note": "Hidden manhole",
+      "cost": 2,
+      "label": "Hidden manhole",
+      "transit": "door"
+    },
+    {
+      "from": "N_OLD_MOURNHOLD",
+      "to": "N_BAMZ_AMSCHEND",
+      "type": "twoway",
+      "note": "Dwemer tunnel",
+      "cost": 2,
+      "label": "Dwemer tunnel",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_TEMPLE",
+      "to": "N_CLOCKWORK_CITY",
+      "type": "twoway",
+      "note": "Sotha Sil teleport",
+      "cost": 2,
+      "label": "Sotha Sil teleport",
+      "transit": "teleport"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N_MOURNHOLD_PLAZA",
+      "to": "N_MOURNHOLD_BAZAAR",
+      "type": "twoway",
+      "note": "Bazaar arcade",
+      "cost": 1,
+      "label": "Bazaar arcade",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_PLAZA",
+      "to": "N_MOURNHOLD_TEMPLE",
+      "type": "twoway",
+      "note": "Temple Way",
+      "cost": 1,
+      "label": "Temple Way",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_PLAZA",
+      "to": "N_MOURNHOLD_PALACE",
+      "type": "twoway",
+      "note": "Palace gate",
+      "cost": 1,
+      "label": "Palace gate",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_PLAZA",
+      "to": "N_MOURNHOLD_GODSREACH",
+      "type": "twoway",
+      "note": "Godsreach descent",
+      "cost": 1,
+      "label": "Godsreach descent",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_BAZAAR",
+      "to": "N_MOURNHOLD_CRAFTSMENS_HALL",
+      "type": "twoway",
+      "note": "Smiths' arcade",
+      "cost": 1,
+      "label": "Smiths' arcade",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_GODSREACH",
+      "to": "N_OLD_MOURNHOLD",
+      "type": "twoway",
+      "note": "Hidden manhole",
+      "cost": 2,
+      "label": "Hidden manhole",
+      "transit": "door"
+    },
+    {
+      "from": "N_OLD_MOURNHOLD",
+      "to": "N_BAMZ_AMSCHEND",
+      "type": "twoway",
+      "note": "Dwemer tunnel",
+      "cost": 2,
+      "label": "Dwemer tunnel",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOURNHOLD_TEMPLE",
+      "to": "N_CLOCKWORK_CITY",
+      "type": "twoway",
+      "note": "Sotha Sil teleport",
+      "cost": 2,
+      "label": "Sotha Sil teleport",
+      "transit": "teleport"
+    }
+  ]
+}

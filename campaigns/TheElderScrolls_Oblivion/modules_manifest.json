@@ -1,0 +1,107 @@
+[
+  {
+    "id": "MOD_OBLIVION_T1_DRAGONFIRES_COVENANT",
+    "title": "The Dragonfires Covenant & Imperial Stability",
+    "set": "Core Modules",
+    "tier": "Tier 1",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy",
+    "color": "White",
+    "provides": [
+      "MOD_OBLIVION_T1_DRAGONFIRES_COVENANT_RESOURCE",
+      "MOD_OBLIVION_T1_DRAGONFIRES_COVENANT_LORE"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MOD_OBLIVION_T1_DRAGONFIRES_COVENANT.md",
+    "standalone_fallback": "true",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_OBLIVION_T2_OBLIVION_GATE_CONDUIT",
+    "title": "Oblivion Gate Transit & Planar Bleed",
+    "set": "Core Modules",
+    "tier": "Tier 2",
+    "pipeline_tier": 2,
+    "culture": "Chaos",
+    "color": "Red",
+    "provides": [
+      "MOD_OBLIVION_T2_OBLIVION_GATE_CONDUIT_RESOURCE",
+      "MOD_OBLIVION_T2_OBLIVION_GATE_CONDUIT_LORE"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MOD_OBLIVION_T2_OBLIVION_GATE_CONDUIT.md",
+    "standalone_fallback": "true",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_OBLIVION_T3_SIGIL_STONE_RESONANCE",
+    "title": "Sigil Stone Extraction & Welkynd Power Grids",
+    "set": "Core Modules",
+    "tier": "Tier 3",
+    "pipeline_tier": 3,
+    "culture": "Adhocracy",
+    "color": "Blue",
+    "provides": [
+      "MOD_OBLIVION_T3_SIGIL_STONE_RESONANCE_RESOURCE",
+      "MOD_OBLIVION_T3_SIGIL_STONE_RESONANCE_LORE"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MOD_OBLIVION_T3_SIGIL_STONE_RESONANCE.md",
+    "standalone_fallback": "true",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_OBLIVION_T4_MYTHIC_DAWN_SLEEPER_SPARK",
+    "title": "The Mythic Dawn Sleeper Network & Civic Paranoia",
+    "set": "Core Modules",
+    "tier": "Tier 4",
+    "pipeline_tier": 4,
+    "culture": "Market",
+    "color": "Black",
+    "provides": [
+      "MOD_OBLIVION_T4_MYTHIC_DAWN_SLEEPER_SPARK_RESOURCE",
+      "MOD_OBLIVION_T4_MYTHIC_DAWN_SLEEPER_SPARK_LORE"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MOD_OBLIVION_T4_MYTHIC_DAWN_SLEEPER_SPARK.md",
+    "standalone_fallback": "true",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  },
+  {
+    "id": "MOD_OBLIVION_T5_AVATAR_OF_AKATOSH_CLIMAX",
+    "title": "The Temple of the One & The Avatar of Akatosh",
+    "set": "Core Modules",
+    "tier": "Tier 5",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy",
+    "color": "White",
+    "provides": [
+      "MOD_OBLIVION_T5_AVATAR_OF_AKATOSH_CLIMAX_RESOURCE",
+      "MOD_OBLIVION_T5_AVATAR_OF_AKATOSH_CLIMAX_LORE"
+    ],
+    "requires": [],
+    "summary": "",
+    "yields": "",
+    "path": "./modules/MOD_OBLIVION_T5_AVATAR_OF_AKATOSH_CLIMAX.md",
+    "standalone_fallback": "true",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null
+  }
+]

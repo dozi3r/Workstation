@@ -1,0 +1,100 @@
+{
+  "id": "map_green_wave",
+  "name": "Scattered-Rocks Mountain and Green Wave Lagoon",
+  "scaleTier": "region",
+  "parentMapId": "map_flame_road",
+  "parentNodeId": "N_SCATTERED_ROCKS",
+  "nodes": [
+    {
+      "id": "N_GW_TABLET_SHORE",
+      "name": "The Tablet Shore",
+      "x": 300,
+      "y": 400,
+      "cat": "Standard POI",
+      "tier": 1,
+      "factionId": "fac_green_wave_dragons",
+      "faction": "fac_green_wave_dragons",
+      "culture": "Adhocracy",
+      "customNotes": "**Where Wukong becomes a crab:** he recites a spell and takes the form of a thirty-six-pound crab, 'neither too big nor too small'.",
+      "adj": [
+        "N_GW_DRAGON_PALACE"
+      ],
+      "childMapId": null,
+      "displayName": "The Tablet Shore",
+      "coordinates": {
+        "x": 300,
+        "y": 400
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_GW_DRAGON_PALACE",
+      "name": "The Green Wave Dragon Palace",
+      "x": 700,
+      "y": 450,
+      "cat": "Bastion",
+      "tier": 2,
+      "factionId": "fac_green_wave_dragons",
+      "faction": "fac_green_wave_dragons",
+      "culture": "Adhocracy",
+      "customNotes": "**Hall:** Scarlet halls, shelled arches, yellow-gold roof tiles, milk-white jade door frames, coral railings, tortoise-shell screens; dry inside the gate despite the water. **Music:** Whales squeal, crabs dance, scorpaenids play flutes. **Rule:** Intruders are seized; sentence is flogging unless a court member vouches. **Hidden:** The Bull King's golden-eyed beast is tied beneath the gateway arch. **Sociology:** S+2 / E+3 / C+1.",
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 1
+      },
+      "odvOverridden": true,
+      "adj": [
+        "N_GW_TABLET_SHORE"
+      ],
+      "childMapId": null,
+      "displayName": "The Green Wave Dragon Palace",
+      "coordinates": {
+        "x": 700,
+        "y": 450
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_GW_TABLET_SHORE",
+      "to": "N_GW_DRAGON_PALACE",
+      "type": "twoway",
+      "layer": "water",
+      "transitMode": "swim",
+      "dangerRating": 3,
+      "travelTime": "down to the lagoon bottom to the towered gateway; dry inside"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N_GW_TABLET_SHORE",
+      "to": "N_GW_DRAGON_PALACE",
+      "type": "twoway",
+      "layer": "water",
+      "transitMode": "swim",
+      "dangerRating": 3,
+      "travelTime": "down to the lagoon bottom to the towered gateway; dry inside"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "layers": [],
+  "shapes": []
+}

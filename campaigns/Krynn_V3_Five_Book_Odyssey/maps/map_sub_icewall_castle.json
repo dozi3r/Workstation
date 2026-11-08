@@ -50,9 +50,9 @@
       "requires": [],
       "modData": {},
       "odv": [
-        2,
-        2,
-        2
+        1,
+        3,
+        3
       ],
       "odvOverridden": true,
       "faction": "neutral",
@@ -119,9 +119,9 @@
       "requires": [],
       "modData": {},
       "odv": [
+        1,
         2,
-        2,
-        2
+        4
       ],
       "odvOverridden": true,
       "faction": "neutral",
@@ -187,9 +187,9 @@
       "requires": [],
       "modData": {},
       "odv": [
-        2,
-        2,
-        2
+        1,
+        4,
+        4
       ],
       "odvOverridden": true,
       "faction": "neutral",

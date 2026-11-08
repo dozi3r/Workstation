@@ -1,0 +1,148 @@
+{
+  "id": "map_jade_cloud",
+  "name": "Jade Cloud Mountain and the Palm-Leaf Cave",
+  "scaleTier": "region",
+  "parentMapId": "map_flame_road",
+  "parentNodeId": "N_JADE_CLOUD",
+  "nodes": [
+    {
+      "id": "N_JC_WOODCUTTER_PATH",
+      "name": "The Woodcutter's Path",
+      "x": 300,
+      "y": 300,
+      "cat": "Standard POI",
+      "tier": 1,
+      "factionId": "fac_palm_leaf_household",
+      "faction": "fac_palm_leaf_household",
+      "culture": "Clan",
+      "customNotes": "**Sounds:** A woodcutter chanting about rain in the western hills. **Directions:** 'Follow this path eastward and you'll find the Palm-Leaf Cave in less than five miles'. **Who is here:** The woodcutter, who corrects 'Immortal Iron-Fan' to Princess Iron-Fan and warns that she is the Bull King's wife.",
+      "adj": [
+        "N_PALM_LEAF_GATE"
+      ],
+      "childMapId": null,
+      "displayName": "The Woodcutter's Path",
+      "coordinates": {
+        "x": 300,
+        "y": 300
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_PALM_LEAF_GATE",
+      "name": "The Palm-Leaf Cave Gate",
+      "x": 600,
+      "y": 400,
+      "cat": "Standard POI",
+      "tier": 2,
+      "factionId": "fac_palm_leaf_household",
+      "faction": "fac_palm_leaf_household",
+      "culture": "Clan",
+      "customNotes": "**Sights:** Double doors tightly shut; a young maid with a flower basket and a small rake on her shoulder. **Damage:** Following the assault on the cave, door and ledge are wrecked by Eight Rules' rake.",
+      "adj": [
+        "N_JC_WOODCUTTER_PATH",
+        "N_PALM_LEAF_HALL"
+      ],
+      "childMapId": null,
+      "displayName": "The Palm-Leaf Cave Gate",
+      "coordinates": {
+        "x": 600,
+        "y": 400
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_PALM_LEAF_HALL",
+      "name": "The Palm-Leaf Cave Hall",
+      "x": 900,
+      "y": 500,
+      "cat": "Bastion",
+      "tier": 3,
+      "factionId": "fac_palm_leaf_household",
+      "faction": "fac_palm_leaf_household",
+      "culture": "Clan",
+      "customNotes": "**Interior:** A hall where maids pour tea in fragrant pots, a chamber for Rakshasi, a back area for the household. **Rule of the house:** No man within; not even a baby boy. **Secret:** The true fan is kept in Rakshasi's mouth as an almond-leaf. The golden-eyed beast is later found tied up inside. **Sociology:** S+2 / E-1 / C+2.",
+      "odv": {
+        "s": 2,
+        "e": -1,
+        "c": 2
+      },
+      "odvOverridden": true,
+      "adj": [
+        "N_PALM_LEAF_GATE"
+      ],
+      "childMapId": null,
+      "displayName": "The Palm-Leaf Cave Hall",
+      "coordinates": {
+        "x": 900,
+        "y": 500
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_JC_WOODCUTTER_PATH",
+      "to": "N_PALM_LEAF_GATE",
+      "type": "twoway",
+      "layer": "path",
+      "transitMode": "foot",
+      "dangerRating": 1,
+      "travelTime": "under five li east"
+    },
+    {
+      "from": "N_PALM_LEAF_GATE",
+      "to": "N_PALM_LEAF_HALL",
+      "type": "twoway",
+      "layer": "cave",
+      "transitMode": "foot",
+      "dangerRating": 3,
+      "travelTime": "through the double doors and down to the hall"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N_JC_WOODCUTTER_PATH",
+      "to": "N_PALM_LEAF_GATE",
+      "type": "twoway",
+      "layer": "path",
+      "transitMode": "foot",
+      "dangerRating": 1,
+      "travelTime": "under five li east"
+    },
+    {
+      "from": "N_PALM_LEAF_GATE",
+      "to": "N_PALM_LEAF_HALL",
+      "type": "twoway",
+      "layer": "cave",
+      "transitMode": "foot",
+      "dangerRating": 3,
+      "travelTime": "through the double doors and down to the hall"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "layers": [],
+  "shapes": []
+}

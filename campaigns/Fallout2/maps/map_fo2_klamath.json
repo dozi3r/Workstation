@@ -8,7 +8,7 @@
   "mapMetadata": {
     "id": "map_fo2_klamath",
     "name": "klamathdowntown.jpg",
-    "assetPath": "assets/klamathdowntown.jpg",
+    "assetPath": "assets/map_fo2_klamath_bg.jpg",
     "width": 800,
     "height": 600,
     "opacity": 0.85
@@ -17,84 +17,208 @@
     {
       "id": "FO2-KLM-01",
       "name": "Buckner House & Golden Gecko",
-      "label": "Buckner House & Golden Gecko",
+      "displayName": "Buckner House & Golden Gecko",
+      "x": 220,
+      "y": 260,
       "coordinates": {
         "x": 220,
         "y": 260
       },
-      "x": 220,
-      "y": 260,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odv": [
+        2,
+        2,
+        2
+      ],
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-KLM-02",
       "name": "Vic's Abandoned Workshop",
-      "label": "Vic's Abandoned Workshop",
+      "displayName": "Vic's Abandoned Workshop",
+      "x": 380,
+      "y": 220,
       "coordinates": {
         "x": 380,
         "y": 220
       },
-      "x": 380,
-      "y": 220,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-KLM-03",
       "name": "Trappers' Mall & Dunton Ranch",
-      "label": "Trappers' Mall & Dunton Ranch",
+      "displayName": "Trappers' Mall & Dunton Ranch",
+      "x": 520,
+      "y": 280,
       "coordinates": {
         "x": 520,
         "y": 280
       },
-      "x": 520,
-      "y": 280,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     },
     {
       "id": "FO2-KLM-04",
       "name": "Rat Caves Subterranean Exit",
-      "label": "Rat Caves Subterranean Exit",
+      "displayName": "Rat Caves Subterranean Exit",
+      "x": 640,
+      "y": 340,
       "coordinates": {
         "x": 640,
         "y": 340
       },
-      "x": 640,
-      "y": 340,
-      "layerId": "layer-nodes",
-      "scaleTier": "district"
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "shape": "circle",
+      "adj": [],
+      "infBy": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "tier": 2,
+      "childMapId": null,
+      "customNotes": "",
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "modData": {},
+      "odvOverridden": false,
+      "faction": "neutral",
+      "layerId": "layer-nodes"
     }
   ],
-  "links": [
-    {
-      "source": "FO2-KLM-01",
-      "target": "FO2-KLM-02",
-      "weight": 1
-    },
-    {
-      "source": "FO2-KLM-02",
-      "target": "FO2-KLM-03",
-      "weight": 1
-    },
-    {
-      "source": "FO2-KLM-03",
-      "target": "FO2-KLM-04",
-      "weight": 1
-    }
-  ],
+  "links": [],
   "waves": [],
   "drawnCards": {},
-  "nodeSlottedModules": {},
+  "nodeSlottedModules": {
+    "FO2-KLM-01": [],
+    "FO2-KLM-02": [],
+    "FO2-KLM-03": [],
+    "FO2-KLM-04": []
+  },
   "edgeSlottedModules": {},
   "layers": [
     {
       "id": "layer-nodes",
       "name": "Tactical Points",
       "visible": true,
-      "locked": false
+      "locked": false,
+      "zIndex": 0,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
     }
   ],
-  "shapes": []
+  "shapes": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": [],
+  "spatialPins": []
 }

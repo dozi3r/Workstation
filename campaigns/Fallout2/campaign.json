@@ -19,7 +19,7 @@
       {
         "id": "npc_sulik",
         "name": "Sulik",
-        "nodeId": "FO2-KLM-01",
+        "nodeId": "FO2-OW-02",
         "submapId": "map_fo2_klamath",
         "role": "Tribal Warrior & Shamanic Bone Reader",
         "faction": "Arroyo Tribals",
@@ -31,12 +31,22 @@
           "s": 3,
           "e": 1,
           "c": 3
+        },
+        "questIds": [
+          "qst_geck"
+        ],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-02",
+          "submapId": "map_fo2_klamath",
+          "role": "Tribal Warrior Companion"
         }
       },
       {
         "id": "npc_vic",
         "name": "Vic the Trader",
-        "nodeId": "FO2-DEN-03",
+        "nodeId": "FO2-OW-03",
         "submapId": "map_fo2_den",
         "role": "Tinkerer & Merchant",
         "faction": "Independent Settlers",
@@ -48,12 +58,22 @@
           "s": 1,
           "e": 2,
           "c": 1
+        },
+        "questIds": [
+          "qst_rescue_vic"
+        ],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-03",
+          "submapId": "map_fo2_den",
+          "role": "Captive Trader"
         }
       },
       {
         "id": "npc_cassidy",
         "name": "John Cassidy",
-        "nodeId": "FO2-VC-01",
+        "nodeId": "FO2-OW-06",
         "submapId": "map_fo2_vault_city",
         "role": "Grizzled Barkeep & Shotgunner",
         "faction": "Independent Settlers",
@@ -65,12 +85,22 @@
           "s": 2,
           "e": 1,
           "c": 2
+        },
+        "questIds": [
+          "qst_gecko_reactor"
+        ],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-06",
+          "submapId": "map_fo2_vault_city",
+          "role": "Barkeep Companion"
         }
       },
       {
         "id": "npc_myron",
         "name": "Myron",
-        "nodeId": "FO2-RNO-04",
+        "nodeId": "FO2-OW-09",
         "submapId": "map_fo2_new_reno",
         "role": "Petulant Chemist & Jet Creator",
         "faction": "Mordino Crime Family",
@@ -82,12 +112,22 @@
           "s": -2,
           "e": 2,
           "c": -2
+        },
+        "questIds": [
+          "qst_vault15_computer"
+        ],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-09",
+          "submapId": "map_fo2_new_reno",
+          "role": "Jet Chemist"
         }
       },
       {
         "id": "npc_marcus",
         "name": "Sheriff Marcus",
-        "nodeId": "FO2-BKH-01",
+        "nodeId": "FO2-OW-08",
         "submapId": "map_fo2_broken_hills",
         "role": "Super Mutant Peacekeeper",
         "faction": "Broken Hills Alliance",
@@ -99,13 +139,23 @@
           "s": 3,
           "e": 2,
           "c": 3
+        },
+        "questIds": [
+          "qst_wright_murder"
+        ],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-08",
+          "submapId": "map_fo2_broken_hills",
+          "role": "Mutant Sheriff"
         }
       },
       {
         "id": "npc_goris",
         "name": "Goris",
-        "nodeId": "FO2-V13-02",
-        "submapId": "map_fo2_vault_13",
+        "nodeId": "FO2-OW-13",
+        "submapId": "map_fo2_vault13",
         "role": "Intelligent Deathclaw Scholar",
         "faction": "Pack of Vault 13",
         "factionId": "faction_deathclaws",
@@ -116,12 +166,22 @@
           "s": 3,
           "e": 1,
           "c": 3
+        },
+        "questIds": [
+          "qst_valdez_fuel"
+        ],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-13",
+          "submapId": "map_fo2_vault13",
+          "role": "Intelligent Deathclaw Scholar"
         }
       },
       {
         "id": "npc_lynette",
         "name": "First Citizen Lynette",
-        "nodeId": "FO2-VC-03",
+        "nodeId": "FO2-OW-06",
         "submapId": "map_fo2_vault_city",
         "role": "Authoritarian Governor",
         "faction": "Vault City",
@@ -133,12 +193,22 @@
           "s": -2,
           "e": 3,
           "c": 3
+        },
+        "questIds": [
+          "qst_destroy_oil_rig"
+        ],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-06",
+          "submapId": "map_fo2_vault_city",
+          "role": "First Citizen of Vault City"
         }
       },
       {
         "id": "npc_harold",
         "name": "Harold the Ghoul",
-        "nodeId": "FO2-GCK-02",
+        "nodeId": "FO2-OW-05",
         "submapId": "map_fo2_gecko",
         "role": "Ghoul Settlement Elder",
         "faction": "Gecko Ghouls",
@@ -150,12 +220,20 @@
           "s": 3,
           "e": 1,
           "c": 2
+        },
+        "questIds": [],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-05",
+          "submapId": "map_fo2_gecko",
+          "role": "Ghoul Mayor of Gecko"
         }
       },
       {
         "id": "npc_tandi",
         "name": "President Tandi",
-        "nodeId": "FO2-NCR-03",
+        "nodeId": "FO2-OW-11",
         "submapId": "map_fo2_ncr",
         "role": "President of the New California Republic",
         "faction": "New California Republic",
@@ -167,12 +245,20 @@
           "s": 2,
           "e": 3,
           "c": 3
+        },
+        "questIds": [],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-11",
+          "submapId": "map_fo2_ncr",
+          "role": "President of the NCR"
         }
       },
       {
         "id": "npc_bishop",
         "name": "John Bishop",
-        "nodeId": "FO2-RNO-02",
+        "nodeId": "FO2-OW-09",
         "submapId": "map_fo2_new_reno",
         "role": "Casino Patriarch & Political Schemer",
         "faction": "Bishop Crime Family",
@@ -184,13 +270,21 @@
           "s": -2,
           "e": 2,
           "c": 2
+        },
+        "questIds": [],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-09",
+          "submapId": "map_fo2_new_reno",
+          "role": "New Reno Mob Boss"
         }
       },
       {
         "id": "npc_richardson",
         "name": "President Dick Richardson",
-        "nodeId": "FO2-ENC-03",
-        "submapId": "map_fo2_enclave_oil_rig",
+        "nodeId": "FO2-OW-17",
+        "submapId": "map_fo2_enclave_rig",
         "role": "President of the Enclave",
         "faction": "The Enclave",
         "factionId": "faction_enclave",
@@ -201,13 +295,21 @@
           "s": -3,
           "e": 3,
           "c": 3
+        },
+        "questIds": [],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-17",
+          "submapId": "map_fo2_enclave_rig",
+          "role": "Enclave President"
         }
       },
       {
         "id": "npc_horrigan",
         "name": "Secret Service Agent Frank Horrigan",
-        "nodeId": "FO2-ENC-04",
-        "submapId": "map_fo2_enclave_oil_rig",
+        "nodeId": "FO2-OW-17",
+        "submapId": "map_fo2_enclave_rig",
         "role": "Cybernetic Enclave Enforcer",
         "faction": "The Enclave",
         "factionId": "faction_enclave",
@@ -218,12 +320,20 @@
           "s": -3,
           "e": 3,
           "c": 3
+        },
+        "questIds": [],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-17",
+          "submapId": "map_fo2_enclave_rig",
+          "role": "Secret Service Cyber-Mutant"
         }
       },
       {
         "id": "npc_metzger",
         "name": "Metzger",
-        "nodeId": "FO2-DEN-03",
+        "nodeId": "FO2-OW-03",
         "submapId": "map_fo2_den",
         "role": "Slavers' Guildmaster",
         "faction": "Slavers Guild",
@@ -235,12 +345,22 @@
           "s": -3,
           "e": 1,
           "c": -2
+        },
+        "questIds": [
+          "qst_rescue_vic"
+        ],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-03",
+          "submapId": "map_fo2_den",
+          "role": "Slaver Guildmaster"
         }
       },
       {
         "id": "npc_elder",
         "name": "The Village Elder",
-        "nodeId": "FO2-ARY-01",
+        "nodeId": "FO2-OW-01",
         "submapId": "map_fo2_arroyo",
         "role": "Mother & Spiritual Guide",
         "faction": "Arroyo Tribals",
@@ -252,13 +372,21 @@
           "s": 3,
           "e": 1,
           "c": 3
+        },
+        "questIds": [],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-01",
+          "submapId": "map_fo2_arroyo",
+          "role": "Elder of Arroyo"
         }
       },
       {
         "id": "npc_gruthar",
         "name": "Gruthar",
-        "nodeId": "FO2-V13-01",
-        "submapId": "map_fo2_vault_13",
+        "nodeId": "FO2-OW-13",
+        "submapId": "map_fo2_vault13",
         "role": "Deathclaw Clan Patriarch",
         "faction": "Pack of Vault 13",
         "factionId": "faction_deathclaws",
@@ -269,6 +397,14 @@
           "s": 3,
           "e": 2,
           "c": 2
+        },
+        "questIds": [],
+        "carriedItemIds": [],
+        "relationships": [],
+        "stationing": {
+          "nodeId": "FO2-OW-13",
+          "submapId": "map_fo2_vault13",
+          "role": "Deathclaw Pack Leader"
         }
       }
     ],
@@ -276,11 +412,18 @@
       {
         "id": "qst_geck",
         "title": "Retrieve the Holy G.E.C.K. for Starving Arroyo",
-        "nodeId": "FO2-OW-01",
-        "submapId": "map_fo2_arroyo",
+        "nodeId": "FO2-OW-13",
+        "submapId": "map_fo2_vault13",
         "status": "Active",
         "type": "Story",
-        "reward": "Salvation of Arroyo & 4000 XP"
+        "reward": "Salvation of Arroyo & 4000 XP",
+        "itemIds": [
+          "ITM_FALLOUT2_RETRIEVE_THE_HOLY_G_E_C__1"
+        ],
+        "npcIds": [],
+        "giverNpcId": "npc_elder",
+        "name": "Retrieve the Holy G.E.C.K. for Starving Arroyo",
+        "targetNpcId": "npc_gruthar"
       },
       {
         "id": "qst_rescue_vic",
@@ -289,7 +432,14 @@
         "submapId": "map_fo2_den",
         "status": "Available",
         "type": "Recruitment",
-        "reward": "Radio Repair & Vic Recruitable"
+        "reward": "Radio Repair & Vic Recruitable",
+        "itemIds": [
+          "ITM_FALLOUT2_RESCUE_VIC_THE_TRADER_FR_2"
+        ],
+        "npcIds": [],
+        "giverNpcId": "npc_vic",
+        "targetNpcId": "npc_metzger",
+        "name": "Rescue Vic the Trader from Metzger's Slaver Den"
       },
       {
         "id": "qst_gecko_reactor",
@@ -298,16 +448,30 @@
         "submapId": "map_fo2_gecko",
         "status": "Available",
         "type": "Regional",
-        "reward": "Peace with Vault City & 4500 XP"
+        "reward": "Peace with Vault City & 4500 XP",
+        "itemIds": [
+          "ITM_FALLOUT2_OPTIMIZE_THE_POSEIDON_GE_3"
+        ],
+        "npcIds": [],
+        "giverNpcId": "npc_harold",
+        "name": "Optimize the Poseidon Gecko Nuclear Power Plant",
+        "targetNpcId": "npc_lynette"
       },
       {
         "id": "qst_vault15_computer",
         "title": "Retrieve Computer Parts from Vault 15 for NCR",
-        "nodeId": "FO2-OW-11",
-        "submapId": "map_fo2_ncr",
+        "nodeId": "FO2-OW-12",
+        "submapId": "map_fo2_vault15",
         "status": "Available",
         "type": "Faction",
-        "reward": "President Tandi's Alliance & Vault 13 Location"
+        "reward": "President Tandi's Alliance & Vault 13 Location",
+        "itemIds": [
+          "ITM_FALLOUT2_RETRIEVE_COMPUTER_PARTS__4"
+        ],
+        "npcIds": [],
+        "giverNpcId": "npc_tandi",
+        "name": "Retrieve Computer Parts from Vault 15 for NCR",
+        "targetNpcId": null
       },
       {
         "id": "qst_wright_murder",
@@ -316,7 +480,14 @@
         "submapId": "map_fo2_new_reno",
         "status": "Available",
         "type": "Mystery",
-        "reward": "Sierra Army Depot Coordinates & 2000 XP"
+        "reward": "Sierra Army Depot Coordinates & 2000 XP",
+        "itemIds": [
+          "ITM_FALLOUT2_INVESTIGATE_THE_MURDER_O_5"
+        ],
+        "npcIds": [],
+        "giverNpcId": "npc_bishop",
+        "name": "Investigate the Murder of Richard Wright in New Reno",
+        "targetNpcId": "npc_myron"
       },
       {
         "id": "qst_valdez_fuel",
@@ -325,16 +496,30 @@
         "submapId": "map_fo2_san_francisco",
         "status": "Available",
         "type": "Climax",
-        "reward": "Access to Enclave Oil Rig & 5000 XP"
+        "reward": "Access to Enclave Oil Rig & 5000 XP",
+        "itemIds": [
+          "ITM_FALLOUT2_FUEL_AND_NAVIGATE_THE_PM_6"
+        ],
+        "npcIds": [],
+        "giverNpcId": "npc_goris",
+        "name": "Fuel and Navigate the PMV Valdez to the Enclave Rig",
+        "targetNpcId": null
       },
       {
         "id": "qst_destroy_oil_rig",
         "title": "Infiltrate the Oil Rig and Terminate Frank Horrigan",
         "nodeId": "FO2-OW-17",
-        "submapId": "map_fo2_enclave_oil_rig",
+        "submapId": "map_fo2_enclave_rig",
         "status": "Available",
         "type": "Endgame",
-        "reward": "Completion of Campaign"
+        "reward": "Completion of Campaign",
+        "itemIds": [
+          "ITM_FALLOUT2_INFILTRATE_THE_OIL_RIG_A_7"
+        ],
+        "npcIds": [],
+        "giverNpcId": "npc_tandi",
+        "name": "Infiltrate the Oil Rig and Terminate Frank Horrigan",
+        "targetNpcId": "npc_horrigan"
       }
     ],
     "items": [
@@ -345,7 +530,9 @@
         "submapId": "map_fo2_vault_13",
         "type": "Artifact",
         "value": 50000,
-        "description": "Terraforming marvel containing cold fusion generators and recombinant seed banks."
+        "description": "Terraforming marvel containing cold fusion generators and recombinant seed banks.",
+        "possessionMode": "stored",
+        "ownerNpcId": null
       },
       {
         "id": "item_apa",
@@ -354,7 +541,9 @@
         "submapId": "map_fo2_navarro",
         "type": "Armor",
         "value": 20000,
-        "description": "Enclave matte-black composite powered exoskeleton granting immense physical and radiation shielding."
+        "description": "Enclave matte-black composite powered exoskeleton granting immense physical and radiation shielding.",
+        "possessionMode": "stored",
+        "ownerNpcId": null
       },
       {
         "id": "item_bozar",
@@ -363,7 +552,9 @@
         "submapId": "map_fo2_ncr",
         "type": "Weapon",
         "value": 5250,
-        "description": "Devastating sniper-support heavy machine gun firing high-velocity 15-round bursts."
+        "description": "Devastating sniper-support heavy machine gun firing high-velocity 15-round bursts.",
+        "possessionMode": "stored",
+        "ownerNpcId": null
       },
       {
         "id": "item_turbo_plasma",
@@ -372,7 +563,9 @@
         "submapId": "map_fo2_san_francisco",
         "type": "Weapon",
         "value": 10000,
-        "description": "Supercharged plasma cannon firing accelerated superheated matter bolts."
+        "description": "Supercharged plasma cannon firing accelerated superheated matter bolts.",
+        "possessionMode": "stored",
+        "ownerNpcId": null
       },
       {
         "id": "item_highwayman",
@@ -381,7 +574,9 @@
         "submapId": "map_fo2_den",
         "type": "Vehicle",
         "value": 2000,
-        "description": "Fusion-powered pre-war sedan allowing rapid, fatigue-free wasteland overmap traversal."
+        "description": "Fusion-powered pre-war sedan allowing rapid, fatigue-free wasteland overmap traversal.",
+        "possessionMode": "stored",
+        "ownerNpcId": null
       },
       {
         "id": "item_pipboy_2000",
@@ -390,7 +585,9 @@
         "submapId": "map_fo2_arroyo",
         "type": "Tool",
         "value": 1500,
-        "description": "Arm-mounted RobCo terminal with local maps, Geiger counter, and quest log."
+        "description": "Arm-mounted RobCo terminal with local maps, Geiger counter, and quest log.",
+        "possessionMode": "stored",
+        "ownerNpcId": null
       },
       {
         "id": "item_vertibird_plans",
@@ -399,7 +596,9 @@
         "submapId": "map_fo2_navarro",
         "type": "Intel",
         "value": 6000,
-        "description": "Classified schematics required by the Shi and Brotherhood of Steel."
+        "description": "Classified schematics required by the Shi and Brotherhood of Steel.",
+        "possessionMode": "stored",
+        "ownerNpcId": null
       },
       {
         "id": "item_presidential_fob",
@@ -408,9 +607,97 @@
         "submapId": "map_fo2_enclave_oil_rig",
         "type": "Key",
         "value": 10000,
-        "description": "Biometric electronic keycard required to trigger emergency containment scuttling."
+        "description": "Biometric electronic keycard required to trigger emergency containment scuttling.",
+        "possessionMode": "stored",
+        "ownerNpcId": null
+      },
+      {
+        "id": "ITM_FALLOUT2_RETRIEVE_THE_HOLY_G_E_C__1",
+        "name": "Retrieve the Holy G.E.C.K. for Starving Arroyo Relic",
+        "category": "Artifact",
+        "status": "Active",
+        "specs": "Key objective relic, catalytic device, or tactical reward.",
+        "notes": "Associated with quest 'Retrieve the Holy G.E.C.K. for Starving Arroyo'. Catalytic item required for quest resolution.",
+        "possessionMode": "stored",
+        "ownerNpcId": null,
+        "nodeId": "FO2-OW-01",
+        "submapId": "map_fo2_worldmap"
+      },
+      {
+        "id": "ITM_FALLOUT2_RESCUE_VIC_THE_TRADER_FR_2",
+        "name": "Rescue Vic the Trader from Metzger's Slaver Den Relic",
+        "category": "Artifact",
+        "status": "Active",
+        "specs": "Key objective relic, catalytic device, or tactical reward.",
+        "notes": "Associated with quest 'Rescue Vic the Trader from Metzger's Slaver Den'. Catalytic item required for quest resolution.",
+        "possessionMode": "stored",
+        "ownerNpcId": null,
+        "nodeId": "FO2-OW-03",
+        "submapId": "map_fo2_worldmap"
+      },
+      {
+        "id": "ITM_FALLOUT2_OPTIMIZE_THE_POSEIDON_GE_3",
+        "name": "Optimize the Poseidon Gecko Nuclear Power Plant Relic",
+        "category": "Artifact",
+        "status": "Active",
+        "specs": "Key objective relic, catalytic device, or tactical reward.",
+        "notes": "Associated with quest 'Optimize the Poseidon Gecko Nuclear Power Plant'. Catalytic item required for quest resolution.",
+        "possessionMode": "stored",
+        "ownerNpcId": null,
+        "nodeId": "FO2-OW-05",
+        "submapId": "map_fo2_worldmap"
+      },
+      {
+        "id": "ITM_FALLOUT2_RETRIEVE_COMPUTER_PARTS__4",
+        "name": "Retrieve Computer Parts from Vault 15 for NCR Relic",
+        "category": "Artifact",
+        "status": "Active",
+        "specs": "Key objective relic, catalytic device, or tactical reward.",
+        "notes": "Associated with quest 'Retrieve Computer Parts from Vault 15 for NCR'. Catalytic item required for quest resolution.",
+        "possessionMode": "stored",
+        "ownerNpcId": null,
+        "nodeId": "FO2-OW-11",
+        "submapId": "map_fo2_worldmap"
+      },
+      {
+        "id": "ITM_FALLOUT2_INVESTIGATE_THE_MURDER_O_5",
+        "name": "Investigate the Murder of Richard Wright in New Reno Relic",
+        "category": "Artifact",
+        "status": "Active",
+        "specs": "Key objective relic, catalytic device, or tactical reward.",
+        "notes": "Associated with quest 'Investigate the Murder of Richard Wright in New Reno'. Catalytic item required for quest resolution.",
+        "possessionMode": "stored",
+        "ownerNpcId": null,
+        "nodeId": "FO2-OW-09",
+        "submapId": "map_fo2_worldmap"
+      },
+      {
+        "id": "ITM_FALLOUT2_FUEL_AND_NAVIGATE_THE_PM_6",
+        "name": "Fuel and Navigate the PMV Valdez to the Enclave Rig Relic",
+        "category": "Artifact",
+        "status": "Active",
+        "specs": "Key objective relic, catalytic device, or tactical reward.",
+        "notes": "Associated with quest 'Fuel and Navigate the PMV Valdez to the Enclave Rig'. Catalytic item required for quest resolution.",
+        "possessionMode": "stored",
+        "ownerNpcId": null,
+        "nodeId": "FO2-OW-15",
+        "submapId": "map_fo2_worldmap"
+      },
+      {
+        "id": "ITM_FALLOUT2_INFILTRATE_THE_OIL_RIG_A_7",
+        "name": "Infiltrate the Oil Rig and Terminate Frank Horrigan Relic",
+        "category": "Artifact",
+        "status": "Active",
+        "specs": "Key objective relic, catalytic device, or tactical reward.",
+        "notes": "Associated with quest 'Infiltrate the Oil Rig and Terminate Frank Horrigan'. Catalytic item required for quest resolution.",
+        "possessionMode": "stored",
+        "ownerNpcId": null,
+        "nodeId": "FO2-OW-17",
+        "submapId": "map_fo2_worldmap"
       }
     ],
+    "factions": [],
+    "creatures": [],
     "trackers": [
       {
         "id": "trk_enclave_clock",
@@ -425,11 +712,14 @@
         "max": 10
       }
     ],
+    "spatialPins": [],
     "tickets": [],
-    "factions": [],
-    "custom_modules": [],
     "deletedModules": [],
-    "deletedPrototypes": []
+    "deletedPrototypes": [],
+    "custom_modules": []
   },
-  "syncToken": "mw060ka0-qvz7bb2w"
+  "syncToken": "mw060ka0-qvz7bb2w",
+  "presetFile": "preset.json",
+  "entryMapId": "map_fo2_worldmap",
+  "entryNodeId": "FO2-OW-01"
 }

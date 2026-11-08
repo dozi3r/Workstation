@@ -1,0 +1,436 @@
+{
+  "id": "map_red_mountain_citadels",
+  "name": "Red Mountain Citadels",
+  "scaleTier": "site",
+  "theme": "blight_volcano_citadels",
+  "parentMapId": "map_morrowind_vvardenfell",
+  "parentNodeId": "N_DAGOTH_UR_CITADEL",
+  "nodeIds": [
+    "N_GHOSTFENCE_BREACH",
+    "N_KOGORUHN",
+    "N_ENDUSAL",
+    "N_ODROSAL",
+    "N_VEMYNAL",
+    "N_AKULAKHAN_CHAMBER"
+  ],
+  "nodes": [
+    {
+      "id": "N_GHOSTFENCE_BREACH",
+      "mapId": "map_red_mountain_citadels",
+      "name": "Ghostfence Breach",
+      "displayName": "Ghostfence Breach",
+      "scaleTier": "site",
+      "x": 220,
+      "y": 600,
+      "coordinates": {
+        "x": 220,
+        "y": 600
+      },
+      "region": "Red Mountain",
+      "description": "The thinning of the Ghostfence where ghost-guardians stand beyond the Temple wards; the route to the citadels runs through its flickering light.",
+      "cat": "Hazard",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 2,
+      "odv": {
+        "s": 1,
+        "e": 2,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Ordinator wardens, ash-spawn, Armigers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple",
+        "fac_sixth_house"
+      ],
+      "adj": [
+        "N_KOGORUHN",
+        "N_ENDUSAL"
+      ],
+      "childMapId": null,
+      "customNotes": "The thinning of the Ghostfence where ghost-guardians stand beyond the Temple wards; the route to the citadels runs through its flickering light.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_KOGORUHN",
+      "mapId": "map_red_mountain_citadels",
+      "name": "Kogoruhn",
+      "displayName": "Kogoruhn",
+      "scaleTier": "site",
+      "x": 360,
+      "y": 450,
+      "coordinates": {
+        "x": 360,
+        "y": 450
+      },
+      "region": "Red Mountain",
+      "description": "Ancient ruined Dunmer city and Dagoth citadel of the House of Troubles, consumed by blight storms.",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 2,
+      "odv": {
+        "s": -2,
+        "e": 4,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Ash vampires, Dagoth Gares, corprus husks",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_sixth_house"
+      ],
+      "adj": [
+        "N_GHOSTFENCE_BREACH",
+        "N_ODROSAL"
+      ],
+      "childMapId": null,
+      "customNotes": "Ancient ruined Dunmer city and Dagoth citadel of the House of Troubles, consumed by blight storms.",
+      "npcIds": [
+        "npc_dagoth_gares",
+        "npc_dagoth_acolyte"
+      ],
+      "questIds": [],
+      "itemIds": [
+        "ITM_SUNDER",
+        "ITM_MACE_OF_MOLAG_BAL"
+      ],
+      "creatureIds": [
+        "creature_ash_vampire"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_ENDUSAL",
+      "mapId": "map_red_mountain_citadels",
+      "name": "Endusal",
+      "displayName": "Endusal",
+      "scaleTier": "site",
+      "x": 520,
+      "y": 270,
+      "coordinates": {
+        "x": 520,
+        "y": 270
+      },
+      "region": "Red Mountain",
+      "description": "Citadel of Dagoth Endus, crowded with ash slaves and guarded by the weeping thing at the gate of the Dreamers.",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 2,
+      "odv": {
+        "s": -2,
+        "e": 4,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Ash slaves, ash zombies, Sixth House cultists",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_sixth_house"
+      ],
+      "adj": [
+        "N_GHOSTFENCE_BREACH",
+        "N_ODROSAL"
+      ],
+      "childMapId": null,
+      "customNotes": "Citadel of Dagoth Endus, crowded with ash slaves and guarded by the weeping thing at the gate of the Dreamers.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_ODROSAL",
+      "mapId": "map_red_mountain_citadels",
+      "name": "Odrosal",
+      "displayName": "Odrosal",
+      "scaleTier": "site",
+      "x": 680,
+      "y": 400,
+      "coordinates": {
+        "x": 680,
+        "y": 400
+      },
+      "region": "Red Mountain",
+      "description": "Dwemer-built chamber complex retaken by Dagoth Odros; its corridors hum with the Heart's resonance.",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 2,
+      "odv": {
+        "s": -2,
+        "e": 4,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Dagoth Odros, Dwemer construct remnants, ash ghouls",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_sixth_house"
+      ],
+      "adj": [
+        "N_KOGORUHN",
+        "N_ENDUSAL",
+        "N_VEMYNAL"
+      ],
+      "childMapId": null,
+      "customNotes": "Dwemer-built chamber complex retaken by Dagoth Odros; its corridors hum with the Heart's resonance.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VEMYNAL",
+      "mapId": "map_red_mountain_citadels",
+      "name": "Vemynal",
+      "displayName": "Vemynal",
+      "scaleTier": "site",
+      "x": 820,
+      "y": 560,
+      "coordinates": {
+        "x": 820,
+        "y": 560
+      },
+      "region": "Red Mountain",
+      "description": "Lava-cooled stronghold of Dagoth Vemyn; its halls teach that no oath can survive the Dream.",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 2,
+      "odv": {
+        "s": -2,
+        "e": 4,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Dagoth Vemyn, ash vampires, ash ghouls",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_sixth_house"
+      ],
+      "adj": [
+        "N_ODROSAL",
+        "N_AKULAKHAN_CHAMBER"
+      ],
+      "childMapId": null,
+      "customNotes": "Lava-cooled stronghold of Dagoth Vemyn; its halls teach that no oath can survive the Dream.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [
+        "ITM_MEHRUNES_RAZOR"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_AKULAKHAN_CHAMBER",
+      "mapId": "map_red_mountain_citadels",
+      "name": "Akulakhan Heart Chamber",
+      "displayName": "Akulakhan Heart Chamber",
+      "scaleTier": "site",
+      "x": 960,
+      "y": 720,
+      "coordinates": {
+        "x": 960,
+        "y": 720
+      },
+      "region": "Red Mountain",
+      "description": "Dwemer-built chamber at the heart of Red Mountain, where Lorkhan's Heart beats beside the unfinished Akulakhan, the Golden God.",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 2,
+      "odv": {
+        "s": -3,
+        "e": 4,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Dagoth Ur, Heart-keepers, mechanical sentinels",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_sixth_house"
+      ],
+      "adj": [
+        "N_VEMYNAL"
+      ],
+      "childMapId": null,
+      "customNotes": "Dwemer-built chamber at the heart of Red Mountain, where Lorkhan's Heart beats beside the unfinished Akulakhan, the Golden God.",
+      "npcIds": [
+        "npc_dagoth_ur"
+      ],
+      "questIds": [
+        "Q_MW_THE_HEART_OF_LORKHAN"
+      ],
+      "itemIds": [
+        "ITM_CUIRASS_OF_THE_SAVIORS_HIDE",
+        "ITM_HEART_OF_LORKHAN"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_GHOSTFENCE_BREACH",
+      "to": "N_KOGORUHN",
+      "type": "twoway",
+      "note": "Ashland pass to Kogoruhn",
+      "cost": 2,
+      "label": "Ashland pass to Kogoruhn",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GHOSTFENCE_BREACH",
+      "to": "N_ENDUSAL",
+      "type": "twoway",
+      "note": "Ash trail to Endusal",
+      "cost": 2,
+      "label": "Ash trail to Endusal",
+      "transit": "overland"
+    },
+    {
+      "from": "N_KOGORUHN",
+      "to": "N_ODROSAL",
+      "type": "twoway",
+      "note": "Ruined Dunmer causeway",
+      "cost": 2,
+      "label": "Ruined Dunmer causeway",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ENDUSAL",
+      "to": "N_ODROSAL",
+      "type": "twoway",
+      "note": "Lava bridge",
+      "cost": 2,
+      "label": "Lava bridge",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ODROSAL",
+      "to": "N_VEMYNAL",
+      "type": "twoway",
+      "note": "Heart conduit",
+      "cost": 2,
+      "label": "Heart conduit",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VEMYNAL",
+      "to": "N_AKULAKHAN_CHAMBER",
+      "type": "twoway",
+      "note": "Sloan lift to the Heart",
+      "cost": 2,
+      "label": "Sloan lift to the Heart",
+      "transit": "overland"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N_GHOSTFENCE_BREACH",
+      "to": "N_KOGORUHN",
+      "type": "twoway",
+      "note": "Ashland pass to Kogoruhn",
+      "cost": 2,
+      "label": "Ashland pass to Kogoruhn",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GHOSTFENCE_BREACH",
+      "to": "N_ENDUSAL",
+      "type": "twoway",
+      "note": "Ash trail to Endusal",
+      "cost": 2,
+      "label": "Ash trail to Endusal",
+      "transit": "overland"
+    },
+    {
+      "from": "N_KOGORUHN",
+      "to": "N_ODROSAL",
+      "type": "twoway",
+      "note": "Ruined Dunmer causeway",
+      "cost": 2,
+      "label": "Ruined Dunmer causeway",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ENDUSAL",
+      "to": "N_ODROSAL",
+      "type": "twoway",
+      "note": "Lava bridge",
+      "cost": 2,
+      "label": "Lava bridge",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ODROSAL",
+      "to": "N_VEMYNAL",
+      "type": "twoway",
+      "note": "Heart conduit",
+      "cost": 2,
+      "label": "Heart conduit",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VEMYNAL",
+      "to": "N_AKULAKHAN_CHAMBER",
+      "type": "twoway",
+      "note": "Sloan lift to the Heart",
+      "cost": 2,
+      "label": "Sloan lift to the Heart",
+      "transit": "overland"
+    }
+  ]
+}

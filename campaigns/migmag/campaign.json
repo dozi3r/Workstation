@@ -59,7 +59,11 @@
             "notes": "Requires Grey's verification before permitting contestants aboard[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_scavenger_hunt"
+        ],
+        "carriedItemIds": []
       },
       {
         "id": "npc_mia_lucille",
@@ -99,7 +103,9 @@
             "notes": "Corresponds regularly with Donna on the eastern shore[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [],
+        "carriedItemIds": []
       },
       {
         "id": "npc_blacksmith_kane",
@@ -139,7 +145,9 @@
             "notes": "Co-manages the settlement's defense supply with Erik[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [],
+        "carriedItemIds": []
       },
       {
         "id": "npc_erik_armorsmith",
@@ -179,7 +187,9 @@
             "notes": "Shares workshop coal and tooling with Kane[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [],
+        "carriedItemIds": []
       },
       {
         "id": "npc_alyssa_bard",
@@ -219,7 +229,13 @@
             "notes": "Capitalizes on Grey's contest item requirements[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_scavenger_hunt"
+        ],
+        "carriedItemIds": [
+          "item_ailyssa_lute"
+        ]
       },
       {
         "id": "npc_two_palms_barkeep",
@@ -259,7 +275,11 @@
             "notes": "Watches Malwick suspiciously as he propositions patrons in the tavern shadows."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_malwicks_bargain"
+        ],
+        "carriedItemIds": []
       },
       {
         "id": "npc_mr_malwick",
@@ -304,7 +324,13 @@
             "notes": "Evades Grey's jurisdiction while subverting the contest rules[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_malwicks_bargain"
+        ],
+        "carriedItemIds": [
+          "item_malwick_wand"
+        ]
       },
       {
         "id": "npc_carolyn_weathers",
@@ -344,7 +370,11 @@
             "notes": "Coordinates island magical guild admissions alongside Tellmar[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_guild_initiations"
+        ],
+        "carriedItemIds": []
       },
       {
         "id": "npc_lord_markham",
@@ -389,7 +419,13 @@
             "notes": "Fears the red dragon will breach its cavern and destroy the port[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_scavenger_hunt",
+          "quest_missing_contestants",
+          "quest_malwicks_bargain"
+        ],
+        "carriedItemIds": []
       },
       {
         "id": "npc_judge_grey",
@@ -434,7 +470,12 @@
             "notes": "Directs Margaret to prepare departure only upon verified completion[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_scavenger_hunt",
+          "quest_malwicks_bargain"
+        ],
+        "carriedItemIds": []
       },
       {
         "id": "npc_healer_tent_priest",
@@ -474,7 +515,9 @@
             "notes": "Trades healing salves and empty vials with the alchemist[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [],
+        "carriedItemIds": []
       },
       {
         "id": "npc_tellmar",
@@ -514,7 +557,11 @@
             "notes": "Co-regulates island guild memberships[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_guild_initiations"
+        ],
+        "carriedItemIds": []
       },
       {
         "id": "npc_trainer_karr",
@@ -554,7 +601,9 @@
             "notes": "Contracted by Markham to prepare prospective Harmondale lords[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [],
+        "carriedItemIds": []
       },
       {
         "id": "npc_alchemist_blue_bottle",
@@ -594,7 +643,11 @@
             "notes": "Knows Brent desperately needs a Red Potion to survive[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [],
+        "carriedItemIds": [
+          "item_red_potion"
+        ]
       },
       {
         "id": "npc_emerald_enchantress",
@@ -634,7 +687,9 @@
             "notes": "Supplies arcane reagents to Weathers' guild students[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [],
+        "carriedItemIds": []
       },
       {
         "id": "npc_donna_wyrith",
@@ -674,7 +729,11 @@
             "notes": "Exchanges warning carrier pigeons with Mia in the village[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_missing_contestants"
+        ],
+        "carriedItemIds": []
       },
       {
         "id": "npc_brent_filiant",
@@ -714,7 +773,13 @@
             "notes": "Pleads for medicine from Zander's shelves[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_scavenger_hunt"
+        ],
+        "carriedItemIds": [
+          "item_wealthy_hat"
+        ]
       },
       {
         "id": "npc_morcarack",
@@ -754,13 +819,17 @@
             "notes": "Views Markham's settlement as insects to be tolerated until provoked[cite: 1]."
           }
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "questIds": [
+          "quest_missing_contestants"
+        ],
+        "carriedItemIds": []
       }
     ],
     "quests": [
       {
         "id": "quest_scavenger_hunt",
-        "nodeId": 10,
+        "nodeId": "10",
         "submapId": "map_mm7_emerald_isle",
         "title": "The Scavenger Hunt for Harmondale",
         "type": "Retrieval",
@@ -784,11 +853,12 @@
           "item_contest_longbow",
           "item_red_potion"
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "name": "The Scavenger Hunt for Harmondale"
       },
       {
         "id": "quest_missing_contestants",
-        "nodeId": 10,
+        "nodeId": "26",
         "submapId": "map_mm7_emerald_isle",
         "title": "Find the Missing Contestants",
         "type": "Investigation",
@@ -805,7 +875,8 @@
         "itemIds": [
           "item_contestants_shield"
         ],
-        "_packId": "mm7_emerald_isle"
+        "_packId": "mm7_emerald_isle",
+        "name": "Find the Missing Contestants"
       },
       {
         "id": "quest_malwicks_bargain",
@@ -822,7 +893,8 @@
         "npcIds": [
           "npc_mr_malwick",
           "npc_judge_grey",
-          "npc_two_palms_barkeep"
+          "npc_two_palms_barkeep",
+          "npc_lord_markham"
         ],
         "itemIds": [
           "item_malwick_wand"
@@ -844,8 +916,11 @@
           "npc_carolyn_weathers",
           "npc_tellmar"
         ],
-        "itemIds": [],
-        "_packId": "mm7_emerald_isle"
+        "itemIds": [
+          "ITM_MIGMAG_THE_FOUR_GUILD_CHARTERS_4"
+        ],
+        "_packId": "mm7_emerald_isle",
+        "name": "The Four Guild Charters"
       }
     ],
     "items": [
@@ -896,7 +971,7 @@
         "category": "Relic",
         "specs": "Heavy mother-of-pearl conch shell measuring two feet in diameter[cite: 1].",
         "notes": "Resting inside the abandoned coastal hut on the northwestern peninsula[cite: 1]; satisfies Judge Grey's exploration token[cite: 1].",
-        "ownerNpcId": "npc_judge_grey",
+        "ownerNpcId": null,
         "possessionMode": "stored",
         "status": "Active",
         "_packId": "mm7_emerald_isle"
@@ -909,7 +984,7 @@
         "category": "Relic",
         "specs": "Carved stone floor slab inlaid with silver lunar tracery[cite: 1]. Weighs 10 lbs.",
         "notes": "Pried from the secret southern library of the Temple of the Moon[cite: 1]; serves as the subterranean relic for the contest[cite: 1].",
-        "ownerNpcId": "npc_judge_grey",
+        "ownerNpcId": null,
         "possessionMode": "stored",
         "status": "Active",
         "_packId": "mm7_emerald_isle"
@@ -922,7 +997,7 @@
         "category": "Weapon",
         "specs": "Composite yew longbow (+2 Ranged Attack, 1d8+2 piercing damage)[cite: 1].",
         "notes": "Lying among the scorched remains near the entrance to Morcarack's cavern[cite: 1]; serves as the weapon token for Judge Grey[cite: 1].",
-        "ownerNpcId": "npc_morcarack",
+        "ownerNpcId": null,
         "possessionMode": "stored",
         "status": "Active",
         "_packId": "mm7_emerald_isle"
@@ -935,7 +1010,7 @@
         "category": "Armor",
         "specs": "Heavily warped steel heater shield bearing the crest of Markham's missing team (+3 AC)[cite: 1].",
         "notes": "Sought by Lord Markham as conclusive proof of the fate of the missing adventurers[cite: 1].",
-        "ownerNpcId": "npc_morcarack",
+        "ownerNpcId": null,
         "possessionMode": "stored",
         "status": "Active",
         "_packId": "mm7_emerald_isle"
@@ -952,8 +1027,22 @@
         "possessionMode": "carried",
         "status": "Active",
         "_packId": "mm7_emerald_isle"
+      },
+      {
+        "id": "ITM_MIGMAG_THE_FOUR_GUILD_CHARTERS_4",
+        "name": "The Four Guild Charters Relic",
+        "category": "Document",
+        "status": "Active",
+        "specs": "Authoritative document containing crucial lore or legal sovereignty.",
+        "notes": "Associated with quest 'The Four Guild Charters'. Catalytic item required for quest resolution.",
+        "possessionMode": "stored",
+        "ownerNpcId": null,
+        "nodeId": 8,
+        "submapId": "map_mm7_emerald_isle"
       }
     ],
+    "factions": [],
+    "creatures": [],
     "trackers": [
       {
         "id": "tracker_scavenger_deadline",
@@ -980,6 +1069,7 @@
         "_packId": "mm7_emerald_isle"
       }
     ],
+    "spatialPins": [],
     "tickets": [
       {
         "id": "DEV-01",
@@ -1042,10 +1132,12 @@
         "createdAt": "2026-11-01T23:29:52.616Z"
       }
     ],
-    "factions": [],
-    "custom_modules": [],
     "deletedModules": [],
-    "deletedPrototypes": []
+    "deletedPrototypes": [],
+    "custom_modules": []
   },
-  "syncToken": "mw05bfkd-9v55u0oh"
+  "syncToken": "mw05bfkd-9v55u0oh",
+  "presetFile": "preset.json",
+  "entryMapId": "map_mm7_emerald_isle",
+  "entryNodeId": 1
 }

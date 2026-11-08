@@ -1,0 +1,100 @@
+{
+  "id": "map_hoard_thunder",
+  "name": "Hoard-Thunder Mountain",
+  "scaleTier": "region",
+  "parentMapId": "map_flame_road",
+  "parentNodeId": "N_HOARD_THUNDER",
+  "nodes": [
+    {
+      "id": "N_HT_ORCHID_PINES",
+      "name": "The Orchid Pines",
+      "x": 300,
+      "y": 350,
+      "cat": "Standard POI",
+      "tier": 2,
+      "factionId": "fac_hoard_thunder_court",
+      "faction": "fac_hoard_thunder_court",
+      "culture": "Market",
+      "customNotes": "**Sights:** A shady pine forest; Princess Jade Countenance walks here with a twig of fragrant orchid, in a silk skirt with tiny shoes. **Hazard:** A hairy-faced stranger with a thunder-god's beak can drive her to tears.",
+      "adj": [
+        "N_CLOUD_TOUCHING_CAVE"
+      ],
+      "childMapId": null,
+      "displayName": "The Orchid Pines",
+      "coordinates": {
+        "x": 300,
+        "y": 350
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    },
+    {
+      "id": "N_CLOUD_TOUCHING_CAVE",
+      "name": "The Cloud-Touching Cave",
+      "x": 700,
+      "y": 450,
+      "cat": "Bastion",
+      "tier": 3,
+      "factionId": "fac_hoard_thunder_court",
+      "faction": "fac_hoard_thunder_court",
+      "culture": "Market",
+      "customNotes": "**Interior:** A library where the Bull King studies elixir books; a main hall where he dons armour. **Guard:** Over a hundred soldiers of lance and rod, whom Jade Countenance orders out. **Fate:** Following the assault by Eight Rules and the local spirit, its door is smashed and its dwelling burned by Eight Rules and the local spirit. **Sociology:** S-2 / E+4 / C+2: a dowry household.",
+      "odv": {
+        "s": -2,
+        "e": 4,
+        "c": 2
+      },
+      "odvOverridden": true,
+      "adj": [
+        "N_HT_ORCHID_PINES"
+      ],
+      "childMapId": null,
+      "displayName": "The Cloud-Touching Cave",
+      "coordinates": {
+        "x": 700,
+        "y": 450
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_HT_ORCHID_PINES",
+      "to": "N_CLOUD_TOUCHING_CAVE",
+      "type": "twoway",
+      "layer": "path",
+      "transitMode": "foot",
+      "dangerRating": 3,
+      "travelTime": "a short chase through the pine forest"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N_HT_ORCHID_PINES",
+      "to": "N_CLOUD_TOUCHING_CAVE",
+      "type": "twoway",
+      "layer": "path",
+      "transitMode": "foot",
+      "dangerRating": 3,
+      "travelTime": "a short chase through the pine forest"
+    }
+  ],
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "layers": [],
+  "shapes": []
+}

@@ -30,7 +30,7 @@
         "y": 240
       },
       "cat": "Standard POI",
-      "culture": "Hierarchy",
+      "culture": "Adhocracy",
       "shape": "circle",
       "adj": [
         "XAK-02"
@@ -51,8 +51,8 @@
       "modData": {},
       "odv": [
         2,
-        2,
-        2
+        4,
+        1
       ],
       "odvOverridden": true,
       "faction": "neutral",
@@ -98,7 +98,7 @@
         "y": 240
       },
       "cat": "Standard POI",
-      "culture": "Hierarchy",
+      "culture": "Clan",
       "shape": "circle",
       "adj": [
         "XAK-01",
@@ -119,9 +119,9 @@
       "requires": [],
       "modData": {},
       "odv": [
+        3,
         2,
-        2,
-        2
+        1
       ],
       "odvOverridden": true,
       "faction": "neutral",
@@ -167,7 +167,7 @@
         "y": 240
       },
       "cat": "Standard POI",
-      "culture": "Hierarchy",
+      "culture": "Clan",
       "shape": "circle",
       "adj": [
         "XAK-02",
@@ -189,9 +189,9 @@
       "requires": [],
       "modData": {},
       "odv": [
-        2,
-        2,
-        2
+        3,
+        1,
+        3
       ],
       "odvOverridden": true,
       "faction": "neutral",
@@ -237,7 +237,7 @@
         "y": 560
       },
       "cat": "Standard POI",
-      "culture": "Hierarchy",
+      "culture": "Adhocracy",
       "shape": "circle",
       "adj": [
         "XAK-03",
@@ -258,8 +258,8 @@
       "requires": [],
       "modData": {},
       "odv": [
-        2,
-        2,
+        1,
+        4,
         2
       ],
       "odvOverridden": true,
@@ -306,7 +306,7 @@
         "y": 560
       },
       "cat": "Standard POI",
-      "culture": "Hierarchy",
+      "culture": "Adhocracy",
       "shape": "circle",
       "adj": [
         "XAK-03",
@@ -327,9 +327,9 @@
       "requires": [],
       "modData": {},
       "odv": [
-        2,
-        2,
-        2
+        1,
+        4,
+        4
       ],
       "odvOverridden": true,
       "faction": "neutral",

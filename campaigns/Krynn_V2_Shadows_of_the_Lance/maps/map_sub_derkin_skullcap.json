@@ -30,7 +30,7 @@
         "y": 400
       },
       "cat": "Standard POI",
-      "culture": "Hierarchy",
+      "culture": "Adhocracy",
       "shape": "circle",
       "adj": [
         "DRK-02"
@@ -50,8 +50,8 @@
       "requires": [],
       "modData": {},
       "odv": [
-        2,
-        2,
+        1,
+        4,
         2
       ],
       "odvOverridden": true,
@@ -98,7 +98,7 @@
         "y": 400
       },
       "cat": "Standard POI",
-      "culture": "Hierarchy",
+      "culture": "Adhocracy",
       "shape": "circle",
       "adj": [
         "DRK-01",
@@ -119,9 +119,9 @@
       "requires": [],
       "modData": {},
       "odv": [
-        2,
-        2,
-        2
+        1,
+        4,
+        4
       ],
       "odvOverridden": true,
       "faction": "neutral",
@@ -188,8 +188,8 @@
       "modData": {},
       "odv": [
         2,
-        2,
-        2
+        1,
+        3
       ],
       "odvOverridden": true,
       "faction": "neutral",

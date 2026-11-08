@@ -1,0 +1,405 @@
+[
+  {
+    "id": "MOD_JTTW_FAC_PILGRIM_PARTY",
+    "title": "The Tang Pilgrim Party",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 1 (Macro Network & Governance)",
+    "pipeline_tier": 1,
+    "culture": "Clan",
+    "color": "Colorless",
+    "provides": [
+      "Authority: Sanctioned Mission",
+      "Labor: Skilled Escort"
+    ],
+    "requires": [
+      "Water: Safe Drinking Supply",
+      "Defense: Protector in the Wings"
+    ],
+    "summary": "Four sworn travellers on a commissioned journey whose one rule is that the road goes west and nothing may turn it aside.",
+    "yields": "",
+    "path": "./modules/Factions/MOD_JTTW_FAC_PILGRIM_PARTY.md",
+    "standalone_fallback": "Use the party as a small sanctioned expedition (a leader, a fighter, a muscle-and-appetite companion, a quiet guard) that must cross one impassable barrier before the story can move on.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "faction",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_FAC_FLAME_HOUSEHOLDS",
+    "title": "The Households of the Mountain of Flames",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 1 (Macro Network & Governance)",
+    "pipeline_tier": 1,
+    "culture": "Clan",
+    "color": "Colorless",
+    "provides": [
+      "Lore: Local Knowledge of the Barrier",
+      "Labor: Farm Households"
+    ],
+    "requires": [
+      "Water: Rain Source",
+      "Authority: Tutelary Spirit"
+    ],
+    "summary": "Red-roofed farming villages that cannot grow a grain without a distant keeper's rain and who have no ruler but a banished spirit.",
+    "yields": "",
+    "path": "./modules/Factions/MOD_JTTW_FAC_FLAME_HOUSEHOLDS.md",
+    "standalone_fallback": "Use the households as any farming community whose harvest depends on a ritual tribute to a powerful outsider and who will pay a stranger to break the dependency.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "faction",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_FAC_PALM_LEAF_HOUSEHOLD",
+    "title": "The Palm-Leaf Cave Household",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Clan",
+    "color": "Colorless",
+    "provides": [
+      "Water: Rain on Demand",
+      "Defense: Wind Barrier"
+    ],
+    "requires": [
+      "Authority: Husband's Protection",
+      "Lore: News of a Lost Son"
+    ],
+    "summary": "A strict cultivators' cave with a single treasure that can end a region's drought or send an army across a continent.",
+    "yields": "",
+    "path": "./modules/Factions/MOD_JTTW_FAC_PALM_LEAF_HOUSEHOLD.md",
+    "standalone_fallback": "Use the household as an isolated sorceress with a world-altering tool, an old grudge and a husband who left her; she negotiates only from strength.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "faction",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_FAC_HOARD_THUNDER_COURT",
+    "title": "The Hoard-Thunder Court",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Market",
+    "color": "Colorless",
+    "provides": [
+      "Material: Dowry Fortune",
+      "Defense: Beast Garrison"
+    ],
+    "requires": [
+      "Authority: A Famous Protector",
+      "Lore: Court Gossip"
+    ],
+    "summary": "A household bought with a fox king's fortune, defended by a hundred beast-spirits, and run by a demon king who splits his time between two wives.",
+    "yields": "",
+    "path": "./modules/Factions/MOD_JTTW_FAC_HOARD_THUNDER_COURT.md",
+    "standalone_fallback": "Use the court as a wealthy bandit-lord's seat whose strength depends on one man's reputation and whose weakness is a divided home.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "faction",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_FAC_GREEN_WAVE_COURT",
+    "title": "The Green Wave Lagoon Court",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Adhocracy",
+    "color": "Colorless",
+    "provides": [
+      "Lore: Gossip of the Powerful",
+      "Ecology: Dry Hall Under Water"
+    ],
+    "requires": [
+      "Authority: Respect for Etiquette",
+      "Material: Banquet Stores"
+    ],
+    "summary": "An aquatic court whose politics is the banquet and whose security is its etiquette.",
+    "yields": "",
+    "path": "./modules/Factions/MOD_JTTW_FAC_GREEN_WAVE_COURT.md",
+    "standalone_fallback": "Use the court as a neutral hall where rival lords meet to drink; entering in disguise costs only a poem, being unmasked costs the host his dignity.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "faction",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_FAC_HEAVENLY_HOST",
+    "title": "The Heavenly and Buddhist Enforcement Host",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 1 (Macro Network & Governance)",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy",
+    "color": "Colorless",
+    "provides": [
+      "Authority: Divine Decree",
+      "Defense: Cosmic Net"
+    ],
+    "requires": [
+      "Signal: A Memorial from Below",
+      "Lore: Knowledge of the Offender's True Form"
+    ],
+    "summary": "A chain-of-command army that moves only on a decree and, once it moves, closes every quarter of the sky.",
+    "yields": "",
+    "path": "./modules/Factions/MOD_JTTW_FAC_HEAVENLY_HOST.md",
+    "standalone_fallback": "Use the host as a distant imperial enforcement arm that intervenes only after a formal petition and always arrives in overwhelming strength.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "faction",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_FAC_LITTLE_SUMERU",
+    "title": "The Little Sumeru Temple",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 1 (Macro Network & Governance)",
+    "pipeline_tier": 1,
+    "culture": "Hierarchy",
+    "color": "Colorless",
+    "provides": [
+      "Lore: Counter to a Wind Artifact",
+      "Power: Buddhist Patronage"
+    ],
+    "requires": [
+      "Signal: A Petitioner"
+    ],
+    "summary": "A single bodhisattva's mountain that holds one unused counter to the fan and gives it freely to those on the journey.",
+    "yields": "",
+    "path": "./modules/Factions/MOD_JTTW_FAC_LITTLE_SUMERU.md",
+    "standalone_fallback": "Use the temple as a one-scene boon-giver: a patient hierarch with an exact counter-item, a short audience and no time to entertain.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "faction",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_ABI_PALM_LEAF_FAN",
+    "title": "The Palm-Leaf Fan: Fire, Wind and Rain",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 5 (Esoteric & Eschatological Engines)",
+    "pipeline_tier": 5,
+    "culture": "Clan",
+    "color": "Colorless",
+    "provides": [
+      "Water: Rain on Demand",
+      "Defense: Fire Quench"
+    ],
+    "requires": [
+      "Lore: Activation Formula",
+      "Material: A Willing Keeper"
+    ],
+    "summary": "A supreme-yin leaf that puts out fire, raises wind or brings rain on three waves, and blows a person across the world on one.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_JTTW_ABI_PALM_LEAF_FAN.md",
+    "standalone_fallback": "Use as a macro-scale tool item: three waves for three effects, an enlarge-only command that must be paired with a separate shrink secret, and a hundred-wave variant for permanent effects.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_ABI_SHAPE_CHANGING_CONTEST",
+    "title": "The Contest of Transformations",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 5 (Esoteric & Eschatological Engines)",
+    "pipeline_tier": 5,
+    "culture": "Adhocracy",
+    "color": "Colorless",
+    "provides": [
+      "Lore: Disguise Mastery",
+      "Climax: Duel of Shapes"
+    ],
+    "requires": [
+      "Lore: Knowledge of the Opponent's Counter-Forms"
+    ],
+    "summary": "A pursuit duel in which each shape-shifter takes the form that preys on the other's last form.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_JTTW_ABI_SHAPE_CHANGING_CONTEST.md",
+    "standalone_fallback": "Use as a duel minigame: each round, the pursuer picks a form that beats the fugitive's last form; the fugitive escapes only by changing to something larger or by reverting.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_ABI_WIND_ARRESTING_ELIXIR",
+    "title": "The Wind-Arresting Elixir",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Hierarchy",
+    "color": "Colorless",
+    "provides": [
+      "Defense: Immunity to Forced Drift"
+    ],
+    "requires": [
+      "Authority: A Bodhisattva's Grant"
+    ],
+    "summary": "A single pellet that makes the swallower unmovable by a wind artifact for the rest of the arc.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_JTTW_ABI_WIND_ARRESTING_ELIXIR.md",
+    "standalone_fallback": "Use as a one-use counter-item that nullifies the biggest wind or force effect in the scene and has an unnoticed ongoing effect.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_ABI_THREE_HEADS_SIX_ARMS",
+    "title": "Three Heads, Six Arms, and the Monster-Binding Kit",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 5 (Esoteric & Eschatological Engines)",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy",
+    "color": "Colorless",
+    "provides": [
+      "Defense: Capture Kit"
+    ],
+    "requires": [
+      "Authority: Decree to Capture"
+    ],
+    "summary": "A prince's capture routine: take a many-armed war form, cut, burn, pin the shape and rope the nose.",
+    "yields": "",
+    "path": "./modules/Abilities/MOD_JTTW_ABI_THREE_HEADS_SIX_ARMS.md",
+    "standalone_fallback": "Use as a staged capture procedure with four steps (cut, burn, mirror-pin, rope) and a clean surrender at the end.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "ability",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_SIT_DECENNIAL_TRIBUTE",
+    "title": "The Decennial Tribute Compact",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 1 (Macro Network & Governance)",
+    "pipeline_tier": 1,
+    "culture": "Clan",
+    "color": "Colorless",
+    "provides": [
+      "Authority: Ritual Compact"
+    ],
+    "requires": [
+      "Material: Tribute Goods",
+      "Labor: Month-Long Pilgrimage"
+    ],
+    "summary": "A farming region pays a distant keeper once a decade for rain, and nobody remembers who set the price.",
+    "yields": "Authority: Ritual Compact (rain rights and the right to ask for an audience)",
+    "path": "./modules/Situations/MOD_JTTW_SIT_DECENNIAL_TRIBUTE.md",
+    "standalone_fallback": "Use as a village's ritual dependence on a hidden benefactor: the gift list is fixed, the benefactor never appears, and any stranger who offers a shortcut disturbs the compact.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_SIT_MOUNTAIN_OF_FLAMES",
+    "title": "The Mountain of Flames",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 2 (Topological & Biome Anchors)",
+    "pipeline_tier": 2,
+    "culture": "Hierarchy",
+    "color": "Colorless",
+    "provides": [
+      "Ecology: Fire Barrier"
+    ],
+    "requires": [
+      "Water: A Fan's Rain"
+    ],
+    "summary": "Eight hundred li of flame across the only road west; a bronze skull would melt.",
+    "yields": "Ecology: A passable road once the fire is quenched forty-nine times",
+    "path": "./modules/Situations/MOD_JTTW_SIT_MOUNTAIN_OF_FLAMES.md",
+    "standalone_fallback": "Use as a fire-wall barrier on a road: scorching ground, no grass for miles, and a counter that must be fetched from two or three powers.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_SIT_FAN_RAIN_GRAIN_CHAIN",
+    "title": "The Fan-Rain Grain Chain",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 3 (Infrastructural Supply Chains)",
+    "pipeline_tier": 3,
+    "culture": "Clan",
+    "color": "Colorless",
+    "provides": [
+      "Material: Rice Flour and Millet"
+    ],
+    "requires": [
+      "Water: Rain From a Fan",
+      "Authority: A Keeper's Audience"
+    ],
+    "summary": "One treasure sets the fire, the rain, the harvest and the pudding cart; break the chain at the top and everything downstream goes quiet.",
+    "yields": "Material: Rice Flour and Millet (via a quenched fire and a returned fan)",
+    "path": "./modules/Situations/MOD_JTTW_SIT_FAN_RAIN_GRAIN_CHAIN.md",
+    "standalone_fallback": "Use as a supply chain with a single upstream owner: weather, grain, food, trade; stop the owner and everyone downstream suffers.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_SIT_BORROWED_HUSBAND",
+    "title": "The Borrowed Husband",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 4 (Dynamic Narrative Sparks & Dilemmas)",
+    "pipeline_tier": 4,
+    "culture": "Market",
+    "color": "Colorless",
+    "provides": [
+      "Climax: Domestic Showdown"
+    ],
+    "requires": [
+      "Lore: The Husband's Habits"
+    ],
+    "summary": "A demon king with two homes, two wives and one treasure that only the first wife holds; whoever impersonates him wins it.",
+    "yields": "Climax: A true fan and a husband in pursuit",
+    "path": "./modules/Situations/MOD_JTTW_SIT_BORROWED_HUSBAND.md",
+    "standalone_fallback": "Use as a two-household love triangle where the husband's absence is the weakness and a disguise unlocks the first wife's secret.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "JTTW"
+  },
+  {
+    "id": "MOD_JTTW_SIT_NET_OF_HEAVEN_AND_EARTH",
+    "title": "The Net of Heaven and Earth",
+    "set": "Journey to the West: Flaming Mountains",
+    "tier": "Tier 5 (Esoteric & Eschatological Engines)",
+    "pipeline_tier": 5,
+    "culture": "Hierarchy",
+    "color": "Colorless",
+    "provides": [
+      "Climax: Divine Intervention"
+    ],
+    "requires": [
+      "Signal: A Memorial From Below",
+      "Authority: A Decree"
+    ],
+    "summary": "A fugitive demon runs to each quarter and finds a guardian waiting; the sky is closed and the end is arrest.",
+    "yields": "Climax: A captured bull and a surrendered fan",
+    "path": "./modules/Situations/MOD_JTTW_SIT_NET_OF_HEAVEN_AND_EARTH.md",
+    "standalone_fallback": "Use as a four-corners trap: each exit is held by a named guardian; the fugitive's only alternative is surrender.",
+    "chain_id": null,
+    "chain_stage": null,
+    "chain_role": null,
+    "kind": "situation",
+    "ip": "JTTW"
+  }
+]

@@ -1,0 +1,2876 @@
+{
+  "id": "map_morrowind_vvardenfell",
+  "name": "Vvardenfell District",
+  "scaleTier": "region",
+  "theme": "volcanic_ashland_frontier",
+  "parentMapId": null,
+  "parentNodeId": null,
+  "nodeIds": [
+    "N_SEYDA_NEEN",
+    "N_PELAGIAD",
+    "N_EBONHEART",
+    "N_GNAAR_MOK",
+    "N_HLA_OAD",
+    "N_BALMORA",
+    "N_FORT_MOONMOTH",
+    "N_ARKNGTHAND",
+    "N_CALDERA",
+    "N_KHUUL",
+    "N_ALD_VELOTHI",
+    "N_GNISIS",
+    "N_ALD_RUHN",
+    "N_URSHILAKU_CAMP",
+    "N_ZAINAB_CAMP",
+    "N_MAAR_GAN",
+    "N_GHOSTGATE",
+    "N_DAGOTH_UR_CITADEL",
+    "N_MOUNT_KAND",
+    "N_VIVEC_CITY",
+    "N_SURAN",
+    "N_MOLAG_MAR",
+    "N_TEL_FYR",
+    "N_HOLAMAYAN",
+    "N_ERABENIMSUN_CAMP",
+    "N_AHEMMUSA_CAMP",
+    "N_DAGON_FEL",
+    "N_VOS",
+    "N_TEL_MORA",
+    "N_TEL_ARUHN",
+    "N_SADRITH_MORA",
+    "N_FORT_BUCKMOTH"
+  ],
+  "nodes": [
+    {
+      "id": "N_SEYDA_NEEN",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Seyda Neen",
+      "displayName": "Seyda Neen",
+      "scaleTier": "region",
+      "x": 190,
+      "y": 690,
+      "coordinates": {
+        "x": 190,
+        "y": 690
+      },
+      "region": "Bitter Coast",
+      "description": "Swamp-edge Census and Excise port where the pardoned prisoner steps off the Imperial ship under the gaze of the old lighthouse; first stop on every road to Balmora.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Imperial customs clerks, Dunmer fishermen, freshly pardoned prisoners",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_imperial_legion",
+        "fac_thieves_guild"
+      ],
+      "adj": [
+        "N_BALMORA",
+        "N_EBONHEART",
+        "N_PELAGIAD",
+        "N_GNAAR_MOK"
+      ],
+      "childMapId": null,
+      "customNotes": "Swamp-edge Census and Excise port where the pardoned prisoner steps off the Imperial ship under the gaze of the old lighthouse; first stop on every road to Balmora.",
+      "npcIds": [
+        "npc_sellus_gravius",
+        "npc_fargoth",
+        "npc_arrille",
+        "npc_orlan_dren"
+      ],
+      "questIds": [
+        "Q_MW_THIEVES_THE_CENSUS_CLERK"
+      ],
+      "itemIds": [
+        "ITM_IMPERIAL_CENSUS_PACKAGE",
+        "ITM_CHITIN_SHORT_SWORD",
+        "ITM_SILT_STRIDER_PASS",
+        "ITM_FARGOTH_RING"
+      ],
+      "creatureIds": [
+        "creature_nix_hound"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_PELAGIAD",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Pelagiad",
+      "displayName": "Pelagiad",
+      "scaleTier": "region",
+      "x": 260,
+      "y": 610,
+      "coordinates": {
+        "x": 260,
+        "y": 610
+      },
+      "region": "Ascadian Isles",
+      "description": "Walled Imperial farming town on the Ascadian road, its Fort Pelagiad garrison guarding the silt-road and the Halfway Tavern.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 2,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Imperial settlers, Redguard caravaneers, Legion pickets",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_imperial_legion",
+        "fac_fighters_guild"
+      ],
+      "adj": [
+        "N_SEYDA_NEEN",
+        "N_BALMORA",
+        "N_EBONHEART",
+        "N_FORT_MOONMOTH"
+      ],
+      "childMapId": null,
+      "customNotes": "Walled Imperial farming town on the Ascadian road, its Fort Pelagiad garrison guarding the silt-road and the Halfway Tavern.",
+      "npcIds": [
+        "npc_guild_enforcer"
+      ],
+      "questIds": [
+        "Q_MW_THIEVES_THE_WARLORD_GANG"
+      ],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_EBONHEART",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Ebonheart",
+      "displayName": "Ebonheart",
+      "scaleTier": "region",
+      "x": 380,
+      "y": 720,
+      "coordinates": {
+        "x": 380,
+        "y": 720
+      },
+      "region": "Ascadian Isles",
+      "description": "Seat of Duke Vedam Dren and Imperial authority on Vvardenfell, its Grand Council Chambers, Hawkmoth Legion Garrison and Chapels of the Eight overlooking the Vivec channel.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 2,
+        "e": 2,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Imperial Legion officers, Cult chaplains, East Empire Company factors",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_imperial_legion",
+        "fac_imperial_cult",
+        "fac_east_empire_company"
+      ],
+      "adj": [
+        "N_VIVEC_CITY",
+        "N_SEYDA_NEEN",
+        "N_PELAGIAD"
+      ],
+      "childMapId": "map_morrowind_tribunal",
+      "customNotes": "Seat of Duke Vedam Dren and Imperial authority on Vvardenfell, its Grand Council Chambers, Hawkmoth Legion Garrison and Chapels of the Eight overlooking the Vivec channel.",
+      "npcIds": [
+        "npc_duke_vedam_dren",
+        "npc_imperial_cult_prelate",
+        "npc_ondres_overseer",
+        "npc_zabi_freedwoman",
+        "npc_glaucus_renn"
+      ],
+      "questIds": [
+        "Q_MW_REDORAN_FREEING_THE_ASHLANDER_SLAVES",
+        "Q_MW_CULT_THE_CHAPEL_HERESY_TRIAL"
+      ],
+      "itemIds": [
+        "ITM_CHRYSAMERE",
+        "ITM_CULT_HEALING_POTIONS",
+        "ITM_DUKE_PARDON_ORDER"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_GNAAR_MOK",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Gnaar Mok",
+      "displayName": "Gnaar Mok",
+      "scaleTier": "region",
+      "x": 170,
+      "y": 520,
+      "coordinates": {
+        "x": 170,
+        "y": 520
+      },
+      "region": "Bitter Coast",
+      "description": "Rotting stilt-village on the Bitter Coast where smugglers, mudcrab hunters and a Hlaalu-run trading post cling to the swamp.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 1,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Dunmer mudcrab hunters, Argonian laborers, rain-soaked tavern regulars",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_hlaalu"
+      ],
+      "adj": [
+        "N_KHUUL",
+        "N_SEYDA_NEEN",
+        "N_HLA_OAD"
+      ],
+      "childMapId": null,
+      "customNotes": "Rotting stilt-village on the Bitter Coast where smugglers, mudcrab hunters and a Hlaalu-run trading post cling to the swamp.",
+      "npcIds": [],
+      "questIds": [
+        "Q_MW_CULT_HEALING_THE_PLAGUE_VILLAGE"
+      ],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_HLA_OAD",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Hla Oad",
+      "displayName": "Hla Oad",
+      "scaleTier": "region",
+      "x": 250,
+      "y": 430,
+      "coordinates": {
+        "x": 250,
+        "y": 430
+      },
+      "region": "Bitter Coast",
+      "description": "Fishing hamlet at the mouth of the Odai river whose docks pass illicit cargo toward Balmora under Hlaalu indifference.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 1,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Fishing families, Argonian dockhands, smuggler middlemen",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_hlaalu",
+        "fac_thieves_guild"
+      ],
+      "adj": [
+        "N_GNAAR_MOK",
+        "N_BALMORA"
+      ],
+      "childMapId": null,
+      "customNotes": "Fishing hamlet at the mouth of the Odai river whose docks pass illicit cargo toward Balmora under Hlaalu indifference.",
+      "npcIds": [
+        "npc_huleen_smuggler"
+      ],
+      "questIds": [
+        "Q_MW_FIGHTERS_THE_SMUGGLER_COVE"
+      ],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_BALMORA",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Balmora",
+      "displayName": "Balmora",
+      "scaleTier": "region",
+      "x": 360,
+      "y": 470,
+      "coordinates": {
+        "x": 360,
+        "y": 470
+      },
+      "region": "West Gash",
+      "description": "Hlaalu commercial hub split by the Odai river; every guild keeps a hall here, and Caius Cosades keeps a quiet apartment above the South Wall.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Hlaalu merchants, guild adventurers, Imperial immigrants",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_hlaalu",
+        "fac_blades",
+        "fac_mages_guild",
+        "fac_fighters_guild",
+        "fac_thieves_guild",
+        "fac_morag_tong"
+      ],
+      "adj": [
+        "N_SEYDA_NEEN",
+        "N_VIVEC_CITY",
+        "N_ALD_RUHN",
+        "N_CALDERA",
+        "N_SADRITH_MORA",
+        "N_PELAGIAD",
+        "N_HLA_OAD",
+        "N_FORT_MOONMOTH",
+        "N_ARKNGTHAND"
+      ],
+      "childMapId": "map_balmora",
+      "customNotes": "Hlaalu commercial hub split by the Odai river; every guild keeps a hall here, and Caius Cosades keeps a quiet apartment above the South Wall.",
+      "npcIds": [
+        "npc_sulis_verel",
+        "npc_nelos_smuggler"
+      ],
+      "questIds": [
+        "Q_MW_MORAG_TONG_THE_HONOR_OF_THE_WRIT"
+      ],
+      "itemIds": [],
+      "creatureIds": [
+        "creature_cliff_racer"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_FORT_MOONMOTH",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Fort Moonmoth",
+      "displayName": "Fort Moonmoth",
+      "scaleTier": "region",
+      "x": 430,
+      "y": 560,
+      "coordinates": {
+        "x": 430,
+        "y": 560
+      },
+      "region": "West Gash",
+      "description": "Imperial Legion fortress on the Odai ford; staging ground for patrols, courier runs and the Legion's thin readiness against Ghostfence rumors.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 2,
+        "e": 1,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Legion auxiliaries, Imperial officers, pressed Dunmer scouts",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_imperial_legion"
+      ],
+      "adj": [
+        "N_BALMORA",
+        "N_PELAGIAD"
+      ],
+      "childMapId": null,
+      "customNotes": "Imperial Legion fortress on the Odai ford; staging ground for patrols, courier runs and the Legion's thin readiness against Ghostfence rumors.",
+      "npcIds": [
+        "npc_legion_captain_moonmoth",
+        "npc_matius_cato"
+      ],
+      "questIds": [
+        "Q_MW_LEGION_THE_MOONMOTH_ROSTER",
+        "Q_MW_CULT_BLESSING_THE_LEGION"
+      ],
+      "itemIds": [
+        "ITM_MOONMOTH_BANNER",
+        "ITM_LEGION_SUPPLY_MANIFEST"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_ARKNGTHAND",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Arkngthand",
+      "displayName": "Arkngthand",
+      "scaleTier": "region",
+      "x": 310,
+      "y": 380,
+      "coordinates": {
+        "x": 310,
+        "y": 380
+      },
+      "region": "West Gash",
+      "description": "Ruined Dwemer hall whose centrifuge chambers still turn; a favored dead-drop for Blades couriers, scavengers and Dwemer puzzle-box hunters.",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 2,
+      "odv": {
+        "s": 1,
+        "e": 3,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Dwemer automata, scavenger scholars, bandits",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_blades",
+        "fac_thieves_guild"
+      ],
+      "adj": [
+        "N_BALMORA",
+        "N_KHUUL"
+      ],
+      "childMapId": null,
+      "customNotes": "Ruined Dwemer hall whose centrifuge chambers still turn; a favored dead-drop for Blades couriers, scavengers and Dwemer puzzle-box hunters.",
+      "npcIds": [
+        "npc_thulgar_pale"
+      ],
+      "questIds": [
+        "Q_MW_SHUTTING_DOWN_THE_SIXTH_HOUSE_BASE",
+        "Q_MW_MAGES_THE_NECROMANCERS_LAIR",
+        "Q_MW_MAGES_THE_DWEMER_CENTRIFUGE"
+      ],
+      "itemIds": [
+        "ITM_SIXTH_HOUSE_BELL_HAMMER",
+        "ITM_NECROMANCERS_GRIMOIRE",
+        "ITM_SIXTH_HOUSE_ASH_STATUE"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_CALDERA",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Caldera",
+      "displayName": "Caldera",
+      "scaleTier": "region",
+      "x": 440,
+      "y": 380,
+      "coordinates": {
+        "x": 440,
+        "y": 380
+      },
+      "region": "West Gash",
+      "description": "Imperial mining town under the Dwemer volcanic mouth whose ebony and glass operations are run by the East Empire Company with Hlaalu complicity.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 4,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Imperial mine bosses, Dunmer laborers, Company clerks",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_east_empire_company",
+        "fac_house_hlaalu",
+        "fac_mages_guild"
+      ],
+      "adj": [
+        "N_BALMORA",
+        "N_FORT_BUCKMOTH"
+      ],
+      "childMapId": null,
+      "customNotes": "Imperial mining town under the Dwemer volcanic mouth whose ebony and glass operations are run by the East Empire Company with Hlaalu complicity.",
+      "npcIds": [
+        "npc_fenas_girith"
+      ],
+      "questIds": [],
+      "itemIds": [
+        "ITM_RING_OF_PHYNASTER"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_KHUUL",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Khuul",
+      "displayName": "Khuul",
+      "scaleTier": "region",
+      "x": 200,
+      "y": 300,
+      "coordinates": {
+        "x": 200,
+        "y": 300
+      },
+      "region": "West Gash",
+      "description": "Isolated northwest fishing port and the departure point for ships to Solstheim and the northern sea road.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 2,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Redoran fishers, Nordic sailors, smugglers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_redoran",
+        "fac_independents"
+      ],
+      "adj": [
+        "N_ALD_VELOTHI",
+        "N_GNAAR_MOK",
+        "N_GNISIS",
+        "N_ARKNGTHAND"
+      ],
+      "childMapId": "map_morrowind_bloodmoon",
+      "customNotes": "Isolated northwest fishing port and the departure point for ships to Solstheim and the northern sea road.",
+      "npcIds": [
+        "npc_legion_officer_khuul"
+      ],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_ALD_VELOTHI",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Ald Velothi",
+      "displayName": "Ald Velothi",
+      "scaleTier": "region",
+      "x": 330,
+      "y": 200,
+      "coordinates": {
+        "x": 330,
+        "y": 200
+      },
+      "region": "Azura's Coast",
+      "description": "Redoran outpost on the Azura's Coast watching the northern shore road, with a Temple outpost and the Outpost Hall for passing pilgrims.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Redoran guard-captains, Temple pilgrims, hermit mages",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_redoran",
+        "fac_tribunal_temple"
+      ],
+      "adj": [
+        "N_GNISIS",
+        "N_KHUUL"
+      ],
+      "childMapId": null,
+      "customNotes": "Redoran outpost on the Azura's Coast watching the northern shore road, with a Temple outpost and the Outpost Hall for passing pilgrims.",
+      "npcIds": [
+        "npc_redoran_guard_captain",
+        "npc_dandras_veloth",
+        "npc_gavis_ulen"
+      ],
+      "questIds": [
+        "Q_MW_REDORAN_GARRISON_AT_ALD_VELOTHI"
+      ],
+      "itemIds": [
+        "ITM_HLORMAREN_STOLEN_GOODS"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_GNISIS",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Gnisis",
+      "displayName": "Gnisis",
+      "scaleTier": "region",
+      "x": 450,
+      "y": 160,
+      "coordinates": {
+        "x": 450,
+        "y": 160
+      },
+      "region": "West Gash",
+      "description": "Fortress-temple town on the northern pilgrimage road; Gnisis Temple's Ordinators and the Madach Tradehouse bind Redoran honor to Temple ritual.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Redoran-leaning Dunmer, Temple pilgrims, ashland traders",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_redoran",
+        "fac_tribunal_temple",
+        "fac_morag_tong"
+      ],
+      "adj": [
+        "N_ALD_RUHN",
+        "N_ALD_VELOTHI",
+        "N_URSHILAKU_CAMP",
+        "N_KHUUL"
+      ],
+      "childMapId": null,
+      "customNotes": "Fortress-temple town on the northern pilgrimage road; Gnisis Temple's Ordinators and the Madach Tradehouse bind Redoran honor to Temple ritual.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_ALD_RUHN",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Ald'ruhn",
+      "displayName": "Ald'ruhn",
+      "scaleTier": "region",
+      "x": 560,
+      "y": 250,
+      "coordinates": {
+        "x": 560,
+        "y": 250
+      },
+      "region": "West Gash",
+      "description": "Redoran capital built within the shell of a giant emperor-crab, its Skar council hall, Manor District and Morag Tong shadow sharing one cramped ridge.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Redoran warriors, Temple Ordinators, Ashlander visitors",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_redoran",
+        "fac_tribunal_temple",
+        "fac_mages_guild",
+        "fac_fighters_guild"
+      ],
+      "adj": [
+        "N_BALMORA",
+        "N_GNISIS",
+        "N_MAAR_GAN",
+        "N_VIVEC_CITY",
+        "N_FORT_BUCKMOTH",
+        "N_URSHILAKU_CAMP"
+      ],
+      "childMapId": null,
+      "customNotes": "Redoran capital built within the shell of a giant emperor-crab, its Skar council hall, Manor District and Morag Tong shadow sharing one cramped ridge.",
+      "npcIds": [
+        "npc_hassour_zainsubani",
+        "npc_athyn_sarethi",
+        "npc_bolvyn_venim",
+        "npc_brara_morvayn",
+        "npc_sleeper_skar_cook",
+        "npc_faral_arenim",
+        "npc_tavyn_morvayn",
+        "npc_gro_bagrat",
+        "npc_alvos_veteran"
+      ],
+      "questIds": [
+        "Q_MW_THE_SLEEPERS_OF_ALDRUHN",
+        "Q_MW_REDORAN_BRARAS_TEST",
+        "Q_MW_REDORAN_THE_DUEL_FOR_ARCHMASTER",
+        "Q_MW_REDORAN_ATHYN_SARETHIS_SUCCESSION",
+        "Q_MW_FIGHTERS_THE_ORC_WARLORD",
+        "Q_MW_FIGHTERS_THE_SLEEPER_CULT"
+      ],
+      "itemIds": [
+        "ITM_ORCISH_WARHAMMER",
+        "ITM_SKULL_CRUSHER",
+        "ITM_HELM_OF_OREYN_BEARCLAW",
+        "ITM_ABOLITIONIST_PAMPHLET",
+        "ITM_BONEMOLD_ARMOR",
+        "ITM_DAGOTH_ASH_RING"
+      ],
+      "creatureIds": [
+        "creature_netch_bull"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_URSHILAKU_CAMP",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Urshilaku Camp",
+      "displayName": "Urshilaku Camp",
+      "scaleTier": "region",
+      "x": 640,
+      "y": 190,
+      "coordinates": {
+        "x": 640,
+        "y": 190
+      },
+      "region": "Ashlands",
+      "description": "Seat of Ashkhan Sul-Matuul and Wise Woman Nibani Maesa; keepers of the Nerevarine prophecies and the first test of the Chosen One.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 1,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Urshilaku Ashlanders, nomadic herders, tribal wise women",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_ashlanders"
+      ],
+      "adj": [
+        "N_ALD_RUHN",
+        "N_ZAINAB_CAMP",
+        "N_DAGON_FEL",
+        "N_GNISIS"
+      ],
+      "childMapId": null,
+      "customNotes": "Seat of Ashkhan Sul-Matuul and Wise Woman Nibani Maesa; keepers of the Nerevarine prophecies and the first test of the Chosen One.",
+      "npcIds": [
+        "npc_nibani_maesa",
+        "npc_sul_matuul"
+      ],
+      "questIds": [
+        "Q_MW_THE_SEVEN_VISIONS",
+        "Q_MW_NEREVARINE_OF_THE_FOUR_TRIBES",
+        "Q_MW_NEREVARINE_DECLARED"
+      ],
+      "itemIds": [
+        "ITM_ASHLANDER_PROPHECY_BONES",
+        "ITM_SPIRIT_OF_NEREVAR_SHRINE_OFFERING"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_ZAINAB_CAMP",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Zainab Camp",
+      "displayName": "Zainab Camp",
+      "scaleTier": "region",
+      "x": 740,
+      "y": 120,
+      "coordinates": {
+        "x": 740,
+        "y": 120
+      },
+      "region": "Ashlands",
+      "description": "Wind-whipped Ashlander camp on the northern ash-flats, a pragmatic tribe open to outlander trade and hostile to Dagoth husbands.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 2,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Zainab Ashlanders, guar herders, mystic hunters",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_ashlanders"
+      ],
+      "adj": [
+        "N_URSHILAKU_CAMP"
+      ],
+      "childMapId": null,
+      "customNotes": "Wind-whipped Ashlander camp on the northern ash-flats, a pragmatic tribe open to outlander trade and hostile to Dagoth husbands.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [
+        "ITM_ASHLAND_HIDE_ARMOR"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_MAAR_GAN",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Maar Gan",
+      "displayName": "Maar Gan",
+      "scaleTier": "region",
+      "x": 680,
+      "y": 370,
+      "coordinates": {
+        "x": 680,
+        "y": 370
+      },
+      "region": "Ashlands",
+      "description": "Pilgrim town below the Ghostfence whose Temple shrines have fed on a thin pious trade since the blight storms began.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Temple devotees, Redoran villagers, Ghostgate pilgrims",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple",
+        "fac_house_redoran"
+      ],
+      "adj": [
+        "N_ALD_RUHN",
+        "N_GHOSTGATE"
+      ],
+      "childMapId": null,
+      "customNotes": "Pilgrim town below the Ghostfence whose Temple shrines have fed on a thin pious trade since the blight storms began.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_GHOSTGATE",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Ghostgate",
+      "displayName": "Ghostgate",
+      "scaleTier": "region",
+      "x": 760,
+      "y": 330,
+      "coordinates": {
+        "x": 760,
+        "y": 330
+      },
+      "region": "Ashlands",
+      "description": "Fortress-gate through the Ghostfence, the ward Vivec raised around Red Mountain; the Temple Ordinators hold it against blight and cult infiltration.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 2,
+        "e": 1,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Temple Ordinator wardens, Buoyant Armigers, ghost-guardians",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple"
+      ],
+      "adj": [
+        "N_MAAR_GAN",
+        "N_DAGOTH_UR_CITADEL",
+        "N_MOUNT_KAND"
+      ],
+      "childMapId": null,
+      "customNotes": "Fortress-gate through the Ghostfence, the ward Vivec raised around Red Mountain; the Temple Ordinators hold it against blight and cult infiltration.",
+      "npcIds": [
+        "npc_ghostgate_warden"
+      ],
+      "questIds": [
+        "Q_MW_PASSING_THE_GHOSTFENCE",
+        "Q_MW_LEGION_GHOSTFENCE_REINFORCEMENTS"
+      ],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_DAGOTH_UR_CITADEL",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Dagoth Ur Citadel Approach",
+      "displayName": "Dagoth Ur Citadel Approach",
+      "scaleTier": "region",
+      "x": 850,
+      "y": 430,
+      "coordinates": {
+        "x": 850,
+        "y": 430
+      },
+      "region": "Red Mountain",
+      "description": "Entrance to the volcano interior beyond the breached Ghostfence, where ash storms howl across the approaches to Dagoth Ur's citadels.",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 2,
+      "odv": {
+        "s": -3,
+        "e": 4,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Ash creatures, Sixth House cultists, corprus husks",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_sixth_house"
+      ],
+      "adj": [
+        "N_GHOSTGATE"
+      ],
+      "childMapId": "map_red_mountain_citadels",
+      "customNotes": "Entrance to the volcano interior beyond the breached Ghostfence, where ash storms howl across the approaches to Dagoth Ur's citadels.",
+      "npcIds": [],
+      "questIds": [
+        "Q_MW_DESCENT_INTO_THE_CITADEL"
+      ],
+      "itemIds": [],
+      "creatureIds": [
+        "creature_ash_ghoul"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_MOUNT_KAND",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Mount Kand",
+      "displayName": "Mount Kand",
+      "scaleTier": "region",
+      "x": 800,
+      "y": 560,
+      "coordinates": {
+        "x": 800,
+        "y": 560
+      },
+      "region": "Red Mountain",
+      "description": "Wind-scoured ash slope on the Red Mountain flank, an old Daedric shrine site now contested between Ashlander hunters and corprus-bitten scouts.",
+      "cat": "Hazard",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 2,
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 1
+      },
+      "demographics": {
+        "primary": "Erabenimsun hunters, Sixth House scouts, ash-wasted outlaws",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_ashlanders",
+        "fac_sixth_house"
+      ],
+      "adj": [
+        "N_GHOSTGATE",
+        "N_ERABENIMSUN_CAMP",
+        "N_SURAN"
+      ],
+      "childMapId": null,
+      "customNotes": "Wind-scoured ash slope on the Red Mountain flank, an old Daedric shrine site now contested between Ashlander hunters and corprus-bitten scouts.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [
+        "ITM_GOLDBRAND",
+        "ITM_SPEAR_OF_BITTER_MERCY"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VIVEC_CITY",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Vivec City",
+      "displayName": "Vivec City",
+      "scaleTier": "region",
+      "x": 560,
+      "y": 720,
+      "coordinates": {
+        "x": 560,
+        "y": 720
+      },
+      "region": "Vivec",
+      "description": "The great canton-city of Vivec, floating the Palace and the Ministry of Truth over the Zafirbel Bay; its sea-wall cantons are the political body of Vvardenfell.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Temple clergy, Great House factors, foreign merchants",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple",
+        "fac_house_hlaalu",
+        "fac_house_redoran",
+        "fac_house_telvanni",
+        "fac_blades",
+        "fac_morag_tong",
+        "fac_camonna_tong"
+      ],
+      "adj": [
+        "N_BALMORA",
+        "N_SURAN",
+        "N_ALD_RUHN",
+        "N_EBONHEART",
+        "N_MOLAG_MAR",
+        "N_SADRITH_MORA"
+      ],
+      "childMapId": "map_vivec_cantons",
+      "customNotes": "The great canton-city of Vivec, floating the Palace and the Ministry of Truth over the Zafirbel Bay; its sea-wall cantons are the political body of Vvardenfell.",
+      "npcIds": [],
+      "questIds": [
+        "Q_MW_HORTATOR_OF_THE_GREAT_HOUSES",
+        "Q_MW_TEMPLE_ANCESTRAL_TOMB_CLEANSING"
+      ],
+      "itemIds": [
+        "ITM_ANCESTRAL_TOMB_HEIRLOOM"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_SURAN",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Suran",
+      "displayName": "Suran",
+      "scaleTier": "region",
+      "x": 700,
+      "y": 630,
+      "coordinates": {
+        "x": 700,
+        "y": 630
+      },
+      "region": "Ascadian Isles",
+      "description": "Hlaalu market town with a famed Desele's House of Earthly Delights, a hub for slave-running and Camonna Tong enforcers dressed as caravan guards.",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "cvf": "Market",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 4,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Hlaalu slavers' agents, Camonna Tong runners, tavern gossips",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_hlaalu",
+        "fac_thieves_guild",
+        "fac_camonna_tong"
+      ],
+      "adj": [
+        "N_VIVEC_CITY",
+        "N_MOLAG_MAR",
+        "N_MOUNT_KAND",
+        "N_ERABENIMSUN_CAMP"
+      ],
+      "childMapId": null,
+      "customNotes": "Hlaalu market town with a famed Desele's House of Earthly Delights, a hub for slave-running and Camonna Tong enforcers dressed as caravan guards.",
+      "npcIds": [
+        "npc_camonna_enforcer",
+        "npc_moreth_salas"
+      ],
+      "questIds": [
+        "Q_MW_HLAALU_THE_SURAN_SLAVE_SHIP",
+        "Q_MW_FIGHTERS_HUNT_THE_CAMONNA"
+      ],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_MOLAG_MAR",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Molag Mar",
+      "displayName": "Molag Mar",
+      "scaleTier": "region",
+      "x": 900,
+      "y": 700,
+      "coordinates": {
+        "x": 900,
+        "y": 700
+      },
+      "region": "Molag Amur",
+      "description": "Temple-capital of the Molag Amur coast, a lava-ringed stone town whose Waistworks and cantons shelter pilgrims and the memory of Ald Sotha.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Temple scholars, Redoran warriors, Hlaalu witnesses",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple",
+        "fac_house_redoran"
+      ],
+      "adj": [
+        "N_SURAN",
+        "N_VIVEC_CITY",
+        "N_TEL_FYR",
+        "N_HOLAMAYAN",
+        "N_ERABENIMSUN_CAMP"
+      ],
+      "childMapId": null,
+      "customNotes": "Temple-capital of the Molag Amur coast, a lava-ringed stone town whose Waistworks and cantons shelter pilgrims and the memory of Ald Sotha.",
+      "npcIds": [
+        "npc_temple_priest_molag_mar",
+        "npc_serano_hearthkeeper"
+      ],
+      "questIds": [
+        "Q_MW_REDORAN_THE_HEARTH_OF_ALD_SOTHA",
+        "Q_MW_TEMPLE_PILGRIMAGE_OF_THE_SEVEN_SHRINES"
+      ],
+      "itemIds": [
+        "ITM_TEMPLE_PILGRIM_BADGE"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_TEL_FYR",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Tel Fyr",
+      "displayName": "Tel Fyr",
+      "scaleTier": "region",
+      "x": 1010,
+      "y": 720,
+      "coordinates": {
+        "x": 1010,
+        "y": 720
+      },
+      "region": "Molag Amur",
+      "description": "Basalt-tower island of Divayth Fyr, immortal Telvanni wizard, whose cellars hold the Corprusarium and the scholar-ghost of Yagrum Bagarn.",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 1,
+      "odv": {
+        "s": 1,
+        "e": 2,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Telvanni wizard-lord retainers, corprus patients, Dwemer scholars",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_telvanni"
+      ],
+      "adj": [
+        "N_MOLAG_MAR"
+      ],
+      "childMapId": null,
+      "customNotes": "Basalt-tower island of Divayth Fyr, immortal Telvanni wizard, whose cellars hold the Corprusarium and the scholar-ghost of Yagrum Bagarn.",
+      "npcIds": [
+        "npc_divayth_fyr",
+        "npc_yagrum_bagarn",
+        "npc_dratha_fyr"
+      ],
+      "questIds": [
+        "Q_MW_THE_CURE_AT_TEL_FYR",
+        "Q_MW_TELVANNI_THE_DAUGHTERS_REQUEST"
+      ],
+      "itemIds": [
+        "ITM_DIVAYTH_FYR_CURE"
+      ],
+      "creatureIds": [
+        "creature_corprus_stalker"
+      ],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_HOLAMAYAN",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Holamayan Monastery",
+      "displayName": "Holamayan Monastery",
+      "scaleTier": "region",
+      "x": 1090,
+      "y": 800,
+      "coordinates": {
+        "x": 1090,
+        "y": 800
+      },
+      "region": "Molag Amur",
+      "description": "Island monastery of the Tribunal's dissident priests, a library of banned prophecy tucked into the volcanic coast.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 2,
+        "e": 1,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Dissident Temple monks, Ordinator exiles, hermit scribes",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_tribunal_temple",
+        "fac_independents"
+      ],
+      "adj": [
+        "N_MOLAG_MAR"
+      ],
+      "childMapId": null,
+      "customNotes": "Island monastery of the Tribunal's dissident priests, a library of banned prophecy tucked into the volcanic coast.",
+      "npcIds": [
+        "npc_holamayan_abbot"
+      ],
+      "questIds": [
+        "Q_MW_THE_LOST_PROPHECIES_OF_HOLAMAYAN",
+        "Q_MW_TEMPLE_THE_HERETIC_PRIEST"
+      ],
+      "itemIds": [
+        "ITM_LOST_PROPHECY_SCROLL",
+        "ITM_HOLAMAYAN_DISSIDENT_TREATISE"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_ERABENIMSUN_CAMP",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Erabenimsun Camp",
+      "displayName": "Erabenimsun Camp",
+      "scaleTier": "region",
+      "x": 1000,
+      "y": 520,
+      "coordinates": {
+        "x": 1000,
+        "y": 520
+      },
+      "region": "Molag Amur",
+      "description": "Hardline warrior tribe of the Molag Amur ash-flats whose Ashkhan resents outsiders and the Temple's claim to Nerevar's shadow.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 2,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Erabenimsun Ashlanders, hunters, blood-oath warriors",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_ashlanders"
+      ],
+      "adj": [
+        "N_MOUNT_KAND",
+        "N_MOLAG_MAR",
+        "N_AHEMMUSA_CAMP",
+        "N_SURAN"
+      ],
+      "childMapId": null,
+      "customNotes": "Hardline warrior tribe of the Molag Amur ash-flats whose Ashkhan resents outsiders and the Temple's claim to Nerevar's shadow.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_AHEMMUSA_CAMP",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Ahemmusa Camp",
+      "displayName": "Ahemmusa Camp",
+      "scaleTier": "region",
+      "x": 1040,
+      "y": 300,
+      "coordinates": {
+        "x": 1040,
+        "y": 300
+      },
+      "region": "Grazelands",
+      "description": "Smallest and most open of the four great tribes, living in the ash-grass of the Grazelands and respected for its peace-weaving Ashkhan.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 2,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Ahemmusa Ashlanders, guar herders, scouts",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_ashlanders"
+      ],
+      "adj": [
+        "N_ERABENIMSUN_CAMP",
+        "N_VOS",
+        "N_TEL_MORA"
+      ],
+      "childMapId": null,
+      "customNotes": "Smallest and most open of the four great tribes, living in the ash-grass of the Grazelands and respected for its peace-weaving Ashkhan.",
+      "npcIds": [
+        "npc_ahnissi"
+      ],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_DAGON_FEL",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Dagon Fel",
+      "displayName": "Dagon Fel",
+      "scaleTier": "region",
+      "x": 860,
+      "y": 120,
+      "coordinates": {
+        "x": 860,
+        "y": 120
+      },
+      "region": "Sheogorad",
+      "description": "Northern harbor of Sheogorad, a rain-lashed Nordic frontier town whose pub gossip is the best map of the northern sea.",
+      "cat": "Standard POI",
+      "culture": "Clan",
+      "cvf": "Clan",
+      "tier": 1,
+      "odv": {
+        "s": 4,
+        "e": 2,
+        "c": 2
+      },
+      "demographics": {
+        "primary": "Nord-descended sailors, Dunmer fishers, Redoran garrison",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_redoran"
+      ],
+      "adj": [
+        "N_VOS",
+        "N_URSHILAKU_CAMP"
+      ],
+      "childMapId": null,
+      "customNotes": "Northern harbor of Sheogorad, a rain-lashed Nordic frontier town whose pub gossip is the best map of the northern sea.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_VOS",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Vos",
+      "displayName": "Vos",
+      "scaleTier": "region",
+      "x": 1160,
+      "y": 230,
+      "coordinates": {
+        "x": 1160,
+        "y": 230
+      },
+      "region": "Grazelands",
+      "description": "Telvanni-tied town and Temple shrine perched on cliffs; the Vos Chapel hosts the Temple's relics of Saint Aralor.",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 1,
+      "odv": {
+        "s": 3,
+        "e": 2,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Telvanni wizards' servants, Temple scribes, Grazeland herders",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_telvanni",
+        "fac_tribunal_temple"
+      ],
+      "adj": [
+        "N_TEL_MORA",
+        "N_DAGON_FEL",
+        "N_AHEMMUSA_CAMP"
+      ],
+      "childMapId": null,
+      "customNotes": "Telvanni-tied town and Temple shrine perched on cliffs; the Vos Chapel hosts the Temple's relics of Saint Aralor.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_TEL_MORA",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Tel Mora",
+      "displayName": "Tel Mora",
+      "scaleTier": "region",
+      "x": 1130,
+      "y": 420,
+      "coordinates": {
+        "x": 1130,
+        "y": 420
+      },
+      "region": "Grazelands",
+      "description": "Mushroom-tower hamlet of the Telvanni coast, ruled by capricious Mouth of the house and flush with enchanters.",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 1,
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Telvanni apprentices, mushroom-tower servants, mage retainers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_telvanni"
+      ],
+      "adj": [
+        "N_TEL_ARUHN",
+        "N_VOS",
+        "N_SADRITH_MORA",
+        "N_AHEMMUSA_CAMP"
+      ],
+      "childMapId": null,
+      "customNotes": "Mushroom-tower hamlet of the Telvanni coast, ruled by capricious Mouth of the house and flush with enchanters.",
+      "npcIds": [
+        "npc_magister_therana"
+      ],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_TEL_ARUHN",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Tel Aruhn",
+      "displayName": "Tel Aruhn",
+      "scaleTier": "region",
+      "x": 1260,
+      "y": 480,
+      "coordinates": {
+        "x": 1260,
+        "y": 480
+      },
+      "region": "Azura's Coast",
+      "description": "Telvanni tower-town where Wizard-Lords hold their slow plots and apprentice mages run errands that border on treason.",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 1,
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Telvanni apprentices, slave-owners, Mages Guild envoys",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_telvanni",
+        "fac_mages_guild"
+      ],
+      "adj": [
+        "N_SADRITH_MORA",
+        "N_TEL_MORA"
+      ],
+      "childMapId": null,
+      "customNotes": "Telvanni tower-town where Wizard-Lords hold their slow plots and apprentice mages run errands that border on treason.",
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [
+        "ITM_AZURAS_STAR"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_SADRITH_MORA",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Sadrith Mora",
+      "displayName": "Sadrith Mora",
+      "scaleTier": "region",
+      "x": 1330,
+      "y": 540,
+      "coordinates": {
+        "x": 1330,
+        "y": 540
+      },
+      "region": "Azura's Coast",
+      "description": "Telvanni capital and eastern gateway to Vvardenfell, home to Tel Naga and the Wolverine Hall Legion garrison; its council plots over who will inherit the tower-lords' empire.",
+      "cat": "Bastion",
+      "culture": "Adhocracy",
+      "cvf": "Adhocracy",
+      "tier": 3,
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 3
+      },
+      "demographics": {
+        "primary": "Telvanni wizard-lords, Imperial Wayfarers, Mages Guild teachers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_house_telvanni",
+        "fac_mages_guild",
+        "fac_imperial_legion"
+      ],
+      "adj": [
+        "N_TEL_ARUHN",
+        "N_TEL_MORA",
+        "N_BALMORA",
+        "N_VIVEC_CITY"
+      ],
+      "childMapId": null,
+      "customNotes": "Telvanni capital and eastern gateway to Vvardenfell, home to Tel Naga and the Wolverine Hall Legion garrison; its council plots over who will inherit the tower-lords' empire.",
+      "npcIds": [
+        "npc_gothren",
+        "npc_master_aryon",
+        "npc_master_neloth",
+        "npc_arvo_rendi",
+        "npc_brevur_hlen"
+      ],
+      "questIds": [
+        "Q_MW_TELVANNI_NELOTHS_ERRAND",
+        "Q_MW_TELVANNI_ARYONS_REFORM",
+        "Q_MW_TELVANNI_GOTHRENS_POISON_CUP",
+        "Q_MW_TELVANNI_THE_TEL_NAGA_BURGLARY",
+        "Q_MW_TELVANNI_THE_SUCCESSION_OF_TOWERS",
+        "Q_MW_LEGION_WOLVERINE_HALL_ALARM"
+      ],
+      "itemIds": [
+        "ITM_TELVANNI_MUSHROOM_CODEX",
+        "ITM_WABBAJACK",
+        "ITM_TELVANNI_POISON_CUP",
+        "ITM_NELOTH_GATE_FRAGMENT",
+        "ITM_ARYON_REFORM_PETITION"
+      ],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    },
+    {
+      "id": "N_FORT_BUCKMOTH",
+      "mapId": "map_morrowind_vvardenfell",
+      "name": "Fort Buckmoth",
+      "displayName": "Fort Buckmoth",
+      "scaleTier": "region",
+      "x": 520,
+      "y": 340,
+      "coordinates": {
+        "x": 520,
+        "y": 340
+      },
+      "region": "West Gash",
+      "description": "Imperial Legion fort overlooking the Ald'ruhn road; its sergeants complain more of Ashlander raiders than of blight.",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "cvf": "Hierarchy",
+      "tier": 3,
+      "odv": {
+        "s": 2,
+        "e": 1,
+        "c": 4
+      },
+      "demographics": {
+        "primary": "Legion legionaries, Imperial officers, supply clerks",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_imperial_legion"
+      ],
+      "adj": [
+        "N_CALDERA",
+        "N_ALD_RUHN"
+      ],
+      "childMapId": null,
+      "customNotes": "Imperial Legion fort overlooking the Ald'ruhn road; its sergeants complain more of Ashlander raiders than of blight.",
+      "npcIds": [
+        "npc_telis_ravel"
+      ],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": []
+    }
+  ],
+  "links": [
+    {
+      "from": "N_SEYDA_NEEN",
+      "to": "N_BALMORA",
+      "type": "twoway",
+      "note": "Silt Strider: Seyda Neen to Balmora",
+      "cost": 2,
+      "label": "Silt Strider: Seyda Neen to Balmora",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_VIVEC_CITY",
+      "type": "twoway",
+      "note": "Silt Strider: Balmora to Vivec",
+      "cost": 2,
+      "label": "Silt Strider: Balmora to Vivec",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_ALD_RUHN",
+      "type": "twoway",
+      "note": "Silt Strider: Balmora to Ald'ruhn",
+      "cost": 2,
+      "label": "Silt Strider: Balmora to Ald'ruhn",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_ALD_RUHN",
+      "to": "N_GNISIS",
+      "type": "twoway",
+      "note": "Silt Strider: Ald'ruhn to Gnisis",
+      "cost": 2,
+      "label": "Silt Strider: Ald'ruhn to Gnisis",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_ALD_RUHN",
+      "to": "N_MAAR_GAN",
+      "type": "twoway",
+      "note": "Silt Strider: Ald'ruhn to Maar Gan",
+      "cost": 2,
+      "label": "Silt Strider: Ald'ruhn to Maar Gan",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_SURAN",
+      "type": "twoway",
+      "note": "Silt Strider: Vivec to Suran",
+      "cost": 2,
+      "label": "Silt Strider: Vivec to Suran",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_SURAN",
+      "to": "N_MOLAG_MAR",
+      "type": "twoway",
+      "note": "Silt Strider: Suran to Molag Mar",
+      "cost": 2,
+      "label": "Silt Strider: Suran to Molag Mar",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_ALD_RUHN",
+      "type": "twoway",
+      "note": "Silt Strider: Vivec to Ald'ruhn",
+      "cost": 3,
+      "label": "Silt Strider: Vivec to Ald'ruhn",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_SADRITH_MORA",
+      "to": "N_TEL_ARUHN",
+      "type": "twoway",
+      "note": "Silt Strider: Sadrith Mora to Tel Aruhn",
+      "cost": 1,
+      "label": "Silt Strider: Sadrith Mora to Tel Aruhn",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_TEL_ARUHN",
+      "to": "N_TEL_MORA",
+      "type": "twoway",
+      "note": "Silt Strider: Tel Aruhn to Tel Mora",
+      "cost": 1,
+      "label": "Silt Strider: Tel Aruhn to Tel Mora",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_TEL_MORA",
+      "to": "N_VOS",
+      "type": "twoway",
+      "note": "Silt Strider: Tel Mora to Vos",
+      "cost": 2,
+      "label": "Silt Strider: Tel Mora to Vos",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_CALDERA",
+      "type": "twoway",
+      "note": "Silt Strider: Balmora to Caldera",
+      "cost": 1,
+      "label": "Silt Strider: Balmora to Caldera",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_GNISIS",
+      "to": "N_ALD_VELOTHI",
+      "type": "twoway",
+      "note": "Overland: Azura's Coast Road",
+      "cost": 2,
+      "label": "Overland: Azura's Coast Road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_KHUUL",
+      "to": "N_ALD_VELOTHI",
+      "type": "twoway",
+      "note": "Overland: Northwest Shore Track",
+      "cost": 2,
+      "label": "Overland: Northwest Shore Track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_EBONHEART",
+      "type": "twoway",
+      "note": "Ferry: Vivec to Ebonheart",
+      "cost": 1,
+      "label": "Ferry: Vivec to Ebonheart",
+      "transit": "boat"
+    },
+    {
+      "from": "N_EBONHEART",
+      "to": "N_SEYDA_NEEN",
+      "type": "twoway",
+      "note": "Boat: Ebonheart to Seyda Neen",
+      "cost": 2,
+      "label": "Boat: Ebonheart to Seyda Neen",
+      "transit": "boat"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_MOLAG_MAR",
+      "type": "twoway",
+      "note": "Boat: Vivec to Molag Mar",
+      "cost": 3,
+      "label": "Boat: Vivec to Molag Mar",
+      "transit": "boat"
+    },
+    {
+      "from": "N_MOLAG_MAR",
+      "to": "N_TEL_FYR",
+      "type": "twoway",
+      "note": "Boat: Molag Mar to Tel Fyr",
+      "cost": 2,
+      "label": "Boat: Molag Mar to Tel Fyr",
+      "transit": "boat"
+    },
+    {
+      "from": "N_MOLAG_MAR",
+      "to": "N_HOLAMAYAN",
+      "type": "twoway",
+      "note": "Boat: Molag Mar to Holamayan",
+      "cost": 2,
+      "label": "Boat: Molag Mar to Holamayan",
+      "transit": "boat"
+    },
+    {
+      "from": "N_TEL_MORA",
+      "to": "N_SADRITH_MORA",
+      "type": "twoway",
+      "note": "Boat: Tel Mora to Sadrith Mora",
+      "cost": 2,
+      "label": "Boat: Tel Mora to Sadrith Mora",
+      "transit": "boat"
+    },
+    {
+      "from": "N_DAGON_FEL",
+      "to": "N_VOS",
+      "type": "twoway",
+      "note": "Boat: Dagon Fel to Vos",
+      "cost": 3,
+      "label": "Boat: Dagon Fel to Vos",
+      "transit": "boat"
+    },
+    {
+      "from": "N_KHUUL",
+      "to": "N_GNAAR_MOK",
+      "type": "twoway",
+      "note": "Boat: Khuul to Gnaar Mok coast",
+      "cost": 3,
+      "label": "Boat: Khuul to Gnaar Mok coast",
+      "transit": "boat"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_ALD_RUHN",
+      "type": "twoway",
+      "note": "Mages Guild Guide: Balmora to Ald'ruhn",
+      "cost": 1,
+      "label": "Mages Guild Guide: Balmora to Ald'ruhn",
+      "transit": "guild_guide"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_VIVEC_CITY",
+      "type": "twoway",
+      "note": "Mages Guild Guide: Balmora to Vivec",
+      "cost": 1,
+      "label": "Mages Guild Guide: Balmora to Vivec",
+      "transit": "guild_guide"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_CALDERA",
+      "type": "twoway",
+      "note": "Mages Guild Guide: Balmora to Caldera",
+      "cost": 1,
+      "label": "Mages Guild Guide: Balmora to Caldera",
+      "transit": "guild_guide"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_SADRITH_MORA",
+      "type": "twoway",
+      "note": "Mages Guild Guide: Balmora to Sadrith Mora",
+      "cost": 2,
+      "label": "Mages Guild Guide: Balmora to Sadrith Mora",
+      "transit": "guild_guide"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_SADRITH_MORA",
+      "type": "twoway",
+      "note": "Mages Guild Guide: Vivec to Sadrith Mora",
+      "cost": 2,
+      "label": "Mages Guild Guide: Vivec to Sadrith Mora",
+      "transit": "guild_guide"
+    },
+    {
+      "from": "N_SEYDA_NEEN",
+      "to": "N_PELAGIAD",
+      "type": "twoway",
+      "note": "Overland: Imperial Road to Pelagiad",
+      "cost": 1,
+      "label": "Overland: Imperial Road to Pelagiad",
+      "transit": "overland"
+    },
+    {
+      "from": "N_PELAGIAD",
+      "to": "N_BALMORA",
+      "type": "twoway",
+      "note": "Overland: Silt Road to Balmora",
+      "cost": 1,
+      "label": "Overland: Silt Road to Balmora",
+      "transit": "overland"
+    },
+    {
+      "from": "N_PELAGIAD",
+      "to": "N_EBONHEART",
+      "type": "twoway",
+      "note": "Overland: Pelagiad to Ebonheart road",
+      "cost": 2,
+      "label": "Overland: Pelagiad to Ebonheart road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_SEYDA_NEEN",
+      "to": "N_GNAAR_MOK",
+      "type": "twoway",
+      "note": "Overland: Bitter Coast boardwalk",
+      "cost": 2,
+      "label": "Overland: Bitter Coast boardwalk",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GNAAR_MOK",
+      "to": "N_HLA_OAD",
+      "type": "twoway",
+      "note": "Overland: Bitter Coast shore path",
+      "cost": 1,
+      "label": "Overland: Bitter Coast shore path",
+      "transit": "overland"
+    },
+    {
+      "from": "N_HLA_OAD",
+      "to": "N_BALMORA",
+      "type": "twoway",
+      "note": "Overland: Odai River road",
+      "cost": 1,
+      "label": "Overland: Odai River road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_FORT_MOONMOTH",
+      "type": "twoway",
+      "note": "Overland: Odai ford to Fort Moonmoth",
+      "cost": 1,
+      "label": "Overland: Odai ford to Fort Moonmoth",
+      "transit": "overland"
+    },
+    {
+      "from": "N_FORT_MOONMOTH",
+      "to": "N_PELAGIAD",
+      "type": "twoway",
+      "note": "Overland: Fort Moonmoth patrol road",
+      "cost": 1,
+      "label": "Overland: Fort Moonmoth patrol road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_ARKNGTHAND",
+      "type": "twoway",
+      "note": "Overland: Dwemer ruin trail",
+      "cost": 1,
+      "label": "Overland: Dwemer ruin trail",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_CALDERA",
+      "type": "twoway",
+      "note": "Overland: Caldera mine road",
+      "cost": 1,
+      "label": "Overland: Caldera mine road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_CALDERA",
+      "to": "N_FORT_BUCKMOTH",
+      "type": "twoway",
+      "note": "Overland: Ash-road to Fort Buckmoth",
+      "cost": 1,
+      "label": "Overland: Ash-road to Fort Buckmoth",
+      "transit": "overland"
+    },
+    {
+      "from": "N_FORT_BUCKMOTH",
+      "to": "N_ALD_RUHN",
+      "type": "twoway",
+      "note": "Overland: Ald'ruhn Gate road",
+      "cost": 1,
+      "label": "Overland: Ald'ruhn Gate road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ALD_RUHN",
+      "to": "N_URSHILAKU_CAMP",
+      "type": "twoway",
+      "note": "Overland: Ashlander cattle track",
+      "cost": 2,
+      "label": "Overland: Ashlander cattle track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_URSHILAKU_CAMP",
+      "to": "N_ZAINAB_CAMP",
+      "type": "twoway",
+      "note": "Overland: Northern ash-flats",
+      "cost": 2,
+      "label": "Overland: Northern ash-flats",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ALD_RUHN",
+      "to": "N_MAAR_GAN",
+      "type": "twoway",
+      "note": "Overland: Temple pilgrim road",
+      "cost": 2,
+      "label": "Overland: Temple pilgrim road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MAAR_GAN",
+      "to": "N_GHOSTGATE",
+      "type": "twoway",
+      "note": "Overland: Pilgrim road to Ghostgate",
+      "cost": 1,
+      "label": "Overland: Pilgrim road to Ghostgate",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GHOSTGATE",
+      "to": "N_DAGOTH_UR_CITADEL",
+      "type": "twoway",
+      "note": "Overland: Ghostfence Breach to citadel approach",
+      "cost": 3,
+      "label": "Overland: Ghostfence Breach to citadel approach",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GHOSTGATE",
+      "to": "N_MOUNT_KAND",
+      "type": "twoway",
+      "note": "Overland: Ashlands Flank Track",
+      "cost": 3,
+      "label": "Overland: Ashlands Flank Track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOUNT_KAND",
+      "to": "N_ERABENIMSUN_CAMP",
+      "type": "twoway",
+      "note": "Overland: Molag Amur ash trail",
+      "cost": 2,
+      "label": "Overland: Molag Amur ash trail",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ERABENIMSUN_CAMP",
+      "to": "N_MOLAG_MAR",
+      "type": "twoway",
+      "note": "Overland: Molag Amur coast road",
+      "cost": 2,
+      "label": "Overland: Molag Amur coast road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ERABENIMSUN_CAMP",
+      "to": "N_AHEMMUSA_CAMP",
+      "type": "twoway",
+      "note": "Overland: Grazelands high pass",
+      "cost": 3,
+      "label": "Overland: Grazelands high pass",
+      "transit": "overland"
+    },
+    {
+      "from": "N_AHEMMUSA_CAMP",
+      "to": "N_VOS",
+      "type": "twoway",
+      "note": "Overland: Grazelands herder road",
+      "cost": 2,
+      "label": "Overland: Grazelands herder road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_AHEMMUSA_CAMP",
+      "to": "N_TEL_MORA",
+      "type": "twoway",
+      "note": "Overland: Telvanni coast track",
+      "cost": 2,
+      "label": "Overland: Telvanni coast track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_SURAN",
+      "to": "N_MOUNT_KAND",
+      "type": "twoway",
+      "note": "Overland: Suran to Mount Kand",
+      "cost": 2,
+      "label": "Overland: Suran to Mount Kand",
+      "transit": "overland"
+    },
+    {
+      "from": "N_SURAN",
+      "to": "N_ERABENIMSUN_CAMP",
+      "type": "twoway",
+      "note": "Overland: Hlaalu slave-road",
+      "cost": 3,
+      "label": "Overland: Hlaalu slave-road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_SURAN",
+      "type": "twoway",
+      "note": "Overland: Imperial highway",
+      "cost": 2,
+      "label": "Overland: Imperial highway",
+      "transit": "overland"
+    },
+    {
+      "from": "N_DAGON_FEL",
+      "to": "N_URSHILAKU_CAMP",
+      "type": "twoway",
+      "note": "Overland: Northern trade trail",
+      "cost": 3,
+      "label": "Overland: Northern trade trail",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GNISIS",
+      "to": "N_URSHILAKU_CAMP",
+      "type": "twoway",
+      "note": "Overland: Gnisis pilgrim spur",
+      "cost": 2,
+      "label": "Overland: Gnisis pilgrim spur",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GNISIS",
+      "to": "N_KHUUL",
+      "type": "twoway",
+      "note": "Overland: Northwest shore road",
+      "cost": 3,
+      "label": "Overland: Northwest shore road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ARKNGTHAND",
+      "to": "N_KHUUL",
+      "type": "twoway",
+      "note": "Overland: Northwest scavenger path",
+      "cost": 3,
+      "label": "Overland: Northwest scavenger path",
+      "transit": "overland"
+    }
+  ],
+  "edges": [
+    {
+      "from": "N_SEYDA_NEEN",
+      "to": "N_BALMORA",
+      "type": "twoway",
+      "note": "Silt Strider: Seyda Neen to Balmora",
+      "cost": 2,
+      "label": "Silt Strider: Seyda Neen to Balmora",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_VIVEC_CITY",
+      "type": "twoway",
+      "note": "Silt Strider: Balmora to Vivec",
+      "cost": 2,
+      "label": "Silt Strider: Balmora to Vivec",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_ALD_RUHN",
+      "type": "twoway",
+      "note": "Silt Strider: Balmora to Ald'ruhn",
+      "cost": 2,
+      "label": "Silt Strider: Balmora to Ald'ruhn",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_ALD_RUHN",
+      "to": "N_GNISIS",
+      "type": "twoway",
+      "note": "Silt Strider: Ald'ruhn to Gnisis",
+      "cost": 2,
+      "label": "Silt Strider: Ald'ruhn to Gnisis",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_ALD_RUHN",
+      "to": "N_MAAR_GAN",
+      "type": "twoway",
+      "note": "Silt Strider: Ald'ruhn to Maar Gan",
+      "cost": 2,
+      "label": "Silt Strider: Ald'ruhn to Maar Gan",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_SURAN",
+      "type": "twoway",
+      "note": "Silt Strider: Vivec to Suran",
+      "cost": 2,
+      "label": "Silt Strider: Vivec to Suran",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_SURAN",
+      "to": "N_MOLAG_MAR",
+      "type": "twoway",
+      "note": "Silt Strider: Suran to Molag Mar",
+      "cost": 2,
+      "label": "Silt Strider: Suran to Molag Mar",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_ALD_RUHN",
+      "type": "twoway",
+      "note": "Silt Strider: Vivec to Ald'ruhn",
+      "cost": 3,
+      "label": "Silt Strider: Vivec to Ald'ruhn",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_SADRITH_MORA",
+      "to": "N_TEL_ARUHN",
+      "type": "twoway",
+      "note": "Silt Strider: Sadrith Mora to Tel Aruhn",
+      "cost": 1,
+      "label": "Silt Strider: Sadrith Mora to Tel Aruhn",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_TEL_ARUHN",
+      "to": "N_TEL_MORA",
+      "type": "twoway",
+      "note": "Silt Strider: Tel Aruhn to Tel Mora",
+      "cost": 1,
+      "label": "Silt Strider: Tel Aruhn to Tel Mora",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_TEL_MORA",
+      "to": "N_VOS",
+      "type": "twoway",
+      "note": "Silt Strider: Tel Mora to Vos",
+      "cost": 2,
+      "label": "Silt Strider: Tel Mora to Vos",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_CALDERA",
+      "type": "twoway",
+      "note": "Silt Strider: Balmora to Caldera",
+      "cost": 1,
+      "label": "Silt Strider: Balmora to Caldera",
+      "transit": "silt_strider"
+    },
+    {
+      "from": "N_GNISIS",
+      "to": "N_ALD_VELOTHI",
+      "type": "twoway",
+      "note": "Overland: Azura's Coast Road",
+      "cost": 2,
+      "label": "Overland: Azura's Coast Road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_KHUUL",
+      "to": "N_ALD_VELOTHI",
+      "type": "twoway",
+      "note": "Overland: Northwest Shore Track",
+      "cost": 2,
+      "label": "Overland: Northwest Shore Track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_EBONHEART",
+      "type": "twoway",
+      "note": "Ferry: Vivec to Ebonheart",
+      "cost": 1,
+      "label": "Ferry: Vivec to Ebonheart",
+      "transit": "boat"
+    },
+    {
+      "from": "N_EBONHEART",
+      "to": "N_SEYDA_NEEN",
+      "type": "twoway",
+      "note": "Boat: Ebonheart to Seyda Neen",
+      "cost": 2,
+      "label": "Boat: Ebonheart to Seyda Neen",
+      "transit": "boat"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_MOLAG_MAR",
+      "type": "twoway",
+      "note": "Boat: Vivec to Molag Mar",
+      "cost": 3,
+      "label": "Boat: Vivec to Molag Mar",
+      "transit": "boat"
+    },
+    {
+      "from": "N_MOLAG_MAR",
+      "to": "N_TEL_FYR",
+      "type": "twoway",
+      "note": "Boat: Molag Mar to Tel Fyr",
+      "cost": 2,
+      "label": "Boat: Molag Mar to Tel Fyr",
+      "transit": "boat"
+    },
+    {
+      "from": "N_MOLAG_MAR",
+      "to": "N_HOLAMAYAN",
+      "type": "twoway",
+      "note": "Boat: Molag Mar to Holamayan",
+      "cost": 2,
+      "label": "Boat: Molag Mar to Holamayan",
+      "transit": "boat"
+    },
+    {
+      "from": "N_TEL_MORA",
+      "to": "N_SADRITH_MORA",
+      "type": "twoway",
+      "note": "Boat: Tel Mora to Sadrith Mora",
+      "cost": 2,
+      "label": "Boat: Tel Mora to Sadrith Mora",
+      "transit": "boat"
+    },
+    {
+      "from": "N_DAGON_FEL",
+      "to": "N_VOS",
+      "type": "twoway",
+      "note": "Boat: Dagon Fel to Vos",
+      "cost": 3,
+      "label": "Boat: Dagon Fel to Vos",
+      "transit": "boat"
+    },
+    {
+      "from": "N_KHUUL",
+      "to": "N_GNAAR_MOK",
+      "type": "twoway",
+      "note": "Boat: Khuul to Gnaar Mok coast",
+      "cost": 3,
+      "label": "Boat: Khuul to Gnaar Mok coast",
+      "transit": "boat"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_ALD_RUHN",
+      "type": "twoway",
+      "note": "Mages Guild Guide: Balmora to Ald'ruhn",
+      "cost": 1,
+      "label": "Mages Guild Guide: Balmora to Ald'ruhn",
+      "transit": "guild_guide"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_VIVEC_CITY",
+      "type": "twoway",
+      "note": "Mages Guild Guide: Balmora to Vivec",
+      "cost": 1,
+      "label": "Mages Guild Guide: Balmora to Vivec",
+      "transit": "guild_guide"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_CALDERA",
+      "type": "twoway",
+      "note": "Mages Guild Guide: Balmora to Caldera",
+      "cost": 1,
+      "label": "Mages Guild Guide: Balmora to Caldera",
+      "transit": "guild_guide"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_SADRITH_MORA",
+      "type": "twoway",
+      "note": "Mages Guild Guide: Balmora to Sadrith Mora",
+      "cost": 2,
+      "label": "Mages Guild Guide: Balmora to Sadrith Mora",
+      "transit": "guild_guide"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_SADRITH_MORA",
+      "type": "twoway",
+      "note": "Mages Guild Guide: Vivec to Sadrith Mora",
+      "cost": 2,
+      "label": "Mages Guild Guide: Vivec to Sadrith Mora",
+      "transit": "guild_guide"
+    },
+    {
+      "from": "N_SEYDA_NEEN",
+      "to": "N_PELAGIAD",
+      "type": "twoway",
+      "note": "Overland: Imperial Road to Pelagiad",
+      "cost": 1,
+      "label": "Overland: Imperial Road to Pelagiad",
+      "transit": "overland"
+    },
+    {
+      "from": "N_PELAGIAD",
+      "to": "N_BALMORA",
+      "type": "twoway",
+      "note": "Overland: Silt Road to Balmora",
+      "cost": 1,
+      "label": "Overland: Silt Road to Balmora",
+      "transit": "overland"
+    },
+    {
+      "from": "N_PELAGIAD",
+      "to": "N_EBONHEART",
+      "type": "twoway",
+      "note": "Overland: Pelagiad to Ebonheart road",
+      "cost": 2,
+      "label": "Overland: Pelagiad to Ebonheart road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_SEYDA_NEEN",
+      "to": "N_GNAAR_MOK",
+      "type": "twoway",
+      "note": "Overland: Bitter Coast boardwalk",
+      "cost": 2,
+      "label": "Overland: Bitter Coast boardwalk",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GNAAR_MOK",
+      "to": "N_HLA_OAD",
+      "type": "twoway",
+      "note": "Overland: Bitter Coast shore path",
+      "cost": 1,
+      "label": "Overland: Bitter Coast shore path",
+      "transit": "overland"
+    },
+    {
+      "from": "N_HLA_OAD",
+      "to": "N_BALMORA",
+      "type": "twoway",
+      "note": "Overland: Odai River road",
+      "cost": 1,
+      "label": "Overland: Odai River road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_FORT_MOONMOTH",
+      "type": "twoway",
+      "note": "Overland: Odai ford to Fort Moonmoth",
+      "cost": 1,
+      "label": "Overland: Odai ford to Fort Moonmoth",
+      "transit": "overland"
+    },
+    {
+      "from": "N_FORT_MOONMOTH",
+      "to": "N_PELAGIAD",
+      "type": "twoway",
+      "note": "Overland: Fort Moonmoth patrol road",
+      "cost": 1,
+      "label": "Overland: Fort Moonmoth patrol road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_ARKNGTHAND",
+      "type": "twoway",
+      "note": "Overland: Dwemer ruin trail",
+      "cost": 1,
+      "label": "Overland: Dwemer ruin trail",
+      "transit": "overland"
+    },
+    {
+      "from": "N_BALMORA",
+      "to": "N_CALDERA",
+      "type": "twoway",
+      "note": "Overland: Caldera mine road",
+      "cost": 1,
+      "label": "Overland: Caldera mine road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_CALDERA",
+      "to": "N_FORT_BUCKMOTH",
+      "type": "twoway",
+      "note": "Overland: Ash-road to Fort Buckmoth",
+      "cost": 1,
+      "label": "Overland: Ash-road to Fort Buckmoth",
+      "transit": "overland"
+    },
+    {
+      "from": "N_FORT_BUCKMOTH",
+      "to": "N_ALD_RUHN",
+      "type": "twoway",
+      "note": "Overland: Ald'ruhn Gate road",
+      "cost": 1,
+      "label": "Overland: Ald'ruhn Gate road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ALD_RUHN",
+      "to": "N_URSHILAKU_CAMP",
+      "type": "twoway",
+      "note": "Overland: Ashlander cattle track",
+      "cost": 2,
+      "label": "Overland: Ashlander cattle track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_URSHILAKU_CAMP",
+      "to": "N_ZAINAB_CAMP",
+      "type": "twoway",
+      "note": "Overland: Northern ash-flats",
+      "cost": 2,
+      "label": "Overland: Northern ash-flats",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ALD_RUHN",
+      "to": "N_MAAR_GAN",
+      "type": "twoway",
+      "note": "Overland: Temple pilgrim road",
+      "cost": 2,
+      "label": "Overland: Temple pilgrim road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MAAR_GAN",
+      "to": "N_GHOSTGATE",
+      "type": "twoway",
+      "note": "Overland: Pilgrim road to Ghostgate",
+      "cost": 1,
+      "label": "Overland: Pilgrim road to Ghostgate",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GHOSTGATE",
+      "to": "N_DAGOTH_UR_CITADEL",
+      "type": "twoway",
+      "note": "Overland: Ghostfence Breach to citadel approach",
+      "cost": 3,
+      "label": "Overland: Ghostfence Breach to citadel approach",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GHOSTGATE",
+      "to": "N_MOUNT_KAND",
+      "type": "twoway",
+      "note": "Overland: Ashlands Flank Track",
+      "cost": 3,
+      "label": "Overland: Ashlands Flank Track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_MOUNT_KAND",
+      "to": "N_ERABENIMSUN_CAMP",
+      "type": "twoway",
+      "note": "Overland: Molag Amur ash trail",
+      "cost": 2,
+      "label": "Overland: Molag Amur ash trail",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ERABENIMSUN_CAMP",
+      "to": "N_MOLAG_MAR",
+      "type": "twoway",
+      "note": "Overland: Molag Amur coast road",
+      "cost": 2,
+      "label": "Overland: Molag Amur coast road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ERABENIMSUN_CAMP",
+      "to": "N_AHEMMUSA_CAMP",
+      "type": "twoway",
+      "note": "Overland: Grazelands high pass",
+      "cost": 3,
+      "label": "Overland: Grazelands high pass",
+      "transit": "overland"
+    },
+    {
+      "from": "N_AHEMMUSA_CAMP",
+      "to": "N_VOS",
+      "type": "twoway",
+      "note": "Overland: Grazelands herder road",
+      "cost": 2,
+      "label": "Overland: Grazelands herder road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_AHEMMUSA_CAMP",
+      "to": "N_TEL_MORA",
+      "type": "twoway",
+      "note": "Overland: Telvanni coast track",
+      "cost": 2,
+      "label": "Overland: Telvanni coast track",
+      "transit": "overland"
+    },
+    {
+      "from": "N_SURAN",
+      "to": "N_MOUNT_KAND",
+      "type": "twoway",
+      "note": "Overland: Suran to Mount Kand",
+      "cost": 2,
+      "label": "Overland: Suran to Mount Kand",
+      "transit": "overland"
+    },
+    {
+      "from": "N_SURAN",
+      "to": "N_ERABENIMSUN_CAMP",
+      "type": "twoway",
+      "note": "Overland: Hlaalu slave-road",
+      "cost": 3,
+      "label": "Overland: Hlaalu slave-road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_VIVEC_CITY",
+      "to": "N_SURAN",
+      "type": "twoway",
+      "note": "Overland: Imperial highway",
+      "cost": 2,
+      "label": "Overland: Imperial highway",
+      "transit": "overland"
+    },
+    {
+      "from": "N_DAGON_FEL",
+      "to": "N_URSHILAKU_CAMP",
+      "type": "twoway",
+      "note": "Overland: Northern trade trail",
+      "cost": 3,
+      "label": "Overland: Northern trade trail",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GNISIS",
+      "to": "N_URSHILAKU_CAMP",
+      "type": "twoway",
+      "note": "Overland: Gnisis pilgrim spur",
+      "cost": 2,
+      "label": "Overland: Gnisis pilgrim spur",
+      "transit": "overland"
+    },
+    {
+      "from": "N_GNISIS",
+      "to": "N_KHUUL",
+      "type": "twoway",
+      "note": "Overland: Northwest shore road",
+      "cost": 3,
+      "label": "Overland: Northwest shore road",
+      "transit": "overland"
+    },
+    {
+      "from": "N_ARKNGTHAND",
+      "to": "N_KHUUL",
+      "type": "twoway",
+      "note": "Overland: Northwest scavenger path",
+      "cost": 3,
+      "label": "Overland: Northwest scavenger path",
+      "transit": "overland"
+    }
+  ]
+}

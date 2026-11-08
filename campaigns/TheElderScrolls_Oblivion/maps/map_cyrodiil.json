@@ -1,0 +1,1586 @@
+{
+  "id": "map_cyrodiil",
+  "name": "Cyrodiil Heartland & County Realms",
+  "scaleTier": "region",
+  "theme": "temperate_imperial",
+  "parentMapId": null,
+  "parentNodeId": null,
+  "nodeIds": [
+    "N_ANVIL_HARBOR",
+    "N_KVATCH_CITADEL",
+    "N_SKINGRAD_CASTLE",
+    "N_CHORROL_TOWN",
+    "N_BRUMA_TOWN",
+    "N_CHEYDINHAL_TOWN",
+    "N_BRAVIL_CANALS",
+    "N_LEYAWIIN_PORT",
+    "N_WEYNON_PRIORY",
+    "N_CLOUD_RULER_TEMPLE",
+    "N_SANCRE_TOR",
+    "N_MISCARCAND",
+    "N_VILVERIN_RUINS",
+    "N_HACKDIRT_VILLAGE",
+    "N_APPLEWATCH_FARM",
+    "N_FROSTCRAG_SPIRE",
+    "N_LAKE_ARRIUS_CAVERNS",
+    "N_WATER_EDGE",
+    "N_ECHO_CAVE",
+    "N_AZURA_SHRINE"
+  ],
+  "nodes": [
+    {
+      "id": "N_ANVIL_HARBOR",
+      "mapId": "map_cyrodiil",
+      "name": "Anvil & The Abecean Harbor",
+      "scaleTier": "settlement",
+      "x": 80,
+      "y": 360,
+      "region": "Gold Coast",
+      "description": "Picturesque coastal port city on the Abecean Sea; seat of Countess Millona Umbranox and haven for sailors, pirates, and the Gray Fox.",
+      "cvf": "Market",
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 2
+      },
+      "adj": [
+        "N_KVATCH_CITADEL"
+      ],
+      "childMapId": null,
+      "displayName": "Anvil & The Abecean Harbor",
+      "coordinates": {
+        "x": 80,
+        "y": 360
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_thieves_guild",
+        "fac_fighters_guild"
+      ],
+      "npcIds": [
+        "npc_azzan",
+        "npc_carahil",
+        "npc_gold_road",
+        "npc_rusia_bradus",
+        "npc_rhano",
+        "npc_pinarus_inventius",
+        "npc_mirabelle_monet",
+        "npc_varulae",
+        "npc_rumor_maelona",
+        "npc_norbert_lelles",
+        "npc_velwyn_benirus",
+        "npc_benirus_manor"
+      ],
+      "questIds": [
+        "Q_OBLIVION_A_RAT_PROBLEM",
+        "Q_OBLIVION_ANVIL_RECOMMENDATION",
+        "Q_OBLIVION_ATHLETICS_TRAINING",
+        "Q_OBLIVION_DEN_OF_THIEVES",
+        "Q_OBLIVION_TAKING_CARE_OF_LEX",
+        "Q_OBLIVION_THE_SIRENS_DECEPTION",
+        "Q_OBLIVION_WHERE_SPIRITS_HAVE_LEASE"
+      ],
+      "itemIds": [
+        "ITM_WITSPLINTER",
+        "ITM_SKELETAL_HAND",
+        "ITM_FORGED_LIST_OF_CANDIDATES",
+        "ITM_LIST_OF_CANDIDATES",
+        "ITM_SCRAP_FROM_LORGRENS_DIARY",
+        "ITM_SEALED_FORGED_LIST_OF_CANDIDATES",
+        "ITM_TRANSFER_ORDERS"
+      ],
+      "creatureIds": [],
+      "culture": "Market",
+      "demographics": {
+        "primary": "Imperial & Redguard Sailors",
+        "minorities": [
+          {
+            "demographic": "Smugglers & Pirates",
+            "percentage": 25
+          }
+        ]
+      }
+    },
+    {
+      "id": "N_KVATCH_CITADEL",
+      "mapId": "map_cyrodiil",
+      "name": "Kvatch & The Burning Ruins",
+      "scaleTier": "settlement",
+      "x": 180,
+      "y": 280,
+      "region": "Colovian Highlands",
+      "description": "Citadel plateau laid waste by the first Oblivion Gate; Savlian Matius and Brother Martin defend surviving refugees in the Chapel of Akatosh.",
+      "cvf": "Clan",
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 2
+      },
+      "adj": [
+        "N_ANVIL_HARBOR",
+        "N_SKINGRAD_CASTLE"
+      ],
+      "childMapId": "map_deadlands",
+      "displayName": "Kvatch & The Burning Ruins",
+      "coordinates": {
+        "x": 180,
+        "y": 280
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_blades",
+        "fac_mythic_dawn"
+      ],
+      "npcIds": [
+        "npc_brother_martin",
+        "npc_savlian_matius",
+        "npc_martin",
+        "npc_oleta",
+        "npc_ilav_dralgoner"
+      ],
+      "questIds": [
+        "Q_OBLIVION_A_WOUND_IN_TIME",
+        "Q_OBLIVION_BREAKING_THE_SIEGE_OF_KVATCH",
+        "Q_OBLIVION_RESTORATION_TRAINING",
+        "Q_OBLIVION_SAVING_TIME_ITSELF",
+        "Q_OBLIVION_THE_BATTLE_FOR_CASTLE_KVATCH"
+      ],
+      "itemIds": [
+        "ITM_AMULET_OF_KINGS",
+        "ITM_KVATCH_CUIRASS",
+        "ITM_COLOVIAN_SIGNET_RING",
+        "ITM_MYSTERIUM_XARXES",
+        "ITM_SIGIL_KEEP_KEY",
+        "ITM_TRANSCENDENT_SIGIL_STONE",
+        "ITM_ARMOR_OF_ORDER"
+      ],
+      "creatureIds": [],
+      "culture": "Clan",
+      "demographics": {
+        "primary": "Kvatch Refugees & Guards",
+        "minorities": [
+          {
+            "demographic": "Daedric Scamps",
+            "percentage": 40
+          }
+        ]
+      }
+    },
+    {
+      "id": "N_SKINGRAD_CASTLE",
+      "mapId": "map_cyrodiil",
+      "name": "Skingrad & Castle Hassildor",
+      "scaleTier": "settlement",
+      "x": 240,
+      "y": 260,
+      "region": "West Weald",
+      "description": "Gothic stone bridges, cobbled ramparts, and sprawling Surilie and Tamika vineyards; secretly ruled by the vampire Count Janus Hassildor.",
+      "cvf": "Hierarchy",
+      "odv": {
+        "s": 2,
+        "e": 1,
+        "c": 4
+      },
+      "adj": [
+        "N_KVATCH_CITADEL",
+        "N_MISCARCAND",
+        "N_HACKDIRT_VILLAGE"
+      ],
+      "childMapId": null,
+      "displayName": "Skingrad & Castle Hassildor",
+      "coordinates": {
+        "x": 240,
+        "y": 260
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_elder_council",
+        "fac_mages_guild"
+      ],
+      "npcIds": [
+        "npc_sinderion",
+        "npc_ambroise_canne",
+        "npc_shum_gro_yarug",
+        "npc_eyja",
+        "npc_theranis",
+        "npc_glarthir",
+        "npc_nirnroot",
+        "npc_adrienne_berene",
+        "npc_janus_hassildor"
+      ],
+      "questIds": [
+        "Q_OBLIVION_BROKEN_VOWS",
+        "Q_OBLIVION_BUYING_A_HOUSE_IN_SKINGRAD",
+        "Q_OBLIVION_HELPING_HANDS",
+        "Q_OBLIVION_LOST_HISTORIES",
+        "Q_OBLIVION_PARANOIA",
+        "Q_OBLIVION_SEEKING_YOUR_ROOTS",
+        "Q_OBLIVION_SKINGRAD_RECOMMENDATION",
+        "Q_OBLIVION_THE_ROSETHORN_CACHE",
+        "Q_OBLIVION_UNFINISHED_BUSINESS"
+      ],
+      "itemIds": [
+        "ITM_BRENUS_ASTIS_JOURNAL",
+        "ITM_LOST_HISTORIES_OF_TAMRIEL",
+        "ITM_ONE_BOTTLE_OF_ELIXIR_OF_EXPLORATION",
+        "ITM_THE_RING_OF_THE_GRAY"
+      ],
+      "creatureIds": [],
+      "culture": "Hierarchy",
+      "demographics": {
+        "primary": "Colovian Nobles & Vintners",
+        "minorities": [
+          {
+            "demographic": "Vampire Courtiers",
+            "percentage": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "N_CHORROL_TOWN",
+      "mapId": "map_cyrodiil",
+      "name": "Chorrol & The Great Oak",
+      "scaleTier": "settlement",
+      "x": 210,
+      "y": 140,
+      "region": "Great Forest",
+      "description": "Highland Colovian stronghold home to Countess Arriana Valga, Castle Chorrol, and the honorable Knights of the White Stallion.",
+      "cvf": "Clan",
+      "odv": {
+        "s": 2,
+        "e": 2,
+        "c": 3
+      },
+      "adj": [
+        "N_HACKDIRT_VILLAGE",
+        "N_WEYNON_PRIORY",
+        "N_SANCRE_TOR"
+      ],
+      "childMapId": null,
+      "displayName": "Chorrol & The Great Oak",
+      "coordinates": {
+        "x": 210,
+        "y": 140
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_fighters_guild",
+        "fac_mages_guild"
+      ],
+      "npcIds": [
+        "npc_modryn_oreyn",
+        "npc_seed_neeus",
+        "npc_seed",
+        "npc_honditar",
+        "npc_casta_scribonia",
+        "npc_arriana_valga",
+        "npc_chanel",
+        "npc_alberic_litte",
+        "npc_teekeeus",
+        "npc_ajum",
+        "npc_reynald_jemane",
+        "npc_valus_odiil",
+        "npc_viranus_donton"
+      ],
+      "questIds": [
+        "Q_OBLIVION_A_SHADOW_OVER_HACKDIRT",
+        "Q_OBLIVION_CANVAS_THE_CASTLE",
+        "Q_OBLIVION_FINGERS_OF_THE_MOUNTAIN",
+        "Q_OBLIVION_INFORMATION_GATHERING",
+        "Q_OBLIVION_NEXT_OF_KIN",
+        "Q_OBLIVION_SEPARATED_AT_BIRTH",
+        "Q_OBLIVION_THE_HIST",
+        "Q_OBLIVION_THE_KILLING_FIELD"
+      ],
+      "itemIds": [
+        "ITM_CHILLREND",
+        "ITM_HELM_OF_OREYN_BEARCLAW",
+        "ITM_AMULET_OF_INTERROGATION",
+        "ITM_LOOSE_PIPE",
+        "ITM_ROLLED_UP_PORTRAIT",
+        "ITM_DRACONIS_GIFT_LIST",
+        "ITM_EARANAS_NOTES",
+        "ITM_FINGERS_OF_THE_MOUNTAIN",
+        "ITM_CHORROL_CASTLE_PRIVATE_AREA",
+        "ITM_RIZAKARS_ROOM_KEY",
+        "ITM_LEVELED_SPELLS_FINGER_OF_THE_MOUNTAIN"
+      ],
+      "creatureIds": [],
+      "culture": "Hierarchy",
+      "demographics": {
+        "primary": "Colovian Freeholders & Knights",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_BRUMA_TOWN",
+      "mapId": "map_cyrodiil",
+      "name": "Bruma & The Great Gate Basin",
+      "scaleTier": "settlement",
+      "x": 360,
+      "y": 90,
+      "region": "Jerall Mountains",
+      "description": "Snowbound Nord frontier town beneath the Jerall peaks; ruled by Countess Narina Carvain and site of the climactic Great Gate battle.",
+      "cvf": "Hierarchy",
+      "odv": {
+        "s": 4,
+        "e": 1,
+        "c": 2
+      },
+      "adj": [
+        "N_CLOUD_RULER_TEMPLE",
+        "N_APPLEWATCH_FARM",
+        "N_ECHO_CAVE"
+      ],
+      "childMapId": null,
+      "displayName": "Bruma & The Great Gate Basin",
+      "coordinates": {
+        "x": 360,
+        "y": 90
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_blades",
+        "fac_thieves_guild"
+      ],
+      "npcIds": [
+        "npc_carius_runellius",
+        "npc_bradon_lirrian",
+        "npc_jeanne_frasoric",
+        "npc_helvius_cecia",
+        "npc_tolgan",
+        "npc_narina_carvain",
+        "npc_stone_of_st",
+        "npc_arnora_auria",
+        "npc_captain_burd"
+      ],
+      "questIds": [
+        "Q_OBLIVION_A_BROTHERHOOD_BETRAYED",
+        "Q_OBLIVION_ALLIES_FOR_BRUMA",
+        "Q_OBLIVION_BRUMA_GATE",
+        "Q_OBLIVION_BRUMA_RECOMMENDATION",
+        "Q_OBLIVION_HAND_TO_HAND_TRAINING",
+        "Q_OBLIVION_LIFTING_THE_VALE",
+        "Q_OBLIVION_THE_STONE_OF_ST_ALESSIA",
+        "Q_OBLIVION_TWO_SIDES_OF_THE_COIN"
+      ],
+      "itemIds": [
+        "ITM_DRACONIAN_MADSTONE",
+        "ITM_RING_OF_THE_VIPEREYE",
+        "ITM_PHYLACTERY_OF_LITHENESS",
+        "ITM_ARNORAS_AMULET",
+        "ITM_ARNORAS_TRUE_AMULET",
+        "ITM_MUNDANE_AMULET",
+        "ITM_STONE_OF_ST_ALESSIA",
+        "ITM_AKAVIRI_DIARY_TRANSLATION",
+        "ITM_AKAVIRI_ORDERS",
+        "ITM_GELEBOURNES_JOURNAL",
+        "ITM_MANUAL_OF_SPELLCRAFT",
+        "ITM_AKAVIRI_FORT_KEY",
+        "ITM_ARNORAS_CHEST_KEY",
+        "ITM_RAYNILS_ROOM_KEY",
+        "ITM_THREE_POTION_OF_HEALING"
+      ],
+      "creatureIds": [],
+      "culture": "Clan",
+      "demographics": {
+        "primary": "Nord Frontiersmen & Hunters",
+        "minorities": [
+          {
+            "demographic": "Imperial Guards",
+            "percentage": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "N_CHEYDINHAL_TOWN",
+      "mapId": "map_cyrodiil",
+      "name": "Cheydinhal & Willow Bank",
+      "scaleTier": "settlement",
+      "x": 460,
+      "y": 170,
+      "region": "Valus Mountains",
+      "description": "Dunmer-styled timber city nestled near the Morrowind border; Count Andel Indarys' town conceals the Dark Brotherhood sanctuary well.",
+      "cvf": "Market",
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 3
+      },
+      "adj": [
+        "N_LAKE_ARRIUS_CAVERNS",
+        "N_BRAVIL_CANALS",
+        "N_VILVERIN_RUINS"
+      ],
+      "childMapId": null,
+      "displayName": "Cheydinhal & Willow Bank",
+      "coordinates": {
+        "x": 460,
+        "y": 170
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_dark_brotherhood",
+        "fac_fighters_guild",
+        "fac_mages_guild"
+      ],
+      "npcIds": [
+        "npc_lucien_lachance",
+        "npc_ocheeva",
+        "npc_vicente_valtieri",
+        "npc_tivela_lythandas",
+        "npc_ganredhel",
+        "npc_burz_gro_khash",
+        "npc_andel_indarys",
+        "npc_falcar",
+        "npc_llevana_nedaren",
+        "npc_ulrich_leland",
+        "npc_guilbert_jemane",
+        "npc_gruiand_garrana",
+        "npc_teinaava",
+        "npc_scar",
+        "npc_local_town_guard_in_cheydinhal",
+        "npc_farwil_indarys",
+        "npc_summitmist_manor",
+        "npc_rythe_lythandas"
+      ],
+      "questIds": [
+        "Q_OBLIVION_A_BRUSH_WITH_DEATH",
+        "Q_OBLIVION_A_KNIFE_IN_THE_DARK",
+        "Q_OBLIVION_A_WATERY_GRAVE",
+        "Q_OBLIVION_BAD_MEDICINE",
+        "Q_OBLIVION_BUYING_A_HOUSE_IN_CHEYDINHAL",
+        "Q_OBLIVION_CHEYDINHAL_RECOMMENDATION",
+        "Q_OBLIVION_CORRUPTION_AND_CONSCIENCE",
+        "Q_OBLIVION_DARKNESS_ETERNAL",
+        "Q_OBLIVION_PERMANENT_RETIREMENT",
+        "Q_OBLIVION_THE_LONELY_WANDERER",
+        "Q_OBLIVION_THE_PURIFICATION",
+        "Q_OBLIVION_THE_RENEGADE_SHADOWSCALE",
+        "Q_OBLIVION_THE_WAYWARD_KNIGHT",
+        "Q_OBLIVION_WHODUNIT"
+      ],
+      "itemIds": [
+        "ITM_APRON_OF_ADROITNESS",
+        "ITM_STAFF_OF_INDARYS",
+        "ITM_THORNBLADE",
+        "ITM_BOOTS_OF_BLOODY_BOUNDING",
+        "ITM_KNIGHTS_OF_THE_THORN_MEDALLION",
+        "ITM_SHADOWHUNT",
+        "ITM_THE_DECEIVERS_FINERY",
+        "ITM_INDARYS_SIGNET_RING",
+        "ITM_BLACK_SOUL_GEM",
+        "ITM_BRUSH_OF_TRUEPAINT",
+        "ITM_SUSPICIOUS_LETTER",
+        "ITM_RYTHES_STUDIO_KEY",
+        "ITM_SUMMITMIST_MANOR_KEY",
+        "ITM_ULRICH_LELANDS_KEY",
+        "ITM_WELL_KEY",
+        "ITM_DAGGER_OF_DISCIPLINE",
+        "ITM_SHROUDED_ARMOR",
+        "ITM_SHADOWMERE",
+        "ITM_SHROUDED_HOOD",
+        "ITM_CURE_VAMPIRISM_POTION",
+        "ITM_SPELLS_BUOYANCY"
+      ],
+      "creatureIds": [
+        "creature_painted_troll"
+      ],
+      "culture": "Market",
+      "demographics": {
+        "primary": "Dunmer Emigrants & Imperials",
+        "minorities": [
+          {
+            "demographic": "Dark Brotherhood Assassins",
+            "percentage": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "N_BRAVIL_CANALS",
+      "mapId": "map_cyrodiil",
+      "name": "Bravil & The Lucky Old Lady",
+      "scaleTier": "settlement",
+      "x": 360,
+      "y": 310,
+      "region": "Nibenay Basin",
+      "description": "Ramshackle canal settlement of rotting wood and skooma dens; the bronze statue of the Lucky Old Lady marks the crypt of the Night Mother.",
+      "cvf": "Clan",
+      "odv": {
+        "s": 3,
+        "e": 2,
+        "c": 1
+      },
+      "adj": [
+        "N_CHEYDINHAL_TOWN",
+        "N_WATER_EDGE",
+        "N_MISCARCAND"
+      ],
+      "childMapId": null,
+      "displayName": "Bravil & The Lucky Old Lady",
+      "coordinates": {
+        "x": 360,
+        "y": 310
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_thieves_guild"
+      ],
+      "npcIds": [
+        "npc_ardaline",
+        "npc_tooth",
+        "npc_andragil",
+        "npc_kud_ei",
+        "npc_regulus_terentius",
+        "npc_ursanne_loche",
+        "npc_delphine_jend",
+        "npc_skrivva",
+        "npc_marz",
+        "npc_droshanji",
+        "npc_ranaline",
+        "npc_gilgondorin",
+        "npc_kud"
+      ],
+      "questIds": [
+        "Q_OBLIVION_ALTERATION_TRAINING",
+        "Q_OBLIVION_BLOCK_TRAINING",
+        "Q_OBLIVION_BRAVIL_RECOMMENDATION",
+        "Q_OBLIVION_BUYING_A_HOUSE_IN_BRAVIL",
+        "Q_OBLIVION_CAUGHT_IN_THE_HUNT",
+        "Q_OBLIVION_FOLLOWING_A_LEAD",
+        "Q_OBLIVION_MORE_UNFINISHED_BUSINESS",
+        "Q_OBLIVION_THE_FORLORN_WATCHMAN_QUEST",
+        "Q_OBLIVION_THE_FUGITIVES",
+        "Q_OBLIVION_THROUGH_A_NIGHTMARE_DARKLY",
+        "Q_OBLIVION_SI_A_BETTER_MOUSETRAP",
+        "Q_OBLIVION_SI_A_DOOR_IN_NIBEN_BAY",
+        "Q_OBLIVION_SI_A_LIQUID_SOLUTION",
+        "Q_OBLIVION_SI_ADDICTION",
+        "Q_OBLIVION_SI_BAITING_THE_TRAP",
+        "Q_OBLIVION_SI_BRITHAUR_QUEST",
+        "Q_OBLIVION_SI_EVERYTHING_IN_ITS_PLACE",
+        "Q_OBLIVION_SI_FALLING_AWAKE",
+        "Q_OBLIVION_SI_FINAL_RESTING",
+        "Q_OBLIVION_SI_GHOSTS_OF_THE_HILL_OF_SUICIDES",
+        "Q_OBLIVION_SI_GHOSTS_OF_VITHARN",
+        "Q_OBLIVION_SI_LEVELED_ITEM_QUESTS",
+        "Q_OBLIVION_SI_MAIN_QUEST",
+        "Q_OBLIVION_SI_MISCELLANEOUS_QUESTS",
+        "Q_OBLIVION_SI_REBUILDING_THE_GATEKEEPER",
+        "Q_OBLIVION_SI_RETAKING_THE_FRINGE",
+        "Q_OBLIVION_SI_RITUAL_OF_ACCESSION",
+        "Q_OBLIVION_SI_RITUAL_OF_DEMENTIA",
+        "Q_OBLIVION_SI_RITUAL_OF_MANIA",
+        "Q_OBLIVION_SI_SYMBOLS_OF_OFFICE",
+        "Q_OBLIVION_SI_TAXONOMY_OF_OBSESSION",
+        "Q_OBLIVION_SI_THE_ANTIPODEAN_HAMMER",
+        "Q_OBLIVION_SI_THE_COLD_FLAME_OF_AGNON",
+        "Q_OBLIVION_SI_THE_COMING_STORM",
+        "Q_OBLIVION_SI_THE_END_OF_ORDER",
+        "Q_OBLIVION_SI_THE_FORK_OF_HORRIPILATION",
+        "Q_OBLIVION_SI_THE_GREAT_DIVIDE",
+        "Q_OBLIVION_SI_THE_HELPLESS_ARMY",
+        "Q_OBLIVION_SI_THE_LADY_OF_PARANOIA",
+        "Q_OBLIVION_SI_THE_MUSEUM_OF_ODDITIES",
+        "Q_OBLIVION_SI_THE_PARANOID_ROOF_WATCHER",
+        "Q_OBLIVION_SI_THE_PRINCE_OF_MADNESS",
+        "Q_OBLIVION_SI_THE_ROOTS_OF_MADNESS",
+        "Q_OBLIVION_SI_THROUGH_THE_FRINGE_OF_MADNESS",
+        "Q_OBLIVION_SI_TO_HELP_A_HERO",
+        "Q_OBLIVION_SI_UNDERSTANDING_MADNESS",
+        "Q_OBLIVION_SI_USHNARS_TERROR",
+        "Q_OBLIVION_SI_WORK_IS_NEVER_DONE"
+      ],
+      "itemIds": [
+        "ITM_COUNT_CIRIONS_HELMET",
+        "ITM_DAWNFANG_AND_DUSKFANG",
+        "ITM_RING_OF_LORDSHIP_DEMENTIA",
+        "ITM_RING_OF_LORDSHIP_MANIA",
+        "ITM_STAFF_OF_SHEOGORATH",
+        "ITM_TALISMAN_OF_ABETMENT",
+        "ITM_FORK_OF_HORRIPILATION",
+        "ITM_ARROW_OF_EXTRICATION",
+        "ITM_DREAMWORLD_AMULET",
+        "ITM_ELEMENT_OF_COURAGE",
+        "ITM_GRANTHAM_BLAKELEYS_MAP",
+        "ITM_LOG_OF_THE_EMMA_MAY",
+        "ITM_BLACK_HAND_HOOD",
+        "ITM_SPELLS_CAPTIVATE",
+        "ITM_SIX_SCROLLS",
+        "ITM_SHIVERING_CIRCLET_OF_VERDURE",
+        "ITM_MEMBERSHIP_OF_THE_SHIVERING_HOUSE_OF_MANIA",
+        "ITM_SHIVERING_DAWNFANG_AND_DUSKFANG",
+        "ITM_SHIVERING_RING_OF_MIND_SHIELDING",
+        "ITM_SHIVERING_BURST_OF_MIGHT",
+        "ITM_SHIVERING_RING_OF_HAPPINESS",
+        "ITM_SHIVERING_COUNT_CIRIONS_HELMET",
+        "ITM_SHIVERING_RING_OF_LORDSHIP_DEMENTIA",
+        "ITM_SHIVERING_RING_OF_LORDSHIP_MANIA",
+        "ITM_INCOMPLETE_STAFF_OF_SHEOGORATH",
+        "ITM_AND_SHIVERING_SHADOWREND",
+        "ITM_OBTAIN_SHIVERING_AMBER_ARMOR",
+        "ITM_SHIVERING_RAIMENT_OF_ARDEN_SUL",
+        "ITM_SHIVERING_MAGIC_AHJAZDAS_PARANOIA",
+        "ITM_SHIVERING_ARMOR_DARK_SEDUCER_ARMOR",
+        "ITM_SHIVERING_RUINS_EDGE",
+        "ITM_NERVESHATTER_OR_DIADEM_OF_EUPHORIA_AND_A_COMPLETED_SHIVERING_STAFF_OF_SHEOGORATH",
+        "ITM_SHIVERING_MAGIC_BLESSING_OF_MANIA",
+        "ITM_SHIVERING_THORN_SHIELD",
+        "ITM_SHIVERING_MAGIC_LESSER_POWERS",
+        "ITM_PET_SHIVERING_USHNARS_SKINNED_HOUND"
+      ],
+      "creatureIds": [],
+      "culture": "Clan",
+      "demographics": {
+        "primary": "Impoverished Nibenese & Khajiit",
+        "minorities": [
+          {
+            "demographic": "Skooma Addicts",
+            "percentage": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "N_LEYAWIIN_PORT",
+      "mapId": "map_cyrodiil",
+      "name": "Leyawiin & The Niben Delta",
+      "scaleTier": "settlement",
+      "x": 370,
+      "y": 430,
+      "region": "Blackwood",
+      "description": "Fortified delta crossroads bordered by Elsweyr and Black Marsh; beset by ethnic tension, the count's court, and Blackwood Company mercenaries.",
+      "cvf": "Market",
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 2
+      },
+      "adj": [
+        "N_WATER_EDGE"
+      ],
+      "childMapId": null,
+      "displayName": "Leyawiin & The Niben Delta",
+      "coordinates": {
+        "x": 370,
+        "y": 430
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_blackwood_company",
+        "fac_fighters_guild"
+      ],
+      "npcIds": [
+        "npc_alval_uvani",
+        "npc_mazoga_the_orc",
+        "npc_marius_caro",
+        "npc_dagail",
+        "npc_ahdarji",
+        "npc_margarte",
+        "npc_eye_of_nocturnal",
+        "npc_lerexus_callidus",
+        "npc_sdrassa",
+        "npc_various_npcs_in_leyawiin",
+        "npc_rosentia_gallenus"
+      ],
+      "questIds": [
+        "Q_OBLIVION_AZANI_BLACKHEART_QUEST",
+        "Q_OBLIVION_BUYING_A_HOUSE_IN_LEYAWIIN",
+        "Q_OBLIVION_DRUNK_AND_DISORDERLY",
+        "Q_OBLIVION_KNIGHTS_OF_THE_WHITE_STALLION_QUEST",
+        "Q_OBLIVION_LEYAWIIN_RECOMMENDATION",
+        "Q_OBLIVION_LIGHT_ARMOR_TRAINING",
+        "Q_OBLIVION_MAZOGA_THE_ORC_QUEST",
+        "Q_OBLIVION_MYSTICISM_TRAINING",
+        "Q_OBLIVION_NOCTURNAL",
+        "Q_OBLIVION_RAID_ON_GREYLAND",
+        "Q_OBLIVION_SANGUINE",
+        "Q_OBLIVION_TEARS_OF_THE_SAVIOR",
+        "Q_OBLIVION_WHOM_GODS_ANNOY"
+      ],
+      "itemIds": [
+        "ITM_RING_OF_EIDOLONS_EDGE",
+        "ITM_SANGUINE_ROSE",
+        "ITM_SKELETON_KEY",
+        "ITM_STAFF_OF_THE_EVERSCAMP",
+        "ITM_BLACKHEARTS_RING",
+        "ITM_KYLIUS_LONAVOS_RING",
+        "ITM_MANDUINS_AMULET",
+        "ITM_EYE_OF_NOCTURNAL",
+        "ITM_GARRIDANS_TEAR",
+        "ITM_KNIGHTFALL",
+        "ITM_SINWEAVER"
+      ],
+      "creatureIds": [
+        "creature_land_dreugh"
+      ],
+      "culture": "Market",
+      "demographics": {
+        "primary": "Imperial Colonists & Nobles",
+        "minorities": [
+          {
+            "demographic": "Argonian & Khajiit Laborers",
+            "percentage": 45
+          }
+        ]
+      }
+    },
+    {
+      "id": "N_WEYNON_PRIORY",
+      "mapId": "map_cyrodiil",
+      "name": "Weynon Priory & Chapel of Saint Jiub",
+      "scaleTier": "site",
+      "x": 230,
+      "y": 180,
+      "region": "Great Forest",
+      "description": "Rustic monastic abbey near Chorrol; Prior Jauffre's covert command post for the Order of the Blades.",
+      "cvf": "Clan",
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 1
+      },
+      "adj": [
+        "N_CHORROL_TOWN",
+        "N_VILVERIN_RUINS"
+      ],
+      "childMapId": null,
+      "displayName": "Weynon Priory & Chapel of Saint Jiub",
+      "coordinates": {
+        "x": 230,
+        "y": 180
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_blades"
+      ],
+      "npcIds": [
+        "npc_jauffre"
+      ],
+      "questIds": [
+        "Q_OBLIVION_DELIVER_THE_AMULET",
+        "Q_OBLIVION_FIND_THE_HEIR",
+        "Q_OBLIVION_WEYNON_PRIORY_QUEST"
+      ],
+      "itemIds": [
+        "ITM_ARMOR"
+      ],
+      "creatureIds": [],
+      "culture": "Clan",
+      "demographics": {
+        "primary": "Monks of the Nine Divines",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_CLOUD_RULER_TEMPLE",
+      "mapId": "map_cyrodiil",
+      "name": "Cloud Ruler Temple (Blades Fortress)",
+      "scaleTier": "site",
+      "x": 340,
+      "y": 60,
+      "region": "Jerall Mountains",
+      "description": "Impregnable Akaviri mountain fortress looking south across Cyrodiil; safe haven for Martin Septim and the royal Blades garrison.",
+      "cvf": "Hierarchy",
+      "odv": {
+        "s": 2,
+        "e": 1,
+        "c": 4
+      },
+      "adj": [
+        "N_SANCRE_TOR",
+        "N_BRUMA_TOWN"
+      ],
+      "childMapId": null,
+      "displayName": "Cloud Ruler Temple (Blades Fortress)",
+      "coordinates": {
+        "x": 340,
+        "y": 60
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_blades"
+      ],
+      "npcIds": [],
+      "questIds": [
+        "Q_OBLIVION_DEFENSE_OF_BRUMA",
+        "Q_OBLIVION_MISCARCAND_QUEST",
+        "Q_OBLIVION_SPIES",
+        "Q_OBLIVION_THE_PATH_OF_DAWN"
+      ],
+      "itemIds": [
+        "ITM_GREAT_WELKYND_STONE"
+      ],
+      "creatureIds": [],
+      "culture": "Hierarchy",
+      "demographics": {
+        "primary": "Akaviri Blades Knighthood",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_SANCRE_TOR",
+      "mapId": "map_cyrodiil",
+      "name": "Sancre Tor & Holy Crypt of Talos",
+      "scaleTier": "site",
+      "x": 270,
+      "y": 100,
+      "region": "Jerall Mountains",
+      "description": "Ancient mountain necropolis holding the tombs of Reman emperors and the consecrated armor of General Tiber Septim.",
+      "cvf": "Hierarchy",
+      "odv": {
+        "s": 2,
+        "e": 1,
+        "c": 4
+      },
+      "adj": [
+        "N_CHORROL_TOWN",
+        "N_CLOUD_RULER_TEMPLE"
+      ],
+      "childMapId": null,
+      "displayName": "Sancre Tor & Holy Crypt of Talos",
+      "coordinates": {
+        "x": 270,
+        "y": 100
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_blades"
+      ],
+      "npcIds": [],
+      "questIds": [
+        "Q_OBLIVION_BLOOD_OF_THE_DIVINES"
+      ],
+      "itemIds": [
+        "ITM_MISHAXHIS_CLEAVER",
+        "ITM_SANCRE_TOR_KEY"
+      ],
+      "creatureIds": [
+        "creature_minotaur_lord"
+      ],
+      "culture": "Hierarchy",
+      "demographics": {
+        "primary": "Cursed Undead Blade Ghosts",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_MISCARCAND",
+      "mapId": "map_cyrodiil",
+      "name": "Miscarcand & Great Welkynd Vault",
+      "scaleTier": "site",
+      "x": 290,
+      "y": 290,
+      "region": "West Weald",
+      "description": "Massive Ayleid ruins guarded by undead liches and the cursed King of Miscarcand; houses the radiant Great Welkynd Stone.",
+      "cvf": "Hierarchy",
+      "odv": {
+        "s": 1,
+        "e": 1,
+        "c": 4
+      },
+      "adj": [
+        "N_SKINGRAD_CASTLE",
+        "N_BRAVIL_CANALS"
+      ],
+      "childMapId": null,
+      "displayName": "Miscarcand & Great Welkynd Vault",
+      "coordinates": {
+        "x": 290,
+        "y": 290
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_mages_guild"
+      ],
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [
+        "creature_king_of_miscarcand"
+      ],
+      "culture": "Hierarchy",
+      "demographics": {
+        "primary": "Ayleid Lich Guardians & Skeletons",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_VILVERIN_RUINS",
+      "mapId": "map_cyrodiil",
+      "name": "Vilverin & Lake Rumare Shore",
+      "scaleTier": "site",
+      "x": 350,
+      "y": 140,
+      "region": "Heartland",
+      "description": "Ancient lakeside Ayleid ruins directly opposite the Imperial Prison sewers; notorious haven for outlaws, traps, and necromancers.",
+      "cvf": "Adhocracy",
+      "odv": {
+        "s": 1,
+        "e": 3,
+        "c": 2
+      },
+      "adj": [
+        "N_CHEYDINHAL_TOWN",
+        "N_WEYNON_PRIORY"
+      ],
+      "childMapId": null,
+      "displayName": "Vilverin & Lake Rumare Shore",
+      "coordinates": {
+        "x": 350,
+        "y": 140
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_thieves_guild"
+      ],
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "culture": "Adhocracy",
+      "demographics": {
+        "primary": "Outlaw Bandits & Necromancers",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_HACKDIRT_VILLAGE",
+      "mapId": "map_cyrodiil",
+      "name": "Hackdirt & The Subterranean Brethren",
+      "scaleTier": "settlement",
+      "x": 250,
+      "y": 210,
+      "region": "Great Forest",
+      "description": "Sinister, hostile hamlet whose xenophobic residents sacrifice travelers to ancient chthonic entities known as 'The Deep Ones'.",
+      "cvf": "Clan",
+      "odv": {
+        "s": 4,
+        "e": 1,
+        "c": 3
+      },
+      "adj": [
+        "N_SKINGRAD_CASTLE",
+        "N_CHORROL_TOWN"
+      ],
+      "childMapId": null,
+      "displayName": "Hackdirt & The Subterranean Brethren",
+      "coordinates": {
+        "x": 250,
+        "y": 210
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_mythic_dawn"
+      ],
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [],
+      "culture": "Clan",
+      "demographics": {
+        "primary": "Inbred Brethren Cultists",
+        "minorities": [
+          {
+            "demographic": "The Deep Ones",
+            "percentage": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "N_APPLEWATCH_FARM",
+      "mapId": "map_cyrodiil",
+      "name": "Applewatch Farm & Orchard",
+      "scaleTier": "site",
+      "x": 390,
+      "y": 110,
+      "region": "Jerall Foothills",
+      "description": "Remote hillside farmstead; tragic site where the Black Hand brutally tortures and executes Speaker Lucien Lachance under false pretenses.",
+      "cvf": "Market",
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 1
+      },
+      "adj": [
+        "N_BRUMA_TOWN",
+        "N_FROSTCRAG_SPIRE"
+      ],
+      "childMapId": null,
+      "displayName": "Applewatch Farm & Orchard",
+      "coordinates": {
+        "x": 390,
+        "y": 110
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_dark_brotherhood"
+      ],
+      "npcIds": [
+        "npc_mathieu_bellamont"
+      ],
+      "questIds": [
+        "Q_OBLIVION_HONOR_THY_MOTHER"
+      ],
+      "itemIds": [],
+      "creatureIds": [
+        "creature_shadowmere"
+      ],
+      "culture": "Clan",
+      "demographics": {
+        "primary": "Draconis Family Settlers",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_FROSTCRAG_SPIRE",
+      "mapId": "map_cyrodiil",
+      "name": "Frostcrag Spire & Astral Tower",
+      "scaleTier": "site",
+      "x": 410,
+      "y": 70,
+      "region": "Jerall Mountains",
+      "description": "Enchanted crystalline wizard tower crowning the highest glacial ridge east of Bruma, containing a private alchemy garden and portal vault.",
+      "cvf": "Adhocracy",
+      "odv": {
+        "s": 1,
+        "e": 3,
+        "c": 4
+      },
+      "adj": [
+        "N_APPLEWATCH_FARM",
+        "N_AZURA_SHRINE"
+      ],
+      "childMapId": null,
+      "displayName": "Frostcrag Spire & Astral Tower",
+      "coordinates": {
+        "x": 410,
+        "y": 70
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_mages_guild"
+      ],
+      "npcIds": [],
+      "questIds": [
+        "Q_OBLIVION_FROSTCRAG_SPIRE_QUEST"
+      ],
+      "itemIds": [],
+      "creatureIds": [],
+      "culture": "Adhocracy",
+      "demographics": {
+        "primary": "Atronach Familiars & Hermetic Mages",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_LAKE_ARRIUS_CAVERNS",
+      "mapId": "map_cyrodiil",
+      "name": "Lake Arrius & Mythic Dawn Citadel",
+      "scaleTier": "site",
+      "x": 430,
+      "y": 120,
+      "region": "Valus Mountains",
+      "description": "Subterranean grotto temple where Mankar Camoran consecrated the Mysterium Xarxes and rallied his sleeper cultists.",
+      "cvf": "Adhocracy",
+      "odv": {
+        "s": 1,
+        "e": 4,
+        "c": 4
+      },
+      "adj": [
+        "N_AZURA_SHRINE",
+        "N_CHEYDINHAL_TOWN"
+      ],
+      "childMapId": null,
+      "displayName": "Lake Arrius & Mythic Dawn Citadel",
+      "coordinates": {
+        "x": 430,
+        "y": 120
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_mythic_dawn"
+      ],
+      "npcIds": [
+        "npc_jeelius"
+      ],
+      "questIds": [
+        "Q_OBLIVION_DAGON_SHRINE"
+      ],
+      "itemIds": [],
+      "creatureIds": [],
+      "culture": "Adhocracy",
+      "demographics": {
+        "primary": "Mythic Dawn Cult Initiates",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_WATER_EDGE",
+      "mapId": "map_cyrodiil",
+      "name": "Water's Edge & The Hist Clearing",
+      "scaleTier": "site",
+      "x": 340,
+      "y": 390,
+      "region": "Blackwood",
+      "description": "Peaceful settlement along the Lower Niben destroyed when the Blackwood Company, intoxicated on corrupted Hist sap, butchered the town.",
+      "cvf": "Clan",
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 1
+      },
+      "adj": [
+        "N_BRAVIL_CANALS",
+        "N_LEYAWIIN_PORT"
+      ],
+      "childMapId": null,
+      "displayName": "Water's Edge & The Hist Clearing",
+      "coordinates": {
+        "x": 340,
+        "y": 390
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_blackwood_company"
+      ],
+      "npcIds": [
+        "npc_blackwood_commander"
+      ],
+      "questIds": [
+        "Q_OBLIVION_AMELIONS_DEBT",
+        "Q_OBLIVION_INFILTRATION"
+      ],
+      "itemIds": [],
+      "creatureIds": [
+        "creature_will_o_the_wisp"
+      ],
+      "culture": "Clan",
+      "demographics": {
+        "primary": "Settlement Farmers (Slain/Hist-Hulks)",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_ECHO_CAVE",
+      "mapId": "map_cyrodiil",
+      "name": "Echo Cave & Seat of the Necromancers",
+      "scaleTier": "site",
+      "x": 380,
+      "y": 50,
+      "region": "Jerall Mountains",
+      "description": "Cavernous underground necropolis where Mannimarco, King of Worms, marshals his undead thralls against the Arcane University.",
+      "cvf": "Market",
+      "odv": {
+        "s": 1,
+        "e": 3,
+        "c": 4
+      },
+      "adj": [
+        "N_BRUMA_TOWN"
+      ],
+      "childMapId": null,
+      "displayName": "Echo Cave & Seat of the Necromancers",
+      "coordinates": {
+        "x": 380,
+        "y": 50
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_mages_guild"
+      ],
+      "npcIds": [
+        "npc_mannimarco"
+      ],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [
+        "creature_gloom_wraith"
+      ],
+      "culture": "Adhocracy",
+      "demographics": {
+        "primary": "Order of the Black Worm Necromancers",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_AZURA_SHRINE",
+      "mapId": "map_cyrodiil",
+      "name": "Shrine of Azura & Silverfish Ridge",
+      "scaleTier": "site",
+      "x": 470,
+      "y": 110,
+      "region": "Jerall Mountains",
+      "description": "Majestic mountaintop statue overlooking the eastern mountains; Azura bestows her infinite soul-gem Star upon pious pilgrims.",
+      "cvf": "Clan",
+      "odv": {
+        "s": 3,
+        "e": 2,
+        "c": 2
+      },
+      "adj": [
+        "N_FROSTCRAG_SPIRE",
+        "N_LAKE_ARRIUS_CAVERNS"
+      ],
+      "childMapId": null,
+      "displayName": "Shrine of Azura & Silverfish Ridge",
+      "coordinates": {
+        "x": 470,
+        "y": 110
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_mages_guild"
+      ],
+      "npcIds": [],
+      "questIds": [
+        "Q_OBLIVION_CONJURATION_TRAINING",
+        "Q_OBLIVION_DESTRUCTION_TRAINING",
+        "Q_OBLIVION_SHEOGORATH",
+        "Q_OBLIVION_VAERMINA"
+      ],
+      "itemIds": [
+        "ITM_SKULL_OF_CORRUPTION",
+        "ITM_WABBAJACK",
+        "ITM_OLROY_CHEESE",
+        "ITM_ORB_OF_VAERMINA"
+      ],
+      "creatureIds": [],
+      "culture": "Clan",
+      "demographics": {
+        "primary": "Dunmer Twilight Pilgrims",
+        "minorities": []
+      }
+    }
+  ],
+  "links": [
+    {
+      "from": "N_IMPERIAL_WATERFRONT",
+      "to": "N_VILVERIN_RUINS",
+      "type": "twoway",
+      "note": "Lake Rumare Shallows",
+      "cost": 2
+    },
+    {
+      "from": "N_IMPERIAL_PRISON_SEWERS",
+      "to": "N_VILVERIN_RUINS",
+      "type": "twoway",
+      "note": "Sewer Outfall",
+      "cost": 1
+    },
+    {
+      "from": "N_MARKET_DISTRICT",
+      "to": "N_WEYNON_PRIORY",
+      "type": "twoway",
+      "note": "Red Ring Highway West",
+      "cost": 2
+    },
+    {
+      "from": "N_ARCANE_UNIVERSITY",
+      "to": "N_BRAVIL_CANALS",
+      "type": "twoway",
+      "note": "Green Road South",
+      "cost": 2
+    },
+    {
+      "from": "N_IMPERIAL_ARENA",
+      "to": "N_CHEYDINHAL_TOWN",
+      "type": "twoway",
+      "note": "Blue Road East",
+      "cost": 2
+    },
+    {
+      "from": "N_ANVIL_HARBOR",
+      "to": "N_KVATCH_CITADEL",
+      "type": "twoway",
+      "note": "Gold Road Ascent",
+      "cost": 2
+    },
+    {
+      "from": "N_KVATCH_CITADEL",
+      "to": "N_SKINGRAD_CASTLE",
+      "type": "twoway",
+      "note": "Gold Road East",
+      "cost": 2
+    },
+    {
+      "from": "N_SKINGRAD_CASTLE",
+      "to": "N_MISCARCAND",
+      "type": "twoway",
+      "note": "West Weald Byway",
+      "cost": 1
+    },
+    {
+      "from": "N_SKINGRAD_CASTLE",
+      "to": "N_HACKDIRT_VILLAGE",
+      "type": "twoway",
+      "note": "Forest Bridle Path",
+      "cost": 2
+    },
+    {
+      "from": "N_HACKDIRT_VILLAGE",
+      "to": "N_CHORROL_TOWN",
+      "type": "twoway",
+      "note": "Great Forest Lane",
+      "cost": 2
+    },
+    {
+      "from": "N_CHORROL_TOWN",
+      "to": "N_WEYNON_PRIORY",
+      "type": "twoway",
+      "note": "Priory Walk",
+      "cost": 1
+    },
+    {
+      "from": "N_CHORROL_TOWN",
+      "to": "N_SANCRE_TOR",
+      "type": "twoway",
+      "note": "Jerall Ridgeline",
+      "cost": 3
+    },
+    {
+      "from": "N_SANCRE_TOR",
+      "to": "N_CLOUD_RULER_TEMPLE",
+      "type": "twoway",
+      "note": "Akaviri Pass",
+      "cost": 2
+    },
+    {
+      "from": "N_CLOUD_RULER_TEMPLE",
+      "to": "N_BRUMA_TOWN",
+      "type": "twoway",
+      "note": "Blades Switchback",
+      "cost": 1
+    },
+    {
+      "from": "N_BRUMA_TOWN",
+      "to": "N_APPLEWATCH_FARM",
+      "type": "twoway",
+      "note": "Applewatch Road",
+      "cost": 1
+    },
+    {
+      "from": "N_BRUMA_TOWN",
+      "to": "N_ECHO_CAVE",
+      "type": "twoway",
+      "note": "Glacial Gorge",
+      "cost": 2
+    },
+    {
+      "from": "N_APPLEWATCH_FARM",
+      "to": "N_FROSTCRAG_SPIRE",
+      "type": "twoway",
+      "note": "Astral High Pass",
+      "cost": 3
+    },
+    {
+      "from": "N_FROSTCRAG_SPIRE",
+      "to": "N_AZURA_SHRINE",
+      "type": "twoway",
+      "note": "Mountain Crest Trail",
+      "cost": 3
+    },
+    {
+      "from": "N_AZURA_SHRINE",
+      "to": "N_LAKE_ARRIUS_CAVERNS",
+      "type": "twoway",
+      "note": "Silver Road Foothills",
+      "cost": 2
+    },
+    {
+      "from": "N_LAKE_ARRIUS_CAVERNS",
+      "to": "N_CHEYDINHAL_TOWN",
+      "type": "twoway",
+      "note": "Valus Forest Trail",
+      "cost": 1
+    },
+    {
+      "from": "N_CHEYDINHAL_TOWN",
+      "to": "N_BRAVIL_CANALS",
+      "type": "twoway",
+      "note": "Reed River Route",
+      "cost": 3
+    },
+    {
+      "from": "N_BRAVIL_CANALS",
+      "to": "N_WATER_EDGE",
+      "type": "twoway",
+      "note": "Lower Niben Bank",
+      "cost": 2
+    },
+    {
+      "from": "N_BRAVIL_CANALS",
+      "to": "N_MISCARCAND",
+      "type": "twoway",
+      "note": "Southern Weald Trail",
+      "cost": 2
+    },
+    {
+      "from": "N_WATER_EDGE",
+      "to": "N_LEYAWIIN_PORT",
+      "type": "twoway",
+      "note": "Blackwood Edge",
+      "cost": 1
+    },
+    {
+      "from": "N_KVATCH_CITADEL",
+      "to": "N_DEADLANDS_KVATCH_GATE",
+      "type": "twoway",
+      "note": "Kvatch Oblivion Gate",
+      "cost": 3
+    },
+    {
+      "from": "N_BRUMA_TOWN",
+      "to": "N_DEADLANDS_GREAT_GATE",
+      "type": "twoway",
+      "note": "The Great Gate Incursion",
+      "cost": 3
+    },
+    {
+      "from": "N_CLOUD_RULER_TEMPLE",
+      "to": "N_PARADISE_GAIAR_ALATA",
+      "type": "twoway",
+      "note": "Mysterium Portal Ritual",
+      "cost": 3
+    },
+    {
+      "from": "N_VILVERIN_RUINS",
+      "to": "N_CHEYDINHAL_TOWN",
+      "type": "twoway",
+      "note": "Red Ring Highway East",
+      "cost": 1
+    },
+    {
+      "from": "N_VILVERIN_RUINS",
+      "to": "N_WEYNON_PRIORY",
+      "type": "twoway",
+      "note": "Red Ring Highway Northwest",
+      "cost": 1
+    }
+  ]
+}

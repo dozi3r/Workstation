@@ -1,0 +1,212 @@
+{
+  "id": "map_deadlands",
+  "name": "The Deadlands & Planar Incursions",
+  "scaleTier": "site",
+  "theme": "daedric_hellscape",
+  "parentMapId": "map_cyrodiil",
+  "parentNodeId": "N_KVATCH_CITADEL",
+  "nodeIds": [
+    "N_DEADLANDS_KVATCH_GATE",
+    "N_DEADLANDS_GREAT_GATE",
+    "N_PARADISE_GAIAR_ALATA"
+  ],
+  "nodes": [
+    {
+      "id": "N_DEADLANDS_KVATCH_GATE",
+      "mapId": "map_deadlands",
+      "name": "The Deadlands & Kvatch Sigil Keep",
+      "scaleTier": "site",
+      "x": 120,
+      "y": 220,
+      "region": "Oblivion",
+      "description": "Abyssal lava plains under Mehrunes Dagon; towering spiked citadels, blood fountains, and the Sigil Stone anchoring the Kvatch breach.",
+      "cvf": "Adhocracy",
+      "odv": {
+        "s": 1,
+        "e": 4,
+        "c": 4
+      },
+      "adj": [
+        "N_DEADLANDS_GREAT_GATE"
+      ],
+      "childMapId": null,
+      "displayName": "The Deadlands & Kvatch Sigil Keep",
+      "coordinates": {
+        "x": 120,
+        "y": 220
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_mythic_dawn"
+      ],
+      "npcIds": [
+        "npc_dremora_commander"
+      ],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [
+        "creature_scamp",
+        "creature_clannfear",
+        "creature_flame_atronach"
+      ],
+      "culture": "Adhocracy",
+      "demographics": {
+        "primary": "Dremora Kyn & Flame Atronachs",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_DEADLANDS_GREAT_GATE",
+      "mapId": "map_deadlands",
+      "name": "The Great Gate & Siege Citadel",
+      "scaleTier": "site",
+      "x": 160,
+      "y": 260,
+      "region": "Oblivion",
+      "description": "Immense Deadlands fortress protecting the colossal Daedric Siege Crawler; closed by extracting the Great Sigil Stone under strict timer.",
+      "cvf": "Hierarchy",
+      "odv": {
+        "s": 1,
+        "e": 4,
+        "c": 4
+      },
+      "adj": [
+        "N_DEADLANDS_KVATCH_GATE",
+        "N_PARADISE_GAIAR_ALATA"
+      ],
+      "childMapId": null,
+      "displayName": "The Great Gate & Siege Citadel",
+      "coordinates": {
+        "x": 160,
+        "y": 260
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_mythic_dawn"
+      ],
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [
+        "creature_daedroth",
+        "creature_spider_daedra",
+        "creature_xivilai",
+        "creature_dremora_valkynaz"
+      ],
+      "culture": "Adhocracy",
+      "demographics": {
+        "primary": "Dremora Valkyn & Siege Crawlers",
+        "minorities": []
+      }
+    },
+    {
+      "id": "N_PARADISE_GAIAR_ALATA",
+      "mapId": "map_deadlands",
+      "name": "Gaiar Alata (Mankar Camoran's Paradise)",
+      "scaleTier": "site",
+      "x": 440,
+      "y": 60,
+      "region": "Pocket Realm",
+      "description": "Surreal twilight paradise crafted by the Mysterium Xarxes; immortal cultists suffer eternal torment until Camoran falls in Carac Agaialor.",
+      "cvf": "Adhocracy",
+      "odv": {
+        "s": 1,
+        "e": 4,
+        "c": 4
+      },
+      "adj": [
+        "N_DEADLANDS_GREAT_GATE"
+      ],
+      "childMapId": null,
+      "displayName": "Gaiar Alata (Mankar Camoran's Paradise)",
+      "coordinates": {
+        "x": 440,
+        "y": 60
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "factionPresence": [
+        "fac_mythic_dawn"
+      ],
+      "npcIds": [
+        "npc_mankar_camoran",
+        "npc_ruma_camoran",
+        "npc_raven_camoran"
+      ],
+      "questIds": [
+        "Q_OBLIVION_PARADISE_QUEST"
+      ],
+      "itemIds": [
+        "ITM_MANKAR_CAMORANS_ROBE",
+        "ITM_BANDS_OF_THE_CHOSEN"
+      ],
+      "creatureIds": [],
+      "culture": "Adhocracy",
+      "demographics": {
+        "primary": "Immortal Mythic Dawn Zealots & Daedra",
+        "minorities": []
+      }
+    }
+  ],
+  "links": [
+    {
+      "from": "N_KVATCH_CITADEL",
+      "to": "N_DEADLANDS_KVATCH_GATE",
+      "type": "twoway",
+      "note": "Kvatch Oblivion Gate",
+      "cost": 3
+    },
+    {
+      "from": "N_BRUMA_TOWN",
+      "to": "N_DEADLANDS_GREAT_GATE",
+      "type": "twoway",
+      "note": "The Great Gate Incursion",
+      "cost": 3
+    },
+    {
+      "from": "N_CLOUD_RULER_TEMPLE",
+      "to": "N_PARADISE_GAIAR_ALATA",
+      "type": "twoway",
+      "note": "Mysterium Portal Ritual",
+      "cost": 3
+    },
+    {
+      "from": "N_TEMPLE_OF_THE_ONE",
+      "to": "N_DEADLANDS_GREAT_GATE",
+      "type": "twoway",
+      "note": "Metaphysical Clash",
+      "cost": 3
+    },
+    {
+      "from": "N_DEADLANDS_KVATCH_GATE",
+      "to": "N_DEADLANDS_GREAT_GATE",
+      "type": "twoway",
+      "note": "Deadlands Wastes & Sigil Causeway",
+      "cost": 2
+    },
+    {
+      "from": "N_DEADLANDS_GREAT_GATE",
+      "to": "N_PARADISE_GAIAR_ALATA",
+      "type": "twoway",
+      "note": "Camoran Planar Conduit",
+      "cost": 3
+    }
+  ]
+}
