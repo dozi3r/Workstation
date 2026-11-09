@@ -67,6 +67,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="handleToolbarSave(); closeAllMenus();">Save Campaign <span class="hotkey">Ctrl+S</span></div>
           <div class="dropdown-row" onclick="openSaveAsNewCampaignModal()">Save As New Campaign... <span class="hotkey">Ctrl+Shift+S</span></div>
+          <div class="dropdown-row" onclick="openCampaignSettingsModal(); closeAllMenus();">Campaign Settings... <span class="hotkey">Ctrl+Shift+P</span></div>
           <div class="dropdown-row" onclick="saveCampaignAsFolder()">Save As Campaign Folder (Disk / USB)...</div>
           <div class="dropdown-row" onclick="saveCampaignAsCreatorJson()">Save As Monolithic (.creator.json)...</div>
           <div class="dropdown-row" onclick="saveCampaignAsZip()">Export Campaign Package (.zip)...</div>
@@ -102,6 +103,7 @@ CRITICAL INSTRUCTION:
           <div class="dropdown-separator"></div>
           <div class="dropdown-row" onclick="resetZoom()">Reset 1:1 Scale <span class="hotkey">0</span></div>
           <div class="dropdown-separator"></div>
+          <div class="dropdown-row" onclick="openCampaignSettingsModal(); closeAllMenus();">Campaign Settings... <span class="hotkey">Ctrl+Shift+P</span></div>
           <div class="dropdown-row" onclick="openSettingsModal()">Preferences...</div>
         </div>
       </div>
@@ -539,7 +541,7 @@ CRITICAL INSTRUCTION:
       <div id="sb-coords" class="status-pane bevel-inset" style="width:100px;">X: 0, Y: 0</div>
       <div id="sb-scale" class="status-pane bevel-inset" style="width:130px; cursor:pointer;" onclick="openSetMapScaleDialog()" title="Click to configure dimensional map scale &amp; units">Scale: 1 sq = 5 mi</div>
       <div id="sb-zoom" class="status-pane bevel-inset" style="width:80px; cursor:pointer;" onclick="resetZoom()" title="Click to reset zoom to 100% (1:1)">Zoom: 100%</div>
-      <div id="sb-campaign" class="status-pane bevel-inset" style="width:170px;">Ready (New Campaign)</div>
+      <div id="sb-campaign" class="status-pane bevel-inset" style="width:170px; cursor:pointer;" onclick="openCampaignSettingsModal()" title="Click to edit Campaign Settings &amp; Metadata">Ready (New Campaign)</div>
     </div>
 
     <!-- 6. WINDOWS 95 MDI TASKBAR -->

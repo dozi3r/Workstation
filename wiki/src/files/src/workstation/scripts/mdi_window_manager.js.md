@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/mdi_window_manager.js"
 title: "mdi_window_manager.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "d1f1ca1ad06bb747"
-reviewed_hash: "d1f1ca1ad06bb747"
+current_hash: "63c7d860373855a2"
+reviewed_hash: "63c7d860373855a2"
 stale: false
-size_bytes: 134426
-line_count: 2924
+size_bytes: 139929
+line_count: 3028
 ---
 
 # mdi_window_manager.js
@@ -16,5 +16,5 @@ line_count: 2924
 ### Architectural Purpose & Role
 `src/workstation/scripts/mdi_window_manager.js` manages MDI window state, titlebar dragging, maximize/minimize/restore behavior, taskbar integration, and dynamic mod UI registration. It provides `refreshModUI()` to dynamically populate the workstation `Mods` menubar with interactive entries, supporting both hover- and click-activated flyout submenus (`menuItems` / `menuOptions`), CAD palette buttons (`paletteTools`), and dock tab transitions (`switchDockTab`). It also powers the New Campaign Wizard via `getCampaignFolderPresets()` and `renderNewCampaignPresetsList()`, offering only campaigns from the `/campaigns/` folder as presets to build from without any hardcoded templates.
 
-Lifecycle management functions include `connectCampaignsFolder({ autoLoad })` with non-destructive option flags to prevent auto-loading collisions during save workflows, `openSaveAsNewCampaignModal()` and `autoUpdateSaveAsSlug()` displaying live disk sync status, `confirmSaveAsNewCampaign()` binding live disk sync directly to `/campaigns/<slug>` on disk without passing deprecated project handles, and `renderInstalledCampaignsModalList()` cleanly loading disk campaigns and dismissing modal dialogues (`modal-load`).
+Lifecycle management functions include `connectCampaignsFolder({ autoLoad })` with non-destructive option flags to prevent auto-loading collisions during save workflows, `openCampaignSettingsModal()`, `closeCampaignSettingsModal()`, `confirmCampaignSettings()`, and `openSaveAsNewFromCampaignSettings()` (SYS-START-19, hotkey Ctrl+Shift+P) for managing campaign title, author, pitch, Dial 8 triggers, and Tier 0 Substratum toggles, `openSaveAsNewCampaignModal()` and `autoUpdateSaveAsSlug()` displaying live disk sync status, `confirmSaveAsNewCampaign()` binding live disk sync directly to `/campaigns/<slug>` on disk without passing deprecated project handles, and `renderInstalledCampaignsModalList()` cleanly loading disk campaigns and dismissing modal dialogues (`modal-load`).
 <!-- END_CUSTOM_NOTES -->

@@ -28,6 +28,23 @@
             <button id="em-tab-edge" class="win-btn" onclick="switchEntityManagerTab('edge')"><strong>Edges &amp; Conduits</strong></button>
           </div>
           <div style="display:flex; align-items:center; gap:6px;">
+            <div style="position:relative; display:inline-block;">
+              <button id="em-btn-sources" type="button" class="win-btn" onclick="toggleEntitySourcesPopover(event)" title="Load entities from other campaigns on demand">📚 Sources <span id="em-sources-count-badge" class="entity-badge-tag" style="background:#dbeafe; color:#1e40af; font-size:9px;">Active Only</span> ▾</button>
+              <div id="em-sources-popover" class="win-dialog bevel-outset hidden" style="position:absolute; top:calc(100% + 2px); right:0; width:310px; z-index:10090; padding:6px; display:flex; flex-direction:column; gap:6px; box-shadow:3px 3px 8px rgba(0,0,0,0.35);">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #94a3b8; padding-bottom:4px; font-size:10px; font-weight:bold; color:#000080;">
+                  <span>📚 Cross-Campaign Entity Sources</span>
+                  <button type="button" class="win-btn" onclick="closeEntitySourcesPopover()" style="font-size:9px; padding:0 4px;">X</button>
+                </div>
+                <div id="em-sources-checklist" class="bevel-inset" style="background:#fff; max-height:210px; overflow-y:auto; padding:4px; display:flex; flex-direction:column; gap:3px; font-size:11px;">
+                  <!-- Populated by renderEntitySourcesPopover() -->
+                </div>
+                <div style="display:flex; justify-content:space-between; gap:4px; flex-wrap:wrap;">
+                  <button type="button" class="win-btn" onclick="CrossCampaignService.promptLoadExternalCampaignFile()" style="font-size:10px; flex:1;" title="Load a preset.json, campaign.json, or .creator.json file">📄 + Load JSON...</button>
+                  <button type="button" class="win-btn" onclick="CrossCampaignService.promptLoadExternalCampaignFolder()" style="font-size:10px; flex:1;" title="Load a campaign folder from disk">📂 + Load Folder...</button>
+                  <button type="button" class="win-btn" onclick="CrossCampaignService.unloadAllSources(); if(typeof renderEntityManagerTree==='function') renderEntityManagerTree(); if(typeof renderEntityManagerList==='function') renderEntityManagerList(); if(typeof renderEntitySourcesPopover==='function') renderEntitySourcesPopover();" style="font-size:10px; color:#b91c1c;" title="Unload all external campaigns">Clear</button>
+                </div>
+              </div>
+            </div>
             <select id="em-sort-select" class="win-select-input" style="width:125px; font-size:11px;" onchange="if(typeof setEntityManagerSort==='function') setEntityManagerSort(this.value);" title="Sort Entities">
               <option value="default">Sort: Default</option>
               <option value="name">Sort: Name (A-Z)</option>
@@ -260,6 +277,20 @@
               <option value="Dormant">Dormant</option>
             </select>
           </label>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+              <strong>Quest Giver (Origin NPC):</strong>
+              <select id="ee-quest-giver" class="win-select-input" style="width:100%;">
+                <option value="">-- None / Unassigned --</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+              <strong>Quest Target (Boss / Target NPC):</strong>
+              <select id="ee-quest-target" class="win-select-input" style="width:100%;">
+                <option value="">-- None / Unassigned --</option>
+              </select>
+            </label>
+          </div>
           <div style="display:flex; flex-direction:column; gap:2px;">
             <strong>Associated NPCs (Involved in Quest):</strong>
             <div id="ee-quest-npcs-list" class="bevel-inset" style="max-height:85px; overflow-y:auto; background:#fff; padding:4px; font-size:11px; display:flex; flex-direction:column; gap:2px;">
@@ -803,6 +834,83 @@
         <div class="dialog-footer" style="justify-content:space-between; align-items:center; font-size:10px; color:#475569; margin-top:2px;">
           <span id="gs-results-count">Showing 0 results. Use ↑/↓ arrows and Enter to jump.</span>
           <button class="win-btn" type="button" onclick="closeModal('modal-global-search')" style="min-width:70px;">Close [Esc]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: CROSS-CAMPAIGN ENTITY TRANSPLANT PACKAGE WIZARD
+       ======================================================================== -->
+  <div id="modal-transplant-package" class="modal-overlay hidden" style="z-index:10070;">
+    <div class="win-dialog bevel-outset" style="width:720px; max-width:95vw; max-height:90vh; display:flex; flex-direction:column;">
+      <div class="title-bar" style="background:linear-gradient(90deg, #1e3a8a, #2563eb);">
+        <div class="title-bar-text"><span id="tp-modal-title">📦 Package Transplant Wizard: Import Entity to Active Campaign</span></div>
+        <div class="title-bar-controls"><button class="win-btn" onclick="closeTransplantPackageModal()">X</button></div>
+      </div>
+      <div class="dialog-body" style="padding:10px; display:flex; flex-direction:column; gap:8px; overflow:hidden; flex:1;">
+        <!-- Primary Entity Header Card -->
+        <div id="tp-primary-summary" style="background:#f8fafc; border:1px solid #cbd5e1; padding:8px 10px; border-radius:2px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:10px; color:#64748b; font-weight:bold; text-transform:uppercase;">Primary Entity to Import</div>
+            <div id="tp-primary-name" style="font-size:13px; font-weight:bold; color:#000080; margin-top:2px;">📜 Untitled Quest</div>
+            <div id="tp-primary-meta" style="font-size:10px; color:#475569; margin-top:2px;">Type: Quest &bull; Source: Diablo II &bull; Original Station: Act 1 Camp</div>
+          </div>
+          <div id="tp-primary-badge-container">
+            <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af; font-weight:bold; font-size:10px;">Cross-Campaign Import</span>
+          </div>
+        </div>
+
+        <!-- Stationing & ID Configuration -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; background:#fff; border:1px solid #e2e8f0; padding:8px; border-radius:2px;">
+          <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+            <strong>Station Primary Entity to Active Node:</strong>
+            <select id="tp-target-node" class="win-select-input"></select>
+          </label>
+          <label style="display:flex; flex-direction:column; gap:2px; font-size:11px;">
+            <strong>ID Conflict Strategy:</strong>
+            <select id="tp-id-strategy" class="win-select-input">
+              <option value="auto_unique" selected>Auto-Generate Unique IDs (Safe, No Overwrite)</option>
+              <option value="overwrite_if_exists">Overwrite Existing if ID Matches</option>
+              <option value="preserve_strict">Keep Original IDs (Fails if Colliding)</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Dependency Resolution Section -->
+        <div style="display:flex; flex-direction:column; gap:4px; flex:1; min-height:160px; overflow:hidden;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="font-size:11px; color:#0f172a;">🔗 Related Entity Dependencies &amp; Foreign Key Mapping:</strong>
+            <span id="tp-deps-count" style="font-size:10px; color:#64748b;">Found 0 dependencies</span>
+          </div>
+          
+          <div class="bevel-inset" style="background:#fff; overflow-y:auto; flex:1; max-height:280px; border:1px solid #7f9db9;">
+            <table class="win-table" style="width:100%; font-size:10px; border-collapse:collapse;">
+              <thead>
+                <tr style="background:#e2e8f0; position:sticky; top:0; z-index:2;">
+                  <th style="padding:4px 6px; text-align:left; border-bottom:1px solid #cbd5e1; width:28%;">Entity &amp; Type</th>
+                  <th style="padding:4px 6px; text-align:left; border-bottom:1px solid #cbd5e1; width:22%;">Role in Source</th>
+                  <th style="padding:4px 6px; text-align:left; border-bottom:1px solid #cbd5e1; width:50%;">Transplant Action / Mapping</th>
+                </tr>
+              </thead>
+              <tbody id="tp-deps-table-body">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Status / Conflict Banner -->
+        <div id="tp-conflict-banner" style="display:none; background:#fef2f2; border:1px solid #f87171; padding:5px 8px; font-size:10px; color:#991b1b; border-radius:2px;">
+          ⚠️ One or more dependencies have potential naming or ID conflicts with the active campaign.
+        </div>
+
+        <!-- Dialog Footer -->
+        <div class="dialog-footer" style="justify-content:space-between; gap:6px; margin-top:4px; flex-shrink:0;">
+          <button class="win-btn" type="button" onclick="closeTransplantPackageModal()" style="min-width:75px;">Cancel</button>
+          <button id="tp-btn-execute" class="win-btn" type="button" onclick="executeTransplantPackage()" style="font-weight:bold; background:#2563eb; color:#fff; min-width:160px; border-color:#1d4ed8;">
+            📦 Execute Transplant Package
+          </button>
         </div>
       </div>
     </div>

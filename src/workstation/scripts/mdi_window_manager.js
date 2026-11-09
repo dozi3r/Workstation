@@ -592,6 +592,7 @@
         else if (e.ctrlKey && e.key === 'F11') { e.preventDefault(); openEntityManager('edge'); }
         else if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I')) { e.preventDefault(); if (typeof openIndustryChainImporterModal === 'function') openIndustryChainImporterModal(); }
         else if ((e.ctrlKey && (e.key === 'm' || e.key === 'M')) || e.key === 'F8') { e.preventDefault(); openModuleExplorer(); }
+        else if (e.ctrlKey && e.shiftKey && (e.key === 'p' || e.key === 'P')) { e.preventDefault(); if (typeof openCampaignSettingsModal === 'function') openCampaignSettingsModal(); }
         else if (e.ctrlKey && e.shiftKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); if (typeof openSaveAsNewCampaignModal === 'function') openSaveAsNewCampaignModal(); }
         else if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); if (typeof handleToolbarSave === 'function') { handleToolbarSave(); } else { saveActiveCampaign(); if (typeof flushProjectDirectoryNow === 'function') flushProjectDirectoryNow({ interactive: true }); } }
         else if (e.ctrlKey && e.key === 'o') { e.preventDefault(); openLoadPresetModal(); }
@@ -1659,6 +1660,109 @@
       if (typeof updateStatusBar === "function") updateStatusBar();
     }
     window.confirmSaveAsNewCampaign = confirmSaveAsNewCampaign;
+
+    function openCampaignSettingsModal() {
+      const topo = (typeof Workstation !== "undefined" && Workstation.activeTopology) ? Workstation.activeTopology : {};
+      const rId = (typeof rootMapId !== "undefined" && rootMapId) ? rootMapId : ((typeof activeMapId !== "undefined" && activeMapId) ? activeMapId : "map_root");
+      
+      const nameEl = document.getElementById("camp-settings-name");
+      const slugEl = document.getElementById("camp-settings-slug");
+      const authorEl = document.getElementById("camp-settings-author");
+      const rootMapEl = document.getElementById("camp-settings-root-map");
+      const descEl = document.getElementById("camp-settings-desc");
+      const climaxEl = document.getElementById("camp-settings-climax");
+      const substratumEl = document.getElementById("camp-settings-substratum-enabled");
+
+      const currentCamp = topo.campaignName || (typeof currentCampaignName !== "undefined" && currentCampaignName) || topo.name || "Campaign";
+      const currentSlug = (typeof activeCampaignId !== "undefined" && activeCampaignId) || topo.id || "custom_campaign";
+      const currentAuthor = topo.author || "Creator Studio World Architect";
+      const currentDesc = topo.description || "";
+      const currentRootMap = (typeof maps !== "undefined" && maps && maps[rId] && maps[rId].name) || topo.name || "World Map";
+      const currentClimax = topo.climaxTrigger || (topo.globalDials && topo.globalDials.dial8ClimaxTrigger) || (typeof dial8ClimaxTriggerMode !== "undefined" ? dial8ClimaxTriggerMode : "crisis");
+      const currentSubstratum = (topo.substratumSettings && typeof topo.substratumSettings.enabled === "boolean")
+        ? topo.substratumSettings.enabled
+        : ((topo.globalDials && typeof topo.globalDials.tier0Substratum === "boolean")
+            ? topo.globalDials.tier0Substratum
+            : (typeof tier0SubstratumEnabled !== "undefined" ? Boolean(tier0SubstratumEnabled) : true));
+
+      if (nameEl) nameEl.value = currentCamp;
+      if (slugEl) slugEl.value = currentSlug;
+      if (authorEl) authorEl.value = currentAuthor;
+      if (rootMapEl) rootMapEl.value = currentRootMap;
+      if (descEl) descEl.value = currentDesc;
+      if (climaxEl) climaxEl.value = currentClimax;
+      if (substratumEl) substratumEl.checked = !!currentSubstratum;
+
+      if (typeof closeAllMenus === "function") closeAllMenus();
+      if (typeof openModal === "function") openModal("modal-campaign-settings");
+    }
+    window.openCampaignSettingsModal = openCampaignSettingsModal;
+
+    function closeCampaignSettingsModal() {
+      if (typeof closeModal === "function") closeModal("modal-campaign-settings");
+    }
+    window.closeCampaignSettingsModal = closeCampaignSettingsModal;
+
+    async function confirmCampaignSettings() {
+      const nameInput = document.getElementById("camp-settings-name");
+      const authorInput = document.getElementById("camp-settings-author");
+      const rootMapInput = document.getElementById("camp-settings-root-map");
+      const descInput = document.getElementById("camp-settings-desc");
+      const climaxInput = document.getElementById("camp-settings-climax");
+      const substratumInput = document.getElementById("camp-settings-substratum-enabled");
+
+      const name = nameInput ? nameInput.value.trim() : "";
+      if (!name) {
+        if (typeof showToast === "function") {
+          showToast("Campaign title cannot be empty.", "warning");
+        } else {
+          alert("Campaign title cannot be empty.");
+        }
+        return;
+      }
+
+      const author = authorInput ? authorInput.value.trim() : "";
+      const rootMapName = rootMapInput ? rootMapInput.value.trim() : "";
+      const description = descInput ? descInput.value.trim() : "";
+      const climaxTrigger = climaxInput ? climaxInput.value : "crisis";
+      const substratumEnabled = substratumInput ? substratumInput.checked : true;
+
+      if (typeof applyCampaignSettings === "function") {
+        await applyCampaignSettings({
+          name: name,
+          author: author,
+          rootMapName: rootMapName,
+          description: description,
+          climaxTrigger: climaxTrigger,
+          substratumSettings: { enabled: substratumEnabled }
+        });
+      }
+
+      closeCampaignSettingsModal();
+    }
+    window.confirmCampaignSettings = confirmCampaignSettings;
+
+    function openSaveAsNewFromCampaignSettings() {
+      const nameInput = document.getElementById("camp-settings-name");
+      const descInput = document.getElementById("camp-settings-desc");
+      const curName = nameInput ? nameInput.value.trim() : "";
+      const curDesc = descInput ? descInput.value.trim() : "";
+
+      closeCampaignSettingsModal();
+      if (typeof openSaveAsNewCampaignModal === "function") {
+        openSaveAsNewCampaignModal();
+        const saveNameInput = document.getElementById("save-as-camp-name");
+        const saveDescInput = document.getElementById("save-as-camp-desc");
+        if (curName && saveNameInput) {
+          saveNameInput.value = curName;
+          if (typeof autoUpdateSaveAsSlug === "function") autoUpdateSaveAsSlug();
+        }
+        if (curDesc && saveDescInput) {
+          saveDescInput.value = curDesc;
+        }
+      }
+    }
+    window.openSaveAsNewFromCampaignSettings = openSaveAsNewFromCampaignSettings;
 
     async function tryOpenCampaignFromDiskRoot(campId, fallbackFolder = "") {
       if (typeof loadCampaignFromDirectoryHandle !== "function") return false;

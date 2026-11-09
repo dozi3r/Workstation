@@ -8779,10 +8779,10 @@ async function testSuite52ResourcePartitionAndBestiaryPersistence() {
   assertEqual(sb.getActiveEntityList('item').map(i => i.id), ['it_sword', 'it_pot', 'it_mill'], 'pushing resource does not leak into active items view');
 
   // 4. Diablo1 Campaign Hydration & Zero-CORS Evidence
-  const diabloTopoPath = path.join(ROOT_DIR, 'campaigns', 'Diablo1', 'topology.json');
-  const diabloEvidencePath = path.join(ROOT_DIR, 'campaigns', 'Diablo1', 'creatures', 'evidence.json');
-  assert(fs.existsSync(diabloTopoPath), 'campaigns/Diablo1/topology.json exists on disk');
-  assert(fs.existsSync(diabloEvidencePath), 'campaigns/Diablo1/creatures/evidence.json exists on disk');
+  const diabloTopoPath = path.join(ROOT_DIR, 'campaigns', 'DIablo', 'topology.json');
+  const diabloEvidencePath = path.join(ROOT_DIR, 'campaigns', 'DIablo', 'creatures', 'evidence.json');
+  assert(fs.existsSync(diabloTopoPath), 'campaigns/DIablo/topology.json exists on disk');
+  assert(fs.existsSync(diabloEvidencePath), 'campaigns/DIablo/creatures/evidence.json exists on disk');
 
   const diabloTopo = JSON.parse(fs.readFileSync(diabloTopoPath, 'utf8'));
   const diabloEvidence = JSON.parse(fs.readFileSync(diabloEvidencePath, 'utf8'));
@@ -9006,8 +9006,8 @@ async function testSuite54BestiaryExplorerAndFftIntegration() {
   const emUiCode = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_manager_ui.js'), 'utf8');
 
   // 1. Verify Diablo campaign has 68 creatures and evidence
-  const diabloTopoPath = path.join(ROOT_DIR, 'campaigns/Diablo1/topology.json');
-  const diabloEvPath = path.join(ROOT_DIR, 'campaigns/Diablo1/creatures/evidence.json');
+  const diabloTopoPath = path.join(ROOT_DIR, 'campaigns/DIablo/topology.json');
+  const diabloEvPath = path.join(ROOT_DIR, 'campaigns/DIablo/creatures/evidence.json');
   const diabloTopo = JSON.parse(fs.readFileSync(diabloTopoPath, 'utf8'));
   const diabloEv = JSON.parse(fs.readFileSync(diabloEvPath, 'utf8'));
 
@@ -9211,8 +9211,8 @@ async function testSuite54BestiaryExplorerAndFftIntegration() {
 async function testSuite55CreatureCrudAndCascadeDelete() {
   console.log('\n--- Suite 55: Creature CRUD Dialogs, Cascade Deletion & Stationing Lifecycle ---');
 
-  const diabloTopo = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaigns/Diablo1/topology.json'), 'utf8'));
-  const diabloEv = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaigns/Diablo1/creatures/evidence.json'), 'utf8'));
+  const diabloTopo = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaigns/DIablo/topology.json'), 'utf8'));
+  const diabloEv = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaigns/DIablo/creatures/evidence.json'), 'utf8'));
 
   const fftCoreCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/fast_frugal_tree.js'), 'utf8');
   const fftUiCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/fft_editor_ui.js'), 'utf8');

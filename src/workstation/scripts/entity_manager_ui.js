@@ -3148,7 +3148,11 @@
         const giverNpc = questObj.giverNpcId ? campaignNpcs.find(n => String(n.id) === String(questObj.giverNpcId)) : null;
         const targetNpc = questObj.targetNpcId ? campaignNpcs.find(n => String(n.id) === String(questObj.targetNpcId)) : null;
         const otherLinkedNpcs = campaignNpcs.filter(n => (questObj.npcIds || []).includes(n.id) && String(n.id) !== String(questObj.giverNpcId) && String(n.id) !== String(questObj.targetNpcId));
-        const linkedItems = campaignItems.filter(i => (questObj.itemIds || []).includes(i.id));
+        const linkedItems = campaignItems.filter(i => 
+          (questObj.itemIds || []).includes(i.id) || 
+          (questObj.rewardItemIds || []).includes(i.id) || 
+          (Array.isArray(i.questIds) && i.questIds.includes(questObj.id))
+        );
 
         let spanningHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No nodes mapped yet.</div>';
         if (spanningNodes.length > 0) {
@@ -3293,7 +3297,7 @@
             <!-- Narrative Synopsis -->
             <div>
               <strong>Narrative Objective &amp; Details:</strong>
-              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd; white-space:pre-wrap;">${escapeHtml(cruc.synopsis || (!cruc.hasCrucible ? (questObj.motivation || questObj.notes || 'No description provided.') : 'See structured crucible breakdown below.'))}</p>
+              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd; white-space:pre-wrap;">${escapeHtml(cruc.synopsis || questObj.description || questObj.motivation || (!cruc.hasCrucible ? (questObj.notes || 'No description provided.') : 'See structured crucible breakdown below.'))}</p>
             </div>
 
             <!-- Structured Crucible Cards (If Present) -->
@@ -3463,7 +3467,10 @@
         const referencingQuests = poolQuests.filter(q => 
           (q.itemIds && q.itemIds.includes(itemObj.id)) || 
           (q.itemIds && q.itemIds.includes(entity.id)) ||
-          (q.nodeId && effNodeId && String(q.nodeId) === String(effNodeId))
+          (q.rewardItemIds && q.rewardItemIds.includes(itemObj.id)) ||
+          (q.rewardItemIds && q.rewardItemIds.includes(entity.id)) ||
+          (Array.isArray(itemObj.questIds) && itemObj.questIds.includes(q.id)) ||
+          (Array.isArray(entity.questIds) && entity.questIds.includes(q.id))
         );
 
         let questsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No active quests currently reference this item.</div>';
@@ -3700,7 +3707,10 @@
         const referencingQuests = poolQuests.filter(q =>
           (q.itemIds && q.itemIds.includes(resObj.id)) ||
           (q.itemIds && q.itemIds.includes(entity.id)) ||
-          (q.nodeId && effNodeId && String(q.nodeId) === String(effNodeId))
+          (q.rewardItemIds && q.rewardItemIds.includes(resObj.id)) ||
+          (q.rewardItemIds && q.rewardItemIds.includes(entity.id)) ||
+          (Array.isArray(resObj.questIds) && resObj.questIds.includes(q.id)) ||
+          (Array.isArray(entity.questIds) && entity.questIds.includes(q.id))
         );
 
         let questsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No active quests currently reference this resource.</div>';
@@ -3800,9 +3810,11 @@
         const facObj = activeInstance || entity;
         const poolNpcs = isExternal ? ((externalSourcePool && externalSourcePool.npcs) || []) : (topo.npcs || []);
         const leaderNpc = poolNpcs.find(n => String(n.id) === String(facObj.leaderNpcId));
-        const cult = facObj.cvfQuadrant || 'Clan';
+        const cult = facObj.cvfQuadrant || (facObj.culture || 'Clan');
         const color = facObj.colorIdentity || 'C';
-        const disp = Array.isArray(facObj.disposition) ? facObj.disposition : (facObj.odv ? [facObj.odv.s || 2, facObj.odv.e || 2, facObj.odv.c || 2] : [2, 2, 2]);
+        const facOdv = (typeof getOdv === 'function') ? getOdv(facObj) : null;
+        const hasFacOdv = facOdv && facOdv.set;
+        const facOdvTag = hasFacOdv ? `[S:${facOdv.s} E:${facOdv.e} C:${facOdv.c}]` : '[ODV: Unset]';
         const hqNodeId = facObj.headquartersNodeId;
         const hqNode = hqNodeId ? resolveNodeObject(hqNodeId, topo) : null;
         const rawTerrList = [
@@ -3899,7 +3911,7 @@
             </div>
             <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
               <span class="entity-badge-tag">${escapeHtml(facObj.type || 'Power Group')}</span>
-              <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">[S:${disp[0]} E:${disp[1]} C:${disp[2]}]</span>
+              <span class="entity-badge-tag" style="background:${hasFacOdv ? '#dbeafe; color:#1e40af;' : '#f1f5f9; color:#475569;'}">${facOdvTag}</span>
             </div>
           </div>
 
@@ -4361,10 +4373,21 @@
         // DEDICATED NPC INSPECTOR
         const npcObj = activeInstance || entity;
         const currentStationId = activeInstance ? activeInstance.nodeId : (entity.suggestedNode || entity.nodeId);
-        const hostNode = currentStationId ? topo.nodes[String(currentStationId)] : null;
+
+        const poolNpcs = isExternal ? ((externalSourcePool && externalSourcePool.npcs) || []) : (topo.npcs || []);
+        const poolItems = isExternal ? ((externalSourcePool && externalSourcePool.items) || []) : (topo.items || []);
+        const poolQuests = isExternal ? ((externalSourcePool && externalSourcePool.quests) || []) : (topo.quests || []);
+        const poolFactions = isExternal ? ((externalSourcePool && externalSourcePool.factions) || []) : (topo.factions || []);
+
+        const hostNode = currentStationId ? resolveNodeObject(currentStationId, topo) : null;
+
+        // Effective Sociology (Inheritance Engine)
+        const effSoc = (typeof getNpcEffectiveSociology === 'function')
+          ? getNpcEffectiveSociology(npcObj, topo, { factions: poolFactions, hostNode })
+          : { set: false, tag: 'Unset', culture: npcObj.culture || 'Unset', source: 'unset', sourceLabel: 'Unset' };
 
         // 1. Dissonance Calculation
-        const dissonance = (hostNode) ? computeNpcNodeDissonance(npcObj, hostNode) : null;
+        const dissonance = (hostNode) ? computeNpcNodeDissonance(npcObj, hostNode, topo, { factions: poolFactions, hostNode }) : null;
 
         // 2. Party Standing
         const curStanding = (npcObj.dispositionToParty !== undefined) ? npcObj.dispositionToParty : 0;
@@ -4406,11 +4429,6 @@
         const fourCornerBadge = npcObj.fourCornersRole ? (fourCornersBadges[npcObj.fourCornersRole] || `<span class="entity-badge-tag" style="background:#475569; color:#fff;">🎭 ${escapeHtml(npcObj.fourCornersRole)}</span>`) : '';
 
         // 5. Inter-NPC Relationships (Outbound & Inbound)
-        const poolNpcs = isExternal ? ((externalSourcePool && externalSourcePool.npcs) || []) : (topo.npcs || []);
-        const poolItems = isExternal ? ((externalSourcePool && externalSourcePool.items) || []) : (topo.items || []);
-        const poolQuests = isExternal ? ((externalSourcePool && externalSourcePool.quests) || []) : (topo.quests || []);
-        const poolFactions = isExternal ? ((externalSourcePool && externalSourcePool.factions) || []) : (topo.factions || []);
-
         const outboundRels = Array.isArray(npcObj.relationships) ? npcObj.relationships : [];
         const inboundRels = poolNpcs.filter(other => other.id !== npcObj.id && Array.isArray(other.relationships) && other.relationships.some(r => String(r.targetNpcId) === String(npcObj.id))).map(other => {
           const matchingRel = other.relationships.find(r => String(r.targetNpcId) === String(npcObj.id));
@@ -4595,12 +4613,15 @@
                 ${dissonance ? `<span class="${dissonance.badgeClass}" style="${dissonance.style}">${dissonance.level}</span>` : ''}
               </div>
               <div style="font-size:10px; color:#334155;">
-                Culture Quadrant: <strong>${npcObj.culture || (hostNode ? hostNode.culture + ' (Inherited)' : 'Universal')}</strong> &bull; 
-                Vector: <strong>${npcObj.odv ? `[S:${npcObj.odv.s}, E:${npcObj.odv.e}, C:${npcObj.odv.c}]` : '[Default 2,2,2]'}</strong>
+                Culture Quadrant: <strong>${escapeHtml(effSoc.culture || 'Unset')}</strong> &bull; 
+                Vector: <strong>${effSoc.set ? effSoc.tag : '[Unset]'}</strong>
+                <span class="entity-badge-tag" style="margin-left:4px; font-size:9px; background:${effSoc.source === 'explicit' ? '#dbeafe; color:#1e40af;' : (effSoc.source === 'faction' ? '#f3e8ff; color:#6b21a8;' : (effSoc.source === 'node' ? '#dcfce7; color:#166534;' : '#f1f5f9; color:#475569;'))}">
+                  ${escapeHtml(effSoc.sourceLabel)}
+                </span>
               </div>
               ${dissonance ? `
                 <div style="font-size:9px; color:#475569; margin-top:2px;">
-                  Host Node #${hostNode.id} (${hostNode.culture} [${hostNode.odv ? `${hostNode.odv.s},${hostNode.odv.e},${hostNode.odv.c}` : '2,2,2'}]) &bull; <strong>${dissonance.summary}</strong>
+                  Host Node #${hostNode.id} (${hostNode.culture || 'Unset'} [${(typeof getOdv === 'function' && getOdv(hostNode).set) ? getOdv(hostNode).tag : 'Unset'}]) &bull; <strong>${dissonance.summary}</strong>
                 </div>
                 ${dissonance.warning ? `
                   <div style="margin-top:3px; background:#fef2f2; border:1px solid #f87171; padding:4px 6px; border-radius:2px; font-size:9px; color:#991b1b; line-height:1.3;">
@@ -4641,7 +4662,7 @@
             </div>
 
             <!-- Heuristic style & decision tree (Gigerenzer suite) -->
-            ${typeof renderHeuristicBadgeHtml === 'function' ? renderHeuristicBadgeHtml(npcObj.odv) : ''}
+            ${typeof renderHeuristicBadgeHtml === 'function' ? renderHeuristicBadgeHtml(effSoc.odv || npcObj.odv) : ''}
             ${typeof renderFftDossierHtml === 'function' ? renderFftDossierHtml('npc', npcObj) : ''}
 
             <!-- Three-Clue Secrets Known -->

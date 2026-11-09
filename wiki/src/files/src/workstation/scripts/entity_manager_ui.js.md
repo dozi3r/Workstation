@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_manager_ui.js"
 title: "entity_manager_ui.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "52a3905c66f9536e"
-reviewed_hash: "52a3905c66f9536e"
+current_hash: "bfd891560e5c8816"
+reviewed_hash: "bfd891560e5c8816"
 stale: false
-size_bytes: 292095
-line_count: 4772
+size_bytes: 293519
+line_count: 4793
 ---
 
 # entity_manager_ui.js
@@ -28,7 +28,7 @@ line_count: 4772
 - Gigerenzer suite (ADR 0024): NPC and faction panes render the heuristic badge and decision-tree dossier; Edge Explorer shows a natural-frequency summary under hazard risk.
 - **Multi-Campaign Sources Popover & External Entity Staging**: Features `#em-btn-sources` and `#em-sources-popover` (`toggleEntitySourcesPopover`, `renderEntitySourcesPopover`) letting authors toggle external campaigns on-demand or ingest local `.json`/folder packages. Renders `[EXTERNAL CAMPAIGNS]` folder nodes in the classification tree (`appendExternalCampaignsTreeSection`), adds `[Ext: <Campaign>]` badges and `+ Import` transplant actions in the central table (`renderEntityManagerList`), and mounts source-aware inspect viewports (`selectEntityItem`) resolving relational seams from `externalSourcePool` with read-only badges and transplant packaging triggers.
 - **Multi-Explorer Enrichment & Narrative Depth**:
-  - **NPC Inspector**: Renders polymorphic dialogue hooks (`renderNpcDialogueHooksHtml`) supporting string quotes, bifocal `Spoken: ... | Subtext: ...` subtext blocks, and `{ text, revealed }` objects (`[REVEALED IN CANON]`); expands Four-Corners opposition roles to literary archetypes (`Mentor`, `Nemesis`, `Ally`, `Opponent`, `Outcast`, `Catalyst`, `Shadow`, `Target`); integrates clickable Faction pill and bidirectional inventory links.
+  - **NPC Inspector**: Displays dynamic Sociological Profile reflecting the 4-tier inheritance engine (`Bespoke`, `Inherited from Faction`, `Inherited from Node`, or clean `Unset` without synthetic defaults), multi-map host node dissonance calculation, polymorphic dialogue hooks (`renderNpcDialogueHooksHtml`) supporting string quotes, bifocal `Spoken: ... | Subtext: ...` subtext blocks, and `{ text, revealed }` objects (`[REVEALED IN CANON]`); expands Four-Corners opposition roles to literary archetypes (`Mentor`, `Nemesis`, `Ally`, `Opponent`, `Outcast`, `Catalyst`, `Shadow`, `Target`); integrates clickable Faction pill and bidirectional inventory links.
   - **Item Inspector**: Displays inline condition/status badges (`intact`, `damaged`, `depleted`, `attuned`, `lost`, `destroyed`), currency valuation/pricing, and external campaign foreign-key safety.
   - **Faction Inspector**: Implements 4-Axis Power Matrix (`Reach`, `Force`, `Wealth`, `Secrecy`), operational status badges (`Active`, `Ascendant`, `Underground`, `Contested`, `Dissolved`), unionized territorial node resolution (`territoryNodeIds` and `controlledNodeIds`), affiliated character aggregation (`memberNpcIds` and faction matching), and `🎯 Highlight on Canvas` territorial button with external campaign isolation.
   - **Creature Bestiary**: Surfaces archaic/scientific taxonomy names, `stationing.roamingScope` badges/inline editor, damage/condition immunities, harvest yields & domestication profile cards, and ecological relational links.

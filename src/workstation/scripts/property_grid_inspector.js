@@ -188,7 +188,8 @@
 
       const optGlobal = document.createElement('option');
       optGlobal.value = 'global';
-      optGlobal.textContent = `Global: ${(Workstation.activeTopology && Workstation.activeTopology.name) || 'Campaign'}`;
+      const campDisplayName = (Workstation.activeTopology && (Workstation.activeTopology.campaignName || Workstation.activeTopology.name)) || (typeof currentCampaignName !== "undefined" && currentCampaignName) || 'Campaign';
+      optGlobal.textContent = `Global: ${campDisplayName}`;
       sel.appendChild(optGlobal);
 
       const topo = Workstation.activeTopology;
@@ -2358,12 +2359,22 @@
       } else {
         // Global Campaign & Active Map Overview
         appendCategoryRow(tbody, 'Campaign Attributes');
-        appendPropRow(tbody, 'Title', topo.name || 'Untitled Campaign', true, val => {
-          topo.name = val;
-          updateObjectSelector();
-          saveActiveCampaign();
+        const resolvedTitle = topo.campaignName || (typeof currentCampaignName !== "undefined" && currentCampaignName) || topo.name || 'Untitled Campaign';
+        appendPropRow(tbody, 'Title', resolvedTitle, true, val => {
+          if (typeof applyCampaignSettings === "function") {
+            applyCampaignSettings({ name: val });
+          } else {
+            topo.campaignName = val;
+            topo.name = val;
+            if (typeof updateObjectSelector === 'function') updateObjectSelector();
+            saveActiveCampaign();
+          }
         });
-        appendPropRow(tbody, 'Campaign ID', topo.id || 'custom', false);
+        appendPropRow(tbody, 'Campaign ID', (typeof activeCampaignId !== "undefined" && activeCampaignId) || topo.id || 'custom', false);
+        appendPropRow(tbody, 'Author', topo.author || 'Creator Studio World Architect', false);
+        appendActionPropRow(tbody, 'Settings', '⚙️ Campaign Settings...', () => {
+          if (typeof openCampaignSettingsModal === 'function') openCampaignSettingsModal();
+        });
 
         // Active Map Scale Tier & Full Cartographic Properties
         const curMapId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";

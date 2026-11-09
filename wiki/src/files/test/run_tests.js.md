@@ -3,10 +3,10 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "64aebaec393428a9"
-reviewed_hash: "64aebaec393428a9"
+current_hash: "4d143a47a1eb4743"
+reviewed_hash: "4d143a47a1eb4743"
 stale: false
-size_bytes: 513153
+size_bytes: 523329
 line_count: 10185
 ---
 
@@ -73,4 +73,11 @@ line_count: 10185
    - Validates Faction Inspector in `entity_manager_ui.js` unionizing `territoryNodeIds`/`controlledNodeIds`, unionizing `memberNpcIds` and faction matching, rendering 4-Axis Power Matrix, and isolating external campaigns (omitting territory highlight on canvas and enforcing read-only diplomatic stances).
    - Validates Creature Inspector displaying `scientificOrArchaicName`, `immunities`, `harvestYields`, `domesticationProfile`, `relationalLinks`, and `roamingScope`.
    - Validates Node Inspector Subtab 1 rendering Danger Rating (0-4), Node Category selector, Demographics Census & Faction Presence, Party Rapport stance, collapsible Node Lore reader, and Commodity Logistics summary.
+17. **Suite 59: Campaign Settings, Live In-Place Renaming & CreatorStudio Event Bus (SYS-START-19)**:
+   - Validates template and modal DOM existence for `#modal-campaign-settings` and all metadata inputs.
+   - Validates `window.CreatorStudio` event bus pub/sub lifecycle (`on`, `off`, `emit`) with zero-throw error isolation.
+   - Validates arbitrary node mod-property preservation (`node.tarot_data`, `node.weather_state`) across `syncAdapterFromWorkstationTopology()`, `syncAdapterToWorkstationTopology()`, and `buildCampaignPackageFiles()`.
+   - Validates `applyCampaignSettings()` updating active topology metadata, document title, status bar, Property Grid, and IndexedDB library records, and emitting `campaignRenamed`.
+   - Validates `openCampaignSettingsModal()` pre-populating form controls accurately from active topology state.
+   - Validates `saveActiveCampaignAsNew()` hardening: updates campaign identity and root map name before syncing, preserves all entity collections in IndexedDB library records, and emits `campaignRenamed`.
 <!-- END_CUSTOM_NOTES -->

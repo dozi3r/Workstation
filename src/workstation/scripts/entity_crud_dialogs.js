@@ -53,19 +53,26 @@
         });
       }
 
-      // 2. Linked NPCs
-      (quest.npcIds || []).forEach(nId => {
-        const npc = campaignNpcs.find(n => n.id === nId);
+      // 2. Linked NPCs (including Quest Giver & Quest Target)
+      const allLinkedNpcIds = Array.from(new Set([...(quest.npcIds || []), quest.giverNpcId, quest.targetNpcId].filter(Boolean)));
+      allLinkedNpcIds.forEach(nId => {
+        const npc = campaignNpcs.find(n => String(n.id) === String(nId));
         if (npc && npc.nodeId != null && npc.nodeId !== '') {
           const key = String(npc.nodeId);
+          let roleLabel = npc.role || 'Resident';
+          if (quest.giverNpcId && String(quest.giverNpcId) === String(npc.id)) {
+            roleLabel = 'Quest Giver';
+          } else if (quest.targetNpcId && String(quest.targetNpcId) === String(npc.id)) {
+            roleLabel = 'Quest Target';
+          }
           if (nodeMap.has(key)) {
-            nodeMap.get(key).reasons.push(`NPC: ${npc.name} (${npc.role || 'Resident'})`);
+            nodeMap.get(key).reasons.push(`NPC: ${npc.name} (${roleLabel})`);
           } else {
             const info = resolveNodeInfo(npc.nodeId);
             nodeMap.set(key, {
               ...info,
               role: 'NPC Location',
-              reasons: [`NPC: ${npc.name} (${npc.role || 'Resident'})`]
+              reasons: [`NPC: ${npc.name} (${roleLabel})`]
             });
           }
         }
@@ -131,20 +138,42 @@
       const checkedNpcIds = Array.from(document.querySelectorAll('.ee-quest-npc-cb:checked')).map(cb => cb.value);
       const checkedItemIds = Array.from(document.querySelectorAll('.ee-quest-item-cb:checked')).map(cb => cb.value);
       const checkedTrackerIds = Array.from(document.querySelectorAll('.ee-quest-tracker-cb:checked')).map(cb => cb.value);
+      const giverVal = document.getElementById('ee-quest-giver') ? document.getElementById('ee-quest-giver').value : '';
+      const targetVal = document.getElementById('ee-quest-target') ? document.getElementById('ee-quest-target').value : '';
 
       const previewBox = document.getElementById('ee-quest-spanning-nodes-text');
       if (!previewBox) return;
 
       const entries = [];
+      const uniqueNodes = new Set();
       if (mainNodeId) {
         const nodeObj = topo.nodes && (topo.nodes[mainNodeId] || topo.nodes[String(mainNodeId)]);
         entries.push(`<strong>Anchor:</strong> Node ${mainNodeId}${nodeObj ? ' (' + nodeObj.name + ')' : ''}`);
+        uniqueNodes.add(String(mainNodeId));
+      }
+
+      if (giverVal) {
+        const gNpc = allNpcs.find(n => String(n.id) === String(giverVal));
+        if (gNpc) {
+          entries.push(`<strong>Quest Giver:</strong> ${gNpc.name} @ Node ${gNpc.nodeId != null ? gNpc.nodeId : 'Unassigned'}`);
+          if (gNpc.nodeId != null) uniqueNodes.add(String(gNpc.nodeId));
+        }
+      }
+
+      if (targetVal) {
+        const tNpc = allNpcs.find(n => String(n.id) === String(targetVal));
+        if (tNpc) {
+          entries.push(`<strong>Quest Target:</strong> ${tNpc.name} @ Node ${tNpc.nodeId != null ? tNpc.nodeId : 'Unassigned'}`);
+          if (tNpc.nodeId != null) uniqueNodes.add(String(tNpc.nodeId));
+        }
       }
 
       checkedNpcIds.forEach(nId => {
+        if (nId === giverVal || nId === targetVal) return;
         const npc = allNpcs.find(n => n.id === nId);
         if (npc) {
           entries.push(`<strong>NPC:</strong> ${npc.name} @ Node ${npc.nodeId != null ? npc.nodeId : 'Unassigned'}`);
+          if (npc.nodeId != null) uniqueNodes.add(String(npc.nodeId));
         }
       });
 
@@ -152,6 +181,7 @@
         const item = allItems.find(i => i.id === iId);
         if (item) {
           entries.push(`<strong>Item:</strong> ${item.name} @ Node ${item.nodeId != null ? item.nodeId : 'Unassigned'}`);
+          if (item.nodeId != null) uniqueNodes.add(String(item.nodeId));
         }
       });
 
@@ -159,27 +189,13 @@
         const trk = allTrackers.find(t => t.id === tId);
         if (trk) {
           entries.push(`<strong>Clock:</strong> ${trk.name} @ Node ${trk.nodeId != null ? trk.nodeId : 'Unassigned'}`);
+          if (trk.nodeId != null) uniqueNodes.add(String(trk.nodeId));
         }
       });
 
       if (entries.length === 0) {
         previewBox.innerHTML = '<span style="color:#777; font-style:italic;">(Select an anchor node, NPCs, items, or clocks to calculate quest footprint)</span>';
       } else {
-        const uniqueNodes = new Set();
-        if (mainNodeId) uniqueNodes.add(String(mainNodeId));
-        checkedNpcIds.forEach(nId => {
-          const npc = allNpcs.find(n => n.id === nId);
-          if (npc && npc.nodeId != null) uniqueNodes.add(String(npc.nodeId));
-        });
-        checkedItemIds.forEach(iId => {
-          const item = allItems.find(i => i.id === iId);
-          if (item && item.nodeId != null) uniqueNodes.add(String(item.nodeId));
-        });
-        checkedTrackerIds.forEach(tId => {
-          const trk = allTrackers.find(t => t.id === tId);
-          if (trk && trk.nodeId != null) uniqueNodes.add(String(trk.nodeId));
-        });
-
         previewBox.innerHTML = `
           <div style="margin-bottom:3px;">${entries.join(' &bull; ')}</div>
           <div style="font-weight:bold; color:#0f766e;">Total Spanning Footprint: ${uniqueNodes.size} Node(s) [${Array.from(uniqueNodes).join(', ')}]</div>
@@ -276,6 +292,25 @@
         if (nodeLabel) nodeLabel.textContent = 'Main Anchored Quest Node:';
         if (questExt) {
           questExt.style.display = 'flex';
+
+          // Populate Quest Giver and Quest Target dropdowns
+          const giverSel = document.getElementById('ee-quest-giver');
+          const targetSel = document.getElementById('ee-quest-target');
+          const allNpcsForQuest = (Workstation.activeTopology && Workstation.activeTopology.npcs) || [];
+          let npcSelectOpts = '<option value="">-- None / Unassigned --</option>';
+          allNpcsForQuest.forEach(n => {
+            npcSelectOpts += `<option value="${n.id}">👤 ${n.name} (${n.role || 'Resident'})</option>`;
+          });
+          if (giverSel) {
+            giverSel.innerHTML = npcSelectOpts;
+            giverSel.value = '';
+            giverSel.onchange = updateQuestSpanningPreview;
+          }
+          if (targetSel) {
+            targetSel.innerHTML = npcSelectOpts;
+            targetSel.value = '';
+            targetSel.onchange = updateQuestSpanningPreview;
+          }
 
           // Populate NPCs list
           const npcsContainer = document.getElementById('ee-quest-npcs-list');
@@ -512,7 +547,11 @@
       document.getElementById('ee-entity-id').value = entity.id;
       document.getElementById('ee-name').value = entity.name || entity.title || '';
       document.getElementById('ee-role').value = entity.role || entity.category || entity.type || entity.subtype || '';
-      document.getElementById('ee-meta').value = (CurrentEntityTab === 'tracker') ? (entity.maxTicks || 6) : (entity.faction || entity.threat || entity.specs || (CurrentEntityTab === 'creature' ? (entity.size || 'Medium') : ''));
+      document.getElementById('ee-meta').value = (CurrentEntityTab === 'tracker')
+        ? (entity.maxTicks || 6)
+        : (CurrentEntityTab === 'quest'
+            ? (entity.threat || entity.stakes || entity.faction || '')
+            : (entity.faction || entity.threat || entity.specs || (CurrentEntityTab === 'creature' ? (entity.size || 'Medium') : '')));
       document.getElementById('ee-notes').value = entity.motivation || entity.notes || entity.summary || '';
       const effectiveNodeId = (CurrentEntityTab === 'creature' && typeof getCreatureEffectiveNodeId === 'function') ? getCreatureEffectiveNodeId(entity) : entity.nodeId;
       document.getElementById('ee-node-select').value = effectiveNodeId != null ? String(effectiveNodeId) : '';
@@ -561,6 +600,12 @@
       } else if (CurrentEntityTab === 'quest') {
         if (document.getElementById('ee-quest-status')) {
           document.getElementById('ee-quest-status').value = entity.status || 'Active';
+        }
+        if (document.getElementById('ee-quest-giver')) {
+          document.getElementById('ee-quest-giver').value = entity.giverNpcId || '';
+        }
+        if (document.getElementById('ee-quest-target')) {
+          document.getElementById('ee-quest-target').value = entity.targetNpcId || '';
         }
         const npcIds = Array.isArray(entity.npcIds) ? entity.npcIds : [];
         const itemIds = Array.isArray(entity.itemIds) ? entity.itemIds : [];
@@ -687,15 +732,25 @@
           } else if (type === 'quest') {
             const prevTrackerIds = Array.isArray(entity.trackerIds) ? [...entity.trackerIds] : [];
             entity.title = name;
+            entity.name = name;
             entity.type = role;
+            entity.category = role;
             entity.threat = meta;
             entity.notes = notes;
+            entity.motivation = notes;
             if (document.getElementById('ee-quest-status')) {
               entity.status = document.getElementById('ee-quest-status').value || 'Active';
             } else if (!entity.status) {
               entity.status = 'Active';
             }
-            entity.npcIds = Array.from(document.querySelectorAll('.ee-quest-npc-cb:checked')).map(cb => cb.value);
+            const giverVal = document.getElementById('ee-quest-giver') ? document.getElementById('ee-quest-giver').value : '';
+            const targetVal = document.getElementById('ee-quest-target') ? document.getElementById('ee-quest-target').value : '';
+            entity.giverNpcId = giverVal || null;
+            entity.targetNpcId = targetVal || null;
+            const chosenNpcIds = Array.from(document.querySelectorAll('.ee-quest-npc-cb:checked')).map(cb => cb.value);
+            if (entity.giverNpcId && !chosenNpcIds.includes(entity.giverNpcId)) chosenNpcIds.push(entity.giverNpcId);
+            if (entity.targetNpcId && !chosenNpcIds.includes(entity.targetNpcId)) chosenNpcIds.push(entity.targetNpcId);
+            entity.npcIds = chosenNpcIds;
             entity.itemIds = Array.from(document.querySelectorAll('.ee-quest-item-cb:checked')).map(cb => cb.value);
             entity.trackerIds = Array.from(document.querySelectorAll('.ee-quest-tracker-cb:checked')).map(cb => cb.value);
             if (typeof syncQuestAndTrackerLinks === 'function') {
@@ -846,11 +901,21 @@
           newEntity.relationships = [];
         } else if (type === 'quest') {
           newEntity.title = name;
+          newEntity.name = name;
           newEntity.type = role;
+          newEntity.category = role;
           newEntity.threat = meta;
           newEntity.notes = notes;
+          newEntity.motivation = notes;
           newEntity.status = document.getElementById('ee-quest-status') ? (document.getElementById('ee-quest-status').value || 'Active') : 'Active';
-          newEntity.npcIds = Array.from(document.querySelectorAll('.ee-quest-npc-cb:checked')).map(cb => cb.value);
+          const giverVal = document.getElementById('ee-quest-giver') ? document.getElementById('ee-quest-giver').value : '';
+          const targetVal = document.getElementById('ee-quest-target') ? document.getElementById('ee-quest-target').value : '';
+          newEntity.giverNpcId = giverVal || null;
+          newEntity.targetNpcId = targetVal || null;
+          const chosenNpcIds = Array.from(document.querySelectorAll('.ee-quest-npc-cb:checked')).map(cb => cb.value);
+          if (newEntity.giverNpcId && !chosenNpcIds.includes(newEntity.giverNpcId)) chosenNpcIds.push(newEntity.giverNpcId);
+          if (newEntity.targetNpcId && !chosenNpcIds.includes(newEntity.targetNpcId)) chosenNpcIds.push(newEntity.targetNpcId);
+          newEntity.npcIds = chosenNpcIds;
           newEntity.itemIds = Array.from(document.querySelectorAll('.ee-quest-item-cb:checked')).map(cb => cb.value);
           newEntity.trackerIds = Array.from(document.querySelectorAll('.ee-quest-tracker-cb:checked')).map(cb => cb.value);
           newEntity.steps = [];
@@ -1107,3 +1172,452 @@
       setStatusBarMessage(`Connected ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'} between Node ${srcId} and Node ${tgtId}.`);
     }
     window.submitCreateEdgeModal = submitCreateEdgeModal;
+
+    // ========================================================================
+    // CROSS-CAMPAIGN ENTITY TRANSPLANT PACKAGE WIZARD & DEPENDENCY ENGINE
+    // ========================================================================
+    let currentTransplantState = null;
+
+    function getActiveCollectionForType(type, topo) {
+      if (!topo) return [];
+      if (type === 'npc') { topo.npcs = topo.npcs || []; return topo.npcs; }
+      if (type === 'quest') { topo.quests = topo.quests || []; return topo.quests; }
+      if (type === 'item') { topo.items = topo.items || []; return topo.items; }
+      if (type === 'tracker') { topo.trackers = topo.trackers || []; return topo.trackers; }
+      if (type === 'faction') { topo.factions = topo.factions || []; return topo.factions; }
+      if (type === 'creature') { topo.creatures = topo.creatures || []; return topo.creatures; }
+      if (type === 'resource') { topo.items = topo.items || []; return topo.items; }
+      return topo.npcs || [];
+    }
+
+    function ensureUniqueEntityId(desiredId, existingList) {
+      if (!existingList || !existingList.some(e => String(e.id) === String(desiredId))) {
+        return desiredId;
+      }
+      let counter = 1;
+      let candidate = `${desiredId}_imported`;
+      while (existingList.some(e => String(e.id) === String(candidate))) {
+        counter++;
+        candidate = `${desiredId}_imported_${counter}`;
+      }
+      return candidate;
+    }
+
+    /**
+     * Inspects an external entity and resolves all its outbound dependencies from the sourcePool.
+     */
+    function analyzeTransplantDependencies(entity, entityType, sourcePool) {
+      if (!entity || !sourcePool) return [];
+      const deps = [];
+      const seen = new Set();
+
+      function addDep(depEntity, type, role) {
+        if (!depEntity || !depEntity.id) return;
+        const key = `${type}::${depEntity.id}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        deps.push({
+          id: depEntity.id,
+          type: type,
+          name: depEntity.name || depEntity.title || depEntity.id,
+          role: role,
+          entity: depEntity,
+          action: 'copy'
+        });
+      }
+
+      const poolNpcs = Array.isArray(sourcePool.npcs) ? sourcePool.npcs : [];
+      const poolItems = Array.isArray(sourcePool.items) ? sourcePool.items : [];
+      const poolQuests = Array.isArray(sourcePool.quests) ? sourcePool.quests : [];
+      const poolTrackers = Array.isArray(sourcePool.trackers) ? sourcePool.trackers : [];
+      const poolFactions = Array.isArray(sourcePool.factions) ? sourcePool.factions : [];
+
+      if (entityType === 'quest') {
+        // Giver NPC
+        if (entity.giverNpcId) {
+          const giver = poolNpcs.find(n => String(n.id) === String(entity.giverNpcId));
+          if (giver) addDep(giver, 'npc', 'Quest Giver');
+        }
+        // Target NPC
+        if (entity.targetNpcId) {
+          const tgt = poolNpcs.find(n => String(n.id) === String(entity.targetNpcId));
+          if (tgt) addDep(tgt, 'npc', 'Quest Target');
+        }
+        // Cast NPCs
+        if (Array.isArray(entity.npcIds)) {
+          entity.npcIds.forEach(nid => {
+            const castNpc = poolNpcs.find(n => String(n.id) === String(nid));
+            if (castNpc) addDep(castNpc, 'npc', 'Associated Cast');
+          });
+        }
+        // Required / Reward Items
+        if (Array.isArray(entity.itemIds)) {
+          entity.itemIds.forEach(iid => {
+            const itm = poolItems.find(i => String(i.id) === String(iid));
+            if (itm) addDep(itm, 'item', 'Required / Reward Relic');
+          });
+        }
+        // Clocks & Trackers
+        const trkIds = entity.trackerIds || entity.threatClockIds || [];
+        if (Array.isArray(trkIds)) {
+          trkIds.forEach(tid => {
+            const trk = poolTrackers.find(t => String(t.id) === String(tid));
+            if (trk) addDep(trk, 'tracker', 'Linked Threat Clock');
+          });
+        }
+        if (Array.isArray(entity.steps)) {
+          entity.steps.forEach(st => {
+            const stTrkId = st.triggerTrackerId || st.clockId;
+            if (stTrkId) {
+              const trk = poolTrackers.find(t => String(t.id) === String(stTrkId));
+              if (trk) addDep(trk, 'tracker', 'Step Trigger Clock');
+            }
+          });
+        }
+      } else if (entityType === 'npc') {
+        // Inter-NPC Relationships
+        if (Array.isArray(entity.relationships)) {
+          entity.relationships.forEach(r => {
+            if (r.targetNpcId) {
+              const relTarget = poolNpcs.find(n => String(n.id) === String(r.targetNpcId));
+              if (relTarget) addDep(relTarget, 'npc', `Social Tie (${r.relationshipType || r.relationship || r.type || 'Connected'})`);
+            }
+          });
+        }
+        // Affiliated Faction
+        if (entity.factionId) {
+          const fac = poolFactions.find(f => String(f.id) === String(entity.factionId));
+          if (fac) addDep(fac, 'faction', 'Affiliated Faction');
+        }
+        // Owned & Carried Items
+        poolItems.filter(i => String(i.ownerNpcId) === String(entity.id)).forEach(itm => {
+          addDep(itm, 'item', itm.possessionMode === 'carried' ? 'Equipped / Carried Item' : 'Owned Depot Item');
+        });
+      } else if (entityType === 'item' || entityType === 'resource') {
+        // Owning NPC
+        if (entity.ownerNpcId) {
+          const owner = poolNpcs.find(n => String(n.id) === String(entity.ownerNpcId));
+          if (owner) addDep(owner, 'npc', 'Owning Character');
+        }
+      } else if (entityType === 'faction') {
+        // Leader NPC
+        if (entity.leaderNpcId) {
+          const leader = poolNpcs.find(n => String(n.id) === String(entity.leaderNpcId));
+          if (leader) addDep(leader, 'npc', 'Faction Leader / Spokesperson');
+        }
+        // Member NPCs
+        poolNpcs.filter(n => n.factionId === entity.id || n.faction === entity.name).forEach(mem => {
+          addDep(mem, 'npc', 'Member Character');
+        });
+      }
+
+      return deps;
+    }
+    window.analyzeTransplantDependencies = analyzeTransplantDependencies;
+
+    function openTransplantPackageModal(externalKey, explicitType) {
+      if (typeof CrossCampaignService === 'undefined') {
+        alert('CrossCampaignService is not initialized.');
+        return;
+      }
+      const resolved = CrossCampaignService.resolveExternalEntity(externalKey, explicitType);
+      if (!resolved || !resolved.entity) {
+        alert(`Could not resolve external entity: ${externalKey}`);
+        return;
+      }
+
+      const { entity, sourcePool, sourceId } = resolved;
+      const type = resolved.type || explicitType || 'quest';
+      const deps = analyzeTransplantDependencies(entity, type, sourcePool);
+
+      currentTransplantState = {
+        primaryKey: externalKey,
+        primaryType: type,
+        primaryEntity: entity,
+        sourceId: sourceId,
+        sourcePool: sourcePool,
+        dependencies: deps
+      };
+
+      // Populate Header Summary
+      const nameEl = document.getElementById('tp-primary-name');
+      const metaEl = document.getElementById('tp-primary-meta');
+      const typeIcons = { quest: '📜', npc: '👤', item: '💎', tracker: '⏱️', faction: '👑', creature: '🐉', resource: '📦' };
+      const icon = typeIcons[type] || '📦';
+
+      if (nameEl) nameEl.textContent = `${icon} ${entity.title || entity.name || entity.id}`;
+      if (metaEl) {
+        metaEl.textContent = `Type: ${type.toUpperCase()} • Source: ${sourcePool.name || sourceId} • Original Node: ${entity._originalNodeName || entity._originalNodeId || 'Unstationed'}`;
+      }
+
+      // Populate Target Node Dropdown
+      const nodeSelect = document.getElementById('tp-target-node');
+      if (nodeSelect) {
+        nodeSelect.innerHTML = '<option value="">(Unstationed / Nomadic)</option>';
+        const topo = Workstation.activeTopology || {};
+        const nodesObj = topo.nodes || {};
+        const nodeIds = Object.keys(nodesObj);
+        nodeIds.sort((a, b) => {
+          const numA = Number(a), numB = Number(b);
+          if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
+          return String(a).localeCompare(String(b));
+        });
+        nodeIds.forEach(nid => {
+          const n = nodesObj[nid];
+          const nName = n ? (n.displayName || n.name || `Node ${nid}`) : `Node ${nid}`;
+          const opt = document.createElement('option');
+          opt.value = nid;
+          opt.textContent = `📍 #${nid}: ${nName} (${n ? (n.culture || 'Adhocracy') : ''})`;
+          nodeSelect.appendChild(opt);
+        });
+      }
+
+      // Populate Dependencies Table
+      const countEl = document.getElementById('tp-deps-count');
+      if (countEl) countEl.textContent = `Found ${deps.length} ${deps.length === 1 ? 'dependency' : 'dependencies'}`;
+
+      const tbody = document.getElementById('tp-deps-table-body');
+      if (tbody) {
+        tbody.innerHTML = '';
+        if (deps.length === 0) {
+          const emptyTr = document.createElement('tr');
+          emptyTr.innerHTML = `
+            <td colspan="3" style="text-align:center; padding:15px; color:#64748b; font-style:italic;">
+              No outbound dependencies found. This entity can be transplanted cleanly into the active campaign.
+            </td>
+          `;
+          tbody.appendChild(emptyTr);
+        } else {
+          const topo = Workstation.activeTopology || {};
+          deps.forEach((dep, idx) => {
+            const tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid #e2e8f0';
+
+            const activeCandidates = getActiveCollectionForType(dep.type, topo);
+            let candidateOptionsHtml = '';
+            if (activeCandidates.length === 0) {
+              candidateOptionsHtml = `<option value="">(No active ${dep.type}s exist in campaign)</option>`;
+            } else {
+              candidateOptionsHtml = activeCandidates.map(c => `
+                <option value="${escapeJsArg(c.id)}">${escapeHtml(c.name || c.title || c.id)} [${escapeHtml(c.id)}]</option>
+              `).join('');
+            }
+
+            const depIcon = typeIcons[dep.type] || '📦';
+            tr.innerHTML = `
+              <td style="padding:4px 6px; vertical-align:top;">
+                <div style="font-weight:bold; color:#000080;">${depIcon} ${escapeHtml(dep.name)}</div>
+                <div style="font-size:8.5px; color:#64748b;">ID: ${escapeHtml(dep.id)} &bull; ${dep.type.toUpperCase()}</div>
+              </td>
+              <td style="padding:4px 6px; vertical-align:top;">
+                <span class="entity-badge-tag" style="background:#f1f5f9; color:#334155; font-size:9px;">${escapeHtml(dep.role)}</span>
+              </td>
+              <td style="padding:4px 6px; vertical-align:top;">
+                <select class="win-select-input tp-action-select" data-dep-idx="${idx}" onchange="window.updateTransplantDepRow(this, ${idx})" style="width:100%; font-size:9.5px; margin-bottom:2px;">
+                  <option value="copy" selected>📥 Copy as New Entity to Active Campaign</option>
+                  <option value="reassign">🔄 Reassign to Active Entity...</option>
+                  <option value="omit">❌ Omit / Sever Reference</option>
+                </select>
+                <div id="tp-reassign-container-${idx}" style="display:none; margin-top:2px; background:#eff6ff; padding:3px 4px; border:1px solid #bfdbfe; border-radius:2px;">
+                  <div style="font-size:8.5px; font-weight:bold; color:#1e40af; margin-bottom:1px;">Select Target Active Entity:</div>
+                  <select class="win-select-input tp-reassign-target" data-dep-idx="${idx}" style="width:100%; font-size:9.5px;">
+                    ${candidateOptionsHtml}
+                  </select>
+                </div>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      }
+
+      const modal = document.getElementById('modal-transplant-package');
+      if (modal) modal.classList.remove('hidden');
+    }
+    window.openTransplantPackageModal = openTransplantPackageModal;
+
+    function closeTransplantPackageModal() {
+      const modal = document.getElementById('modal-transplant-package');
+      if (modal) modal.classList.add('hidden');
+      currentTransplantState = null;
+    }
+    window.closeTransplantPackageModal = closeTransplantPackageModal;
+
+    function updateTransplantDepRow(selectEl, idx) {
+      const action = selectEl.value;
+      const container = document.getElementById(`tp-reassign-container-${idx}`);
+      if (container) {
+        container.style.display = (action === 'reassign') ? 'block' : 'none';
+      }
+      if (currentTransplantState && currentTransplantState.dependencies[idx]) {
+        currentTransplantState.dependencies[idx].action = action;
+      }
+    }
+    window.updateTransplantDepRow = updateTransplantDepRow;
+
+    function executeTransplantPackage() {
+      if (!currentTransplantState) {
+        alert('No active transplant package configured.');
+        return;
+      }
+
+      const topo = Workstation.activeTopology;
+      if (!topo) {
+        alert('No active campaign topology loaded.');
+        return;
+      }
+
+      const idStrategy = (document.getElementById('tp-id-strategy') && document.getElementById('tp-id-strategy').value) || 'auto_unique';
+      const targetNodeId = (document.getElementById('tp-target-node') && document.getElementById('tp-target-node').value) || null;
+
+      const idMap = {};
+      let copiedCount = 0;
+
+      // 1. Process Dependencies
+      const deps = currentTransplantState.dependencies || [];
+      for (let idx = 0; idx < deps.length; idx++) {
+        const dep = deps[idx];
+        const actionSelect = document.querySelector(`.tp-action-select[data-dep-idx="${idx}"]`);
+        const action = actionSelect ? actionSelect.value : dep.action;
+
+        if (action === 'copy') {
+          const activeColl = getActiveCollectionForType(dep.type, topo);
+          let targetId = dep.id;
+
+          if (idStrategy === 'auto_unique') {
+            targetId = ensureUniqueEntityId(dep.id, activeColl);
+          } else if (idStrategy === 'preserve_strict') {
+            if (activeColl.some(e => String(e.id) === String(dep.id))) {
+              alert(`Transplant Aborted: Entity ID collision on dependency ${dep.id} under strict preservation.`);
+              return;
+            }
+          } else if (idStrategy === 'overwrite_if_exists') {
+            const existingIdx = activeColl.findIndex(e => String(e.id) === String(dep.id));
+            if (existingIdx !== -1) activeColl.splice(existingIdx, 1);
+          }
+
+          const clonedDep = JSON.parse(JSON.stringify(dep.entity));
+          delete clonedDep._isExternal;
+          delete clonedDep._sourceCampaignId;
+          delete clonedDep._sourceCampaignName;
+          delete clonedDep._externalKey;
+          delete clonedDep._originalNodeId;
+          delete clonedDep._originalNodeName;
+
+          clonedDep.id = targetId;
+          clonedDep.nodeId = targetNodeId;
+          if (clonedDep.suggestedNode !== undefined) clonedDep.suggestedNode = targetNodeId;
+
+          idMap[dep.id] = targetId;
+          activeColl.push(clonedDep);
+          copiedCount++;
+        } else if (action === 'reassign') {
+          const reassignSelect = document.querySelector(`.tp-reassign-target[data-dep-idx="${idx}"]`);
+          const reassignedId = reassignSelect ? reassignSelect.value : null;
+          idMap[dep.id] = reassignedId || null;
+        } else if (action === 'omit') {
+          idMap[dep.id] = null;
+        }
+      }
+
+      // 2. Process Primary Entity
+      const primaryColl = getActiveCollectionForType(currentTransplantState.primaryType, topo);
+      let primaryTargetId = currentTransplantState.primaryEntity.id;
+
+      if (idStrategy === 'auto_unique') {
+        primaryTargetId = ensureUniqueEntityId(primaryTargetId, primaryColl);
+      } else if (idStrategy === 'preserve_strict') {
+        if (primaryColl.some(e => String(e.id) === String(primaryTargetId))) {
+          alert(`Transplant Aborted: Entity ID collision on primary entity ${primaryTargetId} under strict preservation.`);
+          return;
+        }
+      } else if (idStrategy === 'overwrite_if_exists') {
+        const existingIdx = primaryColl.findIndex(e => String(e.id) === String(primaryTargetId));
+        if (existingIdx !== -1) primaryColl.splice(existingIdx, 1);
+      }
+
+      const primaryClone = JSON.parse(JSON.stringify(currentTransplantState.primaryEntity));
+      delete primaryClone._isExternal;
+      delete primaryClone._sourceCampaignId;
+      delete primaryClone._sourceCampaignName;
+      delete primaryClone._externalKey;
+      delete primaryClone._originalNodeId;
+      delete primaryClone._originalNodeName;
+
+      primaryClone.id = primaryTargetId;
+      primaryClone.nodeId = targetNodeId;
+      if (primaryClone.suggestedNode !== undefined) primaryClone.suggestedNode = targetNodeId;
+      if (primaryClone.headquartersNodeId !== undefined) primaryClone.headquartersNodeId = targetNodeId;
+
+      // 3. Rewrite Foreign Keys on Primary Entity using idMap
+      if (currentTransplantState.primaryType === 'quest') {
+        if (primaryClone.giverNpcId && idMap.hasOwnProperty(primaryClone.giverNpcId)) {
+          primaryClone.giverNpcId = idMap[primaryClone.giverNpcId];
+        }
+        if (primaryClone.targetNpcId && idMap.hasOwnProperty(primaryClone.targetNpcId)) {
+          primaryClone.targetNpcId = idMap[primaryClone.targetNpcId];
+        }
+        if (Array.isArray(primaryClone.npcIds)) {
+          primaryClone.npcIds = primaryClone.npcIds.map(nid => idMap.hasOwnProperty(nid) ? idMap[nid] : nid).filter(Boolean);
+        }
+        if (Array.isArray(primaryClone.itemIds)) {
+          primaryClone.itemIds = primaryClone.itemIds.map(iid => idMap.hasOwnProperty(iid) ? idMap[iid] : iid).filter(Boolean);
+        }
+        if (Array.isArray(primaryClone.trackerIds)) {
+          primaryClone.trackerIds = primaryClone.trackerIds.map(tid => idMap.hasOwnProperty(tid) ? idMap[tid] : tid).filter(Boolean);
+        }
+        if (Array.isArray(primaryClone.threatClockIds)) {
+          primaryClone.threatClockIds = primaryClone.threatClockIds.map(tid => idMap.hasOwnProperty(tid) ? idMap[tid] : tid).filter(Boolean);
+        }
+        if (Array.isArray(primaryClone.steps)) {
+          primaryClone.steps.forEach(st => {
+            if (st.triggerTrackerId && idMap.hasOwnProperty(st.triggerTrackerId)) {
+              st.triggerTrackerId = idMap[st.triggerTrackerId];
+            }
+            if (st.clockId && idMap.hasOwnProperty(st.clockId)) {
+              st.clockId = idMap[st.clockId];
+            }
+          });
+        }
+      } else if (currentTransplantState.primaryType === 'npc') {
+        if (Array.isArray(primaryClone.relationships)) {
+          primaryClone.relationships = primaryClone.relationships.map(r => {
+            const mapped = idMap.hasOwnProperty(r.targetNpcId) ? idMap[r.targetNpcId] : r.targetNpcId;
+            return mapped ? { ...r, targetNpcId: mapped } : null;
+          }).filter(Boolean);
+        }
+        if (primaryClone.factionId && idMap.hasOwnProperty(primaryClone.factionId)) {
+          primaryClone.factionId = idMap[primaryClone.factionId];
+        }
+      } else if (currentTransplantState.primaryType === 'item' || currentTransplantState.primaryType === 'resource') {
+        if (primaryClone.ownerNpcId && idMap.hasOwnProperty(primaryClone.ownerNpcId)) {
+          primaryClone.ownerNpcId = idMap[primaryClone.ownerNpcId];
+        }
+      } else if (currentTransplantState.primaryType === 'faction') {
+        if (primaryClone.leaderNpcId && idMap.hasOwnProperty(primaryClone.leaderNpcId)) {
+          primaryClone.leaderNpcId = idMap[primaryClone.leaderNpcId];
+        }
+      }
+
+      primaryColl.push(primaryClone);
+
+      if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+
+      const primaryLabel = primaryClone.title || primaryClone.name || primaryClone.id;
+      setStatusBarMessage(`Transplanted ${primaryLabel} and ${copiedCount} dependencies into active campaign.`);
+
+      closeTransplantPackageModal();
+
+      if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+      if (typeof selectEntityItem === 'function') selectEntityItem(primaryClone.id);
+    }
+    window.executeTransplantPackage = executeTransplantPackage;
+
+    window.TransplantService = {
+      analyzeTransplantDependencies,
+      openTransplantPackageModal,
+      closeTransplantPackageModal,
+      updateTransplantDepRow,
+      executeTransplantPackage
+    };

@@ -254,11 +254,67 @@
 
     // Public Mod API (Exposed for Third-Party Worldbuilding Extensions & Mods)
     window.CreatorStudio = {
+      version: "2.5.0",
+      mods: {},
+      _inspectorTabs: [],
+      _toolbarButtons: [],
+      _listeners: {},
+
+      on: function (event, handler) {
+        if (!event || typeof handler !== "function") return;
+        if (!this._listeners[event]) this._listeners[event] = [];
+        if (this._listeners[event].indexOf(handler) === -1) {
+          this._listeners[event].push(handler);
+        }
+      },
+
+      off: function (event, handler) {
+        if (!event || !this._listeners[event]) return;
+        if (!handler) {
+          delete this._listeners[event];
+          return;
+        }
+        this._listeners[event] = this._listeners[event].filter(function (fn) {
+          return fn !== handler;
+        });
+      },
+
+      emit: function (event, payload) {
+        if (!event || !Array.isArray(this._listeners[event])) return;
+        var handlers = this._listeners[event].slice();
+        for (var i = 0; i < handlers.length; i++) {
+          try {
+            handlers[i](payload);
+          } catch (err) {
+            console.warn("[CreatorStudio Event Bus] Handler error on '" + event + "':", err);
+          }
+        }
+      },
+
       registerMod: function(modDef) {
         if (!modDef || !modDef.id) return;
         Workstation.registeredMods[modDef.id] = modDef;
+        this.mods[modDef.id] = modDef;
         if (typeof modDef.onInit === 'function') {
           try { modDef.onInit(window.CreatorStudio); } catch (e) { console.error(`[Mod ${modDef.id}] onInit error:`, e); }
+        }
+        if (typeof modDef.onCampaignLoad === 'function') {
+          this.on('campaignLoaded', function (payload) {
+            try {
+              var topo = (payload && payload.topology) ? payload.topology : ((typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : payload);
+              if (topo && !topo.name && payload && (payload.campaignName || payload.name)) {
+                topo.name = payload.campaignName || payload.name;
+              }
+              modDef.onCampaignLoad(topo);
+            } catch (e) {
+              console.error(`[Mod ${modDef.id}] onCampaignLoad error:`, e);
+            }
+          });
+        }
+        if (typeof modDef.onCampaignRename === 'function') {
+          this.on('campaignRenamed', function (payload) {
+            try { modDef.onCampaignRename(payload); } catch (e) { console.error(`[Mod ${modDef.id}] onCampaignRename error:`, e); }
+          });
         }
         if (typeof refreshModUI === 'function') refreshModUI();
         console.log(`[Creator Studio Mod API] Registered mod: ${modDef.name || modDef.id} (v${modDef.version || '1.0.0'})`);
@@ -935,6 +991,21 @@
           }).catch(() => {});
         }
       }
+
+      if (Workstation.activeTopology) {
+        Workstation.activeTopology.campaignName =
+          Workstation.activeTopology.campaignName ||
+          (typeof currentCampaignName !== "undefined" && currentCampaignName) ||
+          Workstation.activeTopology.name ||
+          "Campaign";
+        if (window.CreatorStudio && typeof window.CreatorStudio.emit === "function") {
+          window.CreatorStudio.emit("campaignLoaded", {
+            campaignId: (typeof activeCampaignId !== "undefined" && activeCampaignId) || Workstation.activeTopology.id || "campaign",
+            campaignName: Workstation.activeTopology.campaignName,
+            topology: Workstation.activeTopology,
+          });
+        }
+      }
     }
 
     function ensureEntityCollections(topo) {
@@ -949,6 +1020,31 @@
       if (!topo.edgeNotes || typeof topo.edgeNotes !== 'object') topo.edgeNotes = {};
       if (!topo.npcs) topo.npcs = [];
       if (!topo.quests) topo.quests = [];
+      topo.quests.forEach(q => {
+        if (!q || typeof q !== 'object') return;
+        if (!q.title && q.name) q.title = q.name;
+        if (!q.name && q.title) q.name = q.title;
+        if (!Array.isArray(q.npcIds)) q.npcIds = [];
+        if (q.giverNpcId && !q.npcIds.includes(q.giverNpcId)) q.npcIds.push(q.giverNpcId);
+        if (q.targetNpcId && !q.npcIds.includes(q.targetNpcId)) q.npcIds.push(q.targetNpcId);
+        if (!Array.isArray(q.itemIds)) q.itemIds = [];
+        if (!Array.isArray(q.trackerIds)) q.trackerIds = [];
+        if (Array.isArray(q.steps)) {
+          q.steps.forEach((st, idx) => {
+            if (!st || typeof st !== 'object') return;
+            if (!st.id) st.id = 'step_' + (idx + 1);
+            if (!st.title && st.text) st.title = st.text;
+            const done = !!(st.isCompleted || st.completed);
+            st.isCompleted = done;
+            st.completed = done;
+            if (st.triggerTrackerId && !q.trackerIds.includes(st.triggerTrackerId)) {
+              q.trackerIds.push(st.triggerTrackerId);
+            }
+          });
+        } else {
+          q.steps = [];
+        }
+      });
       if (!topo.items) topo.items = [];
       if (!topo.creatures) topo.creatures = [];
       if (!topo.creatureEvidence || typeof topo.creatureEvidence !== 'object') topo.creatureEvidence = {};
@@ -1136,7 +1232,13 @@
       const topo = Workstation.activeTopology;
       const count = topo && topo.nodes ? Object.keys(topo.nodes).length : 0;
       const campEl = document.getElementById('sb-campaign');
-      if (campEl) campEl.textContent = `${topo ? topo.name || 'Campaign' : 'Campaign'} (${count} Nodes)`;
+      const resolvedCampName =
+        (topo && topo.campaignName) ||
+        (typeof currentCampaignName !== "undefined" && currentCampaignName) ||
+        (topo && topo.name) ||
+        "Campaign";
+      if (campEl)
+        campEl.textContent = `${resolvedCampName} (${count} Nodes)`;
 
       const scaleEl = document.getElementById('sb-scale');
       if (scaleEl && typeof getActiveMapScaleSummary === 'function') {

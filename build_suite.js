@@ -38,8 +38,8 @@ function safeWriteFileSync(filePath, data, encoding = 'utf8') {
     try {
       return fs.writeFileSync(filePath, data, encoding);
     } catch (err) {
-      if ((err.code === 'EBUSY' || err.code === 'UNKNOWN' || err.code === 'EPERM' || err.errno === -4094) && attempt < 6) {
-        const waitMs = attempt * 120;
+      if ((err.code === 'EBUSY' || err.code === 'UNKNOWN' || err.code === 'EPERM' || err.errno === -4094) && attempt < 10) {
+        const waitMs = attempt * 200;
         const end = Date.now() + waitMs;
         while (Date.now() < end) {}
         continue;
@@ -311,12 +311,34 @@ if (fs.existsSync(campaignsDir)) {
             presetData = JSON.parse(fs.readFileSync(topoFallback, 'utf8'));
           }
         }
-        if (presetData && !presetData.nodes && presetData.maps) {
+        if (presetData && presetData.nodes && !Array.isArray(presetData.nodes) && typeof presetData.nodes === 'object') {
+          presetData.nodes = Object.values(presetData.nodes);
+        }
+
+        if (presetData && presetData.maps && typeof presetData.maps === 'object') {
+          for (const mId of Object.keys(presetData.maps)) {
+            const mMap = presetData.maps[mId];
+            if (!mMap) continue;
+            const hasNodes = Array.isArray(mMap.nodes) ? mMap.nodes.length > 0 : (mMap.nodes && typeof mMap.nodes === 'object' && Object.keys(mMap.nodes).length > 0);
+            if (!hasNodes && Array.isArray(presetData.nodes) && presetData.nodes.length > 0) {
+              if (Array.isArray(mMap.nodeIds) && mMap.nodeIds.length > 0) {
+                const idSet = new Set(mMap.nodeIds.map(String));
+                mMap.nodes = presetData.nodes.filter(n => n && idSet.has(String(n.id)));
+              } else if (presetData.nodes.some(n => n && n.mapId === mId)) {
+                mMap.nodes = presetData.nodes.filter(n => n && n.mapId === mId);
+              } else if (Object.keys(presetData.maps).length === 1) {
+                mMap.nodes = [...presetData.nodes];
+              }
+            }
+          }
+        }
+
+        if (presetData && (!presetData.nodes || !presetData.nodes.length) && presetData.maps) {
           const rootId = presetData.activeMapId || presetData.rootMapId || Object.keys(presetData.maps)[0] || 'map_root';
           if (presetData.maps[rootId]) {
             presetData.name = presetData.name || meta.name || presetData.maps[rootId].name;
-            presetData.nodes = presetData.maps[rootId].nodes;
-            presetData.links = presetData.maps[rootId].links;
+            presetData.nodes = Array.isArray(presetData.maps[rootId].nodes) ? presetData.maps[rootId].nodes : (presetData.maps[rootId].nodes ? Object.values(presetData.maps[rootId].nodes) : []);
+            presetData.links = presetData.maps[rootId].links || [];
           }
         }
 
@@ -830,7 +852,7 @@ function enrichModuleEntities(m, rawMarkdown) {
   items.push({
     id: `${m.id}-item-apparatus`,
     name: m.title.replace(/^The\s+/i, '').split('&')[0].trim(),
-    category: (m.pipeline_tier === 3 || (m.tier && m.tier.includes('Tier 3'))) ? "Infrastructural Machinery" : "Tabletop Asset / Relic",
+    category: (m.pipeline_tier === 3 || m.tier === 3 || (typeof m.tier === 'string' && m.tier.includes('Tier 3'))) ? "Infrastructural Machinery" : "Tabletop Asset / Relic",
     specs: yieldDesc,
     notes: `Primary technological, infrastructural, or tactical anchor established by ${m.id}.`,
     moduleId: m.id,

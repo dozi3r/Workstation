@@ -3,11 +3,11 @@ file_path: "src/workstation/modals/entity_modals.html"
 title: "entity_modals.html"
 volume: "vol-4"
 kind: "Workstation Shell Template"
-current_hash: "e42aa9e0a7883505"
-reviewed_hash: "e42aa9e0a7883505"
+current_hash: "45c963b3ddb7ece7"
+reviewed_hash: "45c963b3ddb7ece7"
 stale: false
-size_bytes: 53274
-line_count: 810
+size_bytes: 61798
+line_count: 918
 ---
 
 # entity_modals.html
@@ -26,4 +26,7 @@ line_count: 810
   - Dread Index (1 to 10) and Dread Effect
   - Roaming Scope (`stationary_lair`, `adjacent_corridor`, `district_wide`, `campaign_wide`)
   - 6 Relative Capabilities (Might, Agility, Resilience, Cunning, Awareness, Presence) on a 1-5 pip scale.
+- **Cross-Campaign Sources & Transplant Packaging Modals**:
+  - Houses `#em-btn-sources` and `#em-sources-popover` containing source checkboxes, dynamic count badge, and buttons for `+ Load JSON...` and `+ Load Folder...`.
+  - Houses `#modal-transplant-package` (`win-dialog` / Win95 styling) providing primary entity summary, target station node dropdown, ID conflict resolution selector (`auto_unique`, `overwrite_if_exists`, `preserve_strict`), scrollable dependency mapping table with 3-way action selectors (`copy`, `reassign`, `omit`), candidate target dropdowns, and execution triggers.
 <!-- END_CUSTOM_NOTES -->

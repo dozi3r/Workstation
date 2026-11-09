@@ -754,6 +754,7 @@ function syncAdapterFromWorkstationTopology() {
     }
 
     return {
+      ...(n || {}),
       id: nid,
       name: (n && n.name) || (typeof nid === 'string' ? nid : `Node ${nid}`),
       displayName: (n && (n.displayName || n.name)) || (typeof nid === 'string' ? nid : `#${nid}`),
@@ -836,8 +837,14 @@ function syncAdapterToWorkstationTopology() {
     Workstation.activeTopology = { id: activeMapId, name: getActiveMapName(), nodes: {} };
   }
   const topo = Workstation.activeTopology;
+  const prevCampaignName =
+    topo.campaignName ||
+    (typeof currentCampaignName !== "undefined" && currentCampaignName) ||
+    topo.name ||
+    "Campaign";
   topo.id = activeMapId;
   topo.name = getActiveMapName();
+  topo.campaignName = prevCampaignName;
   topo.scaleTier = getActiveMapScaleTier();
   topo.nodes = {};
   nodeSlottedModules = normalizeNodeSlottedModules(nodeSlottedModules);
@@ -856,6 +863,7 @@ function syncAdapterToWorkstationTopology() {
     const numY = Number(rawY);
 
     topo.nodes[String(n.id)] = {
+      ...(n || {}),
       id: n.id,
       name: n.name,
       x: Number.isFinite(numX) ? numX : 100,
@@ -953,7 +961,10 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
         id: rawPkg,
         name: reg.metadata?.name || reg.preset?.name || rawPkg,
         campaignName: reg.metadata?.name || reg.preset?.name || rawPkg,
-        description: reg.metadata?.description || "",
+        author: reg.metadata?.author || reg.preset?.author || "Creator Studio World Architect",
+        description: reg.metadata?.description || reg.preset?.description || "",
+        climaxTrigger: reg.metadata?.climaxTrigger || reg.preset?.climaxTrigger || reg.metadata?.globalDials?.dial8ClimaxTrigger || "crisis",
+        substratumSettings: reg.metadata?.substratumSettings || reg.preset?.substratumSettings || { enabled: true },
         maps: reg.preset?.maps || null,
         nodes: reg.preset?.nodes || null,
         links: reg.preset?.links || null,
@@ -1051,6 +1062,30 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
       mapMetadata: pkg.mapMetadata || null
     };
   }
+
+  // Defensive normalization: If any map in compiledMaps is missing its nodes array but has nodeIds or package-level nodes exist:
+  const fallbackNodesList = Array.isArray(pkg.nodes) ? pkg.nodes : (pkg.preset && Array.isArray(pkg.preset.nodes) ? pkg.preset.nodes : (pkg.nodes && typeof pkg.nodes === 'object' ? Object.values(pkg.nodes) : (pkg.preset && pkg.preset.nodes && typeof pkg.preset.nodes === 'object' ? Object.values(pkg.preset.nodes) : [])));
+  const fallbackLinksList = Array.isArray(pkg.links) ? pkg.links : (pkg.preset && Array.isArray(pkg.preset.links) ? pkg.preset.links : (pkg.edges || []));
+
+  Object.keys(compiledMaps).forEach(mId => {
+    const mMap = compiledMaps[mId];
+    if (!mMap) return;
+    const hasExistingNodes = Array.isArray(mMap.nodes) ? mMap.nodes.length > 0 : (mMap.nodes && typeof mMap.nodes === 'object' && Object.keys(mMap.nodes).length > 0);
+    if (!hasExistingNodes && fallbackNodesList.length > 0) {
+      if (Array.isArray(mMap.nodeIds) && mMap.nodeIds.length > 0) {
+        const idSet = new Set(mMap.nodeIds.map(String));
+        mMap.nodes = fallbackNodesList.filter(n => n && idSet.has(String(n.id)));
+      } else if (fallbackNodesList.some(n => n && n.mapId === mId)) {
+        mMap.nodes = fallbackNodesList.filter(n => n && n.mapId === mId);
+      } else if (Object.keys(compiledMaps).length === 1 || mId === (pkg.rootMapId || pkg.activeMapId || Object.keys(compiledMaps)[0])) {
+        mMap.nodes = [...fallbackNodesList];
+      }
+    }
+    if ((!Array.isArray(mMap.links) || mMap.links.length === 0) && fallbackLinksList.length > 0) {
+      const nodeIdsOnMap = new Set((Array.isArray(mMap.nodes) ? mMap.nodes : []).map(n => String(n.id)));
+      mMap.links = fallbackLinksList.filter(l => l && nodeIdsOnMap.has(String(l.from)) && nodeIdsOnMap.has(String(l.to)));
+    }
+  });
 
   // Ensure coordinates on every node across all maps are finite numbers
   Object.keys(compiledMaps).forEach(mId => {
@@ -1199,6 +1234,15 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     Workstation.activeTopology.deletedPrototypes = Array.isArray(pkg.deletedPrototypes) ? pkg.deletedPrototypes : (pkg.preset && Array.isArray(pkg.preset.deletedPrototypes) ? pkg.preset.deletedPrototypes : (pkg.entities && Array.isArray(pkg.entities.deletedPrototypes) ? pkg.entities.deletedPrototypes : []));
     Workstation.activeTopology.deletedModules = Array.isArray(pkg.deletedModules) ? pkg.deletedModules : (pkg.preset && Array.isArray(pkg.preset.deletedModules) ? pkg.preset.deletedModules : (pkg.entities && Array.isArray(pkg.entities.deletedModules) ? pkg.entities.deletedModules : []));
     Workstation.activeTopology.custom_modules = extractedEntities.custom_modules || [];
+    Workstation.activeTopology.campaignName = campaignTitle;
+    Workstation.activeTopology.author = pkg.author || (pkg.metadata && pkg.metadata.author) || (pkg.preset && pkg.preset.author) || Workstation.activeTopology.author || "Creator Studio World Architect";
+    Workstation.activeTopology.description = pkg.description || (pkg.metadata && pkg.metadata.description) || (pkg.preset && pkg.preset.description) || Workstation.activeTopology.description || "";
+    Workstation.activeTopology.climaxTrigger = pkg.climaxTrigger || (pkg.globalDials && pkg.globalDials.dial8ClimaxTrigger) || (typeof dial8ClimaxTriggerMode !== "undefined" ? dial8ClimaxTriggerMode : "crisis");
+    Workstation.activeTopology.substratumSettings = pkg.substratumSettings || (pkg.globalDials && pkg.globalDials.substratumSettings) || { enabled: (pkg.globalDials && typeof pkg.globalDials.tier0Substratum === "boolean") ? pkg.globalDials.tier0Substratum : (typeof tier0SubstratumEnabled !== "undefined" ? Boolean(tier0SubstratumEnabled) : true) };
+    Workstation.activeTopology.globalDials = pkg.globalDials || {
+      dial8ClimaxTrigger: Workstation.activeTopology.climaxTrigger,
+      tier0Substratum: Workstation.activeTopology.substratumSettings.enabled
+    };
     if (typeof ensureEntityCollections === "function") ensureEntityCollections(Workstation.activeTopology);
     if (typeof syncCustomModulesToCatalog === "function") syncCustomModulesToCatalog(Workstation.activeTopology);
   }
@@ -1213,6 +1257,15 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
           console.error(`[Mod ${modDef.id}] onCampaignLoad error:`, modErr);
         }
       }
+    });
+  }
+
+  if (window.CreatorStudio && typeof window.CreatorStudio.emit === "function") {
+    window.CreatorStudio.emit("campaignLoaded", {
+      campaignId: activeCampaignId,
+      campaignName: campaignTitle,
+      name: campaignTitle,
+      topology: Workstation.activeTopology,
     });
   }
 

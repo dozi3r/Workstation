@@ -1429,10 +1429,29 @@ async function buildCampaignPackageFiles(opts = {}) {
   const activeTopo = (typeof Workstation !== "undefined" && Workstation.activeTopology)
     ? Workstation.activeTopology
     : ((window.Workstation && window.Workstation.activeTopology) ? window.Workstation.activeTopology : null);
-  const cName = (typeof currentCampaignName !== "undefined" && currentCampaignName)
+  const cName = (activeTopo && activeTopo.campaignName)
+    || (typeof currentCampaignName !== "undefined" && currentCampaignName)
     || (activeTopo && activeTopo.name) || "campaign";
   const slug = slugifyCampaignName(cName);
   const nowIso = new Date().toISOString();
+  const cAuthor = (activeTopo && activeTopo.author) || "Creator Studio World Architect";
+  const cDesc = (activeTopo && activeTopo.description) || "Authored in Creator Studio Pointcrawl Workstation";
+  const resolvedClimax = (activeTopo && activeTopo.climaxTrigger)
+    || (activeTopo && activeTopo.globalDials && activeTopo.globalDials.dial8ClimaxTrigger)
+    || (typeof dial8ClimaxTriggerMode !== "undefined" ? dial8ClimaxTriggerMode : "crisis");
+  const resolvedSubstratum = (activeTopo && activeTopo.substratumSettings && typeof activeTopo.substratumSettings.enabled === "boolean")
+    ? activeTopo.substratumSettings.enabled
+    : ((activeTopo && activeTopo.globalDials && typeof activeTopo.globalDials.tier0Substratum === "boolean")
+        ? activeTopo.globalDials.tier0Substratum
+        : (typeof tier0SubstratumEnabled !== "undefined" ? Boolean(tier0SubstratumEnabled) : true));
+  const resolvedDials = (activeTopo && activeTopo.globalDials) ? {
+    ...activeTopo.globalDials,
+    dial8ClimaxTrigger: resolvedClimax,
+    tier0Substratum: resolvedSubstratum
+  } : {
+    dial8ClimaxTrigger: resolvedClimax,
+    tier0Substratum: resolvedSubstratum
+  };
 
   const files = [];
   let imageCount = 0;
@@ -1499,8 +1518,10 @@ async function buildCampaignPackageFiles(opts = {}) {
     id: slug,
     name: cName,
     campaignName: cName,
-    description: (activeTopo && activeTopo.description) || "Authored in Creator Studio Pointcrawl Workstation",
-    author: "Creator Studio World Architect",
+    description: cDesc,
+    author: cAuthor,
+    climaxTrigger: resolvedClimax,
+    substratumSettings: { enabled: resolvedSubstratum },
     packageType: "workstation_project",
     enabled: true,
     topologyFile: "topology.json",
@@ -1508,10 +1529,7 @@ async function buildCampaignPackageFiles(opts = {}) {
     updatedAt: nowIso,
     exportedAt: nowIso,
     appliedBatchIds: appliedBatchIds,
-    globalDials: {
-      dial8ClimaxTrigger: (typeof dial8ClimaxTriggerMode !== "undefined" ? dial8ClimaxTriggerMode : "crisis"),
-      tier0Substratum: typeof tier0SubstratumEnabled !== "undefined" ? tier0SubstratumEnabled : true
-    },
+    globalDials: resolvedDials,
     entities: entities
   };
   if (opts.syncToken) campaignMeta.syncToken = opts.syncToken;
@@ -1528,6 +1546,11 @@ async function buildCampaignPackageFiles(opts = {}) {
     id: slug,
     name: cName,
     campaignName: cName,
+    author: cAuthor,
+    description: cDesc,
+    climaxTrigger: resolvedClimax,
+    substratumSettings: { enabled: resolvedSubstratum },
+    globalDials: resolvedDials,
     rootMapId: resolvedRootMapId,
     activeMapId: (typeof activeMapId !== "undefined") ? activeMapId : resolvedRootMapId,
     maps: cleanMaps,
@@ -2431,6 +2454,9 @@ async function loadCampaignFromDirectoryHandle(dirHandle) {
       pkg.name = parsed.name || parsed.campaignName || dirHandle.name;
       pkg.campaignName = pkg.name;
       if (parsed.description) pkg.description = parsed.description;
+      if (parsed.author) pkg.author = parsed.author;
+      if (parsed.climaxTrigger) pkg.climaxTrigger = parsed.climaxTrigger;
+      if (parsed.substratumSettings) pkg.substratumSettings = parsed.substratumSettings;
       diskSyncToken = parsed.syncToken || "";
       if (parsed.entities) {
         pkg.entities = {
@@ -2501,6 +2527,11 @@ async function loadCampaignFromDirectoryHandle(dirHandle) {
     }
 
     if (topoParsed) {
+      if (topoParsed.author && !pkg.author) pkg.author = topoParsed.author;
+      if (topoParsed.description && !pkg.description) pkg.description = topoParsed.description;
+      if (topoParsed.climaxTrigger && !pkg.climaxTrigger) pkg.climaxTrigger = topoParsed.climaxTrigger;
+      if (topoParsed.substratumSettings && !pkg.substratumSettings) pkg.substratumSettings = topoParsed.substratumSettings;
+      if (topoParsed.globalDials && (!pkg.globalDials || Object.keys(pkg.globalDials).length === 0)) pkg.globalDials = topoParsed.globalDials;
       if (topoParsed.maps && typeof topoParsed.maps === "object" && Object.keys(topoParsed.maps).length > 0) {
         pkg.maps = topoParsed.maps;
       } else if (topoParsed.nodes) {
@@ -2800,37 +2831,166 @@ async function saveCampaignAsFolder(promptName = null) {
 window.saveCampaignAsFolder = saveCampaignAsFolder;
 
 /**
+ * Live in-place campaign settings & metadata application (SYS-START-19)
+ */
+async function applyCampaignSettings(settingsData) {
+  const topo = (typeof Workstation !== "undefined" && Workstation.activeTopology) ? Workstation.activeTopology : null;
+  if (!topo || !settingsData) return;
+
+  const oldName = topo.campaignName || (typeof currentCampaignName !== "undefined" && currentCampaignName) || topo.name || "Campaign";
+  const newName = String(settingsData.name != null ? settingsData.name : oldName).trim() || oldName;
+
+  topo.campaignName = newName;
+  if (typeof currentCampaignName !== "undefined") currentCampaignName = newName;
+
+  const rId = (typeof rootMapId !== "undefined" && rootMapId) ? rootMapId : ((typeof activeMapId !== "undefined" && activeMapId) ? activeMapId : "map_root");
+
+  if (typeof activeMapId === "undefined" || activeMapId === rId || topo.name === oldName) {
+    topo.name = settingsData.rootMapName ? String(settingsData.rootMapName).trim() : newName;
+  }
+  if (typeof maps !== "undefined" && maps && maps[rId]) {
+    maps[rId].name = settingsData.rootMapName ? String(settingsData.rootMapName).trim() : (maps[rId].name === oldName ? newName : maps[rId].name);
+  }
+
+  if (settingsData.author !== undefined) {
+    topo.author = String(settingsData.author).trim() || "Creator Studio World Architect";
+  }
+  if (settingsData.description !== undefined) {
+    topo.description = String(settingsData.description).trim();
+  }
+  if (settingsData.climaxTrigger !== undefined) {
+    topo.climaxTrigger = settingsData.climaxTrigger;
+    if (typeof setDial8Mode === "function") {
+      setDial8Mode(settingsData.climaxTrigger);
+    } else if (typeof dial8ClimaxTriggerMode !== "undefined") {
+      dial8ClimaxTriggerMode = settingsData.climaxTrigger;
+    }
+  }
+  if (settingsData.substratumSettings !== undefined) {
+    topo.substratumSettings = settingsData.substratumSettings;
+    if (typeof tier0SubstratumEnabled !== "undefined") {
+      tier0SubstratumEnabled = Boolean(settingsData.substratumSettings.enabled);
+    }
+  }
+
+  const resolvedClimax = topo.climaxTrigger || (typeof dial8ClimaxTriggerMode !== "undefined" ? dial8ClimaxTriggerMode : "crisis");
+  const resolvedSubstratum = (topo.substratumSettings && typeof topo.substratumSettings.enabled === "boolean")
+    ? topo.substratumSettings.enabled
+    : (typeof tier0SubstratumEnabled !== "undefined" ? Boolean(tier0SubstratumEnabled) : true);
+
+  topo.globalDials = {
+    ...(topo.globalDials || {}),
+    dial8ClimaxTrigger: resolvedClimax,
+    tier0Substratum: resolvedSubstratum
+  };
+
+  if (typeof document !== "undefined") {
+    document.title = `${newName} - Creator Studio Workstation`;
+  }
+
+  if (typeof updateStatusBar === "function") updateStatusBar();
+  if (typeof updateObjectSelector === "function") updateObjectSelector();
+  if (typeof updatePropertiesGrid === "function") updatePropertiesGrid();
+  if (typeof renderMapHierarchySelector === "function") renderMapHierarchySelector();
+  if (typeof renderLayoutTabs === "function") renderLayoutTabs();
+
+  if (window.CreatorStudio && typeof window.CreatorStudio.emit === "function") {
+    window.CreatorStudio.emit("campaignRenamed", {
+      oldName: oldName,
+      newName: newName,
+      campaignId: (typeof activeCampaignId !== "undefined" && activeCampaignId) || topo.id || "campaign",
+      topology: topo
+    });
+  }
+
+  // Persist to session / IndexedDB
+  if (typeof saveActiveCampaign === "function") {
+    saveActiveCampaign(true);
+  }
+
+  // Update library record in IndexedDB if present
+  const cSlug = (typeof activeCampaignId !== "undefined" && activeCampaignId) || topo.id;
+  if (cSlug && typeof getCampaignsFromIndexedDBLibrary === "function" && typeof saveCampaignToIndexedDBLibrary === "function") {
+    try {
+      const libCamps = await getCampaignsFromIndexedDBLibrary();
+      const existing = libCamps.find(c => c && (c.id === cSlug || c.slug === cSlug));
+      if (existing) {
+        existing.name = newName;
+        existing.campaignName = newName;
+        existing.description = topo.description;
+        existing.author = topo.author;
+        existing.climaxTrigger = resolvedClimax;
+        existing.substratumSettings = { enabled: resolvedSubstratum };
+        existing.globalDials = topo.globalDials;
+        existing.updatedAt = new Date().toISOString();
+        await saveCampaignToIndexedDBLibrary(existing);
+      }
+    } catch(libErr) {
+      console.warn("[applyCampaignSettings] Library sync warning:", libErr);
+    }
+  }
+
+  // If bound to disk, flush changes directly to directory
+  if (window.activeProjectDirectoryHandle && typeof writeCampaignToProjectDirectory === "function") {
+    try {
+      await writeCampaignToProjectDirectory(window.activeProjectDirectoryHandle, {
+        slug: cSlug,
+        name: newName,
+        description: topo.description
+      });
+      if (typeof setProjectDirectoryDirty === "function") setProjectDirectoryDirty(false);
+      if (typeof updateDiskSyncIndicator === "function") updateDiskSyncIndicator("synced");
+    } catch(diskErr) {
+      console.warn("[applyCampaignSettings] Disk flush warning:", diskErr);
+    }
+  }
+
+  if (typeof setStatusBarMessage === "function") {
+    setStatusBarMessage(`Campaign settings updated: "${newName}".`);
+  }
+}
+window.applyCampaignSettings = applyCampaignSettings;
+
+/**
  * Save active session as a new campaign (to disk folder, library, or zip)
  */
 async function saveActiveCampaignAsNew(name, slug, description = "", targetMode = "disk", chosenDirHandle = null) {
   if (!name) name = "Untitled Campaign";
   if (!slug) slug = name.toLowerCase().replace(/[^a-z0-9_]/g, "_");
 
-  // Sync state
-  if (typeof syncAdapterFromWorkstationTopology === "function") syncAdapterFromWorkstationTopology();
-  if (typeof syncActiveMapToRegistry === "function") syncActiveMapToRegistry();
+  const activeTopo = (typeof Workstation !== "undefined" && Workstation.activeTopology) ? Workstation.activeTopology : null;
+  const oldName = (activeTopo && (activeTopo.campaignName || activeTopo.name)) || (typeof currentCampaignName !== "undefined" && currentCampaignName) || "Campaign";
 
-  if (typeof currentCampaignName !== "undefined") currentCampaignName = name;
-  if (typeof Workstation !== "undefined" && Workstation.activeTopology) {
-    Workstation.activeTopology.name = name;
-  }
-
-  try { localStorage.setItem("cs_last_save_dest", targetMode); } catch(_) {}
-
-  if (targetMode === "custom_folder") {
-    return await saveCampaignAsFolder(name);
-  }
-
-  // Update in-memory campaign identity
-  if (typeof Workstation !== "undefined" && Workstation.activeTopology) {
-    Workstation.activeTopology.name = name;
-    Workstation.activeTopology.id = slug;
+  // Update in-memory campaign identity before syncing
+  if (activeTopo) {
+    activeTopo.name = name;
+    activeTopo.campaignName = name;
+    activeTopo.id = slug;
+    if (description) activeTopo.description = description;
   }
   if (typeof currentCampaignName !== "undefined") {
     currentCampaignName = name;
   }
   if (typeof activeCampaignId !== "undefined") {
     activeCampaignId = slug;
+  }
+  try { localStorage.setItem("cs_active_campaign", slug); } catch(_) {}
+
+  const rId = (typeof rootMapId !== "undefined" && rootMapId) ? rootMapId : ((typeof activeMapId !== "undefined" && activeMapId) ? activeMapId : "map_root");
+  if (typeof maps !== "undefined" && maps && maps[rId]) {
+    if (maps[rId].name === oldName || Object.keys(maps).length === 1 || rId === "map_root") {
+      maps[rId].name = name;
+    }
+  }
+
+  // Sync state
+  if (typeof syncAdapterFromWorkstationTopology === "function") syncAdapterFromWorkstationTopology();
+  if (typeof syncActiveMapToRegistry === "function") syncActiveMapToRegistry();
+
+  try { localStorage.setItem("cs_last_save_dest", targetMode); } catch(_) {}
+
+  if (targetMode === "custom_folder") {
+    return await saveCampaignAsFolder(name);
   }
 
   let savedOnDisk = false;
@@ -2962,25 +3122,40 @@ async function saveActiveCampaignAsNew(name, slug, description = "", targetMode 
   if (targetMode === "library" || targetMode === "both" || (!savedOnDisk && targetMode !== "zip")) {
     const activeTopo = (typeof Workstation !== "undefined" && Workstation.activeTopology) ? Workstation.activeTopology : {};
     const hydratedMaps = await hydrateMapsWithImageDataUrls(typeof maps !== "undefined" ? maps : {});
+    const resolvedClimax = activeTopo.climaxTrigger
+      || (activeTopo.globalDials && activeTopo.globalDials.dial8ClimaxTrigger)
+      || (typeof dial8ClimaxTriggerMode !== "undefined" ? dial8ClimaxTriggerMode : "crisis");
+    const resolvedSubstratum = (activeTopo.substratumSettings && typeof activeTopo.substratumSettings.enabled === "boolean")
+      ? activeTopo.substratumSettings.enabled
+      : ((activeTopo.globalDials && typeof activeTopo.globalDials.tier0Substratum === "boolean")
+          ? activeTopo.globalDials.tier0Substratum
+          : (typeof tier0SubstratumEnabled !== "undefined" ? Boolean(tier0SubstratumEnabled) : true));
     const pkg = {
       id: slug,
       name: name,
       campaignName: name,
-      description: description || "Authored in Creator Studio Pointcrawl Workstation",
+      description: description || activeTopo.description || "Authored in Creator Studio Pointcrawl Workstation",
+      author: activeTopo.author || "Creator Studio World Architect",
+      climaxTrigger: resolvedClimax,
+      substratumSettings: { enabled: resolvedSubstratum },
       maps: hydratedMaps,
       entities: {
         npcs: (activeTopo.npcs) ? JSON.parse(JSON.stringify(activeTopo.npcs)) : [],
         quests: (activeTopo.quests) ? JSON.parse(JSON.stringify(activeTopo.quests)) : [],
         items: (activeTopo.items) ? JSON.parse(JSON.stringify(activeTopo.items)) : [],
+        creatures: (activeTopo.creatures) ? JSON.parse(JSON.stringify(activeTopo.creatures)) : [],
+        creatureEvidence: (activeTopo.creatureEvidence) ? JSON.parse(JSON.stringify(activeTopo.creatureEvidence)) : {},
         trackers: (activeTopo.trackers) ? JSON.parse(JSON.stringify(activeTopo.trackers)) : [],
         tickets: (activeTopo.tickets) ? JSON.parse(JSON.stringify(activeTopo.tickets)) : [],
+        factions: (activeTopo.factions) ? JSON.parse(JSON.stringify(activeTopo.factions)) : [],
+        spatialPins: (activeTopo.spatialPins) ? JSON.parse(JSON.stringify(activeTopo.spatialPins)) : [],
         custom_modules: (activeTopo.custom_modules) ? JSON.parse(JSON.stringify(activeTopo.custom_modules)) : [],
         deletedModules: (activeTopo.deletedModules) ? JSON.parse(JSON.stringify(activeTopo.deletedModules)) : [],
         deletedPrototypes: (activeTopo.deletedPrototypes) ? JSON.parse(JSON.stringify(activeTopo.deletedPrototypes)) : []
       },
       globalDials: {
-        dial8ClimaxTrigger: (typeof dial8ClimaxTriggerMode !== "undefined" ? dial8ClimaxTriggerMode : "crisis"),
-        tier0Substratum: typeof tier0SubstratumEnabled !== "undefined" ? tier0SubstratumEnabled : true
+        dial8ClimaxTrigger: resolvedClimax,
+        tier0Substratum: resolvedSubstratum
       },
       sourceType: savedOnDisk ? "disk_folder" : "library",
       updatedAt: new Date().toISOString()
@@ -2996,6 +3171,24 @@ async function saveActiveCampaignAsNew(name, slug, description = "", targetMode 
 
   if (typeof refreshCampaignsManager === "function") {
     await refreshCampaignsManager(false);
+  }
+
+  if (typeof document !== "undefined") {
+    document.title = `${name} - Creator Studio Workstation`;
+  }
+  if (typeof updateStatusBar === "function") updateStatusBar();
+  if (typeof updateObjectSelector === "function") updateObjectSelector();
+  if (typeof updatePropertiesGrid === "function") updatePropertiesGrid();
+  if (typeof renderMapHierarchySelector === "function") renderMapHierarchySelector();
+  if (typeof renderLayoutTabs === "function") renderLayoutTabs();
+
+  if (window.CreatorStudio && typeof window.CreatorStudio.emit === "function") {
+    window.CreatorStudio.emit("campaignRenamed", {
+      oldName: oldName,
+      newName: name,
+      campaignId: slug,
+      topology: Workstation.activeTopology
+    });
   }
 
   if (savedOnDisk) {

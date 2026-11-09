@@ -272,6 +272,74 @@
     </div>
   </div>
 
+  <!-- ========================================================================
+       MODAL 3B: CAMPAIGN SETTINGS & METADATA
+       ======================================================================== -->
+  <div id="modal-campaign-settings" class="modal-overlay hidden">
+    <div class="win-dialog modal-dialog bevel-outset" style="width: 480px; max-width: 95vw;">
+      <div class="title-bar win-titlebar">
+        <div class="title-bar-text"><span>⚙️ Campaign Settings &amp; Metadata</span></div>
+        <div class="title-bar-controls win-titlebar-btns">
+          <button class="win-btn bevel-outset" onclick="closeCampaignSettingsModal()">✕</button>
+        </div>
+      </div>
+      <div class="dialog-body modal-body" style="gap: 10px; display: flex; flex-direction: column;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div>
+            <label for="camp-settings-name" style="display:block; font-weight:bold; margin-bottom:3px;">Campaign Title:</label>
+            <input type="text" id="camp-settings-name" class="win-text-input prop-input" style="width:100%; box-sizing:border-box; padding:4px;" placeholder="e.g. Valley of Peridot" />
+          </div>
+          <div>
+            <label for="camp-settings-slug" style="display:block; font-weight:bold; margin-bottom:3px;">Campaign ID / Slug (Read-Only):</label>
+            <input type="text" id="camp-settings-slug" class="win-text-input prop-input" readonly style="width:100%; box-sizing:border-box; padding:4px; background:#e4e4e4; color:#555; font-family:var(--font-mono, monospace);" />
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div>
+            <label for="camp-settings-author" style="display:block; font-weight:bold; margin-bottom:3px;">Author / Architect:</label>
+            <input type="text" id="camp-settings-author" class="win-text-input prop-input" style="width:100%; box-sizing:border-box; padding:4px;" placeholder="Creator Studio World Architect" />
+          </div>
+          <div>
+            <label for="camp-settings-root-map" style="display:block; font-weight:bold; margin-bottom:3px;">Root Map Title:</label>
+            <input type="text" id="camp-settings-root-map" class="win-text-input prop-input" style="width:100%; box-sizing:border-box; padding:4px;" placeholder="e.g. World Map" />
+          </div>
+        </div>
+        <div>
+          <label for="camp-settings-desc" style="display:block; font-weight:bold; margin-bottom:3px;">Campaign Summary / Pitch:</label>
+          <textarea id="camp-settings-desc" class="win-select-input prop-input" rows="3" style="width:100%; box-sizing:border-box; padding:4px; resize:vertical; font-family:var(--font-ui, sans-serif);" placeholder="Brief summary of the campaign setting, premise, and central dramatic conflict..."></textarea>
+        </div>
+        <fieldset class="bevel-inset" style="padding: 8px; border: 1px solid #808080;">
+          <legend style="font-weight: bold; font-size: 11px; padding: 0 4px;">Global Architecture Dials (Dial 8 &amp; Tier 0 Substratum)</legend>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: center;">
+            <div>
+              <label for="camp-settings-climax" style="display:block; font-weight:bold; margin-bottom:3px;">Dial 8 Climax Trigger Mode:</label>
+              <select id="camp-settings-climax" class="win-select-input prop-select" style="width:100%; box-sizing:border-box; padding:3px;">
+                <option value="crisis">Crisis-Driven Escalation (Default)</option>
+                <option value="clock">Doomsday Clock / Timeline Threshold</option>
+                <option value="node_capture">Keystone Node Convergence</option>
+                <option value="faction_hegemony">Faction Hegemony Collapse</option>
+                <option value="manual">Manual Referee Trigger</option>
+              </select>
+            </div>
+            <div style="padding-top: 14px;">
+              <label style="display:flex; align-items:center; gap:6px; font-weight:bold; cursor:pointer;">
+                <input type="checkbox" id="camp-settings-substratum-enabled" checked />
+                Enable Tier 0 Substratum Layer
+              </label>
+            </div>
+          </div>
+        </fieldset>
+        <div class="dialog-footer modal-footer" style="justify-content: space-between; display: flex; margin-top: 4px;">
+          <button class="win-btn bevel-outset" style="padding: 4px 10px;" onclick="openSaveAsNewFromCampaignSettings()" title="Fork and clone this campaign under a new ID/folder">Save As New Campaign...</button>
+          <div style="display:flex; gap:6px;">
+            <button class="win-btn bevel-outset" style="padding: 4px 14px; font-weight: bold;" onclick="confirmCampaignSettings()">Apply &amp; Save</button>
+            <button class="win-btn bevel-outset" style="padding: 4px 12px;" onclick="closeCampaignSettingsModal()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   
 <!-- ========================================================================
        MODAL 4: WORKSTATION PREFERENCES

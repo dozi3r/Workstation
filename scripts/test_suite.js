@@ -213,7 +213,8 @@ async function runMasterTestSuite(argv = process.argv.slice(2)) {
   await recordPhase('Phase 1: Build Suite', 'Centralized Asset Compilation & Wiki Build', () => {
     execFileSync(process.execPath, [path.join(ROOT_DIR, 'build_suite.js'), '--stamp-reviewed'], {
       cwd: ROOT_DIR,
-      stdio: 'inherit'
+      stdio: 'inherit',
+      env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' }
     });
   }, skipBuild);
 
@@ -221,7 +222,8 @@ async function runMasterTestSuite(argv = process.argv.slice(2)) {
   await recordPhase('Phase 2: JS Test Suite', 'Surfaces Syntax, ZeroCorsZip, Importer & Cascade', () => {
     execFileSync(process.execPath, [path.join(ROOT_DIR, 'test', 'run_tests.js')], {
       cwd: ROOT_DIR,
-      stdio: 'inherit'
+      stdio: 'inherit',
+      env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' }
     });
   });
 

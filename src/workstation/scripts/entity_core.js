@@ -36,33 +36,198 @@
     }
     window.getCreatureEffectiveNodeId = getCreatureEffectiveNodeId;
 
-    function computeNpcNodeDissonance(npc, node) {
+    function getNpcEffectiveSociology(npc, targetTopo = null, options = {}) {
+      if (!npc) {
+        return {
+          set: false,
+          odv: null,
+          s: null, e: null, c: null,
+          tag: 'Unset',
+          culture: 'Unset',
+          opProfile: null,
+          source: 'unset',
+          sourceLabel: 'Unset'
+        };
+      }
+
+      const topo = targetTopo || (typeof Workstation !== 'undefined' ? Workstation.activeTopology : null);
+      const getOdvFn = (typeof getOdv === 'function') ? getOdv : ((ent) => {
+        if (!ent) return { set: false };
+        const raw = ent.odv || ent.disposition;
+        if (!raw) return { set: false };
+        if (typeof raw === 'object' && raw.s && raw.e && raw.c) return { set: true, s: Number(raw.s), e: Number(raw.e), c: Number(raw.c) };
+        if (Array.isArray(raw) && raw.length >= 3) return { set: true, s: Number(raw[0]), e: Number(raw[1]), c: Number(raw[2]) };
+        return { set: false };
+      });
+      const deriveCvf = (typeof deriveCvfQuadrant === 'function') ? deriveCvfQuadrant : null;
+      const deriveOp = (typeof deriveOperationalMode === 'function') ? deriveOperationalMode : null;
+
+      // 1. Explicit / Bespoke on NPC (Priority 1)
+      if (npc.odvInherited !== true) {
+        const ownOdv = getOdvFn(npc);
+        if (ownOdv && ownOdv.set) {
+          const s = ownOdv.s, e = ownOdv.e, c = ownOdv.c;
+          const cult = npc.culture || (deriveCvf ? deriveCvf(s, e) : null);
+          const op = npc.opProfile || (deriveOp ? deriveOp(s, c) : null);
+          return {
+            set: true,
+            odv: { s, e, c },
+            s, e, c,
+            tag: `[S:${s}, E:${e}, C:${c}]`,
+            culture: cult || 'Bespoke',
+            opProfile: op,
+            source: 'explicit',
+            sourceLabel: 'Bespoke'
+          };
+        }
+      }
+
+      // 2. Inherited from Faction (Priority 2)
+      const poolFactions = (options && options.factions) || (topo && topo.factions) || [];
+      const facRef = npc.factionId || npc.faction;
+      let matchedFaction = null;
+      if (facRef && Array.isArray(poolFactions)) {
+        matchedFaction = poolFactions.find(f => f && (String(f.id) === String(facRef) || String(f.name) === String(facRef)));
+      }
+      if (!matchedFaction && Array.isArray(poolFactions)) {
+        matchedFaction = poolFactions.find(f => f && Array.isArray(f.memberNpcIds) && f.memberNpcIds.some(mId => String(mId) === String(npc.id)));
+      }
+
+      if (matchedFaction) {
+        const fOdv = getOdvFn(matchedFaction);
+        const fName = matchedFaction.name || matchedFaction.id || 'Faction';
+        if (fOdv && fOdv.set) {
+          const s = fOdv.s, e = fOdv.e, c = fOdv.c;
+          const cult = npc.culture || matchedFaction.cvfQuadrant || matchedFaction.culture || (deriveCvf ? deriveCvf(s, e) : null);
+          const op = npc.opProfile || matchedFaction.opProfile || (deriveOp ? deriveOp(s, c) : null);
+          return {
+            set: true,
+            odv: { s, e, c },
+            s, e, c,
+            tag: `[S:${s}, E:${e}, C:${c}]`,
+            culture: cult || 'Clan',
+            opProfile: op,
+            source: 'faction',
+            sourceName: fName,
+            sourceLabel: `Inherited from Faction (${fName})`
+          };
+        } else if (matchedFaction.cvfQuadrant || matchedFaction.culture) {
+          const cult = npc.culture || matchedFaction.cvfQuadrant || matchedFaction.culture;
+          return {
+            set: false,
+            odv: null,
+            s: null, e: null, c: null,
+            tag: 'Unset',
+            culture: cult,
+            opProfile: npc.opProfile || matchedFaction.opProfile || null,
+            source: 'faction',
+            sourceName: fName,
+            sourceLabel: `Inherited from Faction (${fName})`
+          };
+        }
+      }
+
+      // 3. Inherited from Host Settlement / Node (Priority 3)
+      const hostNode = (options && options.hostNode) || (typeof resolveNodeObject === 'function' ? resolveNodeObject(npc.nodeId || npc.suggestedNode, topo) : null);
+      if (hostNode) {
+        const nOdv = getOdvFn(hostNode);
+        const nName = hostNode.displayName || hostNode.name || `Node ${hostNode.id}`;
+        if (nOdv && nOdv.set) {
+          const s = nOdv.s, e = nOdv.e, c = nOdv.c;
+          const cult = npc.culture || hostNode.culture || (deriveCvf ? deriveCvf(s, e) : null);
+          const op = npc.opProfile || hostNode.opProfile || (deriveOp ? deriveOp(s, c) : null);
+          return {
+            set: true,
+            odv: { s, e, c },
+            s, e, c,
+            tag: `[S:${s}, E:${e}, C:${c}]`,
+            culture: cult || 'Clan',
+            opProfile: op,
+            source: 'node',
+            sourceName: nName,
+            sourceLabel: `Inherited from Node (${nName})`
+          };
+        } else if (hostNode.culture) {
+          return {
+            set: false,
+            odv: null,
+            s: null, e: null, c: null,
+            tag: 'Unset',
+            culture: npc.culture || hostNode.culture,
+            opProfile: npc.opProfile || null,
+            source: 'node',
+            sourceName: nName,
+            sourceLabel: `Inherited from Node (${nName})`
+          };
+        }
+      }
+
+      // 4. Unset (Priority 4 - Never default to 2,2,2)
+      return {
+        set: false,
+        odv: null,
+        s: null, e: null, c: null,
+        tag: 'Unset',
+        culture: npc.culture || 'Unset',
+        opProfile: npc.opProfile || null,
+        source: 'unset',
+        sourceLabel: 'Unset'
+      };
+    }
+    window.getNpcEffectiveSociology = getNpcEffectiveSociology;
+
+    function computeNpcNodeDissonance(npc, node, targetTopo = null, options = {}) {
       if (!npc || !node) return null;
-      const nOdv = node.odv || { s: 2, e: 2, c: 2 };
-      const nS = typeof nOdv.s === 'number' ? nOdv.s : 2;
-      const nE = typeof nOdv.e === 'number' ? nOdv.e : 2;
-      const nC = typeof nOdv.c === 'number' ? nOdv.c : 2;
+      const topo = targetTopo || (typeof Workstation !== 'undefined' ? Workstation.activeTopology : null);
+      const eff = getNpcEffectiveSociology(npc, topo, options);
+      const getOdvFn = (typeof getOdv === 'function') ? getOdv : ((ent) => {
+        if (!ent) return { set: false };
+        const raw = ent.odv || ent.disposition;
+        if (!raw) return { set: false };
+        if (typeof raw === 'object' && raw.s && raw.e && raw.c) return { set: true, s: Number(raw.s), e: Number(raw.e), c: Number(raw.c) };
+        if (Array.isArray(raw) && raw.length >= 3) return { set: true, s: Number(raw[0]), e: Number(raw[1]), c: Number(raw[2]) };
+        return { set: false };
+      });
+      const nodeOdv = getOdvFn(node);
 
-      const npcOdv = npc.odv;
-      const hasNpcOdv = npcOdv && typeof npcOdv.s === 'number';
-
-      if (!hasNpcOdv && !npc.culture) {
+      // If the NPC directly inherited disposition from this host node:
+      if (eff.source === 'node') {
         return {
           deltaD: 0,
           level: 'Harmonious',
           badgeClass: 'entity-badge-tag',
-          style: 'background:#f1f5f9; color:#475569;',
-          summary: 'Universal (Conforms to Local Norms)',
+          style: 'background:#dcfce7; color:#166534; border:1px solid #86efac;',
+          summary: 'Harmonious: Conforms to Host Settlement Norms (Inherited)',
           warning: null
         };
       }
 
-      let deltaD = 0;
-      if (hasNpcOdv) {
-        deltaD = Math.abs(nS - (npcOdv.s || 2)) + Math.abs(nE - (npcOdv.e || 2)) + Math.abs(nC - (npcOdv.c || 2));
+      // If neither NPC nor Node has ODV set
+      if (!eff.set || !nodeOdv || !nodeOdv.set) {
+        const cultMismatch = !!(eff.culture && node.culture && eff.culture !== 'Unset' && eff.culture !== node.culture);
+        if (cultMismatch) {
+          return {
+            deltaD: null,
+            level: 'Moderate Tension',
+            badgeClass: 'entity-badge-tag',
+            style: 'background:#fef3c7; color:#92400e; border:1px solid #f59e0b;',
+            summary: `Moderate Tension (Cultural Divergence): ${eff.culture} vs Node ${node.culture}`,
+            warning: 'Cultural misalignment with host settlement.'
+          };
+        }
+        return {
+          deltaD: null,
+          level: 'Unset / Baseline',
+          badgeClass: 'entity-badge-tag',
+          style: 'background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;',
+          summary: 'Sociological vector unset on Character or Host Settlement',
+          warning: null
+        };
       }
 
-      const cultureMismatch = !!(npc.culture && node.culture && npc.culture !== node.culture);
+      const deltaD = Math.abs(nodeOdv.s - eff.s) + Math.abs(nodeOdv.e - eff.e) + Math.abs(nodeOdv.c - eff.c);
+      const cultureMismatch = !!(eff.culture && node.culture && eff.culture !== node.culture);
+      const sourceDesc = eff.source === 'faction' ? `Faction ${eff.sourceName || 'Affiliation'}` : (eff.culture || 'Individual');
 
       if (deltaD >= 4 || (cultureMismatch && deltaD >= 3)) {
         return {
@@ -70,7 +235,7 @@
           level: 'Severe Clash',
           badgeClass: 'entity-badge-tag',
           style: 'background:#fee2e2; color:#b91c1c; border:1px solid #ef4444; font-weight:bold;',
-          summary: `Severe Clash (ΔD=${deltaD}): ${npc.culture || 'Individual'} vs Node ${node.culture || 'Culture'}`,
+          summary: `Severe Clash (ΔD=${deltaD}): ${sourceDesc} vs Node ${node.culture || 'Culture'}`,
           warning: `Ideological friction with host settlement! Character is vulnerable to local betrayal, mutiny, or political ostracism.`
         };
       } else if (deltaD >= 2 || cultureMismatch) {
@@ -79,7 +244,7 @@
           level: 'Moderate Tension',
           badgeClass: 'entity-badge-tag',
           style: 'background:#fef3c7; color:#92400e; border:1px solid #f59e0b;',
-          summary: `Moderate Tension (ΔD=${deltaD}): ${npc.culture || 'Individual'} vs Node ${node.culture || 'Culture'}`,
+          summary: `Moderate Tension (ΔD=${deltaD}): ${sourceDesc} vs Node ${node.culture || 'Culture'}`,
           warning: `Subtle cultural misalignment. Character harbors reservations about local governing customs.`
         };
       } else {
@@ -871,6 +1036,8 @@
             if (Array.isArray(q.npcIds)) {
               q.npcIds = q.npcIds.map(id => String(id) === String(protoId) ? newId : id);
             }
+            if (String(q.giverNpcId) === String(protoId)) q.giverNpcId = newId;
+            if (String(q.targetNpcId) === String(protoId)) q.targetNpcId = newId;
           });
           (topo.factions || []).forEach(f => {
             if (String(f.leaderNpcId) === String(protoId)) f.leaderNpcId = newId;
@@ -1274,7 +1441,8 @@
             headquartersNodeId: null,
             controlledNodeIds: [],
             diplomaticStances: {},
-            disposition: [2, 2, 2],
+            disposition: null,
+            odv: null,
             description: `${trimmed} power group.`
           });
         }
@@ -1292,3 +1460,488 @@
     window.setPartyRapport = setPartyRapport;
     window.getCampaignFactionSuggestions = getCampaignFactionSuggestions;
     window.registerCampaignFaction = registerCampaignFaction;
+
+    // ========================================================================
+    // CROSS-CAMPAIGN ENTITY EXPLORER & ON-DEMAND SOURCE REGISTRY
+    // ========================================================================
+    const CrossCampaignService = {
+      loadedSources: {},
+      customRegisteredSources: {},
+
+      /**
+       * Discover all available campaign packages across bundled CAMPAIGN_REGISTRY,
+       * IndexedDB / localStorage campaign_library, and session-registered sources.
+       */
+      discoverAvailableSources() {
+        const results = [];
+        const seenIds = new Set();
+        const activeCampId = (typeof activeCampaignId !== 'undefined' && activeCampaignId)
+          ? activeCampaignId
+          : ((typeof localStorage !== 'undefined' ? localStorage.getItem("cs_active_campaign") : null) || (typeof Workstation !== 'undefined' && Workstation.activeTopology && Workstation.activeTopology.campaign_id) || "peridot");
+
+        // 1. Bundled CAMPAIGN_REGISTRY
+        if (typeof CAMPAIGN_REGISTRY !== 'undefined' && CAMPAIGN_REGISTRY) {
+          Object.keys(CAMPAIGN_REGISTRY).forEach(cId => {
+            const entry = CAMPAIGN_REGISTRY[cId];
+            if (!entry) return;
+            const regId = entry.id || cId;
+            seenIds.add(String(regId));
+            const isActive = String(regId) === String(activeCampId);
+            const metaName = (entry.metadata && entry.metadata.name) || entry.name || regId;
+            const p = entry.preset || (entry.campaign && (entry.campaign.topology || entry.campaign)) || entry.topology || entry;
+            const ent = p.entities || entry.metadata?.entities || p;
+            const counts = {
+              npcs: Array.isArray(ent.npcs) ? ent.npcs.length : (Array.isArray(p.npcs) ? p.npcs.length : 0),
+              quests: Array.isArray(ent.quests) ? ent.quests.length : (Array.isArray(p.quests) ? p.quests.length : 0),
+              items: Array.isArray(ent.items) ? ent.items.length : (Array.isArray(p.items) ? p.items.length : 0),
+              creatures: Array.isArray(ent.creatures) ? ent.creatures.length : (Array.isArray(p.creatures) ? p.creatures.length : 0),
+              trackers: Array.isArray(ent.trackers) ? ent.trackers.length : (Array.isArray(p.trackers) ? p.trackers.length : 0),
+              factions: Array.isArray(ent.factions) ? ent.factions.length : (Array.isArray(p.factions) ? p.factions.length : 0)
+            };
+            results.push({
+              id: regId,
+              name: metaName,
+              sourceType: 'bundled',
+              isLoaded: !!this.loadedSources[regId],
+              isCurrentActive: isActive,
+              counts: counts
+            });
+          });
+        }
+
+        // 2. Custom session-registered sources (from disk / file ingestion)
+        Object.keys(this.customRegisteredSources).forEach(cId => {
+          if (seenIds.has(String(cId))) return;
+          seenIds.add(String(cId));
+          const src = this.customRegisteredSources[cId];
+          const isActive = String(cId) === String(activeCampId);
+          results.push({
+            id: cId,
+            name: src.name || cId,
+            sourceType: src.sourceType || 'custom_file',
+            isLoaded: !!this.loadedSources[cId],
+            isCurrentActive: isActive,
+            counts: src.counts || { npcs: (src.npcs || []).length, quests: (src.quests || []).length, items: (src.items || []).length, creatures: (src.creatures || []).length, trackers: (src.trackers || []).length, factions: (src.factions || []).length }
+          });
+        });
+
+        // 3. Saved IndexedDB / localStorage campaign_library index
+        try {
+          const listStr = (typeof localStorage !== 'undefined' ? localStorage.getItem("cs_campaign_library_index") : null) || "{}";
+          const list = JSON.parse(listStr);
+          Object.keys(list).forEach(cId => {
+            if (seenIds.has(String(cId))) return;
+            seenIds.add(String(cId));
+            const item = list[cId];
+            results.push({
+              id: cId,
+              name: item.name || cId,
+              sourceType: 'indexeddb',
+              isLoaded: !!this.loadedSources[cId],
+              isCurrentActive: String(cId) === String(activeCampId),
+              counts: { npcs: 0, quests: 0, items: 0, creatures: 0, trackers: 0, factions: 0 }
+            });
+          });
+        } catch (e) {}
+
+        return results;
+      },
+
+      /**
+       * Normalizes a raw campaign object into a standardized staged entity pool.
+       */
+      extractAndNormalizeSource(sourceId, name, rawPkg, sourceType = 'bundled') {
+        const pool = {
+          id: sourceId,
+          name: name || sourceId,
+          sourceType: sourceType,
+          npcs: [],
+          quests: [],
+          items: [],
+          creatures: [],
+          trackers: [],
+          factions: [],
+          nodeNames: {}
+        };
+
+        if (!rawPkg) return pool;
+
+        // 1. Build nodeNames dictionary from maps / nodes
+        const mapsDict = rawPkg.maps || (rawPkg.preset && rawPkg.preset.maps) || null;
+        if (mapsDict && typeof mapsDict === 'object') {
+          Object.values(mapsDict).forEach(m => {
+            if (!m) return;
+            const nodesArr = Array.isArray(m.nodes) ? m.nodes : (m.nodes ? Object.values(m.nodes) : []);
+            nodesArr.forEach(n => {
+              if (n && n.id != null) {
+                pool.nodeNames[String(n.id)] = n.name || `Node ${n.id}`;
+              }
+            });
+          });
+        }
+        const topNodes = rawPkg.nodes
+          || (rawPkg.preset && rawPkg.preset.nodes)
+          || (rawPkg.activeTopology && rawPkg.activeTopology.nodes)
+          || (rawPkg.campaign && (rawPkg.campaign.nodes || (rawPkg.campaign.topology && rawPkg.campaign.topology.nodes)))
+          || (rawPkg.topology && rawPkg.topology.nodes)
+          || null;
+        if (topNodes) {
+          const topArr = Array.isArray(topNodes) ? topNodes : Object.values(topNodes);
+          topArr.forEach(n => {
+            if (n && n.id != null && !pool.nodeNames[String(n.id)]) {
+              pool.nodeNames[String(n.id)] = n.name || `Node ${n.id}`;
+            }
+          });
+        }
+
+        // 2. Discover raw entity arrays across possible package shapes
+        const entRoot = rawPkg.entities
+          || (rawPkg.preset && (rawPkg.preset.entities || rawPkg.preset))
+          || (rawPkg.activeTopology && (rawPkg.activeTopology.entities || rawPkg.activeTopology))
+          || (rawPkg.campaign && rawPkg.campaign.topology && (rawPkg.campaign.topology.entities || rawPkg.campaign.topology))
+          || (rawPkg.campaign && (rawPkg.campaign.entities || rawPkg.campaign))
+          || (rawPkg.topology && (rawPkg.topology.entities || rawPkg.topology))
+          || (rawPkg.activeTopology ? {
+              npcs: rawPkg.activeTopology.npcs,
+              quests: rawPkg.activeTopology.quests,
+              items: rawPkg.activeTopology.items,
+              creatures: rawPkg.activeTopology.creatures,
+              trackers: rawPkg.activeTopology.trackers,
+              factions: rawPkg.activeTopology.factions
+            } : null)
+          || (rawPkg.preset ? {
+              npcs: rawPkg.preset.npcs,
+              quests: rawPkg.preset.quests,
+              items: rawPkg.preset.items,
+              creatures: rawPkg.preset.creatures,
+              trackers: rawPkg.preset.trackers,
+              factions: rawPkg.preset.factions
+            } : null)
+          || rawPkg;
+
+        const rawNpcs = Array.isArray(entRoot.npcs) ? entRoot.npcs : (Array.isArray(rawPkg.npcs) ? rawPkg.npcs : []);
+        const rawQuests = Array.isArray(entRoot.quests) ? entRoot.quests : (Array.isArray(rawPkg.quests) ? rawPkg.quests : []);
+        const rawItems = Array.isArray(entRoot.items) ? entRoot.items : (Array.isArray(rawPkg.items) ? rawPkg.items : []);
+        const rawCreatures = Array.isArray(entRoot.creatures) ? entRoot.creatures : (Array.isArray(rawPkg.creatures) ? rawPkg.creatures : []);
+        const rawTrackers = Array.isArray(entRoot.trackers) ? entRoot.trackers : (Array.isArray(rawPkg.trackers) ? rawPkg.trackers : []);
+        const rawFactions = Array.isArray(entRoot.factions) ? entRoot.factions : (Array.isArray(rawPkg.factions) ? rawPkg.factions : []);
+
+        const stampExternal = (e, cat) => {
+          const origNode = (e.nodeId != null && e.nodeId !== '') ? e.nodeId : ((e.headquartersNodeId != null && e.headquartersNodeId !== '') ? e.headquartersNodeId : null);
+          const origNodeName = origNode != null ? (pool.nodeNames[String(origNode)] || `Node ${origNode}`) : null;
+          const clone = JSON.parse(JSON.stringify(e));
+          clone._isExternal = true;
+          clone._sourceCampaignId = sourceId;
+          clone._sourceCampaignName = pool.name;
+          clone._externalKey = `ext::${sourceId}::${String(clone.id)}`;
+          clone._originalNodeId = origNode;
+          clone._originalNodeName = origNodeName;
+          clone.nodeId = null;
+          if (clone.headquartersNodeId != null) clone.headquartersNodeId = null;
+          if (cat === 'quest') {
+            if (!clone.name && clone.title) clone.name = clone.title;
+            if (!clone.title && clone.name) clone.title = clone.name;
+            if (!Array.isArray(clone.npcIds)) clone.npcIds = [];
+            if (clone.giverNpcId && !clone.npcIds.includes(clone.giverNpcId)) clone.npcIds.push(clone.giverNpcId);
+            if (clone.targetNpcId && !clone.npcIds.includes(clone.targetNpcId)) clone.npcIds.push(clone.targetNpcId);
+            if (Array.isArray(clone.steps)) {
+              clone.steps.forEach(st => {
+                if (st) {
+                  if (st.completed === undefined && st.isCompleted !== undefined) st.completed = !!st.isCompleted;
+                  if (st.isCompleted === undefined && st.completed !== undefined) st.isCompleted = !!st.completed;
+                }
+              });
+            }
+          }
+          return clone;
+        };
+
+        pool.npcs = rawNpcs.map(e => stampExternal(e, 'npc'));
+        pool.quests = rawQuests.map(e => stampExternal(e, 'quest'));
+        pool.items = rawItems.map(e => stampExternal(e, 'item'));
+        pool.creatures = rawCreatures.map(e => stampExternal(e, 'creature'));
+        pool.trackers = rawTrackers.map(e => stampExternal(e, 'tracker'));
+        pool.factions = rawFactions.map(e => stampExternal(e, 'faction'));
+
+        return pool;
+      },
+
+      /**
+       * Toggle loading/unloading of an external source on demand.
+       */
+      async toggleSource(sourceId, forceState) {
+        const isLoaded = !!this.loadedSources[sourceId];
+        const targetState = forceState !== undefined ? !!forceState : !isLoaded;
+
+        if (!targetState) {
+          delete this.loadedSources[sourceId];
+          return false;
+        }
+
+        // 1. Check customRegisteredSources
+        if (this.customRegisteredSources[sourceId]) {
+          const custom = this.customRegisteredSources[sourceId];
+          this.loadedSources[sourceId] = this.extractAndNormalizeSource(sourceId, custom.name, custom.rawPkg || custom, custom.sourceType || 'custom_file');
+          return true;
+        }
+
+        // 2. Check bundled CAMPAIGN_REGISTRY
+        if (typeof CAMPAIGN_REGISTRY !== 'undefined' && CAMPAIGN_REGISTRY[sourceId]) {
+          const entry = CAMPAIGN_REGISTRY[sourceId];
+          const rawPkg = entry.preset || (entry.campaign && (entry.campaign.topology || entry.campaign)) || entry.topology || entry;
+          const metaName = (entry.metadata && entry.metadata.name) || entry.name || sourceId;
+          this.loadedSources[sourceId] = this.extractAndNormalizeSource(sourceId, metaName, rawPkg, 'bundled');
+          return true;
+        }
+
+        // 3. Check IndexedDB campaign_library
+        if (typeof getCampaignsFromIndexedDBLibrary === 'function') {
+          try {
+            const list = await getCampaignsFromIndexedDBLibrary();
+            const hit = list.find(c => c && String(c.id) === String(sourceId));
+            if (hit) {
+              const name = hit.name || hit.campaignName || sourceId;
+              this.loadedSources[sourceId] = this.extractAndNormalizeSource(sourceId, name, hit, 'indexeddb');
+              return true;
+            }
+          } catch (e) {
+            console.warn("[CrossCampaignService] Error loading from IndexedDB:", e);
+          }
+        }
+
+        return false;
+      },
+
+      /**
+       * Check if an external source is currently staged / loaded.
+       */
+      isSourceLoaded(sourceId) {
+        return !!this.loadedSources[sourceId];
+      },
+
+      /**
+       * Unload all currently staged external sources.
+       */
+      unloadAllSources() {
+        this.loadedSources = {};
+      },
+
+      /**
+       * Get array of all currently loaded source descriptors.
+       */
+      getLoadedSourcesList() {
+        return Object.values(this.loadedSources).map(s => ({
+          id: s.id,
+          name: s.name,
+          sourceType: s.sourceType,
+          counts: {
+            npcs: s.npcs.length,
+            quests: s.quests.length,
+            items: s.items.filter(i => !isResourceItem(i)).length,
+            resources: s.items.filter(i => isResourceItem(i)).length,
+            creatures: s.creatures.length,
+            trackers: s.trackers.length,
+            factions: s.factions.length
+          }
+        }));
+      },
+
+      /**
+       * Retrieve external entities for a given type, optionally scoped to a single source.
+       */
+      getExternalEntities(type, filterSourceId = null) {
+        const normType = (type || 'npc').toLowerCase();
+        let result = [];
+        const sources = filterSourceId
+          ? (this.loadedSources[filterSourceId] ? [this.loadedSources[filterSourceId]] : [])
+          : Object.values(this.loadedSources);
+
+        sources.forEach(src => {
+          if (normType === 'npc') result.push(...src.npcs);
+          else if (normType === 'quest') result.push(...src.quests);
+          else if (normType === 'item') result.push(...src.items.filter(i => !isResourceItem(i)));
+          else if (normType === 'resource') result.push(...src.items.filter(i => isResourceItem(i)));
+          else if (normType === 'creature') result.push(...src.creatures);
+          else if (normType === 'tracker') result.push(...src.trackers);
+          else if (normType === 'faction') result.push(...src.factions);
+        });
+
+        return result;
+      },
+
+      /**
+       * Resolves an external entity by composite key ("ext::<sourceId>::<entityId>")
+       * or by raw entityId across loaded sources.
+       */
+      resolveExternalEntity(externalKeyOrId, explicitType = null, optSourceId = null) {
+        if (!externalKeyOrId) return null;
+        const str = String(externalKeyOrId);
+
+        let sourceId = optSourceId;
+        let entityId = str;
+
+        if (str.startsWith('ext::')) {
+          const parts = str.split('::');
+          sourceId = parts[1];
+          entityId = parts.slice(2).join('::');
+        }
+
+        const candidateSources = sourceId && this.loadedSources[sourceId]
+          ? [this.loadedSources[sourceId]]
+          : Object.values(this.loadedSources);
+
+        const cats = explicitType
+          ? [explicitType === 'resource' ? 'items' : (explicitType === 'item' ? 'items' : explicitType + 's')]
+          : ['npcs', 'quests', 'items', 'creatures', 'trackers', 'factions'];
+
+        for (const src of candidateSources) {
+          for (const cat of cats) {
+            const list = src[cat] || [];
+            const found = list.find(e => String(e.id) === String(entityId) || String(e._externalKey) === str);
+            if (found) {
+              const detectedType = explicitType || (cat === 'npcs' ? 'npc' : (cat === 'quests' ? 'quest' : (cat === 'items' ? (isResourceItem(found) ? 'resource' : 'item') : (cat === 'creatures' ? 'creature' : (cat === 'trackers' ? 'tracker' : (cat === 'factions' ? 'faction' : 'npc'))))));
+              return {
+                entity: found,
+                sourcePool: src,
+                sourceId: src.id,
+                sourceName: src.name,
+                type: detectedType
+              };
+            }
+          }
+        }
+
+        return null;
+      },
+
+      /**
+       * Prompt author to load a local campaign JSON file (.json, .creator.json, preset.json)
+       */
+      promptLoadExternalCampaignFile() {
+        let input = document.getElementById("cs-external-file-input");
+        if (!input) {
+          input = document.createElement("input");
+          input.type = "file";
+          input.id = "cs-external-file-input";
+          input.accept = ".json,.creator.json";
+          input.style.display = "none";
+          document.body.appendChild(input);
+        }
+        input.onchange = async (ev) => {
+          const file = ev.target.files && ev.target.files[0];
+          if (!file) return;
+          try {
+            const text = await file.text();
+            const parsed = JSON.parse(text);
+            const baseName = file.name.replace(/\.(creator\.)?json$/i, '');
+            const campId = parsed.id || parsed.campaign_id || baseName.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+            const campName = parsed.name || parsed.campaignName || baseName;
+
+            this.customRegisteredSources[campId] = {
+              id: campId,
+              name: campName,
+              sourceType: 'custom_file',
+              rawPkg: parsed
+            };
+            await this.toggleSource(campId, true);
+
+            if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+            if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+            if (typeof renderEntitySourcesPopover === 'function') renderEntitySourcesPopover();
+            if (typeof setStatusBarMessage === 'function') {
+              setStatusBarMessage(`Loaded external campaign library: "${campName}" from file.`);
+            }
+          } catch (err) {
+            alert(`Failed to load external campaign JSON: ${err.message}`);
+          } finally {
+            input.value = "";
+          }
+        };
+        input.click();
+      },
+
+      /**
+       * Prompt author to load an external campaign folder from disk via showDirectoryPicker()
+       */
+      async promptLoadExternalCampaignFolder() {
+        if (!window.showDirectoryPicker) {
+          alert("Folder selection is supported in Chromium browsers. Please use '+ Load JSON...' instead.");
+          this.promptLoadExternalCampaignFile();
+          return;
+        }
+        try {
+          const dirHandle = await window.showDirectoryPicker({ mode: "read" });
+          if (!dirHandle) return;
+
+          let campName = dirHandle.name;
+          let parsedPkg = {
+            id: dirHandle.name.toLowerCase().replace(/[^a-z0-9_-]/g, '_'),
+            name: campName,
+            entities: { npcs: [], quests: [], items: [], creatures: [], trackers: [], factions: [] },
+            maps: {},
+            nodes: {}
+          };
+
+          // Try campaign.json
+          try {
+            const cFile = await dirHandle.getFileHandle("campaign.json");
+            const cText = await (await cFile.getFile()).text();
+            const cJson = JSON.parse(cText);
+            if (cJson.name) parsedPkg.name = cJson.name;
+            if (cJson.id) parsedPkg.id = cJson.id;
+            if (cJson.entities) parsedPkg.entities = cJson.entities;
+          } catch (e) {}
+
+          // Try preset.json or topology.json
+          try {
+            const pFile = await dirHandle.getFileHandle("preset.json");
+            const pJson = JSON.parse(await (await pFile.getFile()).text());
+            if (pJson.name && !parsedPkg.name) parsedPkg.name = pJson.name;
+            if (pJson.entities) {
+              Object.keys(pJson.entities).forEach(k => {
+                if (Array.isArray(pJson.entities[k]) && (!parsedPkg.entities[k] || parsedPkg.entities[k].length === 0)) {
+                  parsedPkg.entities[k] = pJson.entities[k];
+                }
+              });
+            }
+            if (pJson.maps) parsedPkg.maps = pJson.maps;
+            if (pJson.nodes) parsedPkg.nodes = pJson.nodes;
+          } catch (e1) {
+            try {
+              const tFile = await dirHandle.getFileHandle("topology.json");
+              const tJson = JSON.parse(await (await tFile.getFile()).text());
+              if (tJson.entities) {
+                Object.keys(tJson.entities).forEach(k => {
+                  if (Array.isArray(tJson.entities[k]) && (!parsedPkg.entities[k] || parsedPkg.entities[k].length === 0)) {
+                    parsedPkg.entities[k] = tJson.entities[k];
+                  }
+                });
+              }
+              if (tJson.maps) parsedPkg.maps = tJson.maps;
+              if (tJson.nodes) parsedPkg.nodes = tJson.nodes;
+            } catch (e2) {}
+          }
+
+          this.customRegisteredSources[parsedPkg.id] = {
+            id: parsedPkg.id,
+            name: parsedPkg.name,
+            sourceType: 'folder',
+            rawPkg: parsedPkg
+          };
+          await this.toggleSource(parsedPkg.id, true);
+
+          if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+          if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+          if (typeof renderEntitySourcesPopover === 'function') renderEntitySourcesPopover();
+          if (typeof setStatusBarMessage === 'function') {
+            setStatusBarMessage(`Loaded external campaign library: "${parsedPkg.name}" from folder.`);
+          }
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            alert(`Failed to load campaign folder: ${err.message}`);
+          }
+        }
+      }
+    };
+
+    window.CrossCampaignService = CrossCampaignService;
