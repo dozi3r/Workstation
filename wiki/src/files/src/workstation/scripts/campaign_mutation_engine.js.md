@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/campaign_mutation_engine.js"
 title: "campaign_mutation_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "95788839b7c6d78a"
-reviewed_hash: "95788839b7c6d78a"
+current_hash: "a94ff3c2533dc609"
+reviewed_hash: "a94ff3c2533dc609"
 stale: false
-size_bytes: 123305
-line_count: 2597
+size_bytes: 126273
+line_count: 2672
 ---
 
 # campaign_mutation_engine.js
@@ -42,4 +42,9 @@ line_count: 2597
 ### deleteEntity Map Registry (SYS-ARCH-01)
 `deleteEntity(state, type, id, batchContext)` scrubs child-map nodes, links, corridors and spatial pins from `state.maps` (or `state.activeTopology.maps`) **and** from the optional `batchContext.maps` registry. `Workstation.activeTopology` carries no `maps`, so the UI passes its global `maps` registry (`executeEntityDeletion` in `entity_cascade_delete.js`). A map reachable through both registries is scrubbed once. For `node` targets the same walk also removes the node id from `adj`/`infBy`, links and corridors of every registered map.
 - ODV (SYS-ODV-02 S1): normalizeOdv returns null instead of [2,2,2]; npc/faction odv set-or-delete with odvSource; scalar npc.disposition moves to dispositionToParty.
+
+### Bidirectional Quest <-> Tracker Link Invariants (Sprint 1 Remediation)
+- **Engine-Owned Link Synchronization**: `syncQuestAndTrackerLinks(stateOrTopo, quest, previousTrackerIds)` and `syncTrackerToQuests(stateOrTopo, tracker, previousTriggerQuestIds)` are canonical mutator functions owned directly by `CampaignMutationEngine` and exported on the engine factory object.
+- **Pure Headless Execution**: Removes UMD boundary scope leak (`typeof root !== 'undefined'`); executes deterministically in both Node.js CLI/test environments and browser runtimes with zero outbound dependencies on browser UI globals.
+- **Deterministic Mutator Integration**: `upsertEntity` automatically tracks prior link IDs and synchronizes bidirectional triggers for both existing entity updates and newly created records.
 <!-- END_CUSTOM_NOTES -->

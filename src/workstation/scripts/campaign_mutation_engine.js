@@ -383,7 +383,66 @@
     return isNaN(str) ? str : Number(str);
   }
 
-  // --- Canonical Mutators ---
+  // --- Canonical Mutators & Link Invariants ---
+
+  function syncQuestAndTrackerLinks(stateOrTopo, quest, previousTrackerIds = []) {
+    if (!stateOrTopo || !quest) return;
+    const trackersCol = getTargetCollection(stateOrTopo, 'trackers');
+    if (!Array.isArray(trackersCol)) return;
+    const currentTrackerIds = new Set(quest.trackerIds ? quest.trackerIds.map(String) : []);
+
+    if (Array.isArray(quest.steps)) {
+      quest.steps.forEach(st => {
+        if (st && st.triggerTrackerId) currentTrackerIds.add(String(st.triggerTrackerId));
+      });
+    }
+    quest.trackerIds = Array.from(currentTrackerIds);
+
+    trackersCol.forEach(trk => {
+      if (!trk) return;
+      const trkId = String(trk.id);
+      if (!Array.isArray(trk.triggerRefs)) trk.triggerRefs = [];
+      const hasRef = trk.triggerRefs.some(r => r && r.entityType === 'quest' && String(r.entityId) === String(quest.id));
+
+      if (currentTrackerIds.has(trkId)) {
+        if (!hasRef) {
+          trk.triggerRefs.push({ entityType: 'quest', entityId: quest.id });
+        }
+      } else if (previousTrackerIds.map(String).includes(trkId)) {
+        trk.triggerRefs = trk.triggerRefs.filter(r => !(r && r.entityType === 'quest' && String(r.entityId) === String(quest.id)));
+      }
+    });
+  }
+
+  function syncTrackerToQuests(stateOrTopo, tracker, previousTriggerQuestIds = []) {
+    if (!stateOrTopo || !tracker) return;
+    const questsCol = getTargetCollection(stateOrTopo, 'quests');
+    if (!Array.isArray(questsCol)) return;
+    const trkId = String(tracker.id);
+    const currentQuestIds = new Set(
+      (tracker.triggerRefs || [])
+        .filter(r => r && r.entityType === 'quest')
+        .map(r => String(r.entityId))
+    );
+
+    questsCol.forEach(q => {
+      if (!q) return;
+      const qId = String(q.id);
+      if (!Array.isArray(q.trackerIds)) q.trackerIds = [];
+      if (currentQuestIds.has(qId)) {
+        if (!q.trackerIds.map(String).includes(trkId)) {
+          q.trackerIds.push(tracker.id);
+        }
+      } else if (previousTriggerQuestIds.map(String).includes(qId)) {
+        q.trackerIds = q.trackerIds.filter(id => String(id) !== trkId);
+        if (Array.isArray(q.steps)) {
+          q.steps.forEach(st => {
+            if (st && String(st.triggerTrackerId) === trkId) st.triggerTrackerId = null;
+          });
+        }
+      }
+    });
+  }
 
   function upsertEntity(state, category, payload, batchContext = {}) {
     const cat = category.toLowerCase().endsWith('s') ? category.toLowerCase() : category.toLowerCase() + 's';
@@ -532,7 +591,19 @@
           });
         }
       });
+      const prevTrackerIds = (cat === 'quests' && Array.isArray(existing.trackerIds)) ? [...existing.trackerIds] : [];
+      const prevQuestRefs = (cat === 'trackers' && Array.isArray(existing.triggerRefs))
+        ? existing.triggerRefs.filter(r => r && r.entityType === 'quest').map(r => String(r.entityId))
+        : [];
+
       Object.assign(existing, normPayload);
+
+      if (cat === 'quests') {
+        syncQuestAndTrackerLinks(state, existing, prevTrackerIds);
+      } else if (cat === 'trackers') {
+        syncTrackerToQuests(state, existing, prevQuestRefs);
+      }
+
       return existing;
     } else {
       // New entity created
@@ -552,9 +623,11 @@
         collection.push(normPayload);
       }
 
-      // If category is quest, sync bidirectional triggerRefs
-      if (cat === 'quests' && typeof root !== 'undefined' && typeof root.syncQuestAndTrackerLinks === 'function') {
-        try { root.syncQuestAndTrackerLinks(normPayload, []); } catch (e) {}
+      // Sync bidirectional triggerRefs across quest <-> tracker
+      if (cat === 'quests') {
+        syncQuestAndTrackerLinks(state, normPayload, []);
+      } else if (cat === 'trackers') {
+        syncTrackerToQuests(state, normPayload, []);
       }
       return normPayload;
     }
@@ -2591,6 +2664,8 @@
     getNodesMap,
     getNodeById,
     upsertNode,
-    removeNode
+    removeNode,
+    syncQuestAndTrackerLinks,
+    syncTrackerToQuests
   };
 }));

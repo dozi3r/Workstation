@@ -10101,6 +10101,98 @@ function testSuite58MultiExplorerEnrichment() {
 }
 
 // ============================================================================
+function testSuite59MutationInvariantOwnerAndQuestTrackerSync() {
+  console.log('\n--- Suite 59: CampaignMutationEngine Invariant Ownership & Quest/Tracker Sync (Sprint 1) ---');
+  const cme = require(path.join(ROOT, 'src/workstation/scripts/campaign_mutation_engine.js'));
+
+  // 1. Pure headless Node upsert of quest with steps[].triggerTrackerId synchronizes tracker triggerRefs
+  const headlessState = {
+    trackers: [{ id: 'trk_raid', name: 'Raid Clock', maxTicks: 6, currentTicks: 0, triggerRefs: [] }],
+    quests: [],
+    npcs: [],
+    items: [],
+    nodes: []
+  };
+
+  cme.upsertEntity(headlessState, 'quests', {
+    id: 'q_defend',
+    title: 'Defend the Wall',
+    steps: [
+      { id: 'st_1', title: 'Raise shields', triggerTrackerId: 'trk_raid' }
+    ]
+  });
+
+  assertEqual(headlessState.quests.length, 1, 'Quest upserted into state.quests');
+  assertEqual(headlessState.quests[0].trackerIds, ['trk_raid'], 'Quest trackerIds automatically includes triggerTrackerId');
+  const raidTrk = headlessState.trackers.find(t => t.id === 'trk_raid');
+  assert(Boolean(raidTrk), 'Tracker exists in state');
+  assertEqual(raidTrk.triggerRefs, [{ entityType: 'quest', entityId: 'q_defend' }], 'Headless Node upsert of quest links tracker.triggerRefs without DOM/window');
+
+  // 2. Pure headless Node upsert of tracker synchronizes quest.trackerIds
+  cme.upsertEntity(headlessState, 'trackers', {
+    id: 'trk_siege',
+    name: 'Siege Escalation',
+    maxTicks: 8,
+    triggerRefs: [{ entityType: 'quest', entityId: 'q_defend' }]
+  });
+  assertEqual(headlessState.quests[0].trackerIds.includes('trk_siege'), true, 'Upserting tracker synchronizes quest.trackerIds');
+
+  // 3. Mod-injected custom fields are never stripped
+  cme.upsertEntity(headlessState, 'npcs', {
+    id: 'npc_alien',
+    name: 'Xenomorph',
+    acidBloodLevel: 9000,
+    hiveOriginMap: 'submap_caverns'
+  });
+  const alienNpc = headlessState.npcs.find(n => n.id === 'npc_alien');
+  assert(Boolean(alienNpc), 'Alien NPC upserted');
+  assertEqual(alienNpc.acidBloodLevel, 9000, 'Custom numeric mod field preserved');
+  assertEqual(alienNpc.hiveOriginMap, 'submap_caverns', 'Custom string mod field preserved');
+
+  // 4. Batch revert of mixed entity and corridor operations
+  const batchState = {
+    nodes: [{ id: 'n1', x: 0, y: 0, adj: [] }, { id: 'n2', x: 100, y: 100, adj: [] }],
+    links: [],
+    items: []
+  };
+  const batchRes = cme.applyBatch(batchState, {
+    operations: [
+      { op: 'upsert_entity', category: 'items', data: { id: 'it_sword', name: 'Iron Sword', nodeId: 'n1' } },
+      { op: 'link_entities', source: 'n1', target: 'n2', linkType: 'road' }
+    ]
+  });
+  assert(batchRes.status === 'success', 'Batch applied successfully');
+  assert(batchState.items.length === 1, 'Item added by batch');
+  const revertRes = cme.revertBatch(batchState, batchRes.batchId, [batchRes]);
+  assert(revertRes.status === 'reverted', 'Batch reverted successfully');
+  assertEqual(batchState.items.length, 0, 'Reverted item cleaned up');
+
+  // 5. Delete entity on child map scrub matches findEntityReferences
+  const multiMapState = {
+    npcs: [{ id: 'npc_boss', name: 'Dungeon Boss' }],
+    quests: [],
+    trackers: [],
+    spatialPins: [],
+    nodes: [{ id: 'n1', name: 'Entrance' }],
+    links: []
+  };
+  const registry = {
+    map_sub: {
+      id: 'map_sub',
+      nodes: [{ id: 'sub_n1', name: 'Lair', stationedNpcIds: ['npc_boss'] }],
+      links: [],
+      spatialPins: [{ id: 'pin_boss', targetType: 'npc', targetId: 'npc_boss', links: [{ type: 'npc', id: 'npc_boss' }] }]
+    }
+  };
+  const refs = cme.findEntityReferences(multiMapState, 'npc', 'npc_boss', { maps: registry });
+  assert(refs.some(r => r.mapId === 'map_sub' && r.collection === 'nodes'), 'findEntityReferences discovers child map node referrer');
+  assert(refs.some(r => r.mapId === 'map_sub' && r.collection === 'spatialpins'), 'findEntityReferences discovers child map pin referrer');
+
+  cme.deleteEntity(multiMapState, 'npc', 'npc_boss', { maps: registry });
+  assertEqual(multiMapState.npcs.length, 0, 'NPC deleted from active topology');
+  assertEqual(registry.map_sub.nodes[0].stationedNpcIds, [], 'Child map node scrubbed of deleted NPC');
+  assertEqual(registry.map_sub.spatialPins[0].links, [], 'Child map pin links scrubbed of deleted NPC');
+}
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -10163,6 +10255,7 @@ function testSuite58MultiExplorerEnrichment() {
     testSuite56QuestExplorerEnrichmentAndCrucible();
     await testSuite57CrossCampaignExplorerAndTransplant();
     testSuite58MultiExplorerEnrichment();
+    testSuite59MutationInvariantOwnerAndQuestTrackerSync();
     require('./test_gigerenzer_heuristics.js')({ assert, assertEqual, ROOT });
 
     const elapsedMs = Date.now() - suiteStartTime;

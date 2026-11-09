@@ -1509,7 +1509,12 @@
           if (clonedDep.suggestedNode !== undefined) clonedDep.suggestedNode = targetNodeId;
 
           idMap[dep.id] = targetId;
-          activeColl.push(clonedDep);
+          const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+          if (cme && typeof cme.upsertEntity === 'function') {
+            cme.upsertEntity(topo, dep.type, clonedDep);
+          } else {
+            activeColl.push(clonedDep);
+          }
           copiedCount++;
         } else if (action === 'reassign') {
           const reassignSelect = document.querySelector(`.tp-reassign-target[data-dep-idx="${idx}"]`);
@@ -1599,7 +1604,12 @@
         }
       }
 
-      primaryColl.push(primaryClone);
+      const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+      if (cme && typeof cme.upsertEntity === 'function') {
+        cme.upsertEntity(topo, currentTransplantState.primaryType, primaryClone);
+      } else {
+        primaryColl.push(primaryClone);
+      }
 
       if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
 

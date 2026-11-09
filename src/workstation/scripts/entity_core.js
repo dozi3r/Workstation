@@ -1093,6 +1093,10 @@
     function syncQuestAndTrackerLinks(quest, previousTrackerIds = []) {
       const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
       if (!topo || !Array.isArray(topo.trackers)) return;
+      const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+      if (cme && typeof cme.syncQuestAndTrackerLinks === 'function') {
+        return cme.syncQuestAndTrackerLinks(topo, quest, previousTrackerIds);
+      }
       const currentTrackerIds = new Set(quest.trackerIds ? quest.trackerIds.map(String) : []);
 
       if (Array.isArray(quest.steps)) {
@@ -1122,6 +1126,10 @@
     function syncTrackerToQuests(tracker, previousTriggerQuestIds = []) {
       const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
       if (!topo || !Array.isArray(topo.quests)) return;
+      const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+      if (cme && typeof cme.syncTrackerToQuests === 'function') {
+        return cme.syncTrackerToQuests(topo, tracker, previousTriggerQuestIds);
+      }
       const trkId = String(tracker.id);
       const currentQuestIds = new Set(
         (tracker.triggerRefs || [])

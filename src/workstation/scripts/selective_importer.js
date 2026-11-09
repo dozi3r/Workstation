@@ -647,8 +647,12 @@
       });
     });
 
+    const cme = (typeof window !== "undefined" && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== "undefined" ? CampaignMutationEngine : null);
+    if (cme && typeof cme.syncQuestAndTrackerLinks === "function" && Array.isArray(curTopo.quests)) {
+      curTopo.quests.forEach(q => cme.syncQuestAndTrackerLinks(curTopo, q));
+    }
+
     if (Object.keys(cloneIdMap).length > 0) {
-      const cme = (typeof window !== "undefined" && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== "undefined" ? CampaignMutationEngine : null);
       if (cme && typeof cme.remapEntityCluster === "function") {
         cme.remapEntityCluster(importedBatchCluster, {
           mutateInPlace: true,

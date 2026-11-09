@@ -2106,7 +2106,7 @@ CRITICAL INSTRUCTION:
       <div class="title-bar-text">
         <span style="display:inline-block; width:12px; height:12px; background:#fff; border:1px solid #000; text-align:center; line-height:10px; font-size:8px; color:#000;">CS</span>
         <span>Creator Studio - Pointcrawl Authoring Workstation</span>
-        <span id="ws-build-stamp-badge" data-build-time="2026-11-09 00:16 UTC" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: 2026-11-09 00:16 UTC]</span>
+        <span id="ws-build-stamp-badge" data-build-time="2026-11-09 01:26 UTC" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: 2026-11-09 01:26 UTC]</span>
       </div>
       <div class="title-bar-controls">
         <button class="win-btn" onclick="alert('Creator Studio Desktop Workstation v1.2')">_</button>
@@ -349888,7 +349888,66 @@ const ALL_SURFACES_DATA = [
     return isNaN(str) ? str : Number(str);
   }
 
-  // --- Canonical Mutators ---
+  // --- Canonical Mutators & Link Invariants ---
+
+  function syncQuestAndTrackerLinks(stateOrTopo, quest, previousTrackerIds = []) {
+    if (!stateOrTopo || !quest) return;
+    const trackersCol = getTargetCollection(stateOrTopo, 'trackers');
+    if (!Array.isArray(trackersCol)) return;
+    const currentTrackerIds = new Set(quest.trackerIds ? quest.trackerIds.map(String) : []);
+
+    if (Array.isArray(quest.steps)) {
+      quest.steps.forEach(st => {
+        if (st && st.triggerTrackerId) currentTrackerIds.add(String(st.triggerTrackerId));
+      });
+    }
+    quest.trackerIds = Array.from(currentTrackerIds);
+
+    trackersCol.forEach(trk => {
+      if (!trk) return;
+      const trkId = String(trk.id);
+      if (!Array.isArray(trk.triggerRefs)) trk.triggerRefs = [];
+      const hasRef = trk.triggerRefs.some(r => r && r.entityType === 'quest' && String(r.entityId) === String(quest.id));
+
+      if (currentTrackerIds.has(trkId)) {
+        if (!hasRef) {
+          trk.triggerRefs.push({ entityType: 'quest', entityId: quest.id });
+        }
+      } else if (previousTrackerIds.map(String).includes(trkId)) {
+        trk.triggerRefs = trk.triggerRefs.filter(r => !(r && r.entityType === 'quest' && String(r.entityId) === String(quest.id)));
+      }
+    });
+  }
+
+  function syncTrackerToQuests(stateOrTopo, tracker, previousTriggerQuestIds = []) {
+    if (!stateOrTopo || !tracker) return;
+    const questsCol = getTargetCollection(stateOrTopo, 'quests');
+    if (!Array.isArray(questsCol)) return;
+    const trkId = String(tracker.id);
+    const currentQuestIds = new Set(
+      (tracker.triggerRefs || [])
+        .filter(r => r && r.entityType === 'quest')
+        .map(r => String(r.entityId))
+    );
+
+    questsCol.forEach(q => {
+      if (!q) return;
+      const qId = String(q.id);
+      if (!Array.isArray(q.trackerIds)) q.trackerIds = [];
+      if (currentQuestIds.has(qId)) {
+        if (!q.trackerIds.map(String).includes(trkId)) {
+          q.trackerIds.push(tracker.id);
+        }
+      } else if (previousTriggerQuestIds.map(String).includes(qId)) {
+        q.trackerIds = q.trackerIds.filter(id => String(id) !== trkId);
+        if (Array.isArray(q.steps)) {
+          q.steps.forEach(st => {
+            if (st && String(st.triggerTrackerId) === trkId) st.triggerTrackerId = null;
+          });
+        }
+      }
+    });
+  }
 
   function upsertEntity(state, category, payload, batchContext = {}) {
     const cat = category.toLowerCase().endsWith('s') ? category.toLowerCase() : category.toLowerCase() + 's';
@@ -350037,7 +350096,19 @@ const ALL_SURFACES_DATA = [
           });
         }
       });
+      const prevTrackerIds = (cat === 'quests' && Array.isArray(existing.trackerIds)) ? [...existing.trackerIds] : [];
+      const prevQuestRefs = (cat === 'trackers' && Array.isArray(existing.triggerRefs))
+        ? existing.triggerRefs.filter(r => r && r.entityType === 'quest').map(r => String(r.entityId))
+        : [];
+
       Object.assign(existing, normPayload);
+
+      if (cat === 'quests') {
+        syncQuestAndTrackerLinks(state, existing, prevTrackerIds);
+      } else if (cat === 'trackers') {
+        syncTrackerToQuests(state, existing, prevQuestRefs);
+      }
+
       return existing;
     } else {
       // New entity created
@@ -350057,9 +350128,11 @@ const ALL_SURFACES_DATA = [
         collection.push(normPayload);
       }
 
-      // If category is quest, sync bidirectional triggerRefs
-      if (cat === 'quests' && typeof root !== 'undefined' && typeof root.syncQuestAndTrackerLinks === 'function') {
-        try { root.syncQuestAndTrackerLinks(normPayload, []); } catch (e) {}
+      // Sync bidirectional triggerRefs across quest <-> tracker
+      if (cat === 'quests') {
+        syncQuestAndTrackerLinks(state, normPayload, []);
+      } else if (cat === 'trackers') {
+        syncTrackerToQuests(state, normPayload, []);
       }
       return normPayload;
     }
@@ -352096,7 +352169,9 @@ const ALL_SURFACES_DATA = [
     getNodesMap,
     getNodeById,
     upsertNode,
-    removeNode
+    removeNode,
+    syncQuestAndTrackerLinks,
+    syncTrackerToQuests
   };
 }));
 // ============================================================================
@@ -378450,6 +378525,10 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
     function syncQuestAndTrackerLinks(quest, previousTrackerIds = []) {
       const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
       if (!topo || !Array.isArray(topo.trackers)) return;
+      const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+      if (cme && typeof cme.syncQuestAndTrackerLinks === 'function') {
+        return cme.syncQuestAndTrackerLinks(topo, quest, previousTrackerIds);
+      }
       const currentTrackerIds = new Set(quest.trackerIds ? quest.trackerIds.map(String) : []);
 
       if (Array.isArray(quest.steps)) {
@@ -378479,6 +378558,10 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
     function syncTrackerToQuests(tracker, previousTriggerQuestIds = []) {
       const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
       if (!topo || !Array.isArray(topo.quests)) return;
+      const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+      if (cme && typeof cme.syncTrackerToQuests === 'function') {
+        return cme.syncTrackerToQuests(topo, tracker, previousTriggerQuestIds);
+      }
       const trkId = String(tracker.id);
       const currentQuestIds = new Set(
         (tracker.triggerRefs || [])
@@ -385880,7 +385963,12 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
           if (clonedDep.suggestedNode !== undefined) clonedDep.suggestedNode = targetNodeId;
 
           idMap[dep.id] = targetId;
-          activeColl.push(clonedDep);
+          const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+          if (cme && typeof cme.upsertEntity === 'function') {
+            cme.upsertEntity(topo, dep.type, clonedDep);
+          } else {
+            activeColl.push(clonedDep);
+          }
           copiedCount++;
         } else if (action === 'reassign') {
           const reassignSelect = document.querySelector(`.tp-reassign-target[data-dep-idx="${idx}"]`);
@@ -385970,7 +386058,12 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
         }
       }
 
-      primaryColl.push(primaryClone);
+      const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+      if (cme && typeof cme.upsertEntity === 'function') {
+        cme.upsertEntity(topo, currentTransplantState.primaryType, primaryClone);
+      } else {
+        primaryColl.push(primaryClone);
+      }
 
       if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
 
@@ -395425,8 +395518,12 @@ window.generateCampaignHTMLDossier = generateCampaignHTMLDossier;
       });
     });
 
+    const cme = (typeof window !== "undefined" && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== "undefined" ? CampaignMutationEngine : null);
+    if (cme && typeof cme.syncQuestAndTrackerLinks === "function" && Array.isArray(curTopo.quests)) {
+      curTopo.quests.forEach(q => cme.syncQuestAndTrackerLinks(curTopo, q));
+    }
+
     if (Object.keys(cloneIdMap).length > 0) {
-      const cme = (typeof window !== "undefined" && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== "undefined" ? CampaignMutationEngine : null);
       if (cme && typeof cme.remapEntityCluster === "function") {
         cme.remapEntityCluster(importedBatchCluster, {
           mutateInPlace: true,
@@ -396328,6 +396425,10 @@ window.generateCampaignHTMLDossier = generateCampaignHTMLDossier;
 
     // Remap relational cluster references across newly ingested entities and submaps
     remapEntityCluster(topo, topo.maps, entityIdMap, mapIdMap);
+    const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+    if (cme && typeof cme.syncQuestAndTrackerLinks === 'function' && Array.isArray(topo.quests)) {
+      topo.quests.forEach(q => cme.syncQuestAndTrackerLinks(topo, q));
+    }
 
     // 5. Ingest Custom Modules
     const ingestedModuleIds = [];

@@ -438,6 +438,10 @@
 
     // Remap relational cluster references across newly ingested entities and submaps
     remapEntityCluster(topo, topo.maps, entityIdMap, mapIdMap);
+    const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
+    if (cme && typeof cme.syncQuestAndTrackerLinks === 'function' && Array.isArray(topo.quests)) {
+      topo.quests.forEach(q => cme.syncQuestAndTrackerLinks(topo, q));
+    }
 
     // 5. Ingest Custom Modules
     const ingestedModuleIds = [];
