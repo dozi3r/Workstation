@@ -781,7 +781,9 @@ async function executeExportCsmodPack() {
       maps: mapsToExport,
       entities: entitiesToExport,
       modules: {},
-      assets: assetsToExport
+      assets: assetsToExport,
+      creatureEvidence: topo && topo.creatureEvidence,
+      changelog: topo && topo.changelog
     });
 
     // Zero-CORS safe browser download (remediated per Red Team Finding 4)

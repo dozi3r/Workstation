@@ -470,7 +470,7 @@
         <h1 class="article-title">pack_engine.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 5d0f5155)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 9e26530b)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (7)</a>
         </div>
@@ -483,9 +483,9 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/pack_engine.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1029 lines &bull; 41.2 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 5d0f5155)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>11</strong> references</td></tr>
+    <tr><th>File Metrics</th><td>1075 lines &bull; 44.4 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 9e26530b)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>12</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>7</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/pack_engine.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
@@ -511,9 +511,10 @@
 <li><strong>Deep Module Seam (<code>window.packEngine</code>)</strong>: Exposes controller APIs <code>openInstallerDialog()</code>, <code>executeInstallFromDialog()</code>, <code>renderInstalledPacksView()</code>, and <code>requestPackUninstall()</code>.</li>
 <li><strong>Relational Integrity (<code>remapEntityCluster</code>)</strong>: Remaps all foreign keys (<code>quest.npcIds</code>, <code>quest.itemIds</code>, <code>item.ownerNpcId</code>, <code>npc.relationships</code>, and submap <code>node.stationedNpcIds</code> / <code>node.childMapId</code>) when cloned entities are disambiguated.</li>
 <li><strong>Teardown Safeguards</strong>: Enforces active map safety guard before deleting submaps, restores prior portal links on anchor nodes via <code>previousChildMapId</code>, and purges custom module slotting across maps and nodes.</li>
+<li>Package Orchestration (Sprint 4): parsePackArchive and uildPackArchive preserve custom mod fields, unknown entity attributes, and support creatures, creatureEvidence, and changelog serialization across .csmod archives and directory file sets for dual-adapter symmetry.</li>
 </ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (14)</h3><div class="pill-list"><span class="pill">uint8ArrayToDataUrl(bytes, mimeType)</span><span class="pill">inferMimeType(fileName)</span><span class="pill">dataUrlToUint8Array(dataUrl)</span><span class="pill">remapEntityCluster(entities, submaps, entityIdMap, mapIdMap)</span><span class="pill">validatePackManifest(manifest)</span><span class="pill">parsePackArchive(arrayBuffer)</span><span class="pill">installPackIntoCampaign(parsedPack, options = {})</span><span class="pill">uninstallPackFromCampaign(packId)</span><span class="pill">buildPackArchive(options = {})</span><span class="pill">triggerInstallPackFile()</span><span class="pill">onPackFileSelected(event)</span><span class="pill">switchPackInstallerTab(tabName)</span><span class="pill">populatePackInstallerModal(parsedPack)</span><span class="pill">executePackInstallation()</span></div>
-      <h2 id="outbound-links">Outbound References (11)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2 id="outbound-links">Outbound References (12)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/src/workstation/template.html.html"><strong>src/workstation/template.html</strong></a></td>
         <td><span class="badge badge-Workstation Shell Template">Included By Template</span></td>
         <td>Assembled into master Workstation template</td>
@@ -525,6 +526,10 @@
         <td><a href="../../../../pages/src/workstation/scripts/zip_engine.js.html"><strong>src/workstation/scripts/zip_engine.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes escapeHtml() defined in zip_engine.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes syncQuestAndTrackerLinks() defined in entity_core.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

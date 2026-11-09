@@ -1184,6 +1184,12 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     Workstation.activeTopology.deletedPrototypes = Array.isArray(pkg.deletedPrototypes) ? pkg.deletedPrototypes : (pkg.preset && Array.isArray(pkg.preset.deletedPrototypes) ? pkg.preset.deletedPrototypes : (pkg.entities && Array.isArray(pkg.entities.deletedPrototypes) ? pkg.entities.deletedPrototypes : []));
     Workstation.activeTopology.deletedModules = Array.isArray(pkg.deletedModules) ? pkg.deletedModules : (pkg.preset && Array.isArray(pkg.preset.deletedModules) ? pkg.preset.deletedModules : (pkg.entities && Array.isArray(pkg.entities.deletedModules) ? pkg.entities.deletedModules : []));
     Workstation.activeTopology.custom_modules = extractedEntities.custom_modules || [];
+    const sourceObj = pkg.preset || pkg;
+    for (const [k, v] of Object.entries(sourceObj)) {
+      if (Workstation.activeTopology[k] === undefined && !['nodes', 'links', 'maps', 'activeTopology', 'history'].includes(k)) {
+        Workstation.activeTopology[k] = v;
+      }
+    }
     if (typeof ensureEntityCollections === "function") ensureEntityCollections(Workstation.activeTopology);
     if (typeof syncCustomModulesToCatalog === "function") syncCustomModulesToCatalog(Workstation.activeTopology);
   }

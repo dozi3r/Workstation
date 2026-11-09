@@ -1532,6 +1532,11 @@ async function buildCampaignPackageFiles(opts = {}) {
     globalDials: resolvedDials,
     entities: entities
   };
+  for (const [k, v] of Object.entries(activeTopo || {})) {
+    if (campaignMeta[k] === undefined && !['nodes', 'links', 'maps', 'edgeData', 'edgeNotes', 'activeTopology', 'history', 'pan', 'zoom'].includes(k)) {
+      campaignMeta[k] = v;
+    }
+  }
   if (opts.syncToken) campaignMeta.syncToken = opts.syncToken;
 
   // 3. preset.json + topology.json (identical payloads, as in the zip export)
@@ -1543,6 +1548,7 @@ async function buildCampaignPackageFiles(opts = {}) {
     ? "map_root"
     : (Object.keys(cleanMaps).find(k => cleanMaps[k] && !cleanMaps[k].parentMapId) || Object.keys(cleanMaps)[0] || "map_root");
   const presetData = {
+    ...(activeTopo || {}),
     id: slug,
     name: cName,
     campaignName: cName,
@@ -2467,8 +2473,17 @@ async function loadCampaignFromDirectoryHandle(dirHandle) {
           creatureEvidence: parsed.entities.creatureEvidence || {},
           trackers: parsed.entities.trackers || [],
           tickets: parsed.entities.tickets || [],
-          factions: parsed.entities.factions || []
+          factions: parsed.entities.factions || [],
+          spatialPins: parsed.entities.spatialPins || [],
+          custom_modules: parsed.entities.custom_modules || [],
+          deletedModules: parsed.entities.deletedModules || [],
+          deletedPrototypes: parsed.entities.deletedPrototypes || []
         };
+      }
+      for (const [k, v] of Object.entries(parsed)) {
+        if (pkg[k] === undefined && !['nodes', 'links', 'maps', 'entities'].includes(k)) {
+          pkg[k] = v;
+        }
       }
       if (Array.isArray(parsed.npcs)) pkg.entities.npcs = parsed.npcs;
       if (Array.isArray(parsed.quests)) pkg.entities.quests = parsed.quests;

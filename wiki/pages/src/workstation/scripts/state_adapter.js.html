@@ -470,7 +470,7 @@
         <h1 class="article-title">state_adapter.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 67b1ab06)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 5df18f55)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (26)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/state_adapter.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1337 lines &bull; 64.1 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 67b1ab06)</span></td></tr>
+    <tr><th>File Metrics</th><td>1343 lines &bull; 65.7 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 5df18f55)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>16</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>26</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/state_adapter.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -509,6 +509,7 @@
 <ul class="wiki-list">
 <li>ODV (SYS-ODV-02 S1): normalizeOdvVector uses normalizeOdvInput, returns undefined when unset/invalid; odvDefault removed.</li>
 <li>Campaign-Session Projection (Sprint 2): <code>loadCampaignProjectPackage</code> wraps package hydration in defensive try/catch rollback, restoring sterile slate via <code>resetWorkstationSlate</code> on corrupt/interrupted loads to prevent half-hydrated campaign state leaks.</li>
+<li>Package Orchestration (Sprint 4): loadCampaignProjectPackage preserves custom mod fields and unknown top-level attributes from pkg directly onto Workstation.activeTopology for seamless inter-adapter roundtripping.</li>
 </ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">SCALE_TIERS</span><span class="pill">activeMapId</span><span class="pill">maps</span><span class="pill">activeCampaignId</span><span class="pill">currentCampaignName</span><span class="pill">nodes</span><span class="pill">links</span><span class="pill">waves</span><span class="pill">drawnCards</span><span class="pill">nodeSlottedModules</span><span class="pill">edgeSlottedModules</span><span class="pill">revealedNodes</span><span class="pill">fogOfWarMode</span></div><h3>Declared Functions / Subroutines (19)</h3><div class="pill-list"><span class="pill">initMapsRegistry(forceReset = false)</span><span class="pill">syncActiveMapToRegistry()</span><span class="pill">switchActiveMap(targetMapId, force = false, options = {})</span><span class="pill">createMap(name, scaleTier = &quot;region&quot;, parentMapId = null, parentNodeId = null, nodePrefix = null, dispositionModifier = &quot;&quot;)</span><span class="pill">deleteMap(mapId)</span><span class="pill">getBreadcrumbPath(mapId = activeMapId)</span><span class="pill">getActiveMapId()</span><span class="pill">getActiveMapName()</span><span class="pill">getActiveMapScaleTier()</span><span class="pill">getNode(id)</span><span class="pill">getNodeAdjacents(nid)</span><span class="pill">getNodeIncomingSources(nid)</span><span class="pill">normalizeNodeSlottedModules(rawMap)</span><span class="pill">normalizeOdvVector(odv)</span><span class="pill">syncAdapterFromWorkstationTopology()</span><span class="pill">srcIdRawNorm(v)</span><span class="pill">syncAdapterToWorkstationTopology()</span><span class="pill">syncAdapterFromStudioState()</span><span class="pill">loadCampaignProjectPackage(rawPkg, options = {})</span></div>
       <h2 id="outbound-links">Outbound References (16)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>

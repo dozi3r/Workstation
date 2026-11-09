@@ -249,15 +249,46 @@
     }
 
     // Extract Entities (entities.json)
-    let entities = { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
+    let entities = { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [], creatures: [], creatureEvidence: {} };
     if (zipFiles['entities.json']) {
       try {
         const entData = JSON.parse(textDecoder.decode(zipFiles['entities.json']));
-        ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions'].forEach((cat) => {
+        ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions', 'creatures', 'resources'].forEach((cat) => {
           if (Array.isArray(entData[cat])) entities[cat] = entData[cat];
         });
+        if (entData.creatureEvidence && typeof entData.creatureEvidence === 'object') {
+          entities.creatureEvidence = entData.creatureEvidence;
+        }
+        for (const [k, v] of Object.entries(entData)) {
+          if (entities[k] === undefined) {
+            entities[k] = v;
+          }
+        }
       } catch (e) {
         console.warn('[PackEngine] Failed to parse entities.json:', e);
+      }
+    }
+
+    // Extract creatures/evidence.json if present
+    if (zipFiles['creatures/evidence.json']) {
+      try {
+        const ev = JSON.parse(textDecoder.decode(zipFiles['creatures/evidence.json']));
+        if (ev && typeof ev === 'object') {
+          entities.creatureEvidence = Object.assign(entities.creatureEvidence || {}, ev);
+        }
+      } catch (e) {
+        console.warn('[PackEngine] Failed to parse creatures/evidence.json:', e);
+      }
+    }
+
+    // Extract changelog.json if present
+    let changelog = [];
+    if (zipFiles['changelog.json']) {
+      try {
+        const ch = JSON.parse(textDecoder.decode(zipFiles['changelog.json']));
+        if (Array.isArray(ch)) changelog = ch;
+      } catch (e) {
+        console.warn('[PackEngine] Failed to parse changelog.json:', e);
       }
     }
 
@@ -284,7 +315,8 @@
       maps,
       entities,
       modules,
-      assets
+      assets,
+      changelog
     };
   }
 
@@ -679,8 +711,18 @@
     }
 
     // Add Entities
-    const entities = options.entities || { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [] };
+    const entities = options.entities || { npcs: [], quests: [], items: [], trackers: [], tickets: [], factions: [], creatures: [] };
     zip.addFile('entities.json', JSON.stringify(entities, null, 2));
+
+    if (options.creatureEvidence && typeof options.creatureEvidence === 'object' && Object.keys(options.creatureEvidence).length > 0) {
+      zip.addFile('creatures/evidence.json', JSON.stringify(options.creatureEvidence, null, 2));
+    } else if (entities.creatureEvidence && typeof entities.creatureEvidence === 'object' && Object.keys(entities.creatureEvidence).length > 0) {
+      zip.addFile('creatures/evidence.json', JSON.stringify(entities.creatureEvidence, null, 2));
+    }
+
+    if (Array.isArray(options.changelog) && options.changelog.length > 0) {
+      zip.addFile('changelog.json', JSON.stringify(options.changelog, null, 2));
+    }
 
     // Add Modules
     const modules = options.modules || {};

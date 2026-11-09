@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/pack_engine.js"
 title: "pack_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "5d0f515506cc72e2"
-reviewed_hash: "5d0f515506cc72e2"
+current_hash: "9e26530b1558ca0c"
+reviewed_hash: "9e26530b1558ca0c"
 stale: false
-size_bytes: 42223
-line_count: 1029
+size_bytes: 45500
+line_count: 1075
 ---
 
 # pack_engine.js
@@ -22,4 +22,5 @@ line_count: 1029
 - **Deep Module Seam (`window.packEngine`)**: Exposes controller APIs `openInstallerDialog()`, `executeInstallFromDialog()`, `renderInstalledPacksView()`, and `requestPackUninstall()`.
 - **Relational Integrity (`remapEntityCluster`)**: Remaps all foreign keys (`quest.npcIds`, `quest.itemIds`, `item.ownerNpcId`, `npc.relationships`, and submap `node.stationedNpcIds` / `node.childMapId`) when cloned entities are disambiguated.
 - **Teardown Safeguards**: Enforces active map safety guard before deleting submaps, restores prior portal links on anchor nodes via `previousChildMapId`, and purges custom module slotting across maps and nodes.
+- Package Orchestration (Sprint 4): parsePackArchive and uildPackArchive preserve custom mod fields, unknown entity attributes, and support creatures, creatureEvidence, and changelog serialization across .csmod archives and directory file sets for dual-adapter symmetry.
 <!-- END_CUSTOM_NOTES -->

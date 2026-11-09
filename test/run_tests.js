@@ -10422,6 +10422,188 @@ async function testSuite61RosterNavigatorAndEntityManagerSeams() {
   assert(mockDom.getElementById('em-detail-pane').innerHTML.includes('Select an item'), 'resetWorkstationSlate resets detail pane to placeholder');
 }
 
+async function testSuite62PortablePackageOrchestrationAndAdapters() {
+  console.log('\n--> SUITE 62: Portable Campaign Package Orchestration & Dual Adapters (Sprint 4)...');
+
+  const scriptsDir = path.join(ROOT, 'src', 'workstation', 'scripts');
+  const zipCode = fs.readFileSync(path.join(scriptsDir, 'zip_engine.js'), 'utf8');
+  const packCode = fs.readFileSync(path.join(scriptsDir, 'pack_engine.js'), 'utf8');
+  const mapStoreCode = fs.readFileSync(path.join(scriptsDir, 'map_store.js'), 'utf8');
+  const stateAdapterCode = fs.readFileSync(path.join(scriptsDir, 'state_adapter.js'), 'utf8');
+  const workstationStateCode = fs.readFileSync(path.join(scriptsDir, 'workstation_state.js'), 'utf8');
+
+  const sandbox = {
+    console: { log: () => {}, warn: () => {}, error: () => {} },
+    setTimeout: (fn) => fn(),
+    clearTimeout: () => {},
+    localStorage: {
+      _store: {},
+      getItem(k) { return this._store[k] !== undefined ? this._store[k] : null; },
+      setItem(k, v) { this._store[k] = String(v); },
+      removeItem(k) { delete this._store[k]; },
+      clear() { this._store = {}; }
+    },
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    Blob,
+    URL: { createObjectURL: () => '', revokeObjectURL: () => '' },
+    TextEncoder,
+    TextDecoder,
+    document: {
+      getElementById: (id) => ({
+        id,
+        style: {},
+        innerHTML: '',
+        textContent: '',
+        value: '',
+        children: [],
+        appendChild() {},
+        querySelectorAll() { return []; },
+        setAttribute() {},
+        setAttributeNS() {},
+        removeAttribute() {},
+        removeAttributeNS() {},
+        getAttribute() { return null; },
+        classList: {
+          _classes: new Set(),
+          add(c) { this._classes.add(c); },
+          remove(c) { this._classes.delete(c); },
+          contains(c) { return this._classes.has(c); }
+        }
+      }),
+      querySelectorAll: () => [],
+      createElement: (tag) => ({
+        tagName: tag,
+        style: {},
+        innerHTML: '',
+        textContent: '',
+        value: '',
+        children: [],
+        appendChild() {},
+        querySelectorAll() { return []; },
+        setAttribute() {},
+        setAttributeNS() {},
+        removeAttribute() {},
+        removeAttributeNS() {},
+        getAttribute() { return null; },
+        classList: {
+          _classes: new Set(),
+          add(c) { this._classes.add(c); },
+          remove(c) { this._classes.delete(c); },
+          contains(c) { return this._classes.has(c); }
+        }
+      })
+    },
+    Workstation: {
+      activeTopology: {
+        id: 'pkg_test_camp',
+        name: 'Package Test Campaign',
+        campaignName: 'Package Test Campaign',
+        custom_mod_field: 'preserved_mod_value',
+        arbitrary_number: 777,
+        nodes: {
+          '1': { id: '1', name: 'Alpha', x: 0, y: 0, adj: ['2'] },
+          '2': { id: '2', name: 'Beta', x: 50, y: 50, adj: ['1'] }
+        },
+        links: [{ source: '1', target: '2', edgeType: 'road' }],
+        npcs: [{ id: 'npc_1', name: 'Tester', nodeId: '1' }],
+        quests: [],
+        items: [],
+        trackers: [],
+        factions: [],
+        creatures: [{ id: 'creature_spider', name: 'Cave Spider', nodeId: '2' }],
+        creatureEvidence: { creature_spider: { hp: 20, description: 'Venomous spider' } },
+        changelog: [{ batchId: 'batch_01', summary: 'Initial setup' }]
+      },
+      registeredMods: {},
+      history: { undoStack: [], redoStack: [] },
+      zoom: 1.0,
+      pan: { x: 0, y: 0 }
+    }
+  };
+  sandbox.window = sandbox;
+  sandbox.globalThis = sandbox;
+  injectEngine(sandbox);
+
+  vm.createContext(sandbox);
+  vm.runInContext(zipCode, sandbox);
+  vm.runInContext(packCode, sandbox);
+  vm.runInContext(mapStoreCode, sandbox);
+  vm.runInContext(stateAdapterCode, sandbox);
+  vm.runInContext(workstationStateCode, sandbox);
+
+  sandbox.Workstation.activeTopology.id = 'pkg_test_camp';
+  sandbox.Workstation.activeTopology.name = 'Package Test Campaign';
+  sandbox.Workstation.activeTopology.campaignName = 'Package Test Campaign';
+  sandbox.Workstation.activeTopology.custom_mod_field = 'preserved_mod_value';
+  sandbox.Workstation.activeTopology.arbitrary_number = 777;
+  sandbox.Workstation.activeTopology.creatureEvidence = { creature_spider: { hp: 20, description: 'Venomous spider' } };
+  sandbox.Workstation.activeTopology.creatures = [{ id: 'creature_spider', name: 'Cave Spider', nodeId: '2' }];
+
+  // 1. buildCampaignPackageFiles preserves custom mod fields and unknown top-level attributes
+  const pkg = await sandbox.buildCampaignPackageFiles();
+  assert(pkg && Array.isArray(pkg.files), 'buildCampaignPackageFiles returns files array');
+  const campJsonFile = pkg.files.find(f => f.path === 'campaign.json');
+  assert(Boolean(campJsonFile), 'campaign.json generated');
+  const parsedCampJson = JSON.parse(campJsonFile.data);
+  assertEqual(parsedCampJson.custom_mod_field, 'preserved_mod_value', 'campaign.json preserves unknown custom_mod_field');
+  assertEqual(parsedCampJson.arbitrary_number, 777, 'campaign.json preserves arbitrary_number');
+
+  // Verify creatures and evidence in generated package
+  const evidenceFile = pkg.files.find(f => f.path === 'creatures/evidence.json');
+  assert(Boolean(evidenceFile), 'creatures/evidence.json generated when creatureEvidence present');
+  const parsedEvidence = JSON.parse(evidenceFile.data);
+  assertEqual(parsedEvidence.creature_spider.hp, 20, 'creatures/evidence.json preserves hp');
+
+  // 2. buildPackArchive and parsePackArchive round-trip with creatures, evidence, and changelog
+  const packBlob = await sandbox.buildPackArchive({
+    manifest: {
+      formatVersion: '1.0.0',
+      packId: 'test_pack_roundtrip',
+      name: 'Test Roundtrip Pack',
+      entryMapId: 'map_root'
+    },
+    maps: {
+      map_root: { id: 'map_root', nodes: [{ id: '1' }] }
+    },
+    entities: {
+      npcs: [{ id: 'npc_rt' }],
+      creatures: [{ id: 'creature_spider' }]
+    },
+    creatureEvidence: { creature_spider: { hp: 20 } },
+    changelog: [{ batchId: 'batch_01', summary: 'Milestone' }]
+  });
+
+  const packBuffer = await packBlob.arrayBuffer();
+  const parsedPack = await sandbox.parsePackArchive(packBuffer);
+  assertEqual(parsedPack.manifest.packId, 'test_pack_roundtrip', 'parsePackArchive extracts manifest.packId');
+  assertEqual(parsedPack.entities.creatures.length, 1, 'parsePackArchive extracts creatures array');
+  assertEqual(parsedPack.entities.creatures[0].id, 'creature_spider', 'parsePackArchive preserves creature id');
+  assert(Boolean(parsedPack.entities.creatureEvidence.creature_spider), 'parsePackArchive extracts creatureEvidence');
+  assertEqual(parsedPack.entities.creatureEvidence.creature_spider.hp, 20, 'parsePackArchive preserves evidence attributes');
+  assertEqual(parsedPack.changelog.length, 1, 'parsePackArchive extracts changelog');
+
+  // 3. Hydration via loadCampaignProjectPackage preserves custom mod fields onto Workstation.activeTopology
+  await sandbox.loadCampaignProjectPackage({
+    id: 'hydrated_camp',
+    name: 'Hydrated Campaign',
+    custom_mod_field: 'preserved_after_load',
+    magic_stat: 999,
+    nodes: [{ id: '10' }],
+    entities: {
+      npcs: [{ id: 'n1' }],
+      creatures: [{ id: 'c1' }],
+      creatureEvidence: { c1: { threat: 'high' } }
+    }
+  });
+
+  assertEqual(sandbox.Workstation.activeTopology.custom_mod_field, 'preserved_after_load', 'loadCampaignProjectPackage preserves custom_mod_field on activeTopology');
+  assertEqual(sandbox.Workstation.activeTopology.magic_stat, 999, 'loadCampaignProjectPackage preserves magic_stat on activeTopology');
+  assertEqual(sandbox.Workstation.activeTopology.creatures.length, 1, 'loadCampaignProjectPackage preserves creatures');
+  assert(Boolean(sandbox.Workstation.activeTopology.creatureEvidence.c1), 'loadCampaignProjectPackage preserves creatureEvidence');
+}
+
+
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -10487,6 +10669,7 @@ async function testSuite61RosterNavigatorAndEntityManagerSeams() {
     testSuite59MutationInvariantOwnerAndQuestTrackerSync();
     await testSuite60CampaignSessionProjectionAndIsolation();
     await testSuite61RosterNavigatorAndEntityManagerSeams();
+    await testSuite62PortablePackageOrchestrationAndAdapters();
     require('./test_gigerenzer_heuristics.js')({ assert, assertEqual, ROOT });
 
     const elapsedMs = Date.now() - suiteStartTime;
