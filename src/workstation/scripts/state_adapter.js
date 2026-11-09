@@ -938,6 +938,7 @@ function syncAdapterFromStudioState() {
  */
 async function loadCampaignProjectPackage(rawPkg, options = {}) {
   if (!rawPkg) return;
+  try {
 
   const previousCamp = (typeof localStorage !== "undefined") ? localStorage.getItem("cs_active_campaign") : null;
   let campId = typeof rawPkg === "string" ? rawPkg : (rawPkg.id || rawPkg.campaignId || "");
@@ -1318,6 +1319,13 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     }
   } catch(refreshErr) {
     console.error("[loadCampaignProjectPackage] Refresh warning:", refreshErr);
+  }
+  } catch (err) {
+    console.error("[StateAdapter] Failed to load campaign package:", err);
+    if (typeof resetWorkstationSlate === "function") {
+      await resetWorkstationSlate({ campaignId: "campaign_scratch", campaignName: "Blank Canvas", preserveStorage: false });
+    }
+    throw err;
   }
 }
 window.loadCampaignProjectPackage = loadCampaignProjectPackage;

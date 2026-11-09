@@ -2106,7 +2106,7 @@ CRITICAL INSTRUCTION:
       <div class="title-bar-text">
         <span style="display:inline-block; width:12px; height:12px; background:#fff; border:1px solid #000; text-align:center; line-height:10px; font-size:8px; color:#000;">CS</span>
         <span>Creator Studio - Pointcrawl Authoring Workstation</span>
-        <span id="ws-build-stamp-badge" data-build-time="2026-11-09 01:26 UTC" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: 2026-11-09 01:26 UTC]</span>
+        <span id="ws-build-stamp-badge" data-build-time="2026-11-09 01:31 UTC" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: 2026-11-09 01:31 UTC]</span>
       </div>
       <div class="title-bar-controls">
         <button class="win-btn" onclick="alert('Creator Studio Desktop Workstation v1.2')">_</button>
@@ -356566,6 +356566,7 @@ function syncAdapterFromStudioState() {
  */
 async function loadCampaignProjectPackage(rawPkg, options = {}) {
   if (!rawPkg) return;
+  try {
 
   const previousCamp = (typeof localStorage !== "undefined") ? localStorage.getItem("cs_active_campaign") : null;
   let campId = typeof rawPkg === "string" ? rawPkg : (rawPkg.id || rawPkg.campaignId || "");
@@ -356946,6 +356947,13 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
     }
   } catch(refreshErr) {
     console.error("[loadCampaignProjectPackage] Refresh warning:", refreshErr);
+  }
+  } catch (err) {
+    console.error("[StateAdapter] Failed to load campaign package:", err);
+    if (typeof resetWorkstationSlate === "function") {
+      await resetWorkstationSlate({ campaignId: "campaign_scratch", campaignName: "Blank Canvas", preserveStorage: false });
+    }
+    throw err;
   }
 }
 window.loadCampaignProjectPackage = loadCampaignProjectPackage;
@@ -362314,6 +362322,12 @@ function saveMapScaleDialog() {
       // 6. Reset state adapter globals & maps registry
       if (typeof nodes !== 'undefined') nodes = [];
       if (typeof links !== 'undefined') links = [];
+      if (typeof waves !== 'undefined') waves = [];
+      if (typeof drawnCards !== 'undefined') drawnCards = {};
+      if (typeof fogOfWarMode !== 'undefined') fogOfWarMode = false;
+      if (typeof CrossCampaignService !== 'undefined' && CrossCampaignService.loadedSources) {
+        CrossCampaignService.loadedSources = {};
+      }
       if (typeof nodeSlottedModules !== 'undefined') nodeSlottedModules = {};
       if (typeof edgeSlottedModules !== 'undefined') edgeSlottedModules = {};
       if (typeof revealedNodes !== 'undefined') revealedNodes = {};

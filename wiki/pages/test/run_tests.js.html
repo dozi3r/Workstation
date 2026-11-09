@@ -470,9 +470,9 @@
         <h1 class="article-title">run_tests.js</h1>
         <div class="article-subtitle">
           <span class="badge">Node.js / Browser Engine Script</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 64aebaec)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: b9e7d852)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (7)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (8)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>test/run_tests.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../index.html#vol-8">Volume VIII</a></td></tr>
     <tr><th>Surface Kind</th><td>Node.js / Browser Engine Script</td></tr>
-    <tr><th>File Metrics</th><td>10185 lines &bull; 501.1 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 64aebaec)</span></td></tr>
+    <tr><th>File Metrics</th><td>10377 lines &bull; 519.7 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: b9e7d852)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>22</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>7</strong> backlinks</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>8</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../test/run_tests.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -585,6 +585,15 @@
 <li>Validates Creature Inspector displaying <code>scientificOrArchaicName</code>, <code>immunities</code>, <code>harvestYields</code>, <code>domesticationProfile</code>, <code>relationalLinks</code>, and <code>roamingScope</code>.</li>
 <li>Validates Node Inspector Subtab 1 rendering Danger Rating (0-4), Node Category selector, Demographics Census & Faction Presence, Party Rapport stance, collapsible Node Lore reader, and Commodity Logistics summary.</li>
 </ul>
+<p>17. <strong>Suite 59: Campaign Settings, Live In-Place Renaming & CreatorStudio Event Bus (SYS-START-19)</strong>:</p>
+<ul class="wiki-list">
+<li>Validates template and modal DOM existence for <code>#modal-campaign-settings</code> and all metadata inputs.</li>
+<li>Validates <code>window.CreatorStudio</code> event bus pub/sub lifecycle (<code>on</code>, <code>off</code>, <code>emit</code>) with zero-throw error isolation.</li>
+<li>Validates arbitrary node mod-property preservation (<code>node.tarot_data</code>, <code>node.weather_state</code>) across <code>syncAdapterFromWorkstationTopology()</code>, <code>syncAdapterToWorkstationTopology()</code>, and <code>buildCampaignPackageFiles()</code>.</li>
+<li>Validates <code>applyCampaignSettings()</code> updating active topology metadata, document title, status bar, Property Grid, and IndexedDB library records, and emitting <code>campaignRenamed</code>.</li>
+<li>Validates <code>openCampaignSettingsModal()</code> pre-populating form controls accurately from active topology state.</li>
+<li>Validates <code>saveActiveCampaignAsNew()</code> hardening: updates campaign identity and root map name before syncing, preserves all entity collections in IndexedDB library records, and emits <code>campaignRenamed</code>.</li>
+</ul>
       <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">fs</span><span class="pill">path</span><span class="pill">vm</span><span class="pill">ROOT_DIR</span><span class="pill">ROOT</span><span class="pill">totalAssertions</span><span class="pill">passedAssertions</span><span class="pill">failedAssertions</span><span class="pill">failures</span><span class="pill">ENGINE_ROOT_ALIASES</span><span class="pill">suiteStartTime</span><span class="pill">HTML_SURFACES</span></div><h3>Declared Functions / Subroutines (60)</h3><div class="pill-list"><span class="pill">assert(condition, message)</span><span class="pill">assertEqual(actual, expected, message)</span><span class="pill">injectEngine(sandbox)</span><span class="pill">testStartHtmlRuntimeBoot()</span><span class="pill">testZeroCorsZip()</span><span class="pill">testSelectiveImporter()</span><span class="pill">testPortalCascadeDelete()</span><span class="pill">createTestEnvironment()</span><span class="pill">testZeroCorsOffline()</span><span class="pill">testCanvasLayersEngine()</span><span class="pill">testVectorDrawingShapesEngine()</span><span class="pill">testSelectionEngine()</span><span class="pill">testSharedPropertyGridAndBatchMutation()</span><span class="pill">testCampaignPackageLoadingAndMapSwitching()</span><span class="pill">testDynamicCampaignManager()</span><span class="pill">testModuleDeletionAndEntityExplorer()</span><span class="pill">mockEl(id)</span><span class="pill">testAdHocResourceFlowsAndCustomModules()</span><span class="pill">testOdvCampaignReflectionAndDenseMatrix()</span><span class="pill">testCadHistoryAndUndoRedo()</span><span class="pill">testThreatClocksAndHazardRoller()</span><span class="pill">testCrossScalePortalLogistics()</span><span class="pill">testQuantitativeResourceAccountingAndCorridorBandwidth()</span><span class="pill">testNativeMdiOdvMatrixAndFogControls()</span><span class="pill">testExtensibleWikiMentionsAndDemographics()</span><span class="pill">testWorkstationStabilizationAndEnhancementGate()</span><span class="pill">computeShapeFontSize(shape, availW, availH)</span><span class="pill">testPatrolFactionAndSettingAgnosticGate()</span><span class="pill">testCampaignIsolationAndSterileSlateGate()</span><span class="pill">testIndexedDbSeparationAndConcurrencyGate()</span><span class="pill">testEntityModulePackEngine()</span><span class="pill">makeMockEl(tag = 'div')</span><span class="pill">testEdgeExplorerAndConduitCatalog()</span><span class="pill">mockEl(id)</span><span class="pill">testSociologyReferenceHubAndHermeneutics()</span><span class="pill">testFirstClassFactionsEntityEngine()</span><span class="pill">testNpcSocialWebAndRelationalGraph()</span><span class="pill">testLocationNamesInStationedNodeColumns()</span><span class="pill">mockEl(id)</span><span class="pill">testTicketCenterEnhancements()</span><span class="pill">makeMockEl(tag = 'div')</span><span class="pill">mockEl(id, tag = 'div')</span><span class="pill">testMdiWindowResizingAndDockSplitters()</span><span class="pill">makeMockEl(tag = 'div', initialClass = '')</span><span class="pill">findChild(parent, predicate)</span><span class="pill">findAllChildren(parent, predicate, acc)</span><span class="pill">getOrMakeEl(id, tag = 'div', className = '')</span><span class="pill">testCampaignSelectorRichMetadataAndCensus()</span><span class="pill">makeMockEl(tag = 'div', initialClass = '')</span><span class="pill">getOrMakeEl(id, tag = 'div', className = '')</span><span class="pill">testAutoCadMapLayoutTabsAndGrouping()</span><span class="pill">makeMockEl(tag = 'div', initialClass = '')</span><span class="pill">testBackgroundMapResizingAndTransformPersistence()</span><span class="pill">makeMockEl(tag = 'div')</span><span class="pill">getOrMakeEl(id, tag = 'div')</span><span class="pill">testRelationalTrackersTicketWorkflowsAndSpatialPins()</span><span class="pill">testAuthoritativeReferenceClaimsAndGapsRemediation()</span><span class="pill">testMultiLinkSpatialPinsShapeGripsContextMenuAndGlobalSearch()</span><span class="pill">testTicket01QuestClockSchemaAndConsequences()</span><span class="pill">testTicket02CampaignMutationEngine()</span></div>
       <h2 id="outbound-links">Outbound References (22)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../pages/admin.html.html"><strong>admin.html</strong></a></td>
@@ -675,7 +684,7 @@
         <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
         <td>References start.html</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (7)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (8)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../pages/Test-Suite.ps1.html"><strong>Test-Suite.ps1</strong></a></td>
         <td><span class="badge badge-PowerShell Automation / Simulation Runner">Data Source</span></td>
         <td>Authoritative data source consumed by Test-Suite.ps1</td>
@@ -698,6 +707,10 @@
       </tr><tr>
         <td><a href="../../pages/docs/specs/CANVAS_POI_AND_CAD_AUTHORING_REDTEAM_PLAN.md.html"><strong>docs/specs/CANVAS_POI_AND_CAD_AUTHORING_REDTEAM_PLAN.md</strong></a></td>
         <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References test/run_tests.js</td>
+      </tr><tr>
+        <td><a href="../../pages/scratch/patch_test.js.html"><strong>scratch/patch_test.js</strong></a></td>
+        <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
         <td>References test/run_tests.js</td>
       </tr><tr>
         <td><a href="../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>

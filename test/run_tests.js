@@ -147,7 +147,7 @@ HTML_SURFACES.forEach(relPath => {
     value: ''
   });
   const bootSandbox = {
-    window: {},
+    window: {}, addEventListener: () => {}, removeEventListener: () => {},
     TextEncoder,
     TextDecoder,
     Uint8Array,
@@ -10193,6 +10193,104 @@ function testSuite59MutationInvariantOwnerAndQuestTrackerSync() {
   assertEqual(registry.map_sub.nodes[0].stationedNpcIds, [], 'Child map node scrubbed of deleted NPC');
   assertEqual(registry.map_sub.spatialPins[0].links, [], 'Child map pin links scrubbed of deleted NPC');
 }
+async function testSuite60CampaignSessionProjectionAndIsolation() {
+  console.log('\n--- Suite 60: Campaign-Session Projection & Lifecycle Isolation (Sprint 2) ---');
+  const stateCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/workstation_state.js'), 'utf8');
+  const stateAdapterCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/state_adapter.js'), 'utf8');
+  const zipCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/zip_engine.js'), 'utf8');
+  const mapStoreCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/map_store.js'), 'utf8');
+  const exportCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/campaign_exporter.js'), 'utf8');
+  const entityCoreCode = fs.readFileSync(path.join(ROOT, 'src/workstation/scripts/entity_core.js'), 'utf8');
+
+  const mockEl = () => ({
+    style: {},
+    dataset: {},
+    classList: { add: () => {}, remove: () => {}, toggle: () => {}, contains: () => false },
+    appendChild: () => {},
+    removeChild: () => {},
+    setAttribute: () => {},
+    getAttribute: () => '',
+    setAttributeNS: () => {},
+    addEventListener: () => {},
+    querySelector: () => mockEl(),
+    querySelectorAll: () => [],
+    innerHTML: '',
+    textContent: '',
+    remove: () => {}
+  });
+
+  const sandbox = {
+    window: {},
+    document: {
+      getElementById: () => mockEl(),
+      querySelector: () => mockEl(),
+      querySelectorAll: () => [],
+      createElement: () => mockEl(),
+      createElementNS: () => mockEl(),
+      body: mockEl()
+    },
+    localStorage: {
+      _data: {},
+      getItem(k) { return this._data[k] || null; },
+      setItem(k, v) { this._data[k] = String(v); },
+      removeItem(k) { delete this._data[k]; }
+    },
+    console,
+    setTimeout: (fn) => setTimeout(fn, 0),
+    clearTimeout: () => {},
+    Blob,
+    URL: { createObjectURL: () => '', revokeObjectURL: () => '' },
+    TextEncoder,
+    TextDecoder
+  };
+  sandbox.window = sandbox;
+  sandbox.globalThis = sandbox;
+  sandbox.addEventListener = () => {};
+  sandbox.removeEventListener = () => {};
+  injectEngine(sandbox);
+
+  vm.createContext(sandbox);
+  vm.runInContext(zipCode, sandbox);
+  vm.runInContext(mapStoreCode, sandbox);
+  vm.runInContext(stateAdapterCode, sandbox);
+  vm.runInContext(stateCode, sandbox);
+  vm.runInContext(exportCode, sandbox);
+  vm.runInContext(entityCoreCode, sandbox);
+
+  // 1. Sterile reset scrubs waves, drawnCards, fogOfWarMode and CrossCampaignService cache
+  vm.runInContext(`
+    waves = [{ id: "wave_1", name: "Invasion" }];
+    drawnCards = { card_1: true };
+    fogOfWarMode = true;
+    if (typeof CrossCampaignService !== "undefined") {
+      CrossCampaignService.loadedSources["camp_old"] = { id: "camp_old", npcs: [1,2,3] };
+    }
+    Workstation.history.undoStack.push({ snapshot: true });
+  `, sandbox);
+
+  await sandbox.resetWorkstationSlate({ campaignId: "campaign_scratch", campaignName: "Blank Canvas" });
+
+  assertEqual(vm.runInContext("waves", sandbox).length, 0, "resetWorkstationSlate empties waves array");
+  assertEqual(Object.keys(vm.runInContext("drawnCards", sandbox)).length, 0, "resetWorkstationSlate clears drawnCards object");
+  assertEqual(vm.runInContext("fogOfWarMode", sandbox), false, "resetWorkstationSlate turns off fogOfWarMode");
+  assertEqual(sandbox.Workstation.history.undoStack.length, 0, "resetWorkstationSlate wipes undo history");
+  assertEqual(Object.keys(sandbox.CrossCampaignService.loadedSources).length, 0, "resetWorkstationSlate clears CrossCampaignService cache");
+
+  // 2. Failed campaign package load safely rolls back to sterile slate
+  let loadFailed = false;
+  try {
+    await sandbox.loadCampaignProjectPackage({
+      id: "corrupted_camp",
+      name: "Corrupted",
+      get maps() { throw new Error("CORRUPT_ARCHIVE_DATA"); }
+    });
+  } catch (err) {
+    loadFailed = true;
+  }
+  assert(loadFailed, "Corrupted package load throws error");
+  assertEqual(sandbox.Workstation.activeTopology.id, "campaign_scratch", "Corrupted package load resets to sterile slate");
+  assertEqual(sandbox.Workstation.activeTopology.npcs.length, 0, "Corrupted package leaves zero orphaned NPCs");
+}
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -10256,6 +10354,7 @@ function testSuite59MutationInvariantOwnerAndQuestTrackerSync() {
     await testSuite57CrossCampaignExplorerAndTransplant();
     testSuite58MultiExplorerEnrichment();
     testSuite59MutationInvariantOwnerAndQuestTrackerSync();
+    await testSuite60CampaignSessionProjectionAndIsolation();
     require('./test_gigerenzer_heuristics.js')({ assert, assertEqual, ROOT });
 
     const elapsedMs = Date.now() - suiteStartTime;

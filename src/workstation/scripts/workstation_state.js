@@ -141,6 +141,12 @@
       // 6. Reset state adapter globals & maps registry
       if (typeof nodes !== 'undefined') nodes = [];
       if (typeof links !== 'undefined') links = [];
+      if (typeof waves !== 'undefined') waves = [];
+      if (typeof drawnCards !== 'undefined') drawnCards = {};
+      if (typeof fogOfWarMode !== 'undefined') fogOfWarMode = false;
+      if (typeof CrossCampaignService !== 'undefined' && CrossCampaignService.loadedSources) {
+        CrossCampaignService.loadedSources = {};
+      }
       if (typeof nodeSlottedModules !== 'undefined') nodeSlottedModules = {};
       if (typeof edgeSlottedModules !== 'undefined') edgeSlottedModules = {};
       if (typeof revealedNodes !== 'undefined') revealedNodes = {};
