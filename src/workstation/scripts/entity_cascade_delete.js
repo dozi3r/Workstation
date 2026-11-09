@@ -1294,14 +1294,19 @@
       if (typeof renderCanvas === 'function') renderCanvas();
       if (typeof updatePropertiesGrid === 'function') updatePropertiesGrid();
 
-      if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
-      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+      if (typeof refreshEntityManager === 'function') {
+        refreshEntityManager({ deletedEntityIds: allToDelete.map(e => e.id) });
+      } else {
+        if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
 
-      if (typeof SelectedEntityId !== 'undefined' && SelectedEntityId && allToDelete.some(e => String(e.id) === String(SelectedEntityId))) {
-        SelectedEntityId = null;
-        const pane = document.getElementById('em-detail-pane');
-        if (pane) {
-          pane.innerHTML = '<div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Entity deleted. Select another entity to inspect, edit, or station to a node.</div>';
+        if (typeof SelectedEntityId !== 'undefined' && SelectedEntityId && allToDelete.some(e => String(e.id) === String(SelectedEntityId))) {
+          SelectedEntityId = null;
+          if (typeof window !== 'undefined' && window.SelectedEntityId !== undefined) window.SelectedEntityId = null;
+          const pane = document.getElementById('em-detail-pane');
+          if (pane) {
+            pane.innerHTML = '<div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Entity deleted. Select another entity to inspect, edit, or station to a node.</div>';
+          }
         }
       }
 

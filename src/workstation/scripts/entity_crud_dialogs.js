@@ -232,9 +232,13 @@
         saveActiveCampaign();
         renderCanvas();
         updatePropertiesGrid();
-        renderEntityManagerTree();
-        renderEntityManagerList();
-        selectEntityItem(nextId, false);
+        if (typeof refreshEntityManager === 'function') {
+          refreshEntityManager({ selectId: nextId });
+        } else {
+          renderEntityManagerTree();
+          renderEntityManagerList();
+          selectEntityItem(nextId, false);
+        }
         setStatusBarMessage(`Added Node ${nextId}: "${name}".`);
         return;
       }
@@ -1070,8 +1074,12 @@
       closeModal('modal-entity-edit');
       renderCanvas();
       updatePropertiesGrid();
-      renderEntityManagerTree();
-      renderEntityManagerList();
+      if (typeof refreshEntityManager === 'function') {
+        refreshEntityManager();
+      } else {
+        renderEntityManagerTree();
+        renderEntityManagerList();
+      }
       setStatusBarMessage(`Saved ${type.toUpperCase()}: "${name}".`);
     }
 
@@ -1166,9 +1174,13 @@
       const pairKey = [String(srcId), String(tgtId)].sort().join('-');
       const canonicalKey = (edgeType === 'hegemony') ? `${srcId}->${tgtId}` : pairKey;
 
-      if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
-      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
-      if (typeof selectEntityItem === 'function') selectEntityItem(canonicalKey, false);
+      if (typeof refreshEntityManager === 'function') {
+        refreshEntityManager({ selectId: canonicalKey });
+      } else {
+        if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+        if (typeof selectEntityItem === 'function') selectEntityItem(canonicalKey, false);
+      }
       setStatusBarMessage(`Connected ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'} between Node ${srcId} and Node ${tgtId}.`);
     }
     window.submitCreateEdgeModal = submitCreateEdgeModal;
@@ -1618,9 +1630,13 @@
 
       closeTransplantPackageModal();
 
-      if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
-      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
-      if (typeof selectEntityItem === 'function') selectEntityItem(primaryClone.id);
+      if (typeof refreshEntityManager === 'function') {
+        refreshEntityManager({ selectId: primaryClone.id });
+      } else {
+        if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+        if (typeof selectEntityItem === 'function') selectEntityItem(primaryClone.id);
+      }
     }
     window.executeTransplantPackage = executeTransplantPackage;
 

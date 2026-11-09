@@ -147,6 +147,14 @@
       if (typeof CrossCampaignService !== 'undefined' && CrossCampaignService.loadedSources) {
         CrossCampaignService.loadedSources = {};
       }
+      if (typeof SelectedEntityId !== 'undefined') SelectedEntityId = null;
+      if (typeof window !== 'undefined' && window.SelectedEntityId !== undefined) window.SelectedEntityId = null;
+      if (typeof SelectedEntityFilter !== 'undefined') SelectedEntityFilter = 'all';
+      if (typeof window !== 'undefined' && window.SelectedEntityFilter !== undefined) window.SelectedEntityFilter = 'all';
+      if (typeof document !== 'undefined') {
+        const emPane = document.getElementById('em-detail-pane');
+        if (emPane) emPane.innerHTML = '<div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Select an item to inspect, edit, or station to a node.</div>';
+      }
       if (typeof nodeSlottedModules !== 'undefined') nodeSlottedModules = {};
       if (typeof edgeSlottedModules !== 'undefined') edgeSlottedModules = {};
       if (typeof revealedNodes !== 'undefined') revealedNodes = {};

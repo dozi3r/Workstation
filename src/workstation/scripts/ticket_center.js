@@ -828,9 +828,13 @@
       setStatusBarMessage(`Updated ticket ${id}: "${title}".`);
       renderTicketList();
       selectTicket(id, sourceTab);
-      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
-      if (typeof SelectedEntityId !== 'undefined' && SelectedEntityId && typeof selectEntityItem === 'function') {
-        selectEntityItem(SelectedEntityId, false);
+      if (typeof refreshEntityManager === 'function') {
+        refreshEntityManager({ preserveDetail: true });
+      } else {
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+        if (typeof SelectedEntityId !== 'undefined' && SelectedEntityId && typeof selectEntityItem === 'function') {
+          selectEntityItem(SelectedEntityId, false);
+        }
       }
     }
     window.saveEditedCampaignTicket = saveEditedCampaignTicket;

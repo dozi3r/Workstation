@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_manager_ui.js"
 title: "entity_manager_ui.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "bfd891560e5c8816"
-reviewed_hash: "bfd891560e5c8816"
+current_hash: "ec78ab070c2cefc9"
+reviewed_hash: "ec78ab070c2cefc9"
 stale: false
-size_bytes: 293519
-line_count: 4793
+size_bytes: 297039
+line_count: 4871
 ---
 
 # entity_manager_ui.js
@@ -24,7 +24,7 @@ line_count: 4793
 - **Hierarchical Classification Tree**: Builds and updates the categorized left sidebar tree (`renderEntityManagerTree`, `addTreeItem`), grouping entities by module, station node, cultural quadrant, threat level, or tier.
 - **Filterable Entity Roster Table**: Generates the central multi-column tabular ledger (`renderEntityManagerList`, `renderMiniClockGauge`) displaying status tags, ownership indicators, station nodes, and archetype badges.
 - **Comprehensive Entity Inspector**: Implements the in-depth right inspector pane (`selectEntityItem`), providing editable fields, ODV coordinate readouts, relationship tables, quest step progression lists, item inventory links, and clock gauge controllers.
-- **Deep-Link Entity Navigation**: Exposes `navigateToEntity(type, id)` to programmatically transition workstation focus from canvas nodes or HUD badges directly into the specific entity inspector.
+- **Deep-Link Entity Navigation & Unified Seams (Sprint 3)**: Exposes `refreshEntityManager(options)` as the single high-level reconciliation seam handling tab switches, filter resets, cascade-delete reconciliation, and detail persistence. `navigateToEntity(type, id, optMapId)` normalizes entity types, resets filters to prevent item hiding, opens MDI chrome when closed, and coordinates nested-map entity inspection while preserving `property_grid_inspector.js` authority for node/edge property tables.
 - Gigerenzer suite (ADR 0024): NPC and faction panes render the heuristic badge and decision-tree dossier; Edge Explorer shows a natural-frequency summary under hazard risk.
 - **Multi-Campaign Sources Popover & External Entity Staging**: Features `#em-btn-sources` and `#em-sources-popover` (`toggleEntitySourcesPopover`, `renderEntitySourcesPopover`) letting authors toggle external campaigns on-demand or ingest local `.json`/folder packages. Renders `[EXTERNAL CAMPAIGNS]` folder nodes in the classification tree (`appendExternalCampaignsTreeSection`), adds `[Ext: <Campaign>]` badges and `+ Import` transplant actions in the central table (`renderEntityManagerList`), and mounts source-aware inspect viewports (`selectEntityItem`) resolving relational seams from `externalSourcePool` with read-only badges and transplant packaging triggers.
 - **Multi-Explorer Enrichment & Narrative Depth**:

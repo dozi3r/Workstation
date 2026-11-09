@@ -4435,7 +4435,7 @@ async function testEdgeExplorerAndConduitCatalog() {
           contains(c) { return this.classes.has(c); },
           toggle(c, force) { if (force !== undefined) { force ? this.add(c) : this.remove(c); } else { this.contains(c) ? this.remove(c) : this.add(c); } }
         },
-        appendChild(c) { this.children.push(c); },
+        appendChild(c) { this.children.push(c); }, setAttribute() {}, setAttributeNS() {}, removeAttributeNS() {}, removeAttribute() {}, getAttribute() { return null; },
         querySelectorAll: () => [],
         querySelector: () => null,
         addEventListener: () => {},
@@ -10291,6 +10291,137 @@ async function testSuite60CampaignSessionProjectionAndIsolation() {
   assertEqual(sandbox.Workstation.activeTopology.id, "campaign_scratch", "Corrupted package load resets to sterile slate");
   assertEqual(sandbox.Workstation.activeTopology.npcs.length, 0, "Corrupted package leaves zero orphaned NPCs");
 }
+
+async function testSuite61RosterNavigatorAndEntityManagerSeams() {
+  console.log('\n--> SUITE 61: Roster Navigator & Entity Manager Seams (Sprint 3)...');
+
+  const scriptsDir = path.join(ROOT, 'src', 'workstation', 'scripts');
+  const entityCoreSrc = fs.readFileSync(path.join(scriptsDir, 'entity_core.js'), 'utf8');
+  const entityUiSrc = fs.readFileSync(path.join(scriptsDir, 'entity_manager_ui.js'), 'utf8');
+  const cascadeDeleteSrc = fs.readFileSync(path.join(scriptsDir, 'entity_cascade_delete.js'), 'utf8');
+  const stateSrc = fs.readFileSync(path.join(scriptsDir, 'workstation_state.js'), 'utf8');
+
+  const mockDom = {
+    _elements: {},
+    getElementById(id) {
+      if (!this._elements[id]) {
+        this._elements[id] = {
+          id,
+          style: { display: 'block' },
+          classList: {
+            _classes: new Set(),
+            add(c) { this._classes.add(c); },
+            remove(c) { this._classes.delete(c); },
+            contains(c) { return this._classes.has(c); }
+          },
+          innerHTML: '',
+          textContent: '',
+          value: '',
+          children: [],
+          appendChild(c) { this.children.push(c); },
+          querySelectorAll() { return []; }, setAttribute() {}, setAttributeNS() {}, removeAttributeNS() {}, removeAttribute() {}, getAttribute() { return null; }
+        };
+      }
+      return this._elements[id];
+    },
+    querySelectorAll() { return []; },
+    createElement(tag) {
+      return {
+        tagName: tag,
+        style: {},
+        classList: {
+          _classes: new Set(),
+          add(c) { this._classes.add(c); },
+          remove(c) { this._classes.delete(c); },
+          contains(c) { return this._classes.has(c); }
+        },
+        innerHTML: '',
+        textContent: '',
+        children: [],
+        appendChild(c) { this.children.push(c); }
+      };
+    }
+  };
+
+  const sandbox = {
+    console: { log: () => {}, warn: () => {}, error: () => {} },
+    setTimeout: (fn) => fn(),
+    clearTimeout: () => {},
+    localStorage: {
+      _store: {},
+      getItem(k) { return this._store[k] !== undefined ? this._store[k] : null; },
+      setItem(k, v) { this._store[k] = String(v); },
+      removeItem(k) { delete this._store[k]; },
+      clear() { this._store = {}; }
+    },
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    document: mockDom,
+    Workstation: {
+      activeTopology: {
+        id: 'test_camp',
+        name: 'Test Campaign',
+        nodes: {
+          '1': { id: '1', name: 'Start Castle', x: 0, y: 0, adj: ['2'] },
+          '2': { id: '2', name: 'Dark Cave', x: 100, y: 100, adj: ['1'] }
+        },
+        links: [{ source: '1', target: '2', edgeType: 'road' }],
+        npcs: [
+          { id: 'npc_1', name: 'Sir Galahad', nodeId: '1' }
+        ],
+        quests: [],
+        items: [],
+        trackers: [],
+        factions: [],
+        creatures: [],
+        resources: []
+      },
+      registeredMods: {},
+      history: { undoStack: [], redoStack: [] },
+      zoom: 1.0,
+      pan: { x: 0, y: 0 }
+    },
+    MDIWindowManager: {
+      open: () => {},
+      close: () => {},
+      bringToFront: () => {}
+    }
+  };
+  sandbox.window = sandbox;
+  sandbox.globalThis = sandbox;
+  injectEngine(sandbox);
+
+  vm.createContext(sandbox);
+  vm.runInContext(entityCoreSrc, sandbox);
+  vm.runInContext(entityUiSrc, sandbox);
+  vm.runInContext(cascadeDeleteSrc, sandbox);
+  vm.runInContext(stateSrc, sandbox);
+
+  // 1. refreshEntityManager is exported on window and handles options
+  assert(typeof sandbox.refreshEntityManager === 'function', 'refreshEntityManager is exported on window');
+  sandbox.refreshEntityManager({ tab: 'npc', filter: 'all' });
+  assertEqual(sandbox.CurrentEntityTab, 'npc', 'refreshEntityManager normalizes tab to npc');
+
+  // 2. navigateToEntity normalizes tab, clears filter, and selects entity
+  sandbox.SelectedEntityFilter = 'node:2';
+  sandbox.navigateToEntity('npc', 'npc_1');
+  assertEqual(sandbox.CurrentEntityTab, 'npc', 'navigateToEntity normalizes tab to npc');
+  assertEqual(sandbox.SelectedEntityFilter, 'all', 'navigateToEntity resets filter to all');
+  assertEqual(sandbox.SelectedEntityId, 'npc_1', 'navigateToEntity selects targeted entity');
+
+  // 3. Cascade deletion reconciles roster navigator selection and clears detail pane
+  assert(sandbox.SelectedEntityId === 'npc_1', 'npc_1 is currently selected');
+  sandbox.refreshEntityManager({ deletedEntityIds: ['npc_1'] });
+  assertEqual(sandbox.SelectedEntityId, null, 'refreshEntityManager with deletedEntityIds clears SelectedEntityId');
+  assert(mockDom.getElementById('em-detail-pane').innerHTML.includes('Entity deleted'), 'Detail pane displays deleted notification');
+
+  // 4. Sterile reset clears SelectedEntityId and resets detail pane
+  sandbox.SelectedEntityId = 'stale_external_npc';
+  await sandbox.resetWorkstationSlate({ campaignId: 'new_clean_slate', campaignName: 'Clean' });
+  assertEqual(sandbox.SelectedEntityId, null, 'resetWorkstationSlate wipes SelectedEntityId to prevent session bleed');
+  assert(mockDom.getElementById('em-detail-pane').innerHTML.includes('Select an item'), 'resetWorkstationSlate resets detail pane to placeholder');
+}
+
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
 (async function runAll() {
@@ -10355,6 +10486,7 @@ async function testSuite60CampaignSessionProjectionAndIsolation() {
     testSuite58MultiExplorerEnrichment();
     testSuite59MutationInvariantOwnerAndQuestTrackerSync();
     await testSuite60CampaignSessionProjectionAndIsolation();
+    await testSuite61RosterNavigatorAndEntityManagerSeams();
     require('./test_gigerenzer_heuristics.js')({ assert, assertEqual, ROOT });
 
     const elapsedMs = Date.now() - suiteStartTime;

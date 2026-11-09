@@ -470,9 +470,9 @@
         <h1 class="article-title">entity_crud_dialogs.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: a15ae6ac)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 46182b53)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (6)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (7)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/entity_crud_dialogs.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1110 lines &bull; 62.7 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: a15ae6ac)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>10</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>6</strong> backlinks</td></tr>
+    <tr><th>File Metrics</th><td>1650 lines &bull; 89.6 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 46182b53)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>13</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>7</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/entity_crud_dialogs.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -507,14 +507,16 @@
 <h3>Key Capabilities</h3>
 <ul class="wiki-list">
 <li><strong>Multi-Node Quest Spanning Engine</strong>: Computes and previews the topological footprint of narrative quests across pointcrawl nodes (<code>getQuestSpanningNodes</code>, <code>updateQuestSpanningPreview</code>), identifying anchor stations, objective nodes, and referenced character/item locations.</li>
+<li><strong>Quest Semantic Giver & Target Assignment</strong>: Powers <code>#ee-quest-giver</code> and <code>#ee-quest-target</code> selectors, binding origin and target NPCs to <code>quest.giverNpcId</code> and <code>quest.targetNpcId</code>, deduplicating them into <code>quest.npcIds</code>, and including them in topological footprint calculations (<code>updateQuestSpanningPreview</code>).</li>
 <li><strong>Custom Entity Authoring Dialog</strong>: Powers the New Entity creation modal (<code>openNewEntityModal</code>), pre-populating fields based on the active entity tab and auto-suggesting stationing candidates.</li>
 <li><strong>Entity Edit Controller</strong>: Handles in-flight modification of existing campaign entities (<code>openEditEntityModal</code>), populating existing traits, descriptions, requirements, and reward structures.</li>
 <li><strong>Bestiary Creature Authoring</strong>: Powers <code>#ee-creature-extensions</code> in <code>openNewEntityModal('creature')</code> and <code>openEditEntityModal</code>, configuring kind, breed/subtype, body size, threat tier 0-5, dread index 1-10, dread effect, roaming scope, and 6 relative capabilities.</li>
 <li><strong>Tactical & Behavior Initialization</strong>: In <code>saveCustomEntity()</code>, generates slugified IDs (<code>creature_<slug></code>), synthesizes initial Fast-and-Frugal Trees (<code>fastAndFrugalTree</code>), sets up senses, defenses, and locomotion matrices, and stations the creature to active node lairs.</li>
 <li><strong>Persistence & Canvas Synchronization</strong>: Validates and commits created/updated entities to the active campaign topology (<code>saveCustomEntity</code>), triggering canvas HUD refreshes, properties grid updates, and notification status messages.</li>
+<li><strong>Transplant Package Wizard & Foreign-Key Rewriter (<code>TransplantService</code>)</strong>: Implements <code>analyzeTransplantDependencies</code>, <code>openTransplantPackageModal</code>, <code>closeTransplantPackageModal</code>, <code>updateTransplantDepRow</code>, and <code>executeTransplantPackage</code>. Analyzes all outbound dependencies (quest giver/target NPCs, associated cast, relics, threat clocks, step triggers, faction leaders, social web ties), presents interactive 3-way dependency actions (<code>copy</code>, <code>reassign</code>, <code>omit</code>), handles ID conflict strategies (<code>auto_unique</code>, <code>overwrite_if_exists</code>, <code>preserve_strict</code>), rewrites all relational foreign keys, assigns target stationing, and commits the imported package cleanly into the active campaign.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (8)</h3><div class="pill-list"><span class="pill">getQuestSpanningNodes(quest)</span><span class="pill">resolveNodeInfo(nodeId)</span><span class="pill">updateQuestSpanningPreview()</span><span class="pill">openNewEntityModal(type, preselectedNodeId)</span><span class="pill">openEditEntityModal(entityId)</span><span class="pill">saveCustomEntity()</span><span class="pill">openCreateEdgeModal(defaultSrcId = null, defaultTgtId = null, defaultType = 'road')</span><span class="pill">submitCreateEdgeModal()</span></div>
-      <h2 id="outbound-links">Outbound References (10)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (16)</h3><div class="pill-list"><span class="pill">getQuestSpanningNodes(quest)</span><span class="pill">resolveNodeInfo(nodeId)</span><span class="pill">updateQuestSpanningPreview()</span><span class="pill">openNewEntityModal(type, preselectedNodeId)</span><span class="pill">openEditEntityModal(entityId)</span><span class="pill">saveCustomEntity()</span><span class="pill">openCreateEdgeModal(defaultSrcId = null, defaultTgtId = null, defaultType = 'road')</span><span class="pill">submitCreateEdgeModal()</span><span class="pill">getActiveCollectionForType(type, topo)</span><span class="pill">ensureUniqueEntityId(desiredId, existingList)</span><span class="pill">analyzeTransplantDependencies(entity, entityType, sourcePool)</span><span class="pill">addDep(depEntity, type, role)</span><span class="pill">openTransplantPackageModal(externalKey, explicitType)</span><span class="pill">closeTransplantPackageModal()</span><span class="pill">updateTransplantDepRow(selectEl, idx)</span><span class="pill">executeTransplantPackage()</span></div>
+      <h2 id="outbound-links">Outbound References (13)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
@@ -539,9 +541,21 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes createEdge() defined in cad_interaction.js</td>
       </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/zip_engine.js.html"><strong>src/workstation/scripts/zip_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes escapeHtml() defined in zip_engine.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/campaign_mutation_engine.js.html"><strong>src/workstation/scripts/campaign_mutation_engine.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes upsertEntity() defined in campaign_mutation_engine.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/ticket_center.js.html"><strong>src/workstation/scripts/ticket_center.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes escapeJsArg() defined in ticket_center.js</td>
+      </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/entity_manager_ui.js.html"><strong>src/workstation/scripts/entity_manager_ui.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes renderEntityManagerTree() defined in entity_manager_ui.js</td>
+        <td>Invokes refreshEntityManager() defined in entity_manager_ui.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/mdi_window_manager.js.html"><strong>src/workstation/scripts/mdi_window_manager.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
@@ -555,10 +569,14 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes saveActiveCampaign() defined in workstation_state.js</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (6)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (7)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
         <td><span class="badge badge-Series">Series Component</span></td>
         <td>Core file analyzed in Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</td>
+      </tr><tr>
+        <td><a href="../../../../pages/src/workstation/scripts/entity_cascade_delete.js.html"><strong>src/workstation/scripts/entity_cascade_delete.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
+        <td>Invokes addDep() defined in entity_crud_dialogs.js</td>
       </tr><tr>
         <td><a href="../../../../pages/build_suite.js.html"><strong>build_suite.js</strong></a></td>
         <td><span class="badge badge-Node.js / Browser Engine Script">Bundles Source</span></td>

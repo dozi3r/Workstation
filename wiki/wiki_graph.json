@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T01:31:56.168Z",
+  "generatedAt": "2026-11-09T01:40:12.311Z",
   "totalFiles": 672,
   "totalSeries": 7,
   "totalBidirectionalEdges": 3651,
@@ -48630,10 +48630,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "b4b38641254986f7",
-      "reviewedHash": "b4b38641254986f7",
-      "lineCount": 1315,
-      "sizeBytes": 62351,
+      "hash": "fdb831b2c24fb750",
+      "reviewedHash": "fdb831b2c24fb750",
+      "lineCount": 1320,
+      "sizeBytes": 62646,
       "symbols": [
         "getEntityIcon(type)",
         "analyzeEntityDependencies(targetType, targetId)",
@@ -49080,10 +49080,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "bc66713ee59e28dc",
-      "reviewedHash": "bc66713ee59e28dc",
-      "lineCount": 1634,
-      "sizeBytes": 91157,
+      "hash": "46182b53d51c690d",
+      "reviewedHash": "46182b53d51c690d",
+      "lineCount": 1650,
+      "sizeBytes": 91722,
       "symbols": [
         "getQuestSpanningNodes(quest)",
         "resolveNodeInfo(nodeId)",
@@ -49164,7 +49164,7 @@
           "target": "src/workstation/scripts/entity_manager_ui.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes renderEntityManagerTree() defined in entity_manager_ui.js"
+          "reason": "Invokes refreshEntityManager() defined in entity_manager_ui.js"
         },
         {
           "target": "src/workstation/scripts/mdi_window_manager.js",
@@ -49236,10 +49236,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "bfd891560e5c8816",
-      "reviewedHash": "bfd891560e5c8816",
-      "lineCount": 4793,
-      "sizeBytes": 293519,
+      "hash": "ec78ab070c2cefc9",
+      "reviewedHash": "ec78ab070c2cefc9",
+      "lineCount": 4871,
+      "sizeBytes": 297039,
       "symbols": [
         "escapeHtml(str)",
         "getEdgeDisplayInfo(edge)",
@@ -49257,6 +49257,7 @@
         "getEntityEffectiveNodeId(e, type)",
         "openEntityManager(type, selectEntityId)",
         "switchEntityManagerTab(type)",
+        "refreshEntityManager(options = {})",
         "updateEntityTabButtons()",
         "toggleEntitySourcesPopover(ev)",
         "closeEntitySourcesPopover()",
@@ -49288,7 +49289,7 @@
         "highlightFactionTerritoryOnCanvas(facId)",
         "updateCreatureRoamingScope(creatureId, val)",
         "selectEntityItem(id, isProto, optMapId = null)",
-        "navigateToEntity(type, id)",
+        "navigateToEntity(type, id, optMapId = null)",
         "updateFactionStance(sourceId, targetId, stance)"
       ],
       "globals": [],
@@ -49481,7 +49482,7 @@
           "source": "src/workstation/scripts/entity_crud_dialogs.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes renderEntityManagerTree() defined in entity_manager_ui.js"
+          "reason": "Invokes refreshEntityManager() defined in entity_manager_ui.js"
         },
         {
           "source": "build_suite.js",
@@ -52657,10 +52658,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "759091f89de7b80f",
-      "reviewedHash": "759091f89de7b80f",
-      "lineCount": 1077,
-      "sizeBytes": 54042,
+      "hash": "22c89176f36b8288",
+      "reviewedHash": "22c89176f36b8288",
+      "lineCount": 1081,
+      "sizeBytes": 54185,
       "symbols": [
         "escapeHtml(str)",
         "escapeJsArg(str)",
@@ -53009,10 +53010,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "b0d945eb264ed41b",
-      "reviewedHash": "b0d945eb264ed41b",
-      "lineCount": 1899,
-      "sizeBytes": 95790,
+      "hash": "e56fc90a03c7d1f7",
+      "reviewedHash": "e56fc90a03c7d1f7",
+      "lineCount": 1907,
+      "sizeBytes": 96487,
       "symbols": [
         "ensureBuiltinModulesBaseline()",
         "createSterileTopology(options = {})",
@@ -54266,10 +54267,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "e88082b9fd36d7a0",
-      "reviewedHash": "e88082b9fd36d7a0",
-      "lineCount": 398210,
-      "sizeBytes": 41134267,
+      "hash": "2001a3309e9a021a",
+      "reviewedHash": "2001a3309e9a021a",
+      "lineCount": 398321,
+      "sizeBytes": 41139487,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
         "normalizeOdv(raw)",
@@ -57134,10 +57135,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "b9e7d852911e5688",
-      "reviewedHash": "b9e7d852911e5688",
-      "lineCount": 10377,
-      "sizeBytes": 532148,
+      "hash": "04d39047368436f2",
+      "reviewedHash": "04d39047368436f2",
+      "lineCount": 10509,
+      "sizeBytes": 537513,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -60720,6 +60721,12 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "refreshEntityManager",
+      "signature": "refreshEntityManager(options = {})",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "updateEntityTabButtons",
       "signature": "updateEntityTabButtons()",
       "file": "src/workstation/scripts/entity_manager_ui.js",
@@ -60907,7 +60914,7 @@
     },
     {
       "name": "navigateToEntity",
-      "signature": "navigateToEntity(type, id)",
+      "signature": "navigateToEntity(type, id, optMapId = null)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
       "kind": "Workstation Modular JS Engine"
     },

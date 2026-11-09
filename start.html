@@ -2106,7 +2106,7 @@ CRITICAL INSTRUCTION:
       <div class="title-bar-text">
         <span style="display:inline-block; width:12px; height:12px; background:#fff; border:1px solid #000; text-align:center; line-height:10px; font-size:8px; color:#000;">CS</span>
         <span>Creator Studio - Pointcrawl Authoring Workstation</span>
-        <span id="ws-build-stamp-badge" data-build-time="2026-11-09 01:31 UTC" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: 2026-11-09 01:31 UTC]</span>
+        <span id="ws-build-stamp-badge" data-build-time="2026-11-09 01:40 UTC" style="margin-left:8px; font-size:10px; font-weight:normal; color:#e2e8f0; background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:2px; border:1px solid rgba(255,255,255,0.2);" title="Active Folder &amp; Compiled Build Timestamp">v2.5 [Built: 2026-11-09 01:40 UTC]</span>
       </div>
       <div class="title-bar-controls">
         <button class="win-btn" onclick="alert('Creator Studio Desktop Workstation v1.2')">_</button>
@@ -362328,6 +362328,14 @@ function saveMapScaleDialog() {
       if (typeof CrossCampaignService !== 'undefined' && CrossCampaignService.loadedSources) {
         CrossCampaignService.loadedSources = {};
       }
+      if (typeof SelectedEntityId !== 'undefined') SelectedEntityId = null;
+      if (typeof window !== 'undefined' && window.SelectedEntityId !== undefined) window.SelectedEntityId = null;
+      if (typeof SelectedEntityFilter !== 'undefined') SelectedEntityFilter = 'all';
+      if (typeof window !== 'undefined' && window.SelectedEntityFilter !== undefined) window.SelectedEntityFilter = 'all';
+      if (typeof document !== 'undefined') {
+        const emPane = document.getElementById('em-detail-pane');
+        if (emPane) emPane.innerHTML = '<div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Select an item to inspect, edit, or station to a node.</div>';
+      }
       if (typeof nodeSlottedModules !== 'undefined') nodeSlottedModules = {};
       if (typeof edgeSlottedModules !== 'undefined') edgeSlottedModules = {};
       if (typeof revealedNodes !== 'undefined') revealedNodes = {};
@@ -379967,7 +379975,9 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
       CurrentEntityTab = normalizeEntityType(type);
       if (typeof window !== 'undefined') window.CurrentEntityTab = CurrentEntityTab;
       SelectedEntityId = selectEntityId || null;
+      if (typeof window !== 'undefined') window.SelectedEntityId = SelectedEntityId;
       SelectedEntityFilter = 'all';
+      if (typeof window !== 'undefined') window.SelectedEntityFilter = SelectedEntityFilter;
 
       MDIWindowManager.open('modal-entity-manager');
       if (typeof initWorkspaceSplitters === 'function') {
@@ -379987,13 +379997,74 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
       CurrentEntityTab = normalizeEntityType(type);
       if (typeof window !== 'undefined') window.CurrentEntityTab = CurrentEntityTab;
       SelectedEntityId = null;
+      if (typeof window !== 'undefined') window.SelectedEntityId = null;
       SelectedEntityFilter = 'all';
       if (typeof window !== 'undefined') window.SelectedEntityFilter = SelectedEntityFilter;
       updateEntityTabButtons();
       renderEntityManagerTree();
       renderEntityManagerList();
-      document.getElementById('em-detail-pane').innerHTML = '<div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Select an item to inspect, edit, or station to a node.</div>';
+      const emPane = document.getElementById('em-detail-pane');
+      if (emPane) emPane.innerHTML = '<div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Select an item to inspect, edit, or station to a node.</div>';
     }
+
+    function refreshEntityManager(options = {}) {
+      if (typeof options === 'string') {
+        options = { tab: options };
+      }
+      const {
+        tab,
+        selectId,
+        filter,
+        preserveDetail = true,
+        deletedEntityIds = [],
+        clearSelection = false
+      } = options;
+
+      if (tab) {
+        CurrentEntityTab = normalizeEntityType(tab);
+        if (typeof window !== 'undefined') window.CurrentEntityTab = CurrentEntityTab;
+        updateEntityTabButtons();
+      }
+
+      if (filter !== undefined) {
+        SelectedEntityFilter = filter;
+        if (typeof window !== 'undefined') window.SelectedEntityFilter = SelectedEntityFilter;
+      }
+
+      if (clearSelection) {
+        SelectedEntityId = null;
+        if (typeof window !== 'undefined') window.SelectedEntityId = null;
+        const pane = document.getElementById('em-detail-pane');
+        if (pane) {
+          pane.innerHTML = '<div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Select an item to inspect, edit, or station to a node.</div>';
+        }
+      } else if (Array.isArray(deletedEntityIds) && deletedEntityIds.length > 0) {
+        if (SelectedEntityId && deletedEntityIds.some(d => String(d) === String(SelectedEntityId))) {
+          SelectedEntityId = null;
+          if (typeof window !== 'undefined') window.SelectedEntityId = null;
+          const pane = document.getElementById('em-detail-pane');
+          if (pane) {
+            pane.innerHTML = '<div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Entity deleted. Select another entity to inspect, edit, or station to a node.</div>';
+          }
+        }
+      }
+
+      renderEntityManagerTree();
+      renderEntityManagerList();
+
+      if (selectId) {
+        selectEntityItem(selectId);
+      } else if (SelectedEntityId && preserveDetail) {
+        const activeList = getActiveEntityList(CurrentEntityTab);
+        const protoList = getPrototypesForType(CurrentEntityTab);
+        const exists = (activeList && activeList.some(e => String(e.id) === String(SelectedEntityId))) ||
+                       (protoList && protoList.some(p => String(p.id) === String(SelectedEntityId)));
+        if (exists) {
+          selectEntityItem(SelectedEntityId);
+        }
+      }
+    }
+    window.refreshEntityManager = refreshEntityManager;
 
     function updateEntityTabButtons() {
       ['npc', 'quest', 'item', 'resource', 'creature', 'tracker', 'faction', 'node', 'edge'].forEach(t => {
@@ -380018,10 +380089,11 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
         'edge': 'EM Edge Explorer - Spatial Corridors & Conduits'
       };
       const newTitle = titleMap[CurrentEntityTab] || 'Campaign Entity Manager';
-      document.getElementById('em-dialog-title').textContent = newTitle;
-      if (MDIWindowManager.windows['modal-entity-manager']) {
+      const titleEl = document.getElementById('em-dialog-title');
+      if (titleEl) titleEl.textContent = newTitle;
+      if (typeof MDIWindowManager !== 'undefined' && MDIWindowManager.windows && MDIWindowManager.windows['modal-entity-manager']) {
         MDIWindowManager.windows['modal-entity-manager'].title = newTitle;
-        MDIWindowManager.renderTaskbar();
+        if (typeof MDIWindowManager.renderTaskbar === 'function') MDIWindowManager.renderTaskbar();
       }
 
       const btnNew = document.getElementById('em-btn-new-entity');
@@ -381800,6 +381872,7 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
     // --- Entity Detail & Property Inspector ---
     function selectEntityItem(id, isProto, optMapId = null) {
       SelectedEntityId = id;
+      if (typeof window !== 'undefined') window.SelectedEntityId = SelectedEntityId;
       const pane = document.getElementById('em-detail-pane');
       let topo = Workstation.activeTopology;
       const curMapId = (typeof activeMapId !== "undefined") ? activeMapId : "map_root";
@@ -384164,15 +384237,28 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
 
 
     // --- Navigation & Cross-Linking ---
-    function navigateToEntity(type, id) {
-      if (document.getElementById('modal-entity-manager') && document.getElementById('modal-entity-manager').style.display !== 'none') {
-        CurrentEntityTab = type;
-        updateEntityTabButtons();
-        renderEntityManagerTree();
-        renderEntityManagerList();
-        selectEntityItem(id);
-      } else {
-        openEntityManager(type, id);
+    function navigateToEntity(type, id, optMapId = null) {
+      const normType = normalizeEntityType(type);
+      CurrentEntityTab = normType;
+      if (typeof window !== 'undefined') window.CurrentEntityTab = CurrentEntityTab;
+      SelectedEntityFilter = 'all';
+      if (typeof window !== 'undefined') window.SelectedEntityFilter = SelectedEntityFilter;
+
+      const modal = (typeof document !== 'undefined') ? document.getElementById('modal-entity-manager') : null;
+      const isOpen = modal && modal.style.display !== 'none';
+      if (!isOpen) {
+        if (typeof MDIWindowManager !== 'undefined' && typeof MDIWindowManager.open === 'function') {
+          MDIWindowManager.open('modal-entity-manager');
+        }
+        if (typeof initWorkspaceSplitters === 'function') {
+          initWorkspaceSplitters();
+        }
+      }
+      updateEntityTabButtons();
+      renderEntityManagerTree();
+      renderEntityManagerList();
+      if (id != null) {
+        selectEntityItem(id, false, optMapId);
       }
     }
     window.navigateToEntity = navigateToEntity;
@@ -384700,9 +384786,13 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
         saveActiveCampaign();
         renderCanvas();
         updatePropertiesGrid();
-        renderEntityManagerTree();
-        renderEntityManagerList();
-        selectEntityItem(nextId, false);
+        if (typeof refreshEntityManager === 'function') {
+          refreshEntityManager({ selectId: nextId });
+        } else {
+          renderEntityManagerTree();
+          renderEntityManagerList();
+          selectEntityItem(nextId, false);
+        }
         setStatusBarMessage(`Added Node ${nextId}: "${name}".`);
         return;
       }
@@ -385538,8 +385628,12 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
       closeModal('modal-entity-edit');
       renderCanvas();
       updatePropertiesGrid();
-      renderEntityManagerTree();
-      renderEntityManagerList();
+      if (typeof refreshEntityManager === 'function') {
+        refreshEntityManager();
+      } else {
+        renderEntityManagerTree();
+        renderEntityManagerList();
+      }
       setStatusBarMessage(`Saved ${type.toUpperCase()}: "${name}".`);
     }
 
@@ -385634,9 +385728,13 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
       const pairKey = [String(srcId), String(tgtId)].sort().join('-');
       const canonicalKey = (edgeType === 'hegemony') ? `${srcId}->${tgtId}` : pairKey;
 
-      if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
-      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
-      if (typeof selectEntityItem === 'function') selectEntityItem(canonicalKey, false);
+      if (typeof refreshEntityManager === 'function') {
+        refreshEntityManager({ selectId: canonicalKey });
+      } else {
+        if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+        if (typeof selectEntityItem === 'function') selectEntityItem(canonicalKey, false);
+      }
       setStatusBarMessage(`Connected ${edgeType === 'hegemony' ? 'Hegemony Vector' : 'Transit Road'} between Node ${srcId} and Node ${tgtId}.`);
     }
     window.submitCreateEdgeModal = submitCreateEdgeModal;
@@ -386086,9 +386184,13 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
 
       closeTransplantPackageModal();
 
-      if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
-      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
-      if (typeof selectEntityItem === 'function') selectEntityItem(primaryClone.id);
+      if (typeof refreshEntityManager === 'function') {
+        refreshEntityManager({ selectId: primaryClone.id });
+      } else {
+        if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+        if (typeof selectEntityItem === 'function') selectEntityItem(primaryClone.id);
+      }
     }
     window.executeTransplantPackage = executeTransplantPackage;
 
@@ -387395,14 +387497,19 @@ window.renderEntityExplorerProperties = renderEntityExplorerProperties;
       if (typeof renderCanvas === 'function') renderCanvas();
       if (typeof updatePropertiesGrid === 'function') updatePropertiesGrid();
 
-      if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
-      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+      if (typeof refreshEntityManager === 'function') {
+        refreshEntityManager({ deletedEntityIds: allToDelete.map(e => e.id) });
+      } else {
+        if (typeof renderEntityManagerTree === 'function') renderEntityManagerTree();
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
 
-      if (typeof SelectedEntityId !== 'undefined' && SelectedEntityId && allToDelete.some(e => String(e.id) === String(SelectedEntityId))) {
-        SelectedEntityId = null;
-        const pane = document.getElementById('em-detail-pane');
-        if (pane) {
-          pane.innerHTML = '<div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Entity deleted. Select another entity to inspect, edit, or station to a node.</div>';
+        if (typeof SelectedEntityId !== 'undefined' && SelectedEntityId && allToDelete.some(e => String(e.id) === String(SelectedEntityId))) {
+          SelectedEntityId = null;
+          if (typeof window !== 'undefined' && window.SelectedEntityId !== undefined) window.SelectedEntityId = null;
+          const pane = document.getElementById('em-detail-pane');
+          if (pane) {
+            pane.innerHTML = '<div style="font-size:11px; color:#666; text-align:center; margin-top:40px;">Entity deleted. Select another entity to inspect, edit, or station to a node.</div>';
+          }
         }
       }
 
@@ -392521,9 +392628,13 @@ if (btnAutoSlot) {
       setStatusBarMessage(`Updated ticket ${id}: "${title}".`);
       renderTicketList();
       selectTicket(id, sourceTab);
-      if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
-      if (typeof SelectedEntityId !== 'undefined' && SelectedEntityId && typeof selectEntityItem === 'function') {
-        selectEntityItem(SelectedEntityId, false);
+      if (typeof refreshEntityManager === 'function') {
+        refreshEntityManager({ preserveDetail: true });
+      } else {
+        if (typeof renderEntityManagerList === 'function') renderEntityManagerList();
+        if (typeof SelectedEntityId !== 'undefined' && SelectedEntityId && typeof selectEntityItem === 'function') {
+          selectEntityItem(SelectedEntityId, false);
+        }
       }
     }
     window.saveEditedCampaignTicket = saveEditedCampaignTicket;
