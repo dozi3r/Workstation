@@ -3,16 +3,18 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "990cae293e7a88b9"
-reviewed_hash: "990cae293e7a88b9"
+current_hash: "5b43ce4a0262525e"
+reviewed_hash: "5b43ce4a0262525e"
 stale: false
-size_bytes: 545771
-line_count: 10692
+size_bytes: 546857
+line_count: 10710
 ---
 
 # run_tests.js
 
 <!-- BEGIN_CUSTOM_NOTES -->
+The compiled workstation smoke test checks that listing a built-in campaign leaves its preset deferred and that reading the preset caches it.
+
 ### Architectural Purpose & Role
 `test/run_tests.js` is the **Master Zero-Dependency Headless JavaScript Test Runner** for Creator Studio. Executed via Node.js in CI/local testing environments, it executes 70+ deterministic assertions across 5 core verification suites in under 200ms.
 

@@ -188,12 +188,30 @@ HTML_SURFACES.forEach(relPath => {
     requestAnimationFrame: () => {},
     Blob,
     URL: { createObjectURL: () => '', revokeObjectURL: () => '' },
-    FileReader: class {}
+    FileReader: class {},
+    __CS_LOAD_BUNDLE_SYNC__: (id, relUrl) => {
+      if (!relUrl) return null;
+      const fullPath = path.join(ROOT_DIR, relUrl);
+      if (!fs.existsSync(fullPath)) return null;
+      const bundleCode = fs.readFileSync(fullPath, 'utf8');
+      vm.runInNewContext(bundleCode, bootSandbox, { filename: relUrl });
+      return bootSandbox.__CS_CAMPAIGN_BUNDLES__ && bootSandbox.__CS_CAMPAIGN_BUNDLES__[id];
+    }
   };
   bootSandbox.window = bootSandbox;
   bootSandbox.window.addEventListener = () => {};
   bootSandbox.globalThis = bootSandbox;
   vm.runInNewContext(scriptMatch[1], bootSandbox, { filename: 'start.html#boot' });
+  const bundled = vm.runInNewContext(`(() => {
+    const entry = Object.values(CAMPAIGN_REGISTRY).find(item =>
+      Object.getOwnPropertyDescriptor(item, 'preset')?.get);
+    if (!entry) return null;
+    const rows = getCampaignFolderPresets();
+    const deferred = !!Object.getOwnPropertyDescriptor(entry, 'preset')?.get;
+    const preset = entry.preset;
+    return { deferred, listed: rows.some(row => row.id === entry.id), cached: entry.preset === preset };
+  })()`, bootSandbox);
+  assert(bundled?.deferred && bundled.listed && bundled.cached, 'Built-in preset catalog lists campaigns without parsing their payloads and caches the selected preset');
   assert(typeof bootSandbox.openLoadPresetModal === 'function' && typeof bootSandbox.toggleMenu === 'function', 'start.html runtime executes top-to-bottom without ReferenceError and registers UI handlers');
   // SYS-ARCH-01: the engine loads first, so the bundle publishes its seam from the UMD tail with no state_adapter.js alias block
   assert(typeof bootSandbox.getNodesList === 'function' && typeof bootSandbox.ensureQueryableNodesCollection === 'function' && typeof bootSandbox.normalizeSpatialPin === 'function', 'start.html runtime publishes the engine seam aliases (getNodesList, ensureQueryableNodesCollection, normalizeSpatialPin)');

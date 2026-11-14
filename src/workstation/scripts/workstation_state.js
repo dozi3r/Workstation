@@ -933,6 +933,17 @@
           tickets: (p.entities && p.entities.tickets) || p.tickets || [],
           factions: (p.entities && p.entities.factions) || p.factions || []
         };
+      } else if (activeCamp && typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY[activeCamp] && typeof ensureCampaignBundleLoaded === "function") {
+        const regEntry = CAMPAIGN_REGISTRY[activeCamp];
+        base = createSterileTopology({
+          campaignId: activeCamp,
+          campaignName: regEntry.summary?.title || regEntry.metadata?.name || activeCamp
+        });
+        ensureCampaignBundleLoaded(activeCamp).then(loadedPreset => {
+          if (loadedPreset && typeof window.loadCampaignProjectPackage === "function") {
+            window.loadCampaignProjectPackage(activeCamp);
+          }
+        }).catch(() => {});
       } else if (activeCamp && typeof BUNDLED_TOPOLOGIES !== "undefined" && BUNDLED_TOPOLOGIES[activeCamp]) {
         base = BUNDLED_TOPOLOGIES[activeCamp];
       } else {

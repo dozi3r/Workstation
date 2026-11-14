@@ -9,3 +9,4 @@ wiki/pages/
 *.creator.json
 *.csmod
 campaigns/**/campaign_sync.js
+campaigns/**/campaign_bundle.js

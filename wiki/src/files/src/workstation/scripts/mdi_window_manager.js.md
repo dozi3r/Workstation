@@ -3,16 +3,18 @@ file_path: "src/workstation/scripts/mdi_window_manager.js"
 title: "mdi_window_manager.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "63c7d860373855a2"
-reviewed_hash: "63c7d860373855a2"
+current_hash: "4860084df8868bac"
+reviewed_hash: "4860084df8868bac"
 stale: false
-size_bytes: 139929
-line_count: 3028
+size_bytes: 142565
+line_count: 3031
 ---
 
 # mdi_window_manager.js
 
 <!-- BEGIN_CUSTOM_NOTES -->
+The welcome screen, campaign launcher, and New Campaign wizard build their lists from bundled campaign summaries without reading full presets.
+
 ### Architectural Purpose & Role
 `src/workstation/scripts/mdi_window_manager.js` manages MDI window state, titlebar dragging, maximize/minimize/restore behavior, taskbar integration, and dynamic mod UI registration. It provides `refreshModUI()` to dynamically populate the workstation `Mods` menubar with interactive entries, supporting both hover- and click-activated flyout submenus (`menuItems` / `menuOptions`), CAD palette buttons (`paletteTools`), and dock tab transitions (`switchDockTab`). It also powers the New Campaign Wizard via `getCampaignFolderPresets()` and `renderNewCampaignPresetsList()`, offering only campaigns from the `/campaigns/` folder as presets to build from without any hardcoded templates.
 

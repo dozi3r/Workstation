@@ -692,17 +692,133 @@ CRITICAL INSTRUCTION:
        APPLICATION JAVASCRIPT RUNTIME (CORE CAD ENGINE + VB6 PROPERTIES + MOD API)
        ======================================================================== -->
   <script>
+    const CAMPAIGN_REGISTRY = {};
     const BUNDLED_TOPOLOGIES = {};
+    window.__CS_CAMPAIGN_BUNDLES__ = window.__CS_CAMPAIGN_BUNDLES__ || {};
+
+    function hydrateBundledCampaign(id, bundle) {
+      if (!bundle || !CAMPAIGN_REGISTRY[id]) return null;
+      const entry = CAMPAIGN_REGISTRY[id];
+      if (bundle.preset !== undefined) {
+        const p = bundle.preset;
+        if (p && p.entities) {
+          if (!p.npcs && p.entities.npcs) p.npcs = p.entities.npcs;
+          if (!p.quests && p.entities.quests) p.quests = p.entities.quests;
+          if (!p.items && p.entities.items) p.items = p.entities.items;
+          if (!p.creatures && p.entities.creatures) p.creatures = p.entities.creatures;
+          if (!p.factions && p.entities.factions) p.factions = p.entities.factions;
+          if (!p.trackers && p.entities.trackers) p.trackers = p.entities.trackers;
+        }
+        Object.defineProperty(entry, 'preset', {
+          value: p, enumerable: true, configurable: true, writable: true
+        });
+      }
+      if (bundle.creatureEvidence !== undefined) {
+        Object.defineProperty(entry, 'creatureEvidence', {
+          value: bundle.creatureEvidence, enumerable: true, configurable: true, writable: true
+        });
+      }
+      const ent = bundle.entities || (bundle.preset && bundle.preset.entities);
+      if (ent && entry.metadata && !entry.metadata.entities) {
+        entry.metadata.entities = ent;
+      }
+      return entry.preset || null;
+    }
+    window.hydrateBundledCampaign = hydrateBundledCampaign;
+
+    function resolveBundledCampaignKey(rawId) {
+      if (!rawId || typeof CAMPAIGN_REGISTRY === 'undefined') return null;
+      if (CAMPAIGN_REGISTRY[rawId]) return rawId;
+      const norm = String(rawId).trim().toLowerCase();
+      return Object.keys(CAMPAIGN_REGISTRY).find(k => {
+        const c = CAMPAIGN_REGISTRY[k];
+        if (!c) return false;
+        return String(k).toLowerCase() === norm ||
+          String(c.id || '').toLowerCase() === norm ||
+          String(c.folder || '').toLowerCase() === norm;
+      }) || null;
+    }
+
+    function ensureCampaignBundleLoaded(rawId) {
+      const id = resolveBundledCampaignKey(rawId);
+      if (!id || !CAMPAIGN_REGISTRY[id]) return Promise.resolve(null);
+      const entry = CAMPAIGN_REGISTRY[id];
+      if (window.__CS_CAMPAIGN_BUNDLES__ && window.__CS_CAMPAIGN_BUNDLES__[id]) {
+        return Promise.resolve(hydrateBundledCampaign(id, window.__CS_CAMPAIGN_BUNDLES__[id]));
+      }
+      const desc = Object.getOwnPropertyDescriptor(entry, 'preset');
+      if (desc && 'value' in desc && desc.value) {
+        return Promise.resolve(desc.value);
+      }
+      if (typeof window.__CS_LOAD_BUNDLE_SYNC__ === 'function') {
+        const syncBundle = window.__CS_LOAD_BUNDLE_SYNC__(id, entry.bundleUrl);
+        if (syncBundle) return Promise.resolve(hydrateBundledCampaign(id, syncBundle));
+      }
+      if (entry._bundlePromise) return entry._bundlePromise;
+      const bundleUrl = entry.bundleUrl || (`campaigns/${entry.folder || id}/campaign_bundle.js`);
+      if (typeof document === 'undefined' || typeof document.createElement !== 'function') {
+        return Promise.resolve(entry.preset || null);
+      }
+      const targetParent = document.head || document.body || document.documentElement;
+      if (!targetParent || typeof targetParent.appendChild !== 'function') {
+        return Promise.resolve(entry.preset || null);
+      }
+      entry._bundlePromise = new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = bundleUrl;
+        s.async = true;
+        s.onload = () => {
+          entry._bundlePromise = null;
+          const loaded = (window.__CS_CAMPAIGN_BUNDLES__ && window.__CS_CAMPAIGN_BUNDLES__[id]) || null;
+          resolve(loaded ? hydrateBundledCampaign(id, loaded) : (entry.preset || null));
+        };
+        s.onerror = () => {
+          console.warn('[CampaignBundle] Failed to load on-demand bundle:', bundleUrl);
+          entry._bundlePromise = null;
+          resolve(null);
+        };
+        targetParent.appendChild(s);
+      });
+      return entry._bundlePromise;
+    }
+    window.ensureCampaignBundleLoaded = ensureCampaignBundleLoaded;
+
+    function registerBundledCampaign(id, entry, readers, hasPreset) {
+      if (hasPreset && !readers.preset) {
+        readers.preset = function() {
+          const b = (window.__CS_CAMPAIGN_BUNDLES__ && window.__CS_CAMPAIGN_BUNDLES__[id])
+            || (typeof window.__CS_LOAD_BUNDLE_SYNC__ === 'function' ? window.__CS_LOAD_BUNDLE_SYNC__(id, entry.bundleUrl) : null);
+          if (b) {
+            return hydrateBundledCampaign(id, b);
+          }
+          return undefined;
+        };
+      }
+      Object.keys(readers).forEach(key => {
+        Object.defineProperty(entry, key, {
+          enumerable: true,
+          configurable: true,
+          get() {
+            const value = readers[key]();
+            if (value !== undefined) {
+              delete readers[key];
+              Object.defineProperty(entry, key, { value, enumerable: true, configurable: true, writable: true });
+            }
+            return value;
+          }
+        });
+      });
+      Object.defineProperty(CAMPAIGN_REGISTRY, id, {
+        value: entry, enumerable: true, configurable: true, writable: true
+      });
+      if (hasPreset) {
+        Object.defineProperty(BUNDLED_TOPOLOGIES, id, {
+          enumerable: true, configurable: true, get: () => entry.preset
+        });
+      }
+    }
 
 // @@INJECT_CAMPAIGN_REGISTRY@@
-
-    if (typeof CAMPAIGN_REGISTRY !== "undefined") {
-      Object.keys(CAMPAIGN_REGISTRY).forEach(k => {
-        if (CAMPAIGN_REGISTRY[k] && CAMPAIGN_REGISTRY[k].preset) {
-          BUNDLED_TOPOLOGIES[k] = CAMPAIGN_REGISTRY[k].preset;
-        }
-      });
-    }
 
 // @@INJECT_ALL_MODULES@@
 

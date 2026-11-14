@@ -3,16 +3,18 @@ file_path: "start.html"
 title: "Creator Studio - Campaign Authoring Workstation"
 volume: "vol-1"
 kind: "Standalone Zero-CORS HTML Workstation"
-current_hash: "8a3d9d682b4a4f19"
-reviewed_hash: "8a3d9d682b4a4f19"
+current_hash: "7b7c8a6a64e8835a"
+reviewed_hash: "7b7c8a6a64e8835a"
 stale: false
-size_bytes: 41123095
-line_count: 398095
+size_bytes: 5792655
+line_count: 55151
 ---
 
 # Creator Studio - Campaign Authoring Workstation
 
 <!-- BEGIN_CUSTOM_NOTES -->
+The launcher renders built-in campaign summaries at startup. Full presets and their embedded map assets remain available offline and are parsed when requested.
+
 ## Architectural Role & Subsystem Context
 `start.html` is the **Universal Desktop Workstation Shell** established under [[File:docs/adr/0004-desktop-workstation-start-html.md]], extended with narrative campaign entity management under [[File:docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md]], equipped with the primary **Module Explorer & Mechanics Inspector** under [[File:docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md]], and overhauled with a **Windows 95 Multiple Document Interface (MDI) Window Manager & Taskbar Engine** (**Volume I: System Architecture, Governance & Ontology**). It replaces the workflow of `index.html` with an integrated desktop application environment inspired by AutoCAD, Photoshop, and classic Visual Basic 6 desktop applications.
 

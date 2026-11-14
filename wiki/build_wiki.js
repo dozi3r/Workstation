@@ -300,7 +300,7 @@ function shouldTrackFile(relPath) {
   if (lower.endsWith('.zip') || lower.endsWith('.pdf') || lower.endsWith('.creator.json') || lower.endsWith('.csmod')) return false;
   if (/\.(png|jpg|jpeg|gif|webp|ico|bmp)$/i.test(lower)) return false;
   if (base === 'desktop.ini' || base === 'thumbs.db' || base === '.ds_store' || base === 'quarantine-duplicates.bat') return false;
-  if (base === 'campaign_sync.js' || base === 'changelog.json' || base === 'chat_history.json') return false;
+  if (base === 'campaign_sync.js' || base === 'campaign_bundle.js' || base === 'changelog.json' || base === 'chat_history.json') return false;
   if (/^campaigns\/[^/]+\/maps\/.*\.json$/i.test(norm)) return false;
   if (norm.startsWith('regions/')) return false;
   // Exclude all wiki internals, backlog tickets, scratch tooling, archives, and duplicate mirrors

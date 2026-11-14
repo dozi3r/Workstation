@@ -470,9 +470,9 @@
         <h1 class="article-title">build_suite.js</h1>
         <div class="article-subtitle">
           <span class="badge">Node.js / Browser Engine Script</span>
-          <span class="badge badge-ok">✓ Synced (SHA: c0c81c19)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 8383b6cf)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (259)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (287)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>build_suite.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../index.html#vol-3">Volume III</a></td></tr>
     <tr><th>Surface Kind</th><td>Node.js / Browser Engine Script</td></tr>
-    <tr><th>File Metrics</th><td>1410 lines &bull; 68.2 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: c0c81c19)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>86</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>259</strong> backlinks</td></tr>
+    <tr><th>File Metrics</th><td>1537 lines &bull; 76.0 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 8383b6cf)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>84</strong> references</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>287</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../build_suite.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -502,8 +502,9 @@
     </div>
   
       
-      <h2>Architectural Role & Subsystem Context</h2>
-<p><code>build_suite.js</code> is the <strong>Centralized Asset Compiler, Zero-CORS Bundler & Agent Navigation Engine</strong> within <strong>Volume III: Build Pipeline, Compiler & Legacy Scratch Tooling</strong>. Created under <a class="wiki-link" href="../pages/.scratch/creator-remediation/issues/04-build-centralized-compiler.md.html">📄 .scratch/creator-remediation/issues/04-build-centralized-compiler.md</a> to eliminate the Multiple Source of Truth Hazard identified in <a class="wiki-link" href="../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html">📄 docs/audit/2026-10-creator-studio-audit-dossier.md</a> and governed by <a class="wiki-link" href="../pages/docs/adr/0001-dual-mode-preset-architecture.md.html">📄 docs/adr/0001-dual-mode-preset-architecture.md</a>, <a class="wiki-link" href="../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a>, and <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a>, it is the single build orchestrator that compiles modular HTML/JS sources, multi-campaign sourcebooks, Tarot decks, unified ticket trackers, Compass Headers, and the Bidirectional Codebase Wiki into 100% offline <code>file:///</code> distributions.</p>
+      <p>The workstation registry emits compact launcher summaries (<code>summary</code>) and lightweight metadata into <code>start.html</code> and <code>network/platform_audit_dashboard.html</code> while externalizing each campaign's deduplicated <code>preset</code> and <code>creatureEvidence</code> payload to <code>campaigns/<folder>/campaign_bundle.js</code> for zero-CORS on-demand <code><script></code> hydration.</p>
+<h2>Architectural Role & Subsystem Context</h2>
+<p><code>build_suite.js</code> is the <strong>Centralized Asset Compiler, Zero-CORS Bundler & Agent Navigation Engine</strong> within <strong>Volume III: Build Pipeline, Compiler & Legacy Scratch Tooling</strong>. Created under <a class="wiki-link" href="../pages/.scratch/creator-remediation/issues/04-build-centralized-compiler.md.html">📄 .scratch/creator-remediation/issues/04-build-centralized-compiler.md</a> to eliminate the Multiple Source of Truth Hazard identified in <a class="wiki-link" href="../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html">📄 docs/audit/2026-10-creator-studio-audit-dossier.md</a> and governed by <a class="wiki-link" href="../pages/docs/adr/0001-dual-mode-preset-architecture.md.html">📄 docs/adr/0001-dual-mode-preset-architecture.md</a>, <a class="wiki-link" href="../pages/docs/adr/0002-dual-srd-and-tiered-module-architecture.md.html">📄 docs/adr/0002-dual-srd-and-tiered-module-architecture.md</a>, and <a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a>, it is the single build orchestrator that compiles modular HTML/JS sources, multi-campaign sourcebooks, Tarot decks, unified ticket trackers, Compass Headers, and the Bidirectional Codebase Wiki into 100% offline <code>file:///</code> distributions. Includes defensive map node hydration for scale-fluid multi-map presets when individual maps omit <code>nodes</code> arrays.</p>
 <p>For a deep cross-cutting analysis of this subsystem, consult <a class="wiki-link series-link" href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html">🧭 Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</a>.</p>
 <hr class="wiki-hr"/>
 <h2>Core Invariants & Contracts</h2>
@@ -514,39 +515,14 @@
 <li><strong>Build-Time Mirror Note (<span class="wiki-tag">🎫 SYS-AUDIT-01</span>)</strong>: Lines 487–494 write an identical mirror of <a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a> to <a class="wiki-link" href="../pages/tickets/creative/platform_audit_visualizer.html.html">📄 tickets/creative/platform_audit_visualizer.html</a>, tracked under Category A of <a class="wiki-link series-link" href="../pages/series/series_g_duplicate_and_orphan_audit.html">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a>.</li>
 </ul>
 <hr class="wiki-hr"/>
-<h2>Data Flow & 9-Stage Execution Pipeline</h2>
-<div class="table-wrap"><table class="wiki-table">
-<thead>
-<tr><th>Stage</th><th>Lines</th><th>Input Files / Directories</th><th>Transformation & Processing Logic</th><th>Compiled Output Files</th></tr>
-</thead>
-<tbody>
-<tr><td><strong>1. Load Nav Manifest</strong></td><td>31–45</td><td><a class="wiki-link" href="../pages/docs/navigation_manifest.json.html">📄 docs/navigation_manifest.json</a></td><td>Parses JSON registry of 14 workstation surfaces.</td><td>In-memory <code>navManifest</code></td></tr>
-<tr><td><strong>2. Generate <code>AGENTS.md</code></strong></td><td>47–94</td><td><code>navManifest.surfaces</code></td><td>Formats Ground Rules, Surface-to-Authority table, and Domain Terminology.</td><td><a class="wiki-link" href="../pages/AGENTS.md.html">📄 AGENTS.md</a></td></tr>
-<tr><td><strong>3. Campaign Discovery</strong></td><td>96–204</td><td><code>campaigns/<id>/campaign.json</code>, <code>preset.json</code>, <code>modules_manifest.json</code>, <code>modules/<em>.md</code>, <code>assets/</em></code></td><td>Discovers active campaigns, auto-discovers and inlines <code>assets/<mapId>_bg.*</code> raster images for offline portability, and enriches modules with regex-extracted <code>threat_clocks</code>, <code>dials</code>, <code>four_corners</code>, and <code>file_url</code>.</td><td><code>campaignRegistry</code>, <a class="wiki-link" href="../pages/network/modules_manifest.json.html">📄 network/modules_manifest.json</a></td></tr>
-<tr><td><strong>4b. Tarot Registry</strong></td><td>206–317</td><td><a class="wiki-link" href="../pages/tarot/decks/deck_manifest.json.html">📄 tarot/decks/deck_manifest.json</a>, <a class="wiki-link" href="../pages/tarot/decks/minor/minor_deck_manifest.json.html">📄 tarot/decks/minor/minor_deck_manifest.json</a></td><td>Compiles 6 Major Arcana decks and 4 Minor Arcana decks into <code>TAROT_DECKS_DATA</code>.</td><td>In-memory <code>TAROT_DECKS_DATA</code></td></tr>
-<tr><td><strong>5. Workstation Assembly</strong></td><td>320–366</td><td><a class="wiki-link" href="../pages/src/workstation/template.html.html">📄 src/workstation/template.html</a>, <code>src/workstation/scripts/*.js</code>, <code>mods/</code></td><td>Resolves <code>// @@INCLUDE: scripts/<file>.js @@</code> directives and injects <code>TAROT_DECKS_DATA</code>, <code>MODS_REGISTRY</code>, and <code>MASTER_TICKETS_DATA</code>.</td><td><a class="wiki-link" href="../pages/start.html.html">📄 start.html</a></td></tr>
-<tr><td><strong>6. Network, Audit & Workstation Inlining</strong></td><td>368–706</td><td><code>campaignRegistry</code>, <a class="wiki-link" href="../pages/tickets/master_ticket_manifest.json.html">📄 tickets/master_ticket_manifest.json</a>, <a class="wiki-link" href="../pages/tickets/build_unified_tracker.js.html">📄 tickets/build_unified_tracker.js</a></td><td>Updates fenced datasets in Visualizer, Builder, Audit Dashboard (+ mirror), inlines 60 enriched tickets into <code>MASTER_TICKETS_DATA</code> in <a class="wiki-link" href="../pages/start.html.html">📄 start.html</a>, and invokes <code>build_unified_tracker.js</code>.</td><td><a class="wiki-link" href="../pages/network/network_visualizer.html.html">📄 network/network_visualizer.html</a>, <a class="wiki-link" href="../pages/network/network_builder.html.html">📄 network/network_builder.html</a>, <a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>, <a class="wiki-link" href="../pages/start.html.html">📄 start.html</a>, <a class="wiki-link" href="../pages/tickets/creative/platform_audit_visualizer.html.html">📄 tickets/creative/platform_audit_visualizer.html</a>, <a class="wiki-link" href="../pages/tickets/unified_ticket_tracker.html.html">📄 tickets/unified_ticket_tracker.html</a></td></tr>
-<tr><td><strong>7. Tarot Compilers & Zero-CORS</strong></td><td>708–750</td><td><a class="wiki-link" href="../pages/tarot/generate_minor_matrix.js.html">📄 tarot/generate_minor_matrix.js</a>, <a class="wiki-link" href="../pages/tarot/generate_tarot_matrix.js.html">📄 tarot/generate_tarot_matrix.js</a>, <a class="wiki-link" href="../pages/scripts/build_zero_cors_css.js.html">📄 scripts/build_zero_cors_css.js</a></td><td>Executes child Node compilers to regenerate Tarot JSON matrices/browsers, and runs <code>build_zero_cors_css.js</code> to compile inline offline CSS and strip external fonts/scripts.</td><td><a class="wiki-link" href="../pages/tarot/minor_matrix_browser.html.html">📄 tarot/minor_matrix_browser.html</a>, <a class="wiki-link" href="../pages/tarot/tarot_matrix_browser.html.html">📄 tarot/tarot_matrix_browser.html</a>, <a class="wiki-link" href="../pages/admin.html.html">📄 admin.html</a>, <a class="wiki-link" href="../pages/network/network_builder.html.html">📄 network/network_builder.html</a>, <a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>, <a class="wiki-link" href="../pages/network/contradiction_matrix_dashboard.html.html">📄 network/contradiction_matrix_dashboard.html</a></td></tr>
-<tr><td><strong>8. Compass Headers</strong></td><td>750–813</td><td><code>navManifest.surfaces</code></td><td>Prepends/updates <code>CREATOR STUDIO COMPASS HEADER</code> comments at line 1 of all <code>.html</code> and <code>.ps1</code> surfaces (except <code>wiki/index.html</code>).</td><td>All registered HTML/PS1 surfaces</td></tr>
-<tr><td><strong>9. Codebase Wiki</strong></td><td>815–830</td><td><a class="wiki-link" href="../pages/wiki/build_wiki.js.html">📄 wiki/build_wiki.js</a></td><td>Executes the Bidirectional Codebase Wiki compiler via <code>process.execPath</code>.</td><td><a class="wiki-link" href="../pages/wiki/index.html.html">📄 wiki/index.html</a>, <code>wiki/pages/**</code>, <code>wiki/wiki_manifest.json</code></td></tr>
-</tbody>
-</table></div>
-<hr class="wiki-hr"/>
-<h2>AI Agent Maintenance Checklist</h2>
+<h2>Operational Verification</h2>
+<p>To execute asset compilation and verify zero-CORS compliance:</p>
+<pre class="code-block"><code class="lang-powershell">powershell -ExecutionPolicy Bypass -File .\Build-Suite.ps1</code></pre>
 <ul class="wiki-list">
-<li><strong>When adding a new script to <code>src/workstation/scripts/</code></strong>: Add the <code>// @@INCLUDE: scripts/<file>.js @@</code> directive in <a class="wiki-link" href="../pages/src/workstation/template.html.html">📄 src/workstation/template.html</a> and run <a class="wiki-link" href="../pages/Build-Suite.ps1.html">📄 Build-Suite.ps1</a>.</li>
-<li><strong>When adding a new campaign package under <code>campaigns/<id>/</code></strong>: Ensure <code>campaign.json</code>, <code>preset.json</code>, and <code>modules_manifest.json</code> pass <a class="wiki-link" href="../pages/campaigns/Test-CampaignPackage.ps1.html">📄 campaigns/Test-CampaignPackage.ps1</a>; <code>build_suite.js</code> Stage 3 will automatically discover and bundle the new campaign on the next build.</li>
-<li><strong>When modifying <code>AGENTS.md</code> Ground Rules</strong>: Edit the template string in Stage 2 of <code>build_suite.js</code> (lines 52–90) rather than editing <code>AGENTS.md</code> directly.</li>
+<li>Agent onboarding: the root router template links to <a class="wiki-link" href="../pages/docs/agents/START_HERE.md.html">📄 docs/agents/START_HERE.md</a>. Maintain this pointer in build_suite.js rather than the generated AGENTS.md. The manifest continues to own surface routing data.</li>
 </ul>
-<h2>Portable <code>file_url</code> Convention (Tech Debt Wave 0, 2026-10-20)</h2>
-<ul class="wiki-list">
-<li>Module <code>file_url</code> values are <strong>root-relative</strong> (<code>campaigns/<id>/modules/<file>.md</code>, URI-encoded per segment) via <code>toRootRelUrl()</code>. No absolute <code>file:///C:/Users/...</code> paths are emitted.</li>
-<li>Root surfaces (<a class="wiki-link" href="../pages/start.html.html">📄 start.html</a>) use them as-is. Subfolder surfaces (<a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a>, <a class="wiki-link" href="../pages/network/network_builder.html.html">📄 network/network_builder.html</a>, <a class="wiki-link" href="../pages/network/network_visualizer.html.html">📄 network/network_visualizer.html</a>) get a <code>../</code> prefix at injection time via <code>rebaseFileUrls(json, '../')</code>.</li>
-<li><a class="wiki-link" href="../pages/network/modules_manifest.json.html">📄 network/modules_manifest.json</a> stores root-relative paths (resolve against the repo root, not <code>network/</code>).</li>
-<li>Injection replacers use functional form <code>() => block</code> so <code>$</code> sequences in module markdown cannot corrupt output.</li>
-</ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">fs</span><span class="pill">path</span><span class="pill">ROOT_DIR</span><span class="pill">NETWORK_DIR</span><span class="pill">DOCS_DIR</span><span class="pill">SRC_WORKSTATION_DIR</span><span class="pill">navManifestPath</span><span class="pill">navManifest</span><span class="pill">campaignsDir</span><span class="pill">campaignRegistry</span><span class="pill">resolveCampaignId</span><span class="pill">defaultCampaignId</span><span class="pill">modules</span><span class="pill">networkManifestPath</span><span class="pill">compiledSurfacesData</span><span class="pill">auditDashboardPath</span><span class="pill">ticketsManifestPath</span><span class="pill">ticketsData</span><span class="pill">allEnrichedModules</span><span class="pill">MODS_DIR</span><span class="pill">auditDatasetsBlock</span><span class="pill">CAMPAIGN_REGISTRY</span><span class="pill">ALL_MODULES</span><span class="pill">TICKETS</span><span class="pill">auditDatasetsBlockRebased</span><span class="pill">unifiedTrackerScript</span><span class="pill">masterTickets</span><span class="pill">masterTicketsManifestPath</span><span class="pill">activeMods</span><span class="pill">modsScriptBundle</span><span class="pill">startModsBlock</span><span class="pill">startHtmlPath</span><span class="pill">workstationTemplatePath</span><span class="pill">registryFenced</span><span class="pill">CAMPAIGN_REGISTRY</span><span class="pill">startModulesBlock</span><span class="pill">ALL_MODULES</span><span class="pill">MODULES_MANIFEST</span><span class="pill">startTicketsBlock</span><span class="pill">MASTER_TICKETS_DATA</span></div><h3>Declared Functions / Subroutines (8)</h3><div class="pill-list"><span class="pill">toRootRelUrl(absPath)</span><span class="pill">rebaseFileUrls(jsonStr, prefix)</span><span class="pill">safeWriteFileSync(filePath, data, encoding = 'utf8')</span><span class="pill">parseYamlListOrArray(val)</span><span class="pill">scanModulesDirRecursive(modulesRootDir, campaignRootDir, deletedIdsSet = new Set()</span><span class="pill">walk(currentDir)</span><span class="pill">enrichModuleEntities(m, rawMarkdown)</span><span class="pill">injectCompassHeaders()</span></div>
-      <h2 id="outbound-links">Outbound References (86)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">fs</span><span class="pill">path</span><span class="pill">ROOT_DIR</span><span class="pill">NETWORK_DIR</span><span class="pill">DOCS_DIR</span><span class="pill">SRC_WORKSTATION_DIR</span><span class="pill">navManifestPath</span><span class="pill">navManifest</span><span class="pill">campaignsDir</span><span class="pill">campaignRegistry</span><span class="pill">resolveCampaignId</span><span class="pill">defaultCampaignId</span><span class="pill">modules</span><span class="pill">networkManifestPath</span><span class="pill">compiledSurfacesData</span><span class="pill">auditDashboardPath</span><span class="pill">ticketsManifestPath</span><span class="pill">ticketsData</span><span class="pill">allEnrichedModules</span><span class="pill">MODS_DIR</span><span class="pill">lightAuditRegistry</span><span class="pill">auditDatasetsBlock</span><span class="pill">CAMPAIGN_REGISTRY</span><span class="pill">ALL_MODULES</span><span class="pill">TICKETS</span><span class="pill">auditDatasetsBlockRebased</span><span class="pill">unifiedTrackerScript</span><span class="pill">masterTickets</span><span class="pill">masterTicketsManifestPath</span><span class="pill">activeMods</span><span class="pill">modsScriptBundle</span><span class="pill">startModsBlock</span><span class="pill">startHtmlPath</span><span class="pill">workstationTemplatePath</span><span class="pill">registryFenced</span><span class="pill">startModulesBlock</span><span class="pill">ALL_MODULES</span><span class="pill">MODULES_MANIFEST</span><span class="pill">startTicketsBlock</span><span class="pill">MASTER_TICKETS_DATA</span></div><h3>Declared Functions / Subroutines (9)</h3><div class="pill-list"><span class="pill">toRootRelUrl(absPath)</span><span class="pill">rebaseFileUrls(jsonStr, prefix)</span><span class="pill">safeWriteFileSync(filePath, data, encoding = 'utf8')</span><span class="pill">parseYamlListOrArray(val)</span><span class="pill">scanModulesDirRecursive(modulesRootDir, campaignRootDir, deletedIdsSet = new Set()</span><span class="pill">walk(currentDir)</span><span class="pill">enrichModuleEntities(m, rawMarkdown)</span><span class="pill">compileWorkstationRegistry(registry)</span><span class="pill">injectCompassHeaders()</span></div>
+      <h2 id="outbound-links">Outbound References (84)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
@@ -587,33 +563,13 @@
         <td><span class="badge badge-Series">Series Citation</span></td>
         <td>Explicit [[Series:series_g_duplicate_and_orphan_audit]] reference</td>
       </tr><tr>
-        <td><a href="../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+        <td><a href="../pages/docs/agents/START_HERE.md.html"><strong>docs/agents/START_HERE.md</strong></a></td>
         <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
-        <td>Explicit [[File:AGENTS.md]] reference</td>
+        <td>Explicit [[File:docs/agents/START_HERE.md]] reference</td>
       </tr><tr>
-        <td><a href="../pages/network/modules_manifest.json.html"><strong>network/modules_manifest.json</strong></a></td>
-        <td><span class="badge badge-Authoritative JSON Data / Manifest">Wiki Citation</span></td>
-        <td>Explicit [[File:network/modules_manifest.json]] reference</td>
-      </tr><tr>
-        <td><a href="../pages/network/network_builder.html.html"><strong>network/network_builder.html</strong></a></td>
-        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
-        <td>Explicit [[File:network/network_builder.html]] reference</td>
-      </tr><tr>
-        <td><a href="../pages/scripts/build_zero_cors_css.js.html"><strong>scripts/build_zero_cors_css.js</strong></a></td>
-        <td><span class="badge badge-Node.js / Browser Engine Script">Wiki Citation</span></td>
-        <td>Explicit [[File:scripts/build_zero_cors_css.js]] reference</td>
-      </tr><tr>
-        <td><a href="../pages/admin.html.html"><strong>admin.html</strong></a></td>
-        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
-        <td>Explicit [[File:admin.html]] reference</td>
-      </tr><tr>
-        <td><a href="../pages/network/contradiction_matrix_dashboard.html.html"><strong>network/contradiction_matrix_dashboard.html</strong></a></td>
-        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
-        <td>Explicit [[File:network/contradiction_matrix_dashboard.html]] reference</td>
-      </tr><tr>
-        <td><a href="../pages/campaigns/Test-CampaignPackage.ps1.html"><strong>campaigns/Test-CampaignPackage.ps1</strong></a></td>
-        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Wiki Citation</span></td>
-        <td>Explicit [[File:campaigns/Test-CampaignPackage.ps1]] reference</td>
+        <td><a href="../pages/AGENTS.md.html"><strong>AGENTS.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References AGENTS.md</td>
       </tr><tr>
         <td><a href="../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
         <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
@@ -699,6 +655,14 @@
         <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
         <td>References network/campaign_studio.html</td>
       </tr><tr>
+        <td><a href="../pages/network/modules_manifest.json.html"><strong>network/modules_manifest.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References network/modules_manifest.json</td>
+      </tr><tr>
+        <td><a href="../pages/network/network_builder.html.html"><strong>network/network_builder.html</strong></a></td>
+        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
+        <td>References network/network_builder.html</td>
+      </tr><tr>
         <td><a href="../pages/server.js.html"><strong>server.js</strong></a></td>
         <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
         <td>References server.js</td>
@@ -718,6 +682,10 @@
         <td><a href="../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
         <td>References src/workstation/scripts/state_adapter.js</td>
+      </tr><tr>
+        <td><a href="../pages/mods/loot_simulator/schemas/loot_schemas.json.html"><strong>mods/loot_simulator/schemas/loot_schemas.json</strong></a></td>
+        <td><span class="badge badge-Workstation Mod Manifest (JSON)">Bundles Mod</span></td>
+        <td>Compiles mod extension during suite compilation</td>
       </tr><tr>
         <td><a href="../pages/mods/pre_industrial_resources/mod.js.html"><strong>mods/pre_industrial_resources/mod.js</strong></a></td>
         <td><span class="badge badge-Workstation Mod / Extension">Bundles Mod</span></td>
@@ -891,7 +859,7 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
         <td>Inlines modular source during suite compilation</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (259)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (287)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../pages/series/series_c_sociology_and_tarot_hermeneutics.html"><strong>Series C: The 64-Cell [S, E, C] Disposition Algebra &amp; CVF Cultural Quadrants</strong></a></td>
         <td><span class="badge badge-Series">Wiki Citation</span></td>
         <td>Explicit [[File:build_suite.js]] reference</td>
@@ -1812,6 +1780,94 @@
         <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
         <td>References build_suite.js</td>
       </tr><tr>
+        <td><a href="../pages/campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T1_DRAGONFIRES_COVENANT.md.html"><strong>campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T1_DRAGONFIRES_COVENANT.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T2_OBLIVION_GATE_CONDUIT.md.html"><strong>campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T2_OBLIVION_GATE_CONDUIT.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T3_SIGIL_STONE_RESONANCE.md.html"><strong>campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T3_SIGIL_STONE_RESONANCE.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T4_MYTHIC_DAWN_SLEEPER_SPARK.md.html"><strong>campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T4_MYTHIC_DAWN_SLEEPER_SPARK.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T5_AVATAR_OF_AKATOSH_CLIMAX.md.html"><strong>campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T5_AVATAR_OF_AKATOSH_CLIMAX.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_PALM_LEAF_FAN.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_PALM_LEAF_FAN.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_SHAPE_CHANGING_CONTEST.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_SHAPE_CHANGING_CONTEST.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_THREE_HEADS_SIX_ARMS.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_THREE_HEADS_SIX_ARMS.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_WIND_ARRESTING_ELIXIR.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_WIND_ARRESTING_ELIXIR.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_FLAME_HOUSEHOLDS.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_FLAME_HOUSEHOLDS.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_GREEN_WAVE_COURT.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_GREEN_WAVE_COURT.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_HEAVENLY_HOST.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_HEAVENLY_HOST.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_HOARD_THUNDER_COURT.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_HOARD_THUNDER_COURT.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_LITTLE_SUMERU.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_LITTLE_SUMERU.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_PALM_LEAF_HOUSEHOLD.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_PALM_LEAF_HOUSEHOLD.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_PILGRIM_PARTY.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_PILGRIM_PARTY.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_BORROWED_HUSBAND.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_BORROWED_HUSBAND.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_DECENNIAL_TRIBUTE.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_DECENNIAL_TRIBUTE.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_FAN_RAIN_GRAIN_CHAIN.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_FAN_RAIN_GRAIN_CHAIN.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_MOUNTAIN_OF_FLAMES.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_MOUNTAIN_OF_FLAMES.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_NET_OF_HEAVEN_AND_EARTH.md.html"><strong>campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_NET_OF_HEAVEN_AND_EARTH.md</strong></a></td>
+        <td><span class="badge badge-Campaign Worldbuilding Module">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/campaigns/jttw_5_flaming_mountains/modules/library.json.html"><strong>campaigns/jttw_5_flaming_mountains/modules/library.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
         <td><a href="../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
         <td><span class="badge badge-Technical Documentation / Guide">Wiki Citation</span></td>
         <td>Explicit [[File:build_suite.js]] reference</td>
@@ -1842,6 +1898,22 @@
       </tr><tr>
         <td><a href="../pages/docs/adr/0023-campaign-independent-workstation-module-packs-and-v2-schema.md.html"><strong>docs/adr/0023-campaign-independent-workstation-module-packs-and-v2-schema.md</strong></a></td>
         <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/docs/agents/ARCHITECTURE_MAP.md.html"><strong>docs/agents/ARCHITECTURE_MAP.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/docs/agents/ONBOARDING_FINDINGS.md.html"><strong>docs/agents/ONBOARDING_FINDINGS.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/docs/agents/START_HERE.md.html"><strong>docs/agents/START_HERE.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/docs/agents/context-index.json.html"><strong>docs/agents/context-index.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
         <td>References build_suite.js</td>
       </tr><tr>
         <td><a href="../pages/docs/audit/2026-10-creator-studio-audit-dossier.md.html"><strong>docs/audit/2026-10-creator-studio-audit-dossier.md</strong></a></td>
@@ -1899,6 +1971,14 @@
         <td><a href="../pages/network/platform_audit_dashboard.html.html"><strong>network/platform_audit_dashboard.html</strong></a></td>
         <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Wiki Citation</span></td>
         <td>Explicit [[File:build_suite.js]] reference</td>
+      </tr><tr>
+        <td><a href="../pages/scratch/loot-planning/04-g0-baseline-record.json.html"><strong>scratch/loot-planning/04-g0-baseline-record.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References build_suite.js</td>
+      </tr><tr>
+        <td><a href="../pages/scratch/loot-planning/host-readiness-findings.md.html"><strong>scratch/loot-planning/host-readiness-findings.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References build_suite.js</td>
       </tr><tr>
         <td><a href="../pages/scripts/build_zero_cors_css.js.html"><strong>scripts/build_zero_cors_css.js</strong></a></td>
         <td><span class="badge badge-Node.js / Browser Engine Script">Wiki Citation</span></td>

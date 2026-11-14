@@ -1194,6 +1194,9 @@ async function resolveMapBackgroundUrl(mapId, mapMetadata) {
   // 1b. In-memory CAMPAIGN_REGISTRY dataUrl fallback (if localStorage stripped dataUrl from maps)
   try {
     let folderSlug = (typeof activeCampaignId !== "undefined" && activeCampaignId) ? activeCampaignId : "";
+    if (folderSlug && typeof ensureCampaignBundleLoaded === "function") {
+      await ensureCampaignBundleLoaded(folderSlug);
+    }
     if (typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY) {
       const regEntry = CAMPAIGN_REGISTRY[folderSlug] || Object.values(CAMPAIGN_REGISTRY).find(c => c && (c.id === folderSlug || c.folder === folderSlug || c.metadata?.id === folderSlug));
       if (regEntry && regEntry.preset && regEntry.preset.maps && regEntry.preset.maps[targetId]) {

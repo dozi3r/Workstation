@@ -1495,17 +1495,31 @@
             const regId = entry.id || cId;
             seenIds.add(String(regId));
             const isActive = String(regId) === String(activeCampId);
-            const metaName = (entry.metadata && entry.metadata.name) || entry.name || regId;
-            const p = entry.preset || (entry.campaign && (entry.campaign.topology || entry.campaign)) || entry.topology || entry;
-            const ent = p.entities || entry.metadata?.entities || p;
-            const counts = {
-              npcs: Array.isArray(ent.npcs) ? ent.npcs.length : (Array.isArray(p.npcs) ? p.npcs.length : 0),
-              quests: Array.isArray(ent.quests) ? ent.quests.length : (Array.isArray(p.quests) ? p.quests.length : 0),
-              items: Array.isArray(ent.items) ? ent.items.length : (Array.isArray(p.items) ? p.items.length : 0),
-              creatures: Array.isArray(ent.creatures) ? ent.creatures.length : (Array.isArray(p.creatures) ? p.creatures.length : 0),
-              trackers: Array.isArray(ent.trackers) ? ent.trackers.length : (Array.isArray(p.trackers) ? p.trackers.length : 0),
-              factions: Array.isArray(ent.factions) ? ent.factions.length : (Array.isArray(p.factions) ? p.factions.length : 0)
-            };
+            const sum = entry.summary || null;
+            const hasLoadedPreset = !Object.getOwnPropertyDescriptor(entry, 'preset')?.get && !!entry.preset;
+            const metaName = (sum && sum.title) || (entry.metadata && entry.metadata.name) || entry.name || regId;
+            let counts;
+            if (sum && !hasLoadedPreset) {
+              counts = {
+                npcs: sum.npcCount || 0,
+                quests: sum.questCount || 0,
+                items: sum.itemCount || 0,
+                creatures: sum.creatureCount || 0,
+                trackers: sum.trackerCount || 0,
+                factions: sum.factionCount || 0
+              };
+            } else {
+              const p = entry.preset || (entry.campaign && (entry.campaign.topology || entry.campaign)) || entry.topology || entry;
+              const ent = p.entities || entry.metadata?.entities || p;
+              counts = {
+                npcs: Array.isArray(ent.npcs) ? ent.npcs.length : (Array.isArray(p.npcs) ? p.npcs.length : 0),
+                quests: Array.isArray(ent.quests) ? ent.quests.length : (Array.isArray(p.quests) ? p.quests.length : 0),
+                items: Array.isArray(ent.items) ? ent.items.length : (Array.isArray(p.items) ? p.items.length : 0),
+                creatures: Array.isArray(ent.creatures) ? ent.creatures.length : (Array.isArray(p.creatures) ? p.creatures.length : 0),
+                trackers: Array.isArray(ent.trackers) ? ent.trackers.length : (Array.isArray(p.trackers) ? p.trackers.length : 0),
+                factions: Array.isArray(ent.factions) ? ent.factions.length : (Array.isArray(p.factions) ? p.factions.length : 0)
+              };
+            }
             results.push({
               id: regId,
               name: metaName,
@@ -1695,9 +1709,12 @@
 
         // 2. Check bundled CAMPAIGN_REGISTRY
         if (typeof CAMPAIGN_REGISTRY !== 'undefined' && CAMPAIGN_REGISTRY[sourceId]) {
+          if (typeof ensureCampaignBundleLoaded === 'function') {
+            await ensureCampaignBundleLoaded(sourceId);
+          }
           const entry = CAMPAIGN_REGISTRY[sourceId];
           const rawPkg = entry.preset || (entry.campaign && (entry.campaign.topology || entry.campaign)) || entry.topology || entry;
-          const metaName = (entry.metadata && entry.metadata.name) || entry.name || sourceId;
+          const metaName = (entry.summary && entry.summary.title) || (entry.metadata && entry.metadata.name) || entry.name || sourceId;
           this.loadedSources[sourceId] = this.extractAndNormalizeSource(sourceId, metaName, rawPkg, 'bundled');
           return true;
         }

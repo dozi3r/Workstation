@@ -80,6 +80,8 @@ if (navManifest && Array.isArray(navManifest.surfaces)) {
 Welcome. You are operating in **Creator Studio**, a universal, system-agnostic campaign authoring workstation.
 Before editing any file, consult this router to identify authoritative specifications, data sources, and compilation requirements.
 
+Use [docs/agents/START_HERE.md](docs/agents/START_HERE.md) when starting a new session, resuming work, locating current subsystem owners, or checking portable campaign package contracts.
+
 ## 1. Ground Rules & Invariants
 1. **Zero-CORS Offline Execution**: Open all compiled HTML tools (\`start.html\`, \`network/*.html\`, \`regions/*.html\`, \`wiki/*.html\`) directly via the \`file:///\` protocol in any standard browser without a web server, external CDN, or HTTP \`fetch()\`. Use browser IndexedDB (\`CreatorStudioMapDB\`) and localStorage for client state.
 2. **Modular Source of Truth**: Edit workstation UI and logic in \`src/workstation/template.html\` and \`src/workstation/scripts/*.js\` (compiled and inlined into \`start.html\`). Edit data in source Markdown/JSON files rather than inlined HTML constants (\`ALL_MODULES\`, \`CAMPAIGN_REGISTRY\`, \`MASTER_TICKETS_DATA\`).
@@ -958,11 +960,29 @@ if (fs.existsSync(MODS_DIR)) {
 
 console.log(`[OK] Enriched ${allEnrichedModules.length} total modules across ${Object.keys(campaignRegistry).length} campaigns for audit dashboard & workstation.`);
 
+const lightAuditRegistry = Object.fromEntries(
+  Object.entries(campaignRegistry).map(([id, entry]) => {
+    const lightMeta = entry.metadata ? { ...entry.metadata } : {};
+    delete lightMeta.entities;
+    delete lightMeta.npcs;
+    delete lightMeta.quests;
+    delete lightMeta.items;
+    delete lightMeta.creatures;
+    delete lightMeta.creatureEvidence;
+    return [id, {
+      id: entry.id || id,
+      folder: entry.folder || id,
+      metadata: lightMeta,
+      modules: entry.modules || []
+    }];
+  })
+);
+
 const auditDatasetsBlock = `// ============================================================================
 // [AUTO-GENERATED AUDIT DATASETS VIA build_suite.js - DO NOT EDIT DIRECTLY]
 // Campaigns Registered: ${Object.keys(campaignRegistry).length} | Total Modules: ${allEnrichedModules.length} | Tickets: ${ticketsData.length}
 // ============================================================================
-const CAMPAIGN_REGISTRY = ${JSON.stringify(campaignRegistry, null, 2)};
+const CAMPAIGN_REGISTRY = ${JSON.stringify(lightAuditRegistry, null, 2)};
 const ALL_MODULES = ${JSON.stringify(allEnrichedModules).replace(/<\/script>/gi, '<\\/script>')};
 const TICKETS = ${JSON.stringify(ticketsData, null, 2)};
 // ============================================================================
@@ -1087,10 +1107,95 @@ ${modsScriptBundle}
 const startHtmlPath = path.join(ROOT_DIR, 'start.html');
 const workstationTemplatePath = path.join(SRC_WORKSTATION_DIR, 'template.html');
 
+// Keep the launcher census small in start.html and emit heavy per-campaign payloads to campaigns/<folder>/campaign_bundle.js.
+function compileWorkstationRegistry(registry) {
+  const count = collection => Array.isArray(collection) ? collection.length : Object.keys(collection || {}).length;
+  const scriptJson = value => JSON.stringify(value).replace(/</g, "\\u003c");
+  return Object.entries(registry).map(([id, entry]) => {
+    const { preset, metadata, modules, ...identity } = entry;
+    const mapCount = count(preset?.maps);
+    const rootNodeCount = count(preset?.nodes);
+    const mappedNodeCount = Object.values(preset?.maps || {}).reduce((sum, map) => sum + count(map?.nodes), 0);
+    const ent = preset?.entities || metadata?.entities || {};
+    const summary = {
+      title: metadata?.name || preset?.name || id,
+      description: metadata?.description || "",
+      rootNodeCount,
+      presetNodeCount: preset?.nodes ? rootNodeCount : mappedNodeCount,
+      nodeCount: mapCount ? mappedNodeCount : rootNodeCount,
+      mapsCount: mapCount || 1,
+      npcCount: count(preset?.npcs || ent.npcs),
+      questCount: count(preset?.quests || ent.quests),
+      itemCount: count(preset?.items || ent.items),
+      creatureCount: count(preset?.creatures || ent.creatures),
+      trackerCount: count(preset?.trackers || ent.trackers),
+      factionCount: count(preset?.factions || ent.factions),
+      modCount: modules?.length || 0
+    };
+    const { creatureEvidence, overrides, ...catalogEntry } = identity;
+    const folderName = entry.folder || id;
+    const bundleUrl = `campaigns/${folderName}/campaign_bundle.js`;
+
+    // Deduplicate redundant activeTopology snapshot and duplicate entity arrays inside preset before writing bundle
+    let cleanPreset = preset ? { ...preset } : preset;
+    if (cleanPreset) {
+      if (cleanPreset.activeTopology && (cleanPreset.maps || cleanPreset.nodes || cleanPreset.entities)) {
+        delete cleanPreset.activeTopology;
+      }
+      if (!cleanPreset.entities && metadata?.entities) {
+        cleanPreset.entities = metadata.entities;
+      }
+      if (cleanPreset.entities) {
+        if (cleanPreset.entities.npcs && cleanPreset.npcs) delete cleanPreset.npcs;
+        if (cleanPreset.entities.quests && cleanPreset.quests) delete cleanPreset.quests;
+        if (cleanPreset.entities.items && cleanPreset.items) delete cleanPreset.items;
+        if (cleanPreset.entities.creatures && cleanPreset.creatures) delete cleanPreset.creatures;
+        if (cleanPreset.entities.factions && cleanPreset.factions) delete cleanPreset.factions;
+        if (cleanPreset.entities.trackers && cleanPreset.trackers) delete cleanPreset.trackers;
+      }
+    }
+
+    const bundlePayload = {
+      preset: cleanPreset,
+      creatureEvidence
+    };
+    const bundleAbsPath = path.join(ROOT_DIR, 'campaigns', folderName, 'campaign_bundle.js');
+    const bundleContent =
+      `// GENERATED by build_suite.js - Zero-CORS on-demand campaign payload bundle\n` +
+      `window.__CS_CAMPAIGN_BUNDLES__ = window.__CS_CAMPAIGN_BUNDLES__ || {};\n` +
+      `window.__CS_CAMPAIGN_BUNDLES__[${scriptJson(id)}] = ${scriptJson(bundlePayload)};\n` +
+      `if (typeof window.hydrateBundledCampaign === "function") {\n` +
+      `  window.hydrateBundledCampaign(${scriptJson(id)}, window.__CS_CAMPAIGN_BUNDLES__[${scriptJson(id)}]);\n` +
+      `}\n`;
+    try {
+      safeWriteFileSync(bundleAbsPath, bundleContent, 'utf8');
+    } catch (bundleErr) {
+      console.warn(`[WARN] Could not write campaign bundle ${bundleAbsPath}:`, bundleErr.message);
+    }
+
+    const lightMetadata = metadata ? { ...metadata } : undefined;
+    if (lightMetadata) {
+      delete lightMetadata.entities;
+      delete lightMetadata.npcs;
+      delete lightMetadata.quests;
+      delete lightMetadata.items;
+      delete lightMetadata.creatures;
+      delete lightMetadata.creatureEvidence;
+    }
+
+    const fields = { metadata: lightMetadata, modules, overrides };
+    const readers = Object.entries(fields)
+      .filter(([, value]) => value !== undefined)
+      .map(([key, value]) => key + "() { return " + scriptJson(value) + "; }");
+    return "registerBundledCampaign(" + scriptJson(id) + ", " +
+      scriptJson({ ...catalogEntry, bundleUrl, summary }) + ", {" + readers.join(", ") + "}, " + !!preset + ");";
+  }).join("\n");
+}
+
 const registryFenced = `// ============================================================================
 // [AUTO-GENERATED CAMPAIGN REGISTRY VIA build_suite.js]
 // ============================================================================
-const CAMPAIGN_REGISTRY = ${JSON.stringify(campaignRegistry, null, 2)};
+${compileWorkstationRegistry(campaignRegistry)}
 // ============================================================================`;
 
 const startModulesBlock = `// ============================================================================
@@ -1143,7 +1248,7 @@ if (fs.existsSync(workstationTemplatePath)) {
   // Inject Datasets
   const buildTimestampStr = new Date().toISOString().replace('T', ' ').substring(0, 16) + ' UTC';
   template = template.replace(/__CS_BUILD_TIMESTAMP__/g, buildTimestampStr);
-  template = template.replace('// @@INJECT_CAMPAIGN_REGISTRY@@', registryFenced);
+  template = template.replace('// @@INJECT_CAMPAIGN_REGISTRY@@', () => registryFenced);
   template = template.replace('// @@INJECT_ALL_MODULES@@', startModulesBlock);
   template = template.replace('// @@INJECT_MASTER_TICKETS_DATA@@', startTicketsBlock);
   template = template.replace('// @@INJECT_ALL_SURFACES@@', startSurfacesBlock);

@@ -470,9 +470,9 @@
         <h1 class="article-title">property_grid_inspector.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: fe8daa15)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: ad034c41)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (30)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (32)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/property_grid_inspector.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>4762 lines &bull; 223.0 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: fe8daa15)</span></td></tr>
+    <tr><th>File Metrics</th><td>4773 lines &bull; 223.9 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: ad034c41)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>22</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>30</strong> backlinks</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>32</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/property_grid_inspector.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -506,7 +506,8 @@
 <p><code>src/workstation/scripts/property_grid_inspector.js</code> provides the Visual Basic 6 / Delphi styled two-column Property Grid dock for inspecting, editing, and auditing nodes, transit corridors, hegemony vectors, and global campaign parameters.</p>
 <h3>Core Subsystems & Responsibilities</h3>
 <ul class="wiki-list">
-<li><strong>Object Selection Architecture</strong>: Synchronizes selected entity context (<code>selectNode</code>, <code>selectEdge</code>, <code>selectShape</code>, <code>deleteShape</code>, <code>selectGlobal</code>) with the dock dropdown selector (<code>updateObjectSelector</code>, <code>onObjectSelectorChange</code>).</li>
+<li><strong>Object Selection Architecture</strong>: Synchronizes selected entity context (<code>selectNode</code>, <code>selectEdge</code>, <code>selectShape</code>, <code>deleteShape</code>, <code>selectGlobal</code>) with the dock dropdown selector (<code>updateObjectSelector</code>, <code>onObjectSelectorChange</code>), ensuring <code>campaignName</code> resolution persists cleanly across sub-maps.</li>
+<li><strong>Global Campaign & Metadata Inspector (SYS-START-19)</strong>: Global property inspection reflects <code>campaignName</code>, <code>author</code>, and provides an inline title edit route invoking <code>applyCampaignSettings()</code> as well as a dedicated <code>Settings</code> action row opening <code>#modal-campaign-settings</code>.</li>
 <li><strong>CAD Vector Shape Inspector</strong>: Dedicated property inspection for drawn vector shapes (<code>type: 'shape'</code>), supporting geometry (X, Y, Width, Height, Radius, X2/Y2 endpoints), layer assignment, fill/stroke colors, stroke style (solid, dashed, dotted), opacity slider, and lock toggles.</li>
 <li><strong>VB6 Two-Column Property Engine</strong>: Renders collapsible category rows and editable attribute rows across:</li>
 <li><em>Topology</em>: Node ID, name, tier, type, AutoCAD layer index color.</li>
@@ -618,7 +619,7 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
         <td>Invokes buildWikiIndex() defined in wiki_engine.js</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (30)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (32)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">Series Component</span></td>
         <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
@@ -635,6 +636,10 @@
         <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
         <td>References src/workstation/scripts/property_grid_inspector.js</td>
       </tr><tr>
+        <td><a href="../../../../pages/docs/agents/context-index.json.html"><strong>docs/agents/context-index.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References src/workstation/scripts/property_grid_inspector.js</td>
+      </tr><tr>
         <td><a href="../../../../pages/docs/specs/CANVAS_POI_AND_CAD_AUTHORING_REDTEAM_PLAN.md.html"><strong>docs/specs/CANVAS_POI_AND_CAD_AUTHORING_REDTEAM_PLAN.md</strong></a></td>
         <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
         <td>References src/workstation/scripts/property_grid_inspector.js</td>
@@ -642,6 +647,10 @@
         <td><a href="../../../../pages/mods/pre_industrial_resources/mod.js.html"><strong>mods/pre_industrial_resources/mod.js</strong></a></td>
         <td><span class="badge badge-Workstation Mod / Extension">Calls Function</span></td>
         <td>Invokes updatePropertiesGrid() defined in property_grid_inspector.js</td>
+      </tr><tr>
+        <td><a href="../../../../pages/scratch/loot-planning/04-g0-baseline-record.json.html"><strong>scratch/loot-planning/04-g0-baseline-record.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References src/workstation/scripts/property_grid_inspector.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/cad_canvas_renderer.js.html"><strong>src/workstation/scripts/cad_canvas_renderer.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
@@ -689,7 +698,7 @@
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/map_store.js.html"><strong>src/workstation/scripts/map_store.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes updatePropertiesGrid() defined in property_grid_inspector.js</td>
+        <td>Invokes updateObjectSelector() defined in property_grid_inspector.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/mdi_window_manager.js.html"><strong>src/workstation/scripts/mdi_window_manager.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

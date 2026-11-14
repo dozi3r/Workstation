@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-09T01:50:43.175Z",
-  "totalFiles": 672,
+  "generatedAt": "2026-11-14T01:14:42.828Z",
+  "totalFiles": 689,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 3651,
+  "totalBidirectionalEdges": 4085,
   "staleCount": 0,
   "duplicateAuditTargets": 9,
   "volumes": [
@@ -179,12 +179,12 @@
       "title": "AGENTS.md: Creator Studio Agent Operating Manual & Router",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "hash": "63b3d02b9d60fb28",
-      "reviewedHash": "63b3d02b9d60fb28",
+      "hash": "ddb6b58560fb8842",
+      "reviewedHash": "ddb6b58560fb8842",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 50,
-      "inboundBacklinkCount": 14
+      "outboundCount": 51,
+      "inboundBacklinkCount": 21
     },
     {
       "relPath": "Build-Suite.ps1",
@@ -198,7 +198,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 46
+      "inboundBacklinkCount": 50
     },
     {
       "relPath": "CONTEXT.md",
@@ -212,7 +212,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 32,
-      "inboundBacklinkCount": 23
+      "inboundBacklinkCount": 26
     },
     {
       "relPath": "Campaign-AI.ps1",
@@ -352,7 +352,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 23,
-      "inboundBacklinkCount": 15
+      "inboundBacklinkCount": 17
     },
     {
       "relPath": "Stop-Workstation.bat",
@@ -389,12 +389,12 @@
       "title": "Test-Suite.ps1 — Master Automated Test Harness & Quality Assurance Gate (Thin Node.js Launcher)",
       "volume": "vol-8",
       "kind": "PowerShell Automation / Simulation Runner",
-      "hash": "39318fafe6d6b21b",
-      "reviewedHash": "39318fafe6d6b21b",
+      "hash": "d486c651524ab119",
+      "reviewedHash": "d486c651524ab119",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 14,
-      "inboundBacklinkCount": 8
+      "inboundBacklinkCount": 13
     },
     {
       "relPath": "admin.html",
@@ -408,7 +408,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 19,
-      "inboundBacklinkCount": 13
+      "inboundBacklinkCount": 14
     },
     {
       "relPath": "build_suite.js",
@@ -417,12 +417,12 @@
       "title": "build_suite.js",
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "892091d8a80bbab6",
-      "reviewedHash": "892091d8a80bbab6",
+      "hash": "8383b6cfefdf2a94",
+      "reviewedHash": "8383b6cfefdf2a94",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 82,
-      "inboundBacklinkCount": 281
+      "outboundCount": 84,
+      "inboundBacklinkCount": 287
     },
     {
       "relPath": "campaigns/BaldursGate/campaign.json",
@@ -436,7 +436,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "campaigns/BaldursGate/modules_manifest.json",
@@ -450,7 +450,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/BaldursGate/preset.json",
@@ -464,7 +464,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/BaldursGate/topology.json",
@@ -478,7 +478,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/DIablo/campaign.json",
@@ -492,7 +492,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 88
+      "inboundBacklinkCount": 89
     },
     {
       "relPath": "campaigns/DIablo/creatures/evidence.json",
@@ -506,7 +506,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_BLOOD_STAR.md",
@@ -520,7 +520,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_BONE_SPIRIT.md",
@@ -534,7 +534,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_CHAIN_LIGHTNING.md",
@@ -548,7 +548,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_CHARGED_BOLT.md",
@@ -562,7 +562,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_ELEMENTAL.md",
@@ -576,7 +576,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_FIREBALL.md",
@@ -590,7 +590,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_FIREBOLT.md",
@@ -604,7 +604,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_FLAME_WAVE.md",
@@ -618,7 +618,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_GOLEM.md",
@@ -632,7 +632,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_HEALING.md",
@@ -646,7 +646,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_HEAL_OTHER.md",
@@ -660,7 +660,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_IDENTIFY.md",
@@ -674,7 +674,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_INFERNO.md",
@@ -688,7 +688,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_INFRAVISION.md",
@@ -702,7 +702,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_LIGHTNING.md",
@@ -716,7 +716,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_MANA_SHIELD.md",
@@ -730,7 +730,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_NOVA.md",
@@ -744,7 +744,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_PHASE.md",
@@ -758,7 +758,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_RESURRECT.md",
@@ -772,7 +772,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_ROGUE_TRAP_DISARMING.md",
@@ -786,7 +786,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_SORCERER_STAFF_RECHARGING.md",
@@ -800,7 +800,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_STONE_CURSE.md",
@@ -814,7 +814,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_TELEKINESIS.md",
@@ -828,7 +828,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_TOWN_PORTAL.md",
@@ -842,7 +842,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_WALL_OF_FIRE.md",
@@ -856,7 +856,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Abilities/MOD_DIABLO_ABI_WARRIOR_REPAIR_SKILL.md",
@@ -870,7 +870,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Factions/MOD_DIABLO_FAC_BROTHERHOOD_OF_THE_VIZJEREI.md",
@@ -884,7 +884,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Factions/MOD_DIABLO_FAC_SISTERS_OF_THE_SIGHTLESS_EYE.md",
@@ -898,7 +898,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_BALROG_WEAKNESS_HINT.md",
@@ -912,7 +912,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_BLOOD_FOUNTAIN.md",
@@ -926,7 +926,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_BUTCHER_IS_DEFEATED_BY_LURING_HIM_THROUGH_A_GRAT.md",
@@ -940,7 +940,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_BUTCHER_QUEST_IS_TRIGGERED_AT_THE_DESECRATED_CAT.md",
@@ -954,7 +954,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_CATACOMBS.md",
@@ -968,7 +968,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_CATACOMBS_MAUSOLEUM.md",
@@ -982,7 +982,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_CAVERN_LEVELS.md",
@@ -996,7 +996,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_CAVES.md",
@@ -1010,7 +1010,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_CAVE_NEAR_WIRT_CLEARING.md",
@@ -1024,7 +1024,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_CHAMBER_OF_BONE.md",
@@ -1038,7 +1038,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_CHARACTER_CLASS_PHILOSOPHY.md",
@@ -1052,7 +1052,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_CRYPT_IN_THE_GRAVEYARD.md",
@@ -1066,7 +1066,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_CURSED_CATHEDRAL.md",
@@ -1080,7 +1080,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_CURSE_OF_KING_LEORIC_QUEST_IS_TRIGGERED_BY_OGDEN.md",
@@ -1094,7 +1094,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_DARK_EXILE.md",
@@ -1108,7 +1108,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_DARK_RIDERS_AND_RITUAL_AT_THE_RUINED_CATHEDRAL.md",
@@ -1122,7 +1122,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_DIABLO_DUNGEON.md",
@@ -1136,7 +1136,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_DIABLO_MONSTER_TEMPLATES.md",
@@ -1150,7 +1150,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_DUNGEON.md",
@@ -1164,7 +1164,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_DUNGEON_BENEATH_THE_CATHEDRAL.md",
@@ -1178,7 +1178,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_DUNGEON_LEVEL_PROGRESSION.md",
@@ -1192,7 +1192,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_DUNGEON_STAIRWAYS_BACK_TO_TRISTRAM.md",
@@ -1206,7 +1206,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_EARLY_DUNGEON_MONSTER_PATTERN.md",
@@ -1220,7 +1220,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_FISSURE_BEHIND_PEPIN_HOUSE.md",
@@ -1234,7 +1234,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_HELL.md",
@@ -1248,7 +1248,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_HELL_LEVELS.md",
@@ -1262,7 +1262,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_KING_LEORIC_IS_DESTROYED_IN_LEORIC_TOMB.md",
@@ -1276,7 +1276,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_KING_LEORIC_TOMB.md",
@@ -1290,7 +1290,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_LEVEL_2_CATHEDRAL.md",
@@ -1304,7 +1304,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_MAGICAL_ITEM_PREFIXES_AND_SUFFIXES.md",
@@ -1318,7 +1318,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_MAGICAL_RESISTANCE.md",
@@ -1332,7 +1332,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_MAGICAL_SHRINES.md",
@@ -1346,7 +1346,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_NARROW_PATH_BETWEEN_LAVA_LAKES.md",
@@ -1360,7 +1360,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_OGDEN_SIGN_QUEST.md",
@@ -1374,7 +1374,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_OPENING_ARRIVAL_IN_THE_VILLAGE.md",
@@ -1388,7 +1388,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_OPENING_THE_SECRET_ANTECHAMBER_OF_KING_LEORIC_TO.md",
@@ -1402,7 +1402,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_POISONED_WATER_CAVERNS.md",
@@ -1416,7 +1416,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_POISONED_WATER_SUPPLY_QUEST_IS_COMPLETED_IN_THE_.md",
@@ -1430,7 +1430,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_POISON_WATER_QUEST_BATTLE.md",
@@ -1444,7 +1444,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_POTIONS_OF_HEALING_AND_MANA.md",
@@ -1458,7 +1458,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_PROCEDURAL_DUNGEONS_AND_FIXED_GEOGRAPHY.md",
@@ -1472,7 +1472,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_RANDOMLY_GENERATED_DUNGEON_WORLD.md",
@@ -1486,7 +1486,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_RISING_SUN_INN_AND_TAVERN.md",
@@ -1500,7 +1500,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_RUINED_CATHEDRAL_AT_THE_EDGE_OF_THE_VILLAGE.md",
@@ -1514,7 +1514,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_SAVE_BEFORE_ACCESSING_A_SHRINE.md",
@@ -1528,7 +1528,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_SERVANTS_OF_DARKNESS.md",
@@ -1542,7 +1542,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_SHRINE_INSCRIPTIONS.md",
@@ -1556,7 +1556,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_SNOTSPILL_SET_PIECE_DUNGEON_LEVEL_4.md",
@@ -1570,7 +1570,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_SORCERY_AND_MAGIC_IN_DIABLO.md",
@@ -1584,7 +1584,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_THREE_HEROES.md",
@@ -1598,7 +1598,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_TRISTRAM.md",
@@ -1612,7 +1612,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_UNIQUES.md",
@@ -1626,7 +1626,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/Situations/MOD_DIABLO_SIT_UNIQUE_MONSTERS_AS_ABILITY_TESTS.md",
@@ -1640,7 +1640,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules/library.json",
@@ -1654,7 +1654,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/modules_manifest.json",
@@ -1668,7 +1668,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 83,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/DIablo/preset.json",
@@ -1682,7 +1682,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/DIablo/topology.json",
@@ -1696,7 +1696,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DungeonCrawlerCarl_Book1/campaign.json",
@@ -1705,12 +1705,12 @@
       "title": "campaign.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "9fba57017f652c16",
-      "reviewedHash": "9fba57017f652c16",
+      "hash": "d59481ffbfb9455a",
+      "reviewedHash": "d59481ffbfb9455a",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "campaigns/DungeonCrawlerCarl_Book1/modules_manifest.json",
@@ -1733,12 +1733,12 @@
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "616b3d0938a32f9b",
-      "reviewedHash": "616b3d0938a32f9b",
+      "hash": "9b7e1dec08811da8",
+      "reviewedHash": "9b7e1dec08811da8",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/DungeonCrawlerCarl_Book1/topology.json",
@@ -1747,12 +1747,12 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "616b3d0938a32f9b",
-      "reviewedHash": "616b3d0938a32f9b",
+      "hash": "9b7e1dec08811da8",
+      "reviewedHash": "9b7e1dec08811da8",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Fallout2/campaign.json",
@@ -1766,7 +1766,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "campaigns/Fallout2/modules_manifest.json",
@@ -1794,7 +1794,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Fallout2/topology.json",
@@ -1808,7 +1808,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/campaign.json",
@@ -1822,7 +1822,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 34
+      "inboundBacklinkCount": 35
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T1_HIGHLORD_COUNCIL_CONCLAVE.md",
@@ -1836,7 +1836,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T1_SEEKER_THEOCRACY_NETWORK.md",
@@ -1850,7 +1850,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T1_WHITESTONE_COUNCIL_DIPLOMACY.md",
@@ -1864,7 +1864,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_BLOOD_SEA_VORTEX.md",
@@ -1878,7 +1878,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_DROWNED_RUIN_XAK_TSAROTH.md",
@@ -1892,7 +1892,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_ICEWALL_GLACIAL_SPIRE.md",
@@ -1906,7 +1906,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_KHAROLIS_WINTER_PASSES.md",
@@ -1920,7 +1920,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_LANDLOCKED_TARSIS_DUSTBOWL.md",
@@ -1934,7 +1934,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_VALLEY_TREES_SOLACE.md",
@@ -1948,7 +1948,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_WAYRETH_SHIFTING_GROVE.md",
@@ -1962,7 +1962,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_AGHAR_LIFT_HYDRAULICS.md",
@@ -1976,7 +1976,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_ERGOTH_DRAGONMETAL_FORGE.md",
@@ -1990,7 +1990,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_HIGH_CLERIST_DRAGON_TRAP.md",
@@ -2004,7 +2004,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_LUERKHISIS_CORRUPTION_VATS.md",
@@ -2018,7 +2018,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_MERCENARY_SIEGE_LINES.md",
@@ -2032,7 +2032,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_PAX_THARKAS_SLAVE_MINES.md",
@@ -2046,7 +2046,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_SANCTION_EGG_FOUNDRIES.md",
@@ -2060,7 +2060,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_THORBARDIN_LIFE_TREE_SEAL.md",
@@ -2074,7 +2074,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T4_BLUE_WING_AERIAL_BLITZ.md",
@@ -2088,7 +2088,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T4_DRACONIAN_CHECKPOINTS.md",
@@ -2102,7 +2102,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T4_REFUGEE_EXODUS_COLUMN.md",
@@ -2116,7 +2116,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T4_SILVER_CLUTCH_BETRAYAL.md",
@@ -2130,7 +2130,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T4_SOLAMNIC_SCHISM_MEASURE.md",
@@ -2144,7 +2144,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T5_ASTINUS_CHRONICLE_VAULT.md",
@@ -2158,7 +2158,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T5_DARGAARD_DEATH_KNIGHT_PACT.md",
@@ -2172,7 +2172,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T5_LORAC_DREAMSCAPE_MATRIX.md",
@@ -2186,7 +2186,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T5_NERAKA_FOUNDATION_PORTAL.md",
@@ -2200,7 +2200,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T5_SOULFORGE_CRUCIBLE.md",
@@ -2214,7 +2214,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/modules_manifest.json",
@@ -2228,7 +2228,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 29,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/preset.json",
@@ -2242,7 +2242,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Krynn_V1_Heroes_of_the_Lance/topology.json",
@@ -2256,7 +2256,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/campaign.json",
@@ -2270,7 +2270,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 33
+      "inboundBacklinkCount": 34
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T1_HIGHLORD_COUNCIL_CONCLAVE.md",
@@ -2284,7 +2284,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T1_SEEKER_THEOCRACY_NETWORK.md",
@@ -2298,7 +2298,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T1_WHITESTONE_COUNCIL_DIPLOMACY.md",
@@ -2312,7 +2312,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T2_BLOOD_SEA_VORTEX.md",
@@ -2326,7 +2326,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T2_DROWNED_RUIN_XAK_TSAROTH.md",
@@ -2340,7 +2340,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T2_ICEWALL_GLACIAL_SPIRE.md",
@@ -2354,7 +2354,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T2_KHAROLIS_WINTER_PASSES.md",
@@ -2368,7 +2368,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T2_LANDLOCKED_TARSIS_DUSTBOWL.md",
@@ -2382,7 +2382,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T2_VALLEY_TREES_SOLACE.md",
@@ -2396,7 +2396,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T2_WAYRETH_SHIFTING_GROVE.md",
@@ -2410,7 +2410,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_AGHAR_LIFT_HYDRAULICS.md",
@@ -2424,7 +2424,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_ERGOTH_DRAGONMETAL_FORGE.md",
@@ -2438,7 +2438,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_HIGH_CLERIST_DRAGON_TRAP.md",
@@ -2452,7 +2452,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_LUERKHISIS_CORRUPTION_VATS.md",
@@ -2466,7 +2466,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_MERCENARY_SIEGE_LINES.md",
@@ -2480,7 +2480,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_PAX_THARKAS_SLAVE_MINES.md",
@@ -2494,7 +2494,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_SANCTION_EGG_FOUNDRIES.md",
@@ -2508,7 +2508,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_THORBARDIN_LIFE_TREE_SEAL.md",
@@ -2522,7 +2522,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T4_BLUE_WING_AERIAL_BLITZ.md",
@@ -2536,7 +2536,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T4_DRACONIAN_CHECKPOINTS.md",
@@ -2550,7 +2550,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T4_REFUGEE_EXODUS_COLUMN.md",
@@ -2564,7 +2564,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T4_SILVER_CLUTCH_BETRAYAL.md",
@@ -2578,7 +2578,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T4_SOLAMNIC_SCHISM_MEASURE.md",
@@ -2592,7 +2592,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T5_ASTINUS_CHRONICLE_VAULT.md",
@@ -2606,7 +2606,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T5_DARGAARD_DEATH_KNIGHT_PACT.md",
@@ -2620,7 +2620,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T5_LORAC_DREAMSCAPE_MATRIX.md",
@@ -2634,7 +2634,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T5_NERAKA_FOUNDATION_PORTAL.md",
@@ -2648,7 +2648,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T5_SOULFORGE_CRUCIBLE.md",
@@ -2662,7 +2662,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/modules_manifest.json",
@@ -2676,7 +2676,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 29,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/preset.json",
@@ -2690,7 +2690,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Krynn_V2_Shadows_of_the_Lance/topology.json",
@@ -2704,7 +2704,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/campaign.json",
@@ -2718,7 +2718,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 33
+      "inboundBacklinkCount": 34
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T1_HIGHLORD_COUNCIL_CONCLAVE.md",
@@ -2732,7 +2732,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T1_SEEKER_THEOCRACY_NETWORK.md",
@@ -2746,7 +2746,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T1_WHITESTONE_COUNCIL_DIPLOMACY.md",
@@ -2760,7 +2760,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_BLOOD_SEA_VORTEX.md",
@@ -2774,7 +2774,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_DROWNED_RUIN_XAK_TSAROTH.md",
@@ -2788,7 +2788,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_ICEWALL_GLACIAL_SPIRE.md",
@@ -2802,7 +2802,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_KHAROLIS_WINTER_PASSES.md",
@@ -2816,7 +2816,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_LANDLOCKED_TARSIS_DUSTBOWL.md",
@@ -2830,7 +2830,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_VALLEY_TREES_SOLACE.md",
@@ -2844,7 +2844,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_WAYRETH_SHIFTING_GROVE.md",
@@ -2858,7 +2858,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_AGHAR_LIFT_HYDRAULICS.md",
@@ -2872,7 +2872,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_ERGOTH_DRAGONMETAL_FORGE.md",
@@ -2886,7 +2886,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_HIGH_CLERIST_DRAGON_TRAP.md",
@@ -2900,7 +2900,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_LUERKHISIS_CORRUPTION_VATS.md",
@@ -2914,7 +2914,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_MERCENARY_SIEGE_LINES.md",
@@ -2928,7 +2928,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_PAX_THARKAS_SLAVE_MINES.md",
@@ -2942,7 +2942,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_SANCTION_EGG_FOUNDRIES.md",
@@ -2956,7 +2956,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_THORBARDIN_LIFE_TREE_SEAL.md",
@@ -2970,7 +2970,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T4_BLUE_WING_AERIAL_BLITZ.md",
@@ -2984,7 +2984,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T4_DRACONIAN_CHECKPOINTS.md",
@@ -2998,7 +2998,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T4_REFUGEE_EXODUS_COLUMN.md",
@@ -3012,7 +3012,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T4_SILVER_CLUTCH_BETRAYAL.md",
@@ -3026,7 +3026,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T4_SOLAMNIC_SCHISM_MEASURE.md",
@@ -3040,7 +3040,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T5_ASTINUS_CHRONICLE_VAULT.md",
@@ -3054,7 +3054,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T5_DARGAARD_DEATH_KNIGHT_PACT.md",
@@ -3068,7 +3068,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T5_LORAC_DREAMSCAPE_MATRIX.md",
@@ -3082,7 +3082,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T5_NERAKA_FOUNDATION_PORTAL.md",
@@ -3096,7 +3096,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T5_SOULFORGE_CRUCIBLE.md",
@@ -3110,7 +3110,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/modules_manifest.json",
@@ -3124,7 +3124,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 29,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/preset.json",
@@ -3138,7 +3138,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Krynn_V3_Five_Book_Odyssey/topology.json",
@@ -3152,7 +3152,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Peridot/campaign.json",
@@ -3161,11 +3161,11 @@
       "title": "campaign.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "26d230c7742fcdd0",
-      "reviewedHash": "26d230c7742fcdd0",
+      "hash": "1da84552b8e6faeb",
+      "reviewedHash": "1da84552b8e6faeb",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 3,
+      "outboundCount": 15,
       "inboundBacklinkCount": 59
     },
     {
@@ -3320,7 +3320,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 11
+      "inboundBacklinkCount": 14
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_B_Ecology_and_Biomes/ECOL-02_Razor_Sedge_and_Narcotic_Poppy_Basin.md",
@@ -3334,7 +3334,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 8
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_B_Ecology_and_Biomes/ECOL-03_Iron_Thorn_Living_Immune_Barrier.md",
@@ -3348,7 +3348,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_B_Ecology_and_Biomes/ECOL-04_Carnivorous_Pitcher_Bogs_and_Giant_Slugs.md",
@@ -3362,7 +3362,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_B_Ecology_and_Biomes/ECOL-05_Glacial_Quartz_Meltwater_Filtration.md",
@@ -3376,7 +3376,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_B_Ecology_and_Biomes/ECOL-06_High_Canopy_Redwoods_and_Amber_Resin_Taps.md",
@@ -3390,7 +3390,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 12
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_B_Ecology_and_Biomes/ECOL-07_Siren_Roosts_and_Volcanic_Skerry_Reefs.md",
@@ -3404,7 +3404,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_C_Faction_and_Governance/FACT-01_The_5_Sovereign_Hub_Archetypes_and_Smothering.md",
@@ -3516,7 +3516,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 10
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_D_Social_Dynamics_and_Conflation/CONF-02_Green_Red_Conflation_The_Wild_Rage.md",
@@ -3530,7 +3530,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_D_Social_Dynamics_and_Conflation/CONF-03_Green_Blue_Conflation_Traditionalist_Stagnation.md",
@@ -3544,7 +3544,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_D_Social_Dynamics_and_Conflation/CONF-04_Ally_Assisted_Conflation_and_Hegemony_Tactics.md",
@@ -3600,7 +3600,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 11
+      "inboundBacklinkCount": 13
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_E_Transit_and_Edges/EDGE-02_The_South_Coastal_Road_Paving_Initiative.md",
@@ -3614,7 +3614,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_E_Transit_and_Edges/EDGE-03_Walters_Wiggles_Cliffside_Switchback_Ascent.md",
@@ -3628,7 +3628,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 8
+      "inboundBacklinkCount": 11
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_E_Transit_and_Edges/EDGE-04_High_Arboreal_Suspension_Highways.md",
@@ -3642,7 +3642,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_E_Transit_and_Edges/EDGE-05_Littoral_Smuggler_Sea_Arches_and_Reef_Gates.md",
@@ -3656,7 +3656,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 8
+      "inboundBacklinkCount": 11
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-01_The_Salt_Warehouse_Famine_Riots.md",
@@ -3670,7 +3670,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 11
+      "inboundBacklinkCount": 14
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-02_The_Living_Statue_Blue_Rot_Quarantine_Ward.md",
@@ -3684,7 +3684,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-03_The_Memory_Tithe_Altar_of_the_Fey_Court.md",
@@ -3698,7 +3698,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-04_The_Iron_Blight_Oxidation_Clock.md",
@@ -3712,7 +3712,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_F_Catalysts_NPCs_and_Dilemmas/SPARK-05_Independent_Conspiracies_The_Hollow_Architects.md",
@@ -3945,11 +3945,11 @@
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "ff4de51ad9d16f27",
-      "reviewedHash": "ff4de51ad9d16f27",
+      "hash": "77530c336a9bdba8",
+      "reviewedHash": "77530c336a9bdba8",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 2,
+      "outboundCount": 18,
       "inboundBacklinkCount": 2
     },
     {
@@ -3959,11 +3959,11 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "ff4de51ad9d16f27",
-      "reviewedHash": "ff4de51ad9d16f27",
+      "hash": "77530c336a9bdba8",
+      "reviewedHash": "77530c336a9bdba8",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 2,
+      "outboundCount": 18,
       "inboundBacklinkCount": 2
     },
     {
@@ -3978,7 +3978,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 13
+      "inboundBacklinkCount": 14
     },
     {
       "relPath": "campaigns/TheElderScrolls_Morrowind/campaign.json",
@@ -3987,12 +3987,12 @@
       "title": "campaign.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "0845326353cc781d",
-      "reviewedHash": "0845326353cc781d",
+      "hash": "575fa8a5ecb12200",
+      "reviewedHash": "575fa8a5ecb12200",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "campaigns/TheElderScrolls_Morrowind/modules_manifest.json",
@@ -4015,12 +4015,12 @@
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "802b50c53b65aefa",
-      "reviewedHash": "802b50c53b65aefa",
+      "hash": "b667d7e01f6e67c8",
+      "reviewedHash": "b667d7e01f6e67c8",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/TheElderScrolls_Morrowind/topology.json",
@@ -4029,12 +4029,12 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "802b50c53b65aefa",
-      "reviewedHash": "802b50c53b65aefa",
+      "hash": "b667d7e01f6e67c8",
+      "reviewedHash": "b667d7e01f6e67c8",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/TheElderScrolls_Oblivion/campaign.json",
@@ -4043,12 +4043,12 @@
       "title": "campaign.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "faa40e55430c1d88",
-      "reviewedHash": "faa40e55430c1d88",
+      "hash": "17d681b6db4b6acf",
+      "reviewedHash": "17d681b6db4b6acf",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 11
+      "inboundBacklinkCount": 13
     },
     {
       "relPath": "campaigns/TheElderScrolls_Oblivion/modules/MOD_OBLIVION_T1_DRAGONFIRES_COVENANT.md",
@@ -4141,12 +4141,12 @@
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "cdb1fc357798f338",
-      "reviewedHash": "cdb1fc357798f338",
+      "hash": "912058d462fa4ac7",
+      "reviewedHash": "912058d462fa4ac7",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/TheElderScrolls_Oblivion/topology.json",
@@ -4155,12 +4155,12 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "50d5174f37513762",
-      "reviewedHash": "50d5174f37513762",
+      "hash": "912058d462fa4ac7",
+      "reviewedHash": "912058d462fa4ac7",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/jttw_5_flaming_mountains/campaign.json",
@@ -4174,7 +4174,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 23
+      "inboundBacklinkCount": 24
     },
     {
       "relPath": "campaigns/jttw_5_flaming_mountains/creatures/evidence.json",
@@ -4482,7 +4482,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "campaigns/migmag/modules_manifest.json",
@@ -4510,7 +4510,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/migmag/topology.json",
@@ -4524,7 +4524,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "docs/AI_DEVELOPER_GUIDE.md",
@@ -4538,7 +4538,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 23,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 11
     },
     {
       "relPath": "docs/CREATOR_STUDIO_AUTHORITATIVE_REFERENCE.md",
@@ -4552,7 +4552,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 13,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "docs/MODULES_CATALOG.md",
@@ -4566,7 +4566,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 70,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "docs/adr/0001-dual-mode-preset-architecture.md",
@@ -4608,7 +4608,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 8
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "docs/adr/0004-desktop-workstation-start-html.md",
@@ -4622,7 +4622,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md",
@@ -4636,7 +4636,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 8
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md",
@@ -4664,7 +4664,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "docs/adr/0008-workstation-mod-extension-architecture-and-save-isolation.md",
@@ -4818,7 +4818,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "docs/adr/0018-campaign-state-isolation-clean-slate-lifecycle-engine-and-zero-artifact-campaign-switching.md",
@@ -4860,7 +4860,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
@@ -4874,7 +4874,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
@@ -4888,7 +4888,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "docs/adr/0022-coauthoring-architecture-and-rejected-patterns.md",
@@ -4902,7 +4902,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 10,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "docs/adr/0023-campaign-independent-workstation-module-packs-and-v2-schema.md",
@@ -4933,6 +4933,90 @@
       "inboundBacklinkCount": 0
     },
     {
+      "relPath": "docs/agents/ARCHITECTURE_MAP.md",
+      "wikiHtml": "wiki/pages/docs/agents/ARCHITECTURE_MAP.md.html",
+      "wikiSrc": "wiki/src/files/docs/agents/ARCHITECTURE_MAP.md.md",
+      "title": "Architecture routes",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "f0603bf01cfa7527",
+      "reviewedHash": "f0603bf01cfa7527",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 18,
+      "inboundBacklinkCount": 2
+    },
+    {
+      "relPath": "docs/agents/HANDOFF_TEMPLATE.md",
+      "wikiHtml": "wiki/pages/docs/agents/HANDOFF_TEMPLATE.md.html",
+      "wikiSrc": "wiki/src/files/docs/agents/HANDOFF_TEMPLATE.md.md",
+      "title": "Task handoff template",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "18c6bc7356da4f61",
+      "reviewedHash": "18c6bc7356da4f61",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 0,
+      "inboundBacklinkCount": 3
+    },
+    {
+      "relPath": "docs/agents/ONBOARDING_FINDINGS.md",
+      "wikiHtml": "wiki/pages/docs/agents/ONBOARDING_FINDINGS.md.html",
+      "wikiSrc": "wiki/src/files/docs/agents/ONBOARDING_FINDINGS.md.md",
+      "title": "Onboarding findings: 2026-11-09",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "03fb5c5bd07f4825",
+      "reviewedHash": "03fb5c5bd07f4825",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 14,
+      "inboundBacklinkCount": 2
+    },
+    {
+      "relPath": "docs/agents/OPERATIONS.md",
+      "wikiHtml": "wiki/pages/docs/agents/OPERATIONS.md.html",
+      "wikiSrc": "wiki/src/files/docs/agents/OPERATIONS.md.md",
+      "title": "Agent operations",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "fc93a8a2a6ff1144",
+      "reviewedHash": "fc93a8a2a6ff1144",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 7,
+      "inboundBacklinkCount": 2
+    },
+    {
+      "relPath": "docs/agents/START_HERE.md",
+      "wikiHtml": "wiki/pages/docs/agents/START_HERE.md.html",
+      "wikiSrc": "wiki/src/files/docs/agents/START_HERE.md.md",
+      "title": "Agent entry point",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "51048b5ccb52a2b9",
+      "reviewedHash": "51048b5ccb52a2b9",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 10,
+      "inboundBacklinkCount": 4
+    },
+    {
+      "relPath": "docs/agents/context-index.json",
+      "wikiHtml": "wiki/pages/docs/agents/context-index.json.html",
+      "wikiSrc": "wiki/src/files/docs/agents/context-index.json.md",
+      "title": "context-index.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "hash": "c6090330a9c4f09a",
+      "reviewedHash": "c6090330a9c4f09a",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 56,
+      "inboundBacklinkCount": 2
+    },
+    {
       "relPath": "docs/agents/domain.md",
       "wikiHtml": "wiki/pages/docs/agents/domain.md.html",
       "wikiSrc": "wiki/src/files/docs/agents/domain.md.md",
@@ -4958,7 +5042,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "docs/agents/triage-labels.md",
@@ -5000,7 +5084,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "docs/navigation_manifest.json",
@@ -5014,7 +5098,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 43,
-      "inboundBacklinkCount": 10
+      "inboundBacklinkCount": 13
     },
     {
       "relPath": "docs/reviews/start_html_review_log.md",
@@ -5045,6 +5129,20 @@
       "inboundBacklinkCount": 0
     },
     {
+      "relPath": "docs/specs/modular_loot_system_spec.md",
+      "wikiHtml": "wiki/pages/docs/specs/modular_loot_system_spec.md.html",
+      "wikiSrc": "wiki/src/files/docs/specs/modular_loot_system_spec.md.md",
+      "title": "AdventureCAD Modular Loot System Specification & G1 Contract (`SYS-LOOT-01` / `SYS-LOOT-02`)",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "5752af64d3ba2393",
+      "reviewedHash": "5752af64d3ba2393",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 2,
+      "inboundBacklinkCount": 0
+    },
+    {
       "relPath": "docs/srd/adventure_framework_srd.md",
       "wikiHtml": "wiki/pages/docs/srd/adventure_framework_srd.md.html",
       "wikiSrc": "wiki/src/files/docs/srd/adventure_framework_srd.md.md",
@@ -5056,7 +5154,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 9,
-      "inboundBacklinkCount": 101
+      "inboundBacklinkCount": 102
     },
     {
       "relPath": "docs/srd/authoring_engine_srd.md",
@@ -5070,7 +5168,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 34,
-      "inboundBacklinkCount": 107
+      "inboundBacklinkCount": 108
     },
     {
       "relPath": "docs/srd/campaign_preset_specification_srd.md",
@@ -5084,7 +5182,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 11,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "docs/srd/ip_module_framework_srd.md",
@@ -5098,7 +5196,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 10,
-      "inboundBacklinkCount": 11
+      "inboundBacklinkCount": 13
     },
     {
       "relPath": "docs/srd/scenario_primitives_srd.md",
@@ -5112,7 +5210,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 9,
-      "inboundBacklinkCount": 8
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "docs/srd/tier_0_substratum_srd.md",
@@ -5140,7 +5238,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 23
+      "inboundBacklinkCount": 24
     },
     {
       "relPath": "mods/README.md",
@@ -5154,7 +5252,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/Update-Mods.ps1",
@@ -5168,6 +5266,20 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
+      "inboundBacklinkCount": 3
+    },
+    {
+      "relPath": "mods/loot_simulator/schemas/loot_schemas.json",
+      "wikiHtml": "wiki/pages/mods/loot_simulator/schemas/loot_schemas.json.html",
+      "wikiSrc": "wiki/src/files/mods/loot_simulator/schemas/loot_schemas.json.md",
+      "title": "loot_schemas.json",
+      "volume": "vol-4",
+      "kind": "Workstation Mod Manifest (JSON)",
+      "hash": "3e76ad5df8919ec8",
+      "reviewedHash": "3e76ad5df8919ec8",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 1,
       "inboundBacklinkCount": 1
     },
     {
@@ -5182,7 +5294,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "mods/pre_industrial_resources/mod.json",
@@ -7506,7 +7618,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "network/campaign_studio.html",
@@ -7534,7 +7646,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 9,
-      "inboundBacklinkCount": 10
+      "inboundBacklinkCount": 11
     },
     {
       "relPath": "network/modules_manifest.json",
@@ -7548,7 +7660,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "network/network_builder.html",
@@ -7562,7 +7674,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 15
+      "inboundBacklinkCount": 16
     },
     {
       "relPath": "network/odv_archetype_matrix.html",
@@ -7585,12 +7697,12 @@
       "title": "Creator Studio: Platform Explorer & Master Audit",
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "365c420e456f534e",
-      "reviewedHash": "365c420e456f534e",
+      "hash": "0c1a4d6265533a79",
+      "reviewedHash": "0c1a4d6265533a79",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 299,
-      "inboundBacklinkCount": 27
+      "inboundBacklinkCount": 28
     },
     {
       "relPath": "network/presets/blank_canvas.json",
@@ -7716,7 +7828,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "scratch/check_raw_topo.js",
@@ -7730,7 +7842,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "scratch/crucibles_part1_db.js",
@@ -7996,7 +8108,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "scratch/inspect_topo_links.js",
@@ -8025,6 +8137,118 @@
       "auditFlag": null,
       "outboundCount": 0,
       "inboundBacklinkCount": 0
+    },
+    {
+      "relPath": "scratch/loot-planning/00-coordination-and-gates.md",
+      "wikiHtml": "wiki/pages/scratch/loot-planning/00-coordination-and-gates.md.html",
+      "wikiSrc": "wiki/src/files/scratch/loot-planning/00-coordination-and-gates.md.md",
+      "title": "AdventureCAD modular loot: coordinated delivery plan",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "8291ca819bfbc454",
+      "reviewedHash": "8291ca819bfbc454",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 6,
+      "inboundBacklinkCount": 0
+    },
+    {
+      "relPath": "scratch/loot-planning/01-shared-contract.md",
+      "wikiHtml": "wiki/pages/scratch/loot-planning/01-shared-contract.md.html",
+      "wikiSrc": "wiki/src/files/scratch/loot-planning/01-shared-contract.md.md",
+      "title": "Shared contract proposal: AdventureCAD host and Loot Simulator Mod",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "3a36628b42f44ebe",
+      "reviewedHash": "3a36628b42f44ebe",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 0,
+      "inboundBacklinkCount": 0
+    },
+    {
+      "relPath": "scratch/loot-planning/02-review-disposition.md",
+      "wikiHtml": "wiki/pages/scratch/loot-planning/02-review-disposition.md.html",
+      "wikiSrc": "wiki/src/files/scratch/loot-planning/02-review-disposition.md.md",
+      "title": "Coordinator disposition of planning review",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "724b7668030085b3",
+      "reviewedHash": "724b7668030085b3",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 0,
+      "inboundBacklinkCount": 0
+    },
+    {
+      "relPath": "scratch/loot-planning/03-consolidated-review.md",
+      "wikiHtml": "wiki/pages/scratch/loot-planning/03-consolidated-review.md.html",
+      "wikiSrc": "wiki/src/files/scratch/loot-planning/03-consolidated-review.md.md",
+      "title": "Independent consolidated-plan review",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "eaf8f9fa4d1f3e06",
+      "reviewedHash": "eaf8f9fa4d1f3e06",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 0,
+      "inboundBacklinkCount": 0
+    },
+    {
+      "relPath": "scratch/loot-planning/04-g0-baseline-record.json",
+      "wikiHtml": "wiki/pages/scratch/loot-planning/04-g0-baseline-record.json.html",
+      "wikiSrc": "wiki/src/files/scratch/loot-planning/04-g0-baseline-record.json.md",
+      "title": "04-g0-baseline-record.json",
+      "volume": "vol-8",
+      "kind": "Authoritative JSON Data / Manifest",
+      "hash": "4ffecfb5869f56e0",
+      "reviewedHash": "4ffecfb5869f56e0",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 247,
+      "inboundBacklinkCount": 0
+    },
+    {
+      "relPath": "scratch/loot-planning/host-readiness-findings.md",
+      "wikiHtml": "wiki/pages/scratch/loot-planning/host-readiness-findings.md.html",
+      "wikiSrc": "wiki/src/files/scratch/loot-planning/host-readiness-findings.md.md",
+      "title": "AdventureCAD readiness: evidence and proposed work plan",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "bf46e1654bf95015",
+      "reviewedHash": "bf46e1654bf95015",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 7,
+      "inboundBacklinkCount": 0
+    },
+    {
+      "relPath": "scratch/loot-planning/independent-risk-audit.md",
+      "wikiHtml": "wiki/pages/scratch/loot-planning/independent-risk-audit.md.html",
+      "wikiSrc": "wiki/src/files/scratch/loot-planning/independent-risk-audit.md.md",
+      "title": "Independent red-team review: modular loot planning",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "f5766497ae1ad468",
+      "reviewedHash": "f5766497ae1ad468",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 7,
+      "inboundBacklinkCount": 0
+    },
+    {
+      "relPath": "scratch/loot-planning/mod-findings.md",
+      "wikiHtml": "wiki/pages/scratch/loot-planning/mod-findings.md.html",
+      "wikiSrc": "wiki/src/files/scratch/loot-planning/mod-findings.md.md",
+      "title": "Loot Simulator Mod: implementation planning findings",
+      "volume": "vol-8",
+      "kind": "Technical Documentation / Guide",
+      "hash": "f0a70b7c29d3f964",
+      "reviewedHash": "f0a70b7c29d3f964",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 10,
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "scratch/patch_test.js",
@@ -8080,7 +8304,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "scratch/verify_remediated_jttw.js",
@@ -8095,6 +8319,20 @@
       "auditFlag": null,
       "outboundCount": 0,
       "inboundBacklinkCount": 0
+    },
+    {
+      "relPath": "scripts/agent_context.js",
+      "wikiHtml": "wiki/pages/scripts/agent_context.js.html",
+      "wikiSrc": "wiki/src/files/scripts/agent_context.js.md",
+      "title": "agent_context.js",
+      "volume": "vol-8",
+      "kind": "Node.js / Browser Engine Script",
+      "hash": "d57ac81901bbd781",
+      "reviewedHash": "d57ac81901bbd781",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 2,
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "scripts/audit_industry_chains.js",
@@ -8122,7 +8360,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "scripts/campaign_cli.js",
@@ -8136,7 +8374,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "scripts/find_codebase_node.js",
@@ -8150,7 +8388,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "scripts/make_lite_zip.ps1",
@@ -8220,7 +8458,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "server.js",
@@ -8234,7 +8472,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 11
+      "inboundBacklinkCount": 12
     },
     {
       "relPath": "server.ps1",
@@ -8248,7 +8486,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 11
+      "inboundBacklinkCount": 12
     },
     {
       "relPath": "sociology/01_Core_Cultural_Quadrants.md",
@@ -8388,7 +8626,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "src/workstation/modals/explorer_modals.html",
@@ -8416,7 +8654,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "src/workstation/modals/studio_mdi_windows.html",
@@ -8458,7 +8696,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 17,
-      "inboundBacklinkCount": 26
+      "inboundBacklinkCount": 28
     },
     {
       "relPath": "src/workstation/scripts/cad_interaction.js",
@@ -8472,7 +8710,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 18,
-      "inboundBacklinkCount": 17
+      "inboundBacklinkCount": 18
     },
     {
       "relPath": "src/workstation/scripts/campaign_changelog_ui.js",
@@ -8486,7 +8724,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 12,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "src/workstation/scripts/campaign_exporter.js",
@@ -8500,7 +8738,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 18,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "src/workstation/scripts/campaign_mutation_engine.js",
@@ -8514,7 +8752,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 19
+      "inboundBacklinkCount": 23
     },
     {
       "relPath": "src/workstation/scripts/campaign_override_slots.js",
@@ -8528,7 +8766,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "src/workstation/scripts/canvas_hud.js",
@@ -8542,7 +8780,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 13,
-      "inboundBacklinkCount": 19
+      "inboundBacklinkCount": 20
     },
     {
       "relPath": "src/workstation/scripts/dread_risk.js",
@@ -8584,7 +8822,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 17,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "src/workstation/scripts/entity_core.js",
@@ -8593,12 +8831,12 @@
       "title": "entity_core.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "1ae7484440347cf4",
-      "reviewedHash": "1ae7484440347cf4",
+      "hash": "ff483bb0e1a62144",
+      "reviewedHash": "ff483bb0e1a62144",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 14,
-      "inboundBacklinkCount": 19
+      "inboundBacklinkCount": 24
     },
     {
       "relPath": "src/workstation/scripts/entity_crud_dialogs.js",
@@ -8612,7 +8850,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 13,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "src/workstation/scripts/entity_manager_ui.js",
@@ -8626,7 +8864,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 20,
-      "inboundBacklinkCount": 24
+      "inboundBacklinkCount": 26
     },
     {
       "relPath": "src/workstation/scripts/fast_frugal_tree.js",
@@ -8668,7 +8906,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 10,
-      "inboundBacklinkCount": 4
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "src/workstation/scripts/layer_manager.js",
@@ -8682,7 +8920,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 11
+      "inboundBacklinkCount": 12
     },
     {
       "relPath": "src/workstation/scripts/map_navigator.js",
@@ -8696,7 +8934,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 9,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "src/workstation/scripts/map_store.js",
@@ -8705,12 +8943,12 @@
       "title": "map_store.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "5177b85476c31ea7",
-      "reviewedHash": "5177b85476c31ea7",
+      "hash": "778214f05e365220",
+      "reviewedHash": "778214f05e365220",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 17,
-      "inboundBacklinkCount": 18
+      "inboundBacklinkCount": 20
     },
     {
       "relPath": "src/workstation/scripts/mdi_window_manager.js",
@@ -8719,12 +8957,12 @@
       "title": "mdi_window_manager.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "63c7d860373855a2",
-      "reviewedHash": "63c7d860373855a2",
+      "hash": "4860084df8868bac",
+      "reviewedHash": "4860084df8868bac",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 18,
-      "inboundBacklinkCount": 19
+      "inboundBacklinkCount": 22
     },
     {
       "relPath": "src/workstation/scripts/module_explorer.js",
@@ -8738,7 +8976,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 10,
-      "inboundBacklinkCount": 18
+      "inboundBacklinkCount": 20
     },
     {
       "relPath": "src/workstation/scripts/natural_frequency_engine.js",
@@ -8766,7 +9004,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 12,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "src/workstation/scripts/property_grid_inspector.js",
@@ -8780,7 +9018,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 22,
-      "inboundBacklinkCount": 30
+      "inboundBacklinkCount": 32
     },
     {
       "relPath": "src/workstation/scripts/selection_engine.js",
@@ -8794,7 +9032,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 8
     },
     {
       "relPath": "src/workstation/scripts/selective_importer.js",
@@ -8808,7 +9046,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 16,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 7
     },
     {
       "relPath": "src/workstation/scripts/social_graph_renderer.js",
@@ -8836,7 +9074,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 21
+      "inboundBacklinkCount": 24
     },
     {
       "relPath": "src/workstation/scripts/state_adapter.js",
@@ -8845,12 +9083,12 @@
       "title": "state_adapter.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "5df18f55c6780b26",
-      "reviewedHash": "5df18f55c6780b26",
+      "hash": "62883e28bd1a4788",
+      "reviewedHash": "62883e28bd1a4788",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 16,
-      "inboundBacklinkCount": 26
+      "inboundBacklinkCount": 30
     },
     {
       "relPath": "src/workstation/scripts/supply_chain_simulator.js",
@@ -8859,12 +9097,12 @@
       "title": "supply_chain_simulator.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "9982bb063138468e",
-      "reviewedHash": "9982bb063138468e",
+      "hash": "974e51a878a80c16",
+      "reviewedHash": "974e51a878a80c16",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 9,
-      "inboundBacklinkCount": 15
+      "inboundBacklinkCount": 16
     },
     {
       "relPath": "src/workstation/scripts/ticket_center.js",
@@ -8901,12 +9139,12 @@
       "title": "workstation_state.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "e56fc90a03c7d1f7",
-      "reviewedHash": "e56fc90a03c7d1f7",
+      "hash": "1241136c5ff348c7",
+      "reviewedHash": "1241136c5ff348c7",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 32,
-      "inboundBacklinkCount": 30
+      "inboundBacklinkCount": 35
     },
     {
       "relPath": "src/workstation/scripts/zip_engine.js",
@@ -8920,7 +9158,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 22
+      "inboundBacklinkCount": 24
     },
     {
       "relPath": "src/workstation/styles/win95_workstation.css",
@@ -8943,12 +9181,12 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "hash": "58f2083ee4030a8a",
-      "reviewedHash": "58f2083ee4030a8a",
+      "hash": "493b60b2d59afb72",
+      "reviewedHash": "493b60b2d59afb72",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 55,
-      "inboundBacklinkCount": 48
+      "inboundBacklinkCount": 51
     },
     {
       "relPath": "start.html",
@@ -8957,12 +9195,12 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "e864e2831f3cf1dd",
-      "reviewedHash": "e864e2831f3cf1dd",
+      "hash": "7b7c8a6a64e8835a",
+      "reviewedHash": "7b7c8a6a64e8835a",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 311,
-      "inboundBacklinkCount": 97
+      "inboundBacklinkCount": 103
     },
     {
       "relPath": "system/primitives/051_opal_island_module_deconstruction_and_scenario_primitives.md",
@@ -9041,12 +9279,12 @@
       "title": "run_tests.js",
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "990cae293e7a88b9",
-      "reviewedHash": "990cae293e7a88b9",
+      "hash": "5b43ce4a0262525e",
+      "reviewedHash": "5b43ce4a0262525e",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 22,
-      "inboundBacklinkCount": 8
+      "inboundBacklinkCount": 15
     },
     {
       "relPath": "test/test_gigerenzer_heuristics.js",

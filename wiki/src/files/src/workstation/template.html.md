@@ -3,16 +3,18 @@ file_path: "src/workstation/template.html"
 title: "Creator Studio - Campaign Authoring Workstation"
 volume: "vol-4"
 kind: "Workstation Shell Template"
-current_hash: "58f2083ee4030a8a"
-reviewed_hash: "58f2083ee4030a8a"
+current_hash: "493b60b2d59afb72"
+reviewed_hash: "493b60b2d59afb72"
 stale: false
-size_bytes: 54648
-line_count: 778
+size_bytes: 59971
+line_count: 895
 ---
 
 # Creator Studio - Campaign Authoring Workstation
 
 <!-- BEGIN_CUSTOM_NOTES -->
+The shell registers built-in campaign summaries (`registerBundledCampaign`) and loads per-campaign `campaigns/<folder>/campaign_bundle.js` payloads on demand via `ensureCampaignBundleLoaded` and `hydrateBundledCampaign`.
+
 ### Architectural Purpose & Role
 `src/workstation/template.html` serves as the primary desktop workstation HTML scaffolding shell, compiled into `start.html` via `Build-Suite.ps1`. It defines the desktop icon grid, Win95 taskbar, Start Menu, top menu bar, CAD canvas viewport, HUD layers, and hidden file inputs. It populates `BUNDLED_TOPOLOGIES` dynamically from `CAMPAIGN_REGISTRY` without hardcoding legacy presets.
 

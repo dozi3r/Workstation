@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/workstation_state.js"
 title: "workstation_state.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "e56fc90a03c7d1f7"
-reviewed_hash: "e56fc90a03c7d1f7"
+current_hash: "1241136c5ff348c7"
+reviewed_hash: "1241136c5ff348c7"
 stale: false
-size_bytes: 96487
-line_count: 1907
+size_bytes: 97135
+line_count: 1918
 ---
 
 # workstation_state.js

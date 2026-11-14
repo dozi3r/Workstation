@@ -470,9 +470,9 @@
         <h1 class="article-title">Creator Studio - Campaign Authoring Workstation</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Shell Template</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 42c2f4c1)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 493b60b2)</span>
           
-          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (48)</a>
+          <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (51)</a>
         </div>
       </div>
 
@@ -483,10 +483,10 @@
     <tr><th>File Path</th><td><code>src/workstation/template.html</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Shell Template</td></tr>
-    <tr><th>File Metrics</th><td>776 lines &bull; 52.9 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 42c2f4c1)</span></td></tr>
+    <tr><th>File Metrics</th><td>895 lines &bull; 58.6 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 493b60b2)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>55</strong> references</td></tr>
-    <tr><th>Inbound Backlinks</th><td><strong>48</strong> backlinks</td></tr>
+    <tr><th>Inbound Backlinks</th><td><strong>51</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../src/workstation/template.html" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
         </table>
@@ -495,24 +495,26 @@
       
     <div class="ai-digest">
       <div class="ai-digest-title">🤖 AI &amp; Human Fast-Digest (Zero-Turn Context Summary)</div>
-      <p style="margin:4px 0;"><strong>Summary:</strong> Workstation Shell Template located at src/workstation/template.html (776 lines, 54219 bytes).</p>
+      <p style="margin:4px 0;"><strong>Summary:</strong> Workstation Shell Template located at src/workstation/template.html (895 lines, 59971 bytes).</p>
       
       
       
     </div>
   
       
-      <h3>Architectural Purpose & Role</h3>
+      <p>The shell registers built-in campaign summaries (<code>registerBundledCampaign</code>) and loads per-campaign <code>campaigns/<folder>/campaign_bundle.js</code> payloads on demand via <code>ensureCampaignBundleLoaded</code> and <code>hydrateBundledCampaign</code>.</p>
+<h3>Architectural Purpose & Role</h3>
 <p><code>src/workstation/template.html</code> serves as the primary desktop workstation HTML scaffolding shell, compiled into <code>start.html</code> via <code>Build-Suite.ps1</code>. It defines the desktop icon grid, Win95 taskbar, Start Menu, top menu bar, CAD canvas viewport, HUD layers, and hidden file inputs. It populates <code>BUNDLED_TOPOLOGIES</code> dynamically from <code>CAMPAIGN_REGISTRY</code> without hardcoding legacy presets.</p>
 <h3>Subsystems & Integrations</h3>
 <ul class="wiki-list">
 <li><strong>Pack Ingestion Entry Points</strong>: Provides hidden file input <code>#pack-installer-file-input</code> triggering <code>packEngine.onPackFileSelected()</code>, with menu triggers integrated into the Start Menu ("Install Entity Pack (.csmod)..."), File Menu ("Install Entity Pack (.csmod)..."), and Help Menu documentation reference.</li>
+<li><strong>Campaign Settings Triggers (SYS-START-19)</strong>: Integrates openCampaignSettingsModal() triggers in the File menu, Edit menu, via hotkey Ctrl+Shift+P, and via clickable cursor-pointer interaction on the #sb-campaign status bar badge.</li>
 <li><strong>MDI Scaffolding & Viewport</strong>: Hosts the CAD SVG canvas, HUD overlays, toolbar palettes, and placeholder injection slots for modular modal files (<code>studio_mdi_windows.html</code>, <code>entity_modals.html</code>, <code>lifecycle_modals.html</code>, <code>explorer_modals.html</code>, <code>ticket_modals.html</code>).</li>
 <li><strong>Script Include Order (SYS-ARCH-01)</strong>: <code>// @@INCLUDE: scripts/campaign_mutation_engine.js @@</code> is the first script include. The engine has no dependencies, and its UMD tail publishes the root aliases (<code>getNodesList</code>, <code>formatCorridorKey</code>, <code>normalizeSpatialPin</code>, and the rest) before any other workstation script loads. <code>build_suite.js</code> inlines includes in template order, so this order is the compiled order. Suite 49 guards it.</li>
 <li>Gigerenzer suite (ADR 0024): includes fast_frugal_tree.js, natural_frequency_engine.js and fft_editor_ui.js.</li>
 <li>Gigerenzer suite (ADR 0024): also includes dread_risk.js and dread_risk_overlay.js.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Template Includes (<code>@@INCLUDE@@</code>)</h3><div class="pill-list"><span class="pill">modals/lifecycle_modals.html</span><span class="pill">modals/entity_modals.html</span><span class="pill">modals/explorer_modals.html</span><span class="pill">modals/ticket_modals.html</span><span class="pill">modals/studio_mdi_windows.html</span><span class="pill">scripts/campaign_mutation_engine.js</span><span class="pill">scripts/zip_engine.js</span><span class="pill">scripts/map_store.js</span><span class="pill">scripts/state_adapter.js</span><span class="pill">scripts/sociology_data.js</span><span class="pill">scripts/campaign_override_slots.js</span><span class="pill">scripts/fast_frugal_tree.js</span><span class="pill">scripts/natural_frequency_engine.js</span><span class="pill">scripts/dread_risk.js</span><span class="pill">scripts/dread_risk_overlay.js</span><span class="pill">scripts/wiki_engine.js</span><span class="pill">scripts/canvas_hud.js</span><span class="pill">scripts/workstation_state.js</span><span class="pill">scripts/layer_manager.js</span><span class="pill">scripts/selection_engine.js</span><span class="pill">scripts/cad_canvas_renderer.js</span><span class="pill">scripts/cad_interaction.js</span><span class="pill">scripts/property_grid_inspector.js</span><span class="pill">scripts/mdi_window_manager.js</span><span class="pill">scripts/entity_core.js</span><span class="pill">scripts/entity_manager_ui.js</span><span class="pill">scripts/fft_editor_ui.js</span><span class="pill">scripts/entity_crud_dialogs.js</span><span class="pill">scripts/entity_cascade_delete.js</span><span class="pill">scripts/social_graph_renderer.js</span><span class="pill">scripts/module_explorer.js</span><span class="pill">scripts/supply_chain_simulator.js</span><span class="pill">scripts/industry_chain_importer.js</span><span class="pill">scripts/ticket_center.js</span><span class="pill">scripts/map_navigator.js</span><span class="pill">scripts/campaign_exporter.js</span><span class="pill">scripts/selective_importer.js</span><span class="pill">scripts/pack_engine.js</span><span class="pill">scripts/campaign_changelog_ui.js</span></div>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Template Includes (<code>@@INCLUDE@@</code>)</h3><div class="pill-list"><span class="pill">modals/lifecycle_modals.html</span><span class="pill">modals/entity_modals.html</span><span class="pill">modals/explorer_modals.html</span><span class="pill">modals/ticket_modals.html</span><span class="pill">modals/studio_mdi_windows.html</span><span class="pill">scripts/campaign_mutation_engine.js</span><span class="pill">scripts/zip_engine.js</span><span class="pill">scripts/map_store.js</span><span class="pill">scripts/state_adapter.js</span><span class="pill">scripts/sociology_data.js</span><span class="pill">scripts/campaign_override_slots.js</span><span class="pill">scripts/fast_frugal_tree.js</span><span class="pill">scripts/natural_frequency_engine.js</span><span class="pill">scripts/dread_risk.js</span><span class="pill">scripts/dread_risk_overlay.js</span><span class="pill">scripts/wiki_engine.js</span><span class="pill">scripts/canvas_hud.js</span><span class="pill">scripts/workstation_state.js</span><span class="pill">scripts/layer_manager.js</span><span class="pill">scripts/selection_engine.js</span><span class="pill">scripts/cad_canvas_renderer.js</span><span class="pill">scripts/cad_interaction.js</span><span class="pill">scripts/property_grid_inspector.js</span><span class="pill">scripts/mdi_window_manager.js</span><span class="pill">scripts/entity_core.js</span><span class="pill">scripts/entity_manager_ui.js</span><span class="pill">scripts/fft_editor_ui.js</span><span class="pill">scripts/entity_crud_dialogs.js</span><span class="pill">scripts/entity_cascade_delete.js</span><span class="pill">scripts/social_graph_renderer.js</span><span class="pill">scripts/module_explorer.js</span><span class="pill">scripts/supply_chain_simulator.js</span><span class="pill">scripts/industry_chain_importer.js</span><span class="pill">scripts/ticket_center.js</span><span class="pill">scripts/map_navigator.js</span><span class="pill">scripts/campaign_exporter.js</span><span class="pill">scripts/selective_importer.js</span><span class="pill">scripts/pack_engine.js</span><span class="pill">scripts/campaign_changelog_ui.js</span></div><h3>Declared Functions / Subroutines (4)</h3><div class="pill-list"><span class="pill">hydrateBundledCampaign(id, bundle)</span><span class="pill">resolveBundledCampaignKey(rawId)</span><span class="pill">ensureCampaignBundleLoaded(rawId)</span><span class="pill">registerBundledCampaign(id, entry, readers, hasPreset)</span></div>
       <h2 id="outbound-links">Outbound References (55)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
@@ -734,7 +736,7 @@
         <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
         <td>References start.html</td>
       </tr></tbody></table></div>
-      <h2 id="backlinks">What Links Here — Inbound Backlinks (48)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
+      <h2 id="backlinks">What Links Here — Inbound Backlinks (51)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Referencing Page (Source)</th><th>Link Type</th><th>How It References This File</th></tr></thead><tbody><tr>
         <td><a href="../../../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">Series Component</span></td>
         <td>Core file analyzed in Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
@@ -779,6 +781,14 @@
         <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
         <td>References src/workstation/template.html</td>
       </tr><tr>
+        <td><a href="../../../pages/docs/agents/ARCHITECTURE_MAP.md.html"><strong>docs/agents/ARCHITECTURE_MAP.md</strong></a></td>
+        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References src/workstation/template.html</td>
+      </tr><tr>
+        <td><a href="../../../pages/docs/agents/context-index.json.html"><strong>docs/agents/context-index.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
+        <td>References src/workstation/template.html</td>
+      </tr><tr>
         <td><a href="../../../pages/docs/navigation_manifest.json.html"><strong>docs/navigation_manifest.json</strong></a></td>
         <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
         <td>References src/workstation/template.html</td>
@@ -789,6 +799,10 @@
       </tr><tr>
         <td><a href="../../../pages/docs/specs/CANVAS_POI_AND_CAD_AUTHORING_REDTEAM_PLAN.md.html"><strong>docs/specs/CANVAS_POI_AND_CAD_AUTHORING_REDTEAM_PLAN.md</strong></a></td>
         <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
+        <td>References src/workstation/template.html</td>
+      </tr><tr>
+        <td><a href="../../../pages/scratch/loot-planning/04-g0-baseline-record.json.html"><strong>scratch/loot-planning/04-g0-baseline-record.json</strong></a></td>
+        <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
         <td>References src/workstation/template.html</td>
       </tr><tr>
         <td><a href="../../../pages/src/workstation/scripts/cad_canvas_renderer.js.html"><strong>src/workstation/scripts/cad_canvas_renderer.js</strong></a></td>

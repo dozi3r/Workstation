@@ -815,6 +815,25 @@
       if (modal) modal.classList.add('hidden');
     }
 
+    function getBundledCampaignSummary(id, { preset, metadata, modules }) {
+      const count = collection => Object.keys(collection || {}).length;
+      const mapCount = count(preset?.maps);
+      const rootNodeCount = count(preset?.nodes);
+      const mappedNodeCount = Object.values(preset?.maps || {}).reduce((sum, map) => sum + count(map?.nodes), 0);
+      return {
+        title: metadata?.name || preset?.name || id,
+        description: metadata?.description || "",
+        rootNodeCount,
+        presetNodeCount: preset?.nodes ? rootNodeCount : mappedNodeCount,
+        nodeCount: mapCount ? mappedNodeCount : rootNodeCount,
+        mapsCount: mapCount || 1,
+        npcCount: count(preset?.npcs || metadata?.entities?.npcs),
+        questCount: count(preset?.quests || metadata?.entities?.quests),
+        itemCount: count(preset?.items || metadata?.entities?.items),
+        modCount: (modules || preset?.custom_modules || []).length
+      };
+    }
+
     function getCampaignFolderPresets() {
       const presets = [];
       const seen = new Set();
@@ -865,16 +884,9 @@
           seen.add(cId);
           if (item.folder) seen.add(item.folder);
 
-          const meta = item.metadata || {};
-          const title = meta.name || item.preset?.name || cId;
-          const modCount = (item.modules || []).length;
-          let nodeCount = 0;
-          if (item.preset?.nodes) {
-            nodeCount = Array.isArray(item.preset.nodes) ? item.preset.nodes.length : Object.keys(item.preset.nodes).length;
-          } else if (item.preset?.maps) {
-            nodeCount = Object.values(item.preset.maps).reduce((acc, m) => acc + (m.nodes ? (Array.isArray(m.nodes) ? m.nodes.length : Object.keys(m.nodes).length) : 0), 0);
-          }
-          const desc = meta.description || `${nodeCount} Nodes • ${modCount} Modules`;
+          const summary = item.summary || getBundledCampaignSummary(cId, item);
+          const { title, modCount, presetNodeCount: nodeCount } = summary;
+          const desc = summary.description || `${nodeCount} Nodes • ${modCount} Modules`;
 
           presets.push({
             id: cId,
@@ -1037,8 +1049,13 @@
         if (typeof window.loadCampaignProjectPackage === 'function') {
           await window.loadCampaignProjectPackage(regKey);
         }
-      } else if (typeof BUNDLED_TOPOLOGIES !== 'undefined' && BUNDLED_TOPOLOGIES[choice]) {
-        Workstation.activeTopology = JSON.parse(JSON.stringify(BUNDLED_TOPOLOGIES[choice]));
+      } else if (typeof BUNDLED_TOPOLOGIES !== 'undefined') {
+        if (typeof ensureCampaignBundleLoaded === 'function') {
+          await ensureCampaignBundleLoaded(choice);
+        }
+        if (BUNDLED_TOPOLOGIES[choice]) {
+          Workstation.activeTopology = JSON.parse(JSON.stringify(BUNDLED_TOPOLOGIES[choice]));
+        }
       }
 
       // Immediately unbind preset directory so edits/saves target the new campaign folder instead of the template
@@ -1350,34 +1367,20 @@
         Object.keys(CAMPAIGN_REGISTRY).forEach(cId => {
           if (hiddenPresets.includes(cId)) return;
           const item = CAMPAIGN_REGISTRY[cId];
-          const meta = item.metadata || {};
-          const title = meta.name || item.preset?.name || cId;
+          const summary = item.summary || getBundledCampaignSummary(cId, item);
+          const { title, description, nodeCount, mapsCount, npcCount, questCount, itemCount, modCount } = summary;
           const regFolder = item.folder || cId;
           if (hasDiskMatch(cId, regFolder, title)) return;
-          const pMaps = item.preset?.maps || {};
-          const mapsCount = Object.keys(pMaps).length > 0 ? Object.keys(pMaps).length : 1;
-          let nodeCount = 0;
-          if (Object.keys(pMaps).length > 0) {
-            Object.values(pMaps).forEach(m => {
-              if (m && m.nodes) nodeCount += Array.isArray(m.nodes) ? m.nodes.length : Object.keys(m.nodes).length;
-            });
-          } else if (item.preset?.nodes) {
-            nodeCount = Array.isArray(item.preset.nodes) ? item.preset.nodes.length : Object.keys(item.preset.nodes).length;
-          }
-          const pNpcs = item.preset?.npcs || meta.entities?.npcs || [];
-          const pQuests = item.preset?.quests || meta.entities?.quests || [];
-          const pItems = item.preset?.items || meta.entities?.items || [];
-          const modCount = (item.modules || item.preset?.custom_modules || []).length;
           items.push({
             id: cId,
             folderName: regFolder,
             title: title,
-            desc: meta.description || "",
+            desc: description,
             nodeCount: nodeCount,
             mapsCount: mapsCount,
-            npcCount: Array.isArray(pNpcs) ? pNpcs.length : Object.keys(pNpcs).length,
-            questCount: Array.isArray(pQuests) ? pQuests.length : Object.keys(pQuests).length,
-            itemCount: Array.isArray(pItems) ? pItems.length : Object.keys(pItems).length,
+            npcCount: npcCount,
+            questCount: questCount,
+            itemCount: itemCount,
             modCount: modCount,
             sourceType: "preset",
             sourceBadge: "📦 Built-in Preset",
@@ -1513,13 +1516,12 @@
         const hidden = JSON.parse(localStorage.getItem("cs_hidden_presets") || "[]");
         Object.keys(CAMPAIGN_REGISTRY).forEach(cId => {
           if (hidden.includes(cId)) return;
-          const regFolder = CAMPAIGN_REGISTRY[cId].folder || cId;
-          const meta = CAMPAIGN_REGISTRY[cId].metadata || {};
-          const title = meta.name || cId;
+          const item = CAMPAIGN_REGISTRY[cId];
+          const regFolder = item.folder || cId;
+          const summary = item.summary || getBundledCampaignSummary(cId, item);
+          const title = summary.title;
           if (items.some(it => norm(it.id) === norm(cId) || norm(it.folderName) === norm(regFolder) || norm(it.title) === norm(title))) return;
-          const p = CAMPAIGN_REGISTRY[cId].preset;
-          const nodeCount = p?.nodes ? (Array.isArray(p.nodes) ? p.nodes.length : Object.keys(p.nodes).length) : 0;
-          items.push({ id: cId, folderName: regFolder, title: title, desc: meta.description || "Campaign Sourcebook", nodeCount: nodeCount, cId: cId });
+          items.push({ id: cId, folderName: regFolder, title: title, desc: summary.description || "Campaign Sourcebook", nodeCount: summary.rootNodeCount, cId: cId });
         });
       }
 
@@ -1892,7 +1894,7 @@
 
     async function loadInstalledCampaign(campId) {
       const regFolder = (typeof CAMPAIGN_REGISTRY !== 'undefined' && CAMPAIGN_REGISTRY[campId] && CAMPAIGN_REGISTRY[campId].folder) ? CAMPAIGN_REGISTRY[campId].folder : campId;
-      const title = (typeof CAMPAIGN_REGISTRY !== 'undefined' && CAMPAIGN_REGISTRY[campId] && CAMPAIGN_REGISTRY[campId].metadata && CAMPAIGN_REGISTRY[campId].metadata.name) ? CAMPAIGN_REGISTRY[campId].metadata.name : campId;
+      const title = (typeof CAMPAIGN_REGISTRY !== 'undefined' && CAMPAIGN_REGISTRY[campId] && (CAMPAIGN_REGISTRY[campId].summary?.title || (CAMPAIGN_REGISTRY[campId].metadata && CAMPAIGN_REGISTRY[campId].metadata.name))) || campId;
       await openCampaignWithEnforcedDiskSync(campId, regFolder, title, null);
     }
 

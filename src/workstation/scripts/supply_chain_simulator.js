@@ -1427,7 +1427,7 @@ function initSourcebookFilter() {
       const camp = CAMPAIGN_REGISTRY[cId];
       const opt = document.createElement("option");
       opt.value = cId;
-      opt.textContent = (camp.metadata && camp.metadata.name) || cId;
+      opt.textContent = (camp.summary && camp.summary.title) || (camp.metadata && camp.metadata.name) || cId;
       sel.appendChild(opt);
     });
   }

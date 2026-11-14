@@ -37,6 +37,7 @@ node_modules/
 *.rar
 *.creator.json
 *.csmod
+campaigns/**/campaign_bundle.js
 .archive/
 Quarantine-Duplicates.bat
 

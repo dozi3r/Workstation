@@ -18,7 +18,8 @@ const SCALE_TIERS = {
 let activeMapId = "map_root";
 let maps = {};
 let activeCampaignId = (typeof CAMPAIGN_REGISTRY !== "undefined" && Object.keys(CAMPAIGN_REGISTRY)[0]) || "blank_canvas";
-let currentCampaignName = (typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY[activeCampaignId]?.metadata?.name) || "New Campaign";
+const initialBundledCampaign = typeof CAMPAIGN_REGISTRY !== "undefined" ? CAMPAIGN_REGISTRY[activeCampaignId] : null;
+let currentCampaignName = initialBundledCampaign?.summary?.title || initialBundledCampaign?.metadata?.name || "New Campaign";
 
 if (typeof window.getNodeDisplayName !== "function") {
   window.getNodeDisplayName = function(n) {
@@ -956,6 +957,9 @@ async function loadCampaignProjectPackage(rawPkg, options = {}) {
   // 1. Resolve registered campaign ID if string was passed
   let pkg = rawPkg;
   if (typeof rawPkg === "string") {
+    if (typeof ensureCampaignBundleLoaded === "function") {
+      await ensureCampaignBundleLoaded(rawPkg);
+    }
     if (typeof CAMPAIGN_REGISTRY !== "undefined" && CAMPAIGN_REGISTRY[rawPkg]) {
       const reg = CAMPAIGN_REGISTRY[rawPkg];
       pkg = {
