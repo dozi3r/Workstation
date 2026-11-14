@@ -3,11 +3,11 @@ file_path: "Build-Suite.ps1"
 title: "Build-Suite.ps1 — Campaign Creator - Centralized Suite Build Runner"
 volume: "vol-3"
 kind: "PowerShell Automation / Simulation Runner"
-current_hash: "c04855b6d7e486c1"
-reviewed_hash: "c04855b6d7e486c1"
+current_hash: "4880d8e82d0073c3"
+reviewed_hash: "4880d8e82d0073c3"
 stale: false
-size_bytes: 942
-line_count: 26
+size_bytes: 1134
+line_count: 28
 ---
 
 # Build-Suite.ps1 — Campaign Creator - Centralized Suite Build Runner

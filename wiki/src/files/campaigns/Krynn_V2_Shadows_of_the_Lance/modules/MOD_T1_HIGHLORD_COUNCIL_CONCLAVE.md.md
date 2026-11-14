@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T1_HIGHLORD_COUN
 title: "MOD_T1_HIGHLORD_COUNCIL_CONCLAVE: The Imperial Highlord Conclave of Neraka"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "86ab1215597fed3f"
-reviewed_hash: "86ab1215597fed3f"
+current_hash: "f2447396ec0b412c"
+reviewed_hash: "f2447396ec0b412c"
 stale: false
-size_bytes: 3740
-line_count: 70
+size_bytes: 2567
+line_count: 46
 ---
 
 # MOD_T1_HIGHLORD_COUNCIL_CONCLAVE: The Imperial Highlord Conclave of Neraka

@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_SANCTION_EGG_F
 title: "MOD_T3_SANCTION_EGG_FOUNDRIES: The Volcanic Draconian Hatcheries of Sanction"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "f492d91937e9f4c4"
-reviewed_hash: "f492d91937e9f4c4"
+current_hash: "c38974ee585755da"
+reviewed_hash: "c38974ee585755da"
 stale: false
-size_bytes: 3741
-line_count: 70
+size_bytes: 2553
+line_count: 46
 ---
 
 # MOD_T3_SANCTION_EGG_FOUNDRIES: The Volcanic Draconian Hatcheries of Sanction

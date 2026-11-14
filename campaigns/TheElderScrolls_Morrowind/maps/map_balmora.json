@@ -52,16 +52,13 @@
       "customNotes": "The Hlaalu Council Manor, where trade licenses, estate titles and quiet murders are all notarized in the same ledger.",
       "npcIds": [
         "npc_dram_bero",
-        "npc_ilvi_telas"
+        "npc_dondos_driler"
       ],
       "questIds": [
-        "Q_MW_HLAALU_ESTATE_TITLES",
-        "Q_MW_HLAALU_THE_ARCHMASTERS_SEAT",
-        "Q_MW_THIEVES_THE_HLAALU_LEDGER_BURGLARY"
+        "Q_MW_STRONGHOLD_HLAALU"
       ],
       "itemIds": [
-        "ITM_HLAALU_LAND_DEED",
-        "ITM_HLAALU_CREDITOR_LEDGER"
+        "ITM_HLAALU_LAND_DEED"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -113,13 +110,9 @@
         "npc_caius_cosades"
       ],
       "questIds": [
-        "Q_MW_REPORT_TO_CAIUS",
-        "Q_MW_THE_BLADES_FINAL_REPORT"
+        "Q_MW_REPORT_TO_CAIUS_COSADES"
       ],
-      "itemIds": [
-        "ITM_BLADES_SIGNET",
-        "ITM_CAIUS_COSADES_LEDGER"
-      ],
+      "itemIds": [],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -170,19 +163,19 @@
         "npc_ranis_athrys",
         "npc_ajira",
         "npc_codus_callonus",
-        "npc_odrin_fels"
+        "npc_sharn_gra_muzgob"
       ],
       "questIds": [
-        "Q_MW_HLAALU_RANIS_ATHRYS_DEBT",
-        "Q_MW_MAGES_THE_RECRUITERS_TEST",
-        "Q_MW_MAGES_THE_TELVANNI_DEFECTOR",
-        "Q_MW_MAGES_THE_CHARTER_VOTE"
+        "Q_MW_CERAMIC_BOWL",
+        "Q_MW_FOUR_TYPES_OF_MUSHROOMS",
+        "Q_MW_FOUR_TYPES_OF_FLOWERS",
+        "Q_MW_STOLEN_REPORTS",
+        "Q_MW_FAKE_SOUL_GEM_QUEST",
+        "Q_MW_CATCH_A_SPY",
+        "Q_MW_I_M_NOT_A_NECROMANCER",
+        "Q_MW_A_WIZARD_S_STAFF"
       ],
-      "itemIds": [
-        "ITM_MAGES_GUILD_CHARTER_AMENDMENT",
-        "ITM_AJIRA_ALCHEMY_KIT",
-        "ITM_DAEDRIC_LORE_COMPENDIUM"
-      ],
+      "itemIds": [],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -230,17 +223,12 @@
       "childMapId": null,
       "customNotes": "Barracks-like hall where Hasphat Antabolis assigns contracts against bandits, smugglers and Sixth House sleepers.",
       "npcIds": [
-        "npc_hasphat_antabolis"
+        "npc_hasphat_antabolis",
+        "npc_eydis_fire_eye"
       ],
-      "questIds": [
-        "Q_MW_THE_DWEMER_PUZZLE_BOX",
-        "Q_MW_FIGHTERS_BANDITS_AT_HLORMAREN",
-        "Q_MW_FIGHTERS_THE_GUILDMASTERS_CHALLENGE"
-      ],
+      "questIds": [],
       "itemIds": [
-        "ITM_DWEMER_PUZZLE_BOX",
-        "ITM_DWEMER_CENTRIFUGE_PLANS",
-        "ITM_FIGHTERS_GUILD_CONTRACT_BOARD"
+        "ITM_DWEMER_PUZZLE_BOX"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -287,15 +275,9 @@
       ],
       "childMapId": null,
       "customNotes": "The Temple of Balmora, its Ordinators and healers serving a congregation torn between orthodox duty and the secular Hlaalu market.",
-      "npcIds": [
-        "npc_temple_priest_balmora"
-      ],
-      "questIds": [
-        "Q_MW_TEMPLE_ORDINATOR_PURGE"
-      ],
-      "itemIds": [
-        "ITM_ORDINATOR_WARRANT"
-      ],
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -343,15 +325,17 @@
       "childMapId": null,
       "customNotes": "A smoky cornerclub whose back stairs lead to the Thieves Guild fence and an unlisted door for the Blades.",
       "npcIds": [
-        "npc_sugar_lips_habasi"
+        "npc_sugar_lips_habasi",
+        "npc_bacola_closcius"
       ],
       "questIds": [
-        "Q_MW_THIEVES_THE_FENCE_RUN",
-        "Q_MW_THIEVES_THE_GUILDMASTERS_TEST"
+        "Q_MW_UNSANCTIONED_TRAINING",
+        "Q_MW_THE_CODE_BOOK",
+        "Q_MW_MASTER_OF_SECURITY"
       ],
       "itemIds": [
         "ITM_FORK_OF_HORRIPILATION",
-        "ITM_THIEVES_GUILD_FENCE_LEDGER"
+        "ITM_SOTTILDES_CODE_BOOK"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",

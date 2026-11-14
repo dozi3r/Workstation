@@ -58,14 +58,48 @@
       "customNotes": "Canton of outlanders and traders beneath the Library of Vivec, where Mehra Milo keeps the Blades' ear in the stacks.",
       "npcIds": [
         "npc_mehra_milo",
-        "npc_mevel_aren"
+        "npc_huleeya",
+        "npc_ralen_tilvur",
+        "npc_sirilonwe",
+        "npc_lorbumol_gro_aglakh",
+        "npc_sjoring_hard_heart",
+        "npc_gentleman_jim_stacey",
+        "npc_alusaron",
+        "npc_miun_gei",
+        "npc_balen_andrano",
+        "npc_cassius_olcinius",
+        "npc_tarer_braryn",
+        "npc_jobasha"
       ],
       "questIds": [
-        "Q_MW_THE_LIBRARY_INFORMANT",
-        "Q_MW_THIEVES_THE_BOOTS_HEIST"
+        "Q_MW_VIVEC_INFORMANTS",
+        "Q_MW_GUAR_HIDE_SQUEEZE",
+        "Q_MW_GUARD_RALEN_TILVUR",
+        "Q_MW_STEAL_CHIMARVAMIDIUM",
+        "Q_MW_RETURN_CHIMARVAMIDIUM",
+        "Q_MW_GALUR_RITHARI_S_PAPERS_QUEST",
+        "Q_MW_MYSTERY_OF_THE_DWARVES",
+        "Q_MW_ARCH_MAGE",
+        "Q_MW_KILL_THE_MASTER_THIEF",
+        "Q_MW_KILL_HARD_HEART_FIGHTERS_GUILD",
+        "Q_MW_REMOVE_SJORING_S_SUPPORTERS",
+        "Q_MW_KILL_HARD_HEART_THIEVES_GUILD",
+        "Q_MW_SHIRT_AND_VEST_FOR_HARVEST_S_END",
+        "Q_MW_A_CONTACT_IN_THE_DARK_BROTHERHOOD",
+        "Q_MW_AN_APOTHECARY_SLANDERED",
+        "Q_MW_THE_BAD_ACTOR",
+        "Q_MW_A_FRIEND_IN_DEED",
+        "Q_MW_THE_DWEMER_S_BONE",
+        "Q_MW_AN_INVISIBLE_SON",
+        "Q_MW_A_RASH_OF_INSULTS",
+        "Q_MW_SHASHEV_S_KEY",
+        "Q_MW_DUST_OF_THE_VAMPIRE"
       ],
       "itemIds": [
-        "ITM_BOOTS_OF_BLINDING_SPEED"
+        "ITM_BOOTS_OF_BLINDING_SPEED",
+        "ITM_PROGRESS_OF_TRUTH",
+        "ITM_CHIMARVAMIDIUM",
+        "ITM_GALUR_RITHARIS_PAPERS"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -116,13 +150,30 @@
       "npcIds": [
         "npc_crassius_curio",
         "npc_nileno_dorvayn",
-        "npc_lenda_hlas"
+        "npc_edryno_arethi",
+        "npc_ilmeni_dren",
+        "npc_baren_alen",
+        "npc_nar_gro_shagramph",
+        "npc_gadayn_andarys",
+        "npc_mevure_hlen"
       ],
       "questIds": [
-        "Q_MW_HLAALU_CRASSIUS_CURIOS_PLAY"
+        "Q_MW_HLAALU_HORTATOR",
+        "Q_MW_BANK_COURIER",
+        "Q_MW_SEALED_ORDERS",
+        "Q_MW_ERRONEOUS_DOCUMENTS",
+        "Q_MW_AN_ADMIRING_SPONSOR",
+        "Q_MW_JUICEDAW_RING",
+        "Q_MW_FIND_BROTHER_NADS",
+        "Q_MW_WRIT_FOR_FERUREN_ORAN",
+        "Q_MW_WRIT_FOR_GALASA_UVAYN",
+        "Q_MW_WRIT_FOR_MATHYN_BEMIS",
+        "Q_MW_FOR_THE_LOVE_OF_A_BOSMER",
+        "Q_MW_THE_PRICE_LIST"
       ],
       "itemIds": [
-        "ITM_CURIO_PLAY_SCRIPT"
+        "ITM_BELT_OF_THE_HORTATOR",
+        "ITM_JUICEDAW_FEATHER_RING"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -169,9 +220,18 @@
       ],
       "childMapId": null,
       "customNotes": "Austere Redoran canton, its hall of arms closing ranks around old oaths while the world changes outside.",
-      "npcIds": [],
-      "questIds": [],
-      "itemIds": [],
+      "npcIds": [
+        "npc_faral_retheran",
+        "npc_rothis_nethan"
+      ],
+      "questIds": [
+        "Q_MW_DUEL_OF_HONOR",
+        "Q_MW_WRIT_FOR_TORIS_SAREN",
+        "Q_MW_WRIT_FOR_GURIL_RETHERAN"
+      ],
+      "itemIds": [
+        "ITM_ANCESTOR_RING_OF_IRER_NERVION"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -217,8 +277,15 @@
       ],
       "childMapId": null,
       "customNotes": "A sparse Telvanni canton of towers where the wizard-lords' proxies conduct delicate unions of arcane gossip.",
-      "npcIds": [],
-      "questIds": [],
+      "npcIds": [
+        "npc_audenian_valius"
+      ],
+      "questIds": [
+        "Q_MW_WRIT_FOR_ETHAL_SELOTH_AND_IDROSO_VENDU",
+        "Q_MW_WRIT_FOR_MAVON_DRENIM",
+        "Q_MW_THE_ENCHANTER_S_RATS",
+        "Q_MW_THE_CLIENT_LIST"
+      ],
       "itemIds": [],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -266,8 +333,16 @@
       ],
       "childMapId": null,
       "customNotes": "The Arena Pit and its Fighters Guild seat, where bookmakers trade favors with Morag Tong quiet-seekers.",
-      "npcIds": [],
-      "questIds": [],
+      "npcIds": [
+        "npc_tanusea_veloth"
+      ],
+      "questIds": [
+        "Q_MW_DUEL_WITH_BOLVYN_VENIM",
+        "Q_MW_DISEASE_CARRIER",
+        "Q_MW_THREADS_OF_THE_WEBSPINNER",
+        "Q_MW_GRANDMASTER",
+        "Q_MW_GRANDMASTER_DUEL"
+      ],
       "itemIds": [],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -317,17 +392,14 @@
       "customNotes": "Working canton of Dunmer tenants where Eno Hlaalu's Morag Tong hall hides behind a dull sanctioned shopfront.",
       "npcIds": [
         "npc_eno_hlaalu",
-        "npc_rilm_atheran"
+        "npc_elam_andas"
       ],
       "questIds": [
-        "Q_MW_MORAG_TONG_WRIT_OF_EXECUTION",
-        "Q_MW_MORAG_TONG_THE_INITIATE_TEST",
-        "Q_MW_MORAG_TONG_THE_TONG_EXILE"
+        "Q_MW_FOUL_CULT_BENEATH_ST_DELYN_CANTON",
+        "Q_MW_MYSTERIOUS_KILLINGS_IN_VIVEC"
       ],
       "itemIds": [
-        "ITM_EBONY_MAIL",
-        "ITM_MORAG_TONG_WRIT",
-        "ITM_MORAG_TONG_DAGGER"
+        "ITM_EBONY_MAIL"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -377,13 +449,25 @@
       "customNotes": "Poor, crowded canton and nursery of Camonna Tong muscle; the Black Shalk Corner Club answers to Orvas Dren.",
       "npcIds": [
         "npc_orvas_dren",
-        "npc_garas_dren"
+        "npc_addhiranirr",
+        "npc_duvianus_platorius",
+        "npc_yngling_half_troll",
+        "npc_velanda_omani",
+        "npc_durus_marius",
+        "npc_moroni_uvelas"
       ],
       "questIds": [
-        "Q_MW_HLAALU_THE_CAMONNA_LEDGER"
+        "Q_MW_NALVILIE_SAREN_QUEST",
+        "Q_MW_EXTERMINATOR_HLAALU",
+        "Q_MW_BERO_S_SUPPORT",
+        "Q_MW_DRO_SAKHAR_S_BOUNTY",
+        "Q_MW_YNGLING_S_LEDGER",
+        "Q_MW_EXECUTE_DURUS_MARIUS",
+        "Q_MW_WRIT_FOR_DRAM_BERO",
+        "Q_MW_THE_SHORT_UNHAPPY_LIFE_OF_DANAR_UVELAS"
       ],
       "itemIds": [
-        "ITM_CAMONNA_BRIBE_LEDGER"
+        "ITM_YNGLINGS_LEDGER"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -485,16 +569,10 @@
         "npc_lord_vivec"
       ],
       "questIds": [
-        "Q_MW_THE_MOON_AND_STAR",
-        "Q_MW_THE_TOOLS_OF_KAGRENAC",
-        "Q_MW_THE_TRIBUNALS_SECRET",
-        "Q_MW_TEMPLE_THE_ARMIGER_TRIAL"
+        "Q_MW_HORTATOR_AND_NEREVARINE"
       ],
       "itemIds": [
-        "ITM_WRAITHGUARD",
-        "ITM_KEENING",
-        "ITM_MOON_AND_STAR",
-        "ITM_ARMIGER_OATH_BLADE"
+        "ITM_WRAITHGUARD"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -540,11 +618,13 @@
       ],
       "childMapId": null,
       "customNotes": "The floating pyramid of Vivec's control and secret, the unlikely stage where Sixth House spies once attempted treason.",
-      "npcIds": [],
-      "questIds": [],
-      "itemIds": [
-        "ITM_DAEDRIC_CRESCENT"
+      "npcIds": [
+        "npc_alvela_saram"
       ],
+      "questIds": [
+        "Q_MW_MEHRA_MILO_AND_THE_LOST_PROPHECIES"
+      ],
+      "itemIds": [],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,

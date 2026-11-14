@@ -4,6 +4,8 @@
 Welcome. You are operating in **Creator Studio**, a universal, system-agnostic campaign authoring workstation.
 Before editing any file, consult this router to identify authoritative specifications, data sources, and compilation requirements.
 
+Use [docs/agents/START_HERE.md](docs/agents/START_HERE.md) when starting a new session, resuming work, locating current subsystem owners, or checking portable campaign package contracts.
+
 ## 1. Ground Rules & Invariants
 1. **Zero-CORS Offline Execution**: Open all compiled HTML tools (`start.html`, `network/*.html`, `regions/*.html`, `wiki/*.html`) directly via the `file:///` protocol in any standard browser without a web server, external CDN, or HTTP `fetch()`. Use browser IndexedDB (`CreatorStudioMapDB`) and localStorage for client state.
 2. **Modular Source of Truth**: Edit workstation UI and logic in `src/workstation/template.html` and `src/workstation/scripts/*.js` (compiled and inlined into `start.html`). Edit data in source Markdown/JSON files rather than inlined HTML constants (`ALL_MODULES`, `CAMPAIGN_REGISTRY`, `MASTER_TICKETS_DATA`).

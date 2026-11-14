@@ -3,10 +3,10 @@ file_path: "docs/MODULES_CATALOG.md"
 title: "CAMPAIGN CREATOR: UNIVERSAL PLUG-AND-PLAY MODULE LIBRARY"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "cc36b5a1de3233c7"
-reviewed_hash: "cc36b5a1de3233c7"
+current_hash: "d0e7b7e00a3cae0f"
+reviewed_hash: "d0e7b7e00a3cae0f"
 stale: false
-size_bytes: 11617
+size_bytes: 11622
 line_count: 136
 ---
 

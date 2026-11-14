@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_WAYRETH_SHIFTI
 title: "MOD_T2_WAYRETH_SHIFTING_GROVE: The Shifting Enchanted Forest of Wayreth"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "9ae00a74048aff2b"
-reviewed_hash: "9ae00a74048aff2b"
+current_hash: "3955566e9fcccc96"
+reviewed_hash: "3955566e9fcccc96"
 stale: false
-size_bytes: 3449
-line_count: 70
+size_bytes: 2295
+line_count: 46
 ---
 
 # MOD_T2_WAYRETH_SHIFTING_GROVE: The Shifting Enchanted Forest of Wayreth

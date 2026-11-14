@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T3_MERCENARY_SIEG
 title: "MOD_T3_MERCENARY_SIEGE_LINES: Baron Ivor's Mercenary Siege Logistics (347 AC)"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "eeb30ccf221c4d9a"
-reviewed_hash: "eeb30ccf221c4d9a"
+current_hash: "6576d0c7d88eb0ac"
+reviewed_hash: "6576d0c7d88eb0ac"
 stale: false
-size_bytes: 3512
-line_count: 70
+size_bytes: 2384
+line_count: 46
 ---
 
 # MOD_T3_MERCENARY_SIEGE_LINES: Baron Ivor's Mercenary Siege Logistics (347 AC)

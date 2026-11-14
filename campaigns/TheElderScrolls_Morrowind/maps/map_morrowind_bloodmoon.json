@@ -54,15 +54,25 @@
       "customNotes": "Imperial fort on the southern coast of Solstheim, the foothold from which the Empire administers the colony.",
       "npcIds": [
         "npc_captain_falx_carius",
-        "npc_legion_sergeant_frostmoth"
+        "npc_legion_sergeant_frostmoth",
+        "npc_carnius_magius",
+        "npc_severia_gratius"
       ],
       "questIds": [
         "Q_MW_BLOODMOON_AN_ISLAND_TO_THE_NORTH",
-        "Q_MW_BLOODMOON_THE_DISAPPEARANCE_OF_CAPTAIN_CARIUS"
+        "Q_MW_BLOODMOON_REBELLION_AT_FROSTMOTH",
+        "Q_MW_BLOODMOON_THE_FROSTMOTH_SMUGGLERS",
+        "Q_MW_BLOODMOON_THE_DISAPPEARANCE_OF_CAPTAIN_CARIUS",
+        "Q_MW_BLOODMOON_THE_MOON_SUGAR_MYSTERY",
+        "Q_MW_BLOODMOON_RITE_OF_THE_WOLF_GIVER",
+        "Q_MW_BLOODMOON_DRASTIC_MEASURES",
+        "Q_MW_BLOODMOON_RACE_AGAINST_THE_CLOCK",
+        "Q_MW_BLOODMOON_STOP_THE_MESSENGER"
       ],
       "itemIds": [
         "ITM_FROSTMOTH_SUPPLY_TALLY",
-        "ITM_CARIUS_WOLF_PELT"
+        "ITM_CARIUS_WOLF_PELT",
+        "ITM_NORDIC_AXE_OF_PARALYSIS"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -113,17 +123,31 @@
       "customNotes": "East Empire Company colony town raised around an ebony mine, its Redoran refugees clinging to one fragile charter.",
       "npcIds": [
         "npc_falco_galenus",
-        "npc_aldam_berendus",
-        "npc_aelius_varro"
+        "npc_aelius_varro",
+        "npc_louis_beauchamp",
+        "npc_thormoor_gray_wave"
       ],
       "questIds": [
-        "Q_MW_BLOODMOON_THE_FACTORS_ESTATE",
         "Q_MW_BLOODMOON_ESTABLISH_THE_MINE",
         "Q_MW_BLOODMOON_SUPPLY_ROUTE_PROBLEMS",
-        "Q_MW_BLOODMOON_HIRING_GUARDS"
+        "Q_MW_BLOODMOON_HIRING_GUARDS",
+        "Q_MW_BLOODMOON_THE_FACTOR_S_ESTATE",
+        "Q_MW_BLOODMOON_SETTING_UP_SHOP",
+        "Q_MW_BLOODMOON_MISSING_SUPPLY_SHIP",
+        "Q_MW_BLOODMOON_RAZING_THE_FOREST",
+        "Q_MW_BLOODMOON_BAR_BRAWL",
+        "Q_MW_BLOODMOON_PROTECT_FALCO",
+        "Q_MW_BLOODMOON_THE_ASSASSIN",
+        "Q_MW_BLOODMOON_AIDING_AND_ABETTING",
+        "Q_MW_BLOODMOON_A_BLOCKED_DOOR",
+        "Q_MW_BLOODMOON_MAKING_A_CHOICE",
+        "Q_MW_BLOODMOON_TO_CATCH_A_THIEF",
+        "Q_MW_BLOODMOON_UNDER_SIEGE",
+        "Q_MW_BLOODMOON_DISCOVERY_IN_THE_MINE",
+        "Q_MW_BLOODMOON_THE_CURSED_CAPTAIN",
+        "Q_MW_BLOODMOON_THE_PATCHWORK_AIRSHIP"
       ],
       "itemIds": [
-        "ITM_RAVEN_ROCK_CHARTER",
         "ITM_EBONY_ORE_CRATE"
       ],
       "creatureIds": [],
@@ -175,17 +199,27 @@
       "npcIds": [
         "npc_tharsten_heart_fang",
         "npc_korst_wind_eye",
-        "npc_risi_ice_mane",
-        "npc_kayvald_fjell"
+        "npc_kjolver",
+        "npc_kolfinna",
+        "npc_lassnr"
       ],
       "questIds": [
-        "Q_MW_BLOODMOON_THE_SKAAL_TRIALS",
+        "Q_MW_BLOODMOON_A_WOMAN_SCORNED",
+        "Q_MW_BLOODMOON_THE_SKAAL_TEST_OF_LOYALTY",
+        "Q_MW_BLOODMOON_THE_SKAAL_TEST_OF_STRENGTH",
+        "Q_MW_BLOODMOON_THE_SKAAL_TEST_OF_WISDOM",
+        "Q_MW_BLOODMOON_THE_SIEGE_OF_THE_SKAAL_VILLAGE",
         "Q_MW_BLOODMOON_DISRUPT_THE_SKAAL_HUNT",
-        "Q_MW_BLOODMOON_THE_SIEGE_OF_THE_SKAAL_VILLAGE"
+        "Q_MW_BLOODMOON_THE_RISTAAG",
+        "Q_MW_BLOODMOON_A_WIFE_S_RETRIBUTION",
+        "Q_MW_BLOODMOON_TYMVAUL_IN_THE_WELL"
       ],
       "itemIds": [
         "ITM_SKAAL_HUNTING_HORN",
-        "ITM_ALL_MAKER_STONE"
+        "ITM_MACE_OF_AEVAR_STONE_SINGER",
+        "ITM_AESLIIPS_RING",
+        "ITM_HELM_OF_THE_WOLFS_HEART",
+        "ITM_STALHRIM_LONGSWORD_OF_FLAME"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -235,9 +269,7 @@
         "npc_hircine_hunter"
       ],
       "questIds": [
-        "Q_MW_BLOODMOON_RITE_OF_THE_WOLF_GIVER",
-        "Q_MW_BLOODMOON_THE_TOTEM_OF_CLAW_AND_FANG",
-        "Q_MW_BLOODMOON_HIRCINES_HUNT"
+        "Q_MW_BLOODMOON_HIRCINE_S_HUNT"
       ],
       "itemIds": [
         "ITM_TOTEM_OF_CLAW_AND_FANG",
@@ -295,11 +327,20 @@
       "customNotes": "Remote Nord mead hall of the Ristaag trials and grim hospitality of the Fjalding bloodline.",
       "npcIds": [
         "npc_hroldar_the_strange",
-        "npc_aenar",
-        "npc_brynja_stone_arm"
+        "npc_ulfgar_the_unending",
+        "npc_ingmar",
+        "npc_athellor",
+        "npc_svenja_snow_song",
+        "npc_jeleen",
+        "npc_geilir_the_mumbling"
       ],
       "questIds": [
-        "Q_MW_BLOODMOON_THE_RISTAAG"
+        "Q_MW_BLOODMOON_INGMAR_IN_A_BIND",
+        "Q_MW_BLOODMOON_IN_SEARCH_OF_THE_FALMER",
+        "Q_MW_BLOODMOON_MEAD_HALL_BUSINESS",
+        "Q_MW_BLOODMOON_THE_MEAD_HALL_MASSACRE",
+        "Q_MW_BLOODMOON_THE_MISSING_MISSIONARY",
+        "Q_MW_BLOODMOON_THE_SAD_SEER"
       ],
       "itemIds": [
         "ITM_RISTAAG_CREST"
@@ -350,6 +391,7 @@
       "customNotes": "Frost-giant fortress ruling the northeast ice, a besieged keep of Karstaag's ancient Jotun thralls.",
       "npcIds": [],
       "questIds": [
+        "Q_MW_BLOODMOON_THE_CASTLE_KARSTAAG",
         "Q_MW_BLOODMOON_SIEGE_OF_CASTLE_KARSTAAG"
       ],
       "itemIds": [
@@ -406,7 +448,9 @@
       "customNotes": "Forested hunting grounds claimed by the Brodir clan and a Glenmoril coven; the site of Hircine's dark bargains.",
       "npcIds": [],
       "questIds": [
-        "Q_MW_BLOODMOON_DREAM_OF_HIRCINE"
+        "Q_MW_BLOODMOON_DREAM_OF_HIRCINE",
+        "Q_MW_BLOODMOON_THE_TOTEM_OF_CLAW_AND_FANG",
+        "Q_MW_BLOODMOON_BETRAYAL_AT_BRODIR_GROVE"
       ],
       "itemIds": [
         "ITM_DREAM_OF_HIRCINE_ANTLER",
@@ -458,9 +502,7 @@
       ],
       "childMapId": null,
       "customNotes": "Old forest northwest of Raven Rock, Company timber contracts burning down the primeval treeline.",
-      "npcIds": [
-        "npc_hjalti_trapper"
-      ],
+      "npcIds": [],
       "questIds": [],
       "itemIds": [],
       "creatureIds": [],

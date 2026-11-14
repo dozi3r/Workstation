@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_LANDLOCKED_TAR
 title: "MOD_T2_LANDLOCKED_TARSIS_DUSTBOWL: The Landlocked Dust-Harbor of Tarsis"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "848a924c3bf6964a"
-reviewed_hash: "848a924c3bf6964a"
+current_hash: "c624e118c63b58db"
+reviewed_hash: "c624e118c63b58db"
 stale: false
-size_bytes: 3460
-line_count: 70
+size_bytes: 2317
+line_count: 46
 ---
 
 # MOD_T2_LANDLOCKED_TARSIS_DUSTBOWL: The Landlocked Dust-Harbor of Tarsis

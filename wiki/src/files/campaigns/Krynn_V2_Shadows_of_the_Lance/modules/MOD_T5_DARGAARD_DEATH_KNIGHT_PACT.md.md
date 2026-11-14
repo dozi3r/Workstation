@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T5_DARGAARD_DEAT
 title: "MOD_T5_DARGAARD_DEATH_KNIGHT_PACT: Lord Soth's Banshee Curse & The Soul-Trade of Laurana"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "8e41313b5a75b325"
-reviewed_hash: "8e41313b5a75b325"
+current_hash: "04f0c4148864c8f6"
+reviewed_hash: "04f0c4148864c8f6"
 stale: false
-size_bytes: 3554
-line_count: 70
+size_bytes: 2443
+line_count: 46
 ---
 
 # MOD_T5_DARGAARD_DEATH_KNIGHT_PACT: Lord Soth's Banshee Curse & The Soul-Trade of Laurana

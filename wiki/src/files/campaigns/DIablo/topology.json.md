@@ -3,11 +3,11 @@ file_path: "campaigns/DIablo/topology.json"
 title: "topology.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "21a4296dde316591"
-reviewed_hash: "21a4296dde316591"
+current_hash: "93db69d3e5f0dc8b"
+reviewed_hash: "93db69d3e5f0dc8b"
 stale: false
-size_bytes: 747961
-line_count: 21341
+size_bytes: 585714
+line_count: 16132
 ---
 
 # topology.json

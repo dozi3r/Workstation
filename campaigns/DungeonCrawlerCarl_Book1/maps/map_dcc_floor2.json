@@ -1,0 +1,484 @@
+{
+  "id": "map_dcc_floor2",
+  "name": "World Dungeon: Floor 2 Overspill & Slime Tunnels",
+  "scaleTier": "site",
+  "parentMapId": "map_dcc_floor1",
+  "parentNodeId": "N_FLOOR_1_DESCENT_STAIRWELL",
+  "nodes": [
+    {
+      "id": "N_FLOOR_2_EXIT_GATE",
+      "name": "Descent to Floor 3 & Broadcast Hub",
+      "mapId": "map_dcc_floor2",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "odv": [
+        3,
+        4,
+        4
+      ],
+      "demographics": {
+        "primary": "Broadcast Drones & Syndicate Reps",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_borant_corporation",
+        "fac_the_syndicate"
+      ],
+      "tier": 3,
+      "x": 660,
+      "y": 580,
+      "adj": [
+        "N_HOARDER_GRAVE_LAIR"
+      ],
+      "childMapId": null,
+      "customNotes": "# Descent to Floor 3\n\nIron stairwell descent into Floor 3's Iron Tangle. Ringed by Syndicate broadcast drones transmitting crawler feeds directly to Odette's talk-show network.",
+      "displayName": "Descent to Floor 3 & Broadcast Hub",
+      "coordinates": {
+        "x": 660,
+        "y": 580
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [
+        "npc_odette"
+      ],
+      "questIds": [
+        "Q_M7_the_broadcast_economy_odette_s_deal"
+      ],
+      "itemIds": [
+        "ITM_ODETTES_COMM_ORB"
+      ],
+      "creatureIds": [
+        "dcc_broadcast_camera_drone"
+      ],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    },
+    {
+      "id": "N_FLOOR_2_OVERSPILL",
+      "name": "Floor 2: Overspill Subterranean Highway",
+      "mapId": "map_dcc_floor2",
+      "cat": "Standard POI",
+      "culture": "Market",
+      "odv": [
+        3,
+        4,
+        2
+      ],
+      "demographics": {
+        "primary": "Desperate Crawler Scavengers",
+        "minorities": [
+          {
+            "demographic": "Mutated Slime Vermin",
+            "percentage": 30
+          }
+        ]
+      },
+      "factionPresence": [
+        "fac_borant_corporation"
+      ],
+      "tier": 2,
+      "x": 420,
+      "y": 400,
+      "adj": [
+        "N_MEADOWLARK_CAMP",
+        "N_KRAZ_WORKSHOP",
+        "N_SUBWAY_SLIME_TUNNELS"
+      ],
+      "childMapId": null,
+      "customNotes": "# Overspill Highway\n\nFlooded subterranean freeway and municipal sewage system filled with fluorescent acidic slime, abandoned vehicles, and roaming oozes.",
+      "displayName": "Floor 2: Overspill Subterranean Highway",
+      "coordinates": {
+        "x": 420,
+        "y": 400
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [
+        "dcc_acid_slime"
+      ],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    },
+    {
+      "id": "N_HOARDER_GRAVE_LAIR",
+      "name": "The Hoarder's Grave Cavern",
+      "mapId": "map_dcc_floor2",
+      "cat": "Hazard",
+      "culture": "Market",
+      "odv": [
+        3,
+        4,
+        3
+      ],
+      "demographics": {
+        "primary": "Living Slime Colossus & Devoured Loot",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_borant_corporation"
+      ],
+      "tier": 3,
+      "x": 580,
+      "y": 540,
+      "adj": [
+        "N_SUBWAY_SLIME_TUNNELS",
+        "N_KRAZ_WORKSHOP",
+        "N_FLOOR_2_EXIT_GATE"
+      ],
+      "childMapId": null,
+      "customNotes": "# The Hoarder's Grave Cavern\n\nVast bone-and-metal refuse vault blocking the Floor 3 gate. Home to The Hoarder, an undulating colossus of acidic protoplasm, corpses, and loot boxes.",
+      "displayName": "The Hoarder's Grave Cavern",
+      "coordinates": {
+        "x": 580,
+        "y": 540
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [
+        "ITM_HOARDERS_ACID_CORE"
+      ],
+      "creatureIds": [
+        "dcc_the_hoarder"
+      ],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    },
+    {
+      "id": "N_KRAZ_WORKSHOP",
+      "name": "Kraz's Munitions Depot & Alchemy Lab",
+      "mapId": "map_dcc_floor2",
+      "cat": "Standard POI",
+      "culture": "Adhocracy",
+      "odv": [
+        2,
+        3,
+        2
+      ],
+      "demographics": {
+        "primary": "Rogue Goblin Alchemists",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_goblin_hordes"
+      ],
+      "tier": 2,
+      "x": 520,
+      "y": 460,
+      "adj": [
+        "N_FLOOR_2_OVERSPILL",
+        "N_HOARDER_GRAVE_LAIR"
+      ],
+      "childMapId": null,
+      "customNotes": "# Kraz's Munitions Depot\n\nSubmerged water pump station converted by Kraz the Goblin Alchemist into a high-explosive fertilizer and incendiary bomb manufactory.",
+      "displayName": "Kraz's Munitions Depot & Alchemy Lab",
+      "coordinates": {
+        "x": 520,
+        "y": 460
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [
+        "npc_kraz"
+      ],
+      "questIds": [
+        "Q_M6_raiding_kraz_the_fertilizer_blast"
+      ],
+      "itemIds": [
+        "ITM_KRAZS_ALCHEMICAL_FUSES",
+        "ITM_GOBLIN_DEMOLITION_BOX"
+      ],
+      "creatureIds": [
+        "dcc_cavern_lava_toad"
+      ],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    },
+    {
+      "id": "N_MEADOWLARK_CAMP",
+      "name": "Meadowlark Survivor Encampment",
+      "mapId": "map_dcc_floor2",
+      "cat": "Bastion",
+      "culture": "Clan",
+      "odv": [
+        4,
+        1,
+        2
+      ],
+      "demographics": {
+        "primary": "Meadowlark Elderly & Caregivers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_meadowlark_survivors"
+      ],
+      "tier": 3,
+      "x": 320,
+      "y": 440,
+      "adj": [
+        "N_FLOOR_2_OVERSPILL"
+      ],
+      "childMapId": null,
+      "customNotes": "# Meadowlark Encampment\n\nMakeshift barricade camp guarding elderly survivors, wheelchair-bound residents, and Katia's defensive perimeter against crawler traitors.",
+      "displayName": "Meadowlark Survivor Encampment",
+      "coordinates": {
+        "x": 320,
+        "y": 440
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [
+        "npc_katia",
+        "npc_brandon",
+        "npc_chris"
+      ],
+      "questIds": [
+        "Q_M5_the_meadowlark_traitors_frank_maggie"
+      ],
+      "itemIds": [
+        "ITM_KATIAS_CROSSBOW",
+        "ITM_BRANDONS_RIOT_SHIELD",
+        "ITM_CHRIS_SEWER_MAP"
+      ],
+      "creatureIds": [],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    },
+    {
+      "id": "N_SUBWAY_SLIME_TUNNELS",
+      "name": "The Deep Slime Tunnels & Transit Line",
+      "mapId": "map_dcc_floor2",
+      "cat": "Hazard",
+      "culture": "Adhocracy",
+      "odv": [
+        1,
+        4,
+        3
+      ],
+      "demographics": {
+        "primary": "Acidic Oozes & Sewer Slugs",
+        "minorities": [
+          {
+            "demographic": "Rogue Traitor Crawlers",
+            "percentage": 20
+          }
+        ]
+      },
+      "factionPresence": [
+        "fac_borant_corporation"
+      ],
+      "tier": 2,
+      "x": 460,
+      "y": 520,
+      "adj": [
+        "N_FLOOR_2_OVERSPILL",
+        "N_HOARDER_GRAVE_LAIR"
+      ],
+      "childMapId": null,
+      "customNotes": "# Deep Slime Tunnels\n\nStagnant underground subway tunnels coated in bioluminescent toxic slime, populated by electric sewer slugs and crawling horrors.",
+      "displayName": "The Deep Slime Tunnels & Transit Line",
+      "coordinates": {
+        "x": 460,
+        "y": 520
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [
+        "npc_frank_maggie_the_meadowlark_traitors"
+      ],
+      "questIds": [],
+      "itemIds": [
+        "ITM_FRANK_MAGGIE_LOOT_BAG"
+      ],
+      "creatureIds": [
+        "dcc_electric_sewer_slug"
+      ],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    }
+  ],
+  "links": [
+    {
+      "from": "N_FLOOR_2_EXIT_GATE",
+      "to": "N_HOARDER_GRAVE_LAIR",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "N_FLOOR_2_OVERSPILL",
+      "to": "N_MEADOWLARK_CAMP",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "N_FLOOR_2_OVERSPILL",
+      "to": "N_KRAZ_WORKSHOP",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "N_FLOOR_2_OVERSPILL",
+      "to": "N_SUBWAY_SLIME_TUNNELS",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "N_HOARDER_GRAVE_LAIR",
+      "to": "N_SUBWAY_SLIME_TUNNELS",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "N_HOARDER_GRAVE_LAIR",
+      "to": "N_KRAZ_WORKSHOP",
+      "type": "twoway",
+      "layer": "transit"
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {
+    "N_FLOOR_2_OVERSPILL": [],
+    "N_MEADOWLARK_CAMP": [],
+    "N_KRAZ_WORKSHOP": [],
+    "N_SUBWAY_SLIME_TUNNELS": [],
+    "N_HOARDER_GRAVE_LAIR": [],
+    "N_FLOOR_2_EXIT_GATE": []
+  },
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    }
+  ],
+  "shapes": [],
+  "spatialPins": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": [],
+  "mapMetadata": null
+}

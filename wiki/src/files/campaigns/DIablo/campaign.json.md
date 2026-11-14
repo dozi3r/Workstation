@@ -3,11 +3,11 @@ file_path: "campaigns/DIablo/campaign.json"
 title: "campaign.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "7fff0e3710ddfb83"
-reviewed_hash: "7fff0e3710ddfb83"
+current_hash: "2af0537d77d9a097"
+reviewed_hash: "2af0537d77d9a097"
 stale: false
-size_bytes: 365104
-line_count: 10168
+size_bytes: 530938
+line_count: 13149
 ---
 
 # campaign.json

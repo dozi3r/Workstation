@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T4_REFUGEE_EXODUS_C
 title: "MOD_T4_REFUGEE_EXODUS_COLUMN: The 800 Refugees of Pax Tharkas & The Traitor Within"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "0a5c0fff83fcfc8b"
-reviewed_hash: "0a5c0fff83fcfc8b"
+current_hash: "e63aaa34960bb319"
+reviewed_hash: "e63aaa34960bb319"
 stale: false
-size_bytes: 3333
-line_count: 70
+size_bytes: 2297
+line_count: 46
 ---
 
 # MOD_T4_REFUGEE_EXODUS_COLUMN: The 800 Refugees of Pax Tharkas & The Traitor Within

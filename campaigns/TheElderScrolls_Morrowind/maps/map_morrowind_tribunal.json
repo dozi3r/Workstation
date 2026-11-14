@@ -58,7 +58,7 @@
       "customNotes": "The cosmopolitan central square of Mournhold, its Great Bazaar and Craftsmen's Hall tuned to Helseth's bright new rule.",
       "npcIds": [],
       "questIds": [
-        "Q_MW_TRIBUNAL_AN_ASSASSINATION_ATTEMPT"
+        "Q_MW_TRIBUNAL_AN_ATTACK_ON_MOURNHOLD"
       ],
       "itemIds": [],
       "creatureIds": [],
@@ -109,12 +109,33 @@
       "customNotes": "Poor quarter of Mournhold, rich in rumor and short in justice; Dark Brotherhood sleepers walk its alleys disguised as dock-folk.",
       "npcIds": [
         "npc_dark_brotherhood_contact",
-        "npc_black_dart_adren"
+        "npc_bakh_gro_sham",
+        "npc_salas_valor",
+        "npc_drathas_reyas",
+        "npc_alvan_llarys",
+        "npc_hession",
+        "npc_ignatius_flaccus",
+        "npc_geon_auline",
+        "npc_arnsa_thendas",
+        "npc_deldrise_andoren",
+        "npc_venasa_sarano",
+        "npc_thrud",
+        "npc_high_pockets"
       ],
       "questIds": [
+        "Q_MW_TRIBUNAL_SPEAK_TO_THE_PEOPLE",
         "Q_MW_TRIBUNAL_EVIDENCE_OF_CONSPIRACY",
-        "Q_MW_TRIBUNAL_THE_BLACK_DART_GANG",
-        "Q_MW_TRIBUNAL_HUNT_THE_DARK_BROTHERHOOD"
+        "Q_MW_TRIBUNAL_MUCKRAKING_JOURNALIST",
+        "Q_MW_TRIBUNAL_THE_GOBLIN_ARMY",
+        "Q_MW_TRIBUNAL_THE_MISSING_HAND",
+        "Q_MW_TRIBUNAL_THE_WARLORDS",
+        "Q_MW_TRIBUNAL_THE_THIEF",
+        "Q_MW_TRIBUNAL_BOUNCER",
+        "Q_MW_TRIBUNAL_ESTATE_SALE",
+        "Q_MW_TRIBUNAL_INFIDELITIES",
+        "Q_MW_TRIBUNAL_ROBOT_ARENA",
+        "Q_MW_TRIBUNAL_THE_BARBARIAN_AND_THE_BOOK",
+        "Q_MW_TRIBUNAL_WOOD_ELF_WITH_A_GRIEVANCE"
       ],
       "itemIds": [
         "ITM_HELSETH_BROTHERHOOD_CONTRACT"
@@ -166,17 +187,24 @@
       "customNotes": "Great Temple of Almalexia, mother-goddess whose grief rules the throne room of the Hands.",
       "npcIds": [
         "npc_almalexia",
-        "npc_fedris_hler"
+        "npc_fedris_hler",
+        "npc_gavas_drin",
+        "npc_galsa_andrano",
+        "npc_mehra_helas",
+        "npc_gaenor"
       ],
       "questIds": [
         "Q_MW_TRIBUNAL_A_TEMPLE_INFORMANT",
+        "Q_MW_TRIBUNAL_A_SHOW_OF_POWER",
+        "Q_MW_TRIBUNAL_BARILZAR_S_MAZED_BAND",
         "Q_MW_TRIBUNAL_THE_SHRINE_OF_THE_DEAD",
-        "Q_MW_TRIBUNAL_THE_MISSING_HAND",
-        "Q_MW_TRIBUNAL_THE_BLADE_OF_NEREVAR"
+        "Q_MW_TRIBUNAL_CRIMSON_PLAGUE",
+        "Q_MW_TRIBUNAL_THE_NATURAL"
       ],
       "itemIds": [
         "ITM_HAND_OF_ALMALEXIA_SIGIL",
-        "ITM_MOURNHOLD_TEMPLE_RELIC"
+        "ITM_MOURNHOLD_TEMPLE_RELIC",
+        "ITM_BARILZARS_MAZED_BAND"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -226,13 +254,22 @@
         "npc_helseth",
         "npc_barenziah",
         "npc_dovor_oren",
-        "npc_tienius_delitian"
+        "npc_tienius_delitian",
+        "npc_ivulen_irano",
+        "npc_karrod"
       ],
       "questIds": [
-        "Q_MW_TRIBUNAL_HELSETHS_CHAMPION"
+        "Q_MW_TRIBUNAL_AN_ASSASSINATION_ATTEMPT",
+        "Q_MW_TRIBUNAL_DISLOYALTY_AMONG_THE_GUARDS",
+        "Q_MW_TRIBUNAL_QUEEN_BARENZIAH",
+        "Q_MW_TRIBUNAL_HELSETH_S_CHAMPION",
+        "Q_MW_TRIBUNAL_THE_BLADE_OF_NEREVAR"
       ],
       "itemIds": [
-        "ITM_BARENZIAH_INVITATION"
+        "ITM_BARENZIAH_INVITATION",
+        "ITM_HELSETHS_COLLAR",
+        "ITM_DAGGER_OF_SYMMACHUS",
+        "ITM_KINGS_OATH"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -279,12 +316,25 @@
       ],
       "childMapId": null,
       "customNotes": "Teeming covered marketplace whose stall-keepers know every new law of Helseth before the criers do.",
-      "npcIds": [],
+      "npcIds": [
+        "npc_meralyn_othan",
+        "npc_narisa_adus",
+        "npc_ten_tongues_weerhat",
+        "npc_meryn_othralas",
+        "npc_marena_gilnith",
+        "npc_torasa_aram"
+      ],
       "questIds": [
-        "Q_MW_TRIBUNAL_SPEAK_TO_THE_PEOPLE"
+        "Q_MW_TRIBUNAL_HUNT_THE_DARK_BROTHERHOOD",
+        "Q_MW_TRIBUNAL_THE_SUMMONER",
+        "Q_MW_TRIBUNAL_SCROLL_SALES",
+        "Q_MW_TRIBUNAL_A_STAR_IS_BORN",
+        "Q_MW_TRIBUNAL_THE_MATCHMAKER",
+        "Q_MW_TRIBUNAL_THE_MUSEUM"
       ],
       "itemIds": [
-        "ITM_BITTERCUP"
+        "ITM_BITTERCUP",
+        "ITM_VARINERS_RING"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -331,14 +381,15 @@
       "childMapId": null,
       "customNotes": "Guild hall of Mournhold armorers whose forges still hammer fabricant-grade steel.",
       "npcIds": [
-        "npc_craftsmen_hall_smith"
+        "npc_detritus_caria",
+        "npc_ilnori_faustus"
       ],
       "questIds": [
-        "Q_MW_TRIBUNAL_THE_SMITHS_APPRENTICE"
+        "Q_MW_TRIBUNAL_THE_CHAMPION_OF_CLUTTER",
+        "Q_MW_TRIBUNAL_THE_SMITH_S_APPRENTICE"
       ],
       "itemIds": [
-        "ITM_LORDS_MAIL",
-        "ITM_EBONY_INGOT_MOURNHOLD"
+        "ITM_LORDS_MAIL"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -390,11 +441,9 @@
         "npc_goblin_chieftain"
       ],
       "questIds": [
-        "Q_MW_TRIBUNAL_VARINERS_GHOST",
-        "Q_MW_TRIBUNAL_THE_GOBLIN_ARMY"
+        "Q_MW_TRIBUNAL_THE_BLACK_DART_GANG"
       ],
       "itemIds": [
-        "ITM_VARINERS_JOURNAL",
         "ITM_GOBLIN_WAR_TOTEM"
       ],
       "creatureIds": [],
@@ -441,12 +490,10 @@
       ],
       "childMapId": null,
       "customNotes": "Dwemer ruin below Mournhold whose automata still guard the vaults of Kagrenac's lore.",
-      "npcIds": [
-        "npc_dwemer_automaton"
-      ],
+      "npcIds": [],
       "questIds": [
-        "Q_MW_MAGES_THE_STAFF_OF_MAGNUS",
-        "Q_MW_TRIBUNAL_INVESTIGATE_BAMZ_AMSCHEND"
+        "Q_MW_TRIBUNAL_INVESTIGATE_BAMZ_AMSCHEND",
+        "Q_MW_TRIBUNAL_DWEMER_WARBOTS"
       ],
       "itemIds": [
         "ITM_STAFF_OF_MAGNUS",
@@ -507,7 +554,8 @@
         "Q_MW_TRIBUNAL_THE_MAD_GOD"
       ],
       "itemIds": [
-        "ITM_FABRICANT_GEAR_HEART"
+        "ITM_FABRICANT_GEAR_HEART",
+        "ITM_HOPESFIRE"
       ],
       "creatureIds": [
         "creature_clockwork_fabricant"

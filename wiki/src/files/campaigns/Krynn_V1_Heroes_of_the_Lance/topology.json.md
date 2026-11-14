@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/topology.json"
 title: "topology.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "9132e6abbb7bdc60"
-reviewed_hash: "9132e6abbb7bdc60"
+current_hash: "efeb85278f28ec81"
+reviewed_hash: "efeb85278f28ec81"
 stale: false
-size_bytes: 939921
-line_count: 20769
+size_bytes: 934038
+line_count: 21379
 ---
 
 # topology.json

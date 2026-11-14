@@ -2755,6 +2755,183 @@
     "module_path": ""
   },
   {
+    "id": "SYS-LOOT-01",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Modular Loot System: Coordinated Delivery & Gate Map",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Modular Loot & Multi-Source Tables",
+    "status": "in_drafting",
+    "summary": "# SYS-LOOT-01: Modular Loot System — Coordinated Delivery & Gate Map\n\n## Notes\nParent coordination ticket governing Team A (Host Readiness) and Team B (Loot Simulator Mod) under the G0–G6 gate sequenc...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Workstation: Modular-Loot-System",
+      "Workstation: Loot-Host-Adapter"
+    ],
+    "requires": [
+      "Workstation: start.html",
+      "CampaignMutationEngine"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [
+      "SYS-LOOT-02",
+      "SYS-LOOT-03",
+      "SYS-LOOT-04",
+      "SYS-LOOT-05"
+    ],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-LOOT-01_modular_loot_coordinated_delivery_map.md",
+    "file_url": "tickets/system/SYS-LOOT-01_modular_loot_coordinated_delivery_map.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-LOOT-02",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Modular Loot G1 Contract Freeze & Shared Fixture Suite",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Modular Loot & Multi-Source Tables",
+    "status": "in_drafting",
+    "summary": "# SYS-LOOT-02: Modular Loot G1 Contract Freeze & Shared Fixture Suite\n\nCovers `HOST-00`, `HOST-01`, and `MOD-00`. Freezes the concrete host adapter API, extension envelope location, deterministic RNG ...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Contract: Loot-Host-Adapter-v1",
+      "Fixtures: Loot-G1-Suite"
+    ],
+    "requires": [
+      "Workstation: start.html"
+    ],
+    "blocked_by": [
+      "None"
+    ],
+    "blocks": [
+      "SYS-LOOT-03",
+      "SYS-LOOT-04"
+    ],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-LOOT-02_modular_loot_g1_contract_and_fixtures.md",
+    "file_url": "tickets/system/SYS-LOOT-02_modular_loot_g1_contract_and_fixtures.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-LOOT-03",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "AdventureCAD Host Readiness: Lifecycle, Extension Persistence & Atomic Item Bridge",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Modular Loot & Multi-Source Tables",
+    "status": "in_drafting",
+    "summary": "# SYS-LOOT-03: AdventureCAD Host Readiness (`HOST-02`..`HOST-05`, Gate G2)\n\nImplements Team A host readiness deliverables verified against Gate G2.\n...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Host: Loot-Adapter-Runtime",
+      "Host: Create-Only-Entity-Batch",
+      "Host: Campaign-Extensions-Transport"
+    ],
+    "requires": [
+      "Contract: Loot-Host-Adapter-v1"
+    ],
+    "blocked_by": [
+      "SYS-LOOT-02"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-LOOT-03_host_readiness_lifecycle_persistence_and_item_bridge.md",
+    "file_url": "tickets/system/SYS-LOOT-03_host_readiness_lifecycle_persistence_and_item_bridge.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-LOOT-04",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Loot Simulator Workstation Mod: Pool Engine, Presets, Simulation & Starter Packs",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Modular Loot & Multi-Source Tables",
+    "status": "in_drafting",
+    "summary": "# SYS-LOOT-04: Loot Simulator Workstation Mod (`MOD-01`..`MOD-08`, Gate G3/G4)\n\nImplements Team B Loot Simulator Mod under `mods/loot_simulator/` and `test/loot_*.test.js`, verified against Gates G3 a...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Mod: loot_simulator",
+      "Catalog: Starter-Loot-Packs"
+    ],
+    "requires": [
+      "Contract: Loot-Host-Adapter-v1",
+      "Host: Loot-Adapter-Runtime"
+    ],
+    "blocked_by": [
+      "SYS-LOOT-02"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-LOOT-04_loot_simulator_mod_engine_ui_and_starter_packs.md",
+    "file_url": "tickets/system/SYS-LOOT-04_loot_simulator_mod_engine_ui_and_starter_packs.md",
+    "module_path": ""
+  },
+  {
+    "id": "SYS-LOOT-05",
+    "track": "Platform Architecture (SYS)",
+    "track_code": "SYS",
+    "title": "Deferred Backlog: Faithful Game Loot Engines, Comprehensive Catalogs & Contextual Suggestions",
+    "pipeline_tier": "Platform",
+    "tier_label": "Platform Architecture",
+    "category": "system_architecture",
+    "wave": "Workstation Architecture: Modular Loot & Multi-Source Tables",
+    "status": "discovery",
+    "summary": "# SYS-LOOT-05: Deferred Backlog — Faithful Game Loot Engines & Contextual Suggestions\n\nTracks deferred post-MVP enhancements separated from the `SYS-LOOT-04` declarative weighted pool MVP.\n...",
+    "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
+    "four_corners": null,
+    "dials": [],
+    "threat_clocks": [],
+    "provides": [
+      "Mod: Faithful-Loot-Engines",
+      "Mod: Contextual-Loot-Suggestions"
+    ],
+    "requires": [
+      "Mod: loot_simulator"
+    ],
+    "blocked_by": [
+      "SYS-LOOT-03",
+      "SYS-LOOT-04"
+    ],
+    "blocks": [],
+    "culture_quadrant": "Universal / All Quadrants",
+    "mtg_color": "Colorless",
+    "agent_brief": "Implement system architectural feature ensuring zero-CORS offline execution.",
+    "ticket_file": "tickets/system/SYS-LOOT-05_deferred_faithful_loot_engines_and_suggestions.md",
+    "file_url": "tickets/system/SYS-LOOT-05_deferred_faithful_loot_engines_and_suggestions.md",
+    "module_path": ""
+  },
+  {
     "id": "SYS-ODV-01",
     "track": "Platform Architecture (SYS)",
     "track_code": "SYS",
@@ -3622,7 +3799,7 @@
     "tier_label": "Platform Architecture",
     "category": "system_architecture",
     "wave": "Workstation Architecture: Campaign Management & Project Identity",
-    "status": "open",
+    "status": "completed",
     "summary": "# SYS-START-19: Workstation Campaign Settings Dialog & In-Place Metadata Renaming\n*Category: system_architecture | Target Surface: `start.html` (`src/workstation/`)*  \n*Status: open*  \n*Date: 2026-11-...",
     "syllogism": "System Agnosticism + Flexible Ancestry Tagging = Unconstrained GM Worldbuilding",
     "four_corners": null,

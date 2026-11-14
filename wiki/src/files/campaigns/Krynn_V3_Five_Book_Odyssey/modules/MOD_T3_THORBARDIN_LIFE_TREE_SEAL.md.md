@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_THORBARDIN_LIFE_
 title: "MOD_T3_THORBARDIN_LIFE_TREE_SEAL: The Great Northgate & Life Tree Foundations of Thorbardin"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "03cfec3bddca5ce4"
-reviewed_hash: "03cfec3bddca5ce4"
+current_hash: "993153088f5f6270"
+reviewed_hash: "993153088f5f6270"
 stale: false
-size_bytes: 3661
-line_count: 70
+size_bytes: 2475
+line_count: 46
 ---
 
 # MOD_T3_THORBARDIN_LIFE_TREE_SEAL: The Great Northgate & Life Tree Foundations of Thorbardin

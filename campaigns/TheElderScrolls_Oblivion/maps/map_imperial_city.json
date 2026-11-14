@@ -56,7 +56,8 @@
         "Q_OBLIVION_TUTORIAL"
       ],
       "itemIds": [],
-      "creatureIds": []
+      "creatureIds": [],
+      "layerId": "layer-nodes"
     },
     {
       "id": "N_WHITE_GOLD_TOWER",
@@ -116,7 +117,8 @@
       "demographics": {
         "primary": "Imperial Guard & Council Magnates",
         "minorities": []
-      }
+      },
+      "layerId": "layer-nodes"
     },
     {
       "id": "N_TEMPLE_OF_THE_ONE",
@@ -162,7 +164,8 @@
       "demographics": {
         "primary": "Priests of the Eight and One & Worshippers",
         "minorities": []
-      }
+      },
+      "layerId": "layer-nodes"
     },
     {
       "id": "N_IMPERIAL_WATERFRONT",
@@ -232,7 +235,8 @@
             "percentage": 15
           }
         ]
-      }
+      },
+      "layerId": "layer-nodes"
     },
     {
       "id": "N_ARCANE_UNIVERSITY",
@@ -314,7 +318,8 @@
       "demographics": {
         "primary": "Imperial Scholars, Enchanters, Apprentices",
         "minorities": []
-      }
+      },
+      "layerId": "layer-nodes"
     },
     {
       "id": "N_IMPERIAL_ARENA",
@@ -358,7 +363,8 @@
       "demographics": {
         "primary": "Gladiators, Spectators, Gamblers",
         "minorities": []
-      }
+      },
+      "layerId": "layer-nodes"
     },
     {
       "id": "N_MARKET_DISTRICT",
@@ -779,7 +785,8 @@
       "demographics": {
         "primary": "Imperial Merchants & Guild Fences",
         "minorities": []
-      }
+      },
+      "layerId": "layer-nodes"
     }
   ],
   "links": [
@@ -867,5 +874,67 @@
       "note": "Metaphysical Clash",
       "cost": 3
     }
-  ]
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    }
+  ],
+  "shapes": [],
+  "spatialPins": []
 }

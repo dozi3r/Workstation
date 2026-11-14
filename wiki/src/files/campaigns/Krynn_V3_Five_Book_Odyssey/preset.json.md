@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/preset.json"
 title: "preset.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "58c6f48e87fe387f"
-reviewed_hash: "58c6f48e87fe387f"
+current_hash: "359ce824fb015763"
+reviewed_hash: "359ce824fb015763"
 stale: false
-size_bytes: 992752
-line_count: 22117
+size_bytes: 991044
+line_count: 22757
 ---
 
 # preset.json

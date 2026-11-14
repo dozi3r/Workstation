@@ -1,0 +1,474 @@
+{
+  "id": "map_dcc_floor1",
+  "name": "World Dungeon: Floor 1 & Surface Collapse",
+  "scaleTier": "region",
+  "parentMapId": null,
+  "parentNodeId": null,
+  "nodes": [
+    {
+      "id": "N_FLOOR_1_BALL_OF_SWINE",
+      "name": "The Ball of Swine Arena",
+      "mapId": "map_dcc_floor1",
+      "cat": "Hazard",
+      "culture": "Clan",
+      "odv": [
+        3,
+        1,
+        3
+      ],
+      "demographics": {
+        "primary": "Goblin Demolition Crews & Swine Mounts",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_goblin_hordes"
+      ],
+      "tier": 3,
+      "x": 440,
+      "y": 280,
+      "adj": [
+        "N_FLOOR_1_GOBLIN_CAVERNS",
+        "N_FLOOR_1_DESCENT_STAIRWELL"
+      ],
+      "childMapId": null,
+      "customNotes": "# The Ball of Swine Arena\n\nA cavernous cistern where goblin sappers deploy their rolling iron-and-pork ball war machine to crush crawler vanguard lines.",
+      "displayName": "The Ball of Swine Arena",
+      "coordinates": {
+        "x": 440,
+        "y": 280
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [],
+      "questIds": [
+        "Q_M3_the_ball_of_swine_improvised_demolitions"
+      ],
+      "itemIds": [],
+      "creatureIds": [
+        "dcc_ball_of_swine"
+      ],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    },
+    {
+      "id": "N_FLOOR_1_DESCENT_STAIRWELL",
+      "name": "Floor 1 Descent Stairwell & Collapse Gate",
+      "mapId": "map_dcc_floor1",
+      "cat": "Hazard",
+      "culture": "Market",
+      "odv": [
+        3,
+        4,
+        4
+      ],
+      "demographics": {
+        "primary": "Broadcast Cameras & Sentry Drones",
+        "minorities": [
+          {
+            "demographic": "Fleeing Crawlers",
+            "percentage": 50
+          }
+        ]
+      },
+      "factionPresence": [
+        "fac_borant_corporation"
+      ],
+      "tier": 3,
+      "x": 523,
+      "y": 329,
+      "adj": [
+        "N_FLOOR_1_BALL_OF_SWINE"
+      ],
+      "childMapId": "map_dcc_floor2",
+      "customNotes": "# Floor 1 Collapse Gate\n\nReinforced blast threshold leading down to Floor 2. Governed by a 5-day collapse countdown before ceiling pistons crush the floor flat.",
+      "displayName": "Floor 1 Descent Stairwell & Collapse Gate",
+      "coordinates": {
+        "x": 523,
+        "y": 329
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [],
+      "questIds": [
+        "Q_M4_the_floor_1_collapse_countdown"
+      ],
+      "itemIds": [],
+      "creatureIds": [],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    },
+    {
+      "id": "N_FLOOR_1_GOBLIN_CAVERNS",
+      "name": "Floor 1 Slime Caverns & Goblin Warrens",
+      "mapId": "map_dcc_floor1",
+      "cat": "Hazard",
+      "culture": "Clan",
+      "odv": [
+        3,
+        1,
+        3
+      ],
+      "demographics": {
+        "primary": "Floor 1 Goblin Miners & Sappers",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_goblin_hordes"
+      ],
+      "tier": 2,
+      "x": 360,
+      "y": 260,
+      "adj": [
+        "N_FLOOR_1_TUTORIAL_GUILD",
+        "N_FLOOR_1_BALL_OF_SWINE"
+      ],
+      "childMapId": null,
+      "customNotes": "# Goblin Warrens\n\nDank masonry tunnels choked with subterranean garbage, barricades, and sappers laying tripwire mines.",
+      "displayName": "Floor 1 Slime Caverns & Goblin Warrens",
+      "coordinates": {
+        "x": 360,
+        "y": 260
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [
+        "dcc_tunnel_goblin",
+        "dcc_tombstone_beetle"
+      ],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    },
+    {
+      "id": "N_FLOOR_1_TUTORIAL_GUILD",
+      "name": "Tutorial Guild #4 (Sanctuary)",
+      "mapId": "map_dcc_floor1",
+      "cat": "Bastion",
+      "culture": "Hierarchy",
+      "odv": [
+        2,
+        2,
+        3
+      ],
+      "demographics": {
+        "primary": "Guild Managers & Indentured Ex-Crawlers",
+        "minorities": [
+          {
+            "demographic": "Novice Crawlers",
+            "percentage": 30
+          }
+        ]
+      },
+      "factionPresence": [
+        "fac_tutorial_guilds",
+        "fac_royal_court_donut"
+      ],
+      "tier": 3,
+      "x": 280,
+      "y": 220,
+      "adj": [
+        "N_WORLD_DUNGEON_ENTRANCE",
+        "N_FLOOR_1_GOBLIN_CAVERNS"
+      ],
+      "childMapId": null,
+      "customNotes": "# Tutorial Guild #4\n\nA magical safe zone managed by Mordecai. Features training dummies, an indentured apothecary station, and Donut's Awakening Biscuit ceremony.",
+      "displayName": "Tutorial Guild #4 (Sanctuary)",
+      "coordinates": {
+        "x": 280,
+        "y": 220
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [
+        "npc_carl_crawler_11_214",
+        "npc_hrh_princess_donut",
+        "npc_mordecai"
+      ],
+      "questIds": [
+        "Q_M2_the_awakening_biscuit_dilemma"
+      ],
+      "itemIds": [
+        "ITM_ENCHANTED_PINK_CROCS",
+        "ITM_LEATHER_COLLAR_OF_THE_CHONK",
+        "ITM_AWAKENING_BISCUIT",
+        "ITM_MORDECAIS_GUIDE",
+        "ITM_SPONSOR_LOOT_BOX_T1"
+      ],
+      "creatureIds": [],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    },
+    {
+      "id": "N_SURFACE_COLLAPSE",
+      "name": "Seattle Suburbs: Surface Collapse",
+      "mapId": "map_dcc_floor1",
+      "cat": "Hazard",
+      "culture": "Clan",
+      "odv": [
+        3,
+        1,
+        1
+      ],
+      "demographics": {
+        "primary": "Panicked Surface Civilians",
+        "minorities": []
+      },
+      "factionPresence": [
+        "fac_meadowlark_survivors"
+      ],
+      "tier": 3,
+      "x": 100,
+      "y": 120,
+      "adj": [
+        "N_WORLD_DUNGEON_ENTRANCE"
+      ],
+      "childMapId": null,
+      "customNotes": "# Surface Collapse\n\nSub-zero Seattle blizzard where every roof collapsed. Carl stepped onto the porch in boxers and a leather jacket to rescue Princess Donut.",
+      "displayName": "Seattle Suburbs: Surface Collapse",
+      "coordinates": {
+        "x": 100,
+        "y": 120
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [],
+      "questIds": [],
+      "itemIds": [],
+      "creatureIds": [
+        "dcc_borant_drone"
+      ],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    },
+    {
+      "id": "N_WORLD_DUNGEON_ENTRANCE",
+      "name": "World Dungeon Entrance Stairwell",
+      "mapId": "map_dcc_floor1",
+      "cat": "Standard POI",
+      "culture": "Hierarchy",
+      "odv": [
+        2,
+        2,
+        4
+      ],
+      "demographics": {
+        "primary": "Syndicate Overseer Holograms",
+        "minorities": [
+          {
+            "demographic": "Inbound Human Crawlers",
+            "percentage": 40
+          }
+        ]
+      },
+      "factionPresence": [
+        "fac_the_syndicate",
+        "fac_borant_corporation"
+      ],
+      "tier": 2,
+      "x": 180,
+      "y": 180,
+      "adj": [
+        "N_SURFACE_COLLAPSE",
+        "N_FLOOR_1_TUTORIAL_GUILD"
+      ],
+      "childMapId": null,
+      "customNotes": "# Dungeon Entrance\n\nThe glowing subterranean hatchway descending into cold, fluorescent-lit concrete dungeon corridors.",
+      "displayName": "World Dungeon Entrance Stairwell",
+      "coordinates": {
+        "x": 180,
+        "y": 180
+      },
+      "hubEligibility": "candidate",
+      "eligible": true,
+      "wave": 1,
+      "odvOverridden": false,
+      "modules": [],
+      "provides": [],
+      "requires": [],
+      "npcIds": [
+        "npc_the_dungeon_ai"
+      ],
+      "questIds": [
+        "Q_M1_the_midnight_porch_the_descent_into_cold_iron"
+      ],
+      "itemIds": [
+        "ITM_AI_ANNOUNCER_SPEAKER"
+      ],
+      "creatureIds": [
+        "dcc_sewer_rat_swarm"
+      ],
+      "layerId": "layer-nodes",
+      "shape": "circle",
+      "infBy": [],
+      "locked": false,
+      "visible": true,
+      "color": null,
+      "modData": {},
+      "faction": "neutral"
+    }
+  ],
+  "links": [
+    {
+      "from": "N_FLOOR_1_BALL_OF_SWINE",
+      "to": "N_FLOOR_1_GOBLIN_CAVERNS",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "N_FLOOR_1_BALL_OF_SWINE",
+      "to": "N_FLOOR_1_DESCENT_STAIRWELL",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "N_FLOOR_1_GOBLIN_CAVERNS",
+      "to": "N_FLOOR_1_TUTORIAL_GUILD",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "N_FLOOR_1_TUTORIAL_GUILD",
+      "to": "N_WORLD_DUNGEON_ENTRANCE",
+      "type": "twoway",
+      "layer": "transit"
+    },
+    {
+      "from": "N_SURFACE_COLLAPSE",
+      "to": "N_WORLD_DUNGEON_ENTRANCE",
+      "type": "twoway",
+      "layer": "transit"
+    }
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {
+    "N_SURFACE_COLLAPSE": [],
+    "N_WORLD_DUNGEON_ENTRANCE": [],
+    "N_FLOOR_1_TUTORIAL_GUILD": [],
+    "N_FLOOR_1_GOBLIN_CAVERNS": [],
+    "N_FLOOR_1_BALL_OF_SWINE": [],
+    "N_FLOOR_1_DESCENT_STAIRWELL": []
+  },
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    }
+  ],
+  "shapes": [],
+  "spatialPins": [],
+  "revealedNodes": {},
+  "edgeData": {},
+  "edgeNotes": {},
+  "modData": {},
+  "custom_modules": [],
+  "mapMetadata": null
+}

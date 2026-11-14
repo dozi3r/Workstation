@@ -1,4 +1,4 @@
-<#
+﻿<#
 ================================================================================
 CREATOR STUDIO COMPASS HEADER (AUTO-GENERATED VIA build_suite.js)
 SURFACE: Master Automated Test Harness & Quality Assurance Gate
@@ -26,14 +26,16 @@ param(
     [switch]$Quick
 )
 
-$nodeCmd = Get-Command node -ErrorAction SilentlyContinue
-$nodePath = if ($nodeCmd) {
-    $nodeCmd.Source
-} elseif (Test-Path "C:\Program Files\Adobe\Adobe Photoshop 2024\node.exe") {
+$nodeCandidates = @(
+    "C:\Program Files\nodejs\node.exe",
+    ((Get-Command node.exe -ErrorAction SilentlyContinue) | Where-Object { $_.Source -notlike "*node.cmd" } | Select-Object -ExpandProperty Source -First 1),
     "C:\Program Files\Adobe\Adobe Photoshop 2024\node.exe"
-} else {
-    $found = Get-ChildItem -Path "C:\Program Files", "$env:LOCALAPPDATA" -Filter node.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
-    if ($found) { $found.FullName } else { $null }
+)
+
+$nodePath = $nodeCandidates | Where-Object { $_ -and (Test-Path $_) } | Select-Object -First 1
+if (-not $nodePath) {
+    $found = Get-ChildItem -Path "C:\Program Files", "$env:LOCALAPPDATA" -Filter node.exe -Recurse -ErrorAction SilentlyContinue | Where-Object { $_.FullName -notlike "*node.cmd" } | Select-Object -First 1
+    if ($found) { $nodePath = $found.FullName }
 }
 
 if (-not $nodePath) {

@@ -59,7 +59,8 @@
       "demographics": {
         "primary": "Dremora Kyn & Flame Atronachs",
         "minorities": []
-      }
+      },
+      "layerId": "layer-nodes"
     },
     {
       "id": "N_DEADLANDS_GREAT_GATE",
@@ -109,7 +110,8 @@
       "demographics": {
         "primary": "Dremora Valkyn & Siege Crawlers",
         "minorities": []
-      }
+      },
+      "layerId": "layer-nodes"
     },
     {
       "id": "N_PARADISE_GAIAR_ALATA",
@@ -162,7 +164,8 @@
       "demographics": {
         "primary": "Immortal Mythic Dawn Zealots & Daedra",
         "minorities": []
-      }
+      },
+      "layerId": "layer-nodes"
     }
   ],
   "links": [
@@ -208,5 +211,67 @@
       "note": "Camoran Planar Conduit",
       "cost": 3
     }
-  ]
+  ],
+  "waves": [],
+  "drawnCards": {},
+  "nodeSlottedModules": {},
+  "edgeSlottedModules": {},
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    }
+  ],
+  "shapes": [],
+  "spatialPins": []
 }

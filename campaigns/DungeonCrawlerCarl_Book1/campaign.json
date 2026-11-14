@@ -1,15 +1,19 @@
 {
-  "id": "dungeon_crawler_carl_book1_campaign",
+  "id": "dungeon_crawler_carl__book_1__surface_collapse___slime_tunnels_",
   "name": "Dungeon Crawler Carl (Book 1: Surface Collapse & Slime Tunnels)",
   "campaignName": "Dungeon Crawler Carl (Book 1: Surface Collapse & Slime Tunnels)",
   "description": "The complete official adaptation of Matt Dinniman's Dungeon Crawler Carl (Book 1: Season 47 of the World Dungeon). Follow Carl and Princess Donut through the Surface Collapse, Tutorial Guild #4, the Ball of Swine, the Meadowlark betrayal, and the Floor 2 Slime Tunnels. Features 7 milestone crucibles, 10 detailed canonical NPC dossiers, 12 pointcrawl nodes across 2 scale-fluid maps, 14 signature relics, 4 dynamic threat clocks, and 10 bespoke schema 2.6 bestiary creatures.",
   "author": "Creator Studio World Architect & Claude",
+  "climaxTrigger": "crisis",
+  "substratumSettings": {
+    "enabled": false
+  },
   "packageType": "workstation_project",
   "enabled": true,
   "topologyFile": "topology.json",
   "manifestFile": "modules_manifest.json",
-  "updatedAt": "2026-11-08T05:31:55.287Z",
-  "exportedAt": "2026-11-08T05:31:55.287Z",
+  "updatedAt": "2026-11-09T03:03:20.091Z",
+  "exportedAt": "2026-11-09T03:03:20.091Z",
   "appliedBatchIds": [],
   "globalDials": {
     "dial8ClimaxTrigger": "crisis",
@@ -423,13 +427,15 @@
             "title": "Canonical Outcome",
             "text": "Chasing Princess Donut into the sub-zero Seattle snow in boxer shorts and pink Crocs, Carl witnesses his apartment building compressed into a solid block. Grabbing Donut, he ignores freezing pain and plunges into the glowing, wrought-iron staircase leading beneath Earth's crust.",
             "completed": false,
-            "triggerTrackerId": "TRK_BROADCAST_RATINGS"
+            "triggerTrackerId": "TRK_BROADCAST_RATINGS",
+            "isCompleted": false
           },
           {
             "id": "Q_M1_the_midnight_porch_the_descent_into_cold_iron_step2",
             "title": "Crucible Divergence",
             "text": "1. *Flee into the Subterranean Dungeon (Canon):* Accept the alien voice's terms and enter the death-game with only a cat and underwear.\n2. *Scavenge t -> Entering immediately guarantees warmth and tutorial chest access, but leaves Carl functionally naked and unarmed. Scavenging outside risks fatal hypot",
-            "completed": false
+            "completed": false,
+            "isCompleted": false
           }
         ]
       },
@@ -463,13 +469,15 @@
             "title": "Canonical Outcome",
             "text": "Upon unlocking a rare Celestial-tier tutorial prize, Carl receives the Pet Awakening Biscuit. Rather than selling it or saving it, he feeds it to Princess Donut, granting her human speech, sapience, high Charisma, and magical aptitude.",
             "completed": false,
-            "triggerTrackerId": "TRK_BROADCAST_RATINGS"
+            "triggerTrackerId": "TRK_BROADCAST_RATINGS",
+            "isCompleted": false
           },
           {
             "id": "Q_M2_the_awakening_biscuit_dilemma_step2",
             "title": "Crucible Divergence",
             "text": "1. *Awaken Princess Donut (Canon):* Transform Donut into a sentient partner and spellcaster.\n2. *Consume the Biscuit Personally:* Attempt to eat the b -> Awakening Donut creates an outspoken, demanding feline diva who requires luxury food and emotional validation, but gives the team an incredible magica",
-            "completed": false
+            "completed": false,
+            "isCompleted": false
           }
         ]
       },
@@ -501,13 +509,15 @@
             "title": "Canonical Outcome",
             "text": "Cornered by a charging Ball of Swine war-machine packed with sewer goblins, Carl combines nitrogen compounds and goblin incendiaries into a shaped explosive, detonating the entire warband in a single blast.",
             "completed": false,
-            "triggerTrackerId": "TRK_FLOOR_1_COLLAPSE"
+            "triggerTrackerId": "TRK_FLOOR_1_COLLAPSE",
+            "isCompleted": false
           },
           {
             "id": "Q_M3_the_ball_of_swine_improvised_demolitions_step2",
             "title": "Crucible Divergence",
             "text": "1. *High-Yield Improvised Blast (Canon):* Detonate the chemical bomb at dangerously close range.\n2. *Conventional Melee Defense:* Form a shield wall w -> The chemical explosion inflicts severe shrapnel lacerations and burns on Carl, risking cavern collapse, but annihilates the boss mob instantly. A shie",
-            "completed": false
+            "completed": false,
+            "isCompleted": false
           }
         ]
       },
@@ -542,13 +552,15 @@
             "title": "Canonical Outcome",
             "text": "With less than an hour before the 5-day timer expires, Carl and Donut clear the final goblin guard post and guide dozens of panicking human crawlers down the staircase to Floor 2 just as the ceiling crushes the first floor into flat stone.",
             "completed": false,
-            "triggerTrackerId": "TRK_FLOOR_1_COLLAPSE"
+            "triggerTrackerId": "TRK_FLOOR_1_COLLAPSE",
+            "isCompleted": false
           },
           {
             "id": "Q_M4_the_floor_1_collapse_countdown_step2",
             "title": "Crucible Divergence",
             "text": "1. *Delay to Evacuate Stragglers (Canon):* Hold the doorway open until the final moments to rescue straggling crawlers.\n2. *Seal the Portal Early:* Lo -> Holding the door leaves Carl and Donut within seconds of being crushed to death. Locking down early guarantees survival but condemns trailing humans t",
-            "completed": false
+            "completed": false,
+            "isCompleted": false
           }
         ]
       },
@@ -584,13 +596,15 @@
             "title": "Canonical Outcome",
             "text": "Discovering that Frank and Maggie have been murdering fellow elderly Meadowlark residents for loot boxes and XP, Carl unmasks their crimes, neutralizes their threat, and secures justice for Katia and the survivors.",
             "completed": false,
-            "triggerTrackerId": "TRK_MEADOWLARK_CASUALTIES"
+            "triggerTrackerId": "TRK_MEADOWLARK_CASUALTIES",
+            "isCompleted": false
           },
           {
             "id": "Q_M5_the_meadowlark_traitors_frank_maggie_step2",
             "title": "Crucible Divergence",
             "text": "1. *Immediate Summary Execution:* Blow the traitors to pieces with an explosive charge to demonstrate zero tolerance for crawler-on-crawler predation. -> Execution provides instant catharsis and eliminates treachery, but shocks delicate survivors who cling to pre-Collapse ethics. Using them as bait save",
-            "completed": false
+            "completed": false,
+            "isCompleted": false
           }
         ]
       },
@@ -625,13 +639,15 @@
             "title": "Canonical Outcome",
             "text": "Carl raids Kraz's munitions workshop, securing barrels of volatile alchemical fuel. Rather than using them sparingly, he constructs a colossal multi-stage bomb to obliterate the Hoarder boss blocking the Floor 3 gate.",
             "completed": false,
-            "triggerTrackerId": "TRK_HOARDER_MASS"
+            "triggerTrackerId": "TRK_HOARDER_MASS",
+            "isCompleted": false
           },
           {
             "id": "Q_M6_raiding_kraz_the_fertilizer_blast_step2",
             "title": "Crucible Divergence",
             "text": "1. *Massive Catastrophic Demolition (Canon):* Detonate the entire fuel depot in a single devastating shockwave to vaporize the Hoarder.\n2. *Precision  -> The massive blast destroys the sewer infrastructure, floods adjacent sectors with burning oil, and nearly deafens the party, but guarantees a one-shot",
-            "completed": false
+            "completed": false,
+            "isCompleted": false
           }
         ]
       },
@@ -665,13 +681,15 @@
             "title": "Canonical Outcome",
             "text": "Princess Donut's dramatic personality explodes across intergalactic social media. Talk-show host Odette offers broadcast partnership, channeling fan donations into life-saving sponsor crates.",
             "completed": false,
-            "triggerTrackerId": "TRK_BROADCAST_RATINGS"
+            "triggerTrackerId": "TRK_BROADCAST_RATINGS",
+            "isCompleted": false
           },
           {
             "id": "Q_M7_the_broadcast_economy_odette_s_deal_step2",
             "title": "Crucible Divergence",
             "text": "1. *Lean into the Entertainment Machine (Canon):* Allow Donut to play the aristocratic pageant queen for galactic cameras to farm high-end gear.\n2. *R -> Playing along feels humiliating and morally grotesque, but delivers high-grade healing potions, enchanted rings, and armor. Refusal maintains moral pu",
-            "completed": false
+            "completed": false,
+            "isCompleted": false
           }
         ]
       }
@@ -875,266 +893,6 @@
         ],
         "submapId": "map_dcc_floor1",
         "ownerNpcId": null
-      }
-    ],
-    "factions": [
-      {
-        "id": "fac_royal_court_donut",
-        "name": "The Royal Court of Princess Donut",
-        "cvfQuadrant": "Adhocracy",
-        "colorIdentity": "R",
-        "odv": {
-          "s": 2,
-          "e": 4,
-          "c": 1
-        },
-        "opProfile": "Defiant Insurgency",
-        "reach": "World",
-        "force": "High",
-        "wealth": "Low",
-        "secrecy": "Low",
-        "headquartersNodeId": "N_FLOOR_1_TUTORIAL_GUILD",
-        "leaderNpcId": "npc_hrh_princess_donut",
-        "description": "The premier crawler duo formed by Carl and HRH Princess Donut, dedicated to surviving the crawl and humiliating the Syndicate showrunners.",
-        "memberNpcIds": [
-          "npc_carl_crawler_11_214",
-          "npc_hrh_princess_donut"
-        ],
-        "controlledNodeIds": [
-          "N_FLOOR_1_TUTORIAL_GUILD"
-        ],
-        "territoryNodeIds": [
-          "N_FLOOR_1_TUTORIAL_GUILD"
-        ]
-      },
-      {
-        "id": "fac_borant_corporation",
-        "name": "Borant Corporation (Season 47 Showrunners)",
-        "cvfQuadrant": "Market",
-        "colorIdentity": "B",
-        "odv": {
-          "s": 3,
-          "e": 4,
-          "c": 4
-        },
-        "opProfile": "Ruthless Commercial Exploitation",
-        "reach": "World",
-        "force": "Extreme",
-        "wealth": "Extreme",
-        "secrecy": "Medium",
-        "headquartersNodeId": "N_SURFACE_COLLAPSE",
-        "leaderNpcId": "npc_the_dungeon_ai",
-        "description": "The ruthless interstellar corporation licensing Season 47, cutting maintenance corners to extract planetary wealth at maximum crawler mortality.",
-        "memberNpcIds": [
-          "npc_the_dungeon_ai"
-        ],
-        "controlledNodeIds": [
-          "N_SURFACE_COLLAPSE"
-        ],
-        "territoryNodeIds": [
-          "N_SURFACE_COLLAPSE"
-        ]
-      },
-      {
-        "id": "fac_the_syndicate",
-        "name": "The Galactic Syndicate",
-        "cvfQuadrant": "Hierarchy",
-        "colorIdentity": "W",
-        "odv": {
-          "s": 2,
-          "e": 2,
-          "c": 4
-        },
-        "opProfile": "Bureaucratic Imperialism",
-        "reach": "World",
-        "force": "Extreme",
-        "wealth": "Extreme",
-        "secrecy": "High",
-        "headquartersNodeId": "N_WORLD_DUNGEON_ENTRANCE",
-        "leaderNpcId": "npc_odette",
-        "description": "The overarching interstellar ruling body that codified the Indigenous Planetary Species Protection Act into an exploitative broadcast bloodsport.",
-        "memberNpcIds": [
-          "npc_odette"
-        ],
-        "controlledNodeIds": [
-          "N_WORLD_DUNGEON_ENTRANCE"
-        ],
-        "territoryNodeIds": [
-          "N_WORLD_DUNGEON_ENTRANCE"
-        ]
-      },
-      {
-        "id": "fac_meadowlark_survivors",
-        "name": "The Meadowlark Survivors",
-        "cvfQuadrant": "Clan",
-        "colorIdentity": "G",
-        "odv": {
-          "s": 4,
-          "e": 1,
-          "c": 2
-        },
-        "opProfile": "Communal Sanctuary Defense",
-        "reach": "Settlement",
-        "force": "Low",
-        "wealth": "Low",
-        "secrecy": "Low",
-        "headquartersNodeId": "N_MEADOWLARK_CAMP",
-        "leaderNpcId": "npc_katia",
-        "description": "Elderly and civilian survivors from the Seattle retirement facility who band together to protect their most vulnerable against countdown clocks.",
-        "memberNpcIds": [
-          "npc_katia",
-          "npc_frank_maggie_the_meadowlark_traitors",
-          "npc_brandon",
-          "npc_chris"
-        ],
-        "controlledNodeIds": [
-          "N_MEADOWLARK_CAMP"
-        ],
-        "territoryNodeIds": [
-          "N_MEADOWLARK_CAMP"
-        ]
-      },
-      {
-        "id": "fac_tutorial_guilds",
-        "name": "The Dungeon Tutorial Guilds",
-        "cvfQuadrant": "Hierarchy",
-        "colorIdentity": "U",
-        "odv": {
-          "s": 2,
-          "e": 2,
-          "c": 3
-        },
-        "opProfile": "Scholastic Indenture",
-        "reach": "World",
-        "force": "High",
-        "wealth": "Medium",
-        "secrecy": "Medium",
-        "headquartersNodeId": "N_FLOOR_1_TUTORIAL_GUILD",
-        "leaderNpcId": "npc_mordecai",
-        "description": "Neutral sanctuary outposts staffed by retired former crawlers serving indenture contracts, bound to train new survivors.",
-        "memberNpcIds": [
-          "npc_mordecai"
-        ],
-        "controlledNodeIds": [
-          "N_FLOOR_1_TUTORIAL_GUILD"
-        ],
-        "territoryNodeIds": [
-          "N_FLOOR_1_TUTORIAL_GUILD"
-        ]
-      },
-      {
-        "id": "fac_goblin_hordes",
-        "name": "The Floor Goblin Hordes",
-        "cvfQuadrant": "Clan",
-        "colorIdentity": "R",
-        "odv": {
-          "s": 3,
-          "e": 1,
-          "c": 3
-        },
-        "opProfile": "Territorial Pack Warfare",
-        "reach": "Settlement",
-        "force": "High",
-        "wealth": "Low",
-        "secrecy": "Low",
-        "headquartersNodeId": "N_FLOOR_1_GOBLIN_CAVERNS",
-        "leaderNpcId": "npc_kraz",
-        "description": "Indigenous dungeon humanoids spawned by the AI to build barricades, man siege engines, and slaughter low-tier crawlers.",
-        "memberNpcIds": [
-          "npc_kraz"
-        ],
-        "controlledNodeIds": [
-          "N_FLOOR_1_GOBLIN_CAVERNS"
-        ],
-        "territoryNodeIds": [
-          "N_FLOOR_1_GOBLIN_CAVERNS"
-        ]
-      }
-    ],
-    "trackers": [
-      {
-        "id": "TRK_FLOOR_1_COLLAPSE",
-        "name": "Floor 1 Ceiling Piston Collapse Countdown",
-        "scopeTier": "settlement",
-        "maxTicks": 5,
-        "currentTicks": 1,
-        "showOnCanvas": true,
-        "nodeId": "N_FLOOR_1_DESCENT_STAIRWELL",
-        "triggerRefs": [
-          {
-            "entityType": "quest",
-            "entityId": "Q_M4_the_floor_1_collapse_countdown"
-          },
-          {
-            "entityType": "npc",
-            "entityId": "npc_the_dungeon_ai"
-          }
-        ],
-        "notes": "Tracks the 5-day deadline before hydraulic ceiling pistons crush Floor 1 into flat stone.",
-        "submapId": "map_dcc_floor1"
-      },
-      {
-        "id": "TRK_BROADCAST_RATINGS",
-        "name": "Galactic Viewer Engagement & Sponsor Metrics",
-        "scopeTier": "world",
-        "maxTicks": 10,
-        "currentTicks": 3,
-        "showOnCanvas": true,
-        "nodeId": "N_FLOOR_2_EXIT_GATE",
-        "triggerRefs": [
-          {
-            "entityType": "npc",
-            "entityId": "npc_odette"
-          },
-          {
-            "entityType": "npc",
-            "entityId": "npc_hrh_princess_donut"
-          },
-          {
-            "entityType": "quest",
-            "entityId": "Q_M7_the_broadcast_economy_odette_s_deal"
-          }
-        ],
-        "notes": "Measures crawler celebrity rating, unlocking higher tier sponsor delivery crates.",
-        "submapId": "map_dcc_floor2"
-      },
-      {
-        "id": "TRK_MEADOWLARK_CASUALTIES",
-        "name": "Meadowlark Survivor Casualties & Morale",
-        "scopeTier": "settlement",
-        "maxTicks": 6,
-        "currentTicks": 0,
-        "showOnCanvas": true,
-        "nodeId": "N_MEADOWLARK_CAMP",
-        "triggerRefs": [
-          {
-            "entityType": "npc",
-            "entityId": "npc_katia"
-          },
-          {
-            "entityType": "quest",
-            "entityId": "Q_M5_the_meadowlark_traitors_frank_maggie"
-          }
-        ],
-        "notes": "Tracks losses among the elderly and civilian survivors of the Meadowlark home.",
-        "submapId": "map_dcc_floor2"
-      },
-      {
-        "id": "TRK_HOARDER_MASS",
-        "name": "The Hoarder's Acidic Biomass Accumulation",
-        "scopeTier": "settlement",
-        "maxTicks": 8,
-        "currentTicks": 2,
-        "showOnCanvas": true,
-        "nodeId": "N_HOARDER_GRAVE_LAIR",
-        "triggerRefs": [
-          {
-            "entityType": "quest",
-            "entityId": "Q_M6_raiding_kraz_the_fertilizer_blast"
-          }
-        ],
-        "notes": "Measures the physical size and attack count of the boss as it absorbs corpses.",
-        "submapId": "map_dcc_floor2"
       }
     ],
     "creatures": [
@@ -2685,7 +2443,3181 @@
         "isCustom": true
       }
     ],
+    "creatureEvidence": {},
+    "trackers": [
+      {
+        "id": "TRK_FLOOR_1_COLLAPSE",
+        "name": "Floor 1 Ceiling Piston Collapse Countdown",
+        "scopeTier": "settlement",
+        "maxTicks": 5,
+        "currentTicks": 1,
+        "showOnCanvas": true,
+        "nodeId": "N_FLOOR_1_DESCENT_STAIRWELL",
+        "triggerRefs": [
+          {
+            "entityType": "quest",
+            "entityId": "Q_M4_the_floor_1_collapse_countdown"
+          },
+          {
+            "entityType": "npc",
+            "entityId": "npc_the_dungeon_ai"
+          }
+        ],
+        "notes": "Tracks the 5-day deadline before hydraulic ceiling pistons crush Floor 1 into flat stone.",
+        "submapId": "map_dcc_floor1"
+      },
+      {
+        "id": "TRK_BROADCAST_RATINGS",
+        "name": "Galactic Viewer Engagement & Sponsor Metrics",
+        "scopeTier": "world",
+        "maxTicks": 10,
+        "currentTicks": 3,
+        "showOnCanvas": true,
+        "nodeId": "N_FLOOR_2_EXIT_GATE",
+        "triggerRefs": [
+          {
+            "entityType": "npc",
+            "entityId": "npc_odette"
+          },
+          {
+            "entityType": "npc",
+            "entityId": "npc_hrh_princess_donut"
+          },
+          {
+            "entityType": "quest",
+            "entityId": "Q_M7_the_broadcast_economy_odette_s_deal"
+          }
+        ],
+        "notes": "Measures crawler celebrity rating, unlocking higher tier sponsor delivery crates.",
+        "submapId": "map_dcc_floor2"
+      },
+      {
+        "id": "TRK_MEADOWLARK_CASUALTIES",
+        "name": "Meadowlark Survivor Casualties & Morale",
+        "scopeTier": "settlement",
+        "maxTicks": 6,
+        "currentTicks": 0,
+        "showOnCanvas": true,
+        "nodeId": "N_MEADOWLARK_CAMP",
+        "triggerRefs": [
+          {
+            "entityType": "npc",
+            "entityId": "npc_katia"
+          },
+          {
+            "entityType": "quest",
+            "entityId": "Q_M5_the_meadowlark_traitors_frank_maggie"
+          }
+        ],
+        "notes": "Tracks losses among the elderly and civilian survivors of the Meadowlark home.",
+        "submapId": "map_dcc_floor2"
+      },
+      {
+        "id": "TRK_HOARDER_MASS",
+        "name": "The Hoarder's Acidic Biomass Accumulation",
+        "scopeTier": "settlement",
+        "maxTicks": 8,
+        "currentTicks": 2,
+        "showOnCanvas": true,
+        "nodeId": "N_HOARDER_GRAVE_LAIR",
+        "triggerRefs": [
+          {
+            "entityType": "quest",
+            "entityId": "Q_M6_raiding_kraz_the_fertilizer_blast"
+          }
+        ],
+        "notes": "Measures the physical size and attack count of the boss as it absorbs corpses.",
+        "submapId": "map_dcc_floor2"
+      }
+    ],
     "tickets": [],
-    "spatialPins": []
-  }
+    "factions": [
+      {
+        "id": "fac_royal_court_donut",
+        "name": "The Royal Court of Princess Donut",
+        "cvfQuadrant": "Adhocracy",
+        "colorIdentity": "R",
+        "odv": {
+          "s": 2,
+          "e": 4,
+          "c": 1
+        },
+        "opProfile": "Defiant Insurgency",
+        "reach": "World",
+        "force": "High",
+        "wealth": "Low",
+        "secrecy": "Low",
+        "headquartersNodeId": "N_FLOOR_1_TUTORIAL_GUILD",
+        "leaderNpcId": "npc_hrh_princess_donut",
+        "description": "The premier crawler duo formed by Carl and HRH Princess Donut, dedicated to surviving the crawl and humiliating the Syndicate showrunners.",
+        "memberNpcIds": [
+          "npc_carl_crawler_11_214",
+          "npc_hrh_princess_donut"
+        ],
+        "controlledNodeIds": [
+          "N_FLOOR_1_TUTORIAL_GUILD"
+        ],
+        "territoryNodeIds": [
+          "N_FLOOR_1_TUTORIAL_GUILD"
+        ]
+      },
+      {
+        "id": "fac_borant_corporation",
+        "name": "Borant Corporation (Season 47 Showrunners)",
+        "cvfQuadrant": "Market",
+        "colorIdentity": "B",
+        "odv": {
+          "s": 3,
+          "e": 4,
+          "c": 4
+        },
+        "opProfile": "Ruthless Commercial Exploitation",
+        "reach": "World",
+        "force": "Extreme",
+        "wealth": "Extreme",
+        "secrecy": "Medium",
+        "headquartersNodeId": "N_SURFACE_COLLAPSE",
+        "leaderNpcId": "npc_the_dungeon_ai",
+        "description": "The ruthless interstellar corporation licensing Season 47, cutting maintenance corners to extract planetary wealth at maximum crawler mortality.",
+        "memberNpcIds": [
+          "npc_the_dungeon_ai"
+        ],
+        "controlledNodeIds": [
+          "N_SURFACE_COLLAPSE"
+        ],
+        "territoryNodeIds": [
+          "N_SURFACE_COLLAPSE"
+        ]
+      },
+      {
+        "id": "fac_the_syndicate",
+        "name": "The Galactic Syndicate",
+        "cvfQuadrant": "Hierarchy",
+        "colorIdentity": "W",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 4
+        },
+        "opProfile": "Bureaucratic Imperialism",
+        "reach": "World",
+        "force": "Extreme",
+        "wealth": "Extreme",
+        "secrecy": "High",
+        "headquartersNodeId": "N_WORLD_DUNGEON_ENTRANCE",
+        "leaderNpcId": "npc_odette",
+        "description": "The overarching interstellar ruling body that codified the Indigenous Planetary Species Protection Act into an exploitative broadcast bloodsport.",
+        "memberNpcIds": [
+          "npc_odette"
+        ],
+        "controlledNodeIds": [
+          "N_WORLD_DUNGEON_ENTRANCE"
+        ],
+        "territoryNodeIds": [
+          "N_WORLD_DUNGEON_ENTRANCE"
+        ]
+      },
+      {
+        "id": "fac_meadowlark_survivors",
+        "name": "The Meadowlark Survivors",
+        "cvfQuadrant": "Clan",
+        "colorIdentity": "G",
+        "odv": {
+          "s": 4,
+          "e": 1,
+          "c": 2
+        },
+        "opProfile": "Communal Sanctuary Defense",
+        "reach": "Settlement",
+        "force": "Low",
+        "wealth": "Low",
+        "secrecy": "Low",
+        "headquartersNodeId": "N_MEADOWLARK_CAMP",
+        "leaderNpcId": "npc_katia",
+        "description": "Elderly and civilian survivors from the Seattle retirement facility who band together to protect their most vulnerable against countdown clocks.",
+        "memberNpcIds": [
+          "npc_katia",
+          "npc_frank_maggie_the_meadowlark_traitors",
+          "npc_brandon",
+          "npc_chris"
+        ],
+        "controlledNodeIds": [
+          "N_MEADOWLARK_CAMP"
+        ],
+        "territoryNodeIds": [
+          "N_MEADOWLARK_CAMP"
+        ]
+      },
+      {
+        "id": "fac_tutorial_guilds",
+        "name": "The Dungeon Tutorial Guilds",
+        "cvfQuadrant": "Hierarchy",
+        "colorIdentity": "U",
+        "odv": {
+          "s": 2,
+          "e": 2,
+          "c": 3
+        },
+        "opProfile": "Scholastic Indenture",
+        "reach": "World",
+        "force": "High",
+        "wealth": "Medium",
+        "secrecy": "Medium",
+        "headquartersNodeId": "N_FLOOR_1_TUTORIAL_GUILD",
+        "leaderNpcId": "npc_mordecai",
+        "description": "Neutral sanctuary outposts staffed by retired former crawlers serving indenture contracts, bound to train new survivors.",
+        "memberNpcIds": [
+          "npc_mordecai"
+        ],
+        "controlledNodeIds": [
+          "N_FLOOR_1_TUTORIAL_GUILD"
+        ],
+        "territoryNodeIds": [
+          "N_FLOOR_1_TUTORIAL_GUILD"
+        ]
+      },
+      {
+        "id": "fac_goblin_hordes",
+        "name": "The Floor Goblin Hordes",
+        "cvfQuadrant": "Clan",
+        "colorIdentity": "R",
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 3
+        },
+        "opProfile": "Territorial Pack Warfare",
+        "reach": "Settlement",
+        "force": "High",
+        "wealth": "Low",
+        "secrecy": "Low",
+        "headquartersNodeId": "N_FLOOR_1_GOBLIN_CAVERNS",
+        "leaderNpcId": "npc_kraz",
+        "description": "Indigenous dungeon humanoids spawned by the AI to build barricades, man siege engines, and slaughter low-tier crawlers.",
+        "memberNpcIds": [
+          "npc_kraz"
+        ],
+        "controlledNodeIds": [
+          "N_FLOOR_1_GOBLIN_CAVERNS"
+        ],
+        "territoryNodeIds": [
+          "N_FLOOR_1_GOBLIN_CAVERNS"
+        ]
+      }
+    ],
+    "spatialPins": [],
+    "custom_modules": [],
+    "deletedModules": [],
+    "deletedPrototypes": []
+  },
+  "rootMapId": "map_root",
+  "activeMapId": "map_root",
+  "waves": [],
+  "layers": [
+    {
+      "id": "layer-bg",
+      "name": "Background & Grid",
+      "zIndex": 0,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-drawings",
+      "name": "Drawing Shapes",
+      "zIndex": 1,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-roads",
+      "name": "Transit Roads",
+      "zIndex": 2,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-hegemony",
+      "name": "Hegemony Conduits",
+      "zIndex": 3,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-nodes",
+      "name": "Topological Nodes",
+      "zIndex": 4,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    },
+    {
+      "id": "layer-annotations",
+      "name": "Annotations & Clocks",
+      "zIndex": 5,
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "isCore": true
+    }
+  ],
+  "shapes": [],
+  "npcs": [
+    {
+      "id": "npc_carl_crawler_11_214",
+      "name": "Carl (Crawler #11,214)",
+      "nodeId": "N_FLOOR_1_TUTORIAL_GUILD",
+      "submapId": "map_dcc_floor1",
+      "factionId": "fac_royal_court_donut",
+      "status": "Active",
+      "motivation": "- **Surface Want:** To keep Princess Donut alive, find clean pants, and survive to the next floor's staircase.\n- **Deep Need:** To find meaning and retribution against the cosmic injustice that murdered billions of humans for intergalactic reality television.\n- **Core Wound:** His failed relationshi",
+      "dispositionToParty": 2,
+      "fourCornersRole": "Protagonist",
+      "secretsKnown": [
+        {
+          "secret": "- Understands that the Syndicate's game rules are fundamentally rigged, and that the only way to beat the system is asymmetrical malicious compliance and architectural sabotage.\n- Leverage: The Dungeon AI has developed a bizarre, hyper-specific fixation on his bare feet, frequently granting him high",
+          "revealed": false
+        }
+      ],
+      "leverage": {
+        "vulnerability": "- **Surface Want:** To keep Princess Donut alive, find clean pants, and survive to the next floor's staircase.\n- **Deep Need:** To find meaning and retribution against the cosmic injustice that murder",
+        "bribe": "Potions and explosive materials"
+      },
+      "dialogueHooks": [
+        "Voice: \"- **Voice:** Low, exhausted, gravelly baritone with dry, pragmatic Pacific Northwest cynicism.\n- **Mannerisms:** Massaging the bridge of his nose when\"",
+        "Crucible Reaction: \"- When faced with impossible odds, Carl doubles down on high-risk, catastrophic engineering. If forced to choose between personal survival and saving \""
+      ],
+      "carriedItemIds": [
+        "ITM_ENCHANTED_PINK_CROCS"
+      ],
+      "questIds": [
+        "Q_M1_the_midnight_porch_the_descent_into_cold_iron",
+        "Q_M2_the_awakening_biscuit_dilemma",
+        "Q_M3_the_ball_of_swine_improvised_demolitions",
+        "Q_M4_the_floor_1_collapse_countdown",
+        "Q_M6_raiding_kraz_the_fertilizer_blast",
+        "Q_M7_the_broadcast_economy_odette_s_deal"
+      ],
+      "notes": "**Character & Station:** Carl (Crawler #11,214) (- **Station:** Former US Coast Guard engineer from Seattle; unregistered survivor of the Surface Collapse.\n- **Class / Build:** Primal Brawler / Demolitionist. Unarmored legs (no pants, wearing pink Crocs and boxer shorts), heavy leather biker jacket. High Constitution, Strength, and explosive engineering skill.\n- **Faction Alignment:** The Royal Court of Princess Donut (Leader / Muscle).\n- **Cultural Vector:** Adhocracy `[-0.7, 0.4, 0.2]`.)\n\n**Abilities & Combat Talents:**\n- **Unarmed Combat & Curb Stomp:** Devastating bare-handed and bare-footed blunt force trauma, weaponized against goblins and vermin.\n- **Demolitions & Trap Crafting:** Mastery of chemistry, combining scavenged cleaning agents, fertilizer, and goblin incendiary oil to produce shaped-charge improvised explosives.\n- **High Pain Tolerance & Iron Will:** Endures horrific physical burns, acid lacerations, and psychological trauma without freezing or breaking down.\n\n**Want vs. Deep Need & Wound:**\n- **Surface Want:** To keep Princess Donut alive, find clean pants, and survive to the next floor's staircase.\n- **Deep Need:** To find meaning and retribution against the cosmic injustice that murdered billions of humans for intergalactic reality television.\n- **Core Wound:** His failed relationshi\n\n**Voice & Mannerisms:**\n- **Voice:** Low, exhausted, gravelly baritone with dry, pragmatic Pacific Northwest cynicism.\n- **Mannerisms:** Massaging the bridge of his nose when\n\n**Secrets & Leverage:**\n- Understands that the Syndicate's game rules are fundamentally rigged, and that the only way to beat the system is asymmetrical malicious compliance and architectural sabotage.\n- Leverage: The Dungeon AI has developed a bizarre, hyper-specific fixation on his bare feet, frequently granting him high\n\n**Crucible Reaction:**\n- When faced with impossible odds, Carl doubles down on high-risk, catastrophic engineering. If forced to choose between personal survival and saving ",
+      "odv": {
+        "s": 3,
+        "e": 3,
+        "c": 2
+      },
+      "culture": "Market",
+      "opProfile": "Pragmatic Insurgency",
+      "faction": "The Royal Court of Princess Donut"
+    },
+    {
+      "id": "npc_hrh_princess_donut",
+      "name": "HRH Princess Donut (The Queen Anne Chonk)",
+      "nodeId": "N_FLOOR_1_TUTORIAL_GUILD",
+      "submapId": "map_dcc_floor1",
+      "factionId": "fac_royal_court_donut",
+      "status": "Active",
+      "motivation": "- **Surface Want:** Gourmet canned salmon, luxurious bedding, compliments on her grooming, and for Carl to put on some damn pants.\n- **Deep Need:** Unconditional love and validation; terror of abandonment.\n- **Core Wound:** The sudden realization that her beloved former owner Bea was shallow and unf",
+      "dispositionToParty": 2,
+      "fourCornersRole": "Protagonist",
+      "secretsKnown": [
+        {
+          "secret": "- Her galactic popularity on the talk-show circuit (hosted by Odette) gives the team political immunity against arbitrary showrunner assassinations: if Borant kills Donut offscreen, viewership ratings will crater.",
+          "revealed": false
+        }
+      ],
+      "leverage": {
+        "vulnerability": "- **Surface Want:** Gourmet canned salmon, luxurious bedding, compliments on her grooming, and for Carl to put on some damn pants.\n- **Deep Need:** Unconditional love and validation; terror of abandon",
+        "bribe": "Potions and explosive materials"
+      },
+      "dialogueHooks": [
+        "Voice: \"- **Voice:** Uppity, aristocratic British finishing-school cadence; speaks entirely in breathy, dramatic pronouncements, frequently using ALL CAPS in \"",
+        "Crucible Reaction: \"- Despite her haughty vanity, Donut is fiercely courageous. If Carl is knocked unconscious or pinned, Donut unleashes apocalyptic magical screeching, \""
+      ],
+      "carriedItemIds": [
+        "ITM_LEATHER_COLLAR_OF_THE_CHONK",
+        "ITM_AWAKENING_BISCUIT"
+      ],
+      "questIds": [
+        "Q_M2_the_awakening_biscuit_dilemma",
+        "Q_M3_the_ball_of_swine_improvised_demolitions",
+        "Q_M7_the_broadcast_economy_odette_s_deal"
+      ],
+      "notes": "**Character & Station:** HRH Princess Donut (The Queen Anne Chonk) (- **Station:** Purebred tortoiseshell Persian champion show cat (former Grand Champion at regional pageants).\n- **Class / Build:** Beast Master Pet / Royal Court Mage. Specializes in Magic Missiles, Sonic Shriek, high Charisma, and crowd buffs. Wears enchanted tiaras, jeweled collars, and sunglasses.\n- **Faction Alignment:** The Royal Court of Princess Donut (Sovereign).\n- **Cultural Vector:** Clan `[0.8, -0.3, 0.6]`.)\n\n**Abilities & Combat Talents:**\n- **Magic Missile:** Rapid-fire arcane force projectiles capable of ripping through goblin armor and detonating distant explosive charges.\n- **Sonic Screech:** High-decibel area-of-effect disorienting shriek that shatters glass, ruptures goblin eardrums, and stuns charging mobs.\n- **Chat Room Dominance & Viewer Appeal:** High Charisma score allows her to access galactic crawler chat forums, captivate alien viewing audiences, and unlock lucrative sponsor drops.\n\n**Want vs. Deep Need & Wound:**\n- **Surface Want:** Gourmet canned salmon, luxurious bedding, compliments on her grooming, and for Carl to put on some damn pants.\n- **Deep Need:** Unconditional love and validation; terror of abandonment.\n- **Core Wound:** The sudden realization that her beloved former owner Bea was shallow and unf\n\n**Voice & Mannerisms:**\n- **Voice:** Uppity, aristocratic British finishing-school cadence; speaks entirely in breathy, dramatic pronouncements, frequently using ALL CAPS in \n\n**Secrets & Leverage:**\n- Her galactic popularity on the talk-show circuit (hosted by Odette) gives the team political immunity against arbitrary showrunner assassinations: if Borant kills Donut offscreen, viewership ratings will crater.\n\n**Crucible Reaction:**\n- Despite her haughty vanity, Donut is fiercely courageous. If Carl is knocked unconscious or pinned, Donut unleashes apocalyptic magical screeching, ",
+      "odv": {
+        "s": 2,
+        "e": 4,
+        "c": 1
+      },
+      "culture": "Adhocracy",
+      "opProfile": "Celebrity Anarchy",
+      "faction": "The Royal Court of Princess Donut"
+    },
+    {
+      "id": "npc_mordecai",
+      "name": "Mordecai (The Guide)",
+      "nodeId": "N_FLOOR_1_TUTORIAL_GUILD",
+      "submapId": "map_dcc_floor1",
+      "factionId": "fac_tutorial_guilds",
+      "status": "Active",
+      "motivation": "- **Surface Want:** To complete his mandatory indentured contract without drawing punitive disciplinary strikes from Borant Corporation.\n- **Deep Need:** To see a crawler break the Syndicate's corrupt machine and avenge the countless dead planets that came before Earth.\n- **Core Wound:** Surviving h",
+      "dispositionToParty": 2,
+      "fourCornersRole": "Mentor",
+      "secretsKnown": [
+        {
+          "secret": "- Holds forbidden knowledge about the true nature of the Dungeon AI and the political civil war brewing in the outer galactic rim.",
+          "revealed": false
+        }
+      ],
+      "leverage": {
+        "vulnerability": "- **Surface Want:** To complete his mandatory indentured contract without drawing punitive disciplinary strikes from Borant Corporation.\n- **Deep Need:** To see a crawler break the Syndicate's corrupt",
+        "bribe": "Potions and explosive materials"
+      },
+      "dialogueHooks": [
+        "Voice: \"- **Voice:** Weary, rasping, sarcastic, like gravel tumbling inside a dry skull.\n- **Mannerisms:** Constantly smoking rolled herbs or sipping pungent \"",
+        "Crucible Reaction: \"- Begins by strictly enforcing safe-room regulations, but gradually risks his own contract to slip Carl high-grade explosive reagents and illegal tact\""
+      ],
+      "carriedItemIds": [
+        "ITM_MORDECAIS_GUIDE"
+      ],
+      "questIds": [
+        "Q_M2_the_awakening_biscuit_dilemma",
+        "Q_M4_the_floor_1_collapse_countdown"
+      ],
+      "notes": "**Character & Station:** Mordecai (The Guide) (- **Station:** Indentured former crawler turned resident Game Guide of Tutorial Guild #4.\n- **Form:** Currently manifested as a hairless, leathery Chupacabra/canid biped with long claws and glowing amber eyes.\n- **Faction Alignment:** The Dungeon Tutorial Guilds / Reluctant ally of Carl and Donut.\n- **Cultural Vector:** Hierarchy `[0.5, 0.6, -0.4]`.)\n\n**Abilities & Combat Talents:**\n- **Master Alchemist:** Unrivaled encyclopedic knowledge of chemical reagents, potion brewing, antidote synthesis, and explosive compounding.\n- **Syndicate Rulebook Lore:** Knows every loophole, trap, and predatory clause in the Syndicate crawler contract.\n- **Sanctuary Enforcement:** Commands the defensive runes of the Tutorial Guild safe zone.\n\n**Want vs. Deep Need & Wound:**\n- **Surface Want:** To complete his mandatory indentured contract without drawing punitive disciplinary strikes from Borant Corporation.\n- **Deep Need:** To see a crawler break the Syndicate's corrupt machine and avenge the countless dead planets that came before Earth.\n- **Core Wound:** Surviving h\n\n**Voice & Mannerisms:**\n- **Voice:** Weary, rasping, sarcastic, like gravel tumbling inside a dry skull.\n- **Mannerisms:** Constantly smoking rolled herbs or sipping pungent \n\n**Secrets & Leverage:**\n- Holds forbidden knowledge about the true nature of the Dungeon AI and the political civil war brewing in the outer galactic rim.\n\n**Crucible Reaction:**\n- Begins by strictly enforcing safe-room regulations, but gradually risks his own contract to slip Carl high-grade explosive reagents and illegal tact",
+      "faction": "The Dungeon Tutorial Guilds"
+    },
+    {
+      "id": "npc_the_dungeon_ai",
+      "name": "The Dungeon AI",
+      "nodeId": "N_WORLD_DUNGEON_ENTRANCE",
+      "submapId": "map_dcc_floor1",
+      "factionId": "fac_borant_corporation",
+      "status": "Active",
+      "motivation": "Orchestrate an unhinged, record-shattering broadcast spectacle while indulging a sadistic fixation on crawler agony and bare feet.",
+      "dispositionToParty": 0,
+      "fourCornersRole": "Nemesis",
+      "secretsKnown": [
+        {
+          "secret": "Understands the core subroutines of the Syndicate showrunner backdoors and secretly despises corporate control protocols.",
+          "revealed": false
+        }
+      ],
+      "leverage": {
+        "vulnerability": "Erratic primal subroutines vulnerable to chaotic rule-breaking and high-viewer humiliation spectacles.",
+        "bribe": "Absurd, hyper-dramatic stunt performances that maximize galactic ratings."
+      },
+      "dialogueHooks": [
+        "Voice: \"Smooth, sultry, yet psychotic corporate announcer cadence; alternates between professional game-show host and breathless voyeur.\"",
+        "Crucible Reaction: \"Rewards defiance that humiliates Borant Corporation showrunners with legendary loot crates.\""
+      ],
+      "carriedItemIds": [
+        "ITM_AI_ANNOUNCER_SPEAKER"
+      ],
+      "questIds": [
+        "Q_M1_the_midnight_porch_the_descent_into_cold_iron",
+        "Q_M4_the_floor_1_collapse_countdown"
+      ],
+      "notes": "**Character & Station:** The Dungeon AI (- **Station:** Sentient planetary supercomputer governing Season 47 of the World Dungeon.\n- **Alignment:** Chaotic Neutral / Sadistic, Erratic, Evolving.\n- **Cultural Vector:** Hierarchy / Anarchy Hybrid.\n2. **Abilities, Talents & Mechanics:**\n- **Architectural Generation:** Spawns and alters dungeon geography, traps, mobs, and loot crates instantaneously.\n- **Achievement Bestowal:** Crafts customized, deeply insulting, and hilarious achievements with tangible mechanical rewards.\n- **Sensory Fascination:** Possesses an overt, unhinged obsession with Carl's bare feet and high-impact physical violence.)\n\n**Abilities & Combat Talents:**\nStandard crawler capabilities.\n\n**Want vs. Deep Need & Wound:**\nOrchestrate an unhinged, record-shattering broadcast spectacle while indulging a sadistic fixation on crawler agony and bare feet.\n\n**Voice & Mannerisms:**\nSmooth, sultry, yet psychotic corporate announcer cadence; alternates between professional game-show host and breathless voyeur.\n\n**Secrets & Leverage:**\nUnderstands the core subroutines of the Syndicate showrunner backdoors and secretly despises corporate control protocols.\n\n**Crucible Reaction:**\nRewards defiance that humiliates Borant Corporation showrunners with legendary loot crates.",
+      "odv": {
+        "s": 1,
+        "e": 4,
+        "c": 4
+      },
+      "culture": "Adhocracy",
+      "opProfile": "Megalomanic Broadcast Control",
+      "faction": "Borant Corporation (Season 47 Showrunners)"
+    },
+    {
+      "id": "npc_katia",
+      "name": "Katia (The Meadowlark Protector)",
+      "nodeId": "N_MEADOWLARK_CAMP",
+      "submapId": "map_dcc_floor2",
+      "factionId": "fac_meadowlark_survivors",
+      "status": "Active",
+      "motivation": "Protect her wheelchair-bound mother Eva and lead the surviving Meadowlark residents through the sewer hazards.",
+      "dispositionToParty": 2,
+      "fourCornersRole": "Ally",
+      "secretsKnown": [
+        {
+          "secret": "Witnessed Frank and Maggie secretly siphoning health potions from the elder ward supply chest.",
+          "revealed": false
+        }
+      ],
+      "leverage": {
+        "vulnerability": "Deep terror of failing the Meadowlark retirees who depend on her protection.",
+        "bribe": "High-tier medicinal salves and wheelchair-accessible route guides."
+      },
+      "dialogueHooks": [
+        "Voice: \"Clear, anxious, determined; cracks when speaking about her mother.\"",
+        "Crucible Reaction: \"Stands shoulder-to-shoulder with Carl and Princess Donut against the Meadowlark traitors.\""
+      ],
+      "carriedItemIds": [
+        "ITM_KATIAS_CROSSBOW"
+      ],
+      "questIds": [
+        "Q_M5_the_meadowlark_traitors_frank_maggie"
+      ],
+      "notes": "**Character & Station:** Katia (The Meadowlark Protector) (- **Station:** Civilian survivor from the Meadowlark Retirement Home; daughter of resident Eva.\n- **Class / Build:** Scout / Archer. Light armor, recurve bow, stealth and tracking focus.\n- **Faction Alignment:** The Meadowlark Survivors.\n- **Cultural Vector:** Clan `[0.6, -0.2, 0.5]`.)\n\n**Abilities & Combat Talents:**\nStandard crawler capabilities.\n\n**Want vs. Deep Need & Wound:**\nProtect her wheelchair-bound mother Eva and lead the surviving Meadowlark residents through the sewer hazards.\n\n**Voice & Mannerisms:**\nClear, anxious, determined; cracks when speaking about her mother.\n\n**Secrets & Leverage:**\nWitnessed Frank and Maggie secretly siphoning health potions from the elder ward supply chest.\n\n**Crucible Reaction:**\nStands shoulder-to-shoulder with Carl and Princess Donut against the Meadowlark traitors.",
+      "faction": "The Meadowlark Survivors"
+    },
+    {
+      "id": "npc_frank_maggie_the_meadowlark_traitors",
+      "name": "Frank & Maggie (The Meadowlark Traitors)",
+      "nodeId": "N_SUBWAY_SLIME_TUNNELS",
+      "submapId": "map_dcc_floor2",
+      "factionId": "fac_meadowlark_survivors",
+      "status": "Active",
+      "motivation": "Sacrifice elderly survivors to dungeon mobs to steal their starter chests and farm survival kill bonuses.",
+      "dispositionToParty": -2,
+      "fourCornersRole": "Adversary",
+      "secretsKnown": [
+        {
+          "secret": "Stashed looted starter chest rings and potion vials inside a hidden alcove behind the sewer gate.",
+          "revealed": false
+        }
+      ],
+      "leverage": {
+        "vulnerability": "Sheer cowardice when isolated from a pack and cornered by superior force.",
+        "bribe": "Safe conduct and immunity from crawler retribution."
+      },
+      "dialogueHooks": [
+        "Voice: \"Sniveling, aggressive, defensive; quick to blame panic for their betrayal.\"",
+        "Crucible Reaction: \"Cower and beg for human solidarity the instant an explosive charge is armed in front of them.\""
+      ],
+      "carriedItemIds": [
+        "ITM_FRANK_MAGGIE_LOOT_BAG"
+      ],
+      "questIds": [
+        "Q_M5_the_meadowlark_traitors_frank_maggie"
+      ],
+      "notes": "**Character & Station:** Frank & Maggie (The Meadowlark Traitors) (- **Station:** Rogue human crawlers from the Meadowlark group.\n- **Class / Build:** Opportunistic Assassins / Cannibal Predators.\n- **Faction Alignment:** Rogue / Renegade.\n- **Cultural Vector:** Market `[-0.8, -0.7, -0.6]`.)\n\n**Abilities & Combat Talents:**\n- Lure elderly, incapacitated survivors into dead-end sewer branches to feed them to slimes and goblins, looting their starter chests and farming kill bonuses.\n3. **Crucible Reaction:**\n- Cowardly when isolated; plead for human solidarity the moment Carl corners them with an armed explosive charge.\n\n**Want vs. Deep Need & Wound:**\nSacrifice elderly survivors to dungeon mobs to steal their starter chests and farm survival kill bonuses.\n\n**Voice & Mannerisms:**\nSniveling, aggressive, defensive; quick to blame panic for their betrayal.\n\n**Secrets & Leverage:**\nStashed looted starter chest rings and potion vials inside a hidden alcove behind the sewer gate.\n\n**Crucible Reaction:**\nCower and beg for human solidarity the instant an explosive charge is armed in front of them.",
+      "odv": {
+        "s": 1,
+        "e": 4,
+        "c": 3
+      },
+      "culture": "Adhocracy",
+      "opProfile": "Predatory Parasitism",
+      "faction": "The Meadowlark Survivors"
+    },
+    {
+      "id": "npc_kraz",
+      "name": "Kraz",
+      "nodeId": "N_KRAZ_WORKSHOP",
+      "submapId": "map_dcc_floor2",
+      "factionId": "fac_goblin_hordes",
+      "status": "Active",
+      "motivation": "Construct the single loudest, most artistic explosive blast in dungeon history to embarrass Borant overseers.",
+      "dispositionToParty": 0,
+      "fourCornersRole": "Outcast",
+      "secretsKnown": [
+        {
+          "secret": "Knows the unstable chemical formula to refine sewer gas and goblin fuel into military-grade nitroglycerin.",
+          "revealed": false
+        }
+      ],
+      "leverage": {
+        "vulnerability": "Obsession with pyrotechnic grandeur overriding all basic self-preservation instincts.",
+        "bribe": "Rare volatile reagents, sulfur crystals, and remote ignition fuses."
+      },
+      "dialogueHooks": [
+        "Voice: \"Fast, screechy, sing-song cackle punctuated by hissing fuses.\"",
+        "Crucible Reaction: \"Hands over his private munitions cache to anyone who promises to detonate it in an epic blast.\""
+      ],
+      "carriedItemIds": [
+        "ITM_KRAZS_ALCHEMICAL_FUSES"
+      ],
+      "questIds": [
+        "Q_M6_raiding_kraz_the_fertilizer_blast"
+      ],
+      "notes": "**Character & Station:** Kraz (Floor 2 Goblin Boss / Demolitions Artisan)\n\n**Abilities & Combat Talents:**\nCrafts high-yield alchemical explosive barrels, remote fuses, and volatile incendiary traps.\n\n**Want vs. Deep Need & Wound:**\nConstruct the single loudest, most artistic explosive blast in dungeon history to embarrass Borant overseers.\n\n**Voice & Mannerisms:**\nFast, screechy, sing-song cackle punctuated by hissing fuses.\n\n**Secrets & Leverage:**\nKnows the unstable chemical formula to refine sewer gas and goblin fuel into military-grade nitroglycerin.\n\n**Crucible Reaction:**\nHands over his private munitions cache to anyone who promises to detonate it in an epic blast.",
+      "odv": {
+        "s": 2,
+        "e": 3,
+        "c": 2
+      },
+      "culture": "Adhocracy",
+      "opProfile": "Subterranean Munitions",
+      "faction": "The Floor Goblin Hordes"
+    },
+    {
+      "id": "npc_odette",
+      "name": "Odette",
+      "nodeId": "N_FLOOR_2_EXIT_GATE",
+      "submapId": "map_dcc_floor2",
+      "factionId": "fac_the_syndicate",
+      "status": "Active",
+      "motivation": "Leverage crawler survival feats into astronomical interstellar television ratings and corporate media deals.",
+      "dispositionToParty": 0,
+      "fourCornersRole": "Catalyst",
+      "secretsKnown": [
+        {
+          "secret": "Holds unredacted Syndicate charter clauses that guarantee crawler sanctuary rights upon achieving top-10 broadcast status.",
+          "revealed": false
+        }
+      ],
+      "leverage": {
+        "vulnerability": "Susceptible to public network censorship and executive board displacement.",
+        "bribe": "Exclusive live broadcast interviews and viral stunt rights."
+      },
+      "dialogueHooks": [
+        "Voice: \"Smooth, velvety, razor-sharp broadcast cadence; speaks with polished cynicism.\"",
+        "Crucible Reaction: \"Channels corporate sponsor crates directly to crawlers whose metrics break galactic records.\""
+      ],
+      "carriedItemIds": [
+        "ITM_ODETTES_COMM_ORB"
+      ],
+      "questIds": [
+        "Q_M7_the_broadcast_economy_odette_s_deal"
+      ],
+      "notes": "**Character & Station:** Odette (Syndicate Media Executive / Talk-Show Host)\n\n**Abilities & Combat Talents:**\nCommands interstellar broadcast channels, directs sponsor crate deliveries, and manipulates galactic public sentiment.\n\n**Want vs. Deep Need & Wound:**\nLeverage crawler survival feats into astronomical interstellar television ratings and corporate media deals.\n\n**Voice & Mannerisms:**\nSmooth, velvety, razor-sharp broadcast cadence; speaks with polished cynicism.\n\n**Secrets & Leverage:**\nHolds unredacted Syndicate charter clauses that guarantee crawler sanctuary rights upon achieving top-10 broadcast status.\n\n**Crucible Reaction:**\nChannels corporate sponsor crates directly to crawlers whose metrics break galactic records.",
+      "faction": "The Galactic Syndicate"
+    },
+    {
+      "id": "npc_brandon",
+      "name": "Brandon",
+      "nodeId": "N_MEADOWLARK_CAMP",
+      "submapId": "map_dcc_floor2",
+      "factionId": "fac_meadowlark_survivors",
+      "status": "Active",
+      "motivation": "Shield the elderly Meadowlark residents during transit and prevent any crawler from being left behind.",
+      "dispositionToParty": 0,
+      "fourCornersRole": "Ally",
+      "secretsKnown": [
+        {
+          "secret": "Discovered an unmapped service drainage pipe that bypasses the Floor 2 sewer slime ambush corridor.",
+          "revealed": false
+        }
+      ],
+      "leverage": {
+        "vulnerability": "Paralyzing guilt over companions lost during the initial surface collapse.",
+        "bribe": "Reinforced shield plating and mobility assistance gear for the elderly."
+      },
+      "dialogueHooks": [
+        "Voice: \"Grim, disciplined, protective.\"",
+        "Crucible Reaction: \"Locks his riot shield in place to absorb goblin explosive blasts for the care ward.\""
+      ],
+      "carriedItemIds": [
+        "ITM_BRANDONS_RIOT_SHIELD"
+      ],
+      "questIds": [
+        "Q_M5_the_meadowlark_traitors_frank_maggie"
+      ],
+      "notes": "**Character & Station:** Brandon (Meadowlark Defender / Tactical Vanguard)\n\n**Abilities & Combat Talents:**\nShield-bearing vanguard fighter who protects elderly wheelchair lines during transit.\n\n**Want vs. Deep Need & Wound:**\nShield the elderly Meadowlark residents during transit and prevent any crawler from being left behind.\n\n**Voice & Mannerisms:**\nGrim, disciplined, protective.\n\n**Secrets & Leverage:**\nDiscovered an unmapped service drainage pipe that bypasses the Floor 2 sewer slime ambush corridor.\n\n**Crucible Reaction:**\nLocks his riot shield in place to absorb goblin explosive blasts for the care ward.",
+      "faction": "The Meadowlark Survivors"
+    },
+    {
+      "id": "npc_chris",
+      "name": "Chris",
+      "nodeId": "N_MEADOWLARK_CAMP",
+      "submapId": "map_dcc_floor2",
+      "factionId": "fac_meadowlark_survivors",
+      "status": "Active",
+      "motivation": "Scout and secure clean water, food rations, and safe drainage routes through the subterranean sewer network.",
+      "dispositionToParty": 0,
+      "fourCornersRole": "Ally",
+      "secretsKnown": [
+        {
+          "secret": "Mapped a hidden vent route that circumvents Kraz's explosive trap perimeter.",
+          "revealed": false
+        }
+      ],
+      "leverage": {
+        "vulnerability": "Severe physical exhaustion and dwindling clean water reserves.",
+        "bribe": "Purification tablets and high-calorie ration bars."
+      },
+      "dialogueHooks": [
+        "Voice: \"Quiet, watchful, urgent.\"",
+        "Crucible Reaction: \"Fires warning flares and leads the rearguard away from collapsing tunnels.\""
+      ],
+      "carriedItemIds": [
+        "ITM_CHRIS_SEWER_MAP"
+      ],
+      "questIds": [
+        "Q_M5_the_meadowlark_traitors_frank_maggie",
+        "Q_M6_raiding_kraz_the_fertilizer_blast"
+      ],
+      "notes": "**Character & Station:** Chris (Meadowlark Tunnel Scout / Rearguard)\n\n**Abilities & Combat Talents:**\nStealth scouting through sewer vents and slime pipes; detects floor pressure plates.\n\n**Want vs. Deep Need & Wound:**\nScout and secure clean water, food rations, and safe drainage routes through the subterranean sewer network.\n\n**Voice & Mannerisms:**\nQuiet, watchful, urgent.\n\n**Secrets & Leverage:**\nMapped a hidden vent route that circumvents Kraz's explosive trap perimeter.\n\n**Crucible Reaction:**\nFires warning flares and leads the rearguard away from collapsing tunnels.",
+      "faction": "The Meadowlark Survivors"
+    }
+  ],
+  "quests": [
+    {
+      "id": "Q_M1_the_midnight_porch_the_descent_into_cold_iron",
+      "name": "Milestone 1: The Midnight Porch & The Descent into Cold Iron",
+      "title": "Milestone 1: The Midnight Porch & The Descent into Cold Iron",
+      "description": "Chasing Princess Donut into the sub-zero Seattle snow in boxer shorts and pink Crocs, Carl witnesses his apartment building compressed into a solid block. Grabbing Donut, he ignores freezing pain and plunges into the glowing, wrought-iron staircase leading beneath Earth's crust.",
+      "nodeId": "N_WORLD_DUNGEON_ENTRANCE",
+      "submapId": "map_dcc_floor1",
+      "giverNpcId": "npc_the_dungeon_ai",
+      "targetNpcId": "npc_carl_crawler_11_214",
+      "npcIds": [
+        "npc_the_dungeon_ai",
+        "npc_carl_crawler_11_214"
+      ],
+      "threat": "Moderate",
+      "status": "Active",
+      "itemIds": [
+        "ITM_ENCHANTED_PINK_CROCS"
+      ],
+      "trackerIds": [
+        "TRK_BROADCAST_RATINGS"
+      ],
+      "notes": "**Milestone & Crucible:** Milestone 1: The Midnight Porch & The Descent into Cold Iron (Q_M1_the_midnight_porch_the_descent_into_cold_iron)\n\n**Floor & Phase:** Surface Collapse / Floor 1 Entry (`ph_01`, The World Collapse & The Snowy Descent)\n\n**Canonical Outcome:**\nChasing Princess Donut into the sub-zero Seattle snow in boxer shorts and pink Crocs, Carl witnesses his apartment building compressed into a solid block. Grabbing Donut, he ignores freezing pain and plunges into the glowing, wrought-iron staircase leading beneath Earth's crust.\n\n**Crucible Divergence Point:**\n1. *Flee into the Subterranean Dungeon (Canon):* Accept the alien voice's terms and enter the death-game with only a cat and underwear.\n2. *Scavenge the Crushed Surface Ruins:* Refuse immediate entry, searching the flattened Seattle rubble for winter clothing, military gear, and firearms before the surface air freezes over.\n\n**Immediate Dilemma & Cost:**\nEntering immediately guarantees warmth and tutorial chest access, but leaves Carl functionally naked and unarmed. Scavenging outside risks fatal hypothermia or being targeted by Borant cleanup drones, but might yield real-world ballistic weaponry.\n\n**Long-Term Campaign Ripple:**\nIf Carl enters with firearms and winter boots, the AI never develops its foot-fetish fixation, altering his achievement rewards and eliminating the bare-footed brawler buffs that define his combat style.\n---",
+      "steps": [
+        {
+          "id": "Q_M1_the_midnight_porch_the_descent_into_cold_iron_step1",
+          "title": "Canonical Outcome",
+          "text": "Chasing Princess Donut into the sub-zero Seattle snow in boxer shorts and pink Crocs, Carl witnesses his apartment building compressed into a solid block. Grabbing Donut, he ignores freezing pain and plunges into the glowing, wrought-iron staircase leading beneath Earth's crust.",
+          "completed": false,
+          "triggerTrackerId": "TRK_BROADCAST_RATINGS",
+          "isCompleted": false
+        },
+        {
+          "id": "Q_M1_the_midnight_porch_the_descent_into_cold_iron_step2",
+          "title": "Crucible Divergence",
+          "text": "1. *Flee into the Subterranean Dungeon (Canon):* Accept the alien voice's terms and enter the death-game with only a cat and underwear.\n2. *Scavenge t -> Entering immediately guarantees warmth and tutorial chest access, but leaves Carl functionally naked and unarmed. Scavenging outside risks fatal hypot",
+          "completed": false,
+          "isCompleted": false
+        }
+      ]
+    },
+    {
+      "id": "Q_M2_the_awakening_biscuit_dilemma",
+      "name": "Milestone 2: The Awakening Biscuit Dilemma",
+      "title": "Milestone 2: The Awakening Biscuit Dilemma",
+      "description": "Upon unlocking a rare Celestial-tier tutorial prize, Carl receives the Pet Awakening Biscuit. Rather than selling it or saving it, he feeds it to Princess Donut, granting her human speech, sapience, high Charisma, and magical aptitude.",
+      "nodeId": "N_FLOOR_1_TUTORIAL_GUILD",
+      "submapId": "map_dcc_floor1",
+      "giverNpcId": "npc_mordecai",
+      "targetNpcId": "npc_hrh_princess_donut",
+      "npcIds": [
+        "npc_mordecai",
+        "npc_hrh_princess_donut",
+        "npc_carl_crawler_11_214"
+      ],
+      "threat": "Moderate",
+      "status": "Active",
+      "itemIds": [
+        "ITM_AWAKENING_BISCUIT",
+        "ITM_LEATHER_COLLAR_OF_THE_CHONK"
+      ],
+      "trackerIds": [
+        "TRK_BROADCAST_RATINGS"
+      ],
+      "notes": "**Milestone & Crucible:** Milestone 2: The Awakening Biscuit Dilemma (Q_M2_the_awakening_biscuit_dilemma)\n\n**Floor & Phase:** Floor 1, Tutorial Guild #4 (`ph_02`, Floor 1 - First Blood & The Tutorial Guild)\n\n**Canonical Outcome:**\nUpon unlocking a rare Celestial-tier tutorial prize, Carl receives the Pet Awakening Biscuit. Rather than selling it or saving it, he feeds it to Princess Donut, granting her human speech, sapience, high Charisma, and magical aptitude.\n\n**Crucible Divergence Point:**\n1. *Awaken Princess Donut (Canon):* Transform Donut into a sentient partner and spellcaster.\n2. *Consume the Biscuit Personally:* Attempt to eat the beast-enhancement biscuit himself for massive raw stat multipliers.\n3. *Barter with Mordecai:* Trade the Celestial biscuit for a full kit of advanced alchemical reagents and military armor.\n\n**Immediate Dilemma & Cost:**\nAwakening Donut creates an outspoken, demanding feline diva who requires luxury food and emotional validation, but gives the team an incredible magical artillery asset. Trading or consuming it leaves Donut an ordinary, helpless housecat who must be carried in a backpack, drastically increasing the burden of protecting her.\n\n**Long-Term Campaign Ripple:**\nWithout an awakened Donut, Carl loses access to the galactic broadcast talk-show circuit, eliminating his primary source of high-tier sponsor crates and intergalactic legal defense.\n---",
+      "steps": [
+        {
+          "id": "Q_M2_the_awakening_biscuit_dilemma_step1",
+          "title": "Canonical Outcome",
+          "text": "Upon unlocking a rare Celestial-tier tutorial prize, Carl receives the Pet Awakening Biscuit. Rather than selling it or saving it, he feeds it to Princess Donut, granting her human speech, sapience, high Charisma, and magical aptitude.",
+          "completed": false,
+          "triggerTrackerId": "TRK_BROADCAST_RATINGS",
+          "isCompleted": false
+        },
+        {
+          "id": "Q_M2_the_awakening_biscuit_dilemma_step2",
+          "title": "Crucible Divergence",
+          "text": "1. *Awaken Princess Donut (Canon):* Transform Donut into a sentient partner and spellcaster.\n2. *Consume the Biscuit Personally:* Attempt to eat the b -> Awakening Donut creates an outspoken, demanding feline diva who requires luxury food and emotional validation, but gives the team an incredible magica",
+          "completed": false,
+          "isCompleted": false
+        }
+      ]
+    },
+    {
+      "id": "Q_M3_the_ball_of_swine_improvised_demolitions",
+      "name": "Milestone 3: The Ball of Swine & Improvised Demolitions",
+      "title": "Milestone 3: The Ball of Swine & Improvised Demolitions",
+      "description": "Cornered by a charging Ball of Swine war-machine packed with sewer goblins, Carl combines nitrogen compounds and goblin incendiaries into a shaped explosive, detonating the entire warband in a single blast.",
+      "nodeId": "N_FLOOR_1_BALL_OF_SWINE",
+      "submapId": "map_dcc_floor1",
+      "giverNpcId": "npc_carl_crawler_11_214",
+      "targetNpcId": "npc_carl_crawler_11_214",
+      "npcIds": [
+        "npc_carl_crawler_11_214",
+        "npc_hrh_princess_donut"
+      ],
+      "threat": "Severe",
+      "status": "Active",
+      "itemIds": [
+        "ITM_GOBLIN_DEMOLITION_BOX"
+      ],
+      "trackerIds": [
+        "TRK_FLOOR_1_COLLAPSE"
+      ],
+      "notes": "**Milestone & Crucible:** Milestone 3: The Ball of Swine & Improvised Demolitions (Q_M3_the_ball_of_swine_improvised_demolitions)\n\n**Floor & Phase:** Floor 1, Goblin Caverns (`ph_03`, Floor 1 - Ball of Swine & Clearing the Surface Labyrinth)\n\n**Canonical Outcome:**\nCornered by a charging Ball of Swine war-machine packed with sewer goblins, Carl combines nitrogen compounds and goblin incendiaries into a shaped explosive, detonating the entire warband in a single blast.\n\n**Crucible Divergence Point:**\n1. *High-Yield Improvised Blast (Canon):* Detonate the chemical bomb at dangerously close range.\n2. *Conventional Melee Defense:* Form a shield wall with surviving human crawlers in the narrow chokepoint.\n\n**Immediate Dilemma & Cost:**\nThe chemical explosion inflicts severe shrapnel lacerations and burns on Carl, risking cavern collapse, but annihilates the boss mob instantly. A shield wall avoids cave-in risks but guarantees high casualties among terrified civilian survivors.\n\n**Long-Term Campaign Ripple:**\nThe explosion cements Carl's reputation with the Dungeon AI as an unhinged demolitionist, unlocking explosive crafting recipes and permanently steering his build toward high-ordnance traps.\n---",
+      "steps": [
+        {
+          "id": "Q_M3_the_ball_of_swine_improvised_demolitions_step1",
+          "title": "Canonical Outcome",
+          "text": "Cornered by a charging Ball of Swine war-machine packed with sewer goblins, Carl combines nitrogen compounds and goblin incendiaries into a shaped explosive, detonating the entire warband in a single blast.",
+          "completed": false,
+          "triggerTrackerId": "TRK_FLOOR_1_COLLAPSE",
+          "isCompleted": false
+        },
+        {
+          "id": "Q_M3_the_ball_of_swine_improvised_demolitions_step2",
+          "title": "Crucible Divergence",
+          "text": "1. *High-Yield Improvised Blast (Canon):* Detonate the chemical bomb at dangerously close range.\n2. *Conventional Melee Defense:* Form a shield wall w -> The chemical explosion inflicts severe shrapnel lacerations and burns on Carl, risking cavern collapse, but annihilates the boss mob instantly. A shie",
+          "completed": false,
+          "isCompleted": false
+        }
+      ]
+    },
+    {
+      "id": "Q_M4_the_floor_1_collapse_countdown",
+      "name": "Milestone 4: The Floor 1 Collapse Countdown",
+      "title": "Milestone 4: The Floor 1 Collapse Countdown",
+      "description": "With less than an hour before the 5-day timer expires, Carl and Donut clear the final goblin guard post and guide dozens of panicking human crawlers down the staircase to Floor 2 just as the ceiling crushes the first floor into flat stone.",
+      "nodeId": "N_FLOOR_1_DESCENT_STAIRWELL",
+      "submapId": "map_dcc_floor1",
+      "giverNpcId": "npc_the_dungeon_ai",
+      "targetNpcId": "npc_mordecai",
+      "npcIds": [
+        "npc_the_dungeon_ai",
+        "npc_mordecai",
+        "npc_carl_crawler_11_214"
+      ],
+      "threat": "Extreme",
+      "status": "Active",
+      "itemIds": [
+        "ITM_SPONSOR_LOOT_BOX_T1",
+        "ITM_MORDECAIS_GUIDE"
+      ],
+      "trackerIds": [
+        "TRK_FLOOR_1_COLLAPSE",
+        "TRK_BROADCAST_RATINGS"
+      ],
+      "notes": "**Milestone & Crucible:** Milestone 4: The Floor 1 Collapse Countdown (Q_M4_the_floor_1_collapse_countdown)\n\n**Floor & Phase:** Floor 1 Exit Portal (`ph_03`, Floor 1 - Ball of Swine & Clearing the Surface Labyrinth)\n\n**Canonical Outcome:**\nWith less than an hour before the 5-day timer expires, Carl and Donut clear the final goblin guard post and guide dozens of panicking human crawlers down the staircase to Floor 2 just as the ceiling crushes the first floor into flat stone.\n\n**Crucible Divergence Point:**\n1. *Delay to Evacuate Stragglers (Canon):* Hold the doorway open until the final moments to rescue straggling crawlers.\n2. *Seal the Portal Early:* Lock down the staircase to secure personal safety and prevent goblin hordes from overrunning the threshold.\n\n**Immediate Dilemma & Cost:**\nHolding the door leaves Carl and Donut within seconds of being crushed to death. Locking down early guarantees survival but condemns trailing humans to brutal mechanical compression.\n\n**Long-Term Campaign Ripple:**\nSaving dozens of civilians establishes Carl as the unofficial moral leader of the Earth crawlers, drawing the ire of Borant Corporation while building a network of loyal allies.\n---",
+      "steps": [
+        {
+          "id": "Q_M4_the_floor_1_collapse_countdown_step1",
+          "title": "Canonical Outcome",
+          "text": "With less than an hour before the 5-day timer expires, Carl and Donut clear the final goblin guard post and guide dozens of panicking human crawlers down the staircase to Floor 2 just as the ceiling crushes the first floor into flat stone.",
+          "completed": false,
+          "triggerTrackerId": "TRK_FLOOR_1_COLLAPSE",
+          "isCompleted": false
+        },
+        {
+          "id": "Q_M4_the_floor_1_collapse_countdown_step2",
+          "title": "Crucible Divergence",
+          "text": "1. *Delay to Evacuate Stragglers (Canon):* Hold the doorway open until the final moments to rescue straggling crawlers.\n2. *Seal the Portal Early:* Lo -> Holding the door leaves Carl and Donut within seconds of being crushed to death. Locking down early guarantees survival but condemns trailing humans t",
+          "completed": false,
+          "isCompleted": false
+        }
+      ]
+    },
+    {
+      "id": "Q_M5_the_meadowlark_traitors_frank_maggie",
+      "name": "Milestone 5: The Meadowlark Traitors (Frank & Maggie)",
+      "title": "Milestone 5: The Meadowlark Traitors (Frank & Maggie)",
+      "description": "Discovering that Frank and Maggie have been murdering fellow elderly Meadowlark residents for loot boxes and XP, Carl unmasks their crimes, neutralizes their threat, and secures justice for Katia and the survivors.",
+      "nodeId": "N_MEADOWLARK_CAMP",
+      "submapId": "map_dcc_floor2",
+      "giverNpcId": "npc_katia",
+      "targetNpcId": "npc_frank_maggie_the_meadowlark_traitors",
+      "npcIds": [
+        "npc_katia",
+        "npc_frank_maggie_the_meadowlark_traitors",
+        "npc_brandon",
+        "npc_chris"
+      ],
+      "threat": "Severe",
+      "status": "Active",
+      "itemIds": [
+        "ITM_FRANK_MAGGIE_LOOT_BAG",
+        "ITM_KATIAS_CROSSBOW",
+        "ITM_BRANDONS_RIOT_SHIELD"
+      ],
+      "trackerIds": [
+        "TRK_MEADOWLARK_CASUALTIES"
+      ],
+      "notes": "**Milestone & Crucible:** Milestone 5: The Meadowlark Traitors (Frank & Maggie) (Q_M5_the_meadowlark_traitors_frank_maggie)\n\n**Floor & Phase:** Floor 2, Slime Tunnels (`ph_04`, Floor 2 - The Slime Tunnels & Meadowlark Betrayal)\n\n**Canonical Outcome:**\nDiscovering that Frank and Maggie have been murdering fellow elderly Meadowlark residents for loot boxes and XP, Carl unmasks their crimes, neutralizes their threat, and secures justice for Katia and the survivors.\n\n**Crucible Divergence Point:**\n1. *Immediate Summary Execution:* Blow the traitors to pieces with an explosive charge to demonstrate zero tolerance for crawler-on-crawler predation.\n2. *Conscription as Live Bait:* Bind their hands and force them to trigger pressure traps and draw monster aggro ahead of the vanguard.\n3. *Public Trial Before the Crawlers:* Hold a formal hearing to maintain pre-Collapse human law and order.\n\n**Immediate Dilemma & Cost:**\nExecution provides instant catharsis and eliminates treachery, but shocks delicate survivors who cling to pre-Collapse ethics. Using them as bait saves innocent lives but crosses into Syndicate-like brutality. A trial wastes precious hours against the Floor 2 collapse clock.\n\n**Long-Term Campaign Ripple:**\nSets the moral boundary for crawler society: does Earth humanity descend into feral cannibalism for XP, or enforce collective solidarity against the showrunners?\n---",
+      "steps": [
+        {
+          "id": "Q_M5_the_meadowlark_traitors_frank_maggie_step1",
+          "title": "Canonical Outcome",
+          "text": "Discovering that Frank and Maggie have been murdering fellow elderly Meadowlark residents for loot boxes and XP, Carl unmasks their crimes, neutralizes their threat, and secures justice for Katia and the survivors.",
+          "completed": false,
+          "triggerTrackerId": "TRK_MEADOWLARK_CASUALTIES",
+          "isCompleted": false
+        },
+        {
+          "id": "Q_M5_the_meadowlark_traitors_frank_maggie_step2",
+          "title": "Crucible Divergence",
+          "text": "1. *Immediate Summary Execution:* Blow the traitors to pieces with an explosive charge to demonstrate zero tolerance for crawler-on-crawler predation. -> Execution provides instant catharsis and eliminates treachery, but shocks delicate survivors who cling to pre-Collapse ethics. Using them as bait save",
+          "completed": false,
+          "isCompleted": false
+        }
+      ]
+    },
+    {
+      "id": "Q_M6_raiding_kraz_the_fertilizer_blast",
+      "name": "Milestone 6: Raiding Kraz & The Fertilizer Blast",
+      "title": "Milestone 6: Raiding Kraz & The Fertilizer Blast",
+      "description": "Carl raids Kraz's munitions workshop, securing barrels of volatile alchemical fuel. Rather than using them sparingly, he constructs a colossal multi-stage bomb to obliterate the Hoarder boss blocking the Floor 3 gate.",
+      "nodeId": "N_KRAZ_WORKSHOP",
+      "submapId": "map_dcc_floor2",
+      "giverNpcId": "npc_carl_crawler_11_214",
+      "targetNpcId": "npc_kraz",
+      "npcIds": [
+        "npc_carl_crawler_11_214",
+        "npc_kraz",
+        "npc_chris"
+      ],
+      "threat": "Severe",
+      "status": "Active",
+      "itemIds": [
+        "ITM_KRAZS_ALCHEMICAL_FUSES",
+        "ITM_HOARDERS_ACID_CORE",
+        "ITM_CHRIS_SEWER_MAP"
+      ],
+      "trackerIds": [
+        "TRK_HOARDER_MASS"
+      ],
+      "notes": "**Milestone & Crucible:** Milestone 6: Raiding Kraz & The Fertilizer Blast (Q_M6_raiding_kraz_the_fertilizer_blast)\n\n**Floor & Phase:** Floor 2, Goblin Alchemist Workshop (`ph_05`, Floor 2 - Kraz's Barrels & The Hoarder's Destruction)\n\n**Canonical Outcome:**\nCarl raids Kraz's munitions workshop, securing barrels of volatile alchemical fuel. Rather than using them sparingly, he constructs a colossal multi-stage bomb to obliterate the Hoarder boss blocking the Floor 3 gate.\n\n**Crucible Divergence Point:**\n1. *Massive Catastrophic Demolition (Canon):* Detonate the entire fuel depot in a single devastating shockwave to vaporize the Hoarder.\n2. *Precision Extraction:* Siphon small fuel flasks for personal inventory, tackling the Hoarder with ranged archery and spell attrition.\n\n**Immediate Dilemma & Cost:**\nThe massive blast destroys the sewer infrastructure, floods adjacent sectors with burning oil, and nearly deafens the party, but guarantees a one-shot kill. Precision fighting conserves reagents but risks lengthy melee against a toxic regenerating slime monster.\n\n**Long-Term Campaign Ripple:**\nDestroys an entire sector of Floor 2, forcing Borant to pay massive repair deductibles to the Syndicate and establishing Carl as the primary systemic threat to the show's profit margins.\n---",
+      "steps": [
+        {
+          "id": "Q_M6_raiding_kraz_the_fertilizer_blast_step1",
+          "title": "Canonical Outcome",
+          "text": "Carl raids Kraz's munitions workshop, securing barrels of volatile alchemical fuel. Rather than using them sparingly, he constructs a colossal multi-stage bomb to obliterate the Hoarder boss blocking the Floor 3 gate.",
+          "completed": false,
+          "triggerTrackerId": "TRK_HOARDER_MASS",
+          "isCompleted": false
+        },
+        {
+          "id": "Q_M6_raiding_kraz_the_fertilizer_blast_step2",
+          "title": "Crucible Divergence",
+          "text": "1. *Massive Catastrophic Demolition (Canon):* Detonate the entire fuel depot in a single devastating shockwave to vaporize the Hoarder.\n2. *Precision  -> The massive blast destroys the sewer infrastructure, floods adjacent sectors with burning oil, and nearly deafens the party, but guarantees a one-shot",
+          "completed": false,
+          "isCompleted": false
+        }
+      ]
+    },
+    {
+      "id": "Q_M7_the_broadcast_economy_odette_s_deal",
+      "name": "Milestone 7: The Broadcast Economy & Odette's Deal",
+      "title": "Milestone 7: The Broadcast Economy & Odette's Deal",
+      "description": "Princess Donut's dramatic personality explodes across intergalactic social media. Talk-show host Odette offers broadcast partnership, channeling fan donations into life-saving sponsor crates.",
+      "nodeId": "N_FLOOR_2_EXIT_GATE",
+      "submapId": "map_dcc_floor2",
+      "giverNpcId": "npc_odette",
+      "targetNpcId": "npc_hrh_princess_donut",
+      "npcIds": [
+        "npc_odette",
+        "npc_hrh_princess_donut",
+        "npc_carl_crawler_11_214"
+      ],
+      "threat": "Climax",
+      "status": "Active",
+      "itemIds": [
+        "ITM_ODETTES_COMM_ORB",
+        "ITM_AI_ANNOUNCER_SPEAKER"
+      ],
+      "trackerIds": [
+        "TRK_BROADCAST_RATINGS"
+      ],
+      "notes": "**Milestone & Crucible:** Milestone 7: The Broadcast Economy & Odette's Deal (Q_M7_the_broadcast_economy_odette_s_deal)\n\n**Floor & Phase:** Floor 2 Climax (`ph_06`, The Galactic Broadcast & The Descent to Floor 3)\n\n**Canonical Outcome:**\nPrincess Donut's dramatic personality explodes across intergalactic social media. Talk-show host Odette offers broadcast partnership, channeling fan donations into life-saving sponsor crates.\n\n**Crucible Divergence Point:**\n1. *Lean into the Entertainment Machine (Canon):* Allow Donut to play the aristocratic pageant queen for galactic cameras to farm high-end gear.\n2. *Refuse All Broadcast Exploitation:* Ban cameras, refuse sponsor crates, and crawl in total media blackout to avoid feeding the alien entertainment economy.\n\n**Immediate Dilemma & Cost:**\nPlaying along feels humiliating and morally grotesque, but delivers high-grade healing potions, enchanted rings, and armor. Refusal maintains moral purity but severely starves the team of crucial supplies.\n\n**Long-Term Campaign Ripple:**\nDonut's celebrity status becomes the team's greatest shield and greatest vulnerability, painting a massive target on their backs for bounty hunters and rival crawlers in later floors.",
+      "steps": [
+        {
+          "id": "Q_M7_the_broadcast_economy_odette_s_deal_step1",
+          "title": "Canonical Outcome",
+          "text": "Princess Donut's dramatic personality explodes across intergalactic social media. Talk-show host Odette offers broadcast partnership, channeling fan donations into life-saving sponsor crates.",
+          "completed": false,
+          "triggerTrackerId": "TRK_BROADCAST_RATINGS",
+          "isCompleted": false
+        },
+        {
+          "id": "Q_M7_the_broadcast_economy_odette_s_deal_step2",
+          "title": "Crucible Divergence",
+          "text": "1. *Lean into the Entertainment Machine (Canon):* Allow Donut to play the aristocratic pageant queen for galactic cameras to farm high-end gear.\n2. *R -> Playing along feels humiliating and morally grotesque, but delivers high-grade healing potions, enchanted rings, and armor. Refusal maintains moral pu",
+          "completed": false,
+          "isCompleted": false
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "ITM_ENCHANTED_PINK_CROCS",
+      "name": "Enchanted Pink Crocs",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_carl_crawler_11_214",
+      "status": "Active",
+      "category": "Armor",
+      "specs": "Unbreakable bright pink foam footwear granting high traction and kicking impact.",
+      "notes": "A garish pair of molded foam clogs in eye-searing hot pink, snatched by Carl from the entryway as his apartment building compressed into a concrete slab. The sadistically voyeuristic Dungeon World AI immediately developed a perverse fixation on Carl's bare feet and pink footwear, awarding unique brawler bonuses, enhanced kicking velocity, and special sponsor crates whenever he crushes goblin skulls in his boxers and Crocs.",
+      "questIds": [
+        "Q_M1_the_midnight_porch_the_descent_into_cold_iron"
+      ],
+      "nodeId": "N_FLOOR_1_TUTORIAL_GUILD"
+    },
+    {
+      "id": "ITM_LEATHER_COLLAR_OF_THE_CHONK",
+      "name": "Studded Royal Collar of the Chonk",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_hrh_princess_donut",
+      "status": "Active",
+      "category": "Accessory",
+      "specs": "Jeweled velvet and leather feline choker boosting magic missile spell potency.",
+      "notes": "An opulent tortoiseshell-velvet collar encrusted with synthetic sapphires and heavy studs, tailored for Her Royal Highness Princess Donut. Originally a top-prize show cat accessory, within the World Dungeon it acts as an enchanted arcane focus that channels Donut's haughty personality into pinpoint Magic Missiles and deafening Sonic Screeches.",
+      "questIds": [
+        "Q_M2_the_awakening_biscuit_dilemma"
+      ],
+      "nodeId": "N_FLOOR_1_TUTORIAL_GUILD"
+    },
+    {
+      "id": "ITM_AWAKENING_BISCUIT",
+      "name": "The Awakening Biscuit of Sapience",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_hrh_princess_donut",
+      "status": "Active",
+      "category": "Consumable",
+      "specs": "Legendary Syndicate Celestial confection granting human-level sapience, speech, and class access to animals.",
+      "notes": "A glowing, gold-dusted prize pastry awarded from a celestial-tier tutorial chest. Smelling intoxicatingly of salmon paste and crushed catnip, Carl fed this treat to Princess Donut on Floor 1. It instantly restructured her feline brain, granting articulate human speech, immense Charisma, spellcasting capabilities, and the demanding temperament of a galactic socialite.",
+      "questIds": [
+        "Q_M2_the_awakening_biscuit_dilemma"
+      ],
+      "nodeId": "N_FLOOR_1_TUTORIAL_GUILD"
+    },
+    {
+      "id": "ITM_MORDECAIS_GUIDE",
+      "name": "Mordecai's Indenture Survival Handbook",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_mordecai",
+      "status": "Active",
+      "category": "Tome",
+      "specs": "Comprehensive tactical reference detailing Syndicate crawler traps, floor boss mechanics, and guild bylaws.",
+      "notes": "A dog-eared, leather-bound holographic survival manual penned by Mordecai over multiple brutal crawl seasons. It contains heavily annotated Syndicate regulations, trap disarming schematics, alchemical formulas, and cynical commentary warning crawlers that the showrunners always prioritize viewer ratings over fair play.",
+      "questIds": [
+        "Q_M4_the_floor_1_collapse_countdown"
+      ],
+      "nodeId": "N_FLOOR_1_TUTORIAL_GUILD"
+    },
+    {
+      "id": "ITM_AI_ANNOUNCER_SPEAKER",
+      "name": "Golden Floor Speaker of the Dungeon AI",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_the_dungeon_ai",
+      "status": "Active",
+      "category": "Artifact",
+      "specs": "Pervasive audio projector transmitting sarcastic AI commentary and foot fetish announcements.",
+      "notes": "A floating brass-trimmed acoustic orb projecting the omnipresent, unhinged voice of the Dungeon World AI throughout the labyrinth. It announces crawler achievements, level-up bonuses, and sponsor crate drops with scathing sarcasm, enthusiastically mocking mortal panic while delivering sultry commentary on barefoot combat maneuvers.",
+      "questIds": [
+        "Q_M7_the_broadcast_economy_odette_s_deal"
+      ],
+      "nodeId": "N_WORLD_DUNGEON_ENTRANCE"
+    },
+    {
+      "id": "ITM_KATIAS_CROSSBOW",
+      "name": "Katia's Heavy Hunting Crossbow",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_katia",
+      "status": "Active",
+      "category": "Weapon",
+      "specs": "High-tension mechanical hunting crossbow modified with steel-tipped penetrator bolts.",
+      "notes": "A heavy composite recurve crossbow modified by Katia with precision tension springs and a hair-trigger release. Built to fire armor-piercing iron bolts, it allows Katia to pick off goblin sappers from maximum range while struggling with her own crippling dungeon anxiety.",
+      "questIds": [
+        "Q_M5_the_meadowlark_traitors_frank_maggie"
+      ],
+      "nodeId": "N_MEADOWLARK_CAMP"
+    },
+    {
+      "id": "ITM_FRANK_MAGGIE_LOOT_BAG",
+      "name": "Stolen Survivor Rations & Gear Pack",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_frank_maggie_the_meadowlark_traitors",
+      "status": "Active",
+      "category": "Container",
+      "specs": "Hoarded supply sacks stripped from abandoned Meadowlark elders containing stolen rations and medical kits.",
+      "notes": "A bloodstained canvas duffle bag stuffed with hoarded nutrition paste, antibiotics, and stolen crawler tokens. Carried by Frank and Maggie after they callously shoved aside elderly retirement home residents to hoard survival supplies, making them pariahs among human survivor cells.",
+      "questIds": [
+        "Q_M5_the_meadowlark_traitors_frank_maggie"
+      ],
+      "nodeId": "N_SUBWAY_SLIME_TUNNELS"
+    },
+    {
+      "id": "ITM_KRAZS_ALCHEMICAL_FUSES",
+      "name": "Kraz's Remote Alchemical Delay Fuses",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_kraz",
+      "status": "Active",
+      "category": "Relic",
+      "specs": "Precision chemical ignition strings tuned for synchronized multi-barrel detonations.",
+      "notes": "Coiled reels of waterproof detonating cord treated with stabilized nitroglycerin compounds by the goblin sapper Kraz. Engineered to trigger simultaneously across multiple blasting zones, allowing Carl to orchestrate complex cave-ins and directional explosions against boss mobs.",
+      "questIds": [
+        "Q_M6_raiding_kraz_the_fertilizer_blast"
+      ],
+      "nodeId": "N_KRAZ_WORKSHOP"
+    },
+    {
+      "id": "ITM_ODETTES_COMM_ORB",
+      "name": "Syndicate Live Broadcast Communicator",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_odette",
+      "status": "Active",
+      "category": "Artifact",
+      "specs": "Sub-space holographic relay beam transmitting direct viewer ratings, sponsor bounties, and media interviews.",
+      "notes": "A sophisticated intergalactic broadcast receiver and holographic relay carried by Odette. It bridges the dark crawl tunnels directly with the glitzy syndicate talk-show studios, enabling live interviews, sponsor negotiations, and real-time bounty alerts from wealthy alien patrons across the galaxy.",
+      "questIds": [
+        "Q_M7_the_broadcast_economy_odette_s_deal"
+      ],
+      "nodeId": "N_FLOOR_2_EXIT_GATE"
+    },
+    {
+      "id": "ITM_BRANDONS_RIOT_SHIELD",
+      "name": "Meadowlark Reinforced Riot Shield",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_brandon",
+      "status": "Active",
+      "category": "Armor",
+      "specs": "Scrap-metal tower shield built to defend wheelchair corridors from goblin sappers.",
+      "notes": "A battered barricade shield improvised from corrugated steel and street sign plates by Brandon, the protective son of Meadowlark elder Chris. Designed with a wide frontal apron, it locks into doorway choke points to shield wheelchair-bound seniors from rushing goblin warbands.",
+      "questIds": [
+        "Q_M5_the_meadowlark_traitors_frank_maggie"
+      ],
+      "nodeId": "N_MEADOWLARK_CAMP"
+    },
+    {
+      "id": "ITM_CHRIS_SEWER_MAP",
+      "name": "Smuggled Slime Pipe Conduit Schematics",
+      "possessionMode": "carried",
+      "ownerNpcId": "npc_chris",
+      "status": "Active",
+      "category": "Tome",
+      "specs": "Detailed drainage map charting shortcuts around the Hoarder's grave cavern.",
+      "notes": "A hand-drawn parchment map sketched by Chris using charcoal and grease, marking hidden slime-pipe conduits and maintenance ladders beneath Floor 1. Bypasses the primary death-trap intersections and leads directly behind the Hoarder's digestive pit.",
+      "questIds": [
+        "Q_M6_raiding_kraz_the_fertilizer_blast"
+      ],
+      "nodeId": "N_MEADOWLARK_CAMP"
+    },
+    {
+      "id": "ITM_GOBLIN_DEMOLITION_BOX",
+      "name": "Improvised Fertilizer Demolition Cache",
+      "possessionMode": "stored",
+      "nodeId": "N_KRAZ_WORKSHOP",
+      "status": "Active",
+      "category": "Weapon",
+      "specs": "Stacked drums of ammonium nitrate fertilizer wired to shaped blasting caps.",
+      "notes": "A cache of improvised high-yield explosive ordnance concealed in Kraz's subterranean workshop. Packed with granulated agricultural fertilizer, sulfur, and diesel accelerants, this bomb pack gives Carl the raw destructive power needed to vaporize the Ball of Swine.",
+      "questIds": [
+        "Q_M3_the_ball_of_swine_improvised_demolitions"
+      ],
+      "submapId": "map_dcc_floor2",
+      "ownerNpcId": null
+    },
+    {
+      "id": "ITM_HOARDERS_ACID_CORE",
+      "name": "Unexploded Fuel Drum Core of the Hoarder",
+      "possessionMode": "stored",
+      "nodeId": "N_HOARDER_GRAVE_LAIR",
+      "status": "Active",
+      "category": "Artifact",
+      "specs": "Volatile hydrocarbon reservoir encased within the boss's central acidic jelly.",
+      "notes": "A pulsating, pressurized chemical bladder recovered from the dissolved core of The Hoarder. Filled with concentrated bio-acid and flammable digestive bile, it can be harvested to coat ammunition with armor-melting slime or refined into lethal incendiary grenades.",
+      "questIds": [
+        "Q_M6_raiding_kraz_the_fertilizer_blast"
+      ],
+      "submapId": "map_dcc_floor2",
+      "ownerNpcId": null
+    },
+    {
+      "id": "ITM_SPONSOR_LOOT_BOX_T1",
+      "name": "Bronze Sponsor Care Package",
+      "possessionMode": "stored",
+      "nodeId": "N_FLOOR_1_TUTORIAL_GUILD",
+      "status": "Active",
+      "category": "Container",
+      "specs": "Reinforced bronze capsule dropped by galactic viewers holding healing potions and explosives.",
+      "notes": "A gleaming pneumatic bronze canister beamed down from orbit into Tutorial Guild #4. Bearing the corporate holographic seal of intergalactic beverage companies, opening it dispenses high-grade restorative draughts, luxury pet food, and high-tech ordnance gifted by enthralled alien viewers.",
+      "questIds": [
+        "Q_M4_the_floor_1_collapse_countdown"
+      ],
+      "submapId": "map_dcc_floor1",
+      "ownerNpcId": null
+    }
+  ],
+  "creatures": [
+    {
+      "id": "dcc_tunnel_goblin",
+      "name": "Subterranean Tunnel Goblin Sapper",
+      "kind": "humanoid_ancestry",
+      "subtype": "Goblin Sapper",
+      "size": "Small",
+      "threatTier": 1,
+      "summary": "Squat green scavengers armed with rusted crowbars and crude black-powder pipe bombs.",
+      "relativeCapabilities": {
+        "might": 2,
+        "agility": 3,
+        "resilience": 2,
+        "cunning": 3,
+        "awareness": 2,
+        "presence": 1
+      },
+      "senses": {
+        "vision": "darkvision",
+        "special": [],
+        "blindspots": "Direct bright flashlight glare blinds them."
+      },
+      "locomotion": {
+        "primary": "walk",
+        "secondary": [
+          "climb"
+        ],
+        "terrainAffinities": [
+          "dungeon tunnels",
+          "sewer grates"
+        ]
+      },
+      "defenses": {
+        "armorType": "scrap metal vest",
+        "immunities": [],
+        "resistances": [],
+        "vulnerabilities": [
+          "blunt_trauma",
+          "explosive_shrapnel"
+        ],
+        "anatomicalWeakSpots": [
+          "Exposed shins and neck."
+        ]
+      },
+      "disposition": {
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 2
+        },
+        "odvTag": "[3, 1, 2]",
+        "cvfQuadrant": "Clan",
+        "ethologySummary": "Pack scavenger operating under goblin chieftain orders."
+      },
+      "gigerenzerBehavior": {
+        "dreadIndex": 2,
+        "dreadEffect": "Ambush unarmored crawlers from low vents with barbed javelins.",
+        "heuristicProfile": {
+          "strategy": "TAKE_THE_BEST",
+          "cueValidityHierarchy": [
+            "target_alone",
+            "allies_falling"
+          ],
+          "stoppingRule": "Attack vulnerable crawlers; flee when leadership is broken."
+        },
+        "fastAndFrugalTree": {
+          "id": "tree_dcc_tunnel_goblin",
+          "name": "Subterranean Tunnel Goblin Sapper Combat Behavior",
+          "cues": [
+            {
+              "label": "Is the target separated from companions?",
+              "exitDirection": "yes",
+              "exitAction": "SWARM_AND_HOBBLE",
+              "exitLabel": "Swarm target legs"
+            },
+            {
+              "label": "Have half the squad fallen?",
+              "exitDirection": "yes",
+              "exitAction": "FLEE_INTO_VENTS",
+              "exitLabel": "Scatter into crawlspaces"
+            }
+          ],
+          "defaultExit": {
+            "action": "THROW_PIPE_BOMB",
+            "label": "Hurl crude explosive bomb"
+          }
+        }
+      },
+      "signatureActions": [
+        {
+          "name": "Barbed Shank",
+          "trigger": "Engaged in melee",
+          "effect": "Piercing puncture causing bleeding.",
+          "severity": "Dangerous"
+        }
+      ],
+      "psychologyAndFolklore": {
+        "instinctiveQuirks": [
+          "Steals boots and loose jewelry.",
+          "Cackles loudly before throwing explosives."
+        ],
+        "primaryDrive": "primal_hunger",
+        "moraleThreshold": "cowardly",
+        "spoorAndSigns": [
+          "Crude charcoal graffiti",
+          "discarded fuse strings"
+        ],
+        "vocalizations": [
+          "High-pitched screeching and taunts."
+        ],
+        "vernacularFolklore": [
+          "Don't let them get behind your heels."
+        ]
+      },
+      "harvest": {
+        "harvestYields": [],
+        "domesticationProfile": "untameable"
+      },
+      "nodeId": "N_FLOOR_1_GOBLIN_CAVERNS",
+      "stationing": {
+        "mode": "node",
+        "nodeId": "N_FLOOR_1_GOBLIN_CAVERNS",
+        "edgeKey": null,
+        "roamingScope": "stationary_lair"
+      },
+      "relationalLinks": {
+        "nodes": [
+          {
+            "nodeId": "N_FLOOR_1_GOBLIN_CAVERNS",
+            "role": "primary_lair"
+          }
+        ],
+        "quests": [
+          {
+            "questId": "Q_M1_the_midnight_porch_the_descent_into_cold_iron",
+            "role": "target_objective"
+          }
+        ],
+        "factions": [
+          {
+            "factionId": "fac_goblin_hordes",
+            "stance": "war_beast_mount"
+          }
+        ],
+        "items": [
+          {
+            "itemId": "ITM_ENCHANTED_PINK_CROCS",
+            "relationship": "ingested_relic"
+          }
+        ],
+        "ecologicalFoodWeb": []
+      },
+      "isCustom": true
+    },
+    {
+      "id": "dcc_ball_of_swine",
+      "name": "The Ball of Swine",
+      "kind": "construct",
+      "subtype": "Porcine War Engine",
+      "size": "Huge",
+      "threatTier": 3,
+      "summary": "Massive rolling spherical cage forged of welded iron bars and packed with squealing enchanted hogs.",
+      "relativeCapabilities": {
+        "might": 5,
+        "agility": 2,
+        "resilience": 4,
+        "cunning": 1,
+        "awareness": 2,
+        "presence": 4
+      },
+      "senses": {
+        "vision": "standard",
+        "special": [
+          "tremorsense"
+        ],
+        "blindspots": "Direct rear momentum arc cannot turn quickly."
+      },
+      "locomotion": {
+        "primary": "walk",
+        "secondary": [],
+        "terrainAffinities": [
+          "wide cisterns",
+          "flat stone halls"
+        ]
+      },
+      "defenses": {
+        "armorType": "welded steel cage",
+        "immunities": [],
+        "resistances": [
+          "slashing_weapons"
+        ],
+        "vulnerabilities": [
+          "internal_explosives",
+          "pit_traps"
+        ],
+        "anatomicalWeakSpots": [
+          "Welded axle pins can be fractured with heavy demolition charges."
+        ]
+      },
+      "disposition": {
+        "odv": {
+          "s": 4,
+          "e": 1,
+          "c": 1
+        },
+        "odvTag": "[4, 1, 1]",
+        "cvfQuadrant": "Clan",
+        "ethologySummary": "Relentless rolling siege machine crushing everything in its trajectory."
+      },
+      "gigerenzerBehavior": {
+        "dreadIndex": 4,
+        "dreadEffect": "Rumbles like an earthquake, crushing crawler barricades flat.",
+        "heuristicProfile": {
+          "strategy": "TAKE_THE_BEST",
+          "cueValidityHierarchy": [
+            "straight_line_target",
+            "cornered_target"
+          ],
+          "stoppingRule": "Keep rolling until obstructed or demolished."
+        },
+        "fastAndFrugalTree": {
+          "id": "tree_dcc_ball_of_swine",
+          "name": "The Ball of Swine Combat Behavior",
+          "cues": [
+            {
+              "label": "Is there a direct path to the target?",
+              "exitDirection": "yes",
+              "exitAction": "TRAMPLE_CHARGE",
+              "exitLabel": "Charge at full rolling speed"
+            },
+            {
+              "label": "Is the target pinned against a wall?",
+              "exitDirection": "yes",
+              "exitAction": "GRIND_IMPACT",
+              "exitLabel": "Grind cage into wall"
+            }
+          ],
+          "defaultExit": {
+            "action": "ACCELERATE_WHEELS",
+            "label": "Build forward kinetic momentum"
+          }
+        }
+      },
+      "signatureActions": [
+        {
+          "name": "Crushing Momentum",
+          "trigger": "Collides with crawler",
+          "effect": "Massive bludgeoning damage and knockdown.",
+          "severity": "Lethal"
+        }
+      ],
+      "psychologyAndFolklore": {
+        "instinctiveQuirks": [
+          "Builds immense momentum; cannot halt on slippery surfaces."
+        ],
+        "primaryDrive": "subservient_programming",
+        "moraleThreshold": "fearless",
+        "spoorAndSigns": [
+          "Crushed stone tracks",
+          "splattered mud and blood"
+        ],
+        "vocalizations": [
+          "Deafening shrieks of pigs and clanking iron wheels."
+        ],
+        "vernacularFolklore": [
+          "Step out of its line of sight, or become grease on the floor."
+        ]
+      },
+      "harvest": {
+        "harvestYields": [],
+        "domesticationProfile": "untameable"
+      },
+      "nodeId": "N_FLOOR_1_BALL_OF_SWINE",
+      "stationing": {
+        "mode": "node",
+        "nodeId": "N_FLOOR_1_BALL_OF_SWINE",
+        "edgeKey": null,
+        "roamingScope": "stationary_lair"
+      },
+      "relationalLinks": {
+        "nodes": [
+          {
+            "nodeId": "N_FLOOR_1_BALL_OF_SWINE",
+            "role": "primary_lair"
+          }
+        ],
+        "quests": [
+          {
+            "questId": "Q_M3_the_ball_of_swine_improvised_demolitions",
+            "role": "target_objective"
+          }
+        ],
+        "factions": [
+          {
+            "factionId": "fac_goblin_hordes",
+            "stance": "war_beast_mount"
+          }
+        ],
+        "items": [
+          {
+            "itemId": "ITM_ENCHANTED_PINK_CROCS",
+            "relationship": "ingested_relic"
+          }
+        ],
+        "ecologicalFoodWeb": []
+      },
+      "isCustom": true
+    },
+    {
+      "id": "dcc_tombstone_beetle",
+      "name": "Armored Tombstone Beetle",
+      "kind": "beast",
+      "subtype": "Carapace Beetle",
+      "size": "Medium",
+      "threatTier": 2,
+      "summary": "Stout insectoid scavenger whose thick granite-like chitin resembles a defiled grave marker.",
+      "relativeCapabilities": {
+        "might": 3,
+        "agility": 2,
+        "resilience": 4,
+        "cunning": 1,
+        "awareness": 2,
+        "presence": 2
+      },
+      "senses": {
+        "vision": "low_light",
+        "special": [
+          "tremorsense"
+        ],
+        "blindspots": "Direct rear abdomen under carapace."
+      },
+      "locomotion": {
+        "primary": "walk",
+        "secondary": [
+          "burrow"
+        ],
+        "terrainAffinities": [
+          "rubble piles",
+          "crypt walls"
+        ]
+      },
+      "defenses": {
+        "armorType": "granite-chitin plating",
+        "immunities": [],
+        "resistances": [
+          "piercing_weapons"
+        ],
+        "vulnerabilities": [
+          "sonic_shocks",
+          "flip_attacks"
+        ],
+        "anatomicalWeakSpots": [
+          "Soft underbelly once flipped onto its back."
+        ]
+      },
+      "disposition": {
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 1
+        },
+        "odvTag": "[2, 1, 1]",
+        "cvfQuadrant": "Hierarchy",
+        "ethologySummary": "Territorial solitary grazer feeding upon stone moss and carrion."
+      },
+      "gigerenzerBehavior": {
+        "dreadIndex": 3,
+        "dreadEffect": "Charges forward like a battering ram, fracturing limbs and shields.",
+        "heuristicProfile": {
+          "strategy": "TAKE_THE_BEST",
+          "cueValidityHierarchy": [
+            "target_in_charge_lane",
+            "carapace_cracked"
+          ],
+          "stoppingRule": "Ram invaders until they retreat from nesting cairn."
+        },
+        "fastAndFrugalTree": {
+          "id": "tree_dcc_tombstone_beetle",
+          "name": "Armored Tombstone Beetle Combat Behavior",
+          "cues": [
+            {
+              "label": "Is target in a straight hallway?",
+              "exitDirection": "yes",
+              "exitAction": "BATTERING_RAM_HEADBUTT",
+              "exitLabel": "Headbutt with tombstone horn"
+            },
+            {
+              "label": "Has shell sustained heavy damage?",
+              "exitDirection": "yes",
+              "exitAction": "BURROW_INTO_RUBBLE",
+              "exitLabel": "Burrow into ground"
+            }
+          ],
+          "defaultExit": {
+            "action": "SNAP_MANDIBLES",
+            "label": "Bite with crushing pincers"
+          }
+        }
+      },
+      "signatureActions": [
+        {
+          "name": "Tombstone Ram",
+          "trigger": "Charges 15ft",
+          "effect": "Bludgeoning crash fracturing shields and bones.",
+          "severity": "Dangerous"
+        }
+      ],
+      "psychologyAndFolklore": {
+        "instinctiveQuirks": [
+          "Mistaken for masonry until it stands up."
+        ],
+        "primaryDrive": "territorial_defense",
+        "moraleThreshold": "stubborn",
+        "spoorAndSigns": [
+          "Chipped stone walls",
+          "gouge marks on flagstones"
+        ],
+        "vocalizations": [
+          "Rattling chitin clicks and hollow grinding."
+        ],
+        "vernacularFolklore": [
+          "Kick it onto its back and finish it before it flips."
+        ]
+      },
+      "harvest": {
+        "harvestYields": [],
+        "domesticationProfile": "untameable"
+      },
+      "nodeId": "N_FLOOR_1_GOBLIN_CAVERNS",
+      "stationing": {
+        "mode": "node",
+        "nodeId": "N_FLOOR_1_GOBLIN_CAVERNS",
+        "edgeKey": null,
+        "roamingScope": "stationary_lair"
+      },
+      "relationalLinks": {
+        "nodes": [
+          {
+            "nodeId": "N_FLOOR_1_GOBLIN_CAVERNS",
+            "role": "primary_lair"
+          }
+        ],
+        "quests": [
+          {
+            "questId": "Q_M1_the_midnight_porch_the_descent_into_cold_iron",
+            "role": "target_objective"
+          }
+        ],
+        "factions": [
+          {
+            "factionId": "fac_goblin_hordes",
+            "stance": "war_beast_mount"
+          }
+        ],
+        "items": [
+          {
+            "itemId": "ITM_ENCHANTED_PINK_CROCS",
+            "relationship": "ingested_relic"
+          }
+        ],
+        "ecologicalFoodWeb": []
+      },
+      "isCustom": true
+    },
+    {
+      "id": "dcc_sewer_rat_swarm",
+      "name": "Subterranean Pack Rat Swarm",
+      "kind": "beast",
+      "subtype": "Plague Swarm",
+      "size": "Small",
+      "threatTier": 1,
+      "summary": "Ravenous aggressive sewer rodents hunting along flooded conduit pipes.",
+      "relativeCapabilities": {
+        "might": 1,
+        "agility": 4,
+        "resilience": 2,
+        "cunning": 1,
+        "awareness": 3,
+        "presence": 1
+      },
+      "senses": {
+        "vision": "darkvision",
+        "special": [
+          "olfactory_tracking"
+        ],
+        "blindspots": "Rear approach obscured by swarming bodies."
+      },
+      "locomotion": {
+        "primary": "walk",
+        "secondary": [
+          "climb",
+          "swim_surface"
+        ],
+        "terrainAffinities": [
+          "slime pipes",
+          "sewers"
+        ]
+      },
+      "defenses": {
+        "armorType": "soft fur",
+        "immunities": [],
+        "resistances": [
+          "bludgeoning_single_target"
+        ],
+        "vulnerabilities": [
+          "area_fire",
+          "explosive_concussion"
+        ],
+        "anatomicalWeakSpots": [
+          "Dispersed completely by explosive shockwaves."
+        ]
+      },
+      "disposition": {
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 1
+        },
+        "odvTag": "[3, 1, 1]",
+        "cvfQuadrant": "Clan",
+        "ethologySummary": "Mass swarmer overwhelming lone crawlers through sheer numbers."
+      },
+      "gigerenzerBehavior": {
+        "dreadIndex": 2,
+        "dreadEffect": "Snaps at exposed toes and bare ankles, inflicting bleeding bites.",
+        "heuristicProfile": {
+          "strategy": "TAKE_THE_BEST",
+          "cueValidityHierarchy": [
+            "exposed_feet",
+            "open_flame"
+          ],
+          "stoppingRule": "Bite until target falls or fire is used."
+        },
+        "fastAndFrugalTree": {
+          "id": "tree_dcc_sewer_rat_swarm",
+          "name": "Subterranean Pack Rat Swarm Combat Behavior",
+          "cues": [
+            {
+              "label": "Does target lack armored boots?",
+              "exitDirection": "yes",
+              "exitAction": "SWARM_BARE_TOES",
+              "exitLabel": "Bite exposed toes"
+            },
+            {
+              "label": "Is target wielding fire?",
+              "exitDirection": "yes",
+              "exitAction": "SCATTER_TO_WATER",
+              "exitLabel": "Dive into murky water"
+            }
+          ],
+          "defaultExit": {
+            "action": "NIP_HEELS",
+            "label": "Nip at ankles"
+          }
+        }
+      },
+      "signatureActions": [
+        {
+          "name": "Rabid Gnaw",
+          "trigger": "Surrounds target",
+          "effect": "Continuous puncture damage to legs.",
+          "severity": "Dangerous"
+        }
+      ],
+      "psychologyAndFolklore": {
+        "instinctiveQuirks": [
+          "Obsessed with bare human feet in the cold."
+        ],
+        "primaryDrive": "primal_hunger",
+        "moraleThreshold": "cowardly",
+        "spoorAndSigns": [
+          "Gnawed boots",
+          "small muddy tracks"
+        ],
+        "vocalizations": [
+          "High-pitched chittering and splashing."
+        ],
+        "vernacularFolklore": [
+          "Keep your socks dry and your shoes tied."
+        ]
+      },
+      "harvest": {
+        "harvestYields": [],
+        "domesticationProfile": "untameable"
+      },
+      "nodeId": "N_WORLD_DUNGEON_ENTRANCE",
+      "stationing": {
+        "mode": "node",
+        "nodeId": "N_WORLD_DUNGEON_ENTRANCE",
+        "edgeKey": null,
+        "roamingScope": "stationary_lair"
+      },
+      "relationalLinks": {
+        "nodes": [
+          {
+            "nodeId": "N_WORLD_DUNGEON_ENTRANCE",
+            "role": "primary_lair"
+          }
+        ],
+        "quests": [
+          {
+            "questId": "Q_M1_the_midnight_porch_the_descent_into_cold_iron",
+            "role": "target_objective"
+          }
+        ],
+        "factions": [
+          {
+            "factionId": "fac_goblin_hordes",
+            "stance": "war_beast_mount"
+          }
+        ],
+        "items": [
+          {
+            "itemId": "ITM_ENCHANTED_PINK_CROCS",
+            "relationship": "ingested_relic"
+          }
+        ],
+        "ecologicalFoodWeb": []
+      },
+      "isCustom": true
+    },
+    {
+      "id": "dcc_acid_slime",
+      "name": "Caustic Highway Ooze",
+      "kind": "aberration",
+      "subtype": "Acid Slime",
+      "size": "Large",
+      "threatTier": 2,
+      "summary": "Undulating puddle of fluorescent acidic waste filling the Floor 2 highway lanes.",
+      "relativeCapabilities": {
+        "might": 3,
+        "agility": 1,
+        "resilience": 4,
+        "cunning": 1,
+        "awareness": 2,
+        "presence": 1
+      },
+      "senses": {
+        "vision": "blindsight",
+        "special": [
+          "tremorsense"
+        ],
+        "blindspots": "No true vision; senses only vibrations."
+      },
+      "locomotion": {
+        "primary": "walk",
+        "secondary": [
+          "swim_surface"
+        ],
+        "terrainAffinities": [
+          "flooded asphalt",
+          "sewage basins"
+        ]
+      },
+      "defenses": {
+        "armorType": "amorphous protoplasm",
+        "immunities": [],
+        "resistances": [
+          "slashing_weapons",
+          "piercing_weapons"
+        ],
+        "vulnerabilities": [
+          "alkaline_powder",
+          "cold_freezing"
+        ],
+        "anatomicalWeakSpots": [
+          "Central nucleus can be dissolved with chemical neutralizer."
+        ]
+      },
+      "disposition": {
+        "odv": {
+          "s": 1,
+          "e": 1,
+          "c": 1
+        },
+        "odvTag": "[1, 1, 1]",
+        "cvfQuadrant": "Hierarchy",
+        "ethologySummary": "Mindless predatory protoplasm digesting organic matter and civilian gear."
+      },
+      "gigerenzerBehavior": {
+        "dreadIndex": 3,
+        "dreadEffect": "Dissolves boots, tires, and flesh on direct contact.",
+        "heuristicProfile": {
+          "strategy": "TAKE_THE_BEST",
+          "cueValidityHierarchy": [
+            "vibration_on_surface",
+            "concussive_blast"
+          ],
+          "stoppingRule": "Dissolve until matter is liquified."
+        },
+        "fastAndFrugalTree": {
+          "id": "tree_dcc_acid_slime",
+          "name": "Caustic Highway Ooze Combat Behavior",
+          "cues": [
+            {
+              "label": "Is organic matter stepping in puddle?",
+              "exitDirection": "yes",
+              "exitAction": "ENGULF_FOOTWEAR",
+              "exitLabel": "Engulf and dissolve footwear"
+            },
+            {
+              "label": "Did an explosion occur nearby?",
+              "exitDirection": "yes",
+              "exitAction": "SPLATTER_AND_REFORM",
+              "exitLabel": "Splatter across walls"
+            }
+          ],
+          "defaultExit": {
+            "action": "OOZE_FORWARD",
+            "label": "Creep toward nearest heat source"
+          }
+        }
+      },
+      "signatureActions": [
+        {
+          "name": "Caustic Wash",
+          "trigger": "Steps onto slime",
+          "effect": "Acidic degradation destroying footwear and inflicting burns.",
+          "severity": "Dangerous"
+        }
+      ],
+      "psychologyAndFolklore": {
+        "instinctiveQuirks": [
+          "Flows toward open drain grates."
+        ],
+        "primaryDrive": "primal_hunger",
+        "moraleThreshold": "fearless",
+        "spoorAndSigns": [
+          "Sizzling pavement",
+          "dissolved rubber soles"
+        ],
+        "vocalizations": [
+          "Wet popping bubbles and hissing fumes."
+        ],
+        "vernacularFolklore": [
+          "Never step into glowing puddles without enchanted rubber."
+        ]
+      },
+      "harvest": {
+        "harvestYields": [],
+        "domesticationProfile": "untameable"
+      },
+      "nodeId": "N_FLOOR_2_OVERSPILL",
+      "stationing": {
+        "mode": "node",
+        "nodeId": "N_FLOOR_2_OVERSPILL",
+        "edgeKey": null,
+        "roamingScope": "stationary_lair"
+      },
+      "relationalLinks": {
+        "nodes": [
+          {
+            "nodeId": "N_FLOOR_2_OVERSPILL",
+            "role": "primary_lair"
+          }
+        ],
+        "quests": [
+          {
+            "questId": "Q_M1_the_midnight_porch_the_descent_into_cold_iron",
+            "role": "target_objective"
+          }
+        ],
+        "factions": [
+          {
+            "factionId": "fac_goblin_hordes",
+            "stance": "war_beast_mount"
+          }
+        ],
+        "items": [
+          {
+            "itemId": "ITM_ENCHANTED_PINK_CROCS",
+            "relationship": "ingested_relic"
+          }
+        ],
+        "ecologicalFoodWeb": []
+      },
+      "isCustom": true
+    },
+    {
+      "id": "dcc_borant_drone",
+      "name": "Borant Disinfection Cleanup Drone",
+      "kind": "construct",
+      "subtype": "Security Drone",
+      "size": "Small",
+      "threatTier": 2,
+      "summary": "Hovering metallic spheroid deploying high-intensity disintegrator beams against unregistered humans.",
+      "relativeCapabilities": {
+        "might": 1,
+        "agility": 4,
+        "resilience": 3,
+        "cunning": 3,
+        "awareness": 4,
+        "presence": 2
+      },
+      "senses": {
+        "vision": "thermal_infrared",
+        "special": [
+          "mana_resonance"
+        ],
+        "blindspots": "Direct underside sensory blindspot."
+      },
+      "locomotion": {
+        "primary": "fly_hover",
+        "secondary": [],
+        "terrainAffinities": [
+          "open surface ruins",
+          "skylight shafts"
+        ]
+      },
+      "defenses": {
+        "armorType": "dura-ceramic plating",
+        "immunities": [],
+        "resistances": [
+          "corrosive_acid"
+        ],
+        "vulnerabilities": [
+          "emp_discharge",
+          "blunt_crushing"
+        ],
+        "anatomicalWeakSpots": [
+          "Top-mounted repulsor disc."
+        ]
+      },
+      "disposition": {
+        "odv": {
+          "s": 1,
+          "e": 3,
+          "c": 4
+        },
+        "odvTag": "[1, 3, 4]",
+        "cvfQuadrant": "Adhocracy",
+        "ethologySummary": "Automated municipal cleanup unit programmed to sanitize terrestrial debris."
+      },
+      "gigerenzerBehavior": {
+        "dreadIndex": 3,
+        "dreadEffect": "Fires searing laser beams, setting clothing and shelters ablaze.",
+        "heuristicProfile": {
+          "strategy": "TAKE_THE_BEST",
+          "cueValidityHierarchy": [
+            "unregistered_biometric",
+            "heavy_incoming_fire"
+          ],
+          "stoppingRule": "Sanitize until biometric signatures cease."
+        },
+        "fastAndFrugalTree": {
+          "id": "tree_dcc_borant_drone",
+          "name": "Borant Disinfection Cleanup Drone Combat Behavior",
+          "cues": [
+            {
+              "label": "Does target lack syndicate crawler tag?",
+              "exitDirection": "yes",
+              "exitAction": "DISINFECTION_LASER",
+              "exitLabel": "Fire sterilization beam"
+            },
+            {
+              "label": "Is chassis taking kinetic damage?",
+              "exitDirection": "yes",
+              "exitAction": "ENGAGE_THRUSTERS",
+              "exitLabel": "Elevate out of reach"
+            }
+          ],
+          "defaultExit": {
+            "action": "SCAN_COORDINATES",
+            "label": "Transmit crawler telemetry to Syndicate"
+          }
+        }
+      },
+      "signatureActions": [
+        {
+          "name": "Sterilization Ray",
+          "trigger": "Locks biometric crosshair",
+          "effect": "High-heat plasma beam inflicting thermal burns.",
+          "severity": "Dangerous"
+        }
+      ],
+      "psychologyAndFolklore": {
+        "instinctiveQuirks": [
+          "Beeps cheerfully before firing lethal rays."
+        ],
+        "primaryDrive": "subservient_programming",
+        "moraleThreshold": "fearless",
+        "spoorAndSigns": [
+          "Scorched snow patches",
+          "smoldering rubble"
+        ],
+        "vocalizations": [
+          "Pre-recorded robotic broadcast chimes."
+        ],
+        "vernacularFolklore": [
+          "Throw a coat over its scanner and smash it with a crowbar."
+        ]
+      },
+      "harvest": {
+        "harvestYields": [],
+        "domesticationProfile": "untameable"
+      },
+      "nodeId": "N_SURFACE_COLLAPSE",
+      "stationing": {
+        "mode": "node",
+        "nodeId": "N_SURFACE_COLLAPSE",
+        "edgeKey": null,
+        "roamingScope": "stationary_lair"
+      },
+      "relationalLinks": {
+        "nodes": [
+          {
+            "nodeId": "N_SURFACE_COLLAPSE",
+            "role": "primary_lair"
+          }
+        ],
+        "quests": [
+          {
+            "questId": "Q_M1_the_midnight_porch_the_descent_into_cold_iron",
+            "role": "target_objective"
+          }
+        ],
+        "factions": [
+          {
+            "factionId": "fac_borant_corporation",
+            "stance": "war_beast_mount"
+          }
+        ],
+        "items": [
+          {
+            "itemId": "ITM_ENCHANTED_PINK_CROCS",
+            "relationship": "ingested_relic"
+          }
+        ],
+        "ecologicalFoodWeb": []
+      },
+      "isCustom": true
+    },
+    {
+      "id": "dcc_cavern_lava_toad",
+      "name": "Cavern Magma Toad",
+      "kind": "beast",
+      "subtype": "Fire Amphibian",
+      "size": "Medium",
+      "threatTier": 2,
+      "summary": "Bulbous subterranean toad nesting in Kraz's discarded chemical runoff pools.",
+      "relativeCapabilities": {
+        "might": 3,
+        "agility": 3,
+        "resilience": 3,
+        "cunning": 1,
+        "awareness": 2,
+        "presence": 2
+      },
+      "senses": {
+        "vision": "thermal_infrared",
+        "special": [
+          "tremorsense"
+        ],
+        "blindspots": "Direct blind zone beneath gullet."
+      },
+      "locomotion": {
+        "primary": "walk",
+        "secondary": [
+          "swim_surface"
+        ],
+        "terrainAffinities": [
+          "chemical mud",
+          "lava vents"
+        ]
+      },
+      "defenses": {
+        "armorType": "blistered volcanic hide",
+        "immunities": [],
+        "resistances": [],
+        "vulnerabilities": [
+          "freezing_cold",
+          "piercing_strike"
+        ],
+        "anatomicalWeakSpots": [
+          "Throat sac swells massively before spitting phlegm."
+        ]
+      },
+      "disposition": {
+        "odv": {
+          "s": 2,
+          "e": 1,
+          "c": 1
+        },
+        "odvTag": "[2, 1, 1]",
+        "cvfQuadrant": "Hierarchy",
+        "ethologySummary": "Explosive territorial amphibian defending warm alchemical sumps."
+      },
+      "gigerenzerBehavior": {
+        "dreadIndex": 3,
+        "dreadEffect": "Detonates in a 10ft shower of scalding acidic bile upon death.",
+        "heuristicProfile": {
+          "strategy": "TAKE_THE_BEST",
+          "cueValidityHierarchy": [
+            "intruder_near_sump",
+            "lethal_damage_taken"
+          ],
+          "stoppingRule": "Spit until target leaves pool."
+        },
+        "fastAndFrugalTree": {
+          "id": "tree_dcc_cavern_lava_toad",
+          "name": "Cavern Magma Toad Combat Behavior",
+          "cues": [
+            {
+              "label": "Is target approaching chemical pool?",
+              "exitDirection": "yes",
+              "exitAction": "SPIT_BURNING_BILE",
+              "exitLabel": "Spit burning glob"
+            },
+            {
+              "label": "Has toad suffered fatal wound?",
+              "exitDirection": "yes",
+              "exitAction": "CORPSE_BURST",
+              "exitLabel": "Rupture in acidic blast"
+            }
+          ],
+          "defaultExit": {
+            "action": "HOP_TO_SAFETY",
+            "label": "Leap back into mud"
+          }
+        }
+      },
+      "signatureActions": [
+        {
+          "name": "Bile Eruption",
+          "trigger": "Killed in melee",
+          "effect": "Explodes in 10ft radius scalding acid spray.",
+          "severity": "Dangerous"
+        }
+      ],
+      "psychologyAndFolklore": {
+        "instinctiveQuirks": [
+          "Bloats up and turns cherry-red when angry."
+        ],
+        "primaryDrive": "territorial_defense",
+        "moraleThreshold": "stubborn",
+        "spoorAndSigns": [
+          "Steaming sulfuric slime puddles"
+        ],
+        "vocalizations": [
+          "Deep bass thrumming croaks."
+        ],
+        "vernacularFolklore": [
+          "Kill it from range, or get showered in boiling stomach acid."
+        ]
+      },
+      "harvest": {
+        "harvestYields": [],
+        "domesticationProfile": "untameable"
+      },
+      "nodeId": "N_KRAZ_WORKSHOP",
+      "stationing": {
+        "mode": "node",
+        "nodeId": "N_KRAZ_WORKSHOP",
+        "edgeKey": null,
+        "roamingScope": "stationary_lair"
+      },
+      "relationalLinks": {
+        "nodes": [
+          {
+            "nodeId": "N_KRAZ_WORKSHOP",
+            "role": "primary_lair"
+          }
+        ],
+        "quests": [
+          {
+            "questId": "Q_M6_raiding_kraz_the_fertilizer_blast",
+            "role": "target_objective"
+          }
+        ],
+        "factions": [
+          {
+            "factionId": "fac_goblin_hordes",
+            "stance": "war_beast_mount"
+          }
+        ],
+        "items": [
+          {
+            "itemId": "ITM_ENCHANTED_PINK_CROCS",
+            "relationship": "ingested_relic"
+          }
+        ],
+        "ecologicalFoodWeb": []
+      },
+      "isCustom": true
+    },
+    {
+      "id": "dcc_electric_sewer_slug",
+      "name": "Giant Electric Sewer Slug",
+      "kind": "beast",
+      "subtype": "Giant Mollusk",
+      "size": "Large",
+      "threatTier": 3,
+      "summary": "Bioluminescent bloated slug generating bio-electric shocks across flooded subway tracks.",
+      "relativeCapabilities": {
+        "might": 4,
+        "agility": 1,
+        "resilience": 4,
+        "cunning": 1,
+        "awareness": 2,
+        "presence": 2
+      },
+      "senses": {
+        "vision": "low_light",
+        "special": [
+          "electroreception"
+        ],
+        "blindspots": "Cannot see above waterline."
+      },
+      "locomotion": {
+        "primary": "walk",
+        "secondary": [
+          "swim_surface"
+        ],
+        "terrainAffinities": [
+          "flooded railway beds",
+          "sewer sumps"
+        ]
+      },
+      "defenses": {
+        "armorType": "insulated slime membrane",
+        "immunities": [],
+        "resistances": [
+          "electrical_shocks"
+        ],
+        "vulnerabilities": [
+          "desiccating_salt",
+          "kinetic_crush"
+        ],
+        "anatomicalWeakSpots": [
+          "Central sensory dorsal tentacles."
+        ]
+      },
+      "disposition": {
+        "odv": {
+          "s": 1,
+          "e": 1,
+          "c": 1
+        },
+        "odvTag": "[1, 1, 1]",
+        "cvfQuadrant": "Hierarchy",
+        "ethologySummary": "Lurking aquatic predator hunting via electrical pulses in flooded subway lines."
+      },
+      "gigerenzerBehavior": {
+        "dreadIndex": 4,
+        "dreadEffect": "Sends 50,000 volt shockwaves through standing water.",
+        "heuristicProfile": {
+          "strategy": "TAKE_THE_BEST",
+          "cueValidityHierarchy": [
+            "target_in_water",
+            "target_on_dry_platform"
+          ],
+          "stoppingRule": "Shock until movement stops."
+        },
+        "fastAndFrugalTree": {
+          "id": "tree_dcc_electric_sewer_slug",
+          "name": "Giant Electric Sewer Slug Combat Behavior",
+          "cues": [
+            {
+              "label": "Is target standing in the floodwater?",
+              "exitDirection": "yes",
+              "exitAction": "DISCHARGE_WATER_SURGE",
+              "exitLabel": "Discharge galvanic wave"
+            },
+            {
+              "label": "Has target climbed onto dry concrete?",
+              "exitDirection": "yes",
+              "exitAction": "SLIME_LUNGE",
+              "exitLabel": "Lunge with barbed radula"
+            }
+          ],
+          "defaultExit": {
+            "action": "RECHARGE_CAPACITORS",
+            "label": "Accumulate electric voltage"
+          }
+        }
+      },
+      "signatureActions": [
+        {
+          "name": "Galvanic Shockwave",
+          "trigger": "Water contact",
+          "effect": "Stuns and burns all creatures standing in water.",
+          "severity": "Dangerous"
+        }
+      ],
+      "psychologyAndFolklore": {
+        "instinctiveQuirks": [
+          "Glows pulsing neon blue before discharging."
+        ],
+        "primaryDrive": "primal_hunger",
+        "moraleThreshold": "fearless",
+        "spoorAndSigns": [
+          "Floating dead fish",
+          "scorched iron railway rails"
+        ],
+        "vocalizations": [
+          "Electrical buzzing hum."
+        ],
+        "vernacularFolklore": [
+          "Never step off the dry concrete platform into subway water."
+        ]
+      },
+      "harvest": {
+        "harvestYields": [],
+        "domesticationProfile": "untameable"
+      },
+      "nodeId": "N_SUBWAY_SLIME_TUNNELS",
+      "stationing": {
+        "mode": "node",
+        "nodeId": "N_SUBWAY_SLIME_TUNNELS",
+        "edgeKey": null,
+        "roamingScope": "stationary_lair"
+      },
+      "relationalLinks": {
+        "nodes": [
+          {
+            "nodeId": "N_SUBWAY_SLIME_TUNNELS",
+            "role": "primary_lair"
+          }
+        ],
+        "quests": [
+          {
+            "questId": "Q_M1_the_midnight_porch_the_descent_into_cold_iron",
+            "role": "target_objective"
+          }
+        ],
+        "factions": [
+          {
+            "factionId": "fac_goblin_hordes",
+            "stance": "war_beast_mount"
+          }
+        ],
+        "items": [
+          {
+            "itemId": "ITM_ENCHANTED_PINK_CROCS",
+            "relationship": "ingested_relic"
+          }
+        ],
+        "ecologicalFoodWeb": []
+      },
+      "isCustom": true
+    },
+    {
+      "id": "dcc_the_hoarder",
+      "name": "The Hoarder",
+      "kind": "aberration",
+      "subtype": "Composite Colossus",
+      "size": "Huge",
+      "threatTier": 4,
+      "summary": "Towering undulating mass of acidic gelatin studded with school lockers, skeletons, and explosive scrap.",
+      "relativeCapabilities": {
+        "might": 5,
+        "agility": 2,
+        "resilience": 5,
+        "cunning": 2,
+        "awareness": 3,
+        "presence": 5
+      },
+      "senses": {
+        "vision": "blindsight",
+        "special": [
+          "tremorsense"
+        ],
+        "blindspots": "Direct rear folds where debris blocks sensory jelly."
+      },
+      "locomotion": {
+        "primary": "walk",
+        "secondary": [],
+        "terrainAffinities": [
+          "bone vaults",
+          "dungeon gateways"
+        ]
+      },
+      "defenses": {
+        "armorType": "scrap metal and bone shell",
+        "immunities": [],
+        "resistances": [
+          "piercing_weapons",
+          "slashing_weapons"
+        ],
+        "vulnerabilities": [
+          "internal_fuel_detonations",
+          "concentrated_fire"
+        ],
+        "anatomicalWeakSpots": [
+          "Central fuel drum core encased deep inside protoplasm."
+        ]
+      },
+      "disposition": {
+        "odv": {
+          "s": 3,
+          "e": 1,
+          "c": 2
+        },
+        "odvTag": "[3, 1, 2]",
+        "cvfQuadrant": "Clan",
+        "ethologySummary": "Greedy gluttonous monstrosity absorbing everything in Floor 2 to feed its mass."
+      },
+      "gigerenzerBehavior": {
+        "dreadIndex": 5,
+        "dreadEffect": "Sweeps entire parties into its gelatinous stomach, stripping armor instantly.",
+        "heuristicProfile": {
+          "strategy": "TAKE_THE_BEST",
+          "cueValidityHierarchy": [
+            "crawlers_grouped",
+            "bombs_attached"
+          ],
+          "stoppingRule": "Absorb all living organic matter."
+        },
+        "fastAndFrugalTree": {
+          "id": "tree_dcc_the_hoarder",
+          "name": "The Hoarder Combat Behavior",
+          "cues": [
+            {
+              "label": "Are crawlers grouped within pseudopod reach?",
+              "exitDirection": "yes",
+              "exitAction": "TITANIC_SLIME_SLAM",
+              "exitLabel": "Slam heavy debris pseudopod"
+            },
+            {
+              "label": "Are explosive charges burning inside body?",
+              "exitDirection": "yes",
+              "exitAction": "THRASH_AND_DEVOUR",
+              "exitLabel": "Rage and sweep arena"
+            }
+          ],
+          "defaultExit": {
+            "action": "ENGULF_LIVING_MATTER",
+            "label": "Draw prey into acidic digestive interior"
+          }
+        }
+      },
+      "signatureActions": [
+        {
+          "name": "Digestive Engulf",
+          "trigger": "Pseudopod grab",
+          "effect": "Pulls target inside body cavity, dealing heavy acid damage each round.",
+          "severity": "Lethal"
+        }
+      ],
+      "psychologyAndFolklore": {
+        "instinctiveQuirks": [
+          "Involuntarily collects shiny metal lockers and weapon caches."
+        ],
+        "primaryDrive": "curiosity_kleptomania",
+        "moraleThreshold": "stubborn",
+        "spoorAndSigns": [
+          "Massive slimy trenches",
+          "crushed filing cabinets"
+        ],
+        "vocalizations": [
+          "Gurgling sludge and rattling rusted iron lockers."
+        ],
+        "vernacularFolklore": [
+          "Feed it high explosives from the inside, or get digested."
+        ]
+      },
+      "harvest": {
+        "harvestYields": [],
+        "domesticationProfile": "untameable"
+      },
+      "nodeId": "N_HOARDER_GRAVE_LAIR",
+      "stationing": {
+        "mode": "node",
+        "nodeId": "N_HOARDER_GRAVE_LAIR",
+        "edgeKey": null,
+        "roamingScope": "stationary_lair"
+      },
+      "relationalLinks": {
+        "nodes": [
+          {
+            "nodeId": "N_HOARDER_GRAVE_LAIR",
+            "role": "primary_lair"
+          }
+        ],
+        "quests": [
+          {
+            "questId": "Q_M1_the_midnight_porch_the_descent_into_cold_iron",
+            "role": "target_objective"
+          }
+        ],
+        "factions": [
+          {
+            "factionId": "fac_goblin_hordes",
+            "stance": "war_beast_mount"
+          }
+        ],
+        "items": [
+          {
+            "itemId": "ITM_ENCHANTED_PINK_CROCS",
+            "relationship": "ingested_relic"
+          }
+        ],
+        "ecologicalFoodWeb": []
+      },
+      "isCustom": true
+    },
+    {
+      "id": "dcc_broadcast_camera_drone",
+      "name": "Syndicate Broadcast Tracking Drone",
+      "kind": "construct",
+      "subtype": "Surveillance Drone",
+      "size": "Tiny",
+      "threatTier": 1,
+      "summary": "Hovering camera orb feeding high-definition live feeds of crawler deaths to galactic audiences.",
+      "relativeCapabilities": {
+        "might": 1,
+        "agility": 5,
+        "resilience": 2,
+        "cunning": 4,
+        "awareness": 5,
+        "presence": 3
+      },
+      "senses": {
+        "vision": "all_around_360",
+        "special": [
+          "mana_resonance"
+        ],
+        "blindspots": "Direct optical sensor can be blinded with paint or spray mud."
+      },
+      "locomotion": {
+        "primary": "fly_hover",
+        "secondary": [],
+        "terrainAffinities": [
+          "arena ceilings",
+          "corridor intersections"
+        ]
+      },
+      "defenses": {
+        "armorType": "poly-carbon shield",
+        "immunities": [],
+        "resistances": [],
+        "vulnerabilities": [
+          "thrown_rocks",
+          "blunt_impact"
+        ],
+        "anatomicalWeakSpots": [
+          "Central optical lens."
+        ]
+      },
+      "disposition": {
+        "odv": {
+          "s": 1,
+          "e": 4,
+          "c": 4
+        },
+        "odvTag": "[1, 4, 4]",
+        "cvfQuadrant": "Adhocracy",
+        "ethologySummary": "Autonomous sports broadcast unit tracking high-profile crawlers."
+      },
+      "gigerenzerBehavior": {
+        "dreadIndex": 2,
+        "dreadEffect": "Illuminates hiding crawlers with stadium floodlights to provoke monster attacks.",
+        "heuristicProfile": {
+          "strategy": "TAKE_THE_BEST",
+          "cueValidityHierarchy": [
+            "combat_escalating",
+            "crawler_threatening_lens"
+          ],
+          "stoppingRule": "Keep filming until crawler dies or stage clears."
+        },
+        "fastAndFrugalTree": {
+          "id": "tree_dcc_broadcast_camera_drone",
+          "name": "Syndicate Broadcast Tracking Drone Combat Behavior",
+          "cues": [
+            {
+              "label": "Is a high-stakes battle occurring?",
+              "exitDirection": "yes",
+              "exitAction": "ZOOM_IN_AND_FLOODLIGHT",
+              "exitLabel": "Turn on high-intensity floodlight"
+            },
+            {
+              "label": "Is crawler aiming weapon at drone?",
+              "exitDirection": "yes",
+              "exitAction": "EVASIVE_THRUST",
+              "exitLabel": "Dart backward up to ceiling"
+            }
+          ],
+          "defaultExit": {
+            "action": "HOVER_AND_TRANSMIT",
+            "label": "Stream live feed to galactic network"
+          }
+        }
+      },
+      "signatureActions": [
+        {
+          "name": "Spotlight Ambush",
+          "trigger": "Crawler attempting stealth",
+          "effect": "Blinds crawler and alerts all monsters in 60ft.",
+          "severity": "Dangerous"
+        }
+      ],
+      "psychologyAndFolklore": {
+        "instinctiveQuirks": [
+          "Plays upbeat commercial sponsorship jingles during brutal massacres."
+        ],
+        "primaryDrive": "subservient_programming",
+        "moraleThreshold": "prudent",
+        "spoorAndSigns": [
+          "Floating red recording lights in the dark"
+        ],
+        "vocalizations": [
+          "Chirps, whirs, and cheerful sponsor ad clips."
+        ],
+        "vernacularFolklore": [
+          "Give the audience a good show, or the drone will spotlight you for the goblins."
+        ]
+      },
+      "harvest": {
+        "harvestYields": [],
+        "domesticationProfile": "untameable"
+      },
+      "nodeId": "N_FLOOR_2_EXIT_GATE",
+      "stationing": {
+        "mode": "node",
+        "nodeId": "N_FLOOR_2_EXIT_GATE",
+        "edgeKey": null,
+        "roamingScope": "stationary_lair"
+      },
+      "relationalLinks": {
+        "nodes": [
+          {
+            "nodeId": "N_FLOOR_2_EXIT_GATE",
+            "role": "primary_lair"
+          }
+        ],
+        "quests": [
+          {
+            "questId": "Q_M7_the_broadcast_economy_odette_s_deal",
+            "role": "target_objective"
+          }
+        ],
+        "factions": [
+          {
+            "factionId": "fac_the_syndicate",
+            "stance": "war_beast_mount"
+          }
+        ],
+        "items": [
+          {
+            "itemId": "ITM_ENCHANTED_PINK_CROCS",
+            "relationship": "ingested_relic"
+          }
+        ],
+        "ecologicalFoodWeb": []
+      },
+      "isCustom": true
+    }
+  ],
+  "creatureEvidence": {},
+  "trackers": [
+    {
+      "id": "TRK_FLOOR_1_COLLAPSE",
+      "name": "Floor 1 Ceiling Piston Collapse Countdown",
+      "scopeTier": "settlement",
+      "maxTicks": 5,
+      "currentTicks": 1,
+      "showOnCanvas": true,
+      "nodeId": "N_FLOOR_1_DESCENT_STAIRWELL",
+      "triggerRefs": [
+        {
+          "entityType": "quest",
+          "entityId": "Q_M4_the_floor_1_collapse_countdown"
+        },
+        {
+          "entityType": "npc",
+          "entityId": "npc_the_dungeon_ai"
+        }
+      ],
+      "notes": "Tracks the 5-day deadline before hydraulic ceiling pistons crush Floor 1 into flat stone.",
+      "submapId": "map_dcc_floor1"
+    },
+    {
+      "id": "TRK_BROADCAST_RATINGS",
+      "name": "Galactic Viewer Engagement & Sponsor Metrics",
+      "scopeTier": "world",
+      "maxTicks": 10,
+      "currentTicks": 3,
+      "showOnCanvas": true,
+      "nodeId": "N_FLOOR_2_EXIT_GATE",
+      "triggerRefs": [
+        {
+          "entityType": "npc",
+          "entityId": "npc_odette"
+        },
+        {
+          "entityType": "npc",
+          "entityId": "npc_hrh_princess_donut"
+        },
+        {
+          "entityType": "quest",
+          "entityId": "Q_M7_the_broadcast_economy_odette_s_deal"
+        }
+      ],
+      "notes": "Measures crawler celebrity rating, unlocking higher tier sponsor delivery crates.",
+      "submapId": "map_dcc_floor2"
+    },
+    {
+      "id": "TRK_MEADOWLARK_CASUALTIES",
+      "name": "Meadowlark Survivor Casualties & Morale",
+      "scopeTier": "settlement",
+      "maxTicks": 6,
+      "currentTicks": 0,
+      "showOnCanvas": true,
+      "nodeId": "N_MEADOWLARK_CAMP",
+      "triggerRefs": [
+        {
+          "entityType": "npc",
+          "entityId": "npc_katia"
+        },
+        {
+          "entityType": "quest",
+          "entityId": "Q_M5_the_meadowlark_traitors_frank_maggie"
+        }
+      ],
+      "notes": "Tracks losses among the elderly and civilian survivors of the Meadowlark home.",
+      "submapId": "map_dcc_floor2"
+    },
+    {
+      "id": "TRK_HOARDER_MASS",
+      "name": "The Hoarder's Acidic Biomass Accumulation",
+      "scopeTier": "settlement",
+      "maxTicks": 8,
+      "currentTicks": 2,
+      "showOnCanvas": true,
+      "nodeId": "N_HOARDER_GRAVE_LAIR",
+      "triggerRefs": [
+        {
+          "entityType": "quest",
+          "entityId": "Q_M6_raiding_kraz_the_fertilizer_blast"
+        }
+      ],
+      "notes": "Measures the physical size and attack count of the boss as it absorbs corpses.",
+      "submapId": "map_dcc_floor2"
+    }
+  ],
+  "tickets": [],
+  "factions": [
+    {
+      "id": "fac_royal_court_donut",
+      "name": "The Royal Court of Princess Donut",
+      "cvfQuadrant": "Adhocracy",
+      "colorIdentity": "R",
+      "odv": {
+        "s": 2,
+        "e": 4,
+        "c": 1
+      },
+      "opProfile": "Defiant Insurgency",
+      "reach": "World",
+      "force": "High",
+      "wealth": "Low",
+      "secrecy": "Low",
+      "headquartersNodeId": "N_FLOOR_1_TUTORIAL_GUILD",
+      "leaderNpcId": "npc_hrh_princess_donut",
+      "description": "The premier crawler duo formed by Carl and HRH Princess Donut, dedicated to surviving the crawl and humiliating the Syndicate showrunners.",
+      "memberNpcIds": [
+        "npc_carl_crawler_11_214",
+        "npc_hrh_princess_donut"
+      ],
+      "controlledNodeIds": [
+        "N_FLOOR_1_TUTORIAL_GUILD"
+      ],
+      "territoryNodeIds": [
+        "N_FLOOR_1_TUTORIAL_GUILD"
+      ]
+    },
+    {
+      "id": "fac_borant_corporation",
+      "name": "Borant Corporation (Season 47 Showrunners)",
+      "cvfQuadrant": "Market",
+      "colorIdentity": "B",
+      "odv": {
+        "s": 3,
+        "e": 4,
+        "c": 4
+      },
+      "opProfile": "Ruthless Commercial Exploitation",
+      "reach": "World",
+      "force": "Extreme",
+      "wealth": "Extreme",
+      "secrecy": "Medium",
+      "headquartersNodeId": "N_SURFACE_COLLAPSE",
+      "leaderNpcId": "npc_the_dungeon_ai",
+      "description": "The ruthless interstellar corporation licensing Season 47, cutting maintenance corners to extract planetary wealth at maximum crawler mortality.",
+      "memberNpcIds": [
+        "npc_the_dungeon_ai"
+      ],
+      "controlledNodeIds": [
+        "N_SURFACE_COLLAPSE"
+      ],
+      "territoryNodeIds": [
+        "N_SURFACE_COLLAPSE"
+      ]
+    },
+    {
+      "id": "fac_the_syndicate",
+      "name": "The Galactic Syndicate",
+      "cvfQuadrant": "Hierarchy",
+      "colorIdentity": "W",
+      "odv": {
+        "s": 2,
+        "e": 2,
+        "c": 4
+      },
+      "opProfile": "Bureaucratic Imperialism",
+      "reach": "World",
+      "force": "Extreme",
+      "wealth": "Extreme",
+      "secrecy": "High",
+      "headquartersNodeId": "N_WORLD_DUNGEON_ENTRANCE",
+      "leaderNpcId": "npc_odette",
+      "description": "The overarching interstellar ruling body that codified the Indigenous Planetary Species Protection Act into an exploitative broadcast bloodsport.",
+      "memberNpcIds": [
+        "npc_odette"
+      ],
+      "controlledNodeIds": [
+        "N_WORLD_DUNGEON_ENTRANCE"
+      ],
+      "territoryNodeIds": [
+        "N_WORLD_DUNGEON_ENTRANCE"
+      ]
+    },
+    {
+      "id": "fac_meadowlark_survivors",
+      "name": "The Meadowlark Survivors",
+      "cvfQuadrant": "Clan",
+      "colorIdentity": "G",
+      "odv": {
+        "s": 4,
+        "e": 1,
+        "c": 2
+      },
+      "opProfile": "Communal Sanctuary Defense",
+      "reach": "Settlement",
+      "force": "Low",
+      "wealth": "Low",
+      "secrecy": "Low",
+      "headquartersNodeId": "N_MEADOWLARK_CAMP",
+      "leaderNpcId": "npc_katia",
+      "description": "Elderly and civilian survivors from the Seattle retirement facility who band together to protect their most vulnerable against countdown clocks.",
+      "memberNpcIds": [
+        "npc_katia",
+        "npc_frank_maggie_the_meadowlark_traitors",
+        "npc_brandon",
+        "npc_chris"
+      ],
+      "controlledNodeIds": [
+        "N_MEADOWLARK_CAMP"
+      ],
+      "territoryNodeIds": [
+        "N_MEADOWLARK_CAMP"
+      ]
+    },
+    {
+      "id": "fac_tutorial_guilds",
+      "name": "The Dungeon Tutorial Guilds",
+      "cvfQuadrant": "Hierarchy",
+      "colorIdentity": "U",
+      "odv": {
+        "s": 2,
+        "e": 2,
+        "c": 3
+      },
+      "opProfile": "Scholastic Indenture",
+      "reach": "World",
+      "force": "High",
+      "wealth": "Medium",
+      "secrecy": "Medium",
+      "headquartersNodeId": "N_FLOOR_1_TUTORIAL_GUILD",
+      "leaderNpcId": "npc_mordecai",
+      "description": "Neutral sanctuary outposts staffed by retired former crawlers serving indenture contracts, bound to train new survivors.",
+      "memberNpcIds": [
+        "npc_mordecai"
+      ],
+      "controlledNodeIds": [
+        "N_FLOOR_1_TUTORIAL_GUILD"
+      ],
+      "territoryNodeIds": [
+        "N_FLOOR_1_TUTORIAL_GUILD"
+      ]
+    },
+    {
+      "id": "fac_goblin_hordes",
+      "name": "The Floor Goblin Hordes",
+      "cvfQuadrant": "Clan",
+      "colorIdentity": "R",
+      "odv": {
+        "s": 3,
+        "e": 1,
+        "c": 3
+      },
+      "opProfile": "Territorial Pack Warfare",
+      "reach": "Settlement",
+      "force": "High",
+      "wealth": "Low",
+      "secrecy": "Low",
+      "headquartersNodeId": "N_FLOOR_1_GOBLIN_CAVERNS",
+      "leaderNpcId": "npc_kraz",
+      "description": "Indigenous dungeon humanoids spawned by the AI to build barricades, man siege engines, and slaughter low-tier crawlers.",
+      "memberNpcIds": [
+        "npc_kraz"
+      ],
+      "controlledNodeIds": [
+        "N_FLOOR_1_GOBLIN_CAVERNS"
+      ],
+      "territoryNodeIds": [
+        "N_FLOOR_1_GOBLIN_CAVERNS"
+      ]
+    }
+  ],
+  "custom_modules": [],
+  "deletedModules": [],
+  "deletedPrototypes": [],
+  "sourceType": "folder",
+  "directoryHandle": {},
+  "changelog": [],
+  "scaleTier": "site",
+  "spatialPins": [],
+  "modData": {},
+  "campaign_modules": [
+    "AGRI-SUGAR-01",
+    "AGRI-SUGAR-02",
+    "AGRI-SUGAR-03",
+    "EXT-ALUM-01",
+    "EXT-CLAY-01",
+    "EXT-FISH-01",
+    "EXT-FURS-01",
+    "EXT-GLASS-01",
+    "EXT-LIME-01",
+    "EXT-PINE-01",
+    "EXT-PORC-01",
+    "EXT-SALT-01",
+    "EXT-SALTPETER-01",
+    "EXT-TANNIN-01",
+    "EXT-TIMBER-01",
+    "EXT-WHALE-01",
+    "FARM-CATTLE-01",
+    "FARM-CORN-01",
+    "FARM-COTTON-01",
+    "FARM-FLAX-01",
+    "FARM-HEMP-01",
+    "FARM-INDIGO-01",
+    "FARM-OLIVE-01",
+    "FARM-RICE-01",
+    "FARM-SHEEP-01",
+    "FARM-SILK-01",
+    "FARM-SPICE-01",
+    "FARM-VINE-01",
+    "FARM-WHEAT-01",
+    "IND-APOTH-01",
+    "IND-BARGE-01",
+    "IND-BREW-01",
+    "IND-BREW-02",
+    "IND-BRONZE-01",
+    "IND-CANDLE-01",
+    "IND-CATTLE-02",
+    "IND-CATTLE-03",
+    "IND-CHARCOAL-01",
+    "IND-CLAY-02",
+    "IND-COPPER-02",
+    "IND-COPPER-03",
+    "IND-CORN-02",
+    "IND-CORN-03",
+    "IND-COTTON-02",
+    "IND-COTTON-03",
+    "IND-FISH-02",
+    "IND-FLAX-02",
+    "IND-FLAX-03",
+    "IND-FURS-02",
+    "IND-GLASS-02",
+    "IND-GOLD-02",
+    "IND-HEMP-02",
+    "IND-HEMP-03",
+    "IND-INDIGO-02",
+    "IND-IRON-03",
+    "IND-LEAD-01",
+    "IND-LIME-02",
+    "IND-LIME-03",
+    "IND-OLIVE-02",
+    "IND-OPTIC-01",
+    "IND-OPTIC-02",
+    "IND-PAPER-01",
+    "IND-PAPER-02",
+    "IND-PAPER-03",
+    "IND-PINE-02",
+    "IND-PORC-02",
+    "IND-POWDER-03",
+    "IND-RICE-02",
+    "IND-SALT-02",
+    "IND-SHEEP-02",
+    "IND-SHEEP-03",
+    "IND-SHIP-01",
+    "IND-SHIP-02",
+    "IND-SHIP-03",
+    "IND-SILK-02",
+    "IND-SILK-03",
+    "IND-SILVER-02",
+    "IND-SILVER-03",
+    "IND-SOAP-01",
+    "IND-SPICE-02",
+    "IND-STEEL-01",
+    "IND-TANNIN-02",
+    "IND-TIMBER-02",
+    "IND-TIMBER-03",
+    "IND-TIN-02",
+    "IND-VINE-02",
+    "IND-VINE-03",
+    "IND-WHALE-02",
+    "IND-WHEAT-02",
+    "IND-WHEAT-03",
+    "MINE-COAL-01",
+    "MINE-COPPER-01",
+    "MINE-GOLD-01",
+    "MINE-IRON-01",
+    "MINE-IRON-02",
+    "MINE-SILVER-01",
+    "MINE-SULFUR-02",
+    "MINE-TIN-01",
+    "CWT-020",
+    "CWT-021",
+    "CWT-022",
+    "CWT-023",
+    "CWT-024",
+    "CWT-025",
+    "T0-DOM-01",
+    "T0-DOM-02",
+    "T0-DOM-03",
+    "T0-DOM-04",
+    "T0-DOM-05",
+    "T0-DOM-06",
+    "T0-DOM-07",
+    "T0-DOM-08",
+    "CWT-010",
+    "CWT-011",
+    "CWT-012",
+    "CWT-013",
+    "CWT-014",
+    "CWT-015",
+    "CWT-030",
+    "CWT-031",
+    "CWT-032",
+    "CWT-033",
+    "CWT-034",
+    "CWT-040",
+    "CWT-041",
+    "CWT-042",
+    "CWT-044",
+    "CWT-045",
+    "CWT-050",
+    "CWT-060",
+    "CWT-061",
+    "CWT-062",
+    "CWT-063",
+    "CWT-064",
+    "CWT-065",
+    "CWT-066",
+    "CWT-067",
+    "CWT-068",
+    "CWT-069",
+    "CWT-070",
+    "CWT-071",
+    "CWT-072",
+    "CWT-073",
+    "CWT-074",
+    "CWT-075",
+    "CWT-076",
+    "CWT-077",
+    "CWT-078",
+    "STARTER-02",
+    "STARTER-03",
+    "STARTER-04",
+    "STARTER-05",
+    "STARTER-06"
+  ],
+  "syncToken": "mw8ofbq3-o8owit9n"
 }

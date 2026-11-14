@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T2_VALLEY_TREES_S
 title: "MOD_T2_VALLEY_TREES_SOLACE: The Vallenwood Canopy of Solace"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "4717a58519cfa6b2"
-reviewed_hash: "4717a58519cfa6b2"
+current_hash: "97db70e3afa5911a"
+reviewed_hash: "97db70e3afa5911a"
 stale: false
-size_bytes: 3478
-line_count: 70
+size_bytes: 2345
+line_count: 46
 ---
 
 # MOD_T2_VALLEY_TREES_SOLACE: The Vallenwood Canopy of Solace

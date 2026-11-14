@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_KHAROLIS_WINTER_
 title: "MOD_T2_KHAROLIS_WINTER_PASSES: The Kharolis Blizzard Passes & Vitrified Skullcap"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "87619a43f81f830a"
-reviewed_hash: "87619a43f81f830a"
+current_hash: "1fe74cadcf4d2345"
+reviewed_hash: "1fe74cadcf4d2345"
 stale: false
-size_bytes: 3418
-line_count: 70
+size_bytes: 2327
+line_count: 46
 ---
 
 # MOD_T2_KHAROLIS_WINTER_PASSES: The Kharolis Blizzard Passes & Vitrified Skullcap

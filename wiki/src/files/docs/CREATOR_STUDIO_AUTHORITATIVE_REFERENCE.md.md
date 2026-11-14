@@ -3,10 +3,10 @@ file_path: "docs/CREATOR_STUDIO_AUTHORITATIVE_REFERENCE.md"
 title: "CREATOR STUDIO (WORKSTATION 2.5)"
 volume: "vol-8"
 kind: "Technical Documentation / Guide"
-current_hash: "9486aabeab40261f"
-reviewed_hash: "9486aabeab40261f"
+current_hash: "49a512fbf76fb76e"
+reviewed_hash: "49a512fbf76fb76e"
 stale: false
-size_bytes: 64694
+size_bytes: 64719
 line_count: 860
 ---
 

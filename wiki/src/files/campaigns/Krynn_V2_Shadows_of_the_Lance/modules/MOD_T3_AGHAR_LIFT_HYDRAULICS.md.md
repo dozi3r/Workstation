@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T3_AGHAR_LIFT_HY
 title: "MOD_T3_AGHAR_LIFT_HYDRAULICS: The Great Chain Lift & Express Chutes of Xak Tsaroth"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "85cb2305d22fc681"
-reviewed_hash: "85cb2305d22fc681"
+current_hash: "f4a13111554c15f9"
+reviewed_hash: "f4a13111554c15f9"
 stale: false
-size_bytes: 3392
-line_count: 70
+size_bytes: 2266
+line_count: 46
 ---
 
 # MOD_T3_AGHAR_LIFT_HYDRAULICS: The Great Chain Lift & Express Chutes of Xak Tsaroth

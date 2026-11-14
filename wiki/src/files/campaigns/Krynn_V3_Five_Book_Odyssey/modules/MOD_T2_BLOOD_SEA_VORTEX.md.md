@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T2_BLOOD_SEA_VORTEX
 title: "MOD_T2_BLOOD_SEA_VORTEX: The Blood Sea of Istar Maelstrom & Drowned Ruins"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "1da864287ebfd83f"
-reviewed_hash: "1da864287ebfd83f"
+current_hash: "c45ca578bc4f44f1"
+reviewed_hash: "c45ca578bc4f44f1"
 stale: false
-size_bytes: 3470
-line_count: 70
+size_bytes: 2321
+line_count: 46
 ---
 
 # MOD_T2_BLOOD_SEA_VORTEX: The Blood Sea of Istar Maelstrom & Drowned Ruins

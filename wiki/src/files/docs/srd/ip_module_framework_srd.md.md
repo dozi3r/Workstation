@@ -3,10 +3,10 @@ file_path: "docs/srd/ip_module_framework_srd.md"
 title: "IP Module Framework SRD"
 volume: "vol-2"
 kind: "System Reference Document (SRD)"
-current_hash: "f2829a06f73fe0b5"
-reviewed_hash: "f2829a06f73fe0b5"
+current_hash: "74d0354161cceb4b"
+reviewed_hash: "74d0354161cceb4b"
 stale: false
-size_bytes: 10693
+size_bytes: 10750
 line_count: 136
 ---
 

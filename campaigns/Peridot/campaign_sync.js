@@ -5,8 +5,8 @@
 window.__CS_LIVE_CAMPAIGNS__ = window.__CS_LIVE_CAMPAIGNS__ || {};
 window.__CS_LIVE_CAMPAIGNS__["peridot_isle"] = {
   folder: "peridot_isle",
-  syncToken: "mw4inxjn-0k4zkicp",
-  updatedAt: "2026-11-06T05:10:59.220Z",
+  syncToken: "mwfof7ib-myuk7k9w",
+  updatedAt: "2026-11-14T00:37:37.859Z",
   lastBatchId: null,
-  census: {"npcs":1,"quests":1,"items":1,"trackers":0,"factions":0}
+  census: {"npcs":25,"quests":23,"items":272,"creatures":0,"trackers":0,"factions":0}
 };

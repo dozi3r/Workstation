@@ -3,11 +3,11 @@ file_path: "campaigns/Peridot/campaign.json"
 title: "campaign.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "26d230c7742fcdd0"
-reviewed_hash: "26d230c7742fcdd0"
+current_hash: "1da84552b8e6faeb"
+reviewed_hash: "1da84552b8e6faeb"
 stale: false
-size_bytes: 2287
-line_count: 91
+size_bytes: 260723
+line_count: 7371
 ---
 
 # campaign.json

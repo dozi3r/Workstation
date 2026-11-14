@@ -3,11 +3,11 @@ file_path: "docs/srd/campaign_preset_specification_srd.md"
 title: "Campaign Preset Specification SRD"
 volume: "vol-2"
 kind: "System Reference Document (SRD)"
-current_hash: "bf2ff9474bee7df1"
-reviewed_hash: "bf2ff9474bee7df1"
+current_hash: "bb542132a2986769"
+reviewed_hash: "bb542132a2986769"
 stale: false
-size_bytes: 3830
-line_count: 69
+size_bytes: 4090
+line_count: 70
 ---
 
 # Campaign Preset Specification SRD

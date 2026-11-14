@@ -3,11 +3,11 @@ file_path: "campaigns/Fallout2/preset.json"
 title: "preset.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "083b6e64771f7381"
-reviewed_hash: "083b6e64771f7381"
+current_hash: "3e81d163af9d66a3"
+reviewed_hash: "3e81d163af9d66a3"
 stale: false
-size_bytes: 151971
-line_count: 5777
+size_bytes: 190137
+line_count: 7087
 ---
 
 # preset.json

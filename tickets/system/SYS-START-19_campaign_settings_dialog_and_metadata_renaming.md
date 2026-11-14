@@ -3,7 +3,7 @@ id: SYS-START-19
 title: "Workstation Campaign Settings Dialog & In-Place Metadata Renaming"
 pipeline_tier: 0
 target_surface: "start.html"
-status: open
+status: completed
 category: "system_architecture"
 wave: "Workstation Architecture: Campaign Management & Project Identity"
 grounded_prerequisites: [

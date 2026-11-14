@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V3_Five_Book_Odyssey/modules/MOD_T3_HIGH_CLERIST_DRA
 title: "MOD_T3_HIGH_CLERIST_DRAGON_TRAP: The Architectural Dragon-Trap of the High Clerist's Tower"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "868469bddc5e0c0c"
-reviewed_hash: "868469bddc5e0c0c"
+current_hash: "170a291c0d7be269"
+reviewed_hash: "170a291c0d7be269"
 stale: false
-size_bytes: 3779
-line_count: 70
+size_bytes: 2641
+line_count: 46
 ---
 
 # MOD_T3_HIGH_CLERIST_DRAGON_TRAP: The Architectural Dragon-Trap of the High Clerist's Tower

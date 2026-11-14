@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V1_Heroes_of_the_Lance/modules/MOD_T5_LORAC_DREAMSCA
 title: "MOD_T5_LORAC_DREAMSCAPE_MATRIX: The Silvanesti Dragon Orb Nightmare & Cyan Bloodbane"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "fb57a0cca4263150"
-reviewed_hash: "fb57a0cca4263150"
+current_hash: "9cb2c6a1c8c2a1f4"
+reviewed_hash: "9cb2c6a1c8c2a1f4"
 stale: false
-size_bytes: 3670
-line_count: 70
+size_bytes: 2476
+line_count: 46
 ---
 
 # MOD_T5_LORAC_DREAMSCAPE_MATRIX: The Silvanesti Dragon Orb Nightmare & Cyan Bloodbane

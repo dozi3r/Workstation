@@ -1,0 +1,237 @@
+{
+  "formatVersion": 1,
+  "verifiedOn": "2026-11-09",
+  "adventureCadHead": "22516681710f41dd8e5f07fe7b2c618bf20bcda7",
+  "purpose": "Project-local retrieval routes and selected source fingerprints. AdventureCAD accepts portable packages through its own contract; external package producers are not dependencies.",
+  "documents": [
+    "docs/agents/START_HERE.md",
+    "docs/agents/ARCHITECTURE_MAP.md",
+    "docs/agents/OPERATIONS.md",
+    "docs/agents/ONBOARDING_FINDINGS.md",
+    "docs/agents/HANDOFF_TEMPLATE.md"
+  ],
+  "routes": [
+    {
+      "id": "mutation",
+      "purpose": "Mutation ownership, relational integrity, CLI, changelog",
+      "sources": [
+        "src/workstation/scripts/campaign_mutation_engine.js",
+        "scripts/campaign_cli.js",
+        "src/workstation/scripts/campaign_changelog_ui.js"
+      ],
+      "read": [
+        "docs/adr/0022-coauthoring-architecture-and-rejected-patterns.md",
+        "docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md"
+      ],
+      "validation": [
+        "AdventureCAD full Test-Suite.ps1; relevant mutation cases in test/run_tests.js"
+      ]
+    },
+    {
+      "id": "session",
+      "purpose": "Campaign lifecycle, projection, teardown, map storage",
+      "sources": [
+        "src/workstation/scripts/workstation_state.js",
+        "src/workstation/scripts/state_adapter.js",
+        "src/workstation/scripts/map_store.js"
+      ],
+      "read": [
+        "docs/agents/ONBOARDING_FINDINGS.md",
+        "wiki/src/series/series_b_scale_fluid_nested_cartography.md"
+      ],
+      "validation": [
+        "Campaign switch/teardown cases in test/run_tests.js; full Test-Suite.ps1"
+      ]
+    },
+    {
+      "id": "roster",
+      "purpose": "Roster CRUD, navigation, selection, cascade deletion",
+      "sources": [
+        "src/workstation/scripts/entity_core.js",
+        "src/workstation/scripts/entity_manager_ui.js",
+        "src/workstation/scripts/entity_crud_dialogs.js",
+        "src/workstation/scripts/entity_cascade_delete.js",
+        "src/workstation/scripts/selection_engine.js"
+      ],
+      "read": [
+        "docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md",
+        "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md"
+      ],
+      "validation": [
+        "Roster navigation and cascade cases in test/run_tests.js; full Test-Suite.ps1"
+      ]
+    },
+    {
+      "id": "canvas",
+      "purpose": "Canvas interactions, nodes, corridors, map hierarchy",
+      "sources": [
+        "src/workstation/scripts/cad_canvas_renderer.js",
+        "src/workstation/scripts/cad_interaction.js",
+        "src/workstation/scripts/canvas_hud.js",
+        "src/workstation/scripts/property_grid_inspector.js",
+        "src/workstation/scripts/layer_manager.js",
+        "src/workstation/scripts/map_navigator.js"
+      ],
+      "read": [
+        "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
+        "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
+      ],
+      "validation": [
+        "Build + full Test-Suite.ps1; browser interaction checks for changed gestures"
+      ]
+    },
+    {
+      "id": "package",
+      "purpose": "Portable package orchestration, import/export adapters and assets",
+      "sources": [
+        "src/workstation/scripts/pack_engine.js",
+        "src/workstation/scripts/selective_importer.js",
+        "src/workstation/scripts/campaign_exporter.js",
+        "src/workstation/scripts/zip_engine.js",
+        "src/workstation/scripts/map_store.js"
+      ],
+      "read": [
+        "docs/srd/campaign_preset_specification_srd.md",
+        "wiki/src/series/series_f_campaign_authoring_and_ip_conversion.md"
+      ],
+      "validation": [
+        "Package round-trip cases in test/run_tests.js; full Test-Suite.ps1"
+      ]
+    },
+    {
+      "id": "modules",
+      "purpose": "Worldbuilding module contracts, slotting, supply chains",
+      "sources": [
+        "campaigns",
+        "src/workstation/scripts/module_explorer.js",
+        "src/workstation/scripts/supply_chain_simulator.js",
+        "src/workstation/scripts/industry_chain_importer.js"
+      ],
+      "read": [
+        "docs/srd/ip_module_framework_srd.md",
+        "docs/srd/scenario_primitives_srd.md",
+        "wiki/src/series/series_d_module_supply_chains_and_contracts.md"
+      ],
+      "validation": [
+        "Build; node scripts/test_suite.js --campaign <name>; full suite when engine changes"
+      ]
+    },
+    {
+      "id": "sociology",
+      "purpose": "Disposition axes, archetypes, overrides and balancing",
+      "sources": [
+        "src/workstation/scripts/sociology_data.js",
+        "src/workstation/scripts/campaign_override_slots.js",
+        "sociology"
+      ],
+      "read": [
+        "CONTEXT.md",
+        "docs/srd/authoring_engine_srd.md",
+        "wiki/src/series/series_a_balancing_and_smothering_math.md",
+        "wiki/src/series/series_c_sociology_and_tarot_hermeneutics.md"
+      ],
+      "validation": [
+        "Relevant override/math cases; full Test-Suite.ps1; verify 1..4 axes against workstation contract"
+      ]
+    },
+    {
+      "id": "shell",
+      "purpose": "Unified desktop shell and MDI windows",
+      "sources": [
+        "src/workstation/template.html",
+        "src/workstation/scripts/mdi_window_manager.js",
+        "src/workstation/scripts/workstation_state.js"
+      ],
+      "read": [
+        "docs/adr/0004-desktop-workstation-start-html.md",
+        "docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md"
+      ],
+      "validation": [
+        "Build + full Test-Suite.ps1; browser checks for changed MDI behavior"
+      ]
+    },
+    {
+      "id": "build",
+      "purpose": "Compiler, generated router, wiki notes, graph, test harness",
+      "sources": [
+        "build_suite.js",
+        "docs/navigation_manifest.json",
+        "wiki/build_wiki.js",
+        "scripts/find_codebase_node.js",
+        "scripts/test_suite.js",
+        "test/run_tests.js",
+        "scripts/agent_context.js"
+      ],
+      "read": [
+        "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
+        "docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md",
+        "wiki/src/series/series_e_zero_cors_compiler_and_agent_router.md"
+      ],
+      "validation": [
+        "node scripts/agent_context.js --check; Build-Suite.ps1; Test-Suite.ps1"
+      ]
+    }
+  ],
+  "fingerprints": [
+    {
+      "path": "build_suite.js",
+      "sha256": "8d6f06dbf0763c595c2acbb597cd31776994c04fff9c98a09d96652f67d80b12"
+    },
+    {
+      "path": "docs/navigation_manifest.json",
+      "sha256": "0d57ce1de1185b9954f6046d28cba8af02872b746f379e776d17f11da5012fb3"
+    },
+    {
+      "path": "wiki/build_wiki.js",
+      "sha256": "982537d1adec41301b2f4536af81f48041de5ea550fa7b0f30998340b32690d0"
+    },
+    {
+      "path": "scripts/test_suite.js",
+      "sha256": "cbc65d52111c42ce2eaf26c61333d3f26c3b1f056d6e73245ad243d1ad74251c"
+    },
+    {
+      "path": "CONTEXT.md",
+      "sha256": "7150e17f87e22b1f37f6e6ce7074486d74696b7851855f9d3beba6d09c88663e"
+    },
+    {
+      "path": "docs/AI_DEVELOPER_GUIDE.md",
+      "sha256": "5da8ac8a3cdead6f4f2509a3aa573dfbde4d7a9555601c2b06c364038588337f"
+    },
+    {
+      "path": "docs/adr/0022-coauthoring-architecture-and-rejected-patterns.md",
+      "sha256": "b7b48c27da3904c4529ba8ce75238c22c60cdb80e5ae2f7e428f67eb134e0e81"
+    },
+    {
+      "path": "src/workstation/scripts/campaign_mutation_engine.js",
+      "sha256": "a94ff3c2533dc609ac535fa9df00e92d4ee0b9b49e31b987fd3e1d912129db03"
+    },
+    {
+      "path": "src/workstation/scripts/workstation_state.js",
+      "sha256": "e56fc90a03c7d1f709ef35cf19a3077b2d4dfad9abc0bc982198aaebeffee7ab"
+    },
+    {
+      "path": "src/workstation/scripts/state_adapter.js",
+      "sha256": "5df18f55c6780b268b79ac157fcafe768c5d6e4ccf11ca8c3dd657278d5780f0"
+    },
+    {
+      "path": "src/workstation/scripts/entity_core.js",
+      "sha256": "1ae7484440347cf412ffd528d2fe35fed2293afe85a0ad4275fa08c73eddf09d"
+    },
+    {
+      "path": "src/workstation/scripts/entity_manager_ui.js",
+      "sha256": "ec78ab070c2cefc9ed7578c23274d94bbc262de24aefea4980e63231488c917a"
+    },
+    {
+      "path": "src/workstation/scripts/pack_engine.js",
+      "sha256": "9e26530b1558ca0c26134a50f1a6df8b81740587eb26bbca13ec687901cde474"
+    },
+    {
+      "path": "src/workstation/scripts/campaign_exporter.js",
+      "sha256": "7a5a0425606c1789f0fa6caa4c0e76e9ad11d79823d8df2a46afb504b910120a"
+    },
+    {
+      "path": "src/workstation/scripts/map_store.js",
+      "sha256": "5177b85476c31ea712be19081b0c2f385ca027167fb429f276eb88c612933abf"
+    }
+  ]
+}

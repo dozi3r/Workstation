@@ -3,11 +3,11 @@ file_path: "campaigns/Krynn_V2_Shadows_of_the_Lance/modules/MOD_T4_DRACONIAN_CHE
 title: "MOD_T4_DRACONIAN_CHECKPOINTS: Hooded Draconian Checkpoints & Death-Throes Ecology"
 volume: "vol-8"
 kind: "Campaign Worldbuilding Module"
-current_hash: "ac7118494021fb5e"
-reviewed_hash: "ac7118494021fb5e"
+current_hash: "ee44a2e865cdb0ae"
+reviewed_hash: "ee44a2e865cdb0ae"
 stale: false
-size_bytes: 3487
-line_count: 70
+size_bytes: 2370
+line_count: 46
 ---
 
 # MOD_T4_DRACONIAN_CHECKPOINTS: Hooded Draconian Checkpoints & Death-Throes Ecology

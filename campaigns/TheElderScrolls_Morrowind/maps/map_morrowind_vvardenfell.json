@@ -81,16 +81,23 @@
       "customNotes": "Swamp-edge Census and Excise port where the pardoned prisoner steps off the Imperial ship under the gaze of the old lighthouse; first stop on every road to Balmora.",
       "npcIds": [
         "npc_sellus_gravius",
+        "npc_adraria_vandacia",
+        "npc_socucius_ergalla",
         "npc_fargoth",
-        "npc_arrille",
-        "npc_orlan_dren"
+        "npc_hrisskar_flat_foot",
+        "npc_vodunius_nuccius"
       ],
       "questIds": [
-        "Q_MW_THIEVES_THE_CENSUS_CLERK"
+        "Q_MW_VANDACIA_S_BOUNTY",
+        "Q_MW_DEATH_OF_A_TAXMAN",
+        "Q_MW_FARGOTH_S_RING",
+        "Q_MW_FARGOTH_S_HIDING_PLACE",
+        "Q_MW_VODUNIUS_NUCCIUS_QUEST",
+        "Q_MW_A_FALLING_WIZARD",
+        "Q_MW_SIEGE_AT_FIREMOTH_QUEST"
       ],
       "itemIds": [
         "ITM_IMPERIAL_CENSUS_PACKAGE",
-        "ITM_CHITIN_SHORT_SWORD",
         "ITM_SILT_STRIDER_PASS",
         "ITM_FARGOTH_RING"
       ],
@@ -145,12 +152,32 @@
       "childMapId": null,
       "customNotes": "Walled Imperial farming town on the Ascadian road, its Fort Pelagiad garrison guarding the silt-road and the Halfway Tavern.",
       "npcIds": [
-        "npc_guild_enforcer"
+        "npc_tarvyn_faren",
+        "npc_dovres_verethi",
+        "npc_new_shoes_bragor",
+        "npc_ahnassi",
+        "npc_maurrie_aurmine",
+        "npc_nels_llendo",
+        "npc_beluelle"
       ],
       "questIds": [
-        "Q_MW_THIEVES_THE_WARLORD_GANG"
+        "Q_MW_GRA_MUZGOB_INFORMANT",
+        "Q_MW_ESCORT_TARVYN_FAREN",
+        "Q_MW_ESCORT_ITERMEREL",
+        "Q_MW_THE_VERETHI_GANG",
+        "Q_MW_FREE_NEW_SHOES_BRAGOR",
+        "Q_MW_GATHERING_MARSHMERROW",
+        "Q_MW_GATHERING_NETCH_LEATHER",
+        "Q_MW_BELT_OF_SANGUINE_FLEETNESS_QUEST",
+        "Q_MW_AHNASSI_A_SPECIAL_FRIEND",
+        "Q_MW_THE_BEAUTY_AND_THE_BANDIT",
+        "Q_MW_NELS_LLENDO_QUEST",
+        "Q_MW_THE_SILVER_BOWL"
       ],
-      "itemIds": [],
+      "itemIds": [
+        "ITM_SKULL_OF_LLEVULE_ANDRANO",
+        "ITM_BELT_OF_SANGUINE_FLEETNESS"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -202,18 +229,36 @@
       "npcIds": [
         "npc_duke_vedam_dren",
         "npc_imperial_cult_prelate",
-        "npc_ondres_overseer",
-        "npc_zabi_freedwoman",
-        "npc_glaucus_renn"
+        "npc_canctunian_ponius",
+        "npc_rufinus_alleius",
+        "npc_iulus_truptor",
+        "npc_synnolian_tunifus",
+        "npc_kaye",
+        "npc_lalatia_varian",
+        "npc_frald_the_white",
+        "npc_varus_vantinius",
+        "npc_alarvyne_indalas",
+        "npc_llaalam_dredil",
+        "npc_bolrin",
+        "npc_reeh_jah"
       ],
       "questIds": [
-        "Q_MW_REDORAN_FREEING_THE_ASHLANDER_SLAVES",
-        "Q_MW_CULT_THE_CHAPEL_HERESY_TRIAL"
+        "Q_MW_EPONY_TRADE",
+        "Q_MW_ALLEIUS_BOUNTY",
+        "Q_MW_ALMS_FROM_THE_SKYRIM_MISSION",
+        "Q_MW_ALMS_FROM_THE_ARGONIAN_MISSION",
+        "Q_MW_PLEDGE_FROM_CANCTUNIAN_PONIUS",
+        "Q_MW_RING_IN_DARKNESS",
+        "Q_MW_HONTHJOLF_IS_A_TRAITOR",
+        "Q_MW_SAPRIUS_ENTIUS_QUEST",
+        "Q_MW_LORD_S_MAIL_QUEST",
+        "Q_MW_LIBERATE_THE_LIMEWARE",
+        "Q_MW_DREDIL_S_DELIVERY",
+        "Q_MW_THE_RUNAWAY_SLAVE",
+        "Q_MW_TRIBUNAL_DARK_BROTHERHOOD_ATTACKS"
       ],
       "itemIds": [
-        "ITM_CHRYSAMERE",
-        "ITM_CULT_HEALING_POTIONS",
-        "ITM_DUKE_PARDON_ORDER"
+        "ITM_CHRYSAMERE"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -261,11 +306,21 @@
       ],
       "childMapId": null,
       "customNotes": "Rotting stilt-village on the Bitter Coast where smugglers, mudcrab hunters and a Hlaalu-run trading post cling to the swamp.",
-      "npcIds": [],
-      "questIds": [
-        "Q_MW_CULT_HEALING_THE_PLAGUE_VILLAGE"
+      "npcIds": [
+        "npc_caryarel",
+        "npc_pemenie"
       ],
-      "itemIds": [],
+      "questIds": [
+        "Q_MW_SIXTH_HOUSE_BASE",
+        "Q_MW_SHURINBAAL_QUEST",
+        "Q_MW_MISSING_LIMEWARE",
+        "Q_MW_BREEDING_NETCH",
+        "Q_MW_MALACATH_S_QUEST",
+        "Q_MW_PEMENIE_AND_THE_BOOTS_OF_BLINDING_SPEED"
+      ],
+      "itemIds": [
+        "ITM_LIMEWARE_BOWL"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -313,12 +368,28 @@
       "childMapId": null,
       "customNotes": "Fishing hamlet at the mouth of the Odai river whose docks pass illicit cargo toward Balmora under Hlaalu indifference.",
       "npcIds": [
-        "npc_huleen_smuggler"
+        "npc_velfred_outlaw",
+        "npc_remasa_othril",
+        "npc_milyn_faram",
+        "npc_murudius_flaeus",
+        "npc_ra_zhid",
+        "npc_okur",
+        "npc_relam_arinith"
       ],
       "questIds": [
-        "Q_MW_FIGHTERS_THE_SMUGGLER_COVE"
+        "Q_MW_MURUDIUS_FLAEUS_S_DEBT",
+        "Q_MW_THE_SHIPWRECK_PRELUDE",
+        "Q_MW_TELVANNI_AT_ODIRNIRAN",
+        "Q_MW_VELFRED_THE_OUTLAW_QUEST",
+        "Q_MW_ODIRNIRAN_QUEST",
+        "Q_MW_RA_ZHID_S_DWEMER_ARTIFACTS",
+        "Q_MW_RESTLESS_SPIRIT",
+        "Q_MW_FJOL_THE_OUTLAW",
+        "Q_MW_RABINNA_S_INNER_BEAUTY"
       ],
-      "itemIds": [],
+      "itemIds": [
+        "ITM_DAEDRIC_WAKIZASHI"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -377,13 +448,53 @@
       "childMapId": "map_balmora",
       "customNotes": "Hlaalu commercial hub split by the Odai river; every guild keeps a hall here, and Caius Cosades keeps a quiet apartment above the South Wall.",
       "npcIds": [
-        "npc_sulis_verel",
-        "npc_nelos_smuggler"
+        "npc_ondres_nerano",
+        "npc_meril_hlaano",
+        "npc_alvis_teri",
+        "npc_aurane_frernis",
+        "npc_manwe",
+        "npc_vindamea_drethan",
+        "npc_dreveni_hlaren",
+        "npc_dura_gra_bol",
+        "npc_hecerinde",
+        "npc_ethasi_rilvayn",
+        "npc_taros_dral",
+        "npc_thoronor",
+        "npc_drarayne_thelas"
       ],
       "questIds": [
-        "Q_MW_MORAG_TONG_THE_HONOR_OF_THE_WRIT"
+        "Q_MW_FOUNDER_S_HELM",
+        "Q_MW_ONDRES_NERANO_S_SLANDERS",
+        "Q_MW_MERIL_HLAANO_S_SLANDERS",
+        "Q_MW_ALCHEMICAL_FORMULAS",
+        "Q_MW_THE_DEATH_OF_RALEN_HLAALO",
+        "Q_MW_RECRUIT_A_MOUTH",
+        "Q_MW_WARLOCK_S_RING_QUEST",
+        "Q_MW_THE_STAFF_OF_MAGNUS_QUEST",
+        "Q_MW_MANWE_S_DUES",
+        "Q_MW_EXTERMINATOR_FIGHTERS",
+        "Q_MW_THE_EGG_POACHERS",
+        "Q_MW_GRA_BOL_S_BOUNTY",
+        "Q_MW_HUNGER_IN_THE_SARANO_TOMB",
+        "Q_MW_ALOF_AND_THE_ORCS",
+        "Q_MW_THE_BITTER_CUP",
+        "Q_MW_DIAMONDS_FOR_HABASI",
+        "Q_MW_NERANO_MANOR_KEY",
+        "Q_MW_THE_VINTAGE_BRANDY",
+        "Q_MW_BRANDY_FOR_THE_FUNDRAISING_DINNER",
+        "Q_MW_GATHERING_SCRIB_JELLY",
+        "Q_MW_MEPHALA_S_QUEST",
+        "Q_MW_BLADES_TRAINERS",
+        "Q_MW_LARRIUS_VARRO_TELLS_A_LITTLE_STORY",
+        "Q_MW_THE_CORPSE_AND_THE_SKOOMA_PIPE",
+        "Q_MW_THE_SCHOLARS_AND_THE_MATING_KAGOUTI",
+        "Q_MW_THELAS_PILLOWS"
       ],
-      "itemIds": [],
+      "itemIds": [
+        "ITM_FOUNDERS_HELM",
+        "ITM_AURANE_FRERNIS_FORMULAS",
+        "ITM_WARLOCKS_RING"
+      ],
       "creatureIds": [
         "creature_cliff_racer"
       ],
@@ -433,16 +544,15 @@
       "customNotes": "Imperial Legion fortress on the Odai ford; staging ground for patrols, courier runs and the Legion's thin readiness against Ghostfence rumors.",
       "npcIds": [
         "npc_legion_captain_moonmoth",
-        "npc_matius_cato"
+        "npc_radd_hard_heart",
+        "npc_larrius_varro"
       ],
       "questIds": [
-        "Q_MW_LEGION_THE_MOONMOTH_ROSTER",
-        "Q_MW_CULT_BLESSING_THE_LEGION"
+        "Q_MW_WRIT_FOR_LARRIUS_VARRO",
+        "Q_MW_SCRAP_METAL_QUEST",
+        "Q_MW_RESCUE_DANDSA"
       ],
-      "itemIds": [
-        "ITM_MOONMOTH_BANNER",
-        "ITM_LEGION_SUPPLY_MANIFEST"
-      ],
+      "itemIds": [],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -490,17 +600,16 @@
       "childMapId": null,
       "customNotes": "Ruined Dwemer hall whose centrifuge chambers still turn; a favored dead-drop for Blades couriers, scavengers and Dwemer puzzle-box hunters.",
       "npcIds": [
-        "npc_thulgar_pale"
+        "npc_dagoth_tanis"
       ],
       "questIds": [
-        "Q_MW_SHUTTING_DOWN_THE_SIXTH_HOUSE_BASE",
-        "Q_MW_MAGES_THE_NECROMANCERS_LAIR",
-        "Q_MW_MAGES_THE_DWEMER_CENTRIFUGE"
+        "Q_MW_ANTABOLIS_INFORMANT",
+        "Q_MW_SLAY_DAGOTH_TANIS",
+        "Q_MW_DWEMER_TUBE_FROM_ARKNGTHUNCH_STURDUMZ",
+        "Q_MW_SCARAB_PLANS_IN_MZULEFT"
       ],
       "itemIds": [
-        "ITM_SIXTH_HOUSE_BELL_HAMMER",
-        "ITM_NECROMANCERS_GRIMOIRE",
-        "ITM_SIXTH_HOUSE_ASH_STATUE"
+        "ITM_DWEMER_SCARAB_PLANS"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -550,11 +659,25 @@
       "childMapId": null,
       "customNotes": "Imperial mining town under the Dwemer volcanic mouth whose ebony and glass operations are run by the East Empire Company with Hlaalu complicity.",
       "npcIds": [
-        "npc_fenas_girith"
+        "npc_odral_helvi",
+        "npc_elmussa_damori",
+        "npc_bugrol_gro_bagul",
+        "npc_folms_mirel"
       ],
-      "questIds": [],
+      "questIds": [
+        "Q_MW_EVIDENCE_OF_CORRUPTION",
+        "Q_MW_SHUT_THE_MINES_DOWN",
+        "Q_MW_THE_CALDERA_SPY",
+        "Q_MW_RENT_AND_TAXES",
+        "Q_MW_THE_TELVANNI_AGENTS",
+        "Q_MW_BOOKS_FOR_VALA",
+        "Q_MW_DONATION_FROM_CUNIUS_PELELIUS",
+        "Q_MW_THE_HAUNTING",
+        "Q_MW_FAVORS_FOR_ORCS",
+        "Q_MW_MASTER_INDEX_QUEST"
+      ],
       "itemIds": [
-        "ITM_RING_OF_PHYNASTER"
+        "ITM_SECRET_CALDERA_LEDGER"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -605,10 +728,18 @@
       "childMapId": "map_morrowind_bloodmoon",
       "customNotes": "Isolated northwest fishing port and the departure point for ships to Solstheim and the northern sea road.",
       "npcIds": [
-        "npc_legion_officer_khuul"
+        "npc_legion_officer_khuul",
+        "npc_thelsa_dral",
+        "npc_carecalmo"
       ],
-      "questIds": [],
-      "itemIds": [],
+      "questIds": [
+        "Q_MW_THELSA_DRAL_THE_WITCH",
+        "Q_MW_THE_SCROLL_OF_FIERCELY_ROASTING",
+        "Q_MW_ULTIMATUM_FOR_CARECALMO"
+      ],
+      "itemIds": [
+        "ITM_SCROLL_OF_FIERCELY_ROASTING"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -656,15 +787,31 @@
       "childMapId": null,
       "customNotes": "Redoran outpost on the Azura's Coast watching the northern shore road, with a Temple outpost and the Outpost Hall for passing pilgrims.",
       "npcIds": [
-        "npc_redoran_guard_captain",
-        "npc_dandras_veloth",
-        "npc_gavis_ulen"
+        "npc_theldyn_virith",
+        "npc_jsaddha",
+        "npc_faves_andas",
+        "npc_brerama_selas",
+        "npc_aeta_wave_breaker",
+        "npc_sason",
+        "npc_synette_jeline"
       ],
       "questIds": [
-        "Q_MW_REDORAN_GARRISON_AT_ALD_VELOTHI"
+        "Q_MW_DELIVER_CURE_DISEASE_POTION",
+        "Q_MW_ASHIMANU_MINE",
+        "Q_MW_KAGOUTI_DEN",
+        "Q_MW_OLD_BLUE_FIN",
+        "Q_MW_KILL_GORDOL",
+        "Q_MW_SHISHI_REPORT_QUEST",
+        "Q_MW_RECOVER_SHIELDS_FROM_ANDASRETH",
+        "Q_MW_THE_TWIN_LAMPS",
+        "Q_MW_SHISHI_QUEST",
+        "Q_MW_WRIT_FOR_BRILNOSU_LLARYS",
+        "Q_MW_AETA_WAVE_BREAKER_S_JEWELS",
+        "Q_MW_KIDNAPPED_BY_CULTISTS",
+        "Q_MW_THE_LADY_S_RING"
       ],
       "itemIds": [
-        "ITM_HLORMAREN_STOLEN_GOODS"
+        "ITM_REDORAN_BANNER_SHIELDS"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -715,9 +862,45 @@
       ],
       "childMapId": null,
       "customNotes": "Fortress-temple town on the northern pilgrimage road; Gnisis Temple's Ordinators and the Madach Tradehouse bind Redoran honor to Temple ritual.",
-      "npcIds": [],
-      "questIds": [],
-      "itemIds": [],
+      "npcIds": [
+        "npc_baladas_demnevanni",
+        "npc_hetman_abelmawia",
+        "npc_senilias_cadiusus",
+        "npc_darius",
+        "npc_ennbjof",
+        "npc_hentus_yansurnummu",
+        "npc_din",
+        "npc_fonus_rathryon"
+      ],
+      "questIds": [
+        "Q_MW_ESCORT_TO_KOAL_CAVE",
+        "Q_MW_FIND_FEDRIS_THAREN",
+        "Q_MW_TAXES_FROM_GNISIS",
+        "Q_MW_BALADAS_DEMNEVANNI_QUEST",
+        "Q_MW_DWEMER_BOOKS",
+        "Q_MW_DAHRK_MEZALF_QUEST",
+        "Q_MW_THREE_QUESTIONS_FOR_BALADAS_DEMNEVANNI",
+        "Q_MW_BETHAMEZ_QUEST",
+        "Q_MW_NCHULEFTINGTH_EXPEDITION",
+        "Q_MW_GATHERING_MUCK",
+        "Q_MW_BOOTS_OF_THE_APOSTLE",
+        "Q_MW_RING_OF_SANGUINE_SUBLIME_WISDOM_QUEST",
+        "Q_MW_WRIT_FOR_BALADAS_DEMNEVANNI",
+        "Q_MW_GNISIS_EGGMINE_QUEST",
+        "Q_MW_RESCUE_MADURA_SERAN",
+        "Q_MW_RESCUE_RAGASH_GRA_SHUZGUB",
+        "Q_MW_TALOS_CULT_CONSPIRACY",
+        "Q_MW_WIDOW_VABDAS_DEED",
+        "Q_MW_ENNBJOF_S_NORD_BURIAL",
+        "Q_MW_HENTUS_NEEDS_PANTS",
+        "Q_MW_THE_MAN_WHO_SPOKE_TO_SLAUGHTERFISH",
+        "Q_MW_LEAD_THE_PILGRIM_TO_KOAL_CAVE"
+      ],
+      "itemIds": [
+        "ITM_RING_OF_DAHRK_MEZALF",
+        "ITM_BOOTS_OF_THE_APOSTLE",
+        "ITM_RING_OF_SANGUINE_SUBLIME_WISDOM"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -776,26 +959,95 @@
         "npc_bolvyn_venim",
         "npc_brara_morvayn",
         "npc_sleeper_skar_cook",
-        "npc_faral_arenim",
-        "npc_tavyn_morvayn",
-        "npc_gro_bagrat",
-        "npc_alvos_veteran"
+        "npc_miner_arobar",
+        "npc_garisa_llethri",
+        "npc_hlaren_ramoran",
+        "npc_varvur_sarethi",
+        "npc_neminda",
+        "npc_lloros_sarano",
+        "npc_tuveso_beleth",
+        "npc_galsa_gindu",
+        "npc_drulene_falen",
+        "npc_deval_beleth",
+        "npc_edwinna_elbert",
+        "npc_percius_mercius",
+        "npc_aengoth_the_jeweler",
+        "npc_vala_catraso",
+        "npc_tuls_valen",
+        "npc_dagoth_fovon",
+        "npc_dunsalipal_dun_ahhe",
+        "npc_movis_darys",
+        "npc_drinar_varyon",
+        "npc_fathasa_llethri",
+        "npc_bevene_releth",
+        "npc_hlormar_wine_sot",
+        "npc_hisin_deep_raed",
+        "npc_inwold",
+        "npc_rasha",
+        "npc_gindrala_hleran",
+        "npc_lucan_ostorius"
       ],
       "questIds": [
-        "Q_MW_THE_SLEEPERS_OF_ALDRUHN",
-        "Q_MW_REDORAN_BRARAS_TEST",
-        "Q_MW_REDORAN_THE_DUEL_FOR_ARCHMASTER",
-        "Q_MW_REDORAN_ATHYN_SARETHIS_SUCCESSION",
-        "Q_MW_FIGHTERS_THE_ORC_WARLORD",
-        "Q_MW_FIGHTERS_THE_SLEEPER_CULT"
+        "Q_MW_ZAINSUBANI_INFORMANT",
+        "Q_MW_SLEEPERS_AWAKE",
+        "Q_MW_REDORAN_HORTATOR",
+        "Q_MW_MUDCRAB_PESTS",
+        "Q_MW_TROUBLE_WITH_BANDITS",
+        "Q_MW_CLEAR_VARVUR_SARETHI_S_NAME",
+        "Q_MW_ASH_STATUE_QUEST",
+        "Q_MW_RESCUE_VARVUR_SARETHI",
+        "Q_MW_GUARD_SARETHI_MANOR",
+        "Q_MW_MISSION_TO_MORVAYN_MANOR",
+        "Q_MW_STRONGHOLD_REDORAN",
+        "Q_MW_DISGUISE",
+        "Q_MW_DELIVERY_FOR_BIVALE_TENERAN",
+        "Q_MW_SHIPMENT_OF_EBONY",
+        "Q_MW_LITERACY_CAMPAIGN",
+        "Q_MW_MAGES_GUILD_MONOPOLY",
+        "Q_MW_CHRONICLES_OF_NCHULEFT",
+        "Q_MW_LIRIELLE_S_DEBT",
+        "Q_MW_SILENCE_TONGUE_TOAD",
+        "Q_MW_THE_HLERVU_LOCKET",
+        "Q_MW_SPEAK_WITH_PERCIUS",
+        "Q_MW_REDORAN_COOKBOOK",
+        "Q_MW_THE_DARTS_OF_JUDGEMENT",
+        "Q_MW_LOOT_THE_MAGES_GUILD",
+        "Q_MW_REDORAN_MASTER_HELM_QUEST",
+        "Q_MW_NAUGHTY_GANDOSA",
+        "Q_MW_RETRIEVE_THE_SCRAP_METAL",
+        "Q_MW_COMPASSION",
+        "Q_MW_DARK_CULT_IN_HASSOUR",
+        "Q_MW_MOLAG_BAL_OF_THE_HOUSE_OF_TROUBLES",
+        "Q_MW_BUCKMOTH_ALMS",
+        "Q_MW_ICE_BLADE_OF_THE_MONARCH_QUEST",
+        "Q_MW_SKULL_CRUSHER",
+        "Q_MW_ULTIMATUM_FOR_MOVIS_DARYS",
+        "Q_MW_DWEMER_ARTIFACTS_AT_DRINAR_VARYON_S_PLACE",
+        "Q_MW_THE_BOY_WHO_WOULD_BE_UNDEAD",
+        "Q_MW_THE_VAMPIRE_HUNTER",
+        "Q_MW_MEHRUNES_DAGON_S_QUEST",
+        "Q_MW_MOLAG_BAL_S_QUEST",
+        "Q_MW_IENAS_SARANDAS_QUEST",
+        "Q_MW_RECOVERING_CLOUDCLEAVER",
+        "Q_MW_THE_PARALYZED_BARBARIAN",
+        "Q_MW_THE_SAD_SORCERER",
+        "Q_MW_THE_SHIRT_OF_HIS_BACK",
+        "Q_MW_STRANGE_MAN_AT_GINDRALA_HLERAN_S_HOUSE",
+        "Q_MW_THE_WEAPON_DELIVERY",
+        "Q_MW_HANNAT_ZAINSUBANI_QUEST"
       ],
       "itemIds": [
-        "ITM_ORCISH_WARHAMMER",
         "ITM_SKULL_CRUSHER",
-        "ITM_HELM_OF_OREYN_BEARCLAW",
-        "ITM_ABOLITIONIST_PAMPHLET",
-        "ITM_BONEMOLD_ARMOR",
-        "ITM_DAGOTH_ASH_RING"
+        "ITM_RING_OF_THE_HORTATOR",
+        "ITM_SUSPICIOUS_ASH_STATUE",
+        "ITM_CHRONICLES_OF_NCHULEFT",
+        "ITM_HLERVU_LOCKET",
+        "ITM_ANARENENS_DEVIL_TANTO",
+        "ITM_DARTS_OF_JUDGEMENT",
+        "ITM_BOETHIAHS_PILLOW_BOOK",
+        "ITM_REDORAN_MASTER_HELM",
+        "ITM_ICE_BLADE_OF_THE_MONARCH",
+        "ITM_CLOUDCLEAVER"
       ],
       "creatureIds": [
         "creature_netch_bull"
@@ -848,16 +1100,18 @@
       "customNotes": "Seat of Ashkhan Sul-Matuul and Wise Woman Nibani Maesa; keepers of the Nerevarine prophecies and the first test of the Chosen One.",
       "npcIds": [
         "npc_nibani_maesa",
-        "npc_sul_matuul"
+        "npc_sul_matuul",
+        "npc_zabamund",
+        "npc_kurapli"
       ],
       "questIds": [
-        "Q_MW_THE_SEVEN_VISIONS",
-        "Q_MW_NEREVARINE_OF_THE_FOUR_TRIBES",
-        "Q_MW_NEREVARINE_DECLARED"
+        "Q_MW_MEET_SUL_MATUUL",
+        "Q_MW_URSHILAKU_NEREVARINE",
+        "Q_MW_KURAPLI_SEEKS_JUSTICE"
       ],
       "itemIds": [
-        "ITM_ASHLANDER_PROPHECY_BONES",
-        "ITM_SPIRIT_OF_NEREVAR_SHRINE_OFFERING"
+        "ITM_BONEBITER_BOW_OF_SUL_SENIPUL",
+        "ITM_TEETH_OF_THE_URSHILAKU"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -903,10 +1157,18 @@
       ],
       "childMapId": null,
       "customNotes": "Wind-whipped Ashlander camp on the northern ash-flats, a pragmatic tribe open to outlander trade and hostile to Dagoth husbands.",
-      "npcIds": [],
-      "questIds": [],
+      "npcIds": [
+        "npc_kaushad",
+        "npc_sonummu_zabamat",
+        "npc_calvario"
+      ],
+      "questIds": [
+        "Q_MW_ZAINAB_NEREVARINE",
+        "Q_MW_ASHLANDER_EBONY",
+        "Q_MW_TRADE_MISSION_TO_THE_ZAINAB"
+      ],
       "itemIds": [
-        "ITM_ASHLAND_HIDE_ARMOR"
+        "ITM_THONG_OF_ZAINAB"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -954,9 +1216,25 @@
       ],
       "childMapId": null,
       "customNotes": "Pilgrim town below the Ghostfence whose Temple shrines have fed on a thin pious trade since the blight storms began.",
-      "npcIds": [],
-      "questIds": [],
-      "itemIds": [],
+      "npcIds": [
+        "npc_mathis_dalobar",
+        "npc_banden_indarys",
+        "npc_tashpi_ashibael"
+      ],
+      "questIds": [
+        "Q_MW_FIND_MATHIS_DALOBAR",
+        "Q_MW_FIND_BEDEN_GILADREN",
+        "Q_MW_KILL_BANDEN_INDARYS_HLAALU",
+        "Q_MW_KILL_BANDEN_INDARYS_TELVANNI",
+        "Q_MW_KILL_NECROMANCER_TASHPI_ASHIBAEL",
+        "Q_MW_HULEEN_S_HUT",
+        "Q_MW_BENERAN_S_BOUNTY",
+        "Q_MW_WITHERSHINS",
+        "Q_MW_PILGRIMAGE_TO_MAAR_GAN"
+      ],
+      "itemIds": [
+        "ITM_WITHERSHINS"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -1004,13 +1282,26 @@
       "childMapId": null,
       "customNotes": "Fortress-gate through the Ghostfence, the ward Vivec raised around Red Mountain; the Temple Ordinators hold it against blight and cult infiltration.",
       "npcIds": [
-        "npc_ghostgate_warden"
+        "npc_uvoo_llaren",
+        "npc_wulf",
+        "npc_falanu_indaren",
+        "npc_viatrix_petilia"
       ],
       "questIds": [
-        "Q_MW_PASSING_THE_GHOSTFENCE",
-        "Q_MW_LEGION_GHOSTFENCE_REINFORCEMENTS"
+        "Q_MW_AURIEL_S_BOW_QUEST",
+        "Q_MW_FLIN_FOR_ELITH_PAL",
+        "Q_MW_ENAMOR_QUEST",
+        "Q_MW_CURE_THE_OUTCAST_OUTLANDER",
+        "Q_MW_EBONY_MAIL_QUEST",
+        "Q_MW_A_LUCKY_COIN",
+        "Q_MW_COURTESY",
+        "Q_MW_DIVIDED_BY_NIX_HOUNDS",
+        "Q_MW_VIATRIX_THE_ANNOYING_PILGRIM"
       ],
-      "itemIds": [],
+      "itemIds": [
+        "ITM_ENAMOR",
+        "ITM_OLD_MANS_LUCKY_COIN"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -1057,9 +1348,12 @@
       "customNotes": "Entrance to the volcano interior beyond the breached Ghostfence, where ash storms howl across the approaches to Dagoth Ur's citadels.",
       "npcIds": [],
       "questIds": [
-        "Q_MW_DESCENT_INTO_THE_CITADEL"
+        "Q_MW_THE_CITADELS_OF_THE_SIXTH_HOUSE",
+        "Q_MW_CROSIER_OF_ST_LLOTHIS_THE_PIOUS"
       ],
-      "itemIds": [],
+      "itemIds": [
+        "ITM_CROSIER_OF_ST_LLOTHIS"
+      ],
       "creatureIds": [
         "creature_ash_ghoul"
       ],
@@ -1110,10 +1404,12 @@
       "childMapId": null,
       "customNotes": "Wind-scoured ash slope on the Red Mountain flank, an old Daedric shrine site now contested between Ashlander hunters and corprus-bitten scouts.",
       "npcIds": [],
-      "questIds": [],
+      "questIds": [
+        "Q_MW_PILGRIMAGE_TO_MOUNT_KAND",
+        "Q_MW_THE_SILVER_STAFF_OF_SHAMING"
+      ],
       "itemIds": [
-        "ITM_GOLDBRAND",
-        "ITM_SPEAR_OF_BITTER_MERCY"
+        "ITM_SILVER_STAFF_OF_SHAMING"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -1170,13 +1466,67 @@
       ],
       "childMapId": "map_vivec_cantons",
       "customNotes": "The great canton-city of Vivec, floating the Palace and the Ministry of Truth over the Zafirbel Bay; its sea-wall cantons are the political body of Vvardenfell.",
-      "npcIds": [],
+      "npcIds": [
+        "npc_tholer_saryoni",
+        "npc_danso_indules",
+        "npc_endryn_llethan",
+        "npc_raxle_berne",
+        "npc_varona_nelas",
+        "npc_volrina_quarra",
+        "npc_mastrius",
+        "npc_tinos_drothan",
+        "npc_maiq_the_liar",
+        "npc_malacath",
+        "npc_mehrunes_dagon",
+        "npc_molag_bal",
+        "npc_sheogorath",
+        "npc_athanden_girith",
+        "npc_marsus_tullius",
+        "npc_teris_raledran",
+        "npc_satyana",
+        "npc_nevrasa_dralor",
+        "npc_tul",
+        "npc_ashumanu_eraishah",
+        "npc_botrir",
+        "npc_eldrar"
+      ],
       "questIds": [
-        "Q_MW_HORTATOR_OF_THE_GREAT_HOUSES",
-        "Q_MW_TEMPLE_ANCESTRAL_TOMB_CLEANSING"
+        "Q_MW_CONTROL_THE_ORDINATORS",
+        "Q_MW_THE_DWEMER_GOBLET",
+        "Q_MW_LAND_DEED",
+        "Q_MW_PILGRIMAGES_OF_THE_SEVEN_GRACES",
+        "Q_MW_SLAY_RAXLE_BERNE",
+        "Q_MW_SILENT_PILGRIMAGE",
+        "Q_MW_MALACATH_OF_THE_HOUSE_OF_TROUBLES",
+        "Q_MW_GATHERING_CORKBULB_ROOT",
+        "Q_MW_GATHERING_WILLOW_ANTHER",
+        "Q_MW_GATHERING_RAT_MEAT",
+        "Q_MW_MAIDEN_S_TOKEN",
+        "Q_MW_SURYN_ATHONES_SLANDERS",
+        "Q_MW_THE_BLOOD_OF_THE_QUARRA",
+        "Q_MW_THE_CULT_OF_LORD_IRARAK",
+        "Q_MW_THE_QUARRA_AMULET",
+        "Q_MW_A_CURE_FOR_VAMPIRISM",
+        "Q_MW_THE_IMPRISONMENT_OF_MASTRIUS",
+        "Q_MW_THE_VAMPIRE_MERTA",
+        "Q_MW_THE_ANGRY_TRADER",
+        "Q_MW_GIRITH_S_STOLEN_HIDES",
+        "Q_MW_MARSUS_TULLIUS_MISSING_HIDES",
+        "Q_MW_A_MAN_AND_HIS_GUAR",
+        "Q_MW_SEARCH_FOR_HER_FATHER_S_AMULET",
+        "Q_MW_TO_THE_FIELDS_OF_KUMMU",
+        "Q_MW_TUL_S_ESCAPE",
+        "Q_MW_UMBRA_QUEST",
+        "Q_MW_WIDOWMAKER_QUEST",
+        "Q_MW_HELM_OF_TOHAN_QUEST"
       ],
       "itemIds": [
-        "ITM_ANCESTRAL_TOMB_HEIRLOOM"
+        "ITM_ROBE_OF_ST_RORIS",
+        "ITM_LARGE_DWEMER_GOBLET",
+        "ITM_ILMENIS_GLOVE",
+        "ITM_WIDOWMAKER",
+        "ITM_UMBRA_SWORD",
+        "ITM_HELM_OF_TOHAN"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -1228,12 +1578,27 @@
       "childMapId": null,
       "customNotes": "Hlaalu market town with a famed Desele's House of Earthly Delights, a hub for slave-running and Camonna Tong enforcers dressed as caravan guards.",
       "npcIds": [
-        "npc_camonna_enforcer",
-        "npc_moreth_salas"
+        "npc_nevena_ules",
+        "npc_raynasa_rethan",
+        "npc_hides_his_foot",
+        "npc_helviane_desele",
+        "npc_serjo_avon_oran",
+        "npc_elvil_vidron",
+        "npc_daric_bielle"
       ],
       "questIds": [
-        "Q_MW_HLAALU_THE_SURAN_SLAVE_SHIP",
-        "Q_MW_FIGHTERS_HUNT_THE_CAMONNA"
+        "Q_MW_SLAY_RAYNASA_RETHAN",
+        "Q_MW_INANIUS_EGG_MINE_QUEST",
+        "Q_MW_FREE_HIDES_HIS_FOOT",
+        "Q_MW_DEALING_WITH_ORVAS_DREN",
+        "Q_MW_KILL_RAYNASA_RETHAN",
+        "Q_MW_DESELE_S_DEBT",
+        "Q_MW_BANDITS_IN_SURAN",
+        "Q_MW_THE_BROTHERS_IENITH",
+        "Q_MW_FALSE_INCARNATE",
+        "Q_MW_WRIT_FOR_NAVIL_AND_RANES_IENITH",
+        "Q_MW_THE_DRUNKEN_BOUNTY_HUNTER",
+        "Q_MW_VASSIR_DIDANAT_EBONY_MINE"
       ],
       "itemIds": [],
       "creatureIds": [],
@@ -1286,15 +1651,25 @@
       "childMapId": null,
       "customNotes": "Temple-capital of the Molag Amur coast, a lava-ringed stone town whose Waistworks and cantons shelter pilgrims and the memory of Ald Sotha.",
       "npcIds": [
-        "npc_temple_priest_molag_mar",
-        "npc_serano_hearthkeeper"
+        "npc_giras_indaram",
+        "npc_tharer_rotheloth",
+        "npc_delvam_andarys",
+        "npc_severa_magia",
+        "npc_paur_maston"
       ],
       "questIds": [
-        "Q_MW_REDORAN_THE_HEARTH_OF_ALD_SOTHA",
-        "Q_MW_TEMPLE_PILGRIMAGE_OF_THE_SEVEN_SHRINES"
+        "Q_MW_ARMOR_REPAIR_DEBTS",
+        "Q_MW_REDAS_TOMB",
+        "Q_MW_NECROMANCER_IN_MAWIA",
+        "Q_MW_SHOES_OF_ST_RILMS",
+        "Q_MW_MEHRUNES_DAGON_OF_THE_HOUSE_OF_TROUBLES",
+        "Q_MW_EXECUTE_SEVERA_MAGIA",
+        "Q_MW_ROLAND_S_TEAR_QUEST",
+        "Q_MW_AN_ESCORT_TO_MOLAG_MAR"
       ],
       "itemIds": [
-        "ITM_TEMPLE_PILGRIM_BADGE"
+        "ITM_REDAS_CHALICE",
+        "ITM_SHOES_OF_ST_RILMS"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -1343,14 +1718,18 @@
       "npcIds": [
         "npc_divayth_fyr",
         "npc_yagrum_bagarn",
-        "npc_dratha_fyr"
+        "npc_arethan_mandas"
       ],
       "questIds": [
-        "Q_MW_THE_CURE_AT_TEL_FYR",
-        "Q_MW_TELVANNI_THE_DAUGHTERS_REQUEST"
+        "Q_MW_CORPRUS_CURE",
+        "Q_MW_YAGRUM_BAGARN_AND_WRAITHGUARD",
+        "Q_MW_THE_MAD_LORD_OF_MILK",
+        "Q_MW_CODED_MESSAGE",
+        "Q_MW_WRIT_FOR_ODAISHAH_YASALMIBAAL"
       ],
       "itemIds": [
-        "ITM_DIVAYTH_FYR_CURE"
+        "ITM_DIVAYTH_FYR_CURE",
+        "ITM_DWEMER_BOOTS_OF_FLYING"
       ],
       "creatureIds": [
         "creature_corprus_stalker"
@@ -1400,15 +1779,11 @@
       "childMapId": null,
       "customNotes": "Island monastery of the Tribunal's dissident priests, a library of banned prophecy tucked into the volcanic coast.",
       "npcIds": [
-        "npc_holamayan_abbot"
+        "npc_gilvas_barelo"
       ],
-      "questIds": [
-        "Q_MW_THE_LOST_PROPHECIES_OF_HOLAMAYAN",
-        "Q_MW_TEMPLE_THE_HERETIC_PRIEST"
-      ],
+      "questIds": [],
       "itemIds": [
-        "ITM_LOST_PROPHECY_SCROLL",
-        "ITM_HOLAMAYAN_DISSIDENT_TREATISE"
+        "ITM_LOST_PROPHECY_SCROLL"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -1457,9 +1832,20 @@
       ],
       "childMapId": null,
       "customNotes": "Hardline warrior tribe of the Molag Amur ash-flats whose Ashkhan resents outsiders and the Temple's claim to Nerevar's shadow.",
-      "npcIds": [],
-      "questIds": [],
-      "itemIds": [],
+      "npcIds": [
+        "npc_manirai",
+        "npc_han_ammu",
+        "npc_ulath_pal"
+      ],
+      "questIds": [
+        "Q_MW_ERABENIMSUN_NEREVARINE",
+        "Q_MW_RESCUE_JOCIEN_ANCOIS"
+      ],
+      "itemIds": [
+        "ITM_WAR_AXE_OF_AIRAN_AMMU",
+        "ITM_SANIT_KILS_HEART_OF_FIRE",
+        "ITM_ROBE_OF_ERUR_DAN_THE_WISE"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -1507,10 +1893,20 @@
       "childMapId": null,
       "customNotes": "Smallest and most open of the four great tribes, living in the ash-grass of the Grazelands and respected for its peace-weaving Ashkhan.",
       "npcIds": [
-        "npc_ahnissi"
+        "npc_sinnammu_mirpal",
+        "npc_minabibi_assardarainat",
+        "npc_urshamusa_rapli"
       ],
-      "questIds": [],
-      "itemIds": [],
+      "questIds": [
+        "Q_MW_AHEMMUSA_NEREVARINE",
+        "Q_MW_MEETING_WITH_A_WISE_WOMAN",
+        "Q_MW_SHEOGORATH_OF_THE_HOUSE_OF_TROUBLES",
+        "Q_MW_BOETHIAH_S_QUEST",
+        "Q_MW_DREAMS_OF_A_WHITE_GUAR"
+      ],
+      "itemIds": [
+        "ITM_MADSTONE_OF_THE_AHEMMUSA"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -1556,9 +1952,23 @@
       ],
       "childMapId": null,
       "customNotes": "Northern harbor of Sheogorad, a rain-lashed Nordic frontier town whose pub gossip is the best map of the northern sea.",
-      "npcIds": [],
-      "questIds": [],
-      "itemIds": [],
+      "npcIds": [
+        "npc_ulyne_henim",
+        "npc_daris_adram",
+        "npc_sendus_sathis",
+        "npc_sorkvild_the_raven"
+      ],
+      "questIds": [
+        "Q_MW_THE_NECROMANCER_OF_VAS",
+        "Q_MW_THE_PUDAI_EGGMINE",
+        "Q_MW_FOOD_AND_DRINK_FOR_THE_HERMIT",
+        "Q_MW_SORKVILD_THE_RAVEN_QUEST",
+        "Q_MW_AZURA_S_QUEST",
+        "Q_MW_SHEOGORATH_S_QUEST"
+      ],
+      "itemIds": [
+        "ITM_SEVEN_EGGS_OF_GOLD"
+      ],
       "creatureIds": [],
       "hubEligibility": "candidate",
       "eligible": true,
@@ -1606,8 +2016,21 @@
       ],
       "childMapId": null,
       "customNotes": "Telvanni-tied town and Temple shrine perched on cliffs; the Vos Chapel hosts the Temple's relics of Saint Aralor.",
-      "npcIds": [],
-      "questIds": [],
+      "npcIds": [
+        "npc_turedus_talanian"
+      ],
+      "questIds": [
+        "Q_MW_TELVANNI_HORTATOR",
+        "Q_MW_WIZARD_SPELLS",
+        "Q_MW_MUDAN_MUL_EGG_MINE_QUEST",
+        "Q_MW_DAEDRA_SKIN_QUEST",
+        "Q_MW_CURE_BLIGHT",
+        "Q_MW_MISSION_TO_NCHULEFT",
+        "Q_MW_KILL_THE_TELVANNI_COUNCILORS",
+        "Q_MW_TENIM_S_BOUNTY",
+        "Q_MW_WRIT_FOR_SARAYN_SADUS",
+        "Q_MW_MURDER_RIMINTIL"
+      ],
       "itemIds": [],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -1657,9 +2080,19 @@
       "childMapId": null,
       "customNotes": "Mushroom-tower hamlet of the Telvanni coast, ruled by capricious Mouth of the house and flush with enchanters.",
       "npcIds": [
-        "npc_magister_therana"
+        "npc_magister_therana",
+        "npc_mistress_dratha",
+        "npc_reynel_uvirith",
+        "npc_marara"
       ],
-      "questIds": [],
+      "questIds": [
+        "Q_MW_SLAY_REYNEL_UVIRITH",
+        "Q_MW_KILL_REYNEL_UVIRITH",
+        "Q_MW_BERWEN_S_STALKER",
+        "Q_MW_THE_GRANDMASTER_S_RETORT",
+        "Q_MW_CURE_LETTE",
+        "Q_MW_THE_WEARY_VAMPIRE"
+      ],
       "itemIds": [],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -1707,10 +2140,17 @@
       ],
       "childMapId": null,
       "customNotes": "Telvanni tower-town where Wizard-Lords hold their slow plots and apprentice mages run errands that border on treason.",
-      "npcIds": [],
-      "questIds": [],
+      "npcIds": [
+        "npc_savile_imayn",
+        "npc_senise_thindo"
+      ],
+      "questIds": [
+        "Q_MW_ARCHMAGISTER_GOTHREN",
+        "Q_MW_DRAKE_S_PRIDE"
+      ],
       "itemIds": [
-        "ITM_AZURAS_STAR"
+        "ITM_AZURAS_STAR",
+        "ITM_ROBE_OF_THE_DRAKES_PRIDE"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -1765,23 +2205,81 @@
         "npc_gothren",
         "npc_master_aryon",
         "npc_master_neloth",
-        "npc_arvo_rendi",
-        "npc_brevur_hlen"
+        "npc_nartise_arobar",
+        "npc_raven_omayn",
+        "npc_galos_mathendis",
+        "npc_mallam_ryon",
+        "npc_felisa_ulessen",
+        "npc_arara_uvulas",
+        "npc_edd_theman",
+        "npc_llunela_hleran",
+        "npc_alven_salas",
+        "npc_berengeval",
+        "npc_eleedal_lei",
+        "npc_arielle_phiencel",
+        "npc_skink_in_trees_shade",
+        "npc_telura_ulver",
+        "npc_llarar_bereloth",
+        "npc_tiram_gadar",
+        "npc_tenyeminwe",
+        "npc_hrundi",
+        "npc_big_helende",
+        "npc_larienna_macrina",
+        "npc_sondaale",
+        "npc_nelacar",
+        "npc_brallion",
+        "npc_goren_andarys",
+        "npc_dhaunayne_aundae",
+        "npc_mollimo",
+        "npc_angaredhel"
       ],
       "questIds": [
-        "Q_MW_TELVANNI_NELOTHS_ERRAND",
-        "Q_MW_TELVANNI_ARYONS_REFORM",
-        "Q_MW_TELVANNI_GOTHRENS_POISON_CUP",
-        "Q_MW_TELVANNI_THE_TEL_NAGA_BURGLARY",
-        "Q_MW_TELVANNI_THE_SUCCESSION_OF_TOWERS",
-        "Q_MW_LEGION_WOLVERINE_HALL_ALARM"
+        "Q_MW_MINER_AROBAR_S_SUPPORT",
+        "Q_MW_BLACK_JINX",
+        "Q_MW_MUCK_QUEST",
+        "Q_MW_FLESH_MADE_WHOLE",
+        "Q_MW_AMULET_OF_UNITY_QUEST",
+        "Q_MW_RING_OF_EQUITY_QUEST",
+        "Q_MW_NEW_CLOTHES",
+        "Q_MW_SLAVE_REBELLION",
+        "Q_MW_SLOAD_SOAP_QUEST",
+        "Q_MW_STAFF_OF_THE_SILVER_DAWN_QUEST",
+        "Q_MW_STRONGHOLD_TELVANNI",
+        "Q_MW_RECRUIT_OR_KILL_LLARAR_BERELOTH",
+        "Q_MW_A_POTION_FROM_SKINK_IN_TREE_S_SHADE",
+        "Q_MW_ESCORT_TENYEMINWE",
+        "Q_MW_KILL_NECROMANCER_TELURA_ULVER",
+        "Q_MW_VAMPIRES_OF_VVARDENFELL_VOL_II",
+        "Q_MW_SOUL_OF_AN_ASH_GHOUL",
+        "Q_MW_REMOVE_THE_HEADS_OF_THE_THIEVES_GUILD",
+        "Q_MW_BATTLE_AT_NCHURDAMZ",
+        "Q_MW_THE_DISSAPLA_MINE",
+        "Q_MW_ENGAER_S_BOUNTY",
+        "Q_MW_SONDAALE",
+        "Q_MW_SUJAMMA_TO_DUNIRAI",
+        "Q_MW_BRALLION_S_RING",
+        "Q_MW_HRUNDI_S_LOVER",
+        "Q_MW_FELEN_S_EBONY_STAFF_QUEST",
+        "Q_MW_POTION_RECIPE",
+        "Q_MW_WIZARD_FOR_HIRE",
+        "Q_MW_WRIT_FOR_TIRER_BELVAYN",
+        "Q_MW_WRIT_FOR_MISTRESS_THERANA",
+        "Q_MW_FREE_THE_SLAVES",
+        "Q_MW_BLOOD_FOR_MISTRESS_DRATHA",
+        "Q_MW_BLOOD_TIES",
+        "Q_MW_A_BOUNTY_FOR_TRERAYNA_DALEN",
+        "Q_MW_GATEWAY_GHOST"
       ],
       "itemIds": [
-        "ITM_TELVANNI_MUSHROOM_CODEX",
-        "ITM_WABBAJACK",
-        "ITM_TELVANNI_POISON_CUP",
-        "ITM_NELOTH_GATE_FRAGMENT",
-        "ITM_ARYON_REFORM_PETITION"
+        "ITM_ROBE_OF_THE_HORTATOR",
+        "ITM_BLACK_JINX",
+        "ITM_RING_OF_EQUITY",
+        "ITM_AMULET_OF_FLESH_MADE_WHOLE",
+        "ITM_STAFF_OF_THE_SILVER_DAWN",
+        "ITM_LETTER_FROM_OCATO",
+        "ITM_VAMPIRES_OF_VVARDENFELL_VOL_II",
+        "ITM_BRALLIONS_RING",
+        "ITM_FELENS_EBONY_STAFF"
       ],
       "creatureIds": [],
       "hubEligibility": "candidate",
@@ -1829,9 +2327,12 @@
       "childMapId": null,
       "customNotes": "Imperial Legion fort overlooking the Ald'ruhn road; its sergeants complain more of Ashlander raiders than of blight.",
       "npcIds": [
-        "npc_telis_ravel"
+        "npc_raesa_pullia",
+        "npc_imsin_the_dreamer"
       ],
-      "questIds": [],
+      "questIds": [
+        "Q_MW_RESCUE_JONCIS_DALOMAX"
+      ],
       "itemIds": [],
       "creatureIds": [],
       "hubEligibility": "candidate",

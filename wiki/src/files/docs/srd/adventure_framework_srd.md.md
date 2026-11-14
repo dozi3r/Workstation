@@ -3,10 +3,10 @@ file_path: "docs/srd/adventure_framework_srd.md"
 title: "Universal Adventure Framework SRD"
 volume: "vol-2"
 kind: "System Reference Document (SRD)"
-current_hash: "69980a6b03bde424"
-reviewed_hash: "69980a6b03bde424"
+current_hash: "b66c6b9b8f2eae45"
+reviewed_hash: "b66c6b9b8f2eae45"
 stale: false
-size_bytes: 16134
+size_bytes: 16136
 line_count: 218
 ---
 
