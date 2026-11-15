@@ -3,11 +3,11 @@ file_path: "mods/tier_0_settlement_substratum/modules_manifest.json"
 title: "modules_manifest.json"
 volume: "vol-4"
 kind: "Workstation Mod Manifest (JSON)"
-current_hash: "2708c8c698ed634f"
-reviewed_hash: "2708c8c698ed634f"
+current_hash: "8d62db9785892726"
+reviewed_hash: "8d62db9785892726"
 stale: false
-size_bytes: 7387
-line_count: 164
+size_bytes: 67037
+line_count: 684
 ---
 
 # modules_manifest.json

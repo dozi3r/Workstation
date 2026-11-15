@@ -3,11 +3,11 @@ file_path: "mods/universal_worldbuilding_library/modules_manifest.json"
 title: "modules_manifest.json"
 volume: "vol-4"
 kind: "Workstation Mod Manifest (JSON)"
-current_hash: "d8cd23bf94d96f94"
-reviewed_hash: "d8cd23bf94d96f94"
+current_hash: "776442c697fd7ef9"
+reviewed_hash: "776442c697fd7ef9"
 stale: false
-size_bytes: 37929
-line_count: 940
+size_bytes: 317757
+line_count: 3565
 ---
 
 # modules_manifest.json

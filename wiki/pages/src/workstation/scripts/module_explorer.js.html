@@ -470,7 +470,7 @@
         <h1 class="article-title">module_explorer.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: cab30f78)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 38eb6288)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (20)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/module_explorer.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1148 lines &bull; 50.0 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: cab30f78)</span></td></tr>
+    <tr><th>File Metrics</th><td>1212 lines &bull; 53.8 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 38eb6288)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>10</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>20</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/module_explorer.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -506,11 +506,11 @@
 <p><code>src/workstation/scripts/module_explorer.js</code> serves as the Comprehensive Module Explorer, Sourcebook Reader, and In-App GM Custom Module Studio (<code>SYS-START-09</code>).</p>
 <h3>Core Subsystems & Responsibilities</h3>
 <ul class="wiki-list">
-<li><strong>Module Catalog & Multi-Axis Filtering</strong>: Filters and inspects 5-Tier Worldbuilding Modules across campaigns (<code>All Campaigns</code>, <code>Custom / Homebrew</code>, and installed sourcebooks from <code>/campaigns/</code>), pipeline tiers (<code>1..5</code>), CVF cultures, and search queries.</li>
+<li><strong>Module Catalog & Multi-Axis Filtering</strong>: Filters and inspects 5-Tier Worldbuilding Modules across campaigns (<code>All Campaigns</code>, <code>Custom / Homebrew</code>, and installed sourcebooks from <code>/campaigns/</code>), pipeline tiers (<code>1..5</code>), CVF cultures, and search queries (<code>filterModules</code>, resolving IDs via <code>resolveModuleExplorerId</code> and resetting conflicting filters automatically when opened via <code>openSourceModuleFromInspector</code>). Also preserves string node IDs (<code>updateTargetNodeDropdown</code>) and escapes rendered module table cells/actions.</li>
 <li><strong>In-App GM Custom Module Studio (<code>SYS-START-09</code>)</strong>: Provides <code>openCustomModuleEditor()</code>, <code>editOrCloneCurrentModule()</code>, <code>saveCustomModuleFromStudio()</code>, <code>syncCustomModulesToCatalog()</code>, <code>promoteNodeEndowmentsToModule()</code>, and <code>exportCustomModuleDraftMarkdown()</code> / <code>exportModuleMarkdownFile()</code>, enabling GMs to author, clone, edit, persist (<code>activeTopology.custom_modules</code>), and export <code>.md</code> worldbuilding modules with YAML frontmatter.</li>
 <li><strong>Module & Entity Deletion Controls</strong>: Features individual delete buttons in the catalog table and inspector detail header, as well as per-entity deletion buttons inside Tab 2 (Narrative Entities) for discrete NPCs, Quests, and Items. Integrates with <code>promptEntityDelete('module', modId)</code> to audit all slotted nodes and spawned active campaign entities prior to deletion or backup.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (30)</h3><div class="pill-list"><span class="pill">openModuleExplorer(moduleId, targetNodeId)</span><span class="pill">updateTargetNodeDropdown(targetNodeId)</span><span class="pill">onTargetNodeChange()</span><span class="pill">ensureCampaignModules(topo)</span><span class="pill">isModuleInActiveCampaign(mId)</span><span class="pill">updateModuleCampaignButton()</span><span class="pill">toggleModuleInCampaign()</span><span class="pill">filterModules(preferSelectId)</span><span class="pill">selectModuleItem(modId)</span><span class="pill">updateModuleSlotButton()</span><span class="pill">toggleSlotCurrentModule()</span><span class="pill">renderModuleEntitiesTab()</span><span class="pill">renderModuleMechanicsTab(m)</span><span class="pill">switchModuleTab(tabName)</span><span class="pill">setReaderViewMode(mode)</span><span class="pill">promoteCurrentModuleEntities()</span><span class="pill">promoteSingleEntity(type, entityId, modId)</span><span class="pill">clearModuleInspector()</span><span class="pill">syncCustomModulesToCatalog(topo)</span><span class="pill">normalizeCustomModuleRecord(raw)</span><span class="pill">generateNextCustomModuleId()</span><span class="pill">openCustomModuleEditor(initialMod)</span><span class="pill">editOrCloneCurrentModule()</span><span class="pill">collectCustomModuleDraftFromForm()</span><span class="pill">buildCustomModuleMarkdown(mod, customBody)</span><span class="pill">saveCustomModuleFromStudio()</span><span class="pill">promoteNodeEndowmentsToModule(nodeId)</span><span class="pill">downloadMarkdownFile(filename, content)</span><span class="pill">exportCustomModuleDraftMarkdown()</span><span class="pill">exportModuleMarkdownFile()</span></div>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Declared Functions / Subroutines (31)</h3><div class="pill-list"><span class="pill">openModuleExplorer(moduleId, targetNodeId)</span><span class="pill">updateTargetNodeDropdown(targetNodeId)</span><span class="pill">onTargetNodeChange()</span><span class="pill">ensureCampaignModules(topo)</span><span class="pill">isModuleInActiveCampaign(mId)</span><span class="pill">updateModuleCampaignButton()</span><span class="pill">toggleModuleInCampaign()</span><span class="pill">resolveModuleExplorerId(ref)</span><span class="pill">filterModules(preferSelectId)</span><span class="pill">selectModuleItem(modId)</span><span class="pill">updateModuleSlotButton()</span><span class="pill">toggleSlotCurrentModule()</span><span class="pill">renderModuleEntitiesTab()</span><span class="pill">renderModuleMechanicsTab(m)</span><span class="pill">switchModuleTab(tabName)</span><span class="pill">setReaderViewMode(mode)</span><span class="pill">promoteCurrentModuleEntities()</span><span class="pill">promoteSingleEntity(type, entityId, modId)</span><span class="pill">clearModuleInspector()</span><span class="pill">syncCustomModulesToCatalog(topo)</span><span class="pill">normalizeCustomModuleRecord(raw)</span><span class="pill">generateNextCustomModuleId()</span><span class="pill">openCustomModuleEditor(initialMod)</span><span class="pill">editOrCloneCurrentModule()</span><span class="pill">collectCustomModuleDraftFromForm()</span><span class="pill">buildCustomModuleMarkdown(mod, customBody)</span><span class="pill">saveCustomModuleFromStudio()</span><span class="pill">promoteNodeEndowmentsToModule(nodeId)</span><span class="pill">downloadMarkdownFile(filename, content)</span><span class="pill">exportCustomModuleDraftMarkdown()</span><span class="pill">exportModuleMarkdownFile()</span></div>
       <h2 id="outbound-links">Outbound References (10)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../../../../pages/series/series_d_module_supply_chains_and_contracts.html"><strong>Series D: The 5-Tier Module Pipeline, Resource Contracts (provides/requires) &amp; Fallbacks</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
@@ -534,7 +534,7 @@
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes getBackingEntityList() defined in entity_core.js</td>
+        <td>Invokes isResourceItem() defined in entity_core.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/property_grid_inspector.js.html"><strong>src/workstation/scripts/property_grid_inspector.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

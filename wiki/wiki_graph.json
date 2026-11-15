@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-14T01:14:42.828Z",
-  "totalFiles": 689,
+  "generatedAt": "2026-11-15T00:07:46.408Z",
+  "totalFiles": 690,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 4085,
+  "totalBidirectionalEdges": 4104,
   "staleCount": 0,
   "nodes": [
     {
@@ -805,10 +805,10 @@
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
       "stale": false,
-      "hash": "7150e17f87e22b1f",
-      "reviewedHash": "7150e17f87e22b1f",
+      "hash": "2de507df5f2b22fd",
+      "reviewedHash": "2de507df5f2b22fd",
       "lineCount": 395,
-      "sizeBytes": 30166,
+      "sizeBytes": 30327,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -1051,12 +1051,6 @@
           "reason": "Explicit [[File:CONTEXT.md]] reference"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References CONTEXT.md"
-        },
-        {
           "source": "docs/AI_DEVELOPER_GUIDE.md",
           "sourceType": "file",
           "type": "Path Reference",
@@ -1274,12 +1268,6 @@
         },
         {
           "source": "CONTEXT.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References Find-CodebaseNode.ps1"
-        },
-        {
-          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References Find-CodebaseNode.ps1"
@@ -2404,18 +2392,54 @@
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "8383b6cfefdf2a94",
-      "reviewedHash": "8383b6cfefdf2a94",
-      "lineCount": 1537,
-      "sizeBytes": 77873,
+      "hash": "dc27f603e4a65196",
+      "reviewedHash": "dc27f603e4a65196",
+      "lineCount": 2571,
+      "sizeBytes": 124125,
       "symbols": [
         "toRootRelUrl(absPath)",
         "rebaseFileUrls(jsonStr, prefix)",
         "safeWriteFileSync(filePath, data, encoding = 'utf8')",
         "parseYamlListOrArray(val)",
+        "parseYamlScalar(rawVal)",
+        "parseYamlFrontmatter(yamlBlock)",
+        "stripMarkdownNoise(text)",
+        "truncateClean(text, maxLen = 700)",
+        "extractMarkdownSections(rawMarkdown)",
+        "extractDialFromData(m, parsedMd)",
+        "parseSingleClockString(rawClock, fallbackKey)",
+        "extractThreatClocksFromData(m, parsedMd)",
+        "extractFourCornersFromData(m, parsedMd)",
+        "isIndustrialModuleMeta(m)",
+        "enrichModuleFromMarkdown(m, rawMarkdown, baseDirPath)",
+        "isEmptyMetaValue(val)",
+        "mergeModuleDiskAndManifest(dm, m)",
+        "parseModuleMarkdownFile(fullPath, relRootDir, preloadedRawText = null)",
         "scanModulesDirRecursive(modulesRootDir, campaignRootDir, deletedIdsSet = new Set()",
         "walk(currentDir)",
+        "splitProseSentences(text)",
+        "leadSentences(text, count = 1, maxLen = 260)",
+        "endSentence(text)",
+        "lowerFirst(text)",
+        "fourCornerLabel(raw)",
+        "parseTagForBuild(raw)",
+        "resourceSectorProfile(sector)",
+        "tokenizeForMatch(text)",
+        "findSection(parsedMd, re)",
+        "collectProseCorpus(parsedMd)",
+        "bestSentenceForTokens(corpus, tokens, uniqueTokens, rawTag, usedSentences)",
+        "extractModuleComponents(parsedMd, mechSec)",
+        "joinList(items)",
+        "summarizeOutputDial(m)",
+        "buildModuleStakeProfile(m, parsedMd)",
+        "buildIndustryLore(m, parsedMd, mechSec)",
+        "buildRefiningProcess(m, parsedMd, corpus)",
+        "composeResourceNotes(item)",
+        "buildResourcePrototype(m, p, idx, ctx)",
+        "extractMarkdownConsumers(parsedMd, tagMetas)",
         "enrichModuleEntities(m, rawMarkdown)",
+        "applyResourceConsumerIndex(allModules)",
+        "runBuildSuite()",
         "compileWorkstationRegistry(registry)",
         "injectCompassHeaders()"
       ],
@@ -2426,6 +2450,8 @@
         "NETWORK_DIR",
         "DOCS_DIR",
         "SRC_WORKSTATION_DIR",
+        "GENERIC_FOUR_CORNER_DEFAULTS",
+        "RESOURCE_SECTOR_PROFILES",
         "navManifestPath",
         "navManifest",
         "campaignsDir",
@@ -2457,9 +2483,7 @@
         "registryFenced",
         "startModulesBlock",
         "ALL_MODULES",
-        "MODULES_MANIFEST",
-        "startTicketsBlock",
-        "MASTER_TICKETS_DATA"
+        "MODULES_MANIFEST"
       ],
       "provides": [],
       "requires": [],
@@ -2537,172 +2561,10 @@
           "reason": "References AGENTS.md"
         },
         {
-          "target": "CONTEXT.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References CONTEXT.md"
-        },
-        {
-          "target": "Find-CodebaseNode.ps1",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References Find-CodebaseNode.ps1"
-        },
-        {
-          "target": "docs/AI_DEVELOPER_GUIDE.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/AI_DEVELOPER_GUIDE.md"
-        },
-        {
-          "target": "docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md"
-        },
-        {
-          "target": "docs/adr/0004-desktop-workstation-start-html.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0004-desktop-workstation-start-html.md"
-        },
-        {
-          "target": "docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md"
-        },
-        {
-          "target": "docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md"
-        },
-        {
-          "target": "docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md"
-        },
-        {
-          "target": "docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md"
-        },
-        {
-          "target": "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md"
-        },
-        {
-          "target": "docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
-        },
-        {
-          "target": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
-        },
-        {
-          "target": "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md"
-        },
-        {
-          "target": "docs/agents/domain.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/agents/domain.md"
-        },
-        {
-          "target": "docs/agents/issue-tracker.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/agents/issue-tracker.md"
-        },
-        {
-          "target": "docs/agents/triage-labels.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/agents/triage-labels.md"
-        },
-        {
-          "target": "docs/srd/campaign_preset_specification_srd.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/srd/campaign_preset_specification_srd.md"
-        },
-        {
-          "target": "docs/srd/ip_module_framework_srd.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/srd/ip_module_framework_srd.md"
-        },
-        {
-          "target": "docs/srd/scenario_primitives_srd.md",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/srd/scenario_primitives_srd.md"
-        },
-        {
-          "target": "index.html",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References index.html"
-        },
-        {
-          "target": "network/campaign_studio.html",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References network/campaign_studio.html"
-        },
-        {
           "target": "network/modules_manifest.json",
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References network/modules_manifest.json"
-        },
-        {
-          "target": "network/network_builder.html",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References network/network_builder.html"
-        },
-        {
-          "target": "server.js",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References server.js"
-        },
-        {
-          "target": "server.ps1",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References server.ps1"
-        },
-        {
-          "target": "src/workstation/scripts/campaign_override_slots.js",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/campaign_override_slots.js"
-        },
-        {
-          "target": "src/workstation/scripts/entity_core.js",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/entity_core.js"
-        },
-        {
-          "target": "src/workstation/scripts/state_adapter.js",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/state_adapter.js"
         },
         {
           "target": "mods/loot_simulator/schemas/loot_schemas.json",
@@ -2813,6 +2675,12 @@
           "reason": "Inlines modular source during suite compilation"
         },
         {
+          "target": "src/workstation/scripts/campaign_override_slots.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
           "target": "src/workstation/scripts/canvas_hud.js",
           "targetType": "file",
           "type": "Bundles Source",
@@ -2832,6 +2700,12 @@
         },
         {
           "target": "src/workstation/scripts/entity_cascade_delete.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "target": "src/workstation/scripts/entity_core.js",
           "targetType": "file",
           "type": "Bundles Source",
           "reason": "Inlines modular source during suite compilation"
@@ -2934,6 +2808,12 @@
         },
         {
           "target": "src/workstation/scripts/sociology_data.js",
+          "targetType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
+        },
+        {
+          "target": "src/workstation/scripts/state_adapter.js",
           "targetType": "file",
           "type": "Bundles Source",
           "reason": "Inlines modular source during suite compilation"
@@ -4840,10 +4720,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "007a291b71529d16",
-      "reviewedHash": "007a291b71529d16",
-      "lineCount": 13490,
-      "sizeBytes": 444068,
+      "hash": "b79f0460c362b1a0",
+      "reviewedHash": "b79f0460c362b1a0",
+      "lineCount": 13908,
+      "sizeBytes": 456504,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -4871,6 +4751,12 @@
         },
         {
           "source": "scratch/loot-planning/04-g0-baseline-record.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/BaldursGate/topology.json"
+        },
+        {
+          "source": "scripts/cleanup_industry_resource_data.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References campaigns/BaldursGate/topology.json"
@@ -10516,10 +10402,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "3040b652132359ee",
-      "reviewedHash": "3040b652132359ee",
-      "lineCount": 21,
-      "sizeBytes": 482,
+      "hash": "fa50ea2690d74d49",
+      "reviewedHash": "fa50ea2690d74d49",
+      "lineCount": 6195,
+      "sizeBytes": 387979,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -14100,10 +13986,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "0204acf12032f559",
-      "reviewedHash": "0204acf12032f559",
-      "lineCount": 1238,
-      "sizeBytes": 130326,
+      "hash": "039a612d6bb75fe9",
+      "reviewedHash": "039a612d6bb75fe9",
+      "lineCount": 2162,
+      "sizeBytes": 195847,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -16994,10 +16880,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "0204acf12032f559",
-      "reviewedHash": "0204acf12032f559",
-      "lineCount": 1238,
-      "sizeBytes": 130326,
+      "hash": "46673faa94412ca7",
+      "reviewedHash": "46673faa94412ca7",
+      "lineCount": 2162,
+      "sizeBytes": 195875,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -19888,10 +19774,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "0204acf12032f559",
-      "reviewedHash": "0204acf12032f559",
-      "lineCount": 1238,
-      "sizeBytes": 130326,
+      "hash": "6006fa57e686ae5d",
+      "reviewedHash": "6006fa57e686ae5d",
+      "lineCount": 2162,
+      "sizeBytes": 195791,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -20185,10 +20071,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "1da84552b8e6faeb",
-      "reviewedHash": "1da84552b8e6faeb",
-      "lineCount": 7371,
-      "sizeBytes": 260723,
+      "hash": "325029264f4a85b0",
+      "reviewedHash": "325029264f4a85b0",
+      "lineCount": 13132,
+      "sizeBytes": 564434,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -20639,6 +20525,12 @@
           "sourceType": "file",
           "type": "Campaign Package",
           "reason": "Belongs to Peridot campaign sourcebook"
+        },
+        {
+          "source": "scripts/cleanup_industry_resource_data.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/Peridot/campaign.json"
         }
       ]
     },
@@ -20989,6 +20881,12 @@
         },
         {
           "source": "src/workstation/scripts/workstation_state.js",
+          "sourceType": "file",
+          "type": "Module Cross-Ref",
+          "reason": "Mentions module INFRA-01"
+        },
+        {
+          "source": "test/run_tests.js",
           "sourceType": "file",
           "type": "Module Cross-Ref",
           "reason": "Mentions module INFRA-01"
@@ -26972,10 +26870,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "1a97bb4ab109f2d3",
-      "reviewedHash": "1a97bb4ab109f2d3",
-      "lineCount": 931,
-      "sizeBytes": 27430,
+      "hash": "c92190312e6541c7",
+      "reviewedHash": "c92190312e6541c7",
+      "lineCount": 3877,
+      "sizeBytes": 210043,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -27345,10 +27243,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "77530c336a9bdba8",
-      "reviewedHash": "77530c336a9bdba8",
-      "lineCount": 20733,
-      "sizeBytes": 682850,
+      "hash": "1ec5baf7be03e6f0",
+      "reviewedHash": "1ec5baf7be03e6f0",
+      "lineCount": 32254,
+      "sizeBytes": 1301791,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -27475,6 +27373,12 @@
           "sourceType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "source": "scripts/cleanup_industry_resource_data.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/Peridot/preset.json"
         }
       ]
     },
@@ -27484,10 +27388,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "77530c336a9bdba8",
-      "reviewedHash": "77530c336a9bdba8",
-      "lineCount": 20733,
-      "sizeBytes": 682850,
+      "hash": "1ec5baf7be03e6f0",
+      "reviewedHash": "1ec5baf7be03e6f0",
+      "lineCount": 32254,
+      "sizeBytes": 1301791,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -27614,6 +27518,12 @@
           "sourceType": "file",
           "type": "Data Source",
           "reason": "Authoritative data source in campaigns/ consumed by network/platform_audit_dashboard.html"
+        },
+        {
+          "source": "scripts/cleanup_industry_resource_data.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/Peridot/topology.json"
         }
       ]
     },
@@ -28271,10 +28181,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "e8eb01edb2479160",
-      "reviewedHash": "e8eb01edb2479160",
-      "lineCount": 108,
-      "sizeBytes": 3035,
+      "hash": "2ce60287d4e5ecc1",
+      "reviewedHash": "2ce60287d4e5ecc1",
+      "lineCount": 223,
+      "sizeBytes": 7521,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -29545,10 +29455,10 @@
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
       "stale": false,
-      "hash": "918ee3394ad6c426",
-      "reviewedHash": "918ee3394ad6c426",
-      "lineCount": 406,
-      "sizeBytes": 15529,
+      "hash": "85a41d31e8b78a6a",
+      "reviewedHash": "85a41d31e8b78a6a",
+      "lineCount": 947,
+      "sizeBytes": 46662,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -30126,12 +30036,6 @@
           "sourceType": "file",
           "type": "Wiki Citation",
           "reason": "Explicit [[File:docs/AI_DEVELOPER_GUIDE.md]] reference"
-        },
-        {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/AI_DEVELOPER_GUIDE.md"
         },
         {
           "source": "docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md",
@@ -31171,12 +31075,6 @@
           "reason": "References docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md"
-        },
-        {
           "source": "docs/agents/context-index.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -31248,12 +31146,6 @@
           "sourceType": "file",
           "type": "Wiki Citation",
           "reason": "Explicit [[File:docs/adr/0004-desktop-workstation-start-html.md]] reference"
-        },
-        {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0004-desktop-workstation-start-html.md"
         },
         {
           "source": "docs/agents/context-index.json",
@@ -31335,12 +31227,6 @@
           "reason": "Explicit [[File:docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md]] reference"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md"
-        },
-        {
           "source": "docs/agents/context-index.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -31420,12 +31306,6 @@
           "reason": "Explicit [[File:docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md]] reference"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md"
-        },
-        {
           "source": "docs/navigation_manifest.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -31500,12 +31380,6 @@
         },
         {
           "source": "AGENTS.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md"
-        },
-        {
-          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md"
@@ -31958,12 +31832,6 @@
           "reason": "References docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md"
-        },
-        {
           "source": "docs/navigation_manifest.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -32020,12 +31888,6 @@
         },
         {
           "source": "AGENTS.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md"
-        },
-        {
-          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md"
@@ -32169,12 +32031,6 @@
           "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md"
-        },
-        {
           "source": "docs/agents/context-index.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -32236,12 +32092,6 @@
           "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md"
-        },
-        {
           "source": "docs/agents/context-index.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -32279,12 +32129,6 @@
         },
         {
           "source": "AGENTS.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md"
-        },
-        {
-          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md"
@@ -33362,12 +33206,6 @@
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References docs/agents/domain.md"
-        },
-        {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/agents/domain.md"
         }
       ]
     },
@@ -33413,12 +33251,6 @@
           "reason": "References docs/agents/issue-tracker.md"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/agents/issue-tracker.md"
-        },
-        {
           "source": "scratch/loot-planning/04-g0-baseline-record.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -33456,12 +33288,6 @@
       "inbound": [
         {
           "source": "AGENTS.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/agents/triage-labels.md"
-        },
-        {
-          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References docs/agents/triage-labels.md"
@@ -36245,12 +36071,6 @@
           "reason": "References docs/srd/campaign_preset_specification_srd.md"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/srd/campaign_preset_specification_srd.md"
-        },
-        {
           "source": "docs/adr/0001-dual-mode-preset-architecture.md",
           "sourceType": "file",
           "type": "Wiki Citation",
@@ -36388,12 +36208,6 @@
           "sourceType": "file",
           "type": "Wiki Citation",
           "reason": "Explicit [[File:docs/srd/ip_module_framework_srd.md]] reference"
-        },
-        {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/srd/ip_module_framework_srd.md"
         },
         {
           "source": "docs/adr/0001-dual-mode-preset-architecture.md",
@@ -36541,12 +36355,6 @@
         },
         {
           "source": "AGENTS.md",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References docs/srd/scenario_primitives_srd.md"
-        },
-        {
-          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References docs/srd/scenario_primitives_srd.md"
@@ -36837,12 +36645,6 @@
         },
         {
           "source": "admin.html",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References index.html"
-        },
-        {
-          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References index.html"
@@ -37243,6 +37045,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Crop: Raw-Sugarcane] provided by AGRI-SUGAR-01_Sugarcane_Plantation_and_Harvest_Fields.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/AGRI-SUGAR-01_Sugarcane_Plantation_and_Harvest_Fields.md"
         }
       ]
     },
@@ -37292,6 +37100,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Commodity: Cane-Molasses] provided by AGRI-SUGAR-02_Cane_Crushing_Mill_and_Boiling_House.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/AGRI-SUGAR-02_Cane_Crushing_Mill_and_Boiling_House.md"
         }
       ]
     },
@@ -37328,7 +37142,14 @@
           "reason": "Requires [Timber: Cooperage-Casks] provided by IND-TIMBER-03_Master_Cooperage.md"
         }
       ],
-      "inbound": []
+      "inbound": [
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/AGRI-SUGAR-03_Rum_Distillery_and_Excise_Harbor.md"
+        }
+      ]
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-ALUM-01_Alunite_Quarry_and_Leaching_Vats.md",
@@ -37374,6 +37195,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Chem: Mordant-Alum] provided by EXT-ALUM-01_Alunite_Quarry_and_Leaching_Vats.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-ALUM-01_Alunite_Quarry_and_Leaching_Vats.md"
         }
       ]
     },
@@ -37400,6 +37227,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Mineral: Raw-Clay] provided by EXT-CLAY-01_Riverbank_Clay_Pit.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-CLAY-01_Riverbank_Clay_Pit.md"
         }
       ]
     },
@@ -37442,6 +37275,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Food: Fresh-Catch] provided by EXT-FISH-01_Pelagic_Fishing_Fleet_Wharf.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-FISH-01_Pelagic_Fishing_Fleet_Wharf.md"
         }
       ]
     },
@@ -37477,6 +37316,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Animal: Raw-Pelts] provided by EXT-FURS-01_Boreal_Trapline_Outpost.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-FURS-01_Boreal_Trapline_Outpost.md"
         }
       ]
     },
@@ -37515,6 +37360,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Mineral: Silica-Sand] provided by EXT-GLASS-01_Silica_Sand_Dredging_Pit.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-GLASS-01_Silica_Sand_Dredging_Pit.md"
         }
       ]
     },
@@ -37550,6 +37401,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Stone: Cut-Limestone] provided by EXT-LIME-01_Limestone_Quarry.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-LIME-01_Limestone_Quarry.md"
         }
       ]
     },
@@ -37583,6 +37440,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Timber: Mast-Spars] provided by EXT-PINE-01_Boreal_Conifer_Logging_and_Turpentine_Camp.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-PINE-01_Boreal_Conifer_Logging_and_Turpentine_Camp.md"
         }
       ]
     },
@@ -37609,6 +37472,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Mineral: Kaolin-Clay] provided by EXT-PORC-01_Kaolin_and_Petuntse_Quarry.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-PORC-01_Kaolin_and_Petuntse_Quarry.md"
         }
       ]
     },
@@ -37635,6 +37504,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Commodity: Brine-Slurry] provided by EXT-SALT-01_Tidal_Salt_Evaporation_Pans.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-SALT-01_Tidal_Salt_Evaporation_Pans.md"
         }
       ]
     },
@@ -37677,6 +37552,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Chem: Refined-Saltpeter] provided by EXT-SALTPETER-01_Nitrary_Compost_Beds_and_Leaching_House.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-SALTPETER-01_Nitrary_Compost_Beds_and_Leaching_House.md"
         }
       ]
     },
@@ -37712,6 +37593,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Commodity: Tree-Bark] provided by EXT-TANNIN-01_Bark_Peeling_Camp.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-TANNIN-01_Bark_Peeling_Camp.md"
         }
       ]
     },
@@ -37835,6 +37722,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Fuel: Wood-Fuel] provided by EXT-TIMBER-01_Hardwood_Logging_Camp.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-TIMBER-01_Hardwood_Logging_Camp.md"
         }
       ]
     },
@@ -37878,6 +37771,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Animal: Whale-Blubber] provided by EXT-WHALE-01_Offshore_Whaling_Flensing_Slip.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-WHALE-01_Offshore_Whaling_Flensing_Slip.md"
         }
       ]
     },
@@ -37905,6 +37804,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Livestock: Cattle] provided by FARM-CATTLE-01_Pasture_Ranch.md"
+        },
+        {
+          "source": "mods/pre_industrial_resources/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/FARM-CATTLE-01_Pasture_Ranch.md"
         }
       ]
     },
@@ -41654,10 +41559,10 @@
       "volume": "vol-4",
       "kind": "Workstation Mod Manifest (JSON)",
       "stale": false,
-      "hash": "9dc1f79cdf50279b",
-      "reviewedHash": "9dc1f79cdf50279b",
-      "lineCount": 2227,
-      "sizeBytes": 57886,
+      "hash": "97257de0964bfe3e",
+      "reviewedHash": "97257de0964bfe3e",
+      "lineCount": 4720,
+      "sizeBytes": 328661,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -41668,6 +41573,108 @@
           "targetType": "file",
           "type": "Compiles Into",
           "reason": "Bundled as workstation mod extension into start.html via build_suite.js"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/AGRI-SUGAR-01_Sugarcane_Plantation_and_Harvest_Fields.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/AGRI-SUGAR-01_Sugarcane_Plantation_and_Harvest_Fields.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/AGRI-SUGAR-02_Cane_Crushing_Mill_and_Boiling_House.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/AGRI-SUGAR-02_Cane_Crushing_Mill_and_Boiling_House.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/AGRI-SUGAR-03_Rum_Distillery_and_Excise_Harbor.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/AGRI-SUGAR-03_Rum_Distillery_and_Excise_Harbor.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-ALUM-01_Alunite_Quarry_and_Leaching_Vats.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-ALUM-01_Alunite_Quarry_and_Leaching_Vats.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-CLAY-01_Riverbank_Clay_Pit.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-CLAY-01_Riverbank_Clay_Pit.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-FISH-01_Pelagic_Fishing_Fleet_Wharf.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-FISH-01_Pelagic_Fishing_Fleet_Wharf.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-FURS-01_Boreal_Trapline_Outpost.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-FURS-01_Boreal_Trapline_Outpost.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-GLASS-01_Silica_Sand_Dredging_Pit.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-GLASS-01_Silica_Sand_Dredging_Pit.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-LIME-01_Limestone_Quarry.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-LIME-01_Limestone_Quarry.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-PINE-01_Boreal_Conifer_Logging_and_Turpentine_Camp.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-PINE-01_Boreal_Conifer_Logging_and_Turpentine_Camp.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-PORC-01_Kaolin_and_Petuntse_Quarry.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-PORC-01_Kaolin_and_Petuntse_Quarry.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-SALT-01_Tidal_Salt_Evaporation_Pans.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-SALT-01_Tidal_Salt_Evaporation_Pans.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-SALTPETER-01_Nitrary_Compost_Beds_and_Leaching_House.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-SALTPETER-01_Nitrary_Compost_Beds_and_Leaching_House.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-TANNIN-01_Bark_Peeling_Camp.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-TANNIN-01_Bark_Peeling_Camp.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-TIMBER-01_Hardwood_Logging_Camp.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-TIMBER-01_Hardwood_Logging_Camp.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/EXT-WHALE-01_Offshore_Whaling_Flensing_Slip.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/EXT-WHALE-01_Offshore_Whaling_Flensing_Slip.md"
+        },
+        {
+          "target": "mods/pre_industrial_resources/modules/FARM-CATTLE-01_Pasture_Ranch.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/pre_industrial_resources/modules/FARM-CATTLE-01_Pasture_Ranch.md"
         }
       ],
       "inbound": [
@@ -41783,6 +41790,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-020"
+        },
+        {
+          "source": "mods/scale_fluid_transit_corridors/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md"
         }
       ]
     },
@@ -41810,6 +41823,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-021"
+        },
+        {
+          "source": "mods/scale_fluid_transit_corridors/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md"
         }
       ]
     },
@@ -41837,6 +41856,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-022"
+        },
+        {
+          "source": "mods/scale_fluid_transit_corridors/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md"
         }
       ]
     },
@@ -41864,6 +41889,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-023"
+        },
+        {
+          "source": "mods/scale_fluid_transit_corridors/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md"
         }
       ]
     },
@@ -41891,6 +41922,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-024"
+        },
+        {
+          "source": "mods/scale_fluid_transit_corridors/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md"
         }
       ]
     },
@@ -41931,6 +41968,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-025"
+        },
+        {
+          "source": "mods/scale_fluid_transit_corridors/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md"
         }
       ]
     },
@@ -41940,10 +41983,10 @@
       "volume": "vol-4",
       "kind": "Workstation Mod Manifest (JSON)",
       "stale": false,
-      "hash": "770be27cce4e8f0f",
-      "reviewedHash": "770be27cce4e8f0f",
-      "lineCount": 111,
-      "sizeBytes": 2829,
+      "hash": "5bbe1426e3713411",
+      "reviewedHash": "5bbe1426e3713411",
+      "lineCount": 519,
+      "sizeBytes": 43661,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -41954,6 +41997,42 @@
           "targetType": "file",
           "type": "Compiles Into",
           "reason": "Bundled as workstation mod extension into start.html via build_suite.js"
+        },
+        {
+          "target": "mods/scale_fluid_transit_corridors/modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md"
+        },
+        {
+          "target": "mods/scale_fluid_transit_corridors/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md"
+        },
+        {
+          "target": "mods/scale_fluid_transit_corridors/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md"
+        },
+        {
+          "target": "mods/scale_fluid_transit_corridors/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md"
+        },
+        {
+          "target": "mods/scale_fluid_transit_corridors/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md"
+        },
+        {
+          "target": "mods/scale_fluid_transit_corridors/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/scale_fluid_transit_corridors/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md"
         }
       ],
       "inbound": [
@@ -42099,6 +42178,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module T0-DOM-01"
+        },
+        {
+          "source": "mods/tier_0_settlement_substratum/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md"
         }
       ]
     },
@@ -42157,6 +42242,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Water: Baseline-Potable-Flow] provided by T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md"
+        },
+        {
+          "source": "mods/tier_0_settlement_substratum/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md"
         }
       ]
     },
@@ -42196,7 +42287,14 @@
           "reason": "References docs/srd/tier_0_substratum_srd.md"
         }
       ],
-      "inbound": []
+      "inbound": [
+        {
+          "source": "mods/tier_0_settlement_substratum/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md"
+        }
+      ]
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md",
@@ -42234,7 +42332,14 @@
           "reason": "References docs/srd/tier_0_substratum_srd.md"
         }
       ],
-      "inbound": []
+      "inbound": [
+        {
+          "source": "mods/tier_0_settlement_substratum/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md"
+        }
+      ]
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md",
@@ -42278,6 +42383,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module T0-DOM-05"
+        },
+        {
+          "source": "mods/tier_0_settlement_substratum/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md"
         }
       ]
     },
@@ -42317,7 +42428,14 @@
           "reason": "References docs/srd/tier_0_substratum_srd.md"
         }
       ],
-      "inbound": []
+      "inbound": [
+        {
+          "source": "mods/tier_0_settlement_substratum/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md"
+        }
+      ]
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md",
@@ -42361,6 +42479,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module T0-DOM-07"
+        },
+        {
+          "source": "mods/tier_0_settlement_substratum/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md"
         }
       ]
     },
@@ -42406,6 +42530,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module T0-DOM-08"
+        },
+        {
+          "source": "mods/tier_0_settlement_substratum/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md"
         }
       ]
     },
@@ -42415,10 +42545,10 @@
       "volume": "vol-4",
       "kind": "Workstation Mod Manifest (JSON)",
       "stale": false,
-      "hash": "2708c8c698ed634f",
-      "reviewedHash": "2708c8c698ed634f",
-      "lineCount": 164,
-      "sizeBytes": 7387,
+      "hash": "8d62db9785892726",
+      "reviewedHash": "8d62db9785892726",
+      "lineCount": 684,
+      "sizeBytes": 67037,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -42429,6 +42559,54 @@
           "targetType": "file",
           "type": "Compiles Into",
           "reason": "Bundled as workstation mod extension into start.html via build_suite.js"
+        },
+        {
+          "target": "mods/tier_0_settlement_substratum/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md"
+        },
+        {
+          "target": "mods/tier_0_settlement_substratum/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md"
+        },
+        {
+          "target": "mods/tier_0_settlement_substratum/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md"
+        },
+        {
+          "target": "mods/tier_0_settlement_substratum/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md"
+        },
+        {
+          "target": "mods/tier_0_settlement_substratum/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md"
+        },
+        {
+          "target": "mods/tier_0_settlement_substratum/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md"
+        },
+        {
+          "target": "mods/tier_0_settlement_substratum/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md"
+        },
+        {
+          "target": "mods/tier_0_settlement_substratum/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/tier_0_settlement_substratum/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md"
         }
       ],
       "inbound": [
@@ -42560,6 +42738,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-010"
+        },
+        {
+          "source": "mods/universal_worldbuilding_library/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-010_The_Biogenic_Spore_Bloom_and_Planetary_Rebirth.md"
         }
       ]
     },
@@ -42590,6 +42774,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-011"
+        },
+        {
+          "source": "mods/universal_worldbuilding_library/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md"
         }
       ]
     },
@@ -42627,6 +42817,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-012"
+        },
+        {
+          "source": "mods/universal_worldbuilding_library/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md"
         }
       ]
     },
@@ -42657,6 +42853,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-013"
+        },
+        {
+          "source": "mods/universal_worldbuilding_library/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md"
         }
       ]
     },
@@ -42700,6 +42902,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-014"
+        },
+        {
+          "source": "mods/universal_worldbuilding_library/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md"
         }
       ]
     },
@@ -42737,6 +42945,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-015"
+        },
+        {
+          "source": "mods/universal_worldbuilding_library/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md"
         }
       ]
     },
@@ -42764,6 +42978,12 @@
           "sourceType": "series",
           "type": "Module Citation",
           "reason": "References module CWT-030"
+        },
+        {
+          "source": "mods/universal_worldbuilding_library/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md"
         }
       ]
     },
@@ -42797,6 +43017,12 @@
           "sourceType": "file",
           "type": "Requires Resource From",
           "reason": "Requires [Bio: Concentrated-Blood-Alkaloids] provided by CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md"
+        },
+        {
+          "source": "mods/universal_worldbuilding_library/modules_manifest.json",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md"
         }
       ]
     },
@@ -44194,10 +44420,10 @@
       "volume": "vol-4",
       "kind": "Workstation Mod Manifest (JSON)",
       "stale": false,
-      "hash": "d8cd23bf94d96f94",
-      "reviewedHash": "d8cd23bf94d96f94",
-      "lineCount": 940,
-      "sizeBytes": 37929,
+      "hash": "776442c697fd7ef9",
+      "reviewedHash": "776442c697fd7ef9",
+      "lineCount": 3565,
+      "sizeBytes": 317757,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -44208,6 +44434,54 @@
           "targetType": "file",
           "type": "Compiles Into",
           "reason": "Bundled as workstation mod extension into start.html via build_suite.js"
+        },
+        {
+          "target": "mods/universal_worldbuilding_library/modules/CWT-010_The_Biogenic_Spore_Bloom_and_Planetary_Rebirth.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-010_The_Biogenic_Spore_Bloom_and_Planetary_Rebirth.md"
+        },
+        {
+          "target": "mods/universal_worldbuilding_library/modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md"
+        },
+        {
+          "target": "mods/universal_worldbuilding_library/modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md"
+        },
+        {
+          "target": "mods/universal_worldbuilding_library/modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md"
+        },
+        {
+          "target": "mods/universal_worldbuilding_library/modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md"
+        },
+        {
+          "target": "mods/universal_worldbuilding_library/modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md"
+        },
+        {
+          "target": "mods/universal_worldbuilding_library/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md"
+        },
+        {
+          "target": "mods/universal_worldbuilding_library/modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References mods/universal_worldbuilding_library/modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md"
         }
       ],
       "inbound": [
@@ -44437,12 +44711,6 @@
         },
         {
           "source": "admin.html",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References network/campaign_studio.html"
-        },
-        {
-          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References network/campaign_studio.html"
@@ -44865,12 +45133,6 @@
           "reason": "References network/network_builder.html"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References network/network_builder.html"
-        },
-        {
           "source": "docs/adr/0001-dual-mode-preset-architecture.md",
           "sourceType": "file",
           "type": "Wiki Citation",
@@ -45139,12 +45401,6 @@
           "reason": "References network/odv_archetype_matrix.html"
         },
         {
-          "source": "start.html",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References network/odv_archetype_matrix.html"
-        },
-        {
           "source": "test/run_tests.js",
           "sourceType": "file",
           "type": "Path Reference",
@@ -45158,10 +45414,10 @@
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "0c1a4d6265533a79",
-      "reviewedHash": "0c1a4d6265533a79",
-      "lineCount": 11836,
-      "sizeBytes": 3223574,
+      "hash": "281f5dca1e612946",
+      "reviewedHash": "281f5dca1e612946",
+      "lineCount": 23540,
+      "sizeBytes": 9438404,
       "symbols": [
         "moduleMatchesTrack(m, track)",
         "getModuleTrackBadges(m)",
@@ -50026,6 +50282,67 @@
       ]
     },
     {
+      "relPath": "scripts/cleanup_industry_resource_data.js",
+      "title": "cleanup_industry_resource_data.js",
+      "volume": "vol-8",
+      "kind": "Node.js / Browser Engine Script",
+      "stale": false,
+      "hash": "02fa8dfd38787849",
+      "reviewedHash": "02fa8dfd38787849",
+      "lineCount": 90,
+      "sizeBytes": 5714,
+      "symbols": [
+        "walk(value, fn)",
+        "remap(obj)"
+      ],
+      "globals": [
+        "fs",
+        "path",
+        "vm",
+        "root",
+        "targets",
+        "dirs",
+        "modules",
+        "sandbox",
+        "stable"
+      ],
+      "provides": [],
+      "requires": [],
+      "outbound": [
+        {
+          "target": "campaigns/BaldursGate/topology.json",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/BaldursGate/topology.json"
+        },
+        {
+          "target": "campaigns/Peridot/campaign.json",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/Peridot/campaign.json"
+        },
+        {
+          "target": "campaigns/Peridot/preset.json",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/Peridot/preset.json"
+        },
+        {
+          "target": "campaigns/Peridot/topology.json",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References campaigns/Peridot/topology.json"
+        },
+        {
+          "target": "src/workstation/scripts/entity_core.js",
+          "targetType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/entity_core.js"
+        }
+      ],
+      "inbound": []
+    },
+    {
       "relPath": "scripts/find_codebase_node.js",
       "title": "find_codebase_node.js",
       "volume": "vol-8",
@@ -50529,12 +50846,6 @@
           "reason": "References server.js"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References server.js"
-        },
-        {
           "source": "docs/CREATOR_STUDIO_AUTHORITATIVE_REFERENCE.md",
           "sourceType": "file",
           "type": "Path Reference",
@@ -50627,12 +50938,6 @@
         },
         {
           "source": "Test-Suite.ps1",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References server.ps1"
-        },
-        {
-          "source": "build_suite.js",
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References server.ps1"
@@ -51961,10 +52266,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "45c963b3ddb7ece7",
-      "reviewedHash": "45c963b3ddb7ece7",
-      "lineCount": 918,
-      "sizeBytes": 61798,
+      "hash": "a59f9bbc48ce2dca",
+      "reviewedHash": "a59f9bbc48ce2dca",
+      "lineCount": 924,
+      "sizeBytes": 63522,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -52132,10 +52437,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "4fb2d3bdc15ee80a",
-      "reviewedHash": "4fb2d3bdc15ee80a",
-      "lineCount": 1670,
-      "sizeBytes": 83950,
+      "hash": "629623fde99f0a24",
+      "reviewedHash": "629623fde99f0a24",
+      "lineCount": 1688,
+      "sizeBytes": 85347,
       "symbols": [
         "computeStarPoints(cx, cy, spikes, outerRadius, innerRadius)",
         "computePolygonPoints(cx, cy, sides, radius)",
@@ -52437,10 +52742,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "d216e4e8e911d9f7",
-      "reviewedHash": "d216e4e8e911d9f7",
-      "lineCount": 3066,
-      "sizeBytes": 137801,
+      "hash": "10f14d8c92efd8ff",
+      "reviewedHash": "10f14d8c92efd8ff",
+      "lineCount": 3075,
+      "sizeBytes": 138601,
       "symbols": [
         "setTool(toolName)",
         "getToolKey(name)",
@@ -52559,7 +52864,7 @@
           "target": "src/workstation/scripts/entity_core.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes evaluateTrackerConsequences() defined in entity_core.js"
+          "reason": "Invokes isResourceItem() defined in entity_core.js"
         },
         {
           "target": "src/workstation/scripts/entity_manager_ui.js",
@@ -53073,10 +53378,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "a94ff3c2533dc609",
-      "reviewedHash": "a94ff3c2533dc609",
-      "lineCount": 2672,
-      "sizeBytes": 126273,
+      "hash": "6e1885da5279cb4e",
+      "reviewedHash": "6e1885da5279cb4e",
+      "lineCount": 2688,
+      "sizeBytes": 127302,
       "symbols": [
         "generateMonotonicId(prefix = 'ent')",
         "normalizeOdv(raw)",
@@ -53372,12 +53677,6 @@
       ],
       "inbound": [
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/campaign_override_slots.js"
-        },
-        {
           "source": "docs/agents/context-index.json",
           "sourceType": "file",
           "type": "Path Reference",
@@ -53388,6 +53687,12 @@
           "sourceType": "file",
           "type": "Path Reference",
           "reason": "References src/workstation/scripts/campaign_override_slots.js"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
         },
         {
           "source": "src/workstation/scripts/map_store.js",
@@ -53816,10 +54121,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "fdb831b2c24fb750",
-      "reviewedHash": "fdb831b2c24fb750",
-      "lineCount": 1320,
-      "sizeBytes": 62646,
+      "hash": "a5e77cf5076e7976",
+      "reviewedHash": "a5e77cf5076e7976",
+      "lineCount": 1327,
+      "sizeBytes": 63290,
       "symbols": [
         "getEntityIcon(type)",
         "analyzeEntityDependencies(targetType, targetId)",
@@ -53894,7 +54199,7 @@
           "target": "src/workstation/scripts/entity_core.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes getCreatureEffectiveNodeId() defined in entity_core.js"
+          "reason": "Invokes isResourceItem() defined in entity_core.js"
         },
         {
           "target": "src/workstation/scripts/entity_manager_ui.js",
@@ -54014,13 +54319,20 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "ff483bb0e1a62144",
-      "reviewedHash": "ff483bb0e1a62144",
-      "lineCount": 1973,
-      "sizeBytes": 88888,
+      "hash": "c76e417554185fa9",
+      "reviewedHash": "c76e417554185fa9",
+      "lineCount": 2359,
+      "sizeBytes": 111209,
       "symbols": [
         "getItemEffectiveNodeId(item)",
+        "parseResourceTagMeta(raw)",
+        "normalizeResourceTagKey(raw)",
         "isResourceItem(item)",
+        "isIndustryItem(item)",
+        "splitResourceTagList(val)",
+        "buildIndustryResourceIndex(targetTopo = null)",
+        "isLegacyBoilerplateNote(notes)",
+        "resolveRichEntityMetadata(entity, type)",
         "getCreatureEffectiveNodeId(creature)",
         "getNpcEffectiveSociology(npc, targetTopo = null, options = {})",
         "computeNpcNodeDissonance(npc, node, targetTopo = null, options = {})",
@@ -54046,7 +54358,7 @@
         "promotePrototypeToCampaign(protoId, explicitType = null)",
         "syncQuestAndTrackerLinks(quest, previousTrackerIds = [])",
         "syncTrackerToQuests(tracker, previousTriggerQuestIds = [])",
-        "assignEntityToNode(entityId, nodeIdVal, isProto)",
+        "assignEntityToNode(entityId, nodeIdVal, isProto, explicitType = null)",
         "removeEntityFromCampaign(entityId)",
         "dedupeStringsCI(arr)",
         "normalizeDemographics(raw)",
@@ -54169,12 +54481,6 @@
           "reason": "Explicit [[File:src/workstation/scripts/entity_core.js]] reference"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/entity_core.js"
-        },
-        {
           "source": "docs/agents/ARCHITECTURE_MAP.md",
           "sourceType": "file",
           "type": "Path Reference",
@@ -54205,6 +54511,12 @@
           "reason": "References src/workstation/scripts/entity_core.js"
         },
         {
+          "source": "scripts/cleanup_industry_resource_data.js",
+          "sourceType": "file",
+          "type": "Path Reference",
+          "reason": "References src/workstation/scripts/entity_core.js"
+        },
+        {
           "source": "src/workstation/scripts/cad_canvas_renderer.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -54214,7 +54526,7 @@
           "source": "src/workstation/scripts/cad_interaction.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes evaluateTrackerConsequences() defined in entity_core.js"
+          "reason": "Invokes isResourceItem() defined in entity_core.js"
         },
         {
           "source": "src/workstation/scripts/campaign_exporter.js",
@@ -54232,7 +54544,13 @@
           "source": "src/workstation/scripts/entity_cascade_delete.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes getCreatureEffectiveNodeId() defined in entity_core.js"
+          "reason": "Invokes isResourceItem() defined in entity_core.js"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
         },
         {
           "source": "src/workstation/scripts/entity_crud_dialogs.js",
@@ -54256,7 +54574,7 @@
           "source": "src/workstation/scripts/module_explorer.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes getBackingEntityList() defined in entity_core.js"
+          "reason": "Invokes isResourceItem() defined in entity_core.js"
         },
         {
           "source": "src/workstation/scripts/pack_engine.js",
@@ -54268,7 +54586,7 @@
           "source": "src/workstation/scripts/property_grid_inspector.js",
           "sourceType": "file",
           "type": "Calls Function",
-          "reason": "Invokes getPrototypesForType() defined in entity_core.js"
+          "reason": "Invokes isResourceItem() defined in entity_core.js"
         },
         {
           "source": "src/workstation/scripts/selective_importer.js",
@@ -54302,16 +54620,16 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "46182b53d51c690d",
-      "reviewedHash": "46182b53d51c690d",
-      "lineCount": 1650,
-      "sizeBytes": 91722,
+      "hash": "6b4df4df02e5a164",
+      "reviewedHash": "6b4df4df02e5a164",
+      "lineCount": 1744,
+      "sizeBytes": 96991,
       "symbols": [
         "getQuestSpanningNodes(quest)",
         "resolveNodeInfo(nodeId)",
         "updateQuestSpanningPreview()",
         "openNewEntityModal(type, preselectedNodeId)",
-        "openEditEntityModal(entityId)",
+        "openEditEntityModal(entityId, explicitType = null)",
         "saveCustomEntity()",
         "openCreateEdgeModal(defaultSrcId = null, defaultTgtId = null, defaultType = 'road')",
         "submitCreateEdgeModal()",
@@ -54470,10 +54788,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "ec78ab070c2cefc9",
-      "reviewedHash": "ec78ab070c2cefc9",
-      "lineCount": 4871,
-      "sizeBytes": 297039,
+      "hash": "011e4e699c05af25",
+      "reviewedHash": "011e4e699c05af25",
+      "lineCount": 5602,
+      "sizeBytes": 362413,
       "symbols": [
         "escapeHtml(str)",
         "getEdgeDisplayInfo(edge)",
@@ -54500,6 +54818,14 @@
         "renderEntityManagerTree()",
         "addTreeItem(container, label, filterVal)",
         "setEntityManagerFilter(filterVal)",
+        "entityExplorerAxes()",
+        "entityFacetCategories(row, tab)",
+        "entityFacetNode(row, tab)",
+        "applyEntityTreeAxis(value)",
+        "clearEntityExplorerFilters()",
+        "prepareEntityExplorer(rows, tab, total)",
+        "setEntityTableHeader(thead, markup)",
+        "installEntityColumnSorting(thead, rows, tab, multiMap)",
         "setEntityManagerSort(sortMode)",
         "renderEntityManagerList()",
         "renderMiniClockGauge(cur, max)",
@@ -54522,9 +54848,11 @@
         "updateItemInlineProp(itemId, prop, value)",
         "highlightFactionTerritoryOnCanvas(facId)",
         "updateCreatureRoamingScope(creatureId, val)",
-        "selectEntityItem(id, isProto, optMapId = null)",
-        "navigateToEntity(type, id, optMapId = null)",
-        "updateFactionStance(sourceId, targetId, stance)"
+        "openSourceModuleFromInspector(moduleId, nodeId)",
+        "renderSourceModuleButton(moduleId, nodeId)",
+        "inspectorJumpToEntity(type, id, isProto, optMapId = null)",
+        "inspectorPromotePrototype(type, protoId)",
+        "s3bJump(type, id, isProto)"
       ],
       "globals": [],
       "provides": [],
@@ -54737,12 +55065,6 @@
           "reason": "Inlines modular source during suite compilation"
         },
         {
-          "source": "src/workstation/scripts/fft_editor_ui.js",
-          "sourceType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes selectEntityItem() defined in entity_manager_ui.js"
-        },
-        {
           "source": "src/workstation/scripts/industry_chain_importer.js",
           "sourceType": "file",
           "type": "Calls Function",
@@ -54915,12 +55237,6 @@
           "reason": "Bundled into standalone offline workstation via build_suite.js"
         },
         {
-          "target": "src/workstation/scripts/entity_manager_ui.js",
-          "targetType": "file",
-          "type": "Calls Function",
-          "reason": "Invokes selectEntityItem() defined in entity_manager_ui.js"
-        },
-        {
           "target": "src/workstation/scripts/fast_frugal_tree.js",
           "targetType": "file",
           "type": "Calls Function",
@@ -54978,10 +55294,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "ac1078450acbcd68",
-      "reviewedHash": "ac1078450acbcd68",
+      "hash": "f73dc652b90fd1eb",
+      "reviewedHash": "f73dc652b90fd1eb",
       "lineCount": 590,
-      "sizeBytes": 24918,
+      "sizeBytes": 24930,
       "symbols": [
         "resolveNodesList(topo)",
         "inferConduitType(tags)",
@@ -56022,10 +56338,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "cab30f781fd5ad4d",
-      "reviewedHash": "cab30f781fd5ad4d",
-      "lineCount": 1148,
-      "sizeBytes": 51159,
+      "hash": "38eb6288230743e2",
+      "reviewedHash": "38eb6288230743e2",
+      "lineCount": 1212,
+      "sizeBytes": 55109,
       "symbols": [
         "openModuleExplorer(moduleId, targetNodeId)",
         "updateTargetNodeDropdown(targetNodeId)",
@@ -56034,6 +56350,7 @@
         "isModuleInActiveCampaign(mId)",
         "updateModuleCampaignButton()",
         "toggleModuleInCampaign()",
+        "resolveModuleExplorerId(ref)",
         "filterModules(preferSelectId)",
         "selectModuleItem(modId)",
         "updateModuleSlotButton()",
@@ -56096,7 +56413,7 @@
           "target": "src/workstation/scripts/entity_core.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes getBackingEntityList() defined in entity_core.js"
+          "reason": "Invokes isResourceItem() defined in entity_core.js"
         },
         {
           "target": "src/workstation/scripts/property_grid_inspector.js",
@@ -56317,10 +56634,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "9e26530b1558ca0c",
-      "reviewedHash": "9e26530b1558ca0c",
-      "lineCount": 1075,
-      "sizeBytes": 45500,
+      "hash": "d788e73e62bb6d2d",
+      "reviewedHash": "d788e73e62bb6d2d",
+      "lineCount": 1086,
+      "sizeBytes": 46028,
       "symbols": [
         "uint8ArrayToDataUrl(bytes, mimeType)",
         "inferMimeType(fileName)",
@@ -56483,10 +56800,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "ad034c41fa16b8ac",
-      "reviewedHash": "ad034c41fa16b8ac",
-      "lineCount": 4773,
-      "sizeBytes": 229227,
+      "hash": "59fd7d1096cc89cc",
+      "reviewedHash": "59fd7d1096cc89cc",
+      "lineCount": 4964,
+      "sizeBytes": 241826,
       "symbols": [
         "selectNode(nodeId, e = null)",
         "selectEdge(edgeType, uId, vId, e = null)",
@@ -56519,6 +56836,9 @@
         "openResourceTagModal(targetObj, propKey, targetType, targetLabel)",
         "renderTagList()",
         "appendActionPropRow(tbody, propName, label, onAction)",
+        "appendSourceModuleRow(tbody, moduleId, isProto)",
+        "dockJumpToEntity(type, id, isProto)",
+        "appendRichSupplyChainRows(tbody, entity, kind, topo)",
         "appendButtonPropRow(tbody, propName, buttonLabel, onAction)",
         "appendTextareaPropRow(tbody, propName, value, rows = 3, onCommit)",
         "appendBacklinksPropRow(tbody, entityType, entityId)",
@@ -56596,7 +56916,7 @@
           "target": "src/workstation/scripts/entity_core.js",
           "targetType": "file",
           "type": "Calls Function",
-          "reason": "Invokes getPrototypesForType() defined in entity_core.js"
+          "reason": "Invokes isResourceItem() defined in entity_core.js"
         },
         {
           "target": "src/workstation/scripts/entity_crud_dialogs.js",
@@ -57678,12 +57998,6 @@
           "reason": "Explicit [[File:src/workstation/scripts/state_adapter.js]] reference"
         },
         {
-          "source": "build_suite.js",
-          "sourceType": "file",
-          "type": "Path Reference",
-          "reason": "References src/workstation/scripts/state_adapter.js"
-        },
-        {
           "source": "docs/AI_DEVELOPER_GUIDE.md",
           "sourceType": "file",
           "type": "Wiki Citation",
@@ -57802,6 +58116,12 @@
           "sourceType": "file",
           "type": "Calls Function",
           "reason": "Invokes getNode() defined in state_adapter.js"
+        },
+        {
+          "source": "build_suite.js",
+          "sourceType": "file",
+          "type": "Bundles Source",
+          "reason": "Inlines modular source during suite compilation"
         },
         {
           "source": "src/workstation/scripts/supply_chain_simulator.js",
@@ -58218,10 +58538,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "ea05f76f7cd4f0ba",
-      "reviewedHash": "ea05f76f7cd4f0ba",
-      "lineCount": 1305,
-      "sizeBytes": 52294,
+      "hash": "c19fd5a5ea18afcd",
+      "reviewedHash": "c19fd5a5ea18afcd",
+      "lineCount": 1321,
+      "sizeBytes": 53210,
       "symbols": [
         "escapeHtml(str)",
         "escapeAttr(str)",
@@ -58413,10 +58733,10 @@
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
       "stale": false,
-      "hash": "1241136c5ff348c7",
-      "reviewedHash": "1241136c5ff348c7",
-      "lineCount": 1918,
-      "sizeBytes": 97135,
+      "hash": "7033e0dbd3904976",
+      "reviewedHash": "7033e0dbd3904976",
+      "lineCount": 1932,
+      "sizeBytes": 97797,
       "symbols": [
         "ensureBuiltinModulesBaseline()",
         "createSterileTopology(options = {})",
@@ -59051,10 +59371,10 @@
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
       "stale": false,
-      "hash": "918675699fa6daaf",
-      "reviewedHash": "918675699fa6daaf",
-      "lineCount": 2060,
-      "sizeBytes": 44644,
+      "hash": "160500769f5cfccc",
+      "reviewedHash": "160500769f5cfccc",
+      "lineCount": 2064,
+      "sizeBytes": 46932,
       "symbols": [],
       "globals": [],
       "provides": [],
@@ -59735,10 +60055,10 @@
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
       "stale": false,
-      "hash": "7b7c8a6a64e8835a",
-      "reviewedHash": "7b7c8a6a64e8835a",
-      "lineCount": 55151,
-      "sizeBytes": 5792655,
+      "hash": "13ed63b5dd065198",
+      "reviewedHash": "13ed63b5dd065198",
+      "lineCount": 56718,
+      "sizeBytes": 11998005,
       "symbols": [
         "hydrateBundledCampaign(id, bundle)",
         "resolveBundledCampaignKey(rawId)",
@@ -61654,12 +61974,6 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References index.html"
-        },
-        {
-          "target": "network/odv_archetype_matrix.html",
-          "targetType": "file",
-          "type": "Path Reference",
-          "reason": "References network/odv_archetype_matrix.html"
         }
       ],
       "inbound": [
@@ -62639,10 +62953,10 @@
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
       "stale": false,
-      "hash": "5b43ce4a0262525e",
-      "reviewedHash": "5b43ce4a0262525e",
-      "lineCount": 10710,
-      "sizeBytes": 546857,
+      "hash": "a8a647bdf198308e",
+      "reviewedHash": "a8a647bdf198308e",
+      "lineCount": 10907,
+      "sizeBytes": 563291,
       "symbols": [
         "assert(condition, message)",
         "assertEqual(actual, expected, message)",
@@ -62853,6 +63167,12 @@
           "targetType": "file",
           "type": "Path Reference",
           "reason": "References start.html"
+        },
+        {
+          "target": "campaigns/Peridot/modules/Set_A_Infrastructure_and_Engineering/INFRA-01_Hydro_Pelton_Wheel_and_DC_Dynamo.md",
+          "targetType": "file",
+          "type": "Module Cross-Ref",
+          "reason": "Mentions module INFRA-01"
         }
       ],
       "inbound": [
@@ -63717,6 +64037,90 @@
       "kind": "Node.js / Browser Engine Script"
     },
     {
+      "name": "parseYamlScalar",
+      "signature": "parseYamlScalar(rawVal)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "parseYamlFrontmatter",
+      "signature": "parseYamlFrontmatter(yamlBlock)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "stripMarkdownNoise",
+      "signature": "stripMarkdownNoise(text)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "truncateClean",
+      "signature": "truncateClean(text, maxLen = 700)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "extractMarkdownSections",
+      "signature": "extractMarkdownSections(rawMarkdown)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "extractDialFromData",
+      "signature": "extractDialFromData(m, parsedMd)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "parseSingleClockString",
+      "signature": "parseSingleClockString(rawClock, fallbackKey)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "extractThreatClocksFromData",
+      "signature": "extractThreatClocksFromData(m, parsedMd)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "extractFourCornersFromData",
+      "signature": "extractFourCornersFromData(m, parsedMd)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "isIndustrialModuleMeta",
+      "signature": "isIndustrialModuleMeta(m)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "enrichModuleFromMarkdown",
+      "signature": "enrichModuleFromMarkdown(m, rawMarkdown, baseDirPath)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "isEmptyMetaValue",
+      "signature": "isEmptyMetaValue(val)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "mergeModuleDiskAndManifest",
+      "signature": "mergeModuleDiskAndManifest(dm, m)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "parseModuleMarkdownFile",
+      "signature": "parseModuleMarkdownFile(fullPath, relRootDir, preloadedRawText = null)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
       "name": "scanModulesDirRecursive",
       "signature": "scanModulesDirRecursive(modulesRootDir, campaignRootDir, deletedIdsSet = new Set()",
       "file": "build_suite.js",
@@ -63729,8 +64133,140 @@
       "kind": "Node.js / Browser Engine Script"
     },
     {
+      "name": "splitProseSentences",
+      "signature": "splitProseSentences(text)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "leadSentences",
+      "signature": "leadSentences(text, count = 1, maxLen = 260)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "endSentence",
+      "signature": "endSentence(text)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "lowerFirst",
+      "signature": "lowerFirst(text)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "fourCornerLabel",
+      "signature": "fourCornerLabel(raw)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "parseTagForBuild",
+      "signature": "parseTagForBuild(raw)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "resourceSectorProfile",
+      "signature": "resourceSectorProfile(sector)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "tokenizeForMatch",
+      "signature": "tokenizeForMatch(text)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "findSection",
+      "signature": "findSection(parsedMd, re)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "collectProseCorpus",
+      "signature": "collectProseCorpus(parsedMd)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "bestSentenceForTokens",
+      "signature": "bestSentenceForTokens(corpus, tokens, uniqueTokens, rawTag, usedSentences)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "extractModuleComponents",
+      "signature": "extractModuleComponents(parsedMd, mechSec)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "joinList",
+      "signature": "joinList(items)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "summarizeOutputDial",
+      "signature": "summarizeOutputDial(m)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "buildModuleStakeProfile",
+      "signature": "buildModuleStakeProfile(m, parsedMd)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "buildIndustryLore",
+      "signature": "buildIndustryLore(m, parsedMd, mechSec)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "buildRefiningProcess",
+      "signature": "buildRefiningProcess(m, parsedMd, corpus)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "composeResourceNotes",
+      "signature": "composeResourceNotes(item)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "buildResourcePrototype",
+      "signature": "buildResourcePrototype(m, p, idx, ctx)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "extractMarkdownConsumers",
+      "signature": "extractMarkdownConsumers(parsedMd, tagMetas)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
       "name": "enrichModuleEntities",
       "signature": "enrichModuleEntities(m, rawMarkdown)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "applyResourceConsumerIndex",
+      "signature": "applyResourceConsumerIndex(allModules)",
+      "file": "build_suite.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "runBuildSuite",
+      "signature": "runBuildSuite()",
       "file": "build_suite.js",
       "kind": "Node.js / Browser Engine Script"
     },
@@ -64374,6 +64910,18 @@
       "name": "runCliCommand",
       "signature": "runCliCommand(command, options = {})",
       "file": "scripts/campaign_cli.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "walk",
+      "signature": "walk(value, fn)",
+      "file": "scripts/cleanup_industry_resource_data.js",
+      "kind": "Node.js / Browser Engine Script"
+    },
+    {
+      "name": "remap",
+      "signature": "remap(obj)",
+      "file": "scripts/cleanup_industry_resource_data.js",
       "kind": "Node.js / Browser Engine Script"
     },
     {
@@ -65865,8 +66413,50 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "parseResourceTagMeta",
+      "signature": "parseResourceTagMeta(raw)",
+      "file": "src/workstation/scripts/entity_core.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "normalizeResourceTagKey",
+      "signature": "normalizeResourceTagKey(raw)",
+      "file": "src/workstation/scripts/entity_core.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "isResourceItem",
       "signature": "isResourceItem(item)",
+      "file": "src/workstation/scripts/entity_core.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "isIndustryItem",
+      "signature": "isIndustryItem(item)",
+      "file": "src/workstation/scripts/entity_core.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "splitResourceTagList",
+      "signature": "splitResourceTagList(val)",
+      "file": "src/workstation/scripts/entity_core.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "buildIndustryResourceIndex",
+      "signature": "buildIndustryResourceIndex(targetTopo = null)",
+      "file": "src/workstation/scripts/entity_core.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "isLegacyBoilerplateNote",
+      "signature": "isLegacyBoilerplateNote(notes)",
+      "file": "src/workstation/scripts/entity_core.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "resolveRichEntityMetadata",
+      "signature": "resolveRichEntityMetadata(entity, type)",
       "file": "src/workstation/scripts/entity_core.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -66022,7 +66612,7 @@
     },
     {
       "name": "assignEntityToNode",
-      "signature": "assignEntityToNode(entityId, nodeIdVal, isProto)",
+      "signature": "assignEntityToNode(entityId, nodeIdVal, isProto, explicitType = null)",
       "file": "src/workstation/scripts/entity_core.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -66124,7 +66714,7 @@
     },
     {
       "name": "openEditEntityModal",
-      "signature": "openEditEntityModal(entityId)",
+      "signature": "openEditEntityModal(entityId, explicitType = null)",
       "file": "src/workstation/scripts/entity_crud_dialogs.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -66345,6 +66935,54 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "entityExplorerAxes",
+      "signature": "entityExplorerAxes()",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "entityFacetCategories",
+      "signature": "entityFacetCategories(row, tab)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "entityFacetNode",
+      "signature": "entityFacetNode(row, tab)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "applyEntityTreeAxis",
+      "signature": "applyEntityTreeAxis(value)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "clearEntityExplorerFilters",
+      "signature": "clearEntityExplorerFilters()",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "prepareEntityExplorer",
+      "signature": "prepareEntityExplorer(rows, tab, total)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "setEntityTableHeader",
+      "signature": "setEntityTableHeader(thead, markup)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "installEntityColumnSorting",
+      "signature": "installEntityColumnSorting(thead, rows, tab, multiMap)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "setEntityManagerSort",
       "signature": "setEntityManagerSort(sortMode)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
@@ -66477,20 +67115,32 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
-      "name": "selectEntityItem",
-      "signature": "selectEntityItem(id, isProto, optMapId = null)",
+      "name": "openSourceModuleFromInspector",
+      "signature": "openSourceModuleFromInspector(moduleId, nodeId)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
       "kind": "Workstation Modular JS Engine"
     },
     {
-      "name": "navigateToEntity",
-      "signature": "navigateToEntity(type, id, optMapId = null)",
+      "name": "renderSourceModuleButton",
+      "signature": "renderSourceModuleButton(moduleId, nodeId)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
       "kind": "Workstation Modular JS Engine"
     },
     {
-      "name": "updateFactionStance",
-      "signature": "updateFactionStance(sourceId, targetId, stance)",
+      "name": "inspectorJumpToEntity",
+      "signature": "inspectorJumpToEntity(type, id, isProto, optMapId = null)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "inspectorPromotePrototype",
+      "signature": "inspectorPromotePrototype(type, protoId)",
+      "file": "src/workstation/scripts/entity_manager_ui.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "s3bJump",
+      "signature": "s3bJump(type, id, isProto)",
       "file": "src/workstation/scripts/entity_manager_ui.js",
       "kind": "Workstation Modular JS Engine"
     },
@@ -67617,6 +68267,12 @@
       "kind": "Workstation Modular JS Engine"
     },
     {
+      "name": "resolveModuleExplorerId",
+      "signature": "resolveModuleExplorerId(ref)",
+      "file": "src/workstation/scripts/module_explorer.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
       "name": "filterModules",
       "signature": "filterModules(preferSelectId)",
       "file": "src/workstation/scripts/module_explorer.js",
@@ -68039,6 +68695,24 @@
     {
       "name": "appendActionPropRow",
       "signature": "appendActionPropRow(tbody, propName, label, onAction)",
+      "file": "src/workstation/scripts/property_grid_inspector.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "appendSourceModuleRow",
+      "signature": "appendSourceModuleRow(tbody, moduleId, isProto)",
+      "file": "src/workstation/scripts/property_grid_inspector.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "dockJumpToEntity",
+      "signature": "dockJumpToEntity(type, id, isProto)",
+      "file": "src/workstation/scripts/property_grid_inspector.js",
+      "kind": "Workstation Modular JS Engine"
+    },
+    {
+      "name": "appendRichSupplyChainRows",
+      "signature": "appendRichSupplyChainRows(tbody, entity, kind, topo)",
       "file": "src/workstation/scripts/property_grid_inspector.js",
       "kind": "Workstation Modular JS Engine"
     },

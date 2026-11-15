@@ -470,7 +470,7 @@
         <h1 class="article-title">campaign_mutation_engine.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: a94ff3c2)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 6e1885da)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (23)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/campaign_mutation_engine.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>2672 lines &bull; 123.3 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: a94ff3c2)</span></td></tr>
+    <tr><th>File Metrics</th><td>2688 lines &bull; 124.3 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 6e1885da)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>8</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>23</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/campaign_mutation_engine.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -529,7 +529,7 @@
 <ul class="wiki-list">
 <li><strong>Creature Scrub Descriptors</strong>: Registers canonical descriptors for Bestiary entities across pointcrawl nodes and factions (<code>creatures.nodeId</code>, <code>creatures.stationing.nodeId</code> with <code>set: { mode: 'unassigned' }</code>, <code>creatures.factionId</code>, and <code>nodes.creatureIds</code>).</li>
 <li><strong>Dotted Path Resolution in <code>referenceSlots</code></strong>: Supports nested dotted field references (e.g., <code>stationing.nodeId</code>) while preserving backwards-compatibility with flat keys.</li>
-<li><strong>Authoritative Topology Collection Sync</strong>: <code>getTargetCollection</code> ensures <code>state[cat]</code> and <code>state.entities[cat]</code> remain synchronized so that pointcrawl graph mutations accurately reflect in active runtime collections.</li>
+<li><strong>Authoritative Topology Collection Sync</strong>: <code>getTargetCollection</code> ensures <code>state[cat]</code> and <code>state.entities[cat]</code> remain synchronized (normalizing legacy <code>industries</code> into <code>topo.items</code> with <code>isIndustry: true</code>) so that pointcrawl graph mutations accurately reflect in active runtime collections.</li>
 </ul>
 <h3>deleteEntity Map Registry (SYS-ARCH-01)</h3>
 <p><code>deleteEntity(state, type, id, batchContext)</code> scrubs child-map nodes, links, corridors and spatial pins from <code>state.maps</code> (or <code>state.activeTopology.maps</code>) <strong>and</strong> from the optional <code>batchContext.maps</code> registry. <code>Workstation.activeTopology</code> carries no <code>maps</code>, so the UI passes its global <code>maps</code> registry (<code>executeEntityDeletion</code> in <code>entity_cascade_delete.js</code>). A map reachable through both registries is scrubbed once. For <code>node</code> targets the same walk also removes the node id from <code>adj</code>/<code>infBy</code>, links and corridors of every registered map.</p>

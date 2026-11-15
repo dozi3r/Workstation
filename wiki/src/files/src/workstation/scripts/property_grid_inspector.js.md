@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/property_grid_inspector.js"
 title: "property_grid_inspector.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "ad034c41fa16b8ac"
-reviewed_hash: "ad034c41fa16b8ac"
+current_hash: "59fd7d1096cc89cc"
+reviewed_hash: "59fd7d1096cc89cc"
 stale: false
-size_bytes: 229227
-line_count: 4773
+size_bytes: 241826
+line_count: 4964
 ---
 
 # property_grid_inspector.js
@@ -35,8 +35,8 @@ line_count: 4773
 - Gigerenzer suite (ADR 0024): node property grid has a Dread Risk What-If section (run and clear buttons).
 - **Entity Explorer Property Grid Parity (`renderEntityExplorerProperties`)**: Extends property inspection to all campaign entities:
   - *Creatures*: Threat Tier, Kind, Stationed Lair Node, Roaming Scope, Dread Index, Capabilities, Immunities, and 1-click Bestiary jump button.
-  - *Resources*: Category, Supply Tier, Stationed Depot Node, Price Index, and 1-click Resource Catalog jump button.
-  - *Items*: Condition/Status dropdown (`intact`, `damaged`, `depleted`, `attuned`, `lost`, `destroyed`) and Valuation/Price index.
+  - *Resources & Industry*: Resolve backing items via `getActiveEntityList('resource')` / `getActiveEntityList('industry')`, render `appendSourceModuleRow` (`Load Module...`) and `appendRichSupplyChainRows` (extraction/module lore, dials, clocks, prerequisites, linked upstream/downstream chips via `dockJumpToEntity`), preserve custom GM notes cleanly, and edit Supply Tier, Stationed Node/Depot, and Price Index.
+  - *Items*: Condition/Status dropdown (`intact`, `damaged`, `depleted`, `attuned`, `lost`, `destroyed`), `appendSourceModuleRow`, and Valuation/Price index.
   - *Factions*: Operational Status dropdown, 4-Axis Power Matrix (`Reach`, `Force`, `Wealth`, `Secrecy`), and Territory Size / Affiliated Members readouts.
   - *NPCs*: Expanded Four-Corners literary roles, Dialogue Hooks, Secrets Known, and Tactical Leverage readouts.
 <!-- END_CUSTOM_NOTES -->

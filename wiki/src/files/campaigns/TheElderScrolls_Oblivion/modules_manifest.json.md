@@ -3,11 +3,11 @@ file_path: "campaigns/TheElderScrolls_Oblivion/modules_manifest.json"
 title: "modules_manifest.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "e8eb01edb2479160"
-reviewed_hash: "e8eb01edb2479160"
+current_hash: "2ce60287d4e5ecc1"
+reviewed_hash: "2ce60287d4e5ecc1"
 stale: false
-size_bytes: 3035
-line_count: 108
+size_bytes: 7521
+line_count: 223
 ---
 
 # modules_manifest.json

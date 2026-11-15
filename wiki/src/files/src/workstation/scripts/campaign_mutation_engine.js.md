@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/campaign_mutation_engine.js"
 title: "campaign_mutation_engine.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "a94ff3c2533dc609"
-reviewed_hash: "a94ff3c2533dc609"
+current_hash: "6e1885da5279cb4e"
+reviewed_hash: "6e1885da5279cb4e"
 stale: false
-size_bytes: 126273
-line_count: 2672
+size_bytes: 127302
+line_count: 2688
 ---
 
 # campaign_mutation_engine.js
@@ -37,7 +37,7 @@ line_count: 2672
 ### Bestiary Entity & Dotted Reference Descriptors
 - **Creature Scrub Descriptors**: Registers canonical descriptors for Bestiary entities across pointcrawl nodes and factions (`creatures.nodeId`, `creatures.stationing.nodeId` with `set: { mode: 'unassigned' }`, `creatures.factionId`, and `nodes.creatureIds`).
 - **Dotted Path Resolution in `referenceSlots`**: Supports nested dotted field references (e.g., `stationing.nodeId`) while preserving backwards-compatibility with flat keys.
-- **Authoritative Topology Collection Sync**: `getTargetCollection` ensures `state[cat]` and `state.entities[cat]` remain synchronized so that pointcrawl graph mutations accurately reflect in active runtime collections.
+- **Authoritative Topology Collection Sync**: `getTargetCollection` ensures `state[cat]` and `state.entities[cat]` remain synchronized (normalizing legacy `industries` into `topo.items` with `isIndustry: true`) so that pointcrawl graph mutations accurately reflect in active runtime collections.
 
 ### deleteEntity Map Registry (SYS-ARCH-01)
 `deleteEntity(state, type, id, batchContext)` scrubs child-map nodes, links, corridors and spatial pins from `state.maps` (or `state.activeTopology.maps`) **and** from the optional `batchContext.maps` registry. `Workstation.activeTopology` carries no `maps`, so the UI passes its global `maps` registry (`executeEntityDeletion` in `entity_cascade_delete.js`). A map reachable through both registries is scrubbed once. For `node` targets the same walk also removes the node id from `adj`/`infBy`, links and corridors of every registered map.

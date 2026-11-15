@@ -3,11 +3,11 @@ file_path: "campaigns/DIablo/modules_manifest.json"
 title: "modules_manifest.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "3040b652132359ee"
-reviewed_hash: "3040b652132359ee"
+current_hash: "fa50ea2690d74d49"
+reviewed_hash: "fa50ea2690d74d49"
 stale: false
-size_bytes: 482
-line_count: 21
+size_bytes: 387979
+line_count: 6195
 ---
 
 # modules_manifest.json

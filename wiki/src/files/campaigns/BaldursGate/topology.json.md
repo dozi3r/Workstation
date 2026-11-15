@@ -3,11 +3,11 @@ file_path: "campaigns/BaldursGate/topology.json"
 title: "topology.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "007a291b71529d16"
-reviewed_hash: "007a291b71529d16"
+current_hash: "b79f0460c362b1a0"
+reviewed_hash: "b79f0460c362b1a0"
 stale: false
-size_bytes: 444068
-line_count: 13490
+size_bytes: 456504
+line_count: 13908
 ---
 
 # topology.json

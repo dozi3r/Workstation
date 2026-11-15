@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_cascade_delete.js"
 title: "entity_cascade_delete.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "fdb831b2c24fb750"
-reviewed_hash: "fdb831b2c24fb750"
+current_hash: "a5e77cf5076e7976"
+reviewed_hash: "a5e77cf5076e7976"
 stale: false
-size_bytes: 62646
-line_count: 1320
+size_bytes: 63290
+line_count: 1327
 ---
 
 # entity_cascade_delete.js
@@ -24,7 +24,7 @@ line_count: 1320
 
 ### Bestiary Creature Cascade Deletion & Lair Stationing
 - **Creature Dependency Tracing**: `analyzeEntityDependencies` discovers creatures stationed at nodes or associated with factions using `getCreatureEffectiveNodeId`, rendering detailed target info (Threat Tier, Dread Index, Lair stationing node).
-- **Execution Delegation**: `executeEntityDeletion` tracks `creature` and `resource` entity types and delegates foreign-key scrubbing directly to `CampaignMutationEngine.deleteEntity`.
+- **Execution Delegation**: `executeEntityDeletion` tracks `creature`, `industry`, and `resource` entity types and delegates foreign-key scrubbing directly to `CampaignMutationEngine.deleteEntity`.
 
 ### Delete Preview Reads The Engine's Reference Table (SYS-ARCH-01)
 `analyzeEntityDependencies` takes its id-based referrers from `CampaignMutationEngine.findEntityReferences`, the read-only twin of the scrub, so the preview lists exactly the records the delete unlinks. Every dependency carries a `kind`:

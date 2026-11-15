@@ -3,11 +3,11 @@ file_path: "campaigns/Peridot/modules_manifest.json"
 title: "modules_manifest.json"
 volume: "vol-8"
 kind: "Authoritative JSON Data / Manifest"
-current_hash: "1a97bb4ab109f2d3"
-reviewed_hash: "1a97bb4ab109f2d3"
+current_hash: "c92190312e6541c7"
+reviewed_hash: "c92190312e6541c7"
 stale: false
-size_bytes: 27430
-line_count: 931
+size_bytes: 210043
+line_count: 3877
 ---
 
 # modules_manifest.json

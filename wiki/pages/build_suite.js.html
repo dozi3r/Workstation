@@ -470,7 +470,7 @@
         <h1 class="article-title">build_suite.js</h1>
         <div class="article-subtitle">
           <span class="badge">Node.js / Browser Engine Script</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 8383b6cf)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: dc27f603)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (287)</a>
         </div>
@@ -483,9 +483,9 @@
     <tr><th>File Path</th><td><code>build_suite.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../index.html#vol-3">Volume III</a></td></tr>
     <tr><th>Surface Kind</th><td>Node.js / Browser Engine Script</td></tr>
-    <tr><th>File Metrics</th><td>1537 lines &bull; 76.0 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 8383b6cf)</span></td></tr>
-    <tr><th>Outbound Links</th><td><strong>84</strong> references</td></tr>
+    <tr><th>File Metrics</th><td>2571 lines &bull; 121.2 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: dc27f603)</span></td></tr>
+    <tr><th>Outbound Links</th><td><strong>60</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>287</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../build_suite.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
   
@@ -513,6 +513,7 @@
 <li><strong>Idempotent Fenced Injection</strong>: Every dataset injected into HTML distributions (<code>CAMPAIGN_REGISTRY</code>, <code>MODULES_MANIFEST</code>, <code>DEFAULT_WAVES</code>, <code>ALL_MODULES</code>, <code>TICKETS</code>, <code>MASTER_TICKETS_DATA</code>) is wrapped in deterministic comment fences (<code>// [AUTO-GENERATED ... VIA build_suite.js]</code>) or resolved from <a class="wiki-link" href="../pages/src/workstation/template.html.html">📄 src/workstation/template.html</a> (<code>// @@INJECT_*@@</code>), guaranteeing repeatable builds without file corruption.</li>
 <li><strong>Script-Safe HTML Serialization</strong>: When inlining raw Markdown module bodies or ticket manifests into <code><script></code> blocks (such as <code>ALL_MODULES</code> in <a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a> and <code>MASTER_TICKETS_DATA</code> in <a class="wiki-link" href="../pages/start.html.html">📄 start.html</a>), <code>build_suite.js</code> escapes closing <code></script></code> tags via <code>.replace(/<\/script>/gi, '<\\/script>')</code> and avoids regex <code>$</code> dollar sign replacement hazards using functional replacers <code>() => replacement</code>.</li>
 <li><strong>Build-Time Mirror Note (<span class="wiki-tag">🎫 SYS-AUDIT-01</span>)</strong>: Lines 487–494 write an identical mirror of <a class="wiki-link" href="../pages/network/platform_audit_dashboard.html.html">📄 network/platform_audit_dashboard.html</a> to <a class="wiki-link" href="../pages/tickets/creative/platform_audit_visualizer.html.html">📄 tickets/creative/platform_audit_visualizer.html</a>, tracked under Category A of <a class="wiki-link series-link" href="../pages/series/series_g_duplicate_and_orphan_audit.html">🧭 Series G: Repository Hygiene Audit: Build-Time Mirrors, Legacy Scratch &amp; Orphan Remediation</a>.</li>
+<li><strong>Module Prose & Industry/Resource Enrichment (Entity Explorer Overhaul)</strong>: <code>parseModuleMarkdownFile</code>, <code>enrichModuleEntities</code>, and <code>applyResourceConsumerIndex</code> extract YAML and prose metadata (<code>dials</code>, custom <code>output_dial_key</code>, <code>threat_clocks</code>, <code>node_prerequisites</code>, <code>mechanical_architecture</code>, <code>extraction_lore</code>, <code>four_corners</code>), synthesize grounded prototype lore/method/handling text without boilerplate strings, classify resource vs. industry prototypes cleanly, and resolve cross-module downstream consumer links.</li>
 </ul>
 <hr class="wiki-hr"/>
 <h2>Operational Verification</h2>
@@ -521,8 +522,8 @@
 <ul class="wiki-list">
 <li>Agent onboarding: the root router template links to <a class="wiki-link" href="../pages/docs/agents/START_HERE.md.html">📄 docs/agents/START_HERE.md</a>. Maintain this pointer in build_suite.js rather than the generated AGENTS.md. The manifest continues to own surface routing data.</li>
 </ul>
-      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">fs</span><span class="pill">path</span><span class="pill">ROOT_DIR</span><span class="pill">NETWORK_DIR</span><span class="pill">DOCS_DIR</span><span class="pill">SRC_WORKSTATION_DIR</span><span class="pill">navManifestPath</span><span class="pill">navManifest</span><span class="pill">campaignsDir</span><span class="pill">campaignRegistry</span><span class="pill">resolveCampaignId</span><span class="pill">defaultCampaignId</span><span class="pill">modules</span><span class="pill">networkManifestPath</span><span class="pill">compiledSurfacesData</span><span class="pill">auditDashboardPath</span><span class="pill">ticketsManifestPath</span><span class="pill">ticketsData</span><span class="pill">allEnrichedModules</span><span class="pill">MODS_DIR</span><span class="pill">lightAuditRegistry</span><span class="pill">auditDatasetsBlock</span><span class="pill">CAMPAIGN_REGISTRY</span><span class="pill">ALL_MODULES</span><span class="pill">TICKETS</span><span class="pill">auditDatasetsBlockRebased</span><span class="pill">unifiedTrackerScript</span><span class="pill">masterTickets</span><span class="pill">masterTicketsManifestPath</span><span class="pill">activeMods</span><span class="pill">modsScriptBundle</span><span class="pill">startModsBlock</span><span class="pill">startHtmlPath</span><span class="pill">workstationTemplatePath</span><span class="pill">registryFenced</span><span class="pill">startModulesBlock</span><span class="pill">ALL_MODULES</span><span class="pill">MODULES_MANIFEST</span><span class="pill">startTicketsBlock</span><span class="pill">MASTER_TICKETS_DATA</span></div><h3>Declared Functions / Subroutines (9)</h3><div class="pill-list"><span class="pill">toRootRelUrl(absPath)</span><span class="pill">rebaseFileUrls(jsonStr, prefix)</span><span class="pill">safeWriteFileSync(filePath, data, encoding = 'utf8')</span><span class="pill">parseYamlListOrArray(val)</span><span class="pill">scanModulesDirRecursive(modulesRootDir, campaignRootDir, deletedIdsSet = new Set()</span><span class="pill">walk(currentDir)</span><span class="pill">enrichModuleEntities(m, rawMarkdown)</span><span class="pill">compileWorkstationRegistry(registry)</span><span class="pill">injectCompassHeaders()</span></div>
-      <h2 id="outbound-links">Outbound References (84)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
+      <h2>Exported Symbols, Functions &amp; State Globals</h2><h3>Top-Level Globals &amp; Constants</h3><div class="pill-list"><span class="pill">fs</span><span class="pill">path</span><span class="pill">ROOT_DIR</span><span class="pill">NETWORK_DIR</span><span class="pill">DOCS_DIR</span><span class="pill">SRC_WORKSTATION_DIR</span><span class="pill">GENERIC_FOUR_CORNER_DEFAULTS</span><span class="pill">RESOURCE_SECTOR_PROFILES</span><span class="pill">navManifestPath</span><span class="pill">navManifest</span><span class="pill">campaignsDir</span><span class="pill">campaignRegistry</span><span class="pill">resolveCampaignId</span><span class="pill">defaultCampaignId</span><span class="pill">modules</span><span class="pill">networkManifestPath</span><span class="pill">compiledSurfacesData</span><span class="pill">auditDashboardPath</span><span class="pill">ticketsManifestPath</span><span class="pill">ticketsData</span><span class="pill">allEnrichedModules</span><span class="pill">MODS_DIR</span><span class="pill">lightAuditRegistry</span><span class="pill">auditDatasetsBlock</span><span class="pill">CAMPAIGN_REGISTRY</span><span class="pill">ALL_MODULES</span><span class="pill">TICKETS</span><span class="pill">auditDatasetsBlockRebased</span><span class="pill">unifiedTrackerScript</span><span class="pill">masterTickets</span><span class="pill">masterTicketsManifestPath</span><span class="pill">activeMods</span><span class="pill">modsScriptBundle</span><span class="pill">startModsBlock</span><span class="pill">startHtmlPath</span><span class="pill">workstationTemplatePath</span><span class="pill">registryFenced</span><span class="pill">startModulesBlock</span><span class="pill">ALL_MODULES</span><span class="pill">MODULES_MANIFEST</span></div><h3>Declared Functions / Subroutines (45)</h3><div class="pill-list"><span class="pill">toRootRelUrl(absPath)</span><span class="pill">rebaseFileUrls(jsonStr, prefix)</span><span class="pill">safeWriteFileSync(filePath, data, encoding = 'utf8')</span><span class="pill">parseYamlListOrArray(val)</span><span class="pill">parseYamlScalar(rawVal)</span><span class="pill">parseYamlFrontmatter(yamlBlock)</span><span class="pill">stripMarkdownNoise(text)</span><span class="pill">truncateClean(text, maxLen = 700)</span><span class="pill">extractMarkdownSections(rawMarkdown)</span><span class="pill">extractDialFromData(m, parsedMd)</span><span class="pill">parseSingleClockString(rawClock, fallbackKey)</span><span class="pill">extractThreatClocksFromData(m, parsedMd)</span><span class="pill">extractFourCornersFromData(m, parsedMd)</span><span class="pill">isIndustrialModuleMeta(m)</span><span class="pill">enrichModuleFromMarkdown(m, rawMarkdown, baseDirPath)</span><span class="pill">isEmptyMetaValue(val)</span><span class="pill">mergeModuleDiskAndManifest(dm, m)</span><span class="pill">parseModuleMarkdownFile(fullPath, relRootDir, preloadedRawText = null)</span><span class="pill">scanModulesDirRecursive(modulesRootDir, campaignRootDir, deletedIdsSet = new Set()</span><span class="pill">walk(currentDir)</span><span class="pill">splitProseSentences(text)</span><span class="pill">leadSentences(text, count = 1, maxLen = 260)</span><span class="pill">endSentence(text)</span><span class="pill">lowerFirst(text)</span><span class="pill">fourCornerLabel(raw)</span><span class="pill">parseTagForBuild(raw)</span><span class="pill">resourceSectorProfile(sector)</span><span class="pill">tokenizeForMatch(text)</span><span class="pill">findSection(parsedMd, re)</span><span class="pill">collectProseCorpus(parsedMd)</span><span class="pill">bestSentenceForTokens(corpus, tokens, uniqueTokens, rawTag, usedSentences)</span><span class="pill">extractModuleComponents(parsedMd, mechSec)</span><span class="pill">joinList(items)</span><span class="pill">summarizeOutputDial(m)</span><span class="pill">buildModuleStakeProfile(m, parsedMd)</span><span class="pill">buildIndustryLore(m, parsedMd, mechSec)</span><span class="pill">buildRefiningProcess(m, parsedMd, corpus)</span><span class="pill">composeResourceNotes(item)</span><span class="pill">buildResourcePrototype(m, p, idx, ctx)</span><span class="pill">extractMarkdownConsumers(parsedMd, tagMetas)</span><span class="pill">enrichModuleEntities(m, rawMarkdown)</span><span class="pill">applyResourceConsumerIndex(allModules)</span><span class="pill">runBuildSuite()</span><span class="pill">compileWorkstationRegistry(registry)</span><span class="pill">injectCompassHeaders()</span></div>
+      <h2 id="outbound-links">Outbound References (60)</h2><div class="table-wrap"><table class="wiki-table"><thead><tr><th>Target Page</th><th>Relationship</th><th>Context / Seam Note</th></tr></thead><tbody><tr>
         <td><a href="../pages/series/series_e_zero_cors_compiler_and_agent_router.html"><strong>Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</strong></a></td>
         <td><span class="badge badge-Series">In Deep Series</span></td>
         <td>Part of cross-cutting subsystem Series E: Zero-CORS Offline Bundling, Compass Headers &amp; Self-Updating Wiki Architecture</td>
@@ -571,117 +572,9 @@
         <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
         <td>References AGENTS.md</td>
       </tr><tr>
-        <td><a href="../pages/CONTEXT.md.html"><strong>CONTEXT.md</strong></a></td>
-        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
-        <td>References CONTEXT.md</td>
-      </tr><tr>
-        <td><a href="../pages/Find-CodebaseNode.ps1.html"><strong>Find-CodebaseNode.ps1</strong></a></td>
-        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
-        <td>References Find-CodebaseNode.ps1</td>
-      </tr><tr>
-        <td><a href="../pages/docs/AI_DEVELOPER_GUIDE.md.html"><strong>docs/AI_DEVELOPER_GUIDE.md</strong></a></td>
-        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
-        <td>References docs/AI_DEVELOPER_GUIDE.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md.html"><strong>docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0004-desktop-workstation-start-html.md.html"><strong>docs/adr/0004-desktop-workstation-start-html.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0004-desktop-workstation-start-html.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md.html"><strong>docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md.html"><strong>docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md.html"><strong>docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md.html"><strong>docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0016-workstation-2-5-zero-install-loopback-and-legacy-framework-retirement.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md.html"><strong>docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md.html"><strong>docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0019-git-integrated-token-optimization-and-diff-driven-agent-workflows.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md.html"><strong>docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md.html"><strong>docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md</strong></a></td>
-        <td><span class="badge badge-Architectural Decision Record (ADR)">Path Reference</span></td>
-        <td>References docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/agents/domain.md.html"><strong>docs/agents/domain.md</strong></a></td>
-        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
-        <td>References docs/agents/domain.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/agents/issue-tracker.md.html"><strong>docs/agents/issue-tracker.md</strong></a></td>
-        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
-        <td>References docs/agents/issue-tracker.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/agents/triage-labels.md.html"><strong>docs/agents/triage-labels.md</strong></a></td>
-        <td><span class="badge badge-Technical Documentation / Guide">Path Reference</span></td>
-        <td>References docs/agents/triage-labels.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/srd/campaign_preset_specification_srd.md.html"><strong>docs/srd/campaign_preset_specification_srd.md</strong></a></td>
-        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
-        <td>References docs/srd/campaign_preset_specification_srd.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/srd/ip_module_framework_srd.md.html"><strong>docs/srd/ip_module_framework_srd.md</strong></a></td>
-        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
-        <td>References docs/srd/ip_module_framework_srd.md</td>
-      </tr><tr>
-        <td><a href="../pages/docs/srd/scenario_primitives_srd.md.html"><strong>docs/srd/scenario_primitives_srd.md</strong></a></td>
-        <td><span class="badge badge-System Reference Document (SRD)">Path Reference</span></td>
-        <td>References docs/srd/scenario_primitives_srd.md</td>
-      </tr><tr>
-        <td><a href="../pages/index.html.html"><strong>index.html</strong></a></td>
-        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
-        <td>References index.html</td>
-      </tr><tr>
-        <td><a href="../pages/network/campaign_studio.html.html"><strong>network/campaign_studio.html</strong></a></td>
-        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
-        <td>References network/campaign_studio.html</td>
-      </tr><tr>
         <td><a href="../pages/network/modules_manifest.json.html"><strong>network/modules_manifest.json</strong></a></td>
         <td><span class="badge badge-Authoritative JSON Data / Manifest">Path Reference</span></td>
         <td>References network/modules_manifest.json</td>
-      </tr><tr>
-        <td><a href="../pages/network/network_builder.html.html"><strong>network/network_builder.html</strong></a></td>
-        <td><span class="badge badge-Standalone Zero-CORS HTML Workstation">Path Reference</span></td>
-        <td>References network/network_builder.html</td>
-      </tr><tr>
-        <td><a href="../pages/server.js.html"><strong>server.js</strong></a></td>
-        <td><span class="badge badge-Node.js / Browser Engine Script">Path Reference</span></td>
-        <td>References server.js</td>
-      </tr><tr>
-        <td><a href="../pages/server.ps1.html"><strong>server.ps1</strong></a></td>
-        <td><span class="badge badge-PowerShell Automation / Simulation Runner">Path Reference</span></td>
-        <td>References server.ps1</td>
-      </tr><tr>
-        <td><a href="../pages/src/workstation/scripts/campaign_override_slots.js.html"><strong>src/workstation/scripts/campaign_override_slots.js</strong></a></td>
-        <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
-        <td>References src/workstation/scripts/campaign_override_slots.js</td>
-      </tr><tr>
-        <td><a href="../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
-        <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
-        <td>References src/workstation/scripts/entity_core.js</td>
-      </tr><tr>
-        <td><a href="../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
-        <td><span class="badge badge-Workstation Modular JS Engine">Path Reference</span></td>
-        <td>References src/workstation/scripts/state_adapter.js</td>
       </tr><tr>
         <td><a href="../pages/mods/loot_simulator/schemas/loot_schemas.json.html"><strong>mods/loot_simulator/schemas/loot_schemas.json</strong></a></td>
         <td><span class="badge badge-Workstation Mod Manifest (JSON)">Bundles Mod</span></td>
@@ -755,6 +648,10 @@
         <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
         <td>Inlines modular source during suite compilation</td>
       </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/campaign_override_slots.js.html"><strong>src/workstation/scripts/campaign_override_slots.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
         <td><a href="../pages/src/workstation/scripts/canvas_hud.js.html"><strong>src/workstation/scripts/canvas_hud.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
         <td>Inlines modular source during suite compilation</td>
@@ -768,6 +665,10 @@
         <td>Inlines modular source during suite compilation</td>
       </tr><tr>
         <td><a href="../pages/src/workstation/scripts/entity_cascade_delete.js.html"><strong>src/workstation/scripts/entity_cascade_delete.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
         <td>Inlines modular source during suite compilation</td>
       </tr><tr>
@@ -836,6 +737,10 @@
         <td>Inlines modular source during suite compilation</td>
       </tr><tr>
         <td><a href="../pages/src/workstation/scripts/sociology_data.js.html"><strong>src/workstation/scripts/sociology_data.js</strong></a></td>
+        <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
+        <td>Inlines modular source during suite compilation</td>
+      </tr><tr>
+        <td><a href="../pages/src/workstation/scripts/state_adapter.js.html"><strong>src/workstation/scripts/state_adapter.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Bundles Source</span></td>
         <td>Inlines modular source during suite compilation</td>
       </tr><tr>

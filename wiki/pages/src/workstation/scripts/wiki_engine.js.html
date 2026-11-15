@@ -470,7 +470,7 @@
         <h1 class="article-title">wiki_engine.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: ea05f76f)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: c19fd5a5)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (13)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/wiki_engine.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1305 lines &bull; 51.1 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: ea05f76f)</span></td></tr>
+    <tr><th>File Metrics</th><td>1321 lines &bull; 52.0 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: c19fd5a5)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>11</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>13</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/wiki_engine.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -508,7 +508,7 @@
 <ul class="wiki-list">
 <li><strong>Extensible Wiki Token Registry</strong>: Maintains <code>WIKI_TOKEN_TYPES</code> covering built-in types (<code>node</code>, <code>map</code>, <code>mod</code>/<code>module</code>, <code>faction</code>, <code>corridor</code>, <code>npc</code>, <code>item</code>, <code>quest</code>, <code>tracker</code>) and registers mod-extended token types via <code>window.CreatorStudio.registerWikiTokenType(spec)</code>.</li>
 <li><strong>Unified Bracket & Mention Parser</strong>: Generates unified dynamic bracket token regex via <code>buildWikiBracketRegex()</code> and supports natural <code>@</code> mentions with quoted multi-word identifiers (<code>@"Sergeant Bob"</code>).</li>
-<li><strong>Scale-Fluid Nested Backlinks</strong>: Computes trans-scale inbound citations for portal nodes using <code>getNestedBacklinksForNode(nodeId, mapId)</code>, reusing <code>getRecursiveNodeEntities()</code> with cycle guards and performing a single backlink index build. Distinguishes direct citations from descendant sub-map and stationed entity citations with breadcrumb paths (<code>↳ via A > B > C</code>).</li>
+<li><strong>Scale-Fluid Nested Backlinks</strong>: Computes trans-scale inbound citations for portal nodes using <code>getNestedBacklinksForNode(nodeId, mapId)</code>, reusing <code>getRecursiveNodeEntities()</code> across items, industries, and resources with cycle guards and performing a single backlink index build. Distinguishes direct citations from descendant sub-map and stationed entity citations with breadcrumb paths (<code>↳ via A > B > C</code>).</li>
 <li><strong>Entity Hovercards & Navigation</strong>: Resolves hovercards and navigation targets (<code>navigateToWikiEntity</code>) across all entities, focusing the active map canvas on stationed nodes and opening entity inspector modals.</li>
 <li><strong>Dynamic Autocomplete Engine</strong>: Powers <code>[[</code> and <code>@</code> popovers with ranked entity candidates (nodes, maps, slotted modules, factions, active NPCs, items, quests, trackers, and registered mod token suggestions).</li>
 </ul>

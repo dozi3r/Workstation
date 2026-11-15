@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/cad_canvas_renderer.js"
 title: "cad_canvas_renderer.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "4fb2d3bdc15ee80a"
-reviewed_hash: "4fb2d3bdc15ee80a"
+current_hash: "629623fde99f0a24"
+reviewed_hash: "629623fde99f0a24"
 stale: false
-size_bytes: 83950
-line_count: 1670
+size_bytes: 85347
+line_count: 1688
 ---
 
 # cad_canvas_renderer.js
@@ -23,7 +23,7 @@ line_count: 1670
 - **CAD Drawing Shapes & Grip Handles**: Renders `topo.shapes` into `#drawings-layer` across rectangle, circle/ellipse, and vector line primitives (`renderShapeSvgElement`) with stroke styling (solid, dashed, dotted), layer/shape opacity blending, and 4/2-point CAD grip handles when selected.
 - **Cartographic Elements & Badging**: Renders transit corridors (E_adj), cubic Bezier hegemony influence curves (E_inf), corridor module/flow badges (`M:x F:y`), portal indicator rings, position lock badges (`lockAllNodes`), node telemetry badges (`M`, `P`, `R`/`âš ï¸R`, `N`, `Q`, `I`, `T`), crisis state alerts, and draggable threat clock overlay callouts.
 - **Background Map Canvas Integration**: Dynamically binds and projects raster map backgrounds onto `#canvas-bg-image` from active metadata (`dataUrl` or `url`), supporting opacity blending and layer toggles without canvas flickering.
-- **Recursive Sub-Map Entity Aggregation**: Resolves effective stationed items and entities across nested portal sub-maps (`getItemEffectiveNodeId`, `getRecursiveNodeEntities`, `traverseSubmap`).
+- **Recursive Sub-Map Entity Aggregation**: Resolves effective stationed items, industrial apparatus (`industries`), and resources (`resources`) across nested portal sub-maps (`getItemEffectiveNodeId`, `getRecursiveNodeEntities`, `traverseSubmap`) while checking quest `itemIds` across all three partitions.
 - ODV (SYS-ODV-02 S1): resolveNodeOdv calls no longer pass the topology as fallbackIndex.
 - Gigerenzer suite (ADR 0024): road lines are tinted and pulsed when getDreadOverlayEdgeKind reports a dreaded or detour conduit.
 <!-- END_CUSTOM_NOTES -->

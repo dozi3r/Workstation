@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_manager_ui.js"
 title: "entity_manager_ui.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "ec78ab070c2cefc9"
-reviewed_hash: "ec78ab070c2cefc9"
+current_hash: "011e4e699c05af25"
+reviewed_hash: "011e4e699c05af25"
 stale: false
-size_bytes: 297039
-line_count: 4871
+size_bytes: 362413
+line_count: 5602
 ---
 
 # entity_manager_ui.js
@@ -17,8 +17,10 @@ line_count: 4871
 `src/workstation/scripts/entity_manager_ui.js` controls the universal Entity Manager MDI workspace surface within Creator Studio (`start.html`).
 
 ### Key Capabilities
-- **Workspace Navigation & Tabs**: Handles workspace lifecycle (`openEntityManager`), tab switching across NPCs, Quests, Items, Resources, Creatures, Clocks, Factions, and Nodes (`switchEntityManagerTab`), and visual active state button indicators (`updateEntityTabButtons`).
-- **Resource Explorer Tab (`em-tab-resource`)**: Provides dedicated commodity logistics explorer with multi-map node aggregation, Dwarf Fortress physical stockpile and batch specs, and public settlement depot filters.
+- **Workspace Navigation & Tabs**: Handles workspace lifecycle (`openEntityManager`), tab switching across NPCs, Quests, Items & Relics, Industry (`em-tab-industry`), Resources, Creatures, Clocks, Factions, Nodes, and Edges (`switchEntityManagerTab`), and visual active state button indicators (`updateEntityTabButtons`).
+- **Industry & Resource Supply-Chain Inspectors (`renderIndustryInspectorPane`, `renderResourceInspectorPane`)**: Separates industrial apparatus (`industry`) from raw commodities (`resource`) and links them bi-directionally via `inspectorJumpToEntity`, `inspectorPromotePrototype`, deduplicated in-transit edge caravan telemetry across `map:all` (road + hegemony scopes), and clickable `Load Source Module` buttons (`openSourceModuleFromInspector`).
+- **Multi-Axis Filter Bar & Click/Double-Click Column Sorting**: Provides per-tab Node/Category(Sector)/Status facets (`prepareEntityExplorer`, `entityExplorerAxes`), synchronous natural column sorting on header click (`installEntityColumnSorting`) with double-click sort reset, and hardened HTML/JS-argument escaping across all 10 tabs and edge/tracker/ticket sections.
+- **Resource Explorer Tab (`em-tab-resource`)**: Provides dedicated commodity logistics explorer with multi-map node aggregation, Dwarf Fortress physical stockpile and batch specs, parsed Commodity Sector grouping, and public settlement depot filters.
 - **Bestiary Explorer Tab (`em-tab-creature`)**: Delivers full monster manual explorer with Threat Tier (0-5) and Kind filters, 6 Relative Capability stat bars with visual pips, Dread Index gauge (1-10) and Dread Effect hazard notes, embedded Fast-and-Frugal Tree preview, and collapsible Source Figures & Rating Rationale hydrated from `topo.creatureEvidence`.
 - **Quest Explorer & Crucible Inspector**: Renders color-coded threat badges, `✓ X/Y` step completion meter, `⚡ Crucible` pill, and multi-branch What-If Crucible cards (`parseQuestCrucibleNotes` extracting Canonical Resolution, Divergence Point, Snarky vs Altruistic, Immediate Dilemma, Long-Term Ripple, Secondary Fork, Key NPC Reactions, and Table Hooks). Also features semantic Quest Giver (`giverNpcId`) and Quest Target (`targetNpcId`) rows with one-click inspection and canvas centering, and step narrative rendering (`step.text`).
 - **Hierarchical Classification Tree**: Builds and updates the categorized left sidebar tree (`renderEntityManagerTree`, `addTreeItem`), grouping entities by module, station node, cultural quadrant, threat level, or tier.

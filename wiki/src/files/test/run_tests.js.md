@@ -3,11 +3,11 @@ file_path: "test/run_tests.js"
 title: "run_tests.js"
 volume: "vol-8"
 kind: "Node.js / Browser Engine Script"
-current_hash: "5b43ce4a0262525e"
-reviewed_hash: "5b43ce4a0262525e"
+current_hash: "a8a647bdf198308e"
+reviewed_hash: "a8a647bdf198308e"
 stale: false
-size_bytes: 546857
-line_count: 10710
+size_bytes: 563291
+line_count: 10907
 ---
 
 # run_tests.js
@@ -60,8 +60,9 @@ The compiled workstation smoke test checks that listing a built-in campaign leav
    - Preview parity: `analyzeEntityDependencies` must list exactly those id-based referrers as `reference` dependencies. Name mentions are a separate `mention` group, are not unlinked by the delete, and the dialog renders them under their own heading.
    - Ownership: with the engine's `deleteEntity` stubbed out, `executeEntityDeletion` changes none of the roster, quests, trigger refs, tickets or pins (the cascade file no longer scrubs entity types). Tickets aimed at a deleted NPC (engine), sub-map or module (cascade file) each get exactly one audit note.
    - Converted source-text checks (SYS-ARCH-01): the `sanitizePinArray(topo.spatialPins)` check (Suite 37 RT-04) and the `q.trackerIds.filter` / `st.triggerTrackerId && deletedIdsByType.tracker.has` checks (Suite 38) now run the real `executeEntityDeletion` and assert the outcome on pins, `quest.trackerIds` and `quest.steps`.
-14. **Suites 52–55: Resource Partitioning, Bestiary Explorer, FFT Adaptation, Creature CRUD & Cascade Lifecycle**:
-   - *Suite 52*: Validates 6-seam bidirectional creature persistence, zero-CORS evidence loading, and commodity item partitioning (`isResourceItem`, `getActiveEntityList('resource')`).
+14. **Suites 52–55 & Stage 4 Overhaul Suites (`testStage4ExplorerFacetsAndSorting`)**:
+   - *Suite 52*: Validates 6-seam bidirectional creature persistence, zero-CORS evidence loading, strict 3-way `topo.items` partitioning (`item`, `industry`, `resource` across synthetic + `Peridot`, `BaldursGate`, `Oblivion`, `DCC`), `isIndustryItem` overrides, legacy `topo.industries` normalization via `ensureEntityCollections`, and normalized supply-chain / module metadata hydration (`T0-DOM-02`, `AGRI-SUGAR-02`, `INFRA-01`).
+   - *Stage 4 Facets, Sorting & Load Source Module*: Validates synchronous click/double-click header sorting across tabs, multi-axis filter intersections without cross-tab leakage, `openSourceModuleFromInspector` conflicting-filter reset + target-node preservation + z-index stacking, and unmodified Stage-4 hydrated notes keeping `customNotes` blank.
    - *Suite 53*: Validates multi-map node aggregation for resource export commodities, DF logistics stockpile specifications, and resource CRUD.
    - *Suite 54*: Validates Diablo bestiary FFT normalization (all 68 creatures pass `validateFft`), Threat Tier / Kind filtering, Relative Capability stat bars with pips, Dread Index gauge (1-10), and collapsible Source Figures section hydrated from `creatureEvidence`.
    - *Suite 55*: Validates creature creation via `openNewEntityModal('creature')` and `saveCustomEntity()`, editing via `openEditEntityModal()`, cascade deletion dependency analysis via `analyzeEntityDependencies('creature')`, deletion execution via `executeCascadeDelete`, and node deletion cascade unlinking stationed creatures.

@@ -470,7 +470,7 @@
         <h1 class="article-title">workstation_state.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 1241136c)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 7033e0db)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (35)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/workstation_state.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1918 lines &bull; 94.9 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 1241136c)</span></td></tr>
+    <tr><th>File Metrics</th><td>1932 lines &bull; 95.5 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 7033e0db)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>32</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>35</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/workstation_state.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -508,7 +508,7 @@
 <ul class="wiki-list">
 <li><strong>Workstation Reactive State</strong>: Maintains active topology reference (<code>activeTopology</code>), active CAD tool, selected entity/node/edge focus, zoom/pan transforms, layer display toggles (grid, influence vectors, roads, threat clocks, tarot markers, GM vision), registered mod hooks, and undo/redo stacks.</li>
 <li><strong>Creator Studio Mod API & Event Bus</strong>: Exposes <code>window.CreatorStudio</code> with lifecycle hooks and a pub/sub mod event bus (<code>on</code>, <code>off</code>, <code>emit</code>) delivering <code>'campaignLoaded'</code> and <code>'campaignRenamed'</code> events with zero-throw <code>try/catch</code> error isolation. Mod registrations automatically bind optional <code>onCampaignLoad</code> and <code>onCampaignRename</code> lifecycle handlers.</li>
-<li><strong>Campaign Persistence & Auto-Sync</strong>: Handles <code>initTopologyState()</code>, local storage fallback caching, <code>ensureEntityCollections()</code> (including <code>custom_modules</code>, <code>deletedModules</code>, and <code>deletedPrototypes</code>), <code>syncCustomModulesToCatalog()</code>, <code>purgeDeletedModulesFromRuntimeCatalog()</code> (splicing deleted modules out of <code>ALL_MODULES</code> and <code>MODULES_MANIFEST</code> across reboots), and asynchronous project directory flushing (<code>flushProjectDirectorySync</code>, <code>saveActiveCampaign</code>).</li>
+<li><strong>Campaign Persistence & Auto-Sync</strong>: Handles <code>initTopologyState()</code>, local storage fallback caching, <code>ensureEntityCollections()</code> (including legacy <code>topo.industries</code> normalization into <code>topo.items</code>, <code>custom_modules</code>, <code>deletedModules</code>, and <code>deletedPrototypes</code>), <code>syncCustomModulesToCatalog()</code>, <code>purgeDeletedModulesFromRuntimeCatalog()</code> (splicing deleted modules out of <code>ALL_MODULES</code> and <code>MODULES_MANIFEST</code> across reboots), and asynchronous project directory flushing (<code>flushProjectDirectorySync</code>, <code>saveActiveCampaign</code>).</li>
 <li><strong>Workbench UI Chrome, Deep-Linking & Modals</strong>: Implements menu bar interaction (<code>initMenuBar</code>, <code>toggleMenu</code>, <code>closeAllMenus</code>), URL query parameter deep-linking (<code>?selectNode=<id></code> and <code>?selectEdge=<u-v></code> from <code>network/odv_archetype_matrix.html</code>), status bar telemetry (<code>setStatusBarMessage</code>, <code>updateStatusBar</code> with resilient <code>campaignName</code> resolution across sub-maps), MDI registration (including <code>modal-custom-module-editor</code> and <code>modal-pack-installer</code>), sourcebook package manager (<code>openSourcebooksModal</code>, <code>renderSourcebooksList</code>, <code>switchSourcebookTab</code> delegating to <code>packEngine.renderInstalledPacksView</code>), and universal multi-format campaign export modal (<code>openCampaignExportModal</code>, <code>switchExportTab</code>, <code>populatePackExportForm</code>, <code>downloadExportFile</code>).</li>
 <li><strong>Campaign-Session Teardown & Sterile Slate (Sprint 2)</strong>: <code>resetWorkstationSlate</code> comprehensively clears ephemeral session projection state including <code>waves</code>, <code>drawnCards</code>, <code>fogOfWarMode</code>, and <code>CrossCampaignService.loadedSources</code> to guarantee zero state leak across campaign loads.</li>
 </ul>

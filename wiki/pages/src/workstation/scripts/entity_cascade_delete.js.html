@@ -470,7 +470,7 @@
         <h1 class="article-title">entity_cascade_delete.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: fdb831b2)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: a5e77cf5)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (10)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/entity_cascade_delete.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1320 lines &bull; 61.2 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: fdb831b2)</span></td></tr>
+    <tr><th>File Metrics</th><td>1327 lines &bull; 61.8 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: a5e77cf5)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>17</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>10</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/entity_cascade_delete.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -514,7 +514,7 @@
 <h3>Bestiary Creature Cascade Deletion & Lair Stationing</h3>
 <ul class="wiki-list">
 <li><strong>Creature Dependency Tracing</strong>: <code>analyzeEntityDependencies</code> discovers creatures stationed at nodes or associated with factions using <code>getCreatureEffectiveNodeId</code>, rendering detailed target info (Threat Tier, Dread Index, Lair stationing node).</li>
-<li><strong>Execution Delegation</strong>: <code>executeEntityDeletion</code> tracks <code>creature</code> and <code>resource</code> entity types and delegates foreign-key scrubbing directly to <code>CampaignMutationEngine.deleteEntity</code>.</li>
+<li><strong>Execution Delegation</strong>: <code>executeEntityDeletion</code> tracks <code>creature</code>, <code>industry</code>, and <code>resource</code> entity types and delegates foreign-key scrubbing directly to <code>CampaignMutationEngine.deleteEntity</code>.</li>
 </ul>
 <h3>Delete Preview Reads The Engine's Reference Table (SYS-ARCH-01)</h3>
 <p><code>analyzeEntityDependencies</code> takes its id-based referrers from <code>CampaignMutationEngine.findEntityReferences</code>, the read-only twin of the scrub, so the preview lists exactly the records the delete unlinks. Every dependency carries a <code>kind</code>:</p>
@@ -573,7 +573,7 @@
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/entity_core.js.html"><strong>src/workstation/scripts/entity_core.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>
-        <td>Invokes getCreatureEffectiveNodeId() defined in entity_core.js</td>
+        <td>Invokes isResourceItem() defined in entity_core.js</td>
       </tr><tr>
         <td><a href="../../../../pages/src/workstation/scripts/entity_manager_ui.js.html"><strong>src/workstation/scripts/entity_manager_ui.js</strong></a></td>
         <td><span class="badge badge-Workstation Modular JS Engine">Calls Function</span></td>

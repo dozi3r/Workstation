@@ -3,11 +3,11 @@ file_path: "src/workstation/modals/entity_modals.html"
 title: "entity_modals.html"
 volume: "vol-4"
 kind: "Workstation Shell Template"
-current_hash: "45c963b3ddb7ece7"
-reviewed_hash: "45c963b3ddb7ece7"
+current_hash: "a59f9bbc48ce2dca"
+reviewed_hash: "a59f9bbc48ce2dca"
 stale: false
-size_bytes: 61798
-line_count: 918
+size_bytes: 63522
+line_count: 924
 ---
 
 # entity_modals.html
@@ -17,7 +17,7 @@ line_count: 918
 `src/workstation/modals/entity_modals.html` serves as a **Workstation Shell Template** within **Volume IV: Workstation Architecture & Mod Engine (src/workstation/ & mods/)**.
 
 ### Bestiary & Resource Explorer Integration
-- Houses tab strip controls `#em-tab-resource` and `#em-tab-creature` within the Master Entity Explorer modal (`modal-entity-manager`).
+- Houses tab strip controls `#em-tab-industry` (`🏭 Industry`), `#em-tab-resource` (`📦 Resources`), and `#em-tab-creature`, plus the `#em-filter-node`, `#em-filter-category`, `#em-filter-status`, `#em-sort-select`, and `#em-filter-summary` Entity Explorer overhaul filter bar within the Master Entity Explorer modal (`modal-entity-manager`).
 - Houses `#ee-creature-extensions` inside the Entity Creation and Editing dialog (`modal-entity-edit`), providing controls for:
   - Kind / Family classification (`beast`, `undead`, `demon`, `humanoid`, `construct`, `elemental`, etc.)
   - Subtype / Breed

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-14T01:14:42.828Z",
-  "totalFiles": 689,
+  "generatedAt": "2026-11-15T00:07:46.408Z",
+  "totalFiles": 690,
   "totalSeries": 7,
-  "totalBidirectionalEdges": 4085,
+  "totalBidirectionalEdges": 4104,
   "staleCount": 0,
   "duplicateAuditTargets": 9,
   "volumes": [
@@ -207,12 +207,12 @@
       "title": "Creator Studio",
       "volume": "vol-1",
       "kind": "Technical Documentation / Guide",
-      "hash": "7150e17f87e22b1f",
-      "reviewedHash": "7150e17f87e22b1f",
+      "hash": "2de507df5f2b22fd",
+      "reviewedHash": "2de507df5f2b22fd",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 32,
-      "inboundBacklinkCount": 26
+      "inboundBacklinkCount": 25
     },
     {
       "relPath": "Campaign-AI.ps1",
@@ -254,7 +254,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 10
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "Import-CampaignSlice.ps1",
@@ -417,11 +417,11 @@
       "title": "build_suite.js",
       "volume": "vol-3",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "8383b6cfefdf2a94",
-      "reviewedHash": "8383b6cfefdf2a94",
+      "hash": "dc27f603e4a65196",
+      "reviewedHash": "dc27f603e4a65196",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 84,
+      "outboundCount": 60,
       "inboundBacklinkCount": 287
     },
     {
@@ -473,12 +473,12 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "007a291b71529d16",
-      "reviewedHash": "007a291b71529d16",
+      "hash": "b79f0460c362b1a0",
+      "reviewedHash": "b79f0460c362b1a0",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "campaigns/DIablo/campaign.json",
@@ -1663,8 +1663,8 @@
       "title": "modules_manifest.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "3040b652132359ee",
-      "reviewedHash": "3040b652132359ee",
+      "hash": "fa50ea2690d74d49",
+      "reviewedHash": "fa50ea2690d74d49",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 83,
@@ -2223,8 +2223,8 @@
       "title": "modules_manifest.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "0204acf12032f559",
-      "reviewedHash": "0204acf12032f559",
+      "hash": "039a612d6bb75fe9",
+      "reviewedHash": "039a612d6bb75fe9",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 29,
@@ -2671,8 +2671,8 @@
       "title": "modules_manifest.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "0204acf12032f559",
-      "reviewedHash": "0204acf12032f559",
+      "hash": "46673faa94412ca7",
+      "reviewedHash": "46673faa94412ca7",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 29,
@@ -3119,8 +3119,8 @@
       "title": "modules_manifest.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "0204acf12032f559",
-      "reviewedHash": "0204acf12032f559",
+      "hash": "6006fa57e686ae5d",
+      "reviewedHash": "6006fa57e686ae5d",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 29,
@@ -3161,12 +3161,12 @@
       "title": "campaign.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "1da84552b8e6faeb",
-      "reviewedHash": "1da84552b8e6faeb",
+      "hash": "325029264f4a85b0",
+      "reviewedHash": "325029264f4a85b0",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 15,
-      "inboundBacklinkCount": 59
+      "inboundBacklinkCount": 60
     },
     {
       "relPath": "campaigns/Peridot/modules/HOOK-01_The_Indentured_Caravan_Desperation_Leap.md",
@@ -3194,7 +3194,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 27
+      "inboundBacklinkCount": 28
     },
     {
       "relPath": "campaigns/Peridot/modules/Set_A_Infrastructure_and_Engineering/INFRA-02_Carbon_Electric_Arc_Smelting_Furnace.md",
@@ -3931,8 +3931,8 @@
       "title": "modules_manifest.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "1a97bb4ab109f2d3",
-      "reviewedHash": "1a97bb4ab109f2d3",
+      "hash": "c92190312e6541c7",
+      "reviewedHash": "c92190312e6541c7",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 56,
@@ -3945,12 +3945,12 @@
       "title": "preset.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "77530c336a9bdba8",
-      "reviewedHash": "77530c336a9bdba8",
+      "hash": "1ec5baf7be03e6f0",
+      "reviewedHash": "1ec5baf7be03e6f0",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 18,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Peridot/topology.json",
@@ -3959,12 +3959,12 @@
       "title": "topology.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "77530c336a9bdba8",
-      "reviewedHash": "77530c336a9bdba8",
+      "hash": "1ec5baf7be03e6f0",
+      "reviewedHash": "1ec5baf7be03e6f0",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 18,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "campaigns/Test-CampaignPackage.ps1",
@@ -4127,8 +4127,8 @@
       "title": "modules_manifest.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "e8eb01edb2479160",
-      "reviewedHash": "e8eb01edb2479160",
+      "hash": "2ce60287d4e5ecc1",
+      "reviewedHash": "2ce60287d4e5ecc1",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
@@ -4435,8 +4435,8 @@
       "title": "modules_manifest.json",
       "volume": "vol-8",
       "kind": "Authoritative JSON Data / Manifest",
-      "hash": "918ee3394ad6c426",
-      "reviewedHash": "918ee3394ad6c426",
+      "hash": "85a41d31e8b78a6a",
+      "reviewedHash": "85a41d31e8b78a6a",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 18,
@@ -4538,7 +4538,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 23,
-      "inboundBacklinkCount": 11
+      "inboundBacklinkCount": 10
     },
     {
       "relPath": "docs/CREATOR_STUDIO_AUTHORITATIVE_REFERENCE.md",
@@ -4608,7 +4608,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 8
     },
     {
       "relPath": "docs/adr/0004-desktop-workstation-start-html.md",
@@ -4622,7 +4622,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 10
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "docs/adr/0005-campaign-entity-architecture-npcs-quests-items.md",
@@ -4636,7 +4636,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 10
+      "inboundBacklinkCount": 9
     },
     {
       "relPath": "docs/adr/0006-comprehensive-module-explorer-and-mechanics-inspector.md",
@@ -4650,7 +4650,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 6
+      "inboundBacklinkCount": 5
     },
     {
       "relPath": "docs/adr/0007-unified-workstation-consolidating-index-and-campaign-studio.md",
@@ -4664,7 +4664,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 5,
-      "inboundBacklinkCount": 7
+      "inboundBacklinkCount": 6
     },
     {
       "relPath": "docs/adr/0008-workstation-mod-extension-architecture-and-save-isolation.md",
@@ -4804,7 +4804,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 6,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "docs/adr/0017-scale-fluid-node-exploration-dynamic-svg-stacking-and-desktop-shell-assimilation.md",
@@ -4818,7 +4818,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "docs/adr/0018-campaign-state-isolation-clean-slate-lifecycle-engine-and-zero-artifact-campaign-switching.md",
@@ -4860,7 +4860,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 7,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "docs/adr/0020-scale-fluid-edge-explorer-and-conduit-catalog.md",
@@ -4874,7 +4874,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "docs/adr/0021-first-class-factions-and-inter-entity-relational-social-graphs.md",
@@ -4888,7 +4888,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "docs/adr/0022-coauthoring-architecture-and-rejected-patterns.md",
@@ -5028,7 +5028,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "docs/agents/issue-tracker.md",
@@ -5042,7 +5042,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 5
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "docs/agents/triage-labels.md",
@@ -5056,7 +5056,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "docs/audit/2026-10-creator-studio-audit-dossier.md",
@@ -5182,7 +5182,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 11,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 8
     },
     {
       "relPath": "docs/srd/ip_module_framework_srd.md",
@@ -5196,7 +5196,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 10,
-      "inboundBacklinkCount": 13
+      "inboundBacklinkCount": 12
     },
     {
       "relPath": "docs/srd/scenario_primitives_srd.md",
@@ -5210,7 +5210,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 9,
-      "inboundBacklinkCount": 9
+      "inboundBacklinkCount": 8
     },
     {
       "relPath": "docs/srd/tier_0_substratum_srd.md",
@@ -5238,7 +5238,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 24
+      "inboundBacklinkCount": 23
     },
     {
       "relPath": "mods/README.md",
@@ -5322,7 +5322,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/AGRI-SUGAR-02_Cane_Crushing_Mill_and_Boiling_House.md",
@@ -5336,7 +5336,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/AGRI-SUGAR-03_Rum_Distillery_and_Excise_Harbor.md",
@@ -5350,7 +5350,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-ALUM-01_Alunite_Quarry_and_Leaching_Vats.md",
@@ -5364,7 +5364,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-CLAY-01_Riverbank_Clay_Pit.md",
@@ -5378,7 +5378,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-FISH-01_Pelagic_Fishing_Fleet_Wharf.md",
@@ -5392,7 +5392,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-FURS-01_Boreal_Trapline_Outpost.md",
@@ -5406,7 +5406,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-GLASS-01_Silica_Sand_Dredging_Pit.md",
@@ -5420,7 +5420,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 3
+      "inboundBacklinkCount": 4
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-LIME-01_Limestone_Quarry.md",
@@ -5434,7 +5434,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-PINE-01_Boreal_Conifer_Logging_and_Turpentine_Camp.md",
@@ -5448,7 +5448,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-PORC-01_Kaolin_and_Petuntse_Quarry.md",
@@ -5462,7 +5462,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-SALT-01_Tidal_Salt_Evaporation_Pans.md",
@@ -5476,7 +5476,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-SALTPETER-01_Nitrary_Compost_Beds_and_Leaching_House.md",
@@ -5490,7 +5490,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-TANNIN-01_Bark_Peeling_Camp.md",
@@ -5504,7 +5504,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-TIMBER-01_Hardwood_Logging_Camp.md",
@@ -5518,7 +5518,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 17
+      "inboundBacklinkCount": 18
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/EXT-WHALE-01_Offshore_Whaling_Flensing_Slip.md",
@@ -5532,7 +5532,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/FARM-CATTLE-01_Pasture_Ranch.md",
@@ -5546,7 +5546,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/pre_industrial_resources/modules/FARM-CORN-01_Three_Sisters_Maize_Plantation.md",
@@ -6689,11 +6689,11 @@
       "title": "modules_manifest.json",
       "volume": "vol-4",
       "kind": "Workstation Mod Manifest (JSON)",
-      "hash": "9dc1f79cdf50279b",
-      "reviewedHash": "9dc1f79cdf50279b",
+      "hash": "97257de0964bfe3e",
+      "reviewedHash": "97257de0964bfe3e",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 1,
+      "outboundCount": 18,
       "inboundBacklinkCount": 1
     },
     {
@@ -6736,7 +6736,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/scale_fluid_transit_corridors/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md",
@@ -6750,7 +6750,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/scale_fluid_transit_corridors/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md",
@@ -6764,7 +6764,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/scale_fluid_transit_corridors/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md",
@@ -6778,7 +6778,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/scale_fluid_transit_corridors/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md",
@@ -6792,7 +6792,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/scale_fluid_transit_corridors/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md",
@@ -6806,7 +6806,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/scale_fluid_transit_corridors/modules_manifest.json",
@@ -6815,11 +6815,11 @@
       "title": "modules_manifest.json",
       "volume": "vol-4",
       "kind": "Workstation Mod Manifest (JSON)",
-      "hash": "770be27cce4e8f0f",
-      "reviewedHash": "770be27cce4e8f0f",
+      "hash": "5bbe1426e3713411",
+      "reviewedHash": "5bbe1426e3713411",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 1,
+      "outboundCount": 7,
       "inboundBacklinkCount": 1
     },
     {
@@ -6862,7 +6862,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md",
@@ -6876,7 +6876,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 4,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md",
@@ -6890,7 +6890,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md",
@@ -6904,7 +6904,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md",
@@ -6918,7 +6918,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md",
@@ -6932,7 +6932,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 0
+      "inboundBacklinkCount": 1
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md",
@@ -6946,7 +6946,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md",
@@ -6960,7 +6960,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/tier_0_settlement_substratum/modules_manifest.json",
@@ -6969,11 +6969,11 @@
       "title": "modules_manifest.json",
       "volume": "vol-4",
       "kind": "Workstation Mod Manifest (JSON)",
-      "hash": "2708c8c698ed634f",
-      "reviewedHash": "2708c8c698ed634f",
+      "hash": "8d62db9785892726",
+      "reviewedHash": "8d62db9785892726",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 1,
+      "outboundCount": 9,
       "inboundBacklinkCount": 1
     },
     {
@@ -7016,7 +7016,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/universal_worldbuilding_library/modules/CWT-011_The_Imperial_Regicide_and_Total_Succession_War.md",
@@ -7030,7 +7030,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/universal_worldbuilding_library/modules/CWT-012_The_Clockwork_Demiurge_Awakening_and_Techno_Apotheosis.md",
@@ -7044,7 +7044,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/universal_worldbuilding_library/modules/CWT-013_The_Eschatological_Miasma_and_Necrotic_Eclipse.md",
@@ -7058,7 +7058,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/universal_worldbuilding_library/modules/CWT-014_The_Cosmic_Planar_Collision_and_Leyline_Shatter.md",
@@ -7072,7 +7072,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/universal_worldbuilding_library/modules/CWT-015_The_Great_Peasant_Levee_and_Total_Class_Insurgency.md",
@@ -7086,7 +7086,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 1,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/universal_worldbuilding_library/modules/CWT-030_Terraced_Hydroponic_Rice_Flumes_and_Silt_Fisheries.md",
@@ -7100,7 +7100,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 1
+      "inboundBacklinkCount": 2
     },
     {
       "relPath": "mods/universal_worldbuilding_library/modules/CWT-031_Botanical_Apothecary_Dispensary_and_Anti_Venom_Foundry.md",
@@ -7114,7 +7114,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
-      "inboundBacklinkCount": 2
+      "inboundBacklinkCount": 3
     },
     {
       "relPath": "mods/universal_worldbuilding_library/modules/CWT-032_Subterranean_Fungiculture_Vaults_and_Yeast_Silos.md",
@@ -7585,11 +7585,11 @@
       "title": "modules_manifest.json",
       "volume": "vol-4",
       "kind": "Workstation Mod Manifest (JSON)",
-      "hash": "d8cd23bf94d96f94",
-      "reviewedHash": "d8cd23bf94d96f94",
+      "hash": "776442c697fd7ef9",
+      "reviewedHash": "776442c697fd7ef9",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 1,
+      "outboundCount": 9,
       "inboundBacklinkCount": 1
     },
     {
@@ -7632,7 +7632,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 9,
-      "inboundBacklinkCount": 23
+      "inboundBacklinkCount": 22
     },
     {
       "relPath": "network/contradiction_matrix_dashboard.html",
@@ -7674,7 +7674,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
-      "inboundBacklinkCount": 16
+      "inboundBacklinkCount": 15
     },
     {
       "relPath": "network/odv_archetype_matrix.html",
@@ -7688,7 +7688,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 9,
-      "inboundBacklinkCount": 18
+      "inboundBacklinkCount": 17
     },
     {
       "relPath": "network/platform_audit_dashboard.html",
@@ -7697,8 +7697,8 @@
       "title": "Creator Studio: Platform Explorer & Master Audit",
       "volume": "vol-5",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "0c1a4d6265533a79",
-      "reviewedHash": "0c1a4d6265533a79",
+      "hash": "281f5dca1e612946",
+      "reviewedHash": "281f5dca1e612946",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 299,
@@ -8377,6 +8377,20 @@
       "inboundBacklinkCount": 5
     },
     {
+      "relPath": "scripts/cleanup_industry_resource_data.js",
+      "wikiHtml": "wiki/pages/scripts/cleanup_industry_resource_data.js.html",
+      "wikiSrc": "wiki/src/files/scripts/cleanup_industry_resource_data.js.md",
+      "title": "cleanup_industry_resource_data.js",
+      "volume": "vol-8",
+      "kind": "Node.js / Browser Engine Script",
+      "hash": "02fa8dfd38787849",
+      "reviewedHash": "02fa8dfd38787849",
+      "stale": false,
+      "auditFlag": null,
+      "outboundCount": 5,
+      "inboundBacklinkCount": 0
+    },
+    {
       "relPath": "scripts/find_codebase_node.js",
       "wikiHtml": "wiki/pages/scripts/find_codebase_node.js.html",
       "wikiSrc": "wiki/src/files/scripts/find_codebase_node.js.md",
@@ -8472,7 +8486,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 3,
-      "inboundBacklinkCount": 12
+      "inboundBacklinkCount": 11
     },
     {
       "relPath": "server.ps1",
@@ -8486,7 +8500,7 @@
       "stale": false,
       "auditFlag": null,
       "outboundCount": 2,
-      "inboundBacklinkCount": 12
+      "inboundBacklinkCount": 11
     },
     {
       "relPath": "sociology/01_Core_Cultural_Quadrants.md",
@@ -8621,8 +8635,8 @@
       "title": "entity_modals.html",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "hash": "45c963b3ddb7ece7",
-      "reviewedHash": "45c963b3ddb7ece7",
+      "hash": "a59f9bbc48ce2dca",
+      "reviewedHash": "a59f9bbc48ce2dca",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
@@ -8691,8 +8705,8 @@
       "title": "cad_canvas_renderer.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "4fb2d3bdc15ee80a",
-      "reviewedHash": "4fb2d3bdc15ee80a",
+      "hash": "629623fde99f0a24",
+      "reviewedHash": "629623fde99f0a24",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 17,
@@ -8705,8 +8719,8 @@
       "title": "cad_interaction.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "d216e4e8e911d9f7",
-      "reviewedHash": "d216e4e8e911d9f7",
+      "hash": "10f14d8c92efd8ff",
+      "reviewedHash": "10f14d8c92efd8ff",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 18,
@@ -8747,8 +8761,8 @@
       "title": "campaign_mutation_engine.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "a94ff3c2533dc609",
-      "reviewedHash": "a94ff3c2533dc609",
+      "hash": "6e1885da5279cb4e",
+      "reviewedHash": "6e1885da5279cb4e",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 8,
@@ -8817,8 +8831,8 @@
       "title": "entity_cascade_delete.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "fdb831b2c24fb750",
-      "reviewedHash": "fdb831b2c24fb750",
+      "hash": "a5e77cf5076e7976",
+      "reviewedHash": "a5e77cf5076e7976",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 17,
@@ -8831,12 +8845,12 @@
       "title": "entity_core.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "ff483bb0e1a62144",
-      "reviewedHash": "ff483bb0e1a62144",
+      "hash": "c76e417554185fa9",
+      "reviewedHash": "c76e417554185fa9",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 14,
-      "inboundBacklinkCount": 24
+      "inboundBacklinkCount": 25
     },
     {
       "relPath": "src/workstation/scripts/entity_crud_dialogs.js",
@@ -8845,8 +8859,8 @@
       "title": "entity_crud_dialogs.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "46182b53d51c690d",
-      "reviewedHash": "46182b53d51c690d",
+      "hash": "6b4df4df02e5a164",
+      "reviewedHash": "6b4df4df02e5a164",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 13,
@@ -8859,12 +8873,12 @@
       "title": "entity_manager_ui.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "ec78ab070c2cefc9",
-      "reviewedHash": "ec78ab070c2cefc9",
+      "hash": "011e4e699c05af25",
+      "reviewedHash": "011e4e699c05af25",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 20,
-      "inboundBacklinkCount": 26
+      "inboundBacklinkCount": 25
     },
     {
       "relPath": "src/workstation/scripts/fast_frugal_tree.js",
@@ -8891,7 +8905,7 @@
       "reviewedHash": "50657bbae8de32ca",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 8,
+      "outboundCount": 7,
       "inboundBacklinkCount": 3
     },
     {
@@ -8901,8 +8915,8 @@
       "title": "industry_chain_importer.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "ac1078450acbcd68",
-      "reviewedHash": "ac1078450acbcd68",
+      "hash": "f73dc652b90fd1eb",
+      "reviewedHash": "f73dc652b90fd1eb",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 10,
@@ -8971,8 +8985,8 @@
       "title": "module_explorer.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "cab30f781fd5ad4d",
-      "reviewedHash": "cab30f781fd5ad4d",
+      "hash": "38eb6288230743e2",
+      "reviewedHash": "38eb6288230743e2",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 10,
@@ -8999,8 +9013,8 @@
       "title": "pack_engine.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "9e26530b1558ca0c",
-      "reviewedHash": "9e26530b1558ca0c",
+      "hash": "d788e73e62bb6d2d",
+      "reviewedHash": "d788e73e62bb6d2d",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 12,
@@ -9013,8 +9027,8 @@
       "title": "property_grid_inspector.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "ad034c41fa16b8ac",
-      "reviewedHash": "ad034c41fa16b8ac",
+      "hash": "59fd7d1096cc89cc",
+      "reviewedHash": "59fd7d1096cc89cc",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 22,
@@ -9125,8 +9139,8 @@
       "title": "wiki_engine.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "ea05f76f7cd4f0ba",
-      "reviewedHash": "ea05f76f7cd4f0ba",
+      "hash": "c19fd5a5ea18afcd",
+      "reviewedHash": "c19fd5a5ea18afcd",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 11,
@@ -9139,8 +9153,8 @@
       "title": "workstation_state.js",
       "volume": "vol-4",
       "kind": "Workstation Modular JS Engine",
-      "hash": "1241136c5ff348c7",
-      "reviewedHash": "1241136c5ff348c7",
+      "hash": "7033e0dbd3904976",
+      "reviewedHash": "7033e0dbd3904976",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 32,
@@ -9167,8 +9181,8 @@
       "title": "win95_workstation.css",
       "volume": "vol-4",
       "kind": "Workstation Shell Template",
-      "hash": "918675699fa6daaf",
-      "reviewedHash": "918675699fa6daaf",
+      "hash": "160500769f5cfccc",
+      "reviewedHash": "160500769f5cfccc",
       "stale": false,
       "auditFlag": null,
       "outboundCount": 0,
@@ -9195,11 +9209,11 @@
       "title": "Creator Studio - Campaign Authoring Workstation",
       "volume": "vol-1",
       "kind": "Standalone Zero-CORS HTML Workstation",
-      "hash": "7b7c8a6a64e8835a",
-      "reviewedHash": "7b7c8a6a64e8835a",
+      "hash": "13ed63b5dd065198",
+      "reviewedHash": "13ed63b5dd065198",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 311,
+      "outboundCount": 310,
       "inboundBacklinkCount": 103
     },
     {
@@ -9279,11 +9293,11 @@
       "title": "run_tests.js",
       "volume": "vol-8",
       "kind": "Node.js / Browser Engine Script",
-      "hash": "5b43ce4a0262525e",
-      "reviewedHash": "5b43ce4a0262525e",
+      "hash": "a8a647bdf198308e",
+      "reviewedHash": "a8a647bdf198308e",
       "stale": false,
       "auditFlag": null,
-      "outboundCount": 22,
+      "outboundCount": 23,
       "inboundBacklinkCount": 15
     },
     {

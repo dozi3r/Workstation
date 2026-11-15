@@ -3,11 +3,11 @@ file_path: "src/workstation/scripts/entity_core.js"
 title: "entity_core.js"
 volume: "vol-4"
 kind: "Workstation Modular JS Engine"
-current_hash: "ff483bb0e1a62144"
-reviewed_hash: "ff483bb0e1a62144"
+current_hash: "c76e417554185fa9"
+reviewed_hash: "c76e417554185fa9"
 stale: false
-size_bytes: 88888
-line_count: 1973
+size_bytes: 111209
+line_count: 2359
 ---
 
 # entity_core.js
@@ -23,7 +23,7 @@ line_count: 1973
 - **Possession & Secret Toggles**: Manages item possession modes (`carried` vs. `stored`) with effective spatial resolution (`getItemEffectiveNodeId`), NPC secret exposure flags (`toggleNpcSecretRevealed`), and party disposition vectors (`setNpcPartyDisposition`).
 - **Demographics, Factions & Party Rapport (ADR-0015 v2)**: Provides pure normalizers and mutators (`normalizeDemographics`, `getDemographicNames`, `normalizePartyRapport`, `PARTY_STANCE_LABELS`, `addDemographicTag`, `removeDemographicTag`, `addFactionPresence`, `removeFactionPresence`, `setPartyRapport`) preserving SYS-RACE-02 census data while enabling freeform peoples tags, multi-map faction suggestion aggregation (`getCampaignFactionSuggestions`), and standardized 5-point rapport tracking with pre-mutation history snapshots (`pushHistoryState`).
 - **Prototypes & Stationing**: Queries campaign module prototypes (`getPrototypesForType`), accesses typed active entity rosters (`getActiveEntityList`), promotes prototypes into campaign instances (`promotePrototypeToCampaign`), stations entities to pointcrawl nodes (`assignEntityToNode`), and controls threat clock ticks/dials (`advanceTrackerTick`, `resetTrackerTicks`, `setTrackerDialLevel`).
-- **Resource Partitioning & Bestiary Support**: Defines `isResourceItem(item)` to partition commodity resources out of standard items, `getCreatureEffectiveNodeId(creature)` for resolving multi-scale lair node stationing, and `getBackingEntityList(type)` to route resource mutations to `topo.items` and creatures to `topo.creatures`.
+- **Resource Partitioning & Bestiary Support**: Defines `isResourceItem(item)` and `isIndustryItem(item)` to maintain the strict 3-way `topo.items` partition (`item`, `industry`, `resource`), `getCreatureEffectiveNodeId(creature)` for multi-scale lair stationing, `getBackingEntityList(type)` to route both `industry` and `resource` mutations to `topo.items`, `normalizeResourceTagKey()` + `buildIndustryResourceIndex(topo)` for canonical supply-chain matching, and `resolveRichEntityMetadata(entity, type)` (`isLegacyBoilerplateNote`) for non-destructive module-lore hydration.
 - **Removal (SYS-ARCH-01)**: `removeEntityFromCampaign` opens the cascade dialog (`promptEntityDelete`). Without the dialog it deletes through `CampaignMutationEngine.deleteEntity` (passing the `maps` registry) so references are unlinked the same way. The old fallback that filtered four collections and unlinked nothing is gone.
 - Gigerenzer suite (ADR 0024): promotePrototypeToCampaign deep-copies the optional fft so promoted entities never share a tree.
 - **Cross-Campaign Exploration Engine (`CrossCampaignService`)**: Discovers external campaigns across bundled `CAMPAIGN_REGISTRY`, IndexedDB `campaign_library`, and custom user files/folders (`customRegisteredSources`). Normalizes all package formats, deep-clones external entities stamping `_isExternal: true`, `_sourceCampaignId`, `_externalKey: "ext::<sourceId>::<id>"`, decouples active node stationing to null while preserving `_originalNodeId` / `_originalNodeName`, and guarantees strict isolation so external entities never leak into `getActiveEntityList(type)`.

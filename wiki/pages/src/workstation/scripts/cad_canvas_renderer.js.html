@@ -470,7 +470,7 @@
         <h1 class="article-title">cad_canvas_renderer.js</h1>
         <div class="article-subtitle">
           <span class="badge">Workstation Modular JS Engine</span>
-          <span class="badge badge-ok">✓ Synced (SHA: 4fb2d3bd)</span>
+          <span class="badge badge-ok">✓ Synced (SHA: 629623fd)</span>
           
           <a href="#backlinks" style="margin-left:auto;font-weight:700;">&darr; Jump to Backlinks (28)</a>
         </div>
@@ -483,8 +483,8 @@
     <tr><th>File Path</th><td><code>src/workstation/scripts/cad_canvas_renderer.js</code></td></tr>
     <tr><th>Manual Volume</th><td><a href="../../../../index.html#vol-4">Volume IV</a></td></tr>
     <tr><th>Surface Kind</th><td>Workstation Modular JS Engine</td></tr>
-    <tr><th>File Metrics</th><td>1670 lines &bull; 82.0 KB</td></tr>
-    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 4fb2d3bd)</span></td></tr>
+    <tr><th>File Metrics</th><td>1688 lines &bull; 83.3 KB</td></tr>
+    <tr><th>Sync Status</th><td><span class="badge badge-ok">✓ Synced (SHA: 629623fd)</span></td></tr>
     <tr><th>Outbound Links</th><td><strong>17</strong> references</td></tr>
     <tr><th>Inbound Backlinks</th><td><strong>28</strong> backlinks</td></tr>
     <tr><th>Raw File</th><td><a href="../../../../../src/workstation/scripts/cad_canvas_renderer.js" target="_blank">🔗 Open Source File &rarr;</a></td></tr>
@@ -512,7 +512,7 @@
 <li><strong>CAD Drawing Shapes & Grip Handles</strong>: Renders <code>topo.shapes</code> into <code>#drawings-layer</code> across rectangle, circle/ellipse, and vector line primitives (<code>renderShapeSvgElement</code>) with stroke styling (solid, dashed, dotted), layer/shape opacity blending, and 4/2-point CAD grip handles when selected.</li>
 <li><strong>Cartographic Elements & Badging</strong>: Renders transit corridors (E_adj), cubic Bezier hegemony influence curves (E_inf), corridor module/flow badges (<code>M:x F:y</code>), portal indicator rings, position lock badges (<code>lockAllNodes</code>), node telemetry badges (<code>M</code>, <code>P</code>, <code>R</code>/<code>âš ï¸R</code>, <code>N</code>, <code>Q</code>, <code>I</code>, <code>T</code>), crisis state alerts, and draggable threat clock overlay callouts.</li>
 <li><strong>Background Map Canvas Integration</strong>: Dynamically binds and projects raster map backgrounds onto <code>#canvas-bg-image</code> from active metadata (<code>dataUrl</code> or <code>url</code>), supporting opacity blending and layer toggles without canvas flickering.</li>
-<li><strong>Recursive Sub-Map Entity Aggregation</strong>: Resolves effective stationed items and entities across nested portal sub-maps (<code>getItemEffectiveNodeId</code>, <code>getRecursiveNodeEntities</code>, <code>traverseSubmap</code>).</li>
+<li><strong>Recursive Sub-Map Entity Aggregation</strong>: Resolves effective stationed items, industrial apparatus (<code>industries</code>), and resources (<code>resources</code>) across nested portal sub-maps (<code>getItemEffectiveNodeId</code>, <code>getRecursiveNodeEntities</code>, <code>traverseSubmap</code>) while checking quest <code>itemIds</code> across all three partitions.</li>
 <li>ODV (SYS-ODV-02 S1): resolveNodeOdv calls no longer pass the topology as fallbackIndex.</li>
 <li>Gigerenzer suite (ADR 0024): road lines are tinted and pulsed when getDreadOverlayEdgeKind reports a dreaded or detour conduit.</li>
 </ul>
