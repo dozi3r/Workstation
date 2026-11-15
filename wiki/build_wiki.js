@@ -1,22 +1,20 @@
 /**
  * ============================================================================
- * CREATOR STUDIO: TECHNICAL MANUAL & BIDIRECTIONAL CODEBASE WIKI COMPILER
+ * CREATOR STUDIO: TECHNICAL MANUAL & CODEBASE KNOWLEDGE GRAPH COMPILER
  * File: wiki/build_wiki.js
  * Authority: ADR-0003, AGENTS.md, SYS-AUDIT-01
  * ============================================================================
  * Responsibilities:
- * 1. Scans the entire repository (excluding .zip, .pdf, regions/images/, wiki/pages/).
- * 2. Classifies every file into the 8-Volume Technical Manual Table of Contents.
+ * 1. Scans the repository (excluding .zip, .pdf, regions/images/, wiki/, tickets/, scratch/).
+ * 2. Classifies indexed files into the 8-Volume Technical Manual Table of Contents.
  * 3. Extracts AST symbols (JS/PS1/PY), YAML frontmatter & resource contracts (MD),
  *    JSON schemas, HTML includes, and audit/duplicate metadata (SYS-AUDIT-01).
- * 4. Scaffolds / updates Markdown source files in wiki/src/files/<relPath>.md while
- *    preserving custom agent/human architectural notes between
- *    <!-- BEGIN_CUSTOM_NOTES --> and <!-- END_CUSTOM_NOTES -->.
- * 5. Compiles the 7 Cross-Cutting System Series (wiki/src/series/*.md).
- * 6. Computes the complete Bidirectional Inverted Backlink Graph across all
- *    files, series, modules, tickets, shared JS globals, and resource supply chains.
- * 7. Renders zero-CORS responsive Wikipedia-style HTML (Desktop + Mobile, Light/Dark
- *    toggle, instant offline search bar) to wiki/index.html and wiki/pages/**.
+ * 4. Compiles the 7 curated Cross-Cutting System Series (wiki/src/series/*.md).
+ * 5. Computes the Bidirectional Inverted Backlink Graph across all indexed files,
+ *    series, modules, tickets, shared JS globals, and resource supply chains
+ *    (exported to wiki/wiki_graph.json for Find-CodebaseNode.ps1).
+ * 6. Renders zero-CORS responsive HTML (wiki/index.html + wiki/pages/series/**)
+ *    with instant offline search (wiki/search_index.js).
  * ============================================================================
  */
 
@@ -62,7 +60,6 @@ function safeWriteFileSync(filePath, data, encoding = 'utf8') {
   }
 }
 
-ensureDir(SRC_FILES_DIR);
 ensureDir(SRC_SERIES_DIR);
 ensureDir(PAGES_DIR);
 ensureDir(SERIES_PAGES_DIR);
@@ -306,7 +303,7 @@ function shouldTrackFile(relPath) {
   // Exclude all wiki internals, backlog tickets, scratch tooling, archives, and duplicate mirrors
   if (norm.startsWith('wiki/')) return false;
   if (norm.startsWith('tickets/')) return false;
-  if (norm.startsWith('.scratch/') || norm.startsWith('.archive/')) return false;
+  if (norm.startsWith('scratch/') || norm.startsWith('.scratch/') || norm.startsWith('.archive/')) return false;
   if (norm.startsWith('.tmp') || norm.includes('/.tmp')) return false;
   if (norm.startsWith('Creator_Studio_Standalone/')) return false;
   if (norm === 'infographic' || norm.startsWith('infographic/')) return false;
@@ -325,6 +322,7 @@ function walkWorkspace(dir, list = []) {
         rel === 'regions/images' ||
         rel === 'wiki' || rel.startsWith('wiki/') || rel.endsWith('/wiki') ||
         rel === 'tickets' || rel.startsWith('tickets/') ||
+        rel === 'scratch' || rel.startsWith('scratch/') ||
         rel === '.scratch' || rel.startsWith('.scratch/') ||
         rel.startsWith('.tmp') ||
         rel === 'Creator_Studio_Standalone' || rel.startsWith('Creator_Studio_Standalone/') ||
@@ -411,6 +409,12 @@ function classifyFileKind(relPath) {
 }
 
 function computeFileHash(fullPath) {
+  const ext = path.extname(fullPath).toLowerCase();
+  const isText = ['.js', '.ts', '.json', '.md', '.html', '.css', '.ps1', '.bat', '.py', '.csv', '.txt', '.yml', '.yaml'].includes(ext);
+  if (isText) {
+    const normalized = fs.readFileSync(fullPath, 'utf8').replace(/\r\n/g, '\n');
+    return crypto.createHash('sha256').update(normalized, 'utf8').digest('hex').slice(0, 16);
+  }
   const buf = fs.readFileSync(fullPath);
   return crypto.createHash('sha256').update(buf).digest('hex').slice(0, 16);
 }
@@ -1189,7 +1193,7 @@ function resolveKeyToHref(fromDepth, targetKey, byRelPath) {
     const rp = targetKey.slice(5);
     const m = byRelPath.get(rp);
     return {
-      href: `${prefix}pages/${rp.split('/').map(encodeURIComponent).join('/')}.html`,
+      href: `${prefix}../${rp.split('/').map(encodeURIComponent).join('/')}`,
       label: m ? m.relPath : rp,
       title: m ? m.title : rp,
       badge: m ? m.kind : 'File'
@@ -1205,7 +1209,7 @@ function renderMarkdownToHtml(md, fromDepth, byRelPath) {
   // Strip YAML frontmatter if present
   let body = md.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
   // Strip HTML comments for custom note markers
-  body = body.replace(/<!--\s*(?:BEGIN|END)_CUSTOM_NOTES\s*-->/g, '');
+  body = body.replace(/<!--\s*(?:BEGIN|END)_(?:CUSTOM_NOTES|MODULE_ATLAS)\b[^>]*-->/g, '');
 
   // Handle fenced code blocks first
   const codeBlocks = [];
@@ -1220,7 +1224,7 @@ function renderMarkdownToHtml(md, fromDepth, byRelPath) {
     const t = rawType.toLowerCase();
     const v = rawVal.trim();
     if (t === 'file') {
-      const href = `${prefix}pages/${v.split('/').map(encodeURIComponent).join('/')}.html`;
+      const href = `${prefix}../${v.split('/').map(encodeURIComponent).join('/')}`;
       return `<a class="wiki-link" href="${href}">📄 ${escapeHtml(v)}</a>`;
     }
     if (t === 'series') {
@@ -1807,6 +1811,7 @@ function renderSidebarHtml(fromDepth, activeId = '') {
   html += `<h4>Navigation</h4>`;
   html += `<ul>`;
   html += `<li><a href="${prefix}index.html" class="${activeId === 'index' ? 'active' : ''}">📚 Master Table of Contents</a></li>`;
+  html += `<li><a href="${prefix}index.html#atlas">🏭 Chains, Tags &amp; Modules Atlas</a></li>`;
   html += `<li><a href="${prefix}../start.html">💻 Desktop Workstation (start.html)</a></li>`;
   html += `<li><a href="${prefix}../index.html">⚡ Creator Studio Launcher</a></li>`;
   html += `<li><a href="${prefix}../network/campaign_studio.html">🎛️ Campaign Studio (Step 1)</a></li>`;
@@ -2209,11 +2214,228 @@ function renderSeriesPages(graph) {
 }
 
 // ----------------------------------------------------------------------------
+// 11b. INDUSTRY CHAINS, RESOURCE TAGS & MODULES ATLAS (Tier 2, inside wiki/index.html)
+// ----------------------------------------------------------------------------
+// The atlas comes from infographic/tools/wikimodule.js (cached in infographic/data/module_atlas.json).
+// infographic/ is git-ignored, so a clean checkout has no atlas: the build must keep going.
+// Set WIKI_SKIP_MODULE_ATLAS=1 to simulate that case.
+function loadModuleAtlas() {
+  const toolPath = path.join(ROOT_DIR, 'infographic', 'tools', 'wikimodule.js');
+  if (process.env.WIKI_SKIP_MODULE_ATLAS === '1') {
+    return { available: false, reason: 'skipped (WIKI_SKIP_MODULE_ATLAS=1)' };
+  }
+  if (!fs.existsSync(toolPath)) {
+    return { available: false, reason: 'infographic/ workspace not present (clean checkout)' };
+  }
+  try {
+    const wm = require(toolPath);
+    const res = wm.refresh({});
+    if (res.series && res.series.changed) {
+      console.log('[OK] Refreshed BEGIN/END_MODULE_ATLAS block in Series D (infographic/tools/wikimodule.js).');
+    }
+    return wm.compactAtlas(res.atlas);
+  } catch (err) {
+    return { available: false, reason: `wikimodule.js failed: ${err.message}` };
+  }
+}
+
+function getAtlasClientJs() {
+  // Plain string concatenation only: this code is embedded in a template literal.
+  return `
+(function () {
+  var A = window.MODULE_ATLAS;
+  if (!A || !A.available) return;
+  var byMod = {}, byChain = {}, byTag = {};
+  A.modules.forEach(function (m) { byMod[m.id] = m; });
+  A.chains.forEach(function (c) { byChain[c.id] = c; });
+  A.tags.forEach(function (t) { byTag[t.tag] = t; });
+  var tab = 'chains', filter = '';
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function mlink(id) { return byMod[id] ? '<a href="#atlas/module/' + id + '"><code>' + esc(id) + '</code></a>' : '<code>' + esc(id) + '</code>'; }
+  function clink(id) { return byChain[id] ? '<a href="#atlas/chain/' + id + '"><code>' + esc(id) + '</code></a>' : '<code>' + esc(id) + '</code>'; }
+  function tlink(t) { return '<a href="#atlas/tag/' + encodeURIComponent(t) + '">' + esc(t) + '</a>'; }
+  function list(a, f) { return a && a.length ? a.map(f).join(', ') : '<span class="atlas-muted">none</span>'; }
+  function vec(v) { return v ? '[' + v.join(', ') + ']' : '?'; }
+  function table(head, rows) {
+    return '<div class="table-wrap"><table class="wiki-table"><thead><tr>' + head.map(function (h) { return '<th>' + h + '</th>'; }).join('') +
+      '</tr></thead><tbody>' + (rows.length ? rows.map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>'; }).join('') :
+      '<tr><td colspan="' + head.length + '" class="atlas-muted">No matches.</td></tr>') + '</tbody></table></div>';
+  }
+  function hit(s) { return !filter || String(s).toLowerCase().indexOf(filter) >= 0; }
+  function src(p) { return '<a href="../' + p.split('/').map(encodeURIComponent).join('/') + '"><code>' + esc(p) + '</code></a>'; }
+
+  function renderList() {
+    var el = document.getElementById('atlas-list');
+    if (!el) return;
+    var html = '';
+    if (tab === 'chains') {
+      html = table(['Chain', 'Stages', 'Inputs', 'Outputs', 'Upstream / downstream chains', 'Whole chain stops', 'Research'],
+        A.chains.filter(function (c) { return hit(c.id + ' ' + c.modules.map(function (m) { return m.id + ' ' + m.title; }).join(' ')); }).map(function (c) {
+          return [clink(c.id) + (c.tier0 ? ' <span class="badge">Tier 0</span>' : ''),
+            c.modules.map(function (m) { return m.stage + ' ' + mlink(m.id) + ' <span class="atlas-muted">' + esc(m.role) + '</span>'; }).join('<br/>'),
+            c.inputs.length, c.outputs.length,
+            list(c.upstreamChains, clink) + ' / ' + list(c.downstreamChains, clink),
+            c.blastRadius.starved.length + ' starve, ' + c.blastRadius.degraded.length + ' degrade',
+            c.research ? src(c.research) : '<span class="atlas-muted">none</span>'];
+        }));
+    } else if (tab === 'modules') {
+      html = table(['Module', 'Chain', '[S, E, C] / quadrant', 'Provides', 'Requires', 'If it stops', 'Audit'],
+        A.modules.filter(function (m) { return hit(m.id + ' ' + m.title + ' ' + m.chainId + ' ' + m.npcs.map(function (n) { return n.name; }).join(' ')); }).map(function (m) {
+          return [mlink(m.id) + '<br/><span class="atlas-muted">' + esc(m.title) + '</span>', clink(m.chainId) + ' ' + m.chainStage + ' ' + esc(m.chainRole),
+            vec(m.baseline) + ' ' + esc(m.quadrant || '') + (m.baseline && !m.quadrantMatches ? ' <span class="badge badge-warn">derives ' + esc(m.derivedQuadrant) + '</span>' : ''),
+            m.provides.map(function (p) { return tlink(p.tag); }).join('<br/>'),
+            m.requires.map(function (r) { return tlink(r.tag); }).join('<br/>'),
+            m.cascade.starved.length + ' starve, ' + m.cascade.degraded.length + ' degrade',
+            m.audit ? esc(m.audit.commitsInAudit + ' commit(s)' + (m.audit.rescaled ? ', rescaled' : '') + (m.audit.tagsChanged ? ', tags' : '') + (m.audit.factsFixed ? ', facts' : '') + (m.audit.npcsRewritten ? ', ' + m.audit.npcsRewritten + ' NPCs' : '') + (m.audit.tier0V3 ? ', Tier 0 v3' : '')) : '<span class="atlas-muted">n/a</span>'];
+        }));
+    } else if (tab === 'tags') {
+      html = table(['Tag', 'Providers', 'Consumers', 'Chains'],
+        A.tags.filter(function (t) { return hit(t.tag + ' ' + t.providers.join(' ') + ' ' + t.consumers.join(' ')); }).map(function (t) {
+          return [tlink(t.tag) + (t.terminal ? ' <span class="badge">terminal</span>' : '') + (t.orphan ? ' <span class="badge badge-warn">orphan</span>' : ''),
+            list(t.providers, mlink), list(t.consumers, mlink), list(t.chains, clink)];
+        }));
+    } else {
+      html = '<h3>Git audit highlights' + (A.auditRange ? ' (' + esc((A.auditRange.highlightsBase || A.auditRange.base) + '..HEAD') + ')' : '') + '</h3>' +
+        table(['Commit', 'Subject', 'Modules', 'Rescaled / re-picked', 'Tags', 'Facts fixed', 'NPC modules (NPCs)', 'v3 / Tier 0 v3'],
+          A.highlights.filter(function (h) { return hit(h.h + ' ' + h.subject + ' ' + h.ids.join(' ')); }).map(function (h) {
+            return ['<code>' + esc(h.h) + '</code>', esc(h.subject), h.modules, h.rescaled + ' / ' + (h.baselineChanged || 0), h.tags, h.factsFixed, h.npcModules + ' (' + h.npcsRewritten + ')', h.templateV3 + ' / ' + h.tier0V3];
+          })) +
+        '<h3>Verification ledger (C_verify.md)</h3><p>' + A.ledger.totals.confirmed + ' confirmed, ' + A.ledger.totals.wrong + ' wrong (fixed), ' + A.ledger.totals.unverifiable + ' unverifiable (scenario-only).</p>' +
+        table(['Scope', 'Audited', 'Confirmed', 'Wrong / fixed', 'Unverifiable'], A.ledger.summary.map(function (s) { return [esc(s.scope), esc(s.audited), esc(s.confirmed), esc(s.wrong), esc(s.unverifiable)]; })) +
+        '<h3>Open design flags (Stream 3.9)</h3>' + A.ledger.designFlags.map(function (f) {
+          return '<div class="ai-digest"><strong>' + esc(f.ref + ' ' + f.title) + '</strong> ' + list(f.modules, mlink) + '<p>' + esc(f.finding) + '</p><ul class="wiki-list">' +
+            f.options.map(function (o) { return '<li><em>' + esc(o.label) + '</em>: ' + esc(o.text) + '</li>'; }).join('') + '</ul></div>';
+        }).join('');
+    }
+    el.innerHTML = html;
+  }
+
+  function renderModule(m) {
+    var h = '<h3>' + esc(m.id) + ': ' + esc(m.title) + (m.tier0 ? ' <span class="badge">Tier 0</span>' : '') + '</h3>' +
+      '<p>' + src(m.file) + ' &bull; chain ' + clink(m.chainId) + ' stage ' + m.chainStage + ' (' + esc(m.chainRole) + ') &bull; ' + esc(m.category) +
+      ' &bull; research ' + (m.research ? src(m.research) : '<span class="atlas-muted">none</span>') + '</p>' +
+      '<p><strong>Baseline [S, E, C]</strong> ' + vec(m.baseline) + ' &bull; <strong>quadrant</strong> ' + esc(m.quadrant || '?') + ' (derived ' + esc(m.derivedQuadrant || '?') + (m.quadrantMatches ? ', matches' : ', differs') + ') &bull; ' + esc(m.operationalProfile) + '</p>' +
+      '<div class="ai-digest"><strong>What breaks if this stops:</strong> ' + esc(m.cascade.summary) + '</div>' +
+      table(['Provides', 'Consumers'], m.provides.map(function (p) { return [tlink(p.tag), list(p.consumers, mlink)]; })) +
+      table(['Requires', 'Providers'], m.requires.map(function (r) { return [tlink(r.tag), r.providers.length ? list(r.providers, mlink) : '<span class="badge badge-warn">orphan</span>']; })) +
+      table(['Direction', 'Modules (tags)'], [
+        ['Upstream (' + m.upstream.length + ' direct, ' + m.upstreamAll + ' total)', list(m.upstream, function (u) { return mlink(u.id) + ' <span class="atlas-muted">' + esc(u.tags.join('; ')) + (u.bridge ? ' (bridge)' : '') + '</span>'; })],
+        ['Downstream (' + m.downstream.length + ' direct, ' + m.downstreamAll + ' total)', list(m.downstream, function (d) { return mlink(d.id) + ' <span class="atlas-muted">' + esc(d.tags.join('; ')) + (d.bridge ? ' (bridge)' : '') + '</span>'; })],
+        ['Starved if it stops', list(m.cascade.starved, function (s) { return mlink(s.id) + ' <span class="atlas-muted">' + esc(s.lost.join('; ')) + '</span>'; })],
+        ['Degraded if it stops', list(m.cascade.degraded, function (s) { return mlink(s.id) + ' <span class="atlas-muted">' + esc(s.partial.join('; ')) + '</span>'; })]
+      ]) +
+      '<h4>NPC roster</h4>' + table(['Name', 'Role', '[S, E, C]', 'Motivation'], m.npcs.map(function (n) { return [esc(n.name), esc(n.role), esc(n.disposition), esc(n.motivation)]; })) +
+      '<h4>Dials, clocks and hazards</h4>' + table(['Kind', 'Name', 'Text'],
+        m.dials.map(function (d) { return ['Dial', esc(d.name), d.levels.map(function (l, i) { return (i + 1) + '. ' + esc(l); }).join('<br/>')]; })
+          .concat(m.clocks.map(function (c) { return ['Clock', esc(c.id), esc(c.text)]; }))
+          .concat(m.hazards.map(function (z) { return ['Hazard', esc(z.name), esc(z.text)]; }))) +
+      (m.fallback ? '<p><strong>Standalone fallback:</strong> ' + esc(m.fallback) + '</p>' : '');
+    if (m.audit) {
+      h += '<h4>Git audit (git log --follow)</h4><p>' + esc(m.audit.summary) + '</p>' +
+        table(['Commit', 'Subject', 'What changed in this file'], m.audit.commits.map(function (c) { return ['<code>' + esc(c.h) + '</code>', esc(c.subject), esc(c.detail)]; }));
+    }
+    var v = m.verification;
+    h += '<h4>Verification (C_verify.md)</h4><p>' + v.confirmed + ' confirmed, ' + v.wrong + ' wrong (fixed), ' + v.unverifiable + ' unverifiable' +
+      (v.designFlags.length ? ' &bull; design flags ' + esc(v.designFlags.join(', ')) : '') + '</p>' +
+      (v.flags.length ? table(['Ref', 'Verdict', 'Claim / note', 'Source'], v.flags.map(function (f) {
+        return [esc(f.ref), esc(f.verdict), esc(f.claim) + (f.claim && f.note ? '<br/>' : '') + '<span class="atlas-muted">' + esc(f.note) + '</span>', f.source ? '<a href="' + esc(f.source) + '">source</a>' : ''];
+      })) : '');
+    return h;
+  }
+
+  function renderChain(c) {
+    return '<h3>' + esc(c.id) + ' (' + esc(c.label) + ')' + (c.tier0 ? ' <span class="badge">Tier 0</span>' : '') + '</h3>' +
+      '<p>Research ' + (c.research ? src(c.research) : '<span class="atlas-muted">none</span>') + ' &bull; verification ' + c.verification.confirmed + ' confirmed, ' + c.verification.wrong + ' wrong, ' + c.verification.unverifiable + ' unverifiable &bull; audit: ' +
+      c.audit.rescaled + ' rescaled, ' + c.audit.tagsChanged + ' with tag changes, ' + c.audit.factsFixed + ' with fact fixes, ' + c.audit.npcsRewritten + ' NPCs rewritten</p>' +
+      '<div class="ai-digest"><strong>Blast radius:</strong> ' + esc(c.blastRadius.summary) + '<br/>Starved: ' + list(c.blastRadius.starved, mlink) + '<br/>Degraded: ' + list(c.blastRadius.degraded, mlink) + '</div>' +
+      table(['Stage', 'Module', 'Role'], c.modules.map(function (m) { return [m.stage, mlink(m.id) + ' ' + esc(m.title), esc(m.role)]; })) +
+      table(['External input', 'Providers'], c.inputs.map(function (i) { return [tlink(i.tag), list(i.providers, mlink)]; })) +
+      table(['Output', 'Consumers outside the chain'], c.outputs.map(function (o) { return [tlink(o.tag), o.consumers.length ? list(o.consumers, mlink) : '<span class="badge">terminal</span>']; })) +
+      '<p>Upstream chains: ' + list(c.upstreamChains, clink) + '<br/>Downstream chains: ' + list(c.downstreamChains, clink) + '</p>';
+  }
+
+  function renderTag(t) {
+    return '<h3>' + esc(t.tag) + (t.terminal ? ' <span class="badge">terminal</span>' : '') + (t.orphan ? ' <span class="badge badge-warn">orphan</span>' : '') + '</h3>' +
+      table(['Providers', 'Consumers', 'Chains'], [[list(t.providers, mlink), list(t.consumers, mlink), list(t.chains, clink)]]);
+  }
+
+  function route() {
+    var el = document.getElementById('atlas-detail');
+    if (!el) return;
+    var h = location.hash || '';
+    var m = /^#atlas\\/(module|chain|tag)\\/(.+)$/.exec(h);
+    if (!m) { el.innerHTML = ''; el.style.display = 'none'; return; }
+    var key = decodeURIComponent(m[2]);
+    var html = m[1] === 'module' ? (byMod[key] && renderModule(byMod[key])) : m[1] === 'chain' ? (byChain[key] && renderChain(byChain[key])) : (byTag[key] && renderTag(byTag[key]));
+    el.innerHTML = '<a class="atlas-close" href="#atlas">&times; close</a>' + (html || '<p>Not found: ' + esc(key) + '</p>');
+    el.style.display = 'block';
+    el.scrollIntoView({ block: 'start' });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var tabs = document.querySelectorAll('[data-atlas-tab]');
+    Array.prototype.forEach.call(tabs, function (b) {
+      b.addEventListener('click', function () {
+        tab = b.getAttribute('data-atlas-tab');
+        Array.prototype.forEach.call(tabs, function (x) { x.classList.toggle('active', x === b); });
+        renderList();
+      });
+    });
+    var f = document.getElementById('atlas-filter');
+    if (f) f.addEventListener('input', function () { filter = f.value.trim().toLowerCase(); renderList(); });
+    renderList();
+    route();
+  });
+  window.addEventListener('hashchange', route);
+})();
+`;
+}
+
+function renderModuleAtlasHtml(atlas) {
+  const heading = `<h2 id="atlas">🏭 Industry Chains, Resource Tags &amp; Modules Atlas</h2>`;
+  if (!atlas || !atlas.available) {
+    return `${heading}
+      <div class="callout callout-note"><strong>NOTE:</strong> Atlas not built: ${escapeHtml((atlas && atlas.reason) || 'unknown reason')}.
+      It is generated from the git-ignored <code>infographic/</code> workspace by <code>infographic/tools/wikimodule.js</code>.
+      Resource contracts are still queryable with <code>Find-CodebaseNode.ps1 -Resource "&lt;tag&gt;"</code>.</div>`;
+  }
+  const c = atlas.counts;
+  const staticRows = atlas.chains.map(ch => `<tr><td><code>${escapeHtml(ch.id)}</code></td><td>${ch.modules.map(m => `${m.stage} <code>${escapeHtml(m.id)}</code> ${escapeHtml(m.role)}`).join('<br/>')}</td><td>${ch.inputs.length}</td><td>${ch.outputs.length}</td><td>${escapeHtml(ch.blastRadius.summary)}</td></tr>`).join('');
+  const data = JSON.stringify(atlas).replace(/</g, '\\u003c').split(String.fromCharCode(0x2028)).join('\\u2028').split(String.fromCharCode(0x2029)).join('\\u2029');
+  return `${heading}
+      <p style="color:var(--text-muted);margin-top:-6px;">
+        ${c.chains} chains, ${c.modules} modules (${c.preIndustrial} pre-industrial + ${c.tier0} Tier 0), ${c.tags} resource tags,
+        ${c.supplyEdges} supply edges + ${c.bridgeEdges} inferred Tier 0 bridges. Cascade impact from <code>infographic/js/model.js</code>,
+        audit changelog from <code>git log --follow</code>, verification from <code>C_verify.md</code>. CLI: <code>Find-CodebaseNode.ps1 -Module &lt;ID&gt;</code> / <code>-Chain &lt;ID&gt;</code>.
+      </p>
+      <style>
+        .atlas-tabs { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0; align-items:center; }
+        .atlas-tabs button.active { border-color: var(--accent); color: var(--accent); }
+        .atlas-tabs input { flex:1 1 220px; min-width:0; }
+        .atlas-muted { color: var(--text-muted); }
+        #atlas-detail { display:none; border:1px solid var(--border-strong); background:var(--bg-infobox); padding:12px 16px; margin:12px 0; border-radius:6px; }
+        .atlas-close { float:right; font-weight:700; }
+      </style>
+      <div class="atlas-tabs">
+        <button class="btn-ctrl active" data-atlas-tab="chains">Chains (${c.chains})</button>
+        <button class="btn-ctrl" data-atlas-tab="modules">Modules (${c.modules})</button>
+        <button class="btn-ctrl" data-atlas-tab="tags">Resource Tags (${c.tags})</button>
+        <button class="btn-ctrl" data-atlas-tab="audit">Audit &amp; Verification</button>
+        <input id="atlas-filter" class="search-input" type="search" placeholder="Filter chains, modules, tags, NPCs..." autocomplete="off"/>
+      </div>
+      <div id="atlas-detail"></div>
+      <div id="atlas-list">
+        <div class="table-wrap"><table class="wiki-table"><thead><tr><th>Chain</th><th>Stages</th><th>Inputs</th><th>Outputs</th><th>Blast radius</th></tr></thead><tbody>${staticRows}</tbody></table></div>
+      </div>
+      <script>window.MODULE_ATLAS = ${data};</script>
+      <script>${getAtlasClientJs()}</script>`;
+}
+
+// ----------------------------------------------------------------------------
 // 12. RENDER MASTER INDEX / TABLE OF CONTENTS (wiki/index.html)
 // ----------------------------------------------------------------------------
-function renderMasterIndexHtml(allMetas, graph) {
+function renderMasterIndexHtml(allMetas, graph, moduleAtlas) {
   const totalFiles = allMetas.length;
-  const staleFiles = allMetas.filter(m => m.isStale);
   const flaggedDuplicates = allMetas.filter(m => AUDIT_FLAGS[m.relPath]);
   let totalEdges = 0;
   graph.outbound.forEach(map => { totalEdges += map.size; });
@@ -2245,29 +2467,28 @@ function renderMasterIndexHtml(allMetas, graph) {
         <table class="wiki-table">
           <thead>
             <tr>
-              <th style="width:34%;">File Path (Click for Wiki Page)</th>
+              <th style="width:34%;">File Path</th>
               <th style="width:18%;">Surface / Kind</th>
-              <th style="width:36%;">Summary &amp; Audit Notes</th>
-              <th style="width:12%;">Links / Backlinks</th>
+              <th style="width:36%;">Summary &amp; Symbols</th>
+              <th style="width:12%;">Graph Edges</th>
             </tr>
           </thead>
           <tbody>
             ${volFiles.map(m => {
-              const href = `pages/${m.relPath.split('/').map(encodeURIComponent).join('/')}.html`;
+              const href = `../${m.relPath.split('/').map(encodeURIComponent).join('/')}`;
               const outC = (graph.outbound.get(`file:${m.relPath}`) || new Map()).size;
               const inC = (graph.inbound.get(`file:${m.relPath}`) || new Map()).size;
               const af = AUDIT_FLAGS[m.relPath];
               return `<tr>
                 <td>
                   <a href="${href}"><code>${escapeHtml(m.relPath)}</code></a>
-                  ${m.isStale ? `<br/><span class="badge badge-warn">⚠️ Stale</span>` : ''}
                   ${af ? `<br/><span class="badge badge-warn">${escapeHtml(af.badge)}</span>` : ''}
                 </td>
                 <td>${escapeHtml(m.kind)}</td>
                 <td>${escapeHtml(m.summary.slice(0, 190))}${m.summary.length > 190 ? '...' : ''}</td>
                 <td style="white-space:nowrap;font-family:monospace;font-size:12px;">
                   <span title="Outbound References">&rarr; ${outC}</span> &bull;
-                  <a href="${href}#backlinks" title="Inbound Backlinks"><strong>&larr; ${inC}</strong></a>
+                  <strong title="Inbound Backlinks">&larr; ${inC}</strong>
                 </td>
               </tr>`;
             }).join('')}
@@ -2282,7 +2503,7 @@ function renderMasterIndexHtml(allMetas, graph) {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Creator Studio Technical Manual &amp; Bidirectional Codebase Wiki</title>
+  <title>Creator Studio Technical Manual &amp; Codebase Graph</title>
   <style>${getSharedCss()}</style>
   <script src="search_index.js"></script>
   <script>${getSharedClientJs(0)}</script>
@@ -2293,14 +2514,11 @@ function renderMasterIndexHtml(allMetas, graph) {
     ${renderSidebarHtml(0, 'index')}
     <main class="wiki-main">
       <div class="article-header">
-        <h1 class="article-title">📚 Creator Studio — Technical Manual &amp; Bidirectional Codebase Wiki</h1>
+        <h1 class="article-title">📚 Creator Studio — Technical Manual &amp; Codebase Graph</h1>
         <div class="article-subtitle">
-          <span class="badge badge-ok">✓ ${totalFiles} Tracked Project Files (100% Coverage)</span>
+          <span class="badge badge-ok">✓ ${totalFiles} Indexed Project Files</span>
           <span class="badge badge-Series">🧭 ${SERIES_LIST.length} Cross-Cutting Subsystem Series</span>
           <span class="badge">🔗 ${totalEdges} Bidirectional Cross-References</span>
-          ${staleFiles.length > 0
-            ? `<span class="badge badge-warn">⚠️ ${staleFiles.length} Pages Need Review After Source Edit</span>`
-            : `<span class="badge badge-ok">✓ Zero Stale Pages</span>`}
           <span class="badge badge-warn">🔍 ${flaggedDuplicates.length} Duplicate/Legacy Files Flagged (SYS-AUDIT-01)</span>
         </div>
       </div>
@@ -2308,8 +2526,8 @@ function renderMasterIndexHtml(allMetas, graph) {
       <div class="ai-digest">
         <div class="ai-digest-title">🤖 Operating Manual for Humans &amp; Autonomous AI Agents</div>
         <p style="margin:4px 0;">
-          Every file in <strong>Creator Studio</strong> has a dedicated 1:1 wiki page below with its SHA-256 sync hash, exported symbols/contracts, real-world reference anchors, and automated <strong>What Links Here (Backlinks)</strong> table.
-          Whenever any file in the repository is created or updated, running <code>powershell -ExecutionPolicy Bypass -File .\\Build-Suite.ps1</code> automatically scaffolds new file pages, recomputes all backlinks, and flags any modified files whose wiki notes need updating.
+          <strong>Creator Studio</strong> combines <strong>${SERIES_LIST.length} curated Cross-Cutting Subsystem Series</strong> (<code>wiki/src/series/*.md</code>) with a machine-extracted <strong>AST &amp; Supply-Chain Knowledge Graph</strong> (<code>wiki/wiki_graph.json</code>).
+          For zero-token symbol, caller, and resource-contract lookups, query <code>powershell -ExecutionPolicy Bypass -File .\\Find-CodebaseNode.ps1</code>. To recompile this manual and graph after source changes, run <code>powershell -ExecutionPolicy Bypass -File .\\Build-Suite.ps1</code>.
         </p>
       </div>
 
@@ -2318,6 +2536,8 @@ function renderMasterIndexHtml(allMetas, graph) {
         Where engine mechanics cut across multiple folders and languages (JS, PowerShell, Markdown SRDs, JSON), these 7 multi-page series document the end-to-end architecture:
       </p>
       ${seriesCardsHtml}
+
+      ${renderModuleAtlasHtml(moduleAtlas)}
 
       ${volumesHtml}
     </main>
@@ -2331,9 +2551,7 @@ function renderMasterIndexHtml(allMetas, graph) {
 // ----------------------------------------------------------------------------
 // 13. ORPHAN PURGE & EXECUTE COMPILATION PIPELINE
 // ----------------------------------------------------------------------------
-function purgeOrphanWikiOutputs(trackedRelPaths) {
-  const trackedSet = new Set(trackedRelPaths);
-
+function purgeLegacyPerFileOutputs() {
   function walkDir(dir) {
     if (!fs.existsSync(dir)) return [];
     let results = [];
@@ -2349,29 +2567,18 @@ function purgeOrphanWikiOutputs(trackedRelPaths) {
     return results;
   }
 
-  // 1. Purge orphan markdown sources in wiki/src/files
+  // 1. Remove retired 1:1 per-file markdown stubs in wiki/src/files
   let purgedSrc = 0;
   walkDir(SRC_FILES_DIR).forEach(full => {
-    const rel = path.relative(SRC_FILES_DIR, full).replace(/\\/g, '/');
-    if (rel.endsWith('.md')) {
-      const originalRelPath = rel.slice(0, -3);
-      if (!trackedSet.has(originalRelPath)) {
-        try { fs.unlinkSync(full); purgedSrc++; } catch (_) {}
-      }
-    }
+    try { fs.unlinkSync(full); purgedSrc++; } catch (_) {}
   });
 
-  // 2. Purge orphan HTML pages in wiki/pages (preserving pages/series/*)
+  // 2. Remove retired 1:1 per-file HTML pages in wiki/pages (preserving pages/series/*)
   let purgedPages = 0;
   walkDir(PAGES_DIR).forEach(full => {
     const rel = path.relative(PAGES_DIR, full).replace(/\\/g, '/');
     if (rel.startsWith('series/')) return;
-    if (rel.endsWith('.html')) {
-      const originalRelPath = rel.slice(0, -5);
-      if (!trackedSet.has(originalRelPath)) {
-        try { fs.unlinkSync(full); purgedPages++; } catch (_) {}
-      }
-    }
+    try { fs.unlinkSync(full); purgedPages++; } catch (_) {}
   });
 
   // 3. Remove empty subdirectories
@@ -2389,23 +2596,36 @@ function purgeOrphanWikiOutputs(trackedRelPaths) {
     }
   }
   removeEmptyDirs(SRC_FILES_DIR);
+  if (fs.existsSync(SRC_FILES_DIR) && fs.readdirSync(SRC_FILES_DIR).length === 0) {
+    try { fs.rmdirSync(SRC_FILES_DIR); } catch (_) {}
+  }
   removeEmptyDirs(PAGES_DIR);
 
   if (purgedSrc > 0 || purgedPages > 0) {
-    console.log(`[PURGE] Removed ${purgedSrc} orphan markdown source(s) and ${purgedPages} orphan HTML page(s).`);
+    console.log(`[PURGE] Removed ${purgedSrc} retired 1:1 markdown stub(s) and ${purgedPages} per-file HTML page(s).`);
   }
 }
 
 ensureSeriesMarkdownFiles();
 
-const trackedRelPaths = walkWorkspace(ROOT_DIR).sort();
-console.log(`[OK] Discovered ${trackedRelPaths.length} tracked files across workspace.`);
+// Module/chain/tag atlas (refreshes the Series D block before series pages are read). Fail-soft.
+const moduleAtlas = loadModuleAtlas();
+if (moduleAtlas.available) {
+  console.log(`[OK] Module atlas: ${moduleAtlas.counts.chains} chains, ${moduleAtlas.counts.modules} modules, ${moduleAtlas.counts.tags} resource tags.`);
+} else {
+  console.log(`[INFO] Module atlas skipped: ${moduleAtlas.reason}.`);
+}
 
-purgeOrphanWikiOutputs(trackedRelPaths);
+const trackedRelPaths = walkWorkspace(ROOT_DIR).sort();
+console.log(`[OK] Indexed ${trackedRelPaths.length} project files for codebase graph & series wiki.`);
+
+purgeLegacyPerFileOutputs();
 
 const allMetas = trackedRelPaths.map(rp => {
   const m = extractFileMetadata(rp);
-  syncMarkdownSourceForFile(m);
+  m.customNotes = '';
+  m.reviewedHash = m.hash;
+  m.isStale = false;
   return m;
 });
 
@@ -2427,7 +2647,7 @@ allMetas.forEach(m => {
     title: m.title,
     path: m.relPath,
     kind: m.kind,
-    href: `pages/${m.relPath.split('/').map(encodeURIComponent).join('/')}.html`,
+    href: `../${m.relPath.split('/').map(encodeURIComponent).join('/')}`,
     keywords: [
       ...(m.provides || []),
       ...(m.requires || []),
@@ -2437,16 +2657,38 @@ allMetas.forEach(m => {
     ].join(' ')
   });
 });
+if (moduleAtlas.available) {
+  moduleAtlas.chains.forEach(c => searchEntries.push({
+    title: `${c.id}: ${c.label} chain`,
+    path: `atlas/chain/${c.id}`,
+    kind: 'Industry Chain',
+    href: `index.html#atlas/chain/${c.id}`,
+    keywords: c.modules.map(m => `${m.id} ${m.title}`).join(' ')
+  }));
+  moduleAtlas.modules.forEach(m => searchEntries.push({
+    title: `${m.id}: ${m.title}`,
+    path: `atlas/module/${m.id}`,
+    kind: m.tier0 ? 'Tier 0 Module' : 'Industry Module',
+    href: `index.html#atlas/module/${m.id}`,
+    keywords: [m.chainId, m.quadrant, ...m.provides.map(p => p.tag), ...m.requires.map(r => r.tag), ...m.npcs.map(n => n.name)].join(' ')
+  }));
+  moduleAtlas.tags.forEach(t => searchEntries.push({
+    title: t.tag,
+    path: `atlas/tag/${t.tag}`,
+    kind: 'Resource Tag',
+    href: `index.html#atlas/tag/${encodeURIComponent(t.tag)}`,
+    keywords: [...t.providers, ...t.consumers].join(' ')
+  }));
+}
 safeWriteFileSync(
   SEARCH_INDEX_OUT,
   `// [AUTO-GENERATED BY wiki/build_wiki.js - DO NOT EDIT]\nconst WIKI_SEARCH_INDEX = ${JSON.stringify(searchEntries)};\n`,
   'utf8'
 );
 
-// Render all HTML pages
-allMetas.forEach(m => renderFileWikiPage(m, graph));
+// Render Series & Master Index HTML pages (no 1:1 per-file HTML pages)
 renderSeriesPages(graph);
-renderMasterIndexHtml(allMetas, graph);
+renderMasterIndexHtml(allMetas, graph, moduleAtlas);
 
 // Write machine-readable wiki_manifest.json
 let totalEdges = 0;
@@ -2457,20 +2699,16 @@ const manifestData = {
   totalFiles: allMetas.length,
   totalSeries: SERIES_LIST.length,
   totalBidirectionalEdges: totalEdges,
-  staleCount: allMetas.filter(m => m.isStale).length,
+  staleCount: 0,
   duplicateAuditTargets: Object.keys(AUDIT_FLAGS).length,
   volumes: VOLUMES,
   series: SERIES_LIST,
   files: allMetas.map(m => ({
     relPath: m.relPath,
-    wikiHtml: `wiki/pages/${m.relPath}.html`,
-    wikiSrc: `wiki/src/files/${m.relPath}.md`,
     title: m.title,
     volume: m.volume,
     kind: m.kind,
     hash: m.hash,
-    reviewedHash: m.reviewedHash,
-    stale: m.isStale,
     auditFlag: AUDIT_FLAGS[m.relPath] ? AUDIT_FLAGS[m.relPath].badge : null,
     outboundCount: (graph.outbound.get(`file:${m.relPath}`) || new Map()).size,
     inboundBacklinkCount: (graph.inbound.get(`file:${m.relPath}`) || new Map()).size
@@ -2514,9 +2752,6 @@ const graphNodes = allMetas.map(m => {
     title: m.title,
     volume: m.volume,
     kind: m.kind,
-    stale: m.isStale,
-    hash: m.hash,
-    reviewedHash: m.reviewedHash,
     lineCount: m.lineCount || 0,
     sizeBytes: m.sizeBytes || 0,
     symbols: m.symbols || [],
@@ -2551,15 +2786,14 @@ const graphExport = {
   totalFiles: allMetas.length,
   totalSeries: SERIES_LIST.length,
   totalBidirectionalEdges: totalEdges,
-  staleCount: manifestData.staleCount,
+  seriesIds: SERIES_LIST.map(s => s.id),
   nodes: graphNodes,
   symbols: symbolRecords,
-  supplyChains: supplyChainRecords
+  supplyChains: supplyChainRecords,
+  // Compact module/chain/tag atlas for Find-CodebaseNode.ps1 -Module / -Chain ({ available:false, reason } on a clean checkout).
+  moduleAtlas
 };
 safeWriteFileSync(GRAPH_OUT, JSON.stringify(graphExport, null, 2), 'utf8');
 
-console.log(`[OK] Compiled ${allMetas.length} File Wiki Pages + ${SERIES_LIST.length} Series Pages + Master Index.`);
+console.log(`[OK] Compiled ${SERIES_LIST.length} Series Pages + Master Index (${allMetas.length} indexed files).`);
 console.log(`[OK] Indexed ${totalEdges} Bidirectional Cross-References & Backlinks (exported to wiki/wiki_graph.json).`);
-if (manifestData.staleCount > 0) {
-  console.warn(`[WIKI-DRIFT] ${manifestData.staleCount} file(s) modified since last wiki review!`);
-}

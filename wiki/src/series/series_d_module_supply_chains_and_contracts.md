@@ -20,12 +20,12 @@ This cross-cutting series slices across physical directory boundaries to documen
   - [[File:docs/srd/adventure_framework_srd.md]] — Defines the 4-level Universal Hazard Dials (Light DC 10, Moderate DC 13, Severe DC 16, Lethal DC 20) and 4/6/8-segment Threat Clocks embedded inside every module.
   - [[File:docs/srd/ip_module_framework_srd.md]] & [[File:docs/srd/scenario_primitives_srd.md]] — Govern setting-agnostic scenario conversion and structural deconstruction (see [[Series:series_f_campaign_authoring_and_ip_conversion]]).
 - **Runtime Slotting & Supply Validation Engine**:
-  - [[File:src/workstation/scripts/stage_5_slotting.js]] — Implements `isMaterialRequirement()`, `checkModuleSupplyLine()`, `calculateRecommendationScore()`, `auditAllSupplyLines()`, `toggleEdgeBlocked()`, `stepSeveranceTick()`, `advanceSeveranceTurn()`, and `smartSlotAllNodes()`.
+  - [[File:src/workstation/scripts/supply_chain_simulator.js]] (formerly `stage_5_slotting.js`) — Implements `isMaterialRequirement()`, `checkModuleSupplyLine()`, `calculateRecommendationScore()`, `auditAllSupplyLines()`, `toggleEdgeBlocked()`, `stepSeveranceTick()`, `advanceSeveranceTurn()`, and `smartSlotAllNodes()`.
   - [[File:src/workstation/scripts/module_explorer.js]] — Provides the Module Explorer UI, Node/Edge slotting toggle, filter bar (Sourcebook, Tier, Set, Resource Tag, Ancestry, Source), and 4-segment Severance Clock gauges.
 - **Authoritative Catalogs, Manifests & Ticket Pipelines**:
   - [[File:docs/MODULES_CATALOG.md]] — Root cross-campaign module catalog and architectural router (tracked under [[Ticket:SYS-AUDIT-01]] and [[Series:series_g_duplicate_and_orphan_audit]]).
-  - [[File:campaigns/opal_island/modules_manifest.json]] — Compiled manifest of the 48 industrial-alchemical modules (`INFRA-01` through `ESOT-06`) for the Original Opal Island campaign.
-  - [[File:campaigns/generic_starter/modules_manifest.json]] — Compiled manifest of 52 system-agnostic modules spanning Core Governance (`FACT-01`..`06`), Tutorial Isle Starter Pack (`STARTER-01`..`06`), Tier 0 Substratum (`T0-DOM-01`..`08`), Creative Waves 1–5 (`CWT-010`..`050`), the *Civilizations & Collapse* historical archaeology suite (`CWT-060`..`078`), and Regional Hooks (`HOOK-01`).
+  - `campaigns/opal_island/modules_manifest.json` (archived, not in the current tree) — Compiled manifest of the 48 industrial-alchemical modules (`INFRA-01` through `ESOT-06`) for the Original Opal Island campaign.
+  - `campaigns/generic_starter/modules_manifest.json` (archived, not in the current tree) — Compiled manifest of 52 system-agnostic modules spanning Core Governance (`FACT-01`..`06`), Tutorial Isle Starter Pack (`STARTER-01`..`06`), Tier 0 Substratum (`T0-DOM-01`..`08`), Creative Waves 1–5 (`CWT-010`..`050`), the *Civilizations & Collapse* historical archaeology suite (`CWT-060`..`078`), and Regional Hooks (`HOOK-01`).
   - [[File:tickets/tier_0/tier_0_manifest.json]] & [[File:tickets/creative/creative_backlog_manifest.json]] — Upstream tracer-bullet ticket registries compiled into [[File:tickets/master_ticket_manifest.json]].
 
 ---
@@ -45,7 +45,7 @@ Prior to [[File:docs/adr/0002-dual-srd-and-tiered-module-architecture.md]], worl
 
 ### 2.1 The Tier 0 Dual-Mode UX Contract (`Smooth Generic` vs. `Granular Modularity`)
 
-To prevent administrative bookkeeping fatigue while supporting hardcore survival sandboxes, [[File:docs/srd/tier_0_substratum_srd.md]] and `toggleTier0Substratum(enabled)` in [[File:src/workstation/scripts/stage_5_slotting.js]] implement a two-mode switch:
+To prevent administrative bookkeeping fatigue while supporting hardcore survival sandboxes, [[File:docs/srd/tier_0_substratum_srd.md]] and `toggleTier0Substratum(enabled)` in [[File:src/workstation/scripts/supply_chain_simulator.js]] implement a two-mode switch:
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────────────┐
@@ -63,7 +63,7 @@ To prevent administrative bookkeeping fatigue while supporting hardcore survival
 └──────────────────────────────────────┴───────────────────────────────────────┘
 ```
 
-When `tier0SubstratumEnabled === true` (`Smooth Generic`), `checkModuleSupplyLine()` automatically injects the following 11 foundational tags into every node's `localProvides` set (`stage_5_slotting.js` lines 139–151):
+When `tier0SubstratumEnabled === true` (`Smooth Generic`), `checkModuleSupplyLine()` automatically injects the following 11 foundational tags into every node's `localProvides` set (`supply_chain_simulator.js`, formerly `stage_5_slotting.js` lines 139–151):
 - `Food: Baseline-Subsistence-Rations` and `Cal: Grain-Bushels`
 - `Water: Baseline-Potable-Well-Head` and `Water: Artesian-Flow`
 - `Shelter: Weatherproof-Civic-Fabric` and `Civic: Vernacular-Shelter`
@@ -83,7 +83,7 @@ Every module in `campaigns/<campaign_id>/modules_manifest.json` declares its sup
 
 ### 3.1 Material vs. Conceptual Requirement Classifier (`isMaterialRequirement`)
 
-A critical design insight in [[File:src/workstation/scripts/stage_5_slotting.js]] (lines 104–116) is that not all `requires` tags represent haulable physical commodities that can be blockaded on a road. Some tags describe **environmental topology** (`Geography: High-Elevation-Water-Head`) or **sociological preconditions** (`Sociology: Enforced-Labor-Quotas`).
+A critical design insight in [[File:src/workstation/scripts/supply_chain_simulator.js]] (lines 104–116) is that not all `requires` tags represent haulable physical commodities that can be blockaded on a road. Some tags describe **environmental topology** (`Geography: High-Elevation-Water-Head`) or **sociological preconditions** (`Sociology: Enforced-Labor-Quotas`).
 
 The function `isMaterialRequirement(req)` separates `requires` tags into two enforcement classes:
 
@@ -96,7 +96,7 @@ The function `isMaterialRequirement(req)` separates `requires` tags into two enf
 
 ## 4. Supply-Line Validation, Edge Slotting & Recommendation Math
 
-All runtime supply-chain verification and module recommendation logic resides in [[File:src/workstation/scripts/stage_5_slotting.js]].
+All runtime supply-chain verification and module recommendation logic resides in [[File:src/workstation/scripts/supply_chain_simulator.js]].
 
 ### 4.1 Graph-Traversing Supply Verification (`checkModuleSupplyLine`)
 
@@ -181,7 +181,7 @@ When `checkModuleSupplyLine(nid, mod).ok` evaluates to `false`, the Stage 5 side
 
 ## 6. Complete Supply-Chain Topology: `opal_island` (48 Modules)
 
-In [[File:campaigns/opal_island/modules_manifest.json]], the 48 modules form a tightly interlocked industrial-alchemical ecosystem where hydro-electric generation, metallurgy, chemical synthesis, radio telemetry, and ecological harvesting feed one another across the 22-node pointcrawl graph.
+In the archived `campaigns/opal_island/modules_manifest.json`, the 48 modules form a tightly interlocked industrial-alchemical ecosystem where hydro-electric generation, metallurgy, chemical synthesis, radio telemetry, and ecological harvesting feed one another across the 22-node pointcrawl graph.
 
 ### 6.1 Primary Industrial & Alchemical Supply-Chain Graph (`opal_island`)
 
@@ -256,7 +256,7 @@ In [[File:campaigns/opal_island/modules_manifest.json]], the 48 modules form a t
 
 ## 7. Complete Supply-Chain Topology: `generic_starter` (52 Modules)
 
-In [[File:campaigns/generic_starter/modules_manifest.json]], the 52 modules are organized into five modular layers designed for plug-and-play fantasy sandboxes and historical-archaeological simulations:
+In the archived `campaigns/generic_starter/modules_manifest.json`, the 52 modules are organized into five modular layers designed for plug-and-play fantasy sandboxes and historical-archaeological simulations:
 
 ### 7.1 Layer Breakdown in `generic_starter`
 
@@ -297,3 +297,147 @@ In [[File:campaigns/generic_starter/modules_manifest.json]], the 52 modules are 
 | [[Mod:CWT-077]] | **Nan Madol Basalt Megacity** (Pohnpei 92 artificial lagoon islets) | **2** | `Transit: Double-Hulled-Log-Raft-Flotilla`<br>`Life-Support: Mainland-Freshwater-and-Taro-Tribute` | `Topography: Inter-Tidal-Canal-Artificial-Islet-Network`<br>`Structure: Columnar-Basalt-Log-Stacked-Fortress` | Overthrow of Saudeleur dynasty halts mainland water/breadfruit tribute; mangroves engulf canals. |
 | [[Mod:CWT-078]] | **Skara Brae Midden Haven** (Orkney subterranean flagstone village) | **2** | `Material: Marine-Flagstone-Quarry-Beds`<br>`Insulation: Decomposed-Bio-Midden-Earth` | `Topography: Subterranean-Midden-Insulated-Haven`<br>`Life-Support: Peat-Fired-Communal-Hearth-Grid` | North Atlantic winter gales bury sunken roofs beneath sand dunes for 5,000 years. |
 | [[Mod:HOOK-01]] | **Company Town & Truck-System Fracture** (19th-c. scrip peonage) | **4** | `Authority: Company-Bailiff-Garrison`<br>`Logistics: Truck-Store-Grain-Rations`<br>`Transit: Physical-Arterial-Corridor` | `Labor: Indentured-Resource-Extraction`<br>`Intel: Company-Store-Debt-Ledger`<br>`Faction: Radicalized-Labor-Solidarity-Cell` | Slots onto any arterial ore/resource transit edge (`E_adj`) to spark a labor-strike dilemma. |
+
+<!-- BEGIN_MODULE_ATLAS (generated by infographic/tools/wikimodule.js - do not edit by hand) -->
+## 8. Industry Chains, Resource Tags & Modules Atlas (`pre_industrial_resources` + Tier 0)
+
+> Generated from module frontmatter (`infographic/data/graph_data.json`), the `infographic/js/model.js` cascade, `git log --follow` on each module file and `infographic/audit/followups/C_verify.md`. Query one entry with `Find-CodebaseNode.ps1 -Module <ID>` or `-Chain <ID>`; browse every chain, module and tag in the Atlas section of the wiki index. Do not edit this block by hand: rerun `node infographic/tools/wikimodule.js`.
+
+**Totals**: 109 modules (101 pre-industrial + 8 Tier 0), 50 chains, 134 resource tags, 260 supply edges plus 24 inferred Tier 0 bridge edges, 34 terminal tags (provided, never required), 0 orphan requirements, 1 baselines whose derived CVF quadrant disagrees with the authored label.
+
+### 8.1 Chain Roster
+| Chain | Stages (module: role) | External inputs | If the whole chain stops | Research |
+| :--- | :--- | :---: | :--- | :--- |
+| `CHAIN-ALUM` | 1 `EXT-ALUM-01` refining | 1 | 4 starve, 0 degrade | `alum.md` |
+| `CHAIN-APOTHECARY` | 1 `IND-APOTH-01` manufacturing | 4 | 0 starve, 0 degrade | `apothecary.md` |
+| `CHAIN-BARGE` | 1 `IND-BARGE-01` manufacturing | 4 | 0 starve, 0 degrade | `barge.md` |
+| `CHAIN-BREW` | 1 `IND-BREW-01` refining, 2 `IND-BREW-02` manufacturing | 5 | 0 starve, 0 degrade | `brew.md` |
+| `CHAIN-BRONZE` | 1 `IND-BRONZE-01` manufacturing | 7 | 3 starve, 0 degrade | `bronze.md` |
+| `CHAIN-CANDLE` | 1 `IND-CANDLE-01` manufacturing | 2 | 5 starve, 1 degrade | `candle.md` |
+| `CHAIN-CATTLE` | 1 `FARM-CATTLE-01` extraction, 2 `IND-CATTLE-02` refining, 3 `IND-CATTLE-03` manufacturing | 3 | 80 starve, 4 degrade | `cattle.md` |
+| `CHAIN-CHARCOAL` | 1 `IND-CHARCOAL-01` refining | 1 | 12 starve, 14 degrade | `charcoal.md` |
+| `CHAIN-CLAY` | 1 `EXT-CLAY-01` extraction, 2 `IND-CLAY-02` manufacturing | 1 | 42 starve, 2 degrade | `clay.md` |
+| `CHAIN-COAL` | 1 `MINE-COAL-01` extraction | 1 | 0 starve, 17 degrade | `coal.md` |
+| `CHAIN-COPPER` | 1 `MINE-COPPER-01` extraction, 2 `IND-COPPER-02` refining, 3 `IND-COPPER-03` manufacturing | 5 | 27 starve, 2 degrade | `copper.md` |
+| `CHAIN-CORN` | 1 `FARM-CORN-01` extraction, 2 `IND-CORN-02` refining, 3 `IND-CORN-03` manufacturing | 5 | 0 starve, 0 degrade | `corn.md` |
+| `CHAIN-COTTON` | 1 `FARM-COTTON-01` extraction, 2 `IND-COTTON-02` refining, 3 `IND-COTTON-03` manufacturing | 3 | 0 starve, 0 degrade | `cotton.md` |
+| `CHAIN-FISH` | 1 `EXT-FISH-01` extraction, 2 `IND-FISH-02` refining | 5 | 0 starve, 0 degrade | `fish.md` |
+| `CHAIN-FLAX` | 1 `FARM-FLAX-01` extraction, 2 `IND-FLAX-02` refining, 3 `IND-FLAX-03` manufacturing | 0 | 18 starve, 2 degrade | `flax.md` |
+| `CHAIN-FRONTIER` | 1 `T0-DOM-04` extraction, 1 `T0-DOM-05` extraction, 1 `T0-DOM-06` extraction, 1 `T0-DOM-07` extraction, 1 `T0-DOM-08` extraction | 0 | 0 starve, 2 degrade | `frontier.md` |
+| `CHAIN-FURS` | 1 `EXT-FURS-01` extraction, 2 `IND-FURS-02` manufacturing | 4 | 0 starve, 0 degrade | `furs.md` |
+| `CHAIN-GLASS` | 1 `EXT-GLASS-01` extraction, 2 `IND-GLASS-02` manufacturing | 5 | 6 starve, 0 degrade | `glass.md` |
+| `CHAIN-GOLD` | 1 `MINE-GOLD-01` extraction, 2 `IND-GOLD-02` manufacturing | 6 | 1 starve, 0 degrade | `gold.md` |
+| `CHAIN-GRAPHITE` | 1 `MINE-GRAPHITE-01` extraction | 1 | 4 starve, 0 degrade | `graphite.md` |
+| `CHAIN-HEMP` | 1 `FARM-HEMP-01` extraction, 2 `IND-HEMP-02` refining, 3 `IND-HEMP-03` manufacturing | 3 | 9 starve, 1 degrade | `hemp.md` |
+| `CHAIN-HOPS` | 1 `FARM-HOPS-01` extraction | 1 | 1 starve, 0 degrade | `hops.md` |
+| `CHAIN-INDIGO` | 1 `FARM-INDIGO-01` extraction, 2 `IND-INDIGO-02` refining | 1 | 2 starve, 0 degrade | `indigo.md` |
+| `CHAIN-IRON` | 1 `MINE-IRON-01` extraction, 2 `MINE-IRON-02` refining, 3 `IND-IRON-03` manufacturing | 4 | 44 starve, 4 degrade | `iron.md` |
+| `CHAIN-LEAD` | 1 `IND-LEAD-01` refining | 3 | 1 starve, 0 degrade | `lead.md` |
+| `CHAIN-LIME` | 1 `EXT-LIME-01` extraction, 2 `IND-LIME-02` refining, 3 `IND-LIME-03` manufacturing | 2 | 57 starve, 5 degrade | `lime.md` |
+| `CHAIN-MERCURY` | 1 `MINE-MERCURY-01` extraction | 3 | 4 starve, 0 degrade | `mercury.md` |
+| `CHAIN-OLIVE` | 1 `FARM-OLIVE-01` extraction, 2 `IND-OLIVE-02` refining | 2 | 3 starve, 0 degrade | `olive.md` |
+| `CHAIN-OPTICS` | 1 `IND-OPTIC-01` refining, 2 `IND-OPTIC-02` manufacturing | 6 | 0 starve, 0 degrade | `optics.md` |
+| `CHAIN-PAPER` | 1 `IND-PAPER-01` refining, 2 `IND-PAPER-02` manufacturing, 3 `IND-PAPER-03` manufacturing | 10 | 0 starve, 0 degrade | `paper.md` |
+| `CHAIN-PINE` | 1 `EXT-PINE-01` extraction, 2 `IND-PINE-02` refining | 2 | 13 starve, 2 degrade | `pine.md` |
+| `CHAIN-PORCELAIN` | 1 `EXT-PORC-01` extraction, 2 `IND-PORC-02` manufacturing | 3 | 0 starve, 0 degrade | `porcelain.md` |
+| `CHAIN-POWDER` | 1 `EXT-SALTPETER-01` extraction, 2 `MINE-SULFUR-02` extraction, 3 `IND-POWDER-03` manufacturing | 8 | 6 starve, 0 degrade | `powder.md` |
+| `CHAIN-RICE` | 1 `FARM-RICE-01` extraction, 2 `IND-RICE-02` refining | 0 | 3 starve, 0 degrade | `rice.md` |
+| `CHAIN-SALT` | 1 `EXT-SALT-01` extraction, 2 `IND-SALT-02` refining | 2 | 7 starve, 1 degrade | `salt.md` |
+| `CHAIN-SHEEP` | 1 `FARM-SHEEP-01` extraction, 2 `IND-SHEEP-02` refining, 3 `IND-SHEEP-03` manufacturing | 2 | 0 starve, 0 degrade | `sheep.md` |
+| `CHAIN-SHIP` | 1 `IND-SHIP-01` refining, 2 `IND-SHIP-02` manufacturing, 3 `IND-SHIP-03` manufacturing | 8 | 0 starve, 0 degrade | `ship.md` |
+| `CHAIN-SILK` | 1 `FARM-SILK-01` extraction, 2 `IND-SILK-02` refining, 3 `IND-SILK-03` manufacturing | 4 | 0 starve, 0 degrade | `silk.md` |
+| `CHAIN-SILVER` | 1 `MINE-SILVER-01` extraction, 2 `IND-SILVER-02` refining, 3 `IND-SILVER-03` manufacturing | 10 | 2 starve, 0 degrade | `silver.md` |
+| `CHAIN-SOAP` | 1 `IND-SOAP-01` manufacturing | 4 | 2 starve, 0 degrade | `soap.md` |
+| `CHAIN-SPICE` | 1 `FARM-SPICE-01` extraction, 2 `IND-SPICE-02` refining | 3 | 1 starve, 0 degrade | `spice.md` |
+| `CHAIN-STEEL` | 3 `IND-STEEL-01` commercial | 4 | 4 starve, 0 degrade | `steel.md` |
+| `CHAIN-SUBSISTENCE` | 1 `T0-DOM-01` extraction, 1 `T0-DOM-02` extraction, 1 `T0-DOM-03` extraction | 0 | 5 starve, 1 degrade | `subsistence.md` |
+| `CHAIN-SUGAR` | 1 `AGRI-SUGAR-01` extraction, 2 `AGRI-SUGAR-02` refining, 3 `AGRI-SUGAR-03` commercial | 9 | 0 starve, 0 degrade | `sugar.md` |
+| `CHAIN-TANNIN` | 1 `EXT-TANNIN-01` extraction, 2 `IND-TANNIN-02` refining | 3 | 3 starve, 0 degrade | `tannin.md` |
+| `CHAIN-TIMBER` | 1 `EXT-TIMBER-01` extraction, 2 `IND-TIMBER-02` refining, 3 `IND-TIMBER-03` manufacturing | 2 | 76 starve, 5 degrade | `timber.md` |
+| `CHAIN-TIN` | 1 `MINE-TIN-01` extraction, 2 `IND-TIN-02` refining | 3 | 4 starve, 0 degrade | `tin.md` |
+| `CHAIN-VINE` | 1 `FARM-VINE-01` extraction, 2 `IND-VINE-02` refining, 3 `IND-VINE-03` manufacturing | 4 | 1 starve, 0 degrade | `vine.md` |
+| `CHAIN-WHALE` | 1 `EXT-WHALE-01` extraction, 2 `IND-WHALE-02` refining | 6 | 0 starve, 0 degrade | `whale.md` |
+| `CHAIN-WHEAT` | 1 `FARM-WHEAT-01` extraction, 2 `IND-WHEAT-02` refining, 3 `IND-WHEAT-03` manufacturing | 2 | 2 starve, 0 degrade | `wheat.md` |
+
+### 8.2 Tier 0 Bridges (inferred edges between Tier 0 and the industry chains)
+Tier 0 modules carry no `requires`; the cascade treats these inferred edges as their inputs (`infographic/data/bridge_edges.json`).
+
+| Consumer | Supplier | Tag |
+| :--- | :--- | :--- |
+| `FARM-WHEAT-01` | `T0-DOM-01` | Food: Subsistence grain base |
+| `IND-APOTH-01` | `T0-DOM-06` | Medicine: Folk herbal base |
+| `T0-DOM-01` | `FARM-CATTLE-01` | Livestock: Draft-Animals |
+| `T0-DOM-01` | `T0-DOM-05` | Tool: Iron plowshares |
+| `T0-DOM-01` | `T0-DOM-07` | Material: Composted manure |
+| `T0-DOM-02` | `IND-LIME-02` | Chem: Slaked-Lime |
+| `T0-DOM-03` | `EXT-CLAY-01` | Material: Clay bricks |
+| `T0-DOM-03` | `EXT-TIMBER-01` | Material: Hewn timber |
+| `T0-DOM-03` | `IND-LIME-02` | Chem: Slaked-Lime |
+| `T0-DOM-03` | `IND-PINE-02` | Chem: Pine-Pitch |
+| `T0-DOM-03` | `IND-TIMBER-02` | Timber: Sawn-Lumber |
+| `T0-DOM-03` | `T0-DOM-05` | Economy: Smithy and trade |
+| `T0-DOM-04` | `EXT-PINE-01` | Material: Pine stakes |
+| `T0-DOM-04` | `IND-HEMP-03` | Naval: Hemp-Cordage |
+| `T0-DOM-04` | `T0-DOM-03` | Shelter: Timber and masonry |
+| `T0-DOM-04` | `T0-DOM-06` | Health: Leechcraft |
+| `T0-DOM-05` | `IND-CHARCOAL-01` | Fuel: Charcoal |
+| `T0-DOM-05` | `IND-IRON-03` | Metal: Forged-Iron |
+| `T0-DOM-05` | `MINE-IRON-02` | Metal: Iron stock |
+| `T0-DOM-05` | `T0-DOM-04` | Defense: Palisade and watch |
+| `T0-DOM-06` | `IND-FLAX-03` | Textile: Linen-Cloth |
+| `T0-DOM-07` | `IND-LIME-02` | Chem: Slaked lime |
+| `T0-DOM-08` | `IND-CANDLE-01` | Light: Tallow-Candles |
+| `T0-DOM-08` | `IND-SALT-02` | Commodity: Coarse-Salt |
+
+Tier 0 modules with downstream consumers: `T0-DOM-01` (1), `T0-DOM-02` (3), `T0-DOM-03` (1), `T0-DOM-04` (1), `T0-DOM-05` (2), `T0-DOM-06` (2), `T0-DOM-07` (1).
+
+### 8.3 Git Audit Highlights (`mod-audit..HEAD`)
+Counts are module files per commit, classified by comparing each file version with the one before it.
+
+| Commit | Subject | Modules | Rescaled / baseline re-picked | Tags changed | Facts fixed | NPC modules (NPCs) | Template v3 / Tier 0 v3 |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| `991b8e6` | fix(mods): refine baselines, NPCs, item types, and historical accuracy | 96 | 0 / 11 | 0 | 88 | 73 (140) | 0 / 0 |
+| `5c0136f` | feat(mods): upgrade Tier 0 modules to template v3 and 1-4 ODV scale | 8 | 4 / 0 | 0 | 0 | 0 (0) | 0 / 8 |
+| `7c940f1` | fix(mods): silver patio takes Silver-Ore, galena goes to the lead bole | 3 | 0 / 0 | 3 | 0 | 0 (0) | 0 / 0 |
+| `77d6c81` | content(mods): replace formulaic NPCs in 26 modules | 29 | 0 / 0 | 0 | 0 | 29 (60) | 0 / 0 |
+| `32ed085` | fix(mods): move lead-slag and parting acid, fix anachronisms | 21 | 0 / 0 | 4 | 20 | 11 (17) | 0 / 0 |
+| `c1f1be3` | fix(mods): rescale baselines and NPC dispositions to the app's 1-4 axes | 101 | 101 / 0 | 0 | 0 | 0 (0) | 0 / 0 |
+| `c1093f2` | feat(pre-industrial): unify all 101 modules to composite template v3 | 101 | 0 / 0 | 3 | 0 | 0 (0) | 101 / 0 |
+
+Tag changes in `mod-audit..HEAD`:
+- `EXT-LIME-01`: requires -Metal: Forged-Iron (c1093f2)
+- `IND-GOLD-02`: requires +Chem: Refined-Saltpeter (32ed085); requires +Chem: Copper-Sulfate (32ed085); requires -Chem: Nitric-Parting-Acid (32ed085)
+- `IND-IRON-03`: requires +Animal: Tallow (c1093f2)
+- `IND-LEAD-01`: requires +Ore: Argentiferous-Galena (7c940f1)
+- `IND-SILVER-02`: requires +Ore: Silver-Ore (7c940f1); requires -Ore: Argentiferous-Galena (7c940f1); provides -Ore: Lead-Slag (32ed085)
+- `IND-SILVER-03`: provides +Ore: Lead-Slag (32ed085)
+- `MINE-IRON-02`: requires +Stone: Cut-Limestone (c1093f2)
+- `MINE-SILVER-01`: provides +Ore: Silver-Ore (7c940f1)
+- `MINE-SULFUR-02`: provides -Chem: Nitric-Parting-Acid (32ed085)
+
+### 8.4 Verification Ledger (`C_verify.md`)
+Ledger rows: 288 confirmed, 41 wrong (fixed in `mods/`), 32 unverifiable (scenario or fiction, kept as invented hooks).
+
+| Scope | Audited | Confirmed | Wrong / Fixed | Unverifiable |
+| :--- | :---: | :---: | :---: | :---: |
+| Named S1-S6 + Tolfa T1-T3 | 9 | 9 | 0 (see S1/AGRI-SUGAR-03 fix) | 0 |
+| Stage 2 Flags, Units & Chemistry Fixes (mods/) | 28 items (26 edited files) | 2 false-positive validator warnings | 26 files edited cleanly | 0 |
+| C_claims_queue.md Section 2 Concrete Assertions | 81 | 71 | 3 | 7 |
+| C_claims_queue.md Section 3 QUEUE | 96 | 91 | 2 | 3 |
+| C_claims_queue.md Section 3 LOW | 72 | 50 | 0 | 22 |
+| Stage 2 Rewritten NPC/Quest Files (incl. 77d6c81 consolidation) | 67 | 60 | 7 | 0 |
+| Tier 0 Modules (T0-DOM-01..08: 32 NPCs + 8 Quest Hooks) | 8 modules | 5 | 3 fixed (`T0-DOM-02/06/07`) + L199 `T0-DOM-05` softened | 0 |
+| Stream 3.8 Priority Chain Research Upgrades | 11 files | 11 upgraded | — | — |
+| Stream 3.9 Open Design Recommendations | 2 flags | 2 documented | — | — |
+
+- **Wrong, fixed** (26 modules): `AGRI-SUGAR-01` (2), `AGRI-SUGAR-02` (1), `AGRI-SUGAR-03` (2), `EXT-LIME-01` (3), `EXT-SALT-01` (1), `EXT-SALTPETER-01` (1), `FARM-INDIGO-01` (2), `FARM-OLIVE-01` (1), `IND-CORN-03` (1), `IND-COTTON-02` (2), `IND-COTTON-03` (2), `IND-FLAX-02` (2), `IND-FURS-02` (2), `IND-HEMP-03` (1), `IND-INDIGO-02` (1), `IND-LIME-02` (1), `IND-OPTIC-01` (1), `IND-OPTIC-02` (1), `IND-STEEL-01` (3), `IND-TIMBER-02` (2), `IND-VINE-02` (1), `MINE-IRON-02` (1), `T0-DOM-02` (2), `T0-DOM-05` (1), `T0-DOM-06` (2), `T0-DOM-07` (2).
+- **Unverifiable, scenario-only** (29 modules): `AGRI-SUGAR-01` (1), `EXT-GLASS-01` (1), `EXT-SALT-01` (1), `EXT-TIMBER-01` (1), `EXT-WHALE-01` (2), `FARM-CORN-01` (1), `FARM-HOPS-01` (1), `FARM-SPICE-01` (2), `IND-APOTH-01` (1), `IND-CANDLE-01` (1), `IND-CORN-02` (1), `IND-INDIGO-02` (1), `IND-LEAD-01` (1), `IND-OPTIC-02` (1), `IND-PAPER-02` (1), `IND-PORC-02` (2), `IND-POWDER-03` (1), `IND-SALT-02` (1), `IND-SHIP-03` (1), `IND-SOAP-01` (1), `IND-STEEL-01` (2), `IND-TANNIN-02` (1), `IND-TIMBER-02` (1), `IND-TIMBER-03` (2), `IND-WHALE-02` (1), `MINE-GRAPHITE-01` (1), `MINE-IRON-01` (1), `MINE-SILVER-01` (1), `MINE-TIN-01` (1).
+
+### 8.5 Open Design Flags (Stream 3.9)
+- **6.1 Paper-Chain Slaked-Lime Step** (`IND-PAPER-01`): European rag papermaking primarily relied on clean cold-water enzymatic soaking/retting of sorted linen and hemp rags in vaulted fermentation rooms. Unlike East Asian bast-fiber (bamboo/mulberry) cooking with lime or wood-ash lye, routine lime boiling was avoided in fine European white-rag mills...
+  - *Recommendation (Option A — Primary)*: Keep `Chem: Slaked-Lime` inside `IND-PAPER-01.requires` to preserve cross-chain chemical supply gameplay, and tag it as an **optional accelerant** in future engine metadata (absent lime, rag-retting takes double cycle duration rather tha...
+  - *Recommendation (Option B — Strict European Rag Pass)*: If a future schema unlock eliminates `Material: Rice-Straw` to enforce a strictly pre-industrial European rag-only paper chain, drop `Chem: Slaked-Lime` from hard `requires` alongside `Rice-Straw` and keep only linen/hemp rags, water pow...
+- **6.2 Sugarcane Boiling House Fuel** (`AGRI-SUGAR-02`): Primary 17th-18th century plantation accounts—Richard Ligon (1657, Barbados), Bristol steam/mill records, and Liverpool Sugar Mills —confirm that crushed, dried cane stalks (**bagasse** / **cane trash**) became the dominant everyday fuel burned beneath stepped masonry flues once a crop was in ful...
+  - *Recommendation (Option A — Primary)*: Retain `Fuel: Charcoal-or-Coal` as a valid external fuel input for startup, wet-season firing, and deforested islands, while adding a future simulation rule where steady crushing throughput in `AGRI-SUGAR-02` self-generates `Dried Cane T...
+  - *Recommendation (Option B — Self-Fueling Edge Removal)*: If future schema rules permit internal closed-loop byproducts to satisfy `Fuel:` slots, convert `Fuel: Charcoal-or-Coal` on `AGRI-SUGAR-02` to `recommended / startup-only` so a working cane estate does not stall indefinitely once crushin...
+<!-- END_MODULE_ATLAS -->
