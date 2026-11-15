@@ -3865,7 +3865,8 @@
         "requires": [
           "Ore: Gold-Dust",
           "Fuel: Charcoal-or-Coal",
-          "Chem: Nitric-Parting-Acid"
+          "Chem: Refined-Saltpeter",
+          "Chem: Copper-Sulfate"
         ],
         "yields": "Gold Bullion",
         "chain_id": "CHAIN-GOLD",
@@ -3890,7 +3891,8 @@
         "requires": [
           "Ore: Gold-Dust",
           "Fuel: Charcoal-or-Coal",
-          "Chem: Nitric-Parting-Acid"
+          "Chem: Refined-Saltpeter",
+          "Chem: Copper-Sulfate"
         ],
         "yields": "Gold Bullion",
         "chain_id": "CHAIN-GOLD",
@@ -5412,8 +5414,7 @@
         "entityKind": "industry",
         "isIndustry": true,
         "provides": [
-          "Chem: Brimstone-Sulfur",
-          "Chem: Nitric-Parting-Acid"
+          "Chem: Brimstone-Sulfur"
         ],
         "requires": [
           "Commodity: Ceramic-Vessels"
@@ -5434,30 +5435,7 @@
         "entityKind": "resource",
         "resourceSector": "Chem",
         "provides": [
-          "Chem: Brimstone-Sulfur",
-          "Chem: Nitric-Parting-Acid"
-        ],
-        "requires": [
-          "Commodity: Ceramic-Vessels"
-        ],
-        "yields": "Brimstone Lump (Raw yellow crystalline sulfur chunk harvested from vent rims.)",
-        "chain_id": "CHAIN-POWDER",
-        "chain_stage": 2
-      },
-      {
-        "id": "item-1794460167235-2",
-        "name": "Chem: Nitric Parting Acid",
-        "category": "Resource Export / Supply Anchor",
-        "specs": "Provides: Chem: Nitric-Parting-Acid",
-        "notes": "Extracted at Volcanic Fumarole Sulfur Pit: Crude brimstone is sublimated and scraped from stone flues, while secondary acid-condensing channels yield pungent parting acids used in metal refining and powder production. Moves as sealed cask or lead-lined keg. It is caustic or toxic in bulk, needs lead, glass or glazed vessels, and a single contaminated batch can ruin a whole run.",
-        "moduleId": "MINE-SULFUR-02",
-        "nodeId": 4,
-        "isResource": true,
-        "entityKind": "resource",
-        "resourceSector": "Chem",
-        "provides": [
-          "Chem: Brimstone-Sulfur",
-          "Chem: Nitric-Parting-Acid"
+          "Chem: Brimstone-Sulfur"
         ],
         "requires": [
           "Commodity: Ceramic-Vessels"
@@ -10355,7 +10333,8 @@
       "requires": [
         "Ore: Gold-Dust",
         "Fuel: Charcoal-or-Coal",
-        "Chem: Nitric-Parting-Acid"
+        "Chem: Refined-Saltpeter",
+        "Chem: Copper-Sulfate"
       ],
       "yields": "Gold Bullion",
       "chain_id": "CHAIN-GOLD",
@@ -10380,7 +10359,8 @@
       "requires": [
         "Ore: Gold-Dust",
         "Fuel: Charcoal-or-Coal",
-        "Chem: Nitric-Parting-Acid"
+        "Chem: Refined-Saltpeter",
+        "Chem: Copper-Sulfate"
       ],
       "yields": "Gold Bullion",
       "chain_id": "CHAIN-GOLD",
@@ -11902,8 +11882,7 @@
       "entityKind": "industry",
       "isIndustry": true,
       "provides": [
-        "Chem: Brimstone-Sulfur",
-        "Chem: Nitric-Parting-Acid"
+        "Chem: Brimstone-Sulfur"
       ],
       "requires": [
         "Commodity: Ceramic-Vessels"
@@ -11924,30 +11903,7 @@
       "entityKind": "resource",
       "resourceSector": "Chem",
       "provides": [
-        "Chem: Brimstone-Sulfur",
-        "Chem: Nitric-Parting-Acid"
-      ],
-      "requires": [
-        "Commodity: Ceramic-Vessels"
-      ],
-      "yields": "Brimstone Lump (Raw yellow crystalline sulfur chunk harvested from vent rims.)",
-      "chain_id": "CHAIN-POWDER",
-      "chain_stage": 2
-    },
-    {
-      "id": "item-1794460167235-2",
-      "name": "Chem: Nitric Parting Acid",
-      "category": "Resource Export / Supply Anchor",
-      "specs": "Provides: Chem: Nitric-Parting-Acid",
-      "notes": "Extracted at Volcanic Fumarole Sulfur Pit: Crude brimstone is sublimated and scraped from stone flues, while secondary acid-condensing channels yield pungent parting acids used in metal refining and powder production. Moves as sealed cask or lead-lined keg. It is caustic or toxic in bulk, needs lead, glass or glazed vessels, and a single contaminated batch can ruin a whole run.",
-      "moduleId": "MINE-SULFUR-02",
-      "nodeId": 4,
-      "isResource": true,
-      "entityKind": "resource",
-      "resourceSector": "Chem",
-      "provides": [
-        "Chem: Brimstone-Sulfur",
-        "Chem: Nitric-Parting-Acid"
+        "Chem: Brimstone-Sulfur"
       ],
       "requires": [
         "Commodity: Ceramic-Vessels"
