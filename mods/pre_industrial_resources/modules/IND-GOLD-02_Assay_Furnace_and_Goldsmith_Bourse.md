@@ -21,7 +21,7 @@ requires:
 > **Industry Chain**: `CHAIN-GOLD` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-In secure back-alley bourse chambers, goldsmiths melt raw placer dust in small fire-clay crucibles and apply nitric parting acid to dissolve alloyed silver and base metals away from native gold. The required inputs of Ore: Gold-Dust, Fuel: Charcoal-or-Coal, and Chem: Nitric-Parting-Acid are refined through precise thermal and chemical dissolution, yielding pristine, stamped Metal: Gold-Bullion bars ready for high-value commerce.
+In secure back-alley bourse chambers, goldsmiths melt raw placer dust in small fire-clay crucibles and apply nitric parting acid to dissolve alloyed silver and base metals away from native gold. The required inputs of Ore: Gold-Dust, Fuel: Charcoal-or-Coal, and Chem: Nitric-Parting-Acid, held in Commodity: Ceramic-Vessels and Commodity: Glassware, are refined through precise thermal and chemical dissolution, yielding pristine, stamped Metal: Gold-Bullion bars ready for high-value commerce.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 2, 1]` (pick integers -3 to +3) — **Merchant Guild** (`Market`).

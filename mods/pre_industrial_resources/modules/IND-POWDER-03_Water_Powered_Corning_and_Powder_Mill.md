@@ -46,4 +46,4 @@ A heavily reinforced, blast-mitigated timber structure spanning a rushing stream
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Stamping Moisture Level` (`0–10`)**: At `0–3`, dry friction triggers catastrophic detonation of the mill house. At `8–10`, excessive water ruins the explosive mix entirely.
-- **Quest Hook — *The Dry Sieve*스러**: When a water raceway clogs during mid-stamp, Caleb must clear the wooden flume before friction heat ignites the active crushing trough.
+- **Quest Hook — *The Dry Sieve***: When a water raceway clogs during mid-stamp, Caleb must clear the wooden flume before friction heat ignites the active crushing trough.

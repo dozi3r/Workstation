@@ -10,6 +10,7 @@ chain_stage: 1
 chain_role: "extraction"
 provides:
   - "Stone: Cut-Limestone"
+  - "Mineral: Chalk"
 requires:
   - "Metal: Forged-Iron"
 ---
@@ -17,7 +18,7 @@ requires:
 > **Industry Chain**: `CHAIN-LIME` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Open-cut terraced rock faces operated with iron wedges, sledgehammers, and hand-cranked wooden derricks. Laborers fracture sedimentary strata along natural bedding planes to quarry massive ashlar blocks and rubble stone for structural building. The facility transforms forged iron tools, human muscle, and exposed bedrock into uniform cut limestone blocks.
+Open-cut terraced rock faces operated with iron wedges, sledgehammers, and hand-cranked wooden derricks. Laborers fracture sedimentary strata along natural bedding planes to quarry massive ashlar blocks and rubble stone for structural building. The facility transforms forged iron tools, human muscle, and exposed bedrock into uniform cut limestone blocks. Softer chalk seams in the upper face are cut apart from the building stone and ground into whiting.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[1, 0, -1]` — **Quarry Foreman** (`Hierarchy`).
@@ -38,6 +39,7 @@ Open-cut terraced rock faces operated with iron wedges, sledgehammers, and hand-
 ### Material Stocks & Items (Item Prototypes)
 - **Stone: Cut-Limestone** (`Commodity`): Precisely dressed ashlar blocks ready for mortar-free or mortared masonry.
 - **Metal: Forged-Iron** (`Tool`): Heavy wedges, crowbars, and sledgehammers hardened for splitting rock.
+- **Chalk Whiting** (`Commodity`): Soft white chalk ground fine for dressing hides and polishing, set aside from the structural stone.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Quarry Face Stability` (`0–10`)**: At `0–3`, careless wedge placement triggers unexpected rock collapses, burying tools and workers. At `8–10`, meticulous shoring ensures high-yield block extraction.

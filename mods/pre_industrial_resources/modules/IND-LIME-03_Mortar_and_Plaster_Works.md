@@ -42,4 +42,4 @@ In shaded wooden mixing sheds, laborers shovel silica-grade sand and rich slaked
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Batch Consistency` (`0–10`)**: At `0–3`, sandy, watery mixes crumble upon drying. At `8–10`, overly lime-rich batches shrink and crack severely.
-- **Quest Hook — *The Premature Set* حکمت**: When an unexpected heatwave accelerates curing inside the storage casks, Hettie must rescue an entire shipment of royal fortification mortar before it hardens solid.
+- **Quest Hook — *The Premature Set***: When an unexpected heatwave accelerates curing inside the storage casks, Hettie must rescue an entire shipment of royal fortification mortar before it hardens solid.

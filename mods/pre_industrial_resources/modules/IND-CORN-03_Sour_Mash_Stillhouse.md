@@ -45,4 +45,4 @@ A timber-and-stone distillery equipped with copper pot stills, wooden fermenting
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Still Condenser Flow` (`0–10`)**: At `0–3`, cooling water fails, causing vapor blowouts and bitter low-grade spirit. At `8–10`, over-cooling stalls distillation and wastes fuel.
-- **Quest Hook — *The Taxman's Knock*스러**: When municipal revenue agents arrive unannounced during a heavy distillation run, Silas must scramble to conceal his hidden spirit casks before inspection.
+- **Quest Hook — *The Taxman's Knock***: When municipal revenue agents arrive unannounced during a heavy distillation run, Silas must scramble to conceal his hidden spirit casks before inspection.

@@ -12,6 +12,7 @@ provides:
   - "Food: Raw-Beef"
   - "Animal: Raw-Hides"
   - "Animal: Tallow"
+  - "Material: Bone-Ash"
 requires:
   - "Livestock: Cattle"
 ---
@@ -19,7 +20,7 @@ requires:
 > **Industry Chain**: `CHAIN-CATTLE` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-A stone-paved, channeled drainage building situated near a swift river comprises slaughter pens, hoisting gantries, and boiling cauldrons. Guild butchers process incoming cattle swiftly, harvesting edible meat, stripping raw hides for tanneries, and rendering fat into tallow. This sanitary civic facility converts living livestock into perishable food stores and vital industrial raw materials.
+A stone-paved, channeled drainage building situated near a swift river comprises slaughter pens, hoisting gantries, and boiling cauldrons. Guild butchers process incoming cattle swiftly, harvesting edible meat, stripping raw hides for tanneries, and rendering fat into tallow. This sanitary civic facility converts living livestock into perishable food stores and vital industrial raw materials. Bones stripped of meat are boiled clean and calcined in a kiln into white bone ash, sold on to refiners for lining their cupel hearths.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[1, 0, 2]` (pick integers -3 to +3) — **Hierarchy** (`Hierarchy`).
@@ -40,6 +41,7 @@ A stone-paved, channeled drainage building situated near a swift river comprises
 ### Material Stocks & Items (Item Prototypes)
 - **Hoisting Gantry and Tackle** (`Tool`): Heavy wooden pulley rig used to suspend carcasses for efficient bleeding and skinning.
 - **Rendering Vats** (`Tool`): Large cast-iron cauldrons for melting animal fat into usable industrial tallow.
+- **Bone Ash** (`Commodity`): Fine white powder from calcined cattle bones, tamped into cupel hearths for assaying and silver refining.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Sanitation and Drainage` (`0–10`)**: At `0–3`, bloodclogged drains attract vermin and threaten city health inspectors. At `8–10`, over-processing overwhelms the boiling vats, creating foul stenches that spark neighborhood riots.

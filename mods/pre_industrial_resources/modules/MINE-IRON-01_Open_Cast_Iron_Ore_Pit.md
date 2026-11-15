@@ -7,7 +7,7 @@ pipeline_tier: 3
 chain_id: CHAIN-IRON
 chain_stage: 1
 chain_role: extraction
-provides: ["Ore: Raw-Iron-Ore"]
+provides: ["Ore: Raw-Iron-Ore", "Mineral: Emery-and-Rouge"]
 requires: ["Timber: Mine-Props"]
 culture_quadrant: Hierarchy / Clan
 operational_profile: Produce / Coordinate
@@ -27,7 +27,7 @@ injected_mechanics:
   threat_clocks:
     pit_flooding_clock: "Pit Inundation Clock [4 Ticks] - Groundwater overwhelms siphon pumps."
     quarry_bench_subsidence: "Bench Collapse Clock [6 Ticks] - Fractured shale fractures along fault lines."
-  yields_resource: "Raw Red Hematite & Magnetite Ore Chunks (25 Tons/Day)"
+  yields_resource: "Raw Red Hematite & Magnetite Ore Chunks (25 Tons/Day), Emery & Rouge Abrasive Grit"
 ---
 
 # MODULE MINE-IRON-01: OPEN-CAST IRON ORE PIT
@@ -39,10 +39,12 @@ The iron quarry is an immense terraced amphitheater carved into red mineral bedr
 * **Terraced Extraction Benches:** Step-cut stone benches where miners drill holes with sledge and chisel, wedging out multi-ton slabs of dark red ore.
 * **Timber Shoring & Sump Flumes:** Heavy timber headframes and gravity flumes that pump out seepage groundwater into perimeter settlement settling ponds.
 * **Gravity Sled Runways:** Inclined timber chutes that slide loaded ore crates down from high extraction benches directly to wagon staging squares.
+* **Rouge & Emery Grinding Floor:** Soft earthy red hematite is washed and settled into fine polishing rouge, while dark emery rock found along the magnetite seams is crushed and sieved into coarse grit for lens and metal polishers.
 
 ### 2. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Requires constant timber shoring from `Timber: Mine-Props`.
 * **Output Transmission:** Ships bulk raw ore (`Ore: Raw-Iron-Ore`) down-valley to the **Charcoal Bloomery & Blast Furnace (`MINE-IRON-02`)**.
+* **Secondary Output:** Dispatches sorted abrasive grit (`Mineral: Emery-and-Rouge`) to polishing trades such as the **Crown & Flint Lens Grinding Lathe (`IND-OPTIC-01`)**.
 
 ### 3. Notable Characters & Personnel
 

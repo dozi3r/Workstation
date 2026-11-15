@@ -15,11 +15,12 @@ requires:
   - "Fuel: Charcoal-or-Coal"
   - "Chem: Potash"
   - "Mineral: Raw-Clay"
+  - "Mineral: Petuntse-Stone"
 ---
 # Climbing Dragon Kiln (`IND-PORC-02`)
 
 ## 1. Architectural Overview & Operational Loop
-Built on steep slopes as a long, terraced brick tunnel, this climbing dragon kiln utilizes natural draft dynamics to achieve extreme vitrification temperatures exceeding 1300°C. Potters load glazed porcelain vessels into saggers stacked along the sloping chambers, stoking sequential fireboxes from base to summit to bake translucent, resonant ceramics.
+Built on steep slopes as a long, terraced brick tunnel, this climbing dragon kiln utilizes natural draft dynamics to achieve extreme vitrification temperatures exceeding 1300°C. Potters load glazed vessels of kaolin and petuntse porcelain into saggers stacked along the sloping chambers, stoking sequential fireboxes from base to summit to bake translucent, resonant ceramics.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[1, 2, -1]` — **Master Kiln Architect** (`Hierarchy`).

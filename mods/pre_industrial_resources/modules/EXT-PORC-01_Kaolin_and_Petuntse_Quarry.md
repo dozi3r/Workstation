@@ -10,6 +10,7 @@ chain_stage: 1
 chain_role: "extraction"
 provides:
   - "Mineral: Kaolin-Clay"
+  - "Mineral: Petuntse-Stone"
 requires: []
 ---
 # Kaolin & Petuntse Quarry (`EXT-PORC-01`)
@@ -36,6 +37,7 @@ Carved into weathered white hillsides, this extraction site features open-cast b
 ### Material Stocks & Items (Item Prototypes)
 - **Kaolin-Clay** (`Commodity`): Pure white, refractory clay essential for high-fire porcelain bodies.
 - **Crushing-Sledge** (`Tool`): Heavy iron-headed hammer used to break raw stone blocks before wet milling.
+- **Petuntse Stone** (`Commodity`): Weathered white porcelain stone, pulverized in water-powered mills to give porcelain its glassy body.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — Sediment Purity (`0–10`)**: At `0–3`, iron contamination causes dark speckling and failure in high-fire kilns. At `8–10`, excessive washing wastes valuable fine fractions.

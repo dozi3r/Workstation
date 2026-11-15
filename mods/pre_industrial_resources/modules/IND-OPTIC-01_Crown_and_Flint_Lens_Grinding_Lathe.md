@@ -14,6 +14,7 @@ requires:
   - "Commodity: Glassware"
   - "Mineral: Silica-Sand"
   - "Metal: Pig-Iron"
+  - "Mineral: Emery-and-Rouge"
 ---
 # Crown & Flint Lens-Grinding Lathe (`IND-OPTIC-01`)
 > **Industry Chain**: `CHAIN-OPTICS` (Stage 1: `refining`)

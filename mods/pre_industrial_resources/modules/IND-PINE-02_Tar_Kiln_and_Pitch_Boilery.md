@@ -10,6 +10,7 @@ chain_stage: 2
 chain_role: "refining"
 provides:
   - "Chem: Pine-Pitch"
+  - "Chem: Lampblack"
 requires:
   - "Resin: Raw-Pine-Resin"
   - "Fuel: Wood-Fuel"
@@ -19,7 +20,7 @@ requires:
 > **Industry Chain**: `CHAIN-PINE` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-A terraced earthen mound built over a stone-lined drainage basin where pine roots and resinous billets are stacked, sealed with turf, and slowly smothered-burned to render dark wood tar. The raw tar is subsequently boiled down in heavy copper cauldrons to drive off volatile spirits, producing thick, waterproof pine pitch for ship-calking and timber preservation.
+A terraced earthen mound built over a stone-lined drainage basin where pine roots and resinous billets are stacked, sealed with turf, and slowly smothered-burned to render dark wood tar. The raw tar is subsequently boiled down in heavy copper cauldrons to drive off volatile spirits, producing thick, waterproof pine pitch for ship-calking and timber preservation. Spent tar skimmings are burned beneath a cloth-hung soot chamber, and the fine lampblack that settles is scraped down for inkmakers.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[1, -1, -1]` — **Traditionalist** (`Hierarchy`).
@@ -40,7 +41,8 @@ A terraced earthen mound built over a stone-lined drainage basin where pine root
 ### Material Stocks & Items (Item Prototypes)
 - **Pine Pitch** (`Commodity`): Thick, black, waterproof resinous compound used to calk timber hulls and seams.
 - **Copper Cauldron** (`Tool`): Large heavy-lipped vessel used for boiling down crude tar into refined pitch.
+- **Lampblack** (`Commodity`): Fine greasy carbon soot from burning pitch residues, the base pigment of printers' ink.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Kiln Smothering Rate` (`0–10`)**: At `0–3`, air leaks cause the entire wood stack to burst into open flame, destroying the batch. At `8–10`, oxygen starvation chokes the burn so completely that no tar drains.
-- **Quest Hook — *The Ruptured Mound*스러**: When a turf seal collapses on the main tar kiln, Jorn must shovel wet clay into the blazing vent before the entire winter harvest ignites.
+- **Quest Hook — *The Ruptured Mound***: When a turf seal collapses on the main tar kiln, Jorn must shovel wet clay into the blazing vent before the entire winter harvest ignites.

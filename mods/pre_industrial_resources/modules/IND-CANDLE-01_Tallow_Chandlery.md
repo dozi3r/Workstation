@@ -42,4 +42,4 @@ A warm, smoky workshop filled with hanging wooden dipping frames where braided f
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Tallow Melting Temperature` (`0–10`)**: At `0–3`, cold fat clumps unevenly and ruins wick adhesion. At `8–10`, overheating boils off volatile fats and creates foul-smelling smoke.
-- **Quest Hook — *The Rancid Vat*스러**: When a shipment of spoiled slaughterhouse fat contaminates the main melting kettle, Martha must source clean rendering stock before evening work begins.
+- **Quest Hook — *The Rancid Vat***: When a shipment of spoiled slaughterhouse fat contaminates the main melting kettle, Martha must source clean rendering stock before evening work begins.

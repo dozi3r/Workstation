@@ -17,7 +17,7 @@ requires: []
 > **Industry Chain**: `CHAIN-CATTLE` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Open rolling grasslands enclosed by post-and-rail fencing and supplemented by winter fodder barns form the foundation of pastoral cattle production. Herders manage rotational grazing patterns across meadows to prevent over-exhaustion of turf while monitoring herd health and breeding cycles. This agrarian cycle extracts living biological units—beef cattle and powerful draft oxen—from natural forage.
+Open rolling grasslands enclosed by post-and-rail fencing and supplemented by winter fodder barns form the foundation of pastoral cattle production. Herders manage rotational grazing patterns across meadows to prevent over-exhaustion of turf while monitoring herd health and breeding cycles. This agrarian cycle extracts living biological units—beef cattle, powerful draft oxen, and the horses and mules bred alongside them as draft stock—from natural forage.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[-1, -1, 1]` (pick integers -3 to +3) — **Clan** (`Clan`).

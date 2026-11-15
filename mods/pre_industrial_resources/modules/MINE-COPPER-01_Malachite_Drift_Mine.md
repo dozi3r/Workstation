@@ -10,6 +10,7 @@ chain_stage: 1
 chain_role: "extraction"
 provides:
   - "Ore: Copper-Ore"
+  - "Chem: Copper-Sulfate"
 requires:
   - "Timber: Mine-Props"
   - "Fuel: Charcoal-or-Coal"
@@ -18,7 +19,7 @@ requires:
 > **Industry Chain**: `CHAIN-COPPER` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Miners tunnel into colorful oxidized copper-bearing limestone strata along arid hillsides, shoring up unstable roofs with notched timber props and hauling green malachite ore up inclined shafts in rawhide skips. Pickaxes, wedges, and slow-burning charcoal fires are employed to fracture stubborn rock faces before sorting rich green veins from barren gangue.
+Miners tunnel into colorful oxidized copper-bearing limestone strata along arid hillsides, shoring up unstable roofs with notched timber props and hauling green malachite ore up inclined shafts in rawhide skips. Pickaxes, wedges, and slow-burning charcoal fires are employed to fracture stubborn rock faces before sorting rich green veins from barren gangue. Where scattered copper-pyrite pockets break the limestone, the acid seep water is bailed into lead pans and boiled down until blue vitriol crystals form, scraped out as copper sulfate.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[-1, -1, +1]` — **Resistant Survivalist** (`Clan`).
@@ -39,6 +40,7 @@ Miners tunnel into colorful oxidized copper-bearing limestone strata along arid 
 ### Material Stocks & Items (Item Prototypes)
 - **Copper Ore** (`Commodity`): Raw malachite and azurite lumps rich in copper carbonate.
 - **Notched Mine Prop** (`Tool`): Seasoned hardwood timber cut to wedge tightly against tunnel roofs.
+- **Blue Vitriol** (`Commodity`): Deep-blue copper-sulfate crystals evaporated from sump water, prized by refiners as a reagent.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Tunnel Shoring` (`0–10`)**: At `0–3`, shifting strata cause catastrophic drift collapses. At `8–10`, over-timbering exhausts available forest props and slows extraction.

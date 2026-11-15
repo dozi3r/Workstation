@@ -41,4 +41,4 @@ Spread across dense, cold-climate evergreen forests, logging crews fell straight
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Bark Scarring Depth` (`0–10`)**: At `0–3`, shallow cuts yield meager resin flow. At `8–10`, deep slashing girdles and kills the pine trees prematurely.
-- **Quest Hook — *The Frozen Haul*스러**: When an early thaw threatens to strand the winter log decks before river floating, Torstein must mobilize every hand to raft the timber overnight.
+- **Quest Hook — *The Frozen Haul***: When an early thaw threatens to strand the winter log decks before river floating, Torstein must mobilize every hand to raft the timber overnight.

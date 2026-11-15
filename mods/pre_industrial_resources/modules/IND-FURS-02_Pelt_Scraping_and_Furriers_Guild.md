@@ -14,6 +14,7 @@ requires:
   - "Animal: Raw-Pelts"
   - "Chem: Tannin"
   - "Metal: Forged-Iron"
+  - "Mineral: Chalk"
 ---
 # Pelt Scraping & Furrier's Guild (`IND-FURS-02`)
 > **Industry Chain**: `CHAIN-FURS` (Stage 2: `manufacturing`)
@@ -43,4 +44,4 @@ A drafty, odor-heavy municipal workshop where raw, salted pelts are soaked in va
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Tanning Bath Concentration` (`0–10`)**: At `0–3`, weak liquor leaves pelts stiff and prone to rotting hair slip. At `8–10`, overly strong acid eats the leather grain and ruins the batch.
-- **Quest Hook — *The Spoiled Lot*스러**: When a prized shipment of ermine pelts arrives water-damaged, Alistair must rush emergency tannin baths to save the guild's royal commission.
+- **Quest Hook — *The Spoiled Lot***: When a prized shipment of ermine pelts arrives water-damaged, Alistair must rush emergency tannin baths to save the guild's royal commission.

@@ -15,12 +15,13 @@ requires:
   - "Fuel: Charcoal-or-Coal"
   - "Alloy: Crucible-Steel"
   - "Metal: Forged-Iron"
+  - "Material: Bone-Ash"
 ---
 # Cupellation Hearth & Sovereign Mint (`IND-SILVER-03`)
 > **Industry Chain**: `CHAIN-SILVER` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-Crude bullion is melted in bone-ash cupels inside a draft-controlled hearth, where an oxidizing blast burns away base lead and base impurities into the porous hearth lining. The purified molten silver is cast into bars, rolled to precise thickness, blanked with iron punches, and struck between heavy steel dies bearing the sovereign seal. The required inputs of Metal: Crude-Bullion and Fuel: Charcoal-or-Coal are refined and stamped into gleaming Currency: Silver-Coinage.
+Crude bullion is melted in bone-ash cupels inside a draft-controlled hearth, where an oxidizing blast burns away base lead and base impurities into the porous hearth lining. The purified molten silver is cast into bars, rolled to precise thickness, blanked with iron punches, and struck between heavy steel dies bearing the sovereign seal. The required inputs of Metal: Crude-Bullion, Fuel: Charcoal-or-Coal, and Material: Bone-Ash, shaped with Metal: Forged-Iron punches and Alloy: Crucible-Steel dies, are refined and stamped into gleaming Currency: Silver-Coinage.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[3, 1, 2]` (pick integers -3 to +3) — **Sovereign Treasury** (`Hierarchy`).

@@ -42,4 +42,4 @@ A remote cluster of log-and-sod cabins situated along deep forest game trails in
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Trap-Line Coverage` (`0–10`)**: At `0–3`, traps go unvisited and ruined pelts rot in the snow. At `8–10`, overextended lines exhaust trappers and expose them to freezing storms.
-- **Quest Hook — *The Poached Line*스러**: When Silas finds his prime marten traps systematically robbed by an unknown trespasser, he must track the culprit across hostile winter ridges.
+- **Quest Hook — *The Poached Line***: When Silas finds his prime marten traps systematically robbed by an unknown trespasser, he must track the culprit across hostile winter ridges.

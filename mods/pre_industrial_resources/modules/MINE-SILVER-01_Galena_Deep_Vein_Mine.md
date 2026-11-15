@@ -19,7 +19,7 @@ requires:
 > **Industry Chain**: `CHAIN-SILVER` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Carved deep into limestone fault lines, the galena mine descends through dripping vertical shafts and timber-shored adits. Miners hack at sulfide veins bearing lead and silver with heavy picks and wedges, guided only by flickering tallow candles. The required inputs of Timber: Mine-Props prevent catastrophic gallery collapses, while Light: Tallow-Candles sustains subterranean labor, turning dark rock faces into extracted Ore: Argentiferous-Galena hauled up by horse-gins.
+Carved deep into limestone fault lines, the galena mine descends through dripping vertical shafts and timber-shored adits. Miners hack at sulfide veins bearing lead and silver with heavy picks and wedges, guided only by flickering tallow candles. The required inputs of Timber: Mine-Props prevent catastrophic gallery collapses, while Light: Tallow-Candles sustains subterranean labor, turning dark rock faces into extracted Ore: Argentiferous-Galena hauled up by horse-gins worked by Livestock: Draft-Animals.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[-2, -1, 1]` (pick integers -3 to +3) — **Subterranean Syndicate** (`Clan`).

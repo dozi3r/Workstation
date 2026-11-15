@@ -19,7 +19,7 @@ requires:
 > **Industry Chain**: `CHAIN-TIN` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-The tin blowing house is a thick-walled stone furnace shed equipped with a large leather-and-wood foot-or-water-driven bellows. Workers charge the granite hearth with alternate layers of washed cassiterite ore and charcoal fuel, producing high blast temperatures that reduce the oxide to molten white metal. The required inputs of Ore: Tin-Ore and Fuel: Charcoal-or-Coal are smelted down and skimmed of slag, then cast into heavy stone moulds yielding pure Metal: Tin-Ingot.
+The tin blowing house is a thick-walled stone furnace shed equipped with a large leather-and-wood foot-or-water-driven bellows. Workers charge the granite hearth with alternate layers of washed cassiterite ore and charcoal fuel, producing high blast temperatures that reduce the oxide to molten white metal. The required inputs of Ore: Tin-Ore and Fuel: Charcoal-or-Coal are smelted down and skimmed of slag with long-handled Metal: Forged-Iron tools, then cast into heavy stone moulds yielding pure Metal: Tin-Ingot.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 0, 1]` (pick integers -3 to +3) — **Technocratic Order** (`Hierarchy`).
