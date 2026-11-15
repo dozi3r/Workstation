@@ -35,9 +35,9 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-GOLD` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-The gold extraction works combine rushing water sluices for alluvial gravels with heavy drop-stamp quartz mills powered by overshot waterwheels. Prospectors shovel auriferous gravels or crushed gold-bearing quartz veins through baffled wooden sluice runs lined with fleece or mercury rungs. The required input of Timber: Mine-Props builds the sturdy flumes and stamp frames, transforming raw river silt and quartz rock into heavy, glittering Ore: Gold-Dust.
+The gold extraction works combine rushing water sluices for alluvial gravels with heavy drop-stamp quartz mills powered by overshot waterwheels. Prospectors shovel auriferous gravels or crushed gold-bearing quartz veins through baffled wooden sluice runs lined with fleece or riffles. The required input of Timber: Mine-Props builds the sturdy flumes and stamp frames, transforming raw river silt and quartz rock into heavy, glittering Ore: Gold-Dust.
 
-A claim holds only while it is worked, and groups of miners arbitrate disputes. Rocker boxes are hand-fed and wash a few yards of gravel a day; longer sluice runs with riffles take far more, though a plain sluice still loses much of the fine gold. Diggers also sink shafts and drive tunnels into deep leads. The weekly cleanup is when the riffles are emptied and the gold weighed.
+A claim holds only while it is worked, and groups of miners arbitrate disputes. Rocker boxes are hand-fed and wash a few yards of gravel a day; longer sluice runs with riffles take far more, though a plain sluice still loses much of the fine gold. Diggers also sink shafts and drive tunnels into deep leads. The weekly cleanup is when the riffles are emptied and the gold weighed. Fine gold can also be caught by amalgamating it with mercury in a pan or under the stamps, but no quicksilver arrives here by supply link: the mercury works sell only to the silver patios, so a camp that wants it must buy it off the books.
 - **Rocker and Sluice Run:** wooden boxes with riffles to catch gold.
 - **Stamp Battery:** cam-driven stamps that crush quartz.
 - **Water Ditch:** the claim's lifeline.
@@ -110,4 +110,4 @@ disposition: [1, 2, 4]
 ## 6. Vague Game Hazards
 * **Shaft Cave-In:** Unpropped deep workings collapse on diggers ($2\text{d}6$ bludgeoning damage and buried).
 * **Stamp Battery:** A hand caught under a falling stamp is crushed ($2\text{d}6$ damage and the hand is lost).
-* **Claim Violence:** Disputes at the claim stake turn into gunfights or knife fights ($1\text{d}6$ damage).
+* **Claim Violence:** Disputes at the claim stake turn into pistol or knife fights ($1\text{d}6$ damage).

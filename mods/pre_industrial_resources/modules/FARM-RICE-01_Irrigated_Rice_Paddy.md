@@ -36,9 +36,9 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-RICE` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-The irrigated rice paddy relies on terraced earthwork bunds, intricately managed irrigation channels, and seasonal monsoon inundation to sustain submerged grain cultivation. Laborers spend grueling shifts transplanting seedlings knee-deep in anaerobic mud and harvesting mature panicles with sickles before drying the stalks. Unprocessed inputs are absent, while harvested paddy-rice and leftover rice-straw are bundled and exported to granaries and fodder stores.
+The irrigated rice paddy relies on terraced earthwork bunds, intricately managed irrigation channels, and seasonal monsoon inundation to sustain submerged grain cultivation. Laborers spend grueling shifts transplanting seedlings knee-deep in anaerobic mud and harvesting mature panicles with sickles before drying the stalks. Unprocessed inputs are absent, while harvested paddy-rice and leftover rice-straw are bundled and exported to granaries, fodder stores and the occasional papermaker.
 
-The year starts in the dry months with bund and wall repairs, then plowing with buffalo when the rains come. Seedlings are raised in a nursery and transplanted by hand, which takes more labor than broadcasting but needs less seed. The grain is cut when it is a fifth or a quarter water, stacked, threshed, winnowed and spread on mats or pavements to dry; straw is gathered for thatch, fodder and paper.
+The year starts in the dry months with bund and wall repairs, then plowing with buffalo when the rains come. Seedlings are raised in a nursery and transplanted by hand, which takes more labor than broadcasting but needs less seed. The grain is cut when it is a fifth or a quarter water, stacked, threshed, winnowed and spread on mats or pavements to dry; straw is gathered for thatch, fodder and fibre; in the eastern papermaking countries some is pulped for paper.
 - **Terrace Bunds:** stone and rammed-earth walls fed from a canal above.
 - **Nursery Plot:** where seedlings grow before transplanting.
 - **Sluice Gates:** timber gates that share the water by rota.
@@ -97,7 +97,7 @@ disposition: [1, 2, 3]
 
 ### Material Stocks & Items (Item Prototypes)
 - **Paddy-Rice** (`Commodity`): Raw, unhusked rice grains still encased in protective hulls.
-- **Rice-Straw** (`Commodity`): Dried stalks harvested alongside grain, used for thatch, fuel, and fodder.
+- **Rice-Straw** (`Commodity`): Dried stalks harvested alongside grain, used for thatch, fuel, and fodder, with a share sold as straw fibre for pulping.
 - **Sluice Gate** (`Tool`): Timber gate and stone-lined channel that shares the canal water among the basins.
 - **Harvest Sickle** (`Tool`): Short curved blade used to reap the panicles at the right moisture.
 
@@ -107,7 +107,7 @@ disposition: [1, 2, 3]
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** None; the paddy is fed by canal water and the labor of the village.
-* **Output Transmission:** Sends `Crop: Paddy-Rice` to the **Water-Driven Hull Mill (`IND-RICE-02`)**, and `Material: Rice-Straw` to the **Retting Trough & Stamping Mill (`IND-PAPER-01`)**.
+* **Output Transmission:** Sends `Crop: Paddy-Rice` to the **Water-Driven Hull Mill (`IND-RICE-02`)**, and `Material: Rice-Straw` to the **Retting Trough & Stamping Mill (`IND-PAPER-01`)** as a minor filler fibre.
 * **Tactical Chokepoint:** The sluice gates. Whoever opens them decides which terrace feeds and which starves.
 
 ## 6. Vague Game Hazards

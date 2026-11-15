@@ -18,16 +18,16 @@ mtg_color: Green / White
 node_prerequisites:
   geology: Sun-Warmed Rocky Slope with Good Drainage
   workforce: Village Harvest Teams Trained in Winter Pruning
-  stores: Cart-Load of Powdered Brimstone for Mildew Dusting
-standalone_fallback: "If the brimstone carts fail, keepers fall back on pruning for airflow and picking mildewed bunches out by hand; the harvest drops by about a third and the surviving grapes ferment unreliably."
+  stores: Cart-Load of Wood Ash and Cellar Brimstone
+standalone_fallback: "If the ash and brimstone carts fail, keepers fall back on pruning for airflow and picking mildewed bunches out by hand; the harvest drops by about a third and the surviving grapes ferment unreliably."
 injected_mechanics:
   vine_canopy_dial:
     level_1: "Bare Vines - Winter-pruned canes stand bare on the stony slope; nothing to protect yet."
     level_2: "Open Canopy - Leaves shade the bunches while air moves freely; sugars climb steadily."
-    level_3: "Damp Thicket - Thick growth and wet weather trap humidity; pale dust spreads on leaves and fruit."
+    level_3: "Damp Thicket - Thick growth and wet weather trap humidity; pale bloom spreads on leaves and fruit."
     level_4: "Rotting Crop - Mildew and rot take whole rows; pickers sort fruit by the basket and discard most of it."
   threat_clocks:
-    mildew_clock: "Mildew Clock [6 Ticks] - Each damp, still day without sulfur dusting advances it; at full, a block of vines is lost to powdery blight."
+    mildew_clock: "Mildew Clock [6 Ticks] - Each damp, still day without ash dusting and leaf-thinning advances it; at full, a block of vines is lost to powdery blight."
     frost_clock: "Late Frost Clock [4 Ticks] - Each cold clear night in spring or autumn advances it; at full, buds or late bunches are killed and the vintage shrinks."
   yields_resource: "Baskets of Wine Grapes (12 Baskets/Day in vintage)"
 ---
@@ -35,12 +35,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-VINE` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Sun-drenched, rocky slopes planted with low-trained Vitis vinifera vines absorb thermal radiation from exposed stone ground. Laborers tend the vines through spring pruning, canopy management, and autumn vintage picking, utilizing wicker baskets for gentle transport. The vineyard transforms rocky soil, intense solar exposure, and meticulous manual pruning into sweet, high-sugar wine grapes. It also consumes `Chem: Brimstone-Sulfur`, dusted over the leaves to keep mildew in check.
+Sun-drenched, rocky slopes planted with low-trained Vitis vinifera vines absorb thermal radiation from exposed stone ground. Laborers tend the vines through spring pruning, canopy management, and autumn vintage picking, utilizing wicker baskets for gentle transport. The vineyard transforms rocky soil, intense solar exposure, and meticulous manual pruning into sweet, high-sugar wine grapes. Mildew is held back by thinning leaves for airflow and dusting the bunches with sifted wood ash, while it also consumes `Chem: Brimstone-Sulfur`, burned as wicks in the cellar casks to keep the wine from spoiling.
 
 The year turns on a few decisions. Pruning is done in winter, spring and autumn frosts threaten the buds, and the keeper chooses the harvest day by ripeness and sugar. Hand pickers can skip unripe or rotten clusters, which matters more to the cellar than speed does.
 - **Pruned Slope Rows:** Low-trained vines on stony ground, thinned in summer so some bunches ripen harder.
 - **Basket Path & Press Cart Track:** Wicker baskets are carried down narrow paths to carts bound for the cellar.
-- **Sulfur Shed:** A dry store for brimstone dust, kept clear of the cook fires.
+- **Brimstone Shed:** A dry store for brimstone and sifted ash, kept clear of the cook fires.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[3, 2, 3]` — **Traditionalist Steward** (`Clan`).
@@ -58,7 +58,7 @@ The year turns on a few decisions. Pruning is done in winter, spring and autumn 
   disposition: "[4, 3, 2]"
   motivation: "Introduce experimental trellising methods to increase sugar concentrations."
 - name: "Brimstone Carter Hobb Taverel"
-  role: "Sulfur Hauler & Dusting Hand"
+  role: "Brimstone Hauler & Ash-Dusting Hand"
   disposition: "[3, 2, 4]"
   motivation: "Keep the pit road open and the brimstone dry, because the keeper pays by the full cart and his family's rented strip on the slope depends on it."
 - name: "Harvest Mistress Orla Penhallow"
@@ -81,7 +81,7 @@ disposition: [4, 3, 2]
 ```
 ```text
 name: Brimstone Carter Hobb Taverel
-role: Sulfur Hauler & Dusting Hand
+role: Brimstone Hauler & Ash-Dusting Hand
 motivation: Keep the pit road open and the brimstone dry, because the keeper pays by the full cart and his family's rented strip on the slope depends on it.
 disposition: [3, 2, 4]
 ```
@@ -96,17 +96,17 @@ disposition: [1, 3, 1]
 ### Material Stocks & Items (Item Prototypes)
 - **Crop: Wine-Grapes** (`Commodity`): Heavy clusters of sweet, sun-ripened fruit rich in natural yeasts.
 - **Harvesting Knife** (`Tool`): A short, hooked iron blade designed for clean stem cutting without bruising fruit.
-- **Brimstone Dust** (`Reagent`): Powdered sulfur puffed over leaves and bunches to hold mildew back.
+- **Brimstone Wicks** (`Reagent`): Rag strips dipped in melted sulfur and burned inside empty casks to sweeten them before the vintage is racked.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Vine Canopy Density` (`0–10`)**: At `0–3`, over-pruning exposes delicate fruit to scorching sunburn. At `8–10`, dense leaves trap humidity and invite devastating fungal rot.
-- **Quest Hook — *The Powdery Mildew***: A sudden coastal humidity spike threatens the prize vines of Myra Sideris, forcing Damon Rael to race against time to apply sulfur dust before the entire crop is blighted. Hobb Taverel's cart is stuck on a washed-out road, Orla Penhallow's crew will pick in four days whatever the weather, and each damp night costs another row.
+- **Quest Hook — *The Powdery Mildew***: A sudden coastal humidity spike threatens the prize vines of Myra Sideris, forcing Damon Rael to race against time to thin the canopy and dust the rows with ash before the entire crop is blighted. Hobb Taverel's cart of ash and brimstone is stuck on a washed-out road, Orla Penhallow's crew will pick in four days whatever the weather, and each damp night costs another row.
 
 ## 5. GM Socket Placement & Supply Synergy
-* **Input Dependency:** Consumes `Chem: Brimstone-Sulfur` from the **Volcanic Fumarole Sulfur Pit (`MINE-SULFUR-02`)**, hauled in dry carts and dusted over leaves and bunches.
+* **Input Dependency:** Consumes `Chem: Brimstone-Sulfur` from the **Volcanic Fumarole Sulfur Pit (`MINE-SULFUR-02`)**, hauled in dry carts and burned as wicks in the cellar casks.
 * **Output Transmission:** Sends baskets of `Crop: Wine-Grapes` to the **Wine Press & Fermenting Cellar (`IND-VINE-02`)**, where they are trodden and fermented.
-* **Tactical Chokepoint:** Whoever controls the road from the sulfur pit controls whether the slope is dusted before the damp weather.
+* **Tactical Chokepoint:** Whoever controls the road from the sulfur pit controls whether the casks are sweetened before the vintage.
 
 ## 6. Vague Game Hazards
 * **Slope Falls:** Loaded pickers slip on steep stony rows and baskets tumble ($1\text{d}6$ bludgeoning damage).
-* **Brimstone Dust:** Dusting without cloth over the face burns eyes and lungs (a $1\text{d}4$ penalty to perception and light poison damage).
+* **Brimstone Fumes:** Burning wicks in a closed cask cellar without cloth over the face burns eyes and lungs (a $1\text{d}4$ penalty to perception and light poison damage).

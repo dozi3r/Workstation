@@ -54,7 +54,7 @@ Spirit is made in repeated runs: the first fraction (heads) is harsh and very st
 - name: "Master Alchemist Vespera Drake"
   role: "Chief Distiller"
   disposition: "[3, 4, 3]"
-  motivation: "Isolate the purest heart-run distillate while discarding noxious methanol heads."
+  motivation: "Isolate the purest heart-run distillate while discarding the harsh foreshots."
 - name: "Hearth Tender Bram Mason"
   role: "Fire Control Artisan"
   disposition: "[4, 3, 2]"
@@ -72,7 +72,7 @@ Spirit is made in repeated runs: the first fraction (heads) is harsh and very st
 ```text
 name: Master Alchemist Vespera Drake
 role: Chief Distiller
-motivation: Isolate the purest heart-run distillate while discarding noxious methanol heads.
+motivation: Isolate the purest heart-run distillate while discarding the harsh foreshots.
 disposition: [3, 4, 3]
 ```
 ```text

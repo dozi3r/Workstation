@@ -22,13 +22,13 @@ standalone_fallback: "If high-carbon coke fuel is severed, steelworks falls back
 injected_mechanics:
   crucible_melt_dial:
     level_1: "Charge Packing - Wrought-iron scraps and blister bar packed with crushed charcoal in sealed clay pots."
-    level_2: "Melting Heat (2900°F) - Pots glowing incandescent white in coke pits; slag floating to top."
+    level_2: "Melting Heat (white heat) - Pots glowing incandescent white in coke pits; slag floating to top."
     level_3: "Teeming Ingot Pour - Liquid steel teemed into chilled iron ingot molds; blinding sparks."
     level_4: "Crucible Pot Breach - Clay crucible shatters in furnace pit; white-hot steel melts firebrick grate."
   threat_clocks:
     crucible_thermal_shock: "Pot Fracture Clock [4 Ticks] - Rapid temperature swings crack clay crucibles."
-    ingot_mold_defect: "Cast Porosity Clock [6 Ticks] - Trapped gas bubbles ruin heavy ordnance barrels."
-  yields_resource: "Wootz Crucible Steel Ingots & Rifled Artillery Castings (5 Tons/Day)"
+    ingot_mold_defect: "Cast Porosity Clock [6 Ticks] - Trapped gas bubbles ruin cast gun barrels."
+  yields_resource: "Crucible Steel Ingots & Cannon and Mortar Castings (5 Tons/Day)"
 ---
 
 # Crucible Steelworks and Foundry (`IND-STEEL-01`)
@@ -38,8 +38,8 @@ injected_mechanics:
 The crucible steel foundry represents the pinnacle of island pyrotechnics, fusing brittle pig-iron and refined fuel inside sealed clay vessels to cast homogenous, razor-keen crucible steel. It takes `Metal: Pig-Iron`, `Fuel: Charcoal-or-Coal`, `Commodity: Ceramic-Vessels` and `Metal: Forged-Iron`, and it makes `Alloy: Crucible-Steel` and `Commodity: Heavy-Ordnance`.
 
 The works is a closed yard: strangers are kept out, and the method is guarded as a trade secret rather than patented. A pot shop on the premises makes the clay crucibles, which are discarded in large numbers. In the melting shop the pots stand in rows of holes in a cellar with natural draught; the charge-room hands weigh iron and flux into each pot, the puller-out lifts it white-hot from the hole, and the teemer pours the steel into ingot molds. The ordnance side casts iron guns that are proved by powder before the crown accepts them.
-* **Sunken Coke Melting Holes:** Subterranean melting pits lined with silica brick, fed by high-pressure bellows air to reach extraordinary temperatures exceeding **2,900 degrees F (1,600 degrees C)**.
-* **Graphite Clay Crucibles:** Hand-thrown ceramic vessels sealed with wet clay lids, holding 60 lbs of crushed iron and special fluxing fluxes to exclude oxygen during the 4-hour melt.
+* **Sunken Coke Melting Holes:** Subterranean melting pits lined with silica brick, fed by high-pressure bellows air to reach extraordinary temperatures at the white heat steel needs to melt.
+* **Graphite Clay Crucibles:** Hand-thrown ceramic vessels sealed with wet clay lids, holding 60 lbs of crushed iron and a flux to exclude oxygen during the 4-hour melt.
 * **Overhead Pivot Cranes & Water Trip-Hammer:** Cast-iron swinging crane with tongs used by heat-masked puller-outs to extract glowing pots, teeming the steel into cast-iron cannon molds and heavy forging anvils.
 * **Pot Shop & Proof Yard:** The clay-working shed where crucibles are made and stacked to dry, and the walled yard where each finished gun is fired and inspected.
 

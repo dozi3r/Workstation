@@ -13,7 +13,8 @@ provides:
 requires:
   - "Ore: Gold-Dust"
   - "Fuel: Charcoal-or-Coal"
-  - "Chem: Nitric-Parting-Acid"
+  - "Chem: Refined-Saltpeter"
+  - "Chem: Copper-Sulfate"
   - "Commodity: Ceramic-Vessels"
   - "Commodity: Glassware"
 culture_quadrant: Market
@@ -23,13 +24,13 @@ node_prerequisites:
   structure: Secure Walled Bourse Chamber
   furnace: Small Fire-Clay Crucible Furnace
   room: Ventilated Parting Room
-standalone_fallback: "If the parting acid stops coming, the bourse only melts and sells dust as impure electrum at a discount; bullion purity falls to about two thirds and the bourse loses its reputation."
+standalone_fallback: "If the saltpeter or vitriol stops coming, the bourse only melts and sells dust as impure electrum at a discount; bullion purity falls to about two thirds and the bourse loses its reputation."
 injected_mechanics:
   acid_parting_purity_dial:
-    level_1: "Impure Acid - Weak or fouled acid leaves silver in the gold; the bar is rejected or sold at a discount."
+    level_1: "Impure Acid - Weak acid from poor saltpeter or too little vitriol leaves silver in the gold; the bar is rejected or sold at a discount."
     level_2: "Clean Parting - Gold is alloyed with silver, parted in the acid and washed; the bar assays at high purity and is stamped."
     level_3: "Strained Parting - Rushed batches and tired hands leave flecks of silver; the assay is disputed."
-    level_4: "Spoiled Bar - A flask cracks or a plated swindle passes; the bourse pays for a worthless bar and its name is ruined."
+    level_4: "Spoiled Bar - A retort or flask cracks or a plated swindle passes; the bourse pays for a worthless bar and its name is ruined."
   threat_clocks:
     false_assay_clock: "False Assay Clock [6 Ticks] - Each plated bar or adulterated bag passed adds a tick; when full the bourse is shut by the merchants' court and its stamp is revoked."
     fume_sickness_clock: "Fume Sickness Clock [4 Ticks] - Each week in the parting room adds a tick as the fume tender's lungs and teeth fail; when full the tender collapses and the parting stops."
@@ -39,7 +40,7 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-GOLD` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-In secure back-alley bourse chambers, goldsmiths melt raw placer dust in small fire-clay crucibles and apply nitric parting acid to dissolve alloyed silver and base metals away from native gold. The required inputs of Ore: Gold-Dust, Fuel: Charcoal-or-Coal, and Chem: Nitric-Parting-Acid, held in Commodity: Ceramic-Vessels and Commodity: Glassware, are refined through precise thermal and chemical dissolution, yielding pristine, stamped Metal: Gold-Bullion bars ready for high-value commerce.
+In secure back-alley bourse chambers, goldsmiths melt raw placer dust in small fire-clay crucibles and apply aqua fortis (nitric parting acid) of their own distilling to dissolve alloyed silver and base metals away from native gold. The required inputs of Ore: Gold-Dust, Fuel: Charcoal-or-Coal, Chem: Refined-Saltpeter and Chem: Copper-Sulfate, held in Commodity: Ceramic-Vessels and Commodity: Glassware, are refined through precise thermal and chemical dissolution, yielding pristine, stamped Metal: Gold-Bullion bars ready for high-value commerce. The bourse makes its own acid: saltpeter is distilled with blue vitriol (copper sulfate) in clay retorts with glass or earthenware receivers, the same Commodity: Ceramic-Vessels and Commodity: Glassware that later hold the parting boil.
 
 Gold dust is weighed as currency and dealers issue drafts against it. For parting, gold is alloyed with about three parts silver, boiled in acid, and the silver is recovered from the liquid, leaving gold near pure. The older cementation method seals gold, salt and brick dust in a pot and heats it for many hours. Assayers test samples, and the stamped bar is the bourse's word.
 - **Crucible Furnace:** where dust is melted.
@@ -60,7 +61,7 @@ Gold dust is weighed as currency and dealers issue drafts against it. For partin
 - name: "Acid-Boy Jaron"
   role: "Fume Tender"
   disposition: "[3, 4, 1]"
-  motivation: "Learn the secret arts of parting gold without losing his teeth to nitric acid fumes."
+  motivation: "Learn the secret arts of parting gold without losing his teeth to the acid fumes."
 - name: "Dust Dealer Corvin Halloran"
   role: "Gold Dealer who buys dust and issues drafts"
   disposition: "[2, 4, 2]"
@@ -80,7 +81,7 @@ disposition: [1, 3, 3]
 ```text
 name: Acid-Boy Jaron
 role: Fume Tender
-motivation: Learn the secret arts of parting gold without losing his teeth to nitric acid fumes.
+motivation: Learn the secret arts of parting gold without losing his teeth to the acid fumes.
 disposition: [3, 4, 1]
 ```
 ```text
@@ -99,7 +100,7 @@ disposition: [2, 2, 4]
 
 ### Material Stocks & Items (Item Prototypes)
 - **Fire-Clay Crucible** (`Tool`): Small specialized melting pot capable of withstanding intense gold-melting heats.
-- **Graduated Parting Flask** (`Reagent`): Glass vessel used for boiling gold-silver alloys in nitric acid baths.
+- **Graduated Parting Flask** (`Reagent`): Glass vessel used for boiling gold-silver alloys in aqua fortis baths.
 - **Stamped Gold Bar** (`Commodity`): Cast ingot of parted gold, stamped with the bourse's mark and assay.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
@@ -107,11 +108,11 @@ disposition: [2, 2, 4]
 - **Quest Hook - *The Pyrite Swindle***: A bag of cunningly plated iron pyrite dust is submitted for assay, threatening to poison the bourse's reserves if Master Barnaby fails to detect it; Dust Dealer Corvin Halloran swears it came from a camp he trusts, and the merchants expect a verdict within three days.
 
 ## 5. GM Socket Placement & Supply Synergy
-* **Input Dependency:** Melts `Ore: Gold-Dust` from the **Placer Sluice & Quartz Crush Mill (`MINE-GOLD-01`)**; fires its furnace with `Fuel: Charcoal-or-Coal` from the **Charcoal Burner's Mound (`IND-CHARCOAL-01`)** or the **Deep Colliery and Coking Ovens (`MINE-COAL-01`)**; parts with `Chem: Nitric-Parting-Acid` from the **Volcanic Fumarole Sulfur Pit (`MINE-SULFUR-02`)**; melts in `Commodity: Ceramic-Vessels` from the **Brickworks & Pottery Kiln (`IND-CLAY-02`)**; and boils the alloy in `Commodity: Glassware` from the **Glassblower's Furnace (`IND-GLASS-02`)**.
+* **Input Dependency:** Melts `Ore: Gold-Dust` from the **Placer Sluice & Quartz Crush Mill (`MINE-GOLD-01`)**; fires its furnace with `Fuel: Charcoal-or-Coal` from the **Charcoal Burner's Mound (`IND-CHARCOAL-01`)** or the **Deep Colliery and Coking Ovens (`MINE-COAL-01`)**; distils its parting acid in-house from `Chem: Refined-Saltpeter` supplied by the **Nitrary Compost Beds & Leaching House (`EXT-SALTPETER-01`)** and `Chem: Copper-Sulfate` (blue vitriol) from the **Malachite Drift Mine (`MINE-COPPER-01`)**; melts in `Commodity: Ceramic-Vessels` from the **Brickworks & Pottery Kiln (`IND-CLAY-02`)**; and boils the alloy in `Commodity: Glassware` from the **Glassblower's Furnace (`IND-GLASS-02`)**.
 * **Output Transmission:** Sends `Metal: Gold-Bullion` to the **Drawloom Brocade Atelier (`IND-SILK-03`)**.
-* **Tactical Chokepoint:** The parting acid. Without it the bourse sells only impure electrum.
+* **Tactical Chokepoint:** The saltpeter and vitriol for the acid still. Without them the bourse sells only impure electrum.
 
 ## 6. Vague Game Hazards
-* **Nitric Fumes:** Working in the parting room without air burns the lungs and teeth ($1\text{d}6$ damage per hour and a cumulative penalty to fine work).
+* **Acid Fumes:** Distilling the acid or working in the parting room without air burns the lungs and teeth ($1\text{d}6$ damage per hour and a cumulative penalty to fine work).
 * **Crucible Burns:** A cracked crucible spills molten gold alloy on the hand ($2\text{d}6$ fire damage).
 * **Robbery:** The bourse holds bullion and drafts; thieves strike carts and chambers alike ($1\text{d}6$ damage to the guard and loss of the bars).

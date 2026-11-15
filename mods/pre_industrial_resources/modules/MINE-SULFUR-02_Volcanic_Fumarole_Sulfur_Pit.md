@@ -10,7 +10,6 @@ chain_stage: 2
 chain_role: "extraction"
 provides:
   - "Chem: Brimstone-Sulfur"
-  - "Chem: Nitric-Parting-Acid"
 requires:
   - "Commodity: Ceramic-Vessels"
 culture_quadrant: Hierarchy
@@ -20,7 +19,7 @@ node_prerequisites:
   geology: Fumarole Vents or Sulfur-Bearing Ore Seam
   fuel: Furnace Stack and Condensing Flues
   workforce: Pickaxe Crews with Boy Haulers
-standalone_fallback: "If ceramic vessels stop arriving, the pit melts sulfur in open heaps with the old furnace method; most of the sulfur burns off as choking fume and output falls to half, with no acid at all."
+standalone_fallback: "If ceramic vessels stop arriving, the pit melts sulfur in open heaps with the old furnace method; most of the sulfur burns off as choking fume and output falls to half, with fewer sound retorts and flues."
 injected_mechanics:
   vent_flow_dial:
     level_1: "Choked Vents - Gas pockets and ash clog the clefts; extraction stops and crews are pulled out."
@@ -30,18 +29,18 @@ injected_mechanics:
   threat_clocks:
     foul_air_clock: "Foul Air Clock [4 Ticks] - Each shift worked without a gas check adds a tick; when full a pocket of poison gas takes a crew in the tunnel."
     boy_debt_clock: "Boy Debt Clock [6 Ticks] - Each season the haulers' debts to their pickmen go unpaid adds a tick; when full the boys and their families walk out and the pit is left without haulers."
-  yields_resource: "Brimstone Sulfur (4 Baskets/Day) and Parting Acid (1 Flask/Day while retorts last)"
+  yields_resource: "Brimstone Sulfur (4 Baskets/Day) cast in blocks"
 ---
 # Volcanic Fumarole Sulfur Pit (`MINE-SULFUR-02`)
 > **Industry Chain**: `CHAIN-POWDER` (Stage 2: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Excavated near noxious volcanic vents in unstable highland clefts, workers harness subterranean sulfurous vapors using earthenware retorts and condensing troughs. Crude brimstone is sublimated and scraped from stone flues, while secondary acid-condensing channels yield pungent parting acids used in metal refining and powder production.
+Excavated near noxious volcanic vents in unstable highland clefts, workers harness subterranean sulfurous vapors using earthenware retorts and condensing troughs. Crude brimstone is sublimated and scraped from stone flues, then melted and cast in blocks for the powder mills and vineyards.
 
 Pickaxe crews cut the sulfurous ore and hire their own boys, usually two to four each, to haul it up through the tunnels, some no older than seven or eight. The ore is then melted out in a furnace stack, from old heap burning to a more advanced stone furnace, and the liquid brimstone is cast in blocks. Gas, firedamp and cave-ins are part of every shift.
 - **Furnace Stack:** stone furnace where ore is melted down.
 - **Condensing Flues:** where vapor settles as scrapable brimstone.
-- **Acid Channels:** earthen condensers for the parting acid.
+- **Casting Troughs:** clay molds where liquid brimstone is cast in blocks.
 - **Haul Tunnel:** narrow ramps worked by boy carriers.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
@@ -55,10 +54,10 @@ Pickaxe crews cut the sulfurous ore and hire their own boys, usually two to four
   role: "Fumarole Overseer"
   disposition: "[1, 1, 3]"
   motivation: "Exceed sulfur tonnage quotas despite crumbling rock walls and toxic gas pockets."
-- name: "Retort Tender Lyra Vance"
-  role: "Condenser Watcher"
+- name: "Retort Tender Thessaly Marrow"
+  role: "Condenser Watcher who scrapes the flues and casts the blocks"
   disposition: "[3, 1, 4]"
-  motivation: "Acquire respiratory filters and hazard pay for her hazard-exposed crew."
+  motivation: "Stop the glazed condenser pots cracking, because the pit docks the price of every broken pot from her share of the cast, and the kiln has twice sent her pots with flaws she was blamed for."
 - name: "Pickman Dorrin Sack"
   role: "Pickaxe Gangmaster who hires and feeds the boy haulers"
   disposition: "[3, 3, 2]"
@@ -76,9 +75,9 @@ motivation: Exceed sulfur tonnage quotas despite crumbling rock walls and toxic 
 disposition: [1, 1, 3]
 ```
 ```text
-name: Retort Tender Lyra Vance
-role: Condenser Watcher
-motivation: Acquire respiratory filters and hazard pay for her hazard-exposed crew.
+name: Retort Tender Thessaly Marrow
+role: Condenser Watcher who scrapes the flues and casts the blocks
+motivation: Stop the glazed condenser pots cracking, because the pit docks the price of every broken pot from her share of the cast, and the kiln has twice sent her pots with flaws she was blamed for.
 disposition: [3, 1, 4]
 ```
 ```text
@@ -98,7 +97,7 @@ disposition: [4, 1, 2]
 ### Material Stocks & Items (Item Prototypes)
 - **Brimstone Lump** (`Commodity`): Raw yellow crystalline sulfur chunk harvested from vent rims.
 - **Earthen Retort** (`Tool`): Heat-resistant ceramic vessel used to sublime and trap sulfur vapor.
-- **Parting Acid Flask** (`Reagent`): Stoppered glazed flask of sharp acid for refiners' assay work.
+- **Glazed Condenser Pot** (`Tool`): Stoppered glazed pot in which sulfur vapor settles to a scrapable crust.
 - **Sulfur Block** (`Commodity`): Cast brimstone cake, hauled out in baskets for the powder mills.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
@@ -107,11 +106,11 @@ disposition: [4, 1, 2]
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Fires its retorts and condensers in `Commodity: Ceramic-Vessels` from the **Brickworks & Pottery Kiln (`IND-CLAY-02`)**.
-* **Output Transmission:** Sends `Chem: Brimstone-Sulfur` to the **Hillside Vineyard (`FARM-VINE-01`)** and the **Water-Powered Corning & Powder Mill (`IND-POWDER-03`)**, and `Chem: Nitric-Parting-Acid` to the **Assay Furnace & Goldsmith Bourse (`IND-GOLD-02`)**.
+* **Output Transmission:** Sends `Chem: Brimstone-Sulfur` to the **Hillside Vineyard (`FARM-VINE-01`)** and the **Water-Powered Corning & Powder Mill (`IND-POWDER-03`)**. It makes no acid: the goldsmiths of the assay bourse distil their own from saltpeter.
 * **Tactical Chokepoint:** The retorts. When pots crack and no kiln delivers, the pit falls back on open burning and half its sulfur is lost in smoke.
 
 ## 6. Vague Game Hazards
 * **Vent Gas:** A pocket of hydrogen sulfide sinks into the working; crews drop without warning ($1\text{d}6$ damage per round without cover, then collapse).
 * **Sulfur Fire:** Brimstone ignites in the flues or retorts and burns with blue flame ($2\text{d}6$ fire damage and choking fumes).
 * **Tunnel Collapse:** Wet, rotten rock gives way on the hauling ramps ($3\text{d}6$ bludgeoning damage and burial).
-* **Acid Splash:** A cracked flask or condenser burns skin and eyes ($1\text{d}6$ acid damage).
+* **Scalding Brimstone:** A cracked retort or ladle spills molten sulfur over skin and eyes ($1\text{d}6$ fire damage and a clinging burn).

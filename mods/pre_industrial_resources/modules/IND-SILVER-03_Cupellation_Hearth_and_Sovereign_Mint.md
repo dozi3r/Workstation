@@ -10,6 +10,7 @@ chain_stage: 3
 chain_role: "manufacturing"
 provides:
   - "Currency: Silver-Coinage"
+  - "Ore: Lead-Slag"
 requires:
   - "Metal: Crude-Bullion"
   - "Fuel: Charcoal-or-Coal"
@@ -39,9 +40,9 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-SILVER` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-Crude bullion is melted in bone-ash cupels inside a draft-controlled hearth, where an oxidizing blast burns away base lead and base impurities into the porous hearth lining. The purified molten silver is cast into bars, rolled to precise thickness, blanked with iron punches, and struck between heavy steel dies bearing the sovereign seal. The required inputs of Metal: Crude-Bullion, Fuel: Charcoal-or-Coal, and Material: Bone-Ash, shaped with Metal: Forged-Iron punches and Alloy: Crucible-Steel dies, are refined and stamped into gleaming Currency: Silver-Coinage.
+Crude bullion is melted in bone-ash cupels inside a draft-controlled hearth, where an oxidizing blast burns away base lead and base impurities into the porous hearth lining. The purified molten silver is cast into bars, rolled to precise thickness, blanked with iron punches, and struck between heavy steel dies bearing the sovereign seal. The required inputs of Metal: Crude-Bullion, Fuel: Charcoal-or-Coal, and Material: Bone-Ash, shaped with Metal: Forged-Iron punches and Alloy: Crucible-Steel dies, are refined and stamped into gleaming Currency: Silver-Coinage, and the spent hearth leaves Ore: Lead-Slag (litharge and hearth slag) that still carries lead.
 
-The hearth runs near a thousand degrees under a bellows blast; the lead turns to litharge and soaks into the bone lining. Every melt is fire-assayed before coining: a weighed sample is cupelled and the silver bead weighed. Coiners strike each blank by hand between a lower die set in a block and a hammered upper die; upper dies crack far sooner, so the engraver is never idle. Merchants pay the assay charge and the sovereign's share before receiving coin.
+The hearth runs near a thousand degrees under a bellows blast; the lead turns to litharge and soaks into the bone lining; what does not soak in runs off as a dark hearth slag. Litharge cake and slag are broken out of the spent hearth and carted away for resmelting. Every melt is fire-assayed before coining: a weighed sample is cupelled and the silver bead weighed. Coiners strike each blank by hand between a lower die set in a block and a hammered upper die; upper dies crack far sooner, so the engraver is never idle. Merchants pay the assay charge and the sovereign's share before receiving coin.
 - **Refining Hearth:** bone-ash lined and bellows-blown.
 - **Assay Room:** furnace, cupels and a fine balance.
 - **Striking Benches:** die blocks and counted blanks.
@@ -111,10 +112,11 @@ disposition: [4, 4, 3]
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Refines `Metal: Crude-Bullion` from the **Stamping Mill & Patio Amalgamation Floor (`IND-SILVER-02`)** on hearths fed with `Fuel: Charcoal-or-Coal` from the **Charcoal Burner's Mound (`IND-CHARCOAL-01`)** or the **Deep Colliery and Coking Ovens (`MINE-COAL-01`)**, lined with `Material: Bone-Ash` from the **Civic Abattoir (`IND-CATTLE-02`)**; strikes with dies of `Alloy: Crucible-Steel` from the **Crucible Steelworks and Foundry (`IND-STEEL-01`)** and blanks, punches and tongs of `Metal: Forged-Iron` from the **Blacksmith Forge (`IND-IRON-03`)**.
-* **Output Transmission:** Issues `Currency: Silver-Coinage`, an end product of the silver chain, to merchants, paymasters and the treasury.
+* **Output Transmission:** Issues `Currency: Silver-Coinage`, an end product of the silver chain, to merchants, paymasters and the treasury, and carts `Ore: Lead-Slag` (litharge cake and hearth slag) to the **Lead Smelting Bole & Plumbery (`IND-LEAD-01`)** for resmelting.
 * **Tactical Chokepoint:** The strongroom and the die chest. Steal a die and anyone can strike coin that passes as the sovereign's own.
 
 ## 6. Vague Game Hazards
 * **Hearth Fume:** Leaning over the refining hearth in the full blast leaves refiners choking and dizzy ($1\text{d}6$ damage per hour of close work).
 * **Molten Spill:** A cracked cupel or slipped crucible throws white-hot silver across the floor ($2\text{d}6$ fire damage).
+* **Litharge Dust:** Breaking out spent hearth lining and litharge cake raises a yellow-red lead dust that sickens the breakers over time ($1\text{d}4$ damage per day and a creeping colic).
 * **Treason Search:** Anyone caught with clippings, blanks or a die inside the mint court is seized on the spot and held for the hangman.

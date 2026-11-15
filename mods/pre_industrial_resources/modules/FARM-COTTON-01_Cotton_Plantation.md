@@ -20,11 +20,11 @@ node_prerequisites:
   platform: Timber Drying and Weighing Platform
 standalone_fallback: "If the coastal merchants stop sending ships, the crop sits in the sheds and rots in the damp; the estate sells at a third of the price to local ginners and the crews are put to food crops."
 injected_mechanics:
-  boll_weevil_infestation_dial:
+  boll_blight_dial:
     level_1: "Clean Fields - Dry weather and healthy plants; bolls open evenly and the crews pick at a steady pace."
     level_2: "Picking Season - Crews work the rows from dawn under the factor's quota; the platform scale never rests."
-    level_3: "Beetle Spread - Pests spread across the western acreage and punctured bolls drop; the quota stays the same and the pressure on crews rises."
-    level_4: "Failed Crop - Beetles ravage the fields before harvest and the estate cannot meet its contracts or feed the crews through the season."
+    level_3: "Boll Rot Spread - Grubs and damp rot spread across the western acreage and bolls blacken and drop; the quota stays the same and the pressure on crews rises."
+    level_4: "Failed Crop - Grubs and rot ravage the bolls before harvest and the estate cannot meet its contracts or feed the crews through the season."
   threat_clocks:
     quota_shortfall_clock: "Quota Shortfall Clock [6 Ticks] - Each day the crews miss the weighing minimum adds a tick; when full the merchants cancel the contract and the estate cuts rations and rest days."
     flight_clock: "Flight Clock [4 Ticks] - Each harsh quota day or broken promise adds a tick as workers slip away at night toward the hills or the coast; when full a third of the crews are gone and the factor calls out armed riders."
@@ -96,8 +96,8 @@ disposition: [2, 4, 2]
 - **Merchant Contract Ledger** (`Relic`): The factor's book of advances, quotas and penalties, which decides the crew's rations.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
-- **Dial - `Boll Weevil Infestation` (`0-10`)**: At `0-3`, plants flourish untouched in dry conditions. At `8-10`, parasitic beetles ravage fields, destroying staple bolls before harvest, and the estate squeezes the crews harder to meet its contracts.
-- **Quest Hook - *The Pestilence Spread***: Field Boss Kora Diallo warns Estate Factor Gideon Vance that an uncontained beetle swarm threatens the entire western acreage. Picker Abena Quartey says the crews will not burn the western rows without a promise on rations, and Merchant Agent Lucan Pryor arrives in four days to inspect the bolls.
+- **Dial - `Boll Blight Infestation` (`0-10`)**: At `0-3`, plants flourish untouched in dry conditions. At `8-10`, grubs and boll rot ravage the fields, destroying staple bolls before harvest, and the estate squeezes the crews harder to meet its contracts.
+- **Quest Hook - *The Pestilence Spread***: Field Boss Kora Diallo warns Estate Factor Gideon Vance that uncontained boll rot and grubs threaten the entire western acreage. Picker Abena Quartey says the crews will not burn the western rows without a promise on rations, and Merchant Agent Lucan Pryor arrives in four days to inspect the bolls.
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** None. This is a stage 1 extraction node and requires nothing from other modules.

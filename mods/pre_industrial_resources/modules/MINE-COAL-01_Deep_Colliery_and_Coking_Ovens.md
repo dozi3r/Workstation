@@ -23,7 +23,7 @@ standalone_fallback: "If coking ovens are destroyed, raw bituminous coal can be 
 injected_mechanics:
   coking_battery_dial:
     level_1: "Oven Ignition - Smoky yellow flames licking damper brick; coal desulfurizing."
-    level_2: "Steady Coking (2000 degrees F) - Blue hydrocarbon burn; incandescent silver-grey coke beds."
+    level_2: "Steady Coking (white heat) - Blue burn over the charge; incandescent silver-grey coke beds."
     level_3: "High-Heat Quench Phase - Water sprays billow superheated steam clouds."
     level_4: "Coking Bank Flashback - Coal dust atmosphere flashes into explosion; oven crown blows out."
   threat_clocks:
@@ -38,7 +38,7 @@ injected_mechanics:
 The colliery works tap rich carboniferous fossil beds deep beneath the ridges, baking bituminous coal in circular beehive batteries to drive high-temperature metallurgy. The pit consumes `Timber: Mine-Props` from the sawmills to hold its roofs up and yields `Fuel: Charcoal-or-Coal` for every furnace, forge and boiling house downstream.
 
 The pit is run for a landowner by a viewer, who sits mostly at the surface and answers for spending and for deaths, while an overman works the galleries below. Hewers cut the coal in rooms with pillars left standing to hold the roof (in deep pits less than half the seam can be taken), putters push the corves to the shaft, and trappers, often small children, sit in the dark opening and shutting the ventilation doors. Air is drawn through by a fire at the foot of the upcast shaft, steered by heavy damp sheets, and drainage is a constant fight. Coal leaves by waggonway to the staith, where it is loaded for river and road. The landowner leases the seam and the wayleaves, and his check-viewer watches the boundaries.
-* **Main Drift & Haulage Shaft:** Supported by massive square-hewn timber frames, carrying iron-tracked handcarts from the coal face to the pithead tipple.
+* **Main Drift & Haulage Shaft:** Supported by massive square-hewn timber frames, carrying timber-railed waggons and corves on sledges from the coal face to the pithead tipple.
 * **Beehive Coking Oven Battery:** Bank of hemispherical firebrick ovens with arched charge doors. Coal is heated with restricted air, driving off volatile sulfur and tar gases to leave porous, high-carbon coke.
 * **Pithead Screening & Quench Platform:** Raised timber trestle where glowing coke is raked out and quenched with torrents of ditch water, creating roaring plumes of white steam.
 
@@ -52,11 +52,11 @@ The pit is run for a landowner by a viewer, who sits mostly at the surface and a
 - name: "Colliery Master Vond"
   role: "Pithead Director & Air Inspector"
   disposition: "[1, 2, 4]"
-  motivation: "Detect deadly methane gas pockets with caged canaries and keep production moving."
+  motivation: "Keep a gas watcher posted with a candle-flame test at every gassy stall, and keep production moving anyway."
 - name: "Runa the Breaker"
   role: "Sorting Screen Foreman"
   disposition: "[3, 4, 4]"
-  motivation: "Keep child picking crews alert and prevent pyrite sulfur stones from contaminating metallurgical coke batches."
+  motivation: "Keep the screen hands alert and prevent pyrite sulfur stones from contaminating metallurgical coke batches."
 - name: "Garrick Tolliver"
   role: "Overman & Deputy of the Underground Workings"
   disposition: "[2, 2, 4]"
@@ -70,13 +70,13 @@ The pit is run for a landowner by a viewer, who sits mostly at the surface and a
 ```text
 name: Colliery Master Vond
 role: Pithead Director & Air Inspector
-motivation: Detect deadly methane gas pockets with caged canaries and keep production moving.
+motivation: Keep a gas watcher posted with a candle-flame test at every gassy stall, and keep production moving anyway.
 disposition: [1, 2, 4]
 ```
 ```text
 name: Runa the Breaker
 role: Sorting Screen Foreman
-motivation: Keep child picking crews alert and prevent pyrite sulfur stones from contaminating metallurgical coke batches.
+motivation: Keep the screen hands alert and prevent pyrite sulfur stones from contaminating metallurgical coke batches.
 disposition: [3, 4, 4]
 ```
 ```text

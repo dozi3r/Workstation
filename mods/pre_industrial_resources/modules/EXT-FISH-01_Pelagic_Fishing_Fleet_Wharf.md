@@ -37,7 +37,7 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-FISH` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-The pelagic fishing wharf serves as the bustling home port for deep-water trawlers and handline dories. Using heavy hemp-cordage rigging and timber-built fish-handling piers, local crews launch daily expeditions into coastal shoals. Returning vessels offload massive quantities of fresh-catch directly to waiting cleaning tables. The required inputs of Naval: Hemp-Cordage and Timber: Sawn-Lumber keep boats and nets sound, yielding Food: Fresh-Catch.
+The pelagic fishing wharf serves as the bustling home port for deep-water trawlers and handline skiffs and open boats. Using heavy hemp-cordage rigging and timber-built fish-handling piers, local crews launch daily expeditions into coastal shoals. Returning vessels offload massive quantities of fresh-catch directly to waiting cleaning tables. The required inputs of Naval: Hemp-Cordage and Timber: Sawn-Lumber keep boats and nets sound, yielding Food: Fresh-Catch.
 
 The working boats shoot long drift nets at dusk, hung from floats and weighted along the foot so the herring gill themselves in the mesh, and haul them through the night. The season opens only after midsummer, when the fish are fit to eat, and runs three or four voyages before autumn weather closes in. Big busses gib, salt and barrel at sea, while supply vessels ferry barrels, salt and coin out to the fleet and carry full casks home. Hemp nets rot unless they are tended, so the wharf never stops mending.
 - **Drift Nets:** floated and weighted hemp gillnets, hauled at night.
@@ -98,7 +98,7 @@ disposition: [4, 1, 2]
 
 ### Material Stocks & Items (Item Prototypes)
 - **Fresh-Catch** (`Food`): Silver-scaled pelagic fish hauled straight from coastal trawls, awaiting preservation.
-- **Dory Skiff** (`Tool`): Lightweight clinker-built wooden boat used for coastal netting and line fishing.
+- **Open Fishing Skiff** (`Tool`): Lightweight clinker-built open wooden boat, rowed or sailed, used for coastal netting and handlining.
 - **Hemp Drift Net** (`Tool`): Floated and weighted gillnet of tarred hemp, hung across the path of the shoal and hauled at night.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)

@@ -20,7 +20,7 @@ mtg_color: Green / Black
 node_prerequisites:
   geology: Oxidized Copper-Bearing Limestone with Pyrite Pockets
   drainage: Sump and Bucket Chain to the Adit Mouth
-  boiling_yard: Lead Pans Set Beside the Seep Channel
+  boiling_yard: Boiling Pans Set Beside the Seep Channel
 standalone_fallback: "If props or charcoal stop arriving, the drift is worked only at its shallowest faces and the fire-setting stops; ore output falls to a third and the vitriol pans go cold."
 injected_mechanics:
   tunnel_shoring_dial:
@@ -37,13 +37,13 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-COPPER` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Miners tunnel into colorful oxidized copper-bearing limestone strata along arid hillsides, shoring up unstable roofs with notched timber props and hauling green malachite ore up inclined shafts in rawhide skips. Pickaxes, wedges, and slow-burning charcoal fires are employed to fracture stubborn rock faces before sorting rich green veins from barren gangue. Where scattered copper-pyrite pockets break the limestone, the acid seep water is bailed into lead pans and boiled down until blue vitriol crystals form, scraped out as copper sulfate. The drift consumes `Timber: Mine-Props` and `Fuel: Charcoal-or-Coal` and yields `Ore: Copper-Ore` and `Chem: Copper-Sulfate`.
+Miners tunnel into colorful oxidized copper-bearing limestone strata along arid hillsides, shoring up unstable roofs with notched timber props and hauling green malachite ore up inclined shafts in rawhide skips. Pickaxes, wedges, and slow-burning charcoal fires are employed to fracture stubborn rock faces before sorting rich green veins from barren gangue. Where scattered copper-pyrite pockets break the limestone, the acid seep water is bailed into shallow boiling pans and boiled down until blue vitriol crystals form, scraped out as copper sulfate. The drift consumes `Timber: Mine-Props` and `Fuel: Charcoal-or-Coal` and yields `Ore: Copper-Ore` and `Chem: Copper-Sulfate`.
 
 Heat from fire-setting cracks the face, and miners follow with wedges and picks; the drift advances slowly, a metre or so a month. Miners work in groups as specialised craftsmen, and the best paid are the fire-setters and rock-breakers; newcomers begin by hauling broken ore in hand barrows. Ore is sorted underground, which leaves rich lumps open to theft, and the authority that owns the land claims its share. The workings are hot and smoky, and corrosive vitriol drips from the roof. Blue vitriol, a poisonous sweet-tasting crystal, collects where the oxidation zone is wet, and refiners value it as a reagent.
 - **Drift and Adit:** the main gallery and its side faces, following the green seam into the hill.
 - **Rawhide Skip Incline:** the sloped shaft where loaded skips are hauled to the sorting floor.
 - **Sump and Bucket Chain:** the low point where seep water is bailed out hand to hand.
-- **Vitriol Pans:** lead pans on the hillside where seep water is boiled to blue crystals.
+- **Vitriol Pans:** boiling pans on the hillside where seep water is boiled to blue crystals.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[4, 1, 3]` - **Resistant Survivalist** (`Clan`).

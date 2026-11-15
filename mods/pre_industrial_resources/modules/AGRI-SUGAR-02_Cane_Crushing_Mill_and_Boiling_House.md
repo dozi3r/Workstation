@@ -15,7 +15,7 @@ operational_profile: Produce / Design
 mtg_color: Red / Green
 node_prerequisites:
   power_source: Waterwheel, Steam Boiler or Draft Mule Gearing
-  thermal_feed: Constant Fuel Supply (Cordwood, Charcoal, or Bagasse)
+  thermal_feed: Constant Fuel Supply (Cordwood, Charcoal, or Dried Cane Trash)
   facility_tier: Heavy Workshop or Outpost Mill
 standalone_fallback: "If thermal fuel runs out, unboiled cane juice can be fermented directly into sour farm mash, producing zero refined loaves and cutting alcohol yield by 70%."
 

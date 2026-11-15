@@ -10,7 +10,6 @@ chain_stage: 2
 chain_role: "refining"
 provides:
   - "Metal: Crude-Bullion"
-  - "Ore: Lead-Slag"
 requires:
   - "Ore: Argentiferous-Galena"
   - "Commodity: Coarse-Salt"
@@ -41,7 +40,7 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-SILVER` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-Raw galena ore is crushed to fine powder by heavy iron-shod stamping hammers powered by waterwheels, then spread across a vast paved stone patio. Workers mix the crushed ore with mercury, copper sulfate, and coarse salt, driving mules in endless circles to trample the sludge and amalgamate the precious silver. The required inputs of Ore: Argentiferous-Galena, Commodity: Coarse-Salt, Chem: Copper-Sulfate, and Chem: Mercury, worked by Metal: Forged-Iron stamps and Livestock: Draft-Animals, undergo chemical amalgamation, yielding refined Metal: Crude-Bullion and waste Ore: Lead-Slag.
+Vein ore from the galena workings arrives in mixed lots. Lumps of clean lead glance are picked out by hand and sold to a lead smelter, since lead fouls quicksilver. The silver-rich sulfide and oxide fraction is crushed to fine powder by heavy iron-shod stamping hammers powered by waterwheels, then spread across a vast paved stone patio. Workers mix the flour with mercury, copper sulfate (the roasted-pyrite reagent) and coarse salt, driving mules in endless circles to trample the sludge and amalgamate the silver. The required inputs of Ore: Argentiferous-Galena, Commodity: Coarse-Salt, Chem: Copper-Sulfate, and Chem: Mercury, worked by Metal: Forged-Iron stamps and Livestock: Draft-Animals, undergo chemical amalgamation, yielding Metal: Crude-Bullion; the washed tailings are dumped in settling pits and leave no smelter slag.
 
 The ground ore (the "flour") is heaped a ton or more at a time, dosed, spread a foot or two thick and left in the sun six to eight weeks. The quicksilver man judges each heap's salt and reagent, how long to tread it and when to stop. Ripe heaps are washed and the amalgam heated under a hood, so the quicksilver condenses for reuse. The sovereign sets the quicksilver price, so the patio works only as fast as the flasks arrive.
 - **Stamp Battery:** iron-shod stamps on a water-driven shaft.
@@ -102,7 +101,7 @@ disposition: [1, 3, 3]
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Crushes `Ore: Argentiferous-Galena` from the **Galena Deep-Vein Mine (`MINE-SILVER-01`)**; doses each heap with `Commodity: Coarse-Salt` from the **Salt Boiling House & Granary (`IND-SALT-02`)**, `Chem: Copper-Sulfate` from the **Malachite Drift Mine (`MINE-COPPER-01`)** and sealed flasks of `Chem: Mercury` from the **Cinnabar Mine and Retort Furnaces (`MINE-MERCURY-01`)**; shoes its stamps with `Metal: Forged-Iron` from the **Blacksmith Forge (`IND-IRON-03`)**; and treads the heaps with `Livestock: Draft-Animals` from the **Pasture Ranch (`FARM-CATTLE-01`)**.
-* **Output Transmission:** Sends `Metal: Crude-Bullion` under guard to the **Cupellation Hearth & Sovereign Mint (`IND-SILVER-03`)**, and carts the heavy `Ore: Lead-Slag` residue to the **Lead Smelting Bole & Plumbery (`IND-LEAD-01`)**.
+* **Output Transmission:** Sends `Metal: Crude-Bullion` under guard to the **Cupellation Hearth & Sovereign Mint (`IND-SILVER-03`)**, and leaves its washed tailings in the settling pits. The lead-bearing slag of the chain comes from the hearth, not the patio.
 * **Tactical Chokepoint:** The quicksilver. Whoever controls the flask road decides whether the patio works at all.
 
 ## 6. Vague Game Hazards

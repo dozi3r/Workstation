@@ -36,9 +36,9 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-LEAD` (Stage 1: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-Open-air stone boles built on windy hillside ledges harness natural drafts to smelt lead-rich slag and secondary ores without complex bellows. Workers feed alternating layers of slag and charcoal into the hearth, tapping molten lead into sand molds to form heavy ingots or hammering sheets for roofing and plumbing. The required inputs of Ore: Lead-Slag and Fuel: Charcoal-or-Coal are thermally reduced into malleable Metal: Smelted-Lead.
+Open-air stone boles built on windy hillside ledges harness natural drafts to resmelt lead-rich litharge and hearth slag from the mint without complex bellows. Workers feed alternating layers of slag and charcoal into the hearth, tapping molten lead into sand molds to form heavy ingots or hammering sheets for roofing and plumbing. The required inputs of Ore: Lead-Slag and Fuel: Charcoal-or-Coal are thermally reduced into malleable Metal: Smelted-Lead.
 
-Boles stood on exposed hilltops with three walls and a gap facing the wind; later works fitted waterwheel bellows. The slag heaps are crushed, washed in a pond and resmelted in a small enclosed hearth for the lead they still hold.
+Boles stood on exposed hilltops with three walls and a gap facing the wind; later works fitted waterwheel bellows. Litharge cake and slag heaps are crushed, washed in a pond and resmelted in a small enclosed hearth for the lead they still hold.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 1, 3]` — **Craft Guild** (`Hierarchy`).
@@ -54,7 +54,7 @@ Boles stood on exposed hilltops with three walls and a gap facing the wind; late
 - name: "Slag Tender Brin"
   role: "Hearth Feeder"
   disposition: "[4, 1, 2]"
-  motivation: "Earn enough coin to buy milk and remedies to stave off chronic lead colic."
+  motivation: "Earn enough coin to buy purges and remedies to stave off chronic lead colic."
 - name: "Bole-Master Corin Ashby"
   role: "Hillside Smelter Who Reads the Wind"
   disposition: "[2, 2, 4]"
@@ -74,7 +74,7 @@ disposition: [2, 1, 3]
 ```text
 name: Slag Tender Brin
 role: Hearth Feeder
-motivation: Earn enough coin to buy milk and remedies to stave off chronic lead colic.
+motivation: Earn enough coin to buy purges and remedies to stave off chronic lead colic.
 disposition: [4, 1, 2]
 ```
 ```text
@@ -99,10 +99,10 @@ disposition: [4, 3, 2]
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Draft Wind Velocity` (`0–10`)**: At `0–3`, dead air starves the fire, leaving ores half-reduced. At `8–10`, gale-force winds overheat the bole and vaporize valuable metal.
-- **Quest Hook — *The Colic Outbreak***: Severe lead poisoning incapacitates half the smelting crew, threatening to halt cathedral lead deliveries unless Master Alistair imports fresh milk and mitigants. Slag Tender Brin is among the sick, Bole-Master Corin Ashby wants the crew back at the hearth before the next good wind, and the cathedral's roofing contract lapses at the month's end.
+- **Quest Hook — *The Colic Outbreak***: Severe lead poisoning incapacitates half the smelting crew, threatening to halt cathedral lead deliveries unless Master Alistair pays for a physician and purges. Slag Tender Brin is among the sick, Bole-Master Corin Ashby wants the crew back at the hearth before the next good wind, and the cathedral's roofing contract lapses at the month's end.
 
 ## 5. GM Socket Placement & Supply Synergy
-* **Input Dependency:** Smelts and resmelts `Ore: Lead-Slag`, the lead-rich residue and slag carted in from the **Stamping Mill & Patio Amalgamation Floor (`IND-SILVER-02`)**, and fires its hearth with `Fuel: Charcoal-or-Coal` from the **Charcoal Burner's Mound (`IND-CHARCOAL-01`)** or the **Deep Colliery and Coking Ovens (`MINE-COAL-01`)**.
+* **Input Dependency:** Smelts and resmelts `Ore: Lead-Slag`, the lead-rich litharge cake and hearth slag carted in from the **Cupellation Hearth & Sovereign Mint (`IND-SILVER-03`)**, and fires its hearth with `Fuel: Charcoal-or-Coal` from the **Charcoal Burner's Mound (`IND-CHARCOAL-01`)** or the **Deep Colliery and Coking Ovens (`MINE-COAL-01`)**.
 * **Output Transmission:** Casts `Metal: Smelted-Lead` as pigs for the **Movable-Type Printshop & Bindery (`IND-PAPER-03`)**, where it is alloyed for type; sheet and pipe for roofs and conduits leave the plumbery to local customers.
 * **Tactical Chokepoint:** The wind. A calm spell halts the bole, and a gale wastes the charge and poisons the hill.
 
