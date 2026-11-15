@@ -47,3 +47,6 @@ worktrees/
 
 # Copyrighted source books (local reference only)
 Sources/
+
+# Local infographic workspace (untracked, excluded from wiki index)
+infographic/

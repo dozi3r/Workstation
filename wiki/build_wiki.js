@@ -309,6 +309,7 @@ function shouldTrackFile(relPath) {
   if (norm.startsWith('.scratch/') || norm.startsWith('.archive/')) return false;
   if (norm.startsWith('.tmp') || norm.includes('/.tmp')) return false;
   if (norm.startsWith('Creator_Studio_Standalone/')) return false;
+  if (norm === 'infographic' || norm.startsWith('infographic/')) return false;
   return true;
 }
 
@@ -326,7 +327,8 @@ function walkWorkspace(dir, list = []) {
         rel === 'tickets' || rel.startsWith('tickets/') ||
         rel === '.scratch' || rel.startsWith('.scratch/') ||
         rel.startsWith('.tmp') ||
-        rel === 'Creator_Studio_Standalone' || rel.startsWith('Creator_Studio_Standalone/')
+        rel === 'Creator_Studio_Standalone' || rel.startsWith('Creator_Studio_Standalone/') ||
+        rel === 'infographic' || rel.startsWith('infographic/')
       ) {
         continue;
       }
