@@ -8143,6 +8143,8 @@ function testSuite47IndustryChainImporterAndDeduplication() {
   global.Workstation = global.Workstation || {};
   Workstation.disabledMods = { pre_industrial_resources: true };
   const disabledChains = IndustryChainImporter.getAvailableIndustryChains();
+  // MINE-IRON-02 also needs limestone flux since the mod audit (Stone: Cut-Limestone from EXT-LIME-01), so seed it like the fuel.
+  n2Store.stockpile['Stone: Cut-Limestone'] = { qty: 10, cap: 50 };
   assert(!disabledChains['CHAIN-SUGAR'], 'Disabled mod causes pre_industrial_resources modules to be excluded');
   Workstation.disabledMods = {};
   const restoredChains = IndustryChainImporter.getAvailableIndustryChains();
