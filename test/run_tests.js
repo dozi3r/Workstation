@@ -8749,11 +8749,41 @@ async function testSuite52ResourcePartitionAndBestiaryPersistence() {
   assert(!sb.isResourceItem(sword), 'Moonblade is not classified as a resource');
   assert(!sb.isResourceItem(potion), 'Healing Salve is not classified as a resource');
   assert(!sb.isResourceItem(gristmill), 'Infrastructural Machinery is not classified as a resource');
+  assert(sb.isIndustryItem(gristmill), 'Infrastructural Machinery is an industry');
+  assert(!sb.isIndustryItem({ ...gristmill, isLoot: true }), 'Loot override excludes machinery');
+  assert(!sb.isIndustryItem({ ...gristmill, isIndustry: false }), 'Explicit opt-out excludes machinery');
+  assert(!sb.isIndustryItem({ ...gristmill, isResource: true }), 'Resource classification takes precedence over machinery');
   assert(sb.isResourceItem(ore), 'Resource Export / Supply Anchor is classified as a resource');
   assert(sb.isResourceItem(grain), 'isResource: true flag is classified as a resource');
   assert(sb.isResourceItem(timber), 'Commodity: prefix is classified as a resource');
   assert(sb.isResourceItem(fuel), 'Resource: prefix is classified as a resource');
   assert(sb.isResourceItem(flax), 'tags: ["resource"] is classified as a resource');
+
+  // Module metadata and supply links must use the same normalized tags as the explorer.
+  const moduleTools = require(path.join(ROOT_DIR, 'build_suite.js'));
+  const moduleDirs = ['mods/tier_0_settlement_substratum/modules', 'mods/pre_industrial_resources/modules', 'campaigns/Peridot/modules'];
+  const parsedModules = moduleDirs.flatMap(dir => moduleTools.scanModulesDirRecursive(path.join(ROOT_DIR, dir), ROOT_DIR));
+  for (const id of ['T0-DOM-02', 'AGRI-SUGAR-02', 'INFRA-01']) {
+    const mod = parsedModules.find(m => m.id === id);
+    assert(!!mod, `${id} module metadata found`);
+    assert(!!(mod && mod.mechanical_architecture && mod.yields && mod.dials.length && mod.threat_clocks.length), `${id} contains lore, yields, dials and clocks`);
+    // Supply modules to the runtime rather than relying on compiled campaign output.
+    sb.ALL_MODULES = parsedModules;
+    const hydrated = sb.resolveRichEntityMetadata({ moduleId: id, entityKind:'industry', notes:'Primary technological, infrastructural, or tactical anchor established by legacy module.' }, 'industry');
+    assert(!!hydrated.notes && !sb.isLegacyBoilerplateNote(hydrated.notes), `${id} replaces boilerplate with module lore`);
+  }
+  assertEqual(sb.normalizeResourceTagKey('Water: Baseline-Potable Flow'), sb.normalizeResourceTagKey('water: baseline potable-flow'), 'Resource tags normalize hyphen and space variants');
+  const linkTopo = { items: [
+    {id:'producer', entityKind:'industry', provides:['Water: Fresh-Water']},
+    {id:'commodity', entityKind:'resource', name:'Water: Fresh Water'},
+    {id:'consumer', entityKind:'industry', requires:['Water: Fresh Water']}
+  ], nodes:{}, edgeData:{road:{modData:{pre_industrial_resources:{inTransit:[{resource:'Water: Fresh-Water'}]}}}} };
+  const links = sb.buildIndustryResourceIndex(linkTopo);
+  assert(links.lookupResourceMatches('Water: Fresh-Water').active.some(x => x.entity.id === 'commodity'), 'Producer tag resolves to commodity');
+  const consumers = links.findIndustryLinksForTag('Water: Fresh Water');
+  assert(consumers.producers.some(x => x.entity.id === 'producer') && consumers.consumers.some(x => x.entity.id === 'consumer') && consumers.caravans.length === 1, 'Commodity resolves producer, consumer and in-transit caravan');
+  const peridot = JSON.parse(fs.readFileSync(path.join(ROOT_DIR, 'campaigns/Peridot/campaign.json'), 'utf8'));
+  assert(new Set(peridot.items.filter(sb.isResourceItem).map(x => sb.parseResourceTagMeta(x.name).sector)).size > 1, 'Peridot resources contain distinct parsed commodity sectors');
 
   // 2. getCreatureEffectiveNodeId tests
   const cUnassigned = { id: 'c1', name: 'Demon' };
@@ -8779,22 +8809,26 @@ async function testSuite52ResourcePartitionAndBestiaryPersistence() {
 
   // Verify getBackingEntityList returns the raw mutable array
   assert(sb.getBackingEntityList('item') === testWorld.items, 'getBackingEntityList("item") returns the exact backing items array');
+  assert(sb.getBackingEntityList('industry') === testWorld.items, 'getBackingEntityList("industry") returns the exact backing items array');
   assert(sb.getBackingEntityList('resource') === testWorld.items, 'getBackingEntityList("resource") returns the exact backing items array');
   assert(sb.getBackingEntityList('creature') === testWorld.creatures, 'getBackingEntityList("creature") returns the exact backing creatures array');
 
   // Verify getActiveEntityList partitions items vs resources
   const activeItems = sb.getActiveEntityList('item');
   const activeResources = sb.getActiveEntityList('resource');
+  const activeIndustries = sb.getActiveEntityList('industry');
   const activeCreatures = sb.getActiveEntityList('creature');
 
-  assertEqual(activeItems.map(i => i.id), ['it_sword', 'it_pot', 'it_mill'], 'getActiveEntityList("item") returns only non-resource items (including Machinery)');
+  assertEqual(activeItems.map(i => i.id), ['it_sword', 'it_pot'], 'getActiveEntityList("item") excludes machinery');
+  assertEqual(activeIndustries.map(i => i.id), ['it_mill'], 'getActiveEntityList("industry") contains machinery');
+  assertEqual(activeItems.length + activeIndustries.length + activeResources.length, testWorld.items.length, 'Synthetic three-way partition accounts for all backing records');
   assertEqual(activeResources.map(i => i.id), ['res_ore', 'res_grain', 'res_timber'], 'getActiveEntityList("resource") returns only resource/commodity items');
   assertEqual(activeCreatures.map(c => c.id), ['c1', 'c2', 'c3'], 'getActiveEntityList("creature") returns creatures array');
 
   // Verify mutating backing list via getBackingEntityList('resource').push updates backing items and partition
   sb.getBackingEntityList('resource').push(fuel);
   assertEqual(sb.getActiveEntityList('resource').map(i => i.id), ['res_ore', 'res_grain', 'res_timber', 'res_coal'], 'pushing to getBackingEntityList("resource") updates the active resource view');
-  assertEqual(sb.getActiveEntityList('item').map(i => i.id), ['it_sword', 'it_pot', 'it_mill'], 'pushing resource does not leak into active items view');
+  assertEqual(sb.getActiveEntityList('item').map(i => i.id), ['it_sword', 'it_pot'], 'pushing resource does not leak into active items view');
 
   // 4. Diablo1 Campaign Hydration & Zero-CORS Evidence
   const diabloTopoPath = path.join(ROOT_DIR, 'campaigns', 'DIablo', 'topology.json');
@@ -8838,8 +8872,35 @@ async function testSuite52ResourcePartitionAndBestiaryPersistence() {
     const bgResources = sb.getActiveEntityList('resource');
     assert(bgItems.length > 0, `BaldursGate active items loaded (${bgItems.length} items)`);
     assert(bgResources.length > 0, `BaldursGate active resources loaded (${bgResources.length} resources)`);
-    assertEqual(bgItems.length + bgResources.length, bgTopo.items.length, 'Sum of BaldursGate items + resources equals total backing items count');
+    assertEqual(bgItems.length + sb.getActiveEntityList('industry').length + bgResources.length, bgTopo.items.length, 'BaldursGate three-way partition equals backing items count');
   }
+  for (const campaign of ['Peridot', 'BaldursGate', 'TheElderScrolls_Oblivion', 'DungeonCrawlerCarl_Book1']) {
+    const file = path.join(ROOT_DIR, 'campaigns', campaign, 'topology.json');
+    assert(fs.existsSync(file), `${campaign} topology exists for partition verification`);
+    const topology = JSON.parse(fs.readFileSync(file, 'utf8'));
+    sb.Workstation.activeTopology = topology;
+    const partitions = ['item', 'industry', 'resource'].map(type => sb.getActiveEntityList(type));
+    assertEqual(partitions.reduce((sum, list) => sum + list.length, 0), (topology.items || []).length, `${campaign} three-way partition covers backing items`);
+  }
+
+  // 6. Legacy topo.industries normalization via ensureEntityCollections
+  const legacyIndustriesTopo = {
+    nodes: {},
+    items: [{ id: 'it_existing', name: 'Iron Key', category: 'Key' }],
+    industries: [
+      { id: 'ind_legacy_1', name: 'Steam Stamp Mill' },
+      { id: 'it_existing', name: 'Iron Key' }
+    ]
+  };
+  sb.ensureEntityCollections(legacyIndustriesTopo);
+  assert(legacyIndustriesTopo.industries === undefined, 'Legacy topo.industries array is removed after ensureEntityCollections');
+  sb.Workstation.activeTopology = legacyIndustriesTopo;
+  const normItems = sb.getActiveEntityList('item');
+  const normIndustries = sb.getActiveEntityList('industry');
+  const normResources = sb.getActiveEntityList('resource');
+  assert(normIndustries.some(x => x.id === 'ind_legacy_1' && x.isIndustry === true && x.entityKind === 'industry'), 'Legacy topo.industries record is normalized into industry partition');
+  assertEqual(legacyIndustriesTopo.items.filter(x => x.id === 'it_existing').length, 1, 'Normalization deduplicates colliding IDs across items and legacy industries');
+  assertEqual(normItems.length + normIndustries.length + normResources.length, legacyIndustriesTopo.items.length, 'Three-way partition holds after legacy topo.industries normalization');
 }
 
 async function testSuite53ResourceExplorerUiAndMultiMapAggregation() {
@@ -9990,6 +10051,14 @@ function testSuite58MultiExplorerEnrichment() {
   sb.renderEntityExplorerProperties(resTbody, 'resource', 'res_1', mockTopo);
   assert(resTbody.children.length > 4, 'Resource properties rendered in property grid');
 
+  const backedTopo = { ...mockTopo, items: [...mockTopo.items, {id:'industry_1', name:'Mill', category:'Infrastructural Machinery'}, {id:'commodity_1', name:'Water: Fresh Water', isResource:true}] };
+  const indTbody = getMockEl('tbody-industry-backing');
+  sb.renderEntityExplorerProperties(indTbody, 'industry', 'industry_1', backedTopo);
+  assert(indTbody.children.length > 1 && !indTbody.children.some(row => String(row.innerHTML).includes('not found')), 'Industry properties resolve backing items');
+  const backedResource = getMockEl('tbody-resource-backing');
+  sb.renderEntityExplorerProperties(backedResource, 'resource', 'commodity_1', backedTopo);
+  assert(backedResource.children.length > 1 && !backedResource.children.some(row => String(row.innerHTML).includes('not found')), 'Resource properties resolve backing items');
+
   // 3c: Item status & value in property grid
   const itmTbody = getMockEl('tbody-item-pg');
   sb.renderEntityExplorerProperties(itmTbody, 'item', 'item_1', mockTopo);
@@ -10624,6 +10693,133 @@ async function testSuite62PortablePackageOrchestrationAndAdapters() {
 
 // RUN ASYNC SUITES AND REPORT
 // ============================================================================
+function testStage4ExplorerFacetsAndSorting() {
+  const source = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_manager_ui.js'), 'utf8');
+  const slice = (start, end) => source.slice(source.indexOf(start), source.indexOf(end, source.indexOf(start)));
+  const elements = {};
+  for (const id of ['em-filter-node','em-filter-category','em-filter-status','em-filter-summary']) elements[id] = {value:'', innerHTML:'', textContent:''};
+  const sb = { window:{}, document:{getElementById:id => elements[id], createTextNode:text => text}, CurrentEntityTab:'item', SelectedEntityFilter:'all',
+    Workstation:{activeTopology:{npcs:[],quests:[],items:[],trackers:[],creatures:[]}}, getNodesForMapScope:() => [{id:2,name:'Node 2'},{id:10,name:'Node 10'}],
+    getAllKnownNodesMap:() => ({'2':{modData:{pre_industrial_resources:{backpressureHalt:true}}}}),
+    getEntityEffectiveNodeId:r=>r.nodeId, getItemEffectiveNodeId:r=>r.nodeId, formatNodeRef:id=>`Node ${id}`, 
+    parseResourceTagMeta:s=>({sector:s.split(':')[0]}), renderEntityManagerList:()=>{}, renderEntityManagerTree:()=>{} };
+  sb.window = sb; vm.createContext(sb);
+  vm.runInContext(slice('    function escapeHtml(str)', '    window.escapeHtml = escapeHtml;') + slice('    const EntityColumnSortState = {}', "    let CurrentEntitySort = 'default';"), sb);
+  for (const tab of ['npc','item','industry','resource','node','edge']) {
+    sb.CurrentEntityTab = tab;
+    const headers = Array.from({length:10}, () => ({dataset:{}, classList:{add(){},remove(){}}, setAttribute(){},removeAttribute(){},appendChild(){},textContent:''}));
+    const head = {querySelectorAll:()=>headers};
+    const rows = tab === 'node' ? [{id:10},{id:2}] : tab === 'edge' ? [{edgeKey:'Node 10'},{edgeKey:'Node 2'}] : [{name:'Node 10'},{name:'Node 2'}];
+    sb.installEntityColumnSorting(head, rows, tab, false); headers[0].onclick({detail:1}); sb.installEntityColumnSorting(head, rows, tab, false);
+    assert(String(rows[0].id || rows[0].edgeKey || rows[0].name).includes('2'), `${tab} header sorts naturally ascending synchronously`);
+    headers[0].onclick({detail:1}); sb.installEntityColumnSorting(head, rows, tab, false);
+    assert(String(rows[0].id || rows[0].edgeKey || rows[0].name).includes('10'), `${tab} header toggles descending`);
+    headers[0].onclick({detail:2}); headers[0].ondblclick();
+    assert(!vm.runInContext(`EntityColumnSortState['${tab}']`, sb), `${tab} double-click resets sort`);
+  }
+  sb.CurrentEntityTab = 'resource';
+  vm.runInContext("entityExplorerAxes().node='2'; entityExplorerAxes().category='Water'; entityExplorerAxes().status='halted'", sb);
+  const searched = [{name:'Water: river',nodeId:2},{name:'Water: river',nodeId:10},{name:'Food: grain',nodeId:2}].filter(r=>r.name.includes('river'));
+  assertEqual(sb.prepareEntityExplorer(searched,'resource',3).length, 1, 'Node, sector, status and search intersect');
+  sb.CurrentEntityTab = 'npc'; assertEqual(vm.runInContext('entityExplorerAxes().category', sb), '', 'Category does not leak to another tab');
+
+  // Full "Load Source Module" filter-reset, target-node binding, selection & z-index stacking test
+  const modExpSrc = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/module_explorer.js'), 'utf8');
+  const entCoreSrc = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/entity_core.js'), 'utf8');
+  const wsStateSrc = fs.readFileSync(path.join(ROOT_DIR, 'src/workstation/scripts/workstation_state.js'), 'utf8');
+  const modBuild = require(path.join(ROOT_DIR, 'build_suite.js'));
+  const t0Mod = modBuild.scanModulesDirRecursive(path.join(ROOT_DIR, 'mods/tier_0_settlement_substratum/modules'), ROOT_DIR).find(m => m.id === 'T0-DOM-02');
+  const sugarMod = modBuild.scanModulesDirRecursive(path.join(ROOT_DIR, 'mods/pre_industrial_resources/modules'), ROOT_DIR).find(m => m.id === 'AGRI-SUGAR-02');
+  assert(Boolean(t0Mod && sugarMod), 'T0-DOM-02 and AGRI-SUGAR-02 modules loaded for Load Source Module test');
+  [t0Mod, sugarMod].forEach(m => {
+    const raw = fs.readFileSync(path.join(ROOT_DIR, m.path.replace(/^\.\//, '')), 'utf8');
+    const ex = modBuild.enrichModuleEntities(m, raw);
+    m.extracted_items = ex.items;
+    m.extracted_quests = ex.quests;
+  });
+  modBuild.applyResourceConsumerIndex([t0Mod, sugarMod]);
+
+  const modEls = {};
+  const getModEl = (id, tag = 'DIV') => {
+    if (!modEls[id]) {
+      const el = {
+        id, tagName: String(tag).toUpperCase(), value: '', _innerHTML: '', _textContent: '', children: [], style: {},
+        disabled: false, href: '', focus: () => {}, scrollIntoView: () => {},
+        classList: { _s: new Set(), add(...c){ c.forEach(x=>this._s.add(x)); }, remove(...c){ c.forEach(x=>this._s.delete(x)); }, contains(x){ return this._s.has(x); } },
+        appendChild(ch) { if (ch && ch.id) modEls[ch.id] = ch; this.children.push(ch); return ch; },
+        get innerHTML() { return this._innerHTML; },
+        set innerHTML(v) { this._innerHTML = String(v == null ? '' : v); this.children = []; },
+        get textContent() { return this.children.length ? this.children.map(c => c.textContent).join('') : this._textContent; },
+        set textContent(v) { this._textContent = String(v == null ? '' : v); this.children = []; }
+      };
+      modEls[id] = el;
+    }
+    return modEls[id];
+  };
+  ['modal-entity-manager', 'modal-module-explorer', 'me-filter-scope', 'me-filter-campaign', 'me-filter-tier', 'me-filter-culture', 'me-search-input', 'me-target-node', 'me-table-body', 'me-detail-title'].forEach(id => getModEl(id));
+  modEls['modal-entity-manager'].style.zIndex = '50';
+  modEls['modal-module-explorer'].style.zIndex = '10';
+  modEls['me-filter-scope'].value = 'outside_campaign';
+  modEls['me-filter-campaign'].value = 'other_camp';
+  modEls['me-filter-tier'].value = '5';
+  modEls['me-filter-culture'].value = 'Market';
+  modEls['me-search-input'].value = 'nonexistent_filter_string';
+
+  const loadSb = {
+    console, Math, Date, Array, Object, String, Number, RegExp, Set, Map, JSON,
+    localStorage: { _s: {}, getItem(k) { return this._s[k] || null; }, setItem(k, v) { this._s[k] = String(v); }, removeItem(k) { delete this._s[k]; } },
+    addEventListener: () => {}, removeEventListener: () => {},
+    window: {}, ALL_MODULES: [t0Mod, sugarMod], MODULE_ENTITY_PROTOTYPES: {},
+    activeCampaignId: 'peridot',
+    Workstation: { activeTopology: { id: 'peridot', campaign_modules: ['T0-DOM-02'], nodes: { 6: { id: 6, name: 'Waterfall', modules: ['T0-DOM-02'] }, node_alpha: { id: 'node_alpha', name: 'Relay', modules: [] } }, items: [], npcs: [], quests: [], trackers: [], factions: [], creatures: [] } },
+    document: {
+      getElementById: (id) => getModEl(id),
+      createElement: (tag) => getModEl('', tag),
+      createTextNode: (t) => String(t || ''),
+      querySelectorAll: (sel) => sel === '#me-table-body tr' ? modEls['me-table-body'].children : [],
+      querySelector: () => null,
+      addEventListener: () => {},
+      removeEventListener: () => {}
+    },
+    MDIWindowManager: { highestZIndex: 50, open(id) { this.highestZIndex += 1; getModEl(id).style.zIndex = String(id === 'modal-module-explorer' ? 20 : this.highestZIndex); } },
+    closeAllMenus: () => {}, setStatusBarMessage: () => {}, renderMarkdownText: (s) => String(s || ''),
+    renderCanvas: () => {}, updatePropertiesGrid: () => {}, saveActiveCampaign: () => {}, promptEntityDelete: () => {},
+    getAllKnownNodesMap: () => loadSb.Workstation.activeTopology.nodes,
+    getNodesForMapScope: () => Object.values(loadSb.Workstation.activeTopology.nodes),
+    getActiveCampaignModuleSet: () => new Set(['T0-DOM-02']),
+    isModuleSlottedInActiveGraph: (id) => id === 'T0-DOM-02',
+    isModuleEnabledInWorkstation: () => true,
+    syncCustomModulesToCatalog: () => {},
+    openCreateModuleModal: () => {},
+    renderEntityManagerList: () => {}, renderEntityManagerTree: () => {}, initWorkspaceSplitters: () => {}
+  };
+  loadSb.window = loadSb;
+  vm.createContext(loadSb);
+  vm.runInContext(wsStateSrc, loadSb);
+  vm.runInContext(entCoreSrc, loadSb);
+  vm.runInContext(source, loadSb);
+  vm.runInContext(modExpSrc, loadSb);
+
+  loadSb.openSourceModuleFromInspector('T0-DOM-02', 6);
+  assertEqual(modEls['me-filter-scope'].value, 'all', 'Load Source Module resets conflicting scope filter');
+  assertEqual(modEls['me-filter-campaign'].value, 'all', 'Load Source Module resets conflicting campaign filter');
+  assertEqual(modEls['me-filter-tier'].value, 'all', 'Load Source Module resets conflicting tier filter');
+  assertEqual(modEls['me-filter-culture'].value, 'all', 'Load Source Module resets conflicting culture filter');
+  assertEqual(modEls['me-search-input'].value, '', 'Load Source Module resets conflicting search filter');
+  assert(modEls['me-detail-title'].textContent.startsWith('T0-DOM-02:'), 'Load Source Module selects and renders T0-DOM-02 detail header');
+  assert(Boolean(modEls['me-row-T0-DOM-02'] && modEls['me-row-T0-DOM-02'].classList.contains('selected')), 'Load Source Module highlights T0-DOM-02 row in #me-table-body');
+  assertEqual(modEls['me-target-node'].value, '6', 'Load Source Module selects numeric target node');
+  assert(parseInt(modEls['modal-module-explorer'].style.zIndex, 10) > parseInt(modEls['modal-entity-manager'].style.zIndex, 10), 'Load Source Module raises Module Explorer above Entity Manager');
+
+  loadSb.openSourceModuleFromInspector('T0-DOM-02', 'node_alpha');
+  assertEqual(modEls['me-target-node'].value, 'node_alpha', 'Load Source Module preserves string node ID without NaN coercion');
+
+  const peridotClean = JSON.parse(fs.readFileSync(path.join(ROOT_DIR, 'campaigns/Peridot/campaign.json'), 'utf8'));
+  const hydratedWellRes = peridotClean.items.find(i => i.moduleId === 'T0-DOM-02' && loadSb.isResourceItem(i));
+  const richHydrated = loadSb.resolveRichEntityMetadata(hydratedWellRes, 'resource');
+  assertEqual(richHydrated.customNotes, '', 'Stage-4 hydrated module notes do not masquerade as custom GM notes');
+}
+
 (async function runAll() {
   try {
     await testZeroCorsZip();
@@ -10678,6 +10874,7 @@ async function testSuite62PortablePackageOrchestrationAndAdapters() {
     testSuite50EntityReferenceIntegrity();
     testSuite51ImporterChainSelectionAndConduitMerge();
     await testSuite52ResourcePartitionAndBestiaryPersistence();
+    testStage4ExplorerFacetsAndSorting();
     await testSuite53ResourceExplorerUiAndMultiMapAggregation();
     await testSuite54BestiaryExplorerAndFftIntegration();
     await testSuite55CreatureCrudAndCascadeDelete();

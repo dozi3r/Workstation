@@ -1071,6 +1071,20 @@
         }
       });
       if (!topo.items) topo.items = [];
+      if (Array.isArray(topo.industries)) {
+        topo.industries.forEach(ind => {
+          if (!ind || typeof ind !== 'object') return;
+          const tagged = { ...ind, isIndustry: true, entityKind: 'industry' };
+          if (tagged.id && topo.items.some(it => it && String(it.id) === String(tagged.id))) {
+            const ex = topo.items.find(it => it && String(it.id) === String(tagged.id));
+            if (ex && ex.isIndustry === undefined) ex.isIndustry = true;
+            if (ex && !ex.entityKind) ex.entityKind = 'industry';
+          } else {
+            topo.items.push(tagged);
+          }
+        });
+        delete topo.industries;
+      }
       if (!topo.creatures) topo.creatures = [];
       if (!topo.creatureEvidence || typeof topo.creatureEvidence !== 'object') topo.creatureEvidence = {};
       if (!topo.trackers) topo.trackers = [];

@@ -358,17 +358,19 @@
           npcs: [],
           quests: [],
           items: [],
+          industries: [],
           resources: [],
           creatures: [],
           trackers: [],
           submaps: []
         },
-        submaps: [], // Array of { mapId, mapName, scaleTier, path: [...], nodes: [...], npcs: [...], quests: [...], items: [...], resources: [...], creatures: [...], trackers: [...] }
+        submaps: [], // Array of { mapId, mapName, scaleTier, path: [...], nodes: [...], npcs: [...], quests: [...], items: [...], industries: [...], resources: [...], creatures: [...], trackers: [...] }
         allNodes: [{ mapId: targetMapId, nodeId: nodeId }],
         totals: {
           npcs: 0,
           quests: 0,
           items: 0,
+          industries: 0,
           resources: 0,
           creatures: 0,
           trackers: 0,
@@ -387,6 +389,9 @@
       const isRes = (typeof isResourceItem === 'function')
         ? isResourceItem
         : (i => i && (i.isResource || i.category === 'Resource Export / Supply Anchor' || /^(Resource|Commodity)\s*:/i.test(i.category || '')));
+      const isInd = (typeof isIndustryItem === 'function')
+        ? isIndustryItem
+        : (i => i && !isRes(i) && (i.isIndustry === true || i.entityKind === 'industry' || i.category === 'Infrastructural Machinery'));
       const getCreatureNode = (typeof getCreatureEffectiveNodeId === 'function')
         ? getCreatureEffectiveNodeId
         : (c => (c && c.stationing && c.stationing.nodeId != null) ? c.stationing.nodeId : (c && c.nodeId != null ? c.nodeId : null));
@@ -400,7 +405,8 @@
         const effNode = getItemEffectiveNodeId(e);
         return effNode != null && String(effNode) === String(nodeId);
       });
-      result.direct.items = allDirectItems.filter(i => !isRes(i));
+      result.direct.items = allDirectItems.filter(i => !isRes(i) && !isInd(i));
+      result.direct.industries = allDirectItems.filter(i => !isRes(i) && isInd(i));
       result.direct.resources = allDirectItems.filter(i => isRes(i));
       result.direct.creatures = campaignCreatures.filter(c => {
         const effNode = getCreatureNode(c);
@@ -410,7 +416,7 @@
       result.direct.quests = campaignQuests.filter(q => {
         if (String(q.nodeId) === String(nodeId)) return true;
         if (Array.isArray(q.npcIds) && q.npcIds.some(nId => result.direct.npcs.some(n => n.id === nId))) return true;
-        if (Array.isArray(q.itemIds) && q.itemIds.some(iId => (result.direct.items.some(i => i.id === iId) || result.direct.resources.some(r => r.id === iId)))) return true;
+        if (Array.isArray(q.itemIds) && q.itemIds.some(iId => (result.direct.items.some(i => i.id === iId) || result.direct.industries.some(ind => ind.id === iId) || result.direct.resources.some(r => r.id === iId)))) return true;
         return false;
       });
 
@@ -441,13 +447,15 @@
           npcs: [],
           quests: [],
           items: [],
+          industries: [],
           resources: [],
           creatures: [],
           trackers: []
         };
 
+        const curActiveMapId = (typeof activeMapId !== 'undefined') ? activeMapId : ((Workstation && Workstation.activeMapId) || 'map_root');
         let subNodes = [];
-        if (subMap.id === activeMapId && topo.nodes) {
+        if (subMap.id === curActiveMapId && topo.nodes) {
           subNodes = Object.values(topo.nodes);
         } else if (Array.isArray(subMap.nodes)) {
           subNodes = subMap.nodes;
@@ -465,7 +473,8 @@
             const effNode = getItemEffectiveNodeId(e);
             return effNode != null && String(effNode) === String(sNodeId);
           });
-          const sItems = allSubItems.filter(i => !isRes(i));
+          const sItems = allSubItems.filter(i => !isRes(i) && !isInd(i));
+          const sIndustries = allSubItems.filter(i => !isRes(i) && isInd(i));
           const sResources = allSubItems.filter(i => isRes(i));
           const sCreatures = campaignCreatures.filter(c => {
             const effNode = getCreatureNode(c);
@@ -475,12 +484,13 @@
           const sQuests = campaignQuests.filter(q => {
             if (String(q.nodeId) === String(sNodeId)) return true;
             if (Array.isArray(q.npcIds) && q.npcIds.some(nId => sNpcs.some(n => n.id === nId))) return true;
-            if (Array.isArray(q.itemIds) && q.itemIds.some(iId => (sItems.some(i => i.id === iId) || sResources.some(r => r.id === iId)))) return true;
+            if (Array.isArray(q.itemIds) && q.itemIds.some(iId => (sItems.some(i => i.id === iId) || sIndustries.some(ind => ind.id === iId) || sResources.some(r => r.id === iId)))) return true;
             return false;
           });
 
           sNpcs.forEach(n => subEntry.npcs.push({ ...n, _subMap: subMap, _subNode: sNode }));
           sItems.forEach(i => subEntry.items.push({ ...i, _subMap: subMap, _subNode: sNode }));
+          sIndustries.forEach(ind => subEntry.industries.push({ ...ind, _subMap: subMap, _subNode: sNode }));
           sResources.forEach(r => subEntry.resources.push({ ...r, _subMap: subMap, _subNode: sNode }));
           sCreatures.forEach(c => subEntry.creatures.push({ ...c, _subMap: subMap, _subNode: sNode }));
           sQuests.forEach(q => subEntry.quests.push({ ...q, _subMap: subMap, _subNode: sNode }));
@@ -505,11 +515,12 @@
         traverseSubmap(dm, [rootName]);
       });
 
-      let recNpcs = 0, recQuests = 0, recItems = 0, recResources = 0, recCreatures = 0, recTrackers = 0;
+      let recNpcs = 0, recQuests = 0, recItems = 0, recIndustries = 0, recResources = 0, recCreatures = 0, recTrackers = 0;
       result.submaps.forEach(sm => {
         recNpcs += sm.npcs.length;
         recQuests += sm.quests.length;
         recItems += sm.items.length;
+        recIndustries += (sm.industries || []).length;
         recResources += (sm.resources || []).length;
         recCreatures += (sm.creatures || []).length;
         recTrackers += sm.trackers.length;
@@ -518,6 +529,7 @@
       result.totals.npcs = result.direct.npcs.length + recNpcs;
       result.totals.quests = result.direct.quests.length + recQuests;
       result.totals.items = result.direct.items.length + recItems;
+      result.totals.industries = result.direct.industries.length + recIndustries;
       result.totals.resources = result.direct.resources.length + recResources;
       result.totals.creatures = result.direct.creatures.length + recCreatures;
       result.totals.trackers = result.direct.trackers.length + recTrackers;
@@ -1420,6 +1432,10 @@
         const totalQuest = rec.totals.quests;
         const directItem = rec.direct.items.length;
         const totalItem = rec.totals.items;
+        const directInd = (rec.direct.industries || []).length;
+        const totalInd = rec.totals.industries || 0;
+        const directRes = (rec.direct.resources || []).length;
+        const totalRes = rec.totals.resources || 0;
         const directTracker = rec.direct.trackers.length;
         const totalTracker = rec.totals.trackers;
         const submapCount = rec.totals.submaps;
@@ -1430,7 +1446,7 @@
           ? checkNodeAdHocSupplyLine(nodeId)
           : { ok: true, missing: [] };
 
-        if (nodeModCount > 0 || nodeProvidesCount > 0 || nodeRequiresCount > 0 || totalNpc > 0 || totalQuest > 0 || totalItem > 0 || totalTracker > 0 || submapCount > 0) {
+        if (nodeModCount > 0 || nodeProvidesCount > 0 || nodeRequiresCount > 0 || totalNpc > 0 || totalQuest > 0 || totalItem > 0 || totalInd > 0 || totalRes > 0 || totalTracker > 0 || submapCount > 0) {
           const parts = [];
           if (nodeModCount > 0) parts.push(`M:${nodeModCount}`);
           if (nodeProvidesCount > 0) parts.push(`P:${nodeProvidesCount}`);
@@ -1438,6 +1454,8 @@
           if (totalNpc > 0) parts.push(`N:${totalNpc}${submapCount > 0 && directNpc !== totalNpc ? '*' : ''}`);
           if (totalQuest > 0) parts.push(`Q:${totalQuest}`);
           if (totalItem > 0) parts.push(`I:${totalItem}`);
+          if (totalInd > 0) parts.push(`Ind:${totalInd}`);
+          if (totalRes > 0) parts.push(`Res:${totalRes}`);
           if (totalTracker > 0) parts.push(`T:${totalTracker}`);
           if (submapCount > 0) parts.push(`🌀${submapCount}`);
           const badgeStr = parts.join(' ');

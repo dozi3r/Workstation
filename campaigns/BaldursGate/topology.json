@@ -7316,98 +7316,187 @@
         "name": "Sugarcane Plantation and Harvest Fields",
         "category": "Infrastructural Machinery",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-01.",
+        "notes": "The sugarcane fields form the agricultural engine of the coastal river bottom, converting tropical humidity and deep volcanic loam into mountain-high stacks of dense, sucrose-rich cane. Working parts: Alluvial Drainage Canals, Cane Brake Stands and Ox-Cart Weigh Station. Stakes: Red Rot Blight Clock [4 ticks] (the Cutter Strike Clock runs alongside) - Spores infect stalks if drainage trenches stagnate.",
         "moduleId": "AGRI-SUGAR-01",
         "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-01-item-apparatus",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Crop: Raw-Sugarcane"
+        ],
+        "requires": [
+          "Water: Baseline-Potable-Flow"
+        ],
+        "yields": "Bundled Raw Sugarcane Stalks (10 Tons/Day)",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2x2ace-4",
         "name": "Crop: Raw Sugarcane",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Crop: Raw-Sugarcane",
-        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-01 for downstream consumer nodes.",
+        "notes": "Extracted at Sugarcane Plantation and Harvest Fields: Worked through the Alluvial Drainage Canals. Moves as cartload or hopper-fill (Bundled Raw Sugarcane Stalks (10 Tons/Day)). It is harvest-seasonal and bulky; hoppers and ricks must stay dry or the lot heats, moulds and is written off. Downstream: Dispatches cartloads of Crop: Raw-Sugarcane to the Cane Crushing Mill & Boiling House (AGRI-SUGAR-02).",
         "moduleId": "AGRI-SUGAR-01",
         "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-01-item-res-1",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Crop",
+        "provides": [
+          "Crop: Raw-Sugarcane"
+        ],
+        "requires": [
+          "Water: Baseline-Potable-Flow"
+        ],
+        "yields": "Bundled Raw Sugarcane Stalks (10 Tons/Day)",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2x2acw-7",
         "name": "Cane Crushing Mill and Boiling House",
         "category": "Infrastructural Machinery",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-02.",
+        "notes": "The crushing mill and boiling house forms the industrial core of sugar manufacture, extracting sticky juice between iron rollers and evaporating it across a cascading furnace train. Working parts: Three-Roller Iron Mill, The Jamaica Boiling Train and Curing Hogshead Loft. Stakes: Roller Jam Clock [4 ticks] (the Boiler Pressure Clock runs alongside) - Fiber tangles iron teeth if greasing fails.",
         "moduleId": "AGRI-SUGAR-02",
         "moduleTitle": "Cane Crushing Mill and Boiling House",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-02-item-apparatus",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Commodity: Cane-Molasses",
+          "Food: Refined-Sugar"
+        ],
+        "requires": [
+          "Crop: Raw-Sugarcane",
+          "Fuel: Charcoal-or-Coal"
+        ],
+        "yields": "Granulated Sugar Loaves & Heavy Blackstrap Molasses Vats",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 2
       },
       {
         "id": "item-mw2x2ad1-8",
         "name": "Commodity: Cane Molasses",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Commodity: Cane-Molasses",
-        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+        "notes": "Refined at Cane Crushing Mill and Boiling House: Open-beamed timber loft where conical clay pots drain black molasses from the crystalline sugar loaves. Moves as bale, hogshead or crate (Heavy Blackstrap Molasses Vats). It travels in tallied lots; damp, pilferage and short-weight customs fees are the usual losses. Downstream: Dispatches casks of Food: Refined-Sugar to commercial markets and vats of Commodity: Cane-Molasses to the Rum Distillery & Excise Harbor (AGRI-SUGAR-03).",
         "moduleId": "AGRI-SUGAR-02",
         "moduleTitle": "Cane Crushing Mill and Boiling House",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-02-item-res-1",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "General",
+        "provides": [
+          "Commodity: Cane-Molasses",
+          "Food: Refined-Sugar"
+        ],
+        "requires": [
+          "Crop: Raw-Sugarcane",
+          "Fuel: Charcoal-or-Coal"
+        ],
+        "yields": "Granulated Sugar Loaves & Heavy Blackstrap Molasses Vats",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 2
       },
       {
         "id": "item-mw2x2ad6-9",
         "name": "Food: Refined Sugar",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Food: Refined-Sugar",
-        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+        "notes": "Refined at Cane Crushing Mill and Boiling House: Worked through the Jamaica Boiling Train. Moves as sack, cask or crate (Granulated Sugar Loaves). It spoils to damp, vermin and rot, so it wants dry lofts, salting or sealed casks and a short route to market. Downstream: Dispatches casks of Food: Refined-Sugar to commercial markets and vats of Commodity: Cane-Molasses to the Rum Distillery & Excise Harbor (AGRI-SUGAR-03).",
         "moduleId": "AGRI-SUGAR-02",
         "moduleTitle": "Cane Crushing Mill and Boiling House",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-02-item-res-2",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Food",
+        "provides": [
+          "Commodity: Cane-Molasses",
+          "Food: Refined-Sugar"
+        ],
+        "requires": [
+          "Crop: Raw-Sugarcane",
+          "Fuel: Charcoal-or-Coal"
+        ],
+        "yields": "Granulated Sugar Loaves & Heavy Blackstrap Molasses Vats",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 2
       },
       {
         "id": "item-mw2x2adq-c",
         "name": "Rum Distillery and Excise Harbor",
         "category": "Infrastructural Machinery",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-03.",
+        "notes": "Stationed at the interface of fresh river water and ocean trade winds, the rum distillery converts refinery waste byproducts into the primary maritime trade currency of the realm. Working parts: Dunder & Skimmings Cisterns, Gooseneck Copper Pot Stills and Bonded Rum Wharf & Cooperage. Stakes: Excise Raid Clock [4 ticks] (the Vat Souring Clock runs alongside) - Revenue cutters search for untaxed spirit casks.",
         "moduleId": "AGRI-SUGAR-03",
         "moduleTitle": "Rum Distillery and Excise Harbor",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-03-item-apparatus",
         "nodeId": "BG-SC-01",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Commodity: High-Proof-Rum"
+        ],
+        "requires": [
+          "Commodity: Cane-Molasses",
+          "Timber: Cooperage-Casks"
+        ],
+        "yields": "Tier 1 Export Navy Rum Barrels (50 Casks/Week)",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 3
       },
       {
         "id": "item-mw2x2adu-d",
         "name": "Commodity: High Proof Rum",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Commodity: High-Proof-Rum",
-        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-03 for downstream consumer nodes.",
+        "notes": "Produced at Rum Distillery and Excise Harbor: Worked through the Dunder & Skimmings Cisterns. Moves as bale, hogshead or crate (Tier 1 Export Navy Rum Barrels (50 Casks/Week)). It travels in tallied lots; damp, pilferage and short-weight customs fees are the usual losses. Downstream: Exports Commodity: High-Proof-Rum across regional sea lanes and satisfies military tavern rations.",
         "moduleId": "AGRI-SUGAR-03",
         "moduleTitle": "Rum Distillery and Excise Harbor",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-03-item-res-1",
         "nodeId": "BG-SC-01",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "General",
+        "provides": [
+          "Commodity: High-Proof-Rum"
+        ],
+        "requires": [
+          "Commodity: Cane-Molasses",
+          "Timber: Cooperage-Casks"
+        ],
+        "yields": "Tier 1 Export Navy Rum Barrels (50 Casks/Week)",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 3
       },
       {
         "id": "item-882118",
@@ -7418,40 +7507,16 @@
         "name": "Hardwood Logging Camp",
         "category": "Tabletop Asset / Relic",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
-      },
-      {
-        "id": "item-885321",
-        "nodeId": null,
-        "moduleId": "EXT-TIMBER-01",
-        "isCustom": false,
-        "status": "Active",
-        "name": "Hardwood Logging Camp",
-        "category": "Tabletop Asset / Relic",
-        "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
-      },
-      {
-        "id": "item-887088",
-        "nodeId": null,
-        "moduleId": "EXT-TIMBER-01",
-        "isCustom": false,
-        "status": "Active",
-        "name": "Hardwood Logging Camp",
-        "category": "Tabletop Asset / Relic",
-        "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
-      },
-      {
-        "id": "item-904673",
-        "nodeId": null,
-        "moduleId": "EXT-TIMBER-01",
-        "isCustom": false,
-        "status": "Active",
-        "name": "Hardwood Logging Camp",
-        "category": "Tabletop Asset / Relic",
-        "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+        "notes": "Axemen and crosscut sawyers fell ancient oak and beech trees in deep temperate forests, trimming branches and bucking trunks into transportable lengths. Stakes: The Logjam Gorge - When thousands of harvested logs jam a swollen river gorge after a flash thaw, Kaelen must lead a dangerous dynamite and cant-hook operation before the rising water washes away the entire winter cut.",
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Timber: Hardwood-Logs",
+          "Fuel: Wood-Fuel"
+        ],
+        "yields": "Hardwood-Logs (Massive, unpeeled oak and beech logs stamped with the camp mark.)",
+        "chain_id": "CHAIN-TIMBER",
+        "chain_stage": 1
       },
       {
         "id": "item-905144",
@@ -7462,7 +7527,17 @@
         "name": "Timber: Hardwood Logs",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Timber: Hardwood-Logs",
-        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
+        "notes": "Extracted at Hardwood Logging Camp: Massive, unpeeled oak and beech logs stamped with the camp mark. Moves as batch (Hardwood-Logs (Massive). It moves in discrete lots, and neglect, weather and theft erode a stockpile faster than demand drains it.",
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Timber",
+        "provides": [
+          "Timber: Hardwood-Logs",
+          "Fuel: Wood-Fuel"
+        ],
+        "yields": "Hardwood-Logs (Massive, unpeeled oak and beech logs stamped with the camp mark.)",
+        "chain_id": "CHAIN-TIMBER",
+        "chain_stage": 1
       },
       {
         "id": "item-905623",
@@ -7473,77 +7548,141 @@
         "name": "Fuel: Wood Fuel",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Fuel: Wood-Fuel",
-        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
+        "notes": "Extracted at Hardwood Logging Camp: Massive, unpeeled oak and beech logs stamped with the camp mark. Moves as cord, sack or wagon-ton (Hardwood-Logs (Massive). It is heavy per unit of heat and a fire hazard in store; cover it dry and stack it away from the furnaces it feeds.",
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Fuel",
+        "provides": [
+          "Timber: Hardwood-Logs",
+          "Fuel: Wood-Fuel"
+        ],
+        "yields": "Hardwood-Logs (Massive, unpeeled oak and beech logs stamped with the camp mark.)",
+        "chain_id": "CHAIN-TIMBER",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2xlgp7-1",
         "name": "Boreal Conifer Logging",
         "category": "Tabletop Asset / Relic",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-PINE-01.",
+        "notes": "Spread across dense, cold-climate evergreen forests, logging crews fell straight-grained old-growth pines for structural spars while simultaneously scarring living trunks with V-shaped 'cat faces' to bleed amber resin into hanging terracotta cups. Stakes: Bark Scarring Depth (0–10): At 0–3, shallow cuts yield meager resin flow. At 8–10, deep slashing girdles and kills the pine trees prematurely.",
         "moduleId": "EXT-PINE-01",
         "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
         "suggestedNode": null,
         "prototypeId": "EXT-PINE-01-item-apparatus",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Timber: Mast-Spars",
+          "Resin: Raw-Pine-Resin"
+        ],
+        "yields": "Raw Pine Resin (Viscous, aromatic amber sap harvested from scarred conifer trunks.)",
+        "chain_id": "CHAIN-PINE",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2xlgpf-2",
         "name": "Timber: Mast Spars",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Timber: Mast-Spars",
-        "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+        "notes": "Extracted at Boreal Conifer Logging & Turpentine Camp: Boreal Conifer Logging & Turpentine Camp (EXT-PINE-01) Spread across dense, cold-climate evergreen forests, logging crews fell straight-grained old-growth pines for structural spars while simultaneously scarring living trunks with V-shaped 'cat faces' to bleed amber resin into hanging terracotta cups. Moves as batch (Raw Pine Resin (Viscous). It moves in discrete lots, and neglect, weather and theft erode a stockpile faster than demand drains it.",
         "moduleId": "EXT-PINE-01",
         "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
         "suggestedNode": null,
         "prototypeId": "EXT-PINE-01-item-res-1",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Timber",
+        "provides": [
+          "Timber: Mast-Spars",
+          "Resin: Raw-Pine-Resin"
+        ],
+        "yields": "Raw Pine Resin (Viscous, aromatic amber sap harvested from scarred conifer trunks.)",
+        "chain_id": "CHAIN-PINE",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2xlgpj-3",
         "name": "Resin: Raw Pine Resin",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Resin: Raw-Pine-Resin",
-        "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+        "notes": "Extracted at Boreal Conifer Logging & Turpentine Camp: Viscous, aromatic amber sap harvested from scarred conifer trunks. Moves as batch (Raw Pine Resin (Viscous). It moves in discrete lots, and neglect, weather and theft erode a stockpile faster than demand drains it.",
         "moduleId": "EXT-PINE-01",
         "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
         "suggestedNode": null,
         "prototypeId": "EXT-PINE-01-item-res-2",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Resin",
+        "provides": [
+          "Timber: Mast-Spars",
+          "Resin: Raw-Pine-Resin"
+        ],
+        "yields": "Raw Pine Resin (Viscous, aromatic amber sap harvested from scarred conifer trunks.)",
+        "chain_id": "CHAIN-PINE",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2xlgpp-4",
         "name": "Tar Kiln",
         "category": "Tabletop Asset / Relic",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-PINE-02.",
+        "notes": "A terraced earthen mound built over a stone-lined drainage basin where pine roots and resinous billets are stacked, sealed with turf, and slowly smothered-burned to render dark wood tar. Stakes: Kiln Smothering Rate (0–10): At 0–3, air leaks cause the entire wood stack to burst into open flame, destroying the batch. At 8–10, oxygen starvation chokes the burn so completely that no tar drains.",
         "moduleId": "IND-PINE-02",
         "moduleTitle": "Tar Kiln & Pitch Boilery",
         "suggestedNode": null,
         "prototypeId": "IND-PINE-02-item-apparatus",
         "nodeId": "BG-SC-01",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Chem: Pine-Pitch"
+        ],
+        "requires": [
+          "Resin: Raw-Pine-Resin",
+          "Fuel: Wood-Fuel"
+        ],
+        "yields": "Pine Pitch (Thick, black, waterproof resinous compound used to calk timber hulls and seams.)",
+        "chain_id": "CHAIN-PINE",
+        "chain_stage": 2
       },
       {
         "id": "item-mw2xlgpt-5",
         "name": "Chem: Pine Pitch",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Chem: Pine-Pitch",
-        "notes": "Supply chain material or energy export produced by IND-PINE-02 for downstream consumer nodes.",
+        "notes": "Refined at Tar Kiln & Pitch Boilery: Thick, black, waterproof resinous compound used to calk timber hulls and seams. Moves as sealed cask or lead-lined keg (Pine Pitch (Thick). It is caustic or toxic in bulk, needs lead, glass or glazed vessels, and a single contaminated batch can ruin a whole run.",
         "moduleId": "IND-PINE-02",
         "moduleTitle": "Tar Kiln & Pitch Boilery",
         "suggestedNode": null,
         "prototypeId": "IND-PINE-02-item-res-1",
         "nodeId": "BG-SC-01",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Chem",
+        "provides": [
+          "Chem: Pine-Pitch"
+        ],
+        "requires": [
+          "Resin: Raw-Pine-Resin",
+          "Fuel: Wood-Fuel"
+        ],
+        "yields": "Pine Pitch (Thick, black, waterproof resinous compound used to calk timber hulls and seams.)",
+        "chain_id": "CHAIN-PINE",
+        "chain_stage": 2
       }
     ],
     "trackers": [
@@ -10571,98 +10710,187 @@
         "name": "Sugarcane Plantation and Harvest Fields",
         "category": "Infrastructural Machinery",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-01.",
+        "notes": "The sugarcane fields form the agricultural engine of the coastal river bottom, converting tropical humidity and deep volcanic loam into mountain-high stacks of dense, sucrose-rich cane. Working parts: Alluvial Drainage Canals, Cane Brake Stands and Ox-Cart Weigh Station. Stakes: Red Rot Blight Clock [4 ticks] (the Cutter Strike Clock runs alongside) - Spores infect stalks if drainage trenches stagnate.",
         "moduleId": "AGRI-SUGAR-01",
         "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-01-item-apparatus",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Crop: Raw-Sugarcane"
+        ],
+        "requires": [
+          "Water: Baseline-Potable-Flow"
+        ],
+        "yields": "Bundled Raw Sugarcane Stalks (10 Tons/Day)",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2x2ace-4",
         "name": "Crop: Raw Sugarcane",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Crop: Raw-Sugarcane",
-        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-01 for downstream consumer nodes.",
+        "notes": "Extracted at Sugarcane Plantation and Harvest Fields: Worked through the Alluvial Drainage Canals. Moves as cartload or hopper-fill (Bundled Raw Sugarcane Stalks (10 Tons/Day)). It is harvest-seasonal and bulky; hoppers and ricks must stay dry or the lot heats, moulds and is written off. Downstream: Dispatches cartloads of Crop: Raw-Sugarcane to the Cane Crushing Mill & Boiling House (AGRI-SUGAR-02).",
         "moduleId": "AGRI-SUGAR-01",
         "moduleTitle": "Sugarcane Plantation and Harvest Fields",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-01-item-res-1",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Crop",
+        "provides": [
+          "Crop: Raw-Sugarcane"
+        ],
+        "requires": [
+          "Water: Baseline-Potable-Flow"
+        ],
+        "yields": "Bundled Raw Sugarcane Stalks (10 Tons/Day)",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2x2acw-7",
         "name": "Cane Crushing Mill and Boiling House",
         "category": "Infrastructural Machinery",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-02.",
+        "notes": "The crushing mill and boiling house forms the industrial core of sugar manufacture, extracting sticky juice between iron rollers and evaporating it across a cascading furnace train. Working parts: Three-Roller Iron Mill, The Jamaica Boiling Train and Curing Hogshead Loft. Stakes: Roller Jam Clock [4 ticks] (the Boiler Pressure Clock runs alongside) - Fiber tangles iron teeth if greasing fails.",
         "moduleId": "AGRI-SUGAR-02",
         "moduleTitle": "Cane Crushing Mill and Boiling House",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-02-item-apparatus",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Commodity: Cane-Molasses",
+          "Food: Refined-Sugar"
+        ],
+        "requires": [
+          "Crop: Raw-Sugarcane",
+          "Fuel: Charcoal-or-Coal"
+        ],
+        "yields": "Granulated Sugar Loaves & Heavy Blackstrap Molasses Vats",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 2
       },
       {
         "id": "item-mw2x2ad1-8",
         "name": "Commodity: Cane Molasses",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Commodity: Cane-Molasses",
-        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+        "notes": "Refined at Cane Crushing Mill and Boiling House: Open-beamed timber loft where conical clay pots drain black molasses from the crystalline sugar loaves. Moves as bale, hogshead or crate (Heavy Blackstrap Molasses Vats). It travels in tallied lots; damp, pilferage and short-weight customs fees are the usual losses. Downstream: Dispatches casks of Food: Refined-Sugar to commercial markets and vats of Commodity: Cane-Molasses to the Rum Distillery & Excise Harbor (AGRI-SUGAR-03).",
         "moduleId": "AGRI-SUGAR-02",
         "moduleTitle": "Cane Crushing Mill and Boiling House",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-02-item-res-1",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "General",
+        "provides": [
+          "Commodity: Cane-Molasses",
+          "Food: Refined-Sugar"
+        ],
+        "requires": [
+          "Crop: Raw-Sugarcane",
+          "Fuel: Charcoal-or-Coal"
+        ],
+        "yields": "Granulated Sugar Loaves & Heavy Blackstrap Molasses Vats",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 2
       },
       {
         "id": "item-mw2x2ad6-9",
         "name": "Food: Refined Sugar",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Food: Refined-Sugar",
-        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+        "notes": "Refined at Cane Crushing Mill and Boiling House: Worked through the Jamaica Boiling Train. Moves as sack, cask or crate (Granulated Sugar Loaves). It spoils to damp, vermin and rot, so it wants dry lofts, salting or sealed casks and a short route to market. Downstream: Dispatches casks of Food: Refined-Sugar to commercial markets and vats of Commodity: Cane-Molasses to the Rum Distillery & Excise Harbor (AGRI-SUGAR-03).",
         "moduleId": "AGRI-SUGAR-02",
         "moduleTitle": "Cane Crushing Mill and Boiling House",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-02-item-res-2",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Food",
+        "provides": [
+          "Commodity: Cane-Molasses",
+          "Food: Refined-Sugar"
+        ],
+        "requires": [
+          "Crop: Raw-Sugarcane",
+          "Fuel: Charcoal-or-Coal"
+        ],
+        "yields": "Granulated Sugar Loaves & Heavy Blackstrap Molasses Vats",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 2
       },
       {
         "id": "item-mw2x2adq-c",
         "name": "Rum Distillery and Excise Harbor",
         "category": "Infrastructural Machinery",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-03.",
+        "notes": "Stationed at the interface of fresh river water and ocean trade winds, the rum distillery converts refinery waste byproducts into the primary maritime trade currency of the realm. Working parts: Dunder & Skimmings Cisterns, Gooseneck Copper Pot Stills and Bonded Rum Wharf & Cooperage. Stakes: Excise Raid Clock [4 ticks] (the Vat Souring Clock runs alongside) - Revenue cutters search for untaxed spirit casks.",
         "moduleId": "AGRI-SUGAR-03",
         "moduleTitle": "Rum Distillery and Excise Harbor",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-03-item-apparatus",
         "nodeId": "BG-SC-01",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Commodity: High-Proof-Rum"
+        ],
+        "requires": [
+          "Commodity: Cane-Molasses",
+          "Timber: Cooperage-Casks"
+        ],
+        "yields": "Tier 1 Export Navy Rum Barrels (50 Casks/Week)",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 3
       },
       {
         "id": "item-mw2x2adu-d",
         "name": "Commodity: High Proof Rum",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Commodity: High-Proof-Rum",
-        "notes": "Supply chain material or energy export produced by AGRI-SUGAR-03 for downstream consumer nodes.",
+        "notes": "Produced at Rum Distillery and Excise Harbor: Worked through the Dunder & Skimmings Cisterns. Moves as bale, hogshead or crate (Tier 1 Export Navy Rum Barrels (50 Casks/Week)). It travels in tallied lots; damp, pilferage and short-weight customs fees are the usual losses. Downstream: Exports Commodity: High-Proof-Rum across regional sea lanes and satisfies military tavern rations.",
         "moduleId": "AGRI-SUGAR-03",
         "moduleTitle": "Rum Distillery and Excise Harbor",
         "suggestedNode": null,
         "prototypeId": "AGRI-SUGAR-03-item-res-1",
         "nodeId": "BG-SC-01",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "General",
+        "provides": [
+          "Commodity: High-Proof-Rum"
+        ],
+        "requires": [
+          "Commodity: Cane-Molasses",
+          "Timber: Cooperage-Casks"
+        ],
+        "yields": "Tier 1 Export Navy Rum Barrels (50 Casks/Week)",
+        "chain_id": "CHAIN-SUGAR",
+        "chain_stage": 3
       },
       {
         "id": "item-882118",
@@ -10673,40 +10901,16 @@
         "name": "Hardwood Logging Camp",
         "category": "Tabletop Asset / Relic",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
-      },
-      {
-        "id": "item-885321",
-        "nodeId": null,
-        "moduleId": "EXT-TIMBER-01",
-        "isCustom": false,
-        "status": "Active",
-        "name": "Hardwood Logging Camp",
-        "category": "Tabletop Asset / Relic",
-        "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
-      },
-      {
-        "id": "item-887088",
-        "nodeId": null,
-        "moduleId": "EXT-TIMBER-01",
-        "isCustom": false,
-        "status": "Active",
-        "name": "Hardwood Logging Camp",
-        "category": "Tabletop Asset / Relic",
-        "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
-      },
-      {
-        "id": "item-904673",
-        "nodeId": null,
-        "moduleId": "EXT-TIMBER-01",
-        "isCustom": false,
-        "status": "Active",
-        "name": "Hardwood Logging Camp",
-        "category": "Tabletop Asset / Relic",
-        "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+        "notes": "Axemen and crosscut sawyers fell ancient oak and beech trees in deep temperate forests, trimming branches and bucking trunks into transportable lengths. Stakes: The Logjam Gorge - When thousands of harvested logs jam a swollen river gorge after a flash thaw, Kaelen must lead a dangerous dynamite and cant-hook operation before the rising water washes away the entire winter cut.",
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Timber: Hardwood-Logs",
+          "Fuel: Wood-Fuel"
+        ],
+        "yields": "Hardwood-Logs (Massive, unpeeled oak and beech logs stamped with the camp mark.)",
+        "chain_id": "CHAIN-TIMBER",
+        "chain_stage": 1
       },
       {
         "id": "item-905144",
@@ -10717,7 +10921,17 @@
         "name": "Timber: Hardwood Logs",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Timber: Hardwood-Logs",
-        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
+        "notes": "Extracted at Hardwood Logging Camp: Massive, unpeeled oak and beech logs stamped with the camp mark. Moves as batch (Hardwood-Logs (Massive). It moves in discrete lots, and neglect, weather and theft erode a stockpile faster than demand drains it.",
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Timber",
+        "provides": [
+          "Timber: Hardwood-Logs",
+          "Fuel: Wood-Fuel"
+        ],
+        "yields": "Hardwood-Logs (Massive, unpeeled oak and beech logs stamped with the camp mark.)",
+        "chain_id": "CHAIN-TIMBER",
+        "chain_stage": 1
       },
       {
         "id": "item-905623",
@@ -10728,77 +10942,141 @@
         "name": "Fuel: Wood Fuel",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Fuel: Wood-Fuel",
-        "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
+        "notes": "Extracted at Hardwood Logging Camp: Massive, unpeeled oak and beech logs stamped with the camp mark. Moves as cord, sack or wagon-ton (Hardwood-Logs (Massive). It is heavy per unit of heat and a fire hazard in store; cover it dry and stack it away from the furnaces it feeds.",
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Fuel",
+        "provides": [
+          "Timber: Hardwood-Logs",
+          "Fuel: Wood-Fuel"
+        ],
+        "yields": "Hardwood-Logs (Massive, unpeeled oak and beech logs stamped with the camp mark.)",
+        "chain_id": "CHAIN-TIMBER",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2xlgp7-1",
         "name": "Boreal Conifer Logging",
         "category": "Tabletop Asset / Relic",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-PINE-01.",
+        "notes": "Spread across dense, cold-climate evergreen forests, logging crews fell straight-grained old-growth pines for structural spars while simultaneously scarring living trunks with V-shaped 'cat faces' to bleed amber resin into hanging terracotta cups. Stakes: Bark Scarring Depth (0–10): At 0–3, shallow cuts yield meager resin flow. At 8–10, deep slashing girdles and kills the pine trees prematurely.",
         "moduleId": "EXT-PINE-01",
         "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
         "suggestedNode": null,
         "prototypeId": "EXT-PINE-01-item-apparatus",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Timber: Mast-Spars",
+          "Resin: Raw-Pine-Resin"
+        ],
+        "yields": "Raw Pine Resin (Viscous, aromatic amber sap harvested from scarred conifer trunks.)",
+        "chain_id": "CHAIN-PINE",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2xlgpf-2",
         "name": "Timber: Mast Spars",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Timber: Mast-Spars",
-        "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+        "notes": "Extracted at Boreal Conifer Logging & Turpentine Camp: Boreal Conifer Logging & Turpentine Camp (EXT-PINE-01) Spread across dense, cold-climate evergreen forests, logging crews fell straight-grained old-growth pines for structural spars while simultaneously scarring living trunks with V-shaped 'cat faces' to bleed amber resin into hanging terracotta cups. Moves as batch (Raw Pine Resin (Viscous). It moves in discrete lots, and neglect, weather and theft erode a stockpile faster than demand drains it.",
         "moduleId": "EXT-PINE-01",
         "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
         "suggestedNode": null,
         "prototypeId": "EXT-PINE-01-item-res-1",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Timber",
+        "provides": [
+          "Timber: Mast-Spars",
+          "Resin: Raw-Pine-Resin"
+        ],
+        "yields": "Raw Pine Resin (Viscous, aromatic amber sap harvested from scarred conifer trunks.)",
+        "chain_id": "CHAIN-PINE",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2xlgpj-3",
         "name": "Resin: Raw Pine Resin",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Resin: Raw-Pine-Resin",
-        "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+        "notes": "Extracted at Boreal Conifer Logging & Turpentine Camp: Viscous, aromatic amber sap harvested from scarred conifer trunks. Moves as batch (Raw Pine Resin (Viscous). It moves in discrete lots, and neglect, weather and theft erode a stockpile faster than demand drains it.",
         "moduleId": "EXT-PINE-01",
         "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
         "suggestedNode": null,
         "prototypeId": "EXT-PINE-01-item-res-2",
         "nodeId": "BG-SC-13",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Resin",
+        "provides": [
+          "Timber: Mast-Spars",
+          "Resin: Raw-Pine-Resin"
+        ],
+        "yields": "Raw Pine Resin (Viscous, aromatic amber sap harvested from scarred conifer trunks.)",
+        "chain_id": "CHAIN-PINE",
+        "chain_stage": 1
       },
       {
         "id": "item-mw2xlgpp-4",
         "name": "Tar Kiln",
         "category": "Tabletop Asset / Relic",
         "specs": "Infrastructural Resource Output",
-        "notes": "Primary technological, infrastructural, or tactical anchor established by IND-PINE-02.",
+        "notes": "A terraced earthen mound built over a stone-lined drainage basin where pine roots and resinous billets are stacked, sealed with turf, and slowly smothered-burned to render dark wood tar. Stakes: Kiln Smothering Rate (0–10): At 0–3, air leaks cause the entire wood stack to burst into open flame, destroying the batch. At 8–10, oxygen starvation chokes the burn so completely that no tar drains.",
         "moduleId": "IND-PINE-02",
         "moduleTitle": "Tar Kiln & Pitch Boilery",
         "suggestedNode": null,
         "prototypeId": "IND-PINE-02-item-apparatus",
         "nodeId": "BG-SC-01",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "entityKind": "industry",
+        "isIndustry": true,
+        "provides": [
+          "Chem: Pine-Pitch"
+        ],
+        "requires": [
+          "Resin: Raw-Pine-Resin",
+          "Fuel: Wood-Fuel"
+        ],
+        "yields": "Pine Pitch (Thick, black, waterproof resinous compound used to calk timber hulls and seams.)",
+        "chain_id": "CHAIN-PINE",
+        "chain_stage": 2
       },
       {
         "id": "item-mw2xlgpt-5",
         "name": "Chem: Pine Pitch",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Chem: Pine-Pitch",
-        "notes": "Supply chain material or energy export produced by IND-PINE-02 for downstream consumer nodes.",
+        "notes": "Refined at Tar Kiln & Pitch Boilery: Thick, black, waterproof resinous compound used to calk timber hulls and seams. Moves as sealed cask or lead-lined keg (Pine Pitch (Thick). It is caustic or toxic in bulk, needs lead, glass or glazed vessels, and a single contaminated batch can ruin a whole run.",
         "moduleId": "IND-PINE-02",
         "moduleTitle": "Tar Kiln & Pitch Boilery",
         "suggestedNode": null,
         "prototypeId": "IND-PINE-02-item-res-1",
         "nodeId": "BG-SC-01",
         "status": "Active",
-        "isCustom": false
+        "isCustom": false,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Chem",
+        "provides": [
+          "Chem: Pine-Pitch"
+        ],
+        "requires": [
+          "Resin: Raw-Pine-Resin",
+          "Fuel: Wood-Fuel"
+        ],
+        "yields": "Pine Pitch (Thick, black, waterproof resinous compound used to calk timber hulls and seams.)",
+        "chain_id": "CHAIN-PINE",
+        "chain_stage": 2
       }
     ],
     "trackers": [
@@ -12968,98 +13246,187 @@
       "name": "Sugarcane Plantation and Harvest Fields",
       "category": "Infrastructural Machinery",
       "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-01.",
+      "notes": "The sugarcane fields form the agricultural engine of the coastal river bottom, converting tropical humidity and deep volcanic loam into mountain-high stacks of dense, sucrose-rich cane. Working parts: Alluvial Drainage Canals, Cane Brake Stands and Ox-Cart Weigh Station. Stakes: Red Rot Blight Clock [4 ticks] (the Cutter Strike Clock runs alongside) - Spores infect stalks if drainage trenches stagnate.",
       "moduleId": "AGRI-SUGAR-01",
       "moduleTitle": "Sugarcane Plantation and Harvest Fields",
       "suggestedNode": null,
       "prototypeId": "AGRI-SUGAR-01-item-apparatus",
       "nodeId": "BG-SC-13",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "entityKind": "industry",
+      "isIndustry": true,
+      "provides": [
+        "Crop: Raw-Sugarcane"
+      ],
+      "requires": [
+        "Water: Baseline-Potable-Flow"
+      ],
+      "yields": "Bundled Raw Sugarcane Stalks (10 Tons/Day)",
+      "chain_id": "CHAIN-SUGAR",
+      "chain_stage": 1
     },
     {
       "id": "item-mw2x2ace-4",
       "name": "Crop: Raw Sugarcane",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Crop: Raw-Sugarcane",
-      "notes": "Supply chain material or energy export produced by AGRI-SUGAR-01 for downstream consumer nodes.",
+      "notes": "Extracted at Sugarcane Plantation and Harvest Fields: Worked through the Alluvial Drainage Canals. Moves as cartload or hopper-fill (Bundled Raw Sugarcane Stalks (10 Tons/Day)). It is harvest-seasonal and bulky; hoppers and ricks must stay dry or the lot heats, moulds and is written off. Downstream: Dispatches cartloads of Crop: Raw-Sugarcane to the Cane Crushing Mill & Boiling House (AGRI-SUGAR-02).",
       "moduleId": "AGRI-SUGAR-01",
       "moduleTitle": "Sugarcane Plantation and Harvest Fields",
       "suggestedNode": null,
       "prototypeId": "AGRI-SUGAR-01-item-res-1",
       "nodeId": "BG-SC-13",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "isResource": true,
+      "entityKind": "resource",
+      "resourceSector": "Crop",
+      "provides": [
+        "Crop: Raw-Sugarcane"
+      ],
+      "requires": [
+        "Water: Baseline-Potable-Flow"
+      ],
+      "yields": "Bundled Raw Sugarcane Stalks (10 Tons/Day)",
+      "chain_id": "CHAIN-SUGAR",
+      "chain_stage": 1
     },
     {
       "id": "item-mw2x2acw-7",
       "name": "Cane Crushing Mill and Boiling House",
       "category": "Infrastructural Machinery",
       "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-02.",
+      "notes": "The crushing mill and boiling house forms the industrial core of sugar manufacture, extracting sticky juice between iron rollers and evaporating it across a cascading furnace train. Working parts: Three-Roller Iron Mill, The Jamaica Boiling Train and Curing Hogshead Loft. Stakes: Roller Jam Clock [4 ticks] (the Boiler Pressure Clock runs alongside) - Fiber tangles iron teeth if greasing fails.",
       "moduleId": "AGRI-SUGAR-02",
       "moduleTitle": "Cane Crushing Mill and Boiling House",
       "suggestedNode": null,
       "prototypeId": "AGRI-SUGAR-02-item-apparatus",
       "nodeId": "BG-SC-13",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "entityKind": "industry",
+      "isIndustry": true,
+      "provides": [
+        "Commodity: Cane-Molasses",
+        "Food: Refined-Sugar"
+      ],
+      "requires": [
+        "Crop: Raw-Sugarcane",
+        "Fuel: Charcoal-or-Coal"
+      ],
+      "yields": "Granulated Sugar Loaves & Heavy Blackstrap Molasses Vats",
+      "chain_id": "CHAIN-SUGAR",
+      "chain_stage": 2
     },
     {
       "id": "item-mw2x2ad1-8",
       "name": "Commodity: Cane Molasses",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Commodity: Cane-Molasses",
-      "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+      "notes": "Refined at Cane Crushing Mill and Boiling House: Open-beamed timber loft where conical clay pots drain black molasses from the crystalline sugar loaves. Moves as bale, hogshead or crate (Heavy Blackstrap Molasses Vats). It travels in tallied lots; damp, pilferage and short-weight customs fees are the usual losses. Downstream: Dispatches casks of Food: Refined-Sugar to commercial markets and vats of Commodity: Cane-Molasses to the Rum Distillery & Excise Harbor (AGRI-SUGAR-03).",
       "moduleId": "AGRI-SUGAR-02",
       "moduleTitle": "Cane Crushing Mill and Boiling House",
       "suggestedNode": null,
       "prototypeId": "AGRI-SUGAR-02-item-res-1",
       "nodeId": "BG-SC-13",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "isResource": true,
+      "entityKind": "resource",
+      "resourceSector": "General",
+      "provides": [
+        "Commodity: Cane-Molasses",
+        "Food: Refined-Sugar"
+      ],
+      "requires": [
+        "Crop: Raw-Sugarcane",
+        "Fuel: Charcoal-or-Coal"
+      ],
+      "yields": "Granulated Sugar Loaves & Heavy Blackstrap Molasses Vats",
+      "chain_id": "CHAIN-SUGAR",
+      "chain_stage": 2
     },
     {
       "id": "item-mw2x2ad6-9",
       "name": "Food: Refined Sugar",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Food: Refined-Sugar",
-      "notes": "Supply chain material or energy export produced by AGRI-SUGAR-02 for downstream consumer nodes.",
+      "notes": "Refined at Cane Crushing Mill and Boiling House: Worked through the Jamaica Boiling Train. Moves as sack, cask or crate (Granulated Sugar Loaves). It spoils to damp, vermin and rot, so it wants dry lofts, salting or sealed casks and a short route to market. Downstream: Dispatches casks of Food: Refined-Sugar to commercial markets and vats of Commodity: Cane-Molasses to the Rum Distillery & Excise Harbor (AGRI-SUGAR-03).",
       "moduleId": "AGRI-SUGAR-02",
       "moduleTitle": "Cane Crushing Mill and Boiling House",
       "suggestedNode": null,
       "prototypeId": "AGRI-SUGAR-02-item-res-2",
       "nodeId": "BG-SC-13",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "isResource": true,
+      "entityKind": "resource",
+      "resourceSector": "Food",
+      "provides": [
+        "Commodity: Cane-Molasses",
+        "Food: Refined-Sugar"
+      ],
+      "requires": [
+        "Crop: Raw-Sugarcane",
+        "Fuel: Charcoal-or-Coal"
+      ],
+      "yields": "Granulated Sugar Loaves & Heavy Blackstrap Molasses Vats",
+      "chain_id": "CHAIN-SUGAR",
+      "chain_stage": 2
     },
     {
       "id": "item-mw2x2adq-c",
       "name": "Rum Distillery and Excise Harbor",
       "category": "Infrastructural Machinery",
       "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by AGRI-SUGAR-03.",
+      "notes": "Stationed at the interface of fresh river water and ocean trade winds, the rum distillery converts refinery waste byproducts into the primary maritime trade currency of the realm. Working parts: Dunder & Skimmings Cisterns, Gooseneck Copper Pot Stills and Bonded Rum Wharf & Cooperage. Stakes: Excise Raid Clock [4 ticks] (the Vat Souring Clock runs alongside) - Revenue cutters search for untaxed spirit casks.",
       "moduleId": "AGRI-SUGAR-03",
       "moduleTitle": "Rum Distillery and Excise Harbor",
       "suggestedNode": null,
       "prototypeId": "AGRI-SUGAR-03-item-apparatus",
       "nodeId": "BG-SC-01",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "entityKind": "industry",
+      "isIndustry": true,
+      "provides": [
+        "Commodity: High-Proof-Rum"
+      ],
+      "requires": [
+        "Commodity: Cane-Molasses",
+        "Timber: Cooperage-Casks"
+      ],
+      "yields": "Tier 1 Export Navy Rum Barrels (50 Casks/Week)",
+      "chain_id": "CHAIN-SUGAR",
+      "chain_stage": 3
     },
     {
       "id": "item-mw2x2adu-d",
       "name": "Commodity: High Proof Rum",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Commodity: High-Proof-Rum",
-      "notes": "Supply chain material or energy export produced by AGRI-SUGAR-03 for downstream consumer nodes.",
+      "notes": "Produced at Rum Distillery and Excise Harbor: Worked through the Dunder & Skimmings Cisterns. Moves as bale, hogshead or crate (Tier 1 Export Navy Rum Barrels (50 Casks/Week)). It travels in tallied lots; damp, pilferage and short-weight customs fees are the usual losses. Downstream: Exports Commodity: High-Proof-Rum across regional sea lanes and satisfies military tavern rations.",
       "moduleId": "AGRI-SUGAR-03",
       "moduleTitle": "Rum Distillery and Excise Harbor",
       "suggestedNode": null,
       "prototypeId": "AGRI-SUGAR-03-item-res-1",
       "nodeId": "BG-SC-01",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "isResource": true,
+      "entityKind": "resource",
+      "resourceSector": "General",
+      "provides": [
+        "Commodity: High-Proof-Rum"
+      ],
+      "requires": [
+        "Commodity: Cane-Molasses",
+        "Timber: Cooperage-Casks"
+      ],
+      "yields": "Tier 1 Export Navy Rum Barrels (50 Casks/Week)",
+      "chain_id": "CHAIN-SUGAR",
+      "chain_stage": 3
     },
     {
       "id": "item-882118",
@@ -13070,40 +13437,16 @@
       "name": "Hardwood Logging Camp",
       "category": "Tabletop Asset / Relic",
       "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
-    },
-    {
-      "id": "item-885321",
-      "nodeId": null,
-      "moduleId": "EXT-TIMBER-01",
-      "isCustom": false,
-      "status": "Active",
-      "name": "Hardwood Logging Camp",
-      "category": "Tabletop Asset / Relic",
-      "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
-    },
-    {
-      "id": "item-887088",
-      "nodeId": null,
-      "moduleId": "EXT-TIMBER-01",
-      "isCustom": false,
-      "status": "Active",
-      "name": "Hardwood Logging Camp",
-      "category": "Tabletop Asset / Relic",
-      "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
-    },
-    {
-      "id": "item-904673",
-      "nodeId": null,
-      "moduleId": "EXT-TIMBER-01",
-      "isCustom": false,
-      "status": "Active",
-      "name": "Hardwood Logging Camp",
-      "category": "Tabletop Asset / Relic",
-      "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-TIMBER-01."
+      "notes": "Axemen and crosscut sawyers fell ancient oak and beech trees in deep temperate forests, trimming branches and bucking trunks into transportable lengths. Stakes: The Logjam Gorge - When thousands of harvested logs jam a swollen river gorge after a flash thaw, Kaelen must lead a dangerous dynamite and cant-hook operation before the rising water washes away the entire winter cut.",
+      "entityKind": "industry",
+      "isIndustry": true,
+      "provides": [
+        "Timber: Hardwood-Logs",
+        "Fuel: Wood-Fuel"
+      ],
+      "yields": "Hardwood-Logs (Massive, unpeeled oak and beech logs stamped with the camp mark.)",
+      "chain_id": "CHAIN-TIMBER",
+      "chain_stage": 1
     },
     {
       "id": "item-905144",
@@ -13114,7 +13457,17 @@
       "name": "Timber: Hardwood Logs",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Timber: Hardwood-Logs",
-      "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
+      "notes": "Extracted at Hardwood Logging Camp: Massive, unpeeled oak and beech logs stamped with the camp mark. Moves as batch (Hardwood-Logs (Massive). It moves in discrete lots, and neglect, weather and theft erode a stockpile faster than demand drains it.",
+      "isResource": true,
+      "entityKind": "resource",
+      "resourceSector": "Timber",
+      "provides": [
+        "Timber: Hardwood-Logs",
+        "Fuel: Wood-Fuel"
+      ],
+      "yields": "Hardwood-Logs (Massive, unpeeled oak and beech logs stamped with the camp mark.)",
+      "chain_id": "CHAIN-TIMBER",
+      "chain_stage": 1
     },
     {
       "id": "item-905623",
@@ -13125,77 +13478,141 @@
       "name": "Fuel: Wood Fuel",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Fuel: Wood-Fuel",
-      "notes": "Supply chain material or energy export produced by EXT-TIMBER-01 for downstream consumer nodes."
+      "notes": "Extracted at Hardwood Logging Camp: Massive, unpeeled oak and beech logs stamped with the camp mark. Moves as cord, sack or wagon-ton (Hardwood-Logs (Massive). It is heavy per unit of heat and a fire hazard in store; cover it dry and stack it away from the furnaces it feeds.",
+      "isResource": true,
+      "entityKind": "resource",
+      "resourceSector": "Fuel",
+      "provides": [
+        "Timber: Hardwood-Logs",
+        "Fuel: Wood-Fuel"
+      ],
+      "yields": "Hardwood-Logs (Massive, unpeeled oak and beech logs stamped with the camp mark.)",
+      "chain_id": "CHAIN-TIMBER",
+      "chain_stage": 1
     },
     {
       "id": "item-mw2xlgp7-1",
       "name": "Boreal Conifer Logging",
       "category": "Tabletop Asset / Relic",
       "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by EXT-PINE-01.",
+      "notes": "Spread across dense, cold-climate evergreen forests, logging crews fell straight-grained old-growth pines for structural spars while simultaneously scarring living trunks with V-shaped 'cat faces' to bleed amber resin into hanging terracotta cups. Stakes: Bark Scarring Depth (0–10): At 0–3, shallow cuts yield meager resin flow. At 8–10, deep slashing girdles and kills the pine trees prematurely.",
       "moduleId": "EXT-PINE-01",
       "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
       "suggestedNode": null,
       "prototypeId": "EXT-PINE-01-item-apparatus",
       "nodeId": "BG-SC-13",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "entityKind": "industry",
+      "isIndustry": true,
+      "provides": [
+        "Timber: Mast-Spars",
+        "Resin: Raw-Pine-Resin"
+      ],
+      "yields": "Raw Pine Resin (Viscous, aromatic amber sap harvested from scarred conifer trunks.)",
+      "chain_id": "CHAIN-PINE",
+      "chain_stage": 1
     },
     {
       "id": "item-mw2xlgpf-2",
       "name": "Timber: Mast Spars",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Timber: Mast-Spars",
-      "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+      "notes": "Extracted at Boreal Conifer Logging & Turpentine Camp: Boreal Conifer Logging & Turpentine Camp (EXT-PINE-01) Spread across dense, cold-climate evergreen forests, logging crews fell straight-grained old-growth pines for structural spars while simultaneously scarring living trunks with V-shaped 'cat faces' to bleed amber resin into hanging terracotta cups. Moves as batch (Raw Pine Resin (Viscous). It moves in discrete lots, and neglect, weather and theft erode a stockpile faster than demand drains it.",
       "moduleId": "EXT-PINE-01",
       "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
       "suggestedNode": null,
       "prototypeId": "EXT-PINE-01-item-res-1",
       "nodeId": "BG-SC-13",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "isResource": true,
+      "entityKind": "resource",
+      "resourceSector": "Timber",
+      "provides": [
+        "Timber: Mast-Spars",
+        "Resin: Raw-Pine-Resin"
+      ],
+      "yields": "Raw Pine Resin (Viscous, aromatic amber sap harvested from scarred conifer trunks.)",
+      "chain_id": "CHAIN-PINE",
+      "chain_stage": 1
     },
     {
       "id": "item-mw2xlgpj-3",
       "name": "Resin: Raw Pine Resin",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Resin: Raw-Pine-Resin",
-      "notes": "Supply chain material or energy export produced by EXT-PINE-01 for downstream consumer nodes.",
+      "notes": "Extracted at Boreal Conifer Logging & Turpentine Camp: Viscous, aromatic amber sap harvested from scarred conifer trunks. Moves as batch (Raw Pine Resin (Viscous). It moves in discrete lots, and neglect, weather and theft erode a stockpile faster than demand drains it.",
       "moduleId": "EXT-PINE-01",
       "moduleTitle": "Boreal Conifer Logging & Turpentine Camp",
       "suggestedNode": null,
       "prototypeId": "EXT-PINE-01-item-res-2",
       "nodeId": "BG-SC-13",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "isResource": true,
+      "entityKind": "resource",
+      "resourceSector": "Resin",
+      "provides": [
+        "Timber: Mast-Spars",
+        "Resin: Raw-Pine-Resin"
+      ],
+      "yields": "Raw Pine Resin (Viscous, aromatic amber sap harvested from scarred conifer trunks.)",
+      "chain_id": "CHAIN-PINE",
+      "chain_stage": 1
     },
     {
       "id": "item-mw2xlgpp-4",
       "name": "Tar Kiln",
       "category": "Tabletop Asset / Relic",
       "specs": "Infrastructural Resource Output",
-      "notes": "Primary technological, infrastructural, or tactical anchor established by IND-PINE-02.",
+      "notes": "A terraced earthen mound built over a stone-lined drainage basin where pine roots and resinous billets are stacked, sealed with turf, and slowly smothered-burned to render dark wood tar. Stakes: Kiln Smothering Rate (0–10): At 0–3, air leaks cause the entire wood stack to burst into open flame, destroying the batch. At 8–10, oxygen starvation chokes the burn so completely that no tar drains.",
       "moduleId": "IND-PINE-02",
       "moduleTitle": "Tar Kiln & Pitch Boilery",
       "suggestedNode": null,
       "prototypeId": "IND-PINE-02-item-apparatus",
       "nodeId": "BG-SC-01",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "entityKind": "industry",
+      "isIndustry": true,
+      "provides": [
+        "Chem: Pine-Pitch"
+      ],
+      "requires": [
+        "Resin: Raw-Pine-Resin",
+        "Fuel: Wood-Fuel"
+      ],
+      "yields": "Pine Pitch (Thick, black, waterproof resinous compound used to calk timber hulls and seams.)",
+      "chain_id": "CHAIN-PINE",
+      "chain_stage": 2
     },
     {
       "id": "item-mw2xlgpt-5",
       "name": "Chem: Pine Pitch",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Chem: Pine-Pitch",
-      "notes": "Supply chain material or energy export produced by IND-PINE-02 for downstream consumer nodes.",
+      "notes": "Refined at Tar Kiln & Pitch Boilery: Thick, black, waterproof resinous compound used to calk timber hulls and seams. Moves as sealed cask or lead-lined keg (Pine Pitch (Thick). It is caustic or toxic in bulk, needs lead, glass or glazed vessels, and a single contaminated batch can ruin a whole run.",
       "moduleId": "IND-PINE-02",
       "moduleTitle": "Tar Kiln & Pitch Boilery",
       "suggestedNode": null,
       "prototypeId": "IND-PINE-02-item-res-1",
       "nodeId": "BG-SC-01",
       "status": "Active",
-      "isCustom": false
+      "isCustom": false,
+      "isResource": true,
+      "entityKind": "resource",
+      "resourceSector": "Chem",
+      "provides": [
+        "Chem: Pine-Pitch"
+      ],
+      "requires": [
+        "Resin: Raw-Pine-Resin",
+        "Fuel: Wood-Fuel"
+      ],
+      "yields": "Pine Pitch (Thick, black, waterproof resinous compound used to calk timber hulls and seams.)",
+      "chain_id": "CHAIN-PINE",
+      "chain_stage": 2
     }
   ],
   "trackers": [

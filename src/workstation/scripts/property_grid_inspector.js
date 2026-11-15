@@ -1507,6 +1507,42 @@
           openNewEntityModal('item', node.id);
         });
 
+        // Category: Local Industry & Facilities
+        const directIndustries = rec.direct.industries || [];
+        const totalIndustries = rec.totals.industries || 0;
+        appendCategoryRow(tbody, `Local Industry & Facilities (${totalIndustries} total)`);
+        if (directIndustries.length === 0 && totalIndustries === 0) {
+          appendPropRow(tbody, '(None)', 'No industrial facilities stationed here', false);
+        } else {
+          directIndustries.forEach((ind, idx) => {
+            appendActionPropRow(tbody, `Facility #${idx+1}`, `🏭 ${ind.name} [${ind.category || 'Infrastructural Machinery'}]`, () => {
+              openEntityManager('industry', ind.id);
+            });
+          });
+          rec.submaps.forEach(sm => {
+            (sm.industries || []).forEach(ind => {
+              appendActionPropRow(tbody, `Sub-Map Facility`, `🌀 ${sm.mapName} [#${ind.nodeId}]: ${ind.name}`, () => {
+                if (typeof switchActiveMap === 'function') switchActiveMap(sm.mapId);
+                setTimeout(() => openEntityManager('industry', ind.id), 60);
+              });
+            });
+          });
+        }
+
+        // Category: Local Resources & Commodities
+        const directResources = rec.direct.resources || [];
+        const totalResources = rec.totals.resources || 0;
+        appendCategoryRow(tbody, `Local Resources & Commodities (${totalResources} total)`);
+        if (directResources.length === 0 && totalResources === 0) {
+          appendPropRow(tbody, '(None)', 'No commodity anchors stationed here', false);
+        } else {
+          directResources.forEach((res, idx) => {
+            appendActionPropRow(tbody, `Resource #${idx+1}`, `📦 ${res.name} [${res.resourceSector || res.category || 'Commodity'}]`, () => {
+              openEntityManager('resource', res.id);
+            });
+          });
+        }
+
         // Category: Threat Clocks & Trackers (Direct + Recursive Sub-Maps)
         appendCategoryRow(tbody, `Threat Clocks & Trackers (${rec.totals.trackers} total)`);
         if (rec.direct.trackers.length === 0 && rec.totals.trackers === 0) {
@@ -2651,7 +2687,7 @@
           item.value = val;
           if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
         });
-        appendPropRow(tbody, 'Source Module', item.moduleId ? `Module [${item.moduleId}]` : (isProto ? 'Prototype' : 'Custom Authored'), false);
+        appendSourceModuleRow(tbody, item.moduleId, isProto);
 
         // Ownership & Possession Mode
         appendCategoryRow(tbody, 'Ownership & Possession');
@@ -2739,6 +2775,7 @@
         }
 
         appendCategoryRow(tbody, `NPC: ${npc.name || npc.id}`);
+        if (npc.moduleId) appendSourceModuleRow(tbody, npc.moduleId, false);
         appendPropRow(tbody, 'Character Name', npc.name || '', true, val => {
           npc.name = val;
           if (pin && !pin.label) pin.label = val;
@@ -2918,6 +2955,7 @@
         }
 
         appendCategoryRow(tbody, `Quest: ${quest.title || quest.name || quest.id}`);
+        if (quest.moduleId) appendSourceModuleRow(tbody, quest.moduleId, false);
         appendPropRow(tbody, 'Quest Title', quest.title || quest.name || '', true, val => {
           quest.title = val;
           quest.name = val;
@@ -3046,6 +3084,7 @@
         }
 
         appendCategoryRow(tbody, `Threat Clock: ${trk.name || trk.title || trk.id}`);
+        if (trk.moduleId) appendSourceModuleRow(tbody, trk.moduleId, false);
         appendPropRow(tbody, 'Clock Title', trk.name || trk.title || '', true, val => {
           trk.name = val;
           trk.title = val;
@@ -3115,6 +3154,7 @@
         }
 
         appendCategoryRow(tbody, `Faction: ${fac.name || fac.id}`);
+        if (fac.moduleId) appendSourceModuleRow(tbody, fac.moduleId, false);
         appendPropRow(tbody, 'Faction Name', fac.name || '', true, val => {
           fac.name = val;
           if (pin && !pin.label) pin.label = val;
@@ -3186,6 +3226,7 @@
         }
 
         appendCategoryRow(tbody, `Creature: ${creature.name || creature.id}`);
+        if (creature.moduleId) appendSourceModuleRow(tbody, creature.moduleId, false);
         appendPropRow(tbody, 'Creature Name', creature.name || '', true, val => {
           creature.name = val;
           if (pin && !pin.label) pin.label = val;
@@ -3256,7 +3297,12 @@
         });
 
       } else if (entityType === 'resource') {
-        let res = (topo.resources || []).find(r => String(r.id) === String(entityId));
+        const activeResources = (typeof getActiveEntityList === 'function')
+          ? getActiveEntityList('resource')
+          : ((topo.items || []).filter(i => typeof isResourceItem === 'function' ? isResourceItem(i) : !!(i && i.isResource)));
+        let res = activeResources.find(r => String(r.id) === String(entityId))
+          || (topo.resources || []).find(r => String(r.id) === String(entityId))
+          || (topo.items || []).find(r => String(r.id) === String(entityId));
         let isProto = false;
         if (!res && typeof getPrototypesForType === 'function') {
           const protos = getPrototypesForType('resource');
@@ -3277,8 +3323,14 @@
           if (typeof updateObjectSelector === 'function') updateObjectSelector();
           if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
         });
-        appendPropRow(tbody, 'Category', res.category || 'Commodity / Resource', true, val => {
+        appendPropRow(tbody, 'Category / Sector', res.resourceSector || res.category || 'Resource Export / Supply Anchor', true, val => {
           res.category = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendSourceModuleRow(tbody, res.moduleId, isProto);
+        const richRes = appendRichSupplyChainRows(tbody, res, 'resource', topo);
+        appendTextareaPropRow(tbody, 'GM Notes (Authored)', richRes ? richRes.customNotes : (res.notes || ''), 2, val => {
+          res.notes = val;
           if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
         });
         appendSelectPropRow(tbody, 'Supply Tier', String(res.tier !== undefined ? res.tier : 1), [
@@ -3306,6 +3358,63 @@
         appendButtonPropRow(tbody, 'Resource Catalog', '📂 Open Resource Catalog in Explorer...', () => {
           if (typeof openEntityManager === 'function') openEntityManager('resource');
           if (typeof selectEntityItem === 'function') selectEntityItem(res.id, isProto);
+        });
+
+      } else if (entityType === 'industry') {
+        const activeIndustries = (typeof getActiveEntityList === 'function')
+          ? getActiveEntityList('industry')
+          : ((topo.items || []).filter(i => typeof isIndustryItem === 'function' ? isIndustryItem(i) : false));
+        let ind = activeIndustries.find(i => String(i.id) === String(entityId))
+          || (topo.items || []).find(i => String(i.id) === String(entityId));
+        let isProto = false;
+        if (!ind && typeof getPrototypesForType === 'function') {
+          const protos = getPrototypesForType('industry');
+          ind = protos.find(p => String(p.id) === String(entityId));
+          isProto = true;
+        }
+        if (!ind) {
+          appendCategoryRow(tbody, `Industry: ${entityId} (Not Found)`);
+          appendPropRow(tbody, 'Status', 'Entity record missing from campaign', false);
+          return;
+        }
+
+        appendCategoryRow(tbody, `Industry: ${ind.name || ind.id}`);
+        appendPropRow(tbody, 'Facility Name', ind.name || '', true, val => {
+          ind.name = val;
+          if (pin && !pin.label) pin.label = val;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          if (typeof updateObjectSelector === 'function') updateObjectSelector();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendPropRow(tbody, 'Facility Category', ind.category || 'Infrastructural Machinery', true, val => {
+          ind.category = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendSourceModuleRow(tbody, ind.moduleId, isProto);
+        const provVals = Array.isArray(ind.provides || ind.produces) ? (ind.provides || ind.produces).join(', ') : (ind.provides || ind.produces || '');
+        const reqVals = Array.isArray(ind.requires || ind.consumes) ? (ind.requires || ind.consumes).join(', ') : (ind.requires || ind.consumes || '');
+        if (provVals) appendPropRow(tbody, 'Outputs / Provides', provVals, false);
+        if (reqVals) appendPropRow(tbody, 'Inputs / Requires', reqVals, false);
+        const richInd = appendRichSupplyChainRows(tbody, ind, 'industry', topo);
+        appendSelectPropRow(tbody, 'Stationed Facility Node', String(ind.nodeId || ''), nodeOptions, val => {
+          ind.nodeId = val ? (isNaN(val) ? val : parseInt(val)) : null;
+          if (typeof renderCanvas === 'function') renderCanvas();
+          updatePropertiesGrid();
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendTextareaPropRow(tbody, 'Mechanical Specs', ind.specs || '', 2, val => {
+          ind.specs = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+        appendTextareaPropRow(tbody, 'GM Notes (Authored)', richInd ? richInd.customNotes : (ind.notes || ind.description || ''), 2, val => {
+          ind.notes = val;
+          if (typeof saveActiveCampaign === 'function') saveActiveCampaign();
+        });
+
+        appendCategoryRow(tbody, 'Entity Roster Actions');
+        appendButtonPropRow(tbody, 'Industry Catalog', '🏭 Open Industry Catalog in Explorer...', () => {
+          if (typeof openEntityManager === 'function') openEntityManager('industry');
+          if (typeof selectEntityItem === 'function') selectEntityItem(ind.id, isProto);
         });
 
       } else if (entityType === 'ticket') {
@@ -4143,6 +4252,88 @@
       tdVal.appendChild(link);
       tr.appendChild(tdVal);
       tbody.appendChild(tr);
+    }
+
+    // Stage 3B: universal "Load Source Module" button row (replaces the inert "Module [X]" text row).
+    function appendSourceModuleRow(tbody, moduleId, isProto) {
+      if (moduleId === null || moduleId === undefined || String(moduleId).trim() === '') {
+        appendPropRow(tbody, 'Source Module', isProto ? 'Prototype' : 'Custom Authored', false);
+        return;
+      }
+      const mid = String(moduleId).trim();
+      appendButtonPropRow(tbody, 'Source Module', `📦 Module: [${mid}] — Load Module...`, () => {
+        if (typeof openSourceModuleFromInspector === 'function') openSourceModuleFromInspector(mid, null);
+        else if (typeof openModuleExplorer === 'function') openModuleExplorer(mid);
+      });
+    }
+
+    // Stage 3B: one-click jump from the dock to an Entity Manager record.
+    function dockJumpToEntity(type, id, isProto) {
+      if (typeof inspectorJumpToEntity === 'function') {
+        inspectorJumpToEntity(type, id, isProto);
+        return;
+      }
+      if (typeof openEntityManager === 'function') openEntityManager(type);
+      if (typeof selectEntityItem === 'function') selectEntityItem(id, !!isProto);
+    }
+
+    // Stage 3B: resolveRichEntityMetadata-backed rows for resource / industry dock inspectors.
+    function appendRichSupplyChainRows(tbody, entity, kind, topo) {
+      const rich = (typeof resolveRichEntityMetadata === 'function') ? resolveRichEntityMetadata(entity, kind) : null;
+      if (!rich) return null;
+      const chain = rich.chain || {};
+      const chainParts = [];
+      if (chain.chainId) chainParts.push(chain.chainId);
+      if (chain.chainStage !== null && chain.chainStage !== undefined && chain.chainStage !== '') chainParts.push(`Stage ${chain.chainStage}`);
+      if (chain.chainRole) chainParts.push(chain.chainRole);
+      if (chainParts.length) appendPropRow(tbody, 'Supply Chain', chainParts.join(' • '), false);
+      const clip = (v) => (typeof v === 'string' ? v : (v == null ? '' : (Array.isArray(v) ? v.join('; ') : JSON.stringify(v))));
+      const index = (typeof buildIndustryResourceIndex === 'function') ? buildIndustryResourceIndex(topo) : null;
+
+      if (kind === 'resource') {
+        const b = rich.batchSpecs || {};
+        if (b.sector) appendPropRow(tbody, 'Sector', b.sector, false);
+        if (rich.extractionLore) appendPropRow(tbody, 'Extraction Lore', rich.extractionLore, false);
+        if (rich.originFacility) appendPropRow(tbody, 'Origin Facility', rich.originFacility, false);
+        if (rich.refiningContext) appendPropRow(tbody, 'Extraction Method', rich.refiningContext, false);
+        const batchBits = [b.yields && `Yields: ${b.yields}`, b.unit && `Unit: ${b.unit}`, b.handling && `Handling: ${b.handling}`].filter(Boolean);
+        if (batchBits.length) appendPropRow(tbody, 'Batch Specs', batchBits.join(' | '), false);
+        if (rich.moduleLore && rich.moduleLore !== rich.extractionLore) appendPropRow(tbody, 'Module Lore', rich.moduleLore, false);
+        if (rich.consumedByHint) appendPropRow(tbody, 'Consumed By (Hint)', rich.consumedByHint, false);
+        appendCategoryRow(tbody, 'Linked Industrial Facilities');
+        const producers = (rich.upstream || []).filter(u => !u.isNode);
+        if (producers.length === 0) appendPropRow(tbody, 'Produced By', rich.originFacility || 'No producing facility registered', false);
+        producers.forEach(u => appendButtonPropRow(tbody, 'Produced By', `🏭 ${u.name}${u.isPrototype ? ' (prototype)' : ''}`, () => dockJumpToEntity('industry', u.id, u.isPrototype)));
+        (rich.downstream || []).forEach(d => appendButtonPropRow(tbody, 'Consumed By', `${d.isNode ? '📍' : '🏭'} ${d.name}${d.isPrototype ? ' (prototype)' : ''}`, () => dockJumpToEntity(d.isNode ? 'node' : 'industry', d.id, d.isPrototype)));
+      } else {
+        const specs = rich.mechanicalSpecs || {};
+        if (rich.moduleLore) appendPropRow(tbody, 'Facility Lore', rich.moduleLore, false);
+        if (specs.physical) appendPropRow(tbody, 'Physical Architecture', specs.physical, false);
+        if (Array.isArray(specs.components) && specs.components.length) appendPropRow(tbody, 'Components', specs.components.join(' • '), false);
+        if (specs.throughput) appendPropRow(tbody, 'Throughput', specs.throughput, false);
+        if (specs.hazards) appendPropRow(tbody, 'Hazards', clip(specs.hazards), false);
+        if (rich.refiningContext) appendPropRow(tbody, 'Refining Process', rich.refiningContext, false);
+        if (specs.outputDialSummary) appendPropRow(tbody, 'Output Dial', specs.outputDialSummary, false);
+        if (rich.standaloneFallback) appendPropRow(tbody, 'Standalone Fallback', rich.standaloneFallback, false);
+        if (rich.nodePrerequisites) appendPropRow(tbody, 'Node Prerequisites', clip(rich.nodePrerequisites), false);
+        if (Array.isArray(rich.threatClocks) && rich.threatClocks.length) appendPropRow(tbody, 'Threat Clocks', rich.threatClocks.map(clip).join(' || '), false);
+        appendCategoryRow(tbody, 'Linked Resources');
+        const tagButton = (label, tag) => {
+          const m = index ? index.lookupResourceMatches(tag) : { active: [], prototypes: [], meta: { name: tag } };
+          const hit = m.active[0] || m.prototypes[0];
+          const nm = (m.meta && m.meta.name) || tag;
+          if (hit) {
+            appendButtonPropRow(tbody, label, `📦 ${nm}${hit.isPrototype ? ' (prototype)' : ''}`, () => dockJumpToEntity('resource', hit.entity.id, hit.isPrototype));
+          } else {
+            appendPropRow(tbody, label, nm, false);
+          }
+        };
+        (rich.consumes || []).forEach(t => tagButton('Consumes', t));
+        (rich.produces || []).forEach(t => tagButton('Produces', t));
+        (rich.upstream || []).forEach(u => appendButtonPropRow(tbody, 'Upstream Supplier', `🏭 ${u.name}${u.isPrototype ? ' (prototype)' : ''}`, () => dockJumpToEntity('industry', u.id, u.isPrototype)));
+        (rich.downstream || []).filter(d => !d.isNode).forEach(d => appendButtonPropRow(tbody, 'Downstream Consumer', `🏭 ${d.name}${d.isPrototype ? ' (prototype)' : ''}`, () => dockJumpToEntity('industry', d.id, d.isPrototype)));
+      }
+      return rich;
     }
 
     function appendButtonPropRow(tbody, propName, buttonLabel, onAction) {

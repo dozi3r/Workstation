@@ -209,7 +209,7 @@ _Avoid_: Plugin manager, addon tab, external script
 ### Campaign Entities & Narrative Topology
 
 **Active Campaign Roster**:
-The authoritative collection of Non-Player Characters (NPCs), quest vectors, tangible items/relics, threat clocks/dials (`trackers`), and authoring tickets (`tickets`) explicitly attached to the current campaign topology, distinct from unassigned module library prototypes.
+The authoritative collection of Non-Player Characters (NPCs), quest vectors, tangible items/relics (`item`), industrial apparatus (`industry`), supply-chain commodities (`resource`), threat clocks/dials (`trackers`), factions, bestiary creatures, and authoring tickets (`tickets`) explicitly attached to the current campaign topology and partitioned via `getActiveEntityList(type)`, distinct from unassigned module library prototypes.
 _Avoid_: Character list, database, party sheet
 
 **Module Entity Prototype**:

@@ -525,6 +525,14 @@ function getNestedBacklinksForNode(nodeId, mapId) {
     const hits = getBacklinksForEntity("item", ent.id, targetMapId, { skipRebuild: true });
     hits.forEach(h => pushHit(h, false, [ent.name || `Item #${ent.id}`]));
   });
+  (rec.direct.industries || []).forEach(ent => {
+    const hits = getBacklinksForEntity("item", ent.id, targetMapId, { skipRebuild: true });
+    hits.forEach(h => pushHit(h, false, [ent.name || `Industry #${ent.id}`]));
+  });
+  (rec.direct.resources || []).forEach(ent => {
+    const hits = getBacklinksForEntity("item", ent.id, targetMapId, { skipRebuild: true });
+    hits.forEach(h => pushHit(h, false, [ent.name || `Resource #${ent.id}`]));
+  });
   (rec.direct.quests || []).forEach(ent => {
     const hits = getBacklinksForEntity("quest", ent.id, targetMapId, { skipRebuild: true });
     hits.forEach(h => pushHit(h, false, [ent.title || ent.name || `Quest #${ent.id}`]));
@@ -559,6 +567,14 @@ function getNestedBacklinksForNode(nodeId, mapId) {
     (sm.items || []).forEach(ent => {
       const hits = getBacklinksForEntity("item", ent.id, sm.mapId, { skipRebuild: true });
       hits.forEach(h => pushHit(h, true, [...smPath, ent.name || `Item #${ent.id}`]));
+    });
+    (sm.industries || []).forEach(ent => {
+      const hits = getBacklinksForEntity("item", ent.id, sm.mapId, { skipRebuild: true });
+      hits.forEach(h => pushHit(h, true, [...smPath, ent.name || `Industry #${ent.id}`]));
+    });
+    (sm.resources || []).forEach(ent => {
+      const hits = getBacklinksForEntity("item", ent.id, sm.mapId, { skipRebuild: true });
+      hits.forEach(h => pushHit(h, true, [...smPath, ent.name || `Resource #${ent.id}`]));
     });
     (sm.quests || []).forEach(ent => {
       const hits = getBacklinksForEntity("quest", ent.id, sm.mapId, { skipRebuild: true });

@@ -109,6 +109,20 @@
     categories.forEach(k => {
       if (!Array.isArray(entitiesObj[k])) entitiesObj[k] = [];
     });
+    if (Array.isArray(entitiesObj.industries)) {
+      entitiesObj.industries.forEach(ind => {
+        if (!ind || typeof ind !== 'object') return;
+        const tagged = { ...ind, isIndustry: true, entityKind: 'industry' };
+        if (tagged.id && entitiesObj.items.some(it => it && String(it.id) === String(tagged.id))) {
+          const ex = entitiesObj.items.find(it => it && String(it.id) === String(tagged.id));
+          if (ex && ex.isIndustry === undefined) ex.isIndustry = true;
+          if (ex && !ex.entityKind) ex.entityKind = 'industry';
+        } else {
+          entitiesObj.items.push(tagged);
+        }
+      });
+      delete entitiesObj.industries;
+    }
 
     entitiesObj.npcs.forEach(npc => {
       if (!npc) return;
@@ -769,11 +783,11 @@
 
   function normalizeEntityCategory(category) {
     const rawCat = String(category || '').toLowerCase().trim();
-    return (rawCat === 'clock' || rawCat === 'clocks')
-      ? 'trackers'
-      : (rawCat === 'spatialpin' || rawCat === 'spatial_pin' || rawCat === 'spatial_pins')
-        ? 'spatialpins'
-        : (rawCat.endsWith('s') ? rawCat : rawCat + 's');
+    if (rawCat === 'clock' || rawCat === 'clocks') return 'trackers';
+    if (rawCat === 'spatialpin' || rawCat === 'spatial_pin' || rawCat === 'spatial_pins') return 'spatialpins';
+    if (rawCat === 'industry' || rawCat === 'industries' || rawCat === 'facility' || rawCat === 'facilities') return 'items';
+    if (rawCat === 'resource' || rawCat === 'resources') return 'items';
+    return rawCat.endsWith('s') ? rawCat : rawCat + 's';
   }
 
   function entityTypeOfCategory(cat) {
@@ -786,8 +800,10 @@
       targetType,
       idStr,
       matchesId: (val) => val !== null && val !== undefined && String(val) === idStr,
-      // 'clock' is the legacy stored name of the tracker type
-      typeMatches: (t) => t === targetType || (t === 'clock' && targetType === 'tracker')
+      // 'clock' is the legacy stored name of the tracker type; 'industry' and 'resource' share backing collection with 'item'
+      typeMatches: (t) => t === targetType
+        || (t === 'clock' && targetType === 'tracker')
+        || ((t === 'industry' || t === 'resource') && targetType === 'item')
     };
   }
 
@@ -919,9 +935,9 @@
       }
     },
     ticketTarget: {
-      hit: (rec, row, ctx) => rec.targetType === ctx.targetType && ctx.matchesId(rec.targetId),
+      hit: (rec, row, ctx) => ctx.typeMatches(rec.targetType) && ctx.matchesId(rec.targetId),
       apply(rec, row, ctx) {
-        if (rec.targetType !== ctx.targetType || !ctx.matchesId(rec.targetId)) return;
+        if (!ctx.typeMatches(rec.targetType) || !ctx.matchesId(rec.targetId)) return;
         rec.targetType = 'campaign';
         rec.targetId = '';
         rec.notes = (rec.notes || '') + `\n[Audit: Target ${ctx.targetType} (${ctx.idStr}) was deleted on ${new Date().toISOString()}]`;

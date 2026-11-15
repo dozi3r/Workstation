@@ -19,16 +19,374 @@
     }
     window.getItemEffectiveNodeId = getItemEffectiveNodeId;
 
+    function parseResourceTagMeta(raw) {
+      if (!raw || typeof raw !== 'string') {
+        return { raw: '', sector: 'General', name: '', canonicalKey: '', tailKey: '' };
+      }
+      const cleaned = raw.trim().replace(/^(?:provides|requires|yields|resource|commodity)\s*:\s*/i, '');
+      let sector = 'General';
+      let label = cleaned;
+      const colonIdx = cleaned.indexOf(':');
+      if (colonIdx > 0) {
+        const prefix = cleaned.slice(0, colonIdx).trim();
+        const rest = cleaned.slice(colonIdx + 1).trim();
+        if (prefix && rest && !/^(provides|requires|yields)$/i.test(prefix)) {
+          sector = prefix.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+          sector = sector ? (sector.charAt(0).toUpperCase() + sector.slice(1)) : 'General';
+          label = rest;
+        }
+      }
+      const slug = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      const humanName = label.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+      const tailKey = slug(label);
+      const canonicalKey = (colonIdx > 0 && sector !== 'General')
+        ? `${slug(sector)}:${tailKey}`
+        : tailKey;
+      return {
+        raw: raw.trim(),
+        sector,
+        name: humanName || cleaned,
+        canonicalKey,
+        tailKey
+      };
+    }
+    window.parseResourceTagMeta = parseResourceTagMeta;
+
+    function normalizeResourceTagKey(raw) {
+      return parseResourceTagMeta(raw).canonicalKey;
+    }
+    window.normalizeResourceTagKey = normalizeResourceTagKey;
+
     function isResourceItem(item) {
-      if (!item) return false;
+      if (!item || typeof item !== 'object' || item.isResource === false) return false;
       return Boolean(
         item.isResource === true ||
+        item.entityKind === 'resource' ||
         item.category === 'Resource Export / Supply Anchor' ||
         /^(Resource|Commodity)\s*:/i.test(item.category || '') ||
         (item.tags && Array.isArray(item.tags) && item.tags.some(t => /^(resource|commodity)$/i.test(t)))
       );
     }
     window.isResourceItem = isResourceItem;
+
+    function isIndustryItem(item) {
+      if (!item || typeof item !== 'object') return false;
+      // Strict mutual exclusion: resources always win first priority
+      if (isResourceItem(item)) return false;
+      // Explicit opt-outs protect real tabletop loot, RPG gear, weapons, armor & keys
+      if (item.isIndustry === false || item.isLoot === true || item.entityKind === 'item' || item.kind === 'item') return false;
+      if (item.lootMetadata && item.isIndustry !== true && item.entityKind !== 'industry') return false;
+      // Explicit opt-ins
+      if (item.isIndustry === true || item.entityKind === 'industry' || item.kind === 'industry') return true;
+
+      const cat = String(item.category || item.type || '').trim();
+      if (/^(Weapon|Armor|Shield|Consumable|Potion|Scroll|Spellbook|Ring|Amulet|Wondrous Item|Clothing|Jewelry|Key|Key Item|Document|Book|Letter|Quest Item|Currency|Treasure|Ammo|Ammunition|Gear|Equipment|Adventure Gear|Tool)$/i.test(cat)) {
+        return false;
+      }
+      if (/^(Infrastructural Machinery|Industrial Facility|Production Facility|Extraction Apparatus|Infrastructure|Utility Facility|Supply Infrastructure|Agricultural Facility|Refinery|Foundry|Workshop Facility)$/i.test(cat)) {
+        return true;
+      }
+      if (/\b(machinery|apparatus|infrastructure|facility|refinery|foundry|smelter|granary|kiln|waterworks|aqueduct|cistern|pelton)\b/i.test(cat)) {
+        return true;
+      }
+      if (Array.isArray(item.tags) && item.tags.some(t => /^(industry|infrastructure|facility|machinery|apparatus|extractor|refiner|depot)$/i.test(String(t || '').trim()))) {
+        return true;
+      }
+      const modId = String(item.moduleId || '').trim();
+      const specs = String(item.specs || '').trim();
+      const notes = String(item.notes || '').trim();
+      if (item.chain_id || item.chainId) return true;
+      if (/^(T0-DOM|ECOL|AGRI|FARM|IND|EXT|INFRA|MINE|FORGE|MILL)-/i.test(modId)) {
+        if (/^(Infrastructural Machinery|Tabletop Asset \/ Relic)$/i.test(cat) ||
+            /^(Module Anchor|Provides:|Requires:|Standalone Fallback)/i.test(specs) ||
+            /^Primary technological, infrastructural, or tactical anchor established by/i.test(notes) ||
+            /_item_0$/i.test(String(item.prototypeId || item.id || ''))) {
+          return true;
+        }
+      }
+      return false;
+    }
+    window.isIndustryItem = isIndustryItem;
+
+    function splitResourceTagList(val) {
+      if (!val) return [];
+      if (Array.isArray(val)) return val.map(x => String(x || '').trim()).filter(Boolean);
+      return String(val).split(/[;,]/).map(x => x.trim()).filter(Boolean);
+    }
+
+    function buildIndustryResourceIndex(targetTopo = null) {
+      const topo = targetTopo || ((typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : {}) || {};
+      const mods = (typeof ALL_MODULES !== 'undefined' && Array.isArray(ALL_MODULES)) ? ALL_MODULES : [];
+      const modById = new Map();
+      mods.forEach(m => { if (m && m.id) modById.set(String(m.id), m); });
+
+      const allItems = Array.isArray(topo.items) ? topo.items : [];
+      const activeResources = allItems.filter(i => isResourceItem(i));
+      const activeIndustries = allItems.filter(i => !isResourceItem(i) && isIndustryItem(i));
+      const protoResources = (typeof getPrototypesForType === 'function') ? getPrototypesForType('resource') : [];
+      const protoIndustries = (typeof getPrototypesForType === 'function') ? getPrototypesForType('industry') : [];
+
+      const resByKey = new Map();
+      const addResKey = (key, entry) => {
+        if (!key) return;
+        if (!resByKey.has(key)) resByKey.set(key, []);
+        const bucket = resByKey.get(key);
+        if (!bucket.some(b => b.entity === entry.entity)) bucket.push(entry);
+      };
+      const registerRes = (r, isProto) => {
+        const candidates = [r.name, r.provides, r.yields, r.specs];
+        candidates.forEach(c => {
+          splitResourceTagList(c).forEach(tag => {
+            const meta = parseResourceTagMeta(tag);
+            const rec = { entity: r, isPrototype: isProto, tag: meta.raw, meta };
+            addResKey(meta.canonicalKey, rec);
+            if (meta.tailKey && meta.tailKey !== meta.canonicalKey) addResKey(meta.tailKey, rec);
+          });
+        });
+      };
+      activeResources.forEach(r => registerRes(r, false));
+      protoResources.forEach(r => registerRes(r, true));
+
+      const resolveEntityTags = (ent, field) => {
+        const direct = splitResourceTagList(ent[field]);
+        if (direct.length > 0) return direct;
+        const m = ent.moduleId ? modById.get(String(ent.moduleId)) : null;
+        if (m && m[field]) return splitResourceTagList(m[field]);
+        if (field === 'provides' && ent.specs && /Provides\s*:/i.test(ent.specs)) {
+          return splitResourceTagList(ent.specs.replace(/^.*?Provides\s*:/i, ''));
+        }
+        if (field === 'requires' && ent.specs && /Requires\s*:/i.test(ent.specs)) {
+          return splitResourceTagList(ent.specs.replace(/^.*?Requires\s*:/i, ''));
+        }
+        return [];
+      };
+
+      const lookupResourceMatches = (tag) => {
+        const meta = parseResourceTagMeta(tag);
+        const rawMatches = [
+          ...(resByKey.get(meta.canonicalKey) || []),
+          ...(meta.tailKey && meta.tailKey !== meta.canonicalKey ? (resByKey.get(meta.tailKey) || []) : [])
+        ];
+        const seen = new Set();
+        const unique = [];
+        rawMatches.forEach(m => {
+          const k = `${m.isPrototype ? 'p' : 'a'}:${m.entity.id}`;
+          if (!seen.has(k)) { seen.add(k); unique.push(m); }
+        });
+        return { tag: meta.raw, meta, active: unique.filter(u => !u.isPrototype), prototypes: unique.filter(u => u.isPrototype) };
+      };
+
+      const findIndustryLinksForTag = (tag) => {
+        const meta = parseResourceTagMeta(tag);
+        const matchesTag = (candidateList) => candidateList.some(ct => {
+          const cm = parseResourceTagMeta(ct);
+          return (meta.canonicalKey && cm.canonicalKey === meta.canonicalKey) ||
+                 (meta.tailKey && cm.tailKey === meta.tailKey);
+        });
+        const producers = [];
+        const consumers = [];
+        const inspectInd = (ind, isProto) => {
+          const prov = resolveEntityTags(ind, 'provides').concat(resolveEntityTags(ind, 'yields'));
+          const req = resolveEntityTags(ind, 'requires');
+          if (matchesTag(prov)) producers.push({ entity: ind, isPrototype: isProto });
+          if (matchesTag(req)) consumers.push({ entity: ind, isPrototype: isProto });
+        };
+        activeIndustries.forEach(i => inspectInd(i, false));
+        protoIndustries.forEach(p => {
+          if (!activeIndustries.some(a => String(a.prototypeId) === String(p.id) || String(a.id) === String(p.id))) {
+            inspectInd(p, true);
+          }
+        });
+        const nodeConsumers = [];
+        Object.keys(topo.nodes || {}).forEach(nid => {
+          const n = topo.nodes[nid];
+          if (n && matchesTag(splitResourceTagList(n.requires))) nodeConsumers.push(n);
+        });
+        const caravans = [];
+        Object.keys(topo.edgeData || {}).forEach(ek => {
+          const ed = topo.edgeData[ek];
+          const tr = ed && ed.modData && ed.modData.pre_industrial_resources && Array.isArray(ed.modData.pre_industrial_resources.inTransit)
+            ? ed.modData.pre_industrial_resources.inTransit : [];
+          tr.forEach(sh => {
+            if (sh && matchesTag([sh.resource || ''])) caravans.push({ edgeKey: ek, shipment: sh });
+          });
+        });
+        return { meta, producers, consumers, nodeConsumers, caravans };
+      };
+
+      return {
+        resolveEntityTags,
+        lookupResourceMatches,
+        findIndustryLinksForTag
+      };
+    }
+    window.buildIndustryResourceIndex = buildIndustryResourceIndex;
+
+    // --- Stage 3A: Runtime rich-metadata fallback for legacy campaign entities ---
+    const LEGACY_ENTITY_NOTE_RE = /^(Primary technological, infrastructural, or tactical anchor established by|Supply chain material or energy export produced by|Operational catalyst triggered by)/i;
+
+    function isLegacyBoilerplateNote(notes) {
+      const t = String(notes == null ? '' : notes).trim();
+      return t === '' || LEGACY_ENTITY_NOTE_RE.test(t);
+    }
+    window.isLegacyBoilerplateNote = isLegacyBoilerplateNote;
+
+    function resolveRichEntityMetadata(entity, type) {
+      const empty = {
+        type: type || null, moduleId: null, moduleTitle: '', source: 'entity', legacyNotes: false,
+        notes: '', customNotes: '', moduleLore: '', extractionLore: '', refiningContext: '',
+        mechanicalSpecs: null, batchSpecs: null, dials: [], outputDial: null, threatClocks: [],
+        nodePrerequisites: null, standaloneFallback: '', chain: { chainId: null, chainStage: null, chainRole: null },
+        originFacility: '', consumedByHint: '', produces: [], consumes: [], upstream: [], downstream: []
+      };
+      if (!entity || typeof entity !== 'object') return empty;
+
+      const kind = type || (isResourceItem(entity) ? 'resource' : (isIndustryItem(entity) ? 'industry'
+        : ((entity.title && (entity.threat !== undefined || /crisis|dilemma|threat/i.test(entity.type || ''))) ? 'quest' : 'item')));
+      const out = { ...empty, type: kind };
+      const moduleId = entity.moduleId != null ? String(entity.moduleId) : '';
+      const mods = (typeof ALL_MODULES !== 'undefined' && Array.isArray(ALL_MODULES)) ? ALL_MODULES : [];
+      const mod = moduleId ? (mods.find(m => m && String(m.id) === moduleId) || null) : null;
+      out.moduleId = moduleId || null;
+      out.moduleTitle = (mod && mod.title) || entity.moduleTitle || '';
+
+      // --- Locate the matching module prototype (module extraction first, then MODULE_ENTITY_PROTOTYPES) ---
+      const pool = [];
+      if (mod) {
+        const list = kind === 'quest' ? mod.extracted_quests : mod.extracted_items;
+        if (Array.isArray(list)) pool.push(...list);
+      }
+      if (typeof getPrototypesForType === 'function' && moduleId) {
+        try {
+          getPrototypesForType(kind === 'quest' ? 'quest' : kind).forEach(p => {
+            if (p && String(p.moduleId || '') === moduleId && !pool.some(q => q.id === p.id)) pool.push(p);
+          });
+        } catch (e) { /* prototype bag unavailable in this context */ }
+      }
+      const entityTags = splitResourceTagList(entity.provides).concat(
+        (entity.specs && /Provides\s*:/i.test(entity.specs)) ? splitResourceTagList(String(entity.specs).replace(/^.*?Provides\s*:/i, '')) : []
+      );
+      const entityKeys = new Set(entityTags.map(t => normalizeResourceTagKey(t)).filter(Boolean));
+      if (entity.name) entityKeys.add(normalizeResourceTagKey(entity.name));
+      const sameId = (p) => p.id === entity.prototypeId || p.id === entity.id;
+      let proto = pool.find(sameId) || null;
+      if (!proto) {
+        if (kind === 'industry') {
+          proto = pool.find(p => !isResourceItem(p) && isIndustryItem(p)) || null;
+        } else if (kind === 'resource') {
+          proto = pool.find(p => isResourceItem(p) && (splitResourceTagList(p.provides).concat([p.name])).some(t => entityKeys.has(normalizeResourceTagKey(t)))) || null;
+        } else if (kind === 'quest') {
+          const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+          proto = pool.find(p => norm(p.title) === norm(entity.title || entity.name)) || null;
+        } else {
+          proto = pool.find(p => p.name && entity.name && p.name === entity.name) || null;
+        }
+      }
+      out.source = proto ? 'prototype' : (mod ? 'module' : 'entity');
+
+      // --- Pick structural / prose fields from entity -> proto -> module ---
+      const pick = (own, fromProto, fromMod) => {
+        const nonEmpty = (v) => !(v === undefined || v === null || v === '' || (Array.isArray(v) && v.length === 0) || (typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 0));
+        if (nonEmpty(own)) return own;
+        if (nonEmpty(fromProto)) return fromProto;
+        return nonEmpty(fromMod) ? fromMod : (Array.isArray(own) ? [] : (own === undefined ? null : own));
+      };
+
+      out.moduleLore = (proto && (proto.lore || proto.notes)) || (mod && (mod.mechanical_architecture || mod.overview || mod.summary)) || '';
+      out.extractionLore = (proto && proto.extractionLore)
+        || (mod && mod.extraction_lore ? String(mod.extraction_lore).replace(/\s*\*\s+/g, ' ').replace(/\s+/g, ' ').trim() : '');
+      out.refiningContext = (proto && (proto.refiningProcess || proto.extractionMethod)) || '';
+      out.originFacility = (proto && proto.originFacility) || (kind === 'resource' ? out.moduleTitle : '');
+      out.consumedByHint = (proto && proto.consumedByHint) || '';
+      out.mechanicalSpecs = pick(entity.mechanicalSpecs, proto && proto.mechanicalSpecs, null);
+      out.batchSpecs = pick(entity.batchSpecs, proto && proto.batchSpecs, null);
+      out.outputDial = pick(entity.output_dial || entity.outputDial, proto && proto.output_dial, mod && mod.output_dial);
+      out.dials = pick(entity.dials, proto && proto.dials, mod && mod.dials) || [];
+      out.threatClocks = pick(entity.threatClocks || entity.threat_clocks, proto && proto.threatClocks, mod && mod.threat_clocks) || [];
+      out.nodePrerequisites = pick(entity.nodePrerequisites || entity.node_prerequisites, proto && proto.nodePrerequisites, mod && mod.node_prerequisites);
+      out.standaloneFallback = pick(entity.standaloneFallback || entity.standalone_fallback, proto && proto.standaloneFallback, mod && mod.standalone_fallback) || '';
+      out.chain = {
+        chainId: pick(entity.chainId || entity.chain_id, proto && proto.chainId, mod && mod.chain_id),
+        chainStage: pick(entity.chainStage != null ? entity.chainStage : entity.chain_stage, proto && proto.chainStage, mod && mod.chain_stage),
+        chainRole: pick(entity.chainRole || entity.chain_role, proto && proto.chainRole, mod && mod.chain_role)
+      };
+
+      // --- Non-destructive notes: GM-authored text is preserved verbatim in customNotes ---
+      // Recognize empty/legacy boilerplate notes AND unmodified module-hydrated prose so baked JSON notes do not duplicate UI panels.
+      const normWs = (s) => String(s || '').replace(/\s+/g, ' ').trim();
+      const stripKnownAutoTail = (s) => normWs(s).replace(/\s+Downstream:\s+(?:In "Granular Mode", it provides\b[^.]+\.|(?:Used|Consumed) by\b[^.]+\.|Dispatches\b[^.]+\.)$/i, '').trim();
+      const rawNoteNorm = normWs(entity.notes);
+      const rawCoreNorm = stripKnownAutoTail(entity.notes);
+      const autoCandidates = [
+        proto && proto.notes,
+        proto && proto.lore,
+        out.moduleLore,
+        mod && mod.mechanical_architecture,
+        mod && mod.overview,
+        mod && mod.summary
+      ].filter(Boolean);
+      const matchesAutoHydrated = Boolean(rawNoteNorm) && autoCandidates.some(cand => {
+        const cn = normWs(cand);
+        if (cn && cn === rawNoteNorm) return true;
+        const cc = stripKnownAutoTail(cand);
+        return Boolean(cc && rawCoreNorm && cc === rawCoreNorm);
+      });
+      const legacy = isLegacyBoilerplateNote(entity.notes) || matchesAutoHydrated;
+      out.legacyNotes = legacy;
+      out.customNotes = legacy ? '' : String(entity.notes);
+
+      // Display notes: rich module prose only when the saved note is empty, legacy boilerplate, or unmodified hydrated lore.
+      out.notes = legacy ? (out.moduleLore || '') : String(entity.notes);
+      if (legacy && kind === 'resource' && proto && proto.notes) out.notes = proto.notes;
+
+      // --- Supply-chain partners (upstream producers / downstream consumers) ---
+      try {
+        const topo = (typeof Workstation !== 'undefined' && Workstation.activeTopology) ? Workstation.activeTopology : null;
+        const index = buildIndustryResourceIndex(topo);
+        const probe = { ...entity, moduleId: entity.moduleId, provides: entity.provides, requires: entity.requires, specs: entity.specs };
+        let provTags = index.resolveEntityTags(probe, 'provides');
+        if (provTags.length === 0 && proto) provTags = splitResourceTagList(proto.provides);
+        if (kind === 'resource' && provTags.length === 0) provTags = entityTags.length ? entityTags : [entity.name];
+        let reqTags = index.resolveEntityTags(probe, 'requires');
+        if (reqTags.length === 0 && proto) reqTags = splitResourceTagList(proto.requires);
+        if (kind === 'resource' && reqTags.length === 0 && mod) reqTags = splitResourceTagList(mod.requires);
+        out.produces = provTags;
+        out.consumes = reqTags;
+
+        const brief = (rec, tag) => ({
+          tag,
+          id: rec.entity.id,
+          name: rec.entity.name || rec.entity.title || String(rec.entity.id),
+          moduleId: rec.entity.moduleId || null,
+          isPrototype: Boolean(rec.isPrototype)
+        });
+        const selfModule = (rec) => moduleId && String(rec.entity.moduleId || '') === moduleId;
+        const seen = new Set();
+        const pushUnique = (arr, rec, tag) => {
+          // One row per partner facility: an active instance wins over its own module prototype.
+          const k = `${arr === out.upstream ? 'u' : 'd'}|${rec.entity.moduleId || rec.entity.id}|${rec.entity.name || rec.entity.title || ''}`;
+          if (seen.has(k)) return;
+          seen.add(k);
+          arr.push(brief(rec, tag));
+        };
+        if (kind === 'industry') {
+          reqTags.forEach(tag => index.findIndustryLinksForTag(tag).producers.forEach(rec => { if (!selfModule(rec)) pushUnique(out.upstream, rec, tag); }));
+          provTags.forEach(tag => index.findIndustryLinksForTag(tag).consumers.forEach(rec => { if (!selfModule(rec)) pushUnique(out.downstream, rec, tag); }));
+        } else if (kind === 'resource') {
+          provTags.forEach(tag => {
+            const links = index.findIndustryLinksForTag(tag);
+            links.producers.forEach(rec => pushUnique(out.upstream, rec, tag));
+            links.consumers.forEach(rec => { if (!selfModule(rec)) pushUnique(out.downstream, rec, tag); });
+            (links.nodeConsumers || []).forEach(n => out.downstream.push({ tag, id: n.id, name: n.name || `Node ${n.id}`, moduleId: null, isPrototype: false, isNode: true }));
+          });
+        }
+      } catch (e) {
+        // Supply-chain index is best-effort context; never block rich-note resolution.
+      }
+      return out;
+    }
+    window.resolveRichEntityMetadata = resolveRichEntityMetadata;
+    window.getResolvedEntityLoreContext = resolveRichEntityMetadata;
 
     function getCreatureEffectiveNodeId(creature) {
       if (!creature) return null;
@@ -473,24 +831,27 @@
       let result = [];
       const seedsKey = type === 'npc' ? 'npcs'
         : (type === 'quest' ? 'quests'
-        : ((type === 'item' || type === 'resource') ? 'items'
+        : ((type === 'item' || type === 'industry' || type === 'resource') ? 'items'
         : (type === 'creature' ? 'creatures'
         : (type === 'tracker' ? 'trackers'
         : (type === 'faction' ? 'factions' : '')))));
       const protoBag = (typeof MODULE_ENTITY_PROTOTYPES !== 'undefined' && MODULE_ENTITY_PROTOTYPES) ? MODULE_ENTITY_PROTOTYPES : {};
       const rawSeeds = protoBag[seedsKey] || [];
-      const seeds = (type === 'resource')
-        ? rawSeeds.filter(i => isResourceItem(i))
-        : ((type === 'item') ? rawSeeds.filter(i => !isResourceItem(i)) : rawSeeds);
+      const partitionItems = (arr) => {
+        if (!Array.isArray(arr)) return [];
+        if (type === 'resource') return arr.filter(i => isResourceItem(i));
+        if (type === 'industry') return arr.filter(i => !isResourceItem(i) && isIndustryItem(i));
+        if (type === 'item') return arr.filter(i => !isResourceItem(i) && !isIndustryItem(i));
+        return arr;
+      };
+      const seeds = (type === 'item' || type === 'industry' || type === 'resource') ? partitionItems(rawSeeds) : rawSeeds;
       result.push(...seeds);
 
       if (typeof ALL_MODULES !== 'undefined' && Array.isArray(ALL_MODULES)) {
         ALL_MODULES.forEach(m => {
-          if (type === 'npc' || type === 'quest' || type === 'item' || type === 'resource') {
+          if (type === 'npc' || type === 'quest' || type === 'item' || type === 'industry' || type === 'resource') {
             const rawList = type === 'npc' ? m.extracted_npcs : (type === 'quest' ? m.extracted_quests : m.extracted_items);
-            const list = (type === 'resource')
-              ? (Array.isArray(rawList) ? rawList.filter(i => isResourceItem(i)) : [])
-              : ((type === 'item') ? (Array.isArray(rawList) ? rawList.filter(i => !isResourceItem(i)) : []) : rawList);
+            const list = (type === 'item' || type === 'industry' || type === 'resource') ? partitionItems(rawList) : rawList;
             if (Array.isArray(list)) {
               list.forEach(item => {
                 if (!result.some(existing => existing.id === item.id || (item.name && existing.name === item.name) || (item.title && existing.title === item.title))) {
@@ -584,7 +945,7 @@
         if (!Array.isArray(topo.quests)) topo.quests = [];
         return topo.quests;
       }
-      if (type === 'item' || type === 'resource') {
+      if (type === 'item' || type === 'industry' || type === 'resource') {
         if (!Array.isArray(topo.items)) topo.items = [];
         return topo.items;
       }
@@ -610,7 +971,10 @@
       if (type === 'npc') return topo.npcs || [];
       if (type === 'quest') return topo.quests || [];
       if (type === 'item') {
-        return (topo.items || []).filter(i => !isResourceItem(i));
+        return (topo.items || []).filter(i => !isResourceItem(i) && !isIndustryItem(i));
+      }
+      if (type === 'industry') {
+        return (topo.items || []).filter(i => !isResourceItem(i) && isIndustryItem(i));
       }
       if (type === 'resource') {
         return (topo.items || []).filter(i => isResourceItem(i));
@@ -996,7 +1360,12 @@
       };
       if (type === 'resource') {
         newEntity.isResource = true;
+        newEntity.entityKind = 'resource';
         if (!newEntity.category) newEntity.category = 'Resource Export / Supply Anchor';
+      } else if (type === 'industry') {
+        newEntity.isIndustry = true;
+        newEntity.entityKind = 'industry';
+        if (!newEntity.category) newEntity.category = 'Infrastructural Machinery';
       }
       if (type === 'creature') {
         if (!newEntity.stationing) {
@@ -1157,14 +1526,29 @@
     }
     window.syncTrackerToQuests = syncTrackerToQuests;
 
-    function assignEntityToNode(entityId, nodeIdVal, isProto) {
-      let activeList = getActiveEntityList(CurrentEntityTab);
+    function assignEntityToNode(entityId, nodeIdVal, isProto, explicitType = null) {
+      let targetType = explicitType || (typeof CurrentEntityTab !== 'undefined' ? CurrentEntityTab : 'item');
+      let activeList = getActiveEntityList(targetType);
       let entity = activeList.find(e => e.id === entityId || e.prototypeId === entityId);
+
+      if (!entity && !explicitType) {
+        for (const fallbackType of ['item', 'industry', 'resource', 'npc', 'quest', 'creature', 'tracker', 'faction']) {
+          if (fallbackType === targetType) continue;
+          const candList = getActiveEntityList(fallbackType);
+          const found = candList.find(e => e.id === entityId || e.prototypeId === entityId);
+          if (found) {
+            targetType = fallbackType;
+            activeList = candList;
+            entity = found;
+            break;
+          }
+        }
+      }
 
       if (!entity && isProto) {
         // Auto-promote when assigning a prototype
-        promotePrototypeToCampaign(entityId, CurrentEntityTab);
-        activeList = getActiveEntityList(CurrentEntityTab);
+        promotePrototypeToCampaign(entityId, targetType);
+        activeList = getActiveEntityList(targetType);
         entity = activeList.find(e => e.id === entityId || e.prototypeId === entityId) || activeList[activeList.length - 1];
       }
 
@@ -1176,7 +1560,7 @@
           if (parsedNodeId && (!entity.stationing.mode || entity.stationing.mode === 'unassigned')) {
             entity.stationing.mode = 'lair';
           }
-        } else if (CurrentEntityTab === 'creature') {
+        } else if (targetType === 'creature') {
           entity.stationing = { mode: parsedNodeId ? 'lair' : 'unassigned', nodeId: parsedNodeId };
         }
         saveActiveCampaign();
@@ -1197,7 +1581,7 @@
       // No confirmation dialog loaded: still delete through the engine so every reference is unlinked the same way
       const topo = Workstation.activeTopology;
       const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
-      const effectiveType = CurrentEntityTab === 'resource' ? 'item' : CurrentEntityTab;
+      const effectiveType = (CurrentEntityTab === 'resource' || CurrentEntityTab === 'industry') ? 'item' : CurrentEntityTab;
       if (cme && typeof cme.deleteEntity === 'function' && ['npc', 'quest', 'item', 'creature', 'tracker', 'faction'].includes(effectiveType)) {
         cme.deleteEntity(topo, effectiveType, entityId, { allowMissingEntity: true, maps: (typeof maps !== 'undefined' ? maps : undefined) });
       }
@@ -1762,7 +2146,8 @@
           counts: {
             npcs: s.npcs.length,
             quests: s.quests.length,
-            items: s.items.filter(i => !isResourceItem(i)).length,
+            items: s.items.filter(i => !isResourceItem(i) && !isIndustryItem(i)).length,
+            industries: s.items.filter(i => !isResourceItem(i) && isIndustryItem(i)).length,
             resources: s.items.filter(i => isResourceItem(i)).length,
             creatures: s.creatures.length,
             trackers: s.trackers.length,
@@ -1784,7 +2169,8 @@
         sources.forEach(src => {
           if (normType === 'npc') result.push(...src.npcs);
           else if (normType === 'quest') result.push(...src.quests);
-          else if (normType === 'item') result.push(...src.items.filter(i => !isResourceItem(i)));
+          else if (normType === 'item') result.push(...src.items.filter(i => !isResourceItem(i) && !isIndustryItem(i)));
+          else if (normType === 'industry') result.push(...src.items.filter(i => !isResourceItem(i) && isIndustryItem(i)));
           else if (normType === 'resource') result.push(...src.items.filter(i => isResourceItem(i)));
           else if (normType === 'creature') result.push(...src.creatures);
           else if (normType === 'tracker') result.push(...src.trackers);
@@ -1816,7 +2202,7 @@
           : Object.values(this.loadedSources);
 
         const cats = explicitType
-          ? [explicitType === 'resource' ? 'items' : (explicitType === 'item' ? 'items' : explicitType + 's')]
+          ? [(explicitType === 'resource' || explicitType === 'industry' || explicitType === 'item') ? 'items' : explicitType + 's']
           : ['npcs', 'quests', 'items', 'creatures', 'trackers', 'factions'];
 
         for (const src of candidateSources) {
@@ -1824,7 +2210,7 @@
             const list = src[cat] || [];
             const found = list.find(e => String(e.id) === String(entityId) || String(e._externalKey) === str);
             if (found) {
-              const detectedType = explicitType || (cat === 'npcs' ? 'npc' : (cat === 'quests' ? 'quest' : (cat === 'items' ? (isResourceItem(found) ? 'resource' : 'item') : (cat === 'creatures' ? 'creature' : (cat === 'trackers' ? 'tracker' : (cat === 'factions' ? 'faction' : 'npc'))))));
+              const detectedType = explicitType || (cat === 'npcs' ? 'npc' : (cat === 'quests' ? 'quest' : (cat === 'items' ? (isResourceItem(found) ? 'resource' : (isIndustryItem(found) ? 'industry' : 'item')) : (cat === 'creatures' ? 'creature' : (cat === 'trackers' ? 'tracker' : (cat === 'factions' ? 'faction' : 'npc'))))));
               return {
                 entity: found,
                 sourcePool: src,

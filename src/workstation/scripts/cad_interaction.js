@@ -2056,12 +2056,17 @@
             meta: `${n.archetype || n.role || 'NPC'}${n.currentNodeId ? ' @ Node ' + n.currentNodeId : ''}`
           }));
         } else if (t === 'item') {
-          return (topo.items || []).map(it => ({
-            type: 'item',
-            id: String(it.id),
-            title: it.name || it.id,
-            meta: `${it.type || it.category || 'Item'}${it.rarity ? ' • ' + it.rarity : ''}`
-          }));
+          return (topo.items || []).map(it => {
+            const pType = (typeof isResourceItem === 'function' && isResourceItem(it))
+              ? 'resource'
+              : ((typeof isIndustryItem === 'function' && isIndustryItem(it)) ? 'industry' : 'item');
+            return {
+              type: pType,
+              id: String(it.id),
+              title: it.name || it.id,
+              meta: `${it.type || it.category || (pType === 'industry' ? 'Industry' : (pType === 'resource' ? 'Resource' : 'Item'))}${it.rarity ? ' • ' + it.rarity : ''}`
+            };
+          });
         } else if (t === 'submap') {
           return Object.keys(allMaps).filter(mId => mId !== curMapId).map(mId => {
             const m = allMaps[mId] || {};
@@ -2727,16 +2732,20 @@
         });
       });
 
-      // 3. Items
+      // 3. Items, Industries & Resources
       (topo.items || []).forEach(it => {
         if (!it) return;
-        const pinLoc = findEntityCoords('item', it.id);
+        const pType = (typeof isResourceItem === 'function' && isResourceItem(it))
+          ? 'resource'
+          : ((typeof isIndustryItem === 'function' && isIndustryItem(it)) ? 'industry' : 'item');
+        const pinLoc = findEntityCoords(pType, it.id) || findEntityCoords('item', it.id);
         const nId = it.nodeId !== undefined ? it.nodeId : (it.locationNodeId || null);
+        const typeLabel = pType === 'industry' ? 'Industry' : (pType === 'resource' ? 'Resource' : 'Item');
         entries.push({
-          cat: 'item',
-          icon: '🎒',
+          cat: pType,
+          icon: pType === 'industry' ? '🏭' : (pType === 'resource' ? '📦' : '🎒'),
           title: it.name || it.id,
-          subtitle: `Item • ${it.type || it.category || 'Gear'}${it.rarity ? ' (' + it.rarity + ')' : ''}${pinLoc ? ' 📌 Pinned' : ''}`,
+          subtitle: `${typeLabel} • ${it.type || it.category || 'Gear'}${it.rarity ? ' (' + it.rarity + ')' : ''}${pinLoc ? ' 📌 Pinned' : ''}`,
           entityId: it.id,
           nodeId: nId,
           pinLoc: pinLoc
@@ -2922,7 +2931,7 @@
         return;
       }
 
-      const tabMap = { npc: 'npcs', item: 'items', resource: 'resources', creature: 'creatures', quest: 'quests', tracker: 'trackers', faction: 'factions' };
+      const tabMap = { npc: 'npcs', item: 'items', industry: 'industries', resource: 'resources', creature: 'creatures', quest: 'quests', tracker: 'trackers', faction: 'factions' };
       if (typeof openEntityManager === 'function' && tabMap[r.cat]) {
         openEntityManager(tabMap[r.cat]);
       } else if (typeof switchEntityTab === 'function' && tabMap[r.cat]) {

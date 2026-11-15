@@ -5,6 +5,7 @@
       if (type === 'npc') return '👤';
       if (type === 'quest') return '📜';
       if (type === 'item') return '💎';
+      if (type === 'industry') return '🏭';
       if (type === 'resource') return '📦';
       if (type === 'creature') return '🐉';
       if (type === 'tracker') return '⏱️';
@@ -131,7 +132,7 @@
       const referrerLabels = new Map();
       let references = [];
       if (cme && typeof cme.findEntityReferences === 'function' && targetType !== 'module' && targetType !== 'map') {
-        const cmeTargetType = targetType === 'resource' ? 'item' : targetType;
+        const cmeTargetType = (targetType === 'resource' || targetType === 'industry') ? 'item' : targetType;
         references = cme.findEntityReferences(topo, cmeTargetType, targetId, { maps: (typeof maps !== 'undefined' && maps) ? maps : undefined });
         references.forEach(r => {
           const key = `${r.collection}:${r.entityId}`;
@@ -160,7 +161,7 @@
             } else if ((q.motivation || q.notes || '').toLowerCase().includes(targetName.toLowerCase())) {
               reason = `Referenced in Quest Narrative`; kind = 'mention';
             }
-          } else if (targetType === 'item') {
+          } else if (targetType === 'item' || targetType === 'industry' || targetType === 'resource') {
             if (q.itemIds && targetObj && targetObj.prototypeId && q.itemIds.includes(targetObj.prototypeId)) {
               reason = `Required via prototype id (not unlinked)`; kind = 'mention';
             } else if (targetNodeId && q.nodeId && String(q.nodeId) === String(targetNodeId)) {
@@ -203,7 +204,7 @@
             } else if ((topo.quests || []).some(q => (q.npcIds || []).includes(targetId) && (q.npcIds || []).includes(n.id))) {
               reason = `Co-featured in Shared Quest`; kind = 'related';
             }
-          } else if (targetType === 'item') {
+          } else if (targetType === 'item' || targetType === 'industry' || targetType === 'resource') {
             if (targetNodeId && String(n.nodeId) === String(targetNodeId)) {
               reason = `Stationed with Item at Node #${targetNodeId}`; kind = 'related';
             } else if ((topo.quests || []).some(q => (q.itemIds || []).includes(targetId) && (q.npcIds || []).includes(n.id))) {
@@ -250,7 +251,10 @@
           }
         }
         if (reason) {
-          addDep('item', itm, reason, itm.nodeId != null || true, kind);
+          const itmType = (typeof isResourceItem === 'function' && isResourceItem(itm))
+            ? 'resource'
+            : ((typeof isIndustryItem === 'function' && isIndustryItem(itm)) ? 'industry' : 'item');
+          addDep(itmType, itm, reason, itm.nodeId != null || true, kind);
         }
       });
 
@@ -486,6 +490,8 @@
             { type: 'quest', label: 'Related Quests & Dilemmas', icon: '📜' },
             { type: 'npc', label: 'Related NPCs & Characters', icon: '👤' },
             { type: 'item', label: 'Related Items & Relics', icon: '💎' },
+            { type: 'industry', label: 'Related Industry & Facilities', icon: '🏭' },
+            { type: 'resource', label: 'Related Resources & Commodities', icon: '📦' },
             { type: 'tracker', label: 'Related Threat Clocks & Dials', icon: '⏱️' },
             { type: 'node', label: 'Related Graph Nodes', icon: '🌐' },
             { type: 'map', label: 'Attached Portal Sub-Maps', icon: '🌀' },
@@ -972,6 +978,7 @@
         npc: new Set(),
         quest: new Set(),
         item: new Set(),
+        industry: new Set(),
         resource: new Set(),
         creature: new Set(),
         tracker: new Set(),
@@ -1005,7 +1012,7 @@
       if (cme && typeof cme.deleteEntity === 'function') {
         allToDelete.forEach(ent => {
           if (ent && ent.type && ent.type !== 'module' && ent.type !== 'map') {
-            const cmeType = ent.type === 'resource' ? 'item' : ent.type;
+            const cmeType = (ent.type === 'resource' || ent.type === 'industry') ? 'item' : ent.type;
             cme.deleteEntity(topo, cmeType, ent.id, { allowMissingEntity: true, maps: (typeof maps !== 'undefined' ? maps : undefined) });
           }
         });

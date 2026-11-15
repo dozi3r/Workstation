@@ -20,6 +20,7 @@
             <button id="em-tab-npc" class="win-btn" onclick="switchEntityManagerTab('npc')"><strong>NPCs</strong></button>
             <button id="em-tab-quest" class="win-btn" onclick="switchEntityManagerTab('quest')"><strong>Quests</strong></button>
             <button id="em-tab-item" class="win-btn" onclick="switchEntityManagerTab('item')"><strong>Items &amp; Relics</strong></button>
+            <button id="em-tab-industry" class="win-btn" onclick="switchEntityManagerTab('industry')"><strong>🏭 Industry</strong></button>
             <button id="em-tab-resource" class="win-btn" onclick="switchEntityManagerTab('resource')"><strong>📦 Resources</strong></button>
             <button id="em-tab-creature" class="win-btn" onclick="switchEntityManagerTab('creature')"><strong>🐉 Bestiary</strong></button>
             <button id="em-tab-tracker" class="win-btn" onclick="switchEntityManagerTab('tracker')"><strong>Trackers &amp; Clocks</strong></button>
@@ -53,6 +54,10 @@
               <option value="node">Sort: Station Node</option>
             </select>
             <input type="text" id="em-search-input" placeholder="Filter entities..." class="win-select-input" style="width:160px;" oninput="renderEntityManagerList()">
+            <select id="em-filter-node" class="win-select-input" title="Node or corridor endpoint" onchange="renderEntityManagerList()"></select>
+            <select id="em-filter-category" class="win-select-input" title="Category or sector" onchange="renderEntityManagerList()"></select>
+            <select id="em-filter-status" class="win-select-input" title="Status and source" onchange="renderEntityManagerList()"></select>
+            <button id="em-btn-clear-filters" class="win-btn" onclick="clearEntityExplorerFilters()">Clear Filters</button>
             <button id="em-btn-new-entity" class="win-btn" onclick="openNewEntityModal(CurrentEntityTab)">+ New Entity...</button>
           </div>
         </div>
@@ -69,6 +74,7 @@
 
           <!-- Col 2: Entity Table -->
           <div class="bevel-inset entity-list-container">
+            <div id="em-filter-summary" aria-live="polite" style="padding:3px 5px;font-size:10px;"></div>
             <table class="entity-win-table">
               <thead>
                 <tr id="em-table-head">

@@ -429,6 +429,25 @@
             `).join('');
           }
         }
+      } else if (type === 'industry') {
+        document.getElementById('ee-role-label').textContent = 'Facility Sector / Category (e.g. Infrastructural Machinery, Mill, Cistern):';
+        document.getElementById('ee-meta-label').textContent = 'Inputs & Output Yield Specs (Provides / Requires / Throughput):';
+        document.getElementById('ee-notes-label').textContent = 'Facility Architecture, Extraction Process & Operational Lore:';
+        if (nodeLabel) nodeLabel.textContent = 'Stationed Facility Node:';
+        if (itemExt) itemExt.style.display = 'flex';
+
+        const ownerSel = document.getElementById('ee-item-owner');
+        if (ownerSel) {
+          const allNpcs = (Workstation.activeTopology && Workstation.activeTopology.npcs) || [];
+          let opts = '<option value="">(None - Public Civic Infrastructure / Autonomous)</option>';
+          allNpcs.forEach(n => {
+            opts += `<option value="${n.id}">👤 ${n.name} (${n.role || 'Resident'})</option>`;
+          });
+          ownerSel.innerHTML = opts;
+          ownerSel.value = '';
+        }
+        const posSel = document.getElementById('ee-item-possession-mode');
+        if (posSel) posSel.value = 'stored';
       } else if (type === 'resource') {
         document.getElementById('ee-role-label').textContent = 'Resource Sector & Commodity (e.g. Mining, Timber, Agriculture):';
         document.getElementById('ee-meta-label').textContent = 'DF Stockpile / Batch Specs / Unit Weight:';
@@ -541,26 +560,41 @@
     }
     window.openNewEntityModal = openNewEntityModal;
 
-    function openEditEntityModal(entityId) {
-      const activeList = getActiveEntityList(CurrentEntityTab);
-      const entity = activeList.find(e => e.id === entityId);
+    function openEditEntityModal(entityId, explicitType = null) {
+      let targetType = explicitType || CurrentEntityTab;
+      let activeList = getActiveEntityList(targetType);
+      let entity = activeList.find(e => e.id === entityId);
+      if (!entity) {
+        const searchOrder = ['npc', 'quest', 'industry', 'resource', 'item', 'creature', 'tracker', 'faction'];
+        for (const candidateType of searchOrder) {
+          if (candidateType === targetType) continue;
+          const candidateList = getActiveEntityList(candidateType);
+          const hit = candidateList.find(e => e.id === entityId);
+          if (hit) {
+            targetType = candidateType;
+            activeList = candidateList;
+            entity = hit;
+            break;
+          }
+        }
+      }
       if (!entity) return;
 
-      openNewEntityModal(CurrentEntityTab);
-      document.getElementById('ee-modal-title').textContent = `Edit ${CurrentEntityTab.toUpperCase()}`;
+      openNewEntityModal(targetType);
+      document.getElementById('ee-modal-title').textContent = `Edit ${targetType.toUpperCase()}`;
       document.getElementById('ee-entity-id').value = entity.id;
       document.getElementById('ee-name').value = entity.name || entity.title || '';
       document.getElementById('ee-role').value = entity.role || entity.category || entity.type || entity.subtype || '';
-      document.getElementById('ee-meta').value = (CurrentEntityTab === 'tracker')
+      document.getElementById('ee-meta').value = (targetType === 'tracker')
         ? (entity.maxTicks || 6)
-        : (CurrentEntityTab === 'quest'
+        : (targetType === 'quest'
             ? (entity.threat || entity.stakes || entity.faction || '')
-            : (entity.faction || entity.threat || entity.specs || (CurrentEntityTab === 'creature' ? (entity.size || 'Medium') : '')));
+            : (entity.faction || entity.threat || entity.specs || (targetType === 'creature' ? (entity.size || 'Medium') : '')));
       document.getElementById('ee-notes').value = entity.motivation || entity.notes || entity.summary || '';
-      const effectiveNodeId = (CurrentEntityTab === 'creature' && typeof getCreatureEffectiveNodeId === 'function') ? getCreatureEffectiveNodeId(entity) : entity.nodeId;
+      const effectiveNodeId = (targetType === 'creature' && typeof getCreatureEffectiveNodeId === 'function') ? getCreatureEffectiveNodeId(entity) : entity.nodeId;
       document.getElementById('ee-node-select').value = effectiveNodeId != null ? String(effectiveNodeId) : '';
 
-      if (CurrentEntityTab === 'npc') {
+      if (targetType === 'npc') {
         if (document.getElementById('ee-npc-status')) document.getElementById('ee-npc-status').value = entity.status || 'Active';
         if (document.getElementById('ee-npc-standing')) document.getElementById('ee-npc-standing').value = (entity.dispositionToParty !== undefined) ? String(entity.dispositionToParty) : '0';
         if (document.getElementById('ee-npc-culture')) document.getElementById('ee-npc-culture').value = entity.culture || '';
@@ -586,13 +620,15 @@
         if (document.getElementById('ee-npc-dialogue')) {
           document.getElementById('ee-npc-dialogue').value = (entity.dialogueHooks || []).join('\n');
         }
-      } else if (CurrentEntityTab === 'item' || CurrentEntityTab === 'resource') {
+      } else if (targetType === 'item' || targetType === 'industry' || targetType === 'resource') {
         const ownerSel = document.getElementById('ee-item-owner');
         if (ownerSel) {
           const allNpcs = (Workstation.activeTopology && Workstation.activeTopology.npcs) || [];
-          let opts = CurrentEntityTab === 'resource'
+          let opts = targetType === 'resource'
             ? '<option value="">(None - Public Stockpile / Settlement Depot)</option>'
-            : '<option value="">(None - Unassigned / Public World Relic)</option>';
+            : (targetType === 'industry'
+                ? '<option value="">(None - Public Civic Infrastructure / Autonomous)</option>'
+                : '<option value="">(None - Unassigned / Public World Relic)</option>');
           allNpcs.forEach(n => {
             opts += `<option value="${n.id}" ${String(entity.ownerNpcId) === String(n.id) ? 'selected' : ''}>👤 ${n.name} (${n.role || 'Resident'})</option>`;
           });
@@ -601,7 +637,7 @@
         }
         const posSel = document.getElementById('ee-item-possession-mode');
         if (posSel) posSel.value = entity.possessionMode || 'stored';
-      } else if (CurrentEntityTab === 'quest') {
+      } else if (targetType === 'quest') {
         if (document.getElementById('ee-quest-status')) {
           document.getElementById('ee-quest-status').value = entity.status || 'Active';
         }
@@ -624,7 +660,7 @@
           cb.checked = trackerIds.includes(cb.value);
         });
         updateQuestSpanningPreview();
-      } else if (CurrentEntityTab === 'tracker') {
+      } else if (targetType === 'tracker') {
         const scopeSel = document.getElementById('ee-tracker-scope');
         if (scopeSel) {
           const normScope = (entity.scopeTier === 'city') ? 'settlement' : (entity.scopeTier || 'settlement');
@@ -644,7 +680,7 @@
             document.getElementById('ee-tracker-consequences').value = '';
           }
         }
-      } else if (CurrentEntityTab === 'faction') {
+      } else if (targetType === 'faction') {
         if (document.getElementById('ee-faction-culture')) document.getElementById('ee-faction-culture').value = entity.cvfQuadrant || 'Clan';
         if (document.getElementById('ee-faction-color')) document.getElementById('ee-faction-color').value = entity.colorIdentity || 'W';
         if (document.getElementById('ee-faction-leader')) document.getElementById('ee-faction-leader').value = entity.leaderNpcId || '';
@@ -657,7 +693,7 @@
         document.querySelectorAll('.ee-faction-node-cb').forEach(cb => {
           cb.checked = controlled.includes(String(cb.value));
         });
-      } else if (CurrentEntityTab === 'creature') {
+      } else if (targetType === 'creature') {
         if (document.getElementById('ee-creature-kind')) document.getElementById('ee-creature-kind').value = entity.kind || 'beast';
         if (document.getElementById('ee-creature-subtype')) document.getElementById('ee-creature-subtype').value = entity.subtype || '';
         if (document.getElementById('ee-creature-size')) document.getElementById('ee-creature-size').value = entity.size || 'Medium';
@@ -821,6 +857,16 @@
             ];
             entity.description = notes;
             entity.notes = notes;
+          } else if (type === 'industry') {
+            entity.name = name;
+            entity.category = role || 'Infrastructural Machinery';
+            entity.specs = meta;
+            entity.notes = notes;
+            entity.isIndustry = true;
+            entity.entityKind = 'industry';
+            delete entity.isResource;
+            if (document.getElementById('ee-item-owner')) entity.ownerNpcId = document.getElementById('ee-item-owner').value || null;
+            if (document.getElementById('ee-item-possession-mode')) entity.possessionMode = document.getElementById('ee-item-possession-mode').value || 'stored';
           } else if (type === 'resource') {
             entity.name = name;
             entity.category = role || 'Resource Export / Supply Anchor';
@@ -976,12 +1022,22 @@
           newEntity.description = notes;
           newEntity.notes = notes;
           if (typeof registerCampaignFaction === 'function') registerCampaignFaction(name);
+        } else if (type === 'industry') {
+          newEntity.name = name;
+          newEntity.category = role || 'Infrastructural Machinery';
+          newEntity.specs = meta;
+          newEntity.notes = notes;
+          newEntity.isIndustry = true;
+          newEntity.entityKind = 'industry';
+          newEntity.ownerNpcId = document.getElementById('ee-item-owner') ? (document.getElementById('ee-item-owner').value || null) : null;
+          newEntity.possessionMode = document.getElementById('ee-item-possession-mode') ? (document.getElementById('ee-item-possession-mode').value || 'stored') : 'stored';
         } else if (type === 'resource') {
           newEntity.name = name;
           newEntity.category = role || 'Resource Export / Supply Anchor';
           newEntity.specs = meta;
           newEntity.notes = notes;
           newEntity.isResource = true;
+          newEntity.entityKind = 'resource';
           newEntity.ownerNpcId = document.getElementById('ee-item-owner') ? (document.getElementById('ee-item-owner').value || null) : null;
           newEntity.possessionMode = document.getElementById('ee-item-possession-mode') ? (document.getElementById('ee-item-possession-mode').value || 'stored') : 'stored';
         } else if (type === 'creature') {
@@ -1064,6 +1120,7 @@
           newEntity.category = role;
           newEntity.specs = meta;
           newEntity.notes = notes;
+          newEntity.entityKind = 'item';
           newEntity.ownerNpcId = document.getElementById('ee-item-owner') ? (document.getElementById('ee-item-owner').value || null) : null;
           newEntity.possessionMode = document.getElementById('ee-item-possession-mode') ? (document.getElementById('ee-item-possession-mode').value || 'stored') : 'stored';
         }
@@ -1195,6 +1252,7 @@
       if (type === 'npc') { topo.npcs = topo.npcs || []; return topo.npcs; }
       if (type === 'quest') { topo.quests = topo.quests || []; return topo.quests; }
       if (type === 'item') { topo.items = topo.items || []; return topo.items; }
+      if (type === 'industry') { topo.items = topo.items || []; return topo.items; }
       if (type === 'tracker') { topo.trackers = topo.trackers || []; return topo.trackers; }
       if (type === 'faction') { topo.factions = topo.factions || []; return topo.factions; }
       if (type === 'creature') { topo.creatures = topo.creatures || []; return topo.creatures; }
@@ -1266,7 +1324,12 @@
         if (Array.isArray(entity.itemIds)) {
           entity.itemIds.forEach(iid => {
             const itm = poolItems.find(i => String(i.id) === String(iid));
-            if (itm) addDep(itm, 'item', 'Required / Reward Relic');
+            if (itm) {
+              const itmType = (typeof isResourceItem === 'function' && isResourceItem(itm))
+                ? 'resource'
+                : ((typeof isIndustryItem === 'function' && isIndustryItem(itm)) ? 'industry' : 'item');
+              addDep(itm, itmType, itmType === 'industry' ? 'Linked Industrial Facility' : (itmType === 'resource' ? 'Linked Resource' : 'Required / Reward Relic'));
+            }
           });
         }
         // Clocks & Trackers
@@ -1303,9 +1366,12 @@
         }
         // Owned & Carried Items
         poolItems.filter(i => String(i.ownerNpcId) === String(entity.id)).forEach(itm => {
-          addDep(itm, 'item', itm.possessionMode === 'carried' ? 'Equipped / Carried Item' : 'Owned Depot Item');
+          const itmType = (typeof isResourceItem === 'function' && isResourceItem(itm))
+            ? 'resource'
+            : ((typeof isIndustryItem === 'function' && isIndustryItem(itm)) ? 'industry' : 'item');
+          addDep(itm, itmType, itm.possessionMode === 'carried' ? 'Equipped / Carried Item' : 'Owned Depot Item');
         });
-      } else if (entityType === 'item' || entityType === 'resource') {
+      } else if (entityType === 'item' || entityType === 'industry' || entityType === 'resource') {
         // Owning NPC
         if (entity.ownerNpcId) {
           const owner = poolNpcs.find(n => String(n.id) === String(entity.ownerNpcId));
@@ -1354,7 +1420,7 @@
       // Populate Header Summary
       const nameEl = document.getElementById('tp-primary-name');
       const metaEl = document.getElementById('tp-primary-meta');
-      const typeIcons = { quest: '📜', npc: '👤', item: '💎', tracker: '⏱️', faction: '👑', creature: '🐉', resource: '📦' };
+      const typeIcons = { quest: '📜', npc: '👤', item: '💎', industry: '🏭', tracker: '⏱️', faction: '👑', creature: '🐉', resource: '📦' };
       const icon = typeIcons[type] || '📦';
 
       if (nameEl) nameEl.textContent = `${icon} ${entity.title || entity.name || entity.id}`;
@@ -1405,7 +1471,9 @@
             const tr = document.createElement('tr');
             tr.style.borderBottom = '1px solid #e2e8f0';
 
-            const activeCandidates = getActiveCollectionForType(dep.type, topo);
+            const activeCandidates = (typeof getActiveEntityList === 'function')
+              ? getActiveEntityList(dep.type)
+              : getActiveCollectionForType(dep.type, topo);
             let candidateOptionsHtml = '';
             if (activeCandidates.length === 0) {
               candidateOptionsHtml = `<option value="">(No active ${dep.type}s exist in campaign)</option>`;
@@ -1519,6 +1587,19 @@
           clonedDep.id = targetId;
           clonedDep.nodeId = targetNodeId;
           if (clonedDep.suggestedNode !== undefined) clonedDep.suggestedNode = targetNodeId;
+          if (dep.type === 'industry') {
+            clonedDep.isIndustry = true;
+            clonedDep.entityKind = 'industry';
+            delete clonedDep.isResource;
+          } else if (dep.type === 'resource') {
+            clonedDep.isResource = true;
+            clonedDep.entityKind = 'resource';
+            delete clonedDep.isIndustry;
+          } else if (dep.type === 'item') {
+            clonedDep.entityKind = 'item';
+            delete clonedDep.isIndustry;
+            delete clonedDep.isResource;
+          }
 
           idMap[dep.id] = targetId;
           const cme = (typeof window !== 'undefined' && window.CampaignMutationEngine) || (typeof CampaignMutationEngine !== 'undefined' ? CampaignMutationEngine : null);
@@ -1606,9 +1687,22 @@
         if (primaryClone.factionId && idMap.hasOwnProperty(primaryClone.factionId)) {
           primaryClone.factionId = idMap[primaryClone.factionId];
         }
-      } else if (currentTransplantState.primaryType === 'item' || currentTransplantState.primaryType === 'resource') {
+      } else if (currentTransplantState.primaryType === 'item' || currentTransplantState.primaryType === 'industry' || currentTransplantState.primaryType === 'resource') {
         if (primaryClone.ownerNpcId && idMap.hasOwnProperty(primaryClone.ownerNpcId)) {
           primaryClone.ownerNpcId = idMap[primaryClone.ownerNpcId];
+        }
+        if (currentTransplantState.primaryType === 'industry') {
+          primaryClone.isIndustry = true;
+          primaryClone.entityKind = 'industry';
+          delete primaryClone.isResource;
+        } else if (currentTransplantState.primaryType === 'resource') {
+          primaryClone.isResource = true;
+          primaryClone.entityKind = 'resource';
+          delete primaryClone.isIndustry;
+        } else {
+          primaryClone.entityKind = 'item';
+          delete primaryClone.isIndustry;
+          delete primaryClone.isResource;
         }
       } else if (currentTransplantState.primaryType === 'faction') {
         if (primaryClone.leaderNpcId && idMap.hasOwnProperty(primaryClone.leaderNpcId)) {

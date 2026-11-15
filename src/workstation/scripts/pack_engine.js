@@ -253,9 +253,20 @@
     if (zipFiles['entities.json']) {
       try {
         const entData = JSON.parse(textDecoder.decode(zipFiles['entities.json']));
-        ['npcs', 'quests', 'items', 'trackers', 'tickets', 'factions', 'creatures', 'resources'].forEach((cat) => {
+        ['npcs', 'quests', 'items', 'industries', 'trackers', 'tickets', 'factions', 'creatures', 'resources'].forEach((cat) => {
           if (Array.isArray(entData[cat])) entities[cat] = entData[cat];
         });
+        if (Array.isArray(entities.industries)) {
+          entities.items = entities.items || [];
+          entities.industries.forEach(ind => {
+            if (!ind || typeof ind !== 'object') return;
+            const tagged = { ...ind, isIndustry: true, entityKind: 'industry' };
+            if (!tagged.id || !entities.items.some(i => i && String(i.id) === String(tagged.id))) {
+              entities.items.push(tagged);
+            }
+          });
+          delete entities.industries;
+        }
         if (entData.creatureEvidence && typeof entData.creatureEvidence === 'object') {
           entities.creatureEvidence = entData.creatureEvidence;
         }

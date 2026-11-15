@@ -49,7 +49,8 @@
 
     function escapeJsArg(str) {
       if (str === null || str === undefined) return '';
-      return String(str).replace(/'/g, "\\'").replace(/"/g, '\\"');
+      // Hex escapes are safe inside both a quoted JS literal and an HTML attribute.
+      return String(str).replace(/[\\'"<>&\r\n\u2028\u2029]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
     }
 
     /**
@@ -350,6 +351,7 @@
                   partyRapport: (typeof rec.partyRapport === 'number') ? rec.partyRapport : null,
                   modules: Array.isArray(slotted) ? slotted : [],
                   notes: notes,
+                  modData: rec.modData || null,
                   _mapId: mId,
                   _mapName: mName
                 };
@@ -393,6 +395,7 @@
                 partyRapport: (typeof rec.partyRapport === 'number') ? rec.partyRapport : null,
                 modules: Array.isArray(slotted) ? slotted : [],
                 notes: notes,
+                modData: rec.modData || null,
                 _mapId: mId,
                 _mapName: mName
               };
@@ -513,6 +516,11 @@
         npcs: 'npc',
         quests: 'quest',
         items: 'item',
+        industries: 'industry',
+        industry: 'industry',
+        facility: 'industry',
+        facilities: 'industry',
+        machinery: 'industry',
         resources: 'resource',
         creatures: 'creature',
         trackers: 'tracker',
@@ -552,7 +560,7 @@
     function getEntityEffectiveNodeId(e, type) {
       if (!e) return null;
       const t = type || CurrentEntityTab;
-      if (t === 'item' || t === 'resource') {
+      if (t === 'item' || t === 'industry' || t === 'resource') {
         return (typeof getItemEffectiveNodeId === 'function') ? getItemEffectiveNodeId(e) : (e.nodeId != null ? e.nodeId : (e.location && e.location.nodeId));
       }
       if (t === 'creature') {
@@ -658,7 +666,7 @@
     window.refreshEntityManager = refreshEntityManager;
 
     function updateEntityTabButtons() {
-      ['npc', 'quest', 'item', 'resource', 'creature', 'tracker', 'faction', 'node', 'edge'].forEach(t => {
+      ['npc', 'quest', 'item', 'industry', 'resource', 'creature', 'tracker', 'faction', 'node', 'edge'].forEach(t => {
         const btn = document.getElementById(`em-tab-${t}`);
         if (btn) {
           if (t === CurrentEntityTab) {
@@ -672,6 +680,7 @@
         'npc': 'NPC Manager - Character Roster',
         'quest': 'Quest Tracker - Dynamic Dilemmas & Stakes',
         'item': 'Item & Relic Catalog - Hardware & Artifacts',
+        'industry': 'Industry & Infrastructure - Facilities, Apparatus & Production',
         'resource': 'Resource & Commodity Catalog - Physical Logistics & Supply Chains',
         'creature': 'Bestiary & Encounter Matrix - Ecological Threats & Heuristics',
         'tracker': 'Threat Clocks & Trackers - Escalation Dials',
@@ -697,6 +706,8 @@
           btnNew.textContent = '+ New Edge...';
         } else if (CurrentEntityTab === 'faction') {
           btnNew.textContent = '+ New Faction...';
+        } else if (CurrentEntityTab === 'industry') {
+          btnNew.textContent = '+ New Industry...';
         } else if (CurrentEntityTab === 'resource') {
           btnNew.textContent = '+ New Resource...';
         } else if (CurrentEntityTab === 'creature') {
@@ -824,16 +835,17 @@
       extHeader.textContent = 'EXTERNAL CAMPAIGNS:';
       container.appendChild(extHeader);
 
+      const extCountKey = (t) => (t === 'item' ? 'items' : (t === 'industry' ? 'industries' : (t === 'resource' ? 'resources' : t + 's')));
       let totalForTab = 0;
       loadedList.forEach(s => {
-        const c = s.counts[tab === 'item' ? 'items' : (tab === 'resource' ? 'resources' : tab + 's')] || 0;
+        const c = s.counts[extCountKey(tab)] || 0;
         totalForTab += c;
       });
 
       addTreeItem(container, `🌐 All External (${totalForTab})`, 'ext:all');
 
       loadedList.forEach(s => {
-        const c = s.counts[tab === 'item' ? 'items' : (tab === 'resource' ? 'resources' : tab + 's')] || 0;
+        const c = s.counts[extCountKey(tab)] || 0;
         addTreeItem(container, `📦 ${s.name} (${c})`, `ext:${s.id}`);
       });
     }
@@ -1093,18 +1105,11 @@
         secHeader.textContent = 'BY COMMODITY SECTOR:';
         container.appendChild(secHeader);
 
-        const getResourceSector = (r) => {
-          const cat = r.category || '';
-          const m = cat.match(/(?:Commodity|Resource)\s*:\s*([^,;]+)/i);
-          if (m) return m[1].trim();
-          if (cat.includes('_and_')) return cat.replace(/_/g, ' ');
-          return cat || 'General Commodities';
-        };
+        const getResourceSector = (r) => entityFacetCategories(r, 'resource')[0];
 
         const sectorMap = {};
         activeList.forEach(r => {
-          const s = getResourceSector(r);
-          sectorMap[s] = (sectorMap[s] || 0) + 1;
+          entityFacetCategories(r, 'resource').forEach(s => { sectorMap[s] = (sectorMap[s] || 0) + 1; });
         });
 
         Object.keys(sectorMap).sort().forEach(sec => {
@@ -1134,6 +1139,39 @@
         addTreeItem(container, `With Depot Stockpile (${stockpiledCount})`, 'logistics:stockpiled');
         if (haltedCount > 0) {
           addTreeItem(container, `⛔ Backpressure Halted (${haltedCount})`, 'logistics:backpressure');
+        }
+      }
+
+      // Industry Sectors & Facility States
+      if (CurrentEntityTab === 'industry') {
+        const indHeader = document.createElement('div');
+        indHeader.style.padding = '8px 6px 2px 6px';
+        indHeader.style.fontSize = '10px';
+        indHeader.style.fontWeight = 'bold';
+        indHeader.style.color = '#555';
+        indHeader.textContent = 'BY FACILITY CATEGORY:';
+        container.appendChild(indHeader);
+
+        const catMap = {};
+        activeList.forEach(ind => {
+          const cat = ind.category || 'Infrastructural Machinery';
+          catMap[cat] = (catMap[cat] || 0) + 1;
+        });
+        Object.keys(catMap).sort().forEach(cat => {
+          addTreeItem(container, `${cat} (${catMap[cat]})`, `indcat:${cat}`);
+        });
+
+        const allNodesMap = getAllKnownNodesMap();
+        let haltedInd = 0;
+        activeList.forEach(ind => {
+          const effNid = getEntityEffectiveNodeId(ind);
+          const n = effNid ? allNodesMap[String(effNid)] : null;
+          if (n && n.modData && n.modData.pre_industrial_resources && n.modData.pre_industrial_resources.backpressureHalt) {
+            haltedInd++;
+          }
+        });
+        if (haltedInd > 0) {
+          addTreeItem(container, `⛔ Backpressure Halted (${haltedInd})`, 'logistics:backpressure');
         }
       }
 
@@ -1290,28 +1328,180 @@
 
     function addTreeItem(container, label, filterVal) {
       const div = document.createElement('div');
-      div.className = `entity-tree-item ${SelectedEntityFilter === filterVal ? 'active' : ''}`;
+      const axes = entityExplorerAxes();
+      const axisActive = (filterVal === 'unassigned' && axes.node === '__unassigned') || (filterVal.startsWith('node:') && axes.node === filterVal.slice(5)) || (/^(sector|indcat|culture|kind|scope):/.test(filterVal) && axes.category.toLowerCase() === filterVal.slice(filterVal.indexOf(':') + 1).toLowerCase()) || (filterVal === 'logistics:stockpiled' && axes.status === 'stock') || (filterVal === 'logistics:backpressure' && axes.status === 'halted');
+      div.className = `entity-tree-item ${(SelectedEntityFilter === filterVal && !axes.node && !axes.category && !axes.status) || axisActive ? 'active' : ''}`;
       div.textContent = label;
       div.onclick = () => {
-        SelectedEntityFilter = filterVal;
-        if (typeof window !== 'undefined') window.SelectedEntityFilter = SelectedEntityFilter;
-        renderEntityManagerTree();
-        renderEntityManagerList();
+        if (filterVal === 'all') { clearEntityExplorerFilters(); return; }
+        setEntityManagerFilter(filterVal);
       };
       container.appendChild(div);
     }
 
     function setEntityManagerFilter(filterVal) {
-      SelectedEntityFilter = filterVal || 'all';
-      if (typeof window !== 'undefined') window.SelectedEntityFilter = SelectedEntityFilter;
+      const val = filterVal || 'all';
+      if (!applyEntityTreeAxis(val)) {
+        const axes = entityExplorerAxes();
+        axes.node = axes.category = axes.status = '';
+        SelectedEntityFilter = val;
+        if (typeof window !== 'undefined') window.SelectedEntityFilter = SelectedEntityFilter;
+      }
       renderEntityManagerTree();
       renderEntityManagerList();
     }
     window.setEntityManagerFilter = setEntityManagerFilter;
 
+    // The facet axes are independent of the legacy sidebar scope (map, module, etc.).
+    const EntityColumnSortState = {};
+    const EntityExplorerAxesByTab = {};
+    function entityExplorerAxes() { return EntityExplorerAxesByTab[CurrentEntityTab] || (EntityExplorerAxesByTab[CurrentEntityTab] = { node: '', category: '', status: '' }); }
+    function entityFacetCategories(row, tab) {
+      const values = tab === 'resource'
+        ? [parseResourceTagMeta(row.name || row.provides || row.category || '').sector, row.chain_id || row.chainId]
+        : tab === 'node' ? [row.culture, row.tier == null ? '' : 'Tier ' + row.tier]
+        : tab === 'edge' ? [row.condition, row.terrain, row.edgeType, row.conduitType]
+        : tab === 'faction' ? [row.cvfQuadrant]
+        : tab === 'creature' ? [row.kind, row.subtype, row.threatTier == null ? '' : 'Tier ' + row.threatTier]
+        : tab === 'tracker' ? [row.type, row.scopeTier]
+        : tab === 'quest' ? [row.status, row.type]
+        : [row.category, row.role, row.archetype, row.type, row.chain_id || row.chainId];
+      return [...new Set(values.filter(v => v != null && String(v).trim()).map(String))];
+    }
+    function entityFacetNode(row, tab) {
+      if (!row || row._isExternal) return null;
+      if (tab === 'node') return row.id;
+      return row.isPrototype ? row.activeNodeId : getEntityEffectiveNodeId(row, tab) || row.headquartersNodeId;
+    }
+    function applyEntityTreeAxis(value) {
+      if (value === 'unassigned' || value.startsWith('node:')) entityExplorerAxes().node = value === 'unassigned' ? '__unassigned' : value.slice(5);
+      else if (/^(sector|indcat|culture|kind|scope):/.test(value)) entityExplorerAxes().category = value.slice(value.indexOf(':') + 1);
+      else if (value === 'logistics:stockpiled') entityExplorerAxes().status = 'stock';
+      else if (value === 'logistics:backpressure') entityExplorerAxes().status = 'halted';
+      else return false;
+      if (!/^(map:|module:|ext:)/.test(SelectedEntityFilter)) { SelectedEntityFilter = 'all'; window.SelectedEntityFilter = 'all'; }
+      return true;
+    }
+    function clearEntityExplorerFilters() {
+      entityExplorerAxes().node = entityExplorerAxes().category = entityExplorerAxes().status = '';
+      SelectedEntityFilter = 'all'; window.SelectedEntityFilter = 'all';
+      const search = document.getElementById('em-search-input'); if (search) search.value = '';
+      renderEntityManagerTree(); renderEntityManagerList();
+    }
+    window.clearEntityExplorerFilters = clearEntityExplorerFilters;
+    function prepareEntityExplorer(rows, tab, total) {
+      const nodeSelect = document.getElementById('em-filter-node');
+      const categorySelect = document.getElementById('em-filter-category');
+      const statusSelect = document.getElementById('em-filter-status');
+      if (!nodeSelect || !categorySelect || !statusSelect) return rows;
+      const nodes = getNodesForMapScope('all');
+      const nodeMatches = (r, id) => tab === 'edge' ? String(r.uId) === id || String(r.vId) === id : String(entityFacetNode(r, tab) ?? '') === id;
+      const options = (el, entries, selected) => {
+        el.innerHTML = entries.map(([v, label]) => `<option value="${escapeHtml(v)}">${escapeHtml(label)}</option>`).join('');
+        el.value = selected;
+      };
+      options(nodeSelect, [['', '(All Nodes)'], ['__unassigned', '(Unassigned / Pool)']].concat(nodes.map(n => [String(n.id), `${n.name || 'Node ' + n.id} (${rows.filter(r => nodeMatches(r, String(n.id))).length})`])), entityExplorerAxes().node);
+      const cats = [...new Set(rows.flatMap(r => entityFacetCategories(r, tab)))].sort((a,b) => a.localeCompare(b, undefined, {numeric:true, sensitivity:'base'}));
+      if (entityExplorerAxes().category && !cats.includes(entityExplorerAxes().category)) cats.push(entityExplorerAxes().category);
+      options(categorySelect, [['', '(All Categories)']].concat(cats.map(c => [c,c])), entityExplorerAxes().category);
+      const commonStates = [['campaign','Active Campaign Only'], ['prototype','Prototypes Only'], ['external','External Only']];
+      const statusOptions = tab === 'resource' || tab === 'industry'
+        ? [['active','Active / Flowing'], ['halted','Backpressure Halted'], ['stock','Has Stockpile / Hopper'], ['fallback','Standalone Fallback']].concat(commonStates)
+        : tab === 'quest' || tab === 'tracker' ? [['completed','Completed / Maxed'], ['progress','In Progress'], ['blocked','Blocked']].concat(commonStates)
+        : tab === 'node' || tab === 'edge' ? [] : commonStates;
+      options(statusSelect, [['','All States']].concat(statusOptions), entityExplorerAxes().status);
+      nodeSelect.onchange = () => { entityExplorerAxes().node = nodeSelect.value; renderEntityManagerTree(); renderEntityManagerList(); };
+      categorySelect.onchange = () => { entityExplorerAxes().category = categorySelect.value; renderEntityManagerTree(); renderEntityManagerList(); };
+      statusSelect.onchange = () => { entityExplorerAxes().status = statusSelect.value; renderEntityManagerTree(); renderEntityManagerList(); };
+      const filtered = rows.filter(r => {
+        const n = entityExplorerAxes().node, c = entityExplorerAxes().category, st = entityExplorerAxes().status;
+        if (n && !(n === '__unassigned' ? !entityFacetNode(r, tab) && tab !== 'edge' : nodeMatches(r,n))) return false;
+        if (c && !entityFacetCategories(r, tab).some(v => v.toLowerCase() === c.toLowerCase())) return false;
+        const node = getAllKnownNodesMap()[String(entityFacetNode(r, tab))];
+        const logistics = node && node.modData && node.modData.pre_industrial_resources || {};
+        const state = String(r.status || '').toLowerCase();
+        if (st === 'campaign' && (r.isPrototype || r._isExternal)) return false;
+        if (st === 'prototype' && !r.isPrototype) return false;
+        if (st === 'external' && !r._isExternal) return false;
+        if (st === 'halted' && !logistics.backpressureHalt) return false;
+        if (st === 'stock' && !['stockpile','inputHopper','outputBin'].some(k => logistics[k] && Object.keys(logistics[k]).length)) return false;
+        if (st === 'fallback' && !(r.standaloneFallback || r.fallback)) return false;
+        if (st === 'active' && (logistics.backpressureHalt || /complete|blocked|halt/.test(state))) return false;
+        if (st === 'completed' && !(/complete|maxed/.test(state) || (r.maxTicks > 0 && r.currentTicks >= r.maxTicks))) return false;
+        if (st === 'progress' && (/complete|blocked/.test(state) || (r.maxTicks > 0 && r.currentTicks >= r.maxTicks))) return false;
+        if (st === 'blocked' && !(/blocked/.test(state) || r.blocked)) return false;
+        return true;
+      });
+      const summary = document.getElementById('em-filter-summary');
+      if (summary) summary.textContent = `Showing ${filtered.length} of ${total} rows`;
+      return filtered;
+    }
+    // Click sorts synchronously; the second click of a double-click is ignored, then dblclick resets insertion order.
+    function setEntityTableHeader(thead, markup) {
+      // Keep the same header element through a click so the browser can deliver dblclick.
+      if (thead._entityHeaderMarkup !== markup) { thead.innerHTML = markup; thead._entityHeaderMarkup = markup; }
+    }
+    function installEntityColumnSorting(thead, rows, tab, multiMap) {
+      const state = EntityColumnSortState[tab];
+      const headers = thead.querySelectorAll ? Array.from(thead.querySelectorAll('th')) : [];
+      const keys = {
+        npc:['name','role','standing','node','culture','source'], quest:['name','category','node','source'],
+        item:['name','category','owner','node','source'], industry:['name','category','flows','node','source'],
+        resource:['name','category','stock','node','source'], creature:['name','threat','category','dread','node','source'],
+        tracker:['name','scope','category','progress','node','source'], faction:['name','category','color','leader','node','count'],
+        node:['id','name','tier','culture','count','modules','entities'], edge:['id','name','node','category','status','distance','flows','modules']
+      }[tab].slice();
+      if (multiMap) keys.splice(1, 0, 'map');
+      const nodeTotal = r => {
+        const mapDict = (typeof maps !== 'undefined' && maps) ? maps : (Workstation.activeTopology.maps || {});
+        const mapTopo = mapDict[r._mapId] || Workstation.activeTopology;
+        const count = ['npcs','quests','items','trackers','creatures'].reduce((n,k) => n + (mapTopo[k] || []).filter(e => String(k === 'items' ? getItemEffectiveNodeId(e) : e.nodeId) === String(r.id)).length, 0);
+        const rec = typeof getRecursiveNodeEntities === 'function' ? getRecursiveNodeEntities(r.id, r._mapId || (typeof activeMapId !== 'undefined' ? activeMapId : 'map_root')) : null;
+        return rec && rec.totals ? Math.max(count, ['npcs','quests','items','industries','resources','trackers','creatures'].reduce((n,k) => n + (Number(rec.totals[k]) || 0), 0)) : count;
+      };
+      const topoRef = Workstation.activeTopology || {};
+      const npcNameById = id => {
+        if (!id) return '';
+        const npc = (topoRef.npcs || []).find(n => String(n.id) === String(id));
+        return (npc && npc.name) || String(id);
+      };
+      const nodeSortVal = r => {
+        if (tab === 'edge') return `${r.uId} ${(r.uNode && r.uNode.name) || ''} ${r.vId} ${(r.vNode && r.vNode.name) || ''}`;
+        if (r._isExternal) return r._originalNodeName ? String(r._originalNodeName) : '';
+        const nid = entityFacetNode(r, tab);
+        if (nid == null || nid === '') return '';
+        return formatNodeRef(nid, topoRef);
+      };
+      const stock = r => { const n = getAllKnownNodesMap()[String(entityFacetNode(r, tab))]; const pile = n && n.modData && n.modData.pre_industrial_resources && n.modData.pre_industrial_resources.stockpile; const key = pile && Object.keys(pile).find(k => k.toLowerCase().includes(String(r.name || '').toLowerCase())); return key ? pile[key] : (r.specs || r.yields || ''); };
+      const value = (r,k) => ({id:r.id ?? r.edgeKey, name:r.name || r.title, role:r.role || r.archetype, standing:r.dispositionToParty, node:nodeSortVal(r), category:tab === 'edge' ? r.edgeType : entityFacetCategories(r,tab).join(' '), culture:r.culture, source:r._sourceCampaignName || r.moduleId, tier:r.tier, count:tab === 'faction' ? (r.controlledNodeIds || []).length : (r.adj || []).length, entities:tab === 'node' ? nodeTotal(r) : '', modules:(r.modules || []).length, map:r._mapName, status:tab === 'edge' ? (r.blocked ? 'Blocked' : `${r.condition || 'Passable'} ${r.hazardLevel || 0}`) : r.status, distance:r.distance || r.length, flows:tab === 'edge' ? (r.dedicatedFlows || []).map(f => typeof f === 'string' ? f : f.tag || '').join(' ') : [r.provides || r.produces || '', r.requires || r.consumes || ''].join(' '), stock:tab === 'resource' ? stock(r) : '', threat:r.threatTier, dread:r.dreadIndex !== undefined ? r.dreadIndex : (r.gigerenzerBehavior && r.gigerenzerBehavior.dreadIndex), scope:r.scopeTier, progress:r.currentTicks, owner:r.ownerNpcId ? npcNameById(r.ownerNpcId) : (r.possessionMode || ''), leader:npcNameById(r.leaderNpcId), color:r.colorIdentity})[k] ?? '';
+      headers.forEach((th,i) => {
+        const key = keys[i]; if (!key) return;
+        if (th._entitySortLabel === undefined) th._entitySortLabel = th.textContent;
+        else th.textContent = th._entitySortLabel;
+        if (th.classList.remove) th.classList.remove('entity-sort-active');
+        if (th.removeAttribute) th.removeAttribute('aria-sort');
+        th.dataset.sortKey = key; th.title = 'Click to sort (asc/desc) • Double-click to reset default order';
+        if (state && state.key === key) { th.classList.add('entity-sort-active'); th.setAttribute('aria-sort', state.dir === 'asc' ? 'ascending' : 'descending'); th.appendChild(document.createTextNode(state.dir === 'asc' ? ' ▲' : ' ▼')); }
+        th.onclick = e => { if (e.detail > 1) return; const old = EntityColumnSortState[tab]; EntityColumnSortState[tab] = {key, dir:old && old.key === key ? (old.dir === 'asc' ? 'desc' : 'asc') : (['count','entities','modules','progress','threat','dread','stock','distance'].includes(key) ? 'desc' : 'asc')}; renderEntityManagerList(); };
+        th.ondblclick = () => { delete EntityColumnSortState[tab]; renderEntityManagerList(); };
+      });
+      if (state) rows.sort((a,b) => {
+        const x = value(a, state.key), y = value(b, state.key);
+        const aEmpty = x === '' || x === null || x === undefined;
+        const bEmpty = y === '' || y === null || y === undefined;
+        if (aEmpty && bEmpty) return 0;
+        if (aEmpty) return 1;
+        if (bEmpty) return -1;
+        const result = typeof x === 'number' && typeof y === 'number' ? x - y : String(x).localeCompare(String(y), undefined, {numeric:true, sensitivity:'base'});
+        return state.dir === 'asc' ? result : -result;
+      });
+      return rows;
+    }
     let CurrentEntitySort = 'default';
     function setEntityManagerSort(sortMode) {
       CurrentEntitySort = sortMode || 'default';
+      const key = ({name:'name', scope:'category', progress:'progress', node:'node'})[CurrentEntitySort];
+      if (key) EntityColumnSortState[CurrentEntityTab] = {key, dir: key === 'progress' ? 'desc' : 'asc'}; else delete EntityColumnSortState[CurrentEntityTab];
       renderEntityManagerList();
     }
     window.setEntityManagerSort = setEntityManagerSort;
@@ -1324,11 +1514,12 @@
       const thead = document.getElementById('em-table-head');
       const tbody = document.getElementById('em-table-body');
       if (!thead || !tbody) return;
+      const sortSelect = document.getElementById('em-sort-select');
+      if (sortSelect) { const sort = EntityColumnSortState[CurrentEntityTab]; sortSelect.value = sort ? ({name:'name', category:'scope', progress:'progress', node:'node'}[sort.key] || 'default') : 'default'; }
       const searchInput = document.getElementById('em-search-input');
       const searchTerm = (searchInput ? searchInput.value || '' : '').toLowerCase();
       const topo = Workstation.activeTopology;
 
-      thead.innerHTML = '';
       tbody.innerHTML = '';
 
       if (CurrentEntityTab === 'node') {
@@ -1337,7 +1528,7 @@
         const mapDict = (typeof maps !== "undefined" && maps) ? maps : (topo && topo.maps ? topo.maps : {});
         const isMultiMapScope = SelectedEntityFilter === 'map:all' || SelectedEntityFilter.startsWith('map:');
 
-        thead.innerHTML = `<th style="width:55px;">ID</th>${isMultiMapScope ? '<th style="width:85px;">Map</th>' : ''}<th>Location Name</th><th style="width:90px;">Tier &amp; Role</th><th style="width:75px;">Culture</th><th style="width:80px;">Transit (Roads)</th><th style="width:65px;">Modules</th><th style="width:75px;">Entities</th><th style="width:75px; text-align:center;">Action</th>`;
+        setEntityTableHeader(thead, `<th style="width:55px;">ID</th>${isMultiMapScope ? '<th style="width:85px;">Map</th>' : ''}<th>Location Name</th><th style="width:90px;">Tier &amp; Role</th><th style="width:75px;">Culture</th><th style="width:80px;">Transit (Roads)</th><th style="width:65px;">Modules</th><th style="width:75px;">Entities</th><th style="width:75px; text-align:center;">Action</th>`);
 
         const allNodes = getNodesForMapScope(SelectedEntityFilter);
         let displayNodes = allNodes.filter(n => {
@@ -1366,6 +1557,7 @@
           });
         }
 
+        displayNodes = installEntityColumnSorting(thead, prepareEntityExplorer(displayNodes, 'node', allNodes.length), 'node', isMultiMapScope);
         displayNodes.forEach(node => {
           const tr = document.createElement('tr');
           if (String(SelectedEntityId) === String(node.id)) tr.className = 'selected';
@@ -1386,10 +1578,10 @@
           const rec = (typeof getRecursiveNodeEntities === "function")
             ? getRecursiveNodeEntities(node.id, nodeMapId)
             : null;
-          const recTotal = rec ? (rec.totals.npcs + rec.totals.quests + rec.totals.items + rec.totals.trackers) : entTotal;
+          const recTotal = rec ? (rec.totals.npcs + rec.totals.quests + rec.totals.items + (rec.totals.industries || 0) + (rec.totals.resources || 0) + rec.totals.trackers) : entTotal;
           const hasSubmaps = node.childMapId || (rec && rec.totals.submaps > 0);
 
-          const colorDot = node.color ? `<span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:${node.color}; border:1px solid #333; margin-right:4px;" title="AutoCAD Color: ${node.color}"></span>` : '';
+          const colorDot = node.color && /^#[0-9a-f]{3,8}$/i.test(node.color) ? `<span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:${node.color}; border:1px solid #333; margin-right:4px;" title="AutoCAD Color: ${node.color}"></span>` : '';
           const hiddenBadge = (node.visible === false) ? '<span title="Hidden Fog (Concealed from Players)" style="margin-left:3px; opacity:0.8;">👁️‍🗨️</span>' : '';
           const lockBadge = node.locked ? '<span title="Position Locked" style="margin-left:3px;">🔒</span>' : '';
           const submapBadge = hasSubmaps ? '<span title="Portal Sub-Map Attached" style="margin-left:3px;">🌀</span>' : '';
@@ -1408,11 +1600,11 @@
           const nodeTkBadge = nodeTickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${nodeTickets.length}</span>` : '';
 
           tr.innerHTML = `
-            <td><strong>${colorDot}#${node.id}${hiddenBadge}${lockBadge}</strong></td>
-            ${isMultiMapScope ? `<td><span class="entity-badge-tag" style="font-size:9px;" title="${node._mapName}">${node._mapName || nodeMapId}</span></td>` : ''}
-            <td><strong>${node.name}</strong>${submapBadge}${nodeTkBadge}</td>
+            <td><strong>${colorDot}#${escapeHtml(node.id)}${hiddenBadge}${lockBadge}</strong></td>
+            ${isMultiMapScope ? `<td><span class="entity-badge-tag" style="font-size:9px;" title="${escapeHtml(node._mapName)}">${escapeHtml(node._mapName || nodeMapId)}</span></td>` : ''}
+            <td><strong>${escapeHtml(node.name)}</strong>${submapBadge}${nodeTkBadge}</td>
             <td>${roleStr}</td>
-            <td><span class="entity-badge-tag">${node.culture || 'Universal'}</span></td>
+            <td><span class="entity-badge-tag">${escapeHtml(node.culture || 'Universal')}</span></td>
             <td>${(node.adj || []).length} corridors</td>
             <td><span class="entity-badge-tag" style="background:${modCount > 0 ? '#1e3a8a; color:#fff;' : '#f0f0f0;'}">M:${modCount}</span></td>
             <td><span class="entity-badge-tag" style="background:${entTotal > 0 || recTotal > 0 ? '#047857; color:#fff;' : '#f0f0f0;'}">${entityDisplay}</span></td>
@@ -1436,7 +1628,7 @@
         const mapDict = (typeof maps !== "undefined" && maps) ? maps : (topo && topo.maps ? topo.maps : {});
         const isMultiMapScope = SelectedEntityFilter === 'map:all' || SelectedEntityFilter.startsWith('map:');
 
-        thead.innerHTML = `<th style="width:70px;">Key</th>${isMultiMapScope ? '<th style="width:85px;">Map</th>' : ''}<th>Corridor / Conduit Name</th><th style="width:160px;">Endpoints</th><th style="width:85px;">Type</th><th style="width:110px;">Condition &amp; Hazard</th><th style="width:80px;">Length</th><th style="width:110px;">Conduit / Flows</th><th style="width:50px; text-align:center;">Mods</th><th style="width:75px; text-align:center;">Action</th>`;
+        setEntityTableHeader(thead, `<th style="width:70px;">Key</th>${isMultiMapScope ? '<th style="width:85px;">Map</th>' : ''}<th>Corridor / Conduit Name</th><th style="width:160px;">Endpoints</th><th style="width:85px;">Type</th><th style="width:110px;">Condition &amp; Hazard</th><th style="width:80px;">Length</th><th style="width:110px;">Conduit / Flows</th><th style="width:50px; text-align:center;">Mods</th><th style="width:75px; text-align:center;">Action</th>`);
 
         const allEdges = getEdgesForMapScope(SelectedEntityFilter);
         let displayEdges = allEdges.filter(e => {
@@ -1449,6 +1641,7 @@
           return matchStr.includes(searchTerm);
         });
 
+        displayEdges = installEntityColumnSorting(thead, prepareEntityExplorer(displayEdges, 'edge', allEdges.length), 'edge', isMultiMapScope);
         displayEdges.forEach(edge => {
           const tr = document.createElement('tr');
           if (SelectedEntityId && (String(SelectedEntityId) === String(edge.edgeKey) || String(SelectedEntityId) === String(edge.pairKey))) {
@@ -1466,7 +1659,7 @@
           if (edge.blocked) statusIcons += ' <span title="Blockaded / Impassable" style="color:#b91c1c;">🚫</span>';
 
           const mapCell = isMultiMapScope
-            ? `<td><span class="entity-badge-tag" style="background:#334155; color:#fff;">${edge._mapName}</span></td>`
+            ? `<td><span class="entity-badge-tag" style="background:#334155; color:#fff;">${escapeHtml(edge._mapName)}</span></td>`
             : '';
 
           const uName = (edge.uNode && edge.uNode.name) || `Node ${edge.uId}`;
@@ -1477,17 +1670,17 @@
           if (edge.blocked) {
             condPill = `<span class="entity-badge-tag" style="background:#b91c1c; color:#fff;">Blockaded</span>`;
           } else if (edge.hazardLevel >= 3) {
-            condPill = `<span class="entity-badge-tag" style="background:#991b1b; color:#fff;">Hazard L${edge.hazardLevel}</span>`;
+            condPill = `<span class="entity-badge-tag" style="background:#991b1b; color:#fff;">Hazard L${escapeHtml(edge.hazardLevel)}</span>`;
           } else if (edge.hazardLevel >= 1) {
-            condPill = `<span class="entity-badge-tag" style="background:#d97706; color:#fff;">Hazard L${edge.hazardLevel}</span>`;
+            condPill = `<span class="entity-badge-tag" style="background:#d97706; color:#fff;">Hazard L${escapeHtml(edge.hazardLevel)}</span>`;
           } else if (edge.condition && edge.condition !== 'Passable') {
-            condPill = `<span class="entity-badge-tag" style="background:#475569; color:#fff;">${edge.condition}</span>`;
+            condPill = `<span class="entity-badge-tag" style="background:#475569; color:#fff;">${escapeHtml(edge.condition)}</span>`;
           }
 
           const flowTags = Array.isArray(edge.dedicatedFlows) ? edge.dedicatedFlows.map(f => typeof f === 'string' ? f : (f && f.tag ? f.tag : '')).filter(Boolean) : [];
-          let conduitHtml = `<span style="font-size:10px; color:#555;">${edge.conduitType || 'Standard'}</span>`;
+          let conduitHtml = `<span style="font-size:10px; color:#555;">${escapeHtml(edge.conduitType || 'Standard')}</span>`;
           if (flowTags.length > 0) {
-            conduitHtml += `<div style="font-size:9px; color:#065f46; font-weight:bold;">[${flowTags.slice(0, 2).join(', ')}${flowTags.length > 2 ? '...' : ''}]</div>`;
+            conduitHtml += `<div style="font-size:9px; color:#065f46; font-weight:bold;">[${escapeHtml(flowTags.slice(0, 2).join(', '))}${flowTags.length > 2 ? '...' : ''}]</div>`;
           }
 
           const modsBadge = (edge.modules && edge.modules.length > 0)
@@ -1512,26 +1705,26 @@
             `;
 
           tr.innerHTML = `
-            <td><strong>${glyph} ${edge.edgeKey}</strong>${statusIcons}</td>
+            <td><strong>${glyph} ${escapeHtml(edge.edgeKey)}</strong>${statusIcons}</td>
             ${mapCell}
             <td>
               ${nameCellHtml}
             </td>
             <td>
               <div style="display:flex; align-items:center; gap:2px; font-size:10px;">
-                <button class="win-btn" style="padding:1px 3px; font-size:9px;" onclick="event.stopPropagation(); selectEntityItem('${escapeJsArg(edge.uId)}', false, '${escapedMapId}'); switchEntityManagerTab('node');">#${edge.uId}</button>
+                <button class="win-btn" style="padding:1px 3px; font-size:9px;" onclick="event.stopPropagation(); selectEntityItem('${escapeJsArg(edge.uId)}', false, '${escapedMapId}'); switchEntityManagerTab('node');">#${escapeHtml(edge.uId)}</button>
                 <span>${dirArrow}</span>
-                <button class="win-btn" style="padding:1px 3px; font-size:9px;" onclick="event.stopPropagation(); selectEntityItem('${escapeJsArg(edge.vId)}', false, '${escapedMapId}'); switchEntityManagerTab('node');">#${edge.vId}</button>
+                <button class="win-btn" style="padding:1px 3px; font-size:9px;" onclick="event.stopPropagation(); selectEntityItem('${escapeJsArg(edge.vId)}', false, '${escapedMapId}'); switchEntityManagerTab('node');">#${escapeHtml(edge.vId)}</button>
               </div>
             </td>
             <td>${typeBadge}</td>
             <td>${condPill}</td>
-            <td style="font-size:10px;">${edge.formattedDist}</td>
+            <td style="font-size:10px;">${escapeHtml(edge.formattedDist)}</td>
             <td>${conduitHtml}</td>
             <td style="text-align:center;">${modsBadge}</td>
             <td style="text-align:center;">
               <button class="win-btn" style="font-size:9px; padding:1px 4px;" title="Focus Corridor on Canvas" onclick="event.stopPropagation(); jumpToEdgeMap('${escapedMapId}', '${escapedKey}', '${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}');">Go</button>
-              <button class="win-btn" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Sever / Delete Corridor" onclick="event.stopPropagation(); if (confirm('Sever this ${edge.edgeType} connection between Node ${edge.uId} and Node ${edge.vId}?')) { deleteEdge('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}'); renderEntityManagerTree(); renderEntityManagerList(); }">Del</button>
+              <button class="win-btn" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Sever / Delete Corridor" onclick="event.stopPropagation(); if (confirm('Sever this ${escapeJsArg(edge.edgeType)} connection between Node ${escapeJsArg(edge.uId)} and Node ${escapeJsArg(edge.vId)}?')) { deleteEdge('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}'); renderEntityManagerTree(); renderEntityManagerList(); }">Del</button>
             </td>
           `;
 
@@ -1543,21 +1736,23 @@
         return;
       }
 
-      // ENTITIES (NPCS, QUESTS, ITEMS, RESOURCES, CREATURES, TRACKERS) TABLE
+      // ENTITIES (NPCS, QUESTS, ITEMS, INDUSTRY, RESOURCES, CREATURES, TRACKERS) TABLE
       if (CurrentEntityTab === 'npc') {
-        thead.innerHTML = '<th style="min-width:130px;">Name</th><th style="min-width:120px;">Role &amp; Status</th><th style="width:75px;">Standing</th><th style="min-width:150px;">Stationed Node</th><th style="width:110px;">Culture / [S,E,C]</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
+        setEntityTableHeader(thead, '<th style="min-width:130px;">Name</th><th style="min-width:120px;">Role &amp; Status</th><th style="width:75px;">Standing</th><th style="min-width:150px;">Stationed Node</th><th style="width:110px;">Culture / [S,E,C]</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>');
       } else if (CurrentEntityTab === 'quest') {
-        thead.innerHTML = '<th>Quest Title</th><th>Type / Stakes</th><th style="min-width:150px;">Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
+        setEntityTableHeader(thead, '<th>Quest Title</th><th>Type / Stakes</th><th style="min-width:150px;">Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>');
+      } else if (CurrentEntityTab === 'industry') {
+        setEntityTableHeader(thead, '<th style="min-width:140px;">Industry / Facility</th><th style="min-width:115px;">Chain / Category</th><th style="min-width:135px;">Outputs &amp; Inputs</th><th style="min-width:150px;">Stationed Node</th><th>Source Mod</th><th style="width:35px; text-align:center;">Action</th>');
       } else if (CurrentEntityTab === 'resource') {
-        thead.innerHTML = '<th style="min-width:130px;">Resource / Commodity</th><th style="min-width:110px;">Sector / Category</th><th style="width:110px;">Stockpile &amp; Units</th><th style="min-width:150px;">Stationed Node / Depot</th><th>Source Mod</th><th style="width:35px; text-align:center;">Action</th>';
+        setEntityTableHeader(thead, '<th style="min-width:130px;">Resource / Commodity</th><th style="min-width:110px;">Sector / Category</th><th style="width:110px;">Stockpile &amp; Units</th><th style="min-width:150px;">Stationed Node / Depot</th><th>Source Mod</th><th style="width:35px; text-align:center;">Action</th>');
       } else if (CurrentEntityTab === 'creature') {
-        thead.innerHTML = '<th style="min-width:140px;">Creature / Monster</th><th style="width:85px;">Threat Tier</th><th style="width:110px;">Kind / Subtype</th><th style="width:75px;">Dread</th><th style="min-width:150px;">Lair / Station Node</th><th>Source Campaign</th><th style="width:35px; text-align:center;">Action</th>';
+        setEntityTableHeader(thead, '<th style="min-width:140px;">Creature / Monster</th><th style="width:85px;">Threat Tier</th><th style="width:110px;">Kind / Subtype</th><th style="width:75px;">Dread</th><th style="min-width:150px;">Lair / Station Node</th><th>Source Campaign</th><th style="width:35px; text-align:center;">Action</th>');
       } else if (CurrentEntityTab === 'tracker') {
-        thead.innerHTML = '<th>Threat / Clock Title</th><th style="width:75px;">Scope Tier</th><th style="width:85px;">Type</th><th style="width:95px;">Ticks / Progress</th><th style="min-width:140px;">Stationed Node</th><th>Source / Faction</th><th style="width:35px; text-align:center;">Action</th>';
+        setEntityTableHeader(thead, '<th>Threat / Clock Title</th><th style="width:75px;">Scope Tier</th><th style="width:85px;">Type</th><th style="width:95px;">Ticks / Progress</th><th style="min-width:140px;">Stationed Node</th><th>Source / Faction</th><th style="width:35px; text-align:center;">Action</th>');
       } else if (CurrentEntityTab === 'faction') {
-        thead.innerHTML = '<th style="min-width:140px;">Faction Name</th><th style="min-width:110px;">CVF Culture</th><th style="width:75px;">Color</th><th>Leader NPC</th><th style="min-width:150px;">Headquarters</th><th style="width:85px;">Territory</th><th style="width:35px; text-align:center;">Action</th>';
+        setEntityTableHeader(thead, '<th style="min-width:140px;">Faction Name</th><th style="min-width:110px;">CVF Culture</th><th style="width:75px;">Color</th><th>Leader NPC</th><th style="min-width:150px;">Headquarters</th><th style="width:85px;">Territory</th><th style="width:35px; text-align:center;">Action</th>');
       } else {
-        thead.innerHTML = '<th style="min-width:130px;">Item / Relic Name</th><th>Category</th><th>Owner &amp; Carrier</th><th style="min-width:150px;">Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>';
+        setEntityTableHeader(thead, '<th style="min-width:130px;">Item / Relic Name</th><th>Category</th><th>Owner &amp; Carrier</th><th style="min-width:150px;">Stationed Node</th><th>Source</th><th style="width:35px; text-align:center;">Action</th>');
       }
 
       let displayList = [];
@@ -1604,6 +1799,31 @@
             }
             if (SelectedEntityFilter === 'has:unseated') {
               return !item.headquartersNodeId && (!Array.isArray(item.controlledNodeIds) || item.controlledNodeIds.length === 0);
+            }
+          }
+          if (CurrentEntityTab === 'industry') {
+            if (SelectedEntityFilter.startsWith('indcat:')) {
+              const catSlug = SelectedEntityFilter.replace('indcat:', '').toLowerCase();
+              const cat = (item.category || 'Infrastructural Machinery').toLowerCase();
+              return cat === catSlug;
+            }
+            if (SelectedEntityFilter.startsWith('sector:')) {
+              const sec = SelectedEntityFilter.replace('sector:', '').toLowerCase();
+              const cat = (item.category || '').toLowerCase();
+              return cat.includes(sec);
+            }
+            if (SelectedEntityFilter === 'logistics:stockpiled') {
+              const eff = getEntityEffectiveNodeId(item);
+              const allN = getAllKnownNodesMap();
+              const n = eff ? allN[String(eff)] : null;
+              const md = n && n.modData && n.modData.pre_industrial_resources;
+              return !!(md && ((md.inputHopper && Object.keys(md.inputHopper).length > 0) || (md.outputBin && Object.keys(md.outputBin).length > 0)));
+            }
+            if (SelectedEntityFilter === 'logistics:backpressure') {
+              const eff = getEntityEffectiveNodeId(item);
+              const allN = getAllKnownNodesMap();
+              const n = eff ? allN[String(eff)] : null;
+              return !!(n && n.modData && n.modData.pre_industrial_resources && n.modData.pre_industrial_resources.backpressureHalt);
             }
           }
           if (CurrentEntityTab === 'resource') {
@@ -1673,29 +1893,11 @@
           }
         }
 
-        if (CurrentEntitySort === 'name') {
-          displayList.sort((a, b) => String(a.name || a.title || '').localeCompare(String(b.name || b.title || '')));
-        } else if (CurrentEntitySort === 'scope') {
-          const scopeRank = { world: 4, faction: 3, settlement: 2, city: 2, quest: 1 };
-          displayList.sort((a, b) => {
-            if (CurrentEntityTab === 'tracker') {
-              const rA = scopeRank[(a.scopeTier || 'settlement').toLowerCase()] || 0;
-              const rB = scopeRank[(b.scopeTier || 'settlement').toLowerCase()] || 0;
-              if (rB !== rA) return rB - rA;
-            }
-            return String(a.role || a.category || a.type || a.scopeTier || '').localeCompare(String(b.role || b.category || b.type || b.scopeTier || ''));
-          });
-        } else if (CurrentEntitySort === 'progress' || (CurrentEntitySort === 'default' && CurrentEntityTab === 'tracker')) {
-          displayList.sort((a, b) => {
-            const pA = (a.currentTicks || 0) / (a.maxTicks || 6);
-            const pB = (b.currentTicks || 0) / (b.maxTicks || 6);
-            return pB - pA;
-          });
-        } else if (CurrentEntitySort === 'node') {
-          displayList.sort((a, b) => String(a.nodeId || a.headquartersNodeId || 'zzz').localeCompare(String(b.nodeId || b.headquartersNodeId || 'zzz')));
-        }
+
       }
 
+      if (entityExplorerAxes().status === 'prototype' && SelectedEntityFilter === 'all') displayList = protoList.map(p => ({...p, isPrototype:true}));
+      const explorerTotal = displayList.length;
       // Filter by search keyword
       if (searchTerm) {
         displayList = displayList.filter(e => {
@@ -1706,25 +1908,28 @@
           const faction = (e.faction || '').toLowerCase();
           const desc = (e.description || '').toLowerCase();
           const cvf = (e.cvfQuadrant || '').toLowerCase();
-          const targetNid = (CurrentEntityTab === 'item') ? getItemEffectiveNodeId(e) : (e.activeNodeId || e.nodeId || e.headquartersNodeId);
+          const targetNid = (CurrentEntityTab === 'item' || CurrentEntityTab === 'industry' || CurrentEntityTab === 'resource')
+            ? getItemEffectiveNodeId(e)
+            : (e.activeNodeId || e.nodeId || e.headquartersNodeId);
           const locStr = targetNid ? formatNodeRef(targetNid, topo).toLowerCase() : '';
           return name.includes(searchTerm) || role.includes(searchTerm) || mod.includes(searchTerm) || notes.includes(searchTerm) || faction.includes(searchTerm) || desc.includes(searchTerm) || cvf.includes(searchTerm) || locStr.includes(searchTerm);
         });
       }
 
+      displayList = installEntityColumnSorting(thead, prepareEntityExplorer(displayList, CurrentEntityTab, explorerTotal), CurrentEntityTab, false);
       displayList.forEach(item => {
         const tr = document.createElement('tr');
         const isSelected = (SelectedEntityId === item.id || (item._externalKey && SelectedEntityId === item._externalKey));
         if (isSelected) tr.className = 'selected';
 
-        const nameVal = item.name || item.title;
+        const nameVal = item.name || item.title || '';
         const roleVal = item.role || item.category || item.type;
         const nodeVal = item._isExternal
           ? `<span style="color:#4338ca; font-size:10px;" title="Original station in ${escapeHtml(item._sourceCampaignName || 'External Campaign')}">📍 ${escapeHtml(item._originalNodeName || 'Unassigned')} <em>(Ext)</em></span>`
-          : (item.isPrototype ? (item.inCampaign ? `${formatNodeRef(item.activeNodeId, topo)} (In Use)` : '(In Pool)') : formatNodeRef(item.nodeId, topo));
+          : (item.isPrototype ? (item.inCampaign ? `${escapeHtml(formatNodeRef(item.activeNodeId, topo)).replace(/&#39;/g, "'")} (In Use)` : '(In Pool)') : escapeHtml(formatNodeRef(item.nodeId, topo)).replace(/&#39;/g, "'"));
         const srcVal = item._isExternal
           ? `<span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; border:1px solid #818cf8; font-weight:bold;">📦 ${escapeHtml(item._sourceCampaignName)}</span>`
-          : (item.isPrototype ? `Module [${item.moduleId}]` : (item.moduleId ? `Module [${item.moduleId}]` : 'Custom Authored'));
+          : (item.isPrototype ? `Module [${escapeHtml(item.moduleId)}]` : (item.moduleId ? `Module [${escapeHtml(item.moduleId)}]` : 'Custom Authored'));
 
         if (CurrentEntityTab === 'npc') {
           const stMap = {
@@ -1746,30 +1951,73 @@
           };
           const stat = item.status || 'Active';
           const statStyle = statusColorMap[stat] || 'background:#047857; color:#fff;';
-          const statusBadge = `<span class="entity-badge-tag" style="${statStyle}">${stat}</span>`;
+          const statusBadge = `<span class="entity-badge-tag" style="${statStyle}">${escapeHtml(stat)}</span>`;
 
           const odvStr = item.odv ? `[${item.odv.s},${item.odv.e},${item.odv.c}]` : '';
           const cultureStr = item.culture || (odvStr ? 'Custom' : 'Universal');
-          const cultBadge = `<span class="entity-badge-tag" style="font-size:9px;">${cultureStr} ${odvStr}</span>`;
+          const cultBadge = `<span class="entity-badge-tag" style="font-size:9px;">${escapeHtml(cultureStr)} ${escapeHtml(odvStr)}</span>`;
           const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('npc', item.id) : [];
           const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
           const actionBtn = item._isExternal
             ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'npc')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
-            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('npc', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete NPC">Del</button>`;
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('npc', '${escapeJsArg(item.id)}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete NPC">Del</button>`;
 
           tr.innerHTML = `
-            <td><strong>👤 ${nameVal}</strong>${tkBadge}</td>
-            <td><div>${roleVal || '-'}</div><div style="margin-top:2px;">${statusBadge}</div></td>
+            <td><strong>👤 ${escapeHtml(nameVal).replace(/&#39;/g, "'")}</strong>${tkBadge}</td>
+            <td><div>${escapeHtml(roleVal || '-')}</div><div style="margin-top:2px;">${statusBadge}</div></td>
             <td>${standingBadge}</td>
             <td>${nodeVal}</td>
             <td>${cultBadge}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
             <td style="text-align:center;">${actionBtn}</td>
           `;
+        } else if (CurrentEntityTab === 'industry') {
+          const effNodeId = getEntityEffectiveNodeId(item);
+          const formattedNode = item._isExternal
+            ? nodeVal
+            : (effNodeId ? escapeHtml(formatNodeRef(effNodeId, topo)).replace(/&#39;/g, "'") : '(Unassigned Node)');
+          const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('item', item.id) : [];
+          const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
+
+          const rawProv = item.provides || item.produces;
+          const rawReq = item.requires || item.consumes;
+          const provText = Array.isArray(rawProv) ? rawProv.join(', ') : (rawProv || '');
+          const reqText = Array.isArray(rawReq) ? rawReq.join(', ') : (rawReq || '');
+          let ioParts = [];
+          if (provText) ioParts.push(`<span style="color:#166534; font-weight:bold;">Out:</span> ${escapeHtml(provText)}`);
+          if (reqText) ioParts.push(`<span style="color:#9a3412; font-weight:bold;">In:</span> ${escapeHtml(reqText)}`);
+          let ioDisplay = ioParts.length > 0
+            ? `<div style="font-size:9px; line-height:1.25;">${ioParts.join('<br>')}</div>`
+            : `<span style="color:#64748b; font-size:9px;">${escapeHtml(item.specs || 'Industrial Facility')}</span>`;
+
+          if (effNodeId) {
+            const allNodesMap = getAllKnownNodesMap();
+            const n = allNodesMap[String(effNodeId)];
+            const modD = n && n.modData && n.modData.pre_industrial_resources;
+            if (modD && modD.backpressureHalt) {
+              ioDisplay += ` <span class="entity-badge-tag" style="background:#fee2e2; color:#b91c1c; font-size:8px;">⛔ Halt</span>`;
+            }
+          }
+
+          const escapedId = escapeJsArg(item.id);
+          const actionBtn = item._isExternal
+            ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'industry')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('industry', '${escapedId}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Industry Facility">Del</button>`;
+
+          tr.innerHTML = `
+            <td><strong>🏭 ${escapeHtml(nameVal).replace(/&#39;/g, "'")}</strong>${tkBadge}</td>
+            <td><span class="entity-badge-tag" style="background:#fef3c7; color:#92400e;">${escapeHtml(roleVal || 'Industrial Machinery')}</span></td>
+            <td>${ioDisplay}</td>
+            <td>${formattedNode}</td>
+            <td><span class="entity-badge-tag">${srcVal}</span></td>
+            <td style="text-align:center;">${actionBtn}</td>
+          `;
         } else if (CurrentEntityTab === 'resource') {
           const effNodeId = getEntityEffectiveNodeId(item);
-          const formattedNode = effNodeId ? formatNodeRef(effNodeId, topo) : '(Unassigned Depot)';
+          const formattedNode = item._isExternal
+            ? nodeVal
+            : (effNodeId ? escapeHtml(formatNodeRef(effNodeId, topo)).replace(/&#39;/g, "'") : '(Unassigned Depot)');
           const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('item', item.id) : [];
           const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
@@ -1781,7 +2029,7 @@
             if (modD && modD.stockpile) {
               const matchedKey = Object.keys(modD.stockpile).find(k => k.toLowerCase().includes((item.name || '').toLowerCase()));
               if (matchedKey) {
-                stockpileDisplay = `<strong style="color:#0f766e;">${modD.stockpile[matchedKey]} units</strong> in depot`;
+                stockpileDisplay = `<strong style="color:#0f766e;">${escapeHtml(modD.stockpile[matchedKey])} units</strong> in depot`;
               }
             }
           }
@@ -1792,8 +2040,8 @@
             : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('resource', '${escapedId}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Resource">Del</button>`;
 
           tr.innerHTML = `
-            <td><strong>📦 ${nameVal}</strong>${tkBadge}</td>
-            <td><span class="entity-badge-tag" style="background:#e0f2fe; color:#0369a1;">${roleVal || 'Commodity'}</span></td>
+            <td><strong>📦 ${escapeHtml(nameVal).replace(/&#39;/g, "'")}</strong>${tkBadge}</td>
+            <td><span class="entity-badge-tag" style="background:#e0f2fe; color:#0369a1;">${escapeHtml(roleVal || 'Commodity')}</span></td>
             <td>${stockpileDisplay}</td>
             <td>${formattedNode}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
@@ -1803,11 +2051,11 @@
           const ownerNpc = (topo.npcs || []).find(n => String(n.id) === String(item.ownerNpcId));
           const isCarried = (item.possessionMode === 'carried' && ownerNpc);
           const ownerBadge = ownerNpc
-            ? `<span class="entity-badge-tag" style="${isCarried ? 'background:#0f766e; color:#fff;' : 'background:#475569; color:#fff;'}">${isCarried ? '🎒 ' : '📦 '}${ownerNpc.name}</span>`
+            ? `<span class="entity-badge-tag" style="${isCarried ? 'background:#0f766e; color:#fff;' : 'background:#475569; color:#fff;'}">${isCarried ? '🎒 ' : '📦 '}${escapeHtml(ownerNpc.name)}</span>`
             : '<span class="entity-badge-tag" style="background:#f1f5f9; color:#64748b;">(Unowned)</span>';
 
           const effNodeId = getItemEffectiveNodeId(item);
-          const formattedNode = effNodeId ? formatNodeRef(effNodeId, topo) : '(Unassigned)';
+          const formattedNode = effNodeId ? escapeHtml(formatNodeRef(effNodeId, topo)).replace(/&#39;/g, "'") : '(Unassigned)';
           const nodeDisplay = effNodeId
             ? (isCarried ? `${formattedNode} <span style="font-size:9px; color:#0f766e; font-weight:bold;">(Carried)</span>` : formattedNode)
             : '(Unassigned)';
@@ -1816,11 +2064,11 @@
 
           const actionBtn = item._isExternal
             ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'item')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
-            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('item', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Item">Del</button>`;
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('item', '${escapeJsArg(item.id)}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Item">Del</button>`;
 
           tr.innerHTML = `
-            <td><strong>💎 ${nameVal}</strong>${tkBadge}</td>
-            <td>${roleVal || '-'}</td>
+            <td><strong>💎 ${escapeHtml(nameVal).replace(/&#39;/g, "'")}</strong>${tkBadge}</td>
+            <td>${escapeHtml(roleVal || '-')}</td>
             <td>${ownerBadge}</td>
             <td>${nodeDisplay}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
@@ -1838,12 +2086,12 @@
 
           const actionBtn = item._isExternal
             ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'tracker')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
-            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('tracker', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Clock">Del</button>`;
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('tracker', '${escapeJsArg(item.id)}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Clock">Del</button>`;
 
           tr.innerHTML = `
-            <td><strong>⏱️ ${nameVal}</strong>${tkBadge}</td>
-            <td><span class="entity-badge-tag" style="background:${scopeBadgeColor}; color:#fff; text-transform:uppercase; font-size:8px;">${scopeTier}</span></td>
-            <td><span class="me-badge ${isTriggered ? 'me-badge-crisis' : ''}">${roleVal || 'Threat Clock'}</span></td>
+            <td><strong>⏱️ ${escapeHtml(nameVal).replace(/&#39;/g, "'")}</strong>${tkBadge}</td>
+            <td><span class="entity-badge-tag" style="background:${scopeBadgeColor}; color:#fff; text-transform:uppercase; font-size:8px;">${escapeHtml(scopeTier)}</span></td>
+            <td><span class="me-badge ${isTriggered ? 'me-badge-crisis' : ''}">${escapeHtml(roleVal || 'Threat Clock')}</span></td>
             <td>
               <span class="clock-mini-gauge">${gaugeHtml}</span>
               <strong style="font-size:10px; color:${isTriggered ? '#b91c1c' : '#333'}; margin-left:3px;">${curTicks}/${maxTicks}</strong>
@@ -1855,9 +2103,9 @@
         } else if (CurrentEntityTab === 'faction') {
           const leaderNpc = (topo.npcs || []).find(n => String(n.id) === String(item.leaderNpcId));
           const leaderBadge = leaderNpc
-            ? `<span class="entity-badge-tag" style="background:#0284c7; color:#fff; cursor:pointer;" onclick="event.stopPropagation(); switchEntityManagerTab('npc'); selectEntityItem('${leaderNpc.id}');">👤 ${leaderNpc.name}</span>`
+            ? `<span class="entity-badge-tag" style="background:#0284c7; color:#fff; cursor:pointer;" onclick="event.stopPropagation(); switchEntityManagerTab('npc'); selectEntityItem('${escapeJsArg(leaderNpc.id)}');">👤 ${escapeHtml(leaderNpc.name)}</span>`
             : '<span class="entity-badge-tag" style="background:#f1f5f9; color:#64748b;">(Council)</span>';
-          const hqNode = item.headquartersNodeId ? formatNodeRef(item.headquartersNodeId, topo) : '(Unseated)';
+          const hqNode = item.headquartersNodeId ? escapeHtml(formatNodeRef(item.headquartersNodeId, topo)).replace(/&#39;/g, "'") : '(Unseated)';
           const terrCount = Array.isArray(item.controlledNodeIds) ? item.controlledNodeIds.length : 0;
           const cult = item.cvfQuadrant || 'Clan';
           const color = item.colorIdentity || 'C';
@@ -1866,12 +2114,12 @@
 
           const actionBtn = item._isExternal
             ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'faction')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
-            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('faction', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Faction">Del</button>`;
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('faction', '${escapeJsArg(item.id)}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Faction">Del</button>`;
 
           tr.innerHTML = `
-            <td><strong>👑 ${nameVal}</strong>${tkBadge}</td>
-            <td><span class="entity-badge-tag" style="background:#4338ca; color:#fff;">${cult}</span></td>
-            <td><span class="entity-badge-tag" style="background:#0f172a; color:#f8fafc; font-weight:bold;">${color}</span></td>
+            <td><strong>👑 ${escapeHtml(nameVal).replace(/&#39;/g, "'")}</strong>${tkBadge}</td>
+            <td><span class="entity-badge-tag" style="background:#4338ca; color:#fff;">${escapeHtml(cult)}</span></td>
+            <td><span class="entity-badge-tag" style="background:#0f172a; color:#f8fafc; font-weight:bold;">${escapeHtml(color)}</span></td>
             <td>${leaderBadge}</td>
             <td>${hqNode}</td>
             <td><span class="entity-badge-tag" style="background:#15803d; color:#fff;">${terrCount} Nodes</span></td>
@@ -1879,7 +2127,7 @@
           `;
         } else if (CurrentEntityTab === 'creature') {
           const effNodeId = getEntityEffectiveNodeId(item);
-          const formattedNode = effNodeId ? formatNodeRef(effNodeId, topo) : '<span style="color:#64748b; font-style:italic;">(Roaming / Wild)</span>';
+          const formattedNode = effNodeId ? escapeHtml(formatNodeRef(effNodeId, topo)).replace(/&#39;/g, "'") : '<span style="color:#64748b; font-style:italic;">(Roaming / Wild)</span>';
           const tickets = (typeof getTicketsForEntity === 'function') ? getTicketsForEntity('creature', item.id) : [];
           const tkBadge = tickets.length > 0 ? ` <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3; font-weight:bold; font-size:8px;">TK:${tickets.length}</span>` : '';
 
@@ -1893,13 +2141,13 @@
             5: 'background:#991b1b; color:#fff;'
           };
           const tierStyle = tierStyles[tTier] || 'background:#d97706; color:#fff;';
-          const tierBadge = `<span class="entity-badge-tag" style="${tierStyle}; font-weight:bold;">T${tTier}</span>`;
+          const tierBadge = `<span class="entity-badge-tag" style="${tierStyle}; font-weight:bold;">T${escapeHtml(tTier)}</span>`;
 
           const kindStr = item.kind ? (item.kind.charAt(0).toUpperCase() + item.kind.slice(1)) : 'Beast';
           const subtypeStr = item.subtype ? ` <span style="color:#64748b; font-size:9px;">(${escapeHtml(item.subtype)})</span>` : '';
           const dreadVal = (item.dreadIndex !== undefined) ? item.dreadIndex : ((item.gigerenzerBehavior && item.gigerenzerBehavior.dreadIndex) !== undefined ? item.gigerenzerBehavior.dreadIndex : 1);
           const dreadColor = dreadVal >= 7 ? '#b91c1c' : (dreadVal >= 4 ? '#ea580c' : '#475569');
-          const dreadBadge = `<span class="entity-badge-tag" style="background:#fff; border:1px solid ${dreadColor}; color:${dreadColor}; font-weight:bold;">💀 ${dreadVal}/10</span>`;
+          const dreadBadge = `<span class="entity-badge-tag" style="background:#fff; border:1px solid ${dreadColor}; color:${dreadColor}; font-weight:bold;">💀 ${escapeHtml(dreadVal)}/10</span>`;
 
           const srcCampaign = item.moduleId || (topo.name || 'Active Campaign');
           const escapedId = escapeJsArg(item.id);
@@ -1909,9 +2157,9 @@
             : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('creature', '${escapedId}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Creature">Del</button>`;
 
           tr.innerHTML = `
-            <td><strong>🐉 ${nameVal}</strong>${tkBadge}</td>
+            <td><strong>🐉 ${escapeHtml(nameVal).replace(/&#39;/g, "'")}</strong>${tkBadge}</td>
             <td>${tierBadge}</td>
-            <td><div>${kindStr}</div>${subtypeStr}</td>
+            <td><div>${escapeHtml(kindStr)}</div>${subtypeStr}</td>
             <td>${dreadBadge}</td>
             <td>${formattedNode}</td>
             <td><span class="entity-badge-tag">${srcVal}</span></td>
@@ -1929,10 +2177,10 @@
 
           const actionBtn = item._isExternal
             ? `<button class="win-btn" onclick="event.stopPropagation(); openTransplantPackageModal('${escapeJsArg(item._externalKey)}', 'quest')" style="font-size:9px; padding:1px 5px; background:#eff6ff; color:#1e40af; font-weight:bold; border-color:#3b82f6;" title="Configure & Add to Active Campaign">+ Import</button>`
-            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('quest', '${item.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Quest">Del</button>`;
+            : `<button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('quest', '${escapeJsArg(item.id)}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Quest">Del</button>`;
 
           tr.innerHTML = `
-            <td><strong>📜 ${nameVal}</strong>${tkBadge}${crucBadge}</td>
+            <td><strong>📜 ${escapeHtml(nameVal).replace(/&#39;/g, "'")}</strong>${tkBadge}${crucBadge}</td>
             <td>
               <div>${escapeHtml(roleVal || 'Quest')}</div>
               ${(threatBadge || stepsBadge) ? `<div style="margin-top:2px; display:flex; gap:2px; flex-wrap:wrap; align-items:center;">${threatBadge}${stepsBadge}</div>` : ''}
@@ -2025,11 +2273,11 @@
       } else {
         html += `<div style="display:flex; flex-direction:column; gap:3px;">`;
         tickets.forEach(tk => {
-          const statusSlug = (tk.status || 'draft').toLowerCase().replace(/\s+/g, '_');
+          const statusSlug = String(tk.status || 'draft').toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_-]/g, '');
           html += `
             <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; border:1px solid #e2e8f0; padding:2px 5px; border-radius:2px; font-size:10px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
-                <strong style="color:#000080; cursor:pointer;" onclick="if(typeof openTicketCenter==='function') { openTicketCenter(); if(typeof switchTicketCenterTab==='function') switchTicketCenterTab('campaign'); selectTicket('${escapeJsArg(tk.id)}', 'campaign'); }">${tk.id}</strong>: ${escapeHtml(tk.title)}
+                <strong style="color:#000080; cursor:pointer;" onclick="if(typeof openTicketCenter==='function') { openTicketCenter(); if(typeof switchTicketCenterTab==='function') switchTicketCenterTab('campaign'); selectTicket('${escapeJsArg(tk.id)}', 'campaign'); }">${escapeHtml(tk.id)}</strong>: ${escapeHtml(tk.title)}
               </div>
               <div style="display:flex; gap:3px; align-items:center;">
                 <span class="ticket-badge-status status-${statusSlug}" style="font-size:8px; padding:0 3px;">${escapeHtml(tk.status || 'ready')}</span>
@@ -2067,7 +2315,7 @@
             <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; border:1px solid #fecaca; padding:3px 5px; border-radius:2px; font-size:10px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                 <strong style="color:#991b1b; cursor:pointer;" onclick="navigateToEntity('tracker', '${escapeJsArg(trk.id)}')">⏱️ ${escapeHtml(trk.name || trk.title)}</strong>
-                <span class="entity-badge-tag" style="font-size:8px; background:#fee2e2; color:#991b1b;">${scope}</span>
+                <span class="entity-badge-tag" style="font-size:8px; background:#fee2e2; color:#991b1b;">${escapeHtml(scope)}</span>
                 <span class="clock-mini-gauge" style="margin-left:3px;">${gauge}</span>
                 <strong style="font-size:9px; color:#333;">${cur}/${max}</strong>
               </div>
@@ -2460,6 +2708,665 @@
     }
     window.updateCreatureRoamingScope = updateCreatureRoamingScope;
 
+    // ========================================================================
+    // STAGE 3B: BI-DIRECTIONALLY LINKED INDUSTRY / RESOURCE / SOURCE-MODULE INSPECTORS
+    // ========================================================================
+    /**
+     * Opens #modal-module-explorer on a module (resolved by id / moduleId / prototypeId) and guarantees
+     * the window stacks above #modal-entity-manager. Filter conflicts are reset inside filterModules().
+     */
+    function openSourceModuleFromInspector(moduleId, nodeId) {
+      const ref = (moduleId === null || moduleId === undefined) ? '' : String(moduleId).trim();
+      if (!ref) return;
+      if (typeof openModuleExplorer !== 'function') return;
+      const hasNode = nodeId !== null && nodeId !== undefined && nodeId !== '' && nodeId !== 'null';
+      try {
+        openModuleExplorer(ref, hasNode ? nodeId : undefined);
+      } catch (err) {
+        console.error('openSourceModuleFromInspector failed:', err);
+        return;
+      }
+      if (typeof resolveModuleExplorerId === 'function' && !resolveModuleExplorerId(ref) && typeof setStatusBarMessage === 'function') {
+        setStatusBarMessage(`Module ${ref} is not in the loaded catalog.`);
+      }
+      if (typeof MDIWindowManager !== 'undefined' && MDIWindowManager && typeof MDIWindowManager.open === 'function') {
+        MDIWindowManager.open('modal-module-explorer');
+        const mm = document.getElementById('modal-module-explorer');
+        const em = document.getElementById('modal-entity-manager');
+        const zOf = (el) => {
+          if (!el) return 0;
+          const inline = parseInt(el.style.zIndex, 10);
+          if (!isNaN(inline)) return inline;
+          const cs = (typeof window.getComputedStyle === 'function') ? parseInt(window.getComputedStyle(el).zIndex, 10) : NaN;
+          return isNaN(cs) ? 0 : cs;
+        };
+        if (mm && em && zOf(mm) <= zOf(em)) {
+          MDIWindowManager.highestZIndex = Math.max(MDIWindowManager.highestZIndex || 0, zOf(em)) + 2;
+          mm.style.zIndex = MDIWindowManager.highestZIndex;
+        }
+      }
+    }
+    window.openSourceModuleFromInspector = openSourceModuleFromInspector;
+
+    /** Styled Win95 button replacing the inert "Module: X" badge. */
+    function renderSourceModuleButton(moduleId, nodeId) {
+      if (moduleId === null || moduleId === undefined || String(moduleId).trim() === '') {
+        return '<span class="entity-badge-tag">Custom Authored</span>';
+      }
+      const mid = String(moduleId).trim();
+      const nodeArg = (nodeId !== null && nodeId !== undefined && nodeId !== '') ? `'${escapeJsArg(nodeId)}'` : 'null';
+      return `<button class="win-btn" title="Open the source module in the Module Explorer" style="font-size:9px; padding:1px 6px; font-weight:bold; color:#000080; border-color:#000080;" onclick="openSourceModuleFromInspector('${escapeJsArg(mid)}', ${nodeArg})">📦 Module: [${escapeHtml(mid)}] — Load Module...</button>`;
+    }
+    window.renderSourceModuleButton = renderSourceModuleButton;
+
+    /** One-click jump to any entity: opens the Entity Manager window, switches tab, selects the entity. */
+    function inspectorJumpToEntity(type, id, isProto, optMapId = null) {
+      if (typeof MDIWindowManager !== 'undefined' && MDIWindowManager && typeof MDIWindowManager.open === 'function') {
+        MDIWindowManager.open('modal-entity-manager');
+        if (typeof initWorkspaceSplitters === 'function') initWorkspaceSplitters();
+      }
+      switchEntityManagerTab(type);
+      if (id !== null && id !== undefined && id !== '') {
+        selectEntityItem(id, !!isProto, optMapId);
+        const tbody = (typeof document !== 'undefined') ? document.getElementById('em-table-body') : null;
+        const hasSelectedRow = !!(tbody && tbody.children && Array.from(tbody.children).some(r => (r.classList && r.classList.contains('selected')) || String(r.className || '').split(/\s+/).includes('selected')));
+        if (!hasSelectedRow) {
+          const axes = entityExplorerAxes();
+          axes.node = axes.category = axes.status = '';
+          SelectedEntityFilter = 'all';
+          if (typeof window !== 'undefined') window.SelectedEntityFilter = 'all';
+          if (typeof document !== 'undefined') {
+            ['em-search-input', 'em-filter-node', 'em-filter-category', 'em-filter-status'].forEach(fid => {
+              const fel = document.getElementById(fid);
+              if (fel) fel.value = '';
+            });
+          }
+          renderEntityManagerTree();
+          renderEntityManagerList();
+        }
+      }
+    }
+    window.inspectorJumpToEntity = inspectorJumpToEntity;
+
+    /** Promotes a module prototype into the active campaign from another inspector tab. */
+    function inspectorPromotePrototype(type, protoId) {
+      if (typeof MDIWindowManager !== 'undefined' && MDIWindowManager && typeof MDIWindowManager.open === 'function') {
+        MDIWindowManager.open('modal-entity-manager');
+      }
+      switchEntityManagerTab(type);
+      if (typeof promotePrototypeToCampaign === 'function') promotePrototypeToCampaign(protoId, type);
+    }
+    window.inspectorPromotePrototype = inspectorPromotePrototype;
+
+    function s3bJump(type, id, isProto) {
+      return `inspectorJumpToEntity('${escapeJsArg(type)}', '${escapeJsArg(id)}', ${isProto ? 'true' : 'false'})`;
+    }
+
+    function s3bFormatValue(v) {
+      if (v === null || v === undefined || v === '') return '';
+      if (Array.isArray(v)) {
+        const items = v.map(s3bFormatValue).filter(Boolean);
+        return items.length ? `<ul style="margin:2px 0 0 14px; padding:0;">${items.map(x => `<li>${x}</li>`).join('')}</ul>` : '';
+      }
+      if (typeof v === 'object') {
+        const rows = Object.keys(v).map(k => {
+          const inner = s3bFormatValue(v[k]);
+          return inner ? `<div><strong>${escapeHtml(String(k).replace(/_/g, ' '))}:</strong> ${inner}</div>` : '';
+        }).filter(Boolean);
+        return rows.join('');
+      }
+      return escapeHtml(String(v));
+    }
+
+    function s3bPanel(titleHtml, bodyHtml, bg, border) {
+      if (!bodyHtml) return '';
+      return `
+        <div style="background:${bg || '#f8fafc'}; border:1px solid ${border || '#cbd5e1'}; padding:6px; border-radius:2px;">
+          <div style="font-size:10px; font-weight:bold; color:#0f172a; margin-bottom:3px;">${titleHtml}</div>
+          <div style="font-size:10px; color:#334155; line-height:1.35; white-space:pre-wrap;">${bodyHtml}</div>
+        </div>`;
+    }
+
+    function s3bChainBadge(chain) {
+      const c = chain || {};
+      if (!c.chainId && (c.chainStage === null || c.chainStage === undefined) && !c.chainRole) return '';
+      const parts = [c.chainId || 'CHAIN'];
+      if (c.chainStage !== null && c.chainStage !== undefined && c.chainStage !== '') parts.push(`Stage ${c.chainStage}`);
+      if (c.chainRole) parts.push(c.chainRole);
+      return `<span class="entity-badge-tag" style="background:#312e81; color:#fff;" title="Supply chain position">⛓️ ${escapeHtml(parts.join(' • '))}</span>`;
+    }
+
+    function s3bTagKeys(tag) {
+      const keys = new Set();
+      const m = (typeof parseResourceTagMeta === 'function') ? parseResourceTagMeta(String(tag || '')) : null;
+      if (m) {
+        if (m.canonicalKey) keys.add(m.canonicalKey);
+        if (m.tailKey) keys.add(m.tailKey);
+      }
+      return keys;
+    }
+
+    function s3bKeysOverlap(a, b) {
+      for (const k of a) { if (b.has(k)) return true; }
+      return false;
+    }
+
+    /** Live DF depot telemetry (inputHopper / outputBin / stockpile / backpressureHalt) for a stationed node. */
+    function s3bDepotTelemetry(effNodeId, stationNode, topo, mode, highlightKeys) {
+      const out = { html: '', isHalted: false, hopperKeys: new Set(), hasOutput: false };
+      const hl = highlightKeys || new Set();
+      const modData = stationNode && stationNode.modData && stationNode.modData.pre_industrial_resources;
+      if (!stationNode) {
+        out.html = `
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px; font-size:10px; color:#64748b;">
+            ${mode === 'industry' ? '🏭' : '📦'} <em>${mode === 'industry'
+              ? 'This facility is currently unstationed. Assign it to a node below to connect it to regional logistics hoppers and exports.'
+              : 'This commodity is currently unstationed. Assign it to a settlement depot or resource facility node below to enable physical hauling, production hoppers, and stockpile tracking.'}</em>
+          </div>`;
+        return out;
+      }
+      const toEntries = (obj) => (obj && typeof obj === 'object') ? Object.entries(obj) : [];
+      const inputHoppers = toEntries(modData && modData.inputHopper);
+      const outputBins = toEntries(modData && modData.outputBin);
+      const stockpiles = toEntries(modData && modData.stockpile);
+      out.isHalted = !!(modData && modData.backpressureHalt);
+      out.hasOutput = outputBins.some(([, v]) => Number(v) > 0);
+      inputHoppers.concat(stockpiles).forEach(([k, v]) => {
+        if (Number(v) > 0 || (typeof v !== 'number' && v)) s3bTagKeys(k).forEach(x => out.hopperKeys.add(x));
+      });
+      const cell = ([k, v]) => {
+        const hit = s3bKeysOverlap(s3bTagKeys(k), hl);
+        return `<span style="${hit ? 'background:#fef9c3; border-bottom:1px solid #ca8a04;' : ''}">${hit ? '★ ' : ''}${escapeHtml(k)}: <strong>${escapeHtml(v)}</strong></span>`;
+      };
+      const empty = '<span style="color:#94a3b8; font-style:italic;">Empty</span>';
+      out.html = `
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="color:#0f172a; font-size:11px;">🏭 ${mode === 'industry' ? 'Facility Station &amp; Hoppers' : 'Depot &amp; Facility Logistics'}:</strong>
+            ${out.isHalted ? '<span class="entity-badge-tag" style="background:#fee2e2; color:#b91c1c; border:1px solid #ef4444; font-weight:bold;">⛔ Backpressure Halt</span>' : `<span class="entity-badge-tag" style="background:#dcfce7; color:#166534;">${mode === 'industry' ? '🟢 Operating' : '🟢 Flow Active'}</span>`}
+          </div>
+          <div style="font-size:10px; color:#334155; margin-bottom:4px;">
+            ${mode === 'industry' ? 'Stationed Node' : 'Depot Station'}: <strong>${escapeHtml(formatNodeRef(effNodeId, topo))}</strong>
+            ${stationNode.tier === 0 ? '<span class="entity-badge-tag" style="font-size:8px; margin-left:3px;">T0 Settlement</span>' : ''}
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; font-size:9px;">
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:4px; border-radius:2px;">
+              <div style="font-weight:bold; color:#475569;">📥 Input Hopper (Raw):</div>
+              <div>${inputHoppers.length > 0 ? inputHoppers.map(cell).join('<br>') : empty}</div>
+            </div>
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:4px; border-radius:2px;">
+              <div style="font-weight:bold; color:#475569;">📤 Output Bin (Export):</div>
+              <div>${outputBins.length > 0 ? outputBins.map(cell).join('<br>') : empty}</div>
+            </div>
+          </div>
+          <div style="background:#fff; border:1px solid #e2e8f0; padding:4px; border-radius:2px; margin-top:4px; font-size:9px;">
+            <div style="font-weight:bold; color:#0f766e;">🏛️ ${mode === 'industry' ? 'Site Stockpile' : 'Long-Term Stockpile'}:</div>
+            <div>${stockpiles.length > 0 ? stockpiles.map(cell).join(' &bull; ') : '<span style="color:#94a3b8; font-style:italic;">No stockpiled inventory recorded yet.</span>'}</div>
+          </div>
+        </div>`;
+      return out;
+    }
+
+    /** Resolves a required tag into a live supply status (stocked / produced / fallback / deficit). */
+    function s3bResolveTagStatus(tag, index, hopperKeys, hasFallback) {
+      const links = index.findIndustryLinksForTag(tag);
+      const matches = index.lookupResourceMatches(tag);
+      const keys = s3bTagKeys(tag);
+      const stocked = s3bKeysOverlap(keys, hopperKeys);
+      const activeProducer = links.producers.some(p => !p.isPrototype);
+      let state, label, style;
+      if (stocked) { state = 'stocked'; label = '✔ Stocked'; style = 'background:#dcfce7; color:#166534; border:1px solid #86efac;'; }
+      else if (activeProducer) { state = 'produced'; label = '✔ Produced'; style = 'background:#dcfce7; color:#166534; border:1px solid #86efac;'; }
+      else if (hasFallback) { state = 'fallback'; label = '↩ Fallback Active'; style = 'background:#fef3c7; color:#92400e; border:1px solid #fcd34d;'; }
+      else if (links.producers.length > 0) { state = 'unspawned'; label = '◌ Producer Unspawned'; style = 'background:#ffedd5; color:#9a3412; border:1px solid #fdba74;'; }
+      else { state = 'deficit'; label = '✖ Deficit'; style = 'background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5;'; }
+      return { state, label, style, links, matches, meta: links.meta };
+    }
+
+    function s3bResourceChip(tag, matches, rich) {
+      const meta = matches.meta || (typeof parseResourceTagMeta === 'function' ? parseResourceTagMeta(tag) : { name: tag, sector: 'General' });
+      const label = `${escapeHtml(meta.name || tag)}`;
+      const sector = meta.sector && meta.sector !== 'General' ? ` <span style="font-size:8px; color:#64748b;">[${escapeHtml(meta.sector)}]</span>` : '';
+      if (matches.active.length > 0) {
+        const m = matches.active[0];
+        return `<button class="win-btn" onclick="${s3bJump('resource', m.entity.id, false)}" style="font-size:9px; padding:1px 5px; background:#dcfce7; color:#166534;" title="Jump to this commodity on the Resources tab">📦 ${label}${sector}</button>`;
+      }
+      if (matches.prototypes.length > 0) {
+        const m = matches.prototypes[0];
+        return `<span style="display:inline-flex; gap:2px; align-items:center;">
+          <button class="win-btn" onclick="${s3bJump('resource', m.entity.id, true)}" style="font-size:9px; padding:1px 5px; background:#fef3c7; color:#92400e;" title="Prototype commodity (not yet in campaign)">📦 ${label}${sector}</button>
+          <button class="win-btn" onclick="inspectorPromotePrototype('resource', '${escapeJsArg(m.entity.id)}')" style="font-size:8px; padding:1px 4px; color:#000080;" title="Add this commodity to the active campaign">+ Promote</button>
+        </span>`;
+      }
+      return `<span class="entity-badge-tag" style="background:#f1f5f9; color:#475569;" title="No commodity entity exists for this tag yet">${label}${sector}</span>`;
+    }
+
+    function s3bReferencingQuestsHtml(poolQuests, indObj, entity, topo, isExternal, noneText) {
+      const refs = poolQuests.filter(q =>
+        (q.itemIds && (q.itemIds.includes(indObj.id) || q.itemIds.includes(entity.id))) ||
+        (q.rewardItemIds && (q.rewardItemIds.includes(indObj.id) || q.rewardItemIds.includes(entity.id))) ||
+        (Array.isArray(indObj.questIds) && indObj.questIds.includes(q.id)) ||
+        (Array.isArray(entity.questIds) && entity.questIds.includes(q.id))
+      );
+      let html = `<div style="font-size:10px; color:#666; font-style:italic;">${escapeHtml(noneText)}</div>`;
+      if (refs.length > 0) {
+        html = refs.map(q => {
+          const qNavId = formatEntityNavId(q.id, isExternal, entity._sourceCampaignId);
+          return `
+            <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
+              <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
+                <span style="font-weight:bold; font-size:11px;">📜 ${escapeHtml(q.title || q.name || 'Untitled Quest')}</span>
+                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? escapeHtml(formatNodeRef(q.nodeId, topo)) : 'Unassigned'}]</span>
+              </div>
+              <div style="display:flex; gap:2px;">
+                <button class="win-btn" onclick="window.navigateToEntity('quest', '${escapeJsArg(qNavId)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                ${(q.nodeId && !isExternal) ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(q.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
+              </div>
+            </div>`;
+        }).join('');
+      }
+      return { count: refs.length, html };
+    }
+
+    function s3bEntityFooter(ctx, cfg) {
+      const { entity, isPrototype, isExternal, nodeOptions, id } = ctx;
+      const eid = escapeJsArg(entity.id);
+      if (isExternal) {
+        return `
+          <div style="font-size:10px; color:#1e40af; background:#dbeafe; padding:4px 6px; border:1px solid #93c5fd; border-radius:2px;">
+            <strong>External Campaign ${escapeHtml(cfg.noun)}:</strong> Sourced from <em>${escapeHtml(entity._sourceCampaignName || entity._sourceCampaignId || 'External')}</em>.
+          </div>
+          <button class="win-btn" style="background:#2563eb; color:#fff; font-weight:bold; padding:4px 8px;" onclick="window.openTransplantPackageModal('${escapeJsArg(entity._externalKey || id)}', '${escapeJsArg(cfg.type)}')">
+            📥 Configure Transplant into Current Campaign...
+          </button>`;
+      }
+      return `
+        <label style="display:flex; flex-direction:column; gap:2px;">
+          <strong>${escapeHtml(cfg.stationLabel)}:</strong>
+          <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${eid}', this.value, ${isPrototype})">
+            ${nodeOptions}
+          </select>
+        </label>
+        <div style="display:flex; gap:4px; margin-top:4px;">
+          ${isPrototype ? `
+            <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${eid}', '${escapeJsArg(cfg.type)}')"><strong>+ Add ${escapeHtml(cfg.noun)} to Campaign</strong></button>
+            <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('${escapeJsArg(cfg.type)}', '${eid}')">Delete ${escapeHtml(cfg.noun)}...</button>
+          ` : `
+            <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${eid}')">Edit ${escapeHtml(cfg.noun)}</button>
+            <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('${escapeJsArg(cfg.type)}', '${eid}')">Delete ${escapeHtml(cfg.noun)}...</button>
+          `}
+        </div>`;
+    }
+
+    /** Finds spawned (or prototype) trackers authored by the same module as the facility. */
+    function s3bModuleTrackers(moduleId, topo) {
+      if (!moduleId) return [];
+      const mid = String(moduleId);
+      const active = (topo.trackers || []).filter(t => t && String(t.moduleId || '') === mid).map(t => ({ t, isPrototype: false }));
+      let protos = [];
+      try {
+        protos = (typeof getPrototypesForType === 'function' ? getPrototypesForType('tracker') : [])
+          .filter(p => p && String(p.moduleId || '') === mid && !active.some(a => String(a.t.prototypeId) === String(p.id) || String(a.t.id) === String(p.id)))
+          .map(t => ({ t, isPrototype: true }));
+      } catch (e) { protos = []; }
+      return active.concat(protos);
+    }
+
+    // ------------------------------------------------------------------------
+    // INDUSTRY INSPECTOR
+    // ------------------------------------------------------------------------
+    function renderIndustryInspectorPane(ctx) {
+      const { pane, entity, activeInstance, isPrototype, isExternal, externalSourcePool, topo } = ctx;
+      const indObj = activeInstance || entity;
+      const baseRich = (typeof resolveRichEntityMetadata === 'function') ? resolveRichEntityMetadata(indObj, 'industry') : {};
+      const rich = Object.assign({ consumes: [], produces: [], upstream: [], downstream: [], dials: [], threatClocks: [], chain: {}, mechanicalSpecs: null, customNotes: '', moduleLore: '', refiningContext: '', standaloneFallback: '', nodePrerequisites: null, outputDial: null, moduleId: indObj.moduleId || null }, baseRich);
+      const specs = rich.mechanicalSpecs || {};
+      const effNodeId = getEntityEffectiveNodeId(indObj, 'industry');
+      const allNodesMap = getAllKnownNodesMap();
+      const stationNode = effNodeId ? allNodesMap[String(effNodeId)] : null;
+      const index = buildIndustryResourceIndex(topo);
+
+      const consumeTags = rich.consumes.length > 0 ? rich.consumes : (Array.isArray(specs.requirements) ? specs.requirements : []);
+      const provideTags = rich.produces;
+      const hasFallback = !!(rich.standaloneFallback && String(rich.standaloneFallback).trim());
+
+      // Provisional telemetry (no highlight) to learn which input keys are stocked at the node.
+      const telemetry = s3bDepotTelemetry(effNodeId, stationNode, topo, 'industry', new Set(consumeTags.concat(provideTags).flatMap(t => Array.from(s3bTagKeys(t)))));
+      const consumeRows = consumeTags.map(tag => ({ tag, st: s3bResolveTagStatus(tag, index, telemetry.hopperKeys, hasFallback) }));
+      const anyUnmet = consumeRows.some(r => r.st.state === 'fallback' || r.st.state === 'deficit' || r.st.state === 'unspawned');
+
+      // Status badge
+      let statusLabel, statusStyle;
+      if (isPrototype) { statusLabel = 'Prototype'; statusStyle = 'background:#e0e7ff; color:#3730a3;'; }
+      else if (telemetry.isHalted) { statusLabel = '⛔ Halted'; statusStyle = 'background:#fee2e2; color:#b91c1c; border:1px solid #ef4444;'; }
+      else if (hasFallback && anyUnmet) { statusLabel = '↩ Standalone Fallback'; statusStyle = 'background:#fef3c7; color:#92400e; border:1px solid #fcd34d;'; }
+      else if (stationNode && (telemetry.hasOutput || (consumeRows.length > 0 && !anyUnmet))) { statusLabel = '🟢 Flowing'; statusStyle = 'background:#dcfce7; color:#166534;'; }
+      else { statusLabel = 'Active'; statusStyle = 'background:#dbeafe; color:#1e40af;'; }
+
+      // Consumes (requires) rows
+      let consumesHtml = '<div style="font-size:10px; color:#64748b; font-style:italic;">No input resources required (self-sufficient facility).</div>';
+      if (consumeRows.length > 0) {
+        consumesHtml = consumeRows.map(({ tag, st }) => {
+          const producers = st.links.producers;
+          const producerBtns = producers.slice(0, 3).map(p => `<button class="win-btn" onclick="${s3bJump('industry', p.entity.id, p.isPrototype)}" style="font-size:8px; padding:1px 4px;" title="Jump to the producing facility">🏭 ${escapeHtml(p.entity.name || p.entity.title || 'Facility')}${p.isPrototype ? ' (proto)' : ''}</button>`).join(' ');
+          const srcMod = producers.find(p => p.entity.moduleId && String(p.entity.moduleId) !== String(rich.moduleId || ''));
+          const loadBtn = (st.matches.active.length === 0 && st.matches.prototypes.length === 0 && srcMod)
+            ? `<button class="win-btn" onclick="openSourceModuleFromInspector('${escapeJsArg(srcMod.entity.moduleId)}', null)" style="font-size:8px; padding:1px 4px; color:#000080;">Load Source Module [${escapeHtml(srcMod.entity.moduleId)}]</button>` : '';
+          return `
+            <div style="background:#fff; border:1px solid #fed7aa; padding:3px 5px; border-radius:2px; margin-bottom:3px;">
+              <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
+                <span class="entity-badge-tag" style="${st.style}">${st.label}</span>
+                ${s3bResourceChip(tag, st.matches, rich)}
+              </div>
+              ${(producerBtns || loadBtn) ? `<div style="margin-top:2px; display:flex; gap:3px; flex-wrap:wrap; align-items:center; font-size:9px; color:#64748b;">Supplied by: ${producerBtns || '<em>no producer registered</em>'} ${loadBtn}</div>` : '<div style="margin-top:2px; font-size:9px; color:#b91c1c;">No registered producer for this input.</div>'}
+            </div>`;
+        }).join('');
+      }
+
+      // Produces / yields
+      let producesHtml = '<div style="font-size:10px; color:#64748b; font-style:italic;">No output resources declared.</div>';
+      if (provideTags.length > 0) {
+        producesHtml = `<div style="display:flex; flex-wrap:wrap; gap:3px;">${provideTags.map(tag => s3bResourceChip(tag, index.lookupResourceMatches(tag), rich)).join('')}</div>`;
+      }
+      const downstreamHtml = rich.downstream.length > 0
+        ? `<div style="margin-top:4px; font-size:9px; color:#475569;"><strong>Downstream facilities:</strong> ${rich.downstream.map(d => d.isNode
+            ? `<button class="win-btn" onclick="${s3bJump('node', d.id, false)}" style="font-size:8px; padding:1px 4px;">📍 ${escapeHtml(d.name)}</button>`
+            : `<button class="win-btn" onclick="${s3bJump('industry', d.id, d.isPrototype)}" style="font-size:8px; padding:1px 4px;" title="Consumes ${escapeHtml(d.tag)}">🏭 ${escapeHtml(d.name)}${d.isPrototype ? ' (proto)' : ''}</button>`).join(' ')}</div>`
+        : '';
+      const upstreamHtml = rich.upstream.length > 0
+        ? `<div style="margin-top:4px; font-size:9px; color:#475569;"><strong>Upstream suppliers:</strong> ${rich.upstream.map(u => `<button class="win-btn" onclick="${s3bJump('industry', u.id, u.isPrototype)}" style="font-size:8px; padding:1px 4px;" title="Supplies ${escapeHtml(u.tag)}">🏭 ${escapeHtml(u.name)}${u.isPrototype ? ' (proto)' : ''}</button>`).join(' ')}</div>`
+        : '';
+
+      // Dials & clocks
+      const modTrackers = s3bModuleTrackers(rich.moduleId, topo);
+      const trackerBtn = (rec, text) => `<button class="win-btn" onclick="${s3bJump('tracker', rec.t.id, rec.isPrototype)}" style="font-size:8px; padding:1px 4px; color:#b91c1c;">⏱️ ${escapeHtml(text || rec.t.name || rec.t.title || 'Tracker')}${rec.isPrototype ? ' (proto)' : ''}</button>`;
+      const dialTrk = modTrackers.find(r => r.t.type === 'Output Dial');
+      const outputDialHtml = (() => {
+        const od = rich.outputDial || specs.outputDial;
+        const lines = [];
+        if (specs.outputDialSummary) lines.push(`<div><strong>Range:</strong> ${escapeHtml(specs.outputDialSummary)}</div>`);
+        const dialLevels = (Array.isArray(rich.dials) && rich.dials.length > 0) ? rich.dials : (Array.isArray(specs.dials) ? specs.dials : []);
+        if (dialLevels.length > 0) {
+          lines.push(`<details style="margin-top:2px;"><summary style="cursor:pointer; color:#000080; font-weight:bold;">Output dial levels (${dialLevels.length})</summary><ul style="margin:2px 0 0 14px; padding:0;">${dialLevels.map(l => `<li>${escapeHtml(typeof l === 'string' ? l : JSON.stringify(l))}</li>`).join('')}</ul></details>`);
+        } else if (od && typeof od === 'object') {
+          lines.push(s3bFormatValue(od));
+        } else if (od) {
+          lines.push(escapeHtml(String(od)));
+        }
+        if (lines.length === 0) return '';
+        lines.push(dialTrk ? `<div style="margin-top:3px;">${trackerBtn(dialTrk, 'Open Output Dial Tracker')}</div>` : '<div style="margin-top:3px; font-size:9px; color:#94a3b8; font-style:italic;">No Output Dial tracker spawned for this module.</div>');
+        return lines.join('');
+      })();
+
+      const clocksHtml = (Array.isArray(rich.threatClocks) ? rich.threatClocks : []).map(c => {
+        const text = typeof c === 'string' ? c : (c && (c.name || c.title) ? `${c.name || c.title}${c.ticks ? ` [${c.ticks} ticks]` : ''}${c.trigger ? ` - ${c.trigger}` : ''}` : JSON.stringify(c));
+        const clockName = String(text).split(/\s*\[/)[0].trim().toLowerCase();
+        const trk = clockName ? modTrackers.find(r => r.t.type !== 'Output Dial' && String(r.t.name || r.t.title || '').toLowerCase().includes(clockName)) : null;
+        return `<div style="display:flex; justify-content:space-between; align-items:flex-start; gap:4px; background:#fff; border:1px solid #fecaca; padding:3px 5px; border-radius:2px; margin-bottom:2px;">
+          <span style="font-size:10px;">⏱️ ${escapeHtml(text)}</span>
+          ${trk ? trackerBtn(trk, 'Open Clock') : '<span style="font-size:8px; color:#94a3b8; font-style:italic; white-space:nowrap;">not spawned</span>'}
+        </div>`;
+      }).join('');
+
+      const poolQuests = isExternal ? ((externalSourcePool && externalSourcePool.quests) || []) : (topo.quests || []);
+      const qr = s3bReferencingQuestsHtml(poolQuests, indObj, entity, topo, isExternal, 'No active quests currently reference this facility.');
+
+      const lore = rich.moduleLore || (rich.customNotes ? '' : (entity.motivation || ''));
+      const mechRows = [
+        specs.physical ? `<div><strong>Physical architecture:</strong> ${escapeHtml(specs.physical)}</div>` : '',
+        (Array.isArray(specs.components) && specs.components.length) ? `<div><strong>Components:</strong> ${escapeHtml(specs.components.join(' • '))}</div>` : '',
+        specs.throughput ? `<div><strong>Throughput:</strong> ${escapeHtml(specs.throughput)}</div>` : '',
+        (Array.isArray(specs.requirements) && specs.requirements.length) ? `<div><strong>Requirements:</strong> ${escapeHtml(specs.requirements.join(', '))}</div>` : '',
+        specs.hazards ? `<div><strong>Hazards:</strong> ${s3bFormatValue(specs.hazards)}</div>` : ''
+      ].filter(Boolean).join('');
+
+      const catLabel = entity.category || 'Industrial Machinery';
+      pane.innerHTML = `
+        <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
+          <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">🏭 ${escapeHtml(entity.name || entity.title || 'Untitled Industry')}</h3>
+          <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px; align-items:center;">
+            <span class="entity-badge-tag" style="${statusStyle} font-weight:bold;">${statusLabel}</span>
+            <span class="entity-badge-tag" style="background:#fef3c7; color:#92400e;">${escapeHtml(catLabel)}</span>
+            ${s3bChainBadge(rich.chain)}
+            ${renderSourceModuleButton(rich.moduleId || entity.moduleId, effNodeId)}
+          </div>
+          <div style="display:flex; gap:4px; margin-top:4px; align-items:center; font-size:10px; color:#334155;">
+            <span>Stationed Node: <strong>${effNodeId ? escapeHtml(formatNodeRef(effNodeId, topo)) : '(Unassigned)'}</strong></span>
+            ${(effNodeId && !isExternal) ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(effNodeId)}')" style="font-size:9px; padding:1px 5px;">🎯 Center Node on Canvas</button>` : ''}
+          </div>
+        </div>
+
+        <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 150px);">
+          ${rich.customNotes ? s3bPanel('📝 GM Notes (authored)', escapeHtml(rich.customNotes), '#fffbeb', '#fcd34d') : ''}
+          ${s3bPanel('📖 Facility Lore &amp; Operational Premise', escapeHtml(lore || 'Industrial processing machinery or regional infrastructure anchor.'), '#fff', '#ddd')}
+          ${s3bPanel('⚙️ Operational Architecture', mechRows, '#f1f5f9', '#cbd5e1')}
+          ${rich.refiningContext ? s3bPanel('🔥 Refining &amp; Processing Method', escapeHtml(rich.refiningContext), '#fff7ed', '#fdba74') : ''}
+
+          <div style="background:#fff7ed; border:1px solid #fdba74; padding:6px; border-radius:2px;">
+            <div style="font-size:10px; font-weight:bold; color:#9a3412; margin-bottom:3px;">⬇️ CONSUMES — Supply Chain Inputs (${consumeRows.length}):</div>
+            ${consumesHtml}
+            ${upstreamHtml}
+          </div>
+
+          <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:6px; border-radius:2px;">
+            <div style="font-size:10px; font-weight:bold; color:#166534; margin-bottom:3px;">⬆️ PRODUCES — Yields &amp; Outputs (${provideTags.length}):</div>
+            ${producesHtml}
+            ${downstreamHtml}
+          </div>
+
+          ${telemetry.html}
+
+          ${hasFallback ? s3bPanel('↩ Standalone Fallback Mode', escapeHtml(rich.standaloneFallback), '#fefce8', '#fde047') : ''}
+          ${rich.nodePrerequisites ? s3bPanel('🧱 Node Prerequisites', s3bFormatValue(rich.nodePrerequisites), '#f8fafc', '#cbd5e1') : ''}
+          ${outputDialHtml ? s3bPanel('🎚️ Output Dial', outputDialHtml, '#eff6ff', '#bfdbfe') : ''}
+          ${clocksHtml ? `<div style="background:#fef2f2; border:1px solid #fecaca; padding:6px; border-radius:2px;"><div style="font-size:10px; font-weight:bold; color:#991b1b; margin-bottom:3px;">⚠️ Linked Threat Clocks (${rich.threatClocks.length}):</div>${clocksHtml}</div>` : ''}
+
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+              <strong>Referencing Quests (${qr.count}):</strong>
+              <button class="win-btn" onclick="openNewEntityModal('quest')" style="font-size:9px; padding:1px 4px;">+ New Quest</button>
+            </div>
+            ${qr.html}
+          </div>
+
+          ${renderLinkedTrackersSection('item', indObj.id, effNodeId)}
+          ${renderAssignedTicketsSection('item', indObj.id, effNodeId)}
+        </div>
+
+        <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
+          ${s3bEntityFooter(ctx, { type: 'industry', noun: 'Industry', stationLabel: 'Station to Node / Facility' })}
+        </div>
+      `;
+    }
+
+    // ------------------------------------------------------------------------
+    // RESOURCE INSPECTOR
+    // ------------------------------------------------------------------------
+    function renderResourceInspectorPane(ctx) {
+      const { pane, entity, activeInstance, isPrototype, isExternal, externalSourcePool, topo } = ctx;
+      const resObj = activeInstance || entity;
+      const baseRich = (typeof resolveRichEntityMetadata === 'function') ? resolveRichEntityMetadata(resObj, 'resource') : {};
+      const rich = Object.assign({ consumes: [], produces: [], upstream: [], downstream: [], dials: [], threatClocks: [], chain: {}, batchSpecs: null, customNotes: '', moduleLore: '', extractionLore: '', refiningContext: '', originFacility: '', consumedByHint: '', moduleId: resObj.moduleId || null }, baseRich);
+      const batch = rich.batchSpecs || {};
+      const effNodeId = getEntityEffectiveNodeId(resObj, 'resource');
+      const allNodesMap = getAllKnownNodesMap();
+      const stationNode = effNodeId ? allNodesMap[String(effNodeId)] : null;
+      const index = buildIndustryResourceIndex(topo);
+
+      // Canonical tag keys for this commodity
+      const myTags = (rich.produces && rich.produces.length > 0) ? rich.produces : [entity.name].filter(Boolean);
+      const myKeys = new Set();
+      myTags.concat([entity.name]).forEach(t => s3bTagKeys(t).forEach(k => myKeys.add(k)));
+
+      const sectorName = batch.sector || (myTags[0] && typeof parseResourceTagMeta === 'function' ? parseResourceTagMeta(myTags[0]).sector : '') || 'General';
+
+      const telemetry = s3bDepotTelemetry(effNodeId, stationNode, topo, 'resource', myKeys);
+
+      // In-transit shipments: canonical tag-key match (replaces the old substring .includes() match)
+      const shipments = [];
+      const seenShip = new Set();
+      const seenShipRefs = new Set();
+      const shipMatches = (sh) => s3bKeysOverlap(s3bTagKeys(sh && (sh.resource || sh.name || '')), myKeys);
+      const canonEdgeId = (ek) => String(ek || '').replace(/->/g, '-').split('-').map(s => s.trim()).filter(Boolean).sort().join('-');
+      const addShip = (sh, edgeKey) => {
+        if (!sh || seenShipRefs.has(sh)) return;
+        const k = `${canonEdgeId(edgeKey)}|${sh.from}|${sh.to}|${sh.qty}|${sh.resource}`;
+        if (seenShip.has(k)) return;
+        seenShipRefs.add(sh);
+        seenShip.add(k);
+        shipments.push({ ...sh, edgeKey });
+      };
+      myTags.forEach(tag => index.findIndustryLinksForTag(tag).caravans.forEach(c => addShip(c.shipment, c.edgeKey)));
+      const edgesList = (typeof getEdgesForMapScope === 'function') ? getEdgesForMapScope('map:all') : [];
+      edgesList.forEach(ed => {
+        const edModData = ed.modData && ed.modData.pre_industrial_resources;
+        if (edModData && Array.isArray(edModData.inTransit)) {
+          edModData.inTransit.forEach(sh => { if (sh && shipMatches(sh)) addShip(sh, ed.edgeKey || `${ed.uId}-${ed.vId}`); });
+        }
+      });
+      const transitHtml = shipments.length === 0 ? '' : `
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:6px; border-radius:2px;">
+          <strong style="color:#166534; font-size:11px;">🚚 In-Transit Edge Caravans (${shipments.length}):</strong>
+          <div style="display:flex; flex-direction:column; gap:2px; margin-top:3px; font-size:9px;">
+            ${shipments.map(s => `
+              <div style="background:#fff; border:1px solid #86efac; padding:2px 5px; border-radius:2px; display:flex; justify-content:space-between; align-items:center; gap:4px;">
+                <span>Route: <strong>${escapeHtml(s.from)} &rarr; ${escapeHtml(s.to)}</strong> &bull; Cargo: <strong>${escapeHtml(s.qty)} units</strong> &bull; ETA: <strong>${escapeHtml(s.etaTurns)} turns</strong></span>
+                <button class="win-btn" onclick="${s3bJump('edge', s.edgeKey, false)}" style="font-size:8px; padding:1px 4px;" title="Jump to this corridor on the Edges tab">🛤️ ${escapeHtml(s.edgeKey)}</button>
+              </div>`).join('')}
+          </div>
+        </div>`;
+
+      // Produced By
+      const producerCards = [];
+      rich.upstream.filter(u => !u.isNode).forEach(u => {
+        producerCards.push(`
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:4px; background:#fff; border:1px solid #bbf7d0; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
+            <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+              <span style="font-weight:bold; font-size:10px;">🏭 ${escapeHtml(u.name)}</span>
+              <span class="entity-badge-tag" style="font-size:8px; ${u.isPrototype ? 'background:#e0e7ff; color:#3730a3;' : 'background:#dcfce7; color:#166534;'}">${u.isPrototype ? 'Prototype' : 'Active'}</span>
+              ${u.moduleId ? `<span style="font-size:9px; color:#64748b;">[${escapeHtml(u.moduleId)}]</span>` : ''}
+            </div>
+            <div style="display:flex; gap:2px;">
+              <button class="win-btn" onclick="${s3bJump('industry', u.id, u.isPrototype)}" style="font-size:9px; padding:1px 4px;">Inspect Facility</button>
+              ${u.moduleId ? `<button class="win-btn" onclick="openSourceModuleFromInspector('${escapeJsArg(u.moduleId)}', null)" style="font-size:9px; padding:1px 4px; color:#000080;">📦 Load Module</button>` : ''}
+            </div>
+          </div>`);
+      });
+      if (producerCards.length === 0) {
+        producerCards.push(`
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:4px; background:#fff; border:1px dashed #94a3b8; padding:3px 6px; border-radius:2px;">
+            <span style="font-size:10px; color:#475569;">${rich.originFacility ? `Origin facility: <strong>${escapeHtml(rich.originFacility)}</strong> (no facility entity registered)` : 'No producing facility registered.'}</span>
+            ${rich.moduleId ? `<button class="win-btn" onclick="openSourceModuleFromInspector('${escapeJsArg(rich.moduleId)}', null)" style="font-size:9px; padding:1px 4px; color:#000080;">📦 Load Source Module [${escapeHtml(rich.moduleId)}]</button>` : ''}
+          </div>`);
+      }
+
+      // Consumed By
+      const consumerCards = [];
+      rich.downstream.forEach(d => {
+        consumerCards.push(`
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:4px; background:#fff; border:1px solid #fed7aa; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
+            <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+              <span style="font-weight:bold; font-size:10px;">${d.isNode ? '📍' : '🏭'} ${escapeHtml(d.name)}</span>
+              <span class="entity-badge-tag" style="font-size:8px; background:#ffedd5; color:#9a3412;">${d.isNode ? 'Node' : (d.isPrototype ? 'Prototype' : 'Active')}</span>
+              ${d.moduleId ? `<span style="font-size:9px; color:#64748b;">[${escapeHtml(d.moduleId)}]</span>` : ''}
+            </div>
+            <div style="display:flex; gap:2px;">
+              <button class="win-btn" onclick="${s3bJump(d.isNode ? 'node' : 'industry', d.id, d.isPrototype)}" style="font-size:9px; padding:1px 4px;">${d.isNode ? 'Inspect Node' : 'Inspect Facility'}</button>
+              ${d.moduleId ? `<button class="win-btn" onclick="openSourceModuleFromInspector('${escapeJsArg(d.moduleId)}', null)" style="font-size:9px; padding:1px 4px; color:#000080;">📦 Load Module</button>` : ''}
+            </div>
+          </div>`);
+      });
+      // Modules whose `requires` list names this commodity (even when no facility entity exists yet)
+      const shownModules = new Set(rich.downstream.map(d => String(d.moduleId || '')));
+      const consumerModules = (typeof ALL_MODULES !== 'undefined' && Array.isArray(ALL_MODULES))
+        ? ALL_MODULES.filter(m => m && m.id && String(m.id) !== String(rich.moduleId || '') && !shownModules.has(String(m.id))
+            && (Array.isArray(m.requires) ? m.requires : []).some(r => s3bKeysOverlap(s3bTagKeys(r), myKeys))).slice(0, 12)
+        : [];
+      consumerModules.forEach(m => {
+        consumerCards.push(`
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:4px; background:#fff; border:1px dashed #fdba74; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
+            <span style="font-size:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">📚 <strong>[${escapeHtml(m.id)}]</strong> ${escapeHtml(m.title || '')}</span>
+            <button class="win-btn" onclick="openSourceModuleFromInspector('${escapeJsArg(m.id)}', null)" style="font-size:9px; padding:1px 4px; color:#000080;">📦 Load Module</button>
+          </div>`);
+      });
+      if (consumerCards.length === 0) {
+        consumerCards.push('<div style="font-size:10px; color:#64748b; font-style:italic;">No downstream consumers registered for this commodity.</div>');
+      }
+
+      const poolQuests = isExternal ? ((externalSourcePool && externalSourcePool.quests) || []) : (topo.quests || []);
+      const qr = s3bReferencingQuestsHtml(poolQuests, resObj, entity, topo, isExternal, 'No active quests currently reference this resource.');
+
+      const batchRows = [
+        batch.yields ? `<div><strong>Yields:</strong> ${escapeHtml(batch.yields)}</div>` : '',
+        batch.unit ? `<div><strong>Unit:</strong> ${escapeHtml(batch.unit)}</div>` : '',
+        batch.handling ? `<div><strong>Handling:</strong> ${escapeHtml(batch.handling)}</div>` : '',
+        batch.sector ? `<div><strong>Sector:</strong> ${escapeHtml(batch.sector)}</div>` : '',
+        (batch.chainStage !== undefined && batch.chainStage !== null && batch.chainStage !== '') ? `<div><strong>Chain stage:</strong> ${escapeHtml(batch.chainStage)}</div>` : '',
+        batch.chainRole ? `<div><strong>Chain role:</strong> ${escapeHtml(batch.chainRole)}</div>` : '',
+        entity.specs ? `<div style="font-family:Consolas, monospace;">${escapeHtml(entity.specs)}</div>` : ''
+      ].filter(Boolean).join('');
+
+      const originHtml = [
+        rich.originFacility ? `<div><strong>Origin facility:</strong> ${escapeHtml(rich.originFacility)}</div>` : '',
+        (rich.refiningContext && rich.refiningContext !== rich.extractionLore) ? `<div style="margin-top:2px;"><strong>Extraction / refining method:</strong> ${escapeHtml(rich.refiningContext)}</div>` : ''
+      ].filter(Boolean).join('');
+      const extractionText = rich.extractionLore || (rich.customNotes ? '' : (rich.moduleLore || entity.motivation || ''));
+
+      pane.innerHTML = `
+        <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
+          <h3 style="font-size:13px; color:#0f766e; margin:0 0 2px 0;">📦 ${escapeHtml(entity.name || entity.title)}</h3>
+          <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px; align-items:center;">
+            <span class="entity-badge-tag" style="background:#0f766e; color:#fff; font-weight:bold;">${escapeHtml(sectorName)}</span>
+            <span class="entity-badge-tag" style="background:#e0f2fe; color:#0369a1;">${escapeHtml(entity.category || 'Commodity / Resource')}</span>
+            <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
+            ${s3bChainBadge(rich.chain)}
+            ${renderSourceModuleButton(rich.moduleId || entity.moduleId, effNodeId)}
+          </div>
+          <div style="display:flex; gap:4px; margin-top:4px; align-items:center; font-size:10px; color:#334155;">
+            <span>Depot Node: <strong>${effNodeId ? escapeHtml(formatNodeRef(effNodeId, topo)) : '(Unassigned)'}</strong></span>
+            ${(effNodeId && !isExternal) ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(effNodeId)}')" style="font-size:9px; padding:1px 5px;">🎯 Center Node on Canvas</button>` : ''}
+          </div>
+        </div>
+
+        <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 150px);">
+          ${rich.customNotes ? s3bPanel('📝 GM Notes (authored)', escapeHtml(rich.customNotes), '#fffbeb', '#fcd34d') : ''}
+          ${s3bPanel('⛏️ Extraction Lore &amp; Industrial Context', escapeHtml(extractionText || 'Universal pre-industrial trade commodity and physical supply anchor.'), '#fff', '#ddd')}
+          ${originHtml ? s3bPanel('🔥 Refining &amp; Origin', originHtml, '#fff7ed', '#fdba74') : ''}
+          ${(rich.moduleLore && rich.moduleLore !== extractionText && !(extractionText && rich.moduleLore.includes(extractionText))) ? s3bPanel('📖 Module Lore', escapeHtml(rich.moduleLore), '#f8fafc', '#cbd5e1') : ''}
+          ${batchRows ? s3bPanel('📋 Batch Specs &amp; Logistics Traits', batchRows, '#f1f5f9', '#cbd5e1') : ''}
+
+          <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:6px; border-radius:2px;">
+            <div style="font-size:10px; font-weight:bold; color:#166534; margin-bottom:3px;">🏭 Produced By — Producing Industry &amp; Modules:</div>
+            ${producerCards.join('')}
+          </div>
+
+          <div style="background:#fff7ed; border:1px solid #fdba74; padding:6px; border-radius:2px;">
+            <div style="font-size:10px; font-weight:bold; color:#9a3412; margin-bottom:3px;">➡️ Consumed By — Downstream Consumers:</div>
+            ${rich.consumedByHint ? `<div style="font-size:9px; color:#7c2d12; margin-bottom:3px;">${escapeHtml(rich.consumedByHint)}</div>` : ''}
+            ${consumerCards.join('')}
+          </div>
+
+          ${telemetry.html}
+          ${transitHtml}
+
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+              <strong>Referencing Quests (${qr.count}):</strong>
+              <button class="win-btn" onclick="openNewEntityModal('quest')" style="font-size:9px; padding:1px 4px;">+ New Quest</button>
+            </div>
+            ${qr.html}
+          </div>
+
+          ${renderLinkedTrackersSection('item', resObj.id, effNodeId)}
+          ${renderAssignedTicketsSection('item', resObj.id, effNodeId)}
+        </div>
+
+        <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
+          ${s3bEntityFooter(ctx, { type: 'resource', noun: 'Resource', stationLabel: 'Station to Node / Depot' })}
+        </div>
+      `;
+    }
+
     // --- Entity Detail & Property Inspector ---
     function selectEntityItem(id, isProto, optMapId = null) {
       SelectedEntityId = id;
@@ -2508,7 +3415,7 @@
         let roadsHtml = (node.adj || []).map(adjId => {
           const adjNode = targetTopo.nodes ? (Array.isArray(targetTopo.nodes) ? targetTopo.nodes.find(x => String(x.id) === String(adjId)) : targetTopo.nodes[adjId.toString()]) : null;
           const adjName = adjNode ? adjNode.name : `Node ${adjId}`;
-          return `<button class="win-btn" onclick="selectEntityItem('${escapeJsArg(adjId)}', false, '${escapedMapId}')" style="font-size:10px; padding:2px 5px;">#${adjId}: ${adjName}</button>`;
+          return `<button class="win-btn" onclick="selectEntityItem('${escapeJsArg(adjId)}', false, '${escapedMapId}')" style="font-size:10px; padding:2px 5px;">#${escapeHtml(adjId)}: ${escapeHtml(adjName)}</button>`;
         }).join(' ') || '<span style="color:#777; font-style:italic;">None</span>';
 
         let modulesHtml = '<div style="font-size:10px; color:#777; font-style:italic;">No modules currently slotted.</div>';
@@ -2518,8 +3425,8 @@
             const mTitle = mObj ? mObj.title : mId;
             return `
               <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #ddd; padding:3px 5px; margin-bottom:3px;">
-                <span style="font-size:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><strong>[${mId}]</strong> ${mTitle}</span>
-                <button class="win-btn" onclick="openModuleExplorer('${escapeJsArg(mId)}', '${escapedId}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                <span style="font-size:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><strong>[${escapeHtml(mId)}]</strong> ${escapeHtml(mTitle)}</span>
+                <button class="win-btn" onclick="openSourceModuleFromInspector('${escapeJsArg(mId)}', '${escapedId}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
               </div>
             `;
           }).join('');
@@ -2532,18 +3439,18 @@
         const allMaps = (typeof maps !== "undefined" && maps) ? maps : {};
         const submapOptions = Object.keys(allMaps)
           .filter(mId => mId !== nodeMapId)
-          .map(mId => `<option value="${mId}" ${node.childMapId === mId ? 'selected' : ''}>${allMaps[mId].name} (${allMaps[mId].scaleTier || 'region'})</option>`)
+          .map(mId => `<option value="${escapeHtml(mId)}" ${node.childMapId === mId ? 'selected' : ''}>${escapeHtml(allMaps[mId].name)} (${escapeHtml(allMaps[mId].scaleTier || 'region')})</option>`)
           .join('');
 
-        const mapBadge = `<span class="entity-badge-tag" style="background:#1e40af; color:#fff;">Map: ${(mapDict[nodeMapId] && mapDict[nodeMapId].name) || nodeMapId}</span>`;
+        const mapBadge = `<span class="entity-badge-tag" style="background:#1e40af; color:#fff;">Map: ${escapeHtml((mapDict[nodeMapId] && mapDict[nodeMapId].name) || nodeMapId)}</span>`;
 
         pane.innerHTML = `
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div style="font-size:10px; color:#666; font-weight:bold;">POINTCRAWL GRAPH NODE #${node.id}</div>
+              <div style="font-size:10px; color:#666; font-weight:bold;">POINTCRAWL GRAPH NODE #${escapeHtml(node.id)}</div>
               ${mapBadge}
             </div>
-            <input type="text" class="win-select-input" value="${node.name}" style="font-size:12px; font-weight:bold; width:100%; margin-top:3px;" onchange="updateNodeProp('${escapedId}', 'name', this.value, '${escapedMapId}')">
+            <input type="text" class="win-select-input" value="${escapeHtml(node.name)}" style="font-size:12px; font-weight:bold; width:100%; margin-top:3px;" onchange="updateNodeProp('${escapedId}', 'name', this.value, '${escapedMapId}')">
             <div style="display:flex; gap:3px; margin-top:4px; flex-wrap:wrap;">
               <span class="entity-badge-tag">Coords: (${node.x}, ${node.y})</span>
               ${node.visible === false ? '<span class="entity-badge-tag" style="background:#475569; color:#fff;">👁️‍🗨️ Hidden Fog</span>' : '<span class="entity-badge-tag" style="background:#0f766e; color:#fff;">👁️ Visible</span>'}
@@ -2734,7 +3641,7 @@
             <!-- Stationed Narrative Entities (Direct + Recursive Sub-Maps) -->
             <div style="border-top:1px solid #ddd; padding-top:4px;">
               <div style="display:flex; justify-content:space-between; align-items:center;">
-                <strong>Stationed Entities (${rec.totals.npcs + rec.totals.quests + rec.totals.items + (rec.totals.resources || 0) + (rec.totals.creatures || 0) + rec.totals.trackers} total):</strong>
+                <strong>Stationed Entities (${rec.totals.npcs + rec.totals.quests + rec.totals.items + (rec.totals.industries || 0) + (rec.totals.resources || 0) + (rec.totals.creatures || 0) + rec.totals.trackers} total):</strong>
                 ${rec.totals.submaps > 0 ? `<span style="font-size:9px; color:#0f766e; font-weight:bold;">🌀 ${rec.totals.submaps} Sub-Map(s)</span>` : ''}
               </div>
 
@@ -2743,31 +3650,33 @@
                 ${rec.direct.npcs.map(n => `<div style="cursor:pointer; color:#000080;" onclick="switchEntityManagerTab('npc'); selectEntityItem('${escapeJsArg(n.id)}', false);">&bull; NPC: <strong>${escapeHtml(n.name)}</strong> (${escapeHtml(n.role || 'Resident')})</div>`).join('')}
                 ${rec.direct.quests.map(q => `<div style="cursor:pointer; color:#b91c1c;" onclick="switchEntityManagerTab('quest'); selectEntityItem('${escapeJsArg(q.id)}', false);">&bull; Quest: <strong>${escapeHtml(q.title || q.name)}</strong> [${escapeHtml(q.threat || 'Threat')}]</div>`).join('')}
                 ${rec.direct.items.map(i => `<div style="cursor:pointer; color:#065f46;" onclick="switchEntityManagerTab('item'); selectEntityItem('${escapeJsArg(i.id)}', false);">&bull; Item: <strong>${escapeHtml(i.name)}</strong> [${escapeHtml(i.category || 'Gear')}]</div>`).join('')}
+                ${(rec.direct.industries || []).map(ind => `<div style="cursor:pointer; color:#92400e;" onclick="switchEntityManagerTab('industry'); selectEntityItem('${escapeJsArg(ind.id)}', false);">&bull; Industry: <strong>${escapeHtml(ind.name)}</strong> [${escapeHtml(ind.category || 'Machinery')}]</div>`).join('')}
                 ${(rec.direct.resources || []).map(r => `<div style="cursor:pointer; color:#0f766e;" onclick="switchEntityManagerTab('resource'); selectEntityItem('${escapeJsArg(r.id)}', false);">&bull; Resource: <strong>${escapeHtml(r.name)}</strong> [${escapeHtml(r.category || 'Commodity')}]</div>`).join('')}
                 ${(rec.direct.creatures || []).map(c => `<div style="cursor:pointer; color:#c2410c;" onclick="switchEntityManagerTab('creature'); selectEntityItem('${escapeJsArg(c.id)}', false);">&bull; Creature: <strong>${escapeHtml(c.name)}</strong> [Tier ${c.threatTier !== undefined ? c.threatTier : 2} ${escapeHtml(c.kind || 'Beast')}]</div>`).join('')}
                 ${rec.direct.trackers.map(t => `<div style="cursor:pointer; color:#991b1b;" onclick="switchEntityManagerTab('tracker'); selectEntityItem('${escapeJsArg(t.id)}', false);">&bull; Clock: <strong>${escapeHtml(t.name)}</strong> (${t.currentTicks || 0}/${t.maxTicks || 6} ticks)</div>`).join('')}
-                ${(rec.direct.npcs.length + rec.direct.quests.length + rec.direct.items.length + (rec.direct.resources || []).length + (rec.direct.creatures || []).length + rec.direct.trackers.length === 0) ? '<span style="color:#777; font-style:italic;">No direct entities stationed here.</span>' : ''}
+                ${(rec.direct.npcs.length + rec.direct.quests.length + rec.direct.items.length + (rec.direct.industries || []).length + (rec.direct.resources || []).length + (rec.direct.creatures || []).length + rec.direct.trackers.length === 0) ? '<span style="color:#777; font-style:italic;">No direct entities stationed here.</span>' : ''}
               </div>
 
               <!-- Recursive Sub-Map Entities -->
               ${rec.submaps.length > 0 ? `
                 <div style="margin-top:6px; background:#f0fdf4; border:1px solid #bbf7d0; padding:4px 6px; border-radius:2px;">
-                  <div style="font-size:9px; font-weight:bold; color:#166534; margin-bottom:2px;">RECURSIVE SUB-MAP ENTITIES (${rec.submaps.reduce((acc, sm) => acc + sm.npcs.length + sm.quests.length + sm.items.length + (sm.resources || []).length + (sm.creatures || []).length + sm.trackers.length, 0)}):</div>
+                  <div style="font-size:9px; font-weight:bold; color:#166534; margin-bottom:2px;">RECURSIVE SUB-MAP ENTITIES (${rec.submaps.reduce((acc, sm) => acc + sm.npcs.length + sm.quests.length + sm.items.length + (sm.industries || []).length + (sm.resources || []).length + (sm.creatures || []).length + sm.trackers.length, 0)}):</div>
                   <div style="display:flex; flex-direction:column; gap:2px; font-size:9px;">
                     ${rec.submaps.map(sm => {
                       const allSubEnts = [...sm.npcs.map(n => ({ type:'npc', label: `NPC: ${n.name}`, id: n.id })),
                                           ...sm.quests.map(q => ({ type:'quest', label: `Quest: ${q.title || q.name}`, id: q.id })),
                                           ...sm.items.map(i => ({ type:'item', label: `Item: ${i.name}`, id: i.id })),
+                                          ...(sm.industries || []).map(ind => ({ type:'industry', label: `Industry: ${ind.name}`, id: ind.id })),
                                           ...(sm.resources || []).map(r => ({ type:'resource', label: `Resource: ${r.name}`, id: r.id })),
                                           ...(sm.creatures || []).map(c => ({ type:'creature', label: `Creature: ${c.name}`, id: c.id })),
                                           ...sm.trackers.map(t => ({ type:'tracker', label: `Clock: ${t.name}`, id: t.id }))];
                       if (allSubEnts.length === 0) return '';
                       return `
                         <div style="border-top:1px dashed #cbd5e1; padding-top:2px; margin-top:2px;">
-                          <div style="font-weight:bold; color:#0f766e;">🌀 ${sm.mapName} (${sm.scaleTier}):</div>
+                          <div style="font-weight:bold; color:#0f766e;">🌀 ${escapeHtml(sm.mapName)} (${escapeHtml(sm.scaleTier)}):</div>
                           ${allSubEnts.map(se => `
                             <div style="display:flex; justify-content:space-between; align-items:center; padding:1px 0;">
-                              <span>&bull; ${se.label}</span>
+                              <span>&bull; ${escapeHtml(se.label)}</span>
                               <button class="win-btn" onclick="jumpToNodeMap('${escapeJsArg(sm.mapId)}', '${escapeJsArg(se.id)}')" style="font-size:8px; padding:1px 3px;">Jump</button>
                             </div>
                           `).join('')}
@@ -2836,12 +3745,12 @@
         const escapedMapId = escapeJsArg(edgeMapId);
         const isHegem = edge.edgeType === 'hegemony';
 
-        const mapBadge = `<span class="entity-badge-tag" style="background:#1e40af; color:#fff;">Map: ${(mapDict[edgeMapId] && mapDict[edgeMapId].name) || edgeMapId}</span>`;
+        const mapBadge = `<span class="entity-badge-tag" style="background:#1e40af; color:#fff;">Map: ${escapeHtml((mapDict[edgeMapId] && mapDict[edgeMapId].name) || edgeMapId)}</span>`;
 
-        const uName = (edge.uNode && edge.uNode.name) || `Node ${edge.uId}`;
-        const vName = (edge.vNode && edge.vNode.name) || `Node ${edge.vId}`;
-        const uCulture = (edge.uNode && edge.uNode.culture) || 'Neutral';
-        const vCulture = (edge.vNode && edge.vNode.culture) || 'Neutral';
+        const uName = escapeHtml((edge.uNode && edge.uNode.name) || `Node ${edge.uId}`);
+        const vName = escapeHtml((edge.vNode && edge.vNode.name) || `Node ${edge.vId}`);
+        const uCulture = escapeHtml((edge.uNode && edge.uNode.culture) || 'Neutral');
+        const vCulture = escapeHtml((edge.vNode && edge.vNode.culture) || 'Neutral');
 
         let modulesHtml = '<div style="font-size:10px; color:#777; font-style:italic;">No modules slotted on this corridor.</div>';
         if (edge.modules && edge.modules.length > 0) {
@@ -2850,8 +3759,8 @@
             const mTitle = mObj ? mObj.title : mId;
             return `
               <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #ddd; padding:3px 5px; margin-bottom:3px;">
-                <span style="font-size:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><strong>[${mId}]</strong> ${mTitle}</span>
-                <button class="win-btn" onclick="openModuleExplorer('${escapeJsArg(mId)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                <span style="font-size:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><strong>[${escapeHtml(mId)}]</strong> ${escapeHtml(mTitle)}</span>
+                <button class="win-btn" onclick="openSourceModuleFromInspector('${escapeJsArg(mId)}', null)" style="font-size:9px; padding:1px 4px;">Inspect</button>
               </div>
             `;
           }).join('');
@@ -2870,13 +3779,13 @@
         pane.innerHTML = `
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div style="font-size:10px; color:#666; font-weight:bold;">${isHegem ? 'HEGEMONIC VECTOR' : 'TRANSIT CORRIDOR'} #${edge.edgeKey}</div>
+              <div style="font-size:10px; color:#666; font-weight:bold;">${isHegem ? 'HEGEMONIC VECTOR' : 'TRANSIT CORRIDOR'} #${escapeHtml(edge.edgeKey)}</div>
               ${mapBadge}
             </div>
             ${detailTitleHtml}
             <div style="display:flex; gap:3px; margin-top:4px; flex-wrap:wrap;">
-              <span class="entity-badge-tag">${edge.edgeType.toUpperCase()}</span>
-              <span class="entity-badge-tag">${edge.formattedDist}</span>
+              <span class="entity-badge-tag">${escapeHtml(String(edge.edgeType).toUpperCase())}</span>
+              <span class="entity-badge-tag">${escapeHtml(edge.formattedDist)}</span>
               ${edge.visible === false ? '<span class="entity-badge-tag" style="background:#475569; color:#fff;">👁️‍🗨️ Secret Road</span>' : '<span class="entity-badge-tag" style="background:#0f766e; color:#fff;">👁️ Visible</span>'}
               ${edge.blocked ? '<span class="entity-badge-tag" style="background:#b91c1c; color:#fff;">🚫 Blockaded</span>' : ''}
             </div>
@@ -2894,12 +3803,12 @@
               <strong style="font-size:10px; color:#475569;">CONNECTED ENDPOINTS:</strong>
               <div style="display:flex; align-items:center; justify-content:space-between; gap:4px; margin-top:4px;">
                 <div style="flex:1; background:#fff; border:1px solid #cbd5e1; padding:4px; text-align:center;">
-                  <div style="font-weight:bold; color:#000080; cursor:pointer;" onclick="selectEntityItem('${escapeJsArg(edge.uId)}', false, '${escapedMapId}'); switchEntityManagerTab('node');">#${edge.uId}: ${uName}</div>
+                  <div style="font-weight:bold; color:#000080; cursor:pointer;" onclick="inspectorJumpToEntity('node', '${escapeJsArg(edge.uId)}', false, '${escapedMapId}');">#${escapeHtml(edge.uId)}: ${uName}</div>
                   <span class="entity-badge-tag" style="font-size:8px;">${uCulture}</span>
                 </div>
                 <div style="font-weight:bold; font-size:14px; color:#64748b;">${isHegem ? '➔' : '⮂'}</div>
                 <div style="flex:1; background:#fff; border:1px solid #cbd5e1; padding:4px; text-align:center;">
-                  <div style="font-weight:bold; color:#000080; cursor:pointer;" onclick="selectEntityItem('${escapeJsArg(edge.vId)}', false, '${escapedMapId}'); switchEntityManagerTab('node');">#${edge.vId}: ${vName}</div>
+                  <div style="font-weight:bold; color:#000080; cursor:pointer;" onclick="inspectorJumpToEntity('node', '${escapeJsArg(edge.vId)}', false, '${escapedMapId}');">#${escapeHtml(edge.vId)}: ${vName}</div>
                   <span class="entity-badge-tag" style="font-size:8px;">${vCulture}</span>
                 </div>
               </div>
@@ -2909,10 +3818,10 @@
             <div class="bevel-inset" style="padding:6px; background:#fff;">
               <div style="display:flex; justify-content:space-between; align-items:center;">
                 <strong style="font-size:10px; color:#475569;">HAZARD &amp; TRAVEL RISK:</strong>
-                <span class="entity-badge-tag" style="background:${edge.hazardLevel >= 2 ? '#b91c1c' : '#059669'}; color:#fff;">Hazard L${edge.hazardLevel} (DC ${edge.hazardInfo ? edge.hazardInfo.dc : 10})</span>
+                <span class="entity-badge-tag" style="background:${edge.hazardLevel >= 2 ? '#b91c1c' : '#059669'}; color:#fff;">Hazard L${escapeHtml(edge.hazardLevel)} (DC ${escapeHtml(edge.hazardInfo ? edge.hazardInfo.dc : 10)})</span>
               </div>
               <div style="margin-top:4px; font-size:10px; color:#555;">
-                Condition: <strong>${edge.condition}</strong> • Patrol: <strong>${edge.patrolFaction}</strong>
+                Condition: <strong>${escapeHtml(edge.condition)}</strong> • Patrol: <strong>${escapeHtml(edge.patrolFaction)}</strong>
               </div>
               ${typeof computeConduitNaturalFrequency === 'function' ? `<div style="margin-top:4px; font-size:10px; color:#334155;">${escapeHtml(computeConduitNaturalFrequency(Workstation.activeTopology && Workstation.activeTopology.edgeData && (Workstation.activeTopology.edgeData[edge.edgeKey] || Workstation.activeTopology.edgeData[edge.pairKey]) || { hazardLevel: edge.hazardLevel }, 20).readableSummary)}</div>` : ''}
               <button class="win-btn" style="width:100%; margin-top:6px; font-weight:bold; padding:3px 6px;" onclick="openCorridorHazardDialog('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', Workstation.activeTopology && Workstation.activeTopology.edgeData && (Workstation.activeTopology.edgeData['${escapedKey}'] || Workstation.activeTopology.edgeData['${escapedPairKey}']))">🎲 Roll Tabletop Hazard Check...</button>
@@ -2931,7 +3840,7 @@
             ${edge.notes ? `
               <div class="bevel-inset" style="padding:6px; background:#fff; font-size:10px;">
                 <strong style="color:#475569;">CORRIDOR LORE NOTES:</strong>
-                <div style="margin-top:2px; color:#333; white-space:pre-wrap;">${edge.notes}</div>
+                <div style="margin-top:2px; color:#333; white-space:pre-wrap;">${escapeHtml(edge.notes)}</div>
               </div>
             ` : ''}
 
@@ -2952,7 +3861,7 @@
           <!-- Action Footer -->
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:4px;">
             <button class="win-btn" onclick="jumpToEdgeMap('${escapedMapId}', '${escapedKey}', '${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}')"><strong>🎯 Select &amp; Center on CAD Canvas</strong></button>
-            <button class="win-btn" style="color:#b91c1c; font-weight:bold; margin-top:2px;" onclick="if (confirm('Sever this ${edge.edgeType} connection between Node ${edge.uId} and Node ${edge.vId}?')) { deleteEdge('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}', '${escapedMapId}'); renderEntityManagerTree(); renderEntityManagerList(); document.getElementById('em-detail-pane').innerHTML = '<div style=\\'font-size:11px; color:#666; text-align:center; margin-top:40px;\\'>Corridor severed successfully.</div>'; }">✂️ Sever / Delete Corridor...</button>
+            <button class="win-btn" style="color:#b91c1c; font-weight:bold; margin-top:2px;" onclick="if (confirm('Sever this ${escapeJsArg(edge.edgeType)} connection between Node ${escapeJsArg(edge.uId)} and Node ${escapeJsArg(edge.vId)}?')) { deleteEdge('${escapeJsArg(edge.uId)}', '${escapeJsArg(edge.vId)}', '${escapeJsArg(edge.edgeType)}', '${escapedMapId}'); renderEntityManagerTree(); renderEntityManagerList(); document.getElementById('em-detail-pane').innerHTML = '<div style=\\'font-size:11px; color:#666; text-align:center; margin-top:40px;\\'>Corridor severed successfully.</div>'; }">✂️ Sever / Delete Corridor...</button>
           </div>
         `;
 
@@ -3004,11 +3913,11 @@
           const isCur = (mId === (typeof activeMapId !== "undefined" ? activeMapId : "map_root"));
           const mapNodes = isCur ? (topo.nodes ? Object.values(topo.nodes) : (m.nodes || [])) : (m.nodes || []);
           if (mapNodes.length > 0) {
-            nodeOptions += `<optgroup label="${m.name} [${(m.scaleTier || 'region').toUpperCase()}]">`;
+            nodeOptions += `<optgroup label="${escapeHtml(m.name)} [${escapeHtml((m.scaleTier || 'region').toUpperCase())}]">`;
             mapNodes.forEach(n => {
               const nid = n.id;
               const selected = (String(currentStationId) === String(nid)) ? 'selected' : '';
-              nodeOptions += `<option value="${nid}" ${selected}>Node ${nid}: ${n.name}</option>`;
+              nodeOptions += `<option value="${escapeHtml(nid)}" ${selected}>Node ${escapeHtml(nid)}: ${escapeHtml(n.name)}</option>`;
             });
             nodeOptions += `</optgroup>`;
           }
@@ -3017,7 +3926,7 @@
         Object.keys(topo.nodes || {}).forEach(k => {
           const n = topo.nodes[k];
           const selected = (String(currentStationId) === String(k)) ? 'selected' : '';
-          nodeOptions += `<option value="${k}" ${selected}>Node ${k}: ${n.name}</option>`;
+          nodeOptions += `<option value="${escapeHtml(k)}" ${selected}>Node ${escapeHtml(k)}: ${escapeHtml(n.name)}</option>`;
         });
       }
 
@@ -3088,7 +3997,7 @@
         pane.innerHTML = `
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <h3 style="font-size:13px; color:#b91c1c; margin:0;">${entity.name || entity.title}</h3>
+              <h3 style="font-size:13px; color:#b91c1c; margin:0;">${escapeHtml(entity.name || entity.title)}</h3>
               <select class="win-select-input" style="font-size:9px; font-weight:bold; padding:1px 4px; width:130px;" onchange="updateTrackerScopeTier('${escapeJsArg(entity.id)}', this.value)" title="Change Clock Escalation Scope Tier">
                 <option value="quest" ${scopeTier === 'quest' ? 'selected' : ''}>Scope: QUEST</option>
                 <option value="settlement" ${scopeTier === 'settlement' ? 'selected' : ''}>Scope: SETTLEMENT</option>
@@ -3097,7 +4006,7 @@
               </select>
             </div>
             <div style="margin-top:3px;">
-              <span class="entity-badge-tag">${entity.moduleId ? `Module: ${entity.moduleId}` : 'Custom Authored'}</span>
+              ${renderSourceModuleButton(entity.moduleId)}
               <span class="entity-badge-tag" style="background:${isTriggered ? '#fee2e2; color:#b91c1c; border-color:#ef4444;' : '#dbeafe; color:#1e40af;'}">${isTriggered ? '⚠️ CRISIS TRIGGERED' : (isPrototype ? 'Available Prototype' : 'Active in Campaign')}</span>
             </div>
           </div>
@@ -3119,30 +4028,30 @@
               <div style="display:flex; flex-direction:column; gap:3px;">
                 <strong>Dynamic Severity Dial (Levels 1 to 4):</strong>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
-                  <button class="win-btn ${curTicks === 1 ? 'active' : ''}" style="${curTicks === 1 ? 'background:#dbeafe; font-weight:bold; border-color:#2563eb;' : ''}" onclick="setTrackerDialLevel('${entity.id}', 1, ${isPrototype})">Lvl 1: Light</button>
-                  <button class="win-btn ${curTicks === 2 ? 'active' : ''}" style="${curTicks === 2 ? 'background:#fef3c7; font-weight:bold; border-color:#d97706;' : ''}" onclick="setTrackerDialLevel('${entity.id}', 2, ${isPrototype})">Lvl 2: Moderate</button>
-                  <button class="win-btn ${curTicks === 3 ? 'active' : ''}" style="${curTicks === 3 ? 'background:#ffedd5; font-weight:bold; border-color:#ea580c;' : ''}" onclick="setTrackerDialLevel('${entity.id}', 3, ${isPrototype})">Lvl 3: Severe</button>
-                  <button class="win-btn ${curTicks === 4 ? 'active' : ''}" style="${curTicks === 4 ? 'background:#fee2e2; font-weight:bold; border-color:#dc2626; color:#991b1b;' : ''}" onclick="setTrackerDialLevel('${entity.id}', 4, ${isPrototype})">Lvl 4: Lethal</button>
+                  <button class="win-btn ${curTicks === 1 ? 'active' : ''}" style="${curTicks === 1 ? 'background:#dbeafe; font-weight:bold; border-color:#2563eb;' : ''}" onclick="setTrackerDialLevel('${escapeJsArg(entity.id)}', 1, ${isPrototype})">Lvl 1: Light</button>
+                  <button class="win-btn ${curTicks === 2 ? 'active' : ''}" style="${curTicks === 2 ? 'background:#fef3c7; font-weight:bold; border-color:#d97706;' : ''}" onclick="setTrackerDialLevel('${escapeJsArg(entity.id)}', 2, ${isPrototype})">Lvl 2: Moderate</button>
+                  <button class="win-btn ${curTicks === 3 ? 'active' : ''}" style="${curTicks === 3 ? 'background:#ffedd5; font-weight:bold; border-color:#ea580c;' : ''}" onclick="setTrackerDialLevel('${escapeJsArg(entity.id)}', 3, ${isPrototype})">Lvl 3: Severe</button>
+                  <button class="win-btn ${curTicks === 4 ? 'active' : ''}" style="${curTicks === 4 ? 'background:#fee2e2; font-weight:bold; border-color:#dc2626; color:#991b1b;' : ''}" onclick="setTrackerDialLevel('${escapeJsArg(entity.id)}', 4, ${isPrototype})">Lvl 4: Lethal</button>
                 </div>
               </div>
             ` : `
               <!-- Interactive Tick Advance Controls -->
               <div style="display:flex; gap:4px;">
-                <button class="win-btn" style="flex:1;" onclick="advanceTrackerTick('${entity.id}', -1)"><strong>- Step Tick</strong></button>
-                <button class="win-btn" style="flex:1; background:#fee2e2; border-color:#dc2626; color:#991b1b;" onclick="advanceTrackerTick('${entity.id}', 1)"><strong>+ Advance Clock</strong></button>
-                <button class="win-btn" onclick="resetTrackerTicks('${entity.id}')">Reset</button>
+                <button class="win-btn" style="flex:1;" onclick="advanceTrackerTick('${escapeJsArg(entity.id)}', -1)"><strong>- Step Tick</strong></button>
+                <button class="win-btn" style="flex:1; background:#fee2e2; border-color:#dc2626; color:#991b1b;" onclick="advanceTrackerTick('${escapeJsArg(entity.id)}', 1)"><strong>+ Advance Clock</strong></button>
+                <button class="win-btn" onclick="resetTrackerTicks('${escapeJsArg(entity.id)}')">Reset</button>
               </div>
             `}
 
             <!-- Canvas Visibility & Drag Position Controls -->
             <div style="background:#f1f5f9; border:1px solid #cbd5e1; padding:5px 8px; border-radius:2px; display:flex; flex-direction:column; gap:4px;">
               <label style="display:flex; align-items:center; gap:6px; font-size:11px; cursor:pointer;">
-                <input type="checkbox" ${activeInstance ? (activeInstance.showOnCanvas !== false ? 'checked' : '') : 'checked'} onchange="toggleTrackerCanvasVisibility('${entity.id}', this.checked, ${isPrototype})">
+                <input type="checkbox" ${activeInstance ? (activeInstance.showOnCanvas !== false ? 'checked' : '') : 'checked'} onchange="toggleTrackerCanvasVisibility('${escapeJsArg(entity.id)}', this.checked, ${isPrototype})">
                 <strong>Show Visual Gauge on CAD Canvas</strong>
               </label>
               <div style="display:flex; justify-content:space-between; align-items:center; font-size:10px; color:#64748b;">
                 <span>Canvas Offset: (${activeInstance && activeInstance.offsetX ? activeInstance.offsetX : 0}, ${activeInstance && activeInstance.offsetY ? activeInstance.offsetY : 'Auto'})</span>
-                ${activeInstance && (activeInstance.offsetX || activeInstance.offsetY) ? `<button class="win-btn" onclick="resetTrackerOffset('${entity.id}')" style="font-size:9px; padding:1px 4px;">Reset Offset</button>` : ''}
+                ${activeInstance && (activeInstance.offsetX || activeInstance.offsetY) ? `<button class="win-btn" onclick="resetTrackerOffset('${escapeJsArg(entity.id)}')" style="font-size:9px; padding:1px 4px;">Reset Offset</button>` : ''}
               </div>
             </div>
 
@@ -3152,11 +4061,11 @@
               </div>
             ` : ''}
 
-            <div><strong>Clock Type / Vector:</strong> ${entity.type || 'Threat Clock'}</div>
-            ${entity.faction ? `<div><strong>Associated Faction / Stakes:</strong> ${entity.faction}</div>` : ''}
+            <div><strong>Clock Type / Vector:</strong> ${escapeHtml(entity.type || 'Threat Clock')}</div>
+            ${entity.faction ? `<div><strong>Associated Faction / Stakes:</strong> ${escapeHtml(entity.faction)}</div>` : ''}
             <div>
               <strong>Trigger Event &amp; Consequences:</strong>
-              <p style="color:#444; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${entity.notes || entity.motivation || 'No description provided.'}</p>
+              <p style="color:#444; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${escapeHtml(entity.notes || entity.motivation || 'No description provided.')}</p>
             </div>
 
             <!-- Trigger Attribution (DEV-01 & DEV-03) -->
@@ -3183,7 +4092,7 @@
             ` : `
               <label style="display:flex; flex-direction:column; gap:2px;">
                 <strong>Station to Node:</strong>
-                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
+                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(entity.id)}', this.value, ${isPrototype})">
                   ${nodeOptions}
                 </select>
               </label>
@@ -3194,11 +4103,11 @@
 
               <div style="display:flex; gap:4px; margin-top:2px;">
                 ${isPrototype ? `
-                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add to Active Campaign</strong></button>
-                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('tracker', '${entity.id}')">Delete Clock...</button>
+                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${escapeJsArg(entity.id)}')"><strong>+ Add to Active Campaign</strong></button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('tracker', '${escapeJsArg(entity.id)}')">Delete Clock...</button>
                 ` : `
-                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit Clock</button>
-                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('tracker', '${entity.id}')">Delete Clock...</button>
+                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')">Edit Clock</button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('tracker', '${escapeJsArg(entity.id)}')">Delete Clock...</button>
                 `}
               </div>
             `}
@@ -3224,8 +4133,8 @@
           spanningHtml = spanningNodes.map(sn => `
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
-                <span style="font-weight:bold; color:#0f172a; font-size:11px;">#${sn.nodeId}: ${sn.nodeName}</span>
-                <div style="font-size:9px; color:#475569;">${sn.reasons.join(', ')} (${sn.mapName})</div>
+                <span style="font-weight:bold; color:#0f172a; font-size:11px;">#${escapeHtml(sn.nodeId)}: ${escapeHtml(sn.nodeName)}</span>
+                <div style="font-size:9px; color:#475569;">${escapeHtml((sn.reasons || []).join(', '))} (${escapeHtml(sn.mapName)})</div>
               </div>
               <button class="win-btn" onclick="centerOnNode('${escapeJsArg(sn.nodeId)}', '${escapeJsArg(sn.mapId || '')}')" style="font-size:9px; padding:1px 5px; white-space:nowrap;">🎯 Center</button>
             </div>
@@ -3241,7 +4150,7 @@
                   <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                     <span style="font-weight:bold; font-size:10px; color:#1e40af;">🗣️ Quest Giver:</span>
                     <strong style="font-size:11px; margin-left:3px;">${escapeHtml(giverNpc.name)}</strong>
-                    <span style="font-size:9px; color:#475569;">(${giverNpc.role || 'Resident'}) - ${giverNpc.nodeId ? formatNodeRef(giverNpc.nodeId, topo) : 'Unassigned'}</span>
+                    <span style="font-size:9px; color:#475569;">(${escapeHtml(giverNpc.role || 'Resident')}) - ${giverNpc.nodeId ? escapeHtml(formatNodeRef(giverNpc.nodeId, topo)) : 'Unassigned'}</span>
                   </div>
                   <div style="display:flex; gap:2px;">
                     <button class="win-btn" onclick="window.navigateToEntity('npc', '${escapeJsArg(giverNpc.id)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
@@ -3254,7 +4163,7 @@
                   <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                     <span style="font-weight:bold; font-size:10px; color:#b91c1c;">🎯 Target / Boss:</span>
                     <strong style="font-size:11px; margin-left:3px;">${escapeHtml(targetNpc.name)}</strong>
-                    <span style="font-size:9px; color:#475569;">(${targetNpc.role || 'Adversary'}) - ${targetNpc.nodeId ? formatNodeRef(targetNpc.nodeId, topo) : 'Unassigned'}</span>
+                    <span style="font-size:9px; color:#475569;">(${escapeHtml(targetNpc.role || 'Adversary')}) - ${targetNpc.nodeId ? escapeHtml(formatNodeRef(targetNpc.nodeId, topo)) : 'Unassigned'}</span>
                   </div>
                   <div style="display:flex; gap:2px;">
                     <button class="win-btn" onclick="window.navigateToEntity('npc', '${escapeJsArg(targetNpc.id)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
@@ -3271,11 +4180,11 @@
           npcsHtml = otherLinkedNpcs.map(npc => `
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
-                <span style="font-weight:bold; font-size:11px;">${npc.name}</span>
-                <span style="font-size:9px; color:#475569;">(${npc.role || 'Resident'}) - ${npc.nodeId ? formatNodeRef(npc.nodeId, topo) : 'Unassigned'}</span>
+                <span style="font-weight:bold; font-size:11px;">${escapeHtml(npc.name)}</span>
+                <span style="font-size:9px; color:#475569;">(${escapeHtml(npc.role || 'Resident')}) - ${npc.nodeId ? escapeHtml(formatNodeRef(npc.nodeId, topo)) : 'Unassigned'}</span>
               </div>
               <div style="display:flex; gap:2px;">
-                <button class="win-btn" onclick="window.navigateToEntity('npc', '${npc.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                <button class="win-btn" onclick="window.navigateToEntity('npc', '${escapeJsArg(npc.id)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
                 ${npc.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(npc.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
               </div>
             </div>
@@ -3287,11 +4196,11 @@
           itemsHtml = linkedItems.map(item => `
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
-                <span style="font-weight:bold; font-size:11px;">${item.name}</span>
-                <span style="font-size:9px; color:#475569;">[${item.category || 'Gear'}] - ${item.nodeId ? formatNodeRef(item.nodeId, topo) : 'Unassigned'}</span>
+                <span style="font-weight:bold; font-size:11px;">${escapeHtml(item.name)}</span>
+                <span style="font-size:9px; color:#475569;">[${escapeHtml(item.category || 'Gear')}] - ${item.nodeId ? escapeHtml(formatNodeRef(item.nodeId, topo)) : 'Unassigned'}</span>
               </div>
               <div style="display:flex; gap:2px;">
-                <button class="win-btn" onclick="window.navigateToEntity('item', '${item.id}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
+                <button class="win-btn" onclick="window.navigateToEntity('item', '${escapeJsArg(item.id)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
                 ${item.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(item.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
               </div>
             </div>
@@ -3349,7 +4258,7 @@
               <span class="entity-badge-tag" style="${statusBadgeStyle}">${escapeHtml(questObj.status || 'Active')}</span>
             </div>
             <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
-              <span class="entity-badge-tag">${questObj.moduleId ? `Module: ${questObj.moduleId}` : 'Custom Authored'}</span>
+              ${renderSourceModuleButton(questObj.moduleId, currentStationId)}
               <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
               <span class="entity-badge-tag" style="background:#fef3c7; color:#92400e;">${escapeHtml(questObj.type || questObj.category || 'Standard Quest')}</span>
               ${threatBadgeHtml}
@@ -3436,7 +4345,7 @@
             <div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
                 <strong>${(giverNpc || targetNpc) ? `Other Linked NPCs (${otherLinkedNpcs.length}):` : `Linked NPCs (${otherLinkedNpcs.length}):`}</strong>
-                ${!isPrototype ? `<button class="win-btn" onclick="openEditEntityModal('${entity.id}')" style="font-size:9px; padding:1px 4px;">+ Link NPCs</button>` : ''}
+                ${!isPrototype ? `<button class="win-btn" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')" style="font-size:9px; padding:1px 4px;">+ Link NPCs</button>` : ''}
               </div>
               ${npcsHtml}
             </div>
@@ -3445,7 +4354,7 @@
             <div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
                 <strong>Linked Items / Relics (${linkedItems.length}):</strong>
-                ${!isPrototype ? `<button class="win-btn" onclick="openEditEntityModal('${entity.id}')" style="font-size:9px; padding:1px 4px;">+ Link Items</button>` : ''}
+                ${!isPrototype ? `<button class="win-btn" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')" style="font-size:9px; padding:1px 4px;">+ Link Items</button>` : ''}
               </div>
               ${itemsHtml}
             </div>
@@ -3487,7 +4396,7 @@
             ` : `
               <label style="display:flex; flex-direction:column; gap:2px;">
                 <strong>Main Quest Anchor Node:</strong>
-                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
+                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(entity.id)}', this.value, ${isPrototype})">
                   ${nodeOptions}
                 </select>
               </label>
@@ -3498,11 +4407,11 @@
 
               <div style="display:flex; gap:4px; margin-top:4px;">
                 ${isPrototype ? `
-                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add Quest to Campaign</strong></button>
-                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('quest', '${entity.id}')">Delete Quest...</button>
+                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${escapeJsArg(entity.id)}')"><strong>+ Add Quest to Campaign</strong></button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('quest', '${escapeJsArg(entity.id)}')">Delete Quest...</button>
                 ` : `
-                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit Quest</button>
-                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('quest', '${entity.id}')">Delete Quest...</button>
+                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')">Edit Quest</button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('quest', '${escapeJsArg(entity.id)}')">Delete Quest...</button>
                 `}
               </div>
             `}
@@ -3546,7 +4455,7 @@
             <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                 <span style="font-weight:bold; font-size:11px;">📜 ${escapeHtml(q.title || q.name || 'Untitled Quest')}</span>
-                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? formatNodeRef(q.nodeId, topo) : 'Unassigned'}]</span>
+                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? escapeHtml(formatNodeRef(q.nodeId, topo)) : 'Unassigned'}]</span>
               </div>
               <div style="display:flex; gap:2px;">
                 <button class="win-btn" onclick="window.navigateToEntity('quest', '${escapeJsArg(qNavId)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
@@ -3560,7 +4469,7 @@
         const possessionBadge = ownerNpc
           ? (isCarried
               ? `<span class="entity-badge-tag" style="background:#0f766e; color:#fff;">🎒 Equipped / Carried by ${escapeHtml(ownerNpc.name)}</span>`
-              : `<span class="entity-badge-tag" style="background:#475569; color:#fff;">📦 Stored at ${itemObj.nodeId ? formatNodeRef(itemObj.nodeId, topo) : 'Unassigned'} (Owned by ${escapeHtml(ownerNpc.name)})</span>`)
+              : `<span class="entity-badge-tag" style="background:#475569; color:#fff;">📦 Stored at ${itemObj.nodeId ? escapeHtml(formatNodeRef(itemObj.nodeId, topo)) : 'Unassigned'} (Owned by ${escapeHtml(ownerNpc.name)})</span>`)
           : `<span class="entity-badge-tag" style="background:#f1f5f9; color:#64748b;">(Unowned / Public Relic)</span>`;
 
         pane.innerHTML = `
@@ -3570,7 +4479,7 @@
               <span class="entity-badge-tag" style="${itemStatusStyle}">${escapeHtml(itemStatus)}</span>
             </div>
             <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
-              <span class="entity-badge-tag">${entity.moduleId ? `Module: ${entity.moduleId}` : 'Custom Authored'}</span>
+              ${renderSourceModuleButton(entity.moduleId)}
               <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
               <span class="entity-badge-tag" style="background:#e0e7ff; color:#3730a3;">${escapeHtml(entity.category || entity.role || entity.type || 'Relic / Item')}</span>
               ${(itemObj.value !== undefined && itemObj.value !== null && String(itemObj.value) !== '') ? `<span class="entity-badge-tag" style="background:#fef3c7; color:#92400e; border:1px solid #fcd34d; font-weight:bold;">💰 Value: ${escapeHtml(String(itemObj.value))}</span>` : ''}
@@ -3607,12 +4516,12 @@
                 </div>
                 <div style="font-size:10px; color:#64748b; margin-top:2px;">
                   ${isCarried
-                    ? `🎒 Dynamically inherits station node from carrier <strong>${ownerNpc.nodeId != null ? formatNodeRef(ownerNpc.nodeId, topo) : 'Unassigned'}</strong>.`
-                    : `📦 Stored at designated station <strong>${itemObj.nodeId ? formatNodeRef(itemObj.nodeId, topo) : 'Unassigned'}</strong> (e.g. in vault/armory).`}
+                    ? `🎒 Dynamically inherits station node from carrier <strong>${ownerNpc.nodeId != null ? escapeHtml(formatNodeRef(ownerNpc.nodeId, topo)) : 'Unassigned'}</strong>.`
+                    : `📦 Stored at designated station <strong>${itemObj.nodeId ? escapeHtml(formatNodeRef(itemObj.nodeId, topo)) : 'Unassigned'}</strong> (e.g. in vault/armory).`}
                 </div>
                 ${!isExternal ? `
                   <div style="margin-top:4px;">
-                    <button class="win-btn" onclick="toggleItemPossessionMode('${itemObj.id}', ${isPrototype})" style="font-size:10px; width:100%;">
+                    <button class="win-btn" onclick="toggleItemPossessionMode('${escapeJsArg(itemObj.id)}', ${isPrototype})" style="font-size:10px; width:100%;">
                       ${isCarried ? '📦 Switch to Stored at Node' : '🎒 Switch to Equipped / Carried by Owner'}
                     </button>
                   </div>
@@ -3661,12 +4570,12 @@
             ` : `
               ${isCarried ? `
                 <div style="font-size:10px; background:#f0fdf4; border:1px solid #86efac; padding:4px 6px; border-radius:2px; color:#166534;">
-                  <strong>Station Node: ${effNodeId != null ? formatNodeRef(effNodeId, topo) : 'Unassigned'}</strong> (Inherited from carrier ${ownerNpc.name}). To station elsewhere, switch possession to "Stored at Node".
+                  <strong>Station Node: ${effNodeId != null ? escapeHtml(formatNodeRef(effNodeId, topo)) : 'Unassigned'}</strong> (Inherited from carrier ${escapeHtml(ownerNpc.name)}). To station elsewhere, switch possession to "Stored at Node".
                 </div>
               ` : `
                 <label style="display:flex; flex-direction:column; gap:2px;">
                   <strong>Station to Node:</strong>
-                  <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
+                  <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(entity.id)}', this.value, ${isPrototype})">
                     ${nodeOptions}
                   </select>
                 </label>
@@ -3678,199 +4587,22 @@
 
               <div style="display:flex; gap:4px; margin-top:4px;">
                 ${isPrototype ? `
-                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add Item to Campaign</strong></button>
-                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('item', '${entity.id}')">Delete Item...</button>
+                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${escapeJsArg(entity.id)}')"><strong>+ Add Item to Campaign</strong></button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('item', '${escapeJsArg(entity.id)}')">Delete Item...</button>
                 ` : `
-                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit Item</button>
-                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('item', '${entity.id}')">Delete Item...</button>
+                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')">Edit Item</button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('item', '${escapeJsArg(entity.id)}')">Delete Item...</button>
                 `}
               </div>
             `}
           </div>
         `;
+      } else if (CurrentEntityTab === 'industry') {
+        // DEDICATED INDUSTRY & FACILITY INSPECTOR (Stage 3B: resolveRichEntityMetadata-backed, bi-directionally linked)
+        renderIndustryInspectorPane({ pane, entity, activeInstance, isPrototype, isExternal, externalSourcePool, topo, nodeOptions, id });
       } else if (CurrentEntityTab === 'resource') {
-        // DEDICATED RESOURCE & COMMODITY INSPECTOR
-        const resObj = activeInstance || entity;
-        const effNodeId = getEntityEffectiveNodeId(resObj);
-        const allNodesMap = getAllKnownNodesMap();
-        const stationNode = effNodeId ? allNodesMap[String(effNodeId)] : null;
-
-        // DF Physical Logistics & Storage Inspector
-        const modData = stationNode && stationNode.modData && stationNode.modData.pre_industrial_resources;
-        let storageHtml = '';
-        if (stationNode) {
-          const inputHoppers = modData && modData.inputHopper ? Object.entries(modData.inputHopper) : [];
-          const outputBins = modData && modData.outputBin ? Object.entries(modData.outputBin) : [];
-          const stockpiles = modData && modData.stockpile ? Object.entries(modData.stockpile) : [];
-          const isHalted = modData && modData.backpressureHalt;
-
-          storageHtml = `
-            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                <strong style="color:#0f172a; font-size:11px;">🏭 Depot &amp; Facility Logistics:</strong>
-                ${isHalted ? '<span class="entity-badge-tag" style="background:#fee2e2; color:#b91c1c; border:1px solid #ef4444; font-weight:bold;">⛔ Backpressure Halt</span>' : '<span class="entity-badge-tag" style="background:#dcfce7; color:#166534;">🟢 Flow Active</span>'}
-              </div>
-              <div style="font-size:10px; color:#334155; margin-bottom:4px;">
-                Depot Station: <strong>${formatNodeRef(effNodeId, topo)}</strong>
-                ${stationNode.tier === 0 ? '<span class="entity-badge-tag" style="font-size:8px; margin-left:3px;">T0 Settlement</span>' : ''}
-              </div>
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; font-size:9px;">
-                <div style="background:#fff; border:1px solid #e2e8f0; padding:4px; border-radius:2px;">
-                  <div style="font-weight:bold; color:#475569;">📥 Input Hopper (Raw):</div>
-                  <div>${inputHoppers.length > 0 ? inputHoppers.map(([k, v]) => `${escapeHtml(k)}: <strong>${v}</strong>`).join('<br>') : '<span style="color:#94a3b8; font-style:italic;">Empty</span>'}</div>
-                </div>
-                <div style="background:#fff; border:1px solid #e2e8f0; padding:4px; border-radius:2px;">
-                  <div style="font-weight:bold; color:#475569;">📤 Output Bin (Export):</div>
-                  <div>${outputBins.length > 0 ? outputBins.map(([k, v]) => `${escapeHtml(k)}: <strong>${v}</strong>`).join('<br>') : '<span style="color:#94a3b8; font-style:italic;">Empty</span>'}</div>
-                </div>
-              </div>
-              <div style="background:#fff; border:1px solid #e2e8f0; padding:4px; border-radius:2px; margin-top:4px; font-size:9px;">
-                <div style="font-weight:bold; color:#0f766e;">🏛️ Long-Term Stockpile:</div>
-                <div>${stockpiles.length > 0 ? stockpiles.map(([k, v]) => `${escapeHtml(k)}: <strong>${v}</strong> units`).join(' &bull; ') : '<span style="color:#94a3b8; font-style:italic;">No stockpiled inventory recorded yet.</span>'}</div>
-              </div>
-            </div>
-          `;
-        } else {
-          storageHtml = `
-            <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px; font-size:10px; color:#64748b;">
-              📦 <em>This commodity is currently unstationed. Assign it to a settlement depot or resource facility node below to enable physical hauling, production hoppers, and stockpile tracking.</em>
-            </div>
-          `;
-        }
-
-        // Active In-Transit Conduits & Shipments
-        const inTransitShipments = [];
-        const edgesList = (typeof getEdgesForMapScope === 'function') ? getEdgesForMapScope('all') : [];
-        edgesList.forEach(ed => {
-          const edModData = ed.modData && ed.modData.pre_industrial_resources;
-          if (edModData && Array.isArray(edModData.inTransit)) {
-            edModData.inTransit.forEach(sh => {
-              if (sh && (sh.resource || '').toLowerCase().includes((resObj.name || '').toLowerCase())) {
-                inTransitShipments.push({ ...sh, edgeKey: ed.edgeKey || `${ed.uId}-${ed.vId}` });
-              }
-            });
-          }
-        });
-
-        let transitHtml = '';
-        if (inTransitShipments.length > 0) {
-          transitHtml = `
-            <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:6px; border-radius:2px;">
-              <strong style="color:#166534; font-size:11px;">🚚 Active Hauling Shipments (${inTransitShipments.length}):</strong>
-              <div style="display:flex; flex-direction:column; gap:2px; margin-top:3px; font-size:9px;">
-                ${inTransitShipments.map(s => `
-                  <div style="background:#fff; border:1px solid #86efac; padding:2px 5px; border-radius:2px;">
-                    Route: <strong>${s.from} &rarr; ${s.to}</strong> &bull; Cargo: <strong>${s.qty} units</strong> &bull; ETA: <strong>${s.etaTurns} turns</strong> (${s.edgeKey})
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          `;
-        }
-
-        const poolQuests = isExternal ? ((externalSourcePool && externalSourcePool.quests) || []) : (topo.quests || []);
-        const referencingQuests = poolQuests.filter(q =>
-          (q.itemIds && q.itemIds.includes(resObj.id)) ||
-          (q.itemIds && q.itemIds.includes(entity.id)) ||
-          (q.rewardItemIds && q.rewardItemIds.includes(resObj.id)) ||
-          (q.rewardItemIds && q.rewardItemIds.includes(entity.id)) ||
-          (Array.isArray(resObj.questIds) && resObj.questIds.includes(q.id)) ||
-          (Array.isArray(entity.questIds) && entity.questIds.includes(q.id))
-        );
-
-        let questsHtml = '<div style="font-size:10px; color:#666; font-style:italic;">No active quests currently reference this resource.</div>';
-        if (referencingQuests.length > 0) {
-          questsHtml = referencingQuests.map(q => `
-            <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:3px;">
-              <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
-                <span style="font-weight:bold; font-size:11px;">📜 ${escapeHtml(q.title || q.name)}</span>
-                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? formatNodeRef(q.nodeId, topo) : 'Unassigned'}]</span>
-              </div>
-              <div style="display:flex; gap:2px;">
-                <button class="win-btn" onclick="window.navigateToEntity('quest', '${escapeJsArg(q.id)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
-                ${q.nodeId ? `<button class="win-btn" onclick="centerOnNode('${escapeJsArg(q.nodeId)}')" style="font-size:9px; padding:1px 4px;">🎯</button>` : ''}
-              </div>
-            </div>
-          `).join('');
-        }
-
-        pane.innerHTML = `
-          <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
-            <h3 style="font-size:13px; color:#0f766e; margin-bottom:2px;">📦 ${escapeHtml(entity.name || entity.title)}</h3>
-            <span class="entity-badge-tag">${entity.moduleId ? `Module: ${escapeHtml(entity.moduleId)}` : 'Pre-Industrial Resource Mod'}</span>
-            <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
-            <span class="entity-badge-tag" style="background:#e0f2fe; color:#0369a1;">${escapeHtml(entity.category || 'Commodity / Resource')}</span>
-          </div>
-
-          <div style="font-size:11px; display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:calc(100% - 130px);">
-            <!-- Storage & Physical Logistics -->
-            ${storageHtml}
-
-            <!-- In-Transit Hauling -->
-            ${transitHtml}
-
-            <!-- Specifications & Batch Specs -->
-            ${entity.specs ? `
-              <div>
-                <strong>Batch Specs &amp; Logistics Traits:</strong>
-                <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd; font-family:Consolas, monospace;">${escapeHtml(entity.specs)}</p>
-              </div>
-            ` : ''}
-
-            <!-- Provenance & Lore -->
-            <div>
-              <strong>Extraction Lore, Refining &amp; Industrial Context:</strong>
-              <p style="color:#333; line-height:1.3; margin-top:2px; font-size:10px; background:#fff; padding:6px; border:1px solid #ddd;">${escapeHtml(entity.motivation || entity.notes || 'Universal pre-industrial trade commodity and physical supply anchor.')}</p>
-            </div>
-
-            <!-- Referencing Quests -->
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
-                <strong>Referencing Quests (${referencingQuests.length}):</strong>
-                <button class="win-btn" onclick="openNewEntityModal('quest')" style="font-size:9px; padding:1px 4px;">+ New Quest</button>
-              </div>
-              ${questsHtml}
-            </div>
-
-            <!-- Linked Threat Clocks -->
-            ${renderLinkedTrackersSection('item', resObj.id, effNodeId)}
-
-            <!-- Assigned Authoring Tickets -->
-            ${renderAssignedTicketsSection('item', resObj.id, effNodeId)}
-          </div>
-
-          <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
-            ${isExternal ? `
-              <div style="font-size:10px; color:#1e40af; background:#dbeafe; padding:4px 6px; border:1px solid #93c5fd; border-radius:2px;">
-                <strong>External Campaign Resource:</strong> Sourced from <em>${escapeHtml(entity._sourceCampaignName || entity._sourceCampaignId || 'External')}</em>.
-              </div>
-              <button class="win-btn" style="background:#2563eb; color:#fff; font-weight:bold; padding:4px 8px;" onclick="window.openTransplantPackageModal('${escapeJsArg(entity._externalKey || id)}', 'resource')">
-                📥 Configure Transplant into Current Campaign...
-              </button>
-            ` : `
-              <label style="display:flex; flex-direction:column; gap:2px;">
-                <strong>Station to Node / Depot:</strong>
-                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(entity.id)}', this.value, ${isPrototype})">
-                  ${nodeOptions}
-                </select>
-              </label>
-
-              ${(effNodeId) ? `
-                <button class="win-btn" onclick="centerOnNode('${escapeJsArg(effNodeId)}')"><strong>🎯 Center Stationed Depot on Canvas</strong></button>
-              ` : ''}
-
-              <div style="display:flex; gap:4px; margin-top:4px;">
-                ${isPrototype ? `
-                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${escapeJsArg(entity.id)}', 'resource')"><strong>+ Add Resource to Campaign</strong></button>
-                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('resource', '${escapeJsArg(entity.id)}')">Delete Resource...</button>
-                ` : `
-                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')">Edit Resource</button>
-                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('resource', '${escapeJsArg(entity.id)}')">Delete Resource...</button>
-                `}
-              </div>
-            `}
-          </div>
-        `;
+        // DEDICATED RESOURCE & COMMODITY INSPECTOR (Stage 3B: resolveRichEntityMetadata-backed, bi-directionally linked)
+        renderResourceInspectorPane({ pane, entity, activeInstance, isPrototype, isExternal, externalSourcePool, topo, nodeOptions, id });
       } else if (CurrentEntityTab === 'faction') {
         const facObj = activeInstance || entity;
         const poolNpcs = isExternal ? ((externalSourcePool && externalSourcePool.npcs) || []) : (topo.npcs || []);
@@ -3974,9 +4706,10 @@
                 <span class="entity-badge-tag" style="background:#0f172a; color:#f8fafc; font-weight:bold;">${escapeHtml(color)}</span>
               </div>
             </div>
-            <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
+            <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px; align-items:center;">
               <span class="entity-badge-tag">${escapeHtml(facObj.type || 'Power Group')}</span>
-              <span class="entity-badge-tag" style="background:${hasFacOdv ? '#dbeafe; color:#1e40af;' : '#f1f5f9; color:#475569;'}">${facOdvTag}</span>
+              <span class="entity-badge-tag" style="background:${hasFacOdv ? '#dbeafe; color:#1e40af;' : '#f1f5f9; color:#475569;'}">${escapeHtml(facOdvTag)}</span>
+              ${facObj.moduleId ? renderSourceModuleButton(facObj.moduleId, hqNodeId) : ''}
             </div>
           </div>
 
@@ -4077,8 +4810,8 @@
               ` : ''}
 
               <div style="display:flex; gap:4px; margin-top:4px;">
-                <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${facObj.id}')">Edit Faction</button>
-                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('faction', '${facObj.id}')">Delete Faction...</button>
+                <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(facObj.id)}')">Edit Faction</button>
+                <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('faction', '${escapeJsArg(facObj.id)}')">Delete Faction...</button>
               </div>
             `}
           </div>
@@ -4191,7 +4924,7 @@
             <div style="background:#fff; border:1px solid #cbd5e1; padding:4px 6px; border-radius:2px; margin-bottom:3px; font-size:10px;">
               <div style="display:flex; justify-content:space-between; align-items:center;">
                 <strong style="color:#000080;">⚡ ${escapeHtml(act.name)}</strong>
-                ${act.severity ? `<span class="entity-badge-tag" style="background:${act.severity === 'Lethal' ? '#991b1b' : (act.severity === 'Dangerous' ? '#d97706' : '#2563eb')}; color:#fff; font-size:8px;">${act.severity}</span>` : ''}
+                ${act.severity ? `<span class="entity-badge-tag" style="background:${act.severity === 'Lethal' ? '#991b1b' : (act.severity === 'Dangerous' ? '#d97706' : '#2563eb')}; color:#fff; font-size:8px;">${escapeHtml(act.severity)}</span>` : ''}
               </div>
               ${act.trigger ? `<div style="font-size:9px; color:#475569; margin-top:1px;"><strong>Trigger:</strong> ${escapeHtml(act.trigger)}</div>` : ''}
               <div style="color:#1e293b; margin-top:2px; line-height:1.3;">${escapeHtml(act.effect)}</div>
@@ -4291,13 +5024,13 @@
                 <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">🐉 ${escapeHtml(creatureObj.name || creatureObj.id)}</h3>
                 ${creatureObj.scientificOrArchaicName ? `<div style="font-size:10px; color:#475569; font-style:italic; margin-top:1px;">(${escapeHtml(creatureObj.scientificOrArchaicName)})</div>` : ''}
               </div>
-              <span class="entity-badge-tag" style="${tierStyle}; font-weight:bold;">${tierLabel}</span>
+              <span class="entity-badge-tag" style="${tierStyle}; font-weight:bold;">${escapeHtml(tierLabel)}</span>
             </div>
             <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
               <span class="entity-badge-tag" style="background:#f1f5f9; color:#0f172a; font-weight:bold;">${escapeHtml(creatureObj.size || 'Medium')} ${escapeHtml(creatureObj.kind || 'beast')}</span>
               ${creatureObj.subtype ? `<span class="entity-badge-tag" style="background:#e0f2fe; color:#0369a1;">${escapeHtml(creatureObj.subtype)}</span>` : ''}
               <span class="entity-badge-tag" style="background:#e2e8f0; color:#334155; font-weight:bold;">${escapeHtml(scopeLabel)}</span>
-              <span class="entity-badge-tag">${creatureObj.moduleId ? `Module: ${creatureObj.moduleId}` : 'Custom Authored'}</span>
+              ${renderSourceModuleButton(creatureObj.moduleId, currentStationId)}
             </div>
           </div>
 
@@ -4535,8 +5268,8 @@
                 </div>
                 ${!isExternal ? `
                   <div style="display:flex; gap:2px;">
-                    <button class="win-btn" onclick="openAddNpcRelationshipModal('${npcObj.id}', '${r.targetNpcId}')" style="font-size:9px; padding:1px 4px;" title="Edit relationship">Edit</button>
-                    <button class="win-btn" onclick="removeNpcRelationship('${npcObj.id}', '${r.targetNpcId}', true)" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete relationship">X</button>
+                    <button class="win-btn" onclick="openAddNpcRelationshipModal('${escapeJsArg(npcObj.id)}', '${escapeJsArg(r.targetNpcId)}')" style="font-size:9px; padding:1px 4px;" title="Edit relationship">Edit</button>
+                    <button class="win-btn" onclick="removeNpcRelationship('${escapeJsArg(npcObj.id)}', '${escapeJsArg(r.targetNpcId)}', true)" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete relationship">X</button>
                   </div>
                 ` : ''}
               </div>
@@ -4582,10 +5315,10 @@
               <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #cbd5e1; padding:3px 6px; border-radius:2px; margin-bottom:2px;">
                 <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                   <span style="font-weight:bold; font-size:10px;">💎 ${escapeHtml(itm.name || 'Item')}</span>
-                  <span class="entity-badge-tag" style="font-size:8px; ${isCarried ? 'background:#0f766e; color:#fff;' : 'background:#475569; color:#fff;'}">${isCarried ? '🎒 Carried' : '📦 Stored @ ' + (itm.nodeId ? formatNodeRef(itm.nodeId, topo) : 'Unassigned')}</span>
+                  <span class="entity-badge-tag" style="font-size:8px; ${isCarried ? 'background:#0f766e; color:#fff;' : 'background:#475569; color:#fff;'}">${isCarried ? '🎒 Carried' : '📦 Stored @ ' + (itm.nodeId ? escapeHtml(formatNodeRef(itm.nodeId, topo)) : 'Unassigned')}</span>
                 </div>
                 <div style="display:flex; gap:2px;">
-                  ${!isExternal ? `<button class="win-btn" onclick="toggleItemPossessionMode('${itm.id}', false)" style="font-size:9px; padding:1px 3px;">${isCarried ? 'Store' : 'Equip'}</button>` : ''}
+                  ${!isExternal ? `<button class="win-btn" onclick="toggleItemPossessionMode('${escapeJsArg(itm.id)}', false)" style="font-size:9px; padding:1px 3px;">${isCarried ? 'Store' : 'Equip'}</button>` : ''}
                   <button class="win-btn" onclick="navigateToEntity('item', '${escapeJsArg(itmNavId)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
                 </div>
               </div>
@@ -4602,7 +5335,7 @@
             const text = (typeof sec === 'object') ? (sec.secret || sec.text || '') : sec;
             return `
               <label style="display:flex; align-items:flex-start; gap:6px; cursor:${isExternal ? 'default' : 'pointer'}; font-size:10px; padding:3px 0; border-bottom:1px dashed #e2e8f0;">
-                <input type="checkbox" ${isRev ? 'checked' : ''} ${isExternal ? 'disabled' : `onchange="toggleNpcSecretRevealed('${npcObj.id}', ${sIdx})"`} style="margin-top:2px; cursor:${isExternal ? 'default' : 'pointer'};">
+                <input type="checkbox" ${isRev ? 'checked' : ''} ${isExternal ? 'disabled' : `onchange="toggleNpcSecretRevealed('${escapeJsArg(npcObj.id)}', ${sIdx})"`} style="margin-top:2px; cursor:${isExternal ? 'default' : 'pointer'};">
                 <span style="${isRev ? 'text-decoration:line-through; color:#64748b;' : 'color:#0f172a; font-weight:bold;'}">${escapeHtml(text)} ${isRev ? '<strong style="color:#16a34a; font-size:9px;">[REVEALED IN CANON]</strong>' : ''}</span>
               </label>
             `;
@@ -4631,7 +5364,7 @@
               <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:4px;">
                 <span style="font-weight:bold; font-size:11px;">📜 ${escapeHtml(q.title || q.name || 'Untitled Quest')}</span>
                 ${roleBadge}
-                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? formatNodeRef(q.nodeId, topo) : 'Unassigned'}]</span>
+                <span style="font-size:9px; color:#475569;">[Anchor: ${q.nodeId ? escapeHtml(formatNodeRef(q.nodeId, topo)) : 'Unassigned'}]</span>
               </div>
               <div style="display:flex; gap:2px;">
                 <button class="win-btn" onclick="window.navigateToEntity('quest', '${escapeJsArg(qNavId)}')" style="font-size:9px; padding:1px 4px;">Inspect</button>
@@ -4658,10 +5391,10 @@
           <div style="border-bottom:1px solid #ccc; padding-bottom:6px;">
             <div style="display:flex; justify-content:space-between; align-items:flex-start;">
               <h3 style="font-size:13px; color:#000080; margin:0 0 2px 0;">👤 ${escapeHtml(entity.name || entity.title || 'Untitled Character')}</h3>
-              <span class="entity-badge-tag" style="${statusBadgeStyle}">${npcStatus}</span>
+              <span class="entity-badge-tag" style="${statusBadgeStyle}">${escapeHtml(npcStatus)}</span>
             </div>
             <div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
-              <span class="entity-badge-tag">${entity.moduleId ? `Module: ${entity.moduleId}` : 'Custom Authored'}</span>
+              ${renderSourceModuleButton(entity.moduleId)}
               <span class="entity-badge-tag" style="background:#dbeafe; color:#1e40af;">${isPrototype ? 'Available Prototype' : 'Active in Campaign'}</span>
               ${fourCornerBadge}
               ${factionBadgeHtml}
@@ -4675,7 +5408,7 @@
             <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:6px; border-radius:2px;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
                 <strong style="color:#0f172a; font-size:10px;">🏛️ Sociological Profile:</strong>
-                ${dissonance ? `<span class="${dissonance.badgeClass}" style="${dissonance.style}">${dissonance.level}</span>` : ''}
+                ${dissonance ? `<span class="${dissonance.badgeClass}" style="${dissonance.style}">${escapeHtml(dissonance.level)}</span>` : ''}
               </div>
               <div style="font-size:10px; color:#334155;">
                 Culture Quadrant: <strong>${escapeHtml(effSoc.culture || 'Unset')}</strong> &bull; 
@@ -4686,11 +5419,11 @@
               </div>
               ${dissonance ? `
                 <div style="font-size:9px; color:#475569; margin-top:2px;">
-                  Host Node #${hostNode.id} (${hostNode.culture || 'Unset'} [${(typeof getOdv === 'function' && getOdv(hostNode).set) ? getOdv(hostNode).tag : 'Unset'}]) &bull; <strong>${dissonance.summary}</strong>
+                  Host Node #${escapeHtml(hostNode.id)} (${escapeHtml(hostNode.culture || 'Unset')} [${escapeHtml((typeof getOdv === 'function' && getOdv(hostNode).set) ? getOdv(hostNode).tag : 'Unset')}]) &bull; <strong>${escapeHtml(dissonance.summary)}</strong>
                 </div>
                 ${dissonance.warning ? `
                   <div style="margin-top:3px; background:#fef2f2; border:1px solid #f87171; padding:4px 6px; border-radius:2px; font-size:9px; color:#991b1b; line-height:1.3;">
-                    ⚠️ ${dissonance.warning}
+                    ⚠️ ${escapeHtml(dissonance.warning)}
                   </div>
                 ` : ''}
               ` : `
@@ -4708,8 +5441,8 @@
               </div>
               ${!isExternal ? `
                 <div style="display:flex; gap:4px; margin-bottom:4px;">
-                  <button class="win-btn" onclick="setNpcPartyDisposition('${npcObj.id}', -1)" style="flex:1; font-size:10px;">- Step Down</button>
-                  <button class="win-btn" onclick="setNpcPartyDisposition('${npcObj.id}', 1)" style="flex:1; font-size:10px;">+ Step Up</button>
+                  <button class="win-btn" onclick="setNpcPartyDisposition('${escapeJsArg(npcObj.id)}', -1)" style="flex:1; font-size:10px;">- Step Down</button>
+                  <button class="win-btn" onclick="setNpcPartyDisposition('${escapeJsArg(npcObj.id)}', 1)" style="flex:1; font-size:10px;">+ Step Up</button>
                 </div>
               ` : '<div style="font-size:9px; color:#64748b; font-style:italic; margin-top:2px;">(Party standing fixed in external source)</div>'}
 
@@ -4747,8 +5480,8 @@
                 <strong style="font-size:10px;">👥 Social Web &amp; Relationships (${outboundRels.length + inboundRels.length}):</strong>
                 ${!isExternal ? `
                   <div style="display:flex; gap:3px;">
-                    <button class="win-btn" onclick="openAddNpcRelationshipModal('${npcObj.id}')" style="font-size:9px; padding:1px 5px;">+ Add Tie...</button>
-                    <button class="win-btn" onclick="openSocialGraphModal('${npcObj.id}')" style="font-size:9px; padding:1px 5px; font-weight:bold; color:#312e81;" title="Open interactive 2D SVG Social Graph">🕸️ Graph</button>
+                    <button class="win-btn" onclick="openAddNpcRelationshipModal('${escapeJsArg(npcObj.id)}')" style="font-size:9px; padding:1px 5px;">+ Add Tie...</button>
+                    <button class="win-btn" onclick="openSocialGraphModal('${escapeJsArg(npcObj.id)}')" style="font-size:9px; padding:1px 5px; font-weight:bold; color:#312e81;" title="Open interactive 2D SVG Social Graph">🕸️ Graph</button>
                   </div>
                 ` : ''}
               </div>
@@ -4784,8 +5517,6 @@
             <!-- Assigned Authoring Tickets (DEV-01 & DEV-04) -->
             ${renderAssignedTicketsSection('npc', npcObj.id, npcObj.nodeId)}
           </div>
-            ${renderAssignedTicketsSection('npc', npcObj.id, npcObj.nodeId)}
-          </div>
 
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #ccc; display:flex; flex-direction:column; gap:6px;">
             ${isExternal ? `
@@ -4798,7 +5529,7 @@
             ` : `
               <label style="display:flex; flex-direction:column; gap:2px;">
                 <strong>Station to Node:</strong>
-                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${entity.id}', this.value, ${isPrototype})">
+                <select id="detail-node-assign" class="win-select-input" onchange="assignEntityToNode('${escapeJsArg(entity.id)}', this.value, ${isPrototype})">
                   ${nodeOptions}
                 </select>
               </label>
@@ -4809,11 +5540,11 @@
 
               <div style="display:flex; gap:4px; margin-top:4px;">
                 ${isPrototype ? `
-                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${entity.id}')"><strong>+ Add NPC to Campaign</strong></button>
-                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('npc', '${entity.id}')">Delete NPC...</button>
+                  <button class="win-btn" style="flex:1;" onclick="promotePrototypeToCampaign('${escapeJsArg(entity.id)}')"><strong>+ Add NPC to Campaign</strong></button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('npc', '${escapeJsArg(entity.id)}')">Delete NPC...</button>
                 ` : `
-                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${entity.id}')">Edit NPC</button>
-                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('npc', '${entity.id}')">Delete NPC...</button>
+                  <button class="win-btn" style="flex:1;" onclick="openEditEntityModal('${escapeJsArg(entity.id)}')">Edit NPC</button>
+                  <button class="win-btn" style="color:#b91c1c; font-weight:bold;" onclick="promptEntityDelete('npc', '${escapeJsArg(entity.id)}')">Delete NPC...</button>
                 `}
               </div>
             `}

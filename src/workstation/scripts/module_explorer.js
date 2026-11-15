@@ -63,9 +63,10 @@
       if (!activeNodeId && Workstation.selectedEntity && Workstation.selectedEntity.type === 'node') {
         activeNodeId = Workstation.selectedEntity.id;
       }
-      if (activeNodeId) {
-        nodeSelect.value = activeNodeId.toString();
-        CurrentModuleTargetNodeId = parseInt(activeNodeId);
+      if (activeNodeId !== null && activeNodeId !== undefined && activeNodeId !== '') {
+        nodeSelect.value = String(activeNodeId);
+        const nId = parseInt(activeNodeId, 10);
+        CurrentModuleTargetNodeId = (!isNaN(nId) && String(nId) === String(activeNodeId)) ? nId : String(activeNodeId);
       } else {
         nodeSelect.value = '';
         CurrentModuleTargetNodeId = null;
@@ -74,7 +75,12 @@
 
     function onTargetNodeChange() {
       const val = document.getElementById('me-target-node').value;
-      CurrentModuleTargetNodeId = val ? parseInt(val) : null;
+      if (val) {
+        const nId = parseInt(val, 10);
+        CurrentModuleTargetNodeId = (!isNaN(nId) && String(nId) === String(val)) ? nId : String(val);
+      } else {
+        CurrentModuleTargetNodeId = null;
+      }
       updateModuleSlotButton();
       renderModuleEntitiesTab();
       filterModules(SelectedModuleId);
@@ -183,49 +189,84 @@
       filterModules(SelectedModuleId);
     }
 
+    // Resolves an id / moduleId / prototypeId reference to the canonical ALL_MODULES id (or null).
+    function resolveModuleExplorerId(ref) {
+      if (ref === null || ref === undefined || ref === '' || typeof ALL_MODULES === 'undefined') return null;
+      const s = String(ref);
+      const hit = ALL_MODULES.find(m => m && String(m.id) === s)
+        || ALL_MODULES.find(m => m && m.moduleId !== undefined && String(m.moduleId) === s)
+        || ALL_MODULES.find(m => m && m.prototypeId !== undefined && String(m.prototypeId) === s);
+      return hit ? hit.id : null;
+    }
+    window.resolveModuleExplorerId = resolveModuleExplorerId;
+
     function filterModules(preferSelectId) {
-      const scopeFilter = document.getElementById('me-filter-scope') ? document.getElementById('me-filter-scope').value : 'all';
-      const campFilter = document.getElementById('me-filter-campaign').value;
-      const tierFilter = document.getElementById('me-filter-tier').value;
-      const cultureFilter = document.getElementById('me-filter-culture').value;
-      const searchVal = document.getElementById('me-search-input').value.toLowerCase().trim();
-
-      const tbody = document.getElementById('me-table-body');
-      tbody.innerHTML = '';
-
       const topo = Workstation.activeTopology;
       ensureCampaignModules(topo);
 
-      const filtered = ALL_MODULES.filter(m => {
-        if (m.mod_id && typeof Workstation !== 'undefined' && Workstation.disabledMods && Workstation.disabledMods[m.mod_id]) return false;
-        if (topo && Array.isArray(topo.deletedModules) && (topo.deletedModules.includes(String(m.id)) || topo.deletedModules.includes(m.id))) {
-          return false;
-        }
-        if (scopeFilter === 'in_campaign' && !isModuleInActiveCampaign(m.id)) return false;
-        if (scopeFilter === 'outside_campaign' && isModuleInActiveCampaign(m.id)) return false;
-        const mCamp = m.isCustom ? 'custom_homebrew' : (m.campaign || (typeof activeCampaignId !== 'undefined' ? activeCampaignId : 'campaign'));
-        if (campFilter !== 'all' && mCamp !== campFilter) return false;
-        if (tierFilter !== 'all') {
-          const tNum = (m.pipeline_tier !== undefined && m.pipeline_tier !== null)
-            ? m.pipeline_tier
-            : (m.tier && m.tier.match(/Tier\s*(\d)/i) ? parseInt(m.tier.match(/Tier\s*(\d)/i)[1]) : null);
-          if (tNum != parseInt(tierFilter)) return false;
-        }
-        if (cultureFilter !== 'all') {
-          if (!m.culture || !m.culture.toLowerCase().includes(cultureFilter.toLowerCase())) return false;
-        }
-        if (searchVal) {
-          const matchId = (m.id || '').toLowerCase().includes(searchVal);
-          const matchTitle = (m.title || '').toLowerCase().includes(searchVal);
-          const matchSet = (m.set || '').toLowerCase().includes(searchVal);
-          const matchYields = (m.yields || '').toLowerCase().includes(searchVal);
-          const matchProvides = (m.provides || []).some(p => p.toLowerCase().includes(searchVal));
-          const matchRequires = (m.requires || []).some(r => r.toLowerCase().includes(searchVal));
-          const matchMd = (m.raw_markdown || '').toLowerCase().includes(searchVal);
-          if (!matchId && !matchTitle && !matchSet && !matchYields && !matchProvides && !matchRequires && !matchMd) return false;
-        }
-        return true;
+      const readFilters = () => ({
+        scopeFilter: document.getElementById('me-filter-scope') ? document.getElementById('me-filter-scope').value : 'all',
+        campFilter: document.getElementById('me-filter-campaign').value,
+        tierFilter: document.getElementById('me-filter-tier').value,
+        cultureFilter: document.getElementById('me-filter-culture').value,
+        searchVal: document.getElementById('me-search-input').value.toLowerCase().trim()
       });
+
+      // Modules that can never be listed (disabled mod / deleted from campaign), regardless of filters.
+      const isHardHidden = (m) => {
+        if (m.mod_id && typeof Workstation !== 'undefined' && Workstation.disabledMods && Workstation.disabledMods[m.mod_id]) return true;
+        return !!(topo && Array.isArray(topo.deletedModules) && (topo.deletedModules.includes(String(m.id)) || topo.deletedModules.includes(m.id)));
+      };
+
+      const applyFilters = () => {
+        const { scopeFilter, campFilter, tierFilter, cultureFilter, searchVal } = readFilters();
+        return ALL_MODULES.filter(m => {
+          if (isHardHidden(m)) return false;
+          if (scopeFilter === 'in_campaign' && !isModuleInActiveCampaign(m.id)) return false;
+          if (scopeFilter === 'outside_campaign' && isModuleInActiveCampaign(m.id)) return false;
+          const mCamp = m.isCustom ? 'custom_homebrew' : (m.campaign || (typeof activeCampaignId !== 'undefined' ? activeCampaignId : 'campaign'));
+          if (campFilter !== 'all' && mCamp !== campFilter) return false;
+          if (tierFilter !== 'all') {
+            const tNum = (m.pipeline_tier !== undefined && m.pipeline_tier !== null)
+              ? m.pipeline_tier
+              : (m.tier && m.tier.match(/Tier\s*(\d)/i) ? parseInt(m.tier.match(/Tier\s*(\d)/i)[1]) : null);
+            if (tNum != parseInt(tierFilter)) return false;
+          }
+          if (cultureFilter !== 'all') {
+            if (!m.culture || !m.culture.toLowerCase().includes(cultureFilter.toLowerCase())) return false;
+          }
+          if (searchVal) {
+            const matchId = (m.id || '').toLowerCase().includes(searchVal);
+            const matchTitle = (m.title || '').toLowerCase().includes(searchVal);
+            const matchSet = (m.set || '').toLowerCase().includes(searchVal);
+            const matchYields = (m.yields || '').toLowerCase().includes(searchVal);
+            const matchProvides = (m.provides || []).some(p => p.toLowerCase().includes(searchVal));
+            const matchRequires = (m.requires || []).some(r => r.toLowerCase().includes(searchVal));
+            const matchMd = (m.raw_markdown || '').toLowerCase().includes(searchVal);
+            if (!matchId && !matchTitle && !matchSet && !matchYields && !matchProvides && !matchRequires && !matchMd) return false;
+          }
+          return true;
+        });
+      };
+
+      // Resolve the requested module by id / moduleId / prototypeId so the selection never fails silently.
+      const resolvedPrefer = resolveModuleExplorerId(preferSelectId);
+      let filtered = applyFilters();
+      if (resolvedPrefer && !filtered.some(m => m.id === resolvedPrefer)) {
+        const target = ALL_MODULES.find(m => m.id === resolvedPrefer);
+        if (target && !isHardHidden(target)) {
+          const resetSel = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+          resetSel('me-filter-scope', 'all');
+          resetSel('me-filter-campaign', 'all');
+          resetSel('me-filter-tier', 'all');
+          resetSel('me-filter-culture', 'all');
+          resetSel('me-search-input', '');
+          filtered = applyFilters();
+        }
+      }
+
+      const tbody = document.getElementById('me-table-body');
+      tbody.innerHTML = '';
 
       // Track how many are slotted
       let slottedCount = 0;
@@ -246,10 +287,12 @@
         }
         if (slottedOnNodes.length > 0) slottedCount++;
 
+        const escH = (typeof escapeHtml === 'function') ? escapeHtml : (s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])));
+        const escJs = (typeof escapeJsArg === 'function') ? escapeJsArg : (s => String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/'/g, "\\'"));
         const inCamp = isModuleInActiveCampaign(m.id);
         let statusBadge = '';
         if (slottedOnNodes.length > 0) {
-          statusBadge = `<span class="me-badge me-badge-slotted">N:${slottedOnNodes.join(',')}</span>`;
+          statusBadge = `<span class="me-badge me-badge-slotted">N:${escH(slottedOnNodes.join(','))}</span>`;
         } else if (inCamp) {
           statusBadge = `<span class="me-badge" style="color:#047857; background:#dcfce7; font-weight:bold;">In Camp</span>`;
         } else {
@@ -259,11 +302,11 @@
         const tierDisplay = m.pipeline_tier ? `T${m.pipeline_tier}` : (m.tier && m.tier.match(/Tier\s*(\d)/i) ? `T${m.tier.match(/Tier\s*(\d)/i)[1]}` : 'T0');
 
         tr.innerHTML = `
-          <td><strong>${m.id}</strong></td>
-          <td title="${m.title}">${m.title}</td>
-          <td><span class="me-badge">${tierDisplay}</span></td>
+          <td><strong>${escH(m.id)}</strong></td>
+          <td title="${escH(m.title)}">${escH(m.title)}</td>
+          <td><span class="me-badge">${escH(tierDisplay)}</span></td>
           <td>${statusBadge}</td>
-          <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('module', '${m.id}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Module">Del</button></td>
+          <td style="text-align:center;"><button class="win-btn" onclick="event.stopPropagation(); promptEntityDelete('module', '${escJs(m.id)}')" style="font-size:9px; padding:1px 4px; color:#b91c1c;" title="Delete Module">Del</button></td>
         `;
 
         tr.onclick = () => selectModuleItem(m.id);
@@ -273,7 +316,7 @@
       document.getElementById('me-catalog-count').textContent = `Showing ${filtered.length} of ${ALL_MODULES.length} modules (${slottedCount} slotted across graph)`;
 
       // Auto-select
-      let toSelect = preferSelectId || SelectedModuleId;
+      let toSelect = resolvedPrefer || SelectedModuleId;
       if (!toSelect || !filtered.some(m => m.id === toSelect)) {
         toSelect = filtered.length > 0 ? filtered[0].id : null;
       }
@@ -706,7 +749,7 @@
 
       (m.extracted_items || []).forEach(itm => {
         if (!topo.items.some(e => e.name === itm.name)) {
-          topo.items.push({
+          const itemRec = {
             id: `item-${Date.now()}-${count}`,
             name: itm.name,
             category: itm.category,
@@ -714,7 +757,18 @@
             notes: itm.notes,
             moduleId: m.id,
             nodeId: targetNode
+          };
+          if (itm.isResource || itm.entityKind === 'resource' || (typeof isResourceItem === 'function' && isResourceItem(itm))) {
+            itemRec.isResource = true;
+            itemRec.entityKind = 'resource';
+          } else if (itm.isIndustry || itm.entityKind === 'industry' || (typeof isIndustryItem === 'function' && isIndustryItem(itm))) {
+            itemRec.isIndustry = true;
+            itemRec.entityKind = 'industry';
+          }
+          ['provides', 'requires', 'yields', 'chainId', 'chain_id', 'resourceSector', 'standaloneFallback', 'nodePrerequisites'].forEach(k => {
+            if (itm[k] !== undefined) itemRec[k] = itm[k];
           });
+          topo.items.push(itemRec);
           count++;
         }
       });
@@ -763,6 +817,16 @@
         newEnt.category = entity.category;
         newEnt.specs = entity.specs;
         newEnt.notes = entity.notes;
+        if (type === 'resource' || entity.isResource || entity.entityKind === 'resource' || (typeof isResourceItem === 'function' && isResourceItem(entity))) {
+          newEnt.isResource = true;
+          newEnt.entityKind = 'resource';
+        } else if (type === 'industry' || entity.isIndustry || entity.entityKind === 'industry' || (typeof isIndustryItem === 'function' && isIndustryItem(entity))) {
+          newEnt.isIndustry = true;
+          newEnt.entityKind = 'industry';
+        }
+        ['provides', 'requires', 'yields', 'chainId', 'chain_id', 'resourceSector', 'standaloneFallback', 'nodePrerequisites'].forEach(k => {
+          if (entity[k] !== undefined) newEnt[k] = entity[k];
+        });
       }
 
       backingList.push(newEnt);
