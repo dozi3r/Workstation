@@ -14,21 +14,45 @@ provides:
 requires:
   - "Mineral: Raw-Clay"
   - "Fuel: Wood-Fuel"
+culture_quadrant: Hierarchy
+operational_profile: Produce / Regulate
+mtg_color: Red / White
+node_prerequisites:
+  clay: Weathered Clay Stockpile from a Nearby Pit
+  fuel: Cordwood Stacks Beside the Kiln Yard
+  yard: Drying Sheds and Covered Hacks for Green Brick
+standalone_fallback: "If the clay carts or the cordwood stop, the kilns go cold and the yard sells off its stored bricks and pots; output falls to a quarter and the moulders are laid off until the next load."
+injected_mechanics:
+  kiln_firing_dial:
+    level_1: "Cold Kiln - Greenware waits in the hacks and sheds; the kiln is unlit and unloaded."
+    level_2: "Steady Burn - The kilnmaster holds the firing by colour; bricks and pots sinter evenly and ring when struck."
+    level_3: "Hot Spots - A draft or a wet stack makes the fire uneven; arches crack and the load comes out part under-fired and part scorched."
+    level_4: "Runaway Load - Thermal runaway vitrifies and warps a whole kiln load into slag, and the arch fails over the firebox."
+  threat_clocks:
+    cordwood_shortfall_clock: "Cordwood Shortfall Clock [6 Ticks] - Each firing that burns more wood than the cutters deliver adds a tick; when full the kiln is banked and the yard stands idle."
+    excise_arrears_clock: "Excise Arrears Clock [4 Ticks] - Each month of unpaid duty on unburnt bricks or moulds out of true size adds a tick; when full the officer seals the moulds and seizes the green stock."
+  yields_resource: "Fired Bricks and Ceramic Vessels (a kiln load of about 4,000 bricks or 200 pots every 4 days)"
 ---
 # Brickworks & Pottery Kiln (`IND-CLAY-02`)
 > **Industry Chain**: `CHAIN-CLAY` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-A cluster of domed beehive kilns, pugmills, and open-air drying sheds forms the municipal brickworks and ceramic yard. Artisans and laborers mold raw clay into uniform wooden forms or turn vessels on foot-powered wheels, dry the greenware, and stack the kilns for high-temperature wood firing. This thermal transformation converts plastic mud into durable structural bricks and water-tight ceramic containers.
+A cluster of domed beehive kilns, pugmills, and open-air drying sheds forms the municipal brickworks and ceramic yard. Artisans and laborers mold raw clay into uniform wooden forms or turn vessels on foot-powered wheels, dry the greenware, and stack the kilns for high-temperature wood firing. This thermal transformation converts plastic mud into durable structural bricks and water-tight ceramic containers. The yard turns `Mineral: Raw-Clay` and `Fuel: Wood-Fuel` into `Commodity: Fired-Bricks` and `Commodity: Ceramic-Vessels`.
+
+Clay is mixed with water to a uniform paste in the pugmill (in some yards oxen are driven through it), pressed into wooden moulds and smoothed with a wire-strung bow. The green bricks dry in covered hacks before they are set in the kiln. Wood is the usual fuel, so the cordwood stack decides how many firings the yard can afford. The kilnmaster judges the heat by the colour of the fire; under-fired brick stays weak, and over-fired brick fuses and warps. Where the crown taxes bricks before burning, each mould carries a stamp so the officer can see which bricks have paid.
+- **Pugmill:** the mixing trough where clay and water are worked to paste.
+- **Drying Sheds and Hacks:** covered stacks of green brick shielded from weather.
+- **Beehive Kilns:** domed, wood-fired kilns reaching potter's temperatures when well drawn.
+- **Wheel Shop:** foot-turned wheels where vessels are thrown before drying and firing.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
-- **Baseline Coordinate**: `[1, 0, 1]` (pick integers -3 to +3) — **Hierarchy** (`Hierarchy`).
+- **Baseline Coordinate**: `[1, 0, 1]` - **Hierarchy** (`Hierarchy`).
 - **Sociological Rationale**: Managing extreme thermal cycles and precise firing schedules requires strict operational discipline, standardized molds, and hierarchical quality control.
 
 ## 3. Stationed Entities & Roster Prototypes
 
 ### Key Personnel (NPC Prototypes)
-- name: "Master Potter Tessa kilnwright"
+- name: "Master Potter Tessa Kilnwright"
   role: "Chief Kiln Burner and Ceramic Master"
   disposition: "[1, 0, 1]"
   motivation: "Maintain exact internal kiln temperatures to prevent thermal shock cracking in high-value pottery."
@@ -36,11 +60,58 @@ A cluster of domed beehive kilns, pugmills, and open-air drying sheds forms the 
   role: "Brick Presser and Yard Foreman"
   disposition: "[0, 1, 1]"
   motivation: "Ensure high volume output of uniform bricks for municipal construction projects."
+- name: "Excise Officer Wystan Pellow"
+  role: "Brick Duty Officer"
+  disposition: "[3, -1, 2]"
+  motivation: "Count and stamp every mould before burning so the duty is collected on each thousand, and catch the yard that quietly makes its bricks bigger or hides stock to pay less."
+- name: "Wheelwoman Brenna Ashcombe"
+  role: "Vessel Thrower and Pot Seller"
+  disposition: "[-1, 1, 0]"
+  motivation: "Win a place in Tessa's best firing for her own tall storage jars, because a shelf of sound vessels is the only way she will buy out her apprenticeship contract."
+
+<!-- BEGIN_NPC_MIRROR (generated by infographic/tools/sync_npc_mirror.js - do not edit by hand) -->
+```text
+name: Master Potter Tessa Kilnwright
+role: Chief Kiln Burner and Ceramic Master
+motivation: Maintain exact internal kiln temperatures to prevent thermal shock cracking in high-value pottery.
+disposition: [1, 0, 1]
+```
+```text
+name: Molder Hob Bricklayer
+role: Brick Presser and Yard Foreman
+motivation: Ensure high volume output of uniform bricks for municipal construction projects.
+disposition: [0, 1, 1]
+```
+```text
+name: Excise Officer Wystan Pellow
+role: Brick Duty Officer
+motivation: Count and stamp every mould before burning so the duty is collected on each thousand, and catch the yard that quietly makes its bricks bigger or hides stock to pay less.
+disposition: [3, -1, 2]
+```
+```text
+name: Wheelwoman Brenna Ashcombe
+role: Vessel Thrower and Pot Seller
+motivation: Win a place in Tessa's best firing for her own tall storage jars, because a shelf of sound vessels is the only way she will buy out her apprenticeship contract.
+disposition: [-1, 1, 0]
+```
+<!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
+- **Fired Brick Stack** (`Commodity`): Hard-burnt bricks of uniform size, stamped by the mould and sold by the thousand.
+- **Glazed Storage Jar** (`Commodity`): A thrown and fired vessel, water-tight and sold to kitchens, apothecaries and reagent makers.
 - **Beehive Kiln Structure** (`Tool`): Brick-lined thermal oven designed for multi-day wood firing of ceramics.
 - **Wooden Brick Molds** (`Tool`): Hand-carved rectangular forms used to shape wet clay into standardized masonry blocks.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
-- **Dial — `Kiln Firing Rate` (`0–10`)**: At `0–3`, underfired bricks crumble in the rain and pottery remains porous. At `8–10`, thermal runaway vitrifies and warps entire kiln loads into unusable slag.
-- **Quest Hook — *The Cracked Archway* ***: A draft in Tessa's kiln causes uneven heating, cracking the main archway bricks mid-fire. She and Hob must shore up the glowing structure before the entire batch collapses into the firebox.
+- **Dial - `Kiln Firing Rate` (`0-10`)**: At `0-3`, underfired bricks crumble in the rain and pottery remains porous. At `8-10`, thermal runaway vitrifies and warps entire kiln loads into unusable slag, and the wood stack burns down far faster than the cutters can refill it.
+- **Quest Hook - *The Cracked Archway***: A draft in Tessa's kiln causes uneven heating, cracking the main archway bricks mid-fire. She and Hob must shore up the glowing structure before the entire batch collapses into the firebox, while Wystan Pellow waits at the gate to count the moulds and the cordwood stack holds wood for no second try.
+
+## 5. GM Socket Placement & Supply Synergy
+* **Input Dependency:** Digs its body from `Mineral: Raw-Clay` carted from the **Riverbank Clay Pit (`EXT-CLAY-01`)**, and feeds the kilns with cordwood, `Fuel: Wood-Fuel`, from the **Hardwood Logging Camp (`EXT-TIMBER-01`)**.
+* **Output Transmission:** Sends `Commodity: Fired-Bricks` to the **Bell & Artillery Bronze Foundry (`IND-BRONZE-01`)**, and ships `Commodity: Ceramic-Vessels` to the **Cane Crushing Mill and Boiling House (`AGRI-SUGAR-02`)**, **Glassblower's Furnace (`IND-GLASS-02`)**, **Assay Furnace & Goldsmith Bourse (`IND-GOLD-02`)**, **Stone Olive Press (`IND-OLIVE-02`)**, **Firing Woks & Curing Sheds (`IND-SPICE-02`)**, **Crucible Steelworks and Foundry (`IND-STEEL-01`)**, **Cinnabar Mine and Retort Furnaces (`MINE-MERCURY-01`)** and **Volcanic Fumarole Sulfur Pit (`MINE-SULFUR-02`)**.
+* **Tactical Chokepoint:** The cordwood stack. Without wood the kilns go cold and every retort pot, crucible and brick order downstream starves.
+
+## 6. Vague Game Hazards
+* **Kiln Arch Collapse:** A cracked or unsupported arch gives way over a hot firebox ($3\text{d}6$ bludgeoning damage and $1\text{d}6$ fire damage to anyone loading or drawing the kiln).
+* **Kiln Heat:** Drawing a kiln before it cools or stoking through a full burn scorches skin and lungs ($2\text{d}6$ fire damage and exhaustion).
+* **Pugmill Crush:** A hand or sleeve caught in the paddles or beneath a driven ox is dragged under ($2\text{d}6$ bludgeoning damage).

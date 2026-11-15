@@ -2,6 +2,7 @@
 id: MINE-MERCURY-01
 title: Cinnabar Mine and Retort Furnaces
 set: Set A (Infrastructure & Engineering)
+category: Mining_and_Metallurgy
 tier: Tier 3 (Infrastructural Supply Chain Anchor)
 pipeline_tier: 3
 chain_id: CHAIN-MERCURY
@@ -16,11 +17,10 @@ node_prerequisites:
   geology: Red Cinnabar Vein in Fractured Hillside Rock
   charter: Crown Monopoly Warrant with Sealed Flask Ledger
   furnace_yard: Walled Retort Yard Downwind of the Workers' Barracks
-standalone_fallback: "If the clay condenser pots run out, smelters fall back on open pile roasting, losing most of the quicksilver to the air and fouling every slope downwind."
-
+standalone_fallback: "If the clay pots and condenser tubes run out, smelters fall back on open pile roasting, losing most of the quicksilver to the air (output drops from 6 to 1 flask per day) and fouling every slope downwind."
 injected_mechanics:
   retort_vapor_dial:
-    level_1: "Cold Charge - Crushed red ore packed into clay pots with lime; fires laid but not lit."
+    level_1: "Cold Charge - Crushed red ore packed into clay pots; fires laid but not lit."
     level_2: "Steady Roast - Pots sealed and glowing; bright beads of quicksilver weep into the receivers."
     level_3: "Leaking Seals - Cracked pots hiss pale fumes; yard workers cough, tremble and lose count."
     level_4: "Opened Hot - A furnace is broken open before cooling; a poison cloud rolls over the barracks and the town below."
@@ -29,43 +29,32 @@ injected_mechanics:
     flask_ledger_clock: "Short Ledger Clock [4 Ticks] - Uncounted flasks slip out through the contraband trade; when it fills, the monopoly inspector arrives early."
   yields_resource: "Sealed Iron Flasks of Quicksilver (6 Flasks/Day, 76 lb each)"
 ---
+# Cinnabar Mine and Retort Furnaces (`MINE-MERCURY-01`)
+> **Industry Chain**: `CHAIN-MERCURY` (Stage 1: `extraction`)
 
-# MODULE MINE-MERCURY-01: CINNABAR MINE AND RETORT FURNACES
-
-### 1. Mining & Retort Architecture
-
+## 1. Architectural Overview & Operational Loop
 The cinnabar works is a walled monopoly holding where blood-red ore is hacked from the hill, roasted in sealed clay pots, and coaxed into shivering beads of liquid metal that no one is allowed to count but the crown's clerks.
 
-* **Cinnabar Galleries:** Narrow, timber-propped workings that follow the red vein into the hill. Convicts and drafted villagers work the face in shifts, hauling ore out in baskets to the sorting floor.
-* **Retort Furnace Yard:** Rows of earthen pots charged with crushed ore and lime or iron filings, sealed, and fired over banked wood. The vapor rises, cools in the clay condenser pots, and drips into receivers as bright quicksilver. Pots crack in the heat and are smashed and replaced every week.
-* **Flask House & Seal Room:** A barred stone strongroom where the metal is poured into heavy iron flasks, since iron does not take up quicksilver, then weighed at 76 lb, stamped with the monopoly seal, and entered in the ledger.
+Convicts and drafted village men on short terms work the face; nearly a quarter of the convicts never see release. In the furnace yard heat drives the quicksilver out of the red rock as vapor, which cools back to liquid metal. The fires burn day and night, strip the hillsides of fuel, and must cool before a pot is opened.
+- **Cinnabar Galleries:** Narrow, timber-propped workings that follow the red vein into the hill, worked in shifts and emptied in baskets onto the sorting floor.
+- **Retort Furnace Yard:** Rows of earthen pots charged with crushed ore, sealed with clay, and fired over banked wood. The vapor rises through a chain of clay condenser tubes and drips into receivers as bright quicksilver. Pots and condenser tubes crack in the heat and are smashed and replaced as they fail.
+- **Flask House & Seal Room:** A barred stone strongroom where the metal is poured into heavy iron flasks, since iron does not take up quicksilver, then weighed at 76 lb, stamped with the monopoly seal, and entered in the ledger.
 
-### 2. GM Socket Placement & Supply Synergy
-* **Input Dependency:** Consumes `Timber: Mine-Props` to hold open the soft red galleries, cartloads of `Fuel: Wood-Fuel` to keep the retort fires banked day and night, and a steady stream of `Commodity: Ceramic-Vessels` to replace the clay condenser pots that crack in every firing.
-* **Output Transmission:** Dispatches sealed flasks of `Chem: Mercury` under guard to the **Stamping Mill and Patio Amalgamation Floor (`IND-SILVER-02`)**, where it is mixed with salt and a blue copper-sulfate reagent into ground silver ore and trodden by mules on the open patio.
-* **Tactical Chokepoint:** Whoever holds the flask house holds the silver country. Halting the retorts for a single season starves every amalgamation floor that depends on the monopoly.
+## 2. Granular Disposition Baseline (`[S, E, C]`)
+- **Baseline Coordinate**: `[2, -1, 3]` - **Monopoly Strongroom** (`Hierarchy / Market`).
+- **Sociological Rationale**: A crown warrant, a sealed ledger and forced labor make the works rigidly hierarchical, while every uncounted flask is worth a fortune on the contraband market, so loyalty is bought and sold at the yard gate.
 
-### 3. Notable Characters & Personnel
-
-```text
-name: Smelter-Master Orrin Vashka
-role: Retort Yard Overseer
-motivation: Meet the crown quota at any cost, even if it means breaking open a furnace before it has cooled.
-disposition: [2, -2, 3]
-```
-
-```text
-name: Tesk Hollowbreath
-role: Convict Pot-Charger & Yard Veteran
-motivation: Trade his hidden cache of uncounted flasks for a pardon before the mine cough finishes him.
-disposition: [-2, 1, -1]
-```
-
-### 4. Vague Game Hazards
-* **Quicksilver Vapor:** Working the retort yard at Level 3 or higher without wet cloth over the face inflicts creeping poisoning ($1\text{d}6$ damage per hour and a cumulative tremor that penalizes fine work).
-* **Red Gallery Collapse:** Rotten or skimped props in the cinnabar galleries give way without warning, burying the face crew under loose red rock ($3\text{d}6$ bludgeoning damage).
+## 3. Stationed Entities & Roster Prototypes
 
 ### Key Personnel (NPC Prototypes)
+- name: "Smelter-Master Orrin Vashka"
+  role: "Retort Yard Overseer"
+  disposition: "[2, -2, 3]"
+  motivation: "Meet the crown quota at any cost, even if it means breaking open a furnace before it has cooled."
+- name: "Tesk Hollowbreath"
+  role: "Convict Pot-Charger & Yard Veteran"
+  disposition: "[-2, 1, -1]"
+  motivation: "Trade his hidden cache of uncounted flasks for a pardon before the mine cough finishes him."
 - name: "Clerk-Assayer Ysolde Marrane"
   role: "Monopoly Ledger Keeper & Flask Sealer"
   disposition: "[3, 0, 2]"
@@ -74,3 +63,49 @@ disposition: [-2, 1, -1]
   role: "Village Draft Captain & Gallery Gang Leader"
   disposition: "[-1, 2, 1]"
   motivation: "Bring his levy of village men home alive when their term ends, and refuse any order that sends them into the hot yard."
+
+<!-- BEGIN_NPC_MIRROR (generated by infographic/tools/sync_npc_mirror.js - do not edit by hand) -->
+```text
+name: Smelter-Master Orrin Vashka
+role: Retort Yard Overseer
+motivation: Meet the crown quota at any cost, even if it means breaking open a furnace before it has cooled.
+disposition: [2, -2, 3]
+```
+```text
+name: Tesk Hollowbreath
+role: Convict Pot-Charger & Yard Veteran
+motivation: Trade his hidden cache of uncounted flasks for a pardon before the mine cough finishes him.
+disposition: [-2, 1, -1]
+```
+```text
+name: Clerk-Assayer Ysolde Marrane
+role: Monopoly Ledger Keeper & Flask Sealer
+motivation: Reconcile every flask against the seal book before the inspector rides in, and find out who has been short-filling the receivers.
+disposition: [3, 0, 2]
+```
+```text
+name: Dovic the Drafted
+role: Village Draft Captain & Gallery Gang Leader
+motivation: Bring his levy of village men home alive when their term ends, and refuse any order that sends them into the hot yard.
+disposition: [-1, 2, 1]
+```
+<!-- END_NPC_MIRROR -->
+
+### Material Stocks & Items (Item Prototypes)
+- **Sealed Iron Flask of Quicksilver** (`Commodity`): A 76 lb iron flask of liquid metal stamped with the monopoly seal, the only lawful form in which quicksilver leaves the works.
+- **Clay Retort Pot** (`Tool`): Coarse sandy-clay pot charged with crushed ore and sealed with clay; it cracks in the heat and is smashed and replaced when it fails.
+- **Clay Condenser Tube** (`Tool`): One link in the sloping chain of earthen tubes where the vapor cools and runs down to the receiver.
+- **Monopoly Seal Book** (`Relic`): The bound ledger of every flask weighed and sealed; a missing page is a hanging matter.
+
+## 4. Operational Dials & Failure Modes (Quests & Crises)
+- **Dial - `Retort Vapor` (`0-10`)**: At `0-3`, the fires are cold or the pots run out, no flasks leave the strongroom and every patio floor downstream starves for quicksilver. At `8-10`, the yard is forced past its limits, seals leak, and an overseer chasing quota opens a furnace hot and poisons the barracks.
+- **Quest Hook - *The Uncounted Flasks***: Tesk Hollowbreath, racked by the mine cough, offers the party his hidden cache of uncounted flasks if they carry his pardon petition past Smelter-Master Orrin Vashka. Clerk-Assayer Ysolde Marrane's seal book is already four flasks short, Dovic the Drafted's men are whispering revolt, and the monopoly inspector is due in ten days.
+
+## 5. GM Socket Placement & Supply Synergy
+* **Input Dependency:** Consumes `Timber: Mine-Props` from the **Water-Powered Sawmill (`IND-TIMBER-02`)** to hold open the soft red galleries, cartloads of `Fuel: Wood-Fuel` from the **Hardwood Logging Camp (`EXT-TIMBER-01`)** to keep the retort fires banked day and night, and a steady stream of `Commodity: Ceramic-Vessels` from the **Brickworks & Pottery Kiln (`IND-CLAY-02`)** to replace the pots and condenser tubes that crack and fail in the heat.
+* **Output Transmission:** Dispatches sealed flasks of `Chem: Mercury` under guard to the **Stamping Mill & Patio Amalgamation Floor (`IND-SILVER-02`)**, where it is mixed with salt and an impure copper-sulfate reagent into ground silver ore and trodden by mules on the open patio.
+* **Tactical Chokepoint:** Whoever holds the flask house holds the silver country. Halting the retorts for a single season starves every amalgamation floor that depends on the monopoly.
+
+## 6. Vague Game Hazards
+* **Quicksilver Vapor:** Working the retort yard at Level 3 or higher without wet cloth over the face inflicts creeping poisoning ($1\text{d}6$ damage per hour and a cumulative tremor that penalizes fine work).
+* **Red Gallery Collapse:** Rotten or skimped props in the cinnabar galleries give way without warning, burying the face crew under loose red rock ($3\text{d}6$ bludgeoning damage).

@@ -13,12 +13,36 @@ provides:
   - "Oil: Linseed-Oil"
 requires:
   - "Crop: Raw-Flax"
+culture_quadrant: Market
+operational_profile: Process / Refine
+mtg_color: Green / Black
+node_prerequisites:
+  water: Slow Stream Retting Basin
+  drying: Grassing Field and Aging Loft
+  shed: Brake and Scutching Shed with Wedge Press
+standalone_fallback: "If the flax farm stops delivering, the basin presses bought-in seed for oil and sells tow and old stock; fibre output falls to one quarter and the scutching crew is laid off."
+injected_mechanics:
+  retting_saturation_dial:
+    level_1: "Green Straw - Stalks pulled from the water too soon; the woody core clings and the batch is ruined."
+    level_2: "Slimy Bundles - Bundles feel soft and slimy and the core springs free; breaking and scutching run smoothly."
+    level_3: "Overripe Basin - Retting runs too long or too warm; the fibre weakens and the water stinks across the valley."
+    level_4: "Foul Basin - The basin turns to sour sludge and kills the retting action; the whole batch rots and the stream below is fouled."
+  threat_clocks:
+    downstream_complaint_clock: "Downstream Complaint Clock [4 Ticks] - Each day of foul retting water running below the basin adds a tick; when full the neighbors and the miller block the leat and the basin is shut."
+    seed_press_fire_clock: "Seed Press Fire Clock [6 Ticks] - Each roasting of seed over an unwatched fire adds a tick; when full the roasting shed and its linseed oil go up in flames."
+  yields_resource: "Flax Fiber (6 Strick-Bundles/Day) and Linseed Oil (1 Cask/Week)"
 ---
 # Retting & Scutching Basin (`IND-FLAX-02`)
 > **Industry Chain**: `CHAIN-FLAX` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-Raw flax bundles are submerged in slow-moving stream basins where bacterial action rots away the woody outer bark (retting). Once softened, dried stalks are crushed with wooden breaking mallets and beaten against vertical scutching boards with wooden blades to strip away shives and release long, silky bast fibers. This chemical and mechanical refining converts raw stalks into spinning-ready flax fiber. Before retting, the ripe seed bolls are stripped from the stalks with a coarse rippling comb, and the seed is roasted, bagged, and hammered in a wedge press until raw linseed oil runs out.
+Raw flax bundles are submerged in slow-moving stream basins where bacterial action rots away the woody outer bark (retting). Once softened, dried stalks are crushed with wooden breaking mallets and beaten against vertical scutching boards with wooden blades to strip away shives and release long, silky bast fibers. This chemical and mechanical refining converts raw stalks into spinning-ready flax fiber. Before retting, the ripe seed bolls are stripped from the stalks with a coarse rippling comb, and the seed is roasted, bagged, and hammered in a wedge press until raw linseed oil runs out. The required input of Crop: Raw-Flax yields Textile: Flax-Fiber and Oil: Linseed-Oil.
+
+Bundles are weighted down under water and checked daily: the retting is done when they feel slimy and the woody core springs away from the fibre. Slow stream retting is cleaner than a stagnant pond, which is quicker but smells powerfully and yields poorer fibre. Retted stalks are spread on grass to dry on both sides, aged indoors for weeks, then broken in a brake and scutched with a blunt wooden knife. Hackling combs finish the fibre into strick bundles, and the short tow goes for sacking.
+- **Retting Basin:** weir-fed stream pool with stone weights.
+- **Grassing Field:** where retted stalks dry on both sides.
+- **Brake and Scutching Shed:** boards, brakes and blunt knives.
+- **Wedge Press:** roasted seed in bags, oil driven out by stamper blows.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[0, -1, 0]` — **Executioner** (`Market`).
@@ -29,18 +53,64 @@ Raw flax bundles are submerged in slow-moving stream basins where bacterial acti
 ### Key Personnel (NPC Prototypes)
 - name: "Master Scutcher Branick"
   role: "Fiber Processor"
-  disposition: "[0, -1, +1]"
+  disposition: "[0, -1, 1]"
   motivation: "Extract the cleanest, longest line fibers without snapping the delicate strands."
 - name: "Rigger Nesta Reed"
   role: "Basin Tender"
   disposition: "[-1, -1, 0]"
   motivation: "Monitor retting duration accurately to prevent bacterial over-rotting of the harvest."
+- name: "Seed-Presser Odo Marle"
+  role: "Rippler and Wedge-Press Hand"
+  disposition: "[0, 1, 0]"
+  motivation: "Strip every seed boll and press enough oil to sell on the side to the printers, because the linseed pays his keep when fibre prices are low."
+- name: "Miller Perrin Tace"
+  role: "Downstream Millrace Owner"
+  disposition: "[1, 1, 2]"
+  motivation: "Stop the basin fouling the stream that drives his wheel and waters his stock, even if it means taking the basin to the manor court."
+
+<!-- BEGIN_NPC_MIRROR (generated by infographic/tools/sync_npc_mirror.js - do not edit by hand) -->
+```text
+name: Master Scutcher Branick
+role: Fiber Processor
+motivation: Extract the cleanest, longest line fibers without snapping the delicate strands.
+disposition: [0, -1, 1]
+```
+```text
+name: Rigger Nesta Reed
+role: Basin Tender
+motivation: Monitor retting duration accurately to prevent bacterial over-rotting of the harvest.
+disposition: [-1, -1, 0]
+```
+```text
+name: Seed-Presser Odo Marle
+role: Rippler and Wedge-Press Hand
+motivation: Strip every seed boll and press enough oil to sell on the side to the printers, because the linseed pays his keep when fibre prices are low.
+disposition: [0, 1, 0]
+```
+```text
+name: Miller Perrin Tace
+role: Downstream Millrace Owner
+motivation: Stop the basin fouling the stream that drives his wheel and waters his stock, even if it means taking the basin to the manor court.
+disposition: [1, 1, 2]
+```
+<!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
 - **Flax-Fiber** (`Commodity`): Clean, combed bundles of golden bast fibers ready for spinning wheels.
 - **Scutching Knife** (`Tool`): A flat wooden blade used to scrape away broken woody core fragments.
 - **Linseed Oil** (`Commodity`): Raw golden seed oil pressed from rippled flax seed, used as a binder for paint, putty, varnish and printing ink.
+- **Rippling Comb** (`Tool`): Coarse iron-toothed comb drawn through bundle tops to strip the seed bolls before retting.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
-- **Dial — Retting Saturation (`0–10`)**: At `0–3`, under-retted stalks remain bonded to woody shives, ruining the batch. At `8–10`, optimal bacterial breakdown allows effortless fiber separation.
-- **Quest Hook — *The Foul Basin Poisoning***: When industrial runoff contaminates the retting ponds and kills the softening bacteria, Branick must purge the basin upstream before the entire regional linen supply rots.
+- **Dial — Retting Saturation (`0–10`)**: At `0–3`, under-retted stalks remain bonded to woody shives, ruining the batch. At `8–10`, optimal bacterial breakdown allows effortless fiber separation, but a day too long weakens the fibre and fouls the stream below.
+- **Quest Hook — *The Foul Basin Poisoning***: When industrial runoff contaminates the retting ponds and kills the softening bacteria, Branick must purge the basin upstream before the entire regional linen supply rots. Perrin Tace threatens the manor court within three days, and Nesta Reed swears the bundles were pulled on time.
+
+## 5. GM Socket Placement & Supply Synergy
+* **Input Dependency:** Rets, scutches and presses `Crop: Raw-Flax` from the **Flax Farm (`FARM-FLAX-01`)**.
+* **Output Transmission:** Sends `Textile: Flax-Fiber` to the **Handloom Linen Weaver (`IND-FLAX-03`)** and to the **Tallow Chandlery (`IND-CANDLE-01`)**, and ships `Oil: Linseed-Oil` in casks to the **Movable-Type Printshop & Bindery (`IND-PAPER-03`)**, where it is boiled with lampblack into printing ink.
+* **Tactical Chokepoint:** The retting water. A foul or blocked stream stops the whole fibre line.
+
+## 6. Vague Game Hazards
+* **Retting Stench:** Standing in the basin or breathing its fumes sickens the lungs ($1\text{d}4$ damage per hour and a penalty to concentration).
+* **Brake Injury:** A hand caught in the breaking brake is crushed ($2\text{d}6$ bludgeoning damage).
+* **Roasting Fire:** Seed roasted over an open hearth can flare ($1\text{d}6$ fire damage and a chance the oil shed ignites).

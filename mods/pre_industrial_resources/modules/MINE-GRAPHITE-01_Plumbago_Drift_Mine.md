@@ -2,6 +2,7 @@
 id: MINE-GRAPHITE-01
 title: Plumbago Drift Mine
 set: Set A (Infrastructure & Engineering)
+category: Mining_and_Metallurgy
 tier: Tier 3 (Infrastructural Supply Chain Anchor)
 pipeline_tier: 3
 chain_id: CHAIN-GRAPHITE
@@ -16,11 +17,11 @@ node_prerequisites:
   geology: Black Lead Pipes and Nodules in Hard Fell Rock
   drainage: Pick-Cut Drainage Level Below the Workings
   security: Guardhouse Built Over the Mine Mouth
-standalone_fallback: "If no props can be had, the proprietors seal the drift and sell from stockpile only, which doubles the price of black lead and sends every crucible-maker hunting for smugglers."
+standalone_fallback: "If no props can be had, the proprietors shut the drift and sell from stockpile only, which doubles the price of black lead and sends every foundry hunting for smugglers."
 
 injected_mechanics:
   mine_mouth_dial:
-    level_1: "Sealed Years - The drift is shut and walled; a lone keeper watches the empty guardhouse while prices climb."
+    level_1: "Shut Years - The drift is shut and guarded; a lone keeper watches the empty guardhouse while prices climb."
     level_2: "Opening Season - Miners follow the black pipe by candlelight; nodules come out soft and clean, needing little dressing."
     level_3: "Full Working - Night and day shifts; every miner stripped and searched at the guardhouse door."
     level_4: "Raided Mouth - Armed men storm the guardhouse; the drift lies open and the stockroom is emptied by dawn."
@@ -29,48 +30,83 @@ injected_mechanics:
     drainage_level_flood: "Drowned Drift Clock [4 Ticks] - The drainage level silts; water climbs into the lower pipes as the workings go deeper."
   yields_resource: "Hand-Picked Plumbago Nodules (2 Hundredweight/Day in an Opening Season)"
 ---
+# Plumbago Drift Mine (`MINE-GRAPHITE-01`)
+> **Industry Chain**: `CHAIN-GRAPHITE` (Stage 1: `extraction`)
 
-# MODULE MINE-GRAPHITE-01: PLUMBAGO DRIFT MINE
+## 1. Architectural Overview & Operational Loop
+The plumbago drift is a small, jealously guarded hole in a bare fellside, worked only in short seasons and kept shut and guarded between them so that the black lead stays scarce and dear. The drift needs `Timber: Mine-Props` to brace the broken ground and yields `Mineral: Graphite`, the soft black wad that founders prize for casting moulds.
 
-### 1. Drift & Security Architecture
-
-The plumbago drift is a small, jealously guarded hole in a bare fellside, worked only in short seasons and then walled up again so that the black lead stays scarce and dear.
-
+The proprietors work the mine only when stock runs low, then close it again, and the price of wad climbs steeply over the years. In a season the miners hunt each pocket, clear it, and hunt again, while dressers sort and prepare the wad inside the guardhouse. Every man is searched when he leaves, armed guards hold the door, and the law treats stealing or receiving wad as a felony. Carriers and dealers move the legitimate casks out, and receivers hover for the rest.
 * **Black Lead Pipes:** Irregular pockets and inclined pipes of soft, greasy graphite running through hard rock. They are hard to find and easy to empty; a good pocket can be cleared in days, then the miners must hunt again.
 * **Drainage Level & Timbered Drift:** A long, low tunnel cut with picks and wedges to let water out from below, with timber props set wherever the rock is broken. Drainage is the constant fight as the workings go deeper.
-* **Guardhouse & Search Room:** A stone house built directly over the mine mouth, with a barred stockroom for the sorted nodules. Every miner going off shift is stripped and searched, and the house is locked and garrisoned through the sealed years.
+* **Guardhouse & Search Room:** A stone house built directly over the mine mouth, with a barred stockroom for the sorted nodules. Every miner going off shift is stripped and searched, and the house is locked and garrisoned through the shut years.
 
-### 2. GM Socket Placement & Supply Synergy
-* **Input Dependency:** Consumes `Timber: Mine-Props` delivered from the sawmills to brace the drift and the broken ground around each pipe.
-* **Output Transmission:** Ships locked casks of `Mineral: Graphite` to the **Bell and Artillery Bronze Foundry (`IND-BRONZE-01`)**, where it is blended with clay into fire-proof crucibles and used to dress casting moulds.
-* **Tactical Chokepoint:** The proprietors will not sell at the mine. Every legitimate cask moves under seal to a distant buyer, so anyone who controls the road controls the founders' crucibles.
+## 2. Granular Disposition Baseline (`[S, E, C]`)
+- **Baseline Coordinate**: `[2, 0, 2]` - **Guarded Black Lead Monopoly** (`Hierarchy / Clan`).
+- **Sociological Rationale**: A handful of proprietors keep the supply short and the price high behind guards and harsh penalties, while the miners are close valley kin who guard each other's secrets and sell the odd bootful against the owners.
 
-### 3. Notable Characters & Personnel
+## 3. Stationed Entities & Roster Prototypes
 
+### Key Personnel (NPC Prototypes)
+- name: "Warden Hask Ellory"
+  role: "Guardhouse Keeper & Proprietors' Agent"
+  disposition: "[3, -1, 2]"
+  motivation: "Keep the mine shut and guarded through the lean years and catch whoever is carrying nodules down the valley."
+- name: "Mabbet Sowerby"
+  role: "Pipe-Finder & Veteran Miner"
+  disposition: "[-1, 1, 0]"
+  motivation: "Find the next black pipe before the season closes, and quietly sell one bootful to pay off her son's debts."
+- name: "Jory Pattle"
+  role: "Valley Carrier & Receiver of Stolen Wad"
+  disposition: "[-2, 2, -1]"
+  motivation: "Buy nodules from searched-but-careless miners and pass them to foundrymen who ask no questions, cutting the good stuff with false wad when buyers are blind."
+- name: "Proprietor's Factor Lenna Crowse"
+  role: "Shareholders' Accountant & Cask Dispatcher"
+  disposition: "[2, 1, 3]"
+  motivation: "Decide when stock is low enough to reopen the drift, and keep the shut price high without starving the foundries into finding another source."
+
+<!-- BEGIN_NPC_MIRROR (generated by infographic/tools/sync_npc_mirror.js - do not edit by hand) -->
 ```text
 name: Warden Hask Ellory
 role: Guardhouse Keeper & Proprietors' Agent
-motivation: Keep the mine sealed through the lean years and catch whoever is carrying nodules down the valley.
+motivation: Keep the mine shut and guarded through the lean years and catch whoever is carrying nodules down the valley.
 disposition: [3, -1, 2]
 ```
-
 ```text
 name: Mabbet Sowerby
 role: Pipe-Finder & Veteran Miner
 motivation: Find the next black pipe before the season closes, and quietly sell one bootful to pay off her son's debts.
 disposition: [-1, 1, 0]
 ```
+```text
+name: Jory Pattle
+role: Valley Carrier & Receiver of Stolen Wad
+motivation: Buy nodules from searched-but-careless miners and pass them to foundrymen who ask no questions, cutting the good stuff with false wad when buyers are blind.
+disposition: [-2, 2, -1]
+```
+```text
+name: Proprietor's Factor Lenna Crowse
+role: Shareholders' Accountant & Cask Dispatcher
+motivation: Decide when stock is low enough to reopen the drift, and keep the shut price high without starving the foundries into finding another source.
+disposition: [2, 1, 3]
+```
+<!-- END_NPC_MIRROR -->
 
-### 4. Vague Game Hazards
+### Material Stocks & Items (Item Prototypes)
+- **Plumbago Nodules** (`Commodity`): Soft, greasy black lead hand-picked from the pipes and sorted by the dressers, sold only in locked, sealed casks.
+- **Drift Pick and Wedges** (`Tool`): The short picks and iron wedges that cut the drainage level and follow the pipes through hard fell rock.
+- **Guardhouse Search Ledger** (`Relic`): The steward's book of every man searched and every cask sealed, whose missing entries would show which carrier has been leaking wad.
+
+## 4. Operational Dials & Failure Modes (Quests & Crises)
+- **Dial - `Mine Mouth` (`0-10`)**: At `0-3`, the drift is shut and guarded, no wad reaches market, and the founders hunt for smugglers at triple the price. At `8-10`, night and day shifts empty the pockets fast, but the crowd of searched men, the swollen stockroom and the lean guard invite a raid and the flood of cheap stolen wad that ruins the price.
+- **Quest Hook - *The Bootful***: Mabbet Sowerby's son owes money to Jory Pattle, who has offered to clear the debt for one bootful of fresh nodules. Warden Hask Ellory has already sworn to search every boot at the door, and Factor Lenna Crowse plans to reopen the drift in a fortnight, so the party must decide whether to catch the carrier or help Mabbet before the season opens.
+
+## 5. GM Socket Placement & Supply Synergy
+* **Input Dependency:** Consumes `Timber: Mine-Props` from the **Water-Powered Sawmill (`IND-TIMBER-02`)** delivered to brace the drift and the broken ground around each pipe.
+* **Output Transmission:** Ships locked casks of `Mineral: Graphite` to the **Bell & Artillery Bronze Foundry (`IND-BRONZE-01`)**, where it is dressed onto casting moulds and, in some foundries, worked with clay into crucibles.
+* **Tactical Chokepoint:** The proprietors will not sell at the mine. Every legitimate cask moves under seal to a distant buyer, so anyone who controls the road controls the founders' moulds.
+
+## 6. Vague Game Hazards
 * **Wet Drift Collapse:** Broken rock around a cleared pipe slumps once its graphite is gone; exploring old pockets without fresh props risks a cave-in ($2\text{d}8$ bludgeoning damage).
 * **Guardhouse Justice:** Being caught with black lead on the person, or receiving it, brings armed pursuit and a sentence of years of exile labor rather than a fine.
-
-### Key Personnel (NPC Prototypes)
-- name: "Jory Pattle"
-  role: "Valley Carrier & Receiver of Stolen Wad"
-  disposition: "[-2, 2, -1]"
-  motivation: "Buy nodules from searched-but-careless miners and pass them to crucible-makers who ask no questions, cutting the good stuff with false wad when buyers are blind."
-- name: "Proprietor's Factor Lenna Crowse"
-  role: "Shareholders' Accountant & Cask Dispatcher"
-  disposition: "[2, 1, 3]"
-  motivation: "Decide when stock is low enough to reopen the drift, and keep the sealed price high without starving the foundries into finding another source."
+* **Flooded Level:** A silted drainage level lets water back into the lower pipes, drowning the workings and anyone caught in them ($2\text{d}6$ damage and lost tools).
