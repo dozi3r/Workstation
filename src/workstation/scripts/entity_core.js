@@ -331,7 +331,13 @@
         const cc = stripKnownAutoTail(cand);
         return Boolean(cc && rawCoreNorm && cc === rawCoreNorm);
       });
-      const legacy = isLegacyBoilerplateNote(entity.notes) || matchesAutoHydrated;
+      // Recognize historical auto-hydrated resource boilerplate (verb + origin facility + batch/downstream signature) even after module source text is revised.
+      const escapedTitle = normWs(out.moduleTitle).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const historicalResourceBoilerplate = kind === 'resource' && Boolean(escapedTitle)
+        && new RegExp(`^(?:Extracted|Refined|Manufactured|Processed|Staged through|Produced)\\s+at\\s+${escapedTitle}:`, 'i').test(rawNoteNorm)
+        && /\bMoves as\b/i.test(rawNoteNorm)
+        && /\bDownstream:\s*(?:In "Granular Mode", it provides\b|(?:Used|Consumed) by\b|Dispatches\b|.+?\bdraw on it\b)/i.test(rawNoteNorm);
+      const legacy = isLegacyBoilerplateNote(entity.notes) || matchesAutoHydrated || historicalResourceBoilerplate;
       out.legacyNotes = legacy;
       out.customNotes = legacy ? '' : String(entity.notes);
 
