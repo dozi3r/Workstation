@@ -24,7 +24,7 @@ Historically, universal worldbuilding modules—including Creative Writing Ticke
 
 Chosen option: **Option 3**, establishing four specialized, campaign-independent Workstation Mods while restoring `campaigns/Peridot/modules/` to its 51 native setting-specific modules (`Set_A` through `Set_H` and `HOOK-01`):
 
-1. **`mods/pre_industrial_resources/`**: Houses 98 pre-industrial extraction, refining, and manufacturing commodity supply chain modules across 45 chains, powering `IndustryChainImporter` (`Ctrl+Shift+I`) and `SupplyChainSimulator`.
+1. **`mods/pre_industrial_resources/`**: Houses 101 pre-industrial extraction, refining, and manufacturing commodity supply chain modules across 48 chains, powering `IndustryChainImporter` (`Ctrl+Shift+I`) and `SupplyChainSimulator`.
 2. **`mods/tier_0_settlement_substratum/`**: Houses 8 baseline agrarian village and settlement infrastructure modules (`T0-DOM-01..08` under `CHAIN-SUBSISTENCE`), matching the Tier 0 Substratum SRD.
 3. **`mods/scale_fluid_transit_corridors/`**: Houses 6 scale-fluid edge corridor modules (`CWT-020..025`) slottable onto pointcrawl road edges (`topo.edgeData[key].modules`), with artificial `chain_id`s removed so they do not pollute node industry chain importing.
 4. **`mods/universal_worldbuilding_library/`**: Houses 41 universal Climax Engines (`CWT-010..015`), Survival/Agrarian Sites (`CWT-030..034`), Ideological Sanctuaries (`CWT-040..045`), Historical Civilization Archetypes (`CWT-060..078`), and Generic Starter Sites (`STARTER-02..06`) rewritten into the Unified v2.0 Schema and wired to canonical resource tags.

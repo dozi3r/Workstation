@@ -15,6 +15,7 @@ requires:
   - "Material: Cured-Leather"
   - "Metal: Smelted-Lead"
   - "Chem: Lampblack"
+  - "Oil: Linseed-Oil"
 ---
 # Movable-Type Printshop & Bindery (`IND-PAPER-03`)
 

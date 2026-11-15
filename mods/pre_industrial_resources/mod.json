@@ -4,5 +4,5 @@
   "version": "1.0.0",
   "enabled": true,
   "entry": "mod.js",
-  "description": "Campaign-independent library of 98 pre-industrial extraction, refining, and manufacturing modules across 45 interconnected industry chains."
+  "description": "Campaign-independent library of 101 pre-industrial extraction, refining, and manufacturing modules across 48 interconnected industry chains."
 }

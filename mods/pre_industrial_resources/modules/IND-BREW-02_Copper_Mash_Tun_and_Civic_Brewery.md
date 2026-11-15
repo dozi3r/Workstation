@@ -15,12 +15,13 @@ requires:
   - "Metal: Forged-Copper"
   - "Timber: Cooperage-Casks"
   - "Fuel: Wood-Fuel"
+  - "Crop: Hops"
 ---
 # Copper Mash-Tun & Civic Brewery (`IND-BREW-02`)
 > **Industry Chain**: `CHAIN-BREW` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-The civic brewery houses immense riveted copper mash-tuns where crushed malted grain is steeped in hot water, mashed, and boiled with botanical bittering agents. Coopered timber casks receive the cooled, fermented wort, sealing the beverage into stable rations of nutritional ale for urban laborers and civic guards.
+The civic brewery houses immense riveted copper mash-tuns where crushed malted grain is steeped in hot water, mashed, and boiled with dried hop cones. Coopered timber casks receive the cooled, fermented wort, sealing the beverage into stable rations of nutritional ale for urban laborers and civic guards.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[0, 1, 1]` — **Commercial Guildsman** (`Market`).

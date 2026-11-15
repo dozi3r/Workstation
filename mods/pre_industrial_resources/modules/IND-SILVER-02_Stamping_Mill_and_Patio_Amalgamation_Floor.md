@@ -17,12 +17,13 @@ requires:
   - "Metal: Forged-Iron"
   - "Livestock: Draft-Animals"
   - "Chem: Copper-Sulfate"
+  - "Chem: Mercury"
 ---
 # Stamping Mill & Patio Amalgamation Floor (`IND-SILVER-02`)
 > **Industry Chain**: `CHAIN-SILVER` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-Raw galena ore is crushed to fine powder by heavy iron-shod stamping hammers powered by waterwheels, then spread across a vast paved stone patio. Workers mix the crushed ore with mercury, copper sulfate, and coarse salt, driving mules in endless circles to trample the sludge and amalgamate the precious silver. The required inputs of Ore: Argentiferous-Galena, Commodity: Coarse-Salt, and Chem: Copper-Sulfate, worked by Metal: Forged-Iron stamps and Livestock: Draft-Animals, undergo chemical amalgamation, yielding refined Metal: Crude-Bullion and waste Ore: Lead-Slag.
+Raw galena ore is crushed to fine powder by heavy iron-shod stamping hammers powered by waterwheels, then spread across a vast paved stone patio. Workers mix the crushed ore with mercury, copper sulfate, and coarse salt, driving mules in endless circles to trample the sludge and amalgamate the precious silver. The required inputs of Ore: Argentiferous-Galena, Commodity: Coarse-Salt, Chem: Copper-Sulfate, and Chem: Mercury, worked by Metal: Forged-Iron stamps and Livestock: Draft-Animals, undergo chemical amalgamation, yielding refined Metal: Crude-Bullion and waste Ore: Lead-Slag.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[0, -2, 2]` (pick integers -3 to +3) — **Indentured Bureaucracy** (`Hierarchy`).

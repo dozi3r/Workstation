@@ -10,6 +10,7 @@ chain_stage: 2
 chain_role: "refining"
 provides:
   - "Textile: Flax-Fiber"
+  - "Oil: Linseed-Oil"
 requires:
   - "Crop: Raw-Flax"
 ---
@@ -17,7 +18,7 @@ requires:
 > **Industry Chain**: `CHAIN-FLAX` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-Raw flax bundles are submerged in slow-moving stream basins where bacterial action rots away the woody outer bark (retting). Once softened, dried stalks are crushed with wooden breaking mallets and beaten against vertical scutching boards with wooden blades to strip away shives and release long, silky bast fibers. This chemical and mechanical refining converts raw stalks into spinning-ready flax fiber.
+Raw flax bundles are submerged in slow-moving stream basins where bacterial action rots away the woody outer bark (retting). Once softened, dried stalks are crushed with wooden breaking mallets and beaten against vertical scutching boards with wooden blades to strip away shives and release long, silky bast fibers. This chemical and mechanical refining converts raw stalks into spinning-ready flax fiber. Before retting, the ripe seed bolls are stripped from the stalks with a coarse rippling comb, and the seed is roasted, bagged, and hammered in a wedge press until raw linseed oil runs out.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[0, -1, 0]` — **Executioner** (`Market`).
@@ -38,6 +39,7 @@ Raw flax bundles are submerged in slow-moving stream basins where bacterial acti
 ### Material Stocks & Items (Item Prototypes)
 - **Flax-Fiber** (`Commodity`): Clean, combed bundles of golden bast fibers ready for spinning wheels.
 - **Scutching Knife** (`Tool`): A flat wooden blade used to scrape away broken woody core fragments.
+- **Linseed Oil** (`Commodity`): Raw golden seed oil pressed from rippled flax seed, used as a binder for paint, putty, varnish and printing ink.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — Retting Saturation (`0–10`)**: At `0–3`, under-retted stalks remain bonded to woody shives, ruining the batch. At `8–10`, optimal bacterial breakdown allows effortless fiber separation.

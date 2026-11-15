@@ -17,6 +17,7 @@ requires:
   - "Commodity: Fired-Bricks"
   - "Mineral: Raw-Clay"
   - "Animal: Tallow"
+  - "Mineral: Graphite"
 ---
 # Bell & Artillery Bronze Foundry (`IND-BRONZE-01`)
 > **Industry Chain**: `CHAIN-BRONZE` (Stage 1: `manufacturing`)

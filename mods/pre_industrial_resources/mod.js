@@ -1,6 +1,6 @@
 // ============================================================================
 // WORKSTATION MOD: Universal Pre-Industrial Resource & Industry Pack
-// Campaign-Independent Industry Chain Catalog (98 Modules / 45 Chains)
+// Campaign-Independent Industry Chain Catalog (101 Modules / 48 Chains)
 // Includes Opt-in Dwarf Fortress Stockpile, Working Cache & In-Transit Hauling Simulator
 // ============================================================================
 (function (root, factory) {
@@ -374,7 +374,7 @@
     id: MOD_ID,
     name: 'Universal Pre-Industrial Resource & Industry Pack',
     version: '1.2.0',
-    description: 'Provides 98 pre-industrial industry chain modules across 45 chains, plus an opt-in Dwarf Fortress physical stockpile, hopper & in-transit hauling simulator.',
+    description: 'Provides 101 pre-industrial industry chain modules across 48 chains, plus an opt-in Dwarf Fortress physical stockpile, hopper & in-transit hauling simulator.',
     menuItems: [
       {
         label: 'Open Industry Chain Importer... (Ctrl+Shift+I)',
