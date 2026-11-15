@@ -53,11 +53,11 @@ Tight (wet) work makes casks for wine, beer and oil, while slack (dry) work make
 - name: "Master Cooper Gavin Fletcher"
   role: "Guild Master Cooper"
   disposition: "[3, 2, 2]"
-  motivation: "Ensure every cask passes the rigorous water-pressure test without a single droplet leaking."
+  motivation: "Save his shop's stamped mark after three leaky wine casks came back from Oske's cellar, knowing one more guild fine for split staves will lose him the brewery contract."
 - name: "Hooper Jessa Miller"
-  role: "Journeyman Cooper"
+  role: "Journeyman Cooper & Hooper"
   disposition: "[4, 2, 1]"
-  motivation: "Master the art of heat-bending staves without scorching the inner wood grain."
+  motivation: "Earn the hooper's piece bonus on tight wine casks while hiding a batch of damp green oak staves that Gavin bought cheap behind the guild searcher's back."
 - name: "Apprentice Wendel Tarr"
   role: "Stave Dresser and Fire Tender"
   disposition: "[4, 2, 3]"
@@ -71,13 +71,13 @@ Tight (wet) work makes casks for wine, beer and oil, while slack (dry) work make
 ```text
 name: Master Cooper Gavin Fletcher
 role: Guild Master Cooper
-motivation: Ensure every cask passes the rigorous water-pressure test without a single droplet leaking.
+motivation: Save his shop's stamped mark after three leaky wine casks came back from Oske's cellar, knowing one more guild fine for split staves will lose him the brewery contract.
 disposition: [3, 2, 2]
 ```
 ```text
 name: Hooper Jessa Miller
-role: Journeyman Cooper
-motivation: Master the art of heat-bending staves without scorching the inner wood grain.
+role: Journeyman Cooper & Hooper
+motivation: Earn the hooper's piece bonus on tight wine casks while hiding a batch of damp green oak staves that Gavin bought cheap behind the guild searcher's back.
 disposition: [4, 2, 1]
 ```
 ```text
@@ -95,7 +95,7 @@ disposition: [2, 3, 4]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Cooperage-Casks** (`Commodity`): Airtight, iron-hooped wooden barrels sealed with rushes.
+- **Cooperage Casks** (`Commodity`): Airtight, iron-hooped wooden barrels sealed with rushes.
 - **Cooper's Drawknife** (`Tool`): A curved two-handled blade used for shaving precise bevels on cask staves.
 - **Iron Hoop Bundle** (`Commodity`): Forged hoops in graded sizes, driven on with a hoop-driver and mallet.
 - **Maker's Brand** (`Tool`): The iron stamp that marks each cask with the shop's name.

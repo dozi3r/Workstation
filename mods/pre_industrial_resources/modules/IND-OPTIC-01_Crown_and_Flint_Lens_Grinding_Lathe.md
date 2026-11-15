@@ -38,16 +38,16 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-OPTICS` (Stage 1: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-In dimly lit subterranean optics workshops, artisans operate treadle-driven vertical lathes mounted with cast-iron concave and convex grinding laps. Raw optical blanks cast from high-purity silica glass are meticulously ground down with graded emery powder and polished with rouge until microscopic spherical aberration is eliminated. The required inputs of Commodity: Glassware (the cast glass blanks), Mineral: Silica-Sand, Mineral: Emery-and-Rouge and Metal: Pig-Iron (the laps) are worked into Component: Ground-Lenses.
+In dim, vibration-free cellar workshops, lens grinders work `Commodity: Glassware` cast blanks, `Mineral: Silica-Sand`, `Mineral: Emery-and-Rouge` and `Metal: Pig-Iron` cast-iron laps into `Component: Ground-Lenses` on treadle-driven vertical lathes.
 
-Each blank is cut from a glass block, its edge shaped and smoothed, then worked against a metal bowl of the needed curvature with damp emery, then with finer and finer powders for polish. The best lenses were still made by hand, and a good lens much over ten centimetres across was close to the limit. Bubbles or impurities in the glass are the commonest flaw, found only after hours of work.
-- **Lap Bowls:** cast-iron convex and concave forms, one pair per curvature.
-- **Settling Jars:** water jars where emery and rouge are sorted by grade.
-- **Pitch Lap:** soft pitch bed that flows to the lens for the last polish.
+Each blank is cut from a glass block, edged, ground against convex or concave metal bowls with wet emery, and hand-figured through finer powders to red rouge on a soft pitch lap; the best objectives over four inches across are still finished by hand. Internal bubbles or striae often hide inside a block until hours of grinding reveal them.
+- **Lap Bowls:** Cast-iron convex and concave master curves, one pair per focal figure.
+- **Settling Jars:** Covered water jars grading emery and rouge by settling time.
+- **Pitch Lap:** Soft pitch bed yielding to the lens for final polish.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[4, 3, 4]` — **Hermetic Virtuoso** (`Adhocracy`).
-- **Sociological Rationale**: Precision optics work requires obsessive individual craftsmanship, secret polishing formulas, and absolute isolation from workshop vibrations and airborne dust.
+- **Sociological Rationale**: Precision optics work requires obsessive individual craftsmanship, secret polishing formulas and a bench isolated from vibration and dust, while each finished lens is sold to whichever scholar, navigator or court will pay for it.
 
 ## 3. Stationed Entities & Roster Prototypes
 
@@ -55,11 +55,11 @@ Each blank is cut from a glass block, its edge shaped and smoothed, then worked 
 - name: "Optician Alistair Penrose"
   role: "Master Lens Grinder"
   disposition: "[4, 1, 4]"
-  motivation: "Craft flawless achromatic doublet lenses capable of resolving astronomical star clusters."
-- name: "Aide Sylvia Vance"
+  motivation: "Finish the naval survey's objective lenses before the Admiralty cancels his advance, because Raimund Haller's last three glass blocks hid tiny bubbles that only appeared after days of hand grinding."
+- name: "Aide Sylvia Kestrel"
   role: "Lap Polishing Apprentice"
   disposition: "[3, 1, 3]"
-  motivation: "Master the precise touch required for optical figuring without scratching expensive blanks."
+  motivation: "Master the final rouge polish on the pitch lap without leaving a single sleek, since Alistair Penrose charges spoiled blanks against her bond and withholds her papers until an objective passes."
 - name: "Glass Factor Raimund Haller"
   role: "Glasshouse Agent Who Sells Cast Blanks by the Block"
   disposition: "[2, 3, 2]"
@@ -69,13 +69,13 @@ Each blank is cut from a glass block, its edge shaped and smoothed, then worked 
 ```text
 name: Optician Alistair Penrose
 role: Master Lens Grinder
-motivation: Craft flawless achromatic doublet lenses capable of resolving astronomical star clusters.
+motivation: Finish the naval survey's objective lenses before the Admiralty cancels his advance, because Raimund Haller's last three glass blocks hid tiny bubbles that only appeared after days of hand grinding.
 disposition: [4, 1, 4]
 ```
 ```text
-name: Aide Sylvia Vance
+name: Aide Sylvia Kestrel
 role: Lap Polishing Apprentice
-motivation: Master the precise touch required for optical figuring without scratching expensive blanks.
+motivation: Master the final rouge polish on the pitch lap without leaving a single sleek, since Alistair Penrose charges spoiled blanks against her bond and withholds her papers until an objective passes.
 disposition: [3, 1, 3]
 ```
 ```text
@@ -87,14 +87,14 @@ disposition: [2, 3, 2]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Silica-Sand** (`Commodity`): Ultra-pure washed quartz sand utilized for high-grade crucible glass melts.
-- **Ground-Lenses** (`Tool`): Curvature-ground optical components polished to micrometer tolerances.
+- **Silica Sand** (`Commodity`): Ultra-pure washed quartz sand utilized for high-grade crucible glass melts.
+- **Ground Lenses** (`Tool`): Curvature-ground optical components polished to fringe-true optical tolerances.
 - **Emery and Rouge Jars** (`Reagent`): Settled grades of grinding emery and fine red polishing powder, kept covered and labelled by the grinder.
 - **Cast-Iron Lap Bowl** (`Tool`): Turned bowl whose curve is the master pattern for a lens surface.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Abrasive Grit Purity` (`0–10`)**: At `0–3`, contaminated grit introduces deep micro-scratches across the glass face. At `8–10`, over-polishing deforms the focal length beyond usable tolerance, and each pass wastes costly blank thickness.
-- **Quest Hook — *The Imperfect Curve***: A critical batch of objective lenses intended for naval survey telescopes shows internal striae and surface distortion. Alistair and Sylvia must re-grind the entire set under impossible deadlines or face the wrath of the admiralty, while Raimund Haller insists the flaws are the grinders' fault; the order is due in twelve days.
+- **Quest Hook — *The Imperfect Curve***: A critical batch of objective lenses intended for naval survey telescopes shows internal striae and surface distortion. Alistair Penrose and Sylvia Kestrel must re-grind the entire set under impossible deadlines or face the wrath of the admiralty, while Raimund Haller insists the flaws are the grinders' fault; the order is due in twelve days.
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Cuts clear blanks from `Commodity: Glassware` made by the **Glassblower's Furnace (`IND-GLASS-02`)**; draws `Mineral: Silica-Sand` from the **Silica Sand Dredging Pit (`EXT-GLASS-01`)**; grinds with `Mineral: Emery-and-Rouge` (abrasive grit and polishing rouge) from the **Open-Cast Iron Ore Pit (`MINE-IRON-01`)**; and turns its cast-iron laps from `Metal: Pig-Iron` supplied by the **Charcoal Bloomery and Blast Furnace (`MINE-IRON-02`)**.

@@ -35,15 +35,15 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-GOLD` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-The gold extraction works combine rushing water sluices for alluvial gravels with heavy drop-stamp quartz mills powered by overshot waterwheels. Prospectors shovel auriferous gravels or crushed gold-bearing quartz veins through baffled wooden sluice runs lined with fleece or riffles. The required input of Timber: Mine-Props builds the sturdy flumes and stamp frames, transforming raw river silt and quartz rock into heavy, glittering Ore: Gold-Dust.
+The gold extraction works combine water sluices for alluvial gravels with cam-driven drop-stamp quartz mills powered by overshot wheels. Prospectors shovel pay dirt or crushed quartz through riffled wooden sluices, consuming Timber: Mine-Props for flumes, shafts, and stamp frames to yield Ore: Gold-Dust.
 
-A claim holds only while it is worked, and groups of miners arbitrate disputes. Rocker boxes are hand-fed and wash a few yards of gravel a day; longer sluice runs with riffles take far more, though a plain sluice still loses much of the fine gold. Diggers also sink shafts and drive tunnels into deep leads. The weekly cleanup is when the riffles are emptied and the gold weighed. Fine gold can also be caught by amalgamating it with mercury in a pan or under the stamps, but no quicksilver arrives here by supply link: the mercury works sell only to the silver patios, so a camp that wants it must buy it off the books.
-- **Rocker and Sluice Run:** wooden boxes with riffles to catch gold.
-- **Stamp Battery:** cam-driven stamps that crush quartz.
-- **Water Ditch:** the claim's lifeline.
+Claims hold only while worked, with miners' meetings arbitrating disputes. Hand-fed rockers wash a few yards daily while longer sluices and Long Toms handle bulk gravel before weekly cleanup. Diggers also sink shafts into deep leads, though plain sluices lose fine flour gold: mercury works sell only to silver patios, forcing camps seeking quicksilver onto the black market.
+- **Rocker and Sluice Run:** Baffled wooden boxes lined with riffles to trap heavy gold dust.
+- **Stamp Battery:** Cam-lifted iron shoes pulverizing hard gold-bearing quartz ore.
+- **Water Ditch:** The claim's contested lifeline feeding every sluice and wheel.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
-- **Baseline Coordinate**: `[3, 4, 1]` - **Independent Prospectors** (`Adhocracy`).
+- **Baseline Coordinate**: `[3, 4, 4]` - **Independent Prospectors** (`Adhocracy`).
 - **Sociological Rationale**: The speculative, high-reward nature of gold panning and quartz crushing attracts fiercely independent, opportunistic prospectors resistant to central authority.
 
 ## 3. Stationed Entities & Roster Prototypes
@@ -53,10 +53,10 @@ A claim holds only while it is worked, and groups of miners arbitrate disputes. 
   role: "Claim Owner"
   disposition: "[2, 4, 1]"
   motivation: "Strike the mother lode vein before his creditors seize his stamp mill."
-- name: "Rocker Tender Elspeth"
-  role: "Sluice Hand"
+- name: "Rocker Tender Elspeth Baird"
+  role: "Rocker & Sluice Hand"
   disposition: "[3, 3, 2]"
-  motivation: "Secure a legitimate share of cleanup gold to fund her journey away from the camps."
+  motivation: "Wash enough flour gold into the cleanup pouch to buy out her ditch-share and leave the valley before winter claim-jumping turns bloody."
 - name: "Stamp Feeder Tobias Wrenfield"
   role: "Stamp Mill Hand who feeds and shoes the stamps"
   disposition: "[4, 2, 3]"
@@ -74,9 +74,9 @@ motivation: Strike the mother lode vein before his creditors seize his stamp mil
 disposition: [2, 4, 1]
 ```
 ```text
-name: Rocker Tender Elspeth
-role: Sluice Hand
-motivation: Secure a legitimate share of cleanup gold to fund her journey away from the camps.
+name: Rocker Tender Elspeth Baird
+role: Rocker & Sluice Hand
+motivation: Wash enough flour gold into the cleanup pouch to buy out her ditch-share and leave the valley before winter claim-jumping turns bloody.
 disposition: [3, 3, 2]
 ```
 ```text

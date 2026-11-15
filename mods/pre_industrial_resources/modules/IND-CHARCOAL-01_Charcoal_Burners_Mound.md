@@ -53,11 +53,11 @@ A collier lives in a hut from spring to autumn and tends eight or nine mounds wi
 - name: "Master Collier Brenna Ashworth"
   role: "Head Mound Burner"
   disposition: "[4, 1, 3]"
-  motivation: "Keep the smoldering earth mounds sealed against sudden drafts that could turn the entire pile to ash, since the clerk pays only for coal that arrives."
+  motivation: "Seal every crack in the smoldering earth mounds before a draft turns the pile to white ash, since the furnace clerk pays only for sound coal that arrives at the pit."
 - name: "Apprentice Collier Jory Blackwood"
   role: "Wood Stacker and Vent Tender"
   disposition: "[3, 1, 2]"
-  motivation: "Learn the subtle art of reading smoke color and temperature changes without scorching his eyebrows."
+  motivation: "Watch the night vents and read the blue smoke without nodding off, because Brenna Ashworth will turn him out before winter if a single mound blows out on his watch."
 - name: "Furnace Clerk Ambrose Teague"
   role: "Ironmaster's clerk who measures charcoal by the bushel"
   disposition: "[1, 3, 4]"
@@ -71,13 +71,13 @@ A collier lives in a hut from spring to autumn and tends eight or nine mounds wi
 ```text
 name: Master Collier Brenna Ashworth
 role: Head Mound Burner
-motivation: Keep the smoldering earth mounds sealed against sudden drafts that could turn the entire pile to ash, since the clerk pays only for coal that arrives.
+motivation: Seal every crack in the smoldering earth mounds before a draft turns the pile to white ash, since the furnace clerk pays only for sound coal that arrives at the pit.
 disposition: [4, 1, 3]
 ```
 ```text
 name: Apprentice Collier Jory Blackwood
 role: Wood Stacker and Vent Tender
-motivation: Learn the subtle art of reading smoke color and temperature changes without scorching his eyebrows.
+motivation: Watch the night vents and read the blue smoke without nodding off, because Brenna Ashworth will turn him out before winter if a single mound blows out on his watch.
 disposition: [3, 1, 2]
 ```
 ```text

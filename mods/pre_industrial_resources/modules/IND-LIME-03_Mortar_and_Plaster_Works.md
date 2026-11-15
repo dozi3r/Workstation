@@ -50,11 +50,11 @@ Old masons held to roughly one part putty to one and a half to three of washed s
 - name: "Guildmaster Hettie Rowe"
   role: "Mortar Mixer"
   disposition: "[2, 3, 3]"
-  motivation: "Ensure every batch of mortar achieves optimal plasticity and tensile bond strength."
+  motivation: "Deliver sixty casks of rested mortar for Aldous Garrick's fortification walls, though matured putty is running low and she is tempted to knock up fresh lime that could blister the masonry."
 - name: "Apprentice Corin Sate"
   role: "Sand Handler"
   disposition: "[3, 3, 2]"
-  motivation: "Graduate from hauling heavy aggregate barrows to trowelling plaster."
+  motivation: "Win his mason's trowel before winter by hauling sand and lime barrows without complaint, because the older hands shove him into the caustic putty pits whenever Hettie steps out."
 - name: "Master Mason Aldous Garrick"
   role: "Building Contractor who buys mortar by the cask and is blamed when walls crack"
   disposition: "[1, 2, 4]"
@@ -68,13 +68,13 @@ Old masons held to roughly one part putty to one and a half to three of washed s
 ```text
 name: Guildmaster Hettie Rowe
 role: Mortar Mixer
-motivation: Ensure every batch of mortar achieves optimal plasticity and tensile bond strength.
+motivation: Deliver sixty casks of rested mortar for Aldous Garrick's fortification walls, though matured putty is running low and she is tempted to knock up fresh lime that could blister the masonry.
 disposition: [2, 3, 3]
 ```
 ```text
 name: Apprentice Corin Sate
 role: Sand Handler
-motivation: Graduate from hauling heavy aggregate barrows to trowelling plaster.
+motivation: Win his mason's trowel before winter by hauling sand and lime barrows without complaint, because the older hands shove him into the caustic putty pits whenever Hettie steps out.
 disposition: [3, 3, 2]
 ```
 ```text

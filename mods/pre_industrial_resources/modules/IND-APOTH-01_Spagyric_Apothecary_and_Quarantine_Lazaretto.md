@@ -94,8 +94,8 @@ disposition: [4, 4, 1]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Distilled-Spirits** (`Reagent`): High-proof alcohol used as a primary solvent and preservative base.
-- **Apothecary-Tinctures** (`Medicine`): Concentrated medicinal extracts formulated to treat fevers and infections.
+- **Distilled Spirits** (`Reagent`): High-proof alcohol used as a primary solvent and preservative base.
+- **Apothecary Tinctures** (`Commodity`): Concentrated medicinal extracts formulated to treat fevers and infections.
 - **Theriac Jar** (`Commodity`): A sealed jar of the long-compounded cure-all, prized and slow to make.
 - **Guild Search Warrant** (`Relic`): The sealed paper letting guild officers enter the shop and test its stock.
 

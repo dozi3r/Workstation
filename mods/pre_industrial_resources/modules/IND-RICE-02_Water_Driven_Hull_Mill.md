@@ -36,13 +36,13 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-RICE` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-The water-driven hull mill utilizes an overshot wooden waterwheel connected to heavy stone pestles and wooden mortars housed in a timber pavilion. Rushing river currents turn the drive shaft, automatically lifting and dropping pestles into stone mortars filled with harvested paddy-rice. Raw paddy-rice inputs are scoured of their abrasive chaff and polished into edible hulled-rice, which is bagged for distribution to urban markets and garrisons.
+The water-driven hull mill pairs an overshot wooden waterwheel with stone pestles and mortars inside a timber pavilion. River currents turn a cam shaft that lifts and drops pestles into `Crop: Paddy-Rice`, scouring off abrasive chaff to yield `Food: Hulled-Rice` for urban markets and garrisons.
 
-Cams on the shaft raise each pestle and let it fall under its own weight, replacing hand pounding. Milling can stop at brown rice with only the husk removed, or go further to strip the bran for white rice. The pounded grain is winnowed and screened by hand, then bagged. After harvest the mill runs from first light to dusk, since damp paddy spoils in the loft if the wheel stands idle.
-- **Millrace and Wheel:** the channel and overshot wheel that drive the shaft.
-- **Cam Shaft:** timber shaft with hardwood teeth that lift the pestles.
-- **Mortar Row:** stone mortars where the paddy is pounded.
-- **Winnowing Floor:** where wind screens and sieves clear the chaff.
+Cams replace hand pounding, stopping at brown rice or polishing off the bran for white rice before hand winnowing and bagging. After harvest the mill runs dawn to dusk so damp paddy will not spoil in the loft.
+- **Millrace and Wheel:** Channel and overshot wheel driving the main shaft.
+- **Cam Shaft:** Timber shaft studded with hardwood cam teeth lifting the pestles.
+- **Mortar Row:** Heavy stone mortars where paddy is pounded.
+- **Winnowing Floor:** Open floor where wind-screens and sieves separate chaff.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 1, 3]` — **Artisan Guild** (`Hierarchy`).
@@ -54,11 +54,11 @@ Cams on the shaft raise each pestle and let it fall under its own weight, replac
 - name: "Millwright Master Thao Van"
   role: "Chief Millwright and Gear Inspector"
   disposition: "[3, 1, 4]"
-  motivation: "Maintain smooth cam-shaft rotation and prevent catastrophic wooden gear stripping during peak harvest."
+  motivation: "Keep the worn ironwood cam teeth wedged tight until the tribute convoy clears the gate, because a stripped shaft during harvest leaves wet paddy rotting in the loft and forfeits his millwright's share."
 - name: "Sifter Apprentice Lian Keng"
   role: "Grain Sifter and Bagging Hand"
   disposition: "[2, 1, 3]"
-  motivation: "Secure a full journeyman wage by mastering the delicate chaff-winnowing wind-screens."
+  motivation: "Catch Miller Factor Pru short-weighing farmers' sacks on the winnowing floor without being turned out of his apprenticeship, since his family pledged two fields for his berth."
 - name: "Miller Factor Sado Pru"
   role: "Miller who takes the toll share and sells the bran"
   disposition: "[4, 4, 1]"
@@ -72,13 +72,13 @@ Cams on the shaft raise each pestle and let it fall under its own weight, replac
 ```text
 name: Millwright Master Thao Van
 role: Chief Millwright and Gear Inspector
-motivation: Maintain smooth cam-shaft rotation and prevent catastrophic wooden gear stripping during peak harvest.
+motivation: Keep the worn ironwood cam teeth wedged tight until the tribute convoy clears the gate, because a stripped shaft during harvest leaves wet paddy rotting in the loft and forfeits his millwright's share.
 disposition: [3, 1, 4]
 ```
 ```text
 name: Sifter Apprentice Lian Keng
 role: Grain Sifter and Bagging Hand
-motivation: Secure a full journeyman wage by mastering the delicate chaff-winnowing wind-screens.
+motivation: Catch Miller Factor Pru short-weighing farmers' sacks on the winnowing floor without being turned out of his apprenticeship, since his family pledged two fields for his berth.
 disposition: [2, 1, 3]
 ```
 ```text
@@ -96,7 +96,7 @@ disposition: [1, 2, 3]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Hulled-Rice** (`Commodity`): Cleaned, white or brown rice kernels stripped of inedible chaff, ready for consumption.
+- **Hulled Rice** (`Commodity`): Cleaned, white or brown rice kernels stripped of inedible chaff, ready for consumption.
 - **Granite Pestle** (`Tool`): Heavy stone grinding head mounted on an articulated wooden lever.
 - **Ironwood Cam Tooth** (`Tool`): Hardwood tooth set into the shaft that lifts the pestle; the part that wears and shatters first.
 - **Rice Bran and Chaff** (`Commodity`): Winnowed by-product, sold as fodder or fuel.

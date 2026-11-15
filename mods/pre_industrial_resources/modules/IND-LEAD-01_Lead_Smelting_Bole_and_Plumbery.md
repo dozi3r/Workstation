@@ -51,11 +51,11 @@ Boles stood on exposed hilltops with three walls and a gap facing the wind; late
 - name: "Master Plumber Alistair Drake"
   role: "Guild Warden"
   disposition: "[2, 1, 3]"
-  motivation: "Secure monopoly contracts for cathedral roof sheeting and municipal water conduits."
-- name: "Slag Tender Brin"
+  motivation: "Hold the cathedral roofing and city conduit contracts against rival guildsmen, while keeping quiet about three leaky cistern joints his crew patched with cheap pewter."
+- name: "Slag Tender Brin Coombe"
   role: "Hearth Feeder"
   disposition: "[4, 1, 2]"
-  motivation: "Earn enough coin to buy purges and remedies to stave off chronic lead colic."
+  motivation: "Earn enough silver on the smoky hearth to buy apothecary purges against lead colic, because the master docks anyone who misses a wind-shift and he cannot afford to drop out."
 - name: "Bole-Master Corin Ashby"
   role: "Hillside Smelter Who Reads the Wind"
   disposition: "[2, 2, 4]"
@@ -69,13 +69,13 @@ Boles stood on exposed hilltops with three walls and a gap facing the wind; late
 ```text
 name: Master Plumber Alistair Drake
 role: Guild Warden
-motivation: Secure monopoly contracts for cathedral roof sheeting and municipal water conduits.
+motivation: Hold the cathedral roofing and city conduit contracts against rival guildsmen, while keeping quiet about three leaky cistern joints his crew patched with cheap pewter.
 disposition: [2, 1, 3]
 ```
 ```text
-name: Slag Tender Brin
+name: Slag Tender Brin Coombe
 role: Hearth Feeder
-motivation: Earn enough coin to buy purges and remedies to stave off chronic lead colic.
+motivation: Earn enough silver on the smoky hearth to buy apothecary purges against lead colic, because the master docks anyone who misses a wind-shift and he cannot afford to drop out.
 disposition: [4, 1, 2]
 ```
 ```text
@@ -100,7 +100,7 @@ disposition: [4, 3, 2]
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Draft Wind Velocity` (`0–10`)**: At `0–3`, dead air starves the fire, leaving ores half-reduced. At `8–10`, gale-force winds overheat the bole and vaporize valuable metal.
-- **Quest Hook — *The Colic Outbreak***: Severe lead poisoning incapacitates half the smelting crew, threatening to halt cathedral lead deliveries unless Master Alistair pays for a physician and purges. Slag Tender Brin is among the sick, Bole-Master Corin Ashby wants the crew back at the hearth before the next good wind, and the cathedral's roofing contract lapses at the month's end.
+- **Quest Hook — *The Colic Outbreak***: Severe lead poisoning incapacitates half the smelting crew, threatening to halt cathedral lead deliveries unless Master Alistair Drake pays for a physician and purges. Slag Tender Brin Coombe is among the sick, Bole-Master Corin Ashby wants the crew back at the hearth before the next good wind, and the cathedral's roofing contract lapses at the month's end.
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Smelts hand-sorted `Ore: Argentiferous-Galena` carted from the **Galena Deep-Vein Mine (`MINE-SILVER-01`)**, and smelts and resmelts `Ore: Lead-Slag`, the lead-rich litharge cake and hearth slag carted in from the **Cupellation Hearth & Sovereign Mint (`IND-SILVER-03`)**, and fires its hearth with `Fuel: Charcoal-or-Coal` from the **Charcoal Burner's Mound (`IND-CHARCOAL-01`)** or the **Deep Colliery and Coking Ovens (`MINE-COAL-01`)**.

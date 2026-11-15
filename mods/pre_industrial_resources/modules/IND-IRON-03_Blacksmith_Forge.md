@@ -37,12 +37,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-IRON` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-A stone-built hearth workbench equipped with leather bellows, heavy anvils, and water-quenching troughs and tallow baths serves as the primary municipal smithy. The smith heats brittle pig-iron pigs with charcoal combustion, folding and hammering out slag impurities to produce malleable, durable forged iron components. This thermal-mechanical craft converts raw cast metal stock into finished tools, hardware, and structural fasteners. It needs `Metal: Pig-Iron`, `Fuel: Charcoal-or-Coal` and `Animal: Tallow`, and it makes `Metal: Forged-Iron`.
+At the stone hearth with leather bellows, heavy anvil, water trough, and covered tallow bath, the smith and apprentice striker turn `Metal: Pig-Iron`, `Fuel: Charcoal-or-Coal` and `Animal: Tallow` into `Metal: Forged-Iron` tools, hardware, and fasteners.
 
-The smith works the iron and the striker swings the sledge where the smith points the hammer; the striker is often an apprentice. Bar iron arrives from the finery and hammer works and the forge reheats it, draws it out and shapes it. The day follows the fire: the hearth is lit before dawn, work is done while the iron is hot, and the quench is the last act on each tool.
-- **Hearth and Bellows:** A charcoal hearth fed by leather bellows, which the smith adjusts by eye to the color of the iron.
-- **Anvil Block:** A heavy faced anvil set on a stump, the shop's most valuable fixture.
-- **Quench Troughs:** A water trough and a covered tallow bath beside the hearth.
+Bar iron from the finery and hammer works is reheated to cherry-yellow, drawn out, and shaped where the smith's hand hammer directs the striker's sledge. Work follows the fire from dawn lighting through the final quench in water or tallow.
+- **Hearth and Bellows:** Charcoal hearth fed by leather bellows judged by iron colour.
+- **Anvil Block:** Heavy steel-faced iron anvil set on an oak stump.
+- **Quench Troughs:** Water trough and covered tallow bath beside the hearth.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 3, 4]` - **Guild Smithy** (`Market`).

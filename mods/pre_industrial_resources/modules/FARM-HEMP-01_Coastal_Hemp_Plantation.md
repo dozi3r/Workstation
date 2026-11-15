@@ -93,7 +93,7 @@ disposition: [1, 4, 3]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Raw-Hemp-Stalks** (`Crop`): Tall, fibrous plant stems harvested for maritime cordage and textile production.
+- **Cut Hemp Stalks** (`Commodity`): Tall, fibrous plant stems harvested for maritime cordage and textile production.
 - **Retting Pit** (`Tool`): Earthen pool where harvested stalks undergo water-rotting to separate fibers.
 - **Retted Bundle** (`Commodity`): A tied sheaf lifted from the pond when the bast feels slimy and the core springs away.
 - **Creek Sluice Gate** (`Tool`): Timber gate that lets tidal creek water into the ponds and holds it there.

@@ -34,12 +34,11 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-HOPS` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-The hop garden is a forest of tall poles and climbing bines that sits sleepy for most of the year, then explodes into a noisy, crowded harvest when the cones ripen and every hand is needed before mould sets in. The oast burns `Fuel: Wood-Fuel` to dry the crop, and the pockets it fills are the `Crop: Hops` that bitter and preserve the brewery's beer.
+The hop garden is a forest of tall chestnut poles and climbing bines that erupts into a crowded late-summer harvest when cones ripen and mould threatens. The oast burns `Fuel: Wood-Fuel` to dry the crop, and the pockets it fills are the `Crop: Hops` that bitter and preserve the brewery's beer.
 
-Picking lasts a few weeks at the end of summer. Migrant families fill canvas bins from dawn, and their count is kept on tally sticks and tokens, paid by the bushel. Fresh hops are mostly water, and must be dried from about eighty percent moisture to about six. They are spread roughly a foot deep on the slatted floor, the heat starts low and climbs but must never scorch them, and sulphur burned in the first hour bleaches the cones. The drier lives in the kiln, rising in the small hours to turn the hops with a wide wooden paddle and testing dryness by rubbing. After a day of drying and a cooling, the hops are pressed hard into pockets of about a hundredweight and a half, stitched, stamped with the grower's name, and marked by the excise officer.
-* **Pole Garden:** Rows of coppiced chestnut poles with pitch-dressed feet, each carrying twisting bines heavy with pale green cones. At harvest the bines are cut down and carried to the picking bins.
-* **Oast Kiln:** A brick drying house with a fire chamber below and a slatted, hair-cloth floor above. Green hops are spread on the floor and dried by the heat of the wood fire rising through them.
-* **Cooling Floor & Pocket Press:** A loft where dried hops cool before being pressed down hard, often by a man treading them, into tall coarse-sacking pockets, then hand-sewn shut, marked, and stacked for the brewery carts.
+Migrant families fill canvas bins from dawn, tallied on notched sticks and tokens by the bushel. Green hops are roughly eighty percent water and must dry to six percent over a rising wood fire, bleached with sulphur in the first hour and turned with a wide wooden scruppet through the small hours. Cooled cones are trodden into coarse sacking pockets of roughly a hundredweight and a half, sewn shut, and marked by the excise officer.
+* **Pole Garden:** Pitch-dressed chestnut poles carrying twisting bines cut down at harvest.
+* **Oast Kiln & Pocket Press:** Brick drying house with slatted hair-cloth floor above a fire chamber, paired with a cooling loft and sacking press.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[3, 2, 3]` - **Seasonal Harvest Commons** (`Clan / Market`).
@@ -56,7 +55,7 @@ Picking lasts a few weeks at the end of summer. Migrant families fill canvas bin
   role: "Oast Drier & Night Fire-Keeper"
   disposition: "[3, 1, 4]"
   motivation: "Hold the kiln fire at a steady heat through the rush nights, and never let the hop floor scorch on his watch again."
-- name: "Wenna Dray"
+- name: "Wenna Bateson"
   role: "Picker Gang Leader & Camp Spokeswoman"
   disposition: "[4, 4, 2]"
   motivation: "Win fair tallies and clean water for the seasonal pickers, and keep the young ones out of the alehouse until the last bin is full."
@@ -79,7 +78,7 @@ motivation: Hold the kiln fire at a steady heat through the rush nights, and nev
 disposition: [3, 1, 4]
 ```
 ```text
-name: Wenna Dray
+name: Wenna Bateson
 role: Picker Gang Leader & Camp Spokeswoman
 motivation: Win fair tallies and clean water for the seasonal pickers, and keep the young ones out of the alehouse until the last bin is full.
 disposition: [4, 4, 2]
@@ -100,7 +99,7 @@ disposition: [1, 1, 3]
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial - `Picking Season` (`0-10`)**: At `0-3`, the bines climb quietly, the oast stands cold, and nothing is picked, dried or sold. At `8-10`, the kiln rush has the oast burning day and night with damp hops stacked past what the floor can take, so scorched cones, exhausted driers and a flare in the fire chamber threaten the whole crop.
-- **Quest Hook - *The Short Tally***: Wenna Dray claims Hester Quayle's tally sticks have been shorted by a bushel in every five, and she threatens a walk-off on the day the south rows are ripe. Old Benet Furrow cannot dry the crop without the pickers, and Excise Tallyman Corvin Peale is due to mark the first pockets within three days, so the party must settle the count before the camp leaves.
+- **Quest Hook - *The Short Tally***: Wenna Bateson claims Hester Quayle's tally sticks have been shorted by a bushel in every five, and she threatens a walk-off on the day the south rows are ripe. Old Benet Furrow cannot dry the crop without the pickers, and Excise Tallyman Corvin Peale is due to mark the first pockets within three days, so the party must settle the count before the camp leaves.
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Burns stacks of `Fuel: Wood-Fuel` from the **Hardwood Logging Camp (`EXT-TIMBER-01`)** in the oast fire chamber through the drying season; the garden cannot ship a single pocket without it.

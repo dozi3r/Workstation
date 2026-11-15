@@ -14,7 +14,7 @@ culture_quadrant: Market / Hierarchy
 operational_profile: Produce / Design
 mtg_color: Red / Green
 node_prerequisites:
-  power_source: Waterwheel, Steam Boiler or Draft Mule Gearing
+  power_source: Waterwheel, Windmill, or Draft Mule Gearing
   thermal_feed: Constant Fuel Supply (Cordwood, Charcoal, or Dried Cane Trash)
   facility_tier: Heavy Workshop or Outpost Mill
 standalone_fallback: "If thermal fuel runs out, unboiled cane juice can be fermented directly into sour farm mash, producing zero refined loaves and cutting alcohol yield by 70%."
@@ -27,7 +27,7 @@ injected_mechanics:
     level_4: "Kettle Boilover & Caramel Fire - Scorched vat flashes into explosive caramel smoke."
   threat_clocks:
     crusher_roller_jam: "Roller Jam Clock [4 Ticks] - Fiber tangles iron teeth if greasing fails."
-    boiler_steam_rupture: "Boiler Pressure Clock [6 Ticks] - Safety valve caked in calcified lime."
+    flue_boilover_clock: "Flue & Copper-Pan Boilover Clock [6 Ticks] - Scaled sugar-crust chokes the copper strike pan and cracks the firebrick flue."
   yields_resource: "Granulated Sugar Loaves & Heavy Blackstrap Molasses Vats"
 ---
 
@@ -40,7 +40,7 @@ The crushing mill and boiling house forms the industrial core of sugar manufactu
 In crop time the mill and boiling house run through the night in shifts, because cut cane spoils within a day or two. The work is done largely by enslaved hands, and the skilled posts of boiler and skimmer carry real status and real danger. Syrup is poured into inverted conical clay pots and drains molasses for about thirty days.
 
 * **Three-Roller Iron Mill:** Heavy grooved rollers driven by an undershot waterwheel or mule sweep. Stalks fed into the nip are crushed under immense mechanical pressure, expelling foamy green sap.
-* **The Jamaica Boiling Train:** Five descending copper cauldrons built over a flue-fired firebrick furnace. The juice is clarified with quicklime, skimmed of scum, and ladled down the train until it granulates in the strike pan.
+* **The Stepped Boiling Train:** Five descending copper cauldrons built over a flue-fired firebrick furnace. The juice is clarified with quicklime, skimmed of scum, and ladled down the train until it granulates in the strike pan.
 * **Curing Hogshead Loft:** Open-beamed timber loft where conical clay pots drain black molasses from the crystalline sugar loaves.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
@@ -53,11 +53,11 @@ In crop time the mill and boiling house run through the night in shifts, because
 - name: "Kasia Vorn"
   role: "Master Sugar Boiler & Still-Watcher"
   disposition: "[4, 4, 3]"
-  motivation: "Perfect the crystalline strike point and prevent sugar masters from shorting her share."
+  motivation: "Judge the exact crystalline strike point before the syrup scorches, because every burnt copper is charged against her bonus and she suspects the night bookkeeper is shorting her share of the cured loaves."
 - name: "Tobias Pike"
-  role: "Millwright & Steam Engineer"
+  role: "Millwright & Roller-Train Wright"
   disposition: "[2, 1, 4]"
-  motivation: "Keep the bronze roller bearings packed with beef tallow to avoid catastrophic seizures."
+  motivation: "Keep the bronze roller bearings packed with beef tallow through the non-stop crop shifts, since a seized mill halts the cane carts and the estate blames the wright rather than the driver."
 - name: "Adaeze Morrow"
   role: "Skimmer on the Copper Train (enslaved)"
   disposition: "[4, 3, 2]"
@@ -71,13 +71,13 @@ In crop time the mill and boiling house run through the night in shifts, because
 ```text
 name: Kasia Vorn
 role: Master Sugar Boiler & Still-Watcher
-motivation: Perfect the crystalline strike point and prevent sugar masters from shorting her share.
+motivation: Judge the exact crystalline strike point before the syrup scorches, because every burnt copper is charged against her bonus and she suspects the night bookkeeper is shorting her share of the cured loaves.
 disposition: [4, 4, 3]
 ```
 ```text
 name: Tobias Pike
-role: Millwright & Steam Engineer
-motivation: Keep the bronze roller bearings packed with beef tallow to avoid catastrophic seizures.
+role: Millwright & Roller-Train Wright
+motivation: Keep the bronze roller bearings packed with beef tallow through the non-stop crop shifts, since a seized mill halts the cane carts and the estate blames the wright rather than the driver.
 disposition: [2, 1, 4]
 ```
 ```text

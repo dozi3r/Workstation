@@ -37,12 +37,11 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-PAPER` (Stage 1: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-This water-powered processing works features stone retting troughs and heavy timber stamping hammers driven by an overshot waterwheel. Sorted linen rags, with a minor admixture of straw fibre learned from Eastern papermaking, are soaked in lime-infused water to break down lignins, then mechanically macerated by falling pestles into a uniform, fibrous slurry known as rag pulp. The required inputs of Textile: Linen-Cloth, Material: Rice-Straw and Chem: Slaked-Lime become Material: Rag-Pulp.
+Set apart from town walls for noise and smell, this overshot waterwheel mill turns `Textile: Linen-Cloth` rags, minor filler of `Material: Rice-Straw` fibre, and `Chem: Slaked-Lime` into `Material: Rag-Pulp`. Women and girls sort rags into three to six grades and cut them under two inches before fermenting them five to six weeks in cemented basins until the heap grows too hot to hold a hand in; heavy lime speeds rot at the cost of weaker fibre.
 
-Rags are sorted by women and girls into three to six grades, cut to pieces under two inches and fermented in a cemented basin for five to six weeks, the work stopped when the heap is too hot to hold a hand in. Lime speeds the rot but weakens the fibre, so some districts regulated its use. Stamper troughs, typically six, are worked by hammers striking about forty blows a minute: three to break, two to beat and one to brush out, with washing throughout. Mills stand away from town walls because of noise and smell.
-- **Retting Basin:** cemented sides, uncemented floor.
-- **Stamper Battery:** troughs of wooden hammers on a camshaft.
-- **Rag Loft:** where sorted rags are stored by grade.
+Six stamper troughs of wooden hammers strike roughly forty blows a minute -- three to break, two to beat, one to brush out -- under continuous washing.
+- **Retting Basin:** Cemented-wall, earth-floored tank for multi-week rag fermentation.
+- **Stamper Battery & Rag Loft:** Cam-driven wooden pestles and graded rag storage.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 3, 2]` — **Operational Pragmatist** (`Market`).
@@ -96,8 +95,8 @@ disposition: [3, 4, 1]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Rag-Pulp** (`Commodity`): Wet, fibrous paste ready for sheet forming and pressing.
-- **Waterwheel-Drive** (`Tool`): Heavy wooden linkage transferring kinetic energy to vertical stamping pestles.
+- **Rag Pulp** (`Commodity`): Wet, fibrous paste ready for sheet forming and pressing.
+- **Waterwheel Drive** (`Tool`): Heavy wooden linkage transferring kinetic energy to vertical stamping pestles.
 - **Sorted Rag Sacks** (`Commodity`): Linen rags graded by strength, cut small and ready for the basin.
 - **Lime Pail** (`Reagent`): Slaked lime measured into the rag heaps to speed the rot, never more than the miller allows.
 

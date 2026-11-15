@@ -34,12 +34,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-GRAPHITE` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-The plumbago drift is a small, jealously guarded hole in a bare fellside, worked only in short seasons and kept shut and guarded between them so that the black lead stays scarce and dear. The drift needs `Timber: Mine-Props` to brace the broken ground and yields `Mineral: Graphite`, the soft black wad that founders prize for casting moulds.
+The plumbago drift is a jealously guarded hole in a bare fellside, worked only in short seasons so black lead stays scarce and dear. The drift needs `Timber: Mine-Props` to brace the broken ground and yields `Mineral: Graphite`, the soft black wad that founders prize for casting moulds.
 
-The proprietors work the mine only when stock runs low, then close it again, and the price of wad climbs steeply over the years. In a season the miners hunt each pocket, clear it, and hunt again, while dressers sort and prepare the wad inside the guardhouse. Every man is searched when he leaves, armed guards hold the door, and the law treats stealing or receiving wad as a felony. Carriers and dealers move the legitimate casks out, and receivers hover for the rest.
-* **Black Lead Pipes:** Irregular pockets and inclined pipes of soft, greasy graphite running through hard rock. They are hard to find and easy to empty; a good pocket can be cleared in days, then the miners must hunt again.
-* **Drainage Level & Timbered Drift:** A long, low tunnel cut with picks and wedges to let water out from below, with timber props set wherever the rock is broken. Drainage is the constant fight as the workings go deeper.
-* **Guardhouse & Search Room:** A stone house built directly over the mine mouth, with a barred stockroom for the sorted nodules. Every miner going off shift is stripped and searched, and the house is locked and garrisoned through the shut years.
+The proprietors open the mine only when stock runs low, driving prices steeply higher between seasons. Crews hunt each pocket until cleared, while dressers sort nodules inside the guardhouse. Every miner is stripped and searched going off shift, armed guards hold the door, and stealing or receiving wad is a felony.
+* **Black Lead Pipes:** Irregular pockets of greasy graphite in hard rock, quickly emptied once found.
+* **Drainage Level & Timbered Drift:** Low pick-cut tunnel draining deeper workings beneath propped ground.
+* **Guardhouse & Search Room:** Barred stone house over the mine mouth where casks are sealed and miners searched.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[1, 1, 4]` - **Guarded Black Lead Monopoly** (`Hierarchy / Clan`).
@@ -51,7 +51,7 @@ The proprietors work the mine only when stock runs low, then close it again, and
 - name: "Warden Hask Ellory"
   role: "Guardhouse Keeper & Proprietors' Agent"
   disposition: "[1, 1, 4]"
-  motivation: "Keep the mine shut and guarded through the lean years and catch whoever is carrying nodules down the valley."
+  motivation: "Keep the drift sealed through the lean years and catch whoever is carrying black-lead nodules down the valley, because the proprietors docked his last quarter's pay over missing casks and threatened to turn him out of the guardhouse."
 - name: "Mabbet Sowerby"
   role: "Pipe-Finder & Veteran Miner"
   disposition: "[4, 3, 2]"
@@ -69,7 +69,7 @@ The proprietors work the mine only when stock runs low, then close it again, and
 ```text
 name: Warden Hask Ellory
 role: Guardhouse Keeper & Proprietors' Agent
-motivation: Keep the mine shut and guarded through the lean years and catch whoever is carrying nodules down the valley.
+motivation: Keep the drift sealed through the lean years and catch whoever is carrying black-lead nodules down the valley, because the proprietors docked his last quarter's pay over missing casks and threatened to turn him out of the guardhouse.
 disposition: [1, 1, 4]
 ```
 ```text

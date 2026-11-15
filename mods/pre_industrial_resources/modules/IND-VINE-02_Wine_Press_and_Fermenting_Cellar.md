@@ -27,7 +27,7 @@ injected_mechanics:
     level_1: "Cold Cellar - Winter drafts slow the yeast; must stalls sweet and cloudy."
     level_2: "Cool Ferment - Steady cellar air; the cap is trodden down and the casks hum quietly."
     level_3: "Warm Cellar - Summer heat and air-leaking bungs tilt batches toward sourness."
-    level_4: "Vinegar Cellar - Acetic bacteria take whole casks; the vault stinks of sharp acid."
+    level_4: "Vinegar Cellar - Sour vinegar-mother takes whole casks; the vault stinks of sharp acid."
   threat_clocks:
     acetic_clock: "Acetification Clock [6 Ticks] - Each hot day or loose bung advances it; at full, the premier casks turn to vinegar."
     cask_leak_clock: "Weeping Stave Clock [4 Ticks] - Each leaking cask and each uninspected stave advances it; at full, a row is lost to the cellar floor."
@@ -96,12 +96,12 @@ disposition: [1, 3, 4]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Food: Vintage-Wine** (`Commodity`): Fermented grape juice aged to complex aromatic perfection.
-- **Chem: Wine-Vinegar** (`Commodity`): Sharp, acetic acid solution used for food preservation and cleaning.
+- **Vintage Wine** (`Commodity`): Fermented grape juice aged to complex aromatic perfection.
+- **Wine Vinegar** (`Commodity`): Sharp, acetic acid solution used for food preservation and cleaning.
 - **Oak Wine Cask** (`Tool`): A tight-cooperage cask with a bung-hole and the cooper's stamped mark.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
-- **Dial — `Cellar Temperature` (`0–10`)**: At `0–3`, freezing winter drafts halt fermentation prematurely, leaving sickly sweet must. At `8–10`, summer heat spikes accelerate bacterial growth, turning entire reserves into sour vinegar.
+- **Dial - `Cellar Temperature` (`0-10`)**: At `0-3`, freezing winter drafts halt fermentation prematurely, leaving sickly sweet must. At `8-10`, summer heat spikes spoil entire reserves into sour vinegar.
 - **Quest Hook — *The Spiked Cask***: A rogue heat wave threatens the main aging stock under Odo Ferrand, prompting Hubert Maillard to haul cold spring water through the cellars to cool the barrels before the prized vintage spoils entirely. Corvin Aldous arrives in three days to gauge and buy, and Tamsin Ardley's crew will not tread another vat until the cellar is cooled.
 
 ## 5. GM Socket Placement & Supply Synergy

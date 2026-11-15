@@ -48,7 +48,7 @@ Dried kernels are cooked at or near the boil for minutes up to an hour, left to 
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 3, 2]` - **Operational Artisan** (`Market`).
-- **Sociological Rationale**: Precise soaking times and grinding rhythm determine the quality of staple food supplies for the entire settlement.
+- **Sociological Rationale**: Precise soaking times and grinding rhythm determine the quality of staple food supplies for the entire settlement, and masa sold or bartered to households every day keeps the vats tied to local demand.
 
 ## 3. Stationed Entities & Roster Prototypes
 
@@ -56,11 +56,11 @@ Dried kernels are cooked at or near the boil for minutes up to an hour, left to 
 - name: "Miller Xochitl Green-Corn"
   role: "Chief Nixtamal Master"
   disposition: "[3, 3, 2]"
-  motivation: "Maintain exact lime-to-water ratios for optimal dough consistency."
+  motivation: "Hold the lime-to-water steep exact before the dawn grinding, because Market Steward Itzel Quemada docks her for bitter masa while Nacho Ayala keeps delivering weak, air-slaked lime."
 - name: "Grinder Tepoz Tochtli"
   role: "Metate Operator"
   disposition: "[4, 2, 3]"
-  motivation: "Grind daily quotas of masa without straining wrist and shoulder joints."
+  motivation: "Finish sixty measures of masa before his wrists lock up on the basalt slab, since the mill deducts unfinished bushels from his rations and he still owes for a cracked mano."
 - name: "Lime-Hauler Nacho Ayala"
   role: "Carrier of Slaked Lime from the Kiln"
   disposition: "[4, 2, 2]"
@@ -74,13 +74,13 @@ Dried kernels are cooked at or near the boil for minutes up to an hour, left to 
 ```text
 name: Miller Xochitl Green-Corn
 role: Chief Nixtamal Master
-motivation: Maintain exact lime-to-water ratios for optimal dough consistency.
+motivation: Hold the lime-to-water steep exact before the dawn grinding, because Market Steward Itzel Quemada docks her for bitter masa while Nacho Ayala keeps delivering weak, air-slaked lime.
 disposition: [3, 3, 2]
 ```
 ```text
 name: Grinder Tepoz Tochtli
 role: Metate Operator
-motivation: Grind daily quotas of masa without straining wrist and shoulder joints.
+motivation: Finish sixty measures of masa before his wrists lock up on the basalt slab, since the mill deducts unfinished bushels from his rations and he still owes for a cracked mano.
 disposition: [4, 2, 3]
 ```
 ```text
@@ -98,8 +98,8 @@ disposition: [2, 4, 2]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Masa-Flour** (`Commodity`): Freshly ground, alkaline-treated corn dough ready for flatbread baking.
-- **Stone-Metate** (`Tool`): Carved volcanic basalt grinding slab and mano used for manual grain milling.
+- **Masa Flour** (`Commodity`): Freshly ground, alkaline-treated corn dough ready for flatbread baking.
+- **Stone Metate** (`Tool`): Carved volcanic basalt grinding slab and mano used for manual grain milling.
 - **Slaked Lime Sack** (`Reagent`): Heavy sack of caustic white powder, measured out by Xochitl alone.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)

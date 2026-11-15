@@ -56,11 +56,11 @@ Grey cloth is scoured, sun-dried and treated before printing. Printers press car
 - name: "Master Printer Veda Sharma"
   role: "Chief Block-Printer and Colorist"
   disposition: "[2, 3, 4]"
-  motivation: "Perfect the mordant-resist formula to ensure brilliant, smudge-free indigo patterns."
+  motivation: "Guard her family's alum-mordant paste recipe from rival workshops while holding crisp lines on the export order, because the house borrowed heavily on credit for this season's mordant."
 - name: "Loom Master Homi Guzder"
   role: "Pit-Loom Weaving Master"
   disposition: "[3, 2, 3]"
-  motivation: "Maintain flawless warp tension to prevent thread snaps during high-speed shuttle runs."
+  motivation: "Hold every pit-loom warp taut through the damp rains so threads stop snapping, since half his weavers are threatening to walk to the port mills if their piece-work stalls."
 - name: "Vat Keeper Kasim Rangrez"
   role: "Keeper of the Indigo Vats and Mordant Cauldrons"
   disposition: "[3, 2, 4]"
@@ -74,13 +74,13 @@ Grey cloth is scoured, sun-dried and treated before printing. Printers press car
 ```text
 name: Master Printer Veda Sharma
 role: Chief Block-Printer and Colorist
-motivation: Perfect the mordant-resist formula to ensure brilliant, smudge-free indigo patterns.
+motivation: Guard her family's alum-mordant paste recipe from rival workshops while holding crisp lines on the export order, because the house borrowed heavily on credit for this season's mordant.
 disposition: [2, 3, 4]
 ```
 ```text
 name: Loom Master Homi Guzder
 role: Pit-Loom Weaving Master
-motivation: Maintain flawless warp tension to prevent thread snaps during high-speed shuttle runs.
+motivation: Hold every pit-loom warp taut through the damp rains so threads stop snapping, since half his weavers are threatening to walk to the port mills if their piece-work stalls.
 disposition: [3, 2, 3]
 ```
 ```text
@@ -98,7 +98,7 @@ disposition: [1, 3, 4]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Dyed-Calico** (`Commodity`): Finished cotton cloth adorned with permanent, vibrant block-printed indigo motifs.
+- **Dyed Calico** (`Commodity`): Finished cotton cloth adorned with permanent, vibrant block-printed indigo motifs.
 - **Carved Printing Block** (`Tool`): Seasoned teak block intricately carved with traditional botanical and geometric motifs.
 - **Alum Mordant Sack** (`Reagent`): Pale crystalline salt that fixes the colors, weighed out by the master printer alone.
 

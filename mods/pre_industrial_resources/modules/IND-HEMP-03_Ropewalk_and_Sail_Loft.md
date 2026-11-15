@@ -53,7 +53,7 @@ Yarn passes from the white yarn house to a hot tarring house and a black yarn ho
 - name: "Walkmaster Eustace Baildon"
   role: "Master of the Ropewalk and Holder of the Navy Contract"
   disposition: "[2, 3, 3]"
-  motivation: "Pass the navy's proof test on the great cable he signed for last month, when he knows two of its yarns were laid up damp to make the date, and quietly replace them before the inspector asks to see the coil."
+  motivation: "Pass the dockyard surveyor's inspection and yarn-strength proof on the great cable he signed for last month, when he knows two of its yarns were laid up damp to make the date, and quietly replace them before the inspector asks to see the coil."
 - name: "Sailmaker Isolda Wright"
   role: "Loft Mistress and Widow of the Loft's Founder"
   disposition: "[3, 2, 4]"
@@ -71,7 +71,7 @@ Yarn passes from the white yarn house to a hot tarring house and a black yarn ho
 ```text
 name: Walkmaster Eustace Baildon
 role: Master of the Ropewalk and Holder of the Navy Contract
-motivation: Pass the navy's proof test on the great cable he signed for last month, when he knows two of its yarns were laid up damp to make the date, and quietly replace them before the inspector asks to see the coil.
+motivation: Pass the dockyard surveyor's inspection and yarn-strength proof on the great cable he signed for last month, when he knows two of its yarns were laid up damp to make the date, and quietly replace them before the inspector asks to see the coil.
 disposition: [2, 3, 3]
 ```
 ```text
@@ -95,8 +95,8 @@ disposition: [3, 1, 4]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Hemp-Cordage** (`Naval`): High-tensile twisted rope engineered for standing and running maritime rigging.
-- **Canvas-Sails** (`Naval`): Heavy-duty waterproofed linen sailcloth rigged to ship masts for propulsion.
+- **Hemp Cordage** (`Commodity`): High-tensile twisted rope engineered for standing and running maritime rigging.
+- **Canvas Sails** (`Commodity`): Heavy-duty waterproofed linen sailcloth rigged to ship masts for propulsion.
 - **Pitch Kettle** (`Tool`): Iron kettle in the tarring house where yarn is drawn through hot pine tar.
 - **Laid Cable Coil** (`Commodity`): Large coiled anchor cable, three strands laid up, ready for the navy's inspection.
 

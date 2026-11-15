@@ -41,7 +41,7 @@ injected_mechanics:
 ## 1. Architectural Overview & Operational Loop
 A timber-and-stone distillery equipped with copper pot stills, wooden fermenting mash tubs, and cooling worm coils fed by cold spring water. Fermented corn mash is boiled and distilled into potent corn whiskey, then aged in charred oak cooperage casks to mellow the spirit for trade and morale distribution. The stillhouse turns Food: Cornmeal-Rations into Food: Corn-Whiskey using Timber: Cooperage-Casks, Fuel: Wood-Fuel, Metal: Forged-Copper and Water: Baseline-Potable-Flow.
 
-Frontier farmers turn bulky grain into spirit because it is easier to carry over the mountains and often passes as money. Each fermentation is started with a measure of spent mash from the last run, so the acid keeps bacteria down. The still runs in batches: the first spirit and the heads are thrown away, the middle is kept, and the last runnings are cut off. Duty is charged per still or per gallon, in coin.
+Frontier farmers turn bulky grain into spirit because it is easier to carry over the mountains and often passes as money. Each fermentation is started with a measure of spent mash from the last run, so the sourness keeps foul ferments down. The still runs in batches: the first spirit and the heads are thrown away, the middle is kept, and the last runnings are cut off. Duty is charged per still or per gallon, in coin.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 4, 3]` - **Entrepreneur** (`Market`).
@@ -53,11 +53,11 @@ Frontier farmers turn bulky grain into spirit because it is easier to carry over
 - name: "Master Distiller Obadiah Crewe"
   role: "Stillhouse Proprietor"
   disposition: "[3, 4, 3]"
-  motivation: "Keep paying duty on one small registered still while running a larger one behind the wall, and move enough whiskey over the mountain to cover the day the collector measures it."
+  motivation: "Pay duty on one small registered still while running a larger copper pot behind the false wall, moving enough whiskey over the mountain before Ezra Pettibone measures the mash."
 - name: "Mash Hand Jonas Pickering"
   role: "Fermentation Tender"
   disposition: "[4, 3, 2]"
-  motivation: "Keep the sour-mash starter alive and the tubs from going foul, while he is paid in whiskey rather than coin and is trying to save enough to buy a pot still of his own."
+  motivation: "Nurse the sour-mash starter alive so the tubs never turn foul, because he is paid in whiskey rather than coin and needs one more clean run to buy a pot still of his own."
 - name: "Excise Collector Ezra Pettibone"
   role: "Collector Registering Stills and Taking the Duty"
   disposition: "[1, 2, 4]"
@@ -71,13 +71,13 @@ Frontier farmers turn bulky grain into spirit because it is easier to carry over
 ```text
 name: Master Distiller Obadiah Crewe
 role: Stillhouse Proprietor
-motivation: Keep paying duty on one small registered still while running a larger one behind the wall, and move enough whiskey over the mountain to cover the day the collector measures it.
+motivation: Pay duty on one small registered still while running a larger copper pot behind the false wall, moving enough whiskey over the mountain before Ezra Pettibone measures the mash.
 disposition: [3, 4, 3]
 ```
 ```text
 name: Mash Hand Jonas Pickering
 role: Fermentation Tender
-motivation: Keep the sour-mash starter alive and the tubs from going foul, while he is paid in whiskey rather than coin and is trying to save enough to buy a pot still of his own.
+motivation: Nurse the sour-mash starter alive so the tubs never turn foul, because he is paid in whiskey rather than coin and needs one more clean run to buy a pot still of his own.
 disposition: [4, 3, 2]
 ```
 ```text

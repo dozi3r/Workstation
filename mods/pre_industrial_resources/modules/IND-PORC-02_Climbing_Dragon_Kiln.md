@@ -39,12 +39,11 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-PORCELAIN` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-Built on steep slopes as a long, terraced brick tunnel, this climbing dragon kiln utilizes natural draft dynamics to achieve extreme vitrification temperatures exceeding 1300 degrees C. Potters load glazed vessels of kaolin and petuntse porcelain into saggers stacked along the sloping chambers, stoking sequential fireboxes from base to summit to bake translucent, resonant ceramics. The kiln needs Mineral: Kaolin-Clay and Mineral: Petuntse-Stone, Mineral: Raw-Clay for the saggers and common body, Chem: Potash for the glaze, and Fuel: Charcoal-or-Coal to heat the chambers, and its end product is Luxury: Fine-Porcelain.
+Climbing a hillside at 10 to 16 degrees, this terraced brick tunnel kiln uses natural draft to vitrify `Mineral: Kaolin-Clay`, `Mineral: Petuntse-Stone`, `Mineral: Raw-Clay` (saggers and common body), `Chem: Potash` (glaze) and `Fuel: Charcoal-or-Coal` above 1,300 degrees C into translucent `Luxury: Fine-Porcelain`.
 
-The kiln rises along a slope of about ten to sixteen degrees, in chambers joined by doors, with a main fire at the foot and stoke holes up the slope to feed fuel at intervals. Peepholes let the firer read the flame. Heat is uneven, and the higher chambers, which warm more slowly, often produce the finer pieces. Cobalt is ground, painted onto dried bodies, then glazed and fired. Defective pieces are smashed on site so that they do not reach the market.
-- **Chambers:** the stepped brick rooms stacked with saggers.
-- **Stoke Holes:** side fireboxes where fuel is added during the climb.
-- **Sagger Yard:** where the refractory cases are made and sorted.
+Potters paint dried bodies with ground cobalt, glaze them, and stack them inside protective saggers across door-linked chambers. Stokers fire the foot firebox and sequential side stoke holes while reading flame colour at peepholes; cooler upper chambers often yield the finest ware, and defective pieces are smashed on site so none reach market.
+- **Chambers & Stoke Holes:** Stepped brick rooms fed through side fireboxes during the climb.
+- **Sagger Yard:** Refractory case-making and sorting floor.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 2, 1]` - **Master Kiln Architect** (`Hierarchy`).
@@ -98,8 +97,8 @@ disposition: [4, 2, 3]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Fine-Porcelain** (`Luxury`): Vitrified, translucent white ceramics prized throughout global trade networks.
-- **Sagger-Box** (`Tool`): Refractory clay case protecting glazed pieces from direct flame and ash fallout.
+- **Fine Porcelain** (`Commodity`): Vitrified, translucent white ceramics prized throughout global trade networks.
+- **Sagger Box** (`Tool`): Refractory clay case protecting glazed pieces from direct flame and ash fallout.
 - **Cobalt Blue Pigment** (`Reagent`): Ground cobalt mixed with a medium and painted onto dried bodies before glazing.
 - **Smashed Sherds** (`Commodity`): Defective pieces broken on site so that they cannot be sold.
 

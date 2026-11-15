@@ -39,7 +39,7 @@ injected_mechanics:
 ## 1. Architectural Overview & Operational Loop
 The instrument guild hall is a quiet, well-lit sanctuary filled with jeweled pivot lathes, dividing engines, and fine-tooth gear cutters. Horologists and instrument makers assemble ground lenses, cast bronze circles, and spring-tempered steel escapements into intricate sextants, chronometers, and astronomical transits. The required inputs of Component: Ground-Lenses, Alloy: Cast-Bronze and Alloy: Crucible-Steel become Luxury: Precision-Instruments.
 
-Chronometer making stayed a craft trade: one maker, a few journeymen, and long adjustment. A detent escapement needs no oil, so thickening lubricant cannot change its rate, and its wheel is often gold for low friction. Springs change stiffness with temperature, so balances carry bimetal compensation. Instruments are checked against the sun and a time ball, and are sent to trial for weeks before a naval or observatory examiner will accept them.
+Chronometer making stayed a craft trade: one maker, a few journeymen, and long adjustment. A detent escapement needs no oil, so thickening lubricant cannot change its rate, and its wheel is often gold for low friction. Springs change stiffness with temperature, so balances carry bimetal compensation. Instruments are checked against the sun and a transit clock, and are sent to trial for weeks before a naval or observatory examiner will accept them.
 - **Dividing Engine:** cuts the graduations on bronze circles.
 - **Rating Room:** where chronometers run for weeks against a standard.
 - **Vault:** locked cabinet for prototypes and drawings.
@@ -54,11 +54,11 @@ Chronometer making stayed a craft trade: one maker, a few journeymen, and long a
 - name: "Master Horologist Cornelius Finch"
   role: "Guild Dean of Instruments"
   disposition: "[1, 2, 4]"
-  motivation: "Deliver marine chronometers of unprecedented accuracy to secure the royal navigation patent."
+  motivation: "Win the royal navigation patent with his detent chronometer before a rival hall copies the escapement, because he staked the guild vault's credit on the upcoming naval trial."
 - name: "Journeyman Tacy Mercer"
   role: "Escapement Adjuster"
   disposition: "[2, 1, 3]"
-  motivation: "Perfect balance-wheel spring tensions to prevent thermal drift during long sea voyages."
+  motivation: "Tune the bimetal balance springs through cold nights so the rate holds steady over weeks, since a failed trial leaves her out of work and she suspects an apprentice is copying her rate notes."
 - name: "Trials Examiner Lt. Garrick Oldfield"
   role: "Naval Examiner Who Rates Each Chronometer Over Weeks"
   disposition: "[1, 1, 4]"
@@ -68,13 +68,13 @@ Chronometer making stayed a craft trade: one maker, a few journeymen, and long a
 ```text
 name: Master Horologist Cornelius Finch
 role: Guild Dean of Instruments
-motivation: Deliver marine chronometers of unprecedented accuracy to secure the royal navigation patent.
+motivation: Win the royal navigation patent with his detent chronometer before a rival hall copies the escapement, because he staked the guild vault's credit on the upcoming naval trial.
 disposition: [1, 2, 4]
 ```
 ```text
 name: Journeyman Tacy Mercer
 role: Escapement Adjuster
-motivation: Perfect balance-wheel spring tensions to prevent thermal drift during long sea voyages.
+motivation: Tune the bimetal balance springs through cold nights so the rate holds steady over weeks, since a failed trial leaves her out of work and she suspects an apprentice is copying her rate notes.
 disposition: [2, 1, 3]
 ```
 ```text
@@ -86,8 +86,8 @@ disposition: [1, 1, 4]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Cast-Bronze** (`Commodity`): Stable alloy castings machined into graduated circles and instrument frames.
-- **Precision-Instruments** (`Tool`): Finished brass-and-glass marvels enabling exact celestial navigation.
+- **Cast Bronze** (`Commodity`): Stable alloy castings machined into graduated circles and instrument frames.
+- **Precision Instruments** (`Tool`): Finished brass-and-glass marvels enabling exact celestial navigation.
 - **Detent Escapement Prototype** (`Relic`): The guild's secret escapement with a gold wheel, kept in the vault.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)

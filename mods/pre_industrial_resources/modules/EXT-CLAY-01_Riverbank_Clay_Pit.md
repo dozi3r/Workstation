@@ -34,13 +34,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-CLAY` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-A terraced alluvial excavation site along a meandering river floodplain features spade-dug pits, silt-settling pools, and wooden cart loading ramps. Laborers excavate dense, cohesive alluvial clay strata, washing away pebble impurities and piling the plastic sediment for weathering. This direct earth-extraction process harvests raw, unrefined mineral clay for downstream ceramic and masonry production. The pit has no inputs of its own: its only output is `Mineral: Raw-Clay`, bought by brickyards, kilns and furnace builders alike.
+A terraced alluvial pit along a meandering river floodplain features spade-dug benches, silt-settling pools, and timber cart ramps. Diggers cut cohesive clay with mattocks and spades, wash out stones and roots in shallow pools, and stack the plastic sediment to weather. The pit takes no tagged inputs; its sole output is `Mineral: Raw-Clay`, bought by brickyards, potteries, and furnace builders.
 
-Clay is dug by hand with mattocks and spades, carried or carted to the settling pools, and cleaned of stones and roots. The kilns set the pace: a firing is only as good as the clay in the pit, and the pit is only as good as its drainage. Brick and pottery clays differ, so the diggers sort the face by colour and feel into the fine plastic seams and the coarser sandy seams, and the carters load each for a different buyer.
-- **Terrace Faces:** stepped cut walls of clay, shaved back in turns so no face hangs over the diggers.
-- **Settling Pools:** shallow basins where washed clay slurry loses its sand and grit.
-- **Drainage Trench:** the cut that carries seep water from the pit floor to the river.
-- **Cart Ramp:** timber-floored slope where clay is loaded for the kiln road.
+The kilns set the pace: a firing is only as good as the clay in the pit, and the pit is only as good as its drainage. Because brick and pottery clays differ, diggers sort the face by color and feel into fine plastic seams and coarser sandy seams before loading each buyer's carts.
+- **Terrace Faces:** Stepped clay walls shaved back in turns so no overhang threatens the diggers.
+- **Settling Pools & Drainage Trench:** Shallow washing basins paired with the floor cut that drains seep water to the river.
+- **Cart Ramp:** Timber-floored slope where sorted clay leaves for the kiln road.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[4, 1, 2]` - **Clan** (`Clan`).

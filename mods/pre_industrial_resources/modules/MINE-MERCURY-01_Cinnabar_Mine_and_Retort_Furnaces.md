@@ -33,12 +33,10 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-MERCURY` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-The cinnabar works is a walled monopoly holding where blood-red ore is hacked from the hill, roasted in sealed clay pots, and coaxed into shivering beads of liquid metal that no one is allowed to count but the crown's clerks.
-
-Convicts and drafted village men on short terms work the face; nearly a quarter of the convicts never see release. In the furnace yard heat drives the quicksilver out of the red rock as vapor, which cools back to liquid metal. The fires burn day and night, strip the hillsides of fuel, and must cool before a pot is opened.
-- **Cinnabar Galleries:** Narrow, timber-propped workings that follow the red vein into the hill, worked in shifts and emptied in baskets onto the sorting floor.
-- **Retort Furnace Yard:** Rows of earthen pots charged with crushed ore, sealed with clay, and fired over banked wood. The vapor rises through a chain of clay condenser tubes and drips into receivers as bright quicksilver. Pots and condenser tubes crack in the heat and are smashed and replaced as they fail.
-- **Flask House & Seal Room:** A barred stone strongroom where the metal is poured into heavy iron flasks, since iron does not take up quicksilver, then weighed at 76 lb, stamped with the monopoly seal, and entered in the ledger.
+The cinnabar works is a walled monopoly holding where blood-red ore is hacked from the hill, roasted in sealed clay pots, and coaxed into shivering beads of quicksilver that only the crown's clerks may count. Convicts and drafted village men on short terms work the face; nearly a quarter of the convicts never see release. Banked wood fires burn day and night in the yard, stripping the surrounding hillsides of fuel, and every furnace must cool before a pot is broken open.
+- **Cinnabar Galleries:** Narrow, timber-propped workings following the red vein into the hill, emptied in baskets onto the sorting floor.
+- **Retort Furnace Yard:** Rows of earthen pots charged with crushed ore and sealed with clay; vapor rises through sloping clay condenser tubes and drips into receivers, while cracked pots are smashed and replaced.
+- **Flask House & Seal Room:** Barred strongroom where quicksilver is poured into 76 lb iron flasks, weighed, stamped with the monopoly seal, and entered in the ledger.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[1, 1, 4]` - **Monopoly Strongroom** (`Hierarchy / Market`).

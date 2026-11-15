@@ -40,17 +40,15 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-POWDER` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-A heavily reinforced, blast-mitigated timber structure spanning a rushing stream where water-driven bronze stamping hammers pulverize and intimately blend saltpeter, sulfur, and charcoal inside damp leather troughs. The resulting explosive cake is forced through copper sieves to granulate into uniform grains before being barreled in sealed casks. The required inputs of Chem: Refined-Saltpeter, Chem: Brimstone-Sulfur, Fuel: Charcoal-or-Coal, Timber: Cooperage-Casks, Alloy: Cast-Bronze and Metal: Forged-Copper yield Ordnance: Corned-Gunpowder.
+Spanning a fast stream, widely spaced blast-mitigated houses blend `Chem: Refined-Saltpeter` (three parts in four), `Chem: Brimstone-Sulfur` and `Fuel: Charcoal-or-Coal` using `Alloy: Cast-Bronze` stamps, `Metal: Forged-Copper` sieves and `Timber: Cooperage-Casks` to produce `Ordnance: Corned-Gunpowder`.
 
-The usual mix is three parts in four saltpeter, with charcoal and sulfur making up the rest. Each stage has its own house, spaced well apart: stone walls with one weak wooden wall and roof so a blast vents toward the stream, power canals that double as fire water, and draft animals kept unshod. The cake is pressed, cut into grains by toothed wheels, sorted through sieves with the oversize reworked, glazed with graphite and then packed in casks and sent to a magazine far from the mill. Reworking old or damp powder throws dust, the worst hazard on the floor.
-- **Stamp House:** bronze-shod stamps on a water-driven shaft over leather troughs.
-- **Corning House:** toothed press wheels and copper sieves.
-- **Stove and Glazing House:** drying and graphite tumbling.
-- **Magazine:** stone store set far from every mill house.
+Each stage sits apart with three stone walls and one weak wooden wall venting toward the stream; power canals double as fire water and draft beasts go unshod. Bronze stamps pound damp cake in leather-lined troughs before toothed wheels corn it, copper sieves grade the grains (with oversize reworked, throwing hazardous dust), and graphite drums glaze the casked powder bound for a distant magazine.
+- **Stamp & Corning Houses:** Bronze-shod water stamps, toothed press wheels, and copper sieves.
+- **Stove, Glazing & Magazine:** Drying stove, graphite tumbler, and distant stone magazine.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[3, 3, 4]` — **Pioneer** (`Adhocracy`).
-- **Sociological Rationale**: High-risk explosive manufacturing requires absolute concentration, peer reliance, and strict adherence to anti-static protocols among the powder-men.
+- **Sociological Rationale**: High-risk explosive manufacturing runs on absolute concentration and peer reliance: small powder crews refine their own mixing and corning methods and hold each other, not a foreman, to the anti-static precautions.
 
 ## 3. Stationed Entities & Roster Prototypes
 
@@ -58,11 +56,11 @@ The usual mix is three parts in four saltpeter, with charcoal and sulfur making 
 - name: "Powder Master Caleb Miller"
   role: "Millwright & Blaster"
   disposition: "[2, 3, 4]"
-  motivation: "Ensure zero spark incidents while maximizing batch density and dry speed."
-- name: "Sieve Hand Jorah Fenn"
+  motivation: "Deliver the garrison's corned powder contract on schedule without triggering a dry-trough spark, because the ordnance board blames him for short weight while the crew walks out if he rushes the damp stamps."
+- name: "Sieve Hand Jorah Clegg"
   role: "Granulation Operator"
   disposition: "[4, 4, 2]"
-  motivation: "Secure better water-wheel maintenance to eliminate erratic stamping vibration."
+  motivation: "Force the press cake through copper sieves before the waterwheel's jarring shakes dust from the rafters, since a worn shaft bearing nearly struck a spark last week and Caleb refuses to halt the mill."
 - name: "Proofmaster Edda Strand"
   role: "Ordnance Inspector who tests every lot of powder"
   disposition: "[1, 1, 3]"
@@ -76,13 +74,13 @@ The usual mix is three parts in four saltpeter, with charcoal and sulfur making 
 ```text
 name: Powder Master Caleb Miller
 role: Millwright & Blaster
-motivation: Ensure zero spark incidents while maximizing batch density and dry speed.
+motivation: Deliver the garrison's corned powder contract on schedule without triggering a dry-trough spark, because the ordnance board blames him for short weight while the crew walks out if he rushes the damp stamps.
 disposition: [2, 3, 4]
 ```
 ```text
-name: Sieve Hand Jorah Fenn
+name: Sieve Hand Jorah Clegg
 role: Granulation Operator
-motivation: Secure better water-wheel maintenance to eliminate erratic stamping vibration.
+motivation: Force the press cake through copper sieves before the waterwheel's jarring shakes dust from the rafters, since a worn shaft bearing nearly struck a spark last week and Caleb refuses to halt the mill.
 disposition: [4, 4, 2]
 ```
 ```text
@@ -100,14 +98,14 @@ disposition: [3, 1, 4]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Corned Gunpowder** (`Ordnance`): Granulated explosive propellant packaged in moisture-proof copper-hooped casks.
+- **Corned Gunpowder** (`Commodity`): Granulated explosive propellant packaged in moisture-proof copper-hooped casks.
 - **Bronze Stamp Shoe** (`Tool`): Spark-resistant heavy bronze pestle used to crush explosive ingredients in troughs.
 - **Copper Sieve** (`Tool`): Perforated copper plate that sorts grains by size and spares the mill an iron spark.
 - **Press Cake** (`Commodity`): Damp pressed slab of mixed ingredients, volatile once it dries.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Stamping Moisture Level` (`0–10`)**: At `0–3`, dry friction triggers catastrophic detonation of the mill house. At `8–10`, excessive water ruins the explosive mix entirely, and the clotted cake wastes the batch.
-- **Quest Hook — *The Dry Sieve***: When a water raceway clogs during mid-stamp, Caleb must clear the wooden flume before friction heat ignites the active crushing trough. Proofmaster Edda Strand arrives with a garrison order due in three days and will not wait; Sieve Hand Jorah Fenn begs the party to stop the wheel before the stamps run dry.
+- **Quest Hook — *The Dry Sieve***: When a water raceway clogs during mid-stamp, Caleb must clear the wooden flume before friction heat ignites the active crushing trough. Proofmaster Edda Strand arrives with a garrison order due in three days and will not wait; Sieve Hand Jorah Clegg begs the party to stop the wheel before the stamps run dry.
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Presses `Chem: Refined-Saltpeter` from the **Nitrary Compost Beds & Leaching House (`EXT-SALTPETER-01`)** and `Chem: Brimstone-Sulfur` from the **Volcanic Fumarole Sulfur Pit (`MINE-SULFUR-02`)**; burns in `Fuel: Charcoal-or-Coal` from the **Charcoal Burner's Mound (`IND-CHARCOAL-01`)** or the **Deep Colliery and Coking Ovens (`MINE-COAL-01`)**; packs in `Timber: Cooperage-Casks` from the **Master Cooperage (`IND-TIMBER-03`)**; shoes its stamps with `Alloy: Cast-Bronze` from the **Bell & Artillery Bronze Foundry (`IND-BRONZE-01`)**; and sieves through `Metal: Forged-Copper` from the **Coppersmith & Brazier Shop (`IND-COPPER-03`)**.

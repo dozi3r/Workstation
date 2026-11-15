@@ -36,13 +36,13 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-BREW` (Stage 1: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-The floor malting kiln is a specialized vaulted masonry hall where harvested cereal grains are steeped in water, germinated on stone floors to activate diastatic enzymes, and gently roasted over a closed wood-fuel kiln. Laborers meticulously rake and turn the sprouting grain beds by hand to regulate humidity and heat, transforming raw agricultural starches into saccharified malt ready for brewing. The required inputs of Crop: Raw-Wheat and Fuel: Wood-Fuel yield refined Food: Malted-Grain.
+Inside a vaulted masonry hall, `Crop: Raw-Wheat` and `Fuel: Wood-Fuel` are converted into saccharified `Food: Malted-Grain` for the city's brewers. Grain is steeped in stone cisterns through two or three wet-and-dry cycles until it holds roughly 40 to 45 percent water, then spread thin across cool stone germination floors.
 
-The grain is steeped in the cistern until it holds roughly 40 to 45 percent water, usually in two or three wet and dry cycles, then spread thin on the floor in a cool hall to germinate. A sprouting bed makes its own heat and can burn, so turners rake it by hand through the day to keep it loose and aerated. When the sprouts are ready the green malt goes to the kiln: a cool first drying, then a warmer cure, until it is nearly dry. Rootlets (culm) are rubbed off. The malt tax is gauged on the steep, so every steep is measured and recorded.
-- **Steeping Cistern:** stone tank where the grain soaks.
-- **Germination Floor:** cool stone floor where the beds sprout.
-- **Kiln:** closed fire with a perforated drying floor.
-- **Rake and Turning Shovel:** hand tools of the turners.
+Because sprouting beds generate their own heat and can burn, turners rake them by hand day and night to keep the grain loose and cool. Once sprouted, green malt moves to a closed wood-fired kiln for a cool drying followed by a warmer cure before the dried rootlets (culm) are rubbed off. Every steep is gauged and logged for the malt duty.
+- **Steeping Cistern:** Stone tank where dry grain absorbs water.
+- **Germination Floor:** Cool stone hall where beds sprout.
+- **Kiln:** Closed hearth beneath a perforated drying floor.
+- **Rake and Turning Shovel:** Hand tools of the floor gang.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 1, 4]` - **Bureaucratic Artisan** (`Hierarchy`).
@@ -86,8 +86,8 @@ disposition: [1, 1, 4]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Raw-Wheat** (`Commodity`): Unprocessed dry cereal grain delivered from regional agrarian estates.
-- **Malted-Grain** (`Commodity`): Sprouted and kiln-dried grain rich in fermentable sugars.
+- **Raw Wheat** (`Commodity`): Unprocessed dry cereal grain delivered from regional agrarian estates.
+- **Malted Grain** (`Commodity`): Sprouted and kiln-dried grain rich in fermentable sugars.
 - **Turning Rake and Malt Shovel** (`Tool`): Wooden rake and wide shovel used to keep the sprouting bed loose and cool.
 - **Duty Book and Gauging Rod** (`Tool`): The gauger's ledger and measuring rod, used to reckon the steep for the malt tax.
 

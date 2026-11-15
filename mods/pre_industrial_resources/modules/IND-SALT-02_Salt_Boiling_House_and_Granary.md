@@ -97,7 +97,7 @@ disposition: [4, 2, 1]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Coarse-Salt** (`Commodity`): Large, mineral-rich salt crystals packed in barrels for maritime preservation.
+- **Coarse Salt** (`Commodity`): Large, mineral-rich salt crystals packed in barrels for maritime preservation.
 - **Iron Boiling Pan** (`Tool`): Heavy forged iron vessel capable of withstanding intense continuous wood-fire heat.
 - **Duty Tally Stick** (`Tool`): Notched record of every barrel that has passed the granary door, checked by the duty collector.
 

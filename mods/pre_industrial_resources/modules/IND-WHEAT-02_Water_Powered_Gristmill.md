@@ -36,12 +36,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-WHEAT` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-A rushing stream drives a massive timber undershot waterwheel, transferring kinetic rotational energy through iron-shod axle shafts to heavy vertical millstones. Raw wheat grain is fed steadily from overhead wooden hoppers down between the grinding surfaces, where shearing friction pulverizes the kernels into fine meal before bolting screens sift out the coarse bran. This mechanical mill transforms bulky agricultural harvests into refined flour. The mill takes `Crop: Raw-Wheat` and iron fittings (`Metal: Forged-Iron`) and yields `Food: Wheat-Flour`.
+A stream drives a timber undershot waterwheel, turning vertical millstones through iron-shod shafts. The mill grinds `Crop: Raw-Wheat` with `Metal: Forged-Iron` fittings and picks, pulverizing kernels into meal and sifting bran through bolting screens to yield `Food: Wheat-Flour`.
 
-Water is led along a leat from the pond and metered by a sluice gate. Grain drops from bins through the hopper into a shaken trough that feeds the turning runner stone above a fixed bed stone; the miller sets the gap between them (tentering) to choose the fineness, and flour leaves through grooves at the rim. The miller is paid by a toll taken from every grist, and the mill itself was often built and owned by the lord.
-- **Leat and Sluice:** channel and gate that govern the wheel.
-- **Stone Floor:** paired runner and bed stones.
-- **Grain Loft:** bins feeding the hopper.
+Water led along a leat through a sluice gate drives the wheel. Grain drops from overhead bins into a shaken trough feeding a turning runner stone above a fixed bed stone; the miller adjusts the gap (tentering) for fineness while collecting a multure toll from each grist for the lord who owns the mill.
+- **Leat and Sluice:** Channel and gate governing the waterwheel.
+- **Stone Floor:** Paired runner and bed stones inside wooden vats.
+- **Grain Loft:** Overhead bins feeding the mill hopper.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 2, 3]` — **Administrator** (`Hierarchy`).
@@ -53,11 +53,11 @@ Water is led along a leat from the pond and metered by a sluice gate. Grain drop
 - name: "Miller Silas Croft"
   role: "Master Miller"
   disposition: "[3, 3, 4]"
-  motivation: "Collect accurate multure tolls in grain while keeping the grinding stones perfectly dressed."
-- name: "Miller's Boy Toby"
+  motivation: "Clear the lord's quarterly mill rent before Reeve Aldecott audits the toll dish, even though worn stone grooves are scorching the meal and he quietly skimmed two sacks to pay the blacksmith."
+- name: "Miller's Boy Toby Chapple"
   role: "Mill Apprentice"
   disposition: "[4, 2, 1]"
-  motivation: "Learn the secrets of stone dressing without losing a finger to the drive gears."
+  motivation: "Pick out the iron splinters from his master's dressing chisel and keep the stones running true before the stone fractures, knowing a broken millstone leaves him jobless for the winter."
 - name: "Mill-Reeve Hugh Aldecott"
   role: "Lord's Mill Steward who audits toll sacks and holds the lease"
   disposition: "[1, 2, 4]"
@@ -67,13 +67,13 @@ Water is led along a leat from the pond and metered by a sluice gate. Grain drop
 ```text
 name: Miller Silas Croft
 role: Master Miller
-motivation: Collect accurate multure tolls in grain while keeping the grinding stones perfectly dressed.
+motivation: Clear the lord's quarterly mill rent before Reeve Aldecott audits the toll dish, even though worn stone grooves are scorching the meal and he quietly skimmed two sacks to pay the blacksmith.
 disposition: [3, 3, 4]
 ```
 ```text
-name: Miller's Boy Toby
+name: Miller's Boy Toby Chapple
 role: Mill Apprentice
-motivation: Learn the secrets of stone dressing without losing a finger to the drive gears.
+motivation: Pick out the iron splinters from his master's dressing chisel and keep the stones running true before the stone fractures, knowing a broken millstone leaves him jobless for the winter.
 disposition: [4, 2, 1]
 ```
 ```text
@@ -85,7 +85,7 @@ disposition: [1, 2, 4]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Wheat-Flour** (`Commodity`): Fine white flour packed into tightly sewn canvas sacks.
+- **Wheat Flour** (`Commodity`): Fine white flour packed into tightly sewn canvas sacks.
 - **Dressing Pick** (`Tool`): A tempered steel chisel used to re-cut gripping grooves into stone mill faces.
 - **Toll Measure** (`Tool`): The miller's sealed dish for taking his share of each grist, watched by tenants and steward alike.
 

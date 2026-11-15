@@ -23,24 +23,23 @@ standalone_fallback: "If the village smithy stops re-tempering wedges, the gang 
 injected_mechanics:
   quarry_face_stability_dial:
     level_1: "Idle Face - Gang between orders; the face weathers and loose slabs gather at the lip."
-    level_2: "Ringing Wedges - Rows of plugs and feathers driven in sequence and left to rest between rounds; blocks part clean along the bedding."
-    level_3: "Rushed Splits - Plugs hammered too fast to meet an order; blow-outs ruin blocks and the overhang is undercut."
+    level_2: "Ringing Wedges - Rows of flat wedges and shims driven in sequence and left to rest between rounds; blocks part clean along the bedding."
+    level_3: "Rushed Splits - Wedges hammered too fast to meet an order; blow-outs ruin blocks and the overhang is undercut."
     level_4: "Face Collapse - An undercut ledge comes down on the gang and the derrick; men and tools are buried."
   threat_clocks:
     blow_out_clock: "Blow-Out Clock [6 Ticks] - Each rushed split that blows out a block adds a tick; when full the overhang is undercut and a rockfall hits the gang."
-    dull_wedge_clock: "Dull Wedge Clock [4 Ticks] - Each week without the smithy's re-tempering adds a tick as plugs and feathers batter; when full the face is split by hand-digging only and orders go unfilled."
+    dull_wedge_clock: "Dull Wedge Clock [4 Ticks] - Each week without the smithy's re-tempering adds a tick as wedges and shims batter; when full the face is split by hand-digging only and orders go unfilled."
   yields_resource: "Cut Limestone Blocks (6 Blocks/Day) and Chalk (1 Cart/Day)"
 ---
 # Limestone Quarry (`EXT-LIME-01`)
 > **Industry Chain**: `CHAIN-LIME` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Open-cut terraced rock faces operated with iron wedges, sledgehammers, and hand-cranked wooden derricks. Laborers fracture sedimentary strata along natural bedding planes to quarry massive ashlar blocks and rubble stone for structural building. The facility turns human muscle and exposed bedrock, working with wedges and sledgehammers from the village smithy, into uniform cut limestone blocks. Softer chalk seams in the upper face are cut apart from the building stone and ground into whiting. The quarry therefore provides `Stone: Cut-Limestone` and `Mineral: Chalk`.
+Open-cut terraced rock faces are worked with iron wedges, sledgehammers, and hand-cranked wooden derricks to fracture bedded strata into ashlar blocks and furnace flux. Softer chalk seams in the upper bench are cut apart from the structural stone and ground into whiting. Working with tempered wedges from the village smithy, the quarry provides `Stone: Cut-Limestone` and `Mineral: Chalk`.
 
-Blocks are split by plug and feather: a line is scored, a row of holes cut 10 to 20 cm apart, a plug and two feathers seated in each, and the plugs struck in sequence until the tone rings, with a pause between rounds so the stone can react. Rushing a round blows out a plug and ruins the block. Rubble and lump stone are sorted for the kilns.
-- **Working Face:** bedded limestone, split along the grain.
-- **Chalk Bench:** the soft seam above, cut apart from the building stone.
-- **Derrick and Cart Track:** where blocks leave the pit.
+Blocks are split with flat iron wedges and sheet shims: a line is scored, narrow wedge-pits cut four to eight inches apart, thin iron shims and a flat wedge seated in each, and the wedges struck in sequence until the tone rings, with a pause between rounds so the stone parts cleanly. Rushing a round blows out a wedge and ruins the block, while rubble and lump stone are sorted for the lime kilns.
+- **Working Face & Chalk Bench:** Bedded limestone split along the grain beneath a soft upper chalk seam.
+- **Derrick and Cart Track:** Timber crane and wagonway where dressed blocks and flux leave the pit.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 2, 1]` — **Quarry Foreman** (`Hierarchy`).
@@ -50,15 +49,15 @@ Blocks are split by plug and feather: a line is scored, a row of holes cut 10 to
 
 ### Key Personnel (NPC Prototypes)
 - name: "Quarry Master Thaddeus Stone"
-  role: "Chief Overseer"
+  role: "Quarry Master & Ledge Contractor"
   disposition: "[2, 2, 1]"
-  motivation: "Extract flawless building blocks without fatal rockfalls or equipment fracture."
+  motivation: "Deliver dressed ashlar blocks to the town builders before winter frost splits the face, having staked his own yard lease on meeting the mason guild's penalty deadline."
 - name: "Blacksmith Apprentice Jory Weld"
-  role: "Tool Sharpener"
+  role: "Quarry Smith & Wedge Temperer"
   disposition: "[3, 3, 2]"
-  motivation: "Keep iron wedges and chisel tips tempered and dressed against hard stone."
-- name: "Feather-Setter Marit Holloway"
-  role: "Plug-and-Feather Splitter who reads the grain and calls each split"
+  motivation: "Re-temper battered flat iron wedges and sheet shims on worn charcoal, because every wedge that shatters in a rushed split is docked from his apprenticeship indenture."
+- name: "Wedge-Setter Marit Holloway"
+  role: "Wedge-and-Shim Splitter who reads the grain and calls each split"
   disposition: "[2, 3, 3]"
   motivation: "Keep her gang from rushing the rounds, because every blown-out block is docked from the gang's tally and a blow-out once cost her brother his hand."
 - name: "Flux Buyer Dorran Pike"
@@ -69,19 +68,19 @@ Blocks are split by plug and feather: a line is scored, a row of holes cut 10 to
 <!-- BEGIN_NPC_MIRROR (generated by infographic/tools/sync_npc_mirror.js - do not edit by hand) -->
 ```text
 name: Quarry Master Thaddeus Stone
-role: Chief Overseer
-motivation: Extract flawless building blocks without fatal rockfalls or equipment fracture.
+role: Quarry Master & Ledge Contractor
+motivation: Deliver dressed ashlar blocks to the town builders before winter frost splits the face, having staked his own yard lease on meeting the mason guild's penalty deadline.
 disposition: [2, 2, 1]
 ```
 ```text
 name: Blacksmith Apprentice Jory Weld
-role: Tool Sharpener
-motivation: Keep iron wedges and chisel tips tempered and dressed against hard stone.
+role: Quarry Smith & Wedge Temperer
+motivation: Re-temper battered flat iron wedges and sheet shims on worn charcoal, because every wedge that shatters in a rushed split is docked from his apprenticeship indenture.
 disposition: [3, 3, 2]
 ```
 ```text
-name: Feather-Setter Marit Holloway
-role: Plug-and-Feather Splitter who reads the grain and calls each split
+name: Wedge-Setter Marit Holloway
+role: Wedge-and-Shim Splitter who reads the grain and calls each split
 motivation: Keep her gang from rushing the rounds, because every blown-out block is docked from the gang's tally and a blow-out once cost her brother his hand.
 disposition: [2, 3, 3]
 ```
@@ -94,10 +93,10 @@ disposition: [3, 4, 1]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Stone: Cut-Limestone** (`Commodity`): Precisely dressed ashlar blocks ready for mortar-free or mortared masonry.
+- **Dressed Limestone Ashlar** (`Commodity`): Precisely split and squared limestone blocks ready for mortar-free or mortared masonry.
 - **Iron Wedges and Sledgehammers** (`Tool`): Heavy wedges, crowbars, and sledgehammers from the village smithy, hardened for splitting rock.
 - **Chalk Whiting** (`Commodity`): Soft white chalk ground fine for dressing hides and polishing, set aside from the structural stone.
-- **Plug and Feather Set** (`Tool`): A wedge between two curved shims, seated in a drilled hole and driven until the tone rings.
+- **Flat Wedge and Shim Set** (`Tool`): A flat iron wedge between two thin iron shims, seated in a cut pit and driven until the tone rings.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Quarry Face Stability` (`0–10`)**: At `0–3`, careless wedge placement triggers unexpected rock collapses, burying tools and workers. At `8–10`, meticulous shoring ensures high-yield block extraction, but the slow rested rounds mean the gang falls behind its orders and buyers lean on the foreman.
@@ -110,5 +109,5 @@ disposition: [3, 4, 1]
 
 ## 6. Vague Game Hazards
 * **Rockfall:** An undercut ledge or blown-out block drops on the gang ($3\text{d}6$ bludgeoning damage and buried tools).
-* **Flying Chips:** A struck plug throws stone splinters ($1\text{d}6$ damage and risk of blinding).
+* **Flying Chips:** A struck wedge throws stone splinters ($1\text{d}6$ damage and risk of blinding).
 * **Derrick Slip:** A block slips its chain on the cart track ($2\text{d}6$ crushing damage to anyone beneath).

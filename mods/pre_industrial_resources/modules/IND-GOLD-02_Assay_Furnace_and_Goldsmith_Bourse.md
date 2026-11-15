@@ -40,12 +40,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-GOLD` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-In secure back-alley bourse chambers, goldsmiths melt raw placer dust in small fire-clay crucibles and apply aqua fortis (nitric parting acid) of their own distilling to dissolve alloyed silver and base metals away from native gold. The required inputs of Ore: Gold-Dust, Fuel: Charcoal-or-Coal, Chem: Refined-Saltpeter and Chem: Copper-Sulfate, held in Commodity: Ceramic-Vessels and Commodity: Glassware, are refined through precise thermal and chemical dissolution, yielding pristine, stamped Metal: Gold-Bullion bars ready for high-value commerce. The bourse makes its own acid: saltpeter is distilled with blue vitriol (copper sulfate) in clay retorts with glass or earthenware receivers, the same Commodity: Ceramic-Vessels and Commodity: Glassware that later hold the parting boil.
+In secure bourse chambers, goldsmiths melt `Ore: Gold-Dust` with `Fuel: Charcoal-or-Coal` in fire-clay `Commodity: Ceramic-Vessels` and distill their own aqua fortis from `Chem: Refined-Saltpeter` and `Chem: Copper-Sulfate` inside `Commodity: Glassware` receivers to part and cast stamped `Metal: Gold-Bullion` bars.
 
-Gold dust is weighed as currency and dealers issue drafts against it. For parting, gold is alloyed with about three parts silver, boiled in acid, and the silver is recovered from the liquid, leaving gold near pure. The older cementation method seals gold, salt and brick dust in a pot and heats it for many hours. Assayers test samples, and the stamped bar is the bourse's word.
-- **Crucible Furnace:** where dust is melted.
-- **Parting Room:** where acid dissolves the silver.
-- **Weighing Chamber:** scales and assay stamps.
+To part gold, smiths alloy it with roughly three parts silver and boil the melt in parting acid, dissolving base metals and recovering the silver from the spent liquor; the older cementation method seals gold, salt, and brick dust in a heated pot for hours. Gold dust itself passes as currency against merchant drafts, while assayers test each sample so the bourse's stamp stays trusted.
+- **Crucible Furnace:** Small fire-clay furnace for melting gold dust and parting alloys.
+- **Parting Room:** Ventilated chamber for acid distillation and aqua fortis boiling.
+- **Weighing Chamber:** Assay scales, touchstones, and bourse stamps.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[1, 4, 3]` - **Merchant Guild** (`Market`).
@@ -57,11 +57,11 @@ Gold dust is weighed as currency and dealers issue drafts against it. For partin
 - name: "Master Assayer Barnaby Golding"
   role: "Bourse Warden"
   disposition: "[1, 3, 3]"
-  motivation: "Maintain unblemished reputation for purity while profiting handsomely on assay fees."
-- name: "Acid-Boy Jaron"
+  motivation: "Collect assay fees on every parcel crossing the scales while hiding that his own test-acid was weakened by bad saltpeter last week, leaving a plated bar unchecked under his stamp."
+- name: "Acid-Boy Jaron Kester"
   role: "Fume Tender"
   disposition: "[3, 4, 1]"
-  motivation: "Learn the secret arts of parting gold without losing his teeth to the acid fumes."
+  motivation: "Vent the parting room and watch the glass receivers without breathing the red fumes rotting his teeth, because the warden withholds his wages until he masters the acid ratios."
 - name: "Dust Dealer Corvin Halloran"
   role: "Gold Dealer who buys dust and issues drafts"
   disposition: "[2, 4, 2]"
@@ -75,13 +75,13 @@ Gold dust is weighed as currency and dealers issue drafts against it. For partin
 ```text
 name: Master Assayer Barnaby Golding
 role: Bourse Warden
-motivation: Maintain unblemished reputation for purity while profiting handsomely on assay fees.
+motivation: Collect assay fees on every parcel crossing the scales while hiding that his own test-acid was weakened by bad saltpeter last week, leaving a plated bar unchecked under his stamp.
 disposition: [1, 3, 3]
 ```
 ```text
-name: Acid-Boy Jaron
+name: Acid-Boy Jaron Kester
 role: Fume Tender
-motivation: Learn the secret arts of parting gold without losing his teeth to the acid fumes.
+motivation: Vent the parting room and watch the glass receivers without breathing the red fumes rotting his teeth, because the warden withholds his wages until he masters the acid ratios.
 disposition: [3, 4, 1]
 ```
 ```text

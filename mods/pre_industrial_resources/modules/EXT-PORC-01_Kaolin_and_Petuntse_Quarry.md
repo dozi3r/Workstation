@@ -94,8 +94,8 @@ disposition: [1, 4, 3]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Kaolin-Clay** (`Commodity`): Pure white, refractory clay essential for high-fire porcelain bodies.
-- **Crushing-Sledge** (`Tool`): Heavy iron-headed hammer used to break raw stone blocks before wet milling.
+- **Washed Kaolin Clay Cake** (`Commodity`): Pure white, refractory clay cut into settled cakes for high-fire porcelain bodies.
+- **Iron Crushing Sledge** (`Tool`): Heavy iron-headed hammer used to break raw stone blocks before wet milling.
 - **Petuntse Stone** (`Commodity`): Weathered white porcelain stone, pulverized in water-powered mills to give porcelain its glassy body.
 - **Petuntse Brick** (`Commodity`): Small pressed white brick of milled porcelain stone, the form in which it ships to the kilns.
 

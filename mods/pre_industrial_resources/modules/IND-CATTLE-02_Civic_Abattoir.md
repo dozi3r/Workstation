@@ -55,16 +55,16 @@ Town rules say offal goes to the appointed pits or stream, not the street, yet t
 - name: "Master Butcher Barnaby Cull"
   role: "Chief Abattoir Inspector and Slaughter Master"
   disposition: "[2, 2, 4]"
-  motivation: "Ensure zero waste contamination of the municipal water supply while maximizing hide yield, because the magistrates fine the master for every complaint."
-- name: "Flayer Jessamyn Thorne"
+  motivation: "Drive the slaughter floor fast enough to keep hides unspoiled while keeping blood and offal out of the river, because the magistrates fine him heavily for every complaint from downstream."
+- name: "Flayer Jessamyn Bale"
   role: "Hide Curing and Tallow Boiler"
   disposition: "[3, 1, 3]"
-  motivation: "Extract unblemished hides for the tannery without knife-gouge blemishes, since the tanners dock her pay for every gouge."
+  motivation: "Strip every hide whole without knife gouges while cattle back up in the pens, since the tanners dock her pay for each scored pelt and the master pushes her to rush the blade."
 - name: "Bone-Burner Wystan Lark"
   role: "Kiln-man who boils and calcines bone into bone ash"
   disposition: "[3, 3, 2]"
   motivation: "Sell clean white ash to the refiners' cupel hearths at a good price, and he guards his kiln hours from the butchers who want the fuel for their vats."
-- name: "Shambles Beadle Edda Marsh"
+- name: "Shambles Beadle Edda Thornhill"
   role: "Town officer who enforces the offal and slaughter ordinances"
   disposition: "[1, 1, 4]"
   motivation: "Catch the butchers dumping blood and offal before the downstream parish brings a complaint to the magistrates, as her own post depends on a clean river."
@@ -73,13 +73,13 @@ Town rules say offal goes to the appointed pits or stream, not the street, yet t
 ```text
 name: Master Butcher Barnaby Cull
 role: Chief Abattoir Inspector and Slaughter Master
-motivation: Ensure zero waste contamination of the municipal water supply while maximizing hide yield, because the magistrates fine the master for every complaint.
+motivation: Drive the slaughter floor fast enough to keep hides unspoiled while keeping blood and offal out of the river, because the magistrates fine him heavily for every complaint from downstream.
 disposition: [2, 2, 4]
 ```
 ```text
-name: Flayer Jessamyn Thorne
+name: Flayer Jessamyn Bale
 role: Hide Curing and Tallow Boiler
-motivation: Extract unblemished hides for the tannery without knife-gouge blemishes, since the tanners dock her pay for every gouge.
+motivation: Strip every hide whole without knife gouges while cattle back up in the pens, since the tanners dock her pay for each scored pelt and the master pushes her to rush the blade.
 disposition: [3, 1, 3]
 ```
 ```text
@@ -89,7 +89,7 @@ motivation: Sell clean white ash to the refiners' cupel hearths at a good price,
 disposition: [3, 3, 2]
 ```
 ```text
-name: Shambles Beadle Edda Marsh
+name: Shambles Beadle Edda Thornhill
 role: Town officer who enforces the offal and slaughter ordinances
 motivation: Catch the butchers dumping blood and offal before the downstream parish brings a complaint to the magistrates, as her own post depends on a clean river.
 disposition: [1, 1, 4]
@@ -104,7 +104,7 @@ disposition: [1, 1, 4]
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Sanitation and Drainage` (`0–10`)**: At `0–3`, bloodclogged drains attract vermin and threaten city health inspectors. At `8–10`, over-processing overwhelms the boiling vats, creating foul stenches that spark neighborhood riots.
-- **Quest Hook — *The Blocked Sluice***: Waste clogs the abattoir's primary river sluice just as a massive cattle drive arrives from the ranches. Barnaby and Jessamyn must clear the organic blockage before civic magistrates suspend their operating charter, and Beadle Edda Marsh is already on her way to inspect it.
+- **Quest Hook — *The Blocked Sluice***: Waste clogs the abattoir's primary river sluice just as a massive cattle drive arrives from the ranches. Barnaby Cull and Jessamyn Bale must clear the organic blockage before civic magistrates suspend their operating charter, and Beadle Edda Thornhill is already on her way to inspect it.
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Slaughters `Livestock: Cattle` driven in from the **Pasture Ranch (`FARM-CATTLE-01`)**.

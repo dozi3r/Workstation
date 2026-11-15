@@ -39,13 +39,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-FISH` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-The salting stages and smokehouse transform perishable fresh-catch into shelf-stable provisions for long sea voyages. Laborers gut, wash, and heavily pack fish layers with coarse-salt inside cooperage casks, or hang them in vaulted smokehouses fueled by slow-burning hardwood. This multi-step dehydration and curing process prevents spoilage. The required inputs of Food: Fresh-Catch, Commodity: Coarse-Salt, Timber: Cooperage-Casks and Fuel: Wood-Fuel yield Food: Salted-Fish.
+Along the harbor stages, `Food: Fresh-Catch`, `Commodity: Coarse-Salt`, `Timber: Cooperage-Casks` and `Fuel: Wood-Fuel` become shelf-stable `Food: Salted-Fish` for winter stores and naval provisioning. Crews of three -- two gutters and a tall packer -- clean fish and pack each barrel in three settling stages, draining and reusing the pickle between layers.
 
-Gutting and packing is piece work done in crews of three: two gutters and a tall packer who lays each tier with rough salt. A barrel is filled in three stages, with the cooper letting the fish settle and draining and reusing the pickle between fillings. Packers call "bottom tier" so the curer can inspect the first layer. The cooper checks fish size with a wooden gauge, seals the cask and brands it with the packer's number and the date, so a bad barrel can be traced. Pay is settled at season end only for barrels passed by the inspectors and buyers. Whole fish smoked for a long time in the kiln become red herring.
-- **Gutting Troughs:** where crews work in threes.
-- **Salting Stages:** layered tiers of fish and rough salt.
-- **Cooper's Yard:** where casks are filled, gauged, sealed and branded.
-- **Smokehouse Kiln:** vaulted hall with racks of sticks and a smouldering fire.
+Packers call "bottom tier" so the curer can inspect the first layer before the cooper checks size with a wooden gauge and brands each cask with the packer's number and date; crews are paid at season's end only for passed barrels. Whole fish hung in the vaulted hardwood smokehouse cure into long-keeping red herring.
+- **Gutting Troughs & Salting Stages:** Roofed benches where three-woman crews dress and tier fish with rough salt.
+- **Cooper's Yard:** Where casks settle, drain pickle, and take the gauge and brand.
+- **Smokehouse Kiln:** Vaulted hall of hanging sticks over slow hardwood fires.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 2, 3]` — **Regulated Guild** (`Hierarchy`).
@@ -57,11 +56,11 @@ Gutting and packing is piece work done in crews of three: two gutters and a tall
 - name: "Master Salter Gideon Finch"
   role: "Chief Curing Inspector"
   disposition: "[4, 3, 3]"
-  motivation: "Ensure every salt-cask meets Admiralty standards for long-distance oceanic provisioning."
+  motivation: "Certify enough sound barrels to satisfy the Admiralty's victualling agent, though Curer-Buyer Ambrose Pettigrew has been cutting the salt allowance and expects him to look away."
 - name: "Smokehouse Tender Martha Brooks"
   role: "Curing Artisan"
   disposition: "[2, 2, 2]"
-  motivation: "Manage hardwood smolder times perfectly to achieve optimal flavor and shelf life."
+  motivation: "Hold the smouldering hardwood fire low enough to dry herring into red fish without scorching the racks, because a burnt tier comes out of her winter wage and the kiln roof already leaks."
 - name: "Packer Ishbel Corrie"
   role: "Tall Packer of a Three-Woman Gutting Crew"
   disposition: "[4, 2, 3]"
@@ -75,13 +74,13 @@ Gutting and packing is piece work done in crews of three: two gutters and a tall
 ```text
 name: Master Salter Gideon Finch
 role: Chief Curing Inspector
-motivation: Ensure every salt-cask meets Admiralty standards for long-distance oceanic provisioning.
+motivation: Certify enough sound barrels to satisfy the Admiralty's victualling agent, though Curer-Buyer Ambrose Pettigrew has been cutting the salt allowance and expects him to look away.
 disposition: [4, 3, 3]
 ```
 ```text
 name: Smokehouse Tender Martha Brooks
 role: Curing Artisan
-motivation: Manage hardwood smolder times perfectly to achieve optimal flavor and shelf life.
+motivation: Hold the smouldering hardwood fire low enough to dry herring into red fish without scorching the racks, because a burnt tier comes out of her winter wage and the kiln roof already leaks.
 disposition: [2, 2, 2]
 ```
 ```text
@@ -99,7 +98,7 @@ disposition: [1, 3, 2]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Salted-Fish** (`Food`): Cured, barreled protein preserved for winter storage and maritime trade fleets.
+- **Salted Fish** (`Commodity`): Cured, barreled protein preserved for winter storage and maritime trade fleets.
 - **Cooperage Cask** (`Tool`): Watertight oak barrel specifically hooped for packing salted fish provisions.
 - **Cooper's Gauge** (`Tool`): Wooden size gauge and branding iron that fix a barrel's grade, packer's number and filling date.
 - **Rough Salt Sack** (`Reagent`): Coarse salt spread between each tier of fish and saved for topping up the pickle.

@@ -95,8 +95,8 @@ disposition: [1, 1, 4]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Textile: Broadcloth** (`Commodity`): Heavy, tightly woven woolen cloth with a felted, weather-resistant surface.
-- **Chem: Mordant-Alum** (`Reagent`): Double-sulfate mineral salt used to lock organic dyes permanently into woolen fibers.
+- **Broadcloth** (`Commodity`): Heavy, tightly woven woolen cloth with a felted, weather-resistant surface.
+- **Mordant Alum** (`Reagent`): Double-sulfate mineral salt used to lock organic dyes permanently into woolen fibers.
 - **Guild Seal** (`Tool`): Lead or wax seal that certifies a piece as meeting the guild's width and weight.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)

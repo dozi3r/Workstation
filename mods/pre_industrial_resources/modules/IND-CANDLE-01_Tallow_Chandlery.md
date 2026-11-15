@@ -57,7 +57,7 @@ The best tallow is mutton and beef fat blended; plain beef is second and pig fat
 - name: "Wick Braider Aldric Pym"
   role: "Wick Spinner who twists and sizes the flax wicks"
   disposition: "[4, 2, 3]"
-  motivation: "Prevent wick curling and smoke odor by refining flax fiber twists, because every sooty candle that comes back from the mines is docked from his piece wage."
+  motivation: "Twist and size every flax wick evenly to stop curling and foul smoke, because every sooty batch returned from the mines is docked from his piece wage and his eyes are failing in the smoky loft."
 - name: "Guild Searcher Dilys Zouch"
   role: "Guild Beadle who searches shops for inferior tallow goods"
   disposition: "[1, 2, 4]"
@@ -77,7 +77,7 @@ disposition: [3, 3, 1]
 ```text
 name: Wick Braider Aldric Pym
 role: Wick Spinner who twists and sizes the flax wicks
-motivation: Prevent wick curling and smoke odor by refining flax fiber twists, because every sooty candle that comes back from the mines is docked from his piece wage.
+motivation: Twist and size every flax wick evenly to stop curling and foul smoke, because every sooty batch returned from the mines is docked from his piece wage and his eyes are failing in the smoky loft.
 disposition: [4, 2, 3]
 ```
 ```text
@@ -95,7 +95,7 @@ disposition: [4, 3, 2]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Tallow Candle** (`Light`): Sturdy rendered-fat taper providing reliable flame illumination in mines and workshops.
+- **Tallow Candle** (`Commodity`): Sturdy rendered-fat taper providing reliable flame illumination in mines and workshops.
 - **Dipper Frame** (`Tool`): Multi-wick wooden rack used to suspend flax strings during successive wax baths.
 - **Taper Mould** (`Tool`): Tapered metal tube set with a central wick thread, casting half a dozen candles at a time.
 - **Rendered Fat Cake** (`Commodity`): Block of clarified beef and mutton fat waiting to be melted into the kettle.

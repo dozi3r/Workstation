@@ -37,7 +37,7 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-POWDER` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Constructed over wide, walled earthen terraces, decomposing organic refuse, lime, and animal wastes are layered in long ridges to foster nitrifying bacteria. The resulting calcareous earth is shoveled into large wooden leaching vats where boiling water extracts crude potassium nitrate liquor, which is subsequently crystallized through wood-fueled evaporation. Potash lye leached from wood ash is stirred into the liquor to turn its calcium nitrate into potassium nitrate before the boil.
+Constructed over wide, walled earthen terraces, decomposing organic refuse, lime, and animal wastes are layered in long ridges to foster the slow nitre-forming rot. The resulting calcareous earth is shoveled into large wooden leaching vats where boiling water extracts crude potassium nitrate liquor, which is subsequently crystallized through wood-fueled evaporation. Potash lye leached from wood ash is stirred into the liquor to turn its calcium nitrate into potassium nitrate before the boil.
 
 A ridge is built roughly four feet high, six wide and fifteen long from dung, mortar or ash, soil and straw, then kept moist with stable liquor and turned often. After about a year it is leached; the finished crystals are redissolved, filtered and recrystallized in shallow vats until clean. Where the beds run short, warranted diggers scrape nitrous earth from cellars and stable floors.
 - **Compost Ridges:** the year-long beds under turning and watering.
@@ -103,7 +103,7 @@ disposition: [4, 3, 2]
 - **Potash Lye** (`Reagent`): Strong ash liquor that turns calcium nitrate in the brine into potassium nitrate.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
-- **Dial — `Compost Aeration Rate` (`0–10`)**: At `0–3`, heaps go anaerobic and sour, yielding zero saltpeter. At `8–10`, excessive turning dries the beds and halts microbial activity, and the leachers burn extra wood on weak liquor.
+- **Dial - `Compost Aeration Rate` (`0-10`)**: At `0-3`, heaps go anaerobic and sour, yielding zero saltpeter. At `8-10`, excessive turning dries the beds and halts the nitre-forming rot, and the leachers burn extra wood on weak liquor.
 - **Quest Hook — *The Fouled Basin***: When a batch of leaching liquor is contaminated with organic grease, Master Rafe must root out negligence before the gunpowder works halt supply. Leacher's Mate Wat Hobday is blamed first, and Warrant Digger Osric Pell offers the party coin to see the fault land on the vat crew instead of his dirty cellar earth; the powder mill's cart is due in four days.
 
 ## 5. GM Socket Placement & Supply Synergy

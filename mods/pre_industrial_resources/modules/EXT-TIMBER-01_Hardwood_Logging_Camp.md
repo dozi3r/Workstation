@@ -44,8 +44,8 @@ The camp works a winter cut and a spring drive: trees fall and are hauled over f
 - **Cook Raft:** the raft that trails the spring drive.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
-- **Baseline Coordinate**: `[3, 3, 1]` — **Rebel** (`Adhocracy`).
-- **Sociological Rationale**: Dangerous frontier conditions, physical isolation, and seasonal nomadism breed rugged, independent-minded loggers who despise bureaucracy and rely strictly on crew solidarity.
+- **Baseline Coordinate**: `[3, 3, 4]` — **Rebel** (`Adhocracy`).
+- **Sociological Rationale**: Seasonal nomadism, frontier danger and timber sold downriver to whichever yard pays breed rugged, independent-minded loggers who despise bureaucracy and rely on the solidarity of self-run crews.
 
 ## 3. Stationed Entities & Roster Prototypes
 
@@ -95,9 +95,9 @@ disposition: [2, 1, 1]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Hardwood-Logs** (`Commodity`): Massive, unpeeled oak and beech logs stamped with the camp mark.
+- **Marked Hardwood Logs** (`Commodity`): Massive, unpeeled oak and beech logs stamped with the camp's end-mark hammer.
 - **Felling Axe** (`Tool`): A balanced, razor-sharp broad axe fitted with a stout hickory handle.
-- **Corded Wood-Fuel** (`Commodity`): Split tops and poles stacked by the cord, sold to kilns, furnaces and boiling houses.
+- **Corded Split Wood Fuel** (`Commodity`): Split tops and poles stacked by the cord, sold to kilns, furnaces and boiling houses.
 - **Jam Pike** (`Tool`): A long iron-shod pole with a hook the drivers use to roll logs and pry out a key log.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)

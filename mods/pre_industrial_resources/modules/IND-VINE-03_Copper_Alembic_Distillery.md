@@ -54,11 +54,11 @@ Spirit is made in repeated runs: the first fraction (heads) is harsh and very st
 - name: "Master Alchemist Vespera Drake"
   role: "Chief Distiller"
   disposition: "[3, 4, 3]"
-  motivation: "Isolate the purest heart-run distillate while discarding the harsh foreshots."
+  motivation: "Keep the tax gauger from measuring the full heart-run casks while she quietly re-distills tainted vinegar-turned wine from Ferrand's cellar to cover her copper debt."
 - name: "Hearth Tender Bram Mason"
   role: "Fire Control Artisan"
   disposition: "[4, 3, 2]"
-  motivation: "Maintain steady, controlled flame temperatures beneath the alembic boiler."
+  motivation: "Nurse the failing firebox grate with split oak billets through the night run without letting a flare boil the wine over, because Wren warned him one more surge will burst the soldered still seam."
 - name: "Tinker-Coppersmith Wren Halloway"
   role: "Still Mender & Worm Solderer"
   disposition: "[3, 3, 4]"
@@ -72,13 +72,13 @@ Spirit is made in repeated runs: the first fraction (heads) is harsh and very st
 ```text
 name: Master Alchemist Vespera Drake
 role: Chief Distiller
-motivation: Isolate the purest heart-run distillate while discarding the harsh foreshots.
+motivation: Keep the tax gauger from measuring the full heart-run casks while she quietly re-distills tainted vinegar-turned wine from Ferrand's cellar to cover her copper debt.
 disposition: [3, 4, 3]
 ```
 ```text
 name: Hearth Tender Bram Mason
 role: Fire Control Artisan
-motivation: Maintain steady, controlled flame temperatures beneath the alembic boiler.
+motivation: Nurse the failing firebox grate with split oak billets through the night run without letting a flare boil the wine over, because Wren warned him one more surge will burst the soldered still seam.
 disposition: [4, 3, 2]
 ```
 ```text
@@ -96,7 +96,7 @@ disposition: [1, 4, 1]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Chem: Distilled-Spirits** (`Commodity`): Highly concentrated ethanol solution used for medicine, solvents, and potent potables.
+- **Distilled Spirits** (`Commodity`): Highly concentrated ethanol solution used for medicine, solvents, and potent potables.
 - **Copper Still Worm** (`Tool`): A coiled copper tube immersed in cold water for condensing vapor back into liquid.
 - **Pot Still & Alembic Head** (`Tool`): A hammered copper boiler with a domed head, sealed at the joints with flour paste.
 

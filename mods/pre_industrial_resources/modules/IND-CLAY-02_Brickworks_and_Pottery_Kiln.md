@@ -37,13 +37,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-CLAY` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-A cluster of domed beehive kilns, pugmills, and open-air drying sheds forms the municipal brickworks and ceramic yard. Artisans and laborers mold raw clay into uniform wooden forms or turn vessels on foot-powered wheels, dry the greenware, and stack the kilns for high-temperature wood firing. This thermal transformation converts plastic mud into durable structural bricks and water-tight ceramic containers. The yard turns `Mineral: Raw-Clay` and `Fuel: Wood-Fuel` into `Commodity: Fired-Bricks` and `Commodity: Ceramic-Vessels`.
+Domed beehive kilns, pugmills, and covered drying hacks turn `Mineral: Raw-Clay` and `Fuel: Wood-Fuel` into `Commodity: Fired-Bricks` and `Commodity: Ceramic-Vessels`. Clay and water are treaded or ox-driven to paste in the pugmill, pressed into stamped wooden moulds smoothed with a wire bow, or thrown on foot wheels, then dried under cover before firing.
 
-Clay is mixed with water to a uniform paste in the pugmill (in some yards oxen are driven through it), pressed into wooden moulds and smoothed with a wire-strung bow. The green bricks dry in covered hacks before they are set in the kiln. Wood is the usual fuel, so the cordwood stack decides how many firings the yard can afford. The kilnmaster judges the heat by the colour of the fire; under-fired brick stays weak, and over-fired brick fuses and warps. Where the crown taxes bricks before burning, each mould carries a stamp so the officer can see which bricks have paid.
-- **Pugmill:** the mixing trough where clay and water are worked to paste.
-- **Drying Sheds and Hacks:** covered stacks of green brick shielded from weather.
-- **Beehive Kilns:** domed, wood-fired kilns reaching potter's temperatures when well drawn.
-- **Wheel Shop:** foot-turned wheels where vessels are thrown before drying and firing.
+Wood supplies govern every firing. The kilnmaster reads the burn by flame colour: under-fired brick crumbles in rain, while over-fired ware warps and fuses. Where the crown taxes bricks before burning, stamped moulds show which batches have paid.
+- **Pugmill:** Mixing trough where clay and water become uniform paste.
+- **Drying Hacks & Wheel Shop:** Covered racks for green brick and foot-turned throwing wheels.
+- **Beehive Kilns:** Wood-fired domed kilns reaching potter's heat.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 2, 3]` - **Hierarchy** (`Hierarchy`).
@@ -55,11 +54,11 @@ Clay is mixed with water to a uniform paste in the pugmill (in some yards oxen a
 - name: "Master Potter Tessa Kilnwright"
   role: "Chief Kiln Burner and Ceramic Master"
   disposition: "[2, 2, 3]"
-  motivation: "Maintain exact internal kiln temperatures to prevent thermal shock cracking in high-value pottery."
+  motivation: "Hold an even burn by flame colour across the whole beehive dome, because her guild bond covers the lord's storage jars on the upper shelves and a warped firing leaves her owing the woodcutters."
 - name: "Molder Hob Bricklayer"
   role: "Brick Presser and Yard Foreman"
   disposition: "[3, 3, 3]"
-  motivation: "Ensure high volume output of uniform bricks for municipal construction projects."
+  motivation: "Turn out four thousand stamped bricks every burn on short cordwood, while quietly hiding oversized unstamped moulds in the shed before the duty officer spots them."
 - name: "Excise Officer Wystan Pellow"
   role: "Brick Duty Officer"
   disposition: "[1, 1, 4]"
@@ -73,13 +72,13 @@ Clay is mixed with water to a uniform paste in the pugmill (in some yards oxen a
 ```text
 name: Master Potter Tessa Kilnwright
 role: Chief Kiln Burner and Ceramic Master
-motivation: Maintain exact internal kiln temperatures to prevent thermal shock cracking in high-value pottery.
+motivation: Hold an even burn by flame colour across the whole beehive dome, because her guild bond covers the lord's storage jars on the upper shelves and a warped firing leaves her owing the woodcutters.
 disposition: [2, 2, 3]
 ```
 ```text
 name: Molder Hob Bricklayer
 role: Brick Presser and Yard Foreman
-motivation: Ensure high volume output of uniform bricks for municipal construction projects.
+motivation: Turn out four thousand stamped bricks every burn on short cordwood, while quietly hiding oversized unstamped moulds in the shed before the duty officer spots them.
 disposition: [3, 3, 3]
 ```
 ```text

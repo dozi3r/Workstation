@@ -93,8 +93,8 @@ disposition: [4, 3, 2]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Animal: Raw-Fleece** (`Commodity`): Unwashed sheep wool laden with natural lanolin and dirt.
-- **Food: Mutton** (`Commodity`): Nutritious, hearty meat harvested from mature range sheep.
+- **Unwashed Raw Fleece** (`Commodity`): Unwashed sheep wool laden with natural lanolin and dirt, sorted by grade after shearing.
+- **Salted and Fresh Mutton** (`Commodity`): Nutritious, hearty meat harvested from mature range sheep for autumn fair sale.
 - **Hand Shears** (`Tool`): Spring-bladed shears used to clip each fleece in one piece.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)

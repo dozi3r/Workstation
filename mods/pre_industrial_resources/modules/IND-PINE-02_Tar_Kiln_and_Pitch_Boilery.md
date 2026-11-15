@@ -38,12 +38,11 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-PINE` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-A terraced earthen mound built over a stone-lined drainage basin where pine roots and resinous billets are stacked, sealed with turf, and slowly smothered-burned to render dark wood tar. The raw tar is subsequently boiled down in heavy copper cauldrons to drive off volatile spirits, producing thick, waterproof pine pitch for ship-calking and timber preservation. Spent tar skimmings are burned beneath a cloth-hung soot chamber, and the fine lampblack that settles is scraped down for inkmakers. The kiln burns Resin: Raw-Pine-Resin and Fuel: Wood-Fuel in copper from Metal: Forged-Copper, and yields Chem: Pine-Pitch and Chem: Lampblack.
+On a sloped earthen floor with a drain basin, this works converts `Resin: Raw-Pine-Resin` and `Fuel: Wood-Fuel` in `Metal: Forged-Copper` cauldrons into `Chem: Pine-Pitch` and `Chem: Lampblack`. Workers split resinous pine stumps and roots into finger-sized billets, stack them densely over the outlet hole, and seal the mound with turf and moss.
 
-The wood is split into finger-sized billets, stacked densely on a floor that slopes to an outlet hole, and covered with earth and moss. The fire is lit on top; after a few hours the tar starts to run and keeps flowing for days. If air gets in, the wood catches fire and the batch is ruined. Tar goes out in barrels, and the navies are the largest buyers.
-- **Kiln Floor:** sloped basin with an outlet hole where tar drains.
-- **Boilery:** copper cauldrons over a bank of fires.
-- **Soot Chamber:** cloth-hung hood where lampblack settles.
+Lit at the top, the smothered stack weeps dark tar for days; any air leak flashes the wood to ash. Crude tar boils down to thick ship pitch for naval buyers, while tar skimmings burn under a cloth-hung soot chamber to yield lampblack for ink.
+- **Kiln Floor:** Sloped drainage mound sealed under turf and moss.
+- **Boilery & Soot Chamber:** Copper cauldrons for pitch boiling and cloth-hung hood for lampblack.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 1, 1]` - **Traditionalist** (`Hierarchy`).
@@ -55,11 +54,11 @@ The wood is split into finger-sized billets, stacked densely on a floor that slo
 - name: "Kiln Master Jorn Kaelen"
   role: "Tar Burner"
   disposition: "[2, 1, 1]"
-  motivation: "Maintain perfect kiln seal integrity to prevent wood from flashing into useless ash."
+  motivation: "Keep the turf seal tight through five days of rain and wind so the stack does not flash to ash, because Anselm Dreyer holds his winter advance against the full barrel tally."
 - name: "Boilery Hand Miri Voss"
   role: "Cauldron Tender"
   disposition: "[4, 2, 3]"
-  motivation: "Extract maximum viscous pitch yield without scorching the bottom plates."
+  motivation: "Boil crude tar down to thick pitch without scorching the copper bottom plates, since a burnt cauldron costs half her season's pay while Pell Haldane presses her privately for extra soot."
 - name: "Tar Factor Anselm Dreyer"
   role: "Monopoly Buyer's Agent who counts and brands the tar barrels"
   disposition: "[1, 3, 3]"
@@ -73,13 +72,13 @@ The wood is split into finger-sized billets, stacked densely on a floor that slo
 ```text
 name: Kiln Master Jorn Kaelen
 role: Tar Burner
-motivation: Maintain perfect kiln seal integrity to prevent wood from flashing into useless ash.
+motivation: Keep the turf seal tight through five days of rain and wind so the stack does not flash to ash, because Anselm Dreyer holds his winter advance against the full barrel tally.
 disposition: [2, 1, 1]
 ```
 ```text
 name: Boilery Hand Miri Voss
 role: Cauldron Tender
-motivation: Extract maximum viscous pitch yield without scorching the bottom plates.
+motivation: Boil crude tar down to thick pitch without scorching the copper bottom plates, since a burnt cauldron costs half her season's pay while Pell Haldane presses her privately for extra soot.
 disposition: [4, 2, 3]
 ```
 ```text

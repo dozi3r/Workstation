@@ -39,13 +39,13 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-BREW` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-The civic brewery houses immense riveted copper mash-tuns where crushed malted grain is steeped in hot water, mashed, and boiled with dried hop cones. Coopered timber casks receive the cooled, fermented wort, sealing the beverage into stable rations of nutritional ale for urban laborers and civic guards. The required inputs of Food: Malted-Grain, Metal: Forged-Copper, Timber: Cooperage-Casks, Fuel: Wood-Fuel and Crop: Hops yield stable Food: Barrelled-Ale.
+In the civic brewery, `Food: Malted-Grain`, `Metal: Forged-Copper`, `Timber: Cooperage-Casks`, `Fuel: Wood-Fuel` and `Crop: Hops` become shelf-stable `Food: Barrelled-Ale`. Crushed malt mashes in the wooden tun for an hour or two, then sweet wort runs to the riveted copper and boils for an hour with dried hop cones.
 
-The mash stands for an hour or two in the tun, then the wort runs to the copper and is boiled for an hour or so with the hop cones. It must be cooled fast: yeast dies in hot wort and slow cooling invites infection. Fermentation happens in open wooden vessels that are hard to keep clean, and the beer then goes into casks to settle in the cellar. Hopped beer keeps for months where plain ale lasts a week, and beer brewers make much larger batches than ale brewers. The ale-conner, chosen yearly at the court, tests the ale and reports short measures and over-pricing.
-- **Mash Tun and Copper:** the main brewing vessels, heated by wood fire.
-- **Coolship:** the shallow vessel where the wort cools quickly.
-- **Fermenting Vats:** open wooden vessels.
-- **Cask Cellar:** cool store where ale settles.
+Hot wort kills yeast and slow cooling invites wild infection, so brewers draw the boil onto a shallow coolship before pitching yeast in open wooden fermenters that demand constant scrubbing. Hopped beer keeps for months where plain ale sours within a week, allowing larger batches and longer haulage. A court-appointed ale-conner tastes every brew to enforce assize prices and true cask measure.
+- **Mash Tun and Copper:** Wooden mashing vat and wood-fired boiling copper.
+- **Coolship:** Shallow tray for rapid wort cooling.
+- **Fermenting Vats:** Open wooden vessels for active fermentation.
+- **Cask Cellar:** Cool vault where racked beer settles.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 3, 3]` - **Commercial Guildsman** (`Market`).
@@ -65,7 +65,7 @@ The mash stands for an hour or two in the tun, then the wort runs to the copper 
 - name: "Ale-Conner Dorcas Fenwick"
   role: "Court Ale-Conner (Ale Taster)"
   disposition: "[1, 1, 4]"
-  motivation: "Taste every brew and enforce the assize price and measure, because he is rewarded with a share of fines and the brewers who cross him call him a spy."
+  motivation: "Taste every brew and enforce the assize price and measure, because she is rewarded with a share of fines and the brewers who cross her call her a spy."
 - name: "Hop Factor Lambert Kersey"
   role: "Hop Factor and Supplier"
   disposition: "[4, 4, 2]"
@@ -87,7 +87,7 @@ disposition: [2, 2, 3]
 ```text
 name: Ale-Conner Dorcas Fenwick
 role: Court Ale-Conner (Ale Taster)
-motivation: Taste every brew and enforce the assize price and measure, because he is rewarded with a share of fines and the brewers who cross him call him a spy.
+motivation: Taste every brew and enforce the assize price and measure, because she is rewarded with a share of fines and the brewers who cross her call her a spy.
 disposition: [1, 1, 4]
 ```
 ```text
@@ -99,8 +99,8 @@ disposition: [4, 4, 2]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Forged-Copper** (`Tool`): Heavy hammered metal vessels engineered for rapid heat transfer and sanitation.
-- **Barrelled-Ale** (`Commodity`): Fermented hopped malt liquor packaged for municipal distribution.
+- **Forged Copper** (`Tool`): Heavy hammered metal vessels engineered for rapid heat transfer and sanitation.
+- **Barrelled Ale** (`Commodity`): Fermented hopped malt liquor packaged for municipal distribution.
 - **Hop Pocket** (`Reagent`): Pressed sack of dried hop cones, the bitter preservative that lets beer keep for months.
 - **Assize Measure** (`Tool`): The sealed measure by which the ale-conner checks every cask.
 

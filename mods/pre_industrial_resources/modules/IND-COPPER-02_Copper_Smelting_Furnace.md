@@ -38,13 +38,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-COPPER` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-Crushed malachite ore is mixed with charcoal fuel in stone-built shaft furnaces fitted with clay tuyeres and leather-skinned bellows. As intense heat reduces the copper carbonate, molten metal pools at the bottom of the hearth, allowing workers to tap fiery red-gold streams into sand molds to form solid copper ingots. The furnace consumes `Ore: Copper-Ore`, `Fuel: Charcoal-or-Coal`, `Stone: Cut-Limestone` as flux and `Mineral: Raw-Clay` for tuyeres and lining, and yields `Metal: Copper-Ingot`.
+Stone shaft furnaces fitted with clay tuyeres and leather bellows smelt `Ore: Copper-Ore` with `Fuel: Charcoal-or-Coal`, `Stone: Cut-Limestone` flux and `Mineral: Raw-Clay` linings into `Metal: Copper-Ingot`. Sulfide ores are roasted first on open beds that throw off thick arsenical smoke, while cleaner oxidised ores charge directly into the furnace.
 
-Sulfide ores need roasting before they smelt; the cleaner oxidised ores go in more easily. The charge is smelted with a flux so impurities gather in a slag that floats on the metal. Slag is raked off and the copper is tapped, and some copper is always lost in the slag as oxide and small prills, which the crew crush and re-smelt. Poorly ventilated roasting gives thick poisonous smoke that marks the district, and arsenic is the main impurity. A smelter owner holds a share in the furnace and the authorities claim theirs, so every tap is counted.
-- **Shaft Furnace:** stone stack where charge and charcoal burn under the blast.
-- **Bellows Pit:** leather bellows worked by treadle or water wheel, feeding air through the tuyeres.
-- **Tap Hole and Mold Floor:** where metal and slag run into separate channels and sand molds.
-- **Roasting Beds:** open heaps where ore is calcined before smelting.
+Flux gathers impurities into floating slag, which workers rake off before tapping red-gold copper into sand molds; copper prills trapped in the slag are crushed and re-smelted. Because the furnace owner and local authority each claim a set share of the metal, every tap is weighed and counted.
+- **Shaft Furnace:** Stone stack where ore, flux, and charcoal smelt under blast.
+- **Bellows Pit:** Water- or treadle-driven leather bellows feeding the tuyeres.
+- **Mold Floor & Roasting Beds:** Sand casting channels and open heaps for calcining sulfide ore.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[1, 2, 3]` - **Rigid Regulator** (`Hierarchy`).

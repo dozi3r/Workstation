@@ -92,7 +92,7 @@ disposition: [4, 1, 3]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Quicklime Clinker** (`Commodity`): Highly reactive calcium oxide chunks fresh from the firing chamber.
+- **Quicklime Clinker** (`Commodity`): Highly caustic burned-lime chunks fresh from the firing chamber.
 - **Slaking Shovel** (`Tool`): Long-handled iron paddle designed for agitating lime milk without splashing.
 - **Slaked Lime Putty** (`Commodity`): Smooth creamy paste matured in the trough, kept under water until sold.
 

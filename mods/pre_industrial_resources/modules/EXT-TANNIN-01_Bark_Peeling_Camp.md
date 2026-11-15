@@ -42,7 +42,7 @@ The season is short, roughly late April to mid-June in the oak woods, and sap is
 - **Drying Racks & Bark House:** Raised racks in open air, with a roofed store for bundles awaiting the carts.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
-- **Baseline Coordinate**: `[3, 3, 2]` — **Explorer** (`Adhocracy`).
+- **Baseline Coordinate**: `[3, 3, 4]` — **Explorer** (`Adhocracy`).
 - **Sociological Rationale**: Seasonal forest work requiring nomadic roaming through timber tracts fosters self-reliant, adaptable laborers who operate independently of urban oversight.
 
 ## 3. Stationed Entities & Roster Prototypes
@@ -93,7 +93,7 @@ disposition: [4, 3, 2]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Tree-Bark** (`Commodity`): Dried, curled sheets of tannin-rich oak bark bundled for shipment.
+- **Dried Oak Tanbark** (`Commodity`): Dried, curled sheets of tannin-rich oak bark bundled for shipment to tanneries.
 - **Barking Iron** (`Tool`): A curved metal spud tool used to pry bark away from fresh sapwood.
 - **Bark Rack Bundles** (`Commodity`): Two-foot lengths of bark tied in bundles and stood on raised racks to dry.
 

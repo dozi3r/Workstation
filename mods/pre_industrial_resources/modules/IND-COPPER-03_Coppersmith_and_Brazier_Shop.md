@@ -37,13 +37,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-COPPER` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-Heavy copper ingots are reheated in forge hearths and hammered on polished anvils into sheets, vessels, and intricate mechanical components. Craftsmen anneal the metal repeatedly to relieve work-hardening stress, shaping the malleable copper into seamless kettles, alembics, and structural brackets. The shop consumes `Metal: Copper-Ingot`, `Fuel: Charcoal-or-Coal` and `Metal: Forged-Iron` tools, and yields `Metal: Forged-Copper`.
+Reheating `Metal: Copper-Ingot` with `Fuel: Charcoal-or-Coal` and `Metal: Forged-Iron` stakes, this shop hammers out seamless `Metal: Forged-Copper` kettles, alembics, and fittings. Because copper work-hardens and cracks when beaten cold, the brazier repeatedly anneals and quenches each piece between courses of hammer blows.
 
-Copper is soft when cold but it work-hardens under the hammer and cracks, so the coppersmith heats it and quenches or air-cools it to restore its softness before the next course of blows. A coppersmith, or brazier, works from a pattern and sheet copper, and repairs old ware; a redsmith is the tinsmith who works copper. The shop re-tins the inside of cookware, scouring it before the tin goes on. Apprentices begin young, breaking up fuel, scouring copper for tinning and polishing the tools, before they are trusted with a hammer.
-- **Hammer Room:** stakes, anvils and raising hammers where sheet is sunk into hollow forms.
-- **Annealing Hearth:** the forge where work is heated before each new course of hammering.
-- **Tinning Bench:** scouring and tin bath for lining kettles and cookware.
-- **Pattern Rack:** templates and finished samples for kettles, alembics and brackets.
+Braziers raise hollow ware from patterns and sheet copper, while redsmiths repair worn vessels and re-tin scoured cookware interiors against corrosion. Apprentices start young, breaking charcoal, scouring copper for the tin bath, and polishing stakes before they are trusted with a raising hammer.
+- **Hammer Room:** Polished stakes, anvils, and raising hammers for sinking sheet copper.
+- **Annealing Hearth:** Bellows-fed forge softening metal between hammer courses.
+- **Tinning Bench & Pattern Rack:** Scouring station, molten tin bath, and templates for alembics and kettles.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[3, 2, 3]` - **Artisanal Master** (`Clan`).

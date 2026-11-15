@@ -36,7 +36,7 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-COTTON` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-The roller gin and spinning house is a drafty industrial shed filled with double-roller charkha gins and multi-spindle spinning wheels. Raw cotton bolls are fed between counter-rotating wooden rollers that crush seeds away from lint, after which carded fibers are drawn and twisted into durable yarn on spinning frames. Raw cotton boll inputs are transformed into neatly spooled spun-cotton-yarn ready for weaving looms.
+The roller gin and spinning house is a drafty industrial shed filled with double-roller churka gins and multi-spindle spinning wheels. Raw cotton bolls are fed between counter-rotating wooden rollers that crush seeds away from lint, after which carded fibers are drawn and twisted into durable yarn on spinning frames. Raw cotton boll inputs are transformed into neatly spooled spun-cotton-yarn ready for weaving looms.
 
 A man and a woman working one gin clean roughly 28 pounds of lint in a day, so the shed runs many gins side by side. The roller must be narrow enough to push the seed out without crushing it, a skill that takes years. Lint is then carded and spun, mostly by women who are paid by the piece, and the yarn is wound into hanks.
 
@@ -50,11 +50,11 @@ A man and a woman working one gin clean roughly 28 pounds of lint in a day, so t
 - name: "Master Spinner Tariq Al-Din"
   role: "Chief Ginning and Spinning Overseer"
   disposition: "[3, 3, 3]"
-  motivation: "Maintain consistent yarn tensile strength across all drop-spindle frames."
+  motivation: "Deliver twenty-four graded hanks of even twist before the merchant deadline, because Yarn Broker Jivraj Mehta holds his shop's advance and will seize the frames if a bale is refused."
 - name: "Roller Tender Amira Sen"
-  role: "Charkha Gin Operator"
+  role: "Churka Gin Operator"
   disposition: "[2, 2, 2]"
-  motivation: "Clear jammed seed rollers quickly without contaminating clean lint with broken husks."
+  motivation: "Turn the narrow churka rollers without crushing seed into the lint, since every husk-stained tuft is docked from her piece wage and damp weather is already swelling the wood."
 - name: "Carder Bhanu Rathod"
   role: "Lint Carder with the Bow"
   disposition: "[4, 2, 3]"
@@ -68,13 +68,13 @@ A man and a woman working one gin clean roughly 28 pounds of lint in a day, so t
 ```text
 name: Master Spinner Tariq Al-Din
 role: Chief Ginning and Spinning Overseer
-motivation: Maintain consistent yarn tensile strength across all drop-spindle frames.
+motivation: Deliver twenty-four graded hanks of even twist before the merchant deadline, because Yarn Broker Jivraj Mehta holds his shop's advance and will seize the frames if a bale is refused.
 disposition: [3, 3, 3]
 ```
 ```text
 name: Roller Tender Amira Sen
-role: Charkha Gin Operator
-motivation: Clear jammed seed rollers quickly without contaminating clean lint with broken husks.
+role: Churka Gin Operator
+motivation: Turn the narrow churka rollers without crushing seed into the lint, since every husk-stained tuft is docked from her piece wage and damp weather is already swelling the wood.
 disposition: [2, 2, 2]
 ```
 ```text
@@ -92,7 +92,7 @@ disposition: [2, 4, 1]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Spun-Cotton-Yarn** (`Commodity`): Finely twisted cotton thread wound onto wooden bobbins.
+- **Spun Cotton Yarn** (`Commodity`): Finely twisted cotton thread wound onto wooden bobbins.
 - **Double-Roller Gin** (`Tool`): Hand-cranked mechanism utilizing brass and ironwood rollers to separate cotton fiber from seeds.
 - **Carding Bow** (`Tool`): Springy wooden bow strung with gut whose vibration fluffs lint for spinning.
 

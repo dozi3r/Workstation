@@ -34,12 +34,11 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-FLAX` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Flax cultivation demands damp, fertile bottomlands where delicate blue-flowered stalks can grow tall without branching. Laborers painstakingly pull the mature plants up entirely by the roots rather than cutting them to preserve maximum fiber length, bundling them into sheaves for drying. This delicate agricultural extraction yields fibrous raw flax ready for industrial retting.
+Flax requires damp, fertile bottomlands where blue-flowered stalks grow tall without branching. Rather than cutting, village gangs pull ripe plants entirely by the roots to preserve full fiber length, stooking sheaves to dry. With no upstream inputs, this cultivation yields fibrous `Crop: Raw-Flax` for industrial retting.
 
-The ground is plowed in winter and early spring and raked fine, then the oily seed is sown broadcast in April, thick so that stalks do not branch. The crop needs no weeding and ripens in about a hundred days. When the leaves yellow and the seed browns, village gangs pull it by the root and spread it to dry, so a few days of fair weather decide the year. Fiber flax that turns brown in the field degrades, while seed bolls are left on the stalks for the rippling comb at the retting basin.
-- **Bottomland Field:** deep loam, plowed, harrowed and raked fine.
-- **Drying Ground:** where pulled stalks are spread and then stooked.
-- **Seed Store:** loft where ripened bolls are kept for next year's sowing.
+Ground is plowed in winter and raked fine before oily seed is sown thick in April; the crop ripens in roughly a hundred days without weeding. When leaves yellow and seed browns, a few fair days decide the year: stalks left to brown in the field degrade, while ripened seed bolls ride to the rippling comb at the retting basin.
+- **Bottomland Field & Drying Ground:** Deep, finely harrowed loam paired with stooking grounds for pulled sheaves.
+- **Seed Store:** Loft holding ripened seed bolls for next April's sowing.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 2, 3]` — **Bureaucrat** (`Hierarchy`).
@@ -93,7 +92,7 @@ disposition: [4, 3, 2]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Raw-Flax** (`Commodity`): Bundled bundles of dried, unretted flax stalks complete with seed bolls.
+- **Pulled Flax Sheaves** (`Commodity`): Tied sheaves of dried, unretted flax stalks complete with ripened seed bolls.
 - **Rooting Fork** (`Tool`): A short-tine digging fork used to loosen stubborn clay around root bases.
 - **Seed Sack** (`Commodity`): Oily brown flax seed kept dry in the loft for sowing and for the press.
 

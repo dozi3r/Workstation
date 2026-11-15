@@ -56,7 +56,7 @@ Fat stock is walked to market by drovers, ten to fifteen miles a day so the beas
 - name: "Wrangler Sally Cooper"
   role: "Junior Herd Hand and Fence Rider"
   disposition: "[3, 2, 3]"
-  motivation: "Keep stray yearlings from wandering into neighboring timber tracts, where the woodward would impound them."
+  motivation: "Keep stray yearlings out of neighboring timber tracts before the woodward impounds them, because the pound fee is docked from her wages and she is saving every coin for her own herd share."
 - name: "Drover Tam Ridley"
   role: "Drover who walks the fat herd to market"
   disposition: "[2, 3, 2]"
@@ -76,7 +76,7 @@ disposition: [4, 1, 3]
 ```text
 name: Wrangler Sally Cooper
 role: Junior Herd Hand and Fence Rider
-motivation: Keep stray yearlings from wandering into neighboring timber tracts, where the woodward would impound them.
+motivation: Keep stray yearlings out of neighboring timber tracts before the woodward impounds them, because the pound fee is docked from her wages and she is saving every coin for her own herd share.
 disposition: [3, 2, 3]
 ```
 ```text

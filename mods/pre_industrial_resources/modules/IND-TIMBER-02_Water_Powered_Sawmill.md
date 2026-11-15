@@ -95,14 +95,14 @@ disposition: [1, 2, 4]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Sawn-Lumber** (`Commodity`): Precision-cut hardwood planks stacked in drying cribs.
-- **Mine-Props** (`Commodity`): Short, thick round timber posts tapered for underground shaft shoring.
+- **Sawn Lumber** (`Commodity`): Precision-cut hardwood planks stacked in drying cribs.
+- **Mine Props** (`Commodity`): Short, thick round timber posts tapered for underground shaft shoring.
 - **Frame Saw Blade** (`Tool`): A tensioned steel blade in a wooden frame, filed and set by hand.
 - **Boom Chain** (`Tool`): The floating log boom that holds and sorts the incoming drive.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — Blade Tension (`0–10`)**: At `0–3`, loose blades wander and ruin expensive hardwood logs. At `8–10`, taut, well-lubricated blades produce perfectly straight boards, but an over-tight blade overheats and snaps under a knot.
-- **Quest Hook — *The Snapped Crank Shaft***: When the main cast-iron reciprocating crank shatters under a knotted oak log, Aldith Rooke must coordinate emergency forge welds with the local blacksmith before construction projects stall; Ostrid Maule is the only man who knows the old pit gang was nearby that night, and the mines give three weeks before their props run out.
+- **Quest Hook - *The Snapped Crank Shaft***: When the main wrought-iron reciprocating crank shatters under a knotted oak log, Aldith Rooke must coordinate emergency forge welds with the local blacksmith before construction projects stall; Ostrid Maule is the only man who knows the old pit gang was nearby that night, and the mines give three weeks before their props run out.
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Saws `Timber: Hardwood-Logs` floated down from the **Hardwood Logging Camp (`EXT-TIMBER-01`)**.

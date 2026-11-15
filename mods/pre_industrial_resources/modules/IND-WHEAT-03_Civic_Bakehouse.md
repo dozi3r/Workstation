@@ -44,8 +44,8 @@ A piece of each batch of dough is kept back to leaven the next. Ovens are costly
 - **Wood Stack:** the fuel store the whole bake depends on.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
-- **Baseline Coordinate**: `[4, 2, 1]` — **Collaborator** (`Clan`).
-- **Sociological Rationale**: Communal baking environments rely on intense daily cooperation, shared warmth, and strict adherence to guild loaf-weight regulations to maintain social harmony.
+- **Baseline Coordinate**: `[3, 2, 1]` — **Collaborator** (`Clan`).
+- **Sociological Rationale**: Communal baking environments rely on intense daily cooperation and shared warmth, and neighbors hold each other to the guild loaf-weight rules to maintain social harmony.
 
 ## 3. Stationed Entities & Roster Prototypes
 
@@ -95,7 +95,7 @@ disposition: [4, 2, 2]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Baked-Bread** (`Commodity`): Dense, crusty loaves stamped with the municipal weight seal.
+- **Baked Bread** (`Commodity`): Dense, crusty loaves stamped with the municipal weight seal.
 - **Wooden Peel** (`Tool`): A wide wooden paddle used for loading and retrieving loaves from deep stone ovens.
 - **Leaven Crock** (`Reagent`): A clay pot of sour dough saved from each batch, the living start of the next bake.
 

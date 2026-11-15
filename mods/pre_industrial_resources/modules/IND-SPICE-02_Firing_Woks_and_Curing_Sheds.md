@@ -38,13 +38,13 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-SPICE` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-Equipped with massive cast-iron woks, brick flues, and tiered bamboo drying racks, this processing station halts enzymatic decay in raw agricultural crops through controlled heat application. Artisans roast, steam, and ferment raw leaves and spices over steady charcoal fires before packing them tightly into sealed ceramic vessels for long-distance export. The `Crop: Raw-Spices-and-Tea` arrives from the gardens and is fired over `Fuel: Charcoal-or-Coal` in woks of `Metal: Pig-Iron`, then sealed in `Commodity: Ceramic-Vessels` as `Luxury: Cured-Spices-and-Tea`.
+Equipped with cast-iron woks, brick flues, and bamboo drying racks, this curing station halts decay in raw crops through controlled heat before sealing goods for export. `Crop: Raw-Spices-and-Tea` is fired over `Fuel: Charcoal-or-Coal` in `Metal: Pig-Iron` woks and sealed in `Commodity: Ceramic-Vessels` as `Luxury: Cured-Spices-and-Tea`.
 
-Tea leaf is withered for hours, rolled, then fixed in the wok and dried, the cook taking great care not to over-fire it; nutmeg seeds are sun-dried for weeks and their red mace flattened and dried for ten to fourteen days. A sorter strips stems and grades each lot, and the company factor fixes the price it will pay. Rival firms and smugglers shadow the buyer.
-- **Wok Line:** brick-flued iron woks over charcoal.
-- **Withering Racks:** tiered bamboo racks for leaf and mace.
-- **Grading Table:** where stems are stripped and lots graded.
-- **Jar Store:** ceramic jars sealed with wax or clay.
+Tea leaf is withered, rolled, fixed in the wok without scorching, and dried; nutmeg kernels sun-dry for weeks while red mace dries flat in ten to fourteen days. Sorters strip stems and grade each lot under the company factor's eye, while smugglers shadow every shipment.
+- **Wok Line:** Brick-flued iron woks heated over charcoal.
+- **Withering Racks:** Tiered bamboo racks for drying leaf and mace.
+- **Grading Table:** Bench where stems are stripped and lots graded.
+- **Jar Store:** Wax- or clay-sealed ceramic jars awaiting shipment.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[2, 3, 2]` — **Market Operator** (`Market`).
@@ -56,11 +56,11 @@ Tea leaf is withered for hours, rolled, then fixed in the wok and dried, the coo
 - name: "Master Roaster Bramen Crows"
   role: "Chief Kiln-Master"
   disposition: "[2, 3, 2]"
-  motivation: "Achieve the exact moisture content and aroma demanded by foreign merchant guilds."
-- name: "Sorter Meera Vance"
-  role: "Quality Assayer"
+  motivation: "Hit the company's leaf-drying grade despite damp charcoal from the last cart, because Factor Veer already threatened to cut the shed's price by half and charge the shortfall to his bond."
+- name: "Sorter Meera Pillai"
+  role: "Leaf Grader & Quality Sorter"
   disposition: "[2, 2, 1]"
-  motivation: "Detect and discard contaminated batches before they enter export packing."
+  motivation: "Keep scorched dust and stem-scraps out of the top-grade jars without discarding so much leaf that the shed misses its quota, while hiding two small jars of unbroken mace for a private harbor buyer."
 - name: "Company Factor Leopold Veer"
   role: "Buyer's Factor who fixes the grade and the price paid"
   disposition: "[1, 2, 4]"
@@ -74,13 +74,13 @@ Tea leaf is withered for hours, rolled, then fixed in the wok and dried, the coo
 ```text
 name: Master Roaster Bramen Crows
 role: Chief Kiln-Master
-motivation: Achieve the exact moisture content and aroma demanded by foreign merchant guilds.
+motivation: Hit the company's leaf-drying grade despite damp charcoal from the last cart, because Factor Veer already threatened to cut the shed's price by half and charge the shortfall to his bond.
 disposition: [2, 3, 2]
 ```
 ```text
-name: Sorter Meera Vance
-role: Quality Assayer
-motivation: Detect and discard contaminated batches before they enter export packing.
+name: Sorter Meera Pillai
+role: Leaf Grader & Quality Sorter
+motivation: Keep scorched dust and stem-scraps out of the top-grade jars without discarding so much leaf that the shed misses its quota, while hiding two small jars of unbroken mace for a private harbor buyer.
 disposition: [2, 2, 1]
 ```
 ```text
@@ -98,8 +98,8 @@ disposition: [4, 2, 2]
 <!-- END_NPC_MIRROR -->
 
 ### Material Stocks & Items (Item Prototypes)
-- **Cured-Spices-and-Tea** (`Commodity`): Highly valuable, shelf-stable aromatics packaged for luxury trade routes.
-- **Cast-Iron-Wok** (`Tool`): Heavy thermal vessel used for precise flash-roasting of botanical leaves.
+- **Cured Spices and Tea** (`Commodity`): Highly valuable, shelf-stable aromatics packaged for luxury trade routes.
+- **Cast-Iron Wok** (`Tool`): Heavy thermal vessel used for precise flash-roasting of botanical leaves.
 - **Sealed Ceramic Jar** (`Commodity`): Wax-stopped jar stamped with the company mark to prove the lot is monopoly goods.
 - **Grading Sieve Set** (`Tool`): Nested sieves and tongs the sorter uses to strip stems and sort leaf and mace.
 

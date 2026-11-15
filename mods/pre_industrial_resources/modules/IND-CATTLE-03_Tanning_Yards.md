@@ -55,11 +55,11 @@ Hides are salted, soaked, limed, scraped, bated and then laid down in pits of ri
 - name: "Master Tanner Corin Hides"
   role: "Chief Vatsman and Liquor Master"
   disposition: "[4, 2, 3]"
-  motivation: "Perfect the tannin saturation gradient to prevent brittle or rotting leather batches, since a year of capital sits in every pit."
-- name: "Scraper Maren Vane"
+  motivation: "Nurse every batch through the rising bark pits without burning the grain, since a full year of borrowed capital sits steeping in the yard and a spoiled pit ruins him."
+- name: "Scraper Maren Breck"
   role: "Beam-Hand and De-hairing Specialist"
   disposition: "[3, 1, 3]"
-  motivation: "Scrape hair and flesh from raw hides efficiently without nicking the pelt grain, because a nicked hide costs her a day's pay."
+  motivation: "Flesh and unhair each limed hide on the beam without nicking the grain, because every scored pelt costs a day's pay and lime water is already eating the skin off her wrists."
 - name: "Bark Factor Lambert Quill"
   role: "Oak bark buyer who supplies the bark mill"
   disposition: "[2, 3, 2]"
@@ -73,13 +73,13 @@ Hides are salted, soaked, limed, scraped, bated and then laid down in pits of ri
 ```text
 name: Master Tanner Corin Hides
 role: Chief Vatsman and Liquor Master
-motivation: Perfect the tannin saturation gradient to prevent brittle or rotting leather batches, since a year of capital sits in every pit.
+motivation: Nurse every batch through the rising bark pits without burning the grain, since a full year of borrowed capital sits steeping in the yard and a spoiled pit ruins him.
 disposition: [4, 2, 3]
 ```
 ```text
-name: Scraper Maren Vane
+name: Scraper Maren Breck
 role: Beam-Hand and De-hairing Specialist
-motivation: Scrape hair and flesh from raw hides efficiently without nicking the pelt grain, because a nicked hide costs her a day's pay.
+motivation: Flesh and unhair each limed hide on the beam without nicking the grain, because every scored pelt costs a day's pay and lime water is already eating the skin off her wrists.
 disposition: [3, 1, 3]
 ```
 ```text

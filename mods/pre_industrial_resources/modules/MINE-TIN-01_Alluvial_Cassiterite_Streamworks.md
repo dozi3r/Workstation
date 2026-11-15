@@ -52,7 +52,7 @@ Tinners hold free rights to search and work ground under stannary law, and every
 - name: "Stannary Bailiff Thomas Trevithick"
   role: "Streamworks Inspector"
   disposition: "[1, 1, 4]"
-  motivation: "Ensure all extracted tin is accurately weighed and taxed before private removal."
+  motivation: "Catch whoever is pocketing pebble tin before coinage day, because a short tally at the stannary court will cost him his bailiff's staff and his share of the four-shilling duty."
 - name: "Gravel Washer Margery Penrose"
   role: "Sluice Tender"
   disposition: "[3, 1, 3]"
@@ -70,7 +70,7 @@ Tinners hold free rights to search and work ground under stannary law, and every
 ```text
 name: Stannary Bailiff Thomas Trevithick
 role: Streamworks Inspector
-motivation: Ensure all extracted tin is accurately weighed and taxed before private removal.
+motivation: Catch whoever is pocketing pebble tin before coinage day, because a short tally at the stannary court will cost him his bailiff's staff and his share of the four-shilling duty.
 disposition: [1, 1, 4]
 ```
 ```text

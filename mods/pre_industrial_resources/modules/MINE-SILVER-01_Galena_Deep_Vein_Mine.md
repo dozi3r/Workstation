@@ -38,13 +38,13 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-SILVER` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Carved deep into limestone fault lines, the galena mine descends through dripping vertical shafts and timber-shored adits. Miners hack at sulfide veins bearing lead and silver with heavy picks and wedges, guided only by flickering tallow candles. The required inputs of Timber: Mine-Props prevent catastrophic gallery collapses, while Light: Tallow-Candles sustains subterranean labor, turning dark rock faces into extracted Ore: Silver-Ore (the silver-rich sulfide and oxide fraction) and Ore: Argentiferous-Galena (clean lead glance) hauled up by horse-gins worked by Livestock: Draft-Animals.
+Carved deep into faulted limestone, the galena mine descends through dripping shafts and timbered adits where miners work lead-silver veins by tallow light. It consumes Timber: Mine-Props, Light: Tallow-Candles, and Livestock: Draft-Animals at the horse-gin, yielding silver-rich Ore: Silver-Ore and clean lead glance Ore: Argentiferous-Galena.
 
-Foremen each answer for one section of the workings and its crew. Hewers break the vein; carriers haul ore up ladders in loads of a hundred pounds or more, a candle at the brow. Water is the constant enemy: one piston pump lifts only about twenty-four feet, so the deep levels need a stack of pumps on a waterwheel. The sovereign claims the mineral right and a share of the ore.
-- **Horse-Whim Shaft Head:** winding drum and ore skips, turned by horses.
-- **Pump-Wheel:** waterwheel working rods down to the pumps.
-- **Drainage Adit:** low tunnel letting water run out of the hill.
-- **Ore-Sorting Floor:** ore picked from waste rock and sorted into silver-rich ore and clean galena.
+Foremen answer for each section while carriers climb ladders bearing hundred-pound loads with a candle at the brow. Since each piston pump lifts barely twenty-four feet, stacked waterwheel pumps fight rising groundwater while the sovereign claims a share of ore.
+- **Horse-Whim Shaft Head:** Winding drum and ore skips turned by draft horses.
+- **Pump-Wheel:** Waterwheel driving stacked pump rods down to the sump.
+- **Drainage Adit:** Low downhill tunnel draining water out of the hillside.
+- **Ore-Sorting Floor:** Surface yard separating silver-rich ore from clean galena.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[4, 1, 3]` — **Subterranean Syndicate** (`Clan`).
@@ -56,11 +56,11 @@ Foremen each answer for one section of the workings and its crew. Hewers break t
 - name: "Underground Captain Barnaby Crouch"
   role: "Shift Boss of the Deep Levels"
   disposition: "[4, 1, 4]"
-  motivation: "Maximize daily ore skip quotas without triggering a fatal roof cave-in."
-- name: "Powder Monkey and Splicer Pip"
-  role: "Tallow Runner"
+  motivation: "Push enough silver-rich skips up the whim to cover his section's timber debt before the shareholders cut his shift rate, even though the lower stope props have started to split."
+- name: "Candle-Runner Davy Cragg"
+  role: "Tallow Carrier & Candle-Box Runner"
   disposition: "[4, 3, 1]"
-  motivation: "Smuggle high-grade silver nuggets out in candle tins to pay off gambling debts."
+  motivation: "Slip rich galena nuggets out in the hollow bottoms of candle boxes to settle his family's company-store tally, knowing the mine-reeve has started weighing every runner's basket at shift change."
 - name: "Mine-Reeve Hedda Rauschenbach"
   role: "Sovereign's Mine Reeve (claims, mine law and the ore share)"
   disposition: "[1, 2, 4]"
@@ -74,13 +74,13 @@ Foremen each answer for one section of the workings and its crew. Hewers break t
 ```text
 name: Underground Captain Barnaby Crouch
 role: Shift Boss of the Deep Levels
-motivation: Maximize daily ore skip quotas without triggering a fatal roof cave-in.
+motivation: Push enough silver-rich skips up the whim to cover his section's timber debt before the shareholders cut his shift rate, even though the lower stope props have started to split.
 disposition: [4, 1, 4]
 ```
 ```text
-name: Powder Monkey and Splicer Pip
-role: Tallow Runner
-motivation: Smuggle high-grade silver nuggets out in candle tins to pay off gambling debts.
+name: Candle-Runner Davy Cragg
+role: Tallow Carrier & Candle-Box Runner
+motivation: Slip rich galena nuggets out in the hollow bottoms of candle boxes to settle his family's company-store tally, knowing the mine-reeve has started weighing every runner's basket at shift change.
 disposition: [4, 3, 1]
 ```
 ```text

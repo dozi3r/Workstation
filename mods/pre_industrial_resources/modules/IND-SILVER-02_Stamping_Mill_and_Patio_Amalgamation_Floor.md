@@ -40,16 +40,16 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-SILVER` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-Vein ore from the galena workings arrives in mixed lots. Lumps of clean lead glance are picked out by hand and sold to a lead smelter, since lead fouls quicksilver. The silver-rich sulfide and oxide fraction is crushed to fine powder by heavy iron-shod stamping hammers powered by waterwheels, then spread across a vast paved stone patio. Workers mix the flour with mercury, copper sulfate (the roasted-pyrite reagent) and coarse salt, driving mules in endless circles to trample the sludge and amalgamate the silver. The required inputs of Ore: Silver-Ore, Commodity: Coarse-Salt, Chem: Copper-Sulfate, and Chem: Mercury, worked by Metal: Forged-Iron stamps and Livestock: Draft-Animals, undergo chemical amalgamation, yielding Metal: Crude-Bullion; the washed tailings are dumped in settling pits and leave no smelter slag.
+Mixed galena vein ore is hand-picked first, sending clean lead glance to a lead smelter since lead fouls quicksilver. Waterwheel iron stamps crush the silver-rich Ore: Silver-Ore into fine flour, which mules (Livestock: Draft-Animals) tread on a stone patio with Commodity: Coarse-Salt, Chem: Copper-Sulfate, Chem: Mercury, and Metal: Forged-Iron stamp shoes to yield Metal: Crude-Bullion, leaving washed tailings rather than smelter slag.
 
-The ground ore (the "flour") is heaped a ton or more at a time, dosed, spread a foot or two thick and left in the sun six to eight weeks. The quicksilver man judges each heap's salt and reagent, how long to tread it and when to stop. Ripe heaps are washed and the amalgam heated under a hood, so the quicksilver condenses for reuse. The sovereign sets the quicksilver price, so the patio works only as fast as the flasks arrive.
+Heaps a ton or more are spread one to two feet thick and ripened six to eight weeks under the quicksilver man's dosing. Ripe amalgam is washed and retorted under a hood to recover mercury, at rates dictated by the sovereign's flask price.
 - **Stamp Battery:** iron-shod stamps on a water-driven shaft.
 - **Patio:** sloped flagstone treading floor.
-- **Washing Tanks:** where the heavy amalgam settles.
-- **Burning Hood:** oven that drives quicksilver off the amalgam.
+- **Washing Tanks:** Settling vats separating heavy amalgam from tailings.
+- **Burning Hood:** Retort oven reclaiming quicksilver from the amalgam.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
-- **Baseline Coordinate**: `[2, 1, 4]` — **Indentured Bureaucracy** (`Hierarchy`).
+- **Baseline Coordinate**: `[2, 1, 2]` — **Indentured Bureaucracy** (`Hierarchy`).
 - **Sociological Rationale**: Industrial-scale processing floors dominated by toxic mercury vapor and forced mule-drivers foster strict foreman oversight and grueling mechanized routines.
 
 ## 3. Stationed Entities & Roster Prototypes
@@ -58,11 +58,11 @@ The ground ore (the "flour") is heaped a ton or more at a time, dosed, spread a 
 - name: "Amalgamation Overseer Mateo Silva"
   role: "Process Master (the Quicksilver Man) of the Patio"
   disposition: "[2, 1, 4]"
-  motivation: "Ensure maximum mercury recovery rates while minimizing loss into tailings drains."
-- name: "Mule-Driver Kito"
-  role: "Patio Laborer"
+  motivation: "Keep every heap's mercury loss below two pounds per pound of silver so Factor Arvay will not seize the patio's next bullion cake to cover his credit advance."
+- name: "Mule-Driver Kito Navarro"
+  role: "Patio Treader & Mule-Driver"
   disposition: "[4, 1, 2]"
-  motivation: "Survive chronic mercury poisoning long enough to buy manumission for his family."
+  motivation: "Tread the cold slurry twelve hours a day without letting the trembling sickness take his legs before he scrapes together the last silver pieces for his family's manumission papers."
 - name: "Quicksilver Factor Benedek Arvay"
   role: "Monopoly Factor who issues the mill's mercury on credit"
   disposition: "[1, 3, 3]"
@@ -72,13 +72,13 @@ The ground ore (the "flour") is heaped a ton or more at a time, dosed, spread a 
 ```text
 name: Amalgamation Overseer Mateo Silva
 role: Process Master (the Quicksilver Man) of the Patio
-motivation: Ensure maximum mercury recovery rates while minimizing loss into tailings drains.
+motivation: Keep every heap's mercury loss below two pounds per pound of silver so Factor Arvay will not seize the patio's next bullion cake to cover his credit advance.
 disposition: [2, 1, 4]
 ```
 ```text
-name: Mule-Driver Kito
-role: Patio Laborer
-motivation: Survive chronic mercury poisoning long enough to buy manumission for his family.
+name: Mule-Driver Kito Navarro
+role: Patio Treader & Mule-Driver
+motivation: Tread the cold slurry twelve hours a day without letting the trembling sickness take his legs before he scrapes together the last silver pieces for his family's manumission papers.
 disposition: [4, 1, 2]
 ```
 ```text

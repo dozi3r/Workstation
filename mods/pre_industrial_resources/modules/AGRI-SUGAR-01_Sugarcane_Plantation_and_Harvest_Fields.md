@@ -44,7 +44,7 @@ The estate runs on forced labor. Enslaved field hands are divided into gangs by 
 * **Ox-Cart Weigh Station:** High-beamed timber scale house where bundled cane stalks are weighed, inspected for borer beetles, and bound with hemp rope for transport.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
-- **Baseline Coordinate**: `[3, 2, 4]` - **Coerced Harvest Regime** (`Clan / Hierarchy`). (Written for this conversion; the module had no authored coordinate.)
+- **Baseline Coordinate**: `[1, 2, 2]` - **Coerced Harvest Regime** (`Clan / Hierarchy`). (Written for this conversion; the module had no authored coordinate.)
 - **Sociological Rationale**: A plantation is held together by an owner's kin-like household at the top and by overseers and drivers enforcing quota on a bound workforce, so authority is rigid and dissent is risky and constant.
 
 ## 3. Stationed Entities & Roster Prototypes
@@ -53,11 +53,11 @@ The estate runs on forced labor. Enslaved field hands are divided into gangs by 
 - name: "Thaddeus Varen"
   role: "Field Overseer & Cane Steward"
   disposition: "[1, 1, 4]"
-  motivation: "Enforce strict harvest quotas before tropical monsoon season rots the stalks."
+  motivation: "Deliver the estate's contracted cane tonnage before the monsoon rains rot the cut stalks, knowing the attorney will strip his steward's berth if his tally drops below last season's crop."
 - name: "Jarek Horn"
-  role: "Cutter Foreman & Labor Advocate"
+  role: "Ditch-Gang Foreman & Medicine Keeper"
   disposition: "[4, 4, 1]"
-  motivation: "Secure quinine rations and wage advances for the ditch-clearing crews."
+  motivation: "Wrest fever-bark rations and wage advances from the estate store before swamp ague lays up his ditch-clearing crews, since a silted canal floods the low fields and the overseer docks his gang's pay."
 - name: "Ama Dessouk"
   role: "First-Gang Driver (enslaved)"
   disposition: "[4, 2, 3]"
@@ -71,13 +71,13 @@ The estate runs on forced labor. Enslaved field hands are divided into gangs by 
 ```text
 name: Thaddeus Varen
 role: Field Overseer & Cane Steward
-motivation: Enforce strict harvest quotas before tropical monsoon season rots the stalks.
+motivation: Deliver the estate's contracted cane tonnage before the monsoon rains rot the cut stalks, knowing the attorney will strip his steward's berth if his tally drops below last season's crop.
 disposition: [1, 1, 4]
 ```
 ```text
 name: Jarek Horn
-role: Cutter Foreman & Labor Advocate
-motivation: Secure quinine rations and wage advances for the ditch-clearing crews.
+role: Ditch-Gang Foreman & Medicine Keeper
+motivation: Wrest fever-bark rations and wage advances from the estate store before swamp ague lays up his ditch-clearing crews, since a silted canal floods the low fields and the overseer docks his gang's pay.
 disposition: [4, 4, 1]
 ```
 ```text

@@ -40,12 +40,12 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-GLASS` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop
-A massive, dome-topped brick furnace roars continuously, fueled by forced-draft charcoal chambers that melt silica sand, potash flux, and lime into a glowing, viscous batch of molten glass. Craftsmen dip long iron blowpipes into the crucibles, gathering the glowing gob and shaping it through synchronized lung inflation, rolling blocks, and dexterous metal shears. The required inputs of Mineral: Silica-Sand, Chem: Potash, Fuel: Charcoal-or-Coal, Chem: Slaked-Lime, Metal: Forged-Iron and Commodity: Ceramic-Vessels yield finished Commodity: Glassware.
+Inside a roaring dome-topped furnace, `Mineral: Silica-Sand`, `Chem: Potash`, `Fuel: Charcoal-or-Coal`, `Chem: Slaked-Lime`, `Metal: Forged-Iron` blowpipes and `Commodity: Ceramic-Vessels` yield blown `Commodity: Glassware`. Workers frit roughly two parts sand to one part ash below melting for a day and a night, then melt and fine the batch inside covered crucibles of imported refractory clay.
 
-A batch of about two parts sand to one of ash is fritted below melting for a day and a night, then melted in covered crucibles of imported refractory clay and fined before work begins. The shop, led by the gaffer, gathers glass on the pipe, rolls it on the marver, reheats in the glory hole and carries finished pieces to the lehr to cool slowly. Furnaces eat wood by the tonne, which is why many glasshouses move when the woodland runs out.
-- **Melting Furnace:** covered crucibles in a dome.
-- **Glory Hole:** reheating opening.
-- **Lehr:** annealing oven where the glass cools over hours.
+Led by the gaffer, the shop gathers glowing glass on iron blowpipes, shapes it on the marver and with metal shears, reheats at the glory hole, and cools each piece slowly in the annealing lehr. Furnaces devour wood by the tonne, forcing many glasshouses to relocate once nearby coppices are cut bare.
+- **Melting Furnace:** Domed oven housing covered refractory clay crucibles.
+- **Glory Hole & Marver:** Reheating port and rolling slab for shaping gobs.
+- **Annealing Lehr:** Slow-cooling tunnel preventing thermal shatter.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[3, 4, 3]` - **Passionate Creator** (`Adhocracy`).

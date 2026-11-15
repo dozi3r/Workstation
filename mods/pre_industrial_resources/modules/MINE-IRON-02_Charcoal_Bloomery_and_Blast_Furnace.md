@@ -21,9 +21,9 @@ standalone_fallback: "If mechanical air blast is lost, operations drop to low-te
 
 injected_mechanics:
   furnace_hearth_dial:
-    level_1: "Charcoal Smolder (1800°F) - Pre-heating the bosh stack; slag running sluggishly."
-    level_2: "Active Blast Smelt (2400°F) - Liquid pig-iron pool forming beneath slag layer."
-    level_3: "White-Heat Blast (2800°F) - Carbon dissolution maxed; extreme spark shower from throat."
+    level_1: "Charcoal Smolder (1,800 degrees F) - Pre-heating the bosh stack; slag running sluggishly."
+    level_2: "Active Blast Smelt (2,400 degrees F) - Liquid pig-iron pool forming beneath slag layer."
+    level_3: "White-Heat Blast (2,800 degrees F) - Carbon dissolution maxed; extreme spark shower from throat."
     level_4: "Tuyere Burn-Through - Molten iron burns through water-jacketed nozzle; blast floor flood."
   threat_clocks:
     slag_dam_overfill: "Slag Overfill Clock [4 Ticks] - Vitrified glassy slag plugs iron taphole."
@@ -35,13 +35,13 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-IRON` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-The blast furnace is a 30-foot masonry tower built against a hillside bluff, roaring continuously as air blast and burning fuel reduce raw iron oxides to heavy, carbon-rich molten metal. It takes `Ore: Raw-Iron-Ore`, `Fuel: Charcoal-or-Coal` and `Stone: Cut-Limestone` as flux, and gives out `Metal: Pig-Iron`.
+The blast furnace is a 30-foot masonry tower built against a hillside bluff, roaring as forced air and fuel reduce iron oxides to molten metal. It takes `Ore: Raw-Iron-Ore`, `Fuel: Charcoal-or-Coal`, and `Stone: Cut-Limestone` flux, yielding `Metal: Pig-Iron`.
 
-The works runs as a campaign: the furnace is lit when the stream is full in autumn and blown until the water fails in late spring, then left cold through the dry summer while the ponds refill. An ironmaster holds it, finds the ore, the charcoal, the carters and the market, and a founder runs the hearth day and night. The charge is loaded from the tunnel head by eye, and a furnace needs woodland within a few miles because charcoal crumbles on rough carts.
-* **Stone Bosh & Hearth Stack:** Heavy granite tower lined with heat-resistant refractory sandstone. Alternating charges of iron ore, charcoal, and limestone flux are dumped into the top throat; the lime joins the silica as slag floating on the iron.
-* **Twin Leather Bellows & Waterwheel:** Heavy waterwheel driving cam-lifted bellows, delivering continuous forced air through water-cooled copper tuyeres into the hearth. The leather wears out quickly and is patched or replaced every campaign.
-* **Sand Casting Casting Floor:** Level sand floor furrowed with trenches ("sow and pigs") into which molten iron flows when the clay taphole is breached with an iron punch.
-* **Tunnel Head & Charcoal Barn:** The loading platform at the top of the stack and the dry shed beside it, where the filler works in flame, smoke and cinders and the charcoal waits for the next charge.
+Works run in winter campaigns from autumn rains until streams dry in late spring, using woodland within a few miles because charcoal crumbles on rough carts. An ironmaster manages contracts while a founder tends the hearth day and night.
+* **Stone Bosh & Hearth Stack:** Granite tower lined with refractory sandstone; lime flux joins silica as floating slag.
+* **Twin Leather Bellows & Waterwheel:** Waterwheel driving cam-lifted bellows through water-cooled tuyeres; leather needs constant patching.
+* **Sand Casting Floor:** Level sand bed furrowed with "sow and pigs" trenches poured when the clay taphole is punched.
+* **Tunnel Head & Charcoal Barn:** Top charging deck where fillers load by eye through smoke and cinders.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[1, 1, 4]` - **Ironmaster's Furnace** (`Hierarchy / Market`).
@@ -50,14 +50,14 @@ The works runs as a campaign: the furnace is lit when the stream is full in autu
 ## 3. Stationed Entities & Roster Prototypes
 
 ### Key Personnel (NPC Prototypes)
-- name: "Master Smelter Kaelen"
-  role: "Chief Blast Master"
+- name: "Master Founder Kaelen Brigg"
+  role: "Head Furnace Founder"
   disposition: "[1, 1, 4]"
-  motivation: "Keep the furnace tapped on schedule to prevent the molten salamander from freezing solid."
+  motivation: "Keep the hearth in blast until the gun contract is poured even with the pond dropping fast, because a poor founder who lets a salamander freeze in the bosh is turned off without his campaign bonus."
 - name: "Sela the Tapper"
   role: "Taphole Chisel Specialist"
   disposition: "[3, 4, 3]"
-  motivation: "Survive the deadly white-hot slag run and secure safe casting molds for iron shot."
+  motivation: "Breach the clay taphole cleanly before the slag plugs the hearth and forces a cold blow-out, though a wet sand mould splashed her leg last winter and the ironmaster docked her recovery weeks."
 - name: "Edric Thornwell"
   role: "Ironmaster & Furnace Lessee"
   disposition: "[1, 2, 4]"
@@ -69,15 +69,15 @@ The works runs as a campaign: the furnace is lit when the stream is full in autu
 
 <!-- BEGIN_NPC_MIRROR (generated by infographic/tools/sync_npc_mirror.js - do not edit by hand) -->
 ```text
-name: Master Smelter Kaelen
-role: Chief Blast Master
-motivation: Keep the furnace tapped on schedule to prevent the molten salamander from freezing solid.
+name: Master Founder Kaelen Brigg
+role: Head Furnace Founder
+motivation: Keep the hearth in blast until the gun contract is poured even with the pond dropping fast, because a poor founder who lets a salamander freeze in the bosh is turned off without his campaign bonus.
 disposition: [1, 1, 4]
 ```
 ```text
 name: Sela the Tapper
 role: Taphole Chisel Specialist
-motivation: Survive the deadly white-hot slag run and secure safe casting molds for iron shot.
+motivation: Breach the clay taphole cleanly before the slag plugs the hearth and forces a cold blow-out, though a wet sand mould splashed her leg last winter and the ironmaster docked her recovery weeks.
 disposition: [3, 4, 3]
 ```
 ```text
@@ -102,7 +102,7 @@ disposition: [4, 3, 2]
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial - `Furnace Hearth` (`0-10`)**: At `0-3`, the charge is cold, slag runs sluggishly and the furnace risks freezing solid in the hearth. At `8-10`, the white-heat blast dissolves the carbon and throws sparks from the throat, but molten iron can burn through the water-jacketed tuyere and flood the blast floor.
-- **Quest Hook - *The Dry Stream***: A dry autumn leaves the pond low, and Edric Thornwell's wheel will drive the bellows for only a few more weeks. Master Smelter Kaelen wants to blow in anyway, Sela the Tapper says the slag is already running too thick, and Pim Cinderhand has been caught short of charcoal. The party must find water, fuel or a way to shorten the campaign before the gun contract deadline.
+- **Quest Hook - *The Dry Stream***: A dry autumn leaves the pond low, and Edric Thornwell's wheel will drive the bellows for only a few more weeks. Master Founder Kaelen Brigg wants to blow in anyway, Sela the Tapper says the slag is already running too thick, and Pim Cinderhand has been caught short of charcoal. The party must find water, fuel or a way to shorten the campaign before the gun contract deadline.
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Consumes `Ore: Raw-Iron-Ore` from the **Open-Cast Iron Ore Pit (`MINE-IRON-01`)** and `Fuel: Charcoal-or-Coal` from the **Charcoal Burner's Mound (`IND-CHARCOAL-01`)** or the **Deep Colliery and Coking Ovens (`MINE-COAL-01`)**, along with `Stone: Cut-Limestone` from the **Limestone Quarry (`EXT-LIME-01`)** as furnace flux.
