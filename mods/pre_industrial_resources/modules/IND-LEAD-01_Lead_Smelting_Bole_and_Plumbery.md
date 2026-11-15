@@ -11,6 +11,7 @@ chain_role: "refining"
 provides:
   - "Metal: Smelted-Lead"
 requires:
+  - "Ore: Argentiferous-Galena"
   - "Ore: Lead-Slag"
   - "Fuel: Charcoal-or-Coal"
 culture_quadrant: Hierarchy
@@ -36,7 +37,7 @@ injected_mechanics:
 > **Industry Chain**: `CHAIN-LEAD` (Stage 1: `refining`)
 
 ## 1. Architectural Overview & Operational Loop
-Open-air stone boles built on windy hillside ledges harness natural drafts to resmelt lead-rich litharge and hearth slag from the mint without complex bellows. Workers feed alternating layers of slag and charcoal into the hearth, tapping molten lead into sand molds to form heavy ingots or hammering sheets for roofing and plumbing. The required inputs of Ore: Lead-Slag and Fuel: Charcoal-or-Coal are thermally reduced into malleable Metal: Smelted-Lead.
+Open-air stone boles built on windy hillside ledges harness natural drafts to smelt hand-sorted galena from the silver mine and to resmelt lead-rich litharge and hearth slag from the mint without complex bellows. Workers feed alternating layers of ore or slag and charcoal into the hearth, tapping molten lead into sand molds to form heavy ingots or hammering sheets for roofing and plumbing. The required inputs of Ore: Argentiferous-Galena, Ore: Lead-Slag and Fuel: Charcoal-or-Coal are thermally reduced into malleable Metal: Smelted-Lead.
 
 Boles stood on exposed hilltops with three walls and a gap facing the wind; later works fitted waterwheel bellows. Litharge cake and slag heaps are crushed, washed in a pond and resmelted in a small enclosed hearth for the lead they still hold.
 
@@ -102,7 +103,7 @@ disposition: [4, 3, 2]
 - **Quest Hook — *The Colic Outbreak***: Severe lead poisoning incapacitates half the smelting crew, threatening to halt cathedral lead deliveries unless Master Alistair pays for a physician and purges. Slag Tender Brin is among the sick, Bole-Master Corin Ashby wants the crew back at the hearth before the next good wind, and the cathedral's roofing contract lapses at the month's end.
 
 ## 5. GM Socket Placement & Supply Synergy
-* **Input Dependency:** Smelts and resmelts `Ore: Lead-Slag`, the lead-rich litharge cake and hearth slag carted in from the **Cupellation Hearth & Sovereign Mint (`IND-SILVER-03`)**, and fires its hearth with `Fuel: Charcoal-or-Coal` from the **Charcoal Burner's Mound (`IND-CHARCOAL-01`)** or the **Deep Colliery and Coking Ovens (`MINE-COAL-01`)**.
+* **Input Dependency:** Smelts hand-sorted `Ore: Argentiferous-Galena` carted from the **Galena Deep-Vein Mine (`MINE-SILVER-01`)**, and smelts and resmelts `Ore: Lead-Slag`, the lead-rich litharge cake and hearth slag carted in from the **Cupellation Hearth & Sovereign Mint (`IND-SILVER-03`)**, and fires its hearth with `Fuel: Charcoal-or-Coal` from the **Charcoal Burner's Mound (`IND-CHARCOAL-01`)** or the **Deep Colliery and Coking Ovens (`MINE-COAL-01`)**.
 * **Output Transmission:** Casts `Metal: Smelted-Lead` as pigs for the **Movable-Type Printshop & Bindery (`IND-PAPER-03`)**, where it is alloyed for type; sheet and pipe for roofs and conduits leave the plumbery to local customers.
 * **Tactical Chokepoint:** The wind. A calm spell halts the bole, and a gale wastes the charge and poisons the hill.
 

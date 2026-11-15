@@ -9,6 +9,7 @@ chain_id: "CHAIN-SILVER"
 chain_stage: 1
 chain_role: "extraction"
 provides:
+  - "Ore: Silver-Ore"
   - "Ore: Argentiferous-Galena"
 requires:
   - "Timber: Mine-Props"
@@ -31,19 +32,19 @@ injected_mechanics:
   threat_clocks:
     rising_sump_clock: "Rising Sump Clock [6 Ticks] - Each wet week, broken pump rod or late timber cart adds a tick; when full the lowest level floods and ore output halves until it is pumped out."
     candle_tin_clock: "Candle-Tin Clock [4 Ticks] - Each payday that rich ore leaves the mine hidden in candle tins adds a tick; when full the mine reeve shuts the shaft for a search and withholds the next pay."
-  yields_resource: "Hand-sorted Argentiferous Galena Ore (8 Cartloads/Day)"
+  yields_resource: "Silver-rich Ore (5 Cartloads/Day) and hand-sorted Argentiferous Galena (3 Cartloads/Day)"
 ---
 # Galena Deep-Vein Mine (`MINE-SILVER-01`)
 > **Industry Chain**: `CHAIN-SILVER` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
-Carved deep into limestone fault lines, the galena mine descends through dripping vertical shafts and timber-shored adits. Miners hack at sulfide veins bearing lead and silver with heavy picks and wedges, guided only by flickering tallow candles. The required inputs of Timber: Mine-Props prevent catastrophic gallery collapses, while Light: Tallow-Candles sustains subterranean labor, turning dark rock faces into extracted Ore: Argentiferous-Galena hauled up by horse-gins worked by Livestock: Draft-Animals.
+Carved deep into limestone fault lines, the galena mine descends through dripping vertical shafts and timber-shored adits. Miners hack at sulfide veins bearing lead and silver with heavy picks and wedges, guided only by flickering tallow candles. The required inputs of Timber: Mine-Props prevent catastrophic gallery collapses, while Light: Tallow-Candles sustains subterranean labor, turning dark rock faces into extracted Ore: Silver-Ore (the silver-rich sulfide and oxide fraction) and Ore: Argentiferous-Galena (clean lead glance) hauled up by horse-gins worked by Livestock: Draft-Animals.
 
 Foremen each answer for one section of the workings and its crew. Hewers break the vein; carriers haul ore up ladders in loads of a hundred pounds or more, a candle at the brow. Water is the constant enemy: one piston pump lifts only about twenty-four feet, so the deep levels need a stack of pumps on a waterwheel. The sovereign claims the mineral right and a share of the ore.
 - **Horse-Whim Shaft Head:** winding drum and ore skips, turned by horses.
 - **Pump-Wheel:** waterwheel working rods down to the pumps.
 - **Drainage Adit:** low tunnel letting water run out of the hill.
-- **Ore-Sorting Floor:** rich galena picked from waste rock.
+- **Ore-Sorting Floor:** ore picked from waste rock and sorted into silver-rich ore and clean galena.
 
 ## 2. Granular Disposition Baseline (`[S, E, C]`)
 - **Baseline Coordinate**: `[4, 1, 3]` — **Subterranean Syndicate** (`Clan`).
@@ -99,7 +100,7 @@ disposition: [3, 3, 3]
 ### Material Stocks & Items (Item Prototypes)
 - **Tallow Dip Candle** (`Commodity`): Rendered animal fat candle providing essential illumination in firedamp-prone tunnels.
 - **Oak Pit Prop** (`Tool`): Hand-hewn timber pillar wedged to support unstable overhead limestone strata.
-- **Hand-Sorted Galena** (`Commodity`): Heavy, bright grey lead-silver ore picked clean of waste rock and carted to the stamping mill.
+- **Hand-Sorted Galena** (`Commodity`): Heavy, bright grey lead-silver ore picked clean of waste rock and carted to the lead smelting bole, while the silver-rich fraction goes to the stamping mill.
 - **Pump Rod and Bucket** (`Tool`): Timber rod and leather-cupped piston that lifts the sump water one stage at a time.
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
@@ -108,7 +109,7 @@ disposition: [3, 3, 3]
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Consumes `Timber: Mine-Props` from the **Water-Powered Sawmill (`IND-TIMBER-02`)** to shore every new gallery, `Light: Tallow-Candles` from the **Tallow Chandlery (`IND-CANDLE-01`)** for every hewer and carrier, and `Livestock: Draft-Animals` from the **Pasture Ranch (`FARM-CATTLE-01`)** to turn the horse whim.
-* **Output Transmission:** Carts hand-sorted `Ore: Argentiferous-Galena` to the **Stamping Mill & Patio Amalgamation Floor (`IND-SILVER-02`)** for crushing and silver recovery.
+* **Output Transmission:** Carts the silver-rich fraction as `Ore: Silver-Ore` to the **Stamping Mill & Patio Amalgamation Floor (`IND-SILVER-02`)** for crushing and amalgamation, and carts clean hand-sorted `Ore: Argentiferous-Galena` to the **Lead Smelting Bole & Plumbery (`IND-LEAD-01`)** for smelting.
 * **Tactical Chokepoint:** The pump-wheel and its leat. Break the wheel or divert the stream and the deep levels drown within days.
 
 ## 6. Vague Game Hazards
