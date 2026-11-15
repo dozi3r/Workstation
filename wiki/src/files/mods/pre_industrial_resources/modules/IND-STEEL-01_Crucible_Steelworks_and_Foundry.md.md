@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-STEEL-01_Crucible_Steelwor
 title: "IND-STEEL-01: Crucible Steelworks and Foundry"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "94b94ede849d3b57"
-reviewed_hash: "94b94ede849d3b57"
+current_hash: "50f750261061b41a"
+reviewed_hash: "50f750261061b41a"
 stale: false
-size_bytes: 4306
-line_count: 78
+size_bytes: 9053
+line_count: 117
 ---
 
 # IND-STEEL-01: Crucible Steelworks and Foundry
@@ -18,4 +18,5 @@ line_count: 78
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Commodity: Ceramic-Vessels`, `Metal: Forged-Iron`.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

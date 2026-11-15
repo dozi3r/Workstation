@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-SHIP-02_Drydock_Slipway_an
 title: "IND-SHIP-02: Drydock Slipway & Caulking Yard"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "a20c1fd64a15f9dd"
-reviewed_hash: "a20c1fd64a15f9dd"
+current_hash: "b228a2a6913df264"
+reviewed_hash: "b228a2a6913df264"
 stale: false
-size_bytes: 2421
-line_count: 49
+size_bytes: 7575
+line_count: 118
 ---
 
 # IND-SHIP-02: Drydock Slipway & Caulking Yard
@@ -18,4 +18,5 @@ line_count: 49
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: heading format repaired.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

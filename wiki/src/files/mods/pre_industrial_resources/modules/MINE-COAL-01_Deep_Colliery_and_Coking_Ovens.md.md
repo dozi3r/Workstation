@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/MINE-COAL-01_Deep_Colliery_and
 title: "MINE-COAL-01: Deep Colliery and Coking Ovens"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "ebf470f040253df9"
-reviewed_hash: "ebf470f040253df9"
+current_hash: "5d83686c0cc87c47"
+reviewed_hash: "5d83686c0cc87c47"
 stale: false
-size_bytes: 3873
-line_count: 76
+size_bytes: 8959
+line_count: 115
 ---
 
 # MINE-COAL-01: Deep Colliery and Coking Ovens
@@ -17,4 +17,5 @@ line_count: 76
 `mods/pre_industrial_resources/modules/MINE-COAL-01_Deep_Colliery_and_Coking_Ovens.md` serves as a **Workstation Mod Resource Module** within **Volume IV: Workstation Architecture & Mod Engine (src/workstation/ & mods/)**.
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-TIMBER-03_Master_Cooperage
 title: "IND-TIMBER-03: Master Cooperage"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "e146cbee5c4d1ec6"
-reviewed_hash: "e146cbee5c4d1ec6"
+current_hash: "aed464eda436cf98"
+reviewed_hash: "aed464eda436cf98"
 stale: false
-size_bytes: 2396
-line_count: 46
+size_bytes: 7238
+line_count: 116
 ---
 
 # IND-TIMBER-03: Master Cooperage
@@ -17,4 +17,5 @@ line_count: 46
 `mods/pre_industrial_resources/modules/IND-TIMBER-03_Master_Cooperage.md` serves as a **Workstation Mod Resource Module** within **Volume IV: Workstation Architecture & Mod Engine (src/workstation/ & mods/)**.
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

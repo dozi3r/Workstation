@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-SILK-02_Filature_Reeling_B
 title: "IND-SILK-02: Filature Reeling Basin"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "b1b11a31334ee40c"
-reviewed_hash: "b1b11a31334ee40c"
+current_hash: "13efe20150ce07df"
+reviewed_hash: "13efe20150ce07df"
 stale: false
-size_bytes: 2461
-line_count: 48
+size_bytes: 7258
+line_count: 117
 ---
 
 # IND-SILK-02: Filature Reeling Basin
@@ -18,4 +18,5 @@ line_count: 48
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Metal: Forged-Copper`; heading format repaired.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

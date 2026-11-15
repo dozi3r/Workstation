@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-COTTON-02_Roller_Gin_and_S
 title: "IND-COTTON-02: Roller Gin & Spinning House"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "2c925ebf71f1e42b"
-reviewed_hash: "2c925ebf71f1e42b"
+current_hash: "5caeea968d70130f"
+reviewed_hash: "5caeea968d70130f"
 stale: false
-size_bytes: 2396
-line_count: 46
+size_bytes: 6560
+line_count: 112
 ---
 
 # IND-COTTON-02: Roller Gin & Spinning House
@@ -18,4 +18,5 @@ line_count: 46
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: heading format repaired.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

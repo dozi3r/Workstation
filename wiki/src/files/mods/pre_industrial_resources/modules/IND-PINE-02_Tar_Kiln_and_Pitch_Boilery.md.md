@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-PINE-02_Tar_Kiln_and_Pitch
 title: "IND-PINE-02: Tar Kiln & Pitch Boilery"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "d6038e19f2ada3b1"
-reviewed_hash: "d6038e19f2ada3b1"
+current_hash: "b006fd532f7184e9"
+reviewed_hash: "b006fd532f7184e9"
 stale: false
-size_bytes: 2624
-line_count: 49
+size_bytes: 8195
+line_count: 118
 ---
 
 # IND-PINE-02: Tar Kiln & Pitch Boilery
@@ -19,4 +19,5 @@ line_count: 49
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Metal: Forged-Copper`; heading format repaired.
 - **Data audit (2026-11-15, co-products)**: now provides `Chem: Lampblack`; text extended or synced to match the tags; stray glyph removed from quest title.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

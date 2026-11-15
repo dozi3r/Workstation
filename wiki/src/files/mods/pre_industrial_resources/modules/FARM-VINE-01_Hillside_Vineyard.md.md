@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/FARM-VINE-01_Hillside_Vineyard
 title: "FARM-VINE-01: Hillside Vineyard"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "301dad3282a44832"
-reviewed_hash: "301dad3282a44832"
+current_hash: "6bfae06cace4fb5e"
+reviewed_hash: "6bfae06cace4fb5e"
 stale: false
-size_bytes: 2298
-line_count: 45
+size_bytes: 6949
+line_count: 113
 ---
 
 # FARM-VINE-01: Hillside Vineyard
@@ -18,4 +18,5 @@ line_count: 45
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Chem: Brimstone-Sulfur`.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

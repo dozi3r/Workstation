@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-SHIP-01_Seasoning_Timber_P
 title: "IND-SHIP-01: Seasoning Timber Pond & Sawpit"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "938a6ca4d9a38bfa"
-reviewed_hash: "938a6ca4d9a38bfa"
+current_hash: "38ea4d061ec86e9f"
+reviewed_hash: "38ea4d061ec86e9f"
 stale: false
-size_bytes: 2372
-line_count: 48
+size_bytes: 7337
+line_count: 117
 ---
 
 # IND-SHIP-01: Seasoning Timber Pond & Sawpit
@@ -18,4 +18,5 @@ line_count: 48
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Metal: Forged-Iron`; heading format repaired.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

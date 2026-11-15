@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/EXT-TIMBER-01_Hardwood_Logging
 title: "EXT-TIMBER-01: Hardwood Logging Camp"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "3181297598536351"
-reviewed_hash: "3181297598536351"
+current_hash: "e62f784753e799f6"
+reviewed_hash: "e62f784753e799f6"
 stale: false
-size_bytes: 2352
-line_count: 46
+size_bytes: 7662
+line_count: 116
 ---
 
 # EXT-TIMBER-01: Hardwood Logging Camp
@@ -18,4 +18,5 @@ line_count: 46
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Livestock: Draft-Animals`.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

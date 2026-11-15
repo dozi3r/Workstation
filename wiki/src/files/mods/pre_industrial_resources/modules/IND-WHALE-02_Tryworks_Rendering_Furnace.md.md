@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-WHALE-02_Tryworks_Renderin
 title: "IND-WHALE-02: Tryworks Rendering Furnace"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "7f2dffb8301ad07a"
-reviewed_hash: "7f2dffb8301ad07a"
+current_hash: "ab81c591e5513968"
+reviewed_hash: "ab81c591e5513968"
 stale: false
-size_bytes: 2478
-line_count: 50
+size_bytes: 7283
+line_count: 118
 ---
 
 # IND-WHALE-02: Tryworks Rendering Furnace
@@ -18,4 +18,5 @@ line_count: 50
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Metal: Forged-Copper`, `Chem: Pine-Pitch`; heading format repaired.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-IRON-03_Blacksmith_Forge.m
 title: "IND-IRON-03: Blacksmith Forge"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "db6f655bb873d61b"
-reviewed_hash: "db6f655bb873d61b"
+current_hash: "1e9816fa079147fd"
+reviewed_hash: "1e9816fa079147fd"
 stale: false
-size_bytes: 2552
-line_count: 46
+size_bytes: 7160
+line_count: 104
 ---
 
 # IND-IRON-03: Blacksmith Forge
@@ -17,4 +17,5 @@ line_count: 46
 `mods/pre_industrial_resources/modules/IND-IRON-03_Blacksmith_Forge.md` serves as a **Workstation Mod Resource Module** within **Volume IV: Workstation Architecture & Mod Engine (src/workstation/ & mods/)**.
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

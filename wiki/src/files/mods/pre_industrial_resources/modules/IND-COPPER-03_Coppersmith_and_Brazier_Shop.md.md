@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-COPPER-03_Coppersmith_and_
 title: "IND-COPPER-03: Coppersmith & Brazier Shop"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "cef17657ba2900d1"
-reviewed_hash: "cef17657ba2900d1"
+current_hash: "6a3b9072c96393a2"
+reviewed_hash: "6a3b9072c96393a2"
 stale: false
-size_bytes: 2276
-line_count: 47
+size_bytes: 8272
+line_count: 117
 ---
 
 # IND-COPPER-03: Coppersmith & Brazier Shop
@@ -18,4 +18,5 @@ line_count: 47
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Metal: Forged-Iron`; heading format repaired.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

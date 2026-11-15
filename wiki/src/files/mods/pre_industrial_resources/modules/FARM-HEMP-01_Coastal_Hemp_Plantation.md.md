@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/FARM-HEMP-01_Coastal_Hemp_Plan
 title: "FARM-HEMP-01: Coastal Hemp Plantation"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "4519ce518072403a"
-reviewed_hash: "4519ce518072403a"
+current_hash: "24e2437b8f893b41"
+reviewed_hash: "24e2437b8f893b41"
 stale: false
-size_bytes: 2319
-line_count: 45
+size_bytes: 7400
+line_count: 114
 ---
 
 # FARM-HEMP-01: Coastal Hemp Plantation
@@ -18,4 +18,5 @@ line_count: 45
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: heading format repaired.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

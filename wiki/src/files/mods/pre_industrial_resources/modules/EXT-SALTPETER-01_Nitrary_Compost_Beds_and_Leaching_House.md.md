@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/EXT-SALTPETER-01_Nitrary_Compo
 title: "EXT-SALTPETER-01: Nitrary Compost Beds & Leaching House"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "a002a8e6e41c1a77"
-reviewed_hash: "a002a8e6e41c1a77"
+current_hash: "a1c5d5650e53407a"
+reviewed_hash: "a1c5d5650e53407a"
 stale: false
-size_bytes: 2343
-line_count: 47
+size_bytes: 7973
+line_count: 119
 ---
 
 # EXT-SALTPETER-01: Nitrary Compost Beds & Leaching House
@@ -18,4 +18,5 @@ line_count: 47
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Chem: Slaked-Lime`; heading format repaired.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

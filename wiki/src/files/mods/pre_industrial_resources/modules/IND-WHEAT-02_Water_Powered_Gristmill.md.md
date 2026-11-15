@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-WHEAT-02_Water_Powered_Gri
 title: "IND-WHEAT-02: Water-Powered Gristmill"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "2587dcc161096307"
-reviewed_hash: "2587dcc161096307"
+current_hash: "53ab98f5640eeb50"
+reviewed_hash: "53ab98f5640eeb50"
 stale: false
-size_bytes: 2658
-line_count: 49
+size_bytes: 7108
+line_count: 108
 ---
 
 # IND-WHEAT-02: Water-Powered Gristmill
@@ -18,4 +18,5 @@ line_count: 49
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Metal: Forged-Iron`.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->

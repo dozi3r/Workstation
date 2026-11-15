@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-GOLD-02_Assay_Furnace_and_
 title: "IND-GOLD-02: Assay Furnace & Goldsmith Bourse"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "1d971e78656b28ed"
-reviewed_hash: "1d971e78656b28ed"
+current_hash: "bd430d3ec46dde92"
+reviewed_hash: "bd430d3ec46dde92"
 stale: false
-size_bytes: 2589
-line_count: 49
+size_bytes: 7605
+line_count: 118
 ---
 
 # IND-GOLD-02: Assay Furnace & Goldsmith Bourse
@@ -19,4 +19,5 @@ line_count: 49
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Commodity: Ceramic-Vessels`, `Commodity: Glassware`; heading format repaired.
 - **Data audit (2026-11-15, co-products)**: text extended or synced to match the tags.
+- **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
 <!-- END_CUSTOM_NOTES -->
