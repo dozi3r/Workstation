@@ -55,11 +55,11 @@ Brine is poured into shallow open pans, concentrated over fire, and the crystals
 - name: "Master Boiler Bronwen Fane"
   role: "Chief Evaporation Overseer"
   disposition: "[2, 4, 1]"
-  motivation: "Secure high-grade timber fuel contracts to keep boiling pans operating at maximum output."
-- name: "Granary Clerk Silas Mallow"
-  role: "Salt Storekeeper"
+  motivation: "Pay the woodward for two seasons of fuel she has taken on credit, with her share in the pans pledged as surety, before one cold wet winter makes the debt larger than the house."
+- name: "Ewen Pollard"
+  role: "Granary Keeper"
   disposition: "[4, 3, 3]"
-  motivation: "Prevent moisture seepage into the dry storage bins to protect profit margins."
+  motivation: "Hide the damp bin he swore was dry by writing its spoiled salt into the tally as sold, before the duty collector counts the barrels against the book."
 - name: "Duty Collector Ambrose Treen"
   role: "Salt Duty Collector who audits the granary tally"
   disposition: "[1, 1, 4]"
@@ -73,13 +73,13 @@ Brine is poured into shallow open pans, concentrated over fire, and the crystals
 ```text
 name: Master Boiler Bronwen Fane
 role: Chief Evaporation Overseer
-motivation: Secure high-grade timber fuel contracts to keep boiling pans operating at maximum output.
+motivation: Pay the woodward for two seasons of fuel she has taken on credit, with her share in the pans pledged as surety, before one cold wet winter makes the debt larger than the house.
 disposition: [2, 4, 1]
 ```
 ```text
-name: Granary Clerk Silas Mallow
-role: Salt Storekeeper
-motivation: Prevent moisture seepage into the dry storage bins to protect profit margins.
+name: Ewen Pollard
+role: Granary Keeper
+motivation: Hide the damp bin he swore was dry by writing its spoiled salt into the tally as sold, before the duty collector counts the barrels against the book.
 disposition: [4, 3, 3]
 ```
 ```text
@@ -103,7 +103,7 @@ disposition: [4, 2, 1]
 
 ## 4. Operational Dials & Failure Modes (Quests & Crises)
 - **Dial — `Furnace Heat Intensity` (`0–10`)**: At `0–3`, wet wood chokes the hearths and halts boiling operations. At `8–10`, overheating cracks the expensive cast-iron boiling pans, halting production.
-- **Quest Hook — *The Damp Reserve***: Silas Mallow discovers rising damp threatening the central granary stock, requiring immediate relocation of tons of salt before it dissolves. Duty Collector Ambrose Treen arrives in three days to count the bins, and Master Boiler Bronwen Fane would rather lose a few barrels to damp than have them counted short.
+- **Quest Hook — *The Damp Reserve***: Ewen Pollard discovers rising damp threatening the central granary stock, requiring immediate relocation of tons of salt before it dissolves. Duty Collector Ambrose Treen arrives in three days to count the bins, and Master Boiler Bronwen Fane would rather lose a few barrels to damp than have them counted short.
 
 ## 5. GM Socket Placement & Supply Synergy
 * **Input Dependency:** Boils `Commodity: Brine-Slurry` from the **Tidal Salt Evaporation Pans (`EXT-SALT-01`)**; feeds its hearths with `Fuel: Wood-Fuel` from the **Hardwood Logging Camp (`EXT-TIMBER-01`)**; and hangs its pans on `Metal: Forged-Iron` from the **Blacksmith Forge (`IND-IRON-03`)**.
