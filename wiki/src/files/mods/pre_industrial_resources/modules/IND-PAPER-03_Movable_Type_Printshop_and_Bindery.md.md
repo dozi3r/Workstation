@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-PAPER-03_Movable_Type_Prin
 title: "IND-PAPER-03: Movable-Type Printshop & Bindery"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "cb928c2821d57e82"
-reviewed_hash: "cb928c2821d57e82"
+current_hash: "311fd45aa76eb1cc"
+reviewed_hash: "311fd45aa76eb1cc"
 stale: false
-size_bytes: 2270
-line_count: 47
+size_bytes: 2293
+line_count: 48
 ---
 
 # IND-PAPER-03: Movable-Type Printshop & Bindery
@@ -19,4 +19,5 @@ line_count: 47
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: heading format repaired.
 - **Data audit (2026-11-15, co-products)**: added requires `Chem: Lampblack`.
+- **Data audit (2026-11-15, new modules)**: added requires `Oil: Linseed-Oil`.
 <!-- END_CUSTOM_NOTES -->

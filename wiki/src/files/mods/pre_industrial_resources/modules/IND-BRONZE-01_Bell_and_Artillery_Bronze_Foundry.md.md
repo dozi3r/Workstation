@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-BRONZE-01_Bell_and_Artille
 title: "IND-BRONZE-01: Bell & Artillery Bronze Foundry"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "a8e7e1d131c52d9d"
-reviewed_hash: "a8e7e1d131c52d9d"
+current_hash: "effc6a1006c0981d"
+reviewed_hash: "effc6a1006c0981d"
 stale: false
-size_bytes: 2636
-line_count: 50
+size_bytes: 2660
+line_count: 51
 ---
 
 # IND-BRONZE-01: Bell & Artillery Bronze Foundry
@@ -18,4 +18,5 @@ line_count: 50
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Mineral: Raw-Clay`, `Animal: Tallow`; heading format repaired.
+- **Data audit (2026-11-15, new modules)**: added requires `Mineral: Graphite`.
 <!-- END_CUSTOM_NOTES -->
