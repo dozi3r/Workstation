@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/IND-FLAX-03_Handloom_Linen_Wea
 title: "IND-FLAX-03: Handloom Linen Weaver"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "1e1aced9b0c4fb86"
-reviewed_hash: "1e1aced9b0c4fb86"
+current_hash: "a33a2f47c1519cb1"
+reviewed_hash: "a33a2f47c1519cb1"
 stale: false
-size_bytes: 6936
+size_bytes: 6928
 line_count: 115
 ---
 
@@ -18,4 +18,5 @@ line_count: 115
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
+- **Data audit (2026-11-15, follow-ups)**: baseline and NPC dispositions rescaled to the app 1-4 axes; fact and anachronism fixes; flagged NPCs rewritten (some modules only).
 <!-- END_CUSTOM_NOTES -->

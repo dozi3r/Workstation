@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/IND-PORC-02_Climbing_Dragon_Ki
 title: "IND-PORC-02: Climbing Dragon Kiln"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "d028bf245aa77617"
-reviewed_hash: "d028bf245aa77617"
+current_hash: "e65511ec8a772eac"
+reviewed_hash: "e65511ec8a772eac"
 stale: false
-size_bytes: 8072
+size_bytes: 8532
 line_count: 119
 ---
 
@@ -20,4 +20,5 @@ line_count: 119
 - **Data audit (2026-11-15)**: added requires `Mineral: Raw-Clay`; heading format repaired.
 - **Data audit (2026-11-15, co-products)**: added requires `Mineral: Petuntse-Stone`; text extended or synced to match the tags.
 - **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
+- **Data audit (2026-11-15, follow-ups)**: baseline and NPC dispositions rescaled to the app 1-4 axes; fact and anachronism fixes; flagged NPCs rewritten (some modules only).
 <!-- END_CUSTOM_NOTES -->

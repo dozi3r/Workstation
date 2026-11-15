@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/EXT-TANNIN-01_Bark_Peeling_Cam
 title: "EXT-TANNIN-01: Bark Peeling Camp"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "f417b13e87a2e2ce"
-reviewed_hash: "f417b13e87a2e2ce"
+current_hash: "e8a61e7066889dfb"
+reviewed_hash: "e8a61e7066889dfb"
 stale: false
-size_bytes: 7313
+size_bytes: 7911
 line_count: 113
 ---
 
@@ -18,4 +18,5 @@ line_count: 113
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
+- **Data audit (2026-11-15, follow-ups)**: baseline and NPC dispositions rescaled to the app 1-4 axes; fact and anachronism fixes; flagged NPCs rewritten (some modules only).
 <!-- END_CUSTOM_NOTES -->

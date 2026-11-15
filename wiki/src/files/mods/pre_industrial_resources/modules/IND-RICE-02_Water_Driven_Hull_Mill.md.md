@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/IND-RICE-02_Water_Driven_Hull_
 title: "IND-RICE-02: Water-Driven Hull Mill"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "63b31e08383b191c"
-reviewed_hash: "63b31e08383b191c"
+current_hash: "fed908da28830d77"
+reviewed_hash: "fed908da28830d77"
 stale: false
-size_bytes: 7417
+size_bytes: 7408
 line_count: 118
 ---
 
@@ -19,4 +19,5 @@ line_count: 118
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: heading format repaired.
 - **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
+- **Data audit (2026-11-15, follow-ups)**: baseline and NPC dispositions rescaled to the app 1-4 axes; fact and anachronism fixes; flagged NPCs rewritten (some modules only).
 <!-- END_CUSTOM_NOTES -->

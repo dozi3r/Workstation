@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/MINE-GOLD-01_Placer_Sluice_and
 title: "MINE-GOLD-01: Placer Sluice & Quartz Crush Mill"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "1a3568fc84599924"
-reviewed_hash: "1a3568fc84599924"
+current_hash: "2f57aa76c30841ca"
+reviewed_hash: "2f57aa76c30841ca"
 stale: false
-size_bytes: 6975
+size_bytes: 7201
 line_count: 114
 ---
 
@@ -19,4 +19,5 @@ line_count: 114
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: heading format repaired.
 - **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
+- **Data audit (2026-11-15, follow-ups)**: baseline and NPC dispositions rescaled to the app 1-4 axes; fact and anachronism fixes; flagged NPCs rewritten (some modules only).
 <!-- END_CUSTOM_NOTES -->

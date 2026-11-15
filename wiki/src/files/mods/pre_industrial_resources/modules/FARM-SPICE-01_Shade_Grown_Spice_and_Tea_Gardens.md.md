@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/FARM-SPICE-01_Shade_Grown_Spic
 title: "FARM-SPICE-01: Shade-Grown Spice & Tea Gardens"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "df141acd5a5c4c71"
-reviewed_hash: "df141acd5a5c4c71"
+current_hash: "75a6b6e0fcce799e"
+reviewed_hash: "75a6b6e0fcce799e"
 stale: false
-size_bytes: 7310
+size_bytes: 7298
 line_count: 115
 ---
 
@@ -19,4 +19,5 @@ line_count: 115
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: heading format repaired.
 - **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
+- **Data audit (2026-11-15, follow-ups)**: baseline and NPC dispositions rescaled to the app 1-4 axes; fact and anachronism fixes; flagged NPCs rewritten (some modules only).
 <!-- END_CUSTOM_NOTES -->

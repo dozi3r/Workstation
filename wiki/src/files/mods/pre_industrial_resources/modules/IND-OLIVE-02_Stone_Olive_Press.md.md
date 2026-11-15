@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/IND-OLIVE-02_Stone_Olive_Press
 title: "IND-OLIVE-02: Stone Olive Press"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "6ce4bc05682a3142"
-reviewed_hash: "6ce4bc05682a3142"
+current_hash: "3c948e287f7c1886"
+reviewed_hash: "3c948e287f7c1886"
 stale: false
-size_bytes: 7217
+size_bytes: 7213
 line_count: 114
 ---
 
@@ -19,4 +19,5 @@ line_count: 114
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Livestock: Draft-Animals`.
 - **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
+- **Data audit (2026-11-15, follow-ups)**: baseline and NPC dispositions rescaled to the app 1-4 axes; fact and anachronism fixes; flagged NPCs rewritten (some modules only).
 <!-- END_CUSTOM_NOTES -->

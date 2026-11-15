@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/IND-PAPER-03_Movable_Type_Prin
 title: "IND-PAPER-03: Movable-Type Printshop & Bindery"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "b1cb54bae6786904"
-reviewed_hash: "b1cb54bae6786904"
+current_hash: "3ed8400e9797d7a9"
+reviewed_hash: "3ed8400e9797d7a9"
 stale: false
-size_bytes: 7927
+size_bytes: 7920
 line_count: 120
 ---
 
@@ -21,4 +21,5 @@ line_count: 120
 - **Data audit (2026-11-15, co-products)**: added requires `Chem: Lampblack`.
 - **Data audit (2026-11-15, new modules)**: added requires `Oil: Linseed-Oil`.
 - **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
+- **Data audit (2026-11-15, follow-ups)**: baseline and NPC dispositions rescaled to the app 1-4 axes; fact and anachronism fixes; flagged NPCs rewritten (some modules only).
 <!-- END_CUSTOM_NOTES -->

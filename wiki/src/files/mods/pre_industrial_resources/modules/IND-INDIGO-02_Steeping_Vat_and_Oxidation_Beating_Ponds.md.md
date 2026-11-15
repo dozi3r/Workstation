@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/IND-INDIGO-02_Steeping_Vat_and
 title: "IND-INDIGO-02: Steeping Vat & Oxidation Beating Ponds"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "530021061764c9b4"
-reviewed_hash: "530021061764c9b4"
+current_hash: "6b6052e3750a9482"
+reviewed_hash: "6b6052e3750a9482"
 stale: false
-size_bytes: 7090
+size_bytes: 7085
 line_count: 113
 ---
 
@@ -19,4 +19,5 @@ line_count: 113
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: heading format repaired.
 - **Data audit (2026-11-15, template v3)**: converted to the v3 composite template: researched NPCs with a generated NPC mirror, four-level dial, threat clocks, fallback and GM socket section.
+- **Data audit (2026-11-15, follow-ups)**: baseline and NPC dispositions rescaled to the app 1-4 axes; fact and anachronism fixes; flagged NPCs rewritten (some modules only).
 <!-- END_CUSTOM_NOTES -->
