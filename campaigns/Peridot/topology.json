@@ -2874,9 +2874,6 @@
       "provides": [
         "Stone: Cut-Limestone"
       ],
-      "requires": [
-        "Metal: Forged-Iron"
-      ],
       "yields": "Stone: Cut-Limestone (Precisely dressed ashlar blocks ready for mortar-free or mortared masonry.)",
       "chain_id": "CHAIN-LIME",
       "chain_stage": 1
@@ -2896,9 +2893,6 @@
       "resourceSector": "Stone",
       "provides": [
         "Stone: Cut-Limestone"
-      ],
-      "requires": [
-        "Metal: Forged-Iron"
       ],
       "yields": "Stone: Cut-Limestone (Precisely dressed ashlar blocks ready for mortar-free or mortared masonry.)",
       "chain_id": "CHAIN-LIME",
@@ -5243,6 +5237,7 @@
         "Metal: Smelted-Lead"
       ],
       "requires": [
+        "Ore: Argentiferous-Galena",
         "Ore: Lead-Slag",
         "Fuel: Charcoal-or-Coal"
       ],
@@ -5267,6 +5262,7 @@
         "Metal: Smelted-Lead"
       ],
       "requires": [
+        "Ore: Argentiferous-Galena",
         "Ore: Lead-Slag",
         "Fuel: Charcoal-or-Coal"
       ],
@@ -6484,13 +6480,15 @@
       "entityKind": "industry",
       "isIndustry": true,
       "provides": [
+        "Ore: Silver-Ore",
         "Ore: Argentiferous-Galena"
       ],
       "requires": [
         "Timber: Mine-Props",
-        "Light: Tallow-Candles"
+        "Light: Tallow-Candles",
+        "Livestock: Draft-Animals"
       ],
-      "yields": "Tallow Dip Candle (Rendered animal fat candle providing essential illumination in firedamp-prone tunnels.)",
+      "yields": "Silver Ore, Argentiferous Galena",
       "chain_id": "CHAIN-SILVER",
       "chain_stage": 1
     },
@@ -6506,13 +6504,39 @@
       "entityKind": "resource",
       "resourceSector": "Ore",
       "provides": [
+        "Ore: Silver-Ore",
         "Ore: Argentiferous-Galena"
       ],
       "requires": [
         "Timber: Mine-Props",
-        "Light: Tallow-Candles"
+        "Light: Tallow-Candles",
+        "Livestock: Draft-Animals"
       ],
-      "yields": "Tallow Dip Candle (Rendered animal fat candle providing essential illumination in firedamp-prone tunnels.)",
+      "yields": "Silver Ore, Argentiferous Galena",
+      "chain_id": "CHAIN-SILVER",
+      "chain_stage": 1
+    },
+    {
+      "id": "item-1794460164646-2",
+      "name": "Ore: Silver Ore",
+      "category": "Resource Export / Supply Anchor",
+      "specs": "Provides: Ore: Silver-Ore",
+      "notes": "Extracted at Galena Deep-Vein Mine: The required inputs of Timber: Mine-Props prevent catastrophic gallery collapses, while Light: Tallow-Candles sustains subterranean labor and Livestock: Draft-Animals turn the horse-gin, turning dark rock faces into extracted Ore: Silver-Ore. Moves as ingot, ore-cart or pig (Silver Ore). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
+      "moduleId": "MINE-SILVER-01",
+      "nodeId": 4,
+      "isResource": true,
+      "entityKind": "resource",
+      "resourceSector": "Ore",
+      "provides": [
+        "Ore: Silver-Ore",
+        "Ore: Argentiferous-Galena"
+      ],
+      "requires": [
+        "Timber: Mine-Props",
+        "Light: Tallow-Candles",
+        "Livestock: Draft-Animals"
+      ],
+      "yields": "Silver Ore, Argentiferous Galena",
       "chain_id": "CHAIN-SILVER",
       "chain_stage": 1
     },
@@ -7001,14 +7025,17 @@
       "entityKind": "industry",
       "isIndustry": true,
       "provides": [
-        "Metal: Crude-Bullion",
-        "Ore: Lead-Slag"
+        "Metal: Crude-Bullion"
       ],
       "requires": [
-        "Ore: Argentiferous-Galena",
-        "Commodity: Coarse-Salt"
+        "Ore: Silver-Ore",
+        "Commodity: Coarse-Salt",
+        "Metal: Forged-Iron",
+        "Livestock: Draft-Animals",
+        "Chem: Copper-Sulfate",
+        "Chem: Mercury"
       ],
-      "yields": "Crude Bullion, Lead Slag",
+      "yields": "Crude Bullion",
       "chain_id": "CHAIN-SILVER",
       "chain_stage": 2
     },
@@ -7024,14 +7051,17 @@
       "entityKind": "resource",
       "resourceSector": "Metal",
       "provides": [
-        "Metal: Crude-Bullion",
-        "Ore: Lead-Slag"
+        "Metal: Crude-Bullion"
       ],
       "requires": [
-        "Ore: Argentiferous-Galena",
-        "Commodity: Coarse-Salt"
+        "Ore: Silver-Ore",
+        "Commodity: Coarse-Salt",
+        "Metal: Forged-Iron",
+        "Livestock: Draft-Animals",
+        "Chem: Copper-Sulfate",
+        "Chem: Mercury"
       ],
-      "yields": "Crude Bullion, Lead Slag",
+      "yields": "Crude Bullion",
       "chain_id": "CHAIN-SILVER",
       "chain_stage": 2
     },
@@ -7040,23 +7070,26 @@
       "name": "Ore: Lead Slag",
       "category": "Resource Export / Supply Anchor",
       "specs": "Provides: Ore: Lead-Slag",
-      "notes": "Refined at Stamping Mill & Patio Amalgamation Floor: Raw galena ore is crushed to fine powder by heavy iron-shod stamping hammers powered by waterwheels, then spread across a vast paved stone patio. Moves as ingot, ore-cart or pig (Lead Slag). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
-      "moduleId": "IND-SILVER-02",
-      "nodeId": 6,
+      "notes": "Refined at Cupellation Hearth & Sovereign Mint: Spent bone-ash litharge cakes and hearth slag are broken out of the cupel hearth and carted to the lead bole for resmelting. Moves as ingot, ore-cart or pig (Lead Slag). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
+      "moduleId": "IND-SILVER-03",
+      "nodeId": 16,
       "isResource": true,
       "entityKind": "resource",
       "resourceSector": "Ore",
       "provides": [
-        "Metal: Crude-Bullion",
+        "Currency: Silver-Coinage",
         "Ore: Lead-Slag"
       ],
       "requires": [
-        "Ore: Argentiferous-Galena",
-        "Commodity: Coarse-Salt"
+        "Metal: Crude-Bullion",
+        "Fuel: Charcoal-or-Coal",
+        "Alloy: Crucible-Steel",
+        "Metal: Forged-Iron",
+        "Material: Bone-Ash"
       ],
-      "yields": "Crude Bullion, Lead Slag",
+      "yields": "Silver Coinage, Lead Slag",
       "chain_id": "CHAIN-SILVER",
-      "chain_stage": 2
+      "chain_stage": 3
     },
     {
       "id": "item-1794460350595-0",
@@ -7069,13 +7102,17 @@
       "entityKind": "industry",
       "isIndustry": true,
       "provides": [
-        "Currency: Silver-Coinage"
+        "Currency: Silver-Coinage",
+        "Ore: Lead-Slag"
       ],
       "requires": [
         "Metal: Crude-Bullion",
-        "Fuel: Charcoal-or-Coal"
+        "Fuel: Charcoal-or-Coal",
+        "Alloy: Crucible-Steel",
+        "Metal: Forged-Iron",
+        "Material: Bone-Ash"
       ],
-      "yields": "Silver Coinage",
+      "yields": "Silver Coinage, Lead Slag",
       "chain_id": "CHAIN-SILVER",
       "chain_stage": 3
     },
@@ -7091,13 +7128,17 @@
       "entityKind": "resource",
       "resourceSector": "Currency",
       "provides": [
-        "Currency: Silver-Coinage"
+        "Currency: Silver-Coinage",
+        "Ore: Lead-Slag"
       ],
       "requires": [
         "Metal: Crude-Bullion",
-        "Fuel: Charcoal-or-Coal"
+        "Fuel: Charcoal-or-Coal",
+        "Alloy: Crucible-Steel",
+        "Metal: Forged-Iron",
+        "Material: Bone-Ash"
       ],
-      "yields": "Silver Coinage",
+      "yields": "Silver Coinage, Lead Slag",
       "chain_id": "CHAIN-SILVER",
       "chain_stage": 3
     },
@@ -9361,9 +9402,6 @@
         "provides": [
           "Stone: Cut-Limestone"
         ],
-        "requires": [
-          "Metal: Forged-Iron"
-        ],
         "yields": "Stone: Cut-Limestone (Precisely dressed ashlar blocks ready for mortar-free or mortared masonry.)",
         "chain_id": "CHAIN-LIME",
         "chain_stage": 1
@@ -9383,9 +9421,6 @@
         "resourceSector": "Stone",
         "provides": [
           "Stone: Cut-Limestone"
-        ],
-        "requires": [
-          "Metal: Forged-Iron"
         ],
         "yields": "Stone: Cut-Limestone (Precisely dressed ashlar blocks ready for mortar-free or mortared masonry.)",
         "chain_id": "CHAIN-LIME",
@@ -11730,6 +11765,7 @@
           "Metal: Smelted-Lead"
         ],
         "requires": [
+          "Ore: Argentiferous-Galena",
           "Ore: Lead-Slag",
           "Fuel: Charcoal-or-Coal"
         ],
@@ -11754,6 +11790,7 @@
           "Metal: Smelted-Lead"
         ],
         "requires": [
+          "Ore: Argentiferous-Galena",
           "Ore: Lead-Slag",
           "Fuel: Charcoal-or-Coal"
         ],
@@ -12971,13 +13008,15 @@
         "entityKind": "industry",
         "isIndustry": true,
         "provides": [
+          "Ore: Silver-Ore",
           "Ore: Argentiferous-Galena"
         ],
         "requires": [
           "Timber: Mine-Props",
-          "Light: Tallow-Candles"
+          "Light: Tallow-Candles",
+          "Livestock: Draft-Animals"
         ],
-        "yields": "Tallow Dip Candle (Rendered animal fat candle providing essential illumination in firedamp-prone tunnels.)",
+        "yields": "Silver Ore, Argentiferous Galena",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 1
       },
@@ -12993,13 +13032,39 @@
         "entityKind": "resource",
         "resourceSector": "Ore",
         "provides": [
+          "Ore: Silver-Ore",
           "Ore: Argentiferous-Galena"
         ],
         "requires": [
           "Timber: Mine-Props",
-          "Light: Tallow-Candles"
+          "Light: Tallow-Candles",
+          "Livestock: Draft-Animals"
         ],
-        "yields": "Tallow Dip Candle (Rendered animal fat candle providing essential illumination in firedamp-prone tunnels.)",
+        "yields": "Silver Ore, Argentiferous Galena",
+        "chain_id": "CHAIN-SILVER",
+        "chain_stage": 1
+      },
+      {
+        "id": "item-1794460164646-2",
+        "name": "Ore: Silver Ore",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Ore: Silver-Ore",
+        "notes": "Extracted at Galena Deep-Vein Mine: The required inputs of Timber: Mine-Props prevent catastrophic gallery collapses, while Light: Tallow-Candles sustains subterranean labor and Livestock: Draft-Animals turn the horse-gin, turning dark rock faces into extracted Ore: Silver-Ore. Moves as ingot, ore-cart or pig (Silver Ore). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
+        "moduleId": "MINE-SILVER-01",
+        "nodeId": 4,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Ore",
+        "provides": [
+          "Ore: Silver-Ore",
+          "Ore: Argentiferous-Galena"
+        ],
+        "requires": [
+          "Timber: Mine-Props",
+          "Light: Tallow-Candles",
+          "Livestock: Draft-Animals"
+        ],
+        "yields": "Silver Ore, Argentiferous Galena",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 1
       },
@@ -13488,14 +13553,17 @@
         "entityKind": "industry",
         "isIndustry": true,
         "provides": [
-          "Metal: Crude-Bullion",
-          "Ore: Lead-Slag"
+          "Metal: Crude-Bullion"
         ],
         "requires": [
-          "Ore: Argentiferous-Galena",
-          "Commodity: Coarse-Salt"
+          "Ore: Silver-Ore",
+          "Commodity: Coarse-Salt",
+          "Metal: Forged-Iron",
+          "Livestock: Draft-Animals",
+          "Chem: Copper-Sulfate",
+          "Chem: Mercury"
         ],
-        "yields": "Crude Bullion, Lead Slag",
+        "yields": "Crude Bullion",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 2
       },
@@ -13511,14 +13579,17 @@
         "entityKind": "resource",
         "resourceSector": "Metal",
         "provides": [
-          "Metal: Crude-Bullion",
-          "Ore: Lead-Slag"
+          "Metal: Crude-Bullion"
         ],
         "requires": [
-          "Ore: Argentiferous-Galena",
-          "Commodity: Coarse-Salt"
+          "Ore: Silver-Ore",
+          "Commodity: Coarse-Salt",
+          "Metal: Forged-Iron",
+          "Livestock: Draft-Animals",
+          "Chem: Copper-Sulfate",
+          "Chem: Mercury"
         ],
-        "yields": "Crude Bullion, Lead Slag",
+        "yields": "Crude Bullion",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 2
       },
@@ -13527,23 +13598,26 @@
         "name": "Ore: Lead Slag",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Ore: Lead-Slag",
-        "notes": "Refined at Stamping Mill & Patio Amalgamation Floor: Raw galena ore is crushed to fine powder by heavy iron-shod stamping hammers powered by waterwheels, then spread across a vast paved stone patio. Moves as ingot, ore-cart or pig (Lead Slag). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
-        "moduleId": "IND-SILVER-02",
-        "nodeId": 6,
+        "notes": "Refined at Cupellation Hearth & Sovereign Mint: Spent bone-ash litharge cakes and hearth slag are broken out of the cupel hearth and carted to the lead bole for resmelting. Moves as ingot, ore-cart or pig (Lead Slag). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
+        "moduleId": "IND-SILVER-03",
+        "nodeId": 16,
         "isResource": true,
         "entityKind": "resource",
         "resourceSector": "Ore",
         "provides": [
-          "Metal: Crude-Bullion",
+          "Currency: Silver-Coinage",
           "Ore: Lead-Slag"
         ],
         "requires": [
-          "Ore: Argentiferous-Galena",
-          "Commodity: Coarse-Salt"
+          "Metal: Crude-Bullion",
+          "Fuel: Charcoal-or-Coal",
+          "Alloy: Crucible-Steel",
+          "Metal: Forged-Iron",
+          "Material: Bone-Ash"
         ],
-        "yields": "Crude Bullion, Lead Slag",
+        "yields": "Silver Coinage, Lead Slag",
         "chain_id": "CHAIN-SILVER",
-        "chain_stage": 2
+        "chain_stage": 3
       },
       {
         "id": "item-1794460350595-0",
@@ -13556,13 +13630,17 @@
         "entityKind": "industry",
         "isIndustry": true,
         "provides": [
-          "Currency: Silver-Coinage"
+          "Currency: Silver-Coinage",
+          "Ore: Lead-Slag"
         ],
         "requires": [
           "Metal: Crude-Bullion",
-          "Fuel: Charcoal-or-Coal"
+          "Fuel: Charcoal-or-Coal",
+          "Alloy: Crucible-Steel",
+          "Metal: Forged-Iron",
+          "Material: Bone-Ash"
         ],
-        "yields": "Silver Coinage",
+        "yields": "Silver Coinage, Lead Slag",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 3
       },
@@ -13578,13 +13656,17 @@
         "entityKind": "resource",
         "resourceSector": "Currency",
         "provides": [
-          "Currency: Silver-Coinage"
+          "Currency: Silver-Coinage",
+          "Ore: Lead-Slag"
         ],
         "requires": [
           "Metal: Crude-Bullion",
-          "Fuel: Charcoal-or-Coal"
+          "Fuel: Charcoal-or-Coal",
+          "Alloy: Crucible-Steel",
+          "Metal: Forged-Iron",
+          "Material: Bone-Ash"
         ],
-        "yields": "Silver Coinage",
+        "yields": "Silver Coinage, Lead Slag",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 3
       },
@@ -20801,9 +20883,6 @@
         "provides": [
           "Stone: Cut-Limestone"
         ],
-        "requires": [
-          "Metal: Forged-Iron"
-        ],
         "yields": "Stone: Cut-Limestone (Precisely dressed ashlar blocks ready for mortar-free or mortared masonry.)",
         "chain_id": "CHAIN-LIME",
         "chain_stage": 1
@@ -20823,9 +20902,6 @@
         "resourceSector": "Stone",
         "provides": [
           "Stone: Cut-Limestone"
-        ],
-        "requires": [
-          "Metal: Forged-Iron"
         ],
         "yields": "Stone: Cut-Limestone (Precisely dressed ashlar blocks ready for mortar-free or mortared masonry.)",
         "chain_id": "CHAIN-LIME",
@@ -23170,6 +23246,7 @@
           "Metal: Smelted-Lead"
         ],
         "requires": [
+          "Ore: Argentiferous-Galena",
           "Ore: Lead-Slag",
           "Fuel: Charcoal-or-Coal"
         ],
@@ -23194,6 +23271,7 @@
           "Metal: Smelted-Lead"
         ],
         "requires": [
+          "Ore: Argentiferous-Galena",
           "Ore: Lead-Slag",
           "Fuel: Charcoal-or-Coal"
         ],
@@ -24411,13 +24489,15 @@
         "entityKind": "industry",
         "isIndustry": true,
         "provides": [
+          "Ore: Silver-Ore",
           "Ore: Argentiferous-Galena"
         ],
         "requires": [
           "Timber: Mine-Props",
-          "Light: Tallow-Candles"
+          "Light: Tallow-Candles",
+          "Livestock: Draft-Animals"
         ],
-        "yields": "Tallow Dip Candle (Rendered animal fat candle providing essential illumination in firedamp-prone tunnels.)",
+        "yields": "Silver Ore, Argentiferous Galena",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 1
       },
@@ -24433,13 +24513,39 @@
         "entityKind": "resource",
         "resourceSector": "Ore",
         "provides": [
+          "Ore: Silver-Ore",
           "Ore: Argentiferous-Galena"
         ],
         "requires": [
           "Timber: Mine-Props",
-          "Light: Tallow-Candles"
+          "Light: Tallow-Candles",
+          "Livestock: Draft-Animals"
         ],
-        "yields": "Tallow Dip Candle (Rendered animal fat candle providing essential illumination in firedamp-prone tunnels.)",
+        "yields": "Silver Ore, Argentiferous Galena",
+        "chain_id": "CHAIN-SILVER",
+        "chain_stage": 1
+      },
+      {
+        "id": "item-1794460164646-2",
+        "name": "Ore: Silver Ore",
+        "category": "Resource Export / Supply Anchor",
+        "specs": "Provides: Ore: Silver-Ore",
+        "notes": "Extracted at Galena Deep-Vein Mine: The required inputs of Timber: Mine-Props prevent catastrophic gallery collapses, while Light: Tallow-Candles sustains subterranean labor and Livestock: Draft-Animals turn the horse-gin, turning dark rock faces into extracted Ore: Silver-Ore. Moves as ingot, ore-cart or pig (Silver Ore). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
+        "moduleId": "MINE-SILVER-01",
+        "nodeId": 4,
+        "isResource": true,
+        "entityKind": "resource",
+        "resourceSector": "Ore",
+        "provides": [
+          "Ore: Silver-Ore",
+          "Ore: Argentiferous-Galena"
+        ],
+        "requires": [
+          "Timber: Mine-Props",
+          "Light: Tallow-Candles",
+          "Livestock: Draft-Animals"
+        ],
+        "yields": "Silver Ore, Argentiferous Galena",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 1
       },
@@ -24928,14 +25034,17 @@
         "entityKind": "industry",
         "isIndustry": true,
         "provides": [
-          "Metal: Crude-Bullion",
-          "Ore: Lead-Slag"
+          "Metal: Crude-Bullion"
         ],
         "requires": [
-          "Ore: Argentiferous-Galena",
-          "Commodity: Coarse-Salt"
+          "Ore: Silver-Ore",
+          "Commodity: Coarse-Salt",
+          "Metal: Forged-Iron",
+          "Livestock: Draft-Animals",
+          "Chem: Copper-Sulfate",
+          "Chem: Mercury"
         ],
-        "yields": "Crude Bullion, Lead Slag",
+        "yields": "Crude Bullion",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 2
       },
@@ -24951,14 +25060,17 @@
         "entityKind": "resource",
         "resourceSector": "Metal",
         "provides": [
-          "Metal: Crude-Bullion",
-          "Ore: Lead-Slag"
+          "Metal: Crude-Bullion"
         ],
         "requires": [
-          "Ore: Argentiferous-Galena",
-          "Commodity: Coarse-Salt"
+          "Ore: Silver-Ore",
+          "Commodity: Coarse-Salt",
+          "Metal: Forged-Iron",
+          "Livestock: Draft-Animals",
+          "Chem: Copper-Sulfate",
+          "Chem: Mercury"
         ],
-        "yields": "Crude Bullion, Lead Slag",
+        "yields": "Crude Bullion",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 2
       },
@@ -24967,23 +25079,26 @@
         "name": "Ore: Lead Slag",
         "category": "Resource Export / Supply Anchor",
         "specs": "Provides: Ore: Lead-Slag",
-        "notes": "Refined at Stamping Mill & Patio Amalgamation Floor: Raw galena ore is crushed to fine powder by heavy iron-shod stamping hammers powered by waterwheels, then spread across a vast paved stone patio. Moves as ingot, ore-cart or pig (Lead Slag). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
-        "moduleId": "IND-SILVER-02",
-        "nodeId": 6,
+        "notes": "Refined at Cupellation Hearth & Sovereign Mint: Spent bone-ash litharge cakes and hearth slag are broken out of the cupel hearth and carted to the lead bole for resmelting. Moves as ingot, ore-cart or pig (Lead Slag). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
+        "moduleId": "IND-SILVER-03",
+        "nodeId": 16,
         "isResource": true,
         "entityKind": "resource",
         "resourceSector": "Ore",
         "provides": [
-          "Metal: Crude-Bullion",
+          "Currency: Silver-Coinage",
           "Ore: Lead-Slag"
         ],
         "requires": [
-          "Ore: Argentiferous-Galena",
-          "Commodity: Coarse-Salt"
+          "Metal: Crude-Bullion",
+          "Fuel: Charcoal-or-Coal",
+          "Alloy: Crucible-Steel",
+          "Metal: Forged-Iron",
+          "Material: Bone-Ash"
         ],
-        "yields": "Crude Bullion, Lead Slag",
+        "yields": "Silver Coinage, Lead Slag",
         "chain_id": "CHAIN-SILVER",
-        "chain_stage": 2
+        "chain_stage": 3
       },
       {
         "id": "item-1794460350595-0",
@@ -24996,13 +25111,17 @@
         "entityKind": "industry",
         "isIndustry": true,
         "provides": [
-          "Currency: Silver-Coinage"
+          "Currency: Silver-Coinage",
+          "Ore: Lead-Slag"
         ],
         "requires": [
           "Metal: Crude-Bullion",
-          "Fuel: Charcoal-or-Coal"
+          "Fuel: Charcoal-or-Coal",
+          "Alloy: Crucible-Steel",
+          "Metal: Forged-Iron",
+          "Material: Bone-Ash"
         ],
-        "yields": "Silver Coinage",
+        "yields": "Silver Coinage, Lead Slag",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 3
       },
@@ -25018,13 +25137,17 @@
         "entityKind": "resource",
         "resourceSector": "Currency",
         "provides": [
-          "Currency: Silver-Coinage"
+          "Currency: Silver-Coinage",
+          "Ore: Lead-Slag"
         ],
         "requires": [
           "Metal: Crude-Bullion",
-          "Fuel: Charcoal-or-Coal"
+          "Fuel: Charcoal-or-Coal",
+          "Alloy: Crucible-Steel",
+          "Metal: Forged-Iron",
+          "Material: Bone-Ash"
         ],
-        "yields": "Silver Coinage",
+        "yields": "Silver Coinage, Lead Slag",
         "chain_id": "CHAIN-SILVER",
         "chain_stage": 3
       },
@@ -27288,9 +27411,6 @@
           "provides": [
             "Stone: Cut-Limestone"
           ],
-          "requires": [
-            "Metal: Forged-Iron"
-          ],
           "yields": "Stone: Cut-Limestone (Precisely dressed ashlar blocks ready for mortar-free or mortared masonry.)",
           "chain_id": "CHAIN-LIME",
           "chain_stage": 1
@@ -27310,9 +27430,6 @@
           "resourceSector": "Stone",
           "provides": [
             "Stone: Cut-Limestone"
-          ],
-          "requires": [
-            "Metal: Forged-Iron"
           ],
           "yields": "Stone: Cut-Limestone (Precisely dressed ashlar blocks ready for mortar-free or mortared masonry.)",
           "chain_id": "CHAIN-LIME",
@@ -29657,6 +29774,7 @@
             "Metal: Smelted-Lead"
           ],
           "requires": [
+            "Ore: Argentiferous-Galena",
             "Ore: Lead-Slag",
             "Fuel: Charcoal-or-Coal"
           ],
@@ -29681,6 +29799,7 @@
             "Metal: Smelted-Lead"
           ],
           "requires": [
+            "Ore: Argentiferous-Galena",
             "Ore: Lead-Slag",
             "Fuel: Charcoal-or-Coal"
           ],
@@ -30898,13 +31017,15 @@
           "entityKind": "industry",
           "isIndustry": true,
           "provides": [
+            "Ore: Silver-Ore",
             "Ore: Argentiferous-Galena"
           ],
           "requires": [
             "Timber: Mine-Props",
-            "Light: Tallow-Candles"
+            "Light: Tallow-Candles",
+            "Livestock: Draft-Animals"
           ],
-          "yields": "Tallow Dip Candle (Rendered animal fat candle providing essential illumination in firedamp-prone tunnels.)",
+          "yields": "Silver Ore, Argentiferous Galena",
           "chain_id": "CHAIN-SILVER",
           "chain_stage": 1
         },
@@ -30920,13 +31041,39 @@
           "entityKind": "resource",
           "resourceSector": "Ore",
           "provides": [
+            "Ore: Silver-Ore",
             "Ore: Argentiferous-Galena"
           ],
           "requires": [
             "Timber: Mine-Props",
-            "Light: Tallow-Candles"
+            "Light: Tallow-Candles",
+            "Livestock: Draft-Animals"
           ],
-          "yields": "Tallow Dip Candle (Rendered animal fat candle providing essential illumination in firedamp-prone tunnels.)",
+          "yields": "Silver Ore, Argentiferous Galena",
+          "chain_id": "CHAIN-SILVER",
+          "chain_stage": 1
+        },
+        {
+          "id": "item-1794460164646-2",
+          "name": "Ore: Silver Ore",
+          "category": "Resource Export / Supply Anchor",
+          "specs": "Provides: Ore: Silver-Ore",
+          "notes": "Extracted at Galena Deep-Vein Mine: The required inputs of Timber: Mine-Props prevent catastrophic gallery collapses, while Light: Tallow-Candles sustains subterranean labor and Livestock: Draft-Animals turn the horse-gin, turning dark rock faces into extracted Ore: Silver-Ore. Moves as ingot, ore-cart or pig (Silver Ore). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
+          "moduleId": "MINE-SILVER-01",
+          "nodeId": 4,
+          "isResource": true,
+          "entityKind": "resource",
+          "resourceSector": "Ore",
+          "provides": [
+            "Ore: Silver-Ore",
+            "Ore: Argentiferous-Galena"
+          ],
+          "requires": [
+            "Timber: Mine-Props",
+            "Light: Tallow-Candles",
+            "Livestock: Draft-Animals"
+          ],
+          "yields": "Silver Ore, Argentiferous Galena",
           "chain_id": "CHAIN-SILVER",
           "chain_stage": 1
         },
@@ -31415,14 +31562,17 @@
           "entityKind": "industry",
           "isIndustry": true,
           "provides": [
-            "Metal: Crude-Bullion",
-            "Ore: Lead-Slag"
+            "Metal: Crude-Bullion"
           ],
           "requires": [
-            "Ore: Argentiferous-Galena",
-            "Commodity: Coarse-Salt"
+            "Ore: Silver-Ore",
+            "Commodity: Coarse-Salt",
+            "Metal: Forged-Iron",
+            "Livestock: Draft-Animals",
+            "Chem: Copper-Sulfate",
+            "Chem: Mercury"
           ],
-          "yields": "Crude Bullion, Lead Slag",
+          "yields": "Crude Bullion",
           "chain_id": "CHAIN-SILVER",
           "chain_stage": 2
         },
@@ -31438,14 +31588,17 @@
           "entityKind": "resource",
           "resourceSector": "Metal",
           "provides": [
-            "Metal: Crude-Bullion",
-            "Ore: Lead-Slag"
+            "Metal: Crude-Bullion"
           ],
           "requires": [
-            "Ore: Argentiferous-Galena",
-            "Commodity: Coarse-Salt"
+            "Ore: Silver-Ore",
+            "Commodity: Coarse-Salt",
+            "Metal: Forged-Iron",
+            "Livestock: Draft-Animals",
+            "Chem: Copper-Sulfate",
+            "Chem: Mercury"
           ],
-          "yields": "Crude Bullion, Lead Slag",
+          "yields": "Crude Bullion",
           "chain_id": "CHAIN-SILVER",
           "chain_stage": 2
         },
@@ -31454,23 +31607,26 @@
           "name": "Ore: Lead Slag",
           "category": "Resource Export / Supply Anchor",
           "specs": "Provides: Ore: Lead-Slag",
-          "notes": "Refined at Stamping Mill & Patio Amalgamation Floor: Raw galena ore is crushed to fine powder by heavy iron-shod stamping hammers powered by waterwheels, then spread across a vast paved stone patio. Moves as ingot, ore-cart or pig (Lead Slag). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
-          "moduleId": "IND-SILVER-02",
-          "nodeId": 6,
+          "notes": "Refined at Cupellation Hearth & Sovereign Mint: Spent bone-ash litharge cakes and hearth slag are broken out of the cupel hearth and carted to the lead bole for resmelting. Moves as ingot, ore-cart or pig (Lead Slag). It is dense and wagon-bound; ore heaps weather, ingots tempt thieves, and every haul is a labour and axle problem.",
+          "moduleId": "IND-SILVER-03",
+          "nodeId": 16,
           "isResource": true,
           "entityKind": "resource",
           "resourceSector": "Ore",
           "provides": [
-            "Metal: Crude-Bullion",
+            "Currency: Silver-Coinage",
             "Ore: Lead-Slag"
           ],
           "requires": [
-            "Ore: Argentiferous-Galena",
-            "Commodity: Coarse-Salt"
+            "Metal: Crude-Bullion",
+            "Fuel: Charcoal-or-Coal",
+            "Alloy: Crucible-Steel",
+            "Metal: Forged-Iron",
+            "Material: Bone-Ash"
           ],
-          "yields": "Crude Bullion, Lead Slag",
+          "yields": "Silver Coinage, Lead Slag",
           "chain_id": "CHAIN-SILVER",
-          "chain_stage": 2
+          "chain_stage": 3
         },
         {
           "id": "item-1794460350595-0",
@@ -31483,13 +31639,17 @@
           "entityKind": "industry",
           "isIndustry": true,
           "provides": [
-            "Currency: Silver-Coinage"
+            "Currency: Silver-Coinage",
+            "Ore: Lead-Slag"
           ],
           "requires": [
             "Metal: Crude-Bullion",
-            "Fuel: Charcoal-or-Coal"
+            "Fuel: Charcoal-or-Coal",
+            "Alloy: Crucible-Steel",
+            "Metal: Forged-Iron",
+            "Material: Bone-Ash"
           ],
-          "yields": "Silver Coinage",
+          "yields": "Silver Coinage, Lead Slag",
           "chain_id": "CHAIN-SILVER",
           "chain_stage": 3
         },
@@ -31505,13 +31665,17 @@
           "entityKind": "resource",
           "resourceSector": "Currency",
           "provides": [
-            "Currency: Silver-Coinage"
+            "Currency: Silver-Coinage",
+            "Ore: Lead-Slag"
           ],
           "requires": [
             "Metal: Crude-Bullion",
-            "Fuel: Charcoal-or-Coal"
+            "Fuel: Charcoal-or-Coal",
+            "Alloy: Crucible-Steel",
+            "Metal: Forged-Iron",
+            "Material: Bone-Ash"
           ],
-          "yields": "Silver Coinage",
+          "yields": "Silver Coinage, Lead Slag",
           "chain_id": "CHAIN-SILVER",
           "chain_stage": 3
         },
