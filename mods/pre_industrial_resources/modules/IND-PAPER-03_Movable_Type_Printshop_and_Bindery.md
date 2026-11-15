@@ -15,6 +15,7 @@ requires:
   - "Material: Cured-Leather"
   - "Metal: Smelted-Lead"
 ---
+# Movable-Type Printshop & Bindery (`IND-PAPER-03`)
 
 ## 1. Architectural Overview & Operational Loop
 Filled with wooden type cases, hand-cranked screw presses, and sewing benches, this workshop sets cast lead alloy glyphs into composing sticks. Typographers lock pages into heavy iron chases, ink the forms with leather dabbers, and press laid paper sheets against them before master binders sew and bind the signatures in leather covers.

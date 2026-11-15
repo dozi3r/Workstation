@@ -14,8 +14,10 @@ requires:
   - "Food: Cornmeal-Rations"
   - "Timber: Cooperage-Casks"
   - "Fuel: Wood-Fuel"
+  - "Metal: Forged-Copper"
+  - "Water: Baseline-Potable-Flow"
 ---
-> **Sour-Mash Stillhouse** (`IND-CORN-03`)
+# Sour-Mash Stillhouse (`IND-CORN-03`)
 > **Industry Chain**: `CHAIN-CORN` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

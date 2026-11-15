@@ -14,9 +14,10 @@ provides:
 requires:
   - "Ore: Argentiferous-Galena"
   - "Commodity: Coarse-Salt"
+  - "Metal: Forged-Iron"
+  - "Livestock: Draft-Animals"
 ---
-</Agent System Instructions>
-<Stamping Mill & Patio Amalgamation Floor (`IND-SILVER-02`)>
+# Stamping Mill & Patio Amalgamation Floor (`IND-SILVER-02`)
 > **Industry Chain**: `CHAIN-SILVER` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

@@ -14,7 +14,9 @@ requires:
   - "Crop: Raw-Spices-and-Tea"
   - "Fuel: Charcoal-or-Coal"
   - "Commodity: Ceramic-Vessels"
+  - "Metal: Pig-Iron"
 ---
+# Firing Woks & Curing Sheds (`IND-SPICE-02`)
 
 ## 1. Architectural Overview & Operational Loop
 Equipped with massive cast-iron woks, brick flues, and tiered bamboo drying racks, this processing station halts enzymatic decay in raw agricultural crops through controlled heat application. Artisans roast, steam, and ferment raw leaves and spices over steady charcoal fires before packing them tightly into sealed ceramic vessels for long-distance export.

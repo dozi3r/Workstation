@@ -12,6 +12,7 @@ provides:
   - "Crop: Raw-Maize"
 requires: []
 ---
+# Three-Sisters Maize Plantation (`FARM-CORN-01`)
 
 ## 1. Architectural Overview & Operational Loop
 Organized around symbiotic polyculture mounds, this agrarian plantation interplants maize stalks, climbing beans, and sprawling squash together. Maize provides natural trellis support for nitrogen-fixing beans, while prickly squash leaves shade the soil to retain moisture and deter pests, yielding abundant raw maize cobs at harvest.

@@ -15,9 +15,10 @@ requires:
   - "Metal: Tin-Ingot"
   - "Fuel: Charcoal-or-Coal"
   - "Commodity: Fired-Bricks"
+  - "Mineral: Raw-Clay"
+  - "Animal: Tallow"
 ---
-</Agent System Instructions>
-<Bell & Artillery Bronze Foundry (`IND-BRONZE-01`)>
+# Bell & Artillery Bronze Foundry (`IND-BRONZE-01`)
 > **Industry Chain**: `CHAIN-BRONZE` (Stage 1: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

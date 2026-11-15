@@ -16,7 +16,7 @@ requires:
   - "Metal: Forged-Iron"
 ---
 
-> Offshore Whaling Flensing Slip (`EXT-WHALE-01`)
+# Offshore Whaling Flensing Slip (`EXT-WHALE-01`)
 > **Industry Chain**: `CHAIN-WHALE` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

@@ -16,7 +16,7 @@ requires:
   - "Metal: Gold-Bullion"
 ---
 
-> **Drawloom Brocade Atelier** (`IND-SILK-03`)
+# Drawloom Brocade Atelier (`IND-SILK-03`)
 > **Industry Chain**: `CHAIN-SILK` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

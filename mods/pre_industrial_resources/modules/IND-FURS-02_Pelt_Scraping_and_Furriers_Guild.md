@@ -13,8 +13,9 @@ provides:
 requires:
   - "Animal: Raw-Pelts"
   - "Chem: Tannin"
+  - "Metal: Forged-Iron"
 ---
-> **Pelt Scraping & Furrier's Guild** (`IND-FURS-02`)
+# Pelt Scraping & Furrier's Guild (`IND-FURS-02`)
 > **Industry Chain**: `CHAIN-FURS` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

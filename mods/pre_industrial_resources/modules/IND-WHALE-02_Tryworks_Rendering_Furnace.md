@@ -14,9 +14,11 @@ requires:
   - "Animal: Whale-Blubber"
   - "Fuel: Wood-Fuel"
   - "Timber: Cooperage-Casks"
+  - "Metal: Forged-Copper"
+  - "Chem: Pine-Pitch"
 ---
 
-> Tryworks Rendering Furnace (`IND-WHALE-02`)
+# Tryworks Rendering Furnace (`IND-WHALE-02`)
 > **Industry Chain**: `CHAIN-WHALE` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

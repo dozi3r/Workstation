@@ -12,6 +12,7 @@ provides:
   - "Mineral: Kaolin-Clay"
 requires: []
 ---
+# Kaolin & Petuntse Quarry (`EXT-PORC-01`)
 
 ## 1. Architectural Overview & Operational Loop
 Carved into weathered white hillsides, this extraction site features open-cast benches, pick-axes, and water-powered crushing mills. Miners unearth pristine kaolin clay and weathered petuntse (porcelain stone), which are pulverized, washed in settling pools, and filtered into dense, refined ceramic raw materials.

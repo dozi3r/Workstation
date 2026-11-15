@@ -13,8 +13,7 @@ provides:
 requires:
   - "Timber: Mine-Props"
 ---
-</Agent System Instructions>
-<Alluvial Cassiterite Streamworks (`MINE-TIN-01`)>
+# Alluvial Cassiterite Streamworks (`MINE-TIN-01`)
 > **Industry Chain**: `CHAIN-TIN` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

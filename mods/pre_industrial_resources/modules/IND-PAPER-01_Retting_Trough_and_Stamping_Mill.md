@@ -15,6 +15,7 @@ requires:
   - "Material: Rice-Straw"
   - "Chem: Slaked-Lime"
 ---
+# Retting Trough & Stamping Mill (`IND-PAPER-01`)
 
 ## 1. Architectural Overview & Operational Loop
 This water-powered processing works features stone retting troughs and heavy timber stamping hammers driven by an overshot waterwheel. Plant fibers, rags, and straw are soaked in lime-infused water to break down lignins, then mechanically macerated by falling pestles into a uniform, fibrous slurry known as rag pulp.

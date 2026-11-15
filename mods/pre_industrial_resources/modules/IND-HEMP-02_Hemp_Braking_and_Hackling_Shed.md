@@ -12,9 +12,10 @@ provides:
   - "Textile: Oakum-and-Tow"
 requires:
   - "Crop: Raw-Hemp-Stalks"
+  - "Metal: Forged-Iron"
 ---
 
-> Hemp Braking & Hackling Shed (`IND-HEMP-02`)
+# Hemp Braking & Hackling Shed (`IND-HEMP-02`)
 > **Industry Chain**: `CHAIN-HEMP` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

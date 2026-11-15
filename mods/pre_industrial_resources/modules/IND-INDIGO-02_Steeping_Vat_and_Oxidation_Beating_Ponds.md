@@ -14,6 +14,7 @@ requires:
   - "Crop: Indigo-Leaves"
   - "Chem: Slaked-Lime"
 ---
+# Steeping Vat & Oxidation Beating Ponds (`IND-INDIGO-02`)
 
 ## 1. Architectural Overview & Operational Loop
 Constructed from lined stone vats and shallow terraced oxidation basins, this facility ferments harvested indigo leaves in standing water to release indican, which is then hydrolyzed into indoxyl. Workers beat the alkaline solution with wooden paddles to aerate the liquor, triggering precipitation into dense indigo sediment. Slaked lime is added to stabilize the reaction, transforming raw agricultural biomass into concentrated indigo paste.

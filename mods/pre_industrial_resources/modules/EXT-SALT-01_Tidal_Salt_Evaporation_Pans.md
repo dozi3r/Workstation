@@ -13,7 +13,7 @@ provides:
 requires: []
 ---
 
-> Tidal Salt Evaporation Pans (`EXT-SALT-01`)
+# Tidal Salt Evaporation Pans (`EXT-SALT-01`)
 > **Industry Chain**: `CHAIN-SALT` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

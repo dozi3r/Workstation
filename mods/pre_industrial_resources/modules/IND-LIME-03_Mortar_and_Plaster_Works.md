@@ -14,8 +14,7 @@ requires:
   - "Chem: Slaked-Lime"
   - "Mineral: Silica-Sand"
 ---
-</Agent System Instructions>
-<Mortar & Plaster Works (`IND-LIME-03`)>
+# Mortar & Plaster Works (`IND-LIME-03`)
 > **Industry Chain**: `CHAIN-LIME` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

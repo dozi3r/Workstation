@@ -14,9 +14,11 @@ requires:
   - "Mineral: Silica-Sand"
   - "Chem: Potash"
   - "Fuel: Charcoal-or-Coal"
+  - "Chem: Slaked-Lime"
+  - "Metal: Forged-Iron"
+  - "Commodity: Ceramic-Vessels"
 ---
-</Agent System Instructions>
-<Glassblower's Furnace (`IND-GLASS-02`)>
+# Glassblower's Furnace (`IND-GLASS-02`)
 > **Industry Chain**: `CHAIN-GLASS` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

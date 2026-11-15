@@ -14,7 +14,7 @@ requires:
   - "Animal: Tallow"
   - "Textile: Flax-Fiber"
 ---
-> **Tallow Chandlery** (`IND-CANDLE-01`)
+# Tallow Chandlery (`IND-CANDLE-01`)
 > **Industry Chain**: `CHAIN-CANDLE` (Stage 1: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

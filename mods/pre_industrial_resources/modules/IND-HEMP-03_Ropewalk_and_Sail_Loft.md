@@ -17,7 +17,7 @@ requires:
   - "Textile: Linen-Cloth"
 ---
 
-> Ropewalk & Sail Loft (`IND-HEMP-03`)
+# Ropewalk & Sail Loft (`IND-HEMP-03`)
 > **Industry Chain**: `CHAIN-HEMP` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

@@ -15,8 +15,10 @@ requires:
   - "Chem: Brimstone-Sulfur"
   - "Fuel: Charcoal-or-Coal"
   - "Timber: Cooperage-Casks"
+  - "Alloy: Cast-Bronze"
+  - "Metal: Forged-Copper"
 ---
-> **Water-Powered Corning & Powder Mill** (`IND-POWDER-03`)
+# Water-Powered Corning & Powder Mill (`IND-POWDER-03`)
 > **Industry Chain**: `CHAIN-POWDER` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

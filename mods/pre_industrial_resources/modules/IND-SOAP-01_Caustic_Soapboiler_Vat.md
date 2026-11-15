@@ -14,9 +14,9 @@ requires:
   - "Oil: Olive-Oil"
   - "Chem: Potash"
   - "Chem: Slaked-Lime"
+  - "Fuel: Wood-Fuel"
 ---
-</Agent System Instructions>
-<Caustic Soapboiler Vat (`IND-SOAP-01`)>
+# Caustic Soapboiler Vat (`IND-SOAP-01`)
 > **Industry Chain**: `CHAIN-SOAP` (Stage 1: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

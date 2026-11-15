@@ -14,7 +14,7 @@ provides:
 requires: []
 ---
 
-> **Irrigated Rice Paddy** (`FARM-RICE-01`)
+# Irrigated Rice Paddy (`FARM-RICE-01`)
 > **Industry Chain**: `CHAIN-RICE` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

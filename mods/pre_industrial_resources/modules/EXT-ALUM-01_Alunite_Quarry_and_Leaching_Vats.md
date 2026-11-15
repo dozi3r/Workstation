@@ -13,8 +13,7 @@ provides:
 requires:
   - "Fuel: Wood-Fuel"
 ---
-</Agent System Instructions>
-<Alunite Quarry & Leaching Vats (`EXT-ALUM-01`)>
+# Alunite Quarry & Leaching Vats (`EXT-ALUM-01`)
 > **Industry Chain**: `CHAIN-ALUM` (Stage 1: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

@@ -8,7 +8,7 @@ chain_id: CHAIN-SUGAR
 chain_stage: 1
 chain_role: extraction
 provides: ["Crop: Raw-Sugarcane"]
-requires: ["Water: Baseline-Potable-Flow"]
+requires: ["Water: Baseline-Potable-Flow", "Naval: Hemp-Cordage"]
 culture_quadrant: Clan / Hierarchy
 operational_profile: Produce / Coordinate
 mtg_color: Green / White

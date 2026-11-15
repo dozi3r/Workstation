@@ -14,6 +14,7 @@ requires:
   - "Timber: Sawn-Lumber"
   - "Metal: Forged-Iron"
   - "Chem: Pine-Pitch"
+  - "Animal: Tallow"
 ---
 # River Barge Slipway & Canal Lock (`IND-BARGE-01`)
 > **Industry Chain**: `CHAIN-BARGE` (Stage 1: `manufacturing`)

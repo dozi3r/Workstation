@@ -8,7 +8,7 @@ chain_id: CHAIN-SUGAR
 chain_stage: 2
 chain_role: refining
 provides: ["Commodity: Cane-Molasses", "Food: Refined-Sugar"]
-requires: ["Crop: Raw-Sugarcane", "Fuel: Charcoal-or-Coal"]
+requires: ["Crop: Raw-Sugarcane", "Fuel: Charcoal-or-Coal", "Chem: Slaked-Lime", "Metal: Forged-Copper", "Metal: Forged-Iron", "Animal: Tallow", "Commodity: Ceramic-Vessels"]
 culture_quadrant: Market / Hierarchy
 operational_profile: Produce / Design
 mtg_color: Red / Green

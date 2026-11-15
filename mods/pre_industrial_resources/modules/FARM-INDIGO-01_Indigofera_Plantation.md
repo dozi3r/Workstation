@@ -13,7 +13,7 @@ provides:
 requires: []
 ---
 
-> **Indigofera Plantation** (`FARM-INDIGO-01`)
+# Indigofera Plantation (`FARM-INDIGO-01`)
 > **Industry Chain**: `CHAIN-INDIGO` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

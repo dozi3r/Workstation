@@ -13,9 +13,10 @@ provides:
 requires:
   - "Timber: Hardwood-Logs"
   - "Timber: Mast-Spars"
+  - "Metal: Forged-Iron"
 ---
 
-> Seasoning Timber Pond & Sawpit (`IND-SHIP-01`)
+# Seasoning Timber Pond & Sawpit (`IND-SHIP-01`)
 > **Industry Chain**: `CHAIN-SHIP` (Stage 1: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

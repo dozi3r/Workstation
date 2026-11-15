@@ -13,9 +13,10 @@ provides:
 requires:
   - "Commodity: Brine-Slurry"
   - "Fuel: Wood-Fuel"
+  - "Metal: Forged-Iron"
 ---
 
-> Salt Boiling House & Granary (`IND-SALT-02`)
+# Salt Boiling House & Granary (`IND-SALT-02`)
 > **Industry Chain**: `CHAIN-SALT` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

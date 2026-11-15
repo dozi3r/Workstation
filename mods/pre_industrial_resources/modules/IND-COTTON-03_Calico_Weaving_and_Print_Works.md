@@ -14,9 +14,10 @@ requires:
   - "Textile: Spun-Cotton-Yarn"
   - "Dye: Indigo-Paste"
   - "Chem: Mordant-Alum"
+  - "Fuel: Wood-Fuel"
 ---
 
-> **Calico Weaving & Print Works** (`IND-COTTON-03`)
+# Calico Weaving & Print Works (`IND-COTTON-03`)
 > **Industry Chain**: `CHAIN-COTTON` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

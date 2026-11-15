@@ -13,7 +13,7 @@ provides:
 requires: []
 ---
 
-> Coastal Hemp Plantation (`FARM-HEMP-01`)
+# Coastal Hemp Plantation (`FARM-HEMP-01`)
 > **Industry Chain**: `CHAIN-HEMP` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

@@ -13,9 +13,10 @@ provides:
 requires:
   - "Metal: Crude-Bullion"
   - "Fuel: Charcoal-or-Coal"
+  - "Alloy: Crucible-Steel"
+  - "Metal: Forged-Iron"
 ---
-</Agent System Instructions>
-<Cupellation Hearth & Sovereign Mint (`IND-SILVER-03`)>
+# Cupellation Hearth & Sovereign Mint (`IND-SILVER-03`)
 > **Industry Chain**: `CHAIN-SILVER` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

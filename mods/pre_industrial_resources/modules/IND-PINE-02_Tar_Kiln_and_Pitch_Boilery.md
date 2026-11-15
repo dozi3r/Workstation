@@ -13,8 +13,9 @@ provides:
 requires:
   - "Resin: Raw-Pine-Resin"
   - "Fuel: Wood-Fuel"
+  - "Metal: Forged-Copper"
 ---
-> **Tar Kiln & Pitch Boilery** (`IND-PINE-02`)
+# Tar Kiln & Pitch Boilery (`IND-PINE-02`)
 > **Industry Chain**: `CHAIN-PINE` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

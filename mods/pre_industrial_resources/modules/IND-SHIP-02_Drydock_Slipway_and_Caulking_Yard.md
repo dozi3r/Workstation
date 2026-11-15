@@ -17,7 +17,7 @@ requires:
   - "Metal: Forged-Iron"
 ---
 
-> Drydock Slipway & Caulking Yard (`IND-SHIP-02`)
+# Drydock Slipway & Caulking Yard (`IND-SHIP-02`)
 > **Industry Chain**: `CHAIN-SHIP` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

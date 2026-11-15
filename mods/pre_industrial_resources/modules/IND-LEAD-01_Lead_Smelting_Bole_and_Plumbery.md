@@ -14,8 +14,7 @@ requires:
   - "Ore: Lead-Slag"
   - "Fuel: Charcoal-or-Coal"
 ---
-</Agent System Instructions>
-<Lead Smelting Bole & Plumbery (`IND-LEAD-01`)>
+# Lead Smelting Bole & Plumbery (`IND-LEAD-01`)
 > **Industry Chain**: `CHAIN-LEAD` (Stage 1: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

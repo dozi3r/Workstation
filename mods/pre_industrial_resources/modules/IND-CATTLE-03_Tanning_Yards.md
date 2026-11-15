@@ -14,6 +14,7 @@ requires:
   - "Animal: Raw-Hides"
   - "Chem: Tannin"
   - "Chem: Slaked-Lime"
+  - "Metal: Forged-Iron"
 ---
 # Tanning Yards (`IND-CATTLE-03`)
 > **Industry Chain**: `CHAIN-CATTLE` (Stage 3: `manufacturing`)

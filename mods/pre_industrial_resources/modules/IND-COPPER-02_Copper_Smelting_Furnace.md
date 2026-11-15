@@ -13,9 +13,10 @@ provides:
 requires:
   - "Ore: Copper-Ore"
   - "Fuel: Charcoal-or-Coal"
+  - "Stone: Cut-Limestone"
+  - "Mineral: Raw-Clay"
 ---
-</Agent System Instructions>
-<Copper Smelting Furnace (`IND-COPPER-02`)>
+# Copper Smelting Furnace (`IND-COPPER-02`)
 > **Industry Chain**: `CHAIN-COPPER` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

@@ -12,9 +12,9 @@ provides:
   - "Ore: Copper-Ore"
 requires:
   - "Timber: Mine-Props"
+  - "Fuel: Charcoal-or-Coal"
 ---
-</Agent System Instructions>
-<Malachite Drift Mine (`MINE-COPPER-01`)>
+# Malachite Drift Mine (`MINE-COPPER-01`)
 > **Industry Chain**: `CHAIN-COPPER` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

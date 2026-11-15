@@ -8,7 +8,7 @@ chain_id: CHAIN-SUGAR
 chain_stage: 3
 chain_role: commercial
 provides: ["Commodity: High-Proof-Rum"]
-requires: ["Commodity: Cane-Molasses", "Timber: Cooperage-Casks"]
+requires: ["Commodity: Cane-Molasses", "Timber: Cooperage-Casks", "Metal: Forged-Copper"]
 culture_quadrant: Market / Adhocracy
 operational_profile: Exchange / Invent
 mtg_color: Blue / Black

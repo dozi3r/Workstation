@@ -14,7 +14,7 @@ requires:
   - "Crop: Paddy-Rice"
 ---
 
-> **Water-Driven Hull Mill** (`IND-RICE-02`)
+# Water-Driven Hull Mill (`IND-RICE-02`)
 > **Industry Chain**: `CHAIN-RICE` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

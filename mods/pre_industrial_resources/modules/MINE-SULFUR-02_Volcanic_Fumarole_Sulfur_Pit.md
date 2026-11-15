@@ -14,7 +14,7 @@ provides:
 requires:
   - "Commodity: Ceramic-Vessels"
 ---
-> **Volcanic Fumarole Sulfur Pit** (`MINE-SULFUR-02`)
+# Volcanic Fumarole Sulfur Pit (`MINE-SULFUR-02`)
 > **Industry Chain**: `CHAIN-POWDER` (Stage 2: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

@@ -13,9 +13,10 @@ provides:
 requires:
   - "Animal: Silk-Cocoons"
   - "Fuel: Wood-Fuel"
+  - "Metal: Forged-Copper"
 ---
 
-> **Filature Reeling Basin** (`IND-SILK-02`)
+# Filature Reeling Basin (`IND-SILK-02`)
 > **Industry Chain**: `CHAIN-SILK` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

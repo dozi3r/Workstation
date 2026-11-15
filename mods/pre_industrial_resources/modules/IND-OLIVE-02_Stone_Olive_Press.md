@@ -13,6 +13,7 @@ provides:
 requires:
   - "Crop: Olives"
   - "Commodity: Ceramic-Vessels"
+  - "Livestock: Draft-Animals"
 ---
 # Stone Olive Press (`IND-OLIVE-02`)
 > **Industry Chain**: `CHAIN-OLIVE` (Stage 2: `refining`)

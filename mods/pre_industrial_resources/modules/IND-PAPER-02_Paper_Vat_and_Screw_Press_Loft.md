@@ -13,7 +13,10 @@ provides:
 requires:
   - "Material: Rag-Pulp"
   - "Chem: Mordant-Alum"
+  - "Fuel: Wood-Fuel"
+  - "Metal: Forged-Copper"
 ---
+# Paper Vat & Screw-Press Loft (`IND-PAPER-02`)
 
 ## 1. Architectural Overview & Operational Loop
 Centered around heated vats of liquid pulp and towering oak screw-presses, skilled vatmen dip wire-mesh moulds into the slurry, expertly shaking them to interlock wet fibers into uniform sheets. The nascent paper sheets are couched onto felt blankets, stacked in multi-ton screw presses to expel excess water, and then loft-dried into durable laid paper.

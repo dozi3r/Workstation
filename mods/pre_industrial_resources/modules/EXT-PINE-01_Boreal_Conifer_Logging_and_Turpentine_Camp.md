@@ -13,7 +13,7 @@ provides:
   - "Resin: Raw-Pine-Resin"
 requires: []
 ---
-> **Boreal Conifer Logging & Turpentine Camp** (`EXT-PINE-01`)
+# Boreal Conifer Logging & Turpentine Camp (`EXT-PINE-01`)
 > **Industry Chain**: `CHAIN-PINE` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

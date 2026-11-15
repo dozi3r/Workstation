@@ -13,9 +13,9 @@ provides:
 requires:
   - "Ore: Tin-Ore"
   - "Fuel: Charcoal-or-Coal"
+  - "Metal: Forged-Iron"
 ---
-</Agent System Instructions>
-<Tin Blowing House (`IND-TIN-02`)>
+# Tin Blowing House (`IND-TIN-02`)
 > **Industry Chain**: `CHAIN-TIN` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

@@ -8,7 +8,7 @@ chain_id: CHAIN-STEEL
 chain_stage: 3
 chain_role: commercial
 provides: ["Alloy: Crucible-Steel", "Commodity: Heavy-Ordnance"]
-requires: ["Metal: Pig-Iron", "Fuel: Charcoal-or-Coal"]
+requires: ["Metal: Pig-Iron", "Fuel: Charcoal-or-Coal", "Commodity: Ceramic-Vessels", "Metal: Forged-Iron"]
 culture_quadrant: Hierarchy / Market
 operational_profile: Design / Produce
 mtg_color: Red / White

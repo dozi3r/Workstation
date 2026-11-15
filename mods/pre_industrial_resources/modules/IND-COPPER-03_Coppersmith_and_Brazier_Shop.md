@@ -13,9 +13,9 @@ provides:
 requires:
   - "Metal: Copper-Ingot"
   - "Fuel: Charcoal-or-Coal"
+  - "Metal: Forged-Iron"
 ---
-</Agent System Instructions>
-<Coppersmith & Brazier Shop (`IND-COPPER-03`)>
+# Coppersmith & Brazier Shop (`IND-COPPER-03`)
 > **Industry Chain**: `CHAIN-COPPER` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

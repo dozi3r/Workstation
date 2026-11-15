@@ -13,8 +13,9 @@ provides:
 requires:
   - "Chem: Potash"
   - "Fuel: Wood-Fuel"
+  - "Chem: Slaked-Lime"
 ---
-> **Nitrary Compost Beds & Leaching House** (`EXT-SALTPETER-01`)
+# Nitrary Compost Beds & Leaching House (`EXT-SALTPETER-01`)
 > **Industry Chain**: `CHAIN-POWDER` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

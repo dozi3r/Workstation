@@ -14,7 +14,10 @@ provides:
 requires:
   - "Crop: Raw-Maize"
   - "Chem: Slaked-Lime"
+  - "Water: Baseline-Potable-Flow"
+  - "Fuel: Wood-Fuel"
 ---
+# Nixtamalization Vats & Stone Metate Mill (`IND-CORN-02`)
 
 ## 1. Architectural Overview & Operational Loop
 Equipped with large boiling vats and carved stone metate grinding stones, this processing station cooks dried maize kernels in an alkaline solution of slaked lime. This ancient chemical transformation softens the outer pericarp, releases bound niacin, and unlocks nutritional value before stone-grinding the softened maize into pliable masa dough and coarse meal.

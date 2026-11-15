@@ -12,6 +12,8 @@ provides:
   - "Chem: Tannin"
 requires:
   - "Commodity: Tree-Bark"
+  - "Fuel: Wood-Fuel"
+  - "Metal: Forged-Iron"
 ---
 # Bark Crushing Mill (`IND-TANNIN-02`)
 > **Industry Chain**: `CHAIN-TANNIN` (Stage 2: `refining`)

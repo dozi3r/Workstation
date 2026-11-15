@@ -15,9 +15,10 @@ requires:
   - "Naval: Hemp-Cordage"
   - "Naval: Canvas-Sails"
   - "Alloy: Cast-Bronze"
+  - "Timber: Mast-Spars"
 ---
 
-> Admiralty Fitting-Out Basin (`IND-SHIP-03`)
+# Admiralty Fitting-Out Basin (`IND-SHIP-03`)
 > **Industry Chain**: `CHAIN-SHIP` (Stage 3: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

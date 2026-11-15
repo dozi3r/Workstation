@@ -12,6 +12,7 @@ provides:
   - "Food: Wheat-Flour"
 requires:
   - "Crop: Raw-Wheat"
+  - "Metal: Forged-Iron"
 ---
 # Water-Powered Gristmill (`IND-WHEAT-02`)
 > **Industry Chain**: `CHAIN-WHEAT` (Stage 2: `refining`)

@@ -15,7 +15,7 @@ requires:
   - "Timber: Sawn-Lumber"
 ---
 
-> Pelagic Fishing Fleet Wharf (`EXT-FISH-01`)
+# Pelagic Fishing Fleet Wharf (`EXT-FISH-01`)
 > **Industry Chain**: `CHAIN-FISH` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

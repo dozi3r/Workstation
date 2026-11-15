@@ -13,8 +13,7 @@ provides:
 requires:
   - "Timber: Mine-Props"
 ---
-</Agent System Instructions>
-<Placer Sluice & Quartz Crush Mill (`MINE-GOLD-01`)>
+# Placer Sluice & Quartz Crush Mill (`MINE-GOLD-01`)
 > **Industry Chain**: `CHAIN-GOLD` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

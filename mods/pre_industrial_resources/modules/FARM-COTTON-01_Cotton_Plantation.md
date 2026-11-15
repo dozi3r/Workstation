@@ -13,7 +13,7 @@ provides:
 requires: []
 ---
 
-> **Cotton Plantation** (`FARM-COTTON-01`)
+# Cotton Plantation (`FARM-COTTON-01`)
 > **Industry Chain**: `CHAIN-COTTON` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

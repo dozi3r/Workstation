@@ -10,7 +10,8 @@ chain_stage: 1
 chain_role: "extraction"
 provides:
   - "Crop: Wine-Grapes"
-requires: []
+requires:
+  - "Chem: Brimstone-Sulfur"
 ---
 # Hillside Vineyard (`FARM-VINE-01`)
 > **Industry Chain**: `CHAIN-VINE` (Stage 1: `extraction`)

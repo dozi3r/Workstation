@@ -17,7 +17,7 @@ requires:
   - "Fuel: Wood-Fuel"
 ---
 
-> Salting Stages & Smokehouse (`IND-FISH-02`)
+# Salting Stages & Smokehouse (`IND-FISH-02`)
 > **Industry Chain**: `CHAIN-FISH` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

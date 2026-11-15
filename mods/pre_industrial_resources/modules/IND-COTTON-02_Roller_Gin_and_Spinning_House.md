@@ -14,7 +14,7 @@ requires:
   - "Crop: Raw-Cotton-Boll"
 ---
 
-> **Roller Gin & Spinning House** (`IND-COTTON-02`)
+# Roller Gin & Spinning House (`IND-COTTON-02`)
 > **Industry Chain**: `CHAIN-COTTON` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

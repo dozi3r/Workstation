@@ -14,9 +14,10 @@ requires:
   - "Ore: Gold-Dust"
   - "Fuel: Charcoal-or-Coal"
   - "Chem: Nitric-Parting-Acid"
+  - "Commodity: Ceramic-Vessels"
+  - "Commodity: Glassware"
 ---
-</Agent System Instructions>
-<Assay Furnace & Goldsmith Bourse (`IND-GOLD-02`)>
+# Assay Furnace & Goldsmith Bourse (`IND-GOLD-02`)
 > **Industry Chain**: `CHAIN-GOLD` (Stage 2: `manufacturing`)
 
 ## 1. Architectural Overview & Operational Loop

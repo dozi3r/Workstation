@@ -12,6 +12,7 @@ provides:
   - "Crop: Raw-Spices-and-Tea"
 requires: []
 ---
+# Shade-Grown Spice & Tea Gardens (`FARM-SPICE-01`)
 
 ## 1. Architectural Overview & Operational Loop
 Laid out beneath a protective forest canopy of taller timber trees, these terraced hillside plantations cultivate delicate tea bushes and spice vines in rich, humid soil. Agricultural laborers hand-pick tender leaves and aromatic pods at precise dawn hours, preserving essential volatile oils before the tropical sun burns off the dew. The harvested biomass is sorted and bundled for immediate transport to curing sheds.

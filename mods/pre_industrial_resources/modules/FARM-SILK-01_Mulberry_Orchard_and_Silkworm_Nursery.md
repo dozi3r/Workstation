@@ -13,7 +13,7 @@ provides:
 requires: []
 ---
 
-> **Mulberry Orchard & Silkworm Nursery** (`FARM-SILK-01`)
+# Mulberry Orchard & Silkworm Nursery (`FARM-SILK-01`)
 > **Industry Chain**: `CHAIN-SILK` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

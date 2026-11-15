@@ -12,8 +12,7 @@ provides:
   - "Mineral: Silica-Sand"
 requires: []
 ---
-</Agent System Instructions>
-<Silica Sand Dredging Pit (`EXT-GLASS-01`)>
+# Silica Sand Dredging Pit (`EXT-GLASS-01`)
 > **Industry Chain**: `CHAIN-GLASS` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
@@ -23,7 +22,7 @@ Open riverbanks and ancient lacustrine deposits are excavated by teams wielding 
 - **Baseline Coordinate**: `[0, -1, 0]` — **Pragmatic Operative** (`Hierarchy`).
 - **Sociological Rationale**: Dredging is grueling, repetitive manual labor governed by strict tidal or seasonal water schedules, fostering a stoic and obedient workforce.
 
-## 3. StationedEntities & Roster Prototypes
+## 3. Stationed Entities & Roster Prototypes
 
 ### Key Personnel (NPC Prototypes)
 - name: "Pit Boss Garret Miller"

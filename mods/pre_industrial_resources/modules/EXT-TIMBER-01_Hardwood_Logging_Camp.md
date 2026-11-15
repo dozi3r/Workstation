@@ -11,7 +11,8 @@ chain_role: "extraction"
 provides:
   - "Timber: Hardwood-Logs"
   - "Fuel: Wood-Fuel"
-requires: []
+requires:
+  - "Livestock: Draft-Animals"
 ---
 # Hardwood Logging Camp (`EXT-TIMBER-01`)
 > **Industry Chain**: `CHAIN-TIMBER` (Stage 1: `extraction`)

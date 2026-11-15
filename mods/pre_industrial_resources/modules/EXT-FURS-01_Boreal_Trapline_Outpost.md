@@ -12,8 +12,9 @@ provides:
   - "Animal: Raw-Pelts"
 requires:
   - "Metal: Forged-Iron"
+  - "Commodity: Coarse-Salt"
 ---
-> **Boreal Trapline Outpost** (`EXT-FURS-01`)
+# Boreal Trapline Outpost (`EXT-FURS-01`)
 > **Industry Chain**: `CHAIN-FURS` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop

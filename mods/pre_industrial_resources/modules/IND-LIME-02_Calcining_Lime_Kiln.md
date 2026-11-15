@@ -14,8 +14,7 @@ requires:
   - "Stone: Cut-Limestone"
   - "Fuel: Charcoal-or-Coal"
 ---
-</Agent System Instructions>
-<Calcining Lime Kiln (`IND-LIME-02`)>
+# Calcining Lime Kiln (`IND-LIME-02`)
 > **Industry Chain**: `CHAIN-LIME` (Stage 2: `refining`)
 
 ## 1. Architectural Overview & Operational Loop

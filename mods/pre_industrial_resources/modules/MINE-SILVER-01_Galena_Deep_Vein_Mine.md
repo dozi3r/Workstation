@@ -13,9 +13,9 @@ provides:
 requires:
   - "Timber: Mine-Props"
   - "Light: Tallow-Candles"
+  - "Livestock: Draft-Animals"
 ---
-</Agent System Instructions>
-<Galena Deep-Vein Mine (`MINE-SILVER-01`)>
+# Galena Deep-Vein Mine (`MINE-SILVER-01`)
 > **Industry Chain**: `CHAIN-SILVER` (Stage 1: `extraction`)
 
 ## 1. Architectural Overview & Operational Loop
