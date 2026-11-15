@@ -389,6 +389,6 @@ A linked Git worktree created via `git worktree add` allowing autonomous subagen
 _Avoid_: Temp copy folder, branch clone
 
 **Zero-Token Drift Audit**:
-Verifying synchronization between documentation, schema models, and implementation files using Git status and file tree hashes (`Find-CodebaseNode.ps1 -Stale` or `git status --porcelain`) rather than reading documents into prompt memory.
+Verifying synchronization between documentation, schema models, and implementation files using Git status and the codebase knowledge graph (`Find-CodebaseNode.ps1 -Check` or `git status --porcelain`) rather than reading documents into prompt memory.
 _Avoid_: Manual doc comparison, full text drift check
 

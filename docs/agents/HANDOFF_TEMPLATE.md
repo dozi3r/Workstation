@@ -39,4 +39,4 @@ Project / branch / HEAD: <root, branch, commit; say if no Git>
 
 Before resuming: read applicable instructions, compare HEAD and path-scoped working diffs, then verify assumptions that changed. A prior approval applies only to its recorded scope. A handoff is task state, not permission to discard other work.
 
-Before completing: put durable decisions in their existing authority, refresh relevant wiki notes, record validation, and mark the handoff complete. Keep temporary diagnostics, secrets, raw corpora, and lengthy tool output out of the handoff.
+Before completing: put durable decisions in their existing authority (ADRs or `wiki/src/series/` when cross-cutting architecture changed), record validation, and mark the handoff complete. Keep temporary diagnostics, secrets, raw corpora, and lengthy tool output out of the handoff.

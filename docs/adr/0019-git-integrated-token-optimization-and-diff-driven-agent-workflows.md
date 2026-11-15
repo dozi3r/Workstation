@@ -51,7 +51,7 @@ As Creator Studio expanded into a multi-surface authoring workstation containing
 - **Mandatory Process Tree Kill**: Test harnesses launching servers (`Test-Suite.ps1`) must terminate child process trees via `taskkill /PID $proc.Id /T /F 2>$null` to prevent zombie processes and TCP port collision (`EADDRINUSE: 8991`).
 
 ### 9. AST Graph Inspection First (`Find-CodebaseNode.ps1`)
-- **Zero-Token Discovery**: Before reading files or grepping, agents must query `wiki/wiki_graph.json` via `Find-CodebaseNode.ps1` (`-Symbol`, `-File`, `-Resource`, `-Stale`) to identify exact callers and dependencies with zero token overhead.
+- **Zero-Token Discovery**: Before reading files or grepping, agents must query `wiki/wiki_graph.json` via `Find-CodebaseNode.ps1` (`-Symbol`, `-File`, `-Resource`, `-Check`) to identify exact callers, dependencies, and graph integrity with zero token overhead.
 
 ## Consequences
 

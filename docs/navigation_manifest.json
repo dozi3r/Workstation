@@ -152,7 +152,7 @@
     {
       "file": "wiki/index.html",
       "type": "html",
-      "title": "Technical Manual & Bidirectional Codebase Wiki (8 Volumes, 350+ File Pages)",
+      "title": "Technical Manual & Codebase Knowledge Graph (7 Series + 8 Volumes)",
       "authoritative_specs": [
         "docs/AI_DEVELOPER_GUIDE.md",
         "docs/adr/0003-bidirectional-wiki-and-scale-fluid-nested-maps.md",
@@ -160,12 +160,11 @@
         "CONTEXT.md"
       ],
       "data_sources": [
-        "wiki/src/files/** (1:1 Per-File Markdown Notes)",
         "wiki/src/series/*.md (7 Cross-Cutting Subsystem Series)",
-        "wiki/build_wiki.js (AST, Frontmatter & Backlink Compiler)",
+        "wiki/build_wiki.js (AST, Frontmatter & Backlink Graph Compiler)",
         "wiki/wiki_graph.json"
       ],
-      "immutable_rule": "Compiled by wiki/build_wiki.js (invoked by Build-Suite.ps1). Edit Markdown sources in wiki/src/ and re-run Build-Suite.ps1."
+      "immutable_rule": "Compiled by wiki/build_wiki.js (invoked by Build-Suite.ps1). Edit curated Series sources in wiki/src/series/ and re-run Build-Suite.ps1."
     },
     {
       "file": "Find-CodebaseNode.ps1",
@@ -180,7 +179,7 @@
         "wiki/wiki_manifest.json"
       ],
       "build_cmd": "powershell -ExecutionPolicy Bypass -File .\\Find-CodebaseNode.ps1",
-      "immutable_rule": "CLI tool to query inbound backlinks, outbound dependencies, declared symbols, and resource supply chains with zero token overhead."
+      "immutable_rule": "CLI tool to query inbound backlinks, outbound dependencies, declared symbols, resource supply chains, and graph integrity (-Check) with zero token overhead."
     },
     {
       "file": "Test-Suite.ps1",
@@ -197,7 +196,7 @@
         "Find-CodebaseNode.ps1"
       ],
       "build_cmd": "powershell -ExecutionPolicy Bypass -File .\\Test-Suite.ps1",
-      "immutable_rule": "Master test harness executing compilation, core HTML surface JS syntax, unit tests, campaign validation, zero-CORS isolation, and wiki graph drift in <15s."
+      "immutable_rule": "Master test harness executing compilation, core HTML surface JS syntax, unit tests, campaign validation, zero-CORS isolation, and codebase graph integrity in <15s."
     },
     {
       "file": "admin.html",
@@ -212,7 +211,7 @@
         "docs/navigation_manifest.json",
         "wiki/wiki_manifest.json"
       ],
-      "immutable_rule": "Master administrative command center providing direct links to every HTML tool and corresponding wiki page."
+      "immutable_rule": "Master administrative command center providing direct links to every HTML tool and subsystem wiki documentation."
     }
   ]
 }

@@ -34,7 +34,7 @@ Keep this project's instructions, routes, fingerprints, builds and runtime self-
 
 - User instructions and applicable agent instructions govern the work. These maps are navigation aids, not new domain specifications.
 - `CONTEXT.md` defines terminology; ADRs explain decisions; SRDs specify contracts. Current source and targeted tests establish implemented behavior. When these disagree, record both; a code behavior is not automatically the intended contract.
-- The wiki graph and per-file notes are generated indexes with curated notes. Query the graph first, then verify consequential answers in source. A missing symbol may mean stale indexing, not absent code.
+- The codebase graph (`wiki/wiki_graph.json`) is generated automatically from source code and manifests, while `wiki/src/series/` holds curated cross-cutting narratives. Query the graph first, then verify consequential answers in source. A missing symbol may mean an unbuilt graph, not absent code.
 - `docs/navigation_manifest.json` supplies surface routing data. The `AGENTS.md` prose template lives in `build_suite.js`; editing the generated file alone will be overwritten.
 - Package catalogs, fingerprints, commit hashes, and test results are dated observations. Refresh only the evidence needed for the task. A matching fingerprint proves unchanged bytes, not correctness.
 

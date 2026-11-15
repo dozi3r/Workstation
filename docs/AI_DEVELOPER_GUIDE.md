@@ -234,8 +234,8 @@ After implementation:
   powershell -ExecutionPolicy Bypass -File .\Test-Suite.ps1
   ```
 - [ ] If any test flags a syntax error in a compiled surface, read only bounded line ranges ($\le 50$ lines).
-- [ ] Verify zero stale files in the knowledge graph:
+- [ ] Verify graph and series integrity if you edited cross-cutting architecture or moved files:
   ```powershell
-  powershell -ExecutionPolicy Bypass -File .\Find-CodebaseNode.ps1 -Stale
+  powershell -ExecutionPolicy Bypass -File .\Find-CodebaseNode.ps1 -Check
   ```
 - [ ] Verify the file opens cleanly in browser over `file:///`.

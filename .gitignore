@@ -50,3 +50,10 @@ Sources/
 
 # Local infographic workspace (untracked, excluded from wiki index)
 infographic/
+
+# Compiled wiki artifacts (generated locally by wiki/build_wiki.js & Build-Suite.ps1)
+wiki/index.html
+wiki/pages/
+wiki/search_index.js
+wiki/wiki_manifest.json
+wiki/wiki_graph.json

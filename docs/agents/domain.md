@@ -21,7 +21,7 @@ If any of these files don't exist, **proceed silently**. Don't flag their absenc
 └── src/workstation/
 ```
 
-`wiki/pages/docs/adr/` and `wiki/src/files/docs/adr/` mirror the ADRs for the in-app wiki. Edit only `docs/adr/`; the wiki copies are produced by `Build-Suite.ps1`.
+Edit ADRs directly in `docs/adr/`. The codebase graph (`wiki/wiki_graph.json`) indexes them automatically on `Build-Suite.ps1`.
 
 ## Use the glossary's vocabulary
 

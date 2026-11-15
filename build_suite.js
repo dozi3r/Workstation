@@ -1415,8 +1415,8 @@ Use [docs/agents/START_HERE.md](docs/agents/START_HERE.md) when starting a new s
    \`\`\`powershell
    powershell -ExecutionPolicy Bypass -File .\\Build-Suite.ps1
    \`\`\`
-4. **Bidirectional Codebase Wiki & Backlinks (\`wiki/\`)**: All primary workstation HTML surfaces, architectural specifications, worldbuilding modules, and authoritative data models have a 1:1 Markdown source in \`wiki/src/files/<relPath>.md\` and compiled HTML page in \`wiki/pages/<relPath>.html\`. Whenever you create or modify a tracked file, update its \`<!-- BEGIN_CUSTOM_NOTES -->\` block and run \`Build-Suite.ps1 --stamp-reviewed\` (or update \`reviewed_hash\`).
-5. **Zero-Token Codebase Graph Inspection (\`Find-CodebaseNode.ps1\`)**: Before grepping across the repository or reading large files, query \`wiki/wiki_graph.json\` via \`Find-CodebaseNode.ps1\` to inspect a file's callers/backlinks (\`-File "<path>"\`), locate symbol definitions (\`-Symbol "<name>"\`), trace resource supply chains (\`-Resource "<tag>"\`), or check documentation drift (\`-Stale\`).
+4. **Curated Architecture Docs & Codebase Series (\`wiki/src/series/\`, \`docs/adr/\`)**: Authoritative cross-cutting architecture lives in \`wiki/src/series/*.md\` and \`docs/adr/*.md\`. Update the relevant series or ADR only when subsystem contracts or architecture actually change (no per-file prose stub maintenance required).
+5. **Zero-Token Codebase Graph Inspection (\`Find-CodebaseNode.ps1\`)**: Before grepping across the repository or reading large files, query \`wiki/wiki_graph.json\` via \`Find-CodebaseNode.ps1\` to inspect a file's callers/backlinks (\`-File "<path>"\`), locate symbol definitions (\`-Symbol "<name>"\`), trace resource supply chains (\`-Resource "<tag>"\`), or check graph integrity (\`-Check\`).
 6. **Diff-Driven Token Optimization & Atomic Commits**: Never re-read entire multi-hundred-line files solely to verify modifications. Use \`git diff\` (and \`git diff --stat\`) for granular token verification. Keep changes tracked under Conventional Atomic Commits, allowing any agent session to anchor state to commit hashes with zero token overhead.
 7. **Unbounded Read Ban & Source-Only Worktrees**: Never perform unbounded whole-file reads or broad greps on compiled monolithic distributions (\`start.html\`, \`network/platform_audit_dashboard.html\`, \`wiki/wiki_graph.json\`). Diagnostic line reads are permitted strictly within bounded windows ($\le 50$ lines) for build error triage. Subagents working in isolated branches or worktrees must follow the **Source-Only Invariant** (never run \`Build-Suite.ps1\` or commit compiled bundles in branch sandboxes).
 
@@ -1831,7 +1831,18 @@ if (navManifest && Array.isArray(navManifest.surfaces)) {
       icon = 'ðŸ› ï¸';
     }
 
-    const wikiFile = (s.file === 'wiki/index.html') ? 'wiki/index.html' : `wiki/pages/${s.file}.html`;
+    let wikiFile = 'wiki/index.html';
+    if (s.file === 'wiki/index.html') {
+      wikiFile = 'wiki/index.html';
+    } else if (f.includes('odv')) {
+      wikiFile = 'wiki/pages/series/series_c_sociology_and_tarot_hermeneutics.html';
+    } else if (f.includes('modules_catalog') || f.includes('platform_audit')) {
+      wikiFile = 'wiki/pages/series/series_d_module_supply_chains_and_contracts.html';
+    } else if (f.includes('find-codebasenode') || f.includes('test-suite') || f.includes('admin')) {
+      wikiFile = 'wiki/pages/series/series_e_zero_cors_compiler_and_agent_router.html';
+    } else if (f === 'start.html' || f === 'index.html' || f.includes('network/')) {
+      wikiFile = 'wiki/pages/series/series_b_scale_fluid_nested_cartography.html';
+    }
 
     return {
       id: s.file.replace(/[^a-zA-Z0-9_-]/g, '_'),
@@ -2347,7 +2358,7 @@ const studioStubContent = `<!DOCTYPE html>
 </body>
 </html>
 `;
-fs.writeFileSync(studioPath, studioStubContent, 'utf8');
+safeWriteFileSync(studioPath, studioStubContent, 'utf8');
 console.log(`[OK] Emitted Zero-CORS Deprecation Redirect Stub at network/campaign_studio.html -> ../start.html`);
 
 const contradictionPath = path.join(NETWORK_DIR, 'contradiction_matrix_dashboard.html');
@@ -2379,7 +2390,7 @@ const contradictionStubContent = `<!DOCTYPE html>
 </body>
 </html>
 `;
-fs.writeFileSync(contradictionPath, contradictionStubContent, 'utf8');
+safeWriteFileSync(contradictionPath, contradictionStubContent, 'utf8');
 console.log(`[OK] Emitted Zero-CORS Deprecation Redirect Stub at network/contradiction_matrix_dashboard.html -> ../start.html`);
 
 const builderPath = path.join(NETWORK_DIR, 'network_builder.html');
@@ -2411,7 +2422,7 @@ const builderStubContent = `<!DOCTYPE html>
 </body>
 </html>
 `;
-fs.writeFileSync(builderPath, builderStubContent, 'utf8');
+safeWriteFileSync(builderPath, builderStubContent, 'utf8');
 console.log(`[OK] Emitted Zero-CORS Deprecation Redirect Stub at network/network_builder.html -> ../start.html`);
 
 // ------------------------------------------------------------------------------
@@ -2438,14 +2449,12 @@ function injectCompassHeaders() {
     if (s.file === 'wiki/index.html') return; // wiki/index.html is generated by wiki/build_wiki.js
 
     let content = fs.readFileSync(fullPath, 'utf8');
-    const wikiPageRel = `wiki/pages/${s.file}.html (Markdown Source: wiki/src/files/${s.file}.md)`;
 
     if (s.type === 'html') {
       const headerText = `<!--
 ================================================================================
 CREATOR STUDIO COMPASS HEADER (AUTO-GENERATED VIA build_suite.js)
 SURFACE: ${s.title}
-WIKI PAGE: ${wikiPageRel}
 AUTHORITATIVE SPECIFICATIONS:
 ${s.authoritative_specs.map(x => `  - ${x}`).join('\n')}
 DATA PROVENANCE & BUILD PIPELINE:
@@ -2468,7 +2477,6 @@ CRITICAL INSTRUCTION:
 ================================================================================
 CREATOR STUDIO COMPASS HEADER (AUTO-GENERATED VIA build_suite.js)
 SURFACE: ${s.title}
-WIKI PAGE: ${wikiPageRel}
 AUTHORITATIVE SPECIFICATIONS:
 ${s.authoritative_specs.map(x => `  - ${x}`).join('\n')}
 DATA PROVENANCE:
@@ -2490,7 +2498,6 @@ CRITICAL INSTRUCTION:
 ================================================================================
 CREATOR STUDIO COMPASS HEADER (AUTO-GENERATED VIA build_suite.js)
 SURFACE: ${s.title}
-WIKI PAGE: ${wikiPageRel}
 AUTHORITATIVE SPECIFICATIONS:
 ${s.authoritative_specs.map(x => `  - ${x}`).join('\n')}
 DATA PROVENANCE & BUILD PIPELINE:
@@ -2521,14 +2528,13 @@ CRITICAL INSTRUCTION:
 injectCompassHeaders();
 
 // ------------------------------------------------------------------------------
-// 9. TRIGGER BIDIRECTIONAL CODEBASE WIKI & BACKLINK COMPILER
+// 9. TRIGGER TECHNICAL MANUAL SERIES & KNOWLEDGE GRAPH COMPILER
 // ------------------------------------------------------------------------------
 const wikiBuildScript = path.join(ROOT_DIR, 'wiki', 'build_wiki.js');
 if (fs.existsSync(wikiBuildScript)) {
   try {
-    console.log('\n[INFO] Compiling Bidirectional Codebase Wiki & Backlink Encyclopedia...');
-    const stampReviewedFlag = process.argv.includes('--stamp-reviewed') ? ' --stamp-reviewed' : '';
-    const wikiOut = execSync(`"${process.execPath}" "${wikiBuildScript}"${stampReviewedFlag}`, {
+    console.log('\n[INFO] Compiling Technical Manual Series & Codebase Knowledge Graph...');
+    const wikiOut = execSync(`"${process.execPath}" "${wikiBuildScript}"`, {
       cwd: ROOT_DIR,
       encoding: 'utf8'
     });

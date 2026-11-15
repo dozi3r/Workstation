@@ -47,6 +47,6 @@ The last four committed sprints observed on 2026-11-09 are `e4030d8` (mutation i
 - Portable packages cross ZIP, directory, and runtime-state boundaries. Preserve unknown/custom attributes and verify assets, creatures, evidence, changelog, and relational references on the adapters affected by a change.
 - Roster navigation crosses active map state, selection, canvas focus, and inspector state. Check these together when a row opens the wrong place or stale entity.
 
-## Wiki note maintenance
+## Wiki and graph maintenance
 
-For a changed tracked source, edit its `wiki/src/files/<source-path>.md` custom-notes block. The wiki compiler preserves that block and regenerates surrounding metadata. Review and update only hashes for notes you actually verified; a blanket review stamp would also mark unrelated pre-existing drift reviewed. See [operations](OPERATIONS.md) for build and freshness checks.
+The AST/backlink graph (`wiki/wiki_graph.json`) and Technical Manual (`wiki/index.html`, `wiki/pages/series/*.html`) are regenerated automatically by `Build-Suite.ps1` without per-file prose stubs. Update `wiki/src/series/*.md` or `docs/adr/*.md` only when cross-cutting architecture or subsystem contracts change. See [operations](OPERATIONS.md) for build and graph checks.

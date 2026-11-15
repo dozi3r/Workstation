@@ -51,7 +51,7 @@ Creator Studio/
 
 ## 3. Build & Verification Gate
 
-After modifying any workstation script, module, or wiki note, recompile and verify the suite:
+After modifying any workstation script, module, or series document, recompile and verify the suite:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\Build-Suite.ps1
 powershell -ExecutionPolicy Bypass -File .\Test-Suite.ps1

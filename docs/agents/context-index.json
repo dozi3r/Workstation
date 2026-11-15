@@ -152,7 +152,7 @@
     },
     {
       "id": "build",
-      "purpose": "Compiler, generated router, wiki notes, graph, test harness",
+      "purpose": "Compiler, generated router, series wiki, graph, test harness",
       "sources": [
         "build_suite.js",
         "docs/navigation_manifest.json",

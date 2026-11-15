@@ -18,7 +18,7 @@ const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const { execFileSync, spawn } = require('child_process');
-const { loadGraph, getStaleFiles } = require('./find_codebase_node.js');
+const { loadGraph, checkGraphIntegrity } = require('./find_codebase_node.js');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const CAMPAIGNS_DIR = path.join(ROOT_DIR, 'campaigns');
@@ -290,7 +290,7 @@ async function runMasterTestSuite(argv = process.argv.slice(2)) {
 
   // Phase 1: Build Suite
   await recordPhase('Phase 1: Build Suite', 'Centralized Asset Compilation & Wiki Build', () => {
-    execFileSync(process.execPath, [path.join(ROOT_DIR, 'build_suite.js'), '--stamp-reviewed'], {
+    execFileSync(process.execPath, [path.join(ROOT_DIR, 'build_suite.js')], {
       cwd: ROOT_DIR,
       stdio: 'inherit',
       env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' }
@@ -316,14 +316,17 @@ async function runMasterTestSuite(argv = process.argv.slice(2)) {
     });
   });
 
-  // Phase 4: Wiki Knowledge Graph Drift Check
-  await recordPhase('Phase 4: Wiki Knowledge Graph', 'Zero Stale Documentation Drift via find_codebase_node.js', () => {
+  // Phase 4: Wiki Knowledge Graph Integrity Check
+  await recordPhase('Phase 4: Wiki Knowledge Graph', 'AST Graph & Series Structural Integrity via find_codebase_node.js', () => {
     const graph = loadGraph(false);
-    const stale = getStaleFiles(graph);
-    if (stale.length > 0) {
-      throw new Error(`Detected ${stale.length} stale/unreviewed file(s) in knowledge graph: ${stale.map(s => s.relPath).join(', ')}`);
+    const report = checkGraphIntegrity(graph);
+    if (!report.ok) {
+      throw new Error(`Wiki knowledge graph integrity check failed:\n  - ${report.errors.join('\n  - ')}`);
     }
-    console.log('Knowledge graph is 100% synchronized (0 stale files).');
+    console.log(`Knowledge graph verified (${report.totalFiles} files, ${report.totalSymbols} symbols, ${report.totalSupplyChains} supply-chain tags).`);
+    if (report.warnings.length > 0) {
+      console.log(`  [INFO] ${report.warnings.length} historical path reference(s) in wiki/src/series/*.md.`);
+    }
   });
 
   // Phase 5: Loopback Servers
