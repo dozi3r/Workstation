@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules_manifest.json"
 title: "modules_manifest.json"
 volume: "vol-4"
 kind: "Workstation Mod Manifest (JSON)"
-current_hash: "76c64be8a01d0104"
-reviewed_hash: "76c64be8a01d0104"
+current_hash: "428bb81f484de6d4"
+reviewed_hash: "428bb81f484de6d4"
 stale: false
-size_bytes: 330364
-line_count: 4780
+size_bytes: 333488
+line_count: 4792
 ---
 
 # modules_manifest.json

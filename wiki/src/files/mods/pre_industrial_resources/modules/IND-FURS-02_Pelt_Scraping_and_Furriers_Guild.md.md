@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-FURS-02_Pelt_Scraping_and_
 title: "IND-FURS-02: Pelt Scraping & Furrier's Guild"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "c272d8d565706a18"
-reviewed_hash: "c272d8d565706a18"
+current_hash: "921213c1207f8ca2"
+reviewed_hash: "921213c1207f8ca2"
 stale: false
-size_bytes: 2277
-line_count: 47
+size_bytes: 2292
+line_count: 48
 ---
 
 # IND-FURS-02: Pelt Scraping & Furrier's Guild
@@ -18,4 +18,5 @@ line_count: 47
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Metal: Forged-Iron`; heading format repaired.
+- **Data audit (2026-11-15, co-products)**: added requires `Mineral: Chalk`; stray glyph removed from quest title.
 <!-- END_CUSTOM_NOTES -->

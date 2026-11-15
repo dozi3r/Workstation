@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/FARM-CATTLE-01_Pasture_Ranch.m
 title: "FARM-CATTLE-01: Pasture Ranch"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "3981ac2441a2e553"
-reviewed_hash: "3981ac2441a2e553"
+current_hash: "a9a401383abf3b13"
+reviewed_hash: "a9a401383abf3b13"
 stale: false
-size_bytes: 2457
+size_bytes: 2515
 line_count: 45
 ---
 
@@ -17,4 +17,5 @@ line_count: 45
 `mods/pre_industrial_resources/modules/FARM-CATTLE-01_Pasture_Ranch.md` serves as a **Workstation Mod Resource Module** within **Volume IV: Workstation Architecture & Mod Engine (src/workstation/ & mods/)**.
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
+- **Data audit (2026-11-15, co-products)**: text extended or synced to match the tags.
 <!-- END_CUSTOM_NOTES -->

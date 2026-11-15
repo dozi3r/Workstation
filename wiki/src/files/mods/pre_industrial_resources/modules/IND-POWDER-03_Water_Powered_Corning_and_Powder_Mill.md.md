@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/IND-POWDER-03_Water_Powered_Co
 title: "IND-POWDER-03: Water-Powered Corning & Powder Mill"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "245edd252e37ef9a"
-reviewed_hash: "245edd252e37ef9a"
+current_hash: "bc7ed1a3767f3c14"
+reviewed_hash: "bc7ed1a3767f3c14"
 stale: false
-size_bytes: 2454
+size_bytes: 2448
 line_count: 50
 ---
 
@@ -18,4 +18,5 @@ line_count: 50
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
 - **Data audit (2026-11-15)**: added requires `Alloy: Cast-Bronze`, `Metal: Forged-Copper`; heading format repaired.
+- **Data audit (2026-11-15, co-products)**: stray glyph removed from quest title.
 <!-- END_CUSTOM_NOTES -->
