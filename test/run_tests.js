@@ -8110,7 +8110,9 @@ function testSuite47IndustryChainImporterAndDeduplication() {
   const extStore = preIndustrialMod._ensureNodeStorage(extractionTopo.nodes[0]);
   assertEqual(extStore.inputHopper['Timber: Mine-Props']?.qty || 0, 0, 'No timber props pre-seeded in hopper');
   const extTurnRes = preIndustrialMod._advanceDfSupplySimulation({ topo: extractionTopo, nodes: extractionTopo.nodes });
-  assertEqual(extTurnRes.unitsProduced, 1, 'Baseline extraction produced 1 unit on Turn 1');
+  // The sim yields one unit per provided tag per turn. MINE-IRON-01 also provides Mineral: Emery-and-Rouge since the mod audit, so expect one unit per tag.
+  const extExpectedUnits = (global.ALL_MODULES.find(m => m.id === 'MINE-IRON-01').provides || []).length;
+  assertEqual(extTurnRes.unitsProduced, extExpectedUnits, 'Baseline extraction produced one unit per provided tag on Turn 1');
   assert(extStore.outputBin['Ore: Raw-Iron-Ore'] && extStore.outputBin['Ore: Raw-Iron-Ore'].qty >= 1, 'Stage 1 extraction module produced Ore: Raw-Iron-Ore');
 
   // 2. Multi-hop dispatch across a 3-node chain (Node 1 [Mine] -> Node 2 [Waystation] -> Node 3 [Furnace]) where topo.edgeData starts empty {}
