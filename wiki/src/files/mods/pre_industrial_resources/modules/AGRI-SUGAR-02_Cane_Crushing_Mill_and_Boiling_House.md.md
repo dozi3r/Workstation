@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/AGRI-SUGAR-02_Cane_Crushing_Mi
 title: "AGRI-SUGAR-02: Cane Crushing Mill and Boiling House"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "f9524586520d0b34"
-reviewed_hash: "f9524586520d0b34"
+current_hash: "0394588f9de2bac2"
+reviewed_hash: "0394588f9de2bac2"
 stale: false
-size_bytes: 3970
+size_bytes: 4085
 line_count: 76
 ---
 
@@ -17,4 +17,5 @@ line_count: 76
 `mods/pre_industrial_resources/modules/AGRI-SUGAR-02_Cane_Crushing_Mill_and_Boiling_House.md` serves as a **Workstation Mod Resource Module** within **Volume IV: Workstation Architecture & Mod Engine (src/workstation/ & mods/)**.
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
+- **Data audit (2026-11-15)**: added requires `Chem: Slaked-Lime`, `Metal: Forged-Copper`, `Metal: Forged-Iron`, `Animal: Tallow`, `Commodity: Ceramic-Vessels`.
 <!-- END_CUSTOM_NOTES -->

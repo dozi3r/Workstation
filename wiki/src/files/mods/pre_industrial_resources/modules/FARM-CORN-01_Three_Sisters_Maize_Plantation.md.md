@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/FARM-CORN-01_Three_Sisters_Mai
 title: "FARM-CORN-01: Three-Sisters Maize Plantation"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "756ca93878b57c0b"
-reviewed_hash: "756ca93878b57c0b"
+current_hash: "33f07a75456c5506"
+reviewed_hash: "33f07a75456c5506"
 stale: false
-size_bytes: 2004
-line_count: 42
+size_bytes: 2054
+line_count: 43
 ---
 
 # FARM-CORN-01: Three-Sisters Maize Plantation
@@ -17,4 +17,5 @@ line_count: 42
 `mods/pre_industrial_resources/modules/FARM-CORN-01_Three_Sisters_Maize_Plantation.md` serves as a **Workstation Mod Resource Module** within **Volume IV: Workstation Architecture & Mod Engine (src/workstation/ & mods/)**.
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
+- **Data audit (2026-11-15)**: heading format repaired.
 <!-- END_CUSTOM_NOTES -->

@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/MINE-SULFUR-02_Volcanic_Fumaro
 title: "MINE-SULFUR-02: Volcanic Fumarole Sulfur Pit"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "effc36904b687ec7"
-reviewed_hash: "effc36904b687ec7"
+current_hash: "52e2c029db8636dd"
+reviewed_hash: "52e2c029db8636dd"
 stale: false
-size_bytes: 2275
+size_bytes: 2271
 line_count: 46
 ---
 
@@ -17,4 +17,5 @@ line_count: 46
 `mods/pre_industrial_resources/modules/MINE-SULFUR-02_Volcanic_Fumarole_Sulfur_Pit.md` serves as a **Workstation Mod Resource Module** within **Volume IV: Workstation Architecture & Mod Engine (src/workstation/ & mods/)**.
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
+- **Data audit (2026-11-15)**: heading format repaired.
 <!-- END_CUSTOM_NOTES -->

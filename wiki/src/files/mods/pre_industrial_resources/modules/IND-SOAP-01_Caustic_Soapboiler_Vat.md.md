@@ -3,10 +3,10 @@ file_path: "mods/pre_industrial_resources/modules/IND-SOAP-01_Caustic_Soapboiler
 title: "IND-SOAP-01: Caustic Soapboiler Vat"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "0f78c8ed382104c7"
-reviewed_hash: "0f78c8ed382104c7"
+current_hash: "010feca830d7dc3c"
+reviewed_hash: "010feca830d7dc3c"
 stale: false
-size_bytes: 2289
+size_bytes: 2282
 line_count: 48
 ---
 
@@ -17,4 +17,5 @@ line_count: 48
 `mods/pre_industrial_resources/modules/IND-SOAP-01_Caustic_Soapboiler_Vat.md` serves as a **Workstation Mod Resource Module** within **Volume IV: Workstation Architecture & Mod Engine (src/workstation/ & mods/)**.
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
+- **Data audit (2026-11-15)**: added requires `Fuel: Wood-Fuel`; heading format repaired.
 <!-- END_CUSTOM_NOTES -->

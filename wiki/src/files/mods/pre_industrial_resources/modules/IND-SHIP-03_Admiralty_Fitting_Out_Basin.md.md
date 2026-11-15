@@ -3,11 +3,11 @@ file_path: "mods/pre_industrial_resources/modules/IND-SHIP-03_Admiralty_Fitting_
 title: "IND-SHIP-03: Admiralty Fitting-Out Basin"
 volume: "vol-4"
 kind: "Workstation Mod Resource Module"
-current_hash: "9a74769fe7b4ea0f"
-reviewed_hash: "9a74769fe7b4ea0f"
+current_hash: "e12fd2d486ce2da9"
+reviewed_hash: "e12fd2d486ce2da9"
 stale: false
-size_bytes: 2516
-line_count: 49
+size_bytes: 2541
+line_count: 50
 ---
 
 # IND-SHIP-03: Admiralty Fitting-Out Basin
@@ -17,4 +17,5 @@ line_count: 49
 `mods/pre_industrial_resources/modules/IND-SHIP-03_Admiralty_Fitting_Out_Basin.md` serves as a **Workstation Mod Resource Module** within **Volume IV: Workstation Architecture & Mod Engine (src/workstation/ & mods/)**.
 
 - **Workstation Extension Mod**: Pluggable client-side mod registering hooks via `window.CreatorStudio.registerMod()`.
+- **Data audit (2026-11-15)**: added requires `Timber: Mast-Spars`; heading format repaired.
 <!-- END_CUSTOM_NOTES -->
