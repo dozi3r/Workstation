@@ -7,17 +7,82 @@
     "pipeline_tier": 0,
     "culture": "Clan / Agrarian Subsistence",
     "color": "Green",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
     "provides": [
       "Food: Baseline-Subsistence-Rations"
     ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "* The Stasis / The Lie: \"The earth will yield its daily bread through our sweat alone; as long as we sow in autumn and reap in harvest, no prince or dragon can starve a working family.\" * The Crucible / Conflict: Late spring frost combined with an upstream bor...",
+    "yields": "Dryland Grain Bushels, Winter Root Tubers, Salt-Pork Rations",
     "path": "./modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md",
+    "file_url": "mods/tier_0_settlement_substratum/modules/T0-DOM-01_The_Subsistence_Agrarian_Perimeter_and_Root_Cellars.md",
     "standalone_fallback": "If arable soils freeze, flood, or suffer blighted rot, the settlement opens sealed winter root cellars and transitions to parched grain rationing, wild hedgerow foraged turnip soups, and slaughtering non-essential dairy sheep, maintaining subsistence for 30 days before starvation checks begin.",
     "chain_id": "CHAIN-SUBSISTENCE",
     "chain_stage": 1,
-    "chain_role": "extraction"
+    "chain_role": "extraction",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Bountiful Cellars & Threshing - Dry cellars filled with parsnips, turnips, and barley; DC 10 Athletics/Nature (Light Tier, DC 10, minor fatigue).",
+        "level_2": "Routine Porridge Rations - Standard 2,000 kcal rations; cold winter mud; damp grain drying (Moderate Tier, DC 13 Survival, 2d8 damage/spoilage).",
+        "level_3": "Spring Hunger Gap & Weevil Infestation - Stored grain moldy; rations halved to 1,000 kcal; DC 16 Fortitude/Survival, 4d10 starvation/blight damage.",
+        "level_4": "Catastrophic Seed-Corn Famine - Seed grain eaten; draft oxen slaughtered; bread riots; DC 20 Survival, 8d12 lethal famine/dispersion."
+      },
+      "threat_clocks": {
+        "spring_hunger_gap_clock": "Spring Hunger Gap Clock [4 Ticks] - Ticks each week stored cellars run low without spring greens; full clock triggers Level 4 Famine.",
+        "root_rot_blight_meter": "Cellar Root-Rot Blight Meter [4 Ticks] - Ticks during flooded thaws or rodent infiltration; spoils 25% of stored tubers per tick."
+      },
+      "yields_resource": "Dryland Grain Bushels, Winter Root Tubers, Salt-Pork Rations"
+    },
+    "four_corners": {
+      "establishment": "Communal Granary Bailiff - A weathered elder appointed by the village council to safeguard the seed-corn. Armed with an oak staff and an iron lockbox containing the bin keys, they will let elderly relatives...",
+      "opponent": "Fallow-Field Sharecropper - A desperate tenant farmer with five starving children. Convinced that God will provide spring rain if the village shows mercy today, they rally younger laborers to break the granar...",
+      "shadow": "Grain Speculator Miller - The watermill owner who skims 15% off every sack ground into meal. Hoarding grain in an elevated, dry stone tower, they offer loans of flour in exchange for future harvest mortgage...",
+      "outcast": "Hedgerow Forager & Swine-Herder - An illiterate vagrant who lives in a turf hovel along the forest margin with twelve half-wild razorback swine."
+    },
+    "output_dial": {
+      "level_1": "Bountiful Cellars & Threshing - Dry cellars filled with parsnips, turnips, and barley; DC 10 Athletics/Nature (Light Tier, DC 10, minor fatigue).",
+      "level_2": "Routine Porridge Rations - Standard 2,000 kcal rations; cold winter mud; damp grain drying (Moderate Tier, DC 13 Survival, 2d8 damage/spoilage).",
+      "level_3": "Spring Hunger Gap & Weevil Infestation - Stored grain moldy; rations halved to 1,000 kcal; DC 16 Fortitude/Survival, 4d10 starvation/blight damage.",
+      "level_4": "Catastrophic Seed-Corn Famine - Seed grain eaten; draft oxen slaughtered; bread riots; DC 20 Survival, 8d12 lethal famine/dispersion."
+    },
+    "threat_clocks": [
+      "Spring Hunger Gap Clock [4 Ticks] - Ticks each week stored cellars run low without spring greens; full clock triggers Level 4 Famine.",
+      "Cellar Root-Rot Blight Meter [4 Ticks] - Ticks during flooded thaws or rodent infiltration; spoils 25% of stored tubers per tick."
+    ],
+    "dials": [
+      "Level 1: Bountiful Cellars & Threshing - Dry cellars filled with parsnips, turnips, and barley; DC 10 Athletics/Nature (Light Tier, DC 10, minor fatigue).",
+      "Level 2: Routine Porridge Rations - Standard 2,000 kcal rations; cold winter mud; damp grain drying (Moderate Tier, DC 13 Survival, 2d8 damage/spoilage).",
+      "Level 3: Spring Hunger Gap & Weevil Infestation - Stored grain moldy; rations halved to 1,000 kcal; DC 16 Fortitude/Survival, 4d10 starvation/blight damage.",
+      "Level 4: Catastrophic Seed-Corn Famine - Seed grain eaten; draft oxen slaughtered; bread riots; DC 20 Survival, 8d12 lethal famine/dispersion."
+    ],
+    "overview": "* The Stasis / The Lie: \"The earth will yield its daily bread through our sweat alone; as long as we sow in autumn and reap in harvest, no prince or dragon can starve a working family.\" * The Crucible / Conflict: Late spring frost combined with an upstream border army burning outer hayricks exhausts the village's root stores; the village elder discovers mold in the seed-corn bins while hungry children cry for gruel.",
+    "mechanical_architecture": "Every pre-industrial settlement across the pointcrawl graph is anchored by an immutable caloric law: the 3-mile transport horizon. Beyond a 3-mile radius, the draft oxen hauling grain, turnip carts, and manure consume more calories in transit than their wagons deliver to market. A viable settlement of 200–500 souls relies on three core agricultural subsystems: * The Three-Field Rotation Perimeter: Arable ground is divided into three equal sectors: one planted with winter crops (wheat, rye), one planted with spring nitrogen-fixers (peas, lentils, oats), and one left fallow to recover fertility under grazed livestock. * Subterranean Dry-Stone Root Cellars: Dug 8–12 feet into well-drained hillsides beneath fieldstone lintels.",
+    "extraction_lore": "* Recommended Placement: * All Rural Satellite Nodes (Thorps, Hamlets, Villages): Serves as the mandatory caloric life-support foundation. * Sovereign Hub Deficit Pairing: Connect via 1–2 transit edges to any Sovereign Hub (such as Node 01 or Node 05). Since Sovereign Hubs with populations >5,000 run a permanent caloric deficit, severing this module's supply edge advances the Hub's Famine Threat Clock by +1 tick per turn. * Topological Synergies: * Dual-Mode UX: In \"Smooth Generic\" mode, this module automatically satisfies all node food requirements with zero GM overhead. In \"Granular Mode\", socketing this module directly into a node provides Food: Baseline-Subsistence-Rations to satisfy downstream military or industrial prerequisites (e.g.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "spring_hunger_gap_clock",
+        "name": "Spring Hunger Gap Clock",
+        "ticks": 4,
+        "trigger": "Ticks each week stored cellars run low without spring greens; full clock triggers Level 4 Famine.",
+        "raw": "Spring Hunger Gap Clock [4 Ticks] - Ticks each week stored cellars run low without spring greens; full clock triggers Level 4 Famine."
+      },
+      {
+        "key": "root_rot_blight_meter",
+        "name": "Cellar Root-Rot Blight Meter",
+        "ticks": 4,
+        "trigger": "Ticks during flooded thaws or rodent infiltration; spoils 25% of stored tubers per tick.",
+        "raw": "Cellar Root-Rot Blight Meter [4 Ticks] - Ticks during flooded thaws or rodent infiltration; spoils 25% of stored tubers per tick."
+      }
+    ]
   },
   {
     "id": "T0-DOM-02",
@@ -27,18 +92,83 @@
     "pipeline_tier": 0,
     "culture": "Clan / Hydrological Commons",
     "color": "Blue / Green",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
     "provides": [
       "Water: Baseline-Potable-Well-Head",
       "Water: Baseline-Potable-Flow"
     ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "* The Stasis / The Lie: \"The deep earth springs are inexhaustible and belong to everyone; no landlord can fence the rain that falls from heaven.\" * The Crucible / Conflict: A 90-day seasonal drought lowers the regional water table below the shaft floor;",
+    "yields": "Potable Artesian Water Flow, Communal Cattle-Trough Access, Settled Lime-Water",
     "path": "./modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md",
+    "file_url": "mods/tier_0_settlement_substratum/modules/T0-DOM-02_The_Communal_Artesian_Well_and_Village_Cistern.md",
     "standalone_fallback": "If the artesian springhead runs dry or suffers surface contamination, the settlement reverts to hand-hauled snowmelt runoff, roof rainwater cisterns, and strict boiling of muddy ditch water, sustaining up to 300 residents at 4 liters/day under mild dysentery risk before migration becomes unavoidable.",
     "chain_id": "CHAIN-SUBSISTENCE",
     "chain_stage": 1,
-    "chain_role": "extraction"
+    "chain_role": "extraction",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Sweet Artesian Springhead & Overflow Trough - Clean water flowing freely; stone cattle troughs full; DC 10 Athletics/Craft (Light Tier, DC 10).",
+        "level_2": "Routine Windlass Draw & Silty Drip - Standard bucket draw; 8 gallons daily per hearth; DC 13 Athletics/Survival (Moderate Tier, DC 13, 2d8 damage/spoilage).",
+        "level_3": "Aquifer Drawdown & Brackish Sump - Water table drops 15 feet; bucket brings up gritty mud; DC 16 Fortitude/Engineering, 4d10 dysentery/exhaustion damage.",
+        "level_4": "Catastrophic Wellhead Poisoning & Drought Desiccation - Carcass dropped down shaft or sulfur seep; DC 20 Survival/Fortitude, 8d12 lethal cholera/thirst damage."
+      },
+      "threat_clocks": {
+        "aquifer_drawdown_clock": "Aquifer Drawdown & Silt Clock [4 Ticks] - Ticks each dry month without seasonal recharge; full clock drops head below bucket reach.",
+        "wellhead_contamination_meter": "Wellhead Contamination & Typhoid Meter [4 Ticks] - Ticks when surface manure runoff breaches stone coping; triggers waterborne plague."
+      },
+      "yields_resource": "Potable Artesian Water Flow, Communal Cattle-Trough Access, Settled Lime-Water"
+    },
+    "four_corners": {
+      "establishment": "Parish Well-Warden - An incorruptible village bailiff whose family has tended the artesian well for three generations.",
+      "opponent": "Upstream Tanner & Dyer - The master of an industrial leather-tanning workshop situated 300 yards uphill. Bound to deliver fifty cured war-saddles to the sovereign cavalry, they flush lime-slurry, crushed d...",
+      "shadow": "Private Cistern Speculator - An enterprising tavern owner whose slate roofs channel every raindrop into a locked, subterranean 10,000-gallon cistern.",
+      "outcast": "Blind Water-Dowser & Dredge Diver - A blind hermit who lives beside the drainage ditch. Armed with a bifurcated hazel fork and copper wire, they are lowered down 50-foot shafts on a hemp sling to dig out choking grav..."
+    },
+    "output_dial": {
+      "level_1": "Sweet Artesian Springhead & Overflow Trough - Clean water flowing freely; stone cattle troughs full; DC 10 Athletics/Craft (Light Tier, DC 10).",
+      "level_2": "Routine Windlass Draw & Silty Drip - Standard bucket draw; 8 gallons daily per hearth; DC 13 Athletics/Survival (Moderate Tier, DC 13, 2d8 damage/spoilage).",
+      "level_3": "Aquifer Drawdown & Brackish Sump - Water table drops 15 feet; bucket brings up gritty mud; DC 16 Fortitude/Engineering, 4d10 dysentery/exhaustion damage.",
+      "level_4": "Catastrophic Wellhead Poisoning & Drought Desiccation - Carcass dropped down shaft or sulfur seep; DC 20 Survival/Fortitude, 8d12 lethal cholera/thirst damage."
+    },
+    "threat_clocks": [
+      "Aquifer Drawdown & Silt Clock [4 Ticks] - Ticks each dry month without seasonal recharge; full clock drops head below bucket reach.",
+      "Wellhead Contamination & Typhoid Meter [4 Ticks] - Ticks when surface manure runoff breaches stone coping; triggers waterborne plague."
+    ],
+    "dials": [
+      "Level 1: Sweet Artesian Springhead & Overflow Trough - Clean water flowing freely; stone cattle troughs full; DC 10 Athletics/Craft (Light Tier, DC 10).",
+      "Level 2: Routine Windlass Draw & Silty Drip - Standard bucket draw; 8 gallons daily per hearth; DC 13 Athletics/Survival (Moderate Tier, DC 13, 2d8 damage/spoilage).",
+      "Level 3: Aquifer Drawdown & Brackish Sump - Water table drops 15 feet; bucket brings up gritty mud; DC 16 Fortitude/Engineering, 4d10 dysentery/exhaustion damage.",
+      "Level 4: Catastrophic Wellhead Poisoning & Drought Desiccation - Carcass dropped down shaft or sulfur seep; DC 20 Survival/Fortitude, 8d12 lethal cholera/thirst damage."
+    ],
+    "overview": "* The Stasis / The Lie: \"The deep earth springs are inexhaustible and belong to everyone; no landlord can fence the rain that falls from heaven.\" * The Crucible / Conflict: A 90-day seasonal drought lowers the regional water table below the shaft floor; simultaneously, an upstream tanning pit dumps caustic arsenic broth into the hillside aquifer, sickening half the children in the village. * Dramatic Syllogism: * The Truth / Synthesis: Potable water is the invisible pivot of human sanity.",
+    "mechanical_architecture": "Water is the absolute chronological ceiling of tabletop survival: a human body survives thirty days without food, but collapses into organ failure within three days without potable water. Pre-industrial settlements require 8–10 liters per adult daily for drinking and cooking, plus 30–50 liters daily per draft ox or plow horse. This mundane reality relies on three physical engineered elements: * The Dry-Stone Ashlar Shaft: Dug down 30–60 feet until reaching impermeable limestone bedrock or water-bearing gravel strata. Lined with dressed fieldstone bedded in slaked hydraulic lime mortar, preventing muddy surface seepage from contaminating the sweet deep groundwater. * The Counter-Weighted Timber Windlass: A heavy oak drum turned by iron crank handles, carrying hemp or rawhide rope coiled to drop two 5-gallon iron-banded buckets alternately.",
+    "extraction_lore": "* Recommended Placement: * Mandatory Hydrological Anchor: Placed on every settlement node (Settlement, Hub, Outpost) to satisfy the basic biological survival requirement. * Hub Aqueduct Synergy: Sockets into downstream metropolitan aqueduct systems (DOM-03 and FACT-01), supplying water across trade edges. * Topological Synergies: * Dual-Mode UX: In \"Smooth Generic\" mode, this module automatically satisfies all node water requirements with zero GM bookkeeping. In \"Granular Mode\", it provides Water: Baseline-Potable-Well-Head to satisfy downstream requirements for breweries, foundries (CWT-060A), or hospital wards (CWT-031).",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "aquifer_drawdown_clock",
+        "name": "Aquifer Drawdown & Silt Clock",
+        "ticks": 4,
+        "trigger": "Ticks each dry month without seasonal recharge; full clock drops head below bucket reach.",
+        "raw": "Aquifer Drawdown & Silt Clock [4 Ticks] - Ticks each dry month without seasonal recharge; full clock drops head below bucket reach."
+      },
+      {
+        "key": "wellhead_contamination_meter",
+        "name": "Wellhead Contamination & Typhoid Meter",
+        "ticks": 4,
+        "trigger": "Ticks when surface manure runoff breaches stone coping; triggers waterborne plague.",
+        "raw": "Wellhead Contamination & Typhoid Meter [4 Ticks] - Ticks when surface manure runoff breaches stone coping; triggers waterborne plague."
+      }
+    ]
   },
   {
     "id": "T0-DOM-03",
@@ -48,17 +178,82 @@
     "pipeline_tier": 0,
     "culture": "Clan / Vernacular Construction",
     "color": "Green / White",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
     "provides": [
       "Shelter: Weatherproof-Civic-Fabric"
     ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "* The Stasis / The Lie: \"Stone and oak stand forever once raised; as long as our hearth fires burn, the winter cold can never penetrate our walls.\" * The Crucible / Conflict: An unseasonal autumn gale tears the thatch off forty family cottages;",
+    "yields": "Hewn Timber Beams, Riverbed Clay Bricks, Split Slate Shingles",
     "path": "./modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md",
+    "file_url": "mods/tier_0_settlement_substratum/modules/T0-DOM-03_Vernacular_Timber_Wattle_and_Stone_Masonry.md",
     "standalone_fallback": "If timber rot, roof fires, or clay shortages compromise municipal masonry, the community crowds into smoke-choked central longhouses, turf dugouts, and sheep byres; hypothermia and respiratory coughing inflict Light checks during rain, but community cohesion keeps the node habitable without collapse.",
     "chain_id": "CHAIN-SUBSISTENCE",
     "chain_stage": 1,
-    "chain_role": "extraction"
+    "chain_role": "extraction",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Weatherproof Ashlar & Pitch-Sealed Thatch - Dry oak beams; slate shingles; sweet-drawing hearth flues; DC 10 Craft/Carpentry (Light Tier, DC 10).",
+        "level_2": "Drafty Gables & Damp Hearth Flues - Minor roof drips; smoky rooms; winter damp; DC 13 Athletics/Survival (Moderate Tier, DC 13, 2d8 damage/exposure).",
+        "level_3": "Timber Rot & Collapsed Rafters - Main roof beam splits; water pools on earthen floors; DC 16 Fortitude/Carpentry, 4d10 hypothermia/crushing damage.",
+        "level_4": "Catastrophic Civic Conflagration & Exposure Freeze - Thatch quarter catches fire; 60% of cottages incinerated; DC 20 Survival/Athletics, 8d12 lethal fire/frost damage."
+      },
+      "threat_clocks": {
+        "municipal_fire_clock": "Municipal Fire Conflagration Clock [4 Ticks] - Ticks on high winds, spark-spewing chimneys, or unbaked thatch during drought; triggers town inferno.",
+        "rafter_rot_decay_meter": "Rafter Rot & Structural Decay Meter [4 Ticks] - Ticks in damp seasons without tar-pitch maintenance; collapses 25% of civic housing per tick."
+      },
+      "yields_resource": "Hewn Timber Beams, Riverbed Clay Bricks, Split Slate Shingles"
+    },
+    "four_corners": {
+      "establishment": "Parish Master Carpenter - A meticulous master craftsman who inspects every cottage roof annually. Knocking on king-posts with a bronze mallet, they will declare a family's ancestral home a fire hazard and o...",
+      "opponent": "Charcoal-Burner & Shingle Splitter - An aggressive woodsman who claims the ancient, tabu highland pine grove must be clear-cut immediately to replace rotten roof timbers, threatening to lynch any druid or forest warde...",
+      "shadow": "Slate Quarry Cartel Factor - An opportunistic stone merchant who controls the local slate quarry. While thatched cottages burn, they refuse to barter slate shingles for grain, waiting until burned-out families...",
+      "outcast": "Chimney Sweep & Mud-Dauber - An orphaned laborer coated in chimney soot and clay who crawls through 12-inch stone flue vents to scrape creosote pitch."
+    },
+    "output_dial": {
+      "level_1": "Weatherproof Ashlar & Pitch-Sealed Thatch - Dry oak beams; slate shingles; sweet-drawing hearth flues; DC 10 Craft/Carpentry (Light Tier, DC 10).",
+      "level_2": "Drafty Gables & Damp Hearth Flues - Minor roof drips; smoky rooms; winter damp; DC 13 Athletics/Survival (Moderate Tier, DC 13, 2d8 damage/exposure).",
+      "level_3": "Timber Rot & Collapsed Rafters - Main roof beam splits; water pools on earthen floors; DC 16 Fortitude/Carpentry, 4d10 hypothermia/crushing damage.",
+      "level_4": "Catastrophic Civic Conflagration & Exposure Freeze - Thatch quarter catches fire; 60% of cottages incinerated; DC 20 Survival/Athletics, 8d12 lethal fire/frost damage."
+    },
+    "threat_clocks": [
+      "Municipal Fire Conflagration Clock [4 Ticks] - Ticks on high winds, spark-spewing chimneys, or unbaked thatch during drought; triggers town inferno.",
+      "Rafter Rot & Structural Decay Meter [4 Ticks] - Ticks in damp seasons without tar-pitch maintenance; collapses 25% of civic housing per tick."
+    ],
+    "dials": [
+      "Level 1: Weatherproof Ashlar & Pitch-Sealed Thatch - Dry oak beams; slate shingles; sweet-drawing hearth flues; DC 10 Craft/Carpentry (Light Tier, DC 10).",
+      "Level 2: Drafty Gables & Damp Hearth Flues - Minor roof drips; smoky rooms; winter damp; DC 13 Athletics/Survival (Moderate Tier, DC 13, 2d8 damage/exposure).",
+      "Level 3: Timber Rot & Collapsed Rafters - Main roof beam splits; water pools on earthen floors; DC 16 Fortitude/Carpentry, 4d10 hypothermia/crushing damage.",
+      "Level 4: Catastrophic Civic Conflagration & Exposure Freeze - Thatch quarter catches fire; 60% of cottages incinerated; DC 20 Survival/Athletics, 8d12 lethal fire/frost damage."
+    ],
+    "overview": "* The Stasis / The Lie: \"Stone and oak stand forever once raised; as long as our hearth fires burn, the winter cold can never penetrate our walls.\" * The Crucible / Conflict: An unseasonal autumn gale tears the thatch off forty family cottages; simultaneously, dry chimney sparks ignite the miller's hayloft, and the village carpenter discovers dry-rot beetle larvae hollowing the central parish rafters.",
+    "mechanical_architecture": "Mundane survival against the elements is not heroic; it is tedious, mud-spattered maintenance. A settlement's civic fabric protects its citizens from hypothermia, predator incursions, windstorms, and smoke-inhalation blindness. Pre-industrial shelter relies on three localized material technologies: * Cruck Timber Framing: Built from paired, curved oak limbs split down the center to form natural pointed arches. Resting on dry-stone footings to prevent ground moisture from rotting the base timbers, crucks support the entire roof weight without requiring expensive sawmills or iron fasteners. * Wattle-and-Daub Infill Panels: Flexible hazel or willow branches woven horizontally through vertical oak studs, then plastered thickly on both sides with a mix of sticky river clay, chopped straw, and fresh cattle dung.",
+    "extraction_lore": "* Recommended Placement: * All Settlement Categories: Standard infrastructure for Thorps, Hamlets, Villages, and Market Towns. * Highland Timber Coupling: Sockets directly to timber-producing forestry nodes (Set B), consuming lumber to maintain civic stability. * Topological Synergies: * Dual-Mode UX: In \"Smooth Generic\" mode, satisfies all civic shelter needs implicitly. In \"Granular Mode\", provides Shelter: Weatherproof-Civic-Fabric, preventing cold weather penalties for troops garrisoned in the node. Mundane survival against the elements is not heroic; it is tedious, mud-spattered maintenance. A settlement's civic fabric protects its citizens from hypothermia, predator incursions, windstorms, and smoke-inhalation blindness.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "municipal_fire_clock",
+        "name": "Municipal Fire Conflagration Clock",
+        "ticks": 4,
+        "trigger": "Ticks on high winds, spark-spewing chimneys, or unbaked thatch during drought; triggers town inferno.",
+        "raw": "Municipal Fire Conflagration Clock [4 Ticks] - Ticks on high winds, spark-spewing chimneys, or unbaked thatch during drought; triggers town inferno."
+      },
+      {
+        "key": "rafter_rot_decay_meter",
+        "name": "Rafter Rot & Structural Decay Meter",
+        "ticks": 4,
+        "trigger": "Ticks in damp seasons without tar-pitch maintenance; collapses 25% of civic housing per tick.",
+        "raw": "Rafter Rot & Structural Decay Meter [4 Ticks] - Ticks in damp seasons without tar-pitch maintenance; collapses 25% of civic housing per tick."
+      }
+    ]
   },
   {
     "id": "T0-DOM-04",
@@ -68,17 +263,82 @@
     "pipeline_tier": 0,
     "culture": "Hierarchy / Parish Defense",
     "color": "White",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
     "provides": [
       "Defense: Local-Palisade-and-Watch"
     ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "* The Stasis / The Lie: \"Our sharpened logs and watchful neighbors are enough to keep evil outside our ditch; as long as the gate is barred, the wild darkness cannot touch our hearths.\" * The Crucible / Conflict: A wet autumn rots ten yards of the eastern pali...",
+    "yields": "Sharpened Pine Stakes, Communal Billhooks, Perimeter Alarm Horns",
     "path": "./modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md",
+    "file_url": "mods/tier_0_settlement_substratum/modules/T0-DOM-04_The_Ditch_and_Palisade_with_Town_Watch_Bailiff.md",
     "standalone_fallback": "If timber palisades rot or the bailiff's watch dissolves, the hamlet retreats into a central fortified stone church tower or communal barn, barricading doorways with oak tables and sounding brass alarm horns; petty marauders loot outer gardens, but residents survive sieges up to 7 days before surrender.",
     "chain_id": "CHAIN-FRONTIER",
     "chain_stage": 1,
-    "chain_role": "extraction"
+    "chain_role": "extraction",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Vigilant Gatehouse & Manned Horn-Post - Gate barred at sundown; watch horn signals every 2 hours; DC 10 Perception/Insight (Light Tier, DC 10).",
+        "level_2": "Sleepy Night Watch & Smuggler Gaps - Gate left unlatched for late carts; minor contraband; DC 13 Stealth/Intimidation (Moderate Tier, DC 13, 2d8 damage/theft).",
+        "level_3": "Rotted Stakes & Marauder Infiltration - Gaps in the ditch; wolf packs and night-bandits enter outer lanes; DC 16 Reflex/Perception, 4d10 combat/ambush damage.",
+        "level_4": "Torched Gatehouse & Settlement Plunder - Gate burned down; bailiff slain; raiders plunder houses; DC 20 Survival/Athletics, 8d12 lethal combat/conflagration damage."
+      },
+      "threat_clocks": {
+        "palisade_decay_clock": "Palisade Decay & Timber Rot Clock [4 Ticks] - Ticks in damp seasons without replacement pine stakes; creates breached gaps in perimeter.",
+        "marauder_assembly_meter": "Bandit & Wolf Assembly Meter [4 Ticks] - Ticks when outer patrols fail or carcasses draw beasts; triggers coordinated night assault."
+      },
+      "yields_resource": "Sharpened Pine Stakes, Communal Billhooks, Perimeter Alarm Horns"
+    },
+    "four_corners": {
+      "establishment": "Parish Town Watch Bailiff - A scarred veteran who survived a frontier war and returned home to organize his neighbors. Rigorous and humorless, they drill awkward farm boys with ash spears every Sunday after c...",
+      "opponent": "Insurgent Smuggler Freeman - A prosperous yeoman farmer who views the curfew as tyrannical interference. Running unlicensed cider and cured pork past the ditch at midnight, they deliberately leave side-wicket...",
+      "shadow": "Mercenary Free-Company Captain - A ruthless captain leading eighteen dismounted lancers. Camping just outside the village's legal parish boundary, they offer \"protective escort contracts\" to the elders, subtly hin...",
+      "outcast": "Disgraced Deserter & Trapper - A mute woodsman living in an earthen burrow beneath the rootball of a fallen oak outside the palisade."
+    },
+    "output_dial": {
+      "level_1": "Vigilant Gatehouse & Manned Horn-Post - Gate barred at sundown; watch horn signals every 2 hours; DC 10 Perception/Insight (Light Tier, DC 10).",
+      "level_2": "Sleepy Night Watch & Smuggler Gaps - Gate left unlatched for late carts; minor contraband; DC 13 Stealth/Intimidation (Moderate Tier, DC 13, 2d8 damage/theft).",
+      "level_3": "Rotted Stakes & Marauder Infiltration - Gaps in the ditch; wolf packs and night-bandits enter outer lanes; DC 16 Reflex/Perception, 4d10 combat/ambush damage.",
+      "level_4": "Torched Gatehouse & Settlement Plunder - Gate burned down; bailiff slain; raiders plunder houses; DC 20 Survival/Athletics, 8d12 lethal combat/conflagration damage."
+    },
+    "threat_clocks": [
+      "Palisade Decay & Timber Rot Clock [4 Ticks] - Ticks in damp seasons without replacement pine stakes; creates breached gaps in perimeter.",
+      "Bandit & Wolf Assembly Meter [4 Ticks] - Ticks when outer patrols fail or carcasses draw beasts; triggers coordinated night assault."
+    ],
+    "dials": [
+      "Level 1: Vigilant Gatehouse & Manned Horn-Post - Gate barred at sundown; watch horn signals every 2 hours; DC 10 Perception/Insight (Light Tier, DC 10).",
+      "Level 2: Sleepy Night Watch & Smuggler Gaps - Gate left unlatched for late carts; minor contraband; DC 13 Stealth/Intimidation (Moderate Tier, DC 13, 2d8 damage/theft).",
+      "Level 3: Rotted Stakes & Marauder Infiltration - Gaps in the ditch; wolf packs and night-bandits enter outer lanes; DC 16 Reflex/Perception, 4d10 combat/ambush damage.",
+      "Level 4: Torched Gatehouse & Settlement Plunder - Gate burned down; bailiff slain; raiders plunder houses; DC 20 Survival/Athletics, 8d12 lethal combat/conflagration damage."
+    ],
+    "overview": "* The Stasis / The Lie: \"Our sharpened logs and watchful neighbors are enough to keep evil outside our ditch; as long as the gate is barred, the wild darkness cannot touch our hearths.\" * The Crucible / Conflict: A wet autumn rots ten yards of the eastern palisade into spongy mulch; simultaneously, a band of twenty battle-hardened mercenaries discharged from a distant war makes camp in the woods two miles away.",
+    "mechanical_architecture": "Peacekeeping in a pre-industrial hamlet does not mean a standing army of knights; it means twelve sleep-deprived tenant farmers armed with rusty billhooks, taking turns standing watch on an earthen embankment in the freezing rain. This mundane defense layer protects against roving wolves, hungry deserters, cattle rustlers, and petty bandit gangs (CR 1/8 to 1/2) through three low-cost engineering components: The V-Shaped Earthen Trench & Berm: Dug 6–8 feet deep and 10 feet wide around the settlement perimeter. The excavated soil is thrown inward to create an elevated earthen rampart (berm*), planted thickly with thorny blackthorn and brambles to snag intruders. * The Fire-Hardened Log Palisade: 10-foot sharpened pine and oak poles driven into the crest of the rampart, lashed together with wild hemp cordage and backed by an elevated plank walkway where watchmen can patrol.",
+    "extraction_lore": "* Recommended Placement: * Border Satellite Nodes & Waypoints: Essential perimeter defense for frontier villages vulnerable to wilderness hazards. * Sovereign Hub Satellite Shield: Outpost nodes buffering a central Hub against early raider pressure. * Topological Synergies: * Dual-Mode UX: In \"Smooth Generic\" mode, provides baseline security against low-level wilderness encounters. In \"Granular Mode\", outputs Defense: Local-Palisade-and-Watch, fulfilling prerequisites for trade squares (T0-DOM-05) or tax collection offices. Peacekeeping in a pre-industrial hamlet does not mean a standing army of knights; it means twelve sleep-deprived tenant farmers armed with rusty billhooks, taking turns standing watch on an earthen embankment in the freezing rain.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "palisade_decay_clock",
+        "name": "Palisade Decay & Timber Rot Clock",
+        "ticks": 4,
+        "trigger": "Ticks in damp seasons without replacement pine stakes; creates breached gaps in perimeter.",
+        "raw": "Palisade Decay & Timber Rot Clock [4 Ticks] - Ticks in damp seasons without replacement pine stakes; creates breached gaps in perimeter."
+      },
+      {
+        "key": "marauder_assembly_meter",
+        "name": "Bandit & Wolf Assembly Meter",
+        "ticks": 4,
+        "trigger": "Ticks when outer patrols fail or carcasses draw beasts; triggers coordinated night assault.",
+        "raw": "Bandit & Wolf Assembly Meter [4 Ticks] - Ticks when outer patrols fail or carcasses draw beasts; triggers coordinated night assault."
+      }
+    ]
   },
   {
     "id": "T0-DOM-05",
@@ -88,17 +348,82 @@
     "pipeline_tier": 0,
     "culture": "Market / Village Barter",
     "color": "Red",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
     "provides": [
       "Economy: Baseline-Mundane-Smithy-and-Trade"
     ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "* The Stasis / The Lie: \"Our tools are shaped from honest local iron, and an honest man can always trade butter for flour; currency and taxes are tricks for city folk.\" * The Crucible / Conflict: The highland charcoalers burn down their kilns in a timber rebel...",
+    "yields": "Forged Iron Plowshares, Draft-Horse Shoes, Hand-Woven Wool Homespun",
     "path": "./modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md",
+    "file_url": "mods/tier_0_settlement_substratum/modules/T0-DOM-05_The_Weekly_Barter_Square_and_Village_Blacksmith.md",
     "standalone_fallback": "If iron scrap or charcoal supplies fail, the forge goes cold; the village reverts to wood-pegged plows, stone-sharpened scythes, and pure commodity barter (bushels of oats for wool fleeces); agricultural efficiency drops 30%, but mundane village exchanges continue without monetary currency.",
     "chain_id": "CHAIN-FRONTIER",
     "chain_stage": 1,
-    "chain_role": "extraction"
+    "chain_role": "extraction",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Rhythmic Anvil & Bustling Barter Square - Forge glowing; horses shod; eggs and salt traded freely; DC 10 Persuasion/Craft (Light Tier, DC 10).",
+        "level_2": "Charcoal Shortage & Dull Scythe Repair - Bellows wheeze; long queue for plow repairs; DC 13 Haggling/Athletics (Moderate Tier, DC 13, 2d8 damage/delay).",
+        "level_3": "Iron Scrap Depletion & Broken Plowshares - No replacement iron; plows break on stones; DC 16 Insight/Intimidation, 4d10 economic/labor damage.",
+        "level_4": "Cold Hearth & Economic Barter Gridlock - Forge cold; charcoal gone; trade ceases; tool crisis sparks agrarian riot; DC 20 Survival, 8d12 economic collapse."
+      },
+      "threat_clocks": {
+        "charcoal_reserve_clock": "Charcoal Reserve Depletion Clock [4 Ticks] - Ticks when highland timber supply lines are blocked; cold hearth halts tool fabrication.",
+        "scrap_iron_famine_meter": "Scrap Iron Famine Meter [4 Ticks] - Ticks when regional trade breaks down; villagers forced to melt domestic pots."
+      },
+      "yields_resource": "Forged Iron Plowshares, Draft-Horse Shoes, Hand-Woven Wool Homespun"
+    },
+    "four_corners": {
+      "establishment": "Village Master Blacksmith - A stern craftsman whose family anvil was imported two centuries ago. Dedicated to agricultural maintenance, they refuse to forge swords for adventuring vagrants or greedy bailiffs...",
+      "opponent": "Itinerant Tinker & Peddler - A traveling tinker driving a gaudy yellow mule-cart filled with cheap tin whistles, brittle cast-iron kettles, and colored ribbons.",
+      "shadow": "Town Coin-Clipper & Moneylender - A visiting merchant-factor who refuses traditional bushel barter, insisting all transactions take place in debased silver coins.",
+      "outcast": "Bog-Iron Smelter & Charcoaler - A soot-caked hermit living in the deep wetlands where groundwater seeps orange with iron bacteria."
+    },
+    "output_dial": {
+      "level_1": "Rhythmic Anvil & Bustling Barter Square - Forge glowing; horses shod; eggs and salt traded freely; DC 10 Persuasion/Craft (Light Tier, DC 10).",
+      "level_2": "Charcoal Shortage & Dull Scythe Repair - Bellows wheeze; long queue for plow repairs; DC 13 Haggling/Athletics (Moderate Tier, DC 13, 2d8 damage/delay).",
+      "level_3": "Iron Scrap Depletion & Broken Plowshares - No replacement iron; plows break on stones; DC 16 Insight/Intimidation, 4d10 economic/labor damage.",
+      "level_4": "Cold Hearth & Economic Barter Gridlock - Forge cold; charcoal gone; trade ceases; tool crisis sparks agrarian riot; DC 20 Survival, 8d12 economic collapse."
+    },
+    "threat_clocks": [
+      "Charcoal Reserve Depletion Clock [4 Ticks] - Ticks when highland timber supply lines are blocked; cold hearth halts tool fabrication.",
+      "Scrap Iron Famine Meter [4 Ticks] - Ticks when regional trade breaks down; villagers forced to melt domestic pots."
+    ],
+    "dials": [
+      "Level 1: Rhythmic Anvil & Bustling Barter Square - Forge glowing; horses shod; eggs and salt traded freely; DC 10 Persuasion/Craft (Light Tier, DC 10).",
+      "Level 2: Charcoal Shortage & Dull Scythe Repair - Bellows wheeze; long queue for plow repairs; DC 13 Haggling/Athletics (Moderate Tier, DC 13, 2d8 damage/delay).",
+      "Level 3: Iron Scrap Depletion & Broken Plowshares - No replacement iron; plows break on stones; DC 16 Insight/Intimidation, 4d10 economic/labor damage.",
+      "Level 4: Cold Hearth & Economic Barter Gridlock - Forge cold; charcoal gone; trade ceases; tool crisis sparks agrarian riot; DC 20 Survival, 8d12 economic collapse."
+    ],
+    "overview": "* The Stasis / The Lie: \"Our tools are shaped from honest local iron, and an honest man can always trade butter for flour; currency and taxes are tricks for city folk.\" * The Crucible / Conflict: The highland charcoalers burn down their kilns in a timber rebellion; no charcoal reaches the valley forge, and the village blacksmith’s last box of horseshoe nails is exhausted on the eve of the winter sowing.",
+    "mechanical_architecture": "Pre-industrial economies do not run on shiny gold coins; ordinary peasants may go five years without seeing a single silver piece. Mundane survival is held together by two physical institutions: the charcoal-fired village forge and the weekly open-air barter square. These systems keep draft oxen working and allow households to exchange non-storable surpluses (eggs, fresh milk, churned butter) for durable staples (salt, homespun linen, iron nails): * The Charcoal Smithy: The technological beating heart of agriculture. A blacksmith does not forge legendary swords; they shoe sixteen plow horses every week, weld fractured iron plowshares, forge scythe blades, and draw nails from scrap iron billets. A settlement without a smith loses 40% of its harvesting capacity within a month due to broken cutting edges.",
+    "extraction_lore": "* Recommended Placement: * Central Village Node: Placed in core satellite settlements connecting outlying farm hamlets to regional market towns. * Trade Cross Anchors: Sockets directly into trade edge corridors (Set A). * Topological Synergies: * Dual-Mode UX: In \"Smooth Generic\" mode, automatically provides basic equipment repairs and bartered supplies. In \"Granular Mode\", outputs Economy: Baseline-Mundane-Smithy-and-Trade, satisfying requirements for fortifications (T0-DOM-04) and masonry (T0-DOM-03). Pre-industrial economies do not run on shiny gold coins; ordinary peasants may go five years without seeing a single silver piece. Mundane survival is held together by two physical institutions: the charcoal-fired village forge and the weekly open-air barter square.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "charcoal_reserve_clock",
+        "name": "Charcoal Reserve Depletion Clock",
+        "ticks": 4,
+        "trigger": "Ticks when highland timber supply lines are blocked; cold hearth halts tool fabrication.",
+        "raw": "Charcoal Reserve Depletion Clock [4 Ticks] - Ticks when highland timber supply lines are blocked; cold hearth halts tool fabrication."
+      },
+      {
+        "key": "scrap_iron_famine_meter",
+        "name": "Scrap Iron Famine Meter",
+        "ticks": 4,
+        "trigger": "Ticks when regional trade breaks down; villagers forced to melt domestic pots.",
+        "raw": "Scrap Iron Famine Meter [4 Ticks] - Ticks when regional trade breaks down; villagers forced to melt domestic pots."
+      }
+    ]
   },
   {
     "id": "T0-DOM-06",
@@ -108,17 +433,82 @@
     "pipeline_tier": 0,
     "culture": "Clan / Folk Healing",
     "color": "Green",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
     "provides": [
       "Health: Folk-Leechcraft-and-Midwifery"
     ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "* The Stasis / The Lie: \"Our mothers’ remedies have carried our clan through a hundred winters; as long as the herbs dry on the rafters, simple blood and honest prayer will cure any fever.\" * The Crucible / Conflict: An unseasonal summer drought withers the we...",
+    "yields": "Dried Willow Bark Bundles, Yarrow Wound-Salve, Clean Boiled Linen Rolls",
     "path": "./modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md",
+    "file_url": "mods/tier_0_settlement_substratum/modules/T0-DOM-06_The_Village_Herbalist_Midwife_and_Leechcraft_Hearth.md",
     "standalone_fallback": "If medicinal herbs run out or the midwife dies, the community relies on boiled onion poultices, pine-needle tea, and elder hearth vigils; non-magical disease recovery slows by 50% and infant mortality climbs, but basic domestic care prevents immediate depopulation.",
     "chain_id": "CHAIN-FRONTIER",
     "chain_stage": 1,
-    "chain_role": "extraction"
+    "chain_role": "extraction",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Dried Willow Bark & Clean Bandages - Boiled yarrow tea; linen dressings; fever broken in 24 hours; DC 10 Medicine/Nature (Light Tier, DC 10).",
+        "level_2": "Childbed Fever & Yarrow Salve Shortage - Complicated delivery; rusty shears; minor infection; DC 13 Medicine/Survival (Moderate Tier, DC 13, 2d8 damage/exhaustion).",
+        "level_3": "Gangrene Wounds & Tainted Leech Jar - Leeches die in swamp water; open farm wounds fester; DC 16 Fortitude/Medicine, 4d10 gangrene/toxic damage.",
+        "level_4": "Black-Tongue Pestilence & Torched Pest-Hut - Contagion sweeps lanes; herbalist dies; quarantine hut burned; DC 20 Survival/Medicine, 8d12 lethal plague damage."
+      },
+      "threat_clocks": {
+        "herbal_reserve_depletion_clock": "Hedgerow Herbal Exhaustion Clock [4 Ticks] - Ticks in winter or drought when hedgerows freeze; cuts healing potency by half.",
+        "village_pestilence_meter": "Contagious Pestilence Outbreak Meter [4 Ticks] - Ticks when open wounds go untreated or swamp miasma spreads; triggers quarantine panic."
+      },
+      "yields_resource": "Dried Willow Bark Bundles, Yarrow Wound-Salve, Clean Boiled Linen Rolls"
+    },
+    "four_corners": {
+      "establishment": "Parish Elder Midwife - A sharp-tongued matriarch who has delivered every soul in the valley under forty. Enforcing strict boiling of linen and isolating cough victims in outer barns, she brooks no nonsen...",
+      "opponent": "Wandering Faith-Healer Peddler - A fanatic monk or charismatic pilgrim carrying a carved saint's femur bone. Preaching that illness is the divine punishment for unpaid parish tithes, they urge crowds to gather in...",
+      "shadow": "Quack Apothecary & Arsenic Dealer - A suave merchant with a velvet coat and locked medicine chest. Arriving from the sovereign capital, they sell glittering \"Elixirs of Life\" adulterated with lead sugar and mercury,...",
+      "outcast": "Hedgerow Witch & Leper Hermit - A solitary elder banished to the salt marsh on suspicion of witchcraft. Cultivating blue mold on stale barley bread (proto-penicillin) and collecting blister-beetles for counter-ir..."
+    },
+    "output_dial": {
+      "level_1": "Dried Willow Bark & Clean Bandages - Boiled yarrow tea; linen dressings; fever broken in 24 hours; DC 10 Medicine/Nature (Light Tier, DC 10).",
+      "level_2": "Childbed Fever & Yarrow Salve Shortage - Complicated delivery; rusty shears; minor infection; DC 13 Medicine/Survival (Moderate Tier, DC 13, 2d8 damage/exhaustion).",
+      "level_3": "Gangrene Wounds & Tainted Leech Jar - Leeches die in swamp water; open farm wounds fester; DC 16 Fortitude/Medicine, 4d10 gangrene/toxic damage.",
+      "level_4": "Black-Tongue Pestilence & Torched Pest-Hut - Contagion sweeps lanes; herbalist dies; quarantine hut burned; DC 20 Survival/Medicine, 8d12 lethal plague damage."
+    },
+    "threat_clocks": [
+      "Hedgerow Herbal Exhaustion Clock [4 Ticks] - Ticks in winter or drought when hedgerows freeze; cuts healing potency by half.",
+      "Contagious Pestilence Outbreak Meter [4 Ticks] - Ticks when open wounds go untreated or swamp miasma spreads; triggers quarantine panic."
+    ],
+    "dials": [
+      "Level 1: Dried Willow Bark & Clean Bandages - Boiled yarrow tea; linen dressings; fever broken in 24 hours; DC 10 Medicine/Nature (Light Tier, DC 10).",
+      "Level 2: Childbed Fever & Yarrow Salve Shortage - Complicated delivery; rusty shears; minor infection; DC 13 Medicine/Survival (Moderate Tier, DC 13, 2d8 damage/exhaustion).",
+      "Level 3: Gangrene Wounds & Tainted Leech Jar - Leeches die in swamp water; open farm wounds fester; DC 16 Fortitude/Medicine, 4d10 gangrene/toxic damage.",
+      "Level 4: Black-Tongue Pestilence & Torched Pest-Hut - Contagion sweeps lanes; herbalist dies; quarantine hut burned; DC 20 Survival/Medicine, 8d12 lethal plague damage."
+    ],
+    "overview": "* The Stasis / The Lie: \"Our mothers’ remedies have carried our clan through a hundred winters; as long as the herbs dry on the rafters, simple blood and honest prayer will cure any fever.\" * The Crucible / Conflict: An unseasonal summer drought withers the wetland yarrow beds; simultaneously, an infected traveler collapses at the tavern with black-tongue typhus, and the village’s only midwife is bitten by a rabid badger while gathering elderberries.",
+    "mechanical_architecture": "In pre-industrial campaign settings, there are no clerical miracle-workers casting Cure Light Wounds on every sick child or blistered plowman. Mundane survival against dysentery, broken femur fractures, and maternal mortality rests entirely in the hands of the village midwife and herbalist hearth. Operating from a smokey wattle-and-daub cottage hung with dried roots, this mundane health system relies on three traditional practices: The Drying Rafters & Hedgerow Foraging: A skilled elder collects botanical alkaloids from roadside hedgerows and marshes: willow bark (salicin for pain and inflammatory fever), yarrow flowers (achilleine for stopping hemorrhage in deep scythe cuts), marsh mallow roots (mucilage for hacking chest coughs), and honey-garlic rubs* for septic puncture wounds.",
+    "extraction_lore": "* Recommended Placement: * All Settlement Nodes: Essential health infrastructure supporting local populations against attrition. * Hazard Edge Buffering: Placed adjacent to swamp, toxic ruin, or battlefield nodes to treat wounded travelers. * Topological Synergies: * Dual-Mode UX: In \"Smooth Generic\" mode, handles disease recovery automatically without GM accounting. In \"Granular Mode\", outputs Health: Folk-Leechcraft-and-Midwifery, fulfilling requirements for military garrisons (T0-DOM-04) and mining camps. In pre-industrial campaign settings, there are no clerical miracle-workers casting Cure Light Wounds on every sick child or blistered plowman.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "herbal_reserve_depletion_clock",
+        "name": "Hedgerow Herbal Exhaustion Clock",
+        "ticks": 4,
+        "trigger": "Ticks in winter or drought when hedgerows freeze; cuts healing potency by half.",
+        "raw": "Hedgerow Herbal Exhaustion Clock [4 Ticks] - Ticks in winter or drought when hedgerows freeze; cuts healing potency by half."
+      },
+      {
+        "key": "village_pestilence_meter",
+        "name": "Contagious Pestilence Outbreak Meter",
+        "ticks": 4,
+        "trigger": "Ticks when open wounds go untreated or swamp miasma spreads; triggers quarantine panic.",
+        "raw": "Contagious Pestilence Outbreak Meter [4 Ticks] - Ticks when open wounds go untreated or swamp miasma spreads; triggers quarantine panic."
+      }
+    ]
   },
   {
     "id": "T0-DOM-07",
@@ -128,17 +518,82 @@
     "pipeline_tier": 0,
     "culture": "Clan / Sanitation Commons",
     "color": "Black / Green",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
     "provides": [
       "Sanitation: Vernacular-Midden-Management"
     ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "* The Stasis / The Lie: \"The earth swallows all filth if buried out of sight; what the pigs eat and the rain washes away can never hurt our children.\" * The Crucible / Conflict: Three weeks of continuous summer monsoon downpours flood the hillside midden trenc...",
+    "yields": "Composted Agricultural Manure, Cured Slaked Lime Powder, Scavenger Swine Hides",
     "path": "./modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md",
+    "file_url": "mods/tier_0_settlement_substratum/modules/T0-DOM-07_The_Midden_Trenches_Swine_Scavengers_and_Night_Soil_Pit.md",
     "standalone_fallback": "If swine die or lime dust runs out, the village digs emergency muck pits 200 yards downwind and covers waste with river gravel and pine ash; foul odors inflict Light morale penalties, but basic separation of waste from wellhead drainage prevents cholera outbreaks.",
     "chain_id": "CHAIN-FRONTIER",
     "chain_stage": 1,
-    "chain_role": "extraction"
+    "chain_role": "extraction",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Slaked-Lime Midden & Contained Swine Run - Lime applied weekly; clean drainage runnels; swine pen contained; DC 10 Animal Handling/Nature (Light Tier, DC 10).",
+        "level_2": "Summer Flies & Muddy Drainage Ditches - Animal odors; swarms of blackflies; ditches muddy after rain; DC 13 Athletics/Survival (Moderate Tier, DC 13, 2d8 damage/spoilage).",
+        "level_3": "Overfilled Midden Pits & Street Runoff - Muck spills into street puddles; foul stench; dysentery checks; DC 16 Fortitude/Athletics, 4d10 disease/filth damage.",
+        "level_4": "Catastrophic Wellhead Flooding & Cholera Outbreak - Night-soil floods artesian wellhead; blue death cholera epidemic; DC 20 Survival/Medicine, 8d12 lethal plague damage."
+      },
+      "threat_clocks": {
+        "midden_overflow_clock": "Midden Overflow & Fly Swarm Clock [4 Ticks] - Ticks in wet summer heat or when manure carting halts; spills effluent into living lanes.",
+        "cholera_aquifer_seepage_meter": "Cholera Aquifer Seepage Meter [4 Ticks] - Ticks when unlimed pits overflow toward artesian drainage; triggers lethal waterborne epidemic."
+      },
+      "yields_resource": "Composted Agricultural Manure, Cured Slaked Lime Powder, Scavenger Swine Hides"
+    },
+    "four_corners": {
+      "establishment": "Parish Midden-Master - A stoic communal officer whose job is despised but vital. Pushing a heavy two-wheeled muck-cart, they inspect latrines, apply white lime dust, and enforce strict spatial separation...",
+      "opponent": "Night-Soil Farmer & Carter - An aggressive farmer desperate for agricultural yields. Refusing to wait six months for night-soil pits to ferment and neutralize bacteria, they haul raw, steaming sewage directly...",
+      "shadow": "Slaked-Lime Kiln Cartel Factor - A limestone quarry factor who controls the local lime-burning kiln. While summer dysentery spikes, they withhold lime shipments to inflate prices, indifferent to whether common chi...",
+      "outcast": "Midden Mudlark & Bone-Picker - A pariah who spends their life wading through the deep midden pits with a hooked iron wire, searching for dropped brass pins, silver buckles, and animal marrow-bones for soap-makin..."
+    },
+    "output_dial": {
+      "level_1": "Slaked-Lime Midden & Contained Swine Run - Lime applied weekly; clean drainage runnels; swine pen contained; DC 10 Animal Handling/Nature (Light Tier, DC 10).",
+      "level_2": "Summer Flies & Muddy Drainage Ditches - Animal odors; swarms of blackflies; ditches muddy after rain; DC 13 Athletics/Survival (Moderate Tier, DC 13, 2d8 damage/spoilage).",
+      "level_3": "Overfilled Midden Pits & Street Runoff - Muck spills into street puddles; foul stench; dysentery checks; DC 16 Fortitude/Athletics, 4d10 disease/filth damage.",
+      "level_4": "Catastrophic Wellhead Flooding & Cholera Outbreak - Night-soil floods artesian wellhead; blue death cholera epidemic; DC 20 Survival/Medicine, 8d12 lethal plague damage."
+    },
+    "threat_clocks": [
+      "Midden Overflow & Fly Swarm Clock [4 Ticks] - Ticks in wet summer heat or when manure carting halts; spills effluent into living lanes.",
+      "Cholera Aquifer Seepage Meter [4 Ticks] - Ticks when unlimed pits overflow toward artesian drainage; triggers lethal waterborne epidemic."
+    ],
+    "dials": [
+      "Level 1: Slaked-Lime Midden & Contained Swine Run - Lime applied weekly; clean drainage runnels; swine pen contained; DC 10 Animal Handling/Nature (Light Tier, DC 10).",
+      "Level 2: Summer Flies & Muddy Drainage Ditches - Animal odors; swarms of blackflies; ditches muddy after rain; DC 13 Athletics/Survival (Moderate Tier, DC 13, 2d8 damage/spoilage).",
+      "Level 3: Overfilled Midden Pits & Street Runoff - Muck spills into street puddles; foul stench; dysentery checks; DC 16 Fortitude/Athletics, 4d10 disease/filth damage.",
+      "Level 4: Catastrophic Wellhead Flooding & Cholera Outbreak - Night-soil floods artesian wellhead; blue death cholera epidemic; DC 20 Survival/Medicine, 8d12 lethal plague damage."
+    ],
+    "overview": "* The Stasis / The Lie: \"The earth swallows all filth if buried out of sight; what the pigs eat and the rain washes away can never hurt our children.\" * The Crucible / Conflict: Three weeks of continuous summer monsoon downpours flood the hillside midden trenches; a slurry of liquefied night-soil and animal manure overflows into the main street runnels, flowing directly toward the unprotected mouth of the village artesian well.",
+    "mechanical_architecture": "Before the invention of subterranean vitreous clay sewer pipes or municipal water mains, human settlements survived only by managing their own waste through three rigorous pre-industrial technologies: compost midden trenches, scavenger swine corrals, and slaked-lime night-soil composting: * The Graded Midden Trenches: Located at least 150 yards downwind and downhill from the artesian wellhead. Layered with dry straw, hearth ash, and garden refuse, these trenches collect household garbage. The alkaline wood ash neutralizes acidic rot, preventing fly blowfly explosions. * The Scavenger Swine Pen: A communal herd of thirty hardy, aggressive razorback pigs confined to a fortified timber corral beside the midden. Swine consume spoiled grain, butchery offal, fish guts, and table scraps, turning lethal bacterial bio-waste into valuable lard, cured bacon, and thick leather boots.",
+    "extraction_lore": "* Recommended Placement: * All Settlement Nodes: Essential baseline municipal sanitation layer. * Agricultural Coupling: Sockets directly to arable farm modules (T0-DOM-01), supplying cured manure fertilizer. * Topological Synergies: * Dual-Mode UX: In \"Smooth Generic\" mode, maintains settlement hygiene automatically without bookkeeping. In \"Granular Mode\", outputs Sanitation: Vernacular-Midden-Management, protecting connected nodes from waterborne plague and epidemic clocks.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "midden_overflow_clock",
+        "name": "Midden Overflow & Fly Swarm Clock",
+        "ticks": 4,
+        "trigger": "Ticks in wet summer heat or when manure carting halts; spills effluent into living lanes.",
+        "raw": "Midden Overflow & Fly Swarm Clock [4 Ticks] - Ticks in wet summer heat or when manure carting halts; spills effluent into living lanes."
+      },
+      {
+        "key": "cholera_aquifer_seepage_meter",
+        "name": "Cholera Aquifer Seepage Meter",
+        "ticks": 4,
+        "trigger": "Ticks when unlimed pits overflow toward artesian drainage; triggers lethal waterborne epidemic.",
+        "raw": "Cholera Aquifer Seepage Meter [4 Ticks] - Ticks when unlimed pits overflow toward artesian drainage; triggers lethal waterborne epidemic."
+      }
+    ]
   },
   {
     "id": "T0-DOM-08",
@@ -148,16 +603,81 @@
     "pipeline_tier": 0,
     "culture": "Clan / Ancestral Folk Vigil",
     "color": "White / Green",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
     "provides": [
       "Social: Communal-Folklore-Solidarity"
     ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "* The Stasis / The Lie: \"Our ancestors watch over our fields from the boundary stones; as long as we place bread on the cairn and sing the solstice songs, evil can never divide neighbor from neighbor.\" * The Crucible / Conflict: An arrogant passing noble's war...",
+    "yields": "Carved Wooden Boundary Effigies, Blessed Solstice Honey Cakes, Hearth-Ash Ward Salt",
     "path": "./modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md",
+    "file_url": "mods/tier_0_settlement_substratum/modules/T0-DOM-08_The_Wayside_Boundary_Shrine_and_Hearth_Vigil.md",
     "standalone_fallback": "If the boundary shrine is desecrated or sacred icons are smashed, the community fractures into suspicious family enclaves; solstice feasts cease, paranoia against outsiders spikes, and characters suffer disadvantage on morale checks, but private hearth candle vigils sustain baseline social survival.",
     "chain_id": "CHAIN-FRONTIER",
     "chain_stage": 1,
-    "chain_role": "extraction"
+    "chain_role": "extraction",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Sanctified Boundary Cairn & Solstice Feast - Fresh wildflowers on altar; harvest beer shared; high communal solidarity; DC 10 Performance/Insight (Light Tier, DC 10).",
+        "level_2": "Seasonal Hearth Vigil & Minor Omen Unease - Tallow candles lit; minor family squabbles mediated by elder; DC 13 Insight/Persuasion (Moderate Tier, DC 13, 2d8 damage/unease).",
+        "level_3": "Desecrated Wayside Icon & Clan Paranoia - Boundary stone toppled; ominous bird omens; neighbor accuses neighbor; DC 16 Will/Insight, 4d10 psychic/paranoia damage.",
+        "level_4": "Weeping Blood Icon & Witch-Hunt Bloodletting - Sacred icon defaced; mass hysteria; midnight witch-hunts; DC 20 Will/Intimidation, 8d12 lethal mob violence damage."
+      },
+      "threat_clocks": {
+        "sacred_taboo_violation_clock": "Sacred Taboo Desecration Clock [4 Ticks] - Ticks when outsiders violate boundary markers or ancient oaks are felled; provokes communal dread.",
+        "clan_hysteria_paranoia_meter": "Clan Paranoia & Witch-Hunt Meter [4 Ticks] - Ticks during crop failures or unexplained deaths; triggers violent purge of scapegoats."
+      },
+      "yields_resource": "Carved Wooden Boundary Effigies, Blessed Solstice Honey Cakes, Hearth-Ash Ward Salt"
+    },
+    "four_corners": {
+      "establishment": "Parish Hearth-Elder - An eighty-year-old grandmother who knows the family lineage, burial cairns, and traditional land boundaries of every acre in the parish.",
+      "opponent": "Purifying Iconoclast Zealot - A fiery foreign priest carrying an iron hammer and a book of orthodox scripture. Viewing roadside cairns and wood carvings as demonic pagan idolatry, they whip impressionable youth...",
+      "shadow": "Superstitious Blood-Diviner - A bitter crone who exploits rural anxiety. When sickness strikes, she reads entrails in pig troughs, pointing trembling fingers at defenseless outcasts, ugly widows, or passing adv...",
+      "outcast": "The Mute Sin-Eater Hermit - A shunned outcast living in an abandoned stone quarry. Hired for a wooden bowl of porridge to sit beside fresh corpses and eat bread off their chests, they spiritually absorb the d..."
+    },
+    "output_dial": {
+      "level_1": "Sanctified Boundary Cairn & Solstice Feast - Fresh wildflowers on altar; harvest beer shared; high communal solidarity; DC 10 Performance/Insight (Light Tier, DC 10).",
+      "level_2": "Seasonal Hearth Vigil & Minor Omen Unease - Tallow candles lit; minor family squabbles mediated by elder; DC 13 Insight/Persuasion (Moderate Tier, DC 13, 2d8 damage/unease).",
+      "level_3": "Desecrated Wayside Icon & Clan Paranoia - Boundary stone toppled; ominous bird omens; neighbor accuses neighbor; DC 16 Will/Insight, 4d10 psychic/paranoia damage.",
+      "level_4": "Weeping Blood Icon & Witch-Hunt Bloodletting - Sacred icon defaced; mass hysteria; midnight witch-hunts; DC 20 Will/Intimidation, 8d12 lethal mob violence damage."
+    },
+    "threat_clocks": [
+      "Sacred Taboo Desecration Clock [4 Ticks] - Ticks when outsiders violate boundary markers or ancient oaks are felled; provokes communal dread.",
+      "Clan Paranoia & Witch-Hunt Meter [4 Ticks] - Ticks during crop failures or unexplained deaths; triggers violent purge of scapegoats."
+    ],
+    "dials": [
+      "Level 1: Sanctified Boundary Cairn & Solstice Feast - Fresh wildflowers on altar; harvest beer shared; high communal solidarity; DC 10 Performance/Insight (Light Tier, DC 10).",
+      "Level 2: Seasonal Hearth Vigil & Minor Omen Unease - Tallow candles lit; minor family squabbles mediated by elder; DC 13 Insight/Persuasion (Moderate Tier, DC 13, 2d8 damage/unease).",
+      "Level 3: Desecrated Wayside Icon & Clan Paranoia - Boundary stone toppled; ominous bird omens; neighbor accuses neighbor; DC 16 Will/Insight, 4d10 psychic/paranoia damage.",
+      "Level 4: Weeping Blood Icon & Witch-Hunt Bloodletting - Sacred icon defaced; mass hysteria; midnight witch-hunts; DC 20 Will/Intimidation, 8d12 lethal mob violence damage."
+    ],
+    "overview": "* The Stasis / The Lie: \"Our ancestors watch over our fields from the boundary stones; as long as we place bread on the cairn and sing the solstice songs, evil can never divide neighbor from neighbor.\" * The Crucible / Conflict: An arrogant passing noble's warhorse knocks over the sacred boundary cairn, shattering the ancient wooden protector icon;",
+    "mechanical_architecture": "A human settlement is not merely a collection of caloric stomachs and timber roofs; it is a psychological pact against the terrifying darkness of the wild frontier. Without shared ancestral rituals, seasonal feasts, and boundary taboos, isolated hamlets succumb to claustrophobic madness, generational blood-feuds, and mutual destruction within two seasons. This baseline social substratum relies on three folk mechanisms: * The Wayside Boundary Cairn: A 6-foot pyramid of fieldstones erected at the crossroads where the parish road meets the wilderness forest. Atop the cairn sits an ancient, weather-beaten wooden icon carved from heart of oak, depicting the nameless ancestral protector who first cleared the valley. Passing travelers add a pebble to the cairn to pay respect and guarantee safe passage.",
+    "extraction_lore": "* Recommended Placement: * All Settlement Nodes: Essential psychological cohesion layer. * Crossroads & Frontier Edges: Placed at topological transition points where roads enter wilderness hazards. * Topological Synergies: * Dual-Mode UX: In \"Smooth Generic\" mode, maintains node morale and stability automatically. In \"Granular Mode\", outputs Social: Communal-Folklore-Solidarity, preventing fear, despair, and civil revolt clocks across adjacent nodes. A human settlement is not merely a collection of caloric stomachs and timber roofs; it is a psychological pact against the terrifying darkness of the wild frontier.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "sacred_taboo_violation_clock",
+        "name": "Sacred Taboo Desecration Clock",
+        "ticks": 4,
+        "trigger": "Ticks when outsiders violate boundary markers or ancient oaks are felled; provokes communal dread.",
+        "raw": "Sacred Taboo Desecration Clock [4 Ticks] - Ticks when outsiders violate boundary markers or ancient oaks are felled; provokes communal dread."
+      },
+      {
+        "key": "clan_hysteria_paranoia_meter",
+        "name": "Clan Paranoia & Witch-Hunt Meter",
+        "ticks": 4,
+        "trigger": "Ticks during crop failures or unexplained deaths; triggers violent purge of scapegoats.",
+        "raw": "Clan Paranoia & Witch-Hunt Meter [4 Ticks] - Ticks during crop failures or unexplained deaths; triggers violent purge of scapegoats."
+      }
+    ]
   }
 ]

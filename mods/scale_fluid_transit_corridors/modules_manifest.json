@@ -1,110 +1,518 @@
 [
   {
     "id": "CWT-020",
-    "title": "THE SUBTERRANEAN MINECART GRAVITY INCLINE",
-    "set": "Core Modules",
-    "tier": "Tier 2",
+    "title": "The Subterranean Minecart Gravity Incline",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
     "pipeline_tier": 2,
-    "culture": "Universal",
-    "color": "Colorless",
-    "provides": [],
+    "culture": "Market / Hierarchy",
+    "color": "Blue / Black",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": "Produce / Deliver",
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
+    "provides": [
+      "Transit: Deep-Gravity-Incline",
+      "Logistics: High-Speed-Subterranean-Corridor"
+    ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "Rapid Mountain Transit, Bulk Ore Transport, Subterranean Bypass",
+    "yields": "Rapid Mountain Transit, Bulk Ore Transport, Subterranean Bypass",
     "path": "./modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md",
-    "standalone_fallback": "",
+    "file_url": "mods/scale_fluid_transit_corridors/modules/CWT-020_The_Subterranean_Minecart_Gravity_Incline.md",
+    "standalone_fallback": "If the bronze cables snap or rails are torn up, travelers must pick their way on foot through the pitch-black 15-mile maintenance flumes, multiplying travel time by eight and facing toxic firedamp gas pockets.",
     "chain_id": null,
     "chain_stage": null,
-    "chain_role": null
+    "chain_role": null,
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Steady Counterweight Incline - Rhythmic clatter of heavy cable rollers; comfortable 4-hour subterranean descent (Light Tier).",
+        "level_2": "Overdriven Speed Descent - Brake shoes smoke with hot bronze friction; DC 13 Dex balance checks against sharp 30-degree curves (Moderate Tier).",
+        "level_3": "Runaway Ore Carriage - Main haulage cable snaps; carriages hurtle at 60 mph through absolute darkness; DC 16 emergency hand-brake drill (Severe Tier / 4d10 bludgeoning).",
+        "level_4": "Subterranean Incline Cataclysm - High-speed derailment sparks firedamp pocket; 500 tons of granite roof collapses, burying the corridor (Lethal Tier / 8d12)."
+      },
+      "threat_clocks": {
+        "brake_burnout": "Brake Lining Burnout Clock [4 Ticks] - Overheated bronze shoes glaze over under heavy loads.",
+        "firedamp_gas": "Tunnel Firedamp Gas Buildup [4 Ticks] - Methane pockets leak from coal seams, risking explosion from track sparks."
+      },
+      "yields_resource": "Rapid Mountain Transit, Bulk Ore Transport, Subterranean Bypass"
+    },
+    "four_corners": {
+      "establishment": "The Incline Directorate & Rail Bailiffs - Ruthless concessionaires who own the cables and patents. They charge exorbitant toll-tickets for passage, search every passenger for hidden silver dust, and execute unauthorized ra...",
+      "opponent": "The Under-Tunnel Saboteurs - Dispossessed mountain smugglers whose overland pack trails were ruined by the rail. Armed with iron spikes and sledgehammers, they pry loose rail plates to cause devastating derail...",
+      "shadow": "The Black-Carriage Syndicate - Corrupt brake operators who take bribes from fugitive nobles and assassin rings to smuggle human cargo inside hollowed-out slag vats beneath false coal floors.",
+      "outcast": "The Blind Rail Greasers - Crippled laborers and orphaned children who dwell in hollows carved into the tunnel walls. Working with tallow buckets, they grease the guide rollers in the dark and know every hid..."
+    },
+    "output_dial": {
+      "level_1": "Steady Counterweight Incline - Rhythmic clatter of heavy cable rollers; comfortable 4-hour subterranean descent (Light Tier).",
+      "level_2": "Overdriven Speed Descent - Brake shoes smoke with hot bronze friction; DC 13 Dex balance checks against sharp 30-degree curves (Moderate Tier).",
+      "level_3": "Runaway Ore Carriage - Main haulage cable snaps; carriages hurtle at 60 mph through absolute darkness; DC 16 emergency hand-brake drill (Severe Tier / 4d10 bludgeoning).",
+      "level_4": "Subterranean Incline Cataclysm - High-speed derailment sparks firedamp pocket; 500 tons of granite roof collapses, burying the corridor (Lethal Tier / 8d12)."
+    },
+    "threat_clocks": [
+      "Brake Lining Burnout Clock [4 Ticks] - Overheated bronze shoes glaze over under heavy loads.",
+      "Tunnel Firedamp Gas Buildup [4 Ticks] - Methane pockets leak from coal seams, risking explosion from track sparks."
+    ],
+    "dials": [
+      "Level 1: Steady Counterweight Incline - Rhythmic clatter of heavy cable rollers; comfortable 4-hour subterranean descent (Light Tier).",
+      "Level 2: Overdriven Speed Descent - Brake shoes smoke with hot bronze friction; DC 13 Dex balance checks against sharp 30-degree curves (Moderate Tier).",
+      "Level 3: Runaway Ore Carriage - Main haulage cable snaps; carriages hurtle at 60 mph through absolute darkness; DC 16 emergency hand-brake drill (Severe Tier / 4d10 bludgeoning).",
+      "Level 4: Subterranean Incline Cataclysm - High-speed derailment sparks firedamp pocket; 500 tons of granite roof collapses, burying the corridor (Lethal Tier / 8d12)."
+    ],
+    "overview": "Rapid Mountain Transit, Bulk Ore Transport, Subterranean Bypass",
+    "mechanical_architecture": "An audacious feat of subterranean engineering cutting straight through the granite root of the central mountain range. Twin heavy bronze rail lines run fifteen miles down a continuous twelve-degree incline, linking high alpine mining redoubts directly to lowland smelter valleys. Heavy descending ore trains haul ascending passenger gondolas via a five-mile counterbalanced steel-and-hemp cable system. * The Incline Head (Upper Station): A fortified timber-and-iron terminus perched on an alpine ledge. Giant grooved sheave wheels twelve feet in diameter regulate descending velocity using manual water-cooled friction shoes. * The Dark Run: Carriages plunge into a narrow, unlit granite bore. Hand lanterns illuminate rushing rock walls mere inches from passengers' shoulders as air pressure pops ears during the two-thousand-foot drop.",
+    "extraction_lore": "An audacious feat of subterranean engineering cutting straight through the granite root of the central mountain range. Twin heavy bronze rail lines run fifteen miles down a continuous twelve-degree incline, linking high alpine mining redoubts directly to lowland smelter valleys. Heavy descending ore trains haul ascending passenger gondolas via a five-mile counterbalanced steel-and-hemp cable system. * The Incline Head (Upper Station): A fortified timber-and-iron terminus perched on an alpine ledge. Giant grooved sheave wheels twelve feet in diameter regulate descending velocity using manual water-cooled friction shoes. * The Dark Run: Carriages plunge into a narrow, unlit granite bore.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "brake_burnout",
+        "name": "Brake Lining Burnout Clock",
+        "ticks": 4,
+        "trigger": "Overheated bronze shoes glaze over under heavy loads.",
+        "raw": "Brake Lining Burnout Clock [4 Ticks] - Overheated bronze shoes glaze over under heavy loads."
+      },
+      {
+        "key": "firedamp_gas",
+        "name": "Tunnel Firedamp Gas Buildup",
+        "ticks": 4,
+        "trigger": "Methane pockets leak from coal seams, risking explosion from track sparks.",
+        "raw": "Tunnel Firedamp Gas Buildup [4 Ticks] - Methane pockets leak from coal seams, risking explosion from track sparks."
+      }
+    ]
   },
   {
     "id": "CWT-021",
-    "title": "THE TORRENTIAL RIVER SLUICE LOCK & RAPID CHUTE",
-    "set": "Core Modules",
-    "tier": "Tier 2",
+    "title": "The Torrential River Sluice Lock & Rapid Chute",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
     "pipeline_tier": 2,
-    "culture": "Universal",
-    "color": "Colorless",
-    "provides": [],
+    "culture": "Market / Clan",
+    "color": "Blue / Green",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": "Produce / Deliver",
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
+    "provides": [
+      "Transit: Downstream-River-Chute",
+      "Hydraulics: River-Level-Regulation"
+    ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "Rapid Downstream Water Transit, Timber Flume Logs, Sluice Gate Control",
+    "yields": "Rapid Downstream Water Transit, Timber Flume Logs, Sluice Gate Control",
     "path": "./modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md",
-    "standalone_fallback": "",
+    "file_url": "mods/scale_fluid_transit_corridors/modules/CWT-021_The_Torrential_River_Sluice_Lock_and_Rapid_Chute.md",
+    "standalone_fallback": "If the sluice locks are jammed shut, river craft must portage overland across six miles of boulder scree, demanding team draft animals and exposing cargo to robber ambushes.",
     "chain_id": null,
     "chain_stage": null,
-    "chain_role": null
+    "chain_role": null,
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Controlled Lock Step - Slow, safe descent through stepped timber flumes; 3 hours of smooth navigation (Light Tier).",
+        "level_2": "Surge Chute Run - Sluices opened wide to flush sediment; wooden barges shoot churning rapids; DC 13 pilot check (Moderate Tier).",
+        "level_3": "Fatal Hydraulic Bore - High-water surge creates standing whirlpools; hulls splinter against canyon basalt (Severe Tier, DC 16 Dex / 4d10 bludgeoning).",
+        "level_4": "Cataract Lock Breach - Timber weir ruptures under flash flood; downstream gorge completely inundated in thirty-foot tidal wall (Lethal Tier / 8d12)."
+      },
+      "threat_clocks": {
+        "timber_rot": "Sluice Gate Timber Rot [4 Ticks] - Submerged oak planks weaken under constant hydraulic pressure.",
+        "river_piracy": "Chute Ambush Clock [4 Ticks] - River corsairs rig trip-lines across the narrowest gorge drop."
+      },
+      "yields_resource": "Rapid Downstream Water Transit, Timber Flume Logs, Sluice Gate Control"
+    },
+    "four_corners": {
+      "establishment": "The Water Bailiff Guild - Bureaucrats who operate the winch capstans and collect cargo-weight tithes. They enforce strict barge inspection rules, routinely confiscating overloaded vessels.",
+      "opponent": "The Gorge Rapscallions - Littoral wreckers and river pirates stationed on the high bluffs. They drop tethered boulders into the flume to founder rich merchant skiffs and harvest water-logged silks.",
+      "shadow": "The Timber Float Monopolists - Lumber barons who flood the flume with unbundled redwood logs without warning, smashing small passenger boats to clear the chute for raw industrial timber runs.",
+      "outcast": "The Drowned-Recovery Scavengers - Diver families living in driftwood shanties below the final plunge pool. They dredge the river bottom for corpses and lost coin purses, trading river lore for food."
+    },
+    "output_dial": {
+      "level_1": "Controlled Lock Step - Slow, safe descent through stepped timber flumes; 3 hours of smooth navigation (Light Tier).",
+      "level_2": "Surge Chute Run - Sluices opened wide to flush sediment; wooden barges shoot churning rapids; DC 13 pilot check (Moderate Tier).",
+      "level_3": "Fatal Hydraulic Bore - High-water surge creates standing whirlpools; hulls splinter against canyon basalt (Severe Tier, DC 16 Dex / 4d10 bludgeoning).",
+      "level_4": "Cataract Lock Breach - Timber weir ruptures under flash flood; downstream gorge completely inundated in thirty-foot tidal wall (Lethal Tier / 8d12)."
+    },
+    "threat_clocks": [
+      "Sluice Gate Timber Rot [4 Ticks] - Submerged oak planks weaken under constant hydraulic pressure.",
+      "Chute Ambush Clock [4 Ticks] - River corsairs rig trip-lines across the narrowest gorge drop."
+    ],
+    "dials": [
+      "Level 1: Controlled Lock Step - Slow, safe descent through stepped timber flumes; 3 hours of smooth navigation (Light Tier).",
+      "Level 2: Surge Chute Run - Sluices opened wide to flush sediment; wooden barges shoot churning rapids; DC 13 pilot check (Moderate Tier).",
+      "Level 3: Fatal Hydraulic Bore - High-water surge creates standing whirlpools; hulls splinter against canyon basalt (Severe Tier, DC 16 Dex / 4d10 bludgeoning).",
+      "Level 4: Cataract Lock Breach - Timber weir ruptures under flash flood; downstream gorge completely inundated in thirty-foot tidal wall (Lethal Tier / 8d12)."
+    ],
+    "overview": "Rapid Downstream Water Transit, Timber Flume Logs, Sluice Gate Control",
+    "mechanical_architecture": "A roaring hydraulic highway carved through a narrow limestone canyon. Where the river drops eighty feet over treacherous jagged rapids, an engineered sequence of timber lock-chutes and sluice gates allows flat-bottomed freight barges and skiffs to shoot downstream in minutes rather than portaging for days over rugged cliffs. * The Upper Flume Mouth: Heavy oak guillotine gates held by iron ratchets. Water wardens divert river volume into the timber-lined chute, creating a slick hydraulic cushion. * The Devil’s Chute: A half-mile polished timber flume where boats achieve speeds exceeding thirty miles per hour, navigated entirely with twenty-foot steering sweeps through boiling foam. * The Counter-Weight Towpath: For ascending traffic, water-powered capstans wind heavy hemp cables along the canyon wall, slowly winching empty barges back up to the upper lake.",
+    "extraction_lore": "A roaring hydraulic highway carved through a narrow limestone canyon. Where the river drops eighty feet over treacherous jagged rapids, an engineered sequence of timber lock-chutes and sluice gates allows flat-bottomed freight barges and skiffs to shoot downstream in minutes rather than portaging for days over rugged cliffs. * The Upper Flume Mouth: Heavy oak guillotine gates held by iron ratchets. Water wardens divert river volume into the timber-lined chute, creating a slick hydraulic cushion. * The Devil’s Chute: A half-mile polished timber flume where boats achieve speeds exceeding thirty miles per hour, navigated entirely with twenty-foot steering sweeps through boiling foam.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "timber_rot",
+        "name": "Sluice Gate Timber Rot",
+        "ticks": 4,
+        "trigger": "Submerged oak planks weaken under constant hydraulic pressure.",
+        "raw": "Sluice Gate Timber Rot [4 Ticks] - Submerged oak planks weaken under constant hydraulic pressure."
+      },
+      {
+        "key": "river_piracy",
+        "name": "Chute Ambush Clock",
+        "ticks": 4,
+        "trigger": "River corsairs rig trip-lines across the narrowest gorge drop.",
+        "raw": "Chute Ambush Clock [4 Ticks] - River corsairs rig trip-lines across the narrowest gorge drop."
+      }
+    ]
   },
   {
     "id": "CWT-022",
-    "title": "THE GLACIAL CREVASSE CABLE FUNICULAR",
-    "set": "Core Modules",
-    "tier": "Tier 2",
+    "title": "The Glacial Crevasse Cable Funicular",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
     "pipeline_tier": 2,
-    "culture": "Universal",
-    "color": "Colorless",
-    "provides": [],
+    "culture": "Hierarchy / Adhocracy",
+    "color": "Blue / White",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": "Produce / Deliver",
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
+    "provides": [
+      "Transit: Glacial-Cable-Funicular",
+      "Logistics: Sub-Zero-High-Altitude-Corridor"
+    ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "Glacial Chasm Transit, High-Altitude Sightlines, Sterile Ice Melt",
+    "yields": "Glacial Chasm Transit, High-Altitude Sightlines, Sterile Ice Melt",
     "path": "./modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md",
-    "standalone_fallback": "",
+    "file_url": "mods/scale_fluid_transit_corridors/modules/CWT-022_The_Glacial_Crevasse_Cable_Funicular.md",
+    "standalone_fallback": "If the suspended cable car freezes in mid-air, travelers must crawl along the frost-slicked iron guide-cable with carabiners and crampons, facing gale-force winds and Severe Tier hypothermia.",
     "chain_id": null,
     "chain_stage": null,
-    "chain_role": null
+    "chain_role": null,
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Calm Alpine Crossing - Enclosed timber carriage glides silently across the blue chasm; 45 minutes of dizzying views (Light Tier).",
+        "level_2": "Hoarfrost Gale - Sub-zero blizzards coat cables in two inches of rime ice; carriage sways 15 feet side-to-side; DC 13 Con check (Moderate Tier).",
+        "level_3": "Cable Splicing Failure - Pylon pulley freezes solid; cable slips off sheaves; car dangles 800 feet above yawning crevasses (Severe Tier, DC 16 Dex / 4d10 cold/fall).",
+        "level_4": "Catastrophic Cable Shearing - High alpine avalanche tears the western anchor pylon from bedrock; gondola plunges into bottomless glacial abyss (Lethal Tier / 8d12)."
+      },
+      "threat_clocks": {
+        "cable_ice_load": "Cable Ice Accumulation Clock [4 Ticks] - Rime ice weight exceeds safety tolerances.",
+        "wind_shear_hazard": "Katabatic Blizzard Gale Clock [4 Ticks] - Gusts over 70 mph threaten to derail trolley sheaves."
+      },
+      "yields_resource": "Glacial Chasm Transit, High-Altitude Sightlines, Sterile Ice Melt"
+    },
+    "four_corners": {
+      "establishment": "The High Alpine Cable Directorate - Severe, bearded mountaineers who maintain the pulleys. They refuse to launch the gondola during high winds without signed death waivers and triple passenger fares.",
+      "opponent": "The Frost-Bitten Mountain Ascetics - Hermits dwelling in ice caves below who view the metal cables as a desecration of the mountain's sacred silence. They shoot flaming oil arrows at the hemp traction ropes.",
+      "shadow": "The Smuggler Aeronauts - Daring alpine thieves who ride small wooden trollies hooked to the main cable at midnight, hauling un-taxed gems and forbidden codices past the border fortresses.",
+      "outcast": "The Crevasse Salvage Creepers - Desperate mountaineers who rappel down the icy abyss beneath the cable line, scavenging the frozen remains of passengers from earlier disasters."
+    },
+    "output_dial": {
+      "level_1": "Calm Alpine Crossing - Enclosed timber carriage glides silently across the blue chasm; 45 minutes of dizzying views (Light Tier).",
+      "level_2": "Hoarfrost Gale - Sub-zero blizzards coat cables in two inches of rime ice; carriage sways 15 feet side-to-side; DC 13 Con check (Moderate Tier).",
+      "level_3": "Cable Splicing Failure - Pylon pulley freezes solid; cable slips off sheaves; car dangles 800 feet above yawning crevasses (Severe Tier, DC 16 Dex / 4d10 cold/fall).",
+      "level_4": "Catastrophic Cable Shearing - High alpine avalanche tears the western anchor pylon from bedrock; gondola plunges into bottomless glacial abyss (Lethal Tier / 8d12)."
+    },
+    "threat_clocks": [
+      "Cable Ice Accumulation Clock [4 Ticks] - Rime ice weight exceeds safety tolerances.",
+      "Katabatic Blizzard Gale Clock [4 Ticks] - Gusts over 70 mph threaten to derail trolley sheaves."
+    ],
+    "dials": [
+      "Level 1: Calm Alpine Crossing - Enclosed timber carriage glides silently across the blue chasm; 45 minutes of dizzying views (Light Tier).",
+      "Level 2: Hoarfrost Gale - Sub-zero blizzards coat cables in two inches of rime ice; carriage sways 15 feet side-to-side; DC 13 Con check (Moderate Tier).",
+      "Level 3: Cable Splicing Failure - Pylon pulley freezes solid; cable slips off sheaves; car dangles 800 feet above yawning crevasses (Severe Tier, DC 16 Dex / 4d10 cold/fall).",
+      "Level 4: Catastrophic Cable Shearing - High alpine avalanche tears the western anchor pylon from bedrock; gondola plunges into bottomless glacial abyss (Lethal Tier / 8d12)."
+    ],
+    "overview": "Glacial Chasm Transit, High-Altitude Sightlines, Sterile Ice Melt",
+    "mechanical_architecture": "Spanning an uncrossable eight-hundred-foot-deep chasm of moving blue glacial ice, this aerial cableway connects isolated alpine bastions to the high tundra. Two two-inch braided iron cables stretch three-quarters of a mile between towering masonry anchor pylons, carrying an enclosed oak-and-canvas gondola suspended above yawning seracs. * The Valley Anchor Pylon: Anchored deep into solid granite with molten lead, housing counterweights made of stone-filled iron cages that maintain cable tension as temperatures drop. * The Suspended Cradle: A reinforced passenger gondola fitted with kerosene heaters, brass observation slits, and dual mechanical pinch-brakes capable of biting into the guide cable in an emergency. * The Wind Lass Station: Powered by twin draft mules or water dynamos, turning giant drum winches that haul the traction cable across the void.",
+    "extraction_lore": "Spanning an uncrossable eight-hundred-foot-deep chasm of moving blue glacial ice, this aerial cableway connects isolated alpine bastions to the high tundra. Two two-inch braided iron cables stretch three-quarters of a mile between towering masonry anchor pylons, carrying an enclosed oak-and-canvas gondola suspended above yawning seracs. * The Valley Anchor Pylon: Anchored deep into solid granite with molten lead, housing counterweights made of stone-filled iron cages that maintain cable tension as temperatures drop. * The Suspended Cradle: A reinforced passenger gondola fitted with kerosene heaters, brass observation slits, and dual mechanical pinch-brakes capable of biting into the guide cable in an emergency.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "cable_ice_load",
+        "name": "Cable Ice Accumulation Clock",
+        "ticks": 4,
+        "trigger": "Rime ice weight exceeds safety tolerances.",
+        "raw": "Cable Ice Accumulation Clock [4 Ticks] - Rime ice weight exceeds safety tolerances."
+      },
+      {
+        "key": "wind_shear_hazard",
+        "name": "Katabatic Blizzard Gale Clock",
+        "ticks": 4,
+        "trigger": "Gusts over 70 mph threaten to derail trolley sheaves.",
+        "raw": "Katabatic Blizzard Gale Clock [4 Ticks] - Gusts over 70 mph threaten to derail trolley sheaves."
+      }
+    ]
   },
   {
     "id": "CWT-023",
-    "title": "THE SUNKEN CANAL OF THE WEEPING WILLOW",
-    "set": "Core Modules",
-    "tier": "Tier 2",
+    "title": "The Sunken Canal of the Weeping Willow",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
     "pipeline_tier": 2,
-    "culture": "Universal",
-    "color": "Colorless",
-    "provides": [],
+    "culture": "Clan / Adhocracy",
+    "color": "Black / Green",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": "Produce / Deliver",
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
+    "provides": [
+      "Transit: Sunken-Canal-Artery",
+      "Camouflage: Submerged-Vessel-Cover"
+    ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "Stealth Waterways, Medicinal Swamp Herbs, Peat Fuel Bricks",
+    "yields": "Stealth Waterways, Medicinal Swamp Herbs, Peat Fuel Bricks",
     "path": "./modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md",
-    "standalone_fallback": "",
+    "file_url": "mods/scale_fluid_transit_corridors/modules/CWT-023_The_Sunken_Canal_of_the_Weeping_Willow.md",
+    "standalone_fallback": "If canal waters choke with weed and sink beneath boat draft, travelers must wade waist-deep in black swamp muck, attracting blood-leeches and slowing travel to a crawl.",
     "chain_id": null,
     "chain_stage": null,
-    "chain_role": null
+    "chain_role": null,
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Silent Pole Drift - Flat punt-boats glide beneath hanging curtains of silver moss; water snakes slip quietly into dark pools (Light Tier).",
+        "level_2": "Tangled Canopy Labyrinth - Canal branches into identical cypress bayous; mist obscures navigation markers; DC 13 Survival check (Moderate Tier).",
+        "level_3": "Leech-Sough Inundation - Canal locks fail; stagnant marsh fumes induce fever; carnivorous bog eels assault poling craft (Severe Tier, DC 16 Con / 4d10 poison).",
+        "level_4": "Sinking Bog Morass - Peat bed collapses into subterranean sinkhole; whole canal vanishes into dark underground drainage vortex (Lethal Tier / 8d12)."
+      },
+      "threat_clocks": {
+        "miasma_fever": "Swamp Rot Miasma Clock [4 Ticks] - Stagnant water vapor infects open wounds and causes hallucinatory delirium.",
+        "submerged_snags": "Iron-Wood Deadfall Clock [4 Ticks] - Sunken cypress logs tear bottoms from wooden hulls."
+      },
+      "yields_resource": "Stealth Waterways, Medicinal Swamp Herbs, Peat Fuel Bricks"
+    },
+    "four_corners": {
+      "establishment": "The Canal Revenue Bailiffs - Patrol skiffs armed with lanterns and pole-axes. They demand proof of origin for all cargo, searching marsh barges for contraband saltpeter and tax-evading flour.",
+      "opponent": "The Moss-Strangler Marauders - Swamp outlaws who know every false branch of the canal. They stretch weighted iron chains across the water at neck-height to sweep pilots from punts.",
+      "shadow": "The Peat-Smuggler Cartels - Merchant syndicates using the canal to bypass coastal harbor customs, hiding barrels of fine silver ingots beneath pungent loads of wet peat moss.",
+      "outcast": "The Mud-Wader Families - Indigenous wetland folk dwelling in stilt huts among the roots. They pilot pole-punts with uncanny silence and trade rare bog antidotes for dry salt."
+    },
+    "output_dial": {
+      "level_1": "Silent Pole Drift - Flat punt-boats glide beneath hanging curtains of silver moss; water snakes slip quietly into dark pools (Light Tier).",
+      "level_2": "Tangled Canopy Labyrinth - Canal branches into identical cypress bayous; mist obscures navigation markers; DC 13 Survival check (Moderate Tier).",
+      "level_3": "Leech-Sough Inundation - Canal locks fail; stagnant marsh fumes induce fever; carnivorous bog eels assault poling craft (Severe Tier, DC 16 Con / 4d10 poison).",
+      "level_4": "Sinking Bog Morass - Peat bed collapses into subterranean sinkhole; whole canal vanishes into dark underground drainage vortex (Lethal Tier / 8d12)."
+    },
+    "threat_clocks": [
+      "Swamp Rot Miasma Clock [4 Ticks] - Stagnant water vapor infects open wounds and causes hallucinatory delirium.",
+      "Iron-Wood Deadfall Clock [4 Ticks] - Sunken cypress logs tear bottoms from wooden hulls."
+    ],
+    "dials": [
+      "Level 1: Silent Pole Drift - Flat punt-boats glide beneath hanging curtains of silver moss; water snakes slip quietly into dark pools (Light Tier).",
+      "Level 2: Tangled Canopy Labyrinth - Canal branches into identical cypress bayous; mist obscures navigation markers; DC 13 Survival check (Moderate Tier).",
+      "Level 3: Leech-Sough Inundation - Canal locks fail; stagnant marsh fumes induce fever; carnivorous bog eels assault poling craft (Severe Tier, DC 16 Con / 4d10 poison).",
+      "Level 4: Sinking Bog Morass - Peat bed collapses into subterranean sinkhole; whole canal vanishes into dark underground drainage vortex (Lethal Tier / 8d12)."
+    ],
+    "overview": "Stealth Waterways, Medicinal Swamp Herbs, Peat Fuel Bricks",
+    "mechanical_architecture": "A half-submerged artificial canal system excavated through centuries of peat bogs and cypress wetlands. Draped in trailing curtains of silver weeping moss and dense willow canopies, the canal is completely invisible from the air and surrounding ridgelines, providing a covert water transit corridor linking outer lowlands directly to independent river syndicates. * The Drowned Towpaths: Stone masonry paths submerged twelve inches beneath tea-colored marsh water, allowing mules wearing leather mud-shoes to haul barges without creating ripples. * The Sluice Camouflage Weirs: Hidden wicker and reed gates that hold just enough water to float shallow-draft punts while appearing to be impassable beaver dams to casual scouts. * The Willow Tunnels: Continuous arched canopy corridors where willow branches have been woven together overhead, blocking direct sunlight and muffling sound.",
+    "extraction_lore": "A half-submerged artificial canal system excavated through centuries of peat bogs and cypress wetlands. Draped in trailing curtains of silver weeping moss and dense willow canopies, the canal is completely invisible from the air and surrounding ridgelines, providing a covert water transit corridor linking outer lowlands directly to independent river syndicates. * The Drowned Towpaths: Stone masonry paths submerged twelve inches beneath tea-colored marsh water, allowing mules wearing leather mud-shoes to haul barges without creating ripples. * The Sluice Camouflage Weirs: Hidden wicker and reed gates that hold just enough water to float shallow-draft punts while appearing to be impassable beaver dams to casual scouts.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "miasma_fever",
+        "name": "Swamp Rot Miasma Clock",
+        "ticks": 4,
+        "trigger": "Stagnant water vapor infects open wounds and causes hallucinatory delirium.",
+        "raw": "Swamp Rot Miasma Clock [4 Ticks] - Stagnant water vapor infects open wounds and causes hallucinatory delirium."
+      },
+      {
+        "key": "submerged_snags",
+        "name": "Iron-Wood Deadfall Clock",
+        "ticks": 4,
+        "trigger": "Sunken cypress logs tear bottoms from wooden hulls.",
+        "raw": "Iron-Wood Deadfall Clock [4 Ticks] - Sunken cypress logs tear bottoms from wooden hulls."
+      }
+    ]
   },
   {
     "id": "CWT-024",
-    "title": "THE HIGH SIERRA SWITCHBACK CARAVAN TRAIL",
-    "set": "Core Modules",
-    "tier": "Tier 2",
+    "title": "The High Sierra Switchback Caravan Trail",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
     "pipeline_tier": 2,
-    "culture": "Universal",
-    "color": "Colorless",
-    "provides": [],
+    "culture": "Hierarchy / Clan",
+    "color": "Red / White",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": "Produce / Deliver",
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
+    "provides": [
+      "Transit: High-Alpine-Pass",
+      "Logistics: Pack-Mule-Caravan-Corridor"
+    ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "High Mountain Pack Transit, Alpine Lookout Posts, Mountain Wool Freight",
+    "yields": "High Mountain Pack Transit, Alpine Lookout Posts, Mountain Wool Freight",
     "path": "./modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md",
-    "standalone_fallback": "",
+    "file_url": "mods/scale_fluid_transit_corridors/modules/CWT-024_The_High_Sierra_Switchback_Caravan_Trail.md",
+    "standalone_fallback": "If rockslides breach the retaining walls, caravans must unburden draft animals, portaging supplies bag by bag across loose shale scree with a high risk of lethal falls.",
     "chain_id": null,
     "chain_stage": null,
-    "chain_role": null
+    "chain_role": null,
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Gradual Ascent - Sturdy dry-stone switchbacks; mule trains climb steadily past pine line; 8 hours of clear transit (Light Tier).",
+        "level_2": "Scree Tremor - Loose gravel slides across the narrow track; pack mules panic near 1,000-foot drop; DC 13 Animal Handling (Moderate Tier).",
+        "level_3": "Granite Rockfall - Mountain tremors trigger bowling boulder slides; retaining walls crumble into gorge (Severe Tier, DC 16 Dex / 4d10 bludgeoning).",
+        "level_4": "Saddle Ridge Avalanche - Massive snow and slab failure sweeps entire caravan string into the abyss; pass blocked until spring (Lethal Tier / 8d12)."
+      },
+      "threat_clocks": {
+        "wall_wear": "Retaining Wall Crumble Clock [4 Ticks] - Spring frost heave weakens dry-stone masonry buttresses.",
+        "scree_slide": "Shale Scree Slip Clock [4 Ticks] - Heavy wagon traffic grinds roadbed into slick sliding dust."
+      },
+      "yields_resource": "High Mountain Pack Transit, Alpine Lookout Posts, Mountain Wool Freight"
+    },
+    "four_corners": {
+      "establishment": "The High Road Warden Order - Mountain rangers sworn to maintain the road and clear snowdrifts. They demand strict wheel-width compliance and collect road-repair taxes from passing wool merchants.",
+      "opponent": "The Sierra Crag Raiders - Highland goat-herders and bowmen who strike from inaccessible ledges above, rolling rounded granite boulders down onto rich baggage trains.",
+      "shadow": "The Camelid Freight Monopoly - Wealthy caravan masters who intentionally block switchback turnaround points with broken carts to delay competing merchants from reaching market first.",
+      "outcast": "The Stone-Masonry Penitents - Disgraced convicts serving life sentences rebuilding retaining walls in biting winds, trading cold spring water for salt and tobacco."
+    },
+    "output_dial": {
+      "level_1": "Gradual Ascent - Sturdy dry-stone switchbacks; mule trains climb steadily past pine line; 8 hours of clear transit (Light Tier).",
+      "level_2": "Scree Tremor - Loose gravel slides across the narrow track; pack mules panic near 1,000-foot drop; DC 13 Animal Handling (Moderate Tier).",
+      "level_3": "Granite Rockfall - Mountain tremors trigger bowling boulder slides; retaining walls crumble into gorge (Severe Tier, DC 16 Dex / 4d10 bludgeoning).",
+      "level_4": "Saddle Ridge Avalanche - Massive snow and slab failure sweeps entire caravan string into the abyss; pass blocked until spring (Lethal Tier / 8d12)."
+    },
+    "threat_clocks": [
+      "Retaining Wall Crumble Clock [4 Ticks] - Spring frost heave weakens dry-stone masonry buttresses.",
+      "Shale Scree Slip Clock [4 Ticks] - Heavy wagon traffic grinds roadbed into slick sliding dust."
+    ],
+    "dials": [
+      "Level 1: Gradual Ascent - Sturdy dry-stone switchbacks; mule trains climb steadily past pine line; 8 hours of clear transit (Light Tier).",
+      "Level 2: Scree Tremor - Loose gravel slides across the narrow track; pack mules panic near 1,000-foot drop; DC 13 Animal Handling (Moderate Tier).",
+      "Level 3: Granite Rockfall - Mountain tremors trigger bowling boulder slides; retaining walls crumble into gorge (Severe Tier, DC 16 Dex / 4d10 bludgeoning).",
+      "Level 4: Saddle Ridge Avalanche - Massive snow and slab failure sweeps entire caravan string into the abyss; pass blocked until spring (Lethal Tier / 8d12)."
+    ],
+    "overview": "High Mountain Pack Transit, Alpine Lookout Posts, Mountain Wool Freight",
+    "mechanical_architecture": "Carved with cold chisels and black powder out of a sheer four-thousand-foot granite escarpment, this historic military and merchant caravan road zigzags up twenty-seven engineered switchbacks. Supported by massive dry-stacked cyclopean retaining walls, the road is wide enough for two laden pack mules or a narrow ox wagon to pass. * The Turnaround Benches: Wide semi-circular stone platforms at each switchback corner, fortified with iron tie-rings and water troughs fed by melted snow flumes. * The Rock-Shed Gallerias: Timber and slate roofs sloped at steep angles against the mountain wall, deflecting falling stones safely over the heads of passing travelers. * The High Saddle Gate: A fortified gateway built at the pass summit, housing a small garrison, toll hearth, and signal beacon tower overlooking both sides of the range.",
+    "extraction_lore": "Carved with cold chisels and black powder out of a sheer four-thousand-foot granite escarpment, this historic military and merchant caravan road zigzags up twenty-seven engineered switchbacks. Supported by massive dry-stacked cyclopean retaining walls, the road is wide enough for two laden pack mules or a narrow ox wagon to pass. * The Turnaround Benches: Wide semi-circular stone platforms at each switchback corner, fortified with iron tie-rings and water troughs fed by melted snow flumes. * The Rock-Shed Gallerias: Timber and slate roofs sloped at steep angles against the mountain wall, deflecting falling stones safely over the heads of passing travelers.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "wall_wear",
+        "name": "Retaining Wall Crumble Clock",
+        "ticks": 4,
+        "trigger": "Spring frost heave weakens dry-stone masonry buttresses.",
+        "raw": "Retaining Wall Crumble Clock [4 Ticks] - Spring frost heave weakens dry-stone masonry buttresses."
+      },
+      {
+        "key": "scree_slide",
+        "name": "Shale Scree Slip Clock",
+        "ticks": 4,
+        "trigger": "Heavy wagon traffic grinds roadbed into slick sliding dust.",
+        "raw": "Shale Scree Slip Clock [4 Ticks] - Heavy wagon traffic grinds roadbed into slick sliding dust."
+      }
+    ]
   },
   {
     "id": "CWT-025",
-    "title": "THE VOLCANIC BASALT CAUSEWAY & SULFUR FORDS",
-    "set": "Core Modules",
-    "tier": "Tier 2",
+    "title": "The Volcanic Basalt Causeway & Sulfur Fords",
+    "set": "Wave 2 Transit Corridors (Tier 2)",
+    "tier": "Tier 2 (Topological & Biome Anchor / Edge Corridor)",
     "pipeline_tier": 2,
-    "culture": "Universal",
-    "color": "Colorless",
-    "provides": [],
+    "culture": "Market / Adhocracy",
+    "color": "Black / Red",
+    "kind": null,
+    "ip": null,
+    "category": null,
+    "operational_profile": "Produce / Deliver",
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": null,
+    "provides": [
+      "Transit: Volcanic-Causeway-Crossing",
+      "Chem: Raw-Sulfur-Harvest"
+    ],
     "requires": [],
-    "summary": "",
-    "yields": "",
+    "summary": "High-Temperature Volcanic Transit, Industrial Sulfur Crust, Pumice Stone",
+    "yields": "High-Temperature Volcanic Transit, Industrial Sulfur Crust, Pumice Stone",
     "path": "./modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md",
-    "standalone_fallback": "",
+    "file_url": "mods/scale_fluid_transit_corridors/modules/CWT-025_The_Volcanic_Basalt_Causeway_and_Sulfur_Fords.md",
+    "standalone_fallback": "If steam vents fracture the basalt causeway, crossings can only be attempted by hopping across unstable crust islands, risking immersion in boiling acid sludge.",
     "chain_id": null,
     "chain_stage": null,
-    "chain_role": null
+    "chain_role": null,
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Sulfur Haze - Acrid yellow smoke stings eyes; boots grow hot on black basalt pavers; 2-hour cautious crossing (Light Tier).",
+        "level_2": "Pressurized Steam Fumaroles - Intermittent geysers blast super-heated mineral mist across the path; DC 13 Dex to avoid steam scalds (Moderate Tier).",
+        "level_3": "Basalt Crust Fractures - Molten magma oozes through cracks; sulfuric gas clouds suffocate unmasked travelers (Severe Tier, DC 16 Con / 4d10 fire/acid).",
+        "level_4": "Caldera Phreatic Eruption - Boiling acid lake surges over the causeway; basalt bridge shatters under seismic blast (Lethal Tier / 8d12)."
+      },
+      "threat_clocks": {
+        "crust_subsidence": "Basalt Crust Subsidence Clock [4 Ticks] - Magma chamber pressure melts foundation pillars.",
+        "toxic_gas_pocket": "Lethal Hydrogen-Sulfide Pocket Clock [4 Ticks] - Heavy odorless gas pools in low-lying causeway dips."
+      },
+      "yields_resource": "High-Temperature Volcanic Transit, Industrial Sulfur Crust, Pumice Stone"
+    },
+    "four_corners": {
+      "establishment": "The Caldera Transit Company & Sulfur Guild - Tough, ash-covered engineers who inspect shoe soles and sell vinegar-soaked breath masks. They charge heavy tolls in exchange for guided transit between geyser cycles.",
+      "opponent": "The Fire-Born Zealots - Hermits who worship the subterranean magma pulse. They wedge timber logs into the vent-chimneys to build up pressure and explode causeway sections beneath foreign invaders.",
+      "shadow": "The Black-Powder Chemical Syndicate - Greedy arms merchants who force indentured laborers to harvest sulfur inside boiling fumaroles without breathing masks to maximize explosive yields.",
+      "outcast": "The Ash-Stalker Smugglers - Outcasts wearing thick cork-soled boots and leather respirators. They know the safe wading shallows across the boiling acid flats when the main causeway is closed by guards."
+    },
+    "output_dial": {
+      "level_1": "Sulfur Haze - Acrid yellow smoke stings eyes; boots grow hot on black basalt pavers; 2-hour cautious crossing (Light Tier).",
+      "level_2": "Pressurized Steam Fumaroles - Intermittent geysers blast super-heated mineral mist across the path; DC 13 Dex to avoid steam scalds (Moderate Tier).",
+      "level_3": "Basalt Crust Fractures - Molten magma oozes through cracks; sulfuric gas clouds suffocate unmasked travelers (Severe Tier, DC 16 Con / 4d10 fire/acid).",
+      "level_4": "Caldera Phreatic Eruption - Boiling acid lake surges over the causeway; basalt bridge shatters under seismic blast (Lethal Tier / 8d12)."
+    },
+    "threat_clocks": [
+      "Basalt Crust Subsidence Clock [4 Ticks] - Magma chamber pressure melts foundation pillars.",
+      "Lethal Hydrogen-Sulfide Pocket Clock [4 Ticks] - Heavy odorless gas pools in low-lying causeway dips."
+    ],
+    "dials": [
+      "Level 1: Sulfur Haze - Acrid yellow smoke stings eyes; boots grow hot on black basalt pavers; 2-hour cautious crossing (Light Tier).",
+      "Level 2: Pressurized Steam Fumaroles - Intermittent geysers blast super-heated mineral mist across the path; DC 13 Dex to avoid steam scalds (Moderate Tier).",
+      "Level 3: Basalt Crust Fractures - Molten magma oozes through cracks; sulfuric gas clouds suffocate unmasked travelers (Severe Tier, DC 16 Con / 4d10 fire/acid).",
+      "Level 4: Caldera Phreatic Eruption - Boiling acid lake surges over the causeway; basalt bridge shatters under seismic blast (Lethal Tier / 8d12)."
+    ],
+    "overview": "High-Temperature Volcanic Transit, Industrial Sulfur Crust, Pumice Stone",
+    "mechanical_architecture": "An ancient, natural hexagonal columnar basalt formation paved over with iron slag and volcanic mortar. The causeway stretches three miles directly across a steaming caldera basin and a boiling turquoise sulfur lake, cutting through an otherwise impassable ring of smoking volcanic craters. * The Hexagonal Roadbed: Columns of basalt packed tight as giant cobblestones, naturally resisting high geothermal temperatures while radiating intense ground heat. * The Vent-Chimney Pylons: Iron pipes driven deep into fissures along the causeway edge, venting pressurized steam safely eighty feet above the roadway to prevent roadbed explosions. * The Sulfur Scrape Stations: Fortified huts equipped with long scrapers and zinc buckets where miners harvest pure yellow sulfur crust cooling along the water's edge.",
+    "extraction_lore": "An ancient, natural hexagonal columnar basalt formation paved over with iron slag and volcanic mortar. The causeway stretches three miles directly across a steaming caldera basin and a boiling turquoise sulfur lake, cutting through an otherwise impassable ring of smoking volcanic craters. * The Hexagonal Roadbed: Columns of basalt packed tight as giant cobblestones, naturally resisting high geothermal temperatures while radiating intense ground heat. * The Vent-Chimney Pylons: Iron pipes driven deep into fissures along the causeway edge, venting pressurized steam safely eighty feet above the roadway to prevent roadbed explosions.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": "crust_subsidence",
+        "name": "Basalt Crust Subsidence Clock",
+        "ticks": 4,
+        "trigger": "Magma chamber pressure melts foundation pillars.",
+        "raw": "Basalt Crust Subsidence Clock [4 Ticks] - Magma chamber pressure melts foundation pillars."
+      },
+      {
+        "key": "toxic_gas_pocket",
+        "name": "Lethal Hydrogen-Sulfide Pocket Clock",
+        "ticks": 4,
+        "trigger": "Heavy odorless gas pools in low-lying causeway dips.",
+        "raw": "Lethal Hydrogen-Sulfide Pocket Clock [4 Ticks] - Heavy odorless gas pools in low-lying causeway dips."
+      }
+    ]
   }
 ]

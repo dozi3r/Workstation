@@ -23,7 +23,29 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "faction",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "reach": "High",
+      "force": "High",
+      "wealth": "Low",
+      "secrecy": "Low"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_PILGRIM_PARTY.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Reach the scriptures. The party answers to a Buddhist decree, not to local lords, and the master will not take another road.",
+    "mechanical_architecture": "- Symbols: Palm-Leaf Fan carried on a shoulder; Muckrake; Golden-hooped rod - Ranks: Master; Eldest disciple; Second disciple; Third disciple - Allies: Little Sumeru Temple; Heavenly Enforcement Host - Rivals: Palm-Leaf Cave Household; Hoard-Thunder Court - Doctrine taboos: Never turn away from the West; Wukong's kinship bonds restrain him from killing kin - Headquarters: The Fire-Line Camp (a roadside halt)",
+    "extraction_lore": "- Symbols: Palm-Leaf Fan carried on a shoulder; Muckrake; Golden-hooped rod - Ranks: Master; Eldest disciple; Second disciple; Third disciple - Allies: Little Sumeru Temple; Heavenly Enforcement Host - Rivals: Palm-Leaf Cave Household; Hoard-Thunder Court - Doctrine taboos: Never turn away from the West; Wukong's kinship bonds restrain him from killing kin - Headquarters: The Fire-Line Camp (a roadside halt) Fallback: Use the party as a small sanctioned expedition (a leader, a fighter, a muscle-and-appetite companion, a quiet guard) that must cross one impassable barrier before the story can move on.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_FAC_FLAME_HOUSEHOLDS",
@@ -49,7 +71,29 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "faction",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "reach": "Low",
+      "force": "Low",
+      "wealth": "Low",
+      "secrecy": "Low"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_FLAME_HOUSEHOLDS.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Keep the fan's rain and the fire at bay; every season is hot, and every harvest is borrowed.",
+    "mechanical_architecture": "- Symbols: Red brick and red tile; Rice-pudding cart - Ranks: Householder; Peddler - Allies: Local Spirit Office; Pilgrim Party - Doctrine taboos: Never approach the keeper without gifts; Wash before the pilgrimage - Headquarters: The Red-Brick Village",
+    "extraction_lore": "- Symbols: Red brick and red tile; Rice-pudding cart - Ranks: Householder; Peddler - Allies: Local Spirit Office; Pilgrim Party - Doctrine taboos: Never approach the keeper without gifts; Wash before the pilgrimage - Headquarters: The Red-Brick Village Fallback: Use the households as any farming community whose harvest depends on a ritual tribute to a powerful outsider and who will pay a stranger to break the dependency.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_FAC_PALM_LEAF_HOUSEHOLD",
@@ -75,7 +119,29 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "faction",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "reach": "High",
+      "force": "Medium",
+      "wealth": "Medium",
+      "secrecy": "Medium"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_PALM_LEAF_HOUSEHOLD.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Hold her cultivation and her fan; avenge Red Boy; keep a husband who is rarely home.",
+    "mechanical_architecture": "- Symbols: Palm-leaf fan; Two blue swords - Ranks: Princess; Maid - Rivals: Hoard-Thunder Court; Pilgrim Party - Doctrine taboos: No man inside the household; A treasure is not lent lightly - Headquarters: The Palm-Leaf Cave Hall",
+    "extraction_lore": "- Symbols: Palm-leaf fan; Two blue swords - Ranks: Princess; Maid - Rivals: Hoard-Thunder Court; Pilgrim Party - Doctrine taboos: No man inside the household; A treasure is not lent lightly - Headquarters: The Palm-Leaf Cave Hall Fallback: Use the household as an isolated sorceress with a world-altering tool, an old grudge and a husband who left her; she negotiates only from strength.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_FAC_HOARD_THUNDER_COURT",
@@ -101,7 +167,29 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "faction",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "reach": "Medium",
+      "force": "High",
+      "wealth": "High",
+      "secrecy": "Low"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_HOARD_THUNDER_COURT.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Keep the fortune and the husband; enjoy the library and the banquets; take revenge for the son.",
+    "mechanical_architecture": "- Symbols: Golden-eyed beast; Cast-iron rod - Ranks: Demon King; Princess; Guard Captain; Beast-spirits - Allies: Green Wave Lagoon Court - Rivals: Palm-Leaf Cave Household; Heavenly Enforcement Host; Pilgrim Party - Doctrine taboos: Never slight a friend's wife or concubine - Headquarters: The Cloud-Touching Cave",
+    "extraction_lore": "- Symbols: Golden-eyed beast; Cast-iron rod - Ranks: Demon King; Princess; Guard Captain; Beast-spirits - Allies: Green Wave Lagoon Court - Rivals: Palm-Leaf Cave Household; Heavenly Enforcement Host; Pilgrim Party - Doctrine taboos: Never slight a friend's wife or concubine - Headquarters: The Cloud-Touching Cave Fallback: Use the court as a wealthy bandit-lord's seat whose strength depends on one man's reputation and whose weakness is a divided home.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_FAC_GREEN_WAVE_COURT",
@@ -127,7 +215,29 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "faction",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "reach": "Medium",
+      "force": "Medium",
+      "wealth": "High",
+      "secrecy": "Low"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_GREEN_WAVE_COURT.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Host; be seen; avoid quarrels that reach the hall.",
+    "mechanical_architecture": "- Symbols: Pearl light; Banquet music - Ranks: Old Dragon King; Dragon sons; Attendants - Allies: Hoard-Thunder Court - Doctrine taboos: A guest must follow etiquette; The sentence for a breach is flogging - Headquarters: The Green Wave Dragon Palace",
+    "extraction_lore": "- Symbols: Pearl light; Banquet music - Ranks: Old Dragon King; Dragon sons; Attendants - Allies: Hoard-Thunder Court - Doctrine taboos: A guest must follow etiquette; The sentence for a breach is flogging - Headquarters: The Green Wave Dragon Palace Fallback: Use the court as a neutral hall where rival lords meet to drink; entering in disguise costs only a poem, being unmasked costs the host his dignity.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_FAC_HEAVENLY_HOST",
@@ -153,7 +263,29 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "faction",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "reach": "High",
+      "force": "High",
+      "wealth": "Medium",
+      "secrecy": "Medium"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_HEAVENLY_HOST.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Defend the journey and the decree; arrest the Bull King and lead him to the Buddha.",
+    "mechanical_architecture": "- Symbols: Cosmic nets; Imp-reflecting mirror; Fiery wheel - Ranks: Devaraja; Prince; Diamond Guardian; Gods of Darkness and Light - Allies: Pilgrim Party; Little Sumeru Temple - Rivals: Hoard-Thunder Court; Palm-Leaf Cave Household - Doctrine taboos: No god may withhold protection from the scripture journey - Headquarters: Jade Cloud Mountain (while deployed)",
+    "extraction_lore": "- Symbols: Cosmic nets; Imp-reflecting mirror; Fiery wheel - Ranks: Devaraja; Prince; Diamond Guardian; Gods of Darkness and Light - Allies: Pilgrim Party; Little Sumeru Temple - Rivals: Hoard-Thunder Court; Palm-Leaf Cave Household - Doctrine taboos: No god may withhold protection from the scripture journey - Headquarters: Jade Cloud Mountain (while deployed) Fallback: Use the host as a distant imperial enforcement arm that intervenes only after a formal petition and always arrives in overwhelming strength.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_FAC_LITTLE_SUMERU",
@@ -178,7 +310,29 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "faction",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "reach": "Medium",
+      "force": "Medium",
+      "wealth": "Low",
+      "secrecy": "Low"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Factions/MOD_JTTW_FAC_LITTLE_SUMERU.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Serve Tathagata's order by lending the right tool at the right time.",
+    "mechanical_architecture": "- Symbols: Bells; Staff - Ranks: Bodhisattva; Gate worker - Allies: Pilgrim Party; Heavenly Enforcement Host - Doctrine taboos: Items are held for the journey - Headquarters: Little Sumeru Mountain",
+    "extraction_lore": "- Symbols: Bells; Staff - Ranks: Bodhisattva; Gate worker - Allies: Pilgrim Party; Heavenly Enforcement Host - Doctrine taboos: Items are held for the journey - Headquarters: Little Sumeru Mountain Fallback: Use the temple as a one-scene boon-giver: a patient hierarch with an exact counter-item, a short audience and no time to entertain.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_ABI_PALM_LEAF_FAN",
@@ -204,7 +358,28 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "ability",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "potency": "High",
+      "range": "High",
+      "cost": "Medium"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_PALM_LEAF_FAN.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Wave one: fire out. Wave two: breeze. Wave three: rain on the burnt area only. At a creature: drift of 84,000 li. Forty-nine waves end the fire for good.",
+    "mechanical_architecture": "Wave one: fire out. Wave two: breeze. Wave three: rain on the burnt area only. At a creature: drift of 84,000 li. Forty-nine waves end the fire for good.",
+    "extraction_lore": "Wave one: fire out. Wave two: breeze. Wave three: rain on the burnt area only. At a creature: drift of 84,000 li. Forty-nine waves end the fire for good. Fallback: Use as a macro-scale tool item: three waves for three effects, an enlarge-only command that must be paired with a separate shrink secret, and a hundred-wave variant for permanent effects.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_ABI_SHAPE_CHANGING_CONTEST",
@@ -229,7 +404,28 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "ability",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "potency": "High",
+      "range": "Medium",
+      "cost": "Low"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_SHAPE_CHANGING_CONTEST.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Swan, vulture, eagle, phoenix, crane, deer, tiger, leopard, lion, bear, elephant, then bull and giant: each form beats or evades the last.",
+    "mechanical_architecture": "Swan, vulture, eagle, phoenix, crane, deer, tiger, leopard, lion, bear, elephant, then bull and giant: each form beats or evades the last.",
+    "extraction_lore": "Swan, vulture, eagle, phoenix, crane, deer, tiger, leopard, lion, bear, elephant, then bull and giant: each form beats or evades the last. Fallback: Use as a duel minigame: each round, the pursuer picks a form that beats the fugitive's last form; the fugitive escapes only by changing to something larger or by reverting.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_ABI_WIND_ARRESTING_ELIXIR",
@@ -253,7 +449,28 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "ability",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "potency": "High",
+      "range": "Low",
+      "cost": "Medium"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_WIND_ARRESTING_ELIXIR.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Makes viscera firm and bones fortified; any wind from the fan fails to move the carrier.",
+    "mechanical_architecture": "Makes viscera firm and bones fortified; any wind from the fan fails to move the carrier.",
+    "extraction_lore": "Makes viscera firm and bones fortified; any wind from the fan fails to move the carrier. Fallback: Use as a one-use counter-item that nullifies the biggest wind or force effect in the scene and has an unnoticed ongoing effect.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_ABI_THREE_HEADS_SIX_ARMS",
@@ -277,7 +494,28 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "ability",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": null,
+    "tarot_affinity": null,
+    "bands": {
+      "potency": "High",
+      "range": "Medium",
+      "cost": "Low"
+    },
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Abilities/MOD_JTTW_ABI_THREE_HEADS_SIX_ARMS.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": null,
+    "four_corners": null,
+    "output_dial": null,
+    "threat_clocks": [],
+    "dials": [],
+    "overview": "Three heads and six arms; the sword beheads, the wheel burns, the mirror pins, the rope leads.",
+    "mechanical_architecture": "Three heads and six arms; the sword beheads, the wheel burns, the mirror pins, the rope leads.",
+    "extraction_lore": "Three heads and six arms; the sword beheads, the wheel burns, the mirror pins, the rope leads. Fallback: Use as a staged capture procedure with four steps (cut, burn, mirror-pin, rope) and a clean surrender at the end.",
+    "threat_clock_specs": []
   },
   {
     "id": "MOD_JTTW_SIT_DECENNIAL_TRIBUTE",
@@ -302,7 +540,65 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "situation",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": "candidate",
+    "tarot_affinity": null,
+    "bands": null,
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_DECENNIAL_TRIBUTE.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "The compact holds; the pilgrims are a curiosity.",
+        "level_2": "The households ask the pilgrims to carry a gift to the keeper.",
+        "level_3": "The households blame the pilgrims for provoking the keeper.",
+        "level_4": "The compact breaks; the villagers march on Jade Cloud Mountain."
+      },
+      "threat_clocks": [
+        {
+          "name": "The Fire's Return",
+          "ticks": 8,
+          "advances_when": "A harvest month passes after a one-wave quench or the fan is withheld."
+        }
+      ],
+      "yields_resource": "Authority: Ritual Compact (rain rights and the right to ask for an audience)"
+    },
+    "four_corners": {
+      "establishment": "The Old Householder - The compact works if everyone follows it. Leverage: He controls hospitality and local lore. Blind spot: He has never seen the fan's keeper.",
+      "opponent": "The Fire - Nothing grows here; it is natural. Leverage: The whole region. Blind spot: A fan can quench it.",
+      "shadow": "The Peddler - Sell now; ask later. Leverage: Knows the flour source. Blind spot: Depends on the same rain.",
+      "outcast": "The Local Spirit - The fire is his punishment and his duty. Leverage: Knows the origin. Blind spot: In exile, needs a pardon."
+    },
+    "output_dial": {
+      "level_1": "The compact holds; the pilgrims are a curiosity.",
+      "level_2": "The households ask the pilgrims to carry a gift to the keeper.",
+      "level_3": "The households blame the pilgrims for provoking the keeper.",
+      "level_4": "The compact breaks; the villagers march on Jade Cloud Mountain."
+    },
+    "threat_clocks": [
+      "The Fire's Return Clock [8 Ticks] - Advances when: A harvest month passes after a one-wave quench or the fan is withheld."
+    ],
+    "dials": [
+      "Level 1: The compact holds; the pilgrims are a curiosity.",
+      "Level 2: The households ask the pilgrims to carry a gift to the keeper.",
+      "Level 3: The households blame the pilgrims for provoking the keeper.",
+      "Level 4: The compact breaks; the villagers march on Jade Cloud Mountain."
+    ],
+    "overview": "Dependence on a hidden power leads to ritual; ritual leads to resentment; resentment leads to a bargain with an outsider.",
+    "mechanical_architecture": "Dependence on a hidden power leads to ritual; ritual leads to resentment; resentment leads to a bargain with an outsider.",
+    "extraction_lore": "Start here: it explains the fan, the fire and the cost of both. It pairs with the Fan-Rain Grain Chain and the Fire's Return clock. Fallback: Use as a village's ritual dependence on a hidden benefactor: the gift list is fixed, the benefactor never appears, and any stranger who offers a shortcut disturbs the compact.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": null,
+        "name": "The Fire's Return",
+        "ticks": 8,
+        "trigger": "A harvest month passes after a one-wave quench or the fan is withheld.",
+        "raw": "The Fire's Return Clock [8 Ticks] - Advances when: A harvest month passes after a one-wave quench or the fan is withheld."
+      }
+    ]
   },
   {
     "id": "MOD_JTTW_SIT_MOUNTAIN_OF_FLAMES",
@@ -326,7 +622,65 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "situation",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": "never",
+    "tarot_affinity": null,
+    "bands": null,
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_MOUNTAIN_OF_FLAMES.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "The camp is hot but safe.",
+        "level_2": "Boots scorch and the horse refuses.",
+        "level_3": "The fire climbs; the camp must retreat.",
+        "level_4": "The fire fills the road; only a god's decree opens it."
+      },
+      "threat_clocks": [
+        {
+          "name": "The Mountain's Heat",
+          "ticks": 8,
+          "advances_when": "The party fans with the false fan, enters unprotected or idles at camp."
+        }
+      ],
+      "yields_resource": "Ecology: A passable road once the fire is quenched forty-nine times"
+    },
+    "four_corners": {
+      "establishment": "Laozi's Brazier (origin - ):* Order is a furnace. Leverage: The mountain's exile office. Blind spot:* A careless attendant.",
+      "opponent": "The Flames - Fire grows when fanned by the false. Leverage: A hundredfold in one wave. Blind spot: Quenched by the true fan.",
+      "shadow": "Sha Monk's Dilemma - Where there are scriptures there is fire. Leverage: Truth. Blind spot: No solution offered.",
+      "outcast": "The Local Spirit - Serve and wait for a pardon. Leverage: Ghost soldiers. Blind spot: Cannot leave."
+    },
+    "output_dial": {
+      "level_1": "The camp is hot but safe.",
+      "level_2": "Boots scorch and the horse refuses.",
+      "level_3": "The fire climbs; the camp must retreat.",
+      "level_4": "The fire fills the road; only a god's decree opens it."
+    },
+    "threat_clocks": [
+      "The Mountain's Heat Clock [8 Ticks] - Advances when: The party fans with the false fan, enters unprotected or idles at camp."
+    ],
+    "dials": [
+      "Level 1: The camp is hot but safe.",
+      "Level 2: Boots scorch and the horse refuses.",
+      "Level 3: The fire climbs; the camp must retreat.",
+      "Level 4: The fire fills the road; only a god's decree opens it."
+    ],
+    "overview": "A cosmic accident created the barrier; the barrier forces the journey to ask the powers it avoided.",
+    "mechanical_architecture": "A cosmic accident created the barrier; the barrier forces the journey to ask the powers it avoided.",
+    "extraction_lore": "The central obstacle. It links to the Fire's Return and Heat clocks and the Palm-Leaf Fan ability. Fallback: Use as a fire-wall barrier on a road: scorching ground, no grass for miles, and a counter that must be fetched from two or three powers.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": null,
+        "name": "The Mountain's Heat",
+        "ticks": 8,
+        "trigger": "The party fans with the false fan, enters unprotected or idles at camp.",
+        "raw": "The Mountain's Heat Clock [8 Ticks] - Advances when: The party fans with the false fan, enters unprotected or idles at camp."
+      }
+    ]
   },
   {
     "id": "MOD_JTTW_SIT_FAN_RAIN_GRAIN_CHAIN",
@@ -351,7 +705,65 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "situation",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": "never",
+    "tarot_affinity": null,
+    "bands": null,
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_FAN_RAIN_GRAIN_CHAIN.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "Rain comes yearly; the chain holds.",
+        "level_2": "Rain comes late; puddings cost double.",
+        "level_3": "One wave, one harvest, then fire again.",
+        "level_4": "Forty-nine waves; a permanent harvest but no keeper."
+      },
+      "threat_clocks": [
+        {
+          "name": "The Fire's Return",
+          "ticks": 8,
+          "advances_when": "A harvest month passes after the last wave."
+        }
+      ],
+      "yields_resource": "Material: Rice Flour and Millet (via a quenched fire and a returned fan)"
+    },
+    "four_corners": {
+      "establishment": "Rakshasi - The fan is not lent lightly. Leverage: Sole owner. Blind spot: Lonely and drunk.",
+      "opponent": "The Bull King - He can shrink what he is not given. Leverage: Knows the shrink formula. Blind spot: Torn between two wives.",
+      "shadow": "Wukong with the False Fan - Borrowing is not owning. Leverage: Trickery. Blind spot: Forgets to ask the whole procedure.",
+      "outcast": "The Peddler - Rain is rice. Leverage: Local trade. Blind spot: Powerless."
+    },
+    "output_dial": {
+      "level_1": "Rain comes yearly; the chain holds.",
+      "level_2": "Rain comes late; puddings cost double.",
+      "level_3": "One wave, one harvest, then fire again.",
+      "level_4": "Forty-nine waves; a permanent harvest but no keeper."
+    },
+    "threat_clocks": [
+      "The Fire's Return Clock [8 Ticks] - Advances when: A harvest month passes after the last wave."
+    ],
+    "dials": [
+      "Level 1: Rain comes yearly; the chain holds.",
+      "Level 2: Rain comes late; puddings cost double.",
+      "Level 3: One wave, one harvest, then fire again.",
+      "Level 4: Forty-nine waves; a permanent harvest but no keeper."
+    ],
+    "overview": "A single owner of the key resource shapes every price and every season downstream.",
+    "mechanical_architecture": "A single owner of the key resource shapes every price and every season downstream.",
+    "extraction_lore": "Use it when the PCs consider keeping the fan: it shows what the region loses. Fallback: Use as a supply chain with a single upstream owner: weather, grain, food, trade; stop the owner and everyone downstream suffers.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": null,
+        "name": "The Fire's Return",
+        "ticks": 8,
+        "trigger": "A harvest month passes after the last wave.",
+        "raw": "The Fire's Return Clock [8 Ticks] - Advances when: A harvest month passes after the last wave."
+      }
+    ]
   },
   {
     "id": "MOD_JTTW_SIT_BORROWED_HUSBAND",
@@ -375,7 +787,78 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "situation",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": "candidate",
+    "tarot_affinity": null,
+    "bands": null,
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_BORROWED_HUSBAND.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "The husband visits both wives and the gossip stays quiet.",
+        "level_2": "A false husband appears and a treasure moves.",
+        "level_3": "The real husband finds the mount gone and races home.",
+        "level_4": "One wife is dead and the other is in tears; the fan is the only thing left."
+      },
+      "threat_clocks": [
+        {
+          "name": "Rakshasi's Grudge",
+          "ticks": 6,
+          "advances_when": "An insult to Rakshasi, an impersonation of her husband, or a refusal to bring Red Boy."
+        },
+        {
+          "name": "The Bull King's Pursuit",
+          "ticks": 6,
+          "advances_when": "An hour passes with the fan outside the party's hands."
+        }
+      ],
+      "yields_resource": "Climax: A true fan and a husband in pursuit"
+    },
+    "four_corners": {
+      "establishment": "The Bull King - A hero keeps both houses. Leverage: Strength. Blind spot: Vain; sloppy about weapons and mounts.",
+      "opponent": "Wukong - Borrow now, return later. Leverage: Disguise. Blind spot: Forgets the shrink formula.",
+      "shadow": "Rakshasi - A wife manages; a husband provides. Leverage: The fan. Blind spot: Drink.",
+      "outcast": "Jade Countenance - She bought protection and wants it kept. Leverage: A fortune. Blind spot: No kin."
+    },
+    "output_dial": {
+      "level_1": "The husband visits both wives and the gossip stays quiet.",
+      "level_2": "A false husband appears and a treasure moves.",
+      "level_3": "The real husband finds the mount gone and races home.",
+      "level_4": "One wife is dead and the other is in tears; the fan is the only thing left."
+    },
+    "threat_clocks": [
+      "Rakshasi's Grudge Clock [6 Ticks] - Advances when: An insult to Rakshasi, an impersonation of her husband, or a refusal to bring Red Boy.",
+      "The Bull King's Pursuit Clock [6 Ticks] - Advances when: An hour passes with the fan outside the party's hands."
+    ],
+    "dials": [
+      "Level 1: The husband visits both wives and the gossip stays quiet.",
+      "Level 2: A false husband appears and a treasure moves.",
+      "Level 3: The real husband finds the mount gone and races home.",
+      "Level 4: One wife is dead and the other is in tears; the fan is the only thing left."
+    ],
+    "overview": "Divided loyalty invites imitation; imitation invites betrayal; betrayal makes a lord lose more than a fan.",
+    "mechanical_architecture": "Divided loyalty invites imitation; imitation invites betrayal; betrayal makes a lord lose more than a fan.",
+    "extraction_lore": "Best placed after the first duel: the party now has a plan, the Bull King's mount and a reason to hurry. Fallback: Use as a two-household love triangle where the husband's absence is the weakness and a disguise unlocks the first wife's secret.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": null,
+        "name": "Rakshasi's Grudge",
+        "ticks": 6,
+        "trigger": "An insult to Rakshasi, an impersonation of her husband, or a refusal to bring Red Boy.",
+        "raw": "Rakshasi's Grudge Clock [6 Ticks] - Advances when: An insult to Rakshasi, an impersonation of her husband, or a refusal to bring Red Boy."
+      },
+      {
+        "key": null,
+        "name": "The Bull King's Pursuit",
+        "ticks": 6,
+        "trigger": "An hour passes with the fan outside the party's hands.",
+        "raw": "The Bull King's Pursuit Clock [6 Ticks] - Advances when: An hour passes with the fan outside the party's hands."
+      }
+    ]
   },
   {
     "id": "MOD_JTTW_SIT_NET_OF_HEAVEN_AND_EARTH",
@@ -400,6 +883,64 @@
     "chain_stage": null,
     "chain_role": null,
     "kind": "situation",
-    "ip": "JTTW"
+    "ip": "JTTW",
+    "category": null,
+    "operational_profile": null,
+    "hub_eligibility": "never",
+    "tarot_affinity": null,
+    "bands": null,
+    "file_url": "campaigns/jttw_5_flaming_mountains/modules/Situations/MOD_JTTW_SIT_NET_OF_HEAVEN_AND_EARTH.md",
+    "node_prerequisites": null,
+    "edge_prerequisites": null,
+    "injected_mechanics": {
+      "output_dial": {
+        "level_1": "A lone guardian blocks one road.",
+        "level_2": "Two quarters are closed.",
+        "level_3": "Four quarters are closed and the sky is blocked.",
+        "level_4": "The bull is roped and led to the Buddha; the fan is handed over."
+      },
+      "threat_clocks": [
+        {
+          "name": "The Net of Heaven and Earth",
+          "ticks": 4,
+          "advances_when": "A Diamond Guardian takes up a quarter."
+        }
+      ],
+      "yields_resource": "Climax: A captured bull and a surrendered fan"
+    },
+    "four_corners": {
+      "establishment": "Devaraja Li - A decree is a decree. Leverage: The mirror. Blind spot: Bound by orders.",
+      "opponent": "The Bull King - My hatred is deep. Leverage: Shape-changing. Blind spot: Cornered.",
+      "shadow": "Prince Nata - Cut it until it yields. Leverage: Many arms and a wheel. Blind spot: Impatient.",
+      "outcast": "Wukong - I wanted a fair duel. Leverage: The ending is his. Blind spot: The old brotherhood."
+    },
+    "output_dial": {
+      "level_1": "A lone guardian blocks one road.",
+      "level_2": "Two quarters are closed.",
+      "level_3": "Four quarters are closed and the sky is blocked.",
+      "level_4": "The bull is roped and led to the Buddha; the fan is handed over."
+    },
+    "threat_clocks": [
+      "The Net of Heaven and Earth Clock [4 Ticks] - Advances when: A Diamond Guardian takes up a quarter."
+    ],
+    "dials": [
+      "Level 1: A lone guardian blocks one road.",
+      "Level 2: Two quarters are closed.",
+      "Level 3: Four quarters are closed and the sky is blocked.",
+      "Level 4: The bull is roped and led to the Buddha; the fan is handed over."
+    ],
+    "overview": "The more powerful the fugitive, the more certain the net; the net needs a decree, and a decree needs a reason the gods cannot ignore.",
+    "mechanical_architecture": "The more powerful the fugitive, the more certain the net; the net needs a decree, and a decree needs a reason the gods cannot ignore.",
+    "extraction_lore": "Use it to end the arc. It rewards the PCs for earlier restraint and punishes a premature ending. Fallback: Use as a four-corners trap: each exit is held by a named guardian; the fugitive's only alternative is surrender.",
+    "output_dial_key": "output_dial",
+    "threat_clock_specs": [
+      {
+        "key": null,
+        "name": "The Net of Heaven and Earth",
+        "ticks": 4,
+        "trigger": "A Diamond Guardian takes up a quarter.",
+        "raw": "The Net of Heaven and Earth Clock [4 Ticks] - Advances when: A Diamond Guardian takes up a quarter."
+      }
+    ]
   }
 ]
