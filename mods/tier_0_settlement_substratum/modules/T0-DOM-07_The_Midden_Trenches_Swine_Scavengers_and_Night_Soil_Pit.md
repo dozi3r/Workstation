@@ -4,34 +4,62 @@ title: "The Midden Trenches, Swine Scavengers & Night-Soil Pit"
 pipeline_tier: 0
 target_set: "Set A"
 set: "Set A (Infrastructure & Engineering)"
+category: "Agriculture_and_Subsistence"
 tier: "Tier 0 (Baseline Settlement Substratum)"
-culture_quadrant: "Clan / Sanitation Commons"
+culture_quadrant: Clan
+operational_profile: Contain / Compost
 mtg_color: "Black / Green"
 chain_id: "CHAIN-FRONTIER"
 chain_stage: 1
 chain_role: "extraction"
 provides: ["Sanitation: Vernacular-Midden-Management"]
 requires: []
-standalone_fallback: "If swine die or lime dust runs out, the village digs emergency muck pits 200 yards downwind and covers waste with river gravel and pine ash; foul odors inflict Light morale penalties, but basic separation of waste from wellhead drainage prevents cholera outbreaks."
+node_prerequisites:
+  drainage: Downwind Clay Midden Trenches Graded 150 Yards from Wells
+  livestock: Fortified Timber Corral Housing Scavenger Razorback Swine
+  reagent: Covered Night-Soil Compost Pits Dusted with Powdered Quicklime
+standalone_fallback: "If swine die or lime dust runs out, the village digs emergency muck pits 200 yards downwind and covers waste with river gravel and pine ash; foul odors inflict Light morale penalties, but basic separation of waste from wellhead drainage prevents waterborne flux outbreaks."
 injected_mechanics:
   output_dial:
     level_1: "Slaked-Lime Midden & Contained Swine Run - Lime applied weekly; clean drainage runnels; swine pen contained; DC 10 Animal Handling/Nature (Light Tier, DC 10)."
     level_2: "Summer Flies & Muddy Drainage Ditches - Animal odors; swarms of blackflies; ditches muddy after rain; DC 13 Athletics/Survival (Moderate Tier, DC 13, 2d8 damage/spoilage)."
     level_3: "Overfilled Midden Pits & Street Runoff - Muck spills into street puddles; foul stench; dysentery checks; DC 16 Fortitude/Athletics, 4d10 disease/filth damage."
-    level_4: "Catastrophic Wellhead Flooding & Cholera Outbreak - Night-soil floods artesian wellhead; blue death cholera epidemic; DC 20 Survival/Medicine, 8d12 lethal plague damage."
+    level_4: "Catastrophic Wellhead Flooding & Putrid-Flux Outbreak - Night-soil floods artesian wellhead; bloody flux epidemic; DC 20 Survival/Medicine, 8d12 lethal plague damage."
   threat_clocks:
     midden_overflow_clock: "Midden Overflow & Fly Swarm Clock [4 Ticks] - Ticks in wet summer heat or when manure carting halts; spills effluent into living lanes."
-    cholera_aquifer_seepage_meter: "Cholera Aquifer Seepage Meter [4 Ticks] - Ticks when unlimed pits overflow toward artesian drainage; triggers lethal waterborne epidemic."
+    flux_aquifer_seepage_meter: "Waterborne Flux Aquifer Seepage Meter [4 Ticks] - Ticks when unlimed pits overflow toward artesian drainage; triggers lethal waterborne epidemic."
   yields_resource: "Composted Agricultural Manure, Cured Slaked Lime Powder, Scavenger Swine Hides"
 ---
 
-# T0-DOM-07: The Midden Trenches, Swine Scavengers & Night-Soil Pit
+# The Midden Trenches, Swine Scavengers & Night-Soil Pit (`T0-DOM-07`)
+> **Industry Chain**: `CHAIN-FRONTIER` (Stage 1: `extraction`)
 *Domain: DOM-07 Waste, Drainage & Sanitation | Pipeline Tier: 0 (Baseline Substratum) | Set: Set A*
 
----
+## 1. Architectural Overview & Operational Loop
+Before the invention of subterranean vitreous clay sewer pipes or municipal water mains, human settlements survived only by managing their own waste through three rigorous pre-industrial technologies: **compost midden trenches**, **scavenger swine corrals**, and **slaked-lime night-soil composting**. Under parish nuisance courts, despised nightmen empty domestic cesspits after curfew while swine tenders keep razorback herds penned away from orchards and graves. Without weekly quicklime dusting and downwind grading, spring floods and summer heat swiftly turn nutrient recycling into plague:
 
-## Granular Disposition Baseline ([S, E, C])
-- **Disposition Baseline**: `[3, 2, 2]` (Collaborative village sanitation commons managing waste disposal and fertilizer composting).
+```
+          +----------------------------------------------+
+          |       VERNACULAR SANITATION FABRIC           |
+          +----------------------+-----------------------+
+                                 |
+         +-----------------------+-----------------------+
+         v                       v                       v
+[COMMUNAL MIDDEN TRENCHES]  [THE SCAVENGER SWINE CORRAL] [THE SLAKED-LIME PIT]
+* 8-foot-deep clay trenches * Herd of 30 razorback pigs  * Powdered caustic quicklime
+* Graded downwind from well * Consumes vegetable scrap,  * Dusting kills fly maggots
+* Straw and ash layering    * offal, and organic refuse  * Ferments into field manure
+```
+
+* **The Graded Midden Trenches**: Located at least 150 yards downwind and downhill from the artesian wellhead. Layered with dry straw, hearth ash, and garden refuse, these trenches collect household garbage. The alkaline wood ash neutralizes acidic rot, preventing fly blowfly explosions.
+* **The Scavenger Swine Pen**: A communal herd of thirty hardy, aggressive razorback pigs confined to a fortified timber corral beside the midden. Swine consume spoiled grain, butchery offal, fish guts, and table scraps, turning foul offal and waste into valuable lard, cured bacon, and thick leather boots.
+* **The Slaked-Lime Night-Soil Pit**: Human waste from chamber pots is collected in covered earthen pits dusted weekly with powdered quicklime. The caustic heat generated by slaking kills vermin eggs and stops foul rot, curing the waste over six months into rich nitrogen fertilizer for outlying fields.
+
+## 2. Granular Disposition Baseline (`[S, E, C]`)
+- **Baseline Coordinate**: `[3, 2, 2]` - **Sanitation Commons** (`Clan`).
+- **Sociological Rationale**: Collaborative village sanitation commons managing downwind midden trenches, swine pens, and quicklime composting schedules.
+
+## 3. Stationed Entities & Roster Prototypes
 
 ### Key Personnel (NPC Prototypes)
 - name: "Midden-Master Colm"
@@ -42,133 +70,145 @@ injected_mechanics:
   role: "Agrarian Fertilizer Hauler"
   disposition: "[3, 1, 3]"
   motivation: "Dump raw, unfermented night-soil directly onto fields to accelerate crop growth regardless of fly swarms."
+- name: "Lime-Carter Baldwin"
+  role: "Kiln Quicklime Barrel Factor"
+  disposition: "[2, 4, 1]"
+  motivation: "Hold back quicklime casks until midsummer dysentery scares force parish elders to pay triple silver rates."
+- name: "Mudlark Mabel"
+  role: "Midden Sifter & Bone-Picker Outcast"
+  disposition: "[4, 2, 3]"
+  motivation: "Salvage dropped brass pins, tallow scrap, and marrow-bones from deep pits while hiding drainage faults from angry bailiffs."
 
-### 1. Mechanical Architecture & Vernacular Sanitation Reality
-
-Before the invention of subterranean vitreous clay sewer pipes or municipal water mains, human settlements survived only by managing their own waste through three rigorous pre-industrial technologies: **compost midden trenches**, **scavenger swine corrals**, and **slaked-lime night-soil composting**:
-
+<!-- BEGIN_NPC_MIRROR (generated by infographic/tools/sync_npc_mirror.js - do not edit by hand) -->
+```text
+name: Midden-Master Colm
+role: Parish Sanitation Officer
+motivation: Strictly enforce lime-dusting schedules and maintain clean drainage ditches away from the wellhead.
+disposition: [2, 3, 2]
 ```
-                  ┌──────────────────────────────────────────────┐
-                  │       VERNACULAR SANITATION FABRIC           │
-                  └──────────────────────┬───────────────────────┘
-                                         │
-                 ┌───────────────────────┼───────────────────────┐
-                 ▼                       ▼                       ▼
-    [COMMUNAL MIDDEN TRENCHES]  [THE SCAVENGER SWINE CORRAL] [THE SLAKED-LIME PIT]
-    • 8-foot-deep clay trenches • Herd of 30 razorback pigs • Powdered caustic quicklime
-    • Graded downwind from well • Consumes vegetable scrap, • Dusting kills fly maggots
-    • Straw and ash layering    • offal, and organic refuse • Ferments into field manure
+```text
+name: Night-Soil Carter Jeb
+role: Agrarian Fertilizer Hauler
+motivation: Dump raw, unfermented night-soil directly onto fields to accelerate crop growth regardless of fly swarms.
+disposition: [3, 1, 3]
 ```
-
-* **The Graded Midden Trenches**: Located at least 150 yards downwind and downhill from the artesian wellhead. Layered with dry straw, hearth ash, and garden refuse, these trenches collect household garbage. The alkaline wood ash neutralizes acidic rot, preventing fly blowfly explosions.
-* **The Scavenger Swine Pen**: A communal herd of thirty hardy, aggressive razorback pigs confined to a fortified timber corral beside the midden. Swine consume spoiled grain, butchery offal, fish guts, and table scraps, turning lethal bacterial bio-waste into valuable lard, cured bacon, and thick leather boots.
-* **The Slaked-Lime Night-Soil Pit**: Human waste from chamber pots is collected in covered earthen pits dusted weekly with powdered quicklime (*calcium oxide*). The caustic heat generated by slaking kills parasite eggs and bacteria, curing the waste over six months into rich nitrogen fertilizer for outlying fields.
-
----
-
-### 2. Thematic Premise & Syllogism
-
-* **The Stasis / The Lie**: "The earth swallows all filth if buried out of sight; what the pigs eat and the rain washes away can never hurt our children."
-* **The Crucible / Conflict**: Three weeks of continuous summer monsoon downpours flood the hillside midden trenches; a slurry of liquefied night-soil and animal manure overflows into the main street runnels, flowing directly toward the unprotected mouth of the village artesian well.
-* **Dramatic Syllogism**:  
-  $$\text{Dense Human Waste Production} + \text{Flooded Midden Trenches / Unlimed Night-Soil Seepage} = \text{Waterborne Cholera Catastrophe \& Sudden Settlement Evacuation}$$
-* **The Truth / Synthesis**: Civilization is not measured by the height of its temple spires, but by the distance between its latrines and its drinking water. If that margin collapses, all culture is reduced to vomiting blood and burying corpses in mass trenches.
-
----
-
-### 3. Truby 4-Corner Opposition Web
-
+```text
+name: Lime-Carter Baldwin
+role: Kiln Quicklime Barrel Factor
+motivation: Hold back quicklime casks until midsummer dysentery scares force parish elders to pay triple silver rates.
+disposition: [2, 4, 1]
 ```
-                       [THE ESTABLISHMENT]
-                      Parish Midden-Master
-               (Armed with an iron muck-rake;
-                fines anyone dumping waste near wellhead;
-                manages weekly lime dust distribution)
-                                ▲
-                                │
-                                │ (Sanitation Codes)
-                                │
-                                ▼
-    [THE ZEALOT OPPONENT]             ◄── (Muck Feud) ──►               [THE THEMATIC SHADOW]
-  Night-Soil Farmer & Carter                                          Slaked-Lime Kiln Cartel Factor
- (Demands raw, unfermented manure                                     (Hoards quicklime barrels in warehouse;
-  for immediate field spreading;                                      triples prices during summer dysentery scares;
-  spreads untreated waste on cabbage patches)                         refuses to sell lime without silver coin)
-                                ▲                                                           ▲
-                                │                                                           │
-                                │ (Agricultural Impatience)                                 │ (Predatory Monopolies)
-                                │                                                           │
-                                ▼                                                           ▼
-                                    [THE TERTIARY OUTCAST]
-                                Midden Mudlark & Bone-Picker
-                            (Covered in filth, living in a sod shack
-                             beside the pigpens; sifts muck for dropped
-                             coins, buttons, and valuable animal bones)
+```text
+name: Mudlark Mabel
+role: Midden Sifter & Bone-Picker Outcast
+motivation: Salvage dropped brass pins, tallow scrap, and marrow-bones from deep pits while hiding drainage faults from angry bailiffs.
+disposition: [4, 2, 3]
 ```
+<!-- END_NPC_MIRROR -->
 
-* **Corner 1: The Establishment (Parish Midden-Master):** A stoic communal officer whose job is despised but vital. Pushing a heavy two-wheeled muck-cart, they inspect latrines, apply white lime dust, and enforce strict spatial separation between dung heaps and living quarters with an iron pitchfork.
-* **Corner 2: The Zealot Opponent (Night-Soil Farmer & Carter):** An aggressive farmer desperate for agricultural yields. Refusing to wait six months for night-soil pits to ferment and neutralize bacteria, they haul raw, steaming sewage directly onto cabbage patches beside the road, filling the air with fly clouds.
-* **Corner 3: The Thematic Shadow (Slaked-Lime Kiln Cartel Factor):** A limestone quarry factor who controls the local lime-burning kiln. While summer dysentery spikes, they withhold lime shipments to inflate prices, indifferent to whether common children die of cholera.
-* **Corner 4: The Tertiary Outcast (Midden Mudlark & Bone-Picker):** A pariah who spends their life wading through the deep midden pits with a hooked iron wire, searching for dropped brass pins, silver buckles, and animal marrow-bones for soap-making. Knowing the layout of every trench, they can navigate the settlement's muck ditches unseen.
+### Material Stocks & Items (Item Prototypes)
+- **Cured Night-Soil Compost Load** (`Commodity`): six-month-fermented humus cooled under straw and quicklime, restoring nitrogen to overworked open-field grain strips.
+- **Powdered Quicklime Cask** (`Reagent`): coopered barrel of caustic quicklime dusted across warm cesspits to scorch fly larvae and halt miasma rot.
+- **Nightman's Muck-Rake & Horn Lantern** (`Tool`): long iron-tined drag and shrouded tallow lamp hauled alongside nocturnal cesspit carts past shuttered windows.
+- **Salt-Cured Scavenger Bacon Flitch** (`Commodity`): dense winter pork and stout leather hide converted from kitchen scraps by the thirty-pig midden herd.
 
----
+## 4. Operational Dials & Failure Modes (Quests & Crises)
+- **Dial - `Sanitation Integrity` (`0-10`)**: At `0-3`, fresh quicklime dusts pits weekly, drainage ditches run smoothly downwind, and corralled razorbacks devour scraps without escape. At `8-10`, torrential monsoons breach mud berms and quicklime barrels stand hoarded behind locked kiln gates, sweeping raw night-soil into the drinking well and igniting fatal bloody flux across the hamlet.
+- **Quest Hook - *The Breached Berm Before Rain***: With the `Waterborne Flux Aquifer Seepage Meter` at 3/4 ticks under unbroken summer storms and a cartload of raw sewage spilled across the high street, `Midden-Master Colm` catches `Night-Soil Carter Jeb` opening wet furrows uphill from the well while `Lime-Carter Baldwin` locks five casks of quicklime inside his shed; the party must descend the overflow culvert with `Mudlark Mabel` to cut an emergency diversion trench and secure lime dust before bloody flux reaches the well coping.
 
-### 4. Injected Tabletop Mechanics & Runtime Primitives
+### 4.1 4-Level Dynamic Dial: Sanitation Integrity
 
-#### 4.1 4-Level Dynamic Dial: Sanitation Integrity
-
-* **Level 1 (Slaked-Lime Midden & Contained Swine / Light Severity Tier - DC 10):**  
+* **Level 1 (Slaked-Lime Midden & Contained Swine / Light Severity Tier - DC 10):**
   * *Condition:* Weekly lime dusting applied; pigs contained; drainage runnels clear; flies minimal.
   * *Mechanics:* Rest recoveries normal. Maintaining ditches or shoveling pens requires a **DC 10 Animal Handling or Athletics check**.
-* **Level 2 (Summer Flies & Muddy Ditches / Moderate Severity Tier - DC 13):**  
+* **Level 2 (Summer Flies & Muddy Ditches / Moderate Severity Tier - DC 13):**
   * *Condition:* Summer heat brings fly swarms; pungent smell across village lanes; muddy standing water in runnels.
   * *Mechanics:* Food left out spoils in 6 hours. Navigating slippery muck-lanes without soiling gear requires a **DC 13 Athletics or Survival check**; failure inflicts **2d8 filth damage or minor food poisoning**.
-* **Level 3 (Overfilled Midden Pits & Street Runoff / Severe Severity Tier - DC 16):**  
+* **Level 3 (Overfilled Midden Pits & Street Runoff / Severe Severity Tier - DC 16):**
   * *Condition:* Rainstorms overflow the trenches; black sludge pools in street gutters; flies enter bedrooms; dysentery strikes 20% of homes.
   * *Mechanics:* Drinking unboiled water or traversing streets requires a **DC 16 Fortitude check**; failure inflicts **4d10 poison/dysentery damage** and severe cramps. Shoring mud berms requires a **DC 16 Athletics check**.
-* **Level 4 (Catastrophic Cholera Epidemic / Lethal Climax Tier - DC 20):**  
-  * *Condition:* Night-soil breaches the artesian well coping; violent "blue death" cholera outbreak kills adults within 12 hours of onset; mass graves dug; settlement declared a plague zone.
-  * *Mechanics:* Catastrophic epidemiological mortality. Remaining in the settlement without complete water quarantine requires a **DC 20 Fortitude save** every 12 hours; failure inflicts **8d12 lethal cholera damage**. The settlement depopulates within 7 days.
+* **Level 4 (Catastrophic Bloody-Flux Epidemic / Lethal Climax Tier - DC 20):**
+  * *Condition:* Night-soil breaches the artesian well coping; violent bloody flux sweeps the hamlet within days of onset; mass graves dug; settlement declared a plague zone.
+  * *Mechanics:* Catastrophic epidemiological mortality. Remaining in the settlement without complete water quarantine requires a **DC 20 Fortitude save** every 12 hours; failure inflicts **8d12 lethal waterborne flux damage**. The settlement depopulates within 7 days.
 
-#### 4.2 Segmented Threat Clocks
+### 4.2 Segmented Threat Clocks
 
 ```
 [ ][ ][ ][ ] Midden Overflow & Fly Swarm Clock (4 Ticks)
-[ ][ ][ ][ ] Cholera Aquifer Seepage Meter (4 Ticks)
+[ ][ ][ ][ ] Waterborne Flux Aquifer Seepage Meter (4 Ticks)
 ```
 
-* **Midden Overflow & Fly Swarm Clock [4 Ticks]:**  
+* **Midden Overflow & Fly Swarm Clock [4 Ticks]:**
   * *Trigger:* Ticks forward (+1) during heavy seasonal downpours, swine pen disease, or when lime dust deliveries are interrupted.
-  * *Consequence when full (4/4):* Effluent overflows into common streets, immediately advancing the Cholera Seepage Meter by +2 ticks.
-* **Cholera Aquifer Seepage Meter [4 Ticks]:**  
+  * *Consequence when full (4/4):* Effluent overflows into common streets, immediately advancing the Waterborne Flux Aquifer Seepage Meter by +2 ticks.
+* **Waterborne Flux Aquifer Seepage Meter [4 Ticks]:**
   * *Trigger:* Ticks forward (+1) whenever raw human waste seeps into the soil within 50 yards of the artesian wellhead.
   * *Mitigation:* Digging drainage diversion channels or dusting 500 lbs of slaked lime into the pit via a **DC 16 Engineering/Medicine check** clears 1 tick.
 
----
+## 5. GM Socket Placement & Supply Synergy
+* **Input Dependency:** No hard `requires` dependencies (wood ash, river gravel, and downwind ditch labor operate locally), while an inferred chemical bridge brings `Chem: Slaked lime` from **Calcining Lime Kiln (`IND-LIME-02`)** to neutralize human waste.
+* **Output Transmission:** Produces `Sanitation: Vernacular-Midden-Management` as a settlement end product with no hard `requires` consumers, and sends an inferred nutrient bridge carrying `Material: Composted manure` into **The Subsistence Agrarian Perimeter and Root Cellars (`T0-DOM-01`)**.
+* **Settlement Scale & Dual-Mode UX:** Essential baseline municipal sanitation layer across all settlement nodes, socketed directly into arable farm strips (`T0-DOM-01`). In "Smooth Generic" mode it maintains node hygiene automatically; in "Granular Mode" `Sanitation: Vernacular-Midden-Management` shields connected nodes from waterborne flux and fly-plague clocks.
 
-### 5. Scene Calculus & Tactical Spatial Encounters
+## 6. Vague Game Hazards
+* **Cesspit Methane & Ammonia Fumes:** Falling through crusted straw into deep night-soil vaults overwhelms lungs with toxic fumes ($3\text{d}6$ poison damage, Fortitude DC 15).
+* **Feral Razorback Herd Stampede:** Starving or spooked scavenger boars breaking rotten pen rails gore anyone in muddy alleys ($2\text{d}8$ slashing damage, Athletics or Animal Handling DC 14).
+* **Caustic Quicklime Dust Flash:** Wetting powdered quicklime carelessly splashes searing alkaline burns across skin and eyes ($2\text{d}6$ acid/caustic damage, Reflex DC 13).
 
-* **Encounter 1: The Broken Muck-Cart in the Main Gutter (Arrival Collision)**  
+## 7. Thematic Premise & Syllogism
+
+* **The Stasis / The Lie**: "The earth swallows all filth if buried out of sight; what the pigs eat and the rain washes away can never hurt our children."
+* **The Crucible / Conflict**: Three weeks of continuous summer monsoon downpours flood the hillside midden trenches; a slurry of liquefied night-soil and animal manure overflows into the main street runnels, flowing directly toward the unprotected mouth of the village artesian well.
+* **Dramatic Syllogism**:
+  $$\text{Dense Human Waste Production} + \text{Flooded Midden Trenches / Unlimed Night-Soil Seepage} = \text{Waterborne Flux Catastrophe \& Sudden Settlement Evacuation}$$
+* **The Truth / Synthesis**: Civilization is not measured by the height of its temple spires, but by the distance between its latrines and its drinking water. If that margin collapses, all culture is reduced to vomiting blood and burying corpses in mass trenches.
+
+## 8. Truby 4-Corner Opposition Web
+
+```
+               [THE ESTABLISHMENT]
+              Parish Midden-Master
+       (Armed with an iron muck-rake;
+        fines anyone dumping waste near wellhead;
+        manages weekly lime dust distribution)
+                        ^
+                        |
+                        | (Sanitation Codes)
+                        |
+                        v
+[THE ZEALOT OPPONENT]  <-- (Muck Feud) -->    [THE THEMATIC SHADOW]
+Night-Soil Farmer & Carter                   Slaked-Lime Kiln Cartel Factor
+(Demands raw, unfermented manure             (Hoards quicklime barrels in warehouse;
+ for immediate field spreading;               triples prices during summer dysentery scares;
+ spreads untreated waste on cabbage patches)  refuses to sell lime without silver coin)
+                        ^                                   ^
+                        |                                   |
+                        | (Agricultural Impatience)         | (Predatory Monopolies)
+                        |                                   |
+                        v                                   v
+                   [THE TERTIARY OUTCAST]
+                Midden Mudlark & Bone-Picker
+            (Covered in filth, living in a sod shack
+             beside the pigpens; sifts muck for dropped
+             coins, buttons, and valuable animal bones)
+```
+
+* **Corner 1: The Establishment (Parish Midden-Master):** A stoic communal officer whose job is despised but vital. Pushing a heavy two-wheeled muck-cart, they inspect latrines, apply white lime dust, and enforce strict spatial separation between dung heaps and living quarters with an iron pitchfork.
+* **Corner 2: The Zealot Opponent (Night-Soil Farmer & Carter):** An aggressive farmer desperate for agricultural yields. Refusing to wait six months for night-soil pits to ferment and settle safely, they haul raw, steaming sewage directly onto cabbage patches beside the road, filling the air with fly clouds.
+* **Corner 3: The Thematic Shadow (Slaked-Lime Kiln Cartel Factor):** A limestone quarry factor who controls the local lime-burning kiln. While summer dysentery spikes, they withhold lime shipments to inflate prices, indifferent to whether common children die of bloody flux.
+* **Corner 4: The Tertiary Outcast (Midden Mudlark & Bone-Picker):** A pariah who spends their life wading through the deep midden pits with a hooked iron wire, searching for dropped brass pins, silver buckles, and animal marrow-bones for soap-making. Knowing the layout of every trench, they can navigate the settlement's muck ditches unseen.
+
+## 9. Scene Calculus & Tactical Spatial Encounters
+
+* **Encounter 1: The Broken Muck-Cart in the Main Gutter (Arrival Collision)**
   * *Collision ($><$):* Arriving in the village on horseback, the party collides with an overturned two-wheeled muck-cart blocking the narrow stone lane; five hundred gallons of steaming cesspool muck are pouring straight toward the tavern door and the communal bread oven.
   * *Polarity Shift ($+ \to -$):* The party expects a pleasant arrival, but is immediately enveloped in blinding stench, forced to help shovel the toxic slurry into a ditch (**DC 13 Athletics check**) or risk slipping and ruining their armor.
-* **Encounter 2: The Sinking Child in the Slurry Pit (The Severance Dilemma)**  
+* **Encounter 2: The Sinking Child in the Slurry Pit (The Severance Dilemma)**
   * *Dilemma:* A child playing near the un-fenced night-soil pit falls through the crust of dried straw into eight feet of liquid cess. The toxic fumes are suffocating. The party must decide whether to dive into the liquid waste on a lifeline (**DC 16 Athletics/Fortitude**) to pull the child out, or run to the swine barn for a timber ladder, risking the child sinking beneath the muck.
-* **Encounter 3: The Mudlark’s Sump Escape (The Outcast Route)**  
+* **Encounter 3: The Mudlark's Sump Escape (The Outcast Route)**
   * *Outcast Route:* To escape hostile bailiffs or bypass a locked gate, the Midden Mudlark guides the party through the foul, knee-deep overflow drainage culvert (**DC 13 Fortitude check** to avoid nausea), exiting into wild blackberry brambles outside the perimeter.
 
----
-
-### 6. GM Placement, Settlement Scale & Topological Synergies
-
-* **Recommended Placement:**
-  * **All Settlement Nodes**: Essential baseline municipal sanitation layer.
-  * **Agricultural Coupling**: Sockets directly to arable farm modules (`T0-DOM-01`), supplying cured manure fertilizer.
-* **Topological Synergies:**
-  * **Dual-Mode UX**: In "Smooth Generic" mode, maintains settlement hygiene automatically without bookkeeping. In "Granular Mode", outputs `Sanitation: Vernacular-Midden-Management`, protecting connected nodes from waterborne plague and epidemic clocks.
-
----
-
-### 7. Authoritative Specifications & Cross-References
+## 10. Authoritative Specifications & Cross-References
 * **Baseline Substratum Standard**: Governed by [Tier 0 Substratum SRD](file:///c:/Users/Milo/Documents/Antigravity/Creator/docs/srd/tier_0_substratum_srd.md).
 * **Authoring Engine Standard**: Governed by [Campaign Authoring Engine SRD](file:///c:/Users/Milo/Documents/Antigravity/Creator/docs/srd/authoring_engine_srd.md).
 * **Tabletop Hazard Tiers**: Governed by [Universal Adventure Framework SRD](file:///c:/Users/Milo/Documents/Antigravity/Creator/docs/srd/adventure_framework_srd.md).
